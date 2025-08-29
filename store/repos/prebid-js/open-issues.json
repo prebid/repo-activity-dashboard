@@ -1,0 +1,1094 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "lastSync": "2025-08-29T23:42:55.339Z",
+    "itemCount": 107
+  },
+  "items": [
+    {
+      "title": "Enhancement: Log matched floor rule during requestBidsHook for model training",
+      "number": 13822,
+      "author": "pm-kapil-tuptewar",
+      "assignees": [],
+      "dateCreated": "2025-08-29T13:53:10.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Discrepancy in interstitial ad rendering and analytics reporting",
+      "number": 13807,
+      "author": "nirav777",
+      "assignees": [],
+      "dateCreated": "2025-08-26T12:20:57.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Shaping rules module",
+      "number": 12663,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-01-15T19:00:17.000Z",
+      "status": "open",
+      "labels": [
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "prebid server timing out is firing prebid timeout ( which is the client side timeout)",
+      "number": 12287,
+      "author": "spormeon",
+      "assignees": [],
+      "dateCreated": "2024-10-03T08:35:20.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Video ad units: support different size players on the same ad unit",
+      "number": 12245,
+      "author": "NathanDigiteka",
+      "assignees": [],
+      "dateCreated": "2024-09-16T15:03:32.000Z",
+      "status": "open",
+      "labels": [
+        "video",
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "outstream VAST caching should depend on the renderer rather than the adunit",
+      "number": 11353,
+      "author": "bretg",
+      "assignees": [],
+      "dateCreated": "2024-04-17T20:22:08.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature request: restore skip enrichment flag",
+      "number": 11184,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-03-07T19:48:53.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Prebid 11: deprecate the adpod module",
+      "number": 12978,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-04-08T14:49:35.000Z",
+      "status": "open",
+      "labels": [
+        "11.0 API Change"
+      ]
+    },
+    {
+      "title": "Refreshing ads on single page applications causes excessive memory usage. ",
+      "number": 10880,
+      "author": "12q1",
+      "assignees": [],
+      "dateCreated": "2023-12-28T09:25:09.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "PBS Adapter: user segments in bidder config may grow the payload object size with repeated information",
+      "number": 12575,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-12-12T16:08:32.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature Request: ID Import Library to emit a new event with hash",
+      "number": 7354,
+      "author": "pycnvr",
+      "assignees": [
+        "pycnvr"
+      ],
+      "dateCreated": "2021-08-26T17:51:58.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "UserIds - default localStorage saving applies unnecessary encoding/decoding, corrupting the values third parties expect to read",
+      "number": 13683,
+      "author": "andyblackwell",
+      "assignees": [],
+      "dateCreated": "2025-07-28T10:01:14.000Z",
+      "status": "open",
+      "labels": [
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "Prebid 11: eids on adunits object",
+      "number": 13790,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-08-20T17:08:29.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Schain as first party data may not work well with bidder-specific schains",
+      "number": 13709,
+      "author": "dgirardi",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-07-31T16:39:04.000Z",
+      "status": "open",
+      "labels": [
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "PBS adapter: accept relay prev auction info instruction",
+      "number": 13772,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-08-13T16:07:24.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "storageControl: how to add device disclosure url",
+      "number": 13762,
+      "author": "jdelhommeau",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-08-12T14:42:28.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Native.js - requestHeightResize does not work as expected if body height not explicitly set",
+      "number": 13749,
+      "author": "ourcraig",
+      "assignees": [],
+      "dateCreated": "2025-08-07T02:37:38.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Listen for heavy intervention reports, generate event",
+      "number": 13560,
+      "author": "patmmccann",
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-07-10T13:16:46.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Possible flaky test",
+      "number": 13741,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-08-06T16:39:45.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "TCF/GPP consentManagement Module not fully disabled when consentManagement module is disabled",
+      "number": 13651,
+      "author": "pm-nitin-shirsat",
+      "assignees": [
+        "pm-nitin-shirsat"
+      ],
+      "dateCreated": "2025-07-23T11:54:35.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "excessive and redundant validation of mediaTypes.video in bid adapters",
+      "number": 13049,
+      "author": "patmmccann",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-04-29T14:17:55.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Rework end to end tests",
+      "number": 13505,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2025-07-03T00:46:24.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "GAM side rail anchor support",
+      "number": 10816,
+      "author": "patmmccann",
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-12-11T14:53:01.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Support for dynamic renderer in PBS adapter",
+      "number": 10434,
+      "author": "ccorbo",
+      "assignees": [],
+      "dateCreated": "2023-09-05T20:04:30.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Improve coverage commenting",
+      "number": 13584,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-07-14T15:20:49.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "confirm all bidders on bidderfactory and eliminate dead code",
+      "number": 13605,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-07-15T13:55:48.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Final cleanup of layout / reflow calcs in modules",
+      "number": 13053,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-04-30T19:54:58.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Migrate to github action for coveralls",
+      "number": 13235,
+      "author": "patmmccann",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-05-30T20:07:44.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "bid adapters setting foreign user ids",
+      "number": 13465,
+      "author": "jdwieland8282",
+      "assignees": [],
+      "dateCreated": "2025-06-30T21:12:57.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "storage disclosure for vast objects for local cache",
+      "number": 13458,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-06-30T15:41:00.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Integration of  mobile web interstitial ad with prebid",
+      "number": 5917,
+      "author": "tandalevaibhav",
+      "assignees": [],
+      "dateCreated": "2020-10-30T14:13:34.000Z",
+      "status": "open",
+      "labels": [
+        "question",
+        "feature"
+      ]
+    },
+    {
+      "title": "Disallow storage use before storage controls have a chance to be set up",
+      "number": 13459,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2025-06-30T15:42:31.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Storage disclosure modules: turn on strict by default",
+      "number": 13446,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-06-27T14:14:39.000Z",
+      "status": "open",
+      "labels": [
+        "11.0 API Change"
+      ]
+    },
+    {
+      "title": "Predictable event schema for analytics adapters",
+      "number": 12725,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-02-04T15:42:08.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Use scheduler.postTask or analogue to assign tasks to background priority",
+      "number": 12584,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-12-16T16:52:53.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Module names that do no match their module code",
+      "number": 13370,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2025-06-12T14:46:57.000Z",
+      "status": "open",
+      "labels": [
+        "11.0 API Change"
+      ]
+    },
+    {
+      "title": "wrap trackers - follow up to 12960",
+      "number": 13352,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-06-11T02:10:59.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Use native gulp sourcemaps",
+      "number": 13365,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-06-11T19:24:27.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Suggestion: Yahoo bidder can avoid preflight requests",
+      "number": 12948,
+      "author": "pm-harshad-mane",
+      "assignees": [],
+      "dateCreated": "2025-04-01T18:54:07.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "intersection rtd module: still in use?",
+      "number": 13125,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-05-22T14:40:01.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Prebid 11: delete dfp modules",
+      "number": 13193,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-05-28T15:31:30.000Z",
+      "status": "open",
+      "labels": [
+        "11.0 API Change"
+      ]
+    },
+    {
+      "title": "Remove the Dependency on Babel: Allow Prebid to be used with any build system",
+      "number": 10086,
+      "author": "cameron-brown-future",
+      "assignees": [],
+      "dateCreated": "2023-06-12T03:58:59.000Z",
+      "status": "open",
+      "labels": [
+        "good first issue",
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "FreeWheel SSP - 400 bad request response",
+      "number": 12016,
+      "author": "hkimmgni",
+      "assignees": [],
+      "dateCreated": "2024-07-22T18:41:58.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Testing Prebid with AppNexus in NextJS",
+      "number": 13075,
+      "author": "lukechar05",
+      "assignees": [],
+      "dateCreated": "2025-05-06T19:51:00.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Can we take benefit of V8 eager compilation of functions?",
+      "number": 13076,
+      "author": "pm-harshad-mane",
+      "assignees": [],
+      "dateCreated": "2025-05-07T01:52:54.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Improve (or remove) some events",
+      "number": 13042,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2025-04-28T17:24:20.000Z",
+      "status": "open",
+      "labels": [
+        "11.0 API Change"
+      ]
+    },
+    {
+      "title": "Consolidate ORTB 2.5 and 2.6 fields",
+      "number": 13006,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2025-04-17T15:00:18.000Z",
+      "status": "open",
+      "labels": [
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "[PAAPI] Allow bidders to store auctionConfig for future parallel on-device auctions",
+      "number": 12902,
+      "author": "FlorentDancy",
+      "assignees": [],
+      "dateCreated": "2025-03-19T11:32:52.000Z",
+      "status": "open",
+      "labels": [
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "Enable PA API module on cookie-less inventory only",
+      "number": 12729,
+      "author": "zhuoli-fledge",
+      "assignees": [],
+      "dateCreated": "2025-02-04T22:43:06.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "More polite syncs",
+      "number": 12992,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-04-11T13:51:32.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Core: don't expire winning bids",
+      "number": 12987,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-04-10T16:12:57.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Support GPP sections 13-22 (FL, MT, OR, TX, DE, IA, NE, NH, NJ, TN)",
+      "number": 11978,
+      "author": "bretg",
+      "assignees": [],
+      "dateCreated": "2024-07-15T18:00:42.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "feature request: Using video duration or other fields to score bid in addition to cpm",
+      "number": 4411,
+      "author": "khatibda",
+      "assignees": [],
+      "dateCreated": "2019-10-31T21:24:25.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "TCF restrictions for server-side bidders ",
+      "number": 12084,
+      "author": "bretg",
+      "assignees": [],
+      "dateCreated": "2024-08-02T21:57:02.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Additional Data for Auction Debugging and Auction End Events in Compliance Scenarios",
+      "number": 12927,
+      "author": "dqureshiumar",
+      "assignees": [],
+      "dateCreated": "2025-03-27T12:01:14.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Keep Adagio bidder params's compatibility",
+      "number": 12845,
+      "author": "takenorim",
+      "assignees": [
+        "osazos"
+      ],
+      "dateCreated": "2025-03-07T04:36:31.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature request: Make send n bids dynamic",
+      "number": 9842,
+      "author": "patmmccann",
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-04-21T15:37:31.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "PubX RTD Module Endpoint Logic Issue",
+      "number": 12892,
+      "author": "zachsavishinsky",
+      "assignees": [],
+      "dateCreated": "2025-03-18T10:44:04.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Prebid Click Tracking",
+      "number": 6130,
+      "author": "AStephenson",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2020-12-14T20:04:51.000Z",
+      "status": "open",
+      "labels": [
+        "improvement"
+      ]
+    },
+    {
+      "title": "TCF enforcement module: Support for ACL vendor ids",
+      "number": 12586,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-12-16T22:01:11.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Teads Bid Adapter does not support ad slot name in code parameter of ad unit",
+      "number": 10824,
+      "author": "gwi-mmuths",
+      "assignees": [],
+      "dateCreated": "2023-12-12T11:46:01.000Z",
+      "status": "open",
+      "labels": [
+        "bug",
+        "Needs contributor"
+      ]
+    },
+    {
+      "title": "Feature Request: enforce sizes",
+      "number": 9154,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2022-10-25T18:55:02.000Z",
+      "status": "open",
+      "labels": [
+        "feature",
+        "pmc-review"
+      ]
+    },
+    {
+      "title": "Update video examples to not rely on real world bidders",
+      "number": 11247,
+      "author": "drwaqarakram",
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2024-03-21T07:39:28.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Validate eid object structure",
+      "number": 12650,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-01-13T17:52:27.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Replace `deepAccess` with optional chaining",
+      "number": 12543,
+      "author": "gwhigs",
+      "assignees": [],
+      "dateCreated": "2024-12-04T18:03:20.000Z",
+      "status": "open",
+      "labels": [
+        "question"
+      ]
+    },
+    {
+      "title": "Feature request: detect ad blocking environment",
+      "number": 10126,
+      "author": "ahmadlob",
+      "assignees": [],
+      "dateCreated": "2023-06-21T09:30:07.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature: VAST Unwrapper module",
+      "number": 12143,
+      "author": "karimMourra",
+      "assignees": [],
+      "dateCreated": "2024-08-19T21:06:03.000Z",
+      "status": "open",
+      "labels": [
+        "help wanted",
+        "feature",
+        "video"
+      ]
+    },
+    {
+      "title": "Publishers should be able to filter the bids entering the auction",
+      "number": 12399,
+      "author": "pm-harshad-mane",
+      "assignees": [],
+      "dateCreated": "2024-11-02T16:53:06.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Feature request: `cattax` support in bidResponseFilter",
+      "number": 12481,
+      "author": "dgirardi",
+      "assignees": [],
+      "dateCreated": "2024-11-20T19:14:26.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature request: timeouts and no bid timeToRespond in AUCTION_END",
+      "number": 12504,
+      "author": "EskelCz",
+      "assignees": [],
+      "dateCreated": "2024-11-26T14:17:23.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "stroeerCoreBidAdapter - possibility to split bid request by adtype",
+      "number": 12357,
+      "author": "vlyby-nadja",
+      "assignees": [],
+      "dateCreated": "2024-10-23T08:09:46.000Z",
+      "status": "open",
+      "labels": [
+        "Needs contributor"
+      ]
+    },
+    {
+      "title": "Building bid adapters without building the whole project",
+      "number": 10838,
+      "author": "Lvovk",
+      "assignees": [],
+      "dateCreated": "2023-12-14T13:34:00.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Vulnerability in eslint-plugin-prebid 0.0.1 - Malicious Code Detected",
+      "number": 11396,
+      "author": "d0gukank",
+      "assignees": [],
+      "dateCreated": "2024-04-24T23:13:43.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Handling shifts in alias support",
+      "number": 12250,
+      "author": "bretg",
+      "assignees": [],
+      "dateCreated": "2024-09-17T18:42:30.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Fingerprinting APIs",
+      "number": 12060,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-07-30T19:58:12.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature: pass renderer into frames",
+      "number": 10780,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2023-11-30T19:25:45.000Z",
+      "status": "open",
+      "labels": [
+        "feature",
+        "video"
+      ]
+    },
+    {
+      "title": "Category Translation library: move into adpod module",
+      "number": 11828,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-06-18T19:07:45.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "CodeQl checks: replacing adloader check",
+      "number": 12200,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-09-03T15:01:30.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature: break PAAPI for the TLS for some slots",
+      "number": 11859,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-06-24T21:27:18.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "`maxRequestsPerOrigin` should apply to all requests, not just bidders",
+      "number": 10350,
+      "author": "dgirardi",
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-08-10T21:27:49.000Z",
+      "status": "open",
+      "labels": [
+        "bug"
+      ]
+    },
+    {
+      "title": "CodeQL checks: prevent some event use by modules",
+      "number": 12191,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-08-29T16:06:16.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Paapi: add some browser features to request",
+      "number": 11696,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-06-04T20:52:32.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Passing GPP data for bidViewability and dfpAdServerVideo modules follow-up",
+      "number": 9364,
+      "author": "jsnellbaker",
+      "assignees": [],
+      "dateCreated": "2022-12-21T17:55:07.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "New github action: email and tag maintainer",
+      "number": 12049,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-07-29T15:39:07.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Video Module: support postmessages from PAAPI iframes",
+      "number": 11142,
+      "author": "patmmccann",
+      "assignees": [
+        "fowler446",
+        "karimMourra"
+      ],
+      "dateCreated": "2024-02-26T16:28:30.000Z",
+      "status": "open",
+      "labels": [
+        "video"
+      ]
+    },
+    {
+      "title": "Feature Request: Dynamic Bidder Modules",
+      "number": 11862,
+      "author": "ReinoutStevens",
+      "assignees": [],
+      "dateCreated": "2024-06-25T12:28:03.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "TCF Module: submit dsa render info to external api / enable publisher to render",
+      "number": 10958,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-01-17T16:33:34.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Github actions: flagging linting exceptions",
+      "number": 11814,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-06-17T15:21:26.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "idImportLibrary.js is intercepting communications without an active submission action",
+      "number": 11708,
+      "author": "AramZS",
+      "assignees": [],
+      "dateCreated": "2024-06-05T18:17:58.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Storage Manager: write to shared storage method",
+      "number": 11231,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-03-18T16:44:01.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Proposal: remove bid adapter access to navigator",
+      "number": 11001,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-01-29T17:17:56.000Z",
+      "status": "open",
+      "labels": [
+        "good first issue"
+      ]
+    },
+    {
+      "title": "Update floors module to work with `ortb2Imp.bidfloor`",
+      "number": 11285,
+      "author": "wiedaw",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2024-04-03T15:38:38.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Core: stop setting not a brand ua",
+      "number": 11213,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-03-14T14:57:35.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "DSA Control Module: add validation that dsaparams were consented ",
+      "number": 11038,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2024-02-01T19:08:16.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Karma Deprecation",
+      "number": 10806,
+      "author": "hemang-rajyaguru",
+      "assignees": [],
+      "dateCreated": "2023-12-07T10:39:50.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Difficult to test for consent to custom vendors when trying to set vendor exceptions",
+      "number": 10523,
+      "author": "spormeon",
+      "assignees": [],
+      "dateCreated": "2023-09-25T11:50:24.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Event BEFORE_BIDDER_HTTP is not sending all its parameters",
+      "number": 10300,
+      "author": "rotta-f",
+      "assignees": [],
+      "dateCreated": "2023-08-01T08:11:51.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "PBS Adapter: generalize dual endpoints to use activity control",
+      "number": 10364,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2023-08-16T15:00:55.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Questions on updating from legacy native fields to ortb native fields",
+      "number": 10249,
+      "author": "jsnellbaker",
+      "assignees": [],
+      "dateCreated": "2023-07-19T17:14:41.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Download page automated version sync with applicable adapters/modules",
+      "number": 9410,
+      "author": "ChrisHuie",
+      "assignees": [],
+      "dateCreated": "2023-01-11T13:26:49.000Z",
+      "status": "open",
+      "labels": []
+    },
+    {
+      "title": "Feature Request - add support video assets in Prebid Native",
+      "number": 10275,
+      "author": "jsnellbaker",
+      "assignees": [],
+      "dateCreated": "2023-07-24T15:44:56.000Z",
+      "status": "open",
+      "labels": [
+        "feature",
+        "video"
+      ]
+    },
+    {
+      "title": "[Video Module] - Support bucket sizes and true sizes for Video",
+      "number": 9863,
+      "author": "karimMourra",
+      "assignees": [],
+      "dateCreated": "2023-04-27T15:46:01.000Z",
+      "status": "open",
+      "labels": [
+        "video"
+      ]
+    },
+    {
+      "title": "Native mediatype: Track Visible impression",
+      "number": 6358,
+      "author": "guiann",
+      "assignees": [],
+      "dateCreated": "2021-02-25T11:35:03.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "timeToRespond for bidders with no bids + secondary bidders",
+      "number": 9624,
+      "author": "matthieularere-msq",
+      "assignees": [],
+      "dateCreated": "2023-03-06T14:54:22.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Considering a \"consumer\" version of npm package",
+      "number": 5287,
+      "author": "khatibda",
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2020-05-21T21:22:23.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "Use of document.write method to write an HTML string without standard HTML declaration  ",
+      "number": 8337,
+      "author": "nikpil93",
+      "assignees": [],
+      "dateCreated": "2022-04-28T20:16:48.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    },
+    {
+      "title": "General ad server interface",
+      "number": 7638,
+      "author": "bretg",
+      "assignees": [],
+      "dateCreated": "2021-10-27T17:52:30.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ export interface PRData {
   title: string;
   number: number;
   author: string;
-  assignee?: string;
+  assignees: string[];
   reviewers?: {
     approved: string[];
     pending: string[];
@@ -37,7 +37,7 @@ export interface IssueData {
   title: string;
   number: number;
   author: string;
-  assignee?: string;
+  assignees: string[];
   dateCreated: Date;
   status: 'open' | 'closed';
   dateClosed?: Date;

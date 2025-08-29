@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 3,
+    "itemCount": 3,
+    "lastUpdated": "2025-08-29T23:34:36.848Z"
+  },
+  "items": [
+    {
+      "title": "Fix for NPE for nil request in analytics module",
+      "number": 3599,
+      "author": "VeronikaSolovei9",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-27T17:32:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T18:20:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 2,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix semgrep dgryski.semgrep-go issues",
+      "number": 3511,
+      "author": "dmitris",
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "dmitris",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-15T16:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T17:22:49.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "dmitris": {
+            "count": 4,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Aso",
+      "number": 3565,
+      "author": "adserver-online",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "adserver-online"
+        ]
+      },
+      "dateCreated": "2024-03-10T09:10:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T05:43:29.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "dev": {
+            "count": 7,
+            "author": "dev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

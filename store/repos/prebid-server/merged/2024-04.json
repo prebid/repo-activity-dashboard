@@ -1,0 +1,1014 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 4,
+    "itemCount": 31,
+    "lastUpdated": "2025-08-29T23:34:36.855Z"
+  },
+  "items": [
+    {
+      "title": "Refactor Request Alias Parsing In Request Splitter",
+      "number": 3619,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-09T21:52:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T17:48:50.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 4,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Flipp + Alkimi: Minor Refactoring",
+      "number": 3622,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-04-10T21:24:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T16:32:02.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Mobfoxpb: Update contact",
+      "number": 3628,
+      "author": "bretg",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "bretg"
+        ]
+      },
+      "dateCreated": "2024-04-17T14:55:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T15:46:13.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PgamSSP: gpp support",
+      "number": 3630,
+      "author": "PGAMSSP",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-17T20:38:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T15:25:20.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "PGAMSSP": {
+            "count": 10,
+            "author": "PGAMSSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "IX: indicate support for OpenRTB 2.6",
+      "number": 3642,
+      "author": "ccorbo",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-25T17:22:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T15:10:41.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ccorbo": {
+            "count": 1,
+            "author": "ccorbo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Configurable Stored Request Fetch Timeout",
+      "number": 3614,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2024-04-07T18:13:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-30T14:47:26.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 6,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "CPMStar: Fix test by specifying returned imps",
+      "number": 3649,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-29T16:41:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-29T20:32:01.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "CPMStar: Fixed for loop index reference bug",
+      "number": 3604,
+      "author": "JoshuaMGoldstein",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "JoshuaMGoldstein"
+        ]
+      },
+      "dateCreated": "2024-04-02T00:08:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-29T07:42:47.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "JoshuaMGoldstein": {
+            "count": 4,
+            "author": "JoshuaMGoldstein"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bump golang.org/x/net from 0.17.0 to 0.23.0",
+      "number": 3635,
+      "author": "dependabot[bot]",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-19T12:29:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-26T18:46:17.000Z",
+      "labels": [
+        "do not port",
+        "dependencies"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dependabot[bot]": {
+            "count": 1,
+            "author": "dependabot[bot]"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Event tracker injection",
+      "number": 3339,
+      "author": "Pubmatic-Dhruv-Sonone",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "AlexBVolcy",
+          "guscarreon",
+          "Pubmatic-Dhruv-Sonone"
+        ]
+      },
+      "dateCreated": "2023-12-08T05:29:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-26T18:30:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 17,
+        "byAuthor": {
+          "Pubmatic-Dhruv-Sonone": {
+            "count": 17,
+            "author": "Pubmatic-Dhruv-Sonone"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Refactor FPD Merge Functions",
+      "number": 3601,
+      "author": "SyntaxNode",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-03-28T05:54:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-26T18:23:06.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 6,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Inject default DSA before auction request is rebuilt",
+      "number": 3639,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "scr-oath",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-04-24T20:13:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T17:03:42.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Conversant: Make requests in USD",
+      "number": 3611,
+      "author": "johnwier",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "johnwier"
+        ]
+      },
+      "dateCreated": "2024-04-04T20:46:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T09:37:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "johwier": {
+            "count": 2,
+            "author": "johwier"
+          },
+          "johnwier": {
+            "count": 1,
+            "author": "johnwier"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Readpeak",
+      "number": 3610,
+      "author": "readpeak-user",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "readpeak-user"
+        ]
+      },
+      "dateCreated": "2024-04-04T14:16:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T09:08:10.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "readpeaktuomo": {
+            "count": 19,
+            "author": "readpeaktuomo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Loyal",
+      "number": 3586,
+      "author": "teqblaze",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "teqblaze",
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-03-24T23:25:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T06:09:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 12,
+        "byAuthor": {
+          "loyal": {
+            "count": 12,
+            "author": "loyal"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adkernel: bid.mtype support",
+      "number": 3631,
+      "author": "ckbo3hrk",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-18T13:07:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T05:55:43.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "ckbo3hrk": {
+            "count": 3,
+            "author": "ckbo3hrk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MgidX: Update config info",
+      "number": 3633,
+      "author": "xmgiddev",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-18T15:50:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-25T05:49:12.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 26,
+        "byAuthor": {
+          "gaudeamus": {
+            "count": 6,
+            "author": "gaudeamus"
+          },
+          "evjman": {
+            "count": 1,
+            "author": "evjman"
+          },
+          "xmgiddev": {
+            "count": 19,
+            "author": "xmgiddev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rise: Add placementId parameter to bidder ext",
+      "number": 3626,
+      "author": "zkosanovic",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-15T13:12:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-22T10:32:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "Zdravko Kosanovic": {
+            "count": 2,
+            "author": "Zdravko Kosanovic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Metrics: Add per adapter metric indicating when buyeruid was scrubbed",
+      "number": 3623,
+      "author": "bsardo",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": [
+          "bsardo",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-04-11T16:55:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-16T19:49:31.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "bsardo": {
+            "count": 8,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Axonix: Add userSync",
+      "number": 3598,
+      "author": "cesarfd",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2024-03-27T15:29:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-16T05:53:16.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "César Fernández": {
+            "count": 2,
+            "author": "César Fernández"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sharethrough: adding GDPR and GPP info to user sync url",
+      "number": 3624,
+      "author": "jefftmahoney",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-11T20:31:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-15T08:08:30.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "jefftmahoney": {
+            "count": 1,
+            "author": "jefftmahoney"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add ImpIds in RequestData for associated Impressions",
+      "number": 3364,
+      "author": "pm-saurabh-narkhede",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "pm-saurabh-narkhede",
+          "SyntaxNode",
+          "hhhjort"
+        ]
+      },
+      "dateCreated": "2023-12-19T10:36:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-10T19:47:50.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 25,
+        "byAuthor": {
+          "pm-saurabh-narkhede": {
+            "count": 25,
+            "author": "pm-saurabh-narkhede"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Local stored response fetching",
+      "number": 3600,
+      "author": "zhongshixi",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": [
+          "zhongshixi"
+        ]
+      },
+      "dateCreated": "2024-03-28T04:33:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-10T17:29:15.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "zhongshixi": {
+            "count": 5,
+            "author": "zhongshixi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "EIDs Should Not Require Unique Sources",
+      "number": 3607,
+      "author": "SyntaxNode",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-04-03T21:18:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-09T22:04:29.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 3,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DSA: Inject default in bid requests if not present",
+      "number": 3540,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-25T16:53:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-09T20:26:38.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 21,
+        "byAuthor": {
+          "bsardo": {
+            "count": 21,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Onetag: add redirect userSync support",
+      "number": 3612,
+      "author": "onetag-dev",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-05T08:12:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-08T06:14:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "l-baglini": {
+            "count": 1,
+            "author": "l-baglini"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Privacy Sandbox: Topics in headers",
+      "number": 3393,
+      "author": "pm-nilesh-chate",
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "pm-nilesh-chate",
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2024-01-10T09:31:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-03T19:23:25.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 34,
+        "byAuthor": {
+          "pm-nilesh-chate": {
+            "count": 34,
+            "author": "pm-nilesh-chate"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: Smrtconnect",
+      "number": 3571,
+      "author": "psmrt",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "psmrt"
+        ]
+      },
+      "dateCreated": "2024-03-13T05:26:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-03T06:25:34.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pragnesh": {
+            "count": 1,
+            "author": "pragnesh"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Updated FloorsSchemaVersion data type from string to int",
+      "number": 3592,
+      "author": "pm-jaydeep-mohite",
+      "assignees": [
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "pm-jaydeep-mohite"
+        ]
+      },
+      "dateCreated": "2024-03-27T10:47:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-02T17:20:25.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "pm-jaydeep-mohite": {
+            "count": 2,
+            "author": "pm-jaydeep-mohite"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update README.md",
+      "number": 3603,
+      "author": "rajeshkp",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-01T13:24:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-01T17:49:12.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rajeshkp": {
+            "count": 1,
+            "author": "rajeshkp"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: TestAmpBadRequests",
+      "number": 3546,
+      "author": "pm-nilesh-chate",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "pm-nilesh-chate"
+        ]
+      },
+      "dateCreated": "2024-02-27T05:29:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-04-01T17:35:30.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "pm-nilesh-chate": {
+            "count": 7,
+            "author": "pm-nilesh-chate"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

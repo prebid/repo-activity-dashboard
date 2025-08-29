@@ -1,0 +1,643 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 11,
+    "itemCount": 20,
+    "lastUpdated": "2025-08-29T23:34:36.852Z"
+  },
+  "items": [
+    {
+      "title": "PgamSSP: Add GVL vendor ID",
+      "number": 4056,
+      "author": "PGAMSSP",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-18T11:43:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T22:28:48.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 17,
+        "byAuthor": {
+          "PGAMSSP": {
+            "count": 17,
+            "author": "PGAMSSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Copper6ssp: Add GVL vendor ID",
+      "number": 4072,
+      "author": "Copper6SSP",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-25T12:32:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T22:16:36.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "Copper6SSP": {
+            "count": 11,
+            "author": "Copper6SSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic: Declare support for OpenRTB 2.6",
+      "number": 4078,
+      "author": "pm-isha-bharti",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-26T13:54:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:56:29.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-isha-bharti": {
+            "count": 1,
+            "author": "pm-isha-bharti"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Unruly: Remove indicated support for gzip",
+      "number": 4028,
+      "author": "bhainesnexxen",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-30T20:18:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:40:29.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Brian Haines": {
+            "count": 1,
+            "author": "Brian Haines"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Reserve IGS name",
+      "number": 4073,
+      "author": "patmmccann",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "bsardo"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-11-25T14:42:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:31:10.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "patmmccann": {
+            "count": 6,
+            "author": "patmmccann"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pass through unknown imp.ext values to adapters",
+      "number": 3878,
+      "author": "justadreamer",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "justadreamer"
+        ]
+      },
+      "dateCreated": "2024-08-22T11:01:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:13:33.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "AntonYPost": {
+            "count": 1,
+            "author": "AntonYPost"
+          },
+          "justadreamer": {
+            "count": 7,
+            "author": "justadreamer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sharethrough: Declare support for OpenRTB 2.6",
+      "number": 4066,
+      "author": "jefftmahoney",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-20T19:30:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T19:05:08.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "jefftmahoney": {
+            "count": 1,
+            "author": "jefftmahoney"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Driftpixel: Add default cookie sync endpoint",
+      "number": 3973,
+      "author": "driftpixelai",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-11T12:22:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T18:01:56.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "driftpixelai": {
+            "count": 1,
+            "author": "driftpixelai"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Modules: Add bidder response to raw bidder response stage payload",
+      "number": 3882,
+      "author": "ashishshinde-pubm",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-25T12:59:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T17:29:03.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ashishshinde-pubm": {
+            "count": 2,
+            "author": "ashishshinde-pubm"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Floors: Modify fetchrate to usefetchdatarate",
+      "number": 3972,
+      "author": "pm-nikhil-vaidya",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-11T11:18:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T17:15:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-nikhil-vaidya": {
+            "count": 1,
+            "author": "pm-nikhil-vaidya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix cache init and update timeouts in stored requests",
+      "number": 4027,
+      "author": "linux019",
+      "assignees": [
+        "SyntaxNode",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-30T15:53:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T03:20:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "developer": {
+            "count": 1,
+            "author": "developer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "AlgoriX: Add GVL vendor ID",
+      "number": 4068,
+      "author": "Bugxyb",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-21T12:13:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T02:48:55.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "xunyunbo": {
+            "count": 1,
+            "author": "xunyunbo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pass \"req.ext.prebid.targeting.includebrandcategory\" To Bidders",
+      "number": 3817,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-07-23T05:08:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-21T20:39:59.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 4,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix imp ext prebid adunitcode drop",
+      "number": 4064,
+      "author": "Abyfall",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "System-Glitch",
+          "bsardo"
+        ],
+        "pending": [
+          "Abyfall"
+        ]
+      },
+      "dateCreated": "2024-11-20T16:35:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-21T16:35:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "Abyfall": {
+            "count": 2,
+            "author": "Abyfall"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Nativo",
+      "number": 3790,
+      "author": "rafataveira",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "onkarvhanumante",
+          "rafataveira",
+          "github-actions[bot]"
+        ]
+      },
+      "dateCreated": "2024-07-03T06:28:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:27:32.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 29,
+        "byAuthor": {
+          "rafataveira": {
+            "count": 27,
+            "author": "rafataveira"
+          },
+          "aparekh-nativo": {
+            "count": 2,
+            "author": "aparekh-nativo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Krushmedia: update user sync urls",
+      "number": 3979,
+      "author": "Krushmedia",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-14T10:39:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:17:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 18,
+        "byAuthor": {
+          "Aiholkin": {
+            "count": 14,
+            "author": "Aiholkin"
+          },
+          "Krushmedia": {
+            "count": 4,
+            "author": "Krushmedia"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Delete user.ext.prebid.buyeruids after extraction",
+      "number": 4049,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "SyntaxNode"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-11-12T13:42:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:07:14.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "bsardo": {
+            "count": 8,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "IQzone: Add user sync",
+      "number": 3971,
+      "author": "IQZoneAdx",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-11T09:52:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T21:54:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "IQZoneAdx": {
+            "count": 11,
+            "author": "IQZoneAdx"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PgamSSP: Add currency converter",
+      "number": 3907,
+      "author": "PGAMSSP",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "PGAMSSP"
+        ]
+      },
+      "dateCreated": "2024-09-09T10:57:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T21:31:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 15,
+        "byAuthor": {
+          "PGAMSSP": {
+            "count": 15,
+            "author": "PGAMSSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "GumGum: Override the default currency",
+      "number": 3928,
+      "author": "MartinGumGum",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "MartinGumGum"
+        ]
+      },
+      "dateCreated": "2024-09-17T21:32:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T19:14:07.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "MartinGumGum": {
+            "count": 5,
+            "author": "MartinGumGum"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

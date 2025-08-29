@@ -1,0 +1,974 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "lastSync": "2025-08-29T23:42:48.132Z",
+    "itemCount": 38
+  },
+  "items": [
+    {
+      "title": "alvads initial release",
+      "number": 4166,
+      "author": "SamuelAlejandroNT",
+      "assignees": [],
+      "dateCreated": "2025-08-29T20:22:21.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Samuel Alejandro Maldonado Garcia": {
+            "count": 1,
+            "author": "Samuel Alejandro Maldonado Garcia"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Onetag Adapter: imp.ext read generalization",
+      "number": 4165,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-29T15:33:32.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "add activity metric to prometheus-labels.yaml",
+      "number": 4150,
+      "author": "muuki88",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "AntoxaAntoxic"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-20T15:22:30.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "muuki88": {
+            "count": 1,
+            "author": "muuki88"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SSPBC Adapter: adapter update",
+      "number": 4135,
+      "author": "Ko4s3K",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "AntoxaAntoxic"
+        ],
+        "pending": [
+          "Ko4s3K"
+        ]
+      },
+      "dateCreated": "2025-08-13T05:03:18.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "Ko4s3K": {
+            "count": 5,
+            "author": "Ko4s3K"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SmileWanted endpoint now supports dynamic zoneId and integrates prebid server technology",
+      "number": 4109,
+      "author": "QuentinGallard",
+      "assignees": [
+        "QuentinGallard"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "AntoxaAntoxic"
+        ]
+      },
+      "dateCreated": "2025-07-31T14:34:00.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "QuentinGallard": {
+            "count": 1,
+            "author": "QuentinGallard"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Dependencies: Bump Spring Boot and Vert.x minor version",
+      "number": 4164,
+      "author": "Net-burst",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "And1sS",
+          "CTMBNara"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-28T18:21:30.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Net-burst": {
+            "count": 1,
+            "author": "Net-burst"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yandex Bid Adapter : add support for video ads",
+      "number": 4004,
+      "author": "DiMurer",
+      "assignees": [
+        "DiMurer"
+      ],
+      "reviewers": {
+        "approved": [
+          "AntoxaAntoxic"
+        ],
+        "pending": [
+          "DiMurer"
+        ]
+      },
+      "dateCreated": "2025-06-06T13:35:46.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "DiMurer": {
+            "count": 7,
+            "author": "DiMurer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Mobkoi Adapter: set integration_type field in bid requests",
+      "number": 4080,
+      "author": "zeeye",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "CTMBNara"
+        ]
+      },
+      "dateCreated": "2025-07-23T16:29:29.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "zeeye": {
+            "count": 1,
+            "author": "zeeye"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Test: Rule Engine",
+      "number": 4103,
+      "author": "marki1an",
+      "assignees": [
+        "marki1an"
+      ],
+      "dateCreated": "2025-07-30T09:03:52.000Z",
+      "status": "open",
+      "labels": [
+        "work in progress",
+        "tests"
+      ],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "And1sS": {
+            "count": 1,
+            "author": "And1sS"
+          },
+          "marki1an": {
+            "count": 8,
+            "author": "marki1an"
+          }
+        }
+      },
+      "baseBranch": "ruleengine"
+    },
+    {
+      "title": "Seedtag: Adds GPP macros on user-sync url",
+      "number": 4106,
+      "author": "sangarbe",
+      "assignees": [
+        "sangarbe"
+      ],
+      "reviewers": {
+        "approved": [
+          "AntoxaAntoxic",
+          "CTMBNara"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-31T07:38:37.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "sangarbe": {
+            "count": 1,
+            "author": "sangarbe"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidder Configuration Fixes",
+      "number": 4126,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-08T06:35:57.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "consumable: updated yaml config",
+      "number": 4139,
+      "author": "richardngo-consumable",
+      "assignees": [],
+      "dateCreated": "2025-08-19T13:50:58.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "richardngo-consumable": {
+            "count": 1,
+            "author": "richardngo-consumable"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Module: Rules engine",
+      "number": 4147,
+      "author": "And1sS",
+      "assignees": [],
+      "dateCreated": "2025-08-19T23:39:05.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 80,
+        "byAuthor": {
+          "And1sS": {
+            "count": 80,
+            "author": "And1sS"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add profiles",
+      "number": 4007,
+      "author": "CTMBNara",
+      "assignees": [],
+      "dateCreated": "2025-06-11T01:48:10.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge"
+      ],
+      "commits": {
+        "totalCount": 23,
+        "byAuthor": {
+          "CTMBNara": {
+            "count": 23,
+            "author": "CTMBNara"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smartadserver: Add second endpoint for programmatic guaranteed",
+      "number": 4163,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-28T13:34:18.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Kobler: Add app support",
+      "number": 4162,
+      "author": "przemkaczmarek",
+      "assignees": [],
+      "dateCreated": "2025-08-28T07:52:13.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "przemkaczmarek": {
+            "count": 1,
+            "author": "przemkaczmarek"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: TeqBlaze",
+      "number": 4161,
+      "author": "przemkaczmarek",
+      "assignees": [],
+      "dateCreated": "2025-08-28T07:44:35.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "przemkaczmarek": {
+            "count": 1,
+            "author": "przemkaczmarek"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pass ext.ixdiag fields through",
+      "number": 4159,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-27T13:22:55.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: Support seatnonbid Codes in Modules",
+      "number": 3762,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "CTMBNara"
+        ]
+      },
+      "dateCreated": "2025-02-17T14:03:29.000Z",
+      "status": "open",
+      "labels": [
+        "do not port",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 6,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidder Specific Imp Level Params Should Apply to a Specific Alias",
+      "number": 4157,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-26T07:50:24.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DATA-22937: LI analytics adapter",
+      "number": 4154,
+      "author": "SuperIzya",
+      "assignees": [],
+      "dateCreated": "2025-08-25T11:06:46.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 34,
+        "byAuthor": {
+          "3link": {
+            "count": 26,
+            "author": "3link"
+          },
+          "SuperIzya": {
+            "count": 1,
+            "author": "SuperIzya"
+          },
+          "ilya": {
+            "count": 7,
+            "author": "ilya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Module Storage Metrics",
+      "number": 4151,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-21T10:56:34.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 2,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "vtrack-get"
+    },
+    {
+      "title": "New Afront Adapter",
+      "number": 4153,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-22T13:31:24.000Z",
+      "status": "open",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Module: LiveIntent Omni-channel Identity",
+      "number": 3938,
+      "author": "3link",
+      "assignees": [
+        "3link"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "3link",
+          "And1sS",
+          "SuperIzya"
+        ]
+      },
+      "dateCreated": "2025-04-25T13:20:32.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 32,
+        "byAuthor": {
+          "3link": {
+            "count": 26,
+            "author": "3link"
+          },
+          "SuperIzya": {
+            "count": 1,
+            "author": "SuperIzya"
+          },
+          "ilya": {
+            "count": 5,
+            "author": "ilya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add video cache TTL enforcement for /vtrack endpoint",
+      "number": 4136,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-08-13T13:29:20.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "vtrack-get"
+    },
+    {
+      "title": "Support GET on the /vtrack endpoint",
+      "number": 4073,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-07-21T10:20:12.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 4,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Test: Update `pr-java/functional-ci` work flow",
+      "number": 3904,
+      "author": "marki1an",
+      "assignees": [
+        "marki1an"
+      ],
+      "dateCreated": "2025-04-10T15:24:07.000Z",
+      "status": "open",
+      "labels": [
+        "work in progress",
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 94,
+        "byAuthor": {
+          "marki1an": {
+            "count": 63,
+            "author": "marki1an"
+          },
+          "osulzhenko": {
+            "count": 31,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tests: Add profiles",
+      "number": 4056,
+      "author": "osulzhenko",
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-07-11T19:29:40.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "osulzhenko": {
+            "count": 2,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "add-profiles"
+    },
+    {
+      "title": "ZetaGlobalSsp Bidder Update",
+      "number": 4108,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-07-31T09:21:36.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "do not port",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": "osulzhenko",
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "marki1an",
+          "osulzhenko"
+        ]
+      },
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "do not port",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 22,
+        "byAuthor": {
+          "osulzhenko": {
+            "count": 22,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Ad Podding",
+      "number": 4010,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-06-11T14:12:40.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 3,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tests: Remove default-account from base floors container config",
+      "number": 3735,
+      "author": "osulzhenko",
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": {
+        "approved": [
+          "marki1an"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-02-06T16:28:51.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "osulzhenko": {
+            "count": 1,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Secure Markup Validation Update",
+      "number": 3953,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-05-09T07:19:02.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 2,
+            "author": "AntoxaAntoxic"
+          },
+          "osulzhenko": {
+            "count": 1,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Test: `secure-creative` validation",
+      "number": 3883,
+      "author": "marki1an",
+      "assignees": [
+        "marki1an"
+      ],
+      "dateCreated": "2025-04-03T11:46:59.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "marki1an": {
+            "count": 2,
+            "author": "marki1an"
+          },
+          "osulzhenko": {
+            "count": 2,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "secure-markup-validation-update"
+    },
+    {
+      "title": "Tests: Support bidderconfig array concat option",
+      "number": 3816,
+      "author": "osulzhenko",
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-03-07T17:21:07.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "osulzhenko": {
+            "count": 4,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Test: `suppressIBV` in response correction module",
+      "number": 3789,
+      "author": "marki1an",
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "osulzhenko"
+        ]
+      },
+      "dateCreated": "2025-02-26T13:15:07.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "marki1an": {
+            "count": 2,
+            "author": "marki1an"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: Support GPP USNat v2",
+      "number": 3690,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-01-22T10:14:13.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          },
+          "osulzhenko": {
+            "count": 1,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tests: Support GPP USNat v2",
+      "number": 3766,
+      "author": "osulzhenko",
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-02-18T21:27:08.000Z",
+      "status": "open",
+      "labels": [
+        "tests",
+        "blocked"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "osulzhenko": {
+            "count": 2,
+            "author": "osulzhenko"
+          }
+        }
+      },
+      "baseBranch": "support-gpp-usnat-v2"
+    }
+  ]
+}

@@ -1,0 +1,970 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 8,
+    "itemCount": 30,
+    "lastUpdated": "2025-08-29T23:34:36.853Z"
+  },
+  "items": [
+    {
+      "title": "OpenX: indicate support for OpenRTB 2.6",
+      "number": 3879,
+      "author": "bwschmidt",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-22T22:51:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-30T13:47:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bwschmidt": {
+            "count": 1,
+            "author": "bwschmidt"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Oraki",
+      "number": 3839,
+      "author": "BenOraki",
+      "assignees": [
+        "gargcreation1992",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-06T07:32:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-30T13:36:22.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "BenOraki": {
+            "count": 3,
+            "author": "BenOraki"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Escalax",
+      "number": 3798,
+      "author": "escalax",
+      "assignees": [
+        "gargcreation1992",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "escalax"
+        ]
+      },
+      "dateCreated": "2024-07-08T12:23:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-30T13:28:04.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "escalax": {
+            "count": 4,
+            "author": "escalax"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Copper6SSP",
+      "number": 3755,
+      "author": "Copper6SSP",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "Copper6SSP"
+        ]
+      },
+      "dateCreated": "2024-06-16T20:20:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-30T13:18:47.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "Copper6SSP": {
+            "count": 9,
+            "author": "Copper6SSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Revert \"New Module: 51Degrees (#3650)\"",
+      "number": 3888,
+      "author": "bsardo",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-27T13:08:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T17:23:34.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PulsePoint: ortb 2.6 version and gpp support",
+      "number": 3874,
+      "author": "anand-venkatraman",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-21T13:51:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-22T10:44:32.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "anand-venkatraman": {
+            "count": 1,
+            "author": "anand-venkatraman"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Kargo: Indicate support for OpenRTB 2.6",
+      "number": 3876,
+      "author": "nickllerandi",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-21T18:50:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-22T06:15:12.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "nickllerandi": {
+            "count": 1,
+            "author": "nickllerandi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update mobilefuse.yaml to indicate support for OpenRTB 2.6 and GPP",
+      "number": 3871,
+      "author": "dtbarne",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-20T17:24:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T12:26:31.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dtbarne": {
+            "count": 1,
+            "author": "dtbarne"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "freewheel-adapter: update the ymal to support 2.6",
+      "number": 3873,
+      "author": "mwang-sticky",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-21T06:04:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T12:26:15.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "mwang-sticky": {
+            "count": 1,
+            "author": "mwang-sticky"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Fix currency conversion bug",
+      "number": 3867,
+      "author": "CTMBNara",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-19T13:25:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T12:23:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ddubyk": {
+            "count": 1,
+            "author": "ddubyk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Pubrise",
+      "number": 3833,
+      "author": "Pubrise",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "Pubrise"
+        ]
+      },
+      "dateCreated": "2024-07-31T16:00:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T09:43:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Pubrise": {
+            "count": 1,
+            "author": "Pubrise"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon adapter: declare support for ORTB 2.6",
+      "number": 3872,
+      "author": "bretg",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-20T17:36:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T09:40:26.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Vidazoo: Update bidder info for GPP support",
+      "number": 3869,
+      "author": "saar120",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-19T17:15:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T09:37:59.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "saar120": {
+            "count": 1,
+            "author": "saar120"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "GumGum: Remove video validations",
+      "number": 3842,
+      "author": "gg-natalia",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-06T19:01:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-18T09:52:28.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "gg-natalia": {
+            "count": 1,
+            "author": "gg-natalia"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Module: 51Degrees",
+      "number": 3650,
+      "author": "jwrosewell",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "legendko",
+          "justadreamer"
+        ]
+      },
+      "dateCreated": "2024-04-30T07:50:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-16T13:20:22.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 18,
+        "byAuthor": {
+          "iNetJoJo": {
+            "count": 3,
+            "author": "iNetJoJo"
+          },
+          "jwrosewell": {
+            "count": 1,
+            "author": "jwrosewell"
+          },
+          "justadreamer": {
+            "count": 8,
+            "author": "justadreamer"
+          },
+          "legendko": {
+            "count": 6,
+            "author": "legendko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adnuntius: Use format=prebid on adserver requests.",
+      "number": 3846,
+      "author": "antosarho",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-07T04:40:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-13T08:28:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "antosarho": {
+            "count": 1,
+            "author": "antosarho"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OwnAdx: Bidder param and URL updates",
+      "number": 3813,
+      "author": "ownAdx-prebid",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "ownAdx-prebid"
+        ]
+      },
+      "dateCreated": "2024-07-17T07:25:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T13:21:54.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "Hina Yadav": {
+            "count": 2,
+            "author": "Hina Yadav"
+          },
+          "Hina": {
+            "count": 5,
+            "author": "Hina"
+          },
+          "ownAdx-prebid": {
+            "count": 1,
+            "author": "ownAdx-prebid"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Taboola: app support ",
+      "number": 3795,
+      "author": "ahmadlob",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "ahmadlob"
+        ]
+      },
+      "dateCreated": "2024-07-07T10:24:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T13:09:23.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ahmadlob": {
+            "count": 1,
+            "author": "ahmadlob"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: MeloZen",
+      "number": 3784,
+      "author": "benben2001",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "onkarvhanumante",
+          "benben2001"
+        ]
+      },
+      "dateCreated": "2024-07-01T07:12:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T13:07:38.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "benben2001": {
+            "count": 8,
+            "author": "benben2001"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Aliases Of Bidders With UserSync Supports Declared Only",
+      "number": 3850,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort"
+        ],
+        "pending": [
+          "bsardo",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-08-08T17:29:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-08T18:28:25.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 3,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Filmzie",
+      "number": 3758,
+      "author": "imedvedko",
+      "assignees": [
+        "guscarreon",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-18T08:19:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-08T13:34:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "imedvedko": {
+            "count": 1,
+            "author": "imedvedko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SmartHub: add alias VimayX",
+      "number": 3760,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "SmartHubSolutions",
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-06-18T10:52:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-08T12:48:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 3,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Playdigo: add user sync",
+      "number": 3797,
+      "author": "Yanivplaydigo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "Yanivplaydigo"
+        ]
+      },
+      "dateCreated": "2024-07-08T11:57:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-07T14:02:28.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "Yanivplaydigo": {
+            "count": 6,
+            "author": "Yanivplaydigo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: MetaX",
+      "number": 3712,
+      "author": "metax-kehan",
+      "assignees": [
+        "onkarvhanumante",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "metax-kehan",
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-05-30T08:49:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T17:16:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "Kehan Pan": {
+            "count": 1,
+            "author": "Kehan Pan"
+          },
+          "metax-kehan": {
+            "count": 9,
+            "author": "metax-kehan"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SmartHub: add alias FelixAds",
+      "number": 3837,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SmartHubSolutions"
+        ]
+      },
+      "dateCreated": "2024-08-01T07:20:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T17:06:14.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 1,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: TheTradeDesk",
+      "number": 3738,
+      "author": "andre-gielow-ttd",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "andre-gielow-ttd"
+        ]
+      },
+      "dateCreated": "2024-06-07T19:38:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T16:59:15.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "andre-gielow-ttd": {
+            "count": 5,
+            "author": "andre-gielow-ttd"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adtelligent: ext aid type",
+      "number": 3676,
+      "author": "dkornet-ad",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "aradilov",
+          "dkornet-ad"
+        ]
+      },
+      "dateCreated": "2024-05-09T14:22:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T14:49:42.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "dkornet-ad": {
+            "count": 8,
+            "author": "dkornet-ad"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenX: return BidVideo object for hb_pb_cat_dur targeting ",
+      "number": 3834,
+      "author": "laurb9",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-07-31T19:16:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T09:27:18.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "laurb9": {
+            "count": 1,
+            "author": "laurb9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Consumable: Use configured endpoint instead of hardcoded value",
+      "number": 3783,
+      "author": "edandavi",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-30T11:06:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-05T16:03:03.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "edandavi": {
+            "count": 1,
+            "author": "edandavi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: QT",
+      "number": 3696,
+      "author": "qt-io",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "bsardo"
+        ],
+        "pending": [
+          "qt-io",
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2024-05-21T13:37:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-01T17:00:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "qt-io": {
+            "count": 5,
+            "author": "qt-io"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

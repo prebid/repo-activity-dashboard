@@ -1,0 +1,859 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 12,
+    "itemCount": 26,
+    "lastUpdated": "2025-08-29T23:34:36.852Z"
+  },
+  "items": [
+    {
+      "title": "Smarthub: Update to Attekmi Endpoint",
+      "number": 4047,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek",
+          "bretg"
+        ],
+        "pending": [
+          "SmartHubSolutions"
+        ]
+      },
+      "dateCreated": "2024-11-10T18:26:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:56:24.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 4,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adding stale PR workflow",
+      "number": 4098,
+      "author": "bretg",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "bretg"
+        ]
+      },
+      "dateCreated": "2024-12-11T14:07:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:41:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bretg": {
+            "count": 2,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic: Remove empty prebid object from failing tests",
+      "number": 4109,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-12-16T14:50:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:03:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic: Remove req.ext.prebid from bid requests",
+      "number": 4092,
+      "author": "pm-viral-vala",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "pm-isha-bharti",
+          "pm-viral-vala"
+        ]
+      },
+      "dateCreated": "2024-12-06T09:18:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:09:06.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-viral-vala": {
+            "count": 1,
+            "author": "pm-viral-vala"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MetaX: Add BidVideo for video ads",
+      "number": 4095,
+      "author": "metax-kehan",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "metax-kehan"
+        ]
+      },
+      "dateCreated": "2024-12-10T07:05:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:01:34.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "metax-kehan": {
+            "count": 2,
+            "author": "metax-kehan"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenRTB 2.6-202402 + OpenRTB 2.6-202409 Field Support",
+      "number": 4100,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-12-12T21:34:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T23:08:55.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update code-reviews.md",
+      "number": 3905,
+      "author": "bretg",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode"
+        ],
+        "pending": [
+          "bretg"
+        ]
+      },
+      "dateCreated": "2024-09-06T14:29:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T19:27:12.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Older devices are sending \"gpc\": 1 and this can't marshal.",
+      "number": 4070,
+      "author": "scr-oath",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "scr-oath"
+        ]
+      },
+      "dateCreated": "2024-11-22T00:00:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T19:25:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "scr-oath": {
+            "count": 8,
+            "author": "scr-oath"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Medianet: Add iframe sync",
+      "number": 4081,
+      "author": "rishi-parmar",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "rishi-parmar"
+        ]
+      },
+      "dateCreated": "2024-11-28T10:49:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T16:46:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rishi-parmar": {
+            "count": 1,
+            "author": "rishi-parmar"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: No longer copy certain FPD fields",
+      "number": 3919,
+      "author": "CTMBNara",
+      "assignees": [
+        "VeronikaSolovei9",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": {
+        "approved": [
+          "MaksymTeqBlaze",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-13T11:49:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T02:23:41.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "ddubyk": {
+            "count": 3,
+            "author": "ddubyk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Update video size-id logic",
+      "number": 3917,
+      "author": "CTMBNara",
+      "assignees": [
+        "VeronikaSolovei9",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": {
+        "approved": [
+          "MaksymTeqBlaze",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-13T10:49:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T02:11:51.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ddubyk": {
+            "count": 2,
+            "author": "ddubyk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adnuntius: Use format=prebidServer on adserver requests",
+      "number": 4094,
+      "author": "antosarho",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-12-10T04:05:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:53:04.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "antosarho": {
+            "count": 1,
+            "author": "antosarho"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bump golang.org/x/crypto from 0.21.0 to 0.31.0",
+      "number": 4099,
+      "author": "dependabot[bot]",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-12-11T23:53:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:42:20.000Z",
+      "labels": [
+        "dependencies"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dependabot[bot]": {
+            "count": 1,
+            "author": "dependabot[bot]"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Insticator",
+      "number": 3806,
+      "author": "shubhamc-ins",
+      "assignees": [
+        "bsardo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "onkarvhanumante",
+          "shubhamc-ins"
+        ]
+      },
+      "dateCreated": "2024-07-10T18:31:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:41:04.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "shubhamc-ins": {
+            "count": 19,
+            "author": "shubhamc-ins"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Flipp: use height value from server response",
+      "number": 3940,
+      "author": "MishelleBit",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-09-25T17:40:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T22:29:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "MishelleBit": {
+            "count": 4,
+            "author": "MishelleBit"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Blue: Add placementId bidder param",
+      "number": 4051,
+      "author": "samuelfabel",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "samuelfabel"
+        ]
+      },
+      "dateCreated": "2024-11-12T19:45:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T02:25:25.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "samuelfabel": {
+            "count": 3,
+            "author": "samuelfabel"
+          },
+          "samuelfabelopencircle": {
+            "count": 4,
+            "author": "samuelfabelopencircle"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Equativ: SmartAdserver alias with update to use mtype",
+      "number": 4045,
+      "author": "rneuplanche",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "mdaddario-STR",
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "rneuplanche"
+        ]
+      },
+      "dateCreated": "2024-11-08T18:22:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T02:05:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "rneuplanche": {
+            "count": 9,
+            "author": "rneuplanche"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rise: Update bidder info yaml",
+      "number": 4039,
+      "author": "zkosanovic",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "zkosanovic"
+        ]
+      },
+      "dateCreated": "2024-11-05T10:57:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:55:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "Zdravko Kosanovic": {
+            "count": 3,
+            "author": "Zdravko Kosanovic"
+          },
+          "zkosanovic": {
+            "count": 1,
+            "author": "zkosanovic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pubmatic: Forward displaymanager and displaymanagerver from app ext",
+      "number": 4000,
+      "author": "AvinashKapre",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "AvinashKapre",
+          "pm-isha-bharti"
+        ]
+      },
+      "dateCreated": "2024-10-20T10:33:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:47:49.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "AvinashKapre": {
+            "count": 4,
+            "author": "AvinashKapre"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Conversant: Enable audio requests",
+      "number": 3996,
+      "author": "johnwier",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "johnwier"
+        ]
+      },
+      "dateCreated": "2024-10-18T16:27:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:40:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "johwier": {
+            "count": 2,
+            "author": "johwier"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smaato: Send imp.ext object entirely",
+      "number": 3995,
+      "author": "Enigo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "eros902002",
+          "bsardo"
+        ],
+        "pending": [
+          "Enigo"
+        ]
+      },
+      "dateCreated": "2024-10-18T14:12:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:27:56.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Ruslan Sibgatullin": {
+            "count": 3,
+            "author": "Ruslan Sibgatullin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adkernel: rxnetwork alias",
+      "number": 3956,
+      "author": "ckbo3hrk",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "ckbo3hrk"
+        ]
+      },
+      "dateCreated": "2024-10-07T09:29:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:14:28.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ckbo3hrk": {
+            "count": 2,
+            "author": "ckbo3hrk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Add bid.ext.prebid.meta tests",
+      "number": 3949,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-01T09:37:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:04:04.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 2,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Silvermob: Use mtype and add global host",
+      "number": 3936,
+      "author": "freemmy",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "freemmy"
+        ]
+      },
+      "dateCreated": "2024-09-24T13:40:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T00:51:23.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "freemmy": {
+            "count": 7,
+            "author": "freemmy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Connatix",
+      "number": 3916,
+      "author": "patrickszeleczki-cnx",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "karimMourra"
+        ],
+        "pending": [
+          "przemkaczmarek",
+          "patrickszeleczki-cnx",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-09-12T14:47:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T00:01:38.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 36,
+        "byAuthor": {
+          "patrickszeleczki-cnx": {
+            "count": 36,
+            "author": "patrickszeleczki-cnx"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adf: Update cookie matching endpoint domain",
+      "number": 3585,
+      "author": "braizhas",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "braizhas",
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2024-03-22T15:24:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-09T23:51:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "braizhas": {
+            "count": 1,
+            "author": "braizhas"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

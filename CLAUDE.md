@@ -3,145 +3,196 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-A TypeScript Node.js application that fetches and aggregates pull request and issue data from multiple GitHub repositories defined in `repos.json`. The system collects detailed metrics including PR reviews, commit authors, related issues/PRs, and issue closure reasons.
+A TypeScript Node.js application that fetches GitHub repository activity data. The system maintains real-time tracking of open PRs/issues and archives merged PRs and closed issues organized by month. Features advanced rate limiting, pagination support, and concurrent request management.
+
+## Key Architecture Decisions
+
+### Storage Strategy
+- **Open items** stored in single files (`open-prs.json`, `open-issues.json`) for quick access
+- **Merged PRs** stored by merge month in `merged/YYYY-MM.json`
+- **Closed issues** stored by close month in `closed/YYYY-MM.json`
+- **Closed-but-not-merged PRs** are completely ignored (not fetched or stored)
+- **Incremental batch saving** during processing to prevent data loss
+
+### API Optimization
+- **Full pagination support** for repositories with 100+ items
+- **Concurrent request processing** with configurable limits (default: 3-5)
+- **Adaptive rate limiting** based on remaining API quota
+- **Request queue** with priority ordering and retry logic
+- **Burst protection** to avoid secondary rate limits
+- Only fetch merged PRs, not all closed PRs
+- Use `since` parameter for incremental updates
 
 ## Development Commands
-- `npm run dev` - Start development server with hot reload using ts-node
-- `npm run build` - Compile TypeScript to JavaScript in dist/
-- `npm run start` - Run the compiled JavaScript from dist/
-- `npm run clean` - Remove the dist/ directory
+- `npm run dev` - Run with ts-node for development
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm run start` - Run compiled application
+- `npm run clean` - Remove build artifacts
 
-## Project Architecture
+## Project Structure
 
-### Core Components
+### Core Services
 
-1. **Type Definitions** (`src/types/index.ts`)
-   - `Repository`: Parsed repository information (owner, repo, name, category)
-   - `PRData`: Complete PR information including reviewers, commits by author, related issues
-   - `IssueData`: Issue details with assignees, closure reasons, related PRs
-   - `RepositoryData`: Aggregated data for a single repository
+1. **GitHub Service** (`src/services/githubService.ts`)
+   - `fetchOpenPRs(repo, options)` - Get all open PRs with pagination
+   - `fetchMergedPRs(repo, since, options)` - Get merged PRs only
+   - `fetchOpenIssues(repo, options)` - Get all open issues
+   - `fetchClosedIssues(repo, since, options)` - Get closed issues
+   - Full pagination support via `fetchAllPages()`
+   - Concurrent processing with `processPRs()` and `processIssues()`
+   - Options support: `onBatch`, `onProgress`, `maxItems`
 
-2. **Repository Parser** (`src/utils/repoParser.ts`)
-   - Parses `repos.json` to extract GitHub repository information
-   - Extracts owner/repo from GitHub URLs
-   - Provides filtering by category and name
+2. **Storage Service** (`src/services/storageService.ts`)
+   - `saveOpenPRs/Issues()` - Save to single files
+   - `saveMergedPRs()` - Archive by merge month with date parsing
+   - `saveClosedIssues()` - Archive by close month with date parsing
+   - `saveSyncState()` - Track sync metadata
+   - Handles date serialization/deserialization when loading JSON
+   - Manages file system operations and data deduplication
 
-3. **GitHub Service** (`src/services/githubService.ts`)
-   - Core API interaction layer using Octokit
-   - Fetches PRs with reviews and commit author summaries
-   - Fetches issues with timeline events for related PRs
-   - Implements rate limiting and delay mechanisms
-   - Uses GitHub's timeline API for finding related issues/PRs (no regex parsing)
+3. **Data Fetcher** (`src/services/dataFetcher.ts`)
+   - `syncRepository()` - Full sync with batch saving
+   - `incrementalSync()` - Update only changed items
+   - `syncAllRepositories()` - Process all repos sequentially
+   - Configurable max concurrent requests
+   - Progress reporting and queue statistics
 
-4. **Data Fetcher** (`src/services/dataFetcher.ts`)
-   - Orchestrates data fetching across multiple repositories
-   - Supports parallel and sequential fetching strategies
-   - Implements concurrency control (default: 3 concurrent requests)
-   - Automatic rate limit monitoring and waiting
-   - Progress logging for each repository
+4. **Rate Limit Manager** (`src/services/rateLimitManager.ts`)
+   - Tracks primary rate limit from GitHub headers
+   - Implements burst protection (300 requests/minute)
+   - Calculates optimal delays based on quota:
+     - >50% remaining: 50ms delay
+     - >20% remaining: 200ms delay  
+     - >10% remaining: 500ms delay
+     - <10% remaining: 1000ms delay
+   - `waitIfNeeded()` - Automatic waiting when limits approached
 
-5. **Main Entry Point** (`src/index.ts`)
-   - Validates environment variables (GITHUB_TOKEN required)
-   - Initializes data fetcher and processes all repositories
-   - Reports success/failure status
+5. **Request Queue** (`src/services/requestQueue.ts`)
+   - Manages concurrent API requests
+   - Priority-based request ordering
+   - Automatic retry with exponential backoff (up to 3 attempts)
+   - Configurable concurrency (default: 3-5)
+   - Real-time queue statistics
 
-### Data Collection Details
+### Type Definitions
 
-**PR Data Collected:**
-- Title, number, author, assignee
-- Reviewers (categorized as approved/pending)
-- Creation date, status (open/closed/merged)
-- Merge/close dates
-- Labels
-- Commits summary by author (count per author)
-- Related issue number (if linked)
-- Base branch
+**Core Types** (`src/types/index.ts`):
+- `PRData` - Pull request with assignees, reviewers, commits by author Map
+- `IssueData` - Issue with assignees array, closure reason
+- `Repository` - Parsed repository information
+- `CommitAuthorSummary` - Author commit count
 
-**Issue Data Collected:**
-- Title, number, author, assignee
-- Creation date, status (open/closed)
-- Close date and reason (completed/duplicate/not_planned/other)
-- Labels
-- Related PR numbers (from timeline events)
+**Storage Types** (`src/types/storage.ts`):
+- `OpenItemsStorage` - Structure for open items files
+- `MonthlyStorage` - Structure for monthly archive files  
+- `SyncState` - Tracks sync status and item numbers
+- `StorageIndex` - Master index of all repositories
 
-### Configuration Files
-- `repos.json`: Repository definitions organized by category
-- `.env`: Environment variables (GITHUB_TOKEN required)
-- `tsconfig.json`: TypeScript configuration with ES modules
+### Data Flow
+
+1. **Full Sync**:
+   ```
+   GitHub API → Fetch with pagination
+   → Process in batches (10 PRs, 20 issues)
+   → Save incrementally during pauses
+   → Update sync state
+   ```
+
+2. **Incremental Sync**:
+   ```
+   Load sync state → Fetch updates since last sync
+   → Compare open item numbers
+   → Detect newly merged/closed items
+   → Update files accordingly
+   ```
 
 ## Implementation Guidelines
 
 ### TypeScript Best Practices
-- Always use TypeScript (.ts) files
 - Strict type checking enabled
-- ES module imports/exports with .js extensions
-- Target ES2022 with NodeNext module resolution
+- ES module imports with .js extensions
+- Async/await for all asynchronous operations
+- Proper error handling with try/catch
+- Generic types for reusable components
 
-### API Integration
-- Use Octokit client for all GitHub API calls
-- Implement proper error handling for each repository
-- Continue processing other repos if one fails
-- Log progress and errors clearly
+### File Storage Conventions
+- Use `store/` as root directory (not `data/`)
+- Repository names sanitized for file system
+- JSON files with 2-space indentation
+- Maps serialized as objects, Sets as arrays
+- Dates require parsing when loading from JSON
 
-### Rate Limiting Strategy
-- Check rate limits after each batch of repositories
-- Automatic waiting when rate limit < 100 remaining
-- Configurable delays between API requests (default: 100ms)
-- Parallel processing with configurable concurrency
-
-### Error Handling
-- Individual repository failures don't stop the entire process
-- Clear error messages indicating which repository failed
-- Graceful fallback for missing timeline API endpoints
+### API Usage
+- Adaptive delays based on rate limit status
+- Maximum 5 concurrent requests by default
+- Burst protection at 300 requests/minute
+- Check rate limits after each repository
+- Filter out pull_request items from issues endpoint
+- Handle 404 errors gracefully for missing repos
 
 ## Environment Setup
-1. Copy `.env.example` to `.env`
-2. Add GitHub personal access token with repo scope
-3. Token must have access to all repositories in `repos.json`
+1. Requires `GITHUB_TOKEN` with repo scope
+2. Configure repositories in `repos.json`
+3. Token must have access to all configured repositories
 
-## Data Storage Architecture
+## Common Tasks
 
-### Storage Structure
-```
-data/
-├── index.json                    # Master index tracking all stored data
-└── repos/
-    ├── prebid-js/
-    │   ├── prs/
-    │   │   ├── 2024-01.json     # Monthly PR data files
-    │   │   ├── 2024-02.json
-    │   │   └── ...
-    │   └── issues/
-    │       ├── 2024-01.json     # Monthly issue data files
-    │       └── ...
-    └── [other-repos]/
+### Add a new repository
+Add to `repos.json`:
+```json
+{
+  "Category": [{
+    "name": "Display Name",
+    "url": "https://github.com/owner/repo"
+  }]
+}
 ```
 
-### Storage Service (`src/services/storageService.ts`)
-- **Monthly File Organization**: Data partitioned by year-month for efficient access
-- **Index Management**: Central index tracks all stored items with metadata
-- **Incremental Updates**: Identifies new/updated items to minimize API calls
-- **Duplicate Prevention**: Uses item numbers to prevent storing duplicates
-- **Update Tracking**: Records when items were last fetched and modified
+### Run a full sync with custom concurrency
+```javascript
+import { syncAllRepositories } from './src/index.js';
+await syncAllRepositories(5); // 5 concurrent requests
+```
 
-### Key Storage Features
-1. **Incremental Fetching**: Only fetch new/updated items on subsequent runs
-2. **Efficient Lookups**: Index provides quick access to specific date ranges
-3. **Storage Verification**: Returns counts of saved vs updated items
-4. **Date Range Queries**: Load data for specific time periods
-5. **Repository Isolation**: Each repo's data stored separately
+### Run incremental updates
+```javascript
+import { incrementalSync } from './src/index.js';
+await incrementalSync(); // All repos
+await incrementalSync('Prebid.js', 3); // Specific repo with concurrency
+```
 
-### Available Functions
-The project exports functions that can be called programmatically:
-- `fetchAllRepositories(options)` - Fetch and store all repository data
-- `fetchNewItemsOnly(repo?)` - Check for new items only (incremental update)
-- `loadFromStorage(repoName?, startDate?, endDate?)` - Load data from storage
-- `loadRepositories()` - Get list of all configured repositories
-- `getStorageService()` - Get direct access to storage service
+### Load stored data
+```javascript
+import { loadStoredData } from './src/index.js';
+const data = await loadStoredData('Prebid.js');
+console.log(`${data.prs.length} open PRs, ${data.issues.length} open issues`);
+```
 
-## Future Considerations
-- Webhook integration for real-time updates
-- Dashboard UI for visualization
-- Historical trend analysis
-- Data export to various formats
-- Automated scheduled updates
+### Direct GitHub service usage
+```javascript
+import { GitHubService } from './src/services/githubService.js';
+const github = new GitHubService(token, 5); // 5 concurrent
+
+// With batch callback for incremental saving
+const prs = await github.fetchOpenPRs(repo, {
+  onBatch: async (batch) => {
+    console.log(`Processing ${batch.length} PRs`);
+    await storage.save(batch);
+  },
+  onProgress: (current, total) => {
+    console.log(`${current}/${total}`);
+  }
+});
+```
+
+## Important Notes
+
+- The system only stores open and merged PRs (never closed-but-not-merged)
+- Monthly files are organized by merge/close date, not creation date
+- Incremental sync detects items that transitioned from open to closed
+- All dates are stored in ISO format and must be parsed back to Date objects when loading
+- Commit authors are aggregated per PR with count summaries in a Map
+- The system handles pagination automatically for large repositories
+- Rate limiting is adaptive and adjusts delays based on remaining quota
+- Batch saving occurs during processing to prevent data loss on interruption
+- Sequential repository processing ensures stability over speed

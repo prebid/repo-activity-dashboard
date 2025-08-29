@@ -2,9 +2,8 @@ import 'dotenv/config';
 import { DataFetcher } from './services/dataFetcher.js';
 import { StorageService } from './services/storageService.js';
 import { loadRepositories } from './utils/repoParser.js';
-import { Repository } from './types/index.js';
 
-export function validateEnvironment() {
+export function validateEnvironment(): boolean {
   const requiredEnvVars = ['GITHUB_TOKEN'];
   const missing = requiredEnvVars.filter(envVar => !process.env[envVar]);
   
@@ -16,45 +15,21 @@ export function validateEnvironment() {
   return true;
 }
 
-export async function fetchAllRepositories(options = {}) {
+export async function syncAllRepositories(maxConcurrent: number = 3): Promise<void> {
   if (!validateEnvironment()) {
     throw new Error('Missing required environment variables');
   }
   
-  const fetcher = new DataFetcher(process.env.GITHUB_TOKEN!, './data');
-  
-  return await fetcher.fetchAllRepositories({
-    state: 'all',
-    limit: 100,
-    parallel: true,
-    maxConcurrent: 3,
-    saveToStorage: true,
-    incrementalUpdate: true,
-    ...options
-  });
+  const fetcher = new DataFetcher(process.env.GITHUB_TOKEN!, './store', maxConcurrent);
+  await fetcher.syncAllRepositories();
 }
 
-export async function fetchNewItemsOnly(repo?: Repository) {
+export async function incrementalSync(repoName?: string, maxConcurrent: number = 3): Promise<void> {
   if (!validateEnvironment()) {
     throw new Error('Missing required environment variables');
   }
   
-  const fetcher = new DataFetcher(process.env.GITHUB_TOKEN!, './data');
-  const repositories = repo ? [repo] : loadRepositories();
-  
-  let totalNew = { prs: 0, issues: 0 };
-  
-  for (const repository of repositories) {
-    const result = await fetcher.fetchNewItemsOnly(repository);
-    totalNew.prs += result.newPRs;
-    totalNew.issues += result.newIssues;
-  }
-  
-  return totalNew;
-}
-
-export async function loadFromStorage(repoName?: string, startDate?: Date, endDate?: Date) {
-  const fetcher = new DataFetcher(process.env.GITHUB_TOKEN || '', './data');
+  const fetcher = new DataFetcher(process.env.GITHUB_TOKEN!, './store', maxConcurrent);
   const repositories = loadRepositories();
   
   if (repoName) {
@@ -62,19 +37,24 @@ export async function loadFromStorage(repoName?: string, startDate?: Date, endDa
     if (!repo) {
       throw new Error(`Repository "${repoName}" not found`);
     }
-    return await fetcher.loadFromStorage(repo, startDate, endDate);
+    await fetcher.incrementalSync(repo);
+  } else {
+    for (const repo of repositories) {
+      await fetcher.incrementalSync(repo);
+    }
   }
-  
-  const allData = [];
-  for (const repo of repositories) {
-    const data = await fetcher.loadFromStorage(repo, startDate, endDate);
-    allData.push(data);
-  }
-  return allData;
 }
 
-export async function getStorageService() {
-  return new StorageService('./data');
+export async function loadStoredData(repoName: string) {
+  const repositories = loadRepositories();
+  const repo = repositories.find(r => r.name === repoName);
+  
+  if (!repo) {
+    throw new Error(`Repository "${repoName}" not found`);
+  }
+  
+  const fetcher = new DataFetcher('', './store');
+  return await fetcher.loadRepositoryData(repo);
 }
 
 export { DataFetcher, StorageService, loadRepositories };

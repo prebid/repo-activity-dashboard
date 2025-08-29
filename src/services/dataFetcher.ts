@@ -3,99 +3,185 @@ import { StorageService } from './storageService.js';
 import { Repository, RepositoryData, PRData, IssueData } from '../types/index.js';
 import { loadRepositories } from '../utils/repoParser.js';
 
-interface FetchOptions {
-  state?: 'open' | 'closed' | 'all';
-  limit?: number;
-  parallel?: boolean;
-  maxConcurrent?: number;
-  saveToStorage?: boolean;
-  incrementalUpdate?: boolean;
-}
-
 export class DataFetcher {
   private githubService: GitHubService;
   private storageService: StorageService;
 
-  constructor(token: string, dataDir?: string) {
-    this.githubService = new GitHubService(token);
-    this.storageService = new StorageService(dataDir);
+  constructor(token: string, storeDir?: string, maxConcurrent: number = 3) {
+    this.githubService = new GitHubService(token, maxConcurrent);
+    this.storageService = new StorageService(storeDir);
   }
 
-  async fetchRepositoryData(repo: Repository, options?: FetchOptions): Promise<RepositoryData> {
-    console.log(`📊 Fetching data for ${repo.name}...`);
+  async syncRepository(repo: Repository): Promise<void> {
+    console.log(`🔄 Syncing ${repo.name}...`);
     
     try {
-      let prs, issues;
+      let allOpenPRs: PRData[] = [];
+      let allOpenIssues: IssueData[] = [];
+      let allMergedPRs: PRData[] = [];
+      let allClosedIssues: IssueData[] = [];
       
-      if (options?.incrementalUpdate) {
-        const existingPRNumbers = await this.storageService.getExistingItemNumbers(repo, 'prs');
-        const existingIssueNumbers = await this.storageService.getExistingItemNumbers(repo, 'issues');
-        console.log(`   Existing: ${existingPRNumbers.size} PRs, ${existingIssueNumbers.size} issues`);
-      }
+      // Fetch open PRs with batch saving
+      const openPRs = await this.githubService.fetchOpenPRs(repo, {
+        onBatch: async (batch) => {
+          allOpenPRs = [...allOpenPRs, ...batch];
+          await this.storageService.saveOpenPRs(repo, allOpenPRs);
+        }
+      });
+      allOpenPRs = openPRs;
+      
+      // Fetch open issues with batch saving
+      const openIssues = await this.githubService.fetchOpenIssues(repo, {
+        onBatch: async (batch) => {
+          allOpenIssues = [...allOpenIssues, ...batch];
+          await this.storageService.saveOpenIssues(repo, allOpenIssues);
+        }
+      });
+      allOpenIssues = openIssues;
+      
+      // Fetch merged PRs with batch saving
+      const mergedPRs = await this.githubService.fetchMergedPRs(repo, undefined, {
+        onBatch: async (batch) => {
+          allMergedPRs = [...allMergedPRs, ...batch];
+          await this.storageService.saveMergedPRs(repo, allMergedPRs);
+        }
+      });
+      allMergedPRs = mergedPRs;
+      
+      // Fetch closed issues with batch saving
+      const closedIssues = await this.githubService.fetchClosedIssues(repo, undefined, {
+        onBatch: async (batch) => {
+          allClosedIssues = [...allClosedIssues, ...batch];
+          await this.storageService.saveClosedIssues(repo, allClosedIssues);
+        }
+      });
+      allClosedIssues = closedIssues;
 
-      [prs, issues] = await Promise.all([
-        this.githubService.fetchPRs(repo, options),
-        this.githubService.fetchIssues(repo, options)
+      // Final save to ensure everything is stored
+      await Promise.all([
+        this.storageService.saveOpenPRs(repo, allOpenPRs),
+        this.storageService.saveOpenIssues(repo, allOpenIssues),
+        this.storageService.saveMergedPRs(repo, allMergedPRs),
+        this.storageService.saveClosedIssues(repo, allClosedIssues)
       ]);
 
-      console.log(`✅ Successfully fetched ${repo.name}: ${prs.length} PRs, ${issues.length} issues`);
+      await this.storageService.updateIndex(repo, {
+        openPRsCount: allOpenPRs.length,
+        openIssuesCount: allOpenIssues.length,
+        totalMergedPRs: allMergedPRs.length,
+        totalClosedIssues: allClosedIssues.length
+      });
 
-      if (options?.saveToStorage) {
-        const prResult = await this.storageService.savePRs(repo, prs);
-        const issueResult = await this.storageService.saveIssues(repo, issues);
-        console.log(`💾 Stored ${repo.name}: PRs (${prResult.saved} new, ${prResult.updated} updated), Issues (${issueResult.saved} new, ${issueResult.updated} updated)`);
-      }
+      await this.storageService.saveSyncState(repo, {
+        lastFullSync: new Date(),
+        lastIncrementalSync: new Date(),
+        openPRNumbers: new Set(allOpenPRs.map(pr => pr.number)),
+        openIssueNumbers: new Set(allOpenIssues.map(issue => issue.number))
+      });
 
-      return {
-        repository: repo,
-        prs,
-        issues,
-        fetchedAt: new Date()
-      };
+      console.log(`✅ ${repo.name}: ${allOpenPRs.length} open PRs, ${allOpenIssues.length} open issues, ${allMergedPRs.length} merged PRs, ${allClosedIssues.length} closed issues`);
     } catch (error) {
-      console.error(`❌ Failed to fetch data for ${repo.name}:`, error);
+      console.error(`❌ Failed to sync ${repo.name}:`, error);
       throw error;
     }
   }
 
-  async fetchAllRepositories(options?: FetchOptions): Promise<RepositoryData[]> {
-    const repositories = loadRepositories();
-    console.log(`🔍 Found ${repositories.length} repositories to analyze`);
-
-    if (options?.parallel === false) {
-      // Sequential fetching (slower but uses less API quota at once)
-      const results: RepositoryData[] = [];
-      for (const repo of repositories) {
-        try {
-          const data = await this.fetchRepositoryData(repo, options);
-          results.push(data);
-        } catch (error) {
-          console.error(`⚠️  Skipping ${repo.name} due to error`);
-        }
-      }
-      return results;
-    }
-
-    // Parallel fetching with concurrency control
-    const maxConcurrent = options?.maxConcurrent || 3;
-    const results: RepositoryData[] = [];
+  async incrementalSync(repo: Repository): Promise<void> {
+    console.log(`🔄 Incremental sync for ${repo.name}...`);
     
-    for (let i = 0; i < repositories.length; i += maxConcurrent) {
-      const batch = repositories.slice(i, i + maxConcurrent);
-      const batchPromises = batch.map(repo => 
-        this.fetchRepositoryData(repo, options)
-          .catch(error => {
-            console.error(`⚠️  Skipping ${repo.name} due to error`);
-            return null;
-          })
+    const syncState = await this.storageService.loadSyncState(repo);
+    const since = syncState?.lastIncrementalSync || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    
+    try {
+      let allCurrentOpenPRs: PRData[] = [];
+      let allCurrentOpenIssues: IssueData[] = [];
+      let allRecentMergedPRs: PRData[] = [];
+      let allRecentClosedIssues: IssueData[] = [];
+      
+      // Fetch current open PRs with batch saving
+      const currentOpenPRs = await this.githubService.fetchOpenPRs(repo, {
+        onBatch: async (batch) => {
+          allCurrentOpenPRs = [...allCurrentOpenPRs, ...batch];
+          await this.storageService.saveOpenPRs(repo, allCurrentOpenPRs);
+        }
+      });
+      allCurrentOpenPRs = currentOpenPRs;
+      
+      // Fetch current open issues with batch saving
+      const currentOpenIssues = await this.githubService.fetchOpenIssues(repo, {
+        onBatch: async (batch) => {
+          allCurrentOpenIssues = [...allCurrentOpenIssues, ...batch];
+          await this.storageService.saveOpenIssues(repo, allCurrentOpenIssues);
+        }
+      });
+      allCurrentOpenIssues = currentOpenIssues;
+      
+      // Fetch recently merged PRs
+      const recentMergedPRs = await this.githubService.fetchMergedPRs(repo, since, {
+        onBatch: async (batch) => {
+          allRecentMergedPRs = [...allRecentMergedPRs, ...batch];
+        }
+      });
+      allRecentMergedPRs = recentMergedPRs;
+      
+      // Fetch recently closed issues
+      const recentClosedIssues = await this.githubService.fetchClosedIssues(repo, since, {
+        onBatch: async (batch) => {
+          allRecentClosedIssues = [...allRecentClosedIssues, ...batch];
+        }
+      });
+      allRecentClosedIssues = recentClosedIssues;
+
+      const existingOpenPRs = await this.storageService.loadOpenPRs(repo);
+      const existingOpenIssues = await this.storageService.loadOpenIssues(repo);
+
+      const currentOpenPRNumbers = new Set(allCurrentOpenPRs.map(pr => pr.number));
+      
+      const newlyMergedPRs = existingOpenPRs.filter(pr => 
+        !currentOpenPRNumbers.has(pr.number) && pr.status === 'open'
       );
+
+      const currentOpenIssueNumbers = new Set(allCurrentOpenIssues.map(issue => issue.number));
       
-      const batchResults = await Promise.all(batchPromises);
-      results.push(...batchResults.filter((data): data is RepositoryData => data !== null));
+      const newlyClosedIssues = existingOpenIssues.filter(issue => 
+        !currentOpenIssueNumbers.has(issue.number) && issue.status === 'open'
+      );
+
+      // Final save with all data
+      await Promise.all([
+        this.storageService.saveOpenPRs(repo, allCurrentOpenPRs),
+        this.storageService.saveOpenIssues(repo, allCurrentOpenIssues),
+        this.storageService.saveMergedPRs(repo, [...allRecentMergedPRs, ...newlyMergedPRs]),
+        this.storageService.saveClosedIssues(repo, [...allRecentClosedIssues, ...newlyClosedIssues])
+      ]);
+
+      await this.storageService.saveSyncState(repo, {
+        lastIncrementalSync: new Date(),
+        openPRNumbers: currentOpenPRNumbers,
+        openIssueNumbers: currentOpenIssueNumbers
+      });
+
+      console.log(`✅ ${repo.name}: Updated open items, found ${allRecentMergedPRs.length} recently merged PRs, ${allRecentClosedIssues.length} recently closed issues`);
+    } catch (error) {
+      console.error(`❌ Failed incremental sync for ${repo.name}:`, error);
+      throw error;
+    }
+  }
+
+  async syncAllRepositories(): Promise<void> {
+    const repositories = loadRepositories();
+    console.log(`🔍 Found ${repositories.length} repositories to sync\n`);
+    console.log(`⚙️  Processing repositories sequentially for stability\n`);
+    
+    for (let i = 0; i < repositories.length; i++) {
+      const repo = repositories[i];
+      console.log(`\n[${i + 1}/${repositories.length}] Processing ${repo.name}`);
+      await this.syncRepository(repo);
       
-      // Check rate limit after each batch
       const rateLimit = await this.githubService.checkRateLimit();
-      console.log(`⏱️  API Rate Limit: ${rateLimit.remaining} remaining`);
+      const queueStats = this.githubService.getQueueStats();
+      console.log(`  API Rate Limit: ${rateLimit.remaining}/${rateLimit.limit} requests remaining`);
+      console.log(`  Queue Stats: ${queueStats.active} active, ${queueStats.queued} queued`);
       
       if (rateLimit.remaining < 100) {
         console.warn(`⚠️  Low API rate limit. Waiting until ${rateLimit.reset}`);
@@ -103,66 +189,26 @@ export class DataFetcher {
         if (waitTime > 0) {
           await new Promise(resolve => setTimeout(resolve, waitTime));
         }
-      }
-    }
-
-    return results;
-  }
-
-  async fetchByCategory(category: string, options?: FetchOptions): Promise<RepositoryData[]> {
-    const repositories = loadRepositories();
-    const categoryRepos = repositories.filter(repo => repo.category === category);
-    
-    console.log(`🔍 Found ${categoryRepos.length} repositories in category "${category}"`);
-    
-    const results: RepositoryData[] = [];
-    for (const repo of categoryRepos) {
-      try {
-        const data = await this.fetchRepositoryData(repo, options);
-        results.push(data);
-      } catch (error) {
-        console.error(`⚠️  Skipping ${repo.name} due to error`);
+      } else if (i < repositories.length - 1) {
+        // Brief pause between repositories
+        console.log(`  Waiting 2 seconds before next repository...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
     
-    return results;
+    console.log(`\n✅ All ${repositories.length} repositories synced successfully!`);
   }
 
-  async fetchNewItemsOnly(repo: Repository, options?: FetchOptions): Promise<{ newPRs: number; newIssues: number }> {
-    console.log(`🔄 Checking for new items in ${repo.name}...`);
-    
-    const [prs, issues] = await Promise.all([
-      this.githubService.fetchPRs(repo, { ...options, limit: 50 }),
-      this.githubService.fetchIssues(repo, { ...options, limit: 50 })
+  async loadRepositoryData(repo: Repository): Promise<RepositoryData> {
+    const [openPRs, openIssues] = await Promise.all([
+      this.storageService.loadOpenPRs(repo),
+      this.storageService.loadOpenIssues(repo)
     ]);
 
-    const prResult = await this.storageService.identifyNewItems(repo, prs, 'prs');
-    const issueResult = await this.storageService.identifyNewItems(repo, issues, 'issues');
-
-    if (prResult.newItems.length > 0 || prResult.updatedItems.length > 0) {
-      const saveResult = await this.storageService.savePRs(repo, [...prResult.newItems, ...prResult.updatedItems] as PRData[]);
-      console.log(`   PRs: ${saveResult.saved} new, ${saveResult.updated} updated`);
-    }
-
-    if (issueResult.newItems.length > 0 || issueResult.updatedItems.length > 0) {
-      const saveResult = await this.storageService.saveIssues(repo, [...issueResult.newItems, ...issueResult.updatedItems] as IssueData[]);
-      console.log(`   Issues: ${saveResult.saved} new, ${saveResult.updated} updated`);
-    }
-
-    return {
-      newPRs: prResult.newItems.length,
-      newIssues: issueResult.newItems.length
-    };
-  }
-
-  async loadFromStorage(repo: Repository, startDate?: Date, endDate?: Date): Promise<RepositoryData> {
-    const prs = await this.storageService.loadPRs(repo, startDate, endDate);
-    const issues = await this.storageService.loadIssues(repo, startDate, endDate);
-    
     return {
       repository: repo,
-      prs,
-      issues,
+      prs: openPRs,
+      issues: openIssues,
       fetchedAt: new Date()
     };
   }

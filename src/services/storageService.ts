@@ -1,66 +1,35 @@
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
+import { join } from 'path';
 import { PRData, IssueData, Repository } from '../types/index.js';
-import { StorageIndex, MonthlyData, RepositoryIndex, IncrementalFetchResult } from '../types/storage.js';
+import { OpenItemsStorage, MonthlyStorage, SyncState, StorageIndex } from '../types/storage.js';
 
 export class StorageService {
-  private dataDir: string;
-  private index: StorageIndex;
+  private storeDir: string;
   private indexPath: string;
 
-  constructor(dataDir: string = './data') {
-    this.dataDir = dataDir;
-    this.indexPath = join(dataDir, 'index.json');
-    this.index = this.loadOrCreateIndex();
+  constructor(storeDir: string = './store') {
+    this.storeDir = storeDir;
+    this.indexPath = join(storeDir, 'index.json');
+    this.ensureDirectoryExists(storeDir);
   }
 
-  private loadOrCreateIndex(): StorageIndex {
-    if (existsSync(this.indexPath)) {
-      try {
-        const content = readFileSync(this.indexPath, 'utf-8');
-        const index = JSON.parse(content, (key, value) => {
-          if (key === 'itemNumbers' || key === 'all') {
-            return new Set(value);
-          }
-          if (key.includes('Date') || key === 'firstItem' || key === 'lastItem' || key === 'lastUpdated' || key === 'lastFetch') {
-            return new Date(value);
-          }
-          return value;
-        });
-        return index;
-      } catch (error) {
-        console.error('Error loading index, creating new one:', error);
-      }
+  private ensureDirectoryExists(path: string): void {
+    if (!existsSync(path)) {
+      mkdirSync(path, { recursive: true });
     }
-    
-    return {
-      version: '1.0.0',
-      lastUpdated: new Date(),
-      repositories: {}
-    };
-  }
-
-  private saveIndex(): void {
-    const indexDir = dirname(this.indexPath);
-    if (!existsSync(indexDir)) {
-      mkdirSync(indexDir, { recursive: true });
-    }
-
-    const serializable = JSON.parse(JSON.stringify(this.index, (key, value) => {
-      if (value instanceof Set) {
-        return Array.from(value);
-      }
-      if (value instanceof Date) {
-        return value.toISOString();
-      }
-      return value;
-    }));
-
-    writeFileSync(this.indexPath, JSON.stringify(serializable, null, 2));
   }
 
   private getRepoKey(repo: Repository): string {
     return `${repo.owner}/${repo.repo}`;
+  }
+
+  private getSafeFileName(repoName: string): string {
+    return repoName.replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+  }
+
+  private getRepoPath(repo: Repository): string {
+    const safeRepoName = this.getSafeFileName(repo.repo);
+    return join(this.storeDir, 'repos', safeRepoName);
   }
 
   private getYearMonth(date: Date): string {
@@ -69,325 +38,272 @@ export class StorageService {
     return `${year}-${month}`;
   }
 
-  private getSafeFileName(repoName: string): string {
-    return repoName.replace(/[^a-z0-9-]/gi, '-').toLowerCase();
-  }
-
-  private getFilePath(repo: Repository, type: 'prs' | 'issues', yearMonth: string): string {
-    const safeRepoName = this.getSafeFileName(repo.repo);
-    return join(this.dataDir, 'repos', safeRepoName, type, `${yearMonth}.json`);
-  }
-
-  async getExistingItemNumbers(repo: Repository, type: 'prs' | 'issues'): Promise<Set<number>> {
-    const repoKey = this.getRepoKey(repo);
-    const repoIndex = this.index.repositories[repoKey];
+  async saveOpenPRs(repo: Repository, prs: PRData[]): Promise<void> {
+    const repoPath = this.getRepoPath(repo);
+    this.ensureDirectoryExists(repoPath);
     
-    if (!repoIndex) {
-      return new Set();
-    }
-
-    return type === 'prs' ? repoIndex.prs.all : repoIndex.issues.all;
-  }
-
-  async getLastFetchDate(repo: Repository): Promise<Date | null> {
-    const repoKey = this.getRepoKey(repo);
-    const repoIndex = this.index.repositories[repoKey];
-    
-    if (!repoIndex) {
-      return null;
-    }
-
-    return repoIndex.lastFetch;
-  }
-
-  async identifyNewItems(
-    repo: Repository,
-    fetchedItems: PRData[] | IssueData[],
-    type: 'prs' | 'issues'
-  ): Promise<IncrementalFetchResult> {
-    const existingNumbers = await this.getExistingItemNumbers(repo, type);
-    
-    const newItems: (PRData | IssueData)[] = [];
-    const updatedItems: (PRData | IssueData)[] = [];
-
-    for (const item of fetchedItems) {
-      if (!existingNumbers.has(item.number)) {
-        newItems.push(item);
-      } else {
-        const existingItem = await this.getItemByNumber(repo, type, item.number);
-        if (existingItem) {
-          const fetchedDate = type === 'prs' 
-            ? (item as PRData).dateMerged || (item as PRData).dateClosed || item.dateCreated
-            : (item as IssueData).dateClosed || item.dateCreated;
-          
-          const existingDate = type === 'prs'
-            ? (existingItem as PRData).dateMerged || (existingItem as PRData).dateClosed || existingItem.dateCreated
-            : (existingItem as IssueData).dateClosed || existingItem.dateCreated;
-
-          if (fetchedDate > existingDate || item.status !== existingItem.status) {
-            updatedItems.push(item);
-          }
-        }
-      }
-    }
-
-    return {
-      newItems,
-      updatedItems,
-      repository: this.getRepoKey(repo),
-      type,
-      fetchedAt: new Date()
+    const filePath = join(repoPath, 'open-prs.json');
+    const storage: OpenItemsStorage<PRData> = {
+      metadata: {
+        repository: this.getRepoKey(repo),
+        lastSync: new Date(),
+        itemCount: prs.length
+      },
+      items: prs
     };
+
+    writeFileSync(filePath, JSON.stringify(storage, (key, value) => {
+      if (value instanceof Map) {
+        return Object.fromEntries(value);
+      }
+      return value;
+    }, 2));
   }
 
-  private async getItemByNumber(
-    repo: Repository,
-    type: 'prs' | 'issues',
-    number: number
-  ): Promise<PRData | IssueData | null> {
-    const repoKey = this.getRepoKey(repo);
-    const repoIndex = this.index.repositories[repoKey];
+  async saveOpenIssues(repo: Repository, issues: IssueData[]): Promise<void> {
+    const repoPath = this.getRepoPath(repo);
+    this.ensureDirectoryExists(repoPath);
     
-    if (!repoIndex) return null;
+    const filePath = join(repoPath, 'open-issues.json');
+    const storage: OpenItemsStorage<IssueData> = {
+      metadata: {
+        repository: this.getRepoKey(repo),
+        lastSync: new Date(),
+        itemCount: issues.length
+      },
+      items: issues
+    };
 
-    const monthlyData = type === 'prs' ? repoIndex.prs : repoIndex.issues;
+    writeFileSync(filePath, JSON.stringify(storage, null, 2));
+  }
+
+  async saveMergedPRs(repo: Repository, prs: PRData[]): Promise<void> {
+    if (prs.length === 0) return;
+
+    const prsByMonth = new Map<string, PRData[]>();
     
-    for (const [yearMonth, entry] of Object.entries(monthlyData)) {
-      if (yearMonth === 'all') continue;
-      if (entry.itemNumbers.has(number)) {
-        const filePath = this.getFilePath(repo, type, yearMonth);
-        if (existsSync(filePath)) {
-          const data: MonthlyData<PRData | IssueData> = JSON.parse(
-            readFileSync(filePath, 'utf-8'),
-            (key, value) => {
-              if (key.includes('Date') || key === 'dateCreated' || key === 'dateMerged' || key === 'dateClosed') {
-                return new Date(value);
-              }
-              if (key === 'byAuthor' && typeof value === 'object') {
-                return new Map(Object.entries(value));
-              }
-              return value;
-            }
-          );
-          return data.items.find(item => item.number === number) || null;
+    for (const pr of prs) {
+      if (pr.dateMerged) {
+        const yearMonth = this.getYearMonth(pr.dateMerged);
+        if (!prsByMonth.has(yearMonth)) {
+          prsByMonth.set(yearMonth, []);
         }
+        prsByMonth.get(yearMonth)!.push(pr);
       }
     }
-    
-    return null;
-  }
 
-  async savePRs(repo: Repository, prs: PRData[]): Promise<{ saved: number; updated: number }> {
-    return this.saveItems(repo, prs, 'prs');
-  }
-
-  async saveIssues(repo: Repository, issues: IssueData[]): Promise<{ saved: number; updated: number }> {
-    return this.saveItems(repo, issues, 'issues');
-  }
-
-  private async saveItems(
-    repo: Repository,
-    items: PRData[] | IssueData[],
-    type: 'prs' | 'issues'
-  ): Promise<{ saved: number; updated: number }> {
-    if (items.length === 0) return { saved: 0, updated: 0 };
-
-    const repoKey = this.getRepoKey(repo);
-    
-    if (!this.index.repositories[repoKey]) {
-      this.index.repositories[repoKey] = {
-        prs: { all: new Set() },
-        issues: { all: new Set() },
-        lastFetch: new Date(),
-        lastModified: { prs: new Date(), issues: new Date() },
-        totalPRs: 0,
-        totalIssues: 0
-      };
-    }
-
-    const repoIndex = this.index.repositories[repoKey];
-    const itemsByMonth = new Map<string, (PRData | IssueData)[]>();
-    const existingNumbers = type === 'prs' ? repoIndex.prs.all : repoIndex.issues.all;
-    
-    let newCount = 0;
-    let updatedCount = 0;
-
-    for (const item of items) {
-      const yearMonth = this.getYearMonth(item.dateCreated);
-      if (!itemsByMonth.has(yearMonth)) {
-        itemsByMonth.set(yearMonth, []);
-      }
-      itemsByMonth.get(yearMonth)!.push(item);
+    for (const [yearMonth, monthPrs] of prsByMonth) {
+      const mergedPath = join(this.getRepoPath(repo), 'merged');
+      this.ensureDirectoryExists(mergedPath);
       
-      if (existingNumbers.has(item.number)) {
-        updatedCount++;
-      } else {
-        newCount++;
-        if (type === 'prs') {
-          repoIndex.prs.all.add(item.number);
-        } else {
-          repoIndex.issues.all.add(item.number);
-        }
-      }
-    }
-
-    for (const [yearMonth, monthItems] of itemsByMonth) {
-      const filePath = this.getFilePath(repo, type, yearMonth);
-      const fileDir = dirname(filePath);
+      const filePath = join(mergedPath, `${yearMonth}.json`);
+      let existingPrs: PRData[] = [];
       
-      if (!existsSync(fileDir)) {
-        mkdirSync(fileDir, { recursive: true });
-      }
-
-      let existingData: MonthlyData<PRData | IssueData> | null = null;
       if (existsSync(filePath)) {
-        existingData = JSON.parse(
-          readFileSync(filePath, 'utf-8'),
-          (key, value) => {
-            if (key.includes('Date') || key === 'dateCreated' || key === 'dateMerged' || key === 'dateClosed') {
-              return new Date(value);
-            }
-            if (key === 'byAuthor' && typeof value === 'object') {
-              return new Map(Object.entries(value));
-            }
-            return value;
-          }
-        );
+        const existing: MonthlyStorage<PRData> = JSON.parse(readFileSync(filePath, 'utf-8'));
+        existingPrs = existing.items.map(pr => ({
+          ...pr,
+          dateCreated: new Date(pr.dateCreated),
+          dateMerged: pr.dateMerged ? new Date(pr.dateMerged) : undefined,
+          dateClosed: pr.dateClosed ? new Date(pr.dateClosed) : undefined
+        }));
       }
 
-      const existingItems = existingData?.items || [];
-      const existingNumbersInFile = new Set(existingItems.map(item => item.number));
-      
-      const mergedItems = [...existingItems];
-      for (const newItem of monthItems) {
-        if (existingNumbersInFile.has(newItem.number)) {
-          const index = mergedItems.findIndex(item => item.number === newItem.number);
-          if (index !== -1) {
-            mergedItems[index] = newItem;
-          }
-        } else {
-          mergedItems.push(newItem);
-        }
+      const prMap = new Map<number, PRData>();
+      for (const pr of existingPrs) {
+        prMap.set(pr.number, pr);
       }
-
-      mergedItems.sort((a, b) => b.dateCreated.getTime() - a.dateCreated.getTime());
+      for (const pr of monthPrs) {
+        prMap.set(pr.number, pr);
+      }
 
       const [year, month] = yearMonth.split('-').map(Number);
-      const monthlyData: MonthlyData<PRData | IssueData> = {
+      const storage: MonthlyStorage<PRData> = {
         metadata: {
-          repository: repoKey,
+          repository: this.getRepoKey(repo),
           year,
           month,
-          itemCount: mergedItems.length,
-          lastUpdated: new Date(),
-          dateRange: {
-            start: new Date(year, month - 1, 1),
-            end: new Date(year, month, 0)
-          },
-          itemNumbers: mergedItems.map(item => item.number)
+          itemCount: prMap.size,
+          lastUpdated: new Date()
         },
-        items: mergedItems
+        items: Array.from(prMap.values()).sort((a, b) => 
+          (b.dateMerged?.getTime() || 0) - (a.dateMerged?.getTime() || 0)
+        )
       };
 
-      const serializable = JSON.parse(JSON.stringify(monthlyData, (key, value) => {
+      writeFileSync(filePath, JSON.stringify(storage, (key, value) => {
         if (value instanceof Map) {
           return Object.fromEntries(value);
         }
-        if (value instanceof Date) {
-          return value.toISOString();
-        }
         return value;
-      }));
-
-      writeFileSync(filePath, JSON.stringify(serializable, null, 2));
-
-      const monthlyIndex = type === 'prs' ? repoIndex.prs : repoIndex.issues;
-      monthlyIndex[yearMonth] = {
-        count: mergedItems.length,
-        file: filePath,
-        firstItem: mergedItems[mergedItems.length - 1].dateCreated,
-        lastItem: mergedItems[0].dateCreated,
-        lastUpdated: new Date(),
-        itemNumbers: new Set(mergedItems.map(item => item.number)),
-        highestNumber: Math.max(...mergedItems.map(item => item.number)),
-        oldestNumber: Math.min(...mergedItems.map(item => item.number))
-      };
+      }, 2));
     }
-
-    repoIndex.lastFetch = new Date();
-    repoIndex.lastModified[type] = new Date();
-    repoIndex[type === 'prs' ? 'totalPRs' : 'totalIssues'] = 
-      (type === 'prs' ? repoIndex.prs.all : repoIndex.issues.all).size;
-
-    this.index.lastUpdated = new Date();
-    this.saveIndex();
-
-    return { saved: newCount, updated: updatedCount };
   }
 
-  async loadPRs(repo: Repository, startDate?: Date, endDate?: Date): Promise<PRData[]> {
-    return this.loadItems(repo, 'prs', startDate, endDate) as Promise<PRData[]>;
-  }
+  async saveClosedIssues(repo: Repository, issues: IssueData[]): Promise<void> {
+    if (issues.length === 0) return;
 
-  async loadIssues(repo: Repository, startDate?: Date, endDate?: Date): Promise<IssueData[]> {
-    return this.loadItems(repo, 'issues', startDate, endDate) as Promise<IssueData[]>;
-  }
-
-  private async loadItems(
-    repo: Repository,
-    type: 'prs' | 'issues',
-    startDate?: Date,
-    endDate?: Date
-  ): Promise<(PRData | IssueData)[]> {
-    const repoKey = this.getRepoKey(repo);
-    const repoIndex = this.index.repositories[repoKey];
+    const issuesByMonth = new Map<string, IssueData[]>();
     
-    if (!repoIndex) {
-      return [];
-    }
-
-    const monthlyData = type === 'prs' ? repoIndex.prs : repoIndex.issues;
-    const allItems: (PRData | IssueData)[] = [];
-
-    for (const [yearMonth, entry] of Object.entries(monthlyData)) {
-      if (yearMonth === 'all') continue;
-      
-      const [year, month] = yearMonth.split('-').map(Number);
-      const monthStart = new Date(year, month - 1, 1);
-      const monthEnd = new Date(year, month, 0);
-
-      if (startDate && monthEnd < startDate) continue;
-      if (endDate && monthStart > endDate) continue;
-
-      const filePath = this.getFilePath(repo, type, yearMonth);
-      if (existsSync(filePath)) {
-        const data: MonthlyData<PRData | IssueData> = JSON.parse(
-          readFileSync(filePath, 'utf-8'),
-          (key, value) => {
-            if (key.includes('Date') || key === 'dateCreated' || key === 'dateMerged' || key === 'dateClosed') {
-              return new Date(value);
-            }
-            if (key === 'byAuthor' && typeof value === 'object') {
-              return new Map(Object.entries(value));
-            }
-            return value;
-          }
-        );
-
-        let items = data.items;
-        if (startDate || endDate) {
-          items = items.filter(item => {
-            const itemDate = item.dateCreated;
-            if (startDate && itemDate < startDate) return false;
-            if (endDate && itemDate > endDate) return false;
-            return true;
-          });
+    for (const issue of issues) {
+      if (issue.dateClosed) {
+        const yearMonth = this.getYearMonth(issue.dateClosed);
+        if (!issuesByMonth.has(yearMonth)) {
+          issuesByMonth.set(yearMonth, []);
         }
-
-        allItems.push(...items);
+        issuesByMonth.get(yearMonth)!.push(issue);
       }
     }
 
-    return allItems.sort((a, b) => b.dateCreated.getTime() - a.dateCreated.getTime());
+    for (const [yearMonth, monthIssues] of issuesByMonth) {
+      const closedPath = join(this.getRepoPath(repo), 'closed');
+      this.ensureDirectoryExists(closedPath);
+      
+      const filePath = join(closedPath, `${yearMonth}.json`);
+      let existingIssues: IssueData[] = [];
+      
+      if (existsSync(filePath)) {
+        const existing: MonthlyStorage<IssueData> = JSON.parse(readFileSync(filePath, 'utf-8'));
+        existingIssues = existing.items.map(issue => ({
+          ...issue,
+          dateCreated: new Date(issue.dateCreated),
+          dateClosed: issue.dateClosed ? new Date(issue.dateClosed) : undefined
+        }));
+      }
+
+      const issueMap = new Map<number, IssueData>();
+      for (const issue of existingIssues) {
+        issueMap.set(issue.number, issue);
+      }
+      for (const issue of monthIssues) {
+        issueMap.set(issue.number, issue);
+      }
+
+      const [year, month] = yearMonth.split('-').map(Number);
+      const storage: MonthlyStorage<IssueData> = {
+        metadata: {
+          repository: this.getRepoKey(repo),
+          year,
+          month,
+          itemCount: issueMap.size,
+          lastUpdated: new Date()
+        },
+        items: Array.from(issueMap.values()).sort((a, b) => 
+          (b.dateClosed?.getTime() || 0) - (a.dateClosed?.getTime() || 0)
+        )
+      };
+
+      writeFileSync(filePath, JSON.stringify(storage, null, 2));
+    }
+  }
+
+  async loadOpenPRs(repo: Repository): Promise<PRData[]> {
+    const filePath = join(this.getRepoPath(repo), 'open-prs.json');
+    if (!existsSync(filePath)) {
+      return [];
+    }
+
+    const storage: OpenItemsStorage<PRData> = JSON.parse(
+      readFileSync(filePath, 'utf-8'),
+      (key, value) => {
+        if (key === 'byAuthor' && typeof value === 'object') {
+          return new Map(Object.entries(value));
+        }
+        if (key.includes('Date') || key === 'dateCreated' || key === 'dateMerged' || key === 'dateClosed' || key === 'lastSync') {
+          return new Date(value);
+        }
+        return value;
+      }
+    );
+
+    return storage.items;
+  }
+
+  async loadOpenIssues(repo: Repository): Promise<IssueData[]> {
+    const filePath = join(this.getRepoPath(repo), 'open-issues.json');
+    if (!existsSync(filePath)) {
+      return [];
+    }
+
+    const storage: OpenItemsStorage<IssueData> = JSON.parse(
+      readFileSync(filePath, 'utf-8'),
+      (key, value) => {
+        if (key.includes('Date') || key === 'dateCreated' || key === 'dateClosed' || key === 'lastSync') {
+          return new Date(value);
+        }
+        return value;
+      }
+    );
+
+    return storage.items;
+  }
+
+  async saveSyncState(repo: Repository, state: Partial<SyncState>): Promise<void> {
+    const repoPath = this.getRepoPath(repo);
+    this.ensureDirectoryExists(repoPath);
+    
+    const filePath = join(repoPath, 'sync-state.json');
+    const fullState: SyncState = {
+      repository: this.getRepoKey(repo),
+      lastFullSync: state.lastFullSync || new Date(),
+      lastIncrementalSync: state.lastIncrementalSync || new Date(),
+      openPRNumbers: state.openPRNumbers || new Set(),
+      openIssueNumbers: state.openIssueNumbers || new Set()
+    };
+
+    writeFileSync(filePath, JSON.stringify(fullState, (key, value) => {
+      if (value instanceof Set) {
+        return Array.from(value);
+      }
+      return value;
+    }, 2));
+  }
+
+  async loadSyncState(repo: Repository): Promise<SyncState | null> {
+    const filePath = join(this.getRepoPath(repo), 'sync-state.json');
+    if (!existsSync(filePath)) {
+      return null;
+    }
+
+    return JSON.parse(
+      readFileSync(filePath, 'utf-8'),
+      (key, value) => {
+        if (key === 'openPRNumbers' || key === 'openIssueNumbers') {
+          return new Set(value);
+        }
+        if (key.includes('Sync')) {
+          return new Date(value);
+        }
+        return value;
+      }
+    );
+  }
+
+  async updateIndex(repo: Repository, stats: {
+    openPRsCount: number;
+    openIssuesCount: number;
+    totalMergedPRs: number;
+    totalClosedIssues: number;
+  }): Promise<void> {
+    let index: StorageIndex;
+    
+    if (existsSync(this.indexPath)) {
+      index = JSON.parse(readFileSync(this.indexPath, 'utf-8'));
+    } else {
+      index = {
+        version: '2.0.0',
+        lastUpdated: new Date(),
+        repositories: {}
+      };
+    }
+
+    const repoKey = this.getRepoKey(repo);
+    index.repositories[repoKey] = {
+      lastSync: new Date(),
+      ...stats
+    };
+    index.lastUpdated = new Date();
+
+    writeFileSync(this.indexPath, JSON.stringify(index, null, 2));
   }
 }

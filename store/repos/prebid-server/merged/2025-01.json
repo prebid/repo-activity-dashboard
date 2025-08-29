@@ -1,0 +1,1039 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 1,
+    "itemCount": 30,
+    "lastUpdated": "2025-08-29T23:34:36.851Z"
+  },
+  "items": [
+    {
+      "title": "Bump github.com/golang/glog from 1.1.0 to 1.2.4",
+      "number": 4182,
+      "author": "dependabot[bot]",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-28T17:35:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T17:34:45.000Z",
+      "labels": [
+        "dependencies"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dependabot[bot]": {
+            "count": 1,
+            "author": "dependabot[bot]"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: FeedAd",
+      "number": 4104,
+      "author": "andwun",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "andwun"
+        ]
+      },
+      "dateCreated": "2024-12-13T15:39:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T17:22:16.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 12,
+        "byAuthor": {
+          "andwun": {
+            "count": 12,
+            "author": "andwun"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: AdUp Tech",
+      "number": 4076,
+      "author": "danygielow",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "danygielow",
+          "scr-oath",
+          "pm-isha-bharti"
+        ]
+      },
+      "dateCreated": "2024-11-26T07:34:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T17:14:07.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "danygielow": {
+            "count": 11,
+            "author": "danygielow"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update code-path-changes workflow",
+      "number": 4175,
+      "author": "bretg",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-27T19:04:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-28T16:51:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Docker example updates",
+      "number": 4050,
+      "author": "jefftmahoney",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "bsardo"
+        ],
+        "pending": [
+          "jefftmahoney"
+        ]
+      },
+      "dateCreated": "2024-11-12T19:26:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-28T16:23:38.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "jefftmahoney": {
+            "count": 3,
+            "author": "jefftmahoney"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: ResetDigital",
+      "number": 3766,
+      "author": "bruno-siira",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "bruno-siira",
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-06-20T21:17:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-28T15:43:03.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 93,
+        "byAuthor": {
+          "bruno-siira": {
+            "count": 55,
+            "author": "bruno-siira"
+          },
+          "BrunoJacinto": {
+            "count": 2,
+            "author": "BrunoJacinto"
+          },
+          "ogbonnaEmmanuel": {
+            "count": 4,
+            "author": "ogbonnaEmmanuel"
+          },
+          "dirk-rd": {
+            "count": 32,
+            "author": "dirk-rd"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Admatic: Add headers",
+      "number": 4083,
+      "author": "bakicam",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": [
+          "bakicam"
+        ]
+      },
+      "dateCreated": "2024-12-01T10:48:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-28T13:18:50.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 65,
+        "byAuthor": {
+          "bakicam": {
+            "count": 34,
+            "author": "bakicam"
+          },
+          "farukcam": {
+            "count": 31,
+            "author": "farukcam"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add codepath alerts",
+      "number": 4141,
+      "author": "bretg",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": [
+          "bretg"
+        ]
+      },
+      "dateCreated": "2025-01-08T17:27:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-25T17:00:32.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bretg": {
+            "count": 2,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yieldlab: Forward consent under param gdpr_consent",
+      "number": 4127,
+      "author": "rey1128",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "william-harris",
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-07T08:52:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-25T16:25:14.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rey1128": {
+            "count": 1,
+            "author": "rey1128"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "vrtcal: Declare ORTB 2.6 support",
+      "number": 4125,
+      "author": "vrtcal-dev",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-02T21:03:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-25T14:55:49.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Ubuntu": {
+            "count": 1,
+            "author": "Ubuntu"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: TradPlus",
+      "number": 3987,
+      "author": "tradplus",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "tradplus"
+        ]
+      },
+      "dateCreated": "2024-10-16T10:39:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-24T20:38:07.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 21,
+        "byAuthor": {
+          "tradplus": {
+            "count": 21,
+            "author": "tradplus"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Ogury",
+      "number": 4082,
+      "author": "krdzo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "krdzo",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-11-28T14:59:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-24T20:27:34.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 14,
+        "byAuthor": {
+          "krdzo": {
+            "count": 14,
+            "author": "krdzo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Medianet: Sanitize usersync iframe url",
+      "number": 4128,
+      "author": "rishi-parmar",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "CTMBNara",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-07T13:18:14.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-24T17:19:54.000Z",
+      "labels": [
+        "do not port",
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rishi-parmar": {
+            "count": 1,
+            "author": "rishi-parmar"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Criteo: Add pubid/uid fields in the configuration",
+      "number": 4132,
+      "author": "vraybaud",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "bsardo"
+        ],
+        "pending": [
+          "vraybaud"
+        ]
+      },
+      "dateCreated": "2025-01-07T16:28:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-24T16:55:39.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "v.raybaud": {
+            "count": 1,
+            "author": "v.raybaud"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenX: Native support",
+      "number": 4144,
+      "author": "Fuska1",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-09T10:47:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-24T13:25:42.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 13,
+        "byAuthor": {
+          "Fuska1": {
+            "count": 12,
+            "author": "Fuska1"
+          },
+          "gmiedlar-ox": {
+            "count": 1,
+            "author": "gmiedlar-ox"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Use embed for pixel so it is a proper png file",
+      "number": 4106,
+      "author": "scr-oath",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-12-15T19:00:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-22T20:59:31.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "scr-oath": {
+            "count": 1,
+            "author": "scr-oath"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "CWire: Add domainId param and app capability",
+      "number": 4107,
+      "author": "roarc0",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "roarc0"
+        ]
+      },
+      "dateCreated": "2024-12-16T09:03:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-22T20:40:45.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "roarc0": {
+            "count": 5,
+            "author": "roarc0"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Intertech",
+      "number": 3718,
+      "author": "przemkaczmarek",
+      "assignees": [
+        "bsardo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "przemkaczmarek"
+        ]
+      },
+      "dateCreated": "2024-06-03T14:30:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-22T17:09:54.000Z",
+      "labels": [
+        "do not port",
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 22,
+        "byAuthor": {
+          "przemkaczmarek": {
+            "count": 22,
+            "author": "przemkaczmarek"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: Ads Interactive",
+      "number": 3929,
+      "author": "AdsInteractive",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "AdsInteractive"
+        ]
+      },
+      "dateCreated": "2024-09-17T21:54:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-21T20:58:43.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "AdsInteractive": {
+            "count": 9,
+            "author": "AdsInteractive"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bump golang.org/x/net from 0.23.0 to 0.33.0",
+      "number": 4142,
+      "author": "dependabot[bot]",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-08T17:59:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-18T00:45:33.000Z",
+      "labels": [
+        "do not port",
+        "dependencies"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "dependabot[bot]": {
+            "count": 1,
+            "author": "dependabot[bot]"
+          },
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sovrn: Accept imp.ext bidfloor as number or string",
+      "number": 3955,
+      "author": "ikagotso",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-10-04T10:38:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-18T00:30:58.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "ikagotso": {
+            "count": 11,
+            "author": "ikagotso"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Revert \"Rubicon: Update segtax logic (#3915)\"",
+      "number": 4161,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-17T20:33:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-18T00:17:12.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Revert \"Fix: Rubicon segtax test (#4143)\"",
+      "number": 4159,
+      "author": "bsardo",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-17T18:16:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-17T20:28:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Kueez",
+      "number": 4038,
+      "author": "saar120",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "saar120",
+          "assa-kariv"
+        ]
+      },
+      "dateCreated": "2024-11-05T08:35:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-16T14:34:58.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "saar120": {
+            "count": 5,
+            "author": "saar120"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Adverxo",
+      "number": 4018,
+      "author": "dev-adverxo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "dev-adverxo",
+          "bretg"
+        ]
+      },
+      "dateCreated": "2024-10-28T15:29:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-14T17:06:48.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "dev-adverxo": {
+            "count": 6,
+            "author": "dev-adverxo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adhese: Switch to openrtb2 endpoint",
+      "number": 3864,
+      "author": "mefjush",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "onkarvhanumante",
+          "mefjush",
+          "skonky",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-08-16T13:59:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-09T20:19:00.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 18,
+        "byAuthor": {
+          "mefjush": {
+            "count": 2,
+            "author": "mefjush"
+          },
+          "skonky": {
+            "count": 16,
+            "author": "skonky"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Rubicon segtax test",
+      "number": 4143,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-01-08T20:45:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-09T15:12:01.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Kobler",
+      "number": 3904,
+      "author": "TommyHPettersen",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "TommyHPettersen",
+          "SyntaxNode",
+          "acsbendi",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-09-06T13:40:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-08T17:59:27.000Z",
+      "labels": [
+        "needs docs",
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 16,
+        "byAuthor": {
+          "TommyHPettersen": {
+            "count": 15,
+            "author": "TommyHPettersen"
+          },
+          "acsbendi": {
+            "count": 1,
+            "author": "acsbendi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Update segtax logic",
+      "number": 3915,
+      "author": "CTMBNara",
+      "assignees": [
+        "VeronikaSolovei9",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "MaksymTeqBlaze"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-12T13:06:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-08T17:58:34.000Z",
+      "labels": [
+        "do not port",
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "ddubyk": {
+            "count": 5,
+            "author": "ddubyk"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Upgrade to Go 1.23",
+      "number": 4112,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-12-16T18:43:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-07T17:13:34.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bsardo": {
+            "count": 2,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

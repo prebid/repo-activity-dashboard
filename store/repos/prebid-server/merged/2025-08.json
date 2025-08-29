@@ -1,0 +1,809 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 8,
+    "itemCount": 24,
+    "lastUpdated": "2025-08-29T23:34:36.847Z"
+  },
+  "items": [
+    {
+      "title": "zMaticoo: Update endpoint",
+      "number": 4471,
+      "author": "g-coder-baiai",
+      "assignees": [
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-04T09:40:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-27T18:35:50.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Quentin.zuo": {
+            "count": 1,
+            "author": "Quentin.zuo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: RocketLab",
+      "number": 4383,
+      "author": "leamarty",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-10T09:09:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-26T12:59:10.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "leamarty": {
+            "count": 6,
+            "author": "leamarty"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rules Engine Module: Configurable cache update frequency",
+      "number": 4423,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "VeronikaSolovei9",
+          "guscarreon",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2025-07-06T23:52:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-25T19:58:20.000Z",
+      "labels": [
+        "module"
+      ],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 11,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Onetag: imp.ext read generalization",
+      "number": 4446,
+      "author": "EmanueleSimonelli",
+      "assignees": [
+        "pm-isha-bharti"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-nikhil-vaidya",
+          "pm-isha-bharti"
+        ],
+        "pending": [
+          "EmanueleSimonelli"
+        ]
+      },
+      "dateCreated": "2025-07-21T13:45:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-25T19:45:54.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "l-baglini": {
+            "count": 1,
+            "author": "l-baglini"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: TeqBlaze",
+      "number": 4480,
+      "author": "MaksymTeqBlaze",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-12T17:07:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-21T14:57:39.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "MaksymTeqBlaze": {
+            "count": 2,
+            "author": "MaksymTeqBlaze"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Harden HTTP Response Body Handling",
+      "number": 4489,
+      "author": "SyntaxNode",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2025-08-19T04:22:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T19:29:26.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 3,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Afront",
+      "number": 4380,
+      "author": "Afrontio",
+      "assignees": [
+        "VeronikaSolovei9",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-nikhil-vaidya",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "Afrontio",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2025-06-09T09:50:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T19:19:37.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Afrontio": {
+            "count": 3,
+            "author": "Afrontio"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Modules: Exitpoint Stage",
+      "number": 4435,
+      "author": "pm-nikhil-vaidya",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "hhhjort"
+        ],
+        "pending": [
+          "pm-nikhil-vaidya"
+        ]
+      },
+      "dateCreated": "2025-07-14T07:27:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T19:06:38.000Z",
+      "labels": [
+        "modularity infrastructure"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "pm-nikhil-vaidya": {
+            "count": 4,
+            "author": "pm-nikhil-vaidya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Adipolo - Xeworks alias",
+      "number": 4350,
+      "author": "And-Rud",
+      "assignees": [
+        "pm-isha-bharti",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-isha-bharti",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2025-05-23T12:05:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T18:54:03.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "And-Rud": {
+            "count": 5,
+            "author": "And-Rud"
+          },
+          "rbstdev": {
+            "count": 1,
+            "author": "rbstdev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "sspBC: Updates moving operations to backend service",
+      "number": 4351,
+      "author": "mabielinski-wpm",
+      "assignees": [
+        "pm-isha-bharti",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-isha-bharti",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "mabielinski-wpm"
+        ]
+      },
+      "dateCreated": "2025-05-23T12:32:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T18:41:31.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "mabielinski-wpm": {
+            "count": 3,
+            "author": "mabielinski-wpm"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smartadserver: Add second endpoint for programmatic guaranteed",
+      "number": 4467,
+      "author": "GuillaumeLaubier",
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "przemkaczmarek",
+          "pm-jaydeep-mohite"
+        ],
+        "pending": [
+          "GuillaumeLaubier"
+        ]
+      },
+      "dateCreated": "2025-07-31T15:15:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T18:13:47.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "Guillaume Laubier": {
+            "count": 2,
+            "author": "Guillaume Laubier"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sovrn: Fix passing through imp.ext.gpid",
+      "number": 4413,
+      "author": "sejanick",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "sejanick"
+        ]
+      },
+      "dateCreated": "2025-06-30T14:41:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T17:51:06.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "sejanick": {
+            "count": 4,
+            "author": "sejanick"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Account: Support bid rounding options",
+      "number": 4470,
+      "author": "sigma-software-prebid",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-01T22:50:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-19T17:40:21.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "sigma-software-prebid": {
+            "count": 1,
+            "author": "sigma-software-prebid"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rules Engine Module: Result functions fix",
+      "number": 4451,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": [
+          "VeronikaSolovei9"
+        ]
+      },
+      "dateCreated": "2025-07-24T01:42:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-12T17:10:00.000Z",
+      "labels": [
+        "module"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 4,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Define An Adapter As White Label Only",
+      "number": 4461,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": [
+          "copilot-pull-request-reviewer[bot]",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2025-07-30T06:27:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-08T00:43:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 10,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Omnidex - Vidazoo alias",
+      "number": 4441,
+      "author": "anna-y-perion",
+      "assignees": [
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-jaydeep-mohite",
+          "bsardo"
+        ],
+        "pending": [
+          "anna-y-perion"
+        ]
+      },
+      "dateCreated": "2025-07-17T11:05:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-07T20:30:21.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "anna-y-perion": {
+            "count": 6,
+            "author": "anna-y-perion"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Tagoras - Vidazoo alias",
+      "number": 4329,
+      "author": "saar120",
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "bsardo"
+        ],
+        "pending": [
+          "pm-isha-bharti",
+          "saar120",
+          "anna-y-perion"
+        ]
+      },
+      "dateCreated": "2025-05-06T10:21:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-07T19:52:50.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "saar120": {
+            "count": 4,
+            "author": "saar120"
+          },
+          "anna-y-perion": {
+            "count": 1,
+            "author": "anna-y-perion"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adds missing defaults to network throttling code",
+      "number": 4477,
+      "author": "hhhjort",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-07T13:17:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-07T17:11:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "hhhjort": {
+            "count": 1,
+            "author": "hhhjort"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pubmatic: Forward skadn object in bid request",
+      "number": 4453,
+      "author": "pm-isha-bharti",
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-jaydeep-mohite",
+          "ccorbo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-28T09:33:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-07T13:38:34.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-isha-bharti": {
+            "count": 1,
+            "author": "pm-isha-bharti"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Request: Add hb_env=amp targeting to AMP responses",
+      "number": 4414,
+      "author": "sigma-software-prebid",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-01T19:17:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-07T13:27:28.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "sigma-software-prebid": {
+            "count": 4,
+            "author": "sigma-software-prebid"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yandex: Add video support",
+      "number": 4344,
+      "author": "DiMurer",
+      "assignees": [
+        "VeronikaSolovei9",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-jaydeep-mohite",
+          "pm-nikhil-vaidya",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "DiMurer"
+        ]
+      },
+      "dateCreated": "2025-05-21T11:51:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-06T02:15:15.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "DiMurer": {
+            "count": 8,
+            "author": "DiMurer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yieldlab: Forward ADomain to OpenRTB bid",
+      "number": 4404,
+      "author": "rey1128",
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-20T10:57:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-06T01:12:52.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rey1128": {
+            "count": 1,
+            "author": "rey1128"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidder throttling code to increase network stability.",
+      "number": 4415,
+      "author": "hhhjort",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "giditietz",
+          "hhhjort"
+        ]
+      },
+      "dateCreated": "2025-07-02T13:35:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-04T17:08:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "hhhjort": {
+            "count": 7,
+            "author": "hhhjort"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Set account http fetcher defaults enabling env vars",
+      "number": 4460,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-30T02:47:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T15:29:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bsardo": {
+            "count": 2,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

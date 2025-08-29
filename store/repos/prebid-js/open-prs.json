@@ -1,0 +1,837 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "lastSync": "2025-08-29T23:42:55.338Z",
+    "itemCount": 30
+  },
+  "items": [
+    {
+      "title": "Alvads Bid Adapter : initial release",
+      "number": 13799,
+      "author": "SamuelAlejandroNT",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-advanced-security[bot]"
+        ]
+      },
+      "dateCreated": "2025-08-25T15:59:51.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 12,
+        "byAuthor": {
+          "Samuel Alejandro Maldonado Garcia": {
+            "count": 7,
+            "author": "Samuel Alejandro Maldonado Garcia"
+          },
+          "SamuelAlejandroNT": {
+            "count": 5,
+            "author": "SamuelAlejandroNT"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: DXTech",
+      "number": 13815,
+      "author": "dxtech-git",
+      "assignees": [],
+      "dateCreated": "2025-08-27T21:13:10.000Z",
+      "status": "open",
+      "labels": [
+        "feature",
+        "needs update"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "dxtech-git": {
+            "count": 6,
+            "author": "dxtech-git"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic Bid Adapter: Optimize impressions",
+      "number": 13791,
+      "author": "pm-azhar-mulla",
+      "assignees": [],
+      "dateCreated": "2025-08-21T11:01:57.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 16,
+        "byAuthor": {
+          "pm-azhar-mulla": {
+            "count": 16,
+            "author": "pm-azhar-mulla"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yandex Bid Adapter: Added logging of errors and events",
+      "number": 13819,
+      "author": "filipov",
+      "assignees": [],
+      "dateCreated": "2025-08-28T09:33:54.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "filipov": {
+            "count": 5,
+            "author": "filipov"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: handling interventions",
+      "number": 13818,
+      "author": "mkomorski",
+      "assignees": [
+        "patmmccann",
+        "dgirardi"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "dgirardi"
+        ]
+      },
+      "dateCreated": "2025-08-28T09:25:41.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "mkomorski": {
+            "count": 6,
+            "author": "mkomorski"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Pubmatic Bid Adapter : add biddercode in translator payload for reporting purposes",
+      "number": 13797,
+      "author": "pm-tanishka-vishwakarma",
+      "assignees": [],
+      "dateCreated": "2025-08-25T11:44:08.000Z",
+      "status": "open",
+      "labels": [
+        "maintenance"
+      ],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "Tanishka Vishwakarma": {
+            "count": 5,
+            "author": "Tanishka Vishwakarma"
+          },
+          "pm-tanishka-vishwakarma": {
+            "count": 3,
+            "author": "pm-tanishka-vishwakarma"
+          },
+          "ChrisHuie": {
+            "count": 2,
+            "author": "ChrisHuie"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adverxo Bid Adapter : change auction domains",
+      "number": 13817,
+      "author": "dev-adverxo",
+      "assignees": [],
+      "dateCreated": "2025-08-28T07:45:18.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dev-adverxo": {
+            "count": 1,
+            "author": "dev-adverxo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rnd 5442 support prebid js 10 change in user",
+      "number": 13813,
+      "author": "anna-y-perion",
+      "assignees": [],
+      "dateCreated": "2025-08-27T10:56:28.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "anna-y-perion": {
+            "count": 6,
+            "author": "anna-y-perion"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sevio Bid Adapter : detect keywords when those were not provided as params",
+      "number": 13814,
+      "author": "petrican",
+      "assignees": [],
+      "dateCreated": "2025-08-27T11:46:23.000Z",
+      "status": "open",
+      "labels": [
+        "on hold"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "petrican": {
+            "count": 2,
+            "author": "petrican"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: granular settings for main thread yielding; turn yielding off; re-expose `requestBids.before`",
+      "number": 13789,
+      "author": "dgirardi",
+      "assignees": [
+        "robertrmartinez",
+        "Fawke"
+      ],
+      "dateCreated": "2025-08-20T16:33:58.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "dgirardi": {
+            "count": 10,
+            "author": "dgirardi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Conversant Adapter: update for typescript",
+      "number": 13767,
+      "author": "johnwier",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "copilot-pull-request-reviewer[bot]",
+          "dgirardi"
+        ]
+      },
+      "dateCreated": "2025-08-13T05:40:53.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "johwier": {
+            "count": 4,
+            "author": "johwier"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove invalid commands from devcontainer.json",
+      "number": 13795,
+      "author": "muuki88",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann",
+          "muuki88"
+        ]
+      },
+      "dateCreated": "2025-08-25T09:13:50.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "muuki88": {
+            "count": 3,
+            "author": "muuki88"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "BeOp Bid Adapter : fix timeout tracking",
+      "number": 13798,
+      "author": "sebrobert",
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": {
+        "approved": [
+          "ChrisHuie"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-25T14:17:42.000Z",
+      "status": "open",
+      "labels": [
+        "bugfix"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "sebrobert": {
+            "count": 1,
+            "author": "sebrobert"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "gamAdServerVideo: Add GPP consent information to the DFP video url",
+      "number": 13761,
+      "author": "robin-crazygames",
+      "assignees": [],
+      "dateCreated": "2025-08-12T06:26:33.000Z",
+      "status": "open",
+      "labels": [
+        "on hold"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "robin-crazygames": {
+            "count": 2,
+            "author": "robin-crazygames"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Oftmedia rtdmodule: New Module Initial Commit",
+      "number": 13527,
+      "author": "152Media",
+      "assignees": [
+        "jefftmahoney"
+      ],
+      "reviewers": {
+        "approved": [
+          "jefftmahoney"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-04T15:10:01.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "arezitopedia": {
+            "count": 7,
+            "author": "arezitopedia"
+          },
+          "152Media": {
+            "count": 1,
+            "author": "152Media"
+          },
+          "ChrisHuie": {
+            "count": 1,
+            "author": "ChrisHuie"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SSP Genie Bid Adapter : add param title to JSK endpoint",
+      "number": 13787,
+      "author": "hieund-geniee",
+      "assignees": [
+        "jefftmahoney"
+      ],
+      "reviewers": {
+        "approved": [
+          "jefftmahoney"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-08-20T07:18:38.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 23,
+        "byAuthor": {
+          "Murano Takamasa": {
+            "count": 1,
+            "author": "Murano Takamasa"
+          },
+          "gn-daikichi": {
+            "count": 3,
+            "author": "gn-daikichi"
+          },
+          "takm-furukawa": {
+            "count": 1,
+            "author": "takm-furukawa"
+          },
+          "furukawaTakumi": {
+            "count": 3,
+            "author": "furukawaTakumi"
+          },
+          "haruki-yamaguchi": {
+            "count": 8,
+            "author": "haruki-yamaguchi"
+          },
+          "hrkhito": {
+            "count": 3,
+            "author": "hrkhito"
+          },
+          "thanhtran-geniee": {
+            "count": 3,
+            "author": "thanhtran-geniee"
+          },
+          "hieund97": {
+            "count": 1,
+            "author": "hieund97"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidfuse Bid Adapter : initial release",
+      "number": 13783,
+      "author": "bidfuse",
+      "assignees": [
+        "osazos"
+      ],
+      "reviewers": {
+        "approved": [
+          "osazos"
+        ],
+        "pending": [
+          "bidfuse"
+        ]
+      },
+      "dateCreated": "2025-08-19T14:52:05.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "bidfuse": {
+            "count": 10,
+            "author": "bidfuse"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "[fluctBidAdapter] add-im-rtd-segment data",
+      "number": 13687,
+      "author": "eknis",
+      "assignees": [],
+      "dateCreated": "2025-07-29T10:31:00.000Z",
+      "status": "open",
+      "labels": [
+        "needs update"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "eknis": {
+            "count": 3,
+            "author": "eknis"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MediaConsortium Bid Adapter: change outstream renderer",
+      "number": 13452,
+      "author": "vpeack",
+      "assignees": [
+        "mmoschovas"
+      ],
+      "dateCreated": "2025-06-30T14:09:42.000Z",
+      "status": "open",
+      "labels": [
+        "needs update",
+        "maintenance"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "Vincent Barach": {
+            "count": 5,
+            "author": "Vincent Barach"
+          },
+          "vpeack": {
+            "count": 1,
+            "author": "vpeack"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Linting: Eqeqeq",
+      "number": 13586,
+      "author": "patmmccann",
+      "assignees": [
+        "gwhigs"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "ChrisHuie",
+          "github-advanced-security[bot]",
+          "patmmccann",
+          "gwhigs"
+        ]
+      },
+      "dateCreated": "2025-07-14T19:35:04.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 67,
+        "byAuthor": {
+          "patmmccann": {
+            "count": 67,
+            "author": "patmmccann"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Utiq Id Module : add post message request and handler on prebid id modules",
+      "number": 13782,
+      "author": "ManuelAlfonsoUtiq",
+      "assignees": [
+        "Fawke"
+      ],
+      "dateCreated": "2025-08-19T03:46:34.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "ManuelAlfonsoUtiq": {
+            "count": 3,
+            "author": "ManuelAlfonsoUtiq"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Define Media Bid Adapter: initial release",
+      "number": 13713,
+      "author": "dennisjay",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann",
+          "github-advanced-security[bot]",
+          "dennisjay"
+        ]
+      },
+      "dateCreated": "2025-08-01T14:37:34.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 21,
+        "byAuthor": {
+          "mkdefinemedia": {
+            "count": 7,
+            "author": "mkdefinemedia"
+          },
+          "dennisjay": {
+            "count": 11,
+            "author": "dennisjay"
+          },
+          "Dennis Joest": {
+            "count": 3,
+            "author": "Dennis Joest"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Gemius User ID Module : initial release",
+      "number": 13707,
+      "author": "mmuras",
+      "assignees": [
+        "monis0395"
+      ],
+      "reviewers": {
+        "approved": [
+          "monis0395"
+        ],
+        "pending": [
+          "patmmccann",
+          "mmuras"
+        ]
+      },
+      "dateCreated": "2025-07-31T12:51:36.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "mmuras": {
+            "count": 3,
+            "author": "mmuras"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Linting: fix array-callback-return warnings",
+      "number": 13621,
+      "author": "patmmccann",
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann"
+        ]
+      },
+      "dateCreated": "2025-07-16T19:23:30.000Z",
+      "status": "open",
+      "labels": [
+        "maintenance"
+      ],
+      "commits": {
+        "totalCount": 13,
+        "byAuthor": {
+          "patmmccann": {
+            "count": 13,
+            "author": "patmmccann"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "zmaticooBidAdapter.js: change  endpoint",
+      "number": 13715,
+      "author": "dsfderek",
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann"
+        ]
+      },
+      "dateCreated": "2025-08-04T10:15:38.000Z",
+      "status": "open",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dsfderek": {
+            "count": 1,
+            "author": "dsfderek"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: add argument to requestBids event",
+      "number": 13634,
+      "author": "dgirardi",
+      "assignees": [
+        "robertrmartinez"
+      ],
+      "reviewers": {
+        "approved": [
+          "robertrmartinez"
+        ],
+        "pending": [
+          "Sir-Will",
+          "dgirardi"
+        ]
+      },
+      "dateCreated": "2025-07-21T16:31:37.000Z",
+      "status": "open",
+      "labels": [
+        "feature",
+        "do not merge"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "dgirardi": {
+            "count": 6,
+            "author": "dgirardi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tests: add opera to browserstack",
+      "number": 13223,
+      "author": "patmmccann",
+      "assignees": [],
+      "dateCreated": "2025-05-30T13:50:45.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "pmc-review"
+      ],
+      "commits": {
+        "totalCount": 24,
+        "byAuthor": {
+          "patmmccann": {
+            "count": 24,
+            "author": "patmmccann"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Start.io Bid Adapter : Implement cookie syncing",
+      "number": 13643,
+      "author": "prebid-startio",
+      "assignees": [],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann"
+        ]
+      },
+      "dateCreated": "2025-07-22T00:14:59.000Z",
+      "status": "open",
+      "labels": [
+        "needs update"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "prebid-startio": {
+            "count": 2,
+            "author": "prebid-startio"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Core: Integrate Mixpanel Into Build Process",
+      "number": 13347,
+      "author": "zachsavishinsky",
+      "assignees": [
+        "patmmccann",
+        "lcorrigall"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "patmmccann",
+          "zachsavishinsky"
+        ]
+      },
+      "dateCreated": "2025-06-10T20:38:16.000Z",
+      "status": "open",
+      "labels": [
+        "do not merge",
+        "maintenance"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "zachsavishinsky": {
+            "count": 3,
+            "author": "zachsavishinsky"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PBjs Core - OrtbConverter : dynamic renderer support",
+      "number": 10433,
+      "author": "ccorbo",
+      "assignees": [
+        "lcorrigall",
+        "dgirardi"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "bretg",
+          "patmmccann",
+          "dgirardi",
+          "ccorbo"
+        ]
+      },
+      "dateCreated": "2023-09-05T20:03:35.000Z",
+      "status": "open",
+      "labels": [
+        "feature"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "ccorbo": {
+            "count": 5,
+            "author": "ccorbo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

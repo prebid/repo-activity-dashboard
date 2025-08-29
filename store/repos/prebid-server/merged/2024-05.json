@@ -1,0 +1,650 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 5,
+    "itemCount": 20,
+    "lastUpdated": "2025-08-29T23:34:36.856Z"
+  },
+  "items": [
+    {
+      "title": "new alias Tredio",
+      "number": 3707,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-27T06:39:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-31T14:02:26.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 1,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Move imp validation into ortb package",
+      "number": 3685,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-05-16T16:36:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-29T18:31:42.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "bsardo": {
+            "count": 11,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Medianet: Adds mtype support to be used as BidType",
+      "number": 3658,
+      "author": "amanpatniajmer",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "amanpatniajmer"
+        ]
+      },
+      "dateCreated": "2024-05-03T07:41:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-27T05:29:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "amanjain-directi": {
+            "count": 5,
+            "author": "amanjain-directi"
+          },
+          "rajatgoyal2510": {
+            "count": 2,
+            "author": "rajatgoyal2510"
+          },
+          "amanpatniajmer": {
+            "count": 2,
+            "author": "amanpatniajmer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yeahmobi: Fix video bug",
+      "number": 3680,
+      "author": "lxj15398019970",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "lxj15398019970"
+        ]
+      },
+      "dateCreated": "2024-05-13T07:42:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-23T10:35:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "adam": {
+            "count": 4,
+            "author": "adam"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Hello World Sample ",
+      "number": 3326,
+      "author": "zhongshixi",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bretg",
+          "zhongshixi"
+        ]
+      },
+      "dateCreated": "2023-11-28T23:19:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-23T09:28:24.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "zhongshixi": {
+            "count": 18,
+            "author": "zhongshixi"
+          },
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic: Pass imp.ext.gpid to SSP",
+      "number": 3669,
+      "author": "AvinashKapre",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-08T09:12:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T13:37:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AvinashKapre": {
+            "count": 1,
+            "author": "AvinashKapre"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SmartHub: add JDPMedia alias",
+      "number": 3689,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-20T06:55:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T13:37:14.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 1,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Unruly: dynamic bid response array size",
+      "number": 3644,
+      "author": "bhainesnexxen",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "bhainesnexxen"
+        ]
+      },
+      "dateCreated": "2024-04-25T17:24:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T11:13:42.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Brian Haines": {
+            "count": 3,
+            "author": "Brian Haines"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Mabidder Adapter: set geoscope to CAN",
+      "number": 3687,
+      "author": "ecdrsvc",
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-17T16:01:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T10:20:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ecdrsvc": {
+            "count": 1,
+            "author": "ecdrsvc"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Remove `buyeruid` logic",
+      "number": 3683,
+      "author": "SerhiiNahornyi",
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "AntoxaAntoxic",
+          "SyntaxNode",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-16T12:10:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T10:19:39.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SerhiiNahornyi": {
+            "count": 1,
+            "author": "SerhiiNahornyi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "CPMStar: use iframe based usersync",
+      "number": 3660,
+      "author": "JoshuaMGoldstein",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "bretg",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-03T19:49:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T10:17:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "JoshuaMGoldstein": {
+            "count": 2,
+            "author": "JoshuaMGoldstein"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Set bid meta adaptercode to adapter name",
+      "number": 3661,
+      "author": "bsardo",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-06T05:31:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-09T18:32:16.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "bsardo": {
+            "count": 3,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SmartHub: add Markapp alias",
+      "number": 3627,
+      "author": "SmartHubSolutions",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SmartHubSolutions"
+        ]
+      },
+      "dateCreated": "2024-04-17T04:45:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-07T05:39:46.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SmartHubSolutions": {
+            "count": 1,
+            "author": "SmartHubSolutions"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix issues flagged by golangci-lint",
+      "number": 3621,
+      "author": "dmitris",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "AlexBVolcy",
+          "dmitris"
+        ]
+      },
+      "dateCreated": "2024-04-10T14:32:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-06T17:12:28.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 12,
+        "byAuthor": {
+          "dmitris": {
+            "count": 12,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Capture SeatNonBids for rejected bids due to floor enforcement",
+      "number": 3625,
+      "author": "ashishshinde-pubm",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-jaydeep-mohite",
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": [
+          "ashishshinde-pubm"
+        ]
+      },
+      "dateCreated": "2024-04-12T05:24:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T17:28:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "ashishshinde-pubm": {
+            "count": 3,
+            "author": "ashishshinde-pubm"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Unruly: BidVideo.Duration Support",
+      "number": 3643,
+      "author": "bhainesnexxen",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-25T17:22:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T08:42:35.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Brian Haines": {
+            "count": 1,
+            "author": "Brian Haines"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Playdigo: new adapter",
+      "number": 3636,
+      "author": "Yanivplaydigo",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "Yanivplaydigo"
+        ]
+      },
+      "dateCreated": "2024-04-22T21:01:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T08:12:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Yanivplaydigo": {
+            "count": 3,
+            "author": "Yanivplaydigo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Admatic",
+      "number": 3608,
+      "author": "bakicam",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "onkarvhanumante",
+          "bretg",
+          "bakicam",
+          "farukcam"
+        ]
+      },
+      "dateCreated": "2024-04-04T09:55:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T08:11:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 0,
+        "byAuthor": {}
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Freewheel: add video dur and cat",
+      "number": 3640,
+      "author": "mwang-sticky",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "mwang-sticky"
+        ]
+      },
+      "dateCreated": "2024-04-25T02:24:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T08:11:35.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "mwang-sticky": {
+            "count": 5,
+            "author": "mwang-sticky"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Trustedstack",
+      "number": 3618,
+      "author": "product-trustedstack",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "product-trustedstack",
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ]
+      },
+      "dateCreated": "2024-04-09T12:46:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-02T07:15:41.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "product-trustedstack": {
+            "count": 8,
+            "author": "product-trustedstack"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

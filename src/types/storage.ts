@@ -1,67 +1,41 @@
-export interface IndexEntry {
-  count: number;
-  file: string;
-  firstItem: Date;
-  lastItem: Date;
-  lastUpdated: Date;
-  itemNumbers: Set<number>;
-  highestNumber: number;
-  oldestNumber: number;
+export interface OpenItemsStorage<T> {
+  metadata: {
+    repository: string;
+    lastSync: Date;
+    itemCount: number;
+  };
+  items: T[];
 }
 
-export interface RepositoryIndex {
-  prs: {
-    [yearMonth: string]: IndexEntry;
-    all: Set<number>;
-  };
-  issues: {
-    [yearMonth: string]: IndexEntry;
-    all: Set<number>;
-  };
-  lastFetch: Date;
-  lastModified: {
-    prs: Date;
-    issues: Date;
-  };
-  totalPRs: number;
-  totalIssues: number;
-}
-
-export interface StorageIndex {
-  version: string;
-  lastUpdated: Date;
-  repositories: {
-    [repoKey: string]: RepositoryIndex;
-  };
-}
-
-export interface MonthlyData<T> {
+export interface MonthlyStorage<T> {
   metadata: {
     repository: string;
     year: number;
     month: number;
     itemCount: number;
     lastUpdated: Date;
-    dateRange: {
-      start: Date;
-      end: Date;
-    };
-    itemNumbers: number[];
   };
   items: T[];
 }
 
-export interface IncrementalFetchResult {
-  newItems: (PRData | IssueData)[];
-  updatedItems: (PRData | IssueData)[];
+export interface SyncState {
   repository: string;
-  type: 'prs' | 'issues';
-  fetchedAt: Date;
+  lastFullSync: Date;
+  lastIncrementalSync: Date;
+  openPRNumbers: Set<number>;
+  openIssueNumbers: Set<number>;
 }
 
-export interface StorageOptions {
-  dataDir?: string;
-  yearStart?: number;
-  yearEnd?: number;
-  enableIncrementalUpdates?: boolean;
+export interface StorageIndex {
+  version: string;
+  lastUpdated: Date;
+  repositories: {
+    [repoKey: string]: {
+      lastSync: Date;
+      openPRsCount: number;
+      openIssuesCount: number;
+      totalMergedPRs: number;
+      totalClosedIssues: number;
+    };
+  };
 }

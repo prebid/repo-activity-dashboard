@@ -1,0 +1,707 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 7,
+    "itemCount": 21,
+    "lastUpdated": "2025-08-29T23:34:36.854Z"
+  },
+  "items": [
+    {
+      "title": "Criteo: Add support for paapi",
+      "number": 3759,
+      "author": "vraybaud",
+      "assignees": [
+        "guscarreon",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "vraybaud"
+        ]
+      },
+      "dateCreated": "2024-06-18T10:43:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-30T21:11:16.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "v.raybaud": {
+            "count": 1,
+            "author": "v.raybaud"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": " Gracefully shutdown analytics module/runner",
+      "number": 3335,
+      "author": "zhongshixi",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "guscarreon"
+        ],
+        "pending": [
+          "zhongshixi"
+        ]
+      },
+      "dateCreated": "2023-12-05T15:12:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-29T20:21:07.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 15,
+        "byAuthor": {
+          "zhongshixi": {
+            "count": 15,
+            "author": "zhongshixi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smaato: DOOH support",
+      "number": 3751,
+      "author": "Enigo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "el-chuck",
+          "SyntaxNode",
+          "Enigo"
+        ]
+      },
+      "dateCreated": "2024-06-14T03:08:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-29T19:51:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Ruslan Sibgatullin": {
+            "count": 1,
+            "author": "Ruslan Sibgatullin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Triplelift Native add site.publisher nil check",
+      "number": 3824,
+      "author": "bsardo",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "guscarreon"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-07-25T21:36:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-29T15:36:16.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "bsardo": {
+            "count": 5,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Epsilon / Conversant: Endpoint & supported openrtb version update",
+      "number": 3724,
+      "author": "AaronColbyPrice",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "AaronColbyPrice"
+        ]
+      },
+      "dateCreated": "2024-06-04T17:29:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-25T12:58:01.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "aarprice@publicisgroupe.net": {
+            "count": 1,
+            "author": "aarprice@publicisgroupe.net"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ConnectAd: Bidder params update",
+      "number": 3715,
+      "author": "rtuschkany",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992"
+        ],
+        "pending": [
+          "Sonali-More-Xandr",
+          "rtuschkany"
+        ]
+      },
+      "dateCreated": "2024-06-03T08:58:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-25T12:56:01.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rtuschkany": {
+            "count": 1,
+            "author": "rtuschkany"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Triplelift Native: Mapping tag_code ",
+      "number": 3745,
+      "author": "patrickloughrey",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "gargcreation1992",
+          "Kevin-P-Kerr",
+          "patrickloughrey"
+        ]
+      },
+      "dateCreated": "2024-06-11T17:42:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-24T16:37:36.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 25,
+        "byAuthor": {
+          "patrickloughrey": {
+            "count": 25,
+            "author": "patrickloughrey"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smaato: Change server response type",
+      "number": 3734,
+      "author": "Enigo",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": [
+          "Enigo"
+        ]
+      },
+      "dateCreated": "2024-06-06T03:47:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-24T13:46:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Ruslan Sibgatullin": {
+            "count": 1,
+            "author": "Ruslan Sibgatullin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: bigoad",
+      "number": 3711,
+      "author": "BIGOAds",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "BIGOAds"
+        ]
+      },
+      "dateCreated": "2024-05-30T06:59:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-24T13:34:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "linzhucheng": {
+            "count": 8,
+            "author": "linzhucheng"
+          },
+          "BIGOAds": {
+            "count": 1,
+            "author": "BIGOAds"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenX: accept incoming string fields to support Prebid.js 9 ",
+      "number": 3668,
+      "author": "laurb9",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "laurb9"
+        ]
+      },
+      "dateCreated": "2024-05-07T19:29:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-24T12:41:36.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "laurb9": {
+            "count": 6,
+            "author": "laurb9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adprime: add userSync",
+      "number": 3770,
+      "author": "Adprime",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992"
+        ],
+        "pending": [
+          "onkarvhanumante",
+          "Adprime"
+        ]
+      },
+      "dateCreated": "2024-06-23T09:43:16.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-22T10:02:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 28,
+        "byAuthor": {
+          "Aiholkin": {
+            "count": 13,
+            "author": "Aiholkin"
+          },
+          "Adprime": {
+            "count": 15,
+            "author": "Adprime"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "CPMStar: add gvlVendorID",
+      "number": 3779,
+      "author": "JoshuaMGoldstein",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-28T07:55:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-22T10:02:08.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "JoshuaMGoldstein": {
+            "count": 1,
+            "author": "JoshuaMGoldstein"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Displayio",
+      "number": 3691,
+      "author": "xdevel",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "bsardo"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "xdevel"
+        ]
+      },
+      "dateCreated": "2024-05-21T09:25:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-22T09:53:26.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "xdevel": {
+            "count": 10,
+            "author": "xdevel"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smaato: add DSA support tests",
+      "number": 3749,
+      "author": "tetianaatsmaato",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-13T07:41:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-18T15:35:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Tetiana Volkova": {
+            "count": 1,
+            "author": "Tetiana Volkova"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Criteo: Add support for native",
+      "number": 3709,
+      "author": "MarinaZhuravlevaCriteo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "leonardlabat"
+        ]
+      },
+      "dateCreated": "2024-05-29T10:45:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-18T15:14:15.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "MarinaZhuravlevaCriteo": {
+            "count": 1,
+            "author": "MarinaZhuravlevaCriteo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Admatic",
+      "number": 3654,
+      "author": "bakicam",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "farukcam",
+          "bsardo"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "bakicam",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-05-02T08:48:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-03T17:38:17.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 46,
+        "byAuthor": {
+          "bakicam": {
+            "count": 26,
+            "author": "bakicam"
+          },
+          "farukcam": {
+            "count": 20,
+            "author": "farukcam"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bizzclick: rename bizzclick to blasto",
+      "number": 3688,
+      "author": "BizzClick",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "BizzClick"
+        ]
+      },
+      "dateCreated": "2024-05-17T18:56:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-01T09:24:29.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "BizzClick": {
+            "count": 6,
+            "author": "BizzClick"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PulsePoint: Marking cp/ct params to be either String or Int",
+      "number": 3677,
+      "author": "anand-venkatraman",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "anand-venkatraman"
+        ]
+      },
+      "dateCreated": "2024-05-09T18:17:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-01T09:23:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "anand-venkatraman": {
+            "count": 7,
+            "author": "anand-venkatraman"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenWeb: Adapter Refactor + New Endpoint",
+      "number": 3670,
+      "author": "IgorKulemzin",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "zkosanovic"
+        ]
+      },
+      "dateCreated": "2024-05-08T09:42:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-01T08:45:41.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "Zdravko Kosanovic": {
+            "count": 5,
+            "author": "Zdravko Kosanovic"
+          },
+          "Dedis23": {
+            "count": 2,
+            "author": "Dedis23"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "InMobi: include iframe & native for M-Web",
+      "number": 3682,
+      "author": "SiddhantAgrawal",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SiddhantAgrawal"
+        ]
+      },
+      "dateCreated": "2024-05-15T15:04:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-01T08:15:14.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Siddhant Kumar Agrawal": {
+            "count": 3,
+            "author": "Siddhant Kumar Agrawal"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Vidazoo",
+      "number": 3698,
+      "author": "saar120",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "saar120"
+        ]
+      },
+      "dateCreated": "2024-05-22T09:29:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-01T07:54:47.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "saar120": {
+            "count": 7,
+            "author": "saar120"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

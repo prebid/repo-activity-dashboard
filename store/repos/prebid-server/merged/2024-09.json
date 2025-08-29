@@ -1,0 +1,773 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 9,
+    "itemCount": 23,
+    "lastUpdated": "2025-08-29T23:34:36.854Z"
+  },
+  "items": [
+    {
+      "title": "Removed old 2.5 location usages",
+      "number": 3923,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "VeronikaSolovei9"
+        ]
+      },
+      "dateCreated": "2024-09-16T21:13:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-30T18:48:51.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 13,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 13,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "ortb26"
+    },
+    {
+      "title": "Request validation upgrade to 2.6 locations",
+      "number": 3906,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "VeronikaSolovei9"
+        ]
+      },
+      "dateCreated": "2024-09-08T22:05:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T17:04:51.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 6,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "ortb26"
+    },
+    {
+      "title": "New Adapter: Streamlyn ",
+      "number": 3900,
+      "author": "apykhteyev",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-03T18:58:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T16:08:24.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "apykhteyev": {
+            "count": 3,
+            "author": "apykhteyev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "GPC: Set extension based on header",
+      "number": 3895,
+      "author": "przemkaczmarek",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "przemkaczmarek"
+        ]
+      },
+      "dateCreated": "2024-08-31T12:12:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T15:53:07.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "przemkaczmarek": {
+            "count": 10,
+            "author": "przemkaczmarek"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "InMobi: mtype support",
+      "number": 3921,
+      "author": "bkaneyama",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "riteshghodrao",
+          "przemkaczmarek",
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bkaneyama"
+        ]
+      },
+      "dateCreated": "2024-09-14T03:13:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:46:01.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "bkaneyama": {
+            "count": 4,
+            "author": "bkaneyama"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add docs build readme ",
+      "number": 3930,
+      "author": "bsardo",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "justadreamer",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-18T16:29:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:22:18.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "bsardo": {
+            "count": 6,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "51degrees module + Dockerfile + build instructions",
+      "number": 3893,
+      "author": "justadreamer",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-29T11:22:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:11:45.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "justadreamer": {
+            "count": 1,
+            "author": "justadreamer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Upconvert to rtb 2.6 (Some tests not working, need validation to support 2.6)",
+      "number": 3914,
+      "author": "hhhjort",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "hhhjort"
+        ]
+      },
+      "dateCreated": "2024-09-11T18:57:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-23T17:27:19.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "hhhjort": {
+            "count": 3,
+            "author": "hhhjort"
+          }
+        }
+      },
+      "baseBranch": "ortb26"
+    },
+    {
+      "title": "Rubicon: Pass PBS host info to XAPI",
+      "number": 3903,
+      "author": "And1sS",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "And1sS"
+        ]
+      },
+      "dateCreated": "2024-09-04T11:57:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-23T13:54:19.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "And1sS": {
+            "count": 3,
+            "author": "And1sS"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ConnectAd: String/int fix",
+      "number": 3925,
+      "author": "rtuschkany",
+      "assignees": [
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-17T12:29:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-19T21:45:32.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "rtuschkany": {
+            "count": 1,
+            "author": "rtuschkany"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Log non bid reasons in bidder framework",
+      "number": 2891,
+      "author": "ShriprasadM",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "AlexBVolcy",
+          "ShriprasadM",
+          "SyntaxNode",
+          "ashishshinde-pubm",
+          "pm-nikhil-vaidya",
+          "bsardo",
+          "pm-shriprasad-marathe"
+        ]
+      },
+      "dateCreated": "2023-07-03T11:21:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-19T13:00:21.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 43,
+        "byAuthor": {
+          "pm-shriprasad-marathe": {
+            "count": 34,
+            "author": "pm-shriprasad-marathe"
+          },
+          "ShriprasadM": {
+            "count": 2,
+            "author": "ShriprasadM"
+          },
+          "ashishshinde-pubm": {
+            "count": 4,
+            "author": "ashishshinde-pubm"
+          },
+          "Pubmatic-Dhruv-Sonone": {
+            "count": 3,
+            "author": "Pubmatic-Dhruv-Sonone"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adnuntius: Return DSA in bid response",
+      "number": 3777,
+      "author": "mikael-lundin",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-27T10:20:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-18T11:38:50.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "mikael-lundin": {
+            "count": 5,
+            "author": "mikael-lundin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "LemmaDigital: change endpoint",
+      "number": 3862,
+      "author": "lm-ved",
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "bsardo"
+        ],
+        "pending": [
+          "lm-ved",
+          "imedvedko"
+        ]
+      },
+      "dateCreated": "2024-08-16T04:51:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-16T06:47:55.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "lm-ved": {
+            "count": 3,
+            "author": "lm-ved"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: TGM",
+      "number": 3848,
+      "author": "apykhteyev",
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "bsardo"
+        ],
+        "pending": [
+          "apykhteyev"
+        ]
+      },
+      "dateCreated": "2024-08-07T11:32:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-13T21:04:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "apykhteyev": {
+            "count": 3,
+            "author": "apykhteyev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: AdTonos",
+      "number": 3853,
+      "author": "rkaw92",
+      "assignees": [
+        "gargcreation1992",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "przemkaczmarek"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "rkaw92"
+        ]
+      },
+      "dateCreated": "2024-08-12T13:22:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:52:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "rkaw92": {
+            "count": 2,
+            "author": "rkaw92"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update exchange json tests with correct hb_pb_cat_dur ",
+      "number": 3836,
+      "author": "laurb9",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-01T04:49:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:34:46.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "laurb9": {
+            "count": 2,
+            "author": "laurb9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update adapter json test framework to validate BidVideo",
+      "number": 3835,
+      "author": "laurb9",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": [
+          "laurb9"
+        ]
+      },
+      "dateCreated": "2024-07-31T19:29:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:27:07.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "laurb9": {
+            "count": 2,
+            "author": "laurb9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smartx: Declare OpenRTB 2.6 support",
+      "number": 3896,
+      "author": "schubert-sc",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-09-02T09:03:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:41:54.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "schubert-sc": {
+            "count": 1,
+            "author": "schubert-sc"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "QT: Add tcfeu support",
+      "number": 3892,
+      "author": "qt-io",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-29T08:08:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:31:58.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "qt-io": {
+            "count": 7,
+            "author": "qt-io"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Playdigo: Add tcfeu support",
+      "number": 3890,
+      "author": "Yanivplaydigo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-27T16:41:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:19:12.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "Yanivplaydigo": {
+            "count": 8,
+            "author": "Yanivplaydigo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update github.com/rs/cors to v1.11.0",
+      "number": 3884,
+      "author": "ccorbo",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-08-26T14:23:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T13:53:54.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ccorbo": {
+            "count": 1,
+            "author": "ccorbo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Agma: Allow app.bundle to be used as selector for apps",
+      "number": 3780,
+      "author": "steffenmllr",
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-28T12:12:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-04T13:51:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "steffenmllr": {
+            "count": 1,
+            "author": "steffenmllr"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Refactor Bid Splitter Privacy Functions",
+      "number": 3645,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "bsardo"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2024-04-26T02:45:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-03T18:34:56.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 2,
+            "author": "SyntaxNode"
+          },
+          "bsardo": {
+            "count": 3,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

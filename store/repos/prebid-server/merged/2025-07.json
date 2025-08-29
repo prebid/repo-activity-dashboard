@@ -1,0 +1,1037 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 7,
+    "itemCount": 30,
+    "lastUpdated": "2025-08-29T23:34:36.848Z"
+  },
+  "items": [
+    {
+      "title": "TheTradeDesk: Resolve AUCTION_PRICE macro",
+      "number": 4448,
+      "author": "andre-gielow-ttd",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "andre-gielow-ttd"
+        ]
+      },
+      "dateCreated": "2025-07-21T20:29:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-30T18:41:55.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "andre-gielow-ttd": {
+            "count": 3,
+            "author": "andre-gielow-ttd"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Ogury: Support gpp for cookie sync",
+      "number": 4406,
+      "author": "vincent-ogury",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "fermeaux",
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": [
+          "vincent-ogury"
+        ]
+      },
+      "dateCreated": "2025-06-23T09:23:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T20:58:51.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "vincent-ogury": {
+            "count": 3,
+            "author": "vincent-ogury"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Blis",
+      "number": 4304,
+      "author": "tomaskoutny-blis",
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite",
+        "scr-oath"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "linux019",
+          "tomaskoutny-blis",
+          "scr-oath",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2025-04-16T22:47:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T15:21:56.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "Tomas Koutny": {
+            "count": 16,
+            "author": "Tomas Koutny"
+          },
+          "tomaskoutny-blis": {
+            "count": 3,
+            "author": "tomaskoutny-blis"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OpenX: Add gpp params to user sync",
+      "number": 4445,
+      "author": "Fuska1",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "laurb9",
+          "hhhjort",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-18T12:44:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:29:21.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "Fuska1": {
+            "count": 3,
+            "author": "Fuska1"
+          },
+          "gmiedlar-ox": {
+            "count": 1,
+            "author": "gmiedlar-ox"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Pass ext.prebid.multibid[].maxbids to XAPI",
+      "number": 4412,
+      "author": "AntoxaAntoxic",
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-30T09:03:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:20:53.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AntoxaAntoxic": {
+            "count": 1,
+            "author": "AntoxaAntoxic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Modularity: Add hook code to module invocation context",
+      "number": 4036,
+      "author": "scr-oath",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-11-04T21:36:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:10:21.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "scr-oath": {
+            "count": 1,
+            "author": "scr-oath"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adagio: Add site bidder param and web inventory tests",
+      "number": 4403,
+      "author": "GodefroiRoussel",
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-19T12:21:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T19:53:54.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Godefroi Roussel": {
+            "count": 1,
+            "author": "Godefroi Roussel"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MinuteMedia: Add test endpoint",
+      "number": 4425,
+      "author": "innay",
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-09T08:53:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:53:33.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Inna Yaretsky": {
+            "count": 1,
+            "author": "Inna Yaretsky"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Kuantyx - Aso alias",
+      "number": 4420,
+      "author": "adserver-online",
+      "assignees": [
+        "pm-isha-bharti",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "pm-isha-bharti"
+        ],
+        "pending": [
+          "adserver-online"
+        ]
+      },
+      "dateCreated": "2025-07-04T08:20:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:39:22.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "dev": {
+            "count": 2,
+            "author": "dev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: progx - Vidazoo alias",
+      "number": 4428,
+      "author": "anna-y-perion",
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "pm-isha-bharti"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "anna-y-perion"
+        ]
+      },
+      "dateCreated": "2025-07-09T14:39:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:28:41.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "anna-y-perion": {
+            "count": 9,
+            "author": "anna-y-perion"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Tappx: Add GPID support",
+      "number": 4438,
+      "author": "jordi-tappx",
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "przemkaczmarek",
+          "scr-oath"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-16T15:08:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-25T03:02:22.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "Jordi Arnau": {
+            "count": 1,
+            "author": "Jordi Arnau"
+          },
+          "jordi-tappx": {
+            "count": 1,
+            "author": "jordi-tappx"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "GumGum: Enable Opt-In change notification",
+      "number": 4390,
+      "author": "sindhuja-sridharan",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-10T21:51:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T17:18:14.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "sindhuja-sridharan": {
+            "count": 1,
+            "author": "sindhuja-sridharan"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "RTB House: Remove PAAPI signals from imp[].ext",
+      "number": 4399,
+      "author": "piotrj-rtbh",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "patmmccann",
+          "przemkaczmarek"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-13T11:50:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T16:10:34.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "piotrj-rtbh": {
+            "count": 1,
+            "author": "piotrj-rtbh"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smartadserver : Send multi-impression requests without flattening",
+      "number": 4402,
+      "author": "nathanleSommer",
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "pm-jaydeep-mohite"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-17T08:32:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T15:19:19.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "nlesommer": {
+            "count": 2,
+            "author": "nlesommer"
+          },
+          "nathanleSommer": {
+            "count": 2,
+            "author": "nathanleSommer"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "TheTradeDesk: Throw error for malformed endpoint url",
+      "number": 4419,
+      "author": "andre-gielow-ttd",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "khang-vu-ttd",
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "andre-gielow-ttd"
+        ]
+      },
+      "dateCreated": "2025-07-03T22:27:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-23T16:25:26.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "andre-gielow-ttd": {
+            "count": 1,
+            "author": "andre-gielow-ttd"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix the package (iterators) to agree with the dir (iterutil).",
+      "number": 4447,
+      "author": "scr-oath",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-21T15:23:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-21T22:34:21.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "scr-oath": {
+            "count": 1,
+            "author": "scr-oath"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "TMax: Add default host config",
+      "number": 4430,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "hhhjort"
+        ],
+        "pending": [
+          "VeronikaSolovei9"
+        ]
+      },
+      "dateCreated": "2025-07-09T20:03:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-17T13:34:19.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 2,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "VIS.X: Relay bid currency from bid response",
+      "number": 4381,
+      "author": "vfedoseev",
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "pm-isha-bharti"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-09T17:48:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T19:20:53.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "vfedoseev": {
+            "count": 1,
+            "author": "vfedoseev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Stroeercore: Add adomain to bids",
+      "number": 4392,
+      "author": "philipwatson",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-11T03:48:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T18:12:08.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "philipwatson": {
+            "count": 1,
+            "author": "philipwatson"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Floors: Fix panic while getting adunit code for signaling",
+      "number": 4424,
+      "author": "pm-nikhil-vaidya",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-07T11:35:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T03:13:02.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-nikhil-vaidya": {
+            "count": 1,
+            "author": "pm-nikhil-vaidya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Exco",
+      "number": 4250,
+      "author": "pb-pete",
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "pm-nikhil-vaidya",
+          "pb-pete",
+          "przemkaczmarek",
+          "bsardo",
+          "VeronikaSolovei9"
+        ]
+      },
+      "dateCreated": "2025-03-06T10:35:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T02:37:25.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "pb-pete": {
+            "count": 19,
+            "author": "pb-pete"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Zentotem",
+      "number": 4053,
+      "author": "zentotem",
+      "assignees": [
+        "bsardo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "hhhjort"
+        ],
+        "pending": [
+          "przemkaczmarek",
+          "zentotem",
+          "bsardo",
+          "github-actions[bot]",
+          "dobb2"
+        ]
+      },
+      "dateCreated": "2024-11-13T22:52:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T20:04:41.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 29,
+        "byAuthor": {
+          "GermanBogatov": {
+            "count": 25,
+            "author": "GermanBogatov"
+          },
+          "zentotem": {
+            "count": 1,
+            "author": "zentotem"
+          },
+          "Petrukhin Dmitrii": {
+            "count": 3,
+            "author": "Petrukhin Dmitrii"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Akcelo",
+      "number": 4237,
+      "author": "rogerDyl",
+      "assignees": [
+        "ShriprasadM",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "ShriprasadM",
+          "rogerDyl",
+          "linux019"
+        ]
+      },
+      "dateCreated": "2025-02-25T13:52:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:48:42.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "rogerDyl": {
+            "count": 10,
+            "author": "rogerDyl"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Record metric unsuccessful for PBC non-200 response status code or error",
+      "number": 4341,
+      "author": "linux019",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-05-15T16:03:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:19:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "oleksandr": {
+            "count": 1,
+            "author": "oleksandr"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Zeta Global SSP: Declare OpenRTB 2.6 and GPP support",
+      "number": 4389,
+      "author": "abermanov-zeta",
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "ccorbo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-10T13:47:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:06:08.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "abermanov-zeta": {
+            "count": 1,
+            "author": "abermanov-zeta"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Rediads",
+      "number": 4233,
+      "author": "rediads",
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "rediads",
+          "symplorpro",
+          "guscarreon",
+          "symplor-alpha",
+          "gamesindian"
+        ]
+      },
+      "dateCreated": "2025-02-21T14:14:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T18:52:37.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 26,
+        "byAuthor": {
+          "gamesindian": {
+            "count": 1,
+            "author": "gamesindian"
+          },
+          "symplor-alpha": {
+            "count": 5,
+            "author": "symplor-alpha"
+          },
+          "symplorpro": {
+            "count": 17,
+            "author": "symplorpro"
+          },
+          "symplorEcho": {
+            "count": 1,
+            "author": "symplorEcho"
+          },
+          "eromsinghal": {
+            "count": 1,
+            "author": "eromsinghal"
+          },
+          "rediads": {
+            "count": 1,
+            "author": "rediads"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Missena: Pass full openrtb request",
+      "number": 4394,
+      "author": "jney",
+      "assignees": [
+        "ccorbo"
+      ],
+      "reviewers": {
+        "approved": [
+          "ccorbo",
+          "SyntaxNode"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-06-11T13:26:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T18:33:54.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "jney": {
+            "count": 2,
+            "author": "jney"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "RichAudience: change endpoint to https",
+      "number": 4384,
+      "author": "richaudience",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "ccorbo"
+        ],
+        "pending": [
+          "richaudience"
+        ]
+      },
+      "dateCreated": "2025-06-10T11:10:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T19:52:56.000Z",
+      "labels": [
+        "adapter"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ianmusachs-stack": {
+            "count": 1,
+            "author": "ianmusachs-stack"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Remove module per request JSON marshal and add custom viper decoder",
+      "number": 4422,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-05T03:03:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T19:51:36.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "PubMatic: Fix missing bid type in bid response",
+      "number": 4417,
+      "author": "pm-isha-bharti",
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": {
+        "approved": [
+          "pm-jaydeep-mohite",
+          "ShriprasadM",
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2025-07-02T17:47:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-03T18:38:18.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-isha-bharti": {
+            "count": 1,
+            "author": "pm-isha-bharti"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

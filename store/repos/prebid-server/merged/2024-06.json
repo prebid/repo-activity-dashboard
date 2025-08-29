@@ -1,0 +1,682 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 6,
+    "itemCount": 21,
+    "lastUpdated": "2025-08-29T23:34:36.855Z"
+  },
+  "items": [
+    {
+      "title": "New Adapter: Сointraffic",
+      "number": 3647,
+      "author": "sergeykcointraffic",
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "bsardo"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "gargcreation1992",
+          "stsepelin"
+        ]
+      },
+      "dateCreated": "2024-04-26T07:35:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-28T17:01:56.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "sergeykcointraffic": {
+            "count": 1,
+            "author": "sergeykcointraffic"
+          },
+          "stsepelin": {
+            "count": 8,
+            "author": "stsepelin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Nobid: Add iframe sync support",
+      "number": 3732,
+      "author": "redaguermas",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-05T15:30:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-27T13:45:38.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "Reda Guermas": {
+            "count": 2,
+            "author": "Reda Guermas"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "IX: save/restore global var in test",
+      "number": 3638,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-04-24T10:34:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T18:29:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "dmitris": {
+            "count": 2,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "AppNexus: Forward GPID",
+      "number": 3767,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-06-21T00:17:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T16:10:20.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "AMX: Support overriding seat and demandSource",
+      "number": 3733,
+      "author": "nickjacob",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-05T20:18:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T12:19:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "nickjacob": {
+            "count": 1,
+            "author": "nickjacob"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "OwnAdx: Add cookie sync",
+      "number": 3713,
+      "author": "ownAdx-prebid",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "ownAdx-prebid"
+        ]
+      },
+      "dateCreated": "2024-05-31T07:04:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T12:16:48.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Hina Yadav": {
+            "count": 2,
+            "author": "Hina Yadav"
+          },
+          "Hina": {
+            "count": 1,
+            "author": "Hina"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Gitignore changes",
+      "number": 3752,
+      "author": "Enigo",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "guscarreon"
+        ],
+        "pending": [
+          "Enigo"
+        ]
+      },
+      "dateCreated": "2024-06-14T03:11:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T17:41:07.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Ruslan Sibgatullin": {
+            "count": 1,
+            "author": "Ruslan Sibgatullin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter : MediaGo",
+      "number": 3705,
+      "author": "SylviaF",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "github-actions[bot]",
+          "SylviaF",
+          "onkarvhanumante",
+          "ChrisHuie",
+          "thetruebelieber",
+          "JimmyLuoJW",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-05-24T08:42:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T09:43:07.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 13,
+        "byAuthor": {
+          "SylviaF": {
+            "count": 13,
+            "author": "SylviaF"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Driftpixel",
+      "number": 3684,
+      "author": "driftpixelai",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-16T14:28:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T12:26:15.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "driftpixelai": {
+            "count": 2,
+            "author": "driftpixelai"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Concert",
+      "number": 3651,
+      "author": "BrettBlox",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "BrettBlox"
+        ]
+      },
+      "dateCreated": "2024-05-01T21:23:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T07:54:02.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 48,
+        "byAuthor": {
+          "BrettBlox": {
+            "count": 48,
+            "author": "BrettBlox"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Boldwin: update maintainer email",
+      "number": 3701,
+      "author": "Wls-demo",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "Wls-demo"
+        ]
+      },
+      "dateCreated": "2024-05-22T11:57:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T07:38:32.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "Wls-demo": {
+            "count": 7,
+            "author": "Wls-demo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix semgrep issue with dgryski Go ruleset",
+      "number": 3719,
+      "author": "dmitris",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-03T16:26:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T19:26:18.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "fix golangci-lint issues",
+      "number": 3679,
+      "author": "dmitris",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "dmitris",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-05-10T17:32:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T17:23:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "dmitris": {
+            "count": 9,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Vungle: Rename from liftoff",
+      "number": 3727,
+      "author": "Vungle-GordonTian",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "yingchen0706v",
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "Vungle-GordonTian"
+        ]
+      },
+      "dateCreated": "2024-06-05T03:46:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T14:24:50.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Vungle-GordonTian": {
+            "count": 3,
+            "author": "Vungle-GordonTian"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Upgrade To Go 1.22",
+      "number": 3686,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-17T14:48:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-07T16:16:07.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 5,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Smaato: Add ORTB2.6 tests",
+      "number": 3646,
+      "author": "Enigo",
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "el-chuck",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "Enigo"
+        ]
+      },
+      "dateCreated": "2024-04-26T03:50:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T11:07:22.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Ruslan Sibgatullin": {
+            "count": 1,
+            "author": "Ruslan Sibgatullin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Imp FPD: Skip bidder params and native validation",
+      "number": 3720,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-06-04T04:45:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T01:07:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Expect Array Overwrites in Imp FPD Tests",
+      "number": 3725,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-06-04T18:40:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T20:33:23.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "FPD: Don't Merge Arrays",
+      "number": 3708,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-05-28T22:08:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T17:36:19.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 2,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidder-specific imp FPD",
+      "number": 3704,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-05-23T15:47:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T02:16:20.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "bsardo": {
+            "count": 8,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yieldmo: Add bid floor currency conversion",
+      "number": 3697,
+      "author": "ym-winston",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "ym-winston"
+        ]
+      },
+      "dateCreated": "2024-05-21T17:56:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-02T05:13:13.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ym-winston": {
+            "count": 2,
+            "author": "ym-winston"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}
