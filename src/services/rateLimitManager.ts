@@ -33,6 +33,11 @@ export class RateLimitManager {
   }
   
   async waitIfNeeded(): Promise<void> {
+    // Skip rate limiting in test mode
+    if (process.env.TEST_MODE === 'true') {
+      return;
+    }
+    
     // Check primary rate limit
     if (this.primaryLimit.remaining < 100) {
       const waitTime = this.primaryLimit.reset.getTime() - Date.now();
@@ -59,6 +64,11 @@ export class RateLimitManager {
   }
   
   getOptimalDelay(): number {
+    // No delay in test mode
+    if (process.env.TEST_MODE === 'true') {
+      return 0;
+    }
+    
     // Calculate optimal delay based on remaining rate limit
     const percentRemaining = this.primaryLimit.remaining / this.primaryLimit.limit;
     

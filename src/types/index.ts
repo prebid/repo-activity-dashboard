@@ -14,36 +14,35 @@ export interface CommitAuthorSummary {
 export interface PRData {
   title: string;
   number: number;
-  author: string;
-  assignees: string[];
-  reviewers?: {
-    approved: string[];
-    pending: string[];
+  author: {
+    login: string;
+    id: number;
   };
+  assignees: string[];
+  reviewers: string[];
+  draft: boolean;
   dateCreated: Date;
+  dateUpdated: Date;
   status: 'open' | 'closed' | 'merged';
   dateMerged?: Date;
   dateClosed?: Date;
-  labels: string[];
-  commits: {
-    totalCount: number;
-    byAuthor: Map<string, CommitAuthorSummary>;
-  };
-  relatedIssue?: number;
-  baseBranch: string;
+  commits: Map<string, number>;
 }
 
 export interface IssueData {
   title: string;
   number: number;
-  author: string;
+  author: {
+    login: string;
+    id: number;
+  };
   assignees: string[];
   dateCreated: Date;
+  dateUpdated: Date;
   status: 'open' | 'closed';
   dateClosed?: Date;
-  closedReason?: 'completed' | 'duplicate' | 'not_planned' | 'other';
-  labels: string[];
-  relatedPR?: number[];
+  closedBy?: string;
+  closureReason?: 'completed' | 'duplicate' | 'not_planned' | 'other';
 }
 
 export interface RepositoryData {

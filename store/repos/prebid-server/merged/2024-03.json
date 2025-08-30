@@ -3,8 +3,8 @@
     "repository": "prebid/prebid-server",
     "year": 2024,
     "month": 3,
-    "itemCount": 3,
-    "lastUpdated": "2025-08-29T23:34:36.848Z"
+    "itemCount": 26,
+    "lastUpdated": "2025-08-30T16:32:15.711Z"
   },
   "items": [
     {
@@ -20,6 +20,7 @@
         "pending": []
       },
       "dateCreated": "2024-03-27T17:32:35.000Z",
+      "dateUpdated": "2024-03-27T18:20:40.000Z",
       "status": "merged",
       "dateMerged": "2024-03-27T18:20:40.000Z",
       "labels": [],
@@ -29,6 +30,105 @@
           "VeronikaSolovei9": {
             "count": 2,
             "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Make Targeting in Response Optional",
+      "number": 3574,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-03-14T19:58:29.000Z",
+      "dateUpdated": "2024-03-26T18:35:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T18:35:37.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 7,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add Ext.Prebid.Analytics Support",
+      "number": 3563,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2024-03-05T20:56:41.000Z",
+      "dateUpdated": "2024-03-26T17:19:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T17:19:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 15,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 15,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Make admin listener configurable",
+      "number": 3520,
+      "author": "maditya",
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "bsardo",
+          "maditya"
+        ]
+      },
+      "dateCreated": "2024-02-20T15:52:45.000Z",
+      "dateUpdated": "2024-03-25T17:23:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T17:23:10.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "maditya": {
+            "count": 2,
+            "author": "maditya"
           }
         }
       },
@@ -55,6 +155,7 @@
         ]
       },
       "dateCreated": "2024-02-15T16:14:35.000Z",
+      "dateUpdated": "2024-04-02T08:39:34.000Z",
       "status": "merged",
       "dateMerged": "2024-03-25T17:22:49.000Z",
       "labels": [
@@ -66,6 +167,168 @@
           "dmitris": {
             "count": 4,
             "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "add 'debug' and 'integration' to sample requests",
+      "number": 3575,
+      "author": "dmitris",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-15T11:24:14.000Z",
+      "dateUpdated": "2024-03-21T17:52:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-20T17:58:59.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Panic in bid adjustments",
+      "number": 3547,
+      "author": "linux019",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "linux019",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-27T11:13:47.000Z",
+      "dateUpdated": "2024-03-19T10:02:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T18:10:27.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "oaleksieiev": {
+            "count": 4,
+            "author": "oaleksieiev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bump google.golang.org/protobuf from 1.30.0 to 1.33.0",
+      "number": 3573,
+      "author": "dependabot[bot]",
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-13T22:46:49.000Z",
+      "dateUpdated": "2024-03-18T18:06:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T18:06:32.000Z",
+      "labels": [
+        "dependencies"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dependabot[bot]": {
+            "count": 1,
+            "author": "dependabot[bot]"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sonobi: Added consent macros to the user sync url",
+      "number": 3572,
+      "author": "JonGoSonobi",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-13T15:16:56.000Z",
+      "dateUpdated": "2024-03-18T12:45:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T12:45:23.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "JonGoSonobi": {
+            "count": 1,
+            "author": "JonGoSonobi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "yandex: Fix yandex properties file",
+      "number": 3568,
+      "author": "gargcreation1992",
+      "assignees": [
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-12T16:28:40.000Z",
+      "dateUpdated": "2024-03-18T11:06:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T11:06:15.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
           }
         }
       },
@@ -90,6 +353,7 @@
         ]
       },
       "dateCreated": "2024-03-10T09:10:37.000Z",
+      "dateUpdated": "2025-07-04T08:06:23.000Z",
       "status": "merged",
       "dateMerged": "2024-03-18T05:43:29.000Z",
       "labels": [],
@@ -99,6 +363,517 @@
           "dev": {
             "count": 7,
             "author": "dev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix loading of default bid adjustments for \"account_defaults\"",
+      "number": 3555,
+      "author": "linux019",
+      "assignees": [
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-01T10:40:23.000Z",
+      "dateUpdated": "2024-03-14T13:33:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-13T17:26:48.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "oaleksieiev": {
+            "count": 2,
+            "author": "oaleksieiev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Analytics Adapter: agma",
+      "number": 3400,
+      "author": "steffenmllr",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "steffenmllr"
+        ]
+      },
+      "dateCreated": "2024-01-15T09:54:32.000Z",
+      "dateUpdated": "2024-03-25T13:14:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-12T17:16:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 10,
+        "byAuthor": {
+          "steffenmllr": {
+            "count": 10,
+            "author": "steffenmllr"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MgidX Bid Adapter: add disabled param",
+      "number": 3562,
+      "author": "xmgiddev",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "xmgiddev"
+        ]
+      },
+      "dateCreated": "2024-03-05T15:41:23.000Z",
+      "dateUpdated": "2024-03-12T09:10:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-12T09:10:10.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 24,
+        "byAuthor": {
+          "gaudeamus": {
+            "count": 6,
+            "author": "gaudeamus"
+          },
+          "evjman": {
+            "count": 1,
+            "author": "evjman"
+          },
+          "xmgiddev": {
+            "count": 17,
+            "author": "xmgiddev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Evolution Bid Adapter: add iframe to userSync",
+      "number": 3561,
+      "author": "e-volution-tech",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-05T13:34:15.000Z",
+      "dateUpdated": "2024-03-12T09:10:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-12T09:10:03.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "e-volution-tech": {
+            "count": 11,
+            "author": "e-volution-tech"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Extract FPD Merge To Separate Package",
+      "number": 3533,
+      "author": "SyntaxNode",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-02-22T00:59:13.000Z",
+      "dateUpdated": "2024-03-11T17:32:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-11T17:32:12.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 4,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Roulax ",
+      "number": 3447,
+      "author": "dengxinjing",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "dengxinjing"
+        ]
+      },
+      "dateCreated": "2024-02-04T10:15:25.000Z",
+      "dateUpdated": "2024-03-20T11:17:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-07T09:22:42.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 27,
+        "byAuthor": {
+          "dengxinjing": {
+            "count": 27,
+            "author": "dengxinjing"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "iqzone get media type from mtype bid property",
+      "number": 3557,
+      "author": "IQZoneAdx",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-03-01T15:42:01.000Z",
+      "dateUpdated": "2024-03-07T08:25:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-07T08:25:17.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "IQZoneAdx": {
+            "count": 1,
+            "author": "IQZoneAdx"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "RTB House: regional endpoints",
+      "number": 3551,
+      "author": "piotrj-rtbh",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-29T10:26:06.000Z",
+      "dateUpdated": "2024-03-07T08:06:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-07T08:06:03.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "piotrj-rtbh": {
+            "count": 2,
+            "author": "piotrj-rtbh"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter: Theadx",
+      "number": 3498,
+      "author": "mustafakemal16",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "SyntaxNode",
+          "mustafakemal16",
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-02-14T06:51:27.000Z",
+      "dateUpdated": "2024-03-07T07:54:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-07T07:54:52.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 18,
+        "byAuthor": {
+          "mku": {
+            "count": 11,
+            "author": "mku"
+          },
+          "mustafakemal16": {
+            "count": 7,
+            "author": "mustafakemal16"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Privacy Sandbox: support testing label header",
+      "number": 3381,
+      "author": "pm-nilesh-chate",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "SyntaxNode",
+          "pm-nilesh-chate",
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-01-03T06:29:49.000Z",
+      "dateUpdated": "2024-03-05T16:27:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-05T16:27:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 32,
+        "byAuthor": {
+          "pm-nilesh-chate": {
+            "count": 32,
+            "author": "pm-nilesh-chate"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Generate Bid ID Test Hardening",
+      "number": 3491,
+      "author": "SyntaxNode",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-02-12T17:49:29.000Z",
+      "dateUpdated": "2024-03-05T07:26:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-05T07:26:43.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 5,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "do normal 'go vet' as it works now",
+      "number": 3550,
+      "author": "dmitris",
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-28T16:42:11.000Z",
+      "dateUpdated": "2024-03-05T08:14:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-04T21:14:42.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "GDPR: Convert bidder name to string to accommodate analytics",
+      "number": 3554,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-29T17:48:32.000Z",
+      "dateUpdated": "2024-03-04T20:59:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-04T20:59:24.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adnuntius: site.ext targeting",
+      "number": 3530,
+      "author": "mikael-lundin",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-21T17:14:51.000Z",
+      "dateUpdated": "2024-03-04T06:30:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-04T06:30:03.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "mikael-lundin": {
+            "count": 1,
+            "author": "mikael-lundin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Medianet: Upgrades to OpenRTB 2.6",
+      "number": 3548,
+      "author": "amanpatniajmer",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-27T16:42:35.000Z",
+      "dateUpdated": "2024-03-04T06:25:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-04T06:25:45.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "amanjain-directi": {
+            "count": 2,
+            "author": "amanjain-directi"
+          },
+          "rajatgoyal2510": {
+            "count": 2,
+            "author": "rajatgoyal2510"
+          },
+          "amanpatniajmer": {
+            "count": 2,
+            "author": "amanpatniajmer"
           }
         }
       },

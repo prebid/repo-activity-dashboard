@@ -1,0 +1,1906 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2023,
+    "month": 9,
+    "itemCount": 56,
+    "lastUpdated": "2025-08-30T16:17:51.172Z"
+  },
+  "items": [
+    {
+      "title": "Remove Config Backwards Compatibility: Account GDPR Purpose",
+      "number": 3154,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-26T16:44:04.000Z",
+      "dateUpdated": "2023-09-29T15:58:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T15:58:00.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Host GDPR Options",
+      "number": 3153,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-26T15:27:15.000Z",
+      "dateUpdated": "2023-09-29T15:29:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T15:29:43.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "bsardo": {
+            "count": 4,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adapter alias - syncer changes",
+      "number": 3082,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "gargcreation1992",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992"
+        ],
+        "pending": [
+          "AlexBVolcy",
+          "onkarvhanumante",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2023-09-07T06:06:10.000Z",
+      "dateUpdated": "2023-10-03T18:26:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T10:43:59.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 19,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 19,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rubicon: Remove eids logic",
+      "number": 3111,
+      "author": "SerhiiNahornyi",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-18T12:59:19.000Z",
+      "dateUpdated": "2023-09-29T08:32:24.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:32:13.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SerhiiNahornyi": {
+            "count": 2,
+            "author": "SerhiiNahornyi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adnuntius: Add Price Type",
+      "number": 3084,
+      "author": "mikael-lundin",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "mikael-lundin",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2023-09-07T17:37:07.000Z",
+      "dateUpdated": "2023-09-29T08:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:14:35.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "mikael-lundin": {
+            "count": 6,
+            "author": "mikael-lundin"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ORBIDDER: add user sync redirect url",
+      "number": 3118,
+      "author": "arneschulz1984",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "arneschulz1984"
+        ]
+      },
+      "dateCreated": "2023-09-20T16:26:45.000Z",
+      "dateUpdated": "2023-09-29T08:09:43.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:09:43.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "arneschulz1984": {
+            "count": 1,
+            "author": "arneschulz1984"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ImproveDigital: updates",
+      "number": 3077,
+      "author": "ishihanvcs",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "ishihanvcs"
+        ]
+      },
+      "dateCreated": "2023-09-06T09:53:40.000Z",
+      "dateUpdated": "2023-09-29T06:36:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T06:36:59.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "ishihanvcs": {
+            "count": 7,
+            "author": "ishihanvcs"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: DB Connection Info",
+      "number": 3146,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T22:55:13.000Z",
+      "dateUpdated": "2023-09-28T19:04:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-28T19:04:33.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "bsardo": {
+            "count": 4,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Enable GZIP",
+      "number": 3125,
+      "author": "bsardo",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-22T20:04:06.000Z",
+      "dateUpdated": "2023-09-27T19:31:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T19:31:04.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bsardo": {
+            "count": 2,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Enable Events",
+      "number": 3135,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "guscarreon",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T15:56:05.000Z",
+      "dateUpdated": "2023-09-27T17:31:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T17:31:22.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: File System Stored Requests",
+      "number": 3124,
+      "author": "bsardo",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-22T19:42:18.000Z",
+      "dateUpdated": "2023-09-27T13:09:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T13:09:42.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bsardo": {
+            "count": 1,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: Nano Interactive",
+      "number": 3134,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T15:24:01.000Z",
+      "dateUpdated": "2023-09-26T19:45:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:57:27.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 2,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 3,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: engageBDR",
+      "number": 3131,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2023-09-25T15:02:55.000Z",
+      "dateUpdated": "2023-09-26T19:45:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:23:39.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 3,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 3,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: Yeahmobi",
+      "number": 3143,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T19:26:07.000Z",
+      "dateUpdated": "2023-09-26T19:45:36.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:10:36.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: NinthDecimal",
+      "number": 3142,
+      "author": "SyntaxNode",
+      "assignees": [
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T19:22:29.000Z",
+      "dateUpdated": "2023-09-26T19:45:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T10:57:10.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 2,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: Kubient",
+      "number": 3133,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T15:18:58.000Z",
+      "dateUpdated": "2023-09-26T19:45:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T09:30:31.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: Define Media",
+      "number": 3132,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T15:15:56.000Z",
+      "dateUpdated": "2023-09-26T19:45:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T09:08:07.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: Applogy",
+      "number": 3130,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T14:56:16.000Z",
+      "dateUpdated": "2023-09-26T19:45:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T08:38:09.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          },
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "make NormalizeBidderName to do faster lookup",
+      "number": 3138,
+      "author": "gargcreation1992",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T17:40:44.000Z",
+      "dateUpdated": "2023-10-02T17:53:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T08:06:19.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Adapter: RhythmOne",
+      "number": 3129,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T14:54:52.000Z",
+      "dateUpdated": "2023-09-26T19:45:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T07:43:58.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Support case insensitive bidder name in eidpermissions",
+      "number": 3141,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T18:30:34.000Z",
+      "dateUpdated": "2023-10-04T06:17:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:07:14.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 1,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Support case insensitive bidder name in bidadjustmentfactors",
+      "number": 3140,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T18:26:56.000Z",
+      "dateUpdated": "2023-09-26T18:51:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:06:39.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 1,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Support case insensitive bidder name in storedbidresponse",
+      "number": 3139,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T18:09:53.000Z",
+      "dateUpdated": "2023-10-02T17:53:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:03:23.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 1,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "fix adapter code-coverage github action",
+      "number": 3145,
+      "author": "onkarvhanumante",
+      "assignees": [],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T20:30:16.000Z",
+      "dateUpdated": "2023-10-02T17:53:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:58:48.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 1,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "make bidderInfo endpoint case insensitive",
+      "number": 3136,
+      "author": "gargcreation1992",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-25T17:23:15.000Z",
+      "dateUpdated": "2023-10-02T17:53:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:56:53.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "gargcreation1992": {
+            "count": 1,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Silvermob: host validation (us, eu, apac)",
+      "number": 3110,
+      "author": "freemmy",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "freemmy"
+        ]
+      },
+      "dateCreated": "2023-09-15T09:25:17.000Z",
+      "dateUpdated": "2023-09-26T05:51:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:51:20.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "freemmy": {
+            "count": 2,
+            "author": "freemmy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "make case insensitive comparison in auction request",
+      "number": 3113,
+      "author": "gargcreation1992",
+      "assignees": [
+        "onkarvhanumante",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "hhhjort"
+        ],
+        "pending": [
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2023-09-20T08:17:12.000Z",
+      "dateUpdated": "2023-10-02T17:53:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-25T16:52:54.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "gargcreation1992": {
+            "count": 4,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Cleanup Prometheus Type Conversions",
+      "number": 3106,
+      "author": "SyntaxNode",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-14T16:29:44.000Z",
+      "dateUpdated": "2023-09-26T19:45:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T21:35:55.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "record tmax timeout error in adapter error metric",
+      "number": 3104,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "VeronikaSolovei9",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-14T07:38:14.000Z",
+      "dateUpdated": "2023-10-02T17:53:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T18:33:29.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 2,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DOOH support",
+      "number": 2758,
+      "author": "minaguib",
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "SyntaxNode"
+        ],
+        "pending": [
+          "minaguib",
+          "bsardo",
+          "bretg",
+          "guscarreon"
+        ]
+      },
+      "dateCreated": "2023-05-09T00:06:38.000Z",
+      "dateUpdated": "2023-09-20T18:22:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T18:22:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 11,
+        "byAuthor": {
+          "minaguib": {
+            "count": 11,
+            "author": "minaguib"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Priority Bidder Ejection",
+      "number": 2952,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "guscarreon",
+          "AlexBVolcy",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2023-07-19T21:18:27.000Z",
+      "dateUpdated": "2023-09-19T18:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-19T18:14:21.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 23,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 23,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Bidder Info Endpoint: Base Adapter Only Filter ",
+      "number": 3088,
+      "author": "SyntaxNode",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2023-09-08T20:07:01.000Z",
+      "dateUpdated": "2023-09-18T20:35:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-18T20:35:05.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 2,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SetUID Error Handling Refactor",
+      "number": 3050,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": [
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2023-08-23T23:41:13.000Z",
+      "dateUpdated": "2023-09-18T17:22:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-18T17:22:02.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 3,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New Adapter mabidder",
+      "number": 3080,
+      "author": "ecdrsvc",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-06T20:34:56.000Z",
+      "dateUpdated": "2023-09-15T10:52:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-15T10:52:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 27,
+        "byAuthor": {
+          "ecdrsvc": {
+            "count": 27,
+            "author": "ecdrsvc"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: PGAMSSP",
+      "number": 3035,
+      "author": "PGAMSSP",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "github-actions[bot]",
+          "PGAMSSP"
+        ]
+      },
+      "dateCreated": "2023-08-18T07:06:30.000Z",
+      "dateUpdated": "2023-09-15T10:52:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-15T10:52:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "PGAMSSP": {
+            "count": 8,
+            "author": "PGAMSSP"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Privacy Activities: Pass Request",
+      "number": 3064,
+      "author": "SyntaxNode",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "hhhjort"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2023-08-30T19:35:55.000Z",
+      "dateUpdated": "2023-09-13T15:34:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-13T15:34:52.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 12,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 12,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "release.yml run build before creating new tag",
+      "number": 3032,
+      "author": "guscarreon",
+      "assignees": [
+        "onkarvhanumante",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "hhhjort"
+        ],
+        "pending": [
+          "guscarreon"
+        ]
+      },
+      "dateCreated": "2023-08-15T21:50:25.000Z",
+      "dateUpdated": "2023-10-02T17:53:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T13:44:46.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "guscarreon": {
+            "count": 5,
+            "author": "guscarreon"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adjust imp.BidFloor using BidAdjustment",
+      "number": 3063,
+      "author": "Pubmatic-Dhruv-Sonone",
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "Pubmatic-Dhruv-Sonone"
+        ]
+      },
+      "dateCreated": "2023-08-30T19:14:55.000Z",
+      "dateUpdated": "2023-09-12T13:44:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T13:44:15.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "Pubmatic-Dhruv-Sonone": {
+            "count": 3,
+            "author": "Pubmatic-Dhruv-Sonone"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: GreedyGame",
+      "number": 3083,
+      "author": "imedvedko",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "imedvedko"
+        ]
+      },
+      "dateCreated": "2023-09-07T06:13:39.000Z",
+      "dateUpdated": "2023-10-20T12:32:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T06:00:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "imedvedko": {
+            "count": 2,
+            "author": "imedvedko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Activities: Back To Spec",
+      "number": 3081,
+      "author": "SyntaxNode",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2023-09-07T01:37:56.000Z",
+      "dateUpdated": "2023-09-11T21:54:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T21:54:27.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 4,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Prebid Meta Data: Add RendererUrl",
+      "number": 3087,
+      "author": "SyntaxNode",
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-08T14:23:44.000Z",
+      "dateUpdated": "2023-09-11T20:54:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T20:54:41.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SyntaxNode": {
+            "count": 1,
+            "author": "SyntaxNode"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sovrn: Adapter to accept ad unit codes",
+      "number": 3060,
+      "author": "ikagotso",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "ikagotso"
+        ]
+      },
+      "dateCreated": "2023-08-30T13:26:54.000Z",
+      "dateUpdated": "2023-09-11T09:59:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T09:59:02.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ikagotso": {
+            "count": 2,
+            "author": "ikagotso"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix CheckResponseStatusCodeForErrors adapter response util",
+      "number": 3086,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-09-08T10:37:25.000Z",
+      "dateUpdated": "2023-09-25T19:19:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T05:28:45.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "onkarvhanumante": {
+            "count": 2,
+            "author": "onkarvhanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: Appstock",
+      "number": 3054,
+      "author": "imedvedko",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "imedvedko"
+        ]
+      },
+      "dateCreated": "2023-08-25T09:58:15.000Z",
+      "dateUpdated": "2023-09-08T15:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-08T09:42:10.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "imedvedko": {
+            "count": 4,
+            "author": "imedvedko"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: BidRequest updated by ProcessedAuction hook is getting overridde…",
+      "number": 3045,
+      "author": "pm-nikhil-vaidya",
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-08-22T15:32:05.000Z",
+      "dateUpdated": "2023-09-07T17:08:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T17:08:03.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "pm-nikhil-vaidya": {
+            "count": 1,
+            "author": "pm-nikhil-vaidya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Undertone: adding GPID support",
+      "number": 3078,
+      "author": "idanbotbol",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "idanbotbol"
+        ]
+      },
+      "dateCreated": "2023-09-06T10:34:10.000Z",
+      "dateUpdated": "2023-09-07T08:44:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T08:44:59.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "shahaf-undertone": {
+            "count": 3,
+            "author": "shahaf-undertone"
+          },
+          "idanbotbol": {
+            "count": 6,
+            "author": "idanbotbol"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Huawei Ads: fix cta text empty and fill rate issue",
+      "number": 3070,
+      "author": "afk59",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "afk59"
+        ]
+      },
+      "dateCreated": "2023-09-01T20:40:55.000Z",
+      "dateUpdated": "2023-09-07T08:01:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T08:01:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "afk59": {
+            "count": 3,
+            "author": "afk59"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Taboola Bidder Adapter:  Change Endpoint ",
+      "number": 3058,
+      "author": "ahmadlob",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "ahmadlob"
+        ]
+      },
+      "dateCreated": "2023-08-27T12:11:35.000Z",
+      "dateUpdated": "2023-09-06T12:48:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-06T12:48:19.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ahmadlob": {
+            "count": 1,
+            "author": "ahmadlob"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add data field for custom renderers",
+      "number": 3059,
+      "author": "github-maxime-liege",
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2023-08-30T09:11:01.000Z",
+      "dateUpdated": "2023-09-05T17:52:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:52:34.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "github-maxime-liege": {
+            "count": 1,
+            "author": "github-maxime-liege"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix panic observed in setSiteImplicitly function",
+      "number": 3053,
+      "author": "ashishshinde-pubm",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "hhhjort"
+        ],
+        "pending": [
+          "ashishshinde-pubm"
+        ]
+      },
+      "dateCreated": "2023-08-24T12:25:57.000Z",
+      "dateUpdated": "2023-09-05T17:18:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:18:35.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ashishshinde-pubm": {
+            "count": 2,
+            "author": "ashishshinde-pubm"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Added float precision check in floor price comparision",
+      "number": 3042,
+      "author": "pm-jaydeep-mohite",
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "hhhjort",
+          "AlexBVolcy"
+        ],
+        "pending": [
+          "pm-jaydeep-mohite"
+        ]
+      },
+      "dateCreated": "2023-08-22T04:49:24.000Z",
+      "dateUpdated": "2023-09-05T17:13:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:13:52.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "pm-jaydeep-mohite": {
+            "count": 2,
+            "author": "pm-jaydeep-mohite"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "IP scrubber",
+      "number": 2990,
+      "author": "VeronikaSolovei9",
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [],
+        "pending": [
+          "VeronikaSolovei9",
+          "SyntaxNode",
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2023-07-29T04:30:01.000Z",
+      "dateUpdated": "2023-10-02T17:53:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:09:14.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 21,
+        "byAuthor": {
+          "VeronikaSolovei9": {
+            "count": 21,
+            "author": "VeronikaSolovei9"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Sovrn: Adapter update user sync urls for gpp",
+      "number": 3061,
+      "author": "ikagotso",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "dmitrybor"
+        ]
+      },
+      "dateCreated": "2023-08-30T14:06:51.000Z",
+      "dateUpdated": "2023-09-05T06:22:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T06:22:21.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 4,
+        "byAuthor": {
+          "dmitrybor": {
+            "count": 4,
+            "author": "dmitrybor"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update HuaweiAds email",
+      "number": 3071,
+      "author": "afk59",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "afk59"
+        ]
+      },
+      "dateCreated": "2023-09-01T22:52:54.000Z",
+      "dateUpdated": "2023-09-05T06:17:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T06:17:27.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "afk59": {
+            "count": 2,
+            "author": "afk59"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix few adapter aliases bug",
+      "number": 3055,
+      "author": "gargcreation1992",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2023-08-25T16:26:49.000Z",
+      "dateUpdated": "2023-09-05T05:50:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T05:50:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "gargcreation1992": {
+            "count": 7,
+            "author": "gargcreation1992"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update datablocks adapter",
+      "number": 2838,
+      "author": "jmayor",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "SyntaxNode",
+          "jmayor",
+          "bretg"
+        ]
+      },
+      "dateCreated": "2023-06-12T16:58:05.000Z",
+      "dateUpdated": "2023-09-04T12:48:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-04T12:48:40.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "jmayor": {
+            "count": 6,
+            "author": "jmayor"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

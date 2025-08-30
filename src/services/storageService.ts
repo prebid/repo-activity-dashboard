@@ -28,8 +28,7 @@ export class StorageService {
   }
 
   private getRepoPath(repo: Repository): string {
-    const safeRepoName = this.getSafeFileName(repo.repo);
-    return join(this.storeDir, 'repos', safeRepoName);
+    return join(this.storeDir, 'repos', repo.name);
   }
 
   private getYearMonth(date: Date): string {
@@ -104,6 +103,7 @@ export class StorageService {
         existingPrs = existing.items.map(pr => ({
           ...pr,
           dateCreated: new Date(pr.dateCreated),
+          dateUpdated: new Date(pr.dateUpdated),
           dateMerged: pr.dateMerged ? new Date(pr.dateMerged) : undefined,
           dateClosed: pr.dateClosed ? new Date(pr.dateClosed) : undefined
         }));
@@ -167,6 +167,7 @@ export class StorageService {
         existingIssues = existing.items.map(issue => ({
           ...issue,
           dateCreated: new Date(issue.dateCreated),
+          dateUpdated: new Date(issue.dateUpdated),
           dateClosed: issue.dateClosed ? new Date(issue.dateClosed) : undefined
         }));
       }
@@ -206,10 +207,10 @@ export class StorageService {
     const storage: OpenItemsStorage<PRData> = JSON.parse(
       readFileSync(filePath, 'utf-8'),
       (key, value) => {
-        if (key === 'byAuthor' && typeof value === 'object') {
+        if (key === 'commits' && typeof value === 'object' && !Array.isArray(value)) {
           return new Map(Object.entries(value));
         }
-        if (key.includes('Date') || key === 'dateCreated' || key === 'dateMerged' || key === 'dateClosed' || key === 'lastSync') {
+        if (key.includes('Date') || key === 'dateCreated' || key === 'dateUpdated' || key === 'dateMerged' || key === 'dateClosed' || key === 'lastSync') {
           return new Date(value);
         }
         return value;
@@ -228,7 +229,7 @@ export class StorageService {
     const storage: OpenItemsStorage<IssueData> = JSON.parse(
       readFileSync(filePath, 'utf-8'),
       (key, value) => {
-        if (key.includes('Date') || key === 'dateCreated' || key === 'dateClosed' || key === 'lastSync') {
+        if (key.includes('Date') || key === 'dateCreated' || key === 'dateUpdated' || key === 'dateClosed' || key === 'lastSync') {
           return new Date(value);
         }
         return value;

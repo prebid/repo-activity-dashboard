@@ -1,0 +1,1415 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 2,
+    "itemCount": 43,
+    "lastUpdated": "2025-08-30T16:17:51.168Z"
+  },
+  "items": [
+    {
+      "title": "Rubicon: Remove api validation",
+      "number": 3493,
+      "author": "SerhiiNahornyi",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-13T13:45:33.000Z",
+      "dateUpdated": "2024-03-01T05:55:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-01T05:55:07.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "SerhiiNahornyi": {
+            "count": 1,
+            "author": "SerhiiNahornyi"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "TheMediaGrid: Add GPP macros",
+      "number": 3545,
+      "author": "dzhang-criteo",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-26T15:40:14.000Z",
+      "dateUpdated": "2024-02-29T13:11:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-29T13:11:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dzhang-criteo": {
+            "count": 1,
+            "author": "dzhang-criteo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Use Json compacter in the bidders/params endpoint",
+      "number": 3395,
+      "author": "guscarreon",
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "hhhjort"
+        ],
+        "pending": [
+          "guscarreon"
+        ]
+      },
+      "dateCreated": "2024-01-10T17:39:07.000Z",
+      "dateUpdated": "2024-02-28T19:48:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T19:48:36.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 24,
+        "byAuthor": {
+          "guscarreon": {
+            "count": 24,
+            "author": "guscarreon"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Criteo: add GPP macros",
+      "number": 3544,
+      "author": "dzhang-criteo",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-26T15:28:04.000Z",
+      "dateUpdated": "2024-02-28T13:49:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T13:49:22.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dzhang-criteo": {
+            "count": 1,
+            "author": "dzhang-criteo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Reformat structures to use key names",
+      "number": 3524,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "guscarreon",
+          "dmitris",
+          "SyntaxNode"
+        ]
+      },
+      "dateCreated": "2024-02-21T10:42:55.000Z",
+      "dateUpdated": "2024-02-28T09:24:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T22:24:19.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "dmitris": {
+            "count": 3,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Module template & builder produces duplicate map keys",
+      "number": 3534,
+      "author": "linux019",
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "hhhjort"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-22T10:27:07.000Z",
+      "dateUpdated": "2024-02-27T20:35:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T19:51:35.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "oaleksieiev": {
+            "count": 1,
+            "author": "oaleksieiev"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DSA: Bid response adrender, behalf & paid validations",
+      "number": 3523,
+      "author": "bsardo",
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-20T20:29:05.000Z",
+      "dateUpdated": "2024-02-27T19:27:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T19:27:22.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 15,
+        "byAuthor": {
+          "bsardo": {
+            "count": 15,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Pubstack memory leak",
+      "number": 3541,
+      "author": "AvinashKapre",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "AvinashKapre"
+        ]
+      },
+      "dateCreated": "2024-02-26T06:59:06.000Z",
+      "dateUpdated": "2024-02-27T16:30:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T16:30:58.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "AvinashKapre": {
+            "count": 3,
+            "author": "AvinashKapre"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Taboola: Fix gpp query param ",
+      "number": 3515,
+      "author": "ahmadlob",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-20T07:16:29.000Z",
+      "dateUpdated": "2024-02-26T18:46:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-26T18:46:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ahmadlob": {
+            "count": 2,
+            "author": "ahmadlob"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update prebid.org url to https",
+      "number": 3529,
+      "author": "maditya",
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "guscarreon"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-21T15:40:03.000Z",
+      "dateUpdated": "2024-02-23T01:30:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:30:21.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "maditya": {
+            "count": 1,
+            "author": "maditya"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "MinuteMedia: Add GPP macros",
+      "number": 3497,
+      "author": "zkosanovic",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "zkosanovic"
+        ]
+      },
+      "dateCreated": "2024-02-14T05:11:37.000Z",
+      "dateUpdated": "2024-02-23T01:23:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:23:53.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Zdravko Kosanovic": {
+            "count": 1,
+            "author": "Zdravko Kosanovic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "SeedingAlliance: Deprecate seatId in favor of accountId",
+      "number": 3486,
+      "author": "sag-henmus",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-12T12:52:31.000Z",
+      "dateUpdated": "2024-02-23T01:00:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:00:35.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 8,
+        "byAuthor": {
+          "sag-henmus": {
+            "count": 8,
+            "author": "sag-henmus"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add formatcheck make target",
+      "number": 3480,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-09T16:49:25.000Z",
+      "dateUpdated": "2024-02-22T20:36:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T20:11:21.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Rise: Add GPP macros",
+      "number": 3496,
+      "author": "zkosanovic",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-14T05:03:34.000Z",
+      "dateUpdated": "2024-02-22T05:59:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:59:47.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "Zdravko Kosanovic": {
+            "count": 1,
+            "author": "Zdravko Kosanovic"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ADF: Regional endpoints",
+      "number": 3503,
+      "author": "bretg",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "braizhas",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-14T16:59:00.000Z",
+      "dateUpdated": "2024-02-22T05:59:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:59:30.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "BMTM: Update maintainer address",
+      "number": 3483,
+      "author": "bretg",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "bretg"
+        ]
+      },
+      "dateCreated": "2024-02-09T18:53:30.000Z",
+      "dateUpdated": "2024-02-22T05:51:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:51:22.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "bretg": {
+            "count": 1,
+            "author": "bretg"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Stroeercore: Support DSA",
+      "number": 3495,
+      "author": "philipwatson",
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "philipwatson"
+        ]
+      },
+      "dateCreated": "2024-02-14T02:42:29.000Z",
+      "dateUpdated": "2024-03-04T01:41:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:50:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "philipwatson": {
+            "count": 1,
+            "author": "philipwatson"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DSA: Use seat nonbid code 300",
+      "number": 3531,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "SyntaxNode"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-21T19:14:24.000Z",
+      "dateUpdated": "2024-02-22T01:09:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T01:09:24.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "bsardo": {
+            "count": 2,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "IX: Add DSA test",
+      "number": 3510,
+      "author": "ccorbo",
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "bsardo",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "ccorbo"
+        ]
+      },
+      "dateCreated": "2024-02-15T15:44:42.000Z",
+      "dateUpdated": "2024-02-21T06:32:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T06:32:26.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ccorbo": {
+            "count": 1,
+            "author": "ccorbo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix go vet 'composite literals with unkeyed fields'",
+      "number": 3522,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-20T20:06:30.000Z",
+      "dateUpdated": "2024-02-21T07:41:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T04:54:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "DSA: Remove bids missing DSA object when required",
+      "number": 3487,
+      "author": "bsardo",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo"
+        ]
+      },
+      "dateCreated": "2024-02-12T13:55:50.000Z",
+      "dateUpdated": "2024-02-20T20:22:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T20:22:19.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 13,
+        "byAuthor": {
+          "bsardo": {
+            "count": 13,
+            "author": "bsardo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix go vet composite literals with unkeyed fields",
+      "number": 3507,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": [
+          "dmitris"
+        ]
+      },
+      "dateCreated": "2024-02-15T13:13:50.000Z",
+      "dateUpdated": "2024-02-20T19:05:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T17:45:21.000Z",
+      "labels": [
+        "do not port"
+      ],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "dmitris": {
+            "count": 3,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "New adapter: BoldwinX",
+      "number": 3430,
+      "author": "bold-win",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "bold-win"
+        ]
+      },
+      "dateCreated": "2024-01-26T13:00:40.000Z",
+      "dateUpdated": "2024-02-19T08:54:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-19T08:54:00.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "boldwin": {
+            "count": 5,
+            "author": "boldwin"
+          },
+          "bold-win": {
+            "count": 2,
+            "author": "bold-win"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Targeting: Add alwaysincludedeals flag",
+      "number": 3454,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "guscarreon"
+        ],
+        "pending": [
+          "AlexBVolcy"
+        ]
+      },
+      "dateCreated": "2024-02-06T00:47:01.000Z",
+      "dateUpdated": "2024-02-16T14:25:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-16T14:25:17.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 6,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 6,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Remove Extra Buffer from GZIP Compression",
+      "number": 3494,
+      "author": "AlexBVolcy",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-13T21:57:11.000Z",
+      "dateUpdated": "2024-02-15T21:16:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T21:16:41.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "AlexBVolcy": {
+            "count": 1,
+            "author": "AlexBVolcy"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix: Release workflow permissions",
+      "number": 3506,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "bsardo"
+        ],
+        "pending": [
+          "onkarvhanumante"
+        ]
+      },
+      "dateCreated": "2024-02-15T08:50:50.000Z",
+      "dateUpdated": "2024-02-15T15:52:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T15:52:31.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 3,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Add log lines in release workflow",
+      "number": 3504,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr",
+          "gargcreation1992"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-15T06:13:29.000Z",
+      "dateUpdated": "2024-02-15T06:32:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T06:32:54.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yieldlab: Add Digital Service Act (DSA) handling",
+      "number": 3473,
+      "author": "Mufas61",
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": {
+        "approved": [
+          "brushmate",
+          "bsardo",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "Mufas61"
+        ]
+      },
+      "dateCreated": "2024-02-07T14:32:58.000Z",
+      "dateUpdated": "2024-02-14T20:53:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T20:53:39.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 9,
+        "byAuthor": {
+          "Mufas61": {
+            "count": 9,
+            "author": "Mufas61"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Fix function godoc comment",
+      "number": 3502,
+      "author": "dmitris",
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "bsardo"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-14T15:50:54.000Z",
+      "dateUpdated": "2024-02-15T12:19:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T18:56:13.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "dmitris": {
+            "count": 1,
+            "author": "dmitris"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update trivy check workflow to use node 20 actions",
+      "number": 3472,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "SyntaxNode",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-07T13:02:17.000Z",
+      "dateUpdated": "2024-02-15T08:19:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T13:26:44.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Kargo: Adding GPP macros to bidder-info",
+      "number": 3490,
+      "author": "jsadwith",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-12T15:56:46.000Z",
+      "dateUpdated": "2024-02-14T10:51:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T10:51:16.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "jsadwith": {
+            "count": 1,
+            "author": "jsadwith"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update release workflow to use actions with node 20 support",
+      "number": 3478,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-09T10:44:15.000Z",
+      "dateUpdated": "2024-02-15T08:19:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T05:58:03.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 3,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 3,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update code semgrep workflow to use actions with node 20 support",
+      "number": 3471,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-07T11:18:40.000Z",
+      "dateUpdated": "2024-02-15T08:19:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T04:49:09.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Medianet: enable gzip and update usersync url",
+      "number": 3489,
+      "author": "rajatgoyal2510",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "gargcreation1992"
+        ]
+      },
+      "dateCreated": "2024-02-12T14:28:26.000Z",
+      "dateUpdated": "2024-02-13T15:38:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:38:52.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "amanjain-directi": {
+            "count": 1,
+            "author": "amanjain-directi"
+          },
+          "rajatgoyal2510": {
+            "count": 1,
+            "author": "rajatgoyal2510"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update issue tracking workflow to use actions with node version 20 support",
+      "number": 3479,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-09T11:17:40.000Z",
+      "dateUpdated": "2024-02-15T08:19:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:33:11.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Update validate pull request workflows to use node 20 actions",
+      "number": 3474,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-08T10:16:56.000Z",
+      "dateUpdated": "2024-02-15T08:19:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:25:56.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "ImproveDigital: Bad-Input Error ",
+      "number": 3469,
+      "author": "ishihanvcs",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-06T21:16:21.000Z",
+      "dateUpdated": "2024-02-13T10:23:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T10:23:51.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 2,
+        "byAuthor": {
+          "ishihanvcs": {
+            "count": 2,
+            "author": "ishihanvcs"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "update code coverage workflow to use actions with node 20 support",
+      "number": 3470,
+      "author": "onkarvhanumante",
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "VeronikaSolovei9",
+          "AlexBVolcy"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-07T08:30:11.000Z",
+      "dateUpdated": "2024-02-15T08:19:08.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T18:26:33.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "onkar hanumante": {
+            "count": 1,
+            "author": "onkar hanumante"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Yieldmo: Add support for gpp and gpp_sid",
+      "number": 3442,
+      "author": "ym-prasanth",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "onkarvhanumante"
+        ],
+        "pending": [
+          "ym-prasanth"
+        ]
+      },
+      "dateCreated": "2024-02-01T18:50:38.000Z",
+      "dateUpdated": "2024-02-08T06:50:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-08T06:50:38.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 1,
+        "byAuthor": {
+          "ym-prasanth": {
+            "count": 1,
+            "author": "ym-prasanth"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Adprime: Add mtype",
+      "number": 3439,
+      "author": "Adprime",
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "gargcreation1992",
+          "Sonali-More-Xandr"
+        ],
+        "pending": []
+      },
+      "dateCreated": "2024-02-01T14:22:11.000Z",
+      "dateUpdated": "2024-02-07T05:48:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-07T05:48:58.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 26,
+        "byAuthor": {
+          "Aiholkin": {
+            "count": 13,
+            "author": "Aiholkin"
+          },
+          "Adprime": {
+            "count": 13,
+            "author": "Adprime"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "AdView: support multi imps request & formattype tag for bid response",
+      "number": 3355,
+      "author": "AdviewOpen",
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "Sonali-More-Xandr"
+        ],
+        "pending": [
+          "AdviewOpen"
+        ]
+      },
+      "dateCreated": "2023-12-15T01:07:59.000Z",
+      "dateUpdated": "2024-02-06T05:42:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-06T05:42:30.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 44,
+        "byAuthor": {
+          "wildcat0601": {
+            "count": 15,
+            "author": "wildcat0601"
+          },
+          "AdviewOpen": {
+            "count": 14,
+            "author": "AdviewOpen"
+          },
+          "wilder0601": {
+            "count": 15,
+            "author": "wilder0601"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Boldwin: get bid type from bid.mtype",
+      "number": 3433,
+      "author": "Wls-demo",
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": {
+        "approved": [
+          "onkarvhanumante",
+          "gargcreation1992"
+        ],
+        "pending": [
+          "Wls-demo"
+        ]
+      },
+      "dateCreated": "2024-01-29T12:27:56.000Z",
+      "dateUpdated": "2024-02-05T06:40:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-05T06:40:55.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 5,
+        "byAuthor": {
+          "Wls-demo": {
+            "count": 5,
+            "author": "Wls-demo"
+          }
+        }
+      },
+      "baseBranch": "master"
+    },
+    {
+      "title": "Capture SeatNonBids for rejected creatives due to insecurity and invalid size",
+      "number": 3376,
+      "author": "ashishshinde-pubm",
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": {
+        "approved": [
+          "AlexBVolcy",
+          "VeronikaSolovei9"
+        ],
+        "pending": [
+          "bsardo",
+          "ashishshinde-pubm"
+        ]
+      },
+      "dateCreated": "2023-12-22T03:33:51.000Z",
+      "dateUpdated": "2024-02-01T18:06:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-01T18:06:46.000Z",
+      "labels": [],
+      "commits": {
+        "totalCount": 7,
+        "byAuthor": {
+          "ashishshinde-pubm": {
+            "count": 7,
+            "author": "ashishshinde-pubm"
+          }
+        }
+      },
+      "baseBranch": "master"
+    }
+  ]
+}

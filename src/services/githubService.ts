@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest';
-import { Repository, PRData, IssueData, CommitAuthorSummary } from '../types/index.js';
+import { Repository, PRData, IssueData } from '../types/index.js';
 import { RateLimitManager } from './rateLimitManager.js';
 import { RequestQueue } from './requestQueue.js';
 
@@ -68,10 +68,6 @@ export class GitHubService {
         options.onProgress(totalItems, estimatedTotal || totalItems);
       }
       
-      // Call batch callback for incremental saving
-      if (options.onBatch && items.length > 0) {
-        await options.onBatch(items);
-      }
       
       // Check if we've reached the max items limit
       if (options.maxItems && totalItems >= options.maxItems) {
@@ -237,40 +233,33 @@ export class GitHubService {
         }
       });
 
-      const commitsByAuthor = new Map<string, CommitAuthorSummary>();
+      const commitsByAuthor = new Map<string, number>();
       for (const commit of commitsResponse.data) {
         const authorLogin = commit.author?.login || commit.commit.author?.name || 'unknown';
         
         if (!commitsByAuthor.has(authorLogin)) {
-          commitsByAuthor.set(authorLogin, {
-            count: 0,
-            author: authorLogin
-          });
+          commitsByAuthor.set(authorLogin, 0);
         }
         
-        const summary = commitsByAuthor.get(authorLogin)!;
-        summary.count++;
+        commitsByAuthor.set(authorLogin, commitsByAuthor.get(authorLogin)! + 1);
       }
 
     return {
       title: pr.title,
       number: pr.number,
-      author: pr.user?.login || 'unknown',
+      author: {
+        login: pr.user?.login || 'unknown',
+        id: pr.user?.id || 0
+      },
       assignees: pr.assignees ? pr.assignees.map((a: any) => a.login).filter(Boolean) : [],
-      reviewers: reviewers.approved.length > 0 || reviewers.pending.length > 0 ? reviewers : undefined,
+      reviewers: [...reviewers.approved, ...reviewers.pending],
+      draft: pr.draft || false,
       dateCreated: new Date(pr.created_at),
+      dateUpdated: new Date(pr.updated_at),
       status: pr.merged_at ? 'merged' : pr.state as 'open' | 'closed',
       dateMerged: pr.merged_at ? new Date(pr.merged_at) : undefined,
       dateClosed: pr.closed_at && !pr.merged_at ? new Date(pr.closed_at) : undefined,
-      labels: pr.labels.map((label: any) => 
-        typeof label === 'string' ? label : label.name || ''
-      ).filter(Boolean),
-      commits: {
-        totalCount: commitsResponse.data.length,
-        byAuthor: commitsByAuthor
-      },
-      relatedIssue: undefined,
-      baseBranch: pr.base.ref
+      commits: commitsByAuthor
     };
   }
 
@@ -358,16 +347,17 @@ export class GitHubService {
     return {
         title: issue.title,
         number: issue.number,
-        author: issue.user?.login || 'unknown',
+        author: {
+          login: issue.user?.login || 'unknown',
+          id: issue.user?.id || 0
+        },
         assignees: issue.assignees ? issue.assignees.map((a: any) => a.login).filter(Boolean) : [],
         dateCreated: new Date(issue.created_at),
+        dateUpdated: new Date(issue.updated_at),
         status: issue.state as 'open' | 'closed',
         dateClosed: issue.closed_at ? new Date(issue.closed_at) : undefined,
-        closedReason: issue.state === 'closed' ? this.parseIssueClosedReason(issue.state_reason) : undefined,
-        labels: issue.labels.map((label: any) => 
-          typeof label === 'string' ? label : label.name || ''
-        ).filter(Boolean),
-        relatedPR: undefined
+        closedBy: issue.closed_by?.login,
+        closureReason: issue.state === 'closed' ? this.parseIssueClosedReason(issue.state_reason) : undefined
       };
     }
 

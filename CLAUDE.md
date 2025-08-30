@@ -135,6 +135,86 @@ A TypeScript Node.js application that fetches GitHub repository activity data. T
 2. Configure repositories in `repos.json`
 3. Token must have access to all configured repositories
 
+## Testing
+
+### Test Framework
+The project uses **Vitest** for testing - a fast, TypeScript-first test runner with built-in mocking and coverage.
+
+### Test Structure
+```
+tests/
+├── setup.ts              # Global test setup/teardown, handles test store
+├── fixtures/            
+│   └── testData.ts      # Reusable test data (repos, PRs, issues)
+├── unit/                # Unit tests for individual services
+│   └── storageService.test.ts
+├── integration/         # End-to-end GitHub API tests  
+└── mocks/              # Mock services and API responses
+```
+
+### Running Tests
+```bash
+npm test                 # Run all tests once
+npm run test:watch       # Watch mode for development
+npm run test:ui          # Visual UI for debugging
+npm run test:coverage    # Generate coverage report
+npm run test:unit        # Unit tests only
+npm run test:integration # Integration tests only
+```
+
+### Test Configuration
+- **Environment**: Node.js
+- **Timeout**: 30 seconds (for API calls)
+- **Coverage thresholds**: 80% for lines, functions, branches, statements
+- **Isolation**: Tests run in isolation with automatic cleanup
+- **Test store**: Temporary `tests/test-store/` directory (auto-cleaned)
+- **Config file**: `vitest.config.ts` with path aliases and coverage settings
+
+### Writing Tests
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+import { TEST_STORE_DIR } from '../setup.js';
+import { testRepository, mockPRData } from '../fixtures/testData.js';
+
+describe('YourService', () => {
+  let service: YourService;
+  
+  beforeEach(() => {
+    service = new YourService(TEST_STORE_DIR);
+  });
+
+  it('should handle dateUpdated field correctly', async () => {
+    // Test implementation
+    expect(result.dateUpdated).toBeInstanceOf(Date);
+  });
+});
+```
+
+### Test Fixtures
+The `tests/fixtures/testData.ts` file provides:
+- `testRepository` - Sample repository object
+- `mockPRData` - Sample PR with dateUpdated
+- `mockIssueData` - Sample issue with dateUpdated  
+- `generateMockPRs(count)` - Generate multiple test PRs
+- `generateMockIssues(count)` - Generate multiple test issues
+- `mockGitHubPRResponse` - Raw GitHub API response
+- `mockGitHubIssueResponse` - Raw GitHub API response
+
+### Key Test Scenarios
+1. **Date field preservation** - Ensure dateUpdated survives save/load cycles
+2. **Pagination handling** - Test with 100+ items
+3. **Incremental sync** - Detect newly opened/closed items
+4. **Deduplication** - Prevent duplicate entries
+5. **Monthly organization** - Verify correct date-based filing
+6. **Empty repositories** - Handle repos with no items
+7. **Rate limiting** - Test adaptive delays and retries
+
+### Test Coverage Areas
+- **StorageService**: File operations, date parsing, deduplication
+- **GitHubService**: Pagination, rate limiting, error handling
+- **DataFetcher**: Sync logic, incremental updates, batch processing
+- **RepoParser**: URL parsing, repository loading
+
 ## Common Tasks
 
 ### Add a new repository

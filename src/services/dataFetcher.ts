@@ -39,8 +39,9 @@ export class DataFetcher {
       });
       allOpenIssues = openIssues;
       
-      // Fetch merged PRs with batch saving
-      const mergedPRs = await this.githubService.fetchMergedPRs(repo, undefined, {
+      // Fetch merged PRs from 2024 onwards
+      const since2024 = new Date('2024-01-01T00:00:00Z');
+      const mergedPRs = await this.githubService.fetchMergedPRs(repo, since2024, {
         onBatch: async (batch) => {
           allMergedPRs = [...allMergedPRs, ...batch];
           await this.storageService.saveMergedPRs(repo, allMergedPRs);
@@ -48,8 +49,8 @@ export class DataFetcher {
       });
       allMergedPRs = mergedPRs;
       
-      // Fetch closed issues with batch saving
-      const closedIssues = await this.githubService.fetchClosedIssues(repo, undefined, {
+      // Fetch closed issues from 2024 onwards
+      const closedIssues = await this.githubService.fetchClosedIssues(repo, since2024, {
         onBatch: async (batch) => {
           allClosedIssues = [...allClosedIssues, ...batch];
           await this.storageService.saveClosedIssues(repo, allClosedIssues);
@@ -82,6 +83,100 @@ export class DataFetcher {
       console.log(`✅ ${repo.name}: ${allOpenPRs.length} open PRs, ${allOpenIssues.length} open issues, ${allMergedPRs.length} merged PRs, ${allClosedIssues.length} closed issues`);
     } catch (error) {
       console.error(`❌ Failed to sync ${repo.name}:`, error);
+      throw error;
+    }
+  }
+
+  async syncOpenItemsOnly(repo: Repository): Promise<void> {
+    console.log(`🔄 Updating open items for ${repo.name}...`);
+    
+    try {
+      let allOpenPRs: PRData[] = [];
+      let allOpenIssues: IssueData[] = [];
+      
+      // Fetch open PRs with batch saving
+      const openPRs = await this.githubService.fetchOpenPRs(repo, {
+        onBatch: async (batch) => {
+          allOpenPRs = [...allOpenPRs, ...batch];
+          await this.storageService.saveOpenPRs(repo, allOpenPRs);
+        }
+      });
+      allOpenPRs = openPRs;
+      
+      // Fetch open issues with batch saving
+      const openIssues = await this.githubService.fetchOpenIssues(repo, {
+        onBatch: async (batch) => {
+          allOpenIssues = [...allOpenIssues, ...batch];
+          await this.storageService.saveOpenIssues(repo, allOpenIssues);
+        }
+      });
+      allOpenIssues = openIssues;
+
+      // Final save to ensure everything is stored
+      await Promise.all([
+        this.storageService.saveOpenPRs(repo, allOpenPRs),
+        this.storageService.saveOpenIssues(repo, allOpenIssues)
+      ]);
+
+      console.log(`✅ ${repo.name}: ${allOpenPRs.length} open PRs, ${allOpenIssues.length} open issues (with dateUpdated)`);
+    } catch (error) {
+      console.error(`❌ Failed to update ${repo.name}:`, error);
+      throw error;
+    }
+  }
+
+  async syncMergedPRsOnly(repo: Repository, since?: Date): Promise<void> {
+    console.log(`🔄 Updating merged PRs for ${repo.name}...`);
+    
+    try {
+      let allMergedPRs: PRData[] = [];
+      
+      // Use provided date or default to 2024
+      const sinceDate = since || new Date('2024-01-01T00:00:00Z');
+      
+      // Fetch merged PRs
+      const mergedPRs = await this.githubService.fetchMergedPRs(repo, sinceDate, {
+        onBatch: async (batch) => {
+          allMergedPRs = [...allMergedPRs, ...batch];
+          await this.storageService.saveMergedPRs(repo, allMergedPRs);
+        }
+      });
+      allMergedPRs = mergedPRs;
+
+      // Final save to ensure everything is stored
+      await this.storageService.saveMergedPRs(repo, allMergedPRs);
+
+      console.log(`✅ ${repo.name}: ${allMergedPRs.length} merged PRs (since ${sinceDate.toISOString().split('T')[0]})`);
+    } catch (error) {
+      console.error(`❌ Failed to update merged PRs for ${repo.name}:`, error);
+      throw error;
+    }
+  }
+
+  async syncClosedIssuesOnly(repo: Repository, since?: Date): Promise<void> {
+    console.log(`🔄 Updating closed issues for ${repo.name}...`);
+    
+    try {
+      let allClosedIssues: IssueData[] = [];
+      
+      // Use provided date or default to 2024
+      const sinceDate = since || new Date('2024-01-01T00:00:00Z');
+      
+      // Fetch closed issues
+      const closedIssues = await this.githubService.fetchClosedIssues(repo, sinceDate, {
+        onBatch: async (batch) => {
+          allClosedIssues = [...allClosedIssues, ...batch];
+          await this.storageService.saveClosedIssues(repo, allClosedIssues);
+        }
+      });
+      allClosedIssues = closedIssues;
+
+      // Final save to ensure everything is stored
+      await this.storageService.saveClosedIssues(repo, allClosedIssues);
+
+      console.log(`✅ ${repo.name}: ${allClosedIssues.length} closed issues (since ${sinceDate.toISOString().split('T')[0]})`);
+    } catch (error) {
+      console.error(`❌ Failed to update closed issues for ${repo.name}:`, error);
       throw error;
     }
   }
