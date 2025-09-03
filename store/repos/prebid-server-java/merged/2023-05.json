@@ -1,0 +1,774 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 5,
+    "itemCount": 25,
+    "lastUpdated": "2025-09-03T00:16:49.982Z"
+  },
+  "items": [
+    {
+      "title": "Tests: Add functional tests for new 2.6 ortb fields",
+      "number": 2361,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-16T10:26:18.000Z",
+      "dateUpdated": "2023-05-26T13:33:53.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-26T13:33:52.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yandex: Endpoint update",
+      "number": 2367,
+      "author": {
+        "login": "DridgerVE",
+        "id": 33929311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-17T15:53:02.000Z",
+      "dateUpdated": "2023-05-23T12:21:57.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:21:57.000Z",
+      "commitAuthors": {
+        "33929311": {
+          "identifier": "33929311",
+          "displayName": "DridgerVE",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Copper6: Adtelligent alias",
+      "number": 2380,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-23T11:27:19.000Z",
+      "dateUpdated": "2023-05-23T12:21:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:21:43.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adsinteractive: Update usersync endpoint",
+      "number": 2379,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-23T09:10:01.000Z",
+      "dateUpdated": "2023-05-23T12:21:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:21:16.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato: Enabling endpoint-compression",
+      "number": 2378,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-23T07:56:02.000Z",
+      "dateUpdated": "2023-05-23T12:20:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:20:45.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo: Add iframe user-sync support",
+      "number": 2377,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-23T07:47:51.000Z",
+      "dateUpdated": "2023-05-23T12:20:24.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:20:23.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Emtv: Add new adapter",
+      "number": 2374,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-22T13:18:43.000Z",
+      "dateUpdated": "2023-05-23T12:19:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-23T12:19:54.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Add fix for `PG` flaky tests",
+      "number": 2349,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-10T09:51:24.000Z",
+      "dateUpdated": "2023-05-17T11:12:30.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-17T11:12:29.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 24,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mask `user.id` for activities.",
+      "number": 2358,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-15T16:23:14.000Z",
+      "dateUpdated": "2023-05-17T11:12:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-17T11:12:01.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "FrvrAdn: Add bidder",
+      "number": 2357,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-15T13:04:22.000Z",
+      "dateUpdated": "2023-05-17T10:04:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-17T10:04:40.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Ortb 2.6 `imp.qty`, `imp.refresh`, `video.plcmt`",
+      "number": 2333,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-02T13:19:06.000Z",
+      "dateUpdated": "2023-05-17T09:58:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-17T09:58:50.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Add `user.id` for transmitUfpdSpec",
+      "number": 2363,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-16T14:57:03.000Z",
+      "dateUpdated": "2023-05-17T09:46:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-17T09:46:02.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adview: Endpoint configuration updates",
+      "number": 2356,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-15T11:53:56.000Z",
+      "dateUpdated": "2023-05-15T13:08:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T13:08:04.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Axis: Add adapter",
+      "number": 2350,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-10T13:38:17.000Z",
+      "dateUpdated": "2023-05-15T13:06:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T13:06:19.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Update kadfloor resolution",
+      "number": 2353,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-11T12:52:28.000Z",
+      "dateUpdated": "2023-05-15T13:06:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T13:06:05.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Activity Infrastructure: Add missed event",
+      "number": 2342,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-05T10:45:06.000Z",
+      "dateUpdated": "2023-05-15T13:04:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T13:04:28.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adsyield: Add new adapter",
+      "number": 2345,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-08T14:58:19.000Z",
+      "dateUpdated": "2023-05-15T12:58:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T12:58:50.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "rubicon adapter instructions",
+      "number": 2327,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-01T17:26:49.000Z",
+      "dateUpdated": "2023-05-15T12:58:23.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T12:58:21.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Allow empty EIDs field",
+      "number": 2338,
+      "author": {
+        "login": "wesley-freestar",
+        "id": 99892134
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-04T10:59:17.000Z",
+      "dateUpdated": "2023-05-15T12:57:36.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T12:57:36.000Z",
+      "commitAuthors": {
+        "99892134": {
+          "identifier": "99892134",
+          "displayName": "wesley-freestar",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update accountId generation for GPP tests",
+      "number": 2344,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-08T09:41:41.000Z",
+      "dateUpdated": "2023-05-15T10:58:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T10:58:25.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Functional tests for `ortb` new fields",
+      "number": 2334,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-05-02T14:31:59.000Z",
+      "dateUpdated": "2023-05-15T10:56:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-15T10:55:59.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `ActivityInfrastructure`",
+      "number": 2308,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-21T09:34:24.000Z",
+      "dateUpdated": "2023-05-04T13:02:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-04T13:02:16.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 24,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests for GPP: Activity infrastructure",
+      "number": 2258,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-03-28T07:41:48.000Z",
+      "dateUpdated": "2023-05-04T11:50:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-04T11:50:12.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 40,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests for GPP: Transmit UFPD Activity",
+      "number": 2309,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-21T12:24:48.000Z",
+      "dateUpdated": "2023-05-04T11:10:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-04T11:10:39.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests for GPP: Transmit Precise Geo Activity",
+      "number": 2336,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-03T07:17:44.000Z",
+      "dateUpdated": "2023-05-04T09:26:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-05-04T09:26:17.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2025,
+    "month": 1,
+    "itemCount": 12,
+    "lastUpdated": "2025-09-02T20:49:03.481Z"
+  },
+  "items": [
+    {
+      "title": "External user id improvements ",
+      "number": 822,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-20T15:52:09.000Z",
+      "dateUpdated": "2025-01-31T07:49:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-31T07:49:07.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated setUserCustomData",
+      "number": 799,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T12:19:24.000Z",
+      "dateUpdated": "2025-01-30T14:28:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:28:57.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated YOB/Age/Gender",
+      "number": 800,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T12:53:29.000Z",
+      "dateUpdated": "2025-01-30T14:07:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:07:16.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated the methods",
+      "number": 797,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-03T17:50:33.000Z",
+      "dateUpdated": "2025-01-30T14:04:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:04:16.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Removes SetBuyerId",
+      "number": 796,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-03T17:09:52.000Z",
+      "dateUpdated": "2025-01-30T14:03:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:03:29.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove redundant isCoppaEnabled",
+      "number": 795,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-29T13:39:52.000Z",
+      "dateUpdated": "2025-01-30T14:03:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:03:01.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Removed useExternalBrowser",
+      "number": 794,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-27T17:00:23.000Z",
+      "dateUpdated": "2025-01-30T14:02:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:02:32.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PrebidMobile-core: `ExternalUserId` must serialize `atype` as `atype` not `adtype`.",
+      "number": 821,
+      "author": {
+        "login": "alightr",
+        "id": 18106780
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Valllent",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-17T22:52:06.000Z",
+      "dateUpdated": "2025-01-20T10:17:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-20T10:17:17.000Z",
+      "commitAuthors": {
+        "Poly-Gamma Engineering": {
+          "identifier": "Poly-Gamma Engineering",
+          "displayName": "Poly-Gamma Engineering",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Introduce event delegate",
+      "number": 814,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-24T10:37:55.000Z",
+      "dateUpdated": "2025-01-13T07:52:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-13T07:52:10.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix double tracking nurl for banner ads",
+      "number": 816,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-06T11:15:24.000Z",
+      "dateUpdated": "2025-01-10T09:20:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:20:17.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Public click URL for native ad",
+      "number": 819,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-08T14:56:50.000Z",
+      "dateUpdated": "2025-01-10T09:04:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:04:15.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Do not use device size if there is no ad size",
+      "number": 817,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-06T15:51:57.000Z",
+      "dateUpdated": "2025-01-10T09:01:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:00:59.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

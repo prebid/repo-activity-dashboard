@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2023,
+    "month": 10,
+    "itemCount": 7,
+    "lastUpdated": "2025-09-02T21:29:40.499Z"
+  },
+  "items": [
+    {
+      "title": "Update readme for carthage",
+      "number": 936,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-13T18:20:38.000Z",
+      "dateUpdated": "2023-10-13T18:23:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T18:23:54.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump to 2.1.6",
+      "number": 935,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-13T12:43:22.000Z",
+      "dateUpdated": "2023-10-13T18:10:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T18:10:38.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix CacheManager concurrency issue",
+      "number": 934,
+      "author": {
+        "login": "shinwan2",
+        "id": 11733537
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-13T03:51:47.000Z",
+      "dateUpdated": "2023-10-13T12:34:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T12:34:47.000Z",
+      "commitAuthors": {
+        "11733537": {
+          "identifier": "11733537",
+          "displayName": "shinwan2",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Removed PrebidMobile/Version from User Agent",
+      "number": 933,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-12T17:26:28.000Z",
+      "dateUpdated": "2023-10-12T22:19:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T22:19:37.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Surface Prebid events via SDK",
+      "number": 931,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-11T07:58:08.000Z",
+      "dateUpdated": "2023-10-12T12:18:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T12:18:11.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support impression-level GPID parameter",
+      "number": 928,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-10T10:38:01.000Z",
+      "dateUpdated": "2023-10-12T12:12:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T12:12:15.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support GMA SDK 10.12.0",
+      "number": 930,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-10T10:49:55.000Z",
+      "dateUpdated": "2023-10-10T11:04:24.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-10T11:04:20.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

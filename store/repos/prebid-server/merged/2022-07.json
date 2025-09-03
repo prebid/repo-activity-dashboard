@@ -1,0 +1,1014 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 7,
+    "itemCount": 24,
+    "lastUpdated": "2025-09-02T23:36:35.281Z"
+  },
+  "items": [
+    {
+      "title": "Adnuntius Bid Adapter: Read dimensions from request",
+      "number": 2306,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-14T14:34:20.000Z",
+      "dateUpdated": "2022-07-29T18:59:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-29T18:59:13.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX: Add multi-format ad unit support",
+      "number": 2315,
+      "author": {
+        "login": "oronno",
+        "id": 825290
+      },
+      "assignees": [
+        "SyntaxNode",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "rokon12",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "oronno",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-21T15:46:59.000Z",
+      "dateUpdated": "2022-07-28T18:12:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-28T18:12:03.000Z",
+      "commitAuthors": {
+        "Oronno Mamun": {
+          "identifier": "Oronno Mamun",
+          "displayName": "Oronno Mamun",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Dianomi",
+      "number": 2285,
+      "author": {
+        "login": "DianomiJH",
+        "id": 84312830
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "DianomiJH",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mhc-gh",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-28T10:16:12.000Z",
+      "dateUpdated": "2022-07-28T14:25:57.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-28T14:25:56.000Z",
+      "commitAuthors": {
+        "17146530": {
+          "identifier": "17146530",
+          "displayName": "michael-stevens",
+          "count": 50,
+          "isGitHubUser": true
+        },
+        "84312830": {
+          "identifier": "84312830",
+          "displayName": "DianomiJH",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ads.Cert Call Sign support",
+      "number": 2241,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "SyntaxNode",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "PENDING"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-05-06T07:12:17.000Z",
+      "dateUpdated": "2023-03-13T13:55:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-27T20:45:56.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 46,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Triplelift: Expand Video Formats",
+      "number": 2316,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nllerandi3lift",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-21T16:26:31.000Z",
+      "dateUpdated": "2023-04-20T20:45:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-27T18:14:20.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Blue",
+      "number": 2323,
+      "author": {
+        "login": "samuelfabel",
+        "id": 12991852
+      },
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "samuelfabel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-22T22:11:15.000Z",
+      "dateUpdated": "2022-07-27T04:03:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-27T04:03:03.000Z",
+      "commitAuthors": {
+        "12991852": {
+          "identifier": "12991852",
+          "displayName": "samuelfabel",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Samuel Silva Fabel": {
+          "identifier": "Samuel Silva Fabel",
+          "displayName": "Samuel Silva Fabel",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rename adapters to bidders in alternate bidder codes config",
+      "number": 2324,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T03:50:27.000Z",
+      "dateUpdated": "2022-07-25T19:02:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-25T19:02:36.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "UNICORN: fix bidder param and modify app request",
+      "number": 2297,
+      "author": {
+        "login": "faithnh",
+        "id": 1285380
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "PENDING"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ctylim",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "faithnh",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-11T06:18:22.000Z",
+      "dateUpdated": "2022-07-25T19:03:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-25T19:01:24.000Z",
+      "commitAuthors": {
+        "1285380": {
+          "identifier": "1285380",
+          "displayName": "faithnh",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Stored responses metrics",
+      "number": 2290,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-05T05:29:17.000Z",
+      "dateUpdated": "2023-03-13T13:55:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-25T18:20:35.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: sspBC Bid Adapter",
+      "number": 2274,
+      "author": {
+        "login": "wojciech-bialy-wpm",
+        "id": 67895844
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "wojciech-bialy-wpm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "spanwp",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-17T10:54:59.000Z",
+      "dateUpdated": "2022-07-25T15:41:06.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-25T15:41:06.000Z",
+      "commitAuthors": {
+        "67895844": {
+          "identifier": "67895844",
+          "displayName": "wojciech-bialy-wpm",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "104571800": {
+          "identifier": "104571800",
+          "displayName": "spanwp",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "nextmillennium contact info",
+      "number": 2310,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-19T20:03:46.000Z",
+      "dateUpdated": "2023-03-13T13:55:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T20:50:42.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "bliink: fix multi-seatbid handling",
+      "number": 2298,
+      "author": {
+        "login": "LouisBillaut",
+        "id": 62858397
+      },
+      "assignees": [
+        "mansinahar",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "LouisBillaut",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-12T09:30:55.000Z",
+      "dateUpdated": "2022-07-19T17:22:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T17:22:04.000Z",
+      "commitAuthors": {
+        "795415": {
+          "identifier": "795415",
+          "displayName": "samous",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "6041947": {
+          "identifier": "6041947",
+          "displayName": "DAMSSaber",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "62858397": {
+          "identifier": "62858397",
+          "displayName": "LouisBillaut",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "louisbillaut": {
+          "identifier": "louisbillaut",
+          "displayName": "louisbillaut",
+          "count": 15,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": " AMP targeting query string",
+      "number": 2293,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T05:09:56.000Z",
+      "dateUpdated": "2023-03-13T13:55:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-18T17:25:52.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix interstitial.minwidtheperc typo",
+      "number": 2275,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-17T22:57:07.000Z",
+      "dateUpdated": "2022-07-18T17:15:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-18T17:15:06.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Update endpoint",
+      "number": 2305,
+      "author": {
+        "login": "smounitz",
+        "id": 1870520
+      },
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-14T14:13:38.000Z",
+      "dateUpdated": "2022-07-18T15:29:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-18T15:29:53.000Z",
+      "commitAuthors": {
+        "4721243": {
+          "identifier": "4721243",
+          "displayName": "rachelrj",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "14114076": {
+          "identifier": "14114076",
+          "displayName": "cpabst",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "22299964": {
+          "identifier": "22299964",
+          "displayName": "aprakash-sovrn",
+          "count": 35,
+          "isGitHubUser": true
+        },
+        "26331963": {
+          "identifier": "26331963",
+          "displayName": "kevinKalmbach",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "27972385": {
+          "identifier": "27972385",
+          "displayName": "dbemiller",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Rachel Joyce": {
+          "identifier": "Rachel Joyce",
+          "displayName": "Rachel Joyce",
+          "count": 22,
+          "isGitHubUser": false
+        },
+        "rachelrj": {
+          "identifier": "rachelrj",
+          "displayName": "rachelrj",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "feat: add video request fields": {
+          "identifier": "feat: add video request fields",
+          "displayName": "feat: add video request fields",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "SmartAdServer: Added native support",
+      "number": 2299,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lowendavid",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-13T06:22:14.000Z",
+      "dateUpdated": "2023-03-13T13:55:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-14T17:16:01.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bidders Should Be Alphabetical",
+      "number": 2295,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T20:41:43.000Z",
+      "dateUpdated": "2022-07-21T16:36:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-12T17:23:28.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo Adapter: Add userSync to bidder-info",
+      "number": 2294,
+      "author": {
+        "login": "jsadwith",
+        "id": 5454953
+      },
+      "assignees": [
+        "SyntaxNode",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T19:58:01.000Z",
+      "dateUpdated": "2022-07-12T15:52:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-12T15:52:45.000Z",
+      "commitAuthors": {
+        "5454953": {
+          "identifier": "5454953",
+          "displayName": "jsadwith",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenRTB 2.6 For Internal Model",
+      "number": 2280,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-21T20:21:25.000Z",
+      "dateUpdated": "2022-07-21T16:36:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-11T17:15:18.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Vrtcal: Added support flag for site traffic allowance and added GDPR identifier",
+      "number": 2286,
+      "author": {
+        "login": "vrtcal-dev",
+        "id": 50931150
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "vrtcal-dev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T20:28:29.000Z",
+      "dateUpdated": "2022-07-07T17:13:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-07T17:13:32.000Z",
+      "commitAuthors": {
+        "Ubuntu": {
+          "identifier": "Ubuntu",
+          "displayName": "Ubuntu",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "FPD fix for site/app.content ",
+      "number": 2228,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-20T05:42:55.000Z",
+      "dateUpdated": "2023-03-13T13:55:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-06T14:14:10.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 9,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add ENV Bindings For Top Level UserSync",
+      "number": 2289,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-29T21:58:40.000Z",
+      "dateUpdated": "2022-07-21T16:36:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-06T13:09:03.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Allow Host to Add SChain Node",
+      "number": 2272,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-13T16:19:44.000Z",
+      "dateUpdated": "2022-07-05T17:45:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-05T17:45:29.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test Hardening For Pubstack",
+      "number": 2208,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-29T22:32:11.000Z",
+      "dateUpdated": "2022-07-21T16:36:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-05T17:30:38.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

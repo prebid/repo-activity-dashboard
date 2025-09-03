@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2024,
+    "month": 5,
+    "itemCount": 6,
+    "lastUpdated": "2025-09-02T21:29:40.497Z"
+  },
+  "items": [
+    {
+      "title": "Fixed: App Crash on Ad Redirect to Unsupported URL Scheme",
+      "number": 987,
+      "author": {
+        "login": "weibel",
+        "id": 12939
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-27T10:28:54.000Z",
+      "dateUpdated": "2024-05-30T18:50:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-30T17:43:22.000Z",
+      "commitAuthors": {
+        "12939": {
+          "identifier": "12939",
+          "displayName": "weibel",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Move WebView init to main thread.",
+      "number": 989,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "weibel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-05-29T14:55:47.000Z",
+      "dateUpdated": "2024-05-31T07:23:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-30T17:23:39.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update README.md",
+      "number": 986,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-23T12:16:23.000Z",
+      "dateUpdated": "2024-05-23T12:25:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-23T12:25:10.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "2.2.2 updates",
+      "number": 984,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-22T17:15:35.000Z",
+      "dateUpdated": "2024-05-22T17:51:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T17:51:31.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix device UA being empty on first bid request without blocking application",
+      "number": 983,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-21T10:38:01.000Z",
+      "dateUpdated": "2024-05-22T16:24:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T16:24:28.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix InternalTestApp building",
+      "number": 982,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-21T09:45:40.000Z",
+      "dateUpdated": "2024-05-22T13:19:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-05-22T13:19:18.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

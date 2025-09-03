@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-universal-creative",
+    "year": 2025,
+    "month": 1,
+    "itemCount": 6,
+    "lastUpdated": "2025-09-03T00:26:45.902Z"
+  },
+  "items": [
+    {
+      "title": "Support for Prebid.js dynamic renderers",
+      "number": 229,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "robertrmartinez",
+        "mkomorski"
+      ],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-15T19:03:21.000Z",
+      "dateUpdated": "2025-01-22T17:49:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-22T17:49:50.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "always send AMP resize request",
+      "number": 249,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-13T20:44:40.000Z",
+      "dateUpdated": "2025-01-16T15:37:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-16T15:37:33.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Integration tests",
+      "number": 180,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-30T15:03:54.000Z",
+      "dateUpdated": "2025-01-14T15:39:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-14T15:39:45.000Z",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 26,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump serve-static from 1.14.1 to 1.16.2",
+      "number": 238,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-11T21:07:49.000Z",
+      "dateUpdated": "2025-01-04T10:01:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-04T10:01:53.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump cookie and socket.io",
+      "number": 247,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-02T16:48:12.000Z",
+      "dateUpdated": "2025-01-04T09:48:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-04T09:48:45.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump braces, watchpack and gulp",
+      "number": 232,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-13T05:11:10.000Z",
+      "dateUpdated": "2025-01-04T09:46:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-04T09:46:22.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

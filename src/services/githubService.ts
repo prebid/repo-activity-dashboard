@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest';
-import { Repository, PRData, IssueData } from '../types/index.js';
+import { Repository, PRData, IssueData, CommitAuthor, Reviewer } from '../types/index.js';
 import { RateLimitManager } from './rateLimitManager.js';
 import { RequestQueue } from './requestQueue.js';
 
@@ -59,6 +59,23 @@ export class GitHubService {
       );
       
       const items = response.data || [];
+      
+      // For closed PRs, check if we've gone too far back in time
+      if (endpoint.includes('pulls-closed') && items.length > 0) {
+        const lastItem = items[items.length - 1];
+        const lastUpdated = new Date(lastItem.updated_at);
+        
+        // If the last item is before 2020, filter and stop
+        if (lastUpdated < new Date('2020-01-01')) {
+          console.log(`    ⏹️  Reached PRs from ${lastUpdated.getFullYear()}, filtering and stopping...`);
+          // Only include items updated in 2020 or later
+          const filtered = items.filter((item: any) => new Date(item.updated_at) >= new Date('2020-01-01'));
+          results.push(...filtered);
+          totalItems += filtered.length;
+          break; // Stop pagination
+        }
+      }
+      
       results.push(...items);
       totalItems += items.length;
       
@@ -161,6 +178,7 @@ export class GitHubService {
 
   private async processPRs(repo: Repository, pulls: any[], options: FetchOptions = {}): Promise<PRData[]> {
     const prDataArray: PRData[] = [];
+    const failedPRs: any[] = [];
     const batchSize = 10;
     
     if (pulls.length === 0) return [];
@@ -171,18 +189,49 @@ export class GitHubService {
       const batch = pulls.slice(i, Math.min(i + batchSize, pulls.length));
       
       // Process batch in parallel with request queue managing concurrency
-      const batchPromises = batch.map(pr => this.processSinglePR(repo, pr));
+      const batchPromises = batch.map(pr => this.processSinglePR(repo, pr)
+        .catch(error => {
+          console.log(`      ⚠️  Failed PR #${pr.number}: ${error.message}`);
+          failedPRs.push(pr);
+          return null;
+        }));
       const batchResults = await Promise.all(batchPromises);
       
-      prDataArray.push(...batchResults);
+      // Filter out nulls from failed PRs
+      const successfulResults = batchResults.filter(pr => pr !== null) as PRData[];
+      prDataArray.push(...successfulResults);
       
       // Report progress
       console.log(`    Processed ${Math.min(i + batchSize, pulls.length)}/${pulls.length} PRs`);
       
       // Call batch callback for incremental saving
-      if (options.onBatch && batchResults.length > 0) {
-        await options.onBatch(batchResults);
-        console.log(`    💾 Saved batch of ${batchResults.length} PRs`);
+      if (options.onBatch && successfulResults.length > 0) {
+        await options.onBatch(successfulResults);
+        console.log(`    💾 Saved batch of ${successfulResults.length} PRs`);
+      }
+    }
+    
+    // Retry failed PRs if any
+    const permanentlyFailedPRs: number[] = [];
+    if (failedPRs.length > 0) {
+      console.log(`\n  🔁 Retrying ${failedPRs.length} failed PRs...`);
+      for (const pr of failedPRs) {
+        try {
+          const result = await this.processSinglePR(repo, pr);
+          prDataArray.push(result);
+          console.log(`    ✅ Successfully retried PR #${pr.number}`);
+        } catch (error: any) {
+          console.log(`    ❌ PR #${pr.number} failed again: ${error.message}`);
+          permanentlyFailedPRs.push(pr.number);
+        }
+      }
+      
+      // Summary of permanently failed PRs
+      if (permanentlyFailedPRs.length > 0) {
+        console.log(`\n  ⚠️  Summary: ${permanentlyFailedPRs.length} PRs could not be fetched:`);
+        console.log(`     Failed PR numbers: ${permanentlyFailedPRs.join(', ')}`);
+      } else {
+        console.log(`\n  ✅ All initially failed PRs were successfully retried!`);
       }
     }
     
@@ -213,35 +262,56 @@ export class GitHubService {
       )
     ]);
 
-      const reviewers = {
-        approved: [] as string[],
-        pending: [] as string[]
-      };
-
-      const reviewerStates = new Map<string, string>();
-      for (const review of reviewsResponse.data) {
-        if (review.user?.login) {
-          reviewerStates.set(review.user.login, review.state);
+      // Track all reviewers and their final states
+      const reviewerMap = new Map<string, Reviewer>();
+      
+      // First, add requested reviewers (those assigned but haven't reviewed)
+      if (pr.requested_reviewers) {
+        for (const requestedReviewer of pr.requested_reviewers) {
+          if (requestedReviewer.login) {
+            reviewerMap.set(requestedReviewer.login, {
+              login: requestedReviewer.login,
+              state: 'PENDING'
+            });
+          }
         }
       }
-
-      reviewerStates.forEach((state, reviewer) => {
-        if (state === 'APPROVED') {
-          reviewers.approved.push(reviewer);
-        } else if (state === 'PENDING' || state === 'COMMENTED' || state === 'CHANGES_REQUESTED') {
-          reviewers.pending.push(reviewer);
+      
+      // Then process actual reviews, updating to their final state
+      for (const review of reviewsResponse.data) {
+        if (review.user?.login && review.state) {
+          // Only keep the last review state per user (overwrites PENDING or previous reviews)
+          reviewerMap.set(review.user.login, {
+            login: review.user.login,
+            state: review.state as 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED'
+          });
         }
-      });
+      }
+      
+      // Convert map to array for storage
+      const reviewers = Array.from(reviewerMap.values());
 
-      const commitsByAuthor = new Map<string, number>();
+      const commitAuthors = new Map<string, CommitAuthor>();
+      
       for (const commit of commitsResponse.data) {
-        const authorLogin = commit.author?.login || commit.commit.author?.name || 'unknown';
+        // If we have a GitHub user, use their ID as identifier
+        const hasGitHubUser = commit.author?.id != null;
+        const identifier = hasGitHubUser 
+          ? commit.author.id.toString()
+          : (commit.commit.author?.name || 'unknown');
+        const displayName = commit.author?.login || commit.commit.author?.name || 'unknown';
         
-        if (!commitsByAuthor.has(authorLogin)) {
-          commitsByAuthor.set(authorLogin, 0);
+        if (!commitAuthors.has(identifier)) {
+          commitAuthors.set(identifier, {
+            identifier,
+            displayName,
+            count: 0,
+            isGitHubUser: hasGitHubUser
+          });
         }
         
-        commitsByAuthor.set(authorLogin, commitsByAuthor.get(authorLogin)! + 1);
+        const author = commitAuthors.get(identifier)!;
+        author.count++;
       }
 
     return {
@@ -252,14 +322,13 @@ export class GitHubService {
         id: pr.user?.id || 0
       },
       assignees: pr.assignees ? pr.assignees.map((a: any) => a.login).filter(Boolean) : [],
-      reviewers: [...reviewers.approved, ...reviewers.pending],
-      draft: pr.draft || false,
+      reviewers,
       dateCreated: new Date(pr.created_at),
       dateUpdated: new Date(pr.updated_at),
       status: pr.merged_at ? 'merged' : pr.state as 'open' | 'closed',
       dateMerged: pr.merged_at ? new Date(pr.merged_at) : undefined,
       dateClosed: pr.closed_at && !pr.merged_at ? new Date(pr.closed_at) : undefined,
-      commits: commitsByAuthor
+      commitAuthors
     };
   }
 

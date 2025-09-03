@@ -4,725 +4,886 @@
     "year": 2024,
     "month": 7,
     "itemCount": 21,
-    "lastUpdated": "2025-08-30T16:17:51.167Z"
+    "lastUpdated": "2025-09-02T23:36:35.271Z"
   },
   "items": [
     {
       "title": "Criteo: Add support for paapi",
       "number": 3759,
-      "author": "vraybaud",
+      "author": {
+        "login": "vraybaud",
+        "id": 11096082
+      },
       "assignees": [
         "guscarreon",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "vraybaud"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vraybaud",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-18T10:43:33.000Z",
       "dateUpdated": "2024-07-30T21:11:16.000Z",
       "status": "merged",
       "dateMerged": "2024-07-30T21:11:16.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "v.raybaud": {
-            "count": 1,
-            "author": "v.raybaud"
-          }
+      "commitAuthors": {
+        "v.raybaud": {
+          "identifier": "v.raybaud",
+          "displayName": "v.raybaud",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": " Gracefully shutdown analytics module/runner",
       "number": 3335,
-      "author": "zhongshixi",
+      "author": {
+        "login": "zhongshixi",
+        "id": 6433625
+      },
       "assignees": [
         "guscarreon",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "AlexBVolcy",
-          "guscarreon"
-        ],
-        "pending": [
-          "zhongshixi"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "zhongshixi",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2023-12-05T15:12:30.000Z",
       "dateUpdated": "2024-07-29T20:21:07.000Z",
       "status": "merged",
       "dateMerged": "2024-07-29T20:21:07.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 15,
-        "byAuthor": {
-          "zhongshixi": {
-            "count": 15,
-            "author": "zhongshixi"
-          }
+      "commitAuthors": {
+        "6433625": {
+          "identifier": "6433625",
+          "displayName": "zhongshixi",
+          "count": 15,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Smaato: DOOH support",
       "number": 3751,
-      "author": "Enigo",
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "bsardo"
-        ],
-        "pending": [
-          "el-chuck",
-          "SyntaxNode",
-          "Enigo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "el-chuck",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-14T03:08:53.000Z",
       "dateUpdated": "2024-07-29T19:51:45.000Z",
       "status": "merged",
       "dateMerged": "2024-07-29T19:51:44.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Ruslan Sibgatullin": {
-            "count": 1,
-            "author": "Ruslan Sibgatullin"
-          }
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix: Triplelift Native add site.publisher nil check",
       "number": 3824,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "guscarreon"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-07-25T21:36:59.000Z",
       "dateUpdated": "2024-07-29T15:36:16.000Z",
       "status": "merged",
       "dateMerged": "2024-07-29T15:36:16.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "bsardo": {
-            "count": 5,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Epsilon / Conversant: Endpoint & supported openrtb version update",
       "number": 3724,
-      "author": "AaronColbyPrice",
+      "author": {
+        "login": "AaronColbyPrice",
+        "id": 67345931
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "AaronColbyPrice"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AaronColbyPrice",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-04T17:29:46.000Z",
       "dateUpdated": "2024-07-25T12:58:01.000Z",
       "status": "merged",
       "dateMerged": "2024-07-25T12:58:01.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "aarprice@publicisgroupe.net": {
-            "count": 1,
-            "author": "aarprice@publicisgroupe.net"
-          }
+      "commitAuthors": {
+        "aarprice@publicisgroupe.net": {
+          "identifier": "aarprice@publicisgroupe.net",
+          "displayName": "aarprice@publicisgroupe.net",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ConnectAd: Bidder params update",
       "number": 3715,
-      "author": "rtuschkany",
+      "author": {
+        "login": "rtuschkany",
+        "id": 35923908
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992"
-        ],
-        "pending": [
-          "Sonali-More-Xandr",
-          "rtuschkany"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "rtuschkany",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-06-03T08:58:48.000Z",
       "dateUpdated": "2024-07-25T12:56:02.000Z",
       "status": "merged",
       "dateMerged": "2024-07-25T12:56:01.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "rtuschkany": {
-            "count": 1,
-            "author": "rtuschkany"
-          }
+      "commitAuthors": {
+        "35923908": {
+          "identifier": "35923908",
+          "displayName": "rtuschkany",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Triplelift Native: Mapping tag_code ",
       "number": 3745,
-      "author": "patrickloughrey",
+      "author": {
+        "login": "patrickloughrey",
+        "id": 20526608
+      },
       "assignees": [
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "gargcreation1992",
-          "Kevin-P-Kerr",
-          "patrickloughrey"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Kevin-P-Kerr",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "patrickloughrey",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-11T17:42:52.000Z",
       "dateUpdated": "2024-07-29T16:31:03.000Z",
       "status": "merged",
       "dateMerged": "2024-07-24T16:37:36.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 25,
-        "byAuthor": {
-          "patrickloughrey": {
-            "count": 25,
-            "author": "patrickloughrey"
-          }
+      "commitAuthors": {
+        "20526608": {
+          "identifier": "20526608",
+          "displayName": "patrickloughrey",
+          "count": 25,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Smaato: Change server response type",
       "number": 3734,
-      "author": "Enigo",
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
       "assignees": [
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "bsardo"
-        ],
-        "pending": [
-          "Enigo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-06T03:47:01.000Z",
       "dateUpdated": "2024-07-29T15:11:24.000Z",
       "status": "merged",
       "dateMerged": "2024-07-24T13:46:37.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Ruslan Sibgatullin": {
-            "count": 1,
-            "author": "Ruslan Sibgatullin"
-          }
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: bigoad",
       "number": 3711,
-      "author": "BIGOAds",
+      "author": {
+        "login": "BIGOAds",
+        "id": 170689672
+      },
       "assignees": [
         "onkarvhanumante",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "BIGOAds"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "BIGOAds",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-30T06:59:44.000Z",
       "dateUpdated": "2024-07-25T03:37:54.000Z",
       "status": "merged",
       "dateMerged": "2024-07-24T13:34:40.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 9,
-        "byAuthor": {
-          "linzhucheng": {
-            "count": 8,
-            "author": "linzhucheng"
-          },
-          "BIGOAds": {
-            "count": 1,
-            "author": "BIGOAds"
-          }
+      "commitAuthors": {
+        "170689672": {
+          "identifier": "170689672",
+          "displayName": "BIGOAds",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "linzhucheng": {
+          "identifier": "linzhucheng",
+          "displayName": "linzhucheng",
+          "count": 8,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "OpenX: accept incoming string fields to support Prebid.js 9 ",
       "number": 3668,
-      "author": "laurb9",
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
       "assignees": [
         "onkarvhanumante",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "laurb9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "laurb9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-07T19:29:10.000Z",
       "dateUpdated": "2024-07-24T12:41:36.000Z",
       "status": "merged",
       "dateMerged": "2024-07-24T12:41:36.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "laurb9": {
-            "count": 6,
-            "author": "laurb9"
-          }
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Adprime: add userSync",
       "number": 3770,
-      "author": "Adprime",
+      "author": {
+        "login": "Adprime",
+        "id": 64427228
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992"
-        ],
-        "pending": [
-          "onkarvhanumante",
-          "Adprime"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Adprime",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-23T09:43:16.000Z",
       "dateUpdated": "2024-07-22T10:02:33.000Z",
       "status": "merged",
       "dateMerged": "2024-07-22T10:02:33.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 28,
-        "byAuthor": {
-          "Aiholkin": {
-            "count": 13,
-            "author": "Aiholkin"
-          },
-          "Adprime": {
-            "count": 15,
-            "author": "Adprime"
-          }
+      "commitAuthors": {
+        "64427228": {
+          "identifier": "64427228",
+          "displayName": "Adprime",
+          "count": 15,
+          "isGitHubUser": true
+        },
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 13,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "CPMStar: add gvlVendorID",
       "number": 3779,
-      "author": "JoshuaMGoldstein",
+      "author": {
+        "login": "JoshuaMGoldstein",
+        "id": 25335799
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "gargcreation1992"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-28T07:55:18.000Z",
       "dateUpdated": "2024-07-22T10:02:09.000Z",
       "status": "merged",
       "dateMerged": "2024-07-22T10:02:08.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "JoshuaMGoldstein": {
-            "count": 1,
-            "author": "JoshuaMGoldstein"
-          }
+      "commitAuthors": {
+        "25335799": {
+          "identifier": "25335799",
+          "displayName": "JoshuaMGoldstein",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Displayio",
       "number": 3691,
-      "author": "xdevel",
+      "author": {
+        "login": "xdevel",
+        "id": 618192
+      },
       "assignees": [
         "bsardo",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "bsardo"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "xdevel"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "xdevel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-21T09:25:50.000Z",
       "dateUpdated": "2024-07-22T09:53:26.000Z",
       "status": "merged",
       "dateMerged": "2024-07-22T09:53:26.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "xdevel": {
-            "count": 10,
-            "author": "xdevel"
-          }
+      "commitAuthors": {
+        "618192": {
+          "identifier": "618192",
+          "displayName": "xdevel",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Smaato: add DSA support tests",
       "number": 3749,
-      "author": "tetianaatsmaato",
+      "author": {
+        "login": "tetianaatsmaato",
+        "id": 126241934
+      },
       "assignees": [
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-06-13T07:41:54.000Z",
       "dateUpdated": "2024-07-29T15:18:05.000Z",
       "status": "merged",
       "dateMerged": "2024-07-18T15:35:11.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Tetiana Volkova": {
-            "count": 1,
-            "author": "Tetiana Volkova"
-          }
+      "commitAuthors": {
+        "Tetiana Volkova": {
+          "identifier": "Tetiana Volkova",
+          "displayName": "Tetiana Volkova",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Criteo: Add support for native",
       "number": 3709,
-      "author": "MarinaZhuravlevaCriteo",
+      "author": {
+        "login": "MarinaZhuravlevaCriteo",
+        "id": 170618323
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "leonardlabat"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "PENDING"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "leonardlabat",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-29T10:45:51.000Z",
       "dateUpdated": "2024-07-18T15:14:15.000Z",
       "status": "merged",
       "dateMerged": "2024-07-18T15:14:15.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "MarinaZhuravlevaCriteo": {
-            "count": 1,
-            "author": "MarinaZhuravlevaCriteo"
-          }
+      "commitAuthors": {
+        "170618323": {
+          "identifier": "170618323",
+          "displayName": "MarinaZhuravlevaCriteo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Admatic",
       "number": 3654,
-      "author": "bakicam",
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
       "assignees": [
         "bsardo",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "farukcam",
-          "bsardo"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "bakicam",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bakicam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "farukcam",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-02T08:48:28.000Z",
       "dateUpdated": "2024-07-03T17:38:18.000Z",
       "status": "merged",
       "dateMerged": "2024-07-03T17:38:17.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 46,
-        "byAuthor": {
-          "bakicam": {
-            "count": 26,
-            "author": "bakicam"
-          },
-          "farukcam": {
-            "count": 20,
-            "author": "farukcam"
-          }
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 20,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 26,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Bizzclick: rename bizzclick to blasto",
       "number": 3688,
-      "author": "BizzClick",
+      "author": {
+        "login": "BizzClick",
+        "id": 73241175
+      },
       "assignees": [
         "bsardo",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "BizzClick"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "BizzClick",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-17T18:56:37.000Z",
       "dateUpdated": "2024-07-01T09:24:29.000Z",
       "status": "merged",
       "dateMerged": "2024-07-01T09:24:29.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "BizzClick": {
-            "count": 6,
-            "author": "BizzClick"
-          }
+      "commitAuthors": {
+        "73241175": {
+          "identifier": "73241175",
+          "displayName": "BizzClick",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "PulsePoint: Marking cp/ct params to be either String or Int",
       "number": 3677,
-      "author": "anand-venkatraman",
+      "author": {
+        "login": "anand-venkatraman",
+        "id": 14841736
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "anand-venkatraman"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anand-venkatraman",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-05-09T18:17:15.000Z",
       "dateUpdated": "2024-07-01T09:23:34.000Z",
       "status": "merged",
       "dateMerged": "2024-07-01T09:23:33.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "anand-venkatraman": {
-            "count": 7,
-            "author": "anand-venkatraman"
-          }
+      "commitAuthors": {
+        "14841736": {
+          "identifier": "14841736",
+          "displayName": "anand-venkatraman",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "OpenWeb: Adapter Refactor + New Endpoint",
       "number": 3670,
-      "author": "IgorKulemzin",
+      "author": {
+        "login": "IgorKulemzin",
+        "id": 65122039
+      },
       "assignees": [
         "onkarvhanumante",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "zkosanovic"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "zkosanovic",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-05-08T09:42:31.000Z",
       "dateUpdated": "2024-07-01T08:45:41.000Z",
       "status": "merged",
       "dateMerged": "2024-07-01T08:45:41.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "Zdravko Kosanovic": {
-            "count": 5,
-            "author": "Zdravko Kosanovic"
-          },
-          "Dedis23": {
-            "count": 2,
-            "author": "Dedis23"
-          }
+      "commitAuthors": {
+        "32620962": {
+          "identifier": "32620962",
+          "displayName": "Dedis23",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Zdravko Kosanovic": {
+          "identifier": "Zdravko Kosanovic",
+          "displayName": "Zdravko Kosanovic",
+          "count": 5,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "InMobi: include iframe & native for M-Web",
       "number": 3682,
-      "author": "SiddhantAgrawal",
+      "author": {
+        "login": "SiddhantAgrawal",
+        "id": 7847210
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "SiddhantAgrawal"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SiddhantAgrawal",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-05-15T15:04:04.000Z",
       "dateUpdated": "2024-07-01T08:15:14.000Z",
       "status": "merged",
       "dateMerged": "2024-07-01T08:15:14.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Siddhant Kumar Agrawal": {
-            "count": 3,
-            "author": "Siddhant Kumar Agrawal"
-          }
+      "commitAuthors": {
+        "Siddhant Kumar Agrawal": {
+          "identifier": "Siddhant Kumar Agrawal",
+          "displayName": "Siddhant Kumar Agrawal",
+          "count": 3,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Vidazoo",
       "number": 3698,
-      "author": "saar120",
+      "author": {
+        "login": "saar120",
+        "id": 89377180
+      },
       "assignees": [
         "bsardo",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "gargcreation1992"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "SyntaxNode",
-          "saar120"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "saar120",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-05-22T09:29:57.000Z",
       "dateUpdated": "2024-07-01T07:54:47.000Z",
       "status": "merged",
       "dateMerged": "2024-07-01T07:54:47.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "saar120": {
-            "count": 7,
-            "author": "saar120"
-          }
+      "commitAuthors": {
+        "89377180": {
+          "identifier": "89377180",
+          "displayName": "saar120",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

@@ -1,0 +1,919 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 2,
+    "itemCount": 28,
+    "lastUpdated": "2025-09-03T00:16:49.968Z"
+  },
+  "items": [
+    {
+      "title": "Test: `allowPersonalDataConsent2` option to USGen module",
+      "number": 3780,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T20:24:54.000Z",
+      "dateUpdated": "2025-02-28T12:18:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-28T12:18:34.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: documentation for Prebid Cache traceability improvements",
+      "number": 3774,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-21T22:09:42.000Z",
+      "dateUpdated": "2025-02-25T14:47:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-25T14:47:37.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Greenbids: Populate AppliedTo and change structure of analytics results in Analytics Tag",
+      "number": 3728,
+      "author": {
+        "login": "EvgeniiMunin",
+        "id": 35193823
+      },
+      "assignees": [
+        "EvgeniiMunin"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "EvgeniiMunin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-05T17:20:15.000Z",
+      "dateUpdated": "2025-02-20T11:46:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-20T11:46:38.000Z",
+      "commitAuthors": {
+        "35193823": {
+          "identifier": "35193823",
+          "displayName": "EvgeniiMunin",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Improve traceability for Prebid Cache stores",
+      "number": 3757,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T02:16:28.000Z",
+      "dateUpdated": "2025-02-20T10:33:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-20T10:33:30.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: Connektai - Xeworks alias #3730",
+      "number": 3738,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-07T14:18:37.000Z",
+      "dateUpdated": "2025-02-20T10:32:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-20T10:32:40.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for prebid cache traceability",
+      "number": 3763,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-18T13:26:52.000Z",
+      "dateUpdated": "2025-02-20T10:20:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-20T10:20:10.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add iframe usersync for trustedstack",
+      "number": 3764,
+      "author": {
+        "login": "product-trustedstack",
+        "id": 141160331
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-18T13:51:39.000Z",
+      "dateUpdated": "2025-02-19T23:21:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-19T23:21:18.000Z",
+      "commitAuthors": {
+        "141160331": {
+          "identifier": "141160331",
+          "displayName": "product-trustedstack",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Consumable Adaptor: Updating Endpoint",
+      "number": 3756,
+      "author": {
+        "login": "SuprPhatAnon",
+        "id": 944378
+      },
+      "assignees": [
+        "SuprPhatAnon"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T16:15:22.000Z",
+      "dateUpdated": "2025-02-19T23:19:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-19T23:19:20.000Z",
+      "commitAuthors": {
+        "944378": {
+          "identifier": "944378",
+          "displayName": "SuprPhatAnon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RTB House: declare oRTB 2.6 support",
+      "number": 3755,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [
+        "piotrj-rtbh"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T10:21:28.000Z",
+      "dateUpdated": "2025-02-19T23:18:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-19T23:18:10.000Z",
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Adapter: Set RendererUrl Metadata",
+      "number": 3682,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-17T08:41:32.000Z",
+      "dateUpdated": "2025-02-19T23:02:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-19T23:01:59.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix IX bidder crash",
+      "number": 3767,
+      "author": {
+        "login": "zxPhoenix",
+        "id": 1951316
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-19T09:57:06.000Z",
+      "dateUpdated": "2025-02-19T13:33:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-19T13:33:05.000Z",
+      "commitAuthors": {
+        "1951316": {
+          "identifier": "1951316",
+          "displayName": "zxPhoenix",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: hard-alias schema",
+      "number": 3759,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T15:31:51.000Z",
+      "dateUpdated": "2025-02-17T12:32:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-17T12:32:15.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use a hard-alias schema if present",
+      "number": 3739,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-07T15:23:58.000Z",
+      "dateUpdated": "2025-02-15T14:02:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-15T14:02:04.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Copy advertiserDomains to ORTB bid response adomain #3736",
+      "number": 3740,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-07T15:48:54.000Z",
+      "dateUpdated": "2025-02-14T19:42:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-14T19:42:21.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Compass: Add user sync GPP support #3734",
+      "number": 3737,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-07T13:47:17.000Z",
+      "dateUpdated": "2025-02-14T17:20:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-14T17:20:30.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Blue: Add placementId bidder param #3609",
+      "number": 3733,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-06T14:37:31.000Z",
+      "dateUpdated": "2025-02-14T17:19:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-14T17:19:22.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "CWire: add cwire.json and CwireTest.java #3693",
+      "number": 3726,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-05T12:06:09.000Z",
+      "dateUpdated": "2025-02-14T16:20:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-14T16:20:08.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix #3592. Bad Input Error if pbjs s2s config contains alias configuration for a disabled adapter",
+      "number": 3650,
+      "author": {
+        "login": "zxPhoenix",
+        "id": 1951316
+      },
+      "assignees": [
+        "zxPhoenix"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-23T13:27:32.000Z",
+      "dateUpdated": "2025-02-14T14:17:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-14T14:17:53.000Z",
+      "commitAuthors": {
+        "1951316": {
+          "identifier": "1951316",
+          "displayName": "zxPhoenix",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab Bidder: Forward consent under param gdpr_consent",
+      "number": 3720,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-31T09:57:20.000Z",
+      "dateUpdated": "2025-02-10T13:51:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-10T13:51:52.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support testing the USGen privacy module",
+      "number": 3695,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-23T13:03:39.000Z",
+      "dateUpdated": "2025-02-06T12:36:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-06T12:36:25.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Support testing the USGen privacy module",
+      "number": 3722,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-03T16:59:18.000Z",
+      "dateUpdated": "2025-02-06T09:41:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-06T09:41:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Insticator: fix video validation logic",
+      "number": 3724,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-04T18:18:10.000Z",
+      "dateUpdated": "2025-02-05T16:15:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:15:46.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Document multiple UIDS cookie property",
+      "number": 3723,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-04T08:47:37.000Z",
+      "dateUpdated": "2025-02-05T16:15:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:15:22.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Vrtcal Bidder: ORTB 2.6 support",
+      "number": 3721,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-31T10:06:56.000Z",
+      "dateUpdated": "2025-02-05T16:15:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:14:59.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo Bidder: Add pubid/uid fields",
+      "number": 3714,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-30T13:39:59.000Z",
+      "dateUpdated": "2025-02-05T16:14:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:14:32.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update code-path-changes.yml",
+      "number": 3713,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-30T13:07:32.000Z",
+      "dateUpdated": "2025-02-05T16:14:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:13:58.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SmartHub: update to Attekmi",
+      "number": 3699,
+      "author": {
+        "login": "kim-ng93",
+        "id": 76963037
+      },
+      "assignees": [
+        "kim-ng93"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-24T19:06:09.000Z",
+      "dateUpdated": "2025-03-07T20:36:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:13:33.000Z",
+      "commitAuthors": {
+        "76963037": {
+          "identifier": "76963037",
+          "displayName": "kim-ng93",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Greenbids: Add account level config for modules RTD, analytics",
+      "number": 3596,
+      "author": {
+        "login": "EvgeniiMunin",
+        "id": 35193823
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "EvgeniiMunin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-05T16:22:58.000Z",
+      "dateUpdated": "2025-02-05T16:01:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-02-05T16:01:54.000Z",
+      "commitAuthors": {
+        "35193823": {
+          "identifier": "35193823",
+          "displayName": "EvgeniiMunin",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,669 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2022,
+    "month": 2,
+    "itemCount": 24,
+    "lastUpdated": "2025-09-02T21:29:40.507Z"
+  },
+  "items": [
+    {
+      "title": "Corrections for release 1.14.0-beta1",
+      "number": 549,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-25T15:09:04.000Z",
+      "dateUpdated": "2022-02-27T10:28:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-27T10:28:11.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Release SDK v.1.14.0-beta1",
+      "number": 548,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-25T11:28:58.000Z",
+      "dateUpdated": "2022-02-25T12:06:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-25T12:06:22.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "First party data fixes",
+      "number": 547,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-23T15:50:03.000Z",
+      "dateUpdated": "2022-02-23T17:43:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-23T17:43:29.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support for Seller-Defined Audiences for First Party Data",
+      "number": 530,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CJxD",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-02-16T12:11:34.000Z",
+      "dateUpdated": "2022-02-23T08:44:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-23T08:44:43.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix bundle short version",
+      "number": 532,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-18T15:52:05.000Z",
+      "dateUpdated": "2022-02-21T08:53:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-21T07:23:22.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Handle Blank response (RESPONSE CODE 204) in the Prebid Mobile SDK",
+      "number": 531,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-16T15:28:06.000Z",
+      "dateUpdated": "2022-02-18T11:31:15.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-18T11:31:09.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix app.ver parameter",
+      "number": 527,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-15T11:12:02.000Z",
+      "dateUpdated": "2022-02-15T14:39:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-15T14:39:29.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support openRTB app.name field in the Bid Request",
+      "number": 526,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-15T10:56:53.000Z",
+      "dateUpdated": "2022-02-15T14:29:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-15T14:29:34.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Minor fixes",
+      "number": 525,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-15T09:56:00.000Z",
+      "dateUpdated": "2022-02-15T14:27:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-15T14:27:23.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix content object",
+      "number": 528,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-15T12:44:17.000Z",
+      "dateUpdated": "2022-02-15T13:59:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-15T13:59:40.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Restore demo tests",
+      "number": 522,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-10T16:28:45.000Z",
+      "dateUpdated": "2022-02-11T11:51:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-11T11:51:28.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Native Ads components from the Rendering API",
+      "number": 519,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-08T15:36:24.000Z",
+      "dateUpdated": "2022-02-10T13:18:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-10T13:18:21.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support AdMob",
+      "number": 520,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-09T08:48:46.000Z",
+      "dateUpdated": "2022-02-09T09:13:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-09T09:13:44.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Native] Migrate In-APP cases in the Internal Test App to the original API",
+      "number": 518,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-07T13:41:02.000Z",
+      "dateUpdated": "2022-02-08T08:40:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-08T08:40:17.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Native] Migrate GAM cases in the Internal Test App to the original API",
+      "number": 517,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-07T08:34:54.000Z",
+      "dateUpdated": "2022-02-07T09:07:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-07T09:04:50.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Native] Migrate PrebidMoPubNativeAdAdapter to the original API",
+      "number": 496,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-27T09:27:18.000Z",
+      "dateUpdated": "2022-02-04T16:00:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-04T16:00:04.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[AdMob] Introduce Native adapter",
+      "number": 493,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-26T10:28:52.000Z",
+      "dateUpdated": "2022-02-04T12:34:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-04T12:34:46.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rebuild original native ad according to IAB specs",
+      "number": 510,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-02T09:46:28.000Z",
+      "dateUpdated": "2022-05-20T08:21:18.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-03T11:44:56.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[AdMob] Implement video interstitial adapter",
+      "number": 513,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-02T14:36:25.000Z",
+      "dateUpdated": "2022-02-02T15:10:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-02T15:10:49.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Release-1.13-beta2] Original GAM ad fix",
+      "number": 512,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-02T13:15:39.000Z",
+      "dateUpdated": "2022-02-02T13:46:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-02T13:46:30.000Z",
+      "commitAuthors": {
+        "79920743": {
+          "identifier": "79920743",
+          "displayName": "YuriyVelichkoOpenX",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce CircleCI build for PRs",
+      "number": 511,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-02T09:56:30.000Z",
+      "dateUpdated": "2022-02-02T13:43:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-02T13:43:50.000Z",
+      "commitAuthors": {
+        "79920743": {
+          "identifier": "79920743",
+          "displayName": "YuriyVelichkoOpenX",
+          "count": 31,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdMob Mediation Utils: optimize the noBids case ",
+      "number": 509,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-31T15:59:53.000Z",
+      "dateUpdated": "2022-02-01T11:40:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-01T11:40:43.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mediation API: enrich the keywords and extras of third party libs in more gentle way.",
+      "number": 508,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-31T15:38:33.000Z",
+      "dateUpdated": "2022-02-01T11:21:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-01T11:20:58.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Display OM SDK version in Internal Test App",
+      "number": 507,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-31T13:21:04.000Z",
+      "dateUpdated": "2022-02-01T08:21:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-01T08:21:50.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

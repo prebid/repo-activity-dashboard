@@ -1,0 +1,794 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 3,
+    "itemCount": 20,
+    "lastUpdated": "2025-09-02T23:36:35.285Z"
+  },
+  "items": [
+    {
+      "title": "New Adaptor: PGAM (alias of adtelligent)",
+      "number": 2198,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "GeneGenie",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-22T14:51:01.000Z",
+      "dateUpdated": "2022-03-30T17:16:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-30T17:16:37.000Z",
+      "commitAuthors": {
+        "1539907": {
+          "identifier": "1539907",
+          "displayName": "GeneGenie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "User Sync - Prefer IFrame Over Pixel",
+      "number": 2195,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-21T20:25:17.000Z",
+      "dateUpdated": "2022-03-28T21:09:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-28T17:56:50.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "YahooSSP: Added video support.",
+      "number": 2193,
+      "author": {
+        "login": "oath-jac",
+        "id": 45564796
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "oath-jac",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-21T13:55:34.000Z",
+      "dateUpdated": "2022-03-25T20:22:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-25T20:22:59.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adyoulike: use USD currency",
+      "number": 2194,
+      "author": {
+        "login": "chrisg93",
+        "id": 1113757
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-21T17:10:15.000Z",
+      "dateUpdated": "2022-03-25T15:53:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-25T15:53:41.000Z",
+      "commitAuthors": {
+        "1113757": {
+          "identifier": "1113757",
+          "displayName": "chrisg93",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "First party data fix for user.data and user.ext.data",
+      "number": 2197,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-22T05:22:09.000Z",
+      "dateUpdated": "2022-03-25T20:54:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-25T15:37:37.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "I1725 vast event trackers - Support for EventType = Vast in Analytics Endpoint",
+      "number": 2179,
+      "author": {
+        "login": "Pubmatic-Dhruv-Sonone",
+        "id": 83747371
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "PENDING"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-09T05:46:02.000Z",
+      "dateUpdated": "2022-03-23T13:58:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-23T13:58:49.000Z",
+      "commitAuthors": {
+        "8835925": {
+          "identifier": "8835925",
+          "displayName": "pm-shriprasad-marathe",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "9314645": {
+          "identifier": "9314645",
+          "displayName": "ShriprasadM",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support kadfloor param in PubMatic adapter",
+      "number": 2184,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-viral-vala",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-17T04:40:18.000Z",
+      "dateUpdated": "2022-05-02T09:41:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-23T13:57:46.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test Hardening For TickerTask",
+      "number": 2191,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-18T18:20:06.000Z",
+      "dateUpdated": "2022-03-21T20:30:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-21T18:36:37.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdkernelAdn: static endpoint host",
+      "number": 2185,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-17T09:37:19.000Z",
+      "dateUpdated": "2022-03-22T11:51:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-21T18:09:31.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Account-Level Config -- Truncate Targeting Attribute ",
+      "number": 2181,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "PENDING"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-11T22:06:30.000Z",
+      "dateUpdated": "2022-03-21T17:47:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-21T17:47:29.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix Tpyos",
+      "number": 2187,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-17T18:42:44.000Z",
+      "dateUpdated": "2022-03-21T20:30:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-21T17:17:07.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Account-Level Defaults for Cookie Sync Endpoint",
+      "number": 2161,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-17T17:30:30.000Z",
+      "dateUpdated": "2022-03-21T17:10:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-21T17:10:52.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Telaria: Add pod support",
+      "number": 2171,
+      "author": {
+        "login": "xxu-telaria",
+        "id": 63370680
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "PENDING"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "xxu-telaria",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-02T23:11:44.000Z",
+      "dateUpdated": "2022-03-14T17:16:55.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-14T17:16:54.000Z",
+      "commitAuthors": {
+        "63370680": {
+          "identifier": "63370680",
+          "displayName": "xxu-telaria",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "73963092": {
+          "identifier": "73963092",
+          "displayName": "magniteVince",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Vinay Prasad": {
+          "identifier": "Vinay Prasad",
+          "displayName": "Vinay Prasad",
+          "count": 45,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New GitHub Action: Trivy Security Scan",
+      "number": 2177,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-08T16:53:58.000Z",
+      "dateUpdated": "2022-03-21T20:30:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-11T22:37:56.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies - Part 6 + Final",
+      "number": 2175,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-07T19:17:56.000Z",
+      "dateUpdated": "2022-03-21T20:30:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-10T18:26:06.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adkernel: static endpoint host",
+      "number": 2169,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-01T14:55:00.000Z",
+      "dateUpdated": "2022-03-07T19:55:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-07T19:22:59.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Sharethrough] Bid Adapter Revamp connecting to new Endpoint",
+      "number": 2166,
+      "author": {
+        "login": "maphe",
+        "id": 2337357
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "maphe",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-23T01:20:57.000Z",
+      "dateUpdated": "2022-03-07T19:22:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-07T19:22:36.000Z",
+      "commitAuthors": {
+        "Mathieu Pheulpin": {
+          "identifier": "Mathieu Pheulpin",
+          "displayName": "Mathieu Pheulpin",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: add JANet alias ",
+      "number": 2165,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "GeneGenie",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-22T18:31:38.000Z",
+      "dateUpdated": "2022-03-07T19:21:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-07T19:21:30.000Z",
+      "commitAuthors": {
+        "1539907": {
+          "identifier": "1539907",
+          "displayName": "GeneGenie",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": " I1725: Support for VAST Events - Host Level Configurations",
+      "number": 2144,
+      "author": {
+        "login": "ShriprasadM",
+        "id": 9314645
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ShriprasadM",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-31T06:16:16.000Z",
+      "dateUpdated": "2022-12-24T06:03:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-07T18:12:54.000Z",
+      "commitAuthors": {
+        "8835925": {
+          "identifier": "8835925",
+          "displayName": "pm-shriprasad-marathe",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "9314645": {
+          "identifier": "9314645",
+          "displayName": "ShriprasadM",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies - Part 5",
+      "number": 2167,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-24T22:07:57.000Z",
+      "dateUpdated": "2022-03-21T20:30:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-03T23:20:27.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

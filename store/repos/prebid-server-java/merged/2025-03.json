@@ -1,0 +1,1280 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 3,
+    "itemCount": 38,
+    "lastUpdated": "2025-09-03T00:16:49.967Z"
+  },
+  "items": [
+    {
+      "title": "Tests: Enforce Random Bid Id Feature",
+      "number": 3879,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-28T15:53:01.000Z",
+      "dateUpdated": "2025-03-31T13:06:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-31T13:06:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Multiple Bidder Codes\"",
+      "number": 3854,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-21T11:28:19.000Z",
+      "dateUpdated": "2025-03-21T11:30:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-21T11:30:10.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Multiple Bidder Codes Fix\"",
+      "number": 3853,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-21T11:23:35.000Z",
+      "dateUpdated": "2025-03-21T11:26:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-21T11:26:35.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Multiple Bidder Codes Fix",
+      "number": 3849,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-20T11:37:11.000Z",
+      "dateUpdated": "2025-03-20T16:59:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-20T16:59:52.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test:Multiple bidder codes ",
+      "number": 3850,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-20T15:05:49.000Z",
+      "dateUpdated": "2025-03-20T15:37:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-20T15:37:53.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docker: Update base Docker image version",
+      "number": 3847,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-19T20:05:12.000Z",
+      "dateUpdated": "2025-03-19T23:52:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-19T23:52:50.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Multiple Bidder Codes",
+      "number": 3799,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "PubMatic-OpenWrap",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-28T14:22:55.000Z",
+      "dateUpdated": "2025-03-19T17:30:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-19T17:30:14.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 23,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Skipped Privacy Modules",
+      "number": 3835,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-14T14:27:08.000Z",
+      "dateUpdated": "2025-03-19T13:09:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-19T13:09:33.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: `Multiple biddercode support`",
+      "number": 3687,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-21T13:02:29.000Z",
+      "dateUpdated": "2025-03-19T10:26:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-19T10:26:27.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 26,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Skipped `privacy` modules",
+      "number": 3844,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-18T20:07:21.000Z",
+      "dateUpdated": "2025-03-19T09:19:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-19T09:19:06.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Connatix: Port adapter from PBS-Go",
+      "number": 3781,
+      "author": {
+        "login": "katherynhrabik",
+        "id": 75269700
+      },
+      "assignees": [
+        "katherynhrabik",
+        "kim-ng93"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T20:48:29.000Z",
+      "dateUpdated": "2025-03-18T22:53:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-18T22:53:50.000Z",
+      "commitAuthors": {
+        "75269700": {
+          "identifier": "75269700",
+          "displayName": "katherynhrabik",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "76963037": {
+          "identifier": "76963037",
+          "displayName": "kim-ng93",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adverxo: New adapter ported from Go",
+      "number": 3705,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-27T19:10:31.000Z",
+      "dateUpdated": "2025-03-17T14:05:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-17T14:05:00.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Streamvision - LimelightDigital Alias",
+      "number": 3805,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-04T15:56:20.000Z",
+      "dateUpdated": "2025-03-17T13:53:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-17T13:53:32.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dependencies: resolve maven conflicts between core and bundle",
+      "number": 3793,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T09:04:18.000Z",
+      "dateUpdated": "2025-03-17T13:51:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-17T13:51:48.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 24,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenX: Determine bid type based on mtype",
+      "number": 3811,
+      "author": {
+        "login": "gmiedlar-ox",
+        "id": 155444733
+      },
+      "assignees": [
+        "gmiedlar-ox"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gmiedlar-ox",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-06T08:11:24.000Z",
+      "dateUpdated": "2025-03-17T12:35:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-17T12:35:19.000Z",
+      "commitAuthors": {
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Segtax update",
+      "number": 3813,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-06T13:09:56.000Z",
+      "dateUpdated": "2025-03-13T13:05:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T13:05:55.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Attekmi: remove partnerName param requirement",
+      "number": 3817,
+      "author": {
+        "login": "kim-ng93",
+        "id": 76963037
+      },
+      "assignees": [
+        "kim-ng93"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-07T23:28:38.000Z",
+      "dateUpdated": "2025-03-12T17:09:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T14:38:54.000Z",
+      "commitAuthors": {
+        "76963037": {
+          "identifier": "76963037",
+          "displayName": "kim-ng93",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Vidazoo: Declare OpenRTB 2.6 support",
+      "number": 3806,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-04T16:01:46.000Z",
+      "dateUpdated": "2025-03-12T14:38:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T14:38:03.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Alkimi: Added support for Imp extention object",
+      "number": 3743,
+      "author": {
+        "login": "kalidas-alkimi",
+        "id": 92875788
+      },
+      "assignees": [
+        "kalidas-alkimi"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-11T16:38:19.000Z",
+      "dateUpdated": "2025-03-12T14:28:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T14:28:36.000Z",
+      "commitAuthors": {
+        "32703851": {
+          "identifier": "32703851",
+          "displayName": "pro-nsk",
+          "count": 60,
+          "isGitHubUser": true
+        },
+        "87458443": {
+          "identifier": "87458443",
+          "displayName": "abalalaev",
+          "count": 31,
+          "isGitHubUser": true
+        },
+        "92710748": {
+          "identifier": "92710748",
+          "displayName": "mihanikw2g",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Kalidas": {
+          "identifier": "Kalidas",
+          "displayName": "Kalidas",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Docs: Update bid-adapter-porting-guide.md",
+      "number": 3820,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-11T15:11:22.000Z",
+      "dateUpdated": "2025-03-11T15:28:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T15:27:58.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "NextMillennium : Revert \"NextMillennium: Adapter and server version (#3773)\"",
+      "number": 3809,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-05T18:20:45.000Z",
+      "dateUpdated": "2025-03-05T18:34:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T18:34:08.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adding other SSPs to codepath-notification",
+      "number": 3808,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-04T21:15:24.000Z",
+      "dateUpdated": "2025-03-05T10:22:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T10:22:15.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Housekeeping: Update 3rd party dependencies",
+      "number": 3786,
+      "author": {
+        "login": "JimTharioAmazon",
+        "id": 33331284
+      },
+      "assignees": [
+        "JimTharioAmazon"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "JimTharioAmazon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-25T17:11:14.000Z",
+      "dateUpdated": "2025-03-05T10:07:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T10:07:39.000Z",
+      "commitAuthors": {
+        "33331284": {
+          "identifier": "33331284",
+          "displayName": "JimTharioAmazon",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "UsGen: Add option to disable PersonalConsents check",
+      "number": 3798,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-28T01:12:41.000Z",
+      "dateUpdated": "2025-03-05T10:06:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T10:06:46.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: simplify logic for truncating segtaxes",
+      "number": 3796,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T15:28:01.000Z",
+      "dateUpdated": "2025-03-05T10:05:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T10:05:50.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix Maven build issue with IAB Tech Lab's Protobuf",
+      "number": 3807,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-04T20:33:51.000Z",
+      "dateUpdated": "2025-05-14T16:08:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-05T10:05:19.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Create a Doc with Guidance for Porting from Go",
+      "number": 3768,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-19T13:32:38.000Z",
+      "dateUpdated": "2025-03-04T15:27:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-04T15:27:55.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Adapter: pass bid request ID to XAPI",
+      "number": 3791,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-26T14:03:52.000Z",
+      "dateUpdated": "2025-03-04T15:20:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-04T15:20:50.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Jambojar: port new alias of StartHub from Go",
+      "number": 3792,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-26T14:30:13.000Z",
+      "dateUpdated": "2025-03-04T03:15:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-04T03:15:44.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adinify: port new alias of StartHub from Go",
+      "number": 3794,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T12:52:56.000Z",
+      "dateUpdated": "2025-03-04T03:13:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-04T03:13:39.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Artechnology: port new alias of StartHub from Go",
+      "number": 3795,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T13:03:46.000Z",
+      "dateUpdated": "2025-03-03T16:15:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T16:15:05.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Undertone: Declare OpenRTB 2.6 support",
+      "number": 3790,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-26T13:30:25.000Z",
+      "dateUpdated": "2025-03-03T14:41:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:41:08.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adt: port new alias of Admatic from Go",
+      "number": 3778,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T10:46:55.000Z",
+      "dateUpdated": "2025-03-03T14:31:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:31:01.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "sspBC: Endpoint update",
+      "number": 3777,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T10:29:22.000Z",
+      "dateUpdated": "2025-03-03T14:29:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:29:18.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubrise: Fix endpoint",
+      "number": 3776,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T10:25:25.000Z",
+      "dateUpdated": "2025-03-03T14:28:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:28:18.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Copper6SSP: Fix endpoint",
+      "number": 3775,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-24T10:21:46.000Z",
+      "dateUpdated": "2025-03-03T14:27:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:27:25.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "NextMillennium: Adapter and server version",
+      "number": 3773,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-21T14:40:33.000Z",
+      "dateUpdated": "2025-03-03T14:26:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:26:37.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Admatic: Update headers for adapter",
+      "number": 3732,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-06T13:40:45.000Z",
+      "dateUpdated": "2025-03-03T14:24:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T14:24:07.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

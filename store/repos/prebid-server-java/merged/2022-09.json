@@ -1,0 +1,662 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 9,
+    "itemCount": 22,
+    "lastUpdated": "2025-09-03T00:16:49.984Z"
+  },
+  "items": [
+    {
+      "title": "Modularity: Revert redundant changes",
+      "number": 2043,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-29T15:15:09.000Z",
+      "dateUpdated": "2022-09-30T09:29:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-30T09:29:58.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: Extend `InvocationContext` contract. Move `AuctionResponseHook `",
+      "number": 2040,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-27T14:49:35.000Z",
+      "dateUpdated": "2022-09-28T14:16:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-28T13:58:37.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: AdUnitCode support",
+      "number": 1988,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-08-11T07:37:33.000Z",
+      "dateUpdated": "2022-09-28T13:35:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-28T13:35:12.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Fix redirect url substitution when uid macro is absent",
+      "number": 2037,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-26T11:01:00.000Z",
+      "dateUpdated": "2022-09-26T13:01:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-26T13:01:21.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder: Fix OpenX usersync URL",
+      "number": 2035,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-26T09:40:18.000Z",
+      "dateUpdated": "2022-09-26T12:58:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-26T12:58:16.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dianomi: Add adapter",
+      "number": 2024,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-13T13:45:27.000Z",
+      "dateUpdated": "2022-09-26T12:55:56.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-26T12:55:55.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new TrafficGate bidder",
+      "number": 2026,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-15T15:11:22.000Z",
+      "dateUpdated": "2022-09-26T12:54:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-26T12:54:06.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 2033,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-09-23T12:57:48.000Z",
+      "dateUpdated": "2022-09-23T13:06:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-23T13:06:39.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "NextMillennium adapter:  Added more information to bid request",
+      "number": 2017,
+      "author": {
+        "login": "temqua",
+        "id": 17969222
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "temqua",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-09T14:13:30.000Z",
+      "dateUpdated": "2022-09-22T13:30:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-22T13:30:46.000Z",
+      "commitAuthors": {
+        "17969222": {
+          "identifier": "17969222",
+          "displayName": "temqua",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder: Fix Unruly adapter siteId property name case",
+      "number": 2028,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-19T02:38:57.000Z",
+      "dateUpdated": "2022-09-19T11:35:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-19T11:35:11.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 2027,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-09-16T06:27:23.000Z",
+      "dateUpdated": "2022-09-16T06:34:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-16T06:34:29.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unruly: Make transition period for `siteId` param",
+      "number": 2025,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-15T08:56:06.000Z",
+      "dateUpdated": "2022-09-15T09:20:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-15T09:20:06.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Fix invalid cookie-size trimming",
+      "number": 2020,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-12T10:36:39.000Z",
+      "dateUpdated": "2022-09-12T11:37:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-12T11:37:29.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookiesync: Refactor configuration",
+      "number": 1954,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2022-07-18T13:23:57.000Z",
+      "dateUpdated": "2023-03-30T06:40:08.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-09T09:38:47.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 39,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix cookie-sync",
+      "number": 2015,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-08T10:00:19.000Z",
+      "dateUpdated": "2022-09-08T13:36:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-08T13:36:25.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Oftmedia (alias of adtelligent)",
+      "number": 2016,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-08T12:25:12.000Z",
+      "dateUpdated": "2022-09-08T12:50:24.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-08T12:50:23.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix code formatting",
+      "number": 2013,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-06T16:34:56.000Z",
+      "dateUpdated": "2022-09-08T01:40:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-08T01:40:35.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unruly: Fix schema param",
+      "number": 2012,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-06T08:07:50.000Z",
+      "dateUpdated": "2022-09-07T10:46:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-07T10:46:36.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Fix video validation",
+      "number": 2010,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-05T06:07:10.000Z",
+      "dateUpdated": "2022-09-05T13:33:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-05T13:33:50.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Implement AMP support for Invibes",
+      "number": 1995,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-16T19:15:40.000Z",
+      "dateUpdated": "2022-09-05T05:26:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-05T05:26:30.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update `.editorconfig` to not add space before colon",
+      "number": 2008,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-31T11:44:43.000Z",
+      "dateUpdated": "2022-09-05T05:22:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-05T05:22:15.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 2009,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-09-01T08:16:41.000Z",
+      "dateUpdated": "2022-09-01T08:23:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-01T08:23:58.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

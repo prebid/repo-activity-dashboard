@@ -1,0 +1,759 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 6,
+    "itemCount": 20,
+    "lastUpdated": "2025-09-02T23:36:35.280Z"
+  },
+  "items": [
+    {
+      "title": "Read imp[].ext.tid, fix PBJS 7.3.0 compatibility",
+      "number": 2283,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T09:33:23.000Z",
+      "dateUpdated": "2022-10-08T04:04:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-29T23:42:38.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Kargo",
+      "number": 2268,
+      "author": {
+        "login": "ssadman22",
+        "id": 97482944
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ssadman22",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-07T22:45:47.000Z",
+      "dateUpdated": "2022-06-29T20:48:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-29T20:48:58.000Z",
+      "commitAuthors": {
+        "97482944": {
+          "identifier": "97482944",
+          "displayName": "ssadman22",
+          "count": 23,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "VIS.X: updated endpoint parameters",
+      "number": 2282,
+      "author": {
+        "login": "vfedoseev",
+        "id": 8183991
+      },
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T08:41:12.000Z",
+      "dateUpdated": "2022-06-29T17:14:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-29T17:14:00.000Z",
+      "commitAuthors": {
+        "8183991": {
+          "identifier": "8183991",
+          "displayName": "vfedoseev",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: InfyTV",
+      "number": 2278,
+      "author": {
+        "login": "infytvcode",
+        "id": 104983807
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "infytvcode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-21T11:12:51.000Z",
+      "dateUpdated": "2022-06-28T15:26:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-28T15:26:03.000Z",
+      "commitAuthors": {
+        "104983807": {
+          "identifier": "104983807",
+          "displayName": "infytvcode",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support adapters to set seat for a bid",
+      "number": 2266,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-07T07:26:10.000Z",
+      "dateUpdated": "2022-06-27T18:05:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-27T18:05:47.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "VIS.X: add X-Forwarded-For header",
+      "number": 2279,
+      "author": {
+        "login": "vfedoseev",
+        "id": 8183991
+      },
+      "assignees": [
+        "mansinahar",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "vfedoseev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-21T13:30:05.000Z",
+      "dateUpdated": "2022-06-23T18:50:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-23T18:50:51.000Z",
+      "commitAuthors": {
+        "8183991": {
+          "identifier": "8183991",
+          "displayName": "vfedoseev",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unicorn: Revert limitation of JPY only ( add limitation of accountId )",
+      "number": 2277,
+      "author": {
+        "login": "faithnh",
+        "id": 1285380
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "faithnh",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-20T04:47:50.000Z",
+      "dateUpdated": "2022-06-23T17:15:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-23T17:15:00.000Z",
+      "commitAuthors": {
+        "1285380": {
+          "identifier": "1285380",
+          "displayName": "faithnh",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "handle nil when device ext does not contain prebid settings for interstitial",
+      "number": 2276,
+      "author": {
+        "login": "KushnerykPavel",
+        "id": 19363465
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-18T15:10:32.000Z",
+      "dateUpdated": "2022-06-22T17:23:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-22T17:23:32.000Z",
+      "commitAuthors": {
+        "19363465": {
+          "identifier": "19363465",
+          "displayName": "KushnerykPavel",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MediaFuse: Change To Alias AppNexus",
+      "number": 2273,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "balajimediafuse",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-13T18:19:42.000Z",
+      "dateUpdated": "2022-07-21T16:37:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-22T17:21:46.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "huaweiads: Parse + Send GDPR",
+      "number": 2253,
+      "author": {
+        "login": "clho40",
+        "id": 12845787
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-20T13:43:34.000Z",
+      "dateUpdated": "2022-06-20T18:26:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-20T18:26:12.000Z",
+      "commitAuthors": {
+        "69209050": {
+          "identifier": "69209050",
+          "displayName": "clho404",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GDPR: move request-specific data onto permissions object",
+      "number": 2264,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-03T21:54:18.000Z",
+      "dateUpdated": "2022-06-17T01:02:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-17T01:02:28.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Bug Fix for regs being empty",
+      "number": 2263,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-02T12:03:22.000Z",
+      "dateUpdated": "2022-06-16T17:16:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T17:16:50.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix for missed user.buyerUID",
+      "number": 2269,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-08T00:24:34.000Z",
+      "dateUpdated": "2023-03-13T13:55:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-14T18:20:12.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "[UNICORN Adapter] support JPY only",
+      "number": 2265,
+      "author": {
+        "login": "faithnh",
+        "id": 1285380
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "faithnh",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-07T07:06:06.000Z",
+      "dateUpdated": "2022-06-17T13:21:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-14T17:32:36.000Z",
+      "commitAuthors": {
+        "1285380": {
+          "identifier": "1285380",
+          "displayName": "faithnh",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add account query parameter to setuid endpoint",
+      "number": 2259,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "mansinahar",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-31T18:59:28.000Z",
+      "dateUpdated": "2022-06-14T15:52:56.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-14T15:52:56.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "The http.ProxyFromEnvironment as Proxy func in custom http.Transport",
+      "number": 2251,
+      "author": {
+        "login": "spanwp",
+        "id": 104571800
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-19T11:12:33.000Z",
+      "dateUpdated": "2022-06-06T22:10:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-06T22:10:37.000Z",
+      "commitAuthors": {
+        "104571800": {
+          "identifier": "104571800",
+          "displayName": "spanwp",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Automatad",
+      "number": 2255,
+      "author": {
+        "login": "akanksh97",
+        "id": 101392232
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "akanksh97",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-23T11:39:37.000Z",
+      "dateUpdated": "2022-06-06T20:52:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-06T20:52:45.000Z",
+      "commitAuthors": {
+        "101392232": {
+          "identifier": "101392232",
+          "displayName": "akanksh97",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GDPR: Defer permissions object instantiation refactor",
+      "number": 2247,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-05-16T20:13:00.000Z",
+      "dateUpdated": "2022-06-06T19:53:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-06T19:53:03.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Dependencies",
+      "number": 2262,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-01T20:43:41.000Z",
+      "dateUpdated": "2023-04-20T20:45:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-06T19:51:37.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Set account id to publisher unknown on cookie sync endpoint",
+      "number": 2261,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-01T18:30:16.000Z",
+      "dateUpdated": "2022-06-01T19:35:35.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T19:35:35.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

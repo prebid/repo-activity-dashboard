@@ -1,0 +1,594 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2022,
+    "month": 4,
+    "itemCount": 21,
+    "lastUpdated": "2025-09-02T21:29:40.508Z"
+  },
+  "items": [
+    {
+      "title": "Release 2.0.0",
+      "number": 627,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-29T08:57:15.000Z",
+      "dateUpdated": "2022-05-20T08:20:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-29T12:48:50.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Restore parameters classes in original API & corrections",
+      "number": 626,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-28T10:11:40.000Z",
+      "dateUpdated": "2022-04-29T08:31:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-29T08:31:56.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support video controls in mediation & corrections",
+      "number": 625,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-27T06:34:09.000Z",
+      "dateUpdated": "2022-04-27T16:00:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-27T16:00:39.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Restore and migrate demo apps to PBS on AWS",
+      "number": 624,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-26T07:20:40.000Z",
+      "dateUpdated": "2022-04-27T08:30:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-27T08:30:55.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 25,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add missing delegates calls",
+      "number": 619,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-21T11:36:26.000Z",
+      "dateUpdated": "2022-05-20T08:20:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T13:28:52.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migrate Swift Demo App to pbs on aws",
+      "number": 614,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-14T07:53:46.000Z",
+      "dateUpdated": "2022-05-20T08:18:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T07:53:58.000Z",
+      "commitAuthors": {
+        "79920743": {
+          "identifier": "79920743",
+          "displayName": "YuriyVelichkoOpenX",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Server-side video ad configurations & bug fixes",
+      "number": 618,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-19T07:58:11.000Z",
+      "dateUpdated": "2022-04-20T13:12:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-20T13:12:34.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce the MAX Adapters",
+      "number": 616,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-14T08:17:42.000Z",
+      "dateUpdated": "2022-04-18T06:40:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-18T06:40:39.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[MAX] Introduce Native Adapter",
+      "number": 613,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-14T07:25:58.000Z",
+      "dateUpdated": "2022-04-14T08:16:02.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-14T08:15:58.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[MAX] Introduce Interstitial and Rewarded Adapters",
+      "number": 612,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-12T10:14:16.000Z",
+      "dateUpdated": "2022-04-12T11:02:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-12T11:02:12.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[MAX] Implement MAX SDK Adapter and MAX Banner Adapter ",
+      "number": 611,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-11T11:46:52.000Z",
+      "dateUpdated": "2022-04-11T14:37:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-11T14:37:30.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Send nested targeting params from the original API in the Bid Requests",
+      "number": 606,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-05T13:23:49.000Z",
+      "dateUpdated": "2022-05-20T08:20:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-08T15:27:09.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[MAX] Introduce the MAX Adapters framework",
+      "number": 609,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-07T08:04:52.000Z",
+      "dateUpdated": "2022-04-07T11:11:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-07T11:11:03.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migrate internaltestapp from mock server to pbs on aws",
+      "number": 607,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-05T15:42:42.000Z",
+      "dateUpdated": "2022-05-20T08:18:17.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-06T10:22:14.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce video rendering controls",
+      "number": 604,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-05T09:16:31.000Z",
+      "dateUpdated": "2022-04-05T12:27:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T12:27:23.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: migrated native cases from mock server to pbs on aws",
+      "number": 605,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-05T11:36:53.000Z",
+      "dateUpdated": "2022-04-05T12:08:35.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T12:08:32.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Skip button properties and tech enhancements",
+      "number": 600,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T12:24:30.000Z",
+      "dateUpdated": "2022-04-05T08:52:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T08:52:34.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 22,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Shut down mopub",
+      "number": 603,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T14:12:29.000Z",
+      "dateUpdated": "2022-04-05T07:20:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T07:01:56.000Z",
+      "commitAuthors": {
+        "79920743": {
+          "identifier": "79920743",
+          "displayName": "YuriyVelichkoOpenX",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: MRAID test cases from mock server to pbs on aws",
+      "number": 602,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T13:03:32.000Z",
+      "dateUpdated": "2022-04-04T15:41:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T15:41:11.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: Video cases from mock server to pbs on aws ",
+      "number": 599,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T10:36:06.000Z",
+      "dateUpdated": "2022-04-04T11:00:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T11:00:21.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: display interstitial cases from mock server to pbs on aws",
+      "number": 596,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2022-03-31T14:55:52.000Z",
+      "dateUpdated": "2022-04-01T11:43:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-01T11:43:17.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

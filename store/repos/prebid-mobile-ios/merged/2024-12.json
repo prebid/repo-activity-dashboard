@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2024,
+    "month": 12,
+    "itemCount": 9,
+    "lastUpdated": "2025-09-02T21:29:40.494Z"
+  },
+  "items": [
+    {
+      "title": "Bump to 2.3.1",
+      "number": 1076,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-19T12:11:13.000Z",
+      "dateUpdated": "2024-12-20T12:22:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-20T12:22:08.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Make Parsing Methods Type Safe",
+      "number": 1040,
+      "author": {
+        "login": "ankit-thanekar007",
+        "id": 26094255
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-26T10:42:02.000Z",
+      "dateUpdated": "2024-12-19T14:50:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T14:50:36.000Z",
+      "commitAuthors": {
+        "26094255": {
+          "identifier": "26094255",
+          "displayName": "ankit-thanekar007",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Ankit Rajendra Thanekar": {
+          "identifier": "Ankit Rajendra Thanekar",
+          "displayName": "Ankit Rajendra Thanekar",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "fix: make sure gppSID in InternalUserConsentDataManager is nil",
+      "number": 1053,
+      "author": {
+        "login": "Macjon",
+        "id": 538002
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-19T14:47:33.000Z",
+      "dateUpdated": "2024-12-19T11:45:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T11:45:25.000Z",
+      "commitAuthors": {
+        "538002": {
+          "identifier": "538002",
+          "displayName": "Macjon",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Jonah Hulselmans": {
+          "identifier": "Jonah Hulselmans",
+          "displayName": "Jonah Hulselmans",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update README.md",
+      "number": 1051,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T16:33:34.000Z",
+      "dateUpdated": "2024-12-19T11:32:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T11:32:00.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Arbitrary ORTB request configuration changes",
+      "number": 1064,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-11-22T09:35:53.000Z",
+      "dateUpdated": "2024-12-19T07:53:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T07:53:40.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Send pbAdSlot in `pbadslot` ORTB field",
+      "number": 1074,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-16T12:45:49.000Z",
+      "dateUpdated": "2024-12-18T09:37:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-18T09:37:53.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support ad position in Original, Rendering and Mediation ad units",
+      "number": 1066,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-27T11:01:27.000Z",
+      "dateUpdated": "2024-12-11T07:54:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-11T07:54:26.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rewarded Ad Unit Enhancements",
+      "number": 1058,
+      "author": {
+        "login": "OlenaTeqBlaze",
+        "id": 183592226
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-14T08:26:28.000Z",
+      "dateUpdated": "2024-12-05T09:54:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-05T09:54:54.000Z",
+      "commitAuthors": {
+        "183592226": {
+          "identifier": "183592226",
+          "displayName": "OlenaTeqBlaze",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support GMA SDK 11.13.0",
+      "number": 1070,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-04T14:04:52.000Z",
+      "dateUpdated": "2024-12-05T07:53:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-05T07:53:36.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

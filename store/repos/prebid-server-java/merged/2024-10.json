@@ -1,0 +1,1053 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 10,
+    "itemCount": 32,
+    "lastUpdated": "2025-09-03T00:16:49.970Z"
+  },
+  "items": [
+    {
+      "title": "Docs: Admin endpoints",
+      "number": 3531,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T00:25:30.000Z",
+      "dateUpdated": "2024-10-31T11:32:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T11:32:27.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Loopme: update bidder params",
+      "number": 3529,
+      "author": {
+        "login": "ambalashov",
+        "id": 1453605
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-29T14:49:59.000Z",
+      "dateUpdated": "2024-10-30T13:42:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-30T13:42:49.000Z",
+      "commitAuthors": {
+        "1453605": {
+          "identifier": "1453605",
+          "displayName": "ambalashov",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Update PBC integration",
+      "number": 3499,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T13:16:49.000Z",
+      "dateUpdated": "2024-10-28T11:41:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T11:40:58.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Displayio Bidder: Bidfloor Validation Update",
+      "number": 3516,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-18T11:30:57.000Z",
+      "dateUpdated": "2024-10-28T09:28:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:28:29.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for account PriceGranularity config",
+      "number": 3517,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-18T13:04:36.000Z",
+      "dateUpdated": "2024-10-28T09:16:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:16:19.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tradplus bid adapter",
+      "number": 3508,
+      "author": {
+        "login": "tradplus",
+        "id": 58809719
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "tradplus",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-16T10:43:40.000Z",
+      "dateUpdated": "2024-11-12T14:47:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:14:24.000Z",
+      "commitAuthors": {
+        "58809719": {
+          "identifier": "58809719",
+          "displayName": "tradplus",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Reviewer Checklist",
+      "number": 3520,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-21T11:56:20.000Z",
+      "dateUpdated": "2024-10-28T09:08:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:08:25.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for cache-api-key attribute",
+      "number": 3524,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-23T16:33:34.000Z",
+      "dateUpdated": "2024-10-28T09:06:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:06:43.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift, Unruly, GumGum Bidders Updates",
+      "number": 3513,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-17T13:46:31.000Z",
+      "dateUpdated": "2024-10-28T09:01:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T09:01:12.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Increase default number for `tests.max-container-count`",
+      "number": 3518,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-18T13:32:58.000Z",
+      "dateUpdated": "2024-10-23T09:29:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T09:29:07.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix invalid functional test",
+      "number": 3519,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-18T14:04:51.000Z",
+      "dateUpdated": "2024-10-21T12:40:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T12:40:48.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "BlueSea Bidder: Site Support",
+      "number": 3515,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-18T08:50:49.000Z",
+      "dateUpdated": "2024-10-21T12:32:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T12:32:52.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Github: Add CodeQl action support",
+      "number": 3512,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-17T13:01:16.000Z",
+      "dateUpdated": "2024-10-17T13:21:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-17T13:21:28.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB-Blocking Module: Add new configuration options",
+      "number": 3480,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-30T13:19:40.000Z",
+      "dateUpdated": "2024-10-16T23:05:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-16T23:05:54.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix TCF policy test",
+      "number": 3507,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2024-10-16T09:36:33.000Z",
+      "dateUpdated": "2024-10-16T10:35:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-16T10:35:42.000Z",
+      "commitAuthors": {
+        "15611775": {
+          "identifier": "15611775",
+          "displayName": "ikagotso",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "46379634": {
+          "identifier": "46379634",
+          "displayName": "ym-winston",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Response correction: Fix VAST matching",
+      "number": 3493,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T11:40:09.000Z",
+      "dateUpdated": "2024-10-16T09:45:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-16T09:45:20.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add ortb blocking module functional tests for video & audio battr",
+      "number": 3478,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-30T08:47:49.000Z",
+      "dateUpdated": "2024-10-16T09:22:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-16T09:22:20.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Accept Imp.ext Bidfloor either as a number or string",
+      "number": 3484,
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ikagotso",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-04T10:03:47.000Z",
+      "dateUpdated": "2024-10-15T13:04:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-15T13:04:19.000Z",
+      "commitAuthors": {
+        "15611775": {
+          "identifier": "15611775",
+          "displayName": "ikagotso",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidmatic Bidder",
+      "number": 3489,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-08T12:16:35.000Z",
+      "dateUpdated": "2024-10-15T12:53:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-15T12:53:49.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab Bidder: Support for Ad Unit Sizes",
+      "number": 3494,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T12:30:51.000Z",
+      "dateUpdated": "2024-10-15T12:50:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-15T12:50:01.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena Bidder",
+      "number": 3501,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T09:52:58.000Z",
+      "dateUpdated": "2024-10-15T12:48:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-15T12:48:50.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update TCF policy version validation",
+      "number": 3498,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T00:00:18.000Z",
+      "dateUpdated": "2024-10-15T09:43:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-15T09:43:41.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Update tcf policy version",
+      "number": 3500,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-10T14:13:25.000Z",
+      "dateUpdated": "2024-10-14T13:31:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-14T13:31:43.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sonobi Bidder: Native and Currency Conversion Support",
+      "number": 3492,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T08:40:59.000Z",
+      "dateUpdated": "2024-10-11T13:41:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T13:41:57.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "InMobi Bidder: Mtype Support",
+      "number": 3477,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-30T07:44:34.000Z",
+      "dateUpdated": "2024-10-11T13:40:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T13:39:58.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "add ortb-version to yieldmo.yaml",
+      "number": 3497,
+      "author": {
+        "login": "ym-winston",
+        "id": 46379634
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T22:01:50.000Z",
+      "dateUpdated": "2024-10-10T14:32:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T14:32:00.000Z",
+      "commitAuthors": {
+        "46379634": {
+          "identifier": "46379634",
+          "displayName": "ym-winston",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Default enabled property is true in analytics acc config",
+      "number": 3485,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T08:12:54.000Z",
+      "dateUpdated": "2024-10-07T12:48:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T12:48:54.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Set log analytics as enabled by default in account configuration",
+      "number": 3487,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T09:58:36.000Z",
+      "dateUpdated": "2024-10-07T10:34:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T10:34:46.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix Analytics",
+      "number": 3483,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-03T08:44:22.000Z",
+      "dateUpdated": "2024-10-03T09:59:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-03T09:59:40.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Rename package name",
+      "number": 3481,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-02T16:07:57.000Z",
+      "dateUpdated": "2024-10-03T09:56:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-03T09:56:32.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Remove Empty EIDs + add new ortb fields",
+      "number": 3465,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-25T14:05:43.000Z",
+      "dateUpdated": "2024-10-01T11:01:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-01T11:01:45.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add storedAuctionResponse on imp level.",
+      "number": 3461,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-24T13:42:45.000Z",
+      "dateUpdated": "2024-10-01T10:52:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-01T10:52:54.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

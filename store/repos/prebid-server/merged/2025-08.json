@@ -4,830 +4,966 @@
     "year": 2025,
     "month": 8,
     "itemCount": 24,
-    "lastUpdated": "2025-08-30T16:32:15.707Z"
+    "lastUpdated": "2025-09-02T23:36:35.260Z"
   },
   "items": [
     {
       "title": "zMaticoo: Update endpoint",
       "number": 4471,
-      "author": "g-coder-baiai",
+      "author": {
+        "login": "g-coder-baiai",
+        "id": 77920802
+      },
       "assignees": [
         "ccorbo"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "SyntaxNode"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-08-04T09:40:34.000Z",
       "dateUpdated": "2025-08-27T18:35:50.000Z",
       "status": "merged",
       "dateMerged": "2025-08-27T18:35:50.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Quentin.zuo": {
-            "count": 1,
-            "author": "Quentin.zuo"
-          }
+      "commitAuthors": {
+        "Quentin.zuo": {
+          "identifier": "Quentin.zuo",
+          "displayName": "Quentin.zuo",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: RocketLab",
       "number": 4383,
-      "author": "leamarty",
+      "author": {
+        "login": "leamarty",
+        "id": 3124547
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-06-10T09:09:56.000Z",
       "dateUpdated": "2025-08-27T17:31:02.000Z",
       "status": "merged",
       "dateMerged": "2025-08-26T12:59:10.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "leamarty": {
-            "count": 6,
-            "author": "leamarty"
-          }
+      "commitAuthors": {
+        "3124547": {
+          "identifier": "3124547",
+          "displayName": "leamarty",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rules Engine Module: Configurable cache update frequency",
       "number": 4423,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "SyntaxNode",
-          "VeronikaSolovei9",
-          "guscarreon",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-07-06T23:52:50.000Z",
       "dateUpdated": "2025-08-25T19:58:32.000Z",
       "status": "merged",
       "dateMerged": "2025-08-25T19:58:20.000Z",
-      "labels": [
-        "module"
-      ],
-      "commits": {
-        "totalCount": 11,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 11,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "VeronikaSolovei9": {
+          "identifier": "VeronikaSolovei9",
+          "displayName": "VeronikaSolovei9",
+          "count": 3,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Onetag: imp.ext read generalization",
       "number": 4446,
-      "author": "EmanueleSimonelli",
+      "author": {
+        "login": "EmanueleSimonelli",
+        "id": 136568337
+      },
       "assignees": [
         "pm-isha-bharti"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-nikhil-vaidya",
-          "pm-isha-bharti"
-        ],
-        "pending": [
-          "EmanueleSimonelli"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "EmanueleSimonelli",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-21T13:45:28.000Z",
       "dateUpdated": "2025-08-25T19:45:54.000Z",
       "status": "merged",
       "dateMerged": "2025-08-25T19:45:54.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "l-baglini": {
-            "count": 1,
-            "author": "l-baglini"
-          }
+      "commitAuthors": {
+        "165936143": {
+          "identifier": "165936143",
+          "displayName": "l-baglini",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: TeqBlaze",
       "number": 4480,
-      "author": "MaksymTeqBlaze",
+      "author": {
+        "login": "MaksymTeqBlaze",
+        "id": 172380870
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-08-12T17:07:57.000Z",
       "dateUpdated": "2025-08-21T14:57:39.000Z",
       "status": "merged",
       "dateMerged": "2025-08-21T14:57:39.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "MaksymTeqBlaze": {
-            "count": 2,
-            "author": "MaksymTeqBlaze"
-          }
+      "commitAuthors": {
+        "172380870": {
+          "identifier": "172380870",
+          "displayName": "MaksymTeqBlaze",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Harden HTTP Response Body Handling",
       "number": 4489,
-      "author": "SyntaxNode",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "guscarreon"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "bsardo"
-        ]
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-08-19T04:22:55.000Z",
       "dateUpdated": "2025-08-19T19:29:26.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T19:29:26.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 3,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Afront",
       "number": 4380,
-      "author": "Afrontio",
+      "author": {
+        "login": "Afrontio",
+        "id": 214840451
+      },
       "assignees": [
         "VeronikaSolovei9",
         "pm-nikhil-vaidya"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-nikhil-vaidya",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "Afrontio",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Afrontio",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-06-09T09:50:39.000Z",
       "dateUpdated": "2025-08-20T09:16:36.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T19:19:37.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Afrontio": {
-            "count": 3,
-            "author": "Afrontio"
-          }
+      "commitAuthors": {
+        "214840451": {
+          "identifier": "214840451",
+          "displayName": "Afrontio",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Modules: Exitpoint Stage",
       "number": 4435,
-      "author": "pm-nikhil-vaidya",
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
       "assignees": [
         "guscarreon",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "hhhjort"
-        ],
-        "pending": [
-          "pm-nikhil-vaidya"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-14T07:27:20.000Z",
       "dateUpdated": "2025-08-19T19:06:38.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T19:06:38.000Z",
-      "labels": [
-        "modularity infrastructure"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "pm-nikhil-vaidya": {
-            "count": 4,
-            "author": "pm-nikhil-vaidya"
-          }
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Adipolo - Xeworks alias",
       "number": 4350,
-      "author": "And-Rud",
+      "author": {
+        "login": "And-Rud",
+        "id": 96918101
+      },
       "assignees": [
         "pm-isha-bharti",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-isha-bharti",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-23T12:05:33.000Z",
       "dateUpdated": "2025-08-19T18:54:12.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T18:54:03.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "And-Rud": {
-            "count": 5,
-            "author": "And-Rud"
-          },
-          "rbstdev": {
-            "count": 1,
-            "author": "rbstdev"
-          }
+      "commitAuthors": {
+        "And-Rud": {
+          "identifier": "And-Rud",
+          "displayName": "And-Rud",
+          "count": 5,
+          "isGitHubUser": false
+        },
+        "rbstdev": {
+          "identifier": "rbstdev",
+          "displayName": "rbstdev",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "sspBC: Updates moving operations to backend service",
       "number": 4351,
-      "author": "mabielinski-wpm",
+      "author": {
+        "login": "mabielinski-wpm",
+        "id": 155963187
+      },
       "assignees": [
         "pm-isha-bharti",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-isha-bharti",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "mabielinski-wpm"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mabielinski-wpm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-23T12:32:59.000Z",
       "dateUpdated": "2025-08-19T18:41:39.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T18:41:31.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "mabielinski-wpm": {
-            "count": 3,
-            "author": "mabielinski-wpm"
-          }
+      "commitAuthors": {
+        "155963187": {
+          "identifier": "155963187",
+          "displayName": "mabielinski-wpm",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Smartadserver: Add second endpoint for programmatic guaranteed",
       "number": 4467,
-      "author": "GuillaumeLaubier",
+      "author": {
+        "login": "GuillaumeLaubier",
+        "id": 8614017
+      },
       "assignees": [
         "pm-jaydeep-mohite",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "przemkaczmarek",
-          "pm-jaydeep-mohite"
-        ],
-        "pending": [
-          "GuillaumeLaubier"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "GuillaumeLaubier",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-31T15:15:45.000Z",
       "dateUpdated": "2025-08-19T18:13:47.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T18:13:47.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "Guillaume Laubier": {
-            "count": 2,
-            "author": "Guillaume Laubier"
-          }
+      "commitAuthors": {
+        "Guillaume Laubier": {
+          "identifier": "Guillaume Laubier",
+          "displayName": "Guillaume Laubier",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Sovrn: Fix passing through imp.ext.gpid",
       "number": 4413,
-      "author": "sejanick",
+      "author": {
+        "login": "sejanick",
+        "id": 5297680
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "sejanick"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sejanick",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-06-30T14:41:44.000Z",
       "dateUpdated": "2025-08-19T17:51:06.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T17:51:06.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "sejanick": {
-            "count": 4,
-            "author": "sejanick"
-          }
+      "commitAuthors": {
+        "5297680": {
+          "identifier": "5297680",
+          "displayName": "sejanick",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Account: Support bid rounding options",
       "number": 4470,
-      "author": "sigma-software-prebid",
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-08-01T22:50:26.000Z",
       "dateUpdated": "2025-08-19T17:40:22.000Z",
       "status": "merged",
       "dateMerged": "2025-08-19T17:40:21.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "sigma-software-prebid": {
-            "count": 1,
-            "author": "sigma-software-prebid"
-          }
+      "commitAuthors": {
+        "196663574": {
+          "identifier": "196663574",
+          "displayName": "sigma-software-prebid",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rules Engine Module: Result functions fix",
       "number": 4451,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": [
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-24T01:42:38.000Z",
       "dateUpdated": "2025-08-12T17:10:00.000Z",
       "status": "merged",
       "dateMerged": "2025-08-12T17:10:00.000Z",
-      "labels": [
-        "module"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 4,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "VeronikaSolovei9": {
+          "identifier": "VeronikaSolovei9",
+          "displayName": "VeronikaSolovei9",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Define An Adapter As White Label Only",
       "number": 4461,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": [
-          "copilot-pull-request-reviewer[bot]",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-30T06:27:38.000Z",
       "dateUpdated": "2025-08-08T00:43:40.000Z",
       "status": "merged",
       "dateMerged": "2025-08-08T00:43:40.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 10,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Omnidex - Vidazoo alias",
       "number": 4441,
-      "author": "anna-y-perion",
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
       "assignees": [
         "pm-jaydeep-mohite"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-jaydeep-mohite",
-          "bsardo"
-        ],
-        "pending": [
-          "anna-y-perion"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-17T11:05:21.000Z",
       "dateUpdated": "2025-08-07T20:32:39.000Z",
       "status": "merged",
       "dateMerged": "2025-08-07T20:30:21.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "anna-y-perion": {
-            "count": 6,
-            "author": "anna-y-perion"
-          }
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Tagoras - Vidazoo alias",
       "number": 4329,
-      "author": "saar120",
+      "author": {
+        "login": "saar120",
+        "id": 89377180
+      },
       "assignees": [
         "pm-isha-bharti",
         "ccorbo"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "bsardo"
-        ],
-        "pending": [
-          "pm-isha-bharti",
-          "saar120",
-          "anna-y-perion"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "saar120",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-05-06T10:21:51.000Z",
       "dateUpdated": "2025-08-07T19:52:50.000Z",
       "status": "merged",
       "dateMerged": "2025-08-07T19:52:50.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "saar120": {
-            "count": 4,
-            "author": "saar120"
-          },
-          "anna-y-perion": {
-            "count": 1,
-            "author": "anna-y-perion"
-          }
+      "commitAuthors": {
+        "89377180": {
+          "identifier": "89377180",
+          "displayName": "saar120",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Adds missing defaults to network throttling code",
       "number": 4477,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-08-07T13:17:35.000Z",
       "dateUpdated": "2025-08-07T17:11:45.000Z",
       "status": "merged",
       "dateMerged": "2025-08-07T17:11:45.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 1,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Pubmatic: Forward skadn object in bid request",
       "number": 4453,
-      "author": "pm-isha-bharti",
+      "author": {
+        "login": "pm-isha-bharti",
+        "id": 8835973
+      },
       "assignees": [
         "ccorbo",
         "pm-jaydeep-mohite"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-jaydeep-mohite",
-          "ccorbo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-28T09:33:16.000Z",
       "dateUpdated": "2025-08-07T13:38:34.000Z",
       "status": "merged",
       "dateMerged": "2025-08-07T13:38:34.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "pm-isha-bharti": {
-            "count": 1,
-            "author": "pm-isha-bharti"
-          }
+      "commitAuthors": {
+        "8835973": {
+          "identifier": "8835973",
+          "displayName": "pm-isha-bharti",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Request: Add hb_env=amp targeting to AMP responses",
       "number": 4414,
-      "author": "sigma-software-prebid",
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-01T19:17:19.000Z",
       "dateUpdated": "2025-08-07T13:27:28.000Z",
       "status": "merged",
       "dateMerged": "2025-08-07T13:27:28.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "sigma-software-prebid": {
-            "count": 4,
-            "author": "sigma-software-prebid"
-          }
+      "commitAuthors": {
+        "196663574": {
+          "identifier": "196663574",
+          "displayName": "sigma-software-prebid",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Yandex: Add video support",
       "number": 4344,
-      "author": "DiMurer",
+      "author": {
+        "login": "DiMurer",
+        "id": 3616413
+      },
       "assignees": [
         "VeronikaSolovei9",
         "pm-jaydeep-mohite"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-jaydeep-mohite",
-          "pm-nikhil-vaidya",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "DiMurer"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "DiMurer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-21T11:51:13.000Z",
       "dateUpdated": "2025-08-06T02:15:15.000Z",
       "status": "merged",
       "dateMerged": "2025-08-06T02:15:15.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "DiMurer": {
-            "count": 8,
-            "author": "DiMurer"
-          }
+      "commitAuthors": {
+        "3616413": {
+          "identifier": "3616413",
+          "displayName": "DiMurer",
+          "count": 8,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Yieldlab: Forward ADomain to OpenRTB bid",
       "number": 4404,
-      "author": "rey1128",
+      "author": {
+        "login": "rey1128",
+        "id": 12371637
+      },
       "assignees": [
         "hhhjort",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-06-20T10:57:06.000Z",
       "dateUpdated": "2025-08-06T01:12:52.000Z",
       "status": "merged",
       "dateMerged": "2025-08-06T01:12:52.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "rey1128": {
-            "count": 1,
-            "author": "rey1128"
-          }
+      "commitAuthors": {
+        "12371637": {
+          "identifier": "12371637",
+          "displayName": "rey1128",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Bidder throttling code to increase network stability.",
       "number": 4415,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "giditietz",
-          "hhhjort"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "giditietz",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-02T13:35:43.000Z",
       "dateUpdated": "2025-08-04T17:08:37.000Z",
       "status": "merged",
       "dateMerged": "2025-08-04T17:08:37.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 7,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix: Set account http fetcher defaults enabling env vars",
       "number": 4460,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-07-30T02:47:52.000Z",
       "dateUpdated": "2025-08-01T15:29:40.000Z",
       "status": "merged",
       "dateMerged": "2025-08-01T15:29:40.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "bsardo": {
-            "count": 2,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

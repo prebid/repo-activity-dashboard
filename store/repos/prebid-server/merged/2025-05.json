@@ -4,293 +4,325 @@
     "year": 2025,
     "month": 5,
     "itemCount": 9,
-    "lastUpdated": "2025-08-30T16:17:51.163Z"
+    "lastUpdated": "2025-09-02T23:36:35.263Z"
   },
   "items": [
     {
       "title": "Rules Engine Module: Select model group based on weights",
       "number": 4353,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "guscarreon"
       ],
+      "reviewers": [],
       "dateCreated": "2025-05-27T21:04:39.000Z",
       "dateUpdated": "2025-05-29T20:05:08.000Z",
       "status": "merged",
       "dateMerged": "2025-05-29T20:05:07.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "bsardo": {
-            "count": 3,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Match wildcards, update result func meta & tree builder validation",
       "number": 4347,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-21T20:54:27.000Z",
       "dateUpdated": "2025-05-22T19:17:09.000Z",
       "status": "merged",
       "dateMerged": "2025-05-22T19:17:09.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Default and Result functions ",
       "number": 4334,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-05-09T00:18:47.000Z",
       "dateUpdated": "2025-05-16T01:16:32.000Z",
       "status": "merged",
       "dateMerged": "2025-05-16T01:16:32.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 12,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 12,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 12,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Single responsibility schema functions",
       "number": 4338,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-05-13T06:26:07.000Z",
       "dateUpdated": "2025-05-15T04:53:09.000Z",
       "status": "merged",
       "dateMerged": "2025-05-15T04:53:09.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 4,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Cache",
       "number": 4336,
-      "author": "guscarreon",
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "guscarreon"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-09T14:40:31.000Z",
       "dateUpdated": "2025-05-14T19:42:16.000Z",
       "status": "merged",
       "dateMerged": "2025-05-14T19:42:16.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "guscarreon": {
-            "count": 5,
-            "author": "guscarreon"
-          }
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Pass request wrapper to result functions",
       "number": 4339,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-13T15:37:33.000Z",
       "dateUpdated": "2025-05-13T18:12:08.000Z",
       "status": "merged",
       "dateMerged": "2025-05-13T18:12:08.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Rules library, generics, cache entry creation",
       "number": 4331,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-07T04:12:58.000Z",
       "dateUpdated": "2025-05-07T20:53:20.000Z",
       "status": "merged",
       "dateMerged": "2025-05-07T20:53:20.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "bsardo": {
-            "count": 7,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Config validation",
       "number": 4328,
-      "author": "guscarreon",
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "guscarreon"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-05-01T22:35:10.000Z",
       "dateUpdated": "2025-05-07T03:09:39.000Z",
       "status": "merged",
       "dateMerged": "2025-05-07T03:09:39.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "guscarreon": {
-            "count": 8,
-            "author": "guscarreon"
-          }
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 8,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Missena: Add formats and settings params",
       "number": 4057,
-      "author": "jney",
+      "author": {
+        "login": "jney",
+        "id": 747
+      },
       "assignees": [
         "VeronikaSolovei9",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "ysfbsf",
-          "jney",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "ysfbsf",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jney",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-11-18T14:01:11.000Z",
       "dateUpdated": "2025-05-02T18:36:52.000Z",
       "status": "merged",
       "dateMerged": "2025-05-02T18:36:52.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 23,
-        "byAuthor": {
-          "jney": {
-            "count": 13,
-            "author": "jney"
-          },
-          "ysfbsf": {
-            "count": 10,
-            "author": "ysfbsf"
-          }
+      "commitAuthors": {
+        "747": {
+          "identifier": "747",
+          "displayName": "jney",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "9834101": {
+          "identifier": "9834101",
+          "displayName": "ysfbsf",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

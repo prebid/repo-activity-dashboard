@@ -1,0 +1,973 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 1,
+    "itemCount": 28,
+    "lastUpdated": "2025-09-03T00:16:49.991Z"
+  },
+  "items": [
+    {
+      "title": "Adyoulike : update yaml (minor)",
+      "number": 1704,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-25T16:56:15.000Z",
+      "dateUpdated": "2022-01-26T04:43:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-26T04:43:40.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Compass : Add new bidder",
+      "number": 1675,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-11T11:42:49.000Z",
+      "dateUpdated": "2022-01-25T13:43:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T13:43:20.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Move Appnexus iab static map to configuration.",
+      "number": 1677,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-11T14:38:51.000Z",
+      "dateUpdated": "2022-01-25T10:49:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T10:49:25.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Adnuntius bidder",
+      "number": 1615,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2021-12-09T09:32:05.000Z",
+      "dateUpdated": "2022-01-25T07:55:02.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T07:55:01.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": " Openx: Add iframe sync ",
+      "number": 1636,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2021-12-15T14:07:33.000Z",
+      "dateUpdated": "2022-01-25T07:54:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T07:54:23.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Beachfront: Add bid floor conversion",
+      "number": 1688,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-18T12:51:24.000Z",
+      "dateUpdated": "2022-01-25T07:51:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T07:51:09.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Alex Maltsev": {
+          "identifier": "Alex Maltsev",
+          "displayName": "Alex Maltsev",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update channel support",
+      "number": 1683,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-14T14:24:39.000Z",
+      "dateUpdated": "2022-01-25T07:40:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T07:40:44.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump h2 from 2.0.206 to 2.1.210",
+      "number": 1700,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-21T23:12:47.000Z",
+      "dateUpdated": "2022-01-25T07:13:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T07:13:37.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "change error code in CcpaSpec",
+      "number": 1699,
+      "author": {
+        "login": "yevhenii-viktorov",
+        "id": 91950229
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-01-21T13:52:22.000Z",
+      "dateUpdated": "2022-01-21T13:53:05.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T13:53:04.000Z",
+      "commitAuthors": {
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Bizzclick bidder",
+      "number": 1673,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-10T15:35:33.000Z",
+      "dateUpdated": "2022-01-21T11:05:05.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T11:05:04.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rid Medianet bidder of OpenrtbBidder.",
+      "number": 1650,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-23T11:59:22.000Z",
+      "dateUpdated": "2022-01-21T11:02:05.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T11:02:04.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove FacebookNative",
+      "number": 1691,
+      "author": {
+        "login": "yevhenii-viktorov",
+        "id": 91950229
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-19T11:50:37.000Z",
+      "dateUpdated": "2022-01-21T10:58:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T10:58:26.000Z",
+      "commitAuthors": {
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update tests for debug errors, warnings",
+      "number": 1695,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-20T13:28:04.000Z",
+      "dateUpdated": "2022-01-21T10:50:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T10:50:20.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1697,
+      "author": {
+        "login": "rpanchyk",
+        "id": 29976213
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-01-21T10:40:23.000Z",
+      "dateUpdated": "2022-01-21T10:46:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-21T10:46:12.000Z",
+      "commitAuthors": {
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix PG intersects expression to avoid NPE",
+      "number": 1693,
+      "author": {
+        "login": "rpanchyk",
+        "id": 29976213
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-01-19T18:50:58.000Z",
+      "dateUpdated": "2022-01-20T10:05:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-20T10:05:08.000Z",
+      "commitAuthors": {
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Add fetch status for fetching result",
+      "number": 1686,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-17T14:00:55.000Z",
+      "dateUpdated": "2022-01-18T11:05:02.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-18T11:05:02.000Z",
+      "commitAuthors": {
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Extend PG Targeting to match single String or Integer value",
+      "number": 1653,
+      "author": {
+        "login": "rpanchyk",
+        "id": 29976213
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2021-12-24T15:04:47.000Z",
+      "dateUpdated": "2022-01-14T11:26:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-14T11:26:45.000Z",
+      "commitAuthors": {
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Extend site.domain PG targeting matching",
+      "number": 1679,
+      "author": {
+        "login": "rpanchyk",
+        "id": 29976213
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-13T09:00:45.000Z",
+      "dateUpdated": "2022-01-13T13:30:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-13T13:30:22.000Z",
+      "commitAuthors": {
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests for validation amp request",
+      "number": 1648,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "rpanchyk",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-22T13:07:11.000Z",
+      "dateUpdated": "2022-01-13T10:58:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-13T10:58:39.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Change Richaudience configuration class name for consistency.",
+      "number": 1672,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-10T11:22:32.000Z",
+      "dateUpdated": "2022-01-11T13:03:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T13:03:10.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adyoulike: Add an iframe sync endpoint ",
+      "number": 1637,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-15T18:08:33.000Z",
+      "dateUpdated": "2022-01-11T13:02:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T13:02:33.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Algorix: Add Server Region Support (minor)",
+      "number": 1669,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-04T17:22:23.000Z",
+      "dateUpdated": "2022-01-11T13:01:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T13:01:54.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Alias Of PubMatic : Add adapter Groupm",
+      "number": 1640,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-17T13:02:06.000Z",
+      "dateUpdated": "2022-01-11T13:00:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T13:00:54.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rid Colossus bidder of OpenrtbBidder.",
+      "number": 1646,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rpanchyk",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2021-12-21T13:16:19.000Z",
+      "dateUpdated": "2022-01-11T13:00:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T13:00:09.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add missing warning for invalid consent_type",
+      "number": 1676,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-11T12:34:46.000Z",
+      "dateUpdated": "2022-01-11T12:59:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-11T12:59:19.000Z",
+      "commitAuthors": {
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bump log4j-api from 2.17.0 to 2.17.1",
+      "number": 1668,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-04T16:54:49.000Z",
+      "dateUpdated": "2022-01-10T13:46:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T13:46:33.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump h2 from 2.0.202 to 2.0.206",
+      "number": 1671,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-06T23:59:37.000Z",
+      "dateUpdated": "2022-01-10T13:46:01.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T13:46:00.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Extend AMP consent validation based on consent type",
+      "number": 1663,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-31T16:25:00.000Z",
+      "dateUpdated": "2022-01-04T13:34:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-04T13:34:13.000Z",
+      "commitAuthors": {
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}

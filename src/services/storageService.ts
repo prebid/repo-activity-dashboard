@@ -82,7 +82,8 @@ export class StorageService {
     const prsByMonth = new Map<string, PRData[]>();
     
     for (const pr of prs) {
-      if (pr.dateMerged) {
+      // Only save PRs merged in 2022 or later
+      if (pr.dateMerged && pr.dateMerged.getFullYear() >= 2022) {
         const yearMonth = this.getYearMonth(pr.dateMerged);
         if (!prsByMonth.has(yearMonth)) {
           prsByMonth.set(yearMonth, []);

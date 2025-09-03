@@ -1,0 +1,1141 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 11,
+    "itemCount": 34,
+    "lastUpdated": "2025-09-03T00:16:49.979Z"
+  },
+  "items": [
+    {
+      "title": "Add new `Liftoff` bidder",
+      "number": 2760,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-11-15T11:48:10.000Z",
+      "dateUpdated": "2023-11-30T12:11:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T12:11:46.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Optional targeting response",
+      "number": 2794,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-27T22:09:36.000Z",
+      "dateUpdated": "2023-11-30T12:05:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T12:05:36.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update TappxBidder.java",
+      "number": 2800,
+      "author": {
+        "login": "harrykingriches",
+        "id": 109534328
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-28T15:36:04.000Z",
+      "dateUpdated": "2023-12-08T15:59:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T11:58:57.000Z",
+      "commitAuthors": {
+        "109534328": {
+          "identifier": "109534328",
+          "displayName": "harrykingriches",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use Generic Bidder for Deals Test",
+      "number": 2796,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-28T11:23:47.000Z",
+      "dateUpdated": "2023-11-30T11:43:30.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T11:43:29.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Teads: endpoint change",
+      "number": 2799,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [
+        "VeryExtraordinaryUsername"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-28T14:27:06.000Z",
+      "dateUpdated": "2023-11-30T11:33:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T11:33:00.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AMX RTB: enabled support for GZIP, GPP, and added IFRAME usersync",
+      "number": 2798,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [
+        "VeryExtraordinaryUsername"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-28T13:19:42.000Z",
+      "dateUpdated": "2023-11-30T11:31:46.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T11:31:45.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Extended account properties doc (#2783)",
+      "number": 2783,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-21T12:00:50.000Z",
+      "dateUpdated": "2023-11-30T10:45:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-30T10:45:17.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Retrieve bid type from bid.ext.mediatype in Yieldmo bid response",
+      "number": 2759,
+      "author": {
+        "login": "ym-prasanth",
+        "id": 80693980
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-14T15:11:08.000Z",
+      "dateUpdated": "2023-11-27T15:35:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-27T15:35:18.000Z",
+      "commitAuthors": {
+        "80693980": {
+          "identifier": "80693980",
+          "displayName": "ym-prasanth",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove User EID validation",
+      "number": 2763,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-16T15:03:02.000Z",
+      "dateUpdated": "2023-11-26T16:50:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-26T16:50:00.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Adapter simplifications",
+      "number": 2784,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2023-11-22T23:24:05.000Z",
+      "dateUpdated": "2023-11-26T16:46:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-26T16:46:21.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bugfix: Put payload for basic level",
+      "number": 2768,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-17T12:29:33.000Z",
+      "dateUpdated": "2023-11-24T12:06:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-24T12:06:41.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Populate activity invocation payload for basic level ",
+      "number": 2771,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-18T13:28:25.000Z",
+      "dateUpdated": "2023-11-20T14:25:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-20T14:25:21.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Update gdpr log message and targeting",
+      "number": 2772,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-18T14:06:51.000Z",
+      "dateUpdated": "2023-11-20T14:15:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-20T14:15:15.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove User EID validation functional tests",
+      "number": 2764,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-16T15:35:00.000Z",
+      "dateUpdated": "2023-11-17T15:10:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-17T15:10:58.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato: update user sync URL to add GDPR macros",
+      "number": 2758,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-14T10:02:26.000Z",
+      "dateUpdated": "2023-11-15T14:06:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-15T14:06:20.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support fledge for Pubmatic adapter",
+      "number": 2732,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-27T14:15:29.000Z",
+      "dateUpdated": "2023-11-14T10:20:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-14T10:20:07.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Activity Infrastructure: Add trace log",
+      "number": 2568,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-09T14:49:35.000Z",
+      "dateUpdated": "2023-11-14T10:01:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-14T10:01:18.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 16,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Enrich Vendor List Logging",
+      "number": 2757,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-14T09:07:44.000Z",
+      "dateUpdated": "2023-11-14T09:42:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-14T09:42:51.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Native Support for Vrtcal",
+      "number": 2737,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-31T09:46:44.000Z",
+      "dateUpdated": "2023-11-13T14:12:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-13T14:12:00.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `AccountTargetingConfig`",
+      "number": 2725,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-24T17:07:49.000Z",
+      "dateUpdated": "2023-11-09T14:43:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-09T14:41:16.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Increase tests coverage for targeting spec",
+      "number": 2629,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-12T09:54:42.000Z",
+      "dateUpdated": "2023-11-09T11:48:46.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-09T11:48:45.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove EID Name Validation",
+      "number": 2701,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-10-16T12:35:15.000Z",
+      "dateUpdated": "2023-11-09T11:48:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-09T11:48:25.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobilefuse Adapter Updates",
+      "number": 2748,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-11-06T14:33:31.000Z",
+      "dateUpdated": "2023-11-09T11:44:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-09T11:44:46.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update adnuntius bidder",
+      "number": 2693,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-11T14:48:39.000Z",
+      "dateUpdated": "2023-11-08T15:17:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-08T15:17:28.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Activity infrastructure trace log",
+      "number": 2730,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-27T09:29:16.000Z",
+      "dateUpdated": "2023-11-08T14:03:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-08T14:03:27.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add test cases for user.buyeruids when it's involve alias",
+      "number": 2749,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-11-07T09:02:31.000Z",
+      "dateUpdated": "2023-11-07T14:04:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T14:03:59.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Huawei Bidder",
+      "number": 2609,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-05T14:41:01.000Z",
+      "dateUpdated": "2023-11-07T14:03:30.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T14:03:29.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Relax Auction Request Validation",
+      "number": 2744,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-03T09:13:24.000Z",
+      "dateUpdated": "2023-11-07T13:57:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T13:57:58.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for targeting account level config",
+      "number": 2740,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-31T11:17:07.000Z",
+      "dateUpdated": "2023-11-07T13:16:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T13:16:40.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Teads Adapter",
+      "number": 2738,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-10-31T10:35:29.000Z",
+      "dateUpdated": "2023-11-07T13:16:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T13:16:11.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add tests for relax auction request validation",
+      "number": 2747,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-03T16:02:17.000Z",
+      "dateUpdated": "2023-11-07T11:53:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-07T11:53:50.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Pass blocked fields",
+      "number": 2743,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-01T17:17:36.000Z",
+      "dateUpdated": "2023-11-02T11:27:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-02T11:27:54.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove usersync for aliases",
+      "number": 2720,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-20T14:03:03.000Z",
+      "dateUpdated": "2023-11-02T11:25:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-02T11:25:07.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Add func tests for `request.user.eids`",
+      "number": 2741,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-31T12:54:44.000Z",
+      "dateUpdated": "2023-11-01T15:13:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-11-01T15:13:36.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

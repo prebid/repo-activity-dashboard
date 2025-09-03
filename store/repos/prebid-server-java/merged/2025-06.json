@@ -1,0 +1,1026 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 6,
+    "itemCount": 29,
+    "lastUpdated": "2025-09-03T00:16:49.966Z"
+  },
+  "items": [
+    {
+      "title": "Tests: Bidder Usersync Skipwhen Config",
+      "number": 4028,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-18T17:12:02.000Z",
+      "dateUpdated": "2025-06-20T14:48:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-20T14:48:30.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 4016,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T14:01:38.000Z",
+      "dateUpdated": "2025-06-12T14:24:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-12T14:24:19.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare release 3.27.0",
+      "number": 4015,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T13:49:35.000Z",
+      "dateUpdated": "2025-06-12T13:56:14.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-12T13:56:12.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix flaky functional test",
+      "number": 4009,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-11T10:35:01.000Z",
+      "dateUpdated": "2025-06-11T11:58:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T11:58:47.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bid Ranking",
+      "number": 3977,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-29T09:00:57.000Z",
+      "dateUpdated": "2025-06-10T12:55:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T12:55:49.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ogury: Enable in app traffic",
+      "number": 3975,
+      "author": {
+        "login": "krdzo",
+        "id": 31158143
+      },
+      "assignees": [
+        "krdzo"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-27T09:28:55.000Z",
+      "dateUpdated": "2025-06-10T12:44:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T12:44:27.000Z",
+      "commitAuthors": {
+        "31158143": {
+          "identifier": "31158143",
+          "displayName": "krdzo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cache endpoint split for response",
+      "number": 3981,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-02T13:06:23.000Z",
+      "dateUpdated": "2025-06-10T12:43:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T12:43:09.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update README.md - Add the required JAVA SDK version",
+      "number": 4003,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "YuriyVelichkoPI"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-06T13:12:58.000Z",
+      "dateUpdated": "2025-06-10T12:42:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T12:42:29.000Z",
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Start.io",
+      "number": 3941,
+      "author": {
+        "login": "prebid-startio",
+        "id": 202108819
+      },
+      "assignees": [
+        "prebid-startio"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "prebid-startio",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-29T10:55:05.000Z",
+      "dateUpdated": "2025-06-10T12:41:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T12:41:43.000Z",
+      "commitAuthors": {
+        "202108819": {
+          "identifier": "202108819",
+          "displayName": "prebid-startio",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Record a default core bid ranking",
+      "number": 3833,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-13T18:36:50.000Z",
+      "dateUpdated": "2025-06-10T09:41:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T09:41:18.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Internal cache destination config",
+      "number": 3983,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-03T13:47:25.000Z",
+      "dateUpdated": "2025-06-10T09:02:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-10T09:02:47.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adjust Floors for Bidadjustments",
+      "number": 3910,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-15T13:33:46.000Z",
+      "dateUpdated": "2025-06-06T12:51:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-06T12:51:30.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius Adapter: Add multi-format and native support",
+      "number": 3964,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-19T10:35:36.000Z",
+      "dateUpdated": "2025-06-06T12:46:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-06T12:46:18.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena Adapter: Add formats and settings params",
+      "number": 3970,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-21T10:59:22.000Z",
+      "dateUpdated": "2025-06-06T12:46:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-06T12:46:09.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Update exception handler log filter",
+      "number": 3986,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-04T09:25:28.000Z",
+      "dateUpdated": "2025-06-06T12:46:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-06T12:45:59.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Port Mobkoi: New Adapter",
+      "number": 3942,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [
+        "mbonnafon"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mbonnafon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-29T11:31:59.000Z",
+      "dateUpdated": "2025-06-11T11:41:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T12:06:59.000Z",
+      "commitAuthors": {
+        "26904355": {
+          "identifier": "26904355",
+          "displayName": "mbonnafon",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "51Degrees module: update `devicetype` mapping.",
+      "number": 3978,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "justadreamer"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-29T11:41:51.000Z",
+      "dateUpdated": "2025-06-04T12:06:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T12:06:30.000Z",
+      "commitAuthors": {
+        "5711520": {
+          "identifier": "5711520",
+          "displayName": "drasmart",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add ttd/thetradedesk alias",
+      "number": 3979,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [
+        "andre-gielow-ttd"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-29T17:22:05.000Z",
+      "dateUpdated": "2025-06-04T12:06:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T12:06:18.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support bid rounding options",
+      "number": 3957,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-13T12:19:36.000Z",
+      "dateUpdated": "2025-06-04T12:05:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T12:05:31.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Account auction.cache.enabled Flag",
+      "number": 3955,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-12T13:09:50.000Z",
+      "dateUpdated": "2025-06-04T12:05:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T12:05:19.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bid adjustments rules matching strategy",
+      "number": 3939,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-28T09:17:58.000Z",
+      "dateUpdated": "2025-06-04T10:29:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T10:29:56.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests/currency mock",
+      "number": 3982,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-02T19:51:14.000Z",
+      "dateUpdated": "2025-06-03T14:20:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T14:20:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Account auction.cache.enabled Flag",
+      "number": 3973,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-26T14:22:06.000Z",
+      "dateUpdated": "2025-06-03T14:19:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T14:19:22.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump spring.boot.version to 3.4.5",
+      "number": 3980,
+      "author": {
+        "login": "JimTharioAmazon",
+        "id": 33331284
+      },
+      "assignees": [
+        "JimTharioAmazon"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-30T20:19:53.000Z",
+      "dateUpdated": "2025-06-03T13:00:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T13:00:53.000Z",
+      "commitAuthors": {
+        "33331284": {
+          "identifier": "33331284",
+          "displayName": "JimTharioAmazon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Adapter: set additional meta fields",
+      "number": 3960,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-15T09:32:36.000Z",
+      "dateUpdated": "2025-06-12T15:07:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T13:00:39.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Сriteo: ortb 2.6 support",
+      "number": 3969,
+      "author": {
+        "login": "katherynhrabik",
+        "id": 75269700
+      },
+      "assignees": [
+        "katherynhrabik"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "armando-fs",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-20T14:33:05.000Z",
+      "dateUpdated": "2025-06-03T13:00:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T13:00:27.000Z",
+      "commitAuthors": {
+        "75269700": {
+          "identifier": "75269700",
+          "displayName": "katherynhrabik",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Port Kueez: New Adapter",
+      "number": 3930,
+      "author": {
+        "login": "kim-ng93",
+        "id": 76963037
+      },
+      "assignees": [
+        "kim-ng93"
+      ],
+      "reviewers": [
+        {
+          "login": "katherynhrabik",
+          "state": "PENDING"
+        },
+        {
+          "login": "armando-fs",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "kim-ng93",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-23T22:24:48.000Z",
+      "dateUpdated": "2025-06-03T12:59:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T12:59:38.000Z",
+      "commitAuthors": {
+        "76963037": {
+          "identifier": "76963037",
+          "displayName": "kim-ng93",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "EPlanning: Add schain support",
+      "number": 3914,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T12:38:45.000Z",
+      "dateUpdated": "2025-06-03T12:59:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T12:59:17.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: 152 Media - Adkernel alias ",
+      "number": 3829,
+      "author": {
+        "login": "armando-fs",
+        "id": 109094234
+      },
+      "assignees": [
+        "armando-fs"
+      ],
+      "reviewers": [
+        {
+          "login": "katherynhrabik",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "kim-ng93",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-12T21:57:08.000Z",
+      "dateUpdated": "2025-06-03T12:58:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-03T12:58:42.000Z",
+      "commitAuthors": {
+        "109094234": {
+          "identifier": "109094234",
+          "displayName": "armando-fs",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

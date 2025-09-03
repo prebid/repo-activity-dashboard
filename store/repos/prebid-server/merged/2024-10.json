@@ -4,1426 +4,1568 @@
     "year": 2024,
     "month": 10,
     "itemCount": 42,
-    "lastUpdated": "2025-08-30T16:17:51.165Z"
+    "lastUpdated": "2025-09-02T23:36:35.270Z"
   },
   "items": [
     {
       "title": "Increment Package Version To v3",
       "number": 4029,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-30T22:08:15.000Z",
       "dateUpdated": "2024-10-31T17:31:57.000Z",
       "status": "merged",
       "dateMerged": "2024-10-31T17:31:57.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 2,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Adapters: Update to use jsonutil unmarshal",
       "number": 4021,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-28T17:47:44.000Z",
       "dateUpdated": "2024-10-30T19:41:52.000Z",
       "status": "merged",
       "dateMerged": "2024-10-30T19:41:52.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 9,
-        "byAuthor": {
-          "bsardo": {
-            "count": 6,
-            "author": "bsardo"
-          },
-          "VeronikaSolovei9": {
-            "count": 3,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Remove Default Request Hardcoded Aliases",
       "number": 4020,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-28T17:43:45.000Z",
       "dateUpdated": "2024-10-30T17:16:50.000Z",
       "status": "merged",
       "dateMerged": "2024-10-30T17:16:50.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 2,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Cookie Sync: Use max when limit is 0",
       "number": 4022,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "SyntaxNode",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "guscarreon"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-29T01:20:28.000Z",
       "dateUpdated": "2024-10-30T01:05:07.000Z",
       "status": "merged",
       "dateMerged": "2024-10-30T01:05:07.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "bsardo": {
-            "count": 2,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ORTB 2.6: Full support with down convert for 2.5 adapters",
       "number": 4019,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-28T17:42:51.000Z",
       "dateUpdated": "2024-10-29T21:20:58.000Z",
       "status": "merged",
       "dateMerged": "2024-10-29T21:20:58.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 19,
-        "byAuthor": {
-          "bsardo": {
-            "count": 13,
-            "author": "bsardo"
-          },
-          "VeronikaSolovei9": {
-            "count": 3,
-            "author": "VeronikaSolovei9"
-          },
-          "hhhjort": {
-            "count": 3,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rename Blacklisted Apps to Blocked Apps",
       "number": 3620,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-09T22:07:19.000Z",
       "dateUpdated": "2024-10-29T20:35:06.000Z",
       "status": "merged",
       "dateMerged": "2024-10-29T20:35:06.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 3,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Update Cookie Sync Chooser Debug Message to match Java",
       "number": 3558,
-      "author": "AlexBVolcy",
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-03-01T18:27:55.000Z",
       "dateUpdated": "2024-10-29T18:07:50.000Z",
       "status": "merged",
       "dateMerged": "2024-10-29T18:07:50.000Z",
-      "labels": [
-        "do not port",
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "AlexBVolcy": {
-            "count": 1,
-            "author": "AlexBVolcy"
-          }
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ImproveDigital: Remove placementKey & addtlconsent parsing",
       "number": 3728,
-      "author": "ishihanvcs",
+      "author": {
+        "login": "ishihanvcs",
+        "id": 93646635
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "ishihanvcs",
-          "jbartek25",
-          "bretg",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ishihanvcs",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jbartek25",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-06-05T07:08:22.000Z",
       "dateUpdated": "2024-10-29T15:34:32.000Z",
       "status": "merged",
       "dateMerged": "2024-10-29T15:34:32.000Z",
-      "labels": [
-        "PBS 3.0"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ishihanvcs": {
-            "count": 1,
-            "author": "ishihanvcs"
-          }
+      "commitAuthors": {
+        "93646635": {
+          "identifier": "93646635",
+          "displayName": "ishihanvcs",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ORTB 2.6: Endpoint JSON test framework captures mock bidder requests",
       "number": 4015,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-28T02:46:45.000Z",
       "dateUpdated": "2024-10-28T17:39:41.000Z",
       "status": "merged",
       "dateMerged": "2024-10-28T17:39:41.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "bsardo": {
-            "count": 2,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Test exchange json fixes and remove clear fields function calls",
       "number": 4010,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-10-24T21:20:12.000Z",
       "dateUpdated": "2024-10-27T01:38:20.000Z",
       "status": "merged",
       "dateMerged": "2024-10-27T01:38:03.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 4,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Add auction endpoint test and capture validated request",
       "number": 4013,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-25T20:18:39.000Z",
       "dateUpdated": "2024-10-26T12:55:32.000Z",
       "status": "merged",
       "dateMerged": "2024-10-26T12:55:32.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Fix AMP endpoint openrtb2 tests and add AMP upconvert test",
       "number": 4011,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-25T13:38:52.000Z",
       "dateUpdated": "2024-10-25T20:03:45.000Z",
       "status": "merged",
       "dateMerged": "2024-10-25T20:03:45.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "bsardo": {
-            "count": 3,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Adds a Regs clone",
       "number": 4012,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-25T15:31:25.000Z",
       "dateUpdated": "2024-10-25T20:03:23.000Z",
       "status": "merged",
       "dateMerged": "2024-10-25T20:03:23.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 1,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Fix non-JSON tests",
       "number": 4009,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-24T19:38:20.000Z",
       "dateUpdated": "2024-10-25T15:21:27.000Z",
       "status": "merged",
       "dateMerged": "2024-10-25T15:21:27.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 1,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Call convert down to 2.5",
       "number": 4008,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-24T13:49:45.000Z",
       "dateUpdated": "2024-10-24T13:52:01.000Z",
       "status": "merged",
       "dateMerged": "2024-10-24T13:52:01.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Push wrapper into Eidpermissions and ApplyFPD",
       "number": 3998,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": [
-          "VeronikaSolovei9",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-10-19T05:43:20.000Z",
       "dateUpdated": "2024-10-24T13:21:05.000Z",
       "status": "merged",
       "dateMerged": "2024-10-24T13:21:05.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 7,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "Sample: fix prebid js loading bug on sample html page",
       "number": 3792,
-      "author": "And1sS",
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
       "assignees": [
         "bsardo"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "zhongshixi"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "zhongshixi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-07-03T14:16:13.000Z",
       "dateUpdated": "2024-10-22T19:26:45.000Z",
       "status": "merged",
       "dateMerged": "2024-10-22T19:26:45.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "And1sS": {
-            "count": 1,
-            "author": "And1sS"
-          }
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Bump Go version to 1.22 in dev containers config",
       "number": 3983,
-      "author": "sebhtml",
+      "author": {
+        "login": "sebhtml",
+        "id": 824460
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": [
-          "sebhtml"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sebhtml",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-15T14:46:08.000Z",
       "dateUpdated": "2024-10-22T19:15:08.000Z",
       "status": "merged",
       "dateMerged": "2024-10-22T19:15:08.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "sebhtml": {
-            "count": 3,
-            "author": "sebhtml"
-          }
+      "commitAuthors": {
+        "824460": {
+          "identifier": "824460",
+          "displayName": "sebhtml",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ORTB 2.6: Harden SetImps to cover larger changes",
       "number": 4004,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "hhhjort"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-10-21T16:38:27.000Z",
       "dateUpdated": "2024-10-22T15:20:42.000Z",
       "status": "merged",
       "dateMerged": "2024-10-22T15:20:41.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 3,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Pass bidder wrapper into blocked by privacy function",
       "number": 3999,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-20T02:15:07.000Z",
       "dateUpdated": "2024-10-21T17:56:51.000Z",
       "status": "merged",
       "dateMerged": "2024-10-21T17:56:51.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Push wrapper into set legacy from GPP functions",
       "number": 4001,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-21T15:02:28.000Z",
       "dateUpdated": "2024-10-21T17:56:24.000Z",
       "status": "merged",
       "dateMerged": "2024-10-21T17:56:24.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Push wrapper into prepare user function",
       "number": 4002,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-21T15:21:08.000Z",
       "dateUpdated": "2024-10-21T17:55:34.000Z",
       "status": "merged",
       "dateMerged": "2024-10-21T17:55:34.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6: Temporarily remove down convert and make test suite pass",
       "number": 3992,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-18T03:05:04.000Z",
       "dateUpdated": "2024-10-19T05:00:22.000Z",
       "status": "merged",
       "dateMerged": "2024-10-19T05:00:22.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "bsardo": {
-            "count": 2,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "GumGum: Declare ORTB 2.6 support",
       "number": 3985,
-      "author": "sindhuja-sridharan",
+      "author": {
+        "login": "sindhuja-sridharan",
+        "id": 148382298
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-16T04:19:24.000Z",
       "dateUpdated": "2024-10-17T21:20:46.000Z",
       "status": "merged",
       "dateMerged": "2024-10-17T21:20:46.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "sindhuja-sridharan": {
-            "count": 1,
-            "author": "sindhuja-sridharan"
-          }
+      "commitAuthors": {
+        "148382298": {
+          "identifier": "148382298",
+          "displayName": "sindhuja-sridharan",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "BlueSea: Add site capability",
       "number": 3910,
-      "author": "blueseasx",
+      "author": {
+        "login": "blueseasx",
+        "id": 129151981
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "blueseasx",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "blueseasx",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-09-10T07:22:26.000Z",
       "dateUpdated": "2024-10-16T19:13:19.000Z",
       "status": "merged",
       "dateMerged": "2024-10-16T19:12:50.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "prebid-bluesea": {
-            "count": 2,
-            "author": "prebid-bluesea"
-          }
+      "commitAuthors": {
+        "prebid-bluesea": {
+          "identifier": "prebid-bluesea",
+          "displayName": "prebid-bluesea",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Displayio: Make imp.bidfloor optional",
       "number": 3959,
-      "author": "xdevel",
+      "author": {
+        "login": "xdevel",
+        "id": 618192
+      },
       "assignees": [
         "guscarreon",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "guscarreon"
-        ],
-        "pending": [
-          "xdevel"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "xdevel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-08T17:00:33.000Z",
       "dateUpdated": "2024-10-16T18:08:51.000Z",
       "status": "merged",
       "dateMerged": "2024-10-16T18:08:51.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "xdevel": {
-            "count": 2,
-            "author": "xdevel"
-          }
+      "commitAuthors": {
+        "618192": {
+          "identifier": "618192",
+          "displayName": "xdevel",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "RTB House: Resolve AUCTION_PRICE macro",
       "number": 3901,
-      "author": "piotrj-rtbh",
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "bsardo"
-        ],
-        "pending": [
-          "piotrj-rtbh"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "piotrj-rtbh",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-09-04T09:11:34.000Z",
       "dateUpdated": "2024-10-15T19:49:40.000Z",
       "status": "merged",
       "dateMerged": "2024-10-15T19:49:39.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "piotrj-rtbh": {
-            "count": 2,
-            "author": "piotrj-rtbh"
-          }
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Sovrn: Enable Gzip compression",
       "number": 3946,
-      "author": "ikagotso",
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-09-26T21:48:24.000Z",
       "dateUpdated": "2024-10-15T19:30:18.000Z",
       "status": "merged",
       "dateMerged": "2024-10-15T19:30:17.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ikagotso": {
-            "count": 1,
-            "author": "ikagotso"
-          }
+      "commitAuthors": {
+        "15611775": {
+          "identifier": "15611775",
+          "displayName": "ikagotso",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Triplelift: Adding flag for 2.6 support",
       "number": 3966,
-      "author": "patrickloughrey",
+      "author": {
+        "login": "patrickloughrey",
+        "id": 20526608
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-09T18:40:12.000Z",
       "dateUpdated": "2024-10-15T19:19:47.000Z",
       "status": "merged",
       "dateMerged": "2024-10-15T19:19:47.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "patrickloughrey": {
-            "count": 2,
-            "author": "patrickloughrey"
-          }
+      "commitAuthors": {
+        "20526608": {
+          "identifier": "20526608",
+          "displayName": "patrickloughrey",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Yieldmo: Indicate support for ORTB 2.6",
       "number": 3968,
-      "author": "ym-winston",
+      "author": {
+        "login": "ym-winston",
+        "id": 46379634
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-09T21:08:05.000Z",
       "dateUpdated": "2024-10-15T19:18:55.000Z",
       "status": "merged",
       "dateMerged": "2024-10-15T19:18:55.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ym-winston": {
-            "count": 1,
-            "author": "ym-winston"
-          }
+      "commitAuthors": {
+        "46379634": {
+          "identifier": "46379634",
+          "displayName": "ym-winston",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Unruly: Indicate Support for OpenRTB 2.6",
       "number": 3984,
-      "author": "bhainesnexxen",
+      "author": {
+        "login": "bhainesnexxen",
+        "id": 146981622
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-15T18:05:00.000Z",
       "dateUpdated": "2024-10-15T19:09:33.000Z",
       "status": "merged",
       "dateMerged": "2024-10-15T19:09:33.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bhainesnexxen": {
-            "count": 1,
-            "author": "bhainesnexxen"
-          }
+      "commitAuthors": {
+        "146981622": {
+          "identifier": "146981622",
+          "displayName": "bhainesnexxen",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "ORTB 2.6: Code fixes and unit test updates after consolidating loops",
       "number": 3978,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-14T04:08:50.000Z",
       "dateUpdated": "2024-10-14T19:38:49.000Z",
       "status": "merged",
       "dateMerged": "2024-10-14T19:38:48.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "bsardo": {
-            "count": 2,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "Schain writer receives request wrapper instead of request",
       "number": 3976,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "bsardo"
-        ],
-        "pending": [
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-12T06:30:17.000Z",
       "dateUpdated": "2024-10-14T19:38:25.000Z",
       "status": "merged",
       "dateMerged": "2024-10-14T19:38:24.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "VeronikaSolovei9": {
-            "count": 1,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB2.6: Consolidate CleanOpenRTBRequests loops",
       "number": 3974,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-11T18:06:54.000Z",
       "dateUpdated": "2024-10-11T23:37:51.000Z",
       "status": "merged",
       "dateMerged": "2024-10-11T23:37:51.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "ORTB 2.6 upconvert, validation, usage and unit test updates",
       "number": 3970,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-10T19:15:45.000Z",
       "dateUpdated": "2024-10-14T03:42:09.000Z",
       "status": "merged",
       "dateMerged": "2024-10-11T17:47:03.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 2,
-            "author": "hhhjort"
-          },
-          "VeronikaSolovei9": {
-            "count": 3,
-            "author": "VeronikaSolovei9"
-          },
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "Refactor: Move privacy init up",
       "number": 3958,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-07T13:50:33.000Z",
       "dateUpdated": "2024-10-09T19:08:15.000Z",
       "status": "merged",
       "dateMerged": "2024-10-09T19:08:15.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Refactor: Remove getAuctionBidderRequests",
       "number": 3957,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-07T13:46:09.000Z",
       "dateUpdated": "2024-10-08T19:52:25.000Z",
       "status": "merged",
       "dateMerged": "2024-10-08T19:52:25.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Missena",
       "number": 3761,
-      "author": "ysfbsf",
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "ysfbsf"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ysfbsf",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-06-18T13:35:05.000Z",
       "dateUpdated": "2024-10-08T13:42:41.000Z",
       "status": "merged",
       "dateMerged": "2024-10-08T13:42:40.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "ysfbsf": {
-            "count": 4,
-            "author": "ysfbsf"
-          }
+      "commitAuthors": {
+        "9834101": {
+          "identifier": "9834101",
+          "displayName": "ysfbsf",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Upconvert unit tests fixes",
       "number": 3954,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-02T21:40:19.000Z",
       "dateUpdated": "2024-10-07T17:08:07.000Z",
       "status": "merged",
       "dateMerged": "2024-10-07T17:08:06.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 1,
-            "author": "hhhjort"
-          },
-          "VeronikaSolovei9": {
-            "count": 1,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "Sonobi: native and currency conversion support",
       "number": 3889,
-      "author": "bansawbanchee",
+      "author": {
+        "login": "bansawbanchee",
+        "id": 24881957
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "bsardo"
-        ],
-        "pending": [
-          "bansawbanchee"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bansawbanchee",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-08-27T15:44:45.000Z",
       "dateUpdated": "2024-10-07T14:39:59.000Z",
       "status": "merged",
       "dateMerged": "2024-10-07T14:39:59.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 9,
-        "byAuthor": {
-          "bansawbanchee": {
-            "count": 9,
-            "author": "bansawbanchee"
-          }
+      "commitAuthors": {
+        "bansawbanchee": {
+          "identifier": "bansawbanchee",
+          "displayName": "bansawbanchee",
+          "count": 9,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Catch errors in the ortb26 upconvert code",
       "number": 3953,
-      "author": "hhhjort",
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-02T21:09:38.000Z",
       "dateUpdated": "2024-10-03T17:18:53.000Z",
       "status": "merged",
       "dateMerged": "2024-10-03T17:18:53.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "hhhjort": {
-            "count": 1,
-            "author": "hhhjort"
-          }
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "ortb26"
+      }
     },
     {
       "title": "New Adapter: Bidmatic",
       "number": 3731,
-      "author": "dkornet-ad",
+      "author": {
+        "login": "dkornet-ad",
+        "id": 169174147
+      },
       "assignees": [
         "onkarvhanumante",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "github-actions[bot]",
-          "onkarvhanumante",
-          "dkornet-ad"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dkornet-ad",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-06-05T11:58:45.000Z",
       "dateUpdated": "2024-10-03T06:33:54.000Z",
       "status": "merged",
       "dateMerged": "2024-10-03T06:33:54.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 14,
-        "byAuthor": {
-          "dkornet-ad": {
-            "count": 14,
-            "author": "dkornet-ad"
-          }
+      "commitAuthors": {
+        "169174147": {
+          "identifier": "169174147",
+          "displayName": "dkornet-ad",
+          "count": 14,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

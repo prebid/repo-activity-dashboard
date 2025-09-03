@@ -1,0 +1,1280 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 6,
+    "itemCount": 38,
+    "lastUpdated": "2025-09-03T00:16:49.987Z"
+  },
+  "items": [
+    {
+      "title": "Core: Fix NPE on PBS impId macro resolving",
+      "number": 1926,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-30T13:28:23.000Z",
+      "dateUpdated": "2022-06-30T14:04:24.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-30T14:04:23.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unicorn: refactoring",
+      "number": 1925,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-29T12:00:52.000Z",
+      "dateUpdated": "2022-06-30T08:10:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-30T08:10:02.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add stored bid response impid macro replacement",
+      "number": 1899,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-06T14:30:38.000Z",
+      "dateUpdated": "2022-06-30T08:03:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-30T08:03:52.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Lockerdome: Fix the redirect parameter for the usersync endpoint",
+      "number": 1923,
+      "author": {
+        "login": "pskupinski",
+        "id": 206943
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-27T21:44:45.000Z",
+      "dateUpdated": "2022-06-29T10:59:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-29T10:59:41.000Z",
+      "commitAuthors": {
+        "206943": {
+          "identifier": "206943",
+          "displayName": "pskupinski",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add validation by BIDDER.yaml for media types",
+      "number": 1798,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-31T09:50:06.000Z",
+      "dateUpdated": "2022-06-27T13:51:57.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-27T13:51:56.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 21,
+          "isGitHubUser": true
+        },
+        "47950518": {
+          "identifier": "47950518",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix JDBC connection timeout error",
+      "number": 1921,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-27T06:02:00.000Z",
+      "dateUpdated": "2022-06-27T12:30:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-27T12:30:43.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add additionalTargeting key/value map for amp BidResponse",
+      "number": 1730,
+      "author": {
+        "login": "rmattis",
+        "id": 77662889
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "rmattis",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-09T15:24:05.000Z",
+      "dateUpdated": "2022-06-27T08:01:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-27T07:04:25.000Z",
+      "commitAuthors": {
+        "77662889": {
+          "identifier": "77662889",
+          "displayName": "rmattis",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump mysql-connector-java from 8.0.16 to 8.0.28",
+      "number": 1915,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-20T23:30:57.000Z",
+      "dateUpdated": "2022-06-24T10:02:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-24T10:01:59.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AmpSpec fix flaky test",
+      "number": 1916,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-21T08:57:19.000Z",
+      "dateUpdated": "2022-06-24T10:01:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-24T10:01:40.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1920,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-24T09:25:03.000Z",
+      "dateUpdated": "2022-06-24T10:01:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-24T10:01:09.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Convert to an auction-supported version after merging stored request.",
+      "number": 1919,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-22T16:10:46.000Z",
+      "dateUpdated": "2022-06-23T12:46:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-23T12:46:50.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Fix always `inprogress` bug",
+      "number": 1918,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-22T11:21:45.000Z",
+      "dateUpdated": "2022-06-23T10:31:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-23T10:31:58.000Z",
+      "commitAuthors": {
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Core: Add warning when flushing counter is used with prometheus",
+      "number": 1909,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-16T10:55:50.000Z",
+      "dateUpdated": "2022-06-20T04:49:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-20T04:49:19.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Add mechanism for versions converters. ",
+      "number": 1890,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2022-05-31T16:00:10.000Z",
+      "dateUpdated": "2022-06-16T14:22:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T14:22:42.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PG: Add more information to `LineItemStatusReport`.",
+      "number": 1898,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-06T11:35:02.000Z",
+      "dateUpdated": "2022-06-16T14:08:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T14:08:29.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "46037169": {
+          "identifier": "46037169",
+          "displayName": "hupaloo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add passthrough for request",
+      "number": 1906,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-14T10:47:00.000Z",
+      "dateUpdated": "2022-06-16T14:07:57.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T14:07:57.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix flaky test",
+      "number": 1910,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-16T11:51:46.000Z",
+      "dateUpdated": "2022-06-16T13:42:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T13:41:03.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix failing PG alert spec test",
+      "number": 1902,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-08T09:49:22.000Z",
+      "dateUpdated": "2022-06-16T11:28:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T11:28:03.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Test: Add passthrough for request ",
+      "number": 1908,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-15T10:41:49.000Z",
+      "dateUpdated": "2022-06-16T11:18:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-16T11:18:24.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add unix socket server support",
+      "number": 1875,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-19T15:01:44.000Z",
+      "dateUpdated": "2022-06-15T13:32:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-15T13:32:11.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add bidder call type to debug info",
+      "number": 1892,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-02T12:38:45.000Z",
+      "dateUpdated": "2022-06-15T13:30:41.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-15T13:30:40.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Adelement ",
+      "number": 1905,
+      "author": {
+        "login": "radadiapg",
+        "id": 77797977
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "radadiapg",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-13T04:03:12.000Z",
+      "dateUpdated": "2022-06-15T13:29:01.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-15T13:29:00.000Z",
+      "commitAuthors": {
+        "77797977": {
+          "identifier": "77797977",
+          "displayName": "radadiapg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add tests to cover line item status endpoint",
+      "number": 1904,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-10T10:18:27.000Z",
+      "dateUpdated": "2022-06-14T12:41:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-14T12:41:58.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Test: Add bidder call type to debug info",
+      "number": 1900,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-06T16:15:48.000Z",
+      "dateUpdated": "2022-06-14T05:50:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-14T05:50:50.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Validation of Alias GVL IDs",
+      "number": 1835,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-22T14:47:42.000Z",
+      "dateUpdated": "2022-06-10T13:04:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-10T13:04:36.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Test: Add stored bid response impId macro replacement",
+      "number": 1901,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-07T15:36:51.000Z",
+      "dateUpdated": "2022-06-10T09:33:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-10T09:33:32.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix bidder endpoint compression property name",
+      "number": 1894,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-03T13:44:23.000Z",
+      "dateUpdated": "2022-06-08T09:50:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-08T09:50:42.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Don't set enabled false if skipped true",
+      "number": 1896,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-05T15:35:51.000Z",
+      "dateUpdated": "2022-06-08T09:18:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-08T09:18:28.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Test: Merged stored requests when using {{UUID}}",
+      "number": 1881,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-26T16:15:10.000Z",
+      "dateUpdated": "2022-06-08T07:13:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-08T07:13:10.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Price Floors don't set enabled false if skipped true",
+      "number": 1897,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-06-06T11:20:42.000Z",
+      "dateUpdated": "2022-06-07T13:50:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-07T13:50:50.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix flaky functional tests",
+      "number": 1895,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-03T13:44:41.000Z",
+      "dateUpdated": "2022-06-07T10:57:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-07T10:57:38.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1893,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-06-03T07:25:28.000Z",
+      "dateUpdated": "2022-06-03T13:00:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-03T13:00:39.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add OpenRTB 2.6 new fields",
+      "number": 1880,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-05-26T12:05:56.000Z",
+      "dateUpdated": "2022-06-02T09:44:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-02T09:44:09.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 19,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Add video support",
+      "number": 1874,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-19T12:42:15.000Z",
+      "dateUpdated": "2022-06-01T12:29:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T12:29:27.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Do not enforce, if feature disabled by request",
+      "number": 1885,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-27T11:50:02.000Z",
+      "dateUpdated": "2022-06-01T11:56:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T11:56:47.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Tolerate missing BidderRequest on enforcement stage",
+      "number": 1878,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-24T13:15:50.000Z",
+      "dateUpdated": "2022-06-01T09:46:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T09:46:35.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Core: Prometheus: Added prefixes to metric name matchers",
+      "number": 1873,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-19T12:05:38.000Z",
+      "dateUpdated": "2022-06-01T08:09:19.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T08:09:18.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "46037169": {
+          "identifier": "46037169",
+          "displayName": "hupaloo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Price Floors don't enforce, if feature disabled by request",
+      "number": 1886,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-05-27T15:58:30.000Z",
+      "dateUpdated": "2022-06-01T07:58:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-06-01T07:58:41.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

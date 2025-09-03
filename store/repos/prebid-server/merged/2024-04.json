@@ -4,1042 +4,1186 @@
     "year": 2024,
     "month": 4,
     "itemCount": 31,
-    "lastUpdated": "2025-08-30T16:17:51.167Z"
+    "lastUpdated": "2025-09-02T23:36:35.272Z"
   },
   "items": [
     {
       "title": "Refactor Request Alias Parsing In Request Splitter",
       "number": 3619,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "bsardo",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "AlexBVolcy",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-09T21:52:42.000Z",
       "dateUpdated": "2024-04-30T17:48:51.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T17:48:50.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 4,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Flipp + Alkimi: Minor Refactoring",
       "number": 3622,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-10T21:24:51.000Z",
       "dateUpdated": "2024-04-30T16:32:02.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T16:32:02.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 1,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Mobfoxpb: Update contact",
       "number": 3628,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "bretg"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-17T14:55:43.000Z",
       "dateUpdated": "2024-04-30T15:46:14.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T15:46:13.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bretg": {
-            "count": 1,
-            "author": "bretg"
-          }
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "PgamSSP: gpp support",
       "number": 3630,
-      "author": "PGAMSSP",
+      "author": {
+        "login": "PGAMSSP",
+        "id": 142323401
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-17T20:38:57.000Z",
       "dateUpdated": "2024-04-30T15:25:21.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T15:25:20.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "PGAMSSP": {
-            "count": 10,
-            "author": "PGAMSSP"
-          }
+      "commitAuthors": {
+        "142323401": {
+          "identifier": "142323401",
+          "displayName": "PGAMSSP",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "IX: indicate support for OpenRTB 2.6",
       "number": 3642,
-      "author": "ccorbo",
+      "author": {
+        "login": "ccorbo",
+        "id": 19716777
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-25T17:22:04.000Z",
       "dateUpdated": "2024-04-30T15:10:41.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T15:10:41.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ccorbo": {
-            "count": 1,
-            "author": "ccorbo"
-          }
+      "commitAuthors": {
+        "19716777": {
+          "identifier": "19716777",
+          "displayName": "ccorbo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Configurable Stored Request Fetch Timeout",
       "number": 3614,
-      "author": "AlexBVolcy",
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "AlexBVolcy"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-07T18:13:04.000Z",
       "dateUpdated": "2024-04-30T14:47:34.000Z",
       "status": "merged",
       "dateMerged": "2024-04-30T14:47:26.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "AlexBVolcy": {
-            "count": 6,
-            "author": "AlexBVolcy"
-          }
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "CPMStar: Fix test by specifying returned imps",
       "number": 3649,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "AlexBVolcy"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-29T16:41:41.000Z",
       "dateUpdated": "2024-04-29T20:32:02.000Z",
       "status": "merged",
       "dateMerged": "2024-04-29T20:32:01.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "CPMStar: Fixed for loop index reference bug",
       "number": 3604,
-      "author": "JoshuaMGoldstein",
+      "author": {
+        "login": "JoshuaMGoldstein",
+        "id": 25335799
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": [
-          "JoshuaMGoldstein"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "JoshuaMGoldstein",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-02T00:08:40.000Z",
       "dateUpdated": "2024-04-29T07:42:48.000Z",
       "status": "merged",
       "dateMerged": "2024-04-29T07:42:47.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "JoshuaMGoldstein": {
-            "count": 4,
-            "author": "JoshuaMGoldstein"
-          }
+      "commitAuthors": {
+        "25335799": {
+          "identifier": "25335799",
+          "displayName": "JoshuaMGoldstein",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Bump golang.org/x/net from 0.17.0 to 0.23.0",
       "number": 3635,
-      "author": "dependabot[bot]",
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-19T12:29:34.000Z",
       "dateUpdated": "2024-04-26T18:46:24.000Z",
       "status": "merged",
       "dateMerged": "2024-04-26T18:46:17.000Z",
-      "labels": [
-        "do not port",
-        "dependencies"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Event tracker injection",
       "number": 3339,
-      "author": "Pubmatic-Dhruv-Sonone",
+      "author": {
+        "login": "Pubmatic-Dhruv-Sonone",
+        "id": 83747371
+      },
       "assignees": [
         "guscarreon",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "AlexBVolcy",
-          "guscarreon",
-          "Pubmatic-Dhruv-Sonone"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2023-12-08T05:29:22.000Z",
       "dateUpdated": "2024-04-26T18:30:44.000Z",
       "status": "merged",
       "dateMerged": "2024-04-26T18:30:44.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 17,
-        "byAuthor": {
-          "Pubmatic-Dhruv-Sonone": {
-            "count": 17,
-            "author": "Pubmatic-Dhruv-Sonone"
-          }
+      "commitAuthors": {
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 17,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Refactor FPD Merge Functions",
       "number": 3601,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "guscarreon"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-03-28T05:54:34.000Z",
       "dateUpdated": "2024-04-26T18:23:06.000Z",
       "status": "merged",
       "dateMerged": "2024-04-26T18:23:06.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 6,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix: Inject default DSA before auction request is rebuilt",
       "number": 3639,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "hhhjort",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "scr-oath",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-04-24T20:13:42.000Z",
       "dateUpdated": "2024-05-31T20:33:13.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T17:03:42.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Conversant: Make requests in USD",
       "number": 3611,
-      "author": "johnwier",
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "SyntaxNode",
-          "johnwier"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "johnwier",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-04T20:46:25.000Z",
       "dateUpdated": "2024-04-25T09:37:33.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T09:37:33.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "johwier": {
-            "count": 2,
-            "author": "johwier"
-          },
-          "johnwier": {
-            "count": 1,
-            "author": "johnwier"
-          }
+      "commitAuthors": {
+        "49074029": {
+          "identifier": "49074029",
+          "displayName": "johnwier",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "johwier": {
+          "identifier": "johwier",
+          "displayName": "johwier",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Readpeak",
       "number": 3610,
-      "author": "readpeak-user",
+      "author": {
+        "login": "readpeak-user",
+        "id": 63640438
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "gargcreation1992"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "readpeak-user"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "readpeak-user",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-04T14:16:33.000Z",
       "dateUpdated": "2024-04-25T09:08:10.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T09:08:10.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 19,
-        "byAuthor": {
-          "readpeaktuomo": {
-            "count": 19,
-            "author": "readpeaktuomo"
-          }
+      "commitAuthors": {
+        "66239046": {
+          "identifier": "66239046",
+          "displayName": "readpeaktuomo",
+          "count": 19,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Loyal",
       "number": 3586,
-      "author": "teqblaze",
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
       "assignees": [
         "onkarvhanumante",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "SyntaxNode",
-          "teqblaze",
-          "onkarvhanumante"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "teqblaze",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "DISMISSED"
+        }
+      ],
       "dateCreated": "2024-03-24T23:25:10.000Z",
       "dateUpdated": "2024-04-25T06:09:11.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T06:09:11.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 12,
-        "byAuthor": {
-          "loyal": {
-            "count": 12,
-            "author": "loyal"
-          }
+      "commitAuthors": {
+        "loyal": {
+          "identifier": "loyal",
+          "displayName": "loyal",
+          "count": 12,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Adkernel: bid.mtype support",
       "number": 3631,
-      "author": "ckbo3hrk",
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "gargcreation1992"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-18T13:07:14.000Z",
       "dateUpdated": "2024-04-25T14:03:10.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T05:55:43.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "ckbo3hrk": {
-            "count": 3,
-            "author": "ckbo3hrk"
-          }
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "MgidX: Update config info",
       "number": 3633,
-      "author": "xmgiddev",
+      "author": {
+        "login": "xmgiddev",
+        "id": 133856186
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "onkarvhanumante"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-18T15:50:29.000Z",
       "dateUpdated": "2024-04-25T05:49:12.000Z",
       "status": "merged",
       "dateMerged": "2024-04-25T05:49:12.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 26,
-        "byAuthor": {
-          "gaudeamus": {
-            "count": 6,
-            "author": "gaudeamus"
-          },
-          "evjman": {
-            "count": 1,
-            "author": "evjman"
-          },
-          "xmgiddev": {
-            "count": 19,
-            "author": "xmgiddev"
-          }
+      "commitAuthors": {
+        "1238872": {
+          "identifier": "1238872",
+          "displayName": "evjman",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "133856186": {
+          "identifier": "133856186",
+          "displayName": "xmgiddev",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "gaudeamus": {
+          "identifier": "gaudeamus",
+          "displayName": "gaudeamus",
+          "count": 6,
+          "isGitHubUser": false
+        },
+        "xmgiddev": {
+          "identifier": "xmgiddev",
+          "displayName": "xmgiddev",
+          "count": 6,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rise: Add placementId parameter to bidder ext",
       "number": 3626,
-      "author": "zkosanovic",
+      "author": {
+        "login": "zkosanovic",
+        "id": 41286499
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "Sonali-More-Xandr",
-          "gargcreation1992"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-15T13:12:46.000Z",
       "dateUpdated": "2024-04-22T10:37:21.000Z",
       "status": "merged",
       "dateMerged": "2024-04-22T10:32:40.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "Zdravko Kosanovic": {
-            "count": 2,
-            "author": "Zdravko Kosanovic"
-          }
+      "commitAuthors": {
+        "Zdravko Kosanovic": {
+          "identifier": "Zdravko Kosanovic",
+          "displayName": "Zdravko Kosanovic",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Metrics: Add per adapter metric indicating when buyeruid was scrubbed",
       "number": 3623,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "guscarreon",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "AlexBVolcy",
-          "guscarreon"
-        ],
-        "pending": [
-          "bsardo",
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-11T16:55:31.000Z",
       "dateUpdated": "2024-04-16T19:49:31.000Z",
       "status": "merged",
       "dateMerged": "2024-04-16T19:49:31.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "bsardo": {
-            "count": 8,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 8,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Axonix: Add userSync",
       "number": 3598,
-      "author": "cesarfd",
+      "author": {
+        "login": "cesarfd",
+        "id": 10957618
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "Sonali-More-Xandr"
-        ],
-        "pending": [
-          "gargcreation1992"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-03-27T15:29:33.000Z",
       "dateUpdated": "2024-04-16T05:53:16.000Z",
       "status": "merged",
       "dateMerged": "2024-04-16T05:53:16.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "César Fernández": {
-            "count": 2,
-            "author": "César Fernández"
-          }
+      "commitAuthors": {
+        "César Fernández": {
+          "identifier": "César Fernández",
+          "displayName": "César Fernández",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Sharethrough: adding GDPR and GPP info to user sync url",
       "number": 3624,
-      "author": "jefftmahoney",
+      "author": {
+        "login": "jefftmahoney",
+        "id": 2761266
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "gargcreation1992",
-          "Sonali-More-Xandr"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-11T20:31:05.000Z",
       "dateUpdated": "2024-04-15T08:08:30.000Z",
       "status": "merged",
       "dateMerged": "2024-04-15T08:08:30.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "jefftmahoney": {
-            "count": 1,
-            "author": "jefftmahoney"
-          }
+      "commitAuthors": {
+        "2761266": {
+          "identifier": "2761266",
+          "displayName": "jefftmahoney",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Add ImpIds in RequestData for associated Impressions",
       "number": 3364,
-      "author": "pm-saurabh-narkhede",
+      "author": {
+        "login": "pm-saurabh-narkhede",
+        "id": 108730956
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "pm-saurabh-narkhede",
-          "SyntaxNode",
-          "hhhjort"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "pm-saurabh-narkhede",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2023-12-19T10:36:29.000Z",
       "dateUpdated": "2024-04-10T19:47:50.000Z",
       "status": "merged",
       "dateMerged": "2024-04-10T19:47:50.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 25,
-        "byAuthor": {
-          "pm-saurabh-narkhede": {
-            "count": 25,
-            "author": "pm-saurabh-narkhede"
-          }
+      "commitAuthors": {
+        "108730956": {
+          "identifier": "108730956",
+          "displayName": "pm-saurabh-narkhede",
+          "count": 25,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Local stored response fetching",
       "number": 3600,
-      "author": "zhongshixi",
+      "author": {
+        "login": "zhongshixi",
+        "id": 6433625
+      },
       "assignees": [
         "VeronikaSolovei9",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "AlexBVolcy",
-          "guscarreon"
-        ],
-        "pending": [
-          "zhongshixi"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "zhongshixi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-03-28T04:33:50.000Z",
       "dateUpdated": "2024-04-10T17:29:15.000Z",
       "status": "merged",
       "dateMerged": "2024-04-10T17:29:15.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "zhongshixi": {
-            "count": 5,
-            "author": "zhongshixi"
-          }
+      "commitAuthors": {
+        "6433625": {
+          "identifier": "6433625",
+          "displayName": "zhongshixi",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "EIDs Should Not Require Unique Sources",
       "number": 3607,
-      "author": "SyntaxNode",
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
       "assignees": [
         "guscarreon",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "AlexBVolcy",
-          "guscarreon"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-03T21:18:27.000Z",
       "dateUpdated": "2024-04-09T22:04:29.000Z",
       "status": "merged",
       "dateMerged": "2024-04-09T22:04:29.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "SyntaxNode": {
-            "count": 3,
-            "author": "SyntaxNode"
-          }
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "DSA: Inject default in bid requests if not present",
       "number": 3540,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "SyntaxNode",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "AlexBVolcy"
-        ],
-        "pending": [
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-02-25T16:53:13.000Z",
       "dateUpdated": "2024-04-09T20:26:39.000Z",
       "status": "merged",
       "dateMerged": "2024-04-09T20:26:38.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 21,
-        "byAuthor": {
-          "bsardo": {
-            "count": 21,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 21,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Onetag: add redirect userSync support",
       "number": 3612,
-      "author": "onetag-dev",
+      "author": {
+        "login": "onetag-dev",
+        "id": 38786435
+      },
       "assignees": [
         "gargcreation1992",
         "onkarvhanumante"
       ],
-      "reviewers": {
-        "approved": [
-          "onkarvhanumante",
-          "gargcreation1992"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-05T08:12:14.000Z",
       "dateUpdated": "2024-04-08T06:14:51.000Z",
       "status": "merged",
       "dateMerged": "2024-04-08T06:14:51.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "l-baglini": {
-            "count": 1,
-            "author": "l-baglini"
-          }
+      "commitAuthors": {
+        "165936143": {
+          "identifier": "165936143",
+          "displayName": "l-baglini",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Privacy Sandbox: Topics in headers",
       "number": 3393,
-      "author": "pm-nilesh-chate",
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
       "assignees": [
         "SyntaxNode",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "SyntaxNode",
-          "pm-nilesh-chate",
-          "AlexBVolcy"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-01-10T09:31:30.000Z",
       "dateUpdated": "2024-04-04T08:35:15.000Z",
       "status": "merged",
       "dateMerged": "2024-04-03T19:23:25.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 34,
-        "byAuthor": {
-          "pm-nilesh-chate": {
-            "count": 34,
-            "author": "pm-nilesh-chate"
-          }
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 34,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New adapter: Smrtconnect",
       "number": 3571,
-      "author": "psmrt",
+      "author": {
+        "login": "psmrt",
+        "id": 162991810
+      },
       "assignees": [
         "gargcreation1992",
         "Sonali-More-Xandr"
       ],
-      "reviewers": {
-        "approved": [
-          "Sonali-More-Xandr",
-          "gargcreation1992"
-        ],
-        "pending": [
-          "psmrt"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "psmrt",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-03-13T05:26:12.000Z",
       "dateUpdated": "2024-04-03T06:25:34.000Z",
       "status": "merged",
       "dateMerged": "2024-04-03T06:25:34.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "pragnesh": {
-            "count": 1,
-            "author": "pragnesh"
-          }
+      "commitAuthors": {
+        "pragnesh": {
+          "identifier": "pragnesh",
+          "displayName": "pragnesh",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Updated FloorsSchemaVersion data type from string to int",
       "number": 3592,
-      "author": "pm-jaydeep-mohite",
+      "author": {
+        "login": "pm-jaydeep-mohite",
+        "id": 30924180
+      },
       "assignees": [
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "AlexBVolcy"
-        ],
-        "pending": [
-          "pm-jaydeep-mohite"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-03-27T10:47:46.000Z",
       "dateUpdated": "2024-04-08T14:00:17.000Z",
       "status": "merged",
       "dateMerged": "2024-04-02T17:20:25.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "pm-jaydeep-mohite": {
-            "count": 2,
-            "author": "pm-jaydeep-mohite"
-          }
+      "commitAuthors": {
+        "30924180": {
+          "identifier": "30924180",
+          "displayName": "pm-jaydeep-mohite",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Update README.md",
       "number": 3603,
-      "author": "rajeshkp",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": []
+      "author": {
+        "login": "rajeshkp",
+        "id": 320251
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-04-01T13:24:36.000Z",
       "dateUpdated": "2024-04-01T17:49:12.000Z",
       "status": "merged",
       "dateMerged": "2024-04-01T17:49:12.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "rajeshkp": {
-            "count": 1,
-            "author": "rajeshkp"
-          }
+      "commitAuthors": {
+        "320251": {
+          "identifier": "320251",
+          "displayName": "rajeshkp",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix: TestAmpBadRequests",
       "number": 3546,
-      "author": "pm-nilesh-chate",
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
       "assignees": [
         "guscarreon",
         "AlexBVolcy"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "AlexBVolcy"
-        ],
-        "pending": [
-          "pm-nilesh-chate"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-02-27T05:29:14.000Z",
       "dateUpdated": "2024-04-02T06:00:23.000Z",
       "status": "merged",
       "dateMerged": "2024-04-01T17:35:30.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "pm-nilesh-chate": {
-            "count": 7,
-            "author": "pm-nilesh-chate"
-          }
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 7,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

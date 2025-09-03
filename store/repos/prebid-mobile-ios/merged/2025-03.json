@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2025,
+    "month": 3,
+    "itemCount": 14,
+    "lastUpdated": "2025-09-02T21:29:40.489Z"
+  },
+  "items": [
+    {
+      "title": "Prebid response object parsing tests",
+      "number": 1115,
+      "author": {
+        "login": "jclou",
+        "id": 1572104
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-13T01:38:53.000Z",
+      "dateUpdated": "2025-03-28T08:53:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-28T08:53:39.000Z",
+      "commitAuthors": {
+        "James Lou": {
+          "identifier": "James Lou",
+          "displayName": "James Lou",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Skip video attribute",
+      "number": 1123,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-26T11:32:56.000Z",
+      "dateUpdated": "2025-03-27T09:09:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-27T09:09:26.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support SKOverlay in Original API",
+      "number": 1105,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-17T09:10:53.000Z",
+      "dateUpdated": "2025-03-25T11:32:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-25T11:32:21.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support SKAdN in Bidding Only scenario",
+      "number": 1086,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-14T12:56:48.000Z",
+      "dateUpdated": "2025-03-25T10:25:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-25T10:25:41.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bumps deployment target for AdMob and GAM adapters",
+      "number": 1117,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-14T11:26:58.000Z",
+      "dateUpdated": "2025-07-16T09:30:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-17T10:26:38.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump to 2.5.0",
+      "number": 1116,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-13T11:21:04.000Z",
+      "dateUpdated": "2025-03-13T12:44:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T12:43:54.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tracking URL",
+      "number": 1112,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T12:09:10.000Z",
+      "dateUpdated": "2025-03-12T16:16:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T16:16:46.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix build issues after recent merges",
+      "number": 1114,
+      "author": {
+        "login": "jclou",
+        "id": 1572104
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-12T00:07:16.000Z",
+      "dateUpdated": "2025-03-12T14:44:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T14:44:25.000Z",
+      "commitAuthors": {
+        "James Lou": {
+          "identifier": "James Lou",
+          "displayName": "James Lou",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Crash fix on bid.ext.prebid.meta getter in Bid.swift",
+      "number": 1108,
+      "author": {
+        "login": "jangirtony2009",
+        "id": 54760423
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jangirtony2009",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-25T06:20:24.000Z",
+      "dateUpdated": "2025-03-12T12:12:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T12:12:53.000Z",
+      "commitAuthors": {
+        "54760423": {
+          "identifier": "54760423",
+          "displayName": "jangirtony2009",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecate methods and properties for 3.0",
+      "number": 1109,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-25T15:42:37.000Z",
+      "dateUpdated": "2025-03-11T12:20:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T12:20:33.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Blocked creative attribute",
+      "number": 1110,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-25T15:48:50.000Z",
+      "dateUpdated": "2025-03-11T12:04:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T12:04:47.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add SKOverlay Support in Rendering API",
+      "number": 1039,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-21T14:19:33.000Z",
+      "dateUpdated": "2025-03-11T08:09:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T08:09:02.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 10,
+          "isGitHubUser": true
+        },
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Auction settings id ",
+      "number": 1100,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-04T14:18:35.000Z",
+      "dateUpdated": "2025-03-11T07:44:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T07:44:33.000Z",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support GMA 12.0.0 and 12.1.0",
+      "number": 1101,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "aybarska",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-07T08:31:18.000Z",
+      "dateUpdated": "2025-03-10T11:00:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-10T10:59:58.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

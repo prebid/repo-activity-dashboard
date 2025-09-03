@@ -1,0 +1,861 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 1,
+    "itemCount": 22,
+    "lastUpdated": "2025-09-02T23:36:35.284Z"
+  },
+  "items": [
+    {
+      "title": "Rubicon: Add one more way for Rubicon bidder to represent `User.BuyerUid`.",
+      "number": 2138,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-24T14:30:50.000Z",
+      "dateUpdated": "2022-01-26T18:43:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-26T18:43:48.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Richaudience: Add Video and Multibid",
+      "number": 2135,
+      "author": {
+        "login": "richaudience",
+        "id": 26602871
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "richaudience",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-18T14:38:28.000Z",
+      "dateUpdated": "2022-01-26T17:43:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-26T17:43:52.000Z",
+      "commitAuthors": {
+        "26602871": {
+          "identifier": "26602871",
+          "displayName": "richaudience",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies",
+      "number": 2140,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-24T17:07:37.000Z",
+      "dateUpdated": "2022-01-26T21:25:02.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T18:30:57.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tappx: Remove Host Parameter",
+      "number": 2130,
+      "author": {
+        "login": "prebidtappx",
+        "id": 77485538
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "prebidtappx",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-10T15:45:10.000Z",
+      "dateUpdated": "2022-01-25T18:14:06.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-25T18:14:06.000Z",
+      "commitAuthors": {
+        "77434489": {
+          "identifier": "77434489",
+          "displayName": "agrandes-tappx",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support for Bidder Alias GVL IDs",
+      "number": 2126,
+      "author": {
+        "login": "Pubmatic-Dhruv-Sonone",
+        "id": 83747371
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-06T18:11:22.000Z",
+      "dateUpdated": "2022-01-24T18:26:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-24T18:26:59.000Z",
+      "commitAuthors": {
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheMediaGrid: Fix bug with wrong type in response",
+      "number": 2114,
+      "author": {
+        "login": "TheMediaGrid",
+        "id": 44166371
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "TheMediaGrid",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-19T19:58:16.000Z",
+      "dateUpdated": "2022-01-20T16:54:01.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-20T16:54:01.000Z",
+      "commitAuthors": {
+        "44166371": {
+          "identifier": "44166371",
+          "displayName": "TheMediaGrid",
+          "count": 65,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Huaweiads - 1. add the corresponding site endpoint selection 2. add package name replacement",
+      "number": 2115,
+      "author": {
+        "login": "wwwyyy",
+        "id": 13847112
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "wwwyyy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-20T13:33:40.000Z",
+      "dateUpdated": "2022-01-19T18:28:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-19T18:28:49.000Z",
+      "commitAuthors": {
+        "13847112": {
+          "identifier": "13847112",
+          "displayName": "wwwyyy",
+          "count": 10,
+          "isGitHubUser": true
+        },
+        "w00522253": {
+          "identifier": "w00522253",
+          "displayName": "w00522253",
+          "count": 29,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "PBS Version In Response Header",
+      "number": 2129,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-10T05:35:49.000Z",
+      "dateUpdated": "2022-01-26T17:44:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-18T20:14:24.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adagio adapter",
+      "number": 2117,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-22T07:44:39.000Z",
+      "dateUpdated": "2022-01-18T19:48:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-18T19:48:29.000Z",
+      "commitAuthors": {
+        "16453882": {
+          "identifier": "16453882",
+          "displayName": "osazos",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Algorix: Add Rewarded Video detected and fix for BidResponse MediaType Resource.",
+      "number": 2124,
+      "author": {
+        "login": "Bugxyb",
+        "id": 6049660
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Bugxyb",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-06T07:58:18.000Z",
+      "dateUpdated": "2022-01-27T09:59:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-18T18:50:22.000Z",
+      "commitAuthors": {
+        "xunyunbo": {
+          "identifier": "xunyunbo",
+          "displayName": "xunyunbo",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Vidoomy",
+      "number": 2119,
+      "author": {
+        "login": "abdollah-aghayan",
+        "id": 15799028
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "abdollah-aghayan",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-27T13:19:26.000Z",
+      "dateUpdated": "2022-01-18T18:14:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-18T18:14:00.000Z",
+      "commitAuthors": {
+        "15799028": {
+          "identifier": "15799028",
+          "displayName": "abdollah-aghayan",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GDPR: pass geo based on special feature 1 opt-in",
+      "number": 2122,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-05T16:41:52.000Z",
+      "dateUpdated": "2022-01-14T09:13:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-14T09:13:20.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adyoulike: Fix adapter error if no content",
+      "number": 2134,
+      "author": {
+        "login": "chrisg93",
+        "id": 1113757
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-13T17:58:53.000Z",
+      "dateUpdated": "2022-01-14T09:12:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-14T09:12:47.000Z",
+      "commitAuthors": {
+        "1113757": {
+          "identifier": "1113757",
+          "displayName": "chrisg93",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update adyoulike.yaml",
+      "number": 2131,
+      "author": {
+        "login": "chrisg93",
+        "id": 1113757
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-12T16:01:54.000Z",
+      "dateUpdated": "2022-01-13T02:26:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-13T02:26:00.000Z",
+      "commitAuthors": {
+        "1113757": {
+          "identifier": "1113757",
+          "displayName": "chrisg93",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add ORTB 2.4 schain support",
+      "number": 2108,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-09T17:57:41.000Z",
+      "dateUpdated": "2022-01-13T00:50:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-13T00:50:29.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Stored response fetcher (with new func for stored resp)",
+      "number": 2099,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-01T06:55:23.000Z",
+      "dateUpdated": "2023-03-13T13:55:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T18:35:07.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adot: Add OpenRTB macros resolution",
+      "number": 2118,
+      "author": {
+        "login": "ramyferjaniadot",
+        "id": 90328697
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ramyferjaniadot",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-23T09:42:13.000Z",
+      "dateUpdated": "2022-01-10T18:13:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T18:13:52.000Z",
+      "commitAuthors": {
+        "90328697": {
+          "identifier": "90328697",
+          "displayName": "ramyferjaniadot",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon adapter: accept accountId, siteId, zoneId as strings",
+      "number": 2110,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-14T13:30:13.000Z",
+      "dateUpdated": "2022-01-10T18:10:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T18:10:42.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Operaads: support multiformat request",
+      "number": 2121,
+      "author": {
+        "login": "jizeyopera",
+        "id": 70930512
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-04T07:12:22.000Z",
+      "dateUpdated": "2022-01-10T05:16:35.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-10T05:16:35.000Z",
+      "commitAuthors": {
+        "70930512": {
+          "identifier": "70930512",
+          "displayName": "jizeyopera",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update go-gdpr to v1.11.0",
+      "number": 2125,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-06T14:56:42.000Z",
+      "dateUpdated": "2022-01-06T18:27:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-06T18:27:45.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adgeneration: Update request to include device and app related info in headers and query params",
+      "number": 2109,
+      "author": {
+        "login": "banakemi",
+        "id": 9716661
+      },
+      "assignees": [
+        "mansinahar",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "banakemi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2021-12-13T05:22:21.000Z",
+      "dateUpdated": "2022-01-06T17:29:15.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-06T17:29:14.000Z",
+      "commitAuthors": {
+        "9716661": {
+          "identifier": "9716661",
+          "displayName": "banakemi",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "Ad Generation": {
+          "identifier": "Ad Generation",
+          "displayName": "Ad Generation",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Horiguchi": {
+          "identifier": "Horiguchi",
+          "displayName": "Horiguchi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Read device information from ortb Request",
+      "number": 2112,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-15T14:14:20.000Z",
+      "dateUpdated": "2022-01-04T18:16:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-01-04T18:16:12.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 28,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

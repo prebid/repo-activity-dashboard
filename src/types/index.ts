@@ -11,6 +11,18 @@ export interface CommitAuthorSummary {
   author: string;
 }
 
+export interface CommitAuthor {
+  identifier: string;  // GitHub ID if available, otherwise login/name
+  displayName: string; // login or git name for display
+  count: number;
+  isGitHubUser: boolean; // true if we have a GitHub ID
+}
+
+export interface Reviewer {
+  login: string;
+  state: 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'PENDING'; // PENDING = requested but not reviewed
+}
+
 export interface PRData {
   title: string;
   number: number;
@@ -19,14 +31,13 @@ export interface PRData {
     id: number;
   };
   assignees: string[];
-  reviewers: string[];
-  draft: boolean;
+  reviewers: Reviewer[]; // All reviewers with their final states
   dateCreated: Date;
   dateUpdated: Date;
   status: 'open' | 'closed' | 'merged';
   dateMerged?: Date;
   dateClosed?: Date;
-  commits: Map<string, number>;
+  commitAuthors: Map<string, CommitAuthor>; // keyed by identifier (ID or name)
 }
 
 export interface IssueData {

@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2023,
+    "month": 8,
+    "itemCount": 9,
+    "lastUpdated": "2025-09-02T20:49:03.483Z"
+  },
+  "items": [
+    {
+      "title": "Add generic plugin renderer event listener",
+      "number": 618,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-21T13:04:36.000Z",
+      "dateUpdated": "2023-08-28T12:55:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-28T12:55:42.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 28,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Google Ad SDK Version to 22.3.0",
+      "number": 675,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-25T09:42:33.000Z",
+      "dateUpdated": "2023-08-28T08:03:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-28T08:03:12.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rewrite deprecated registerView() in test examples",
+      "number": 671,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-17T12:44:57.000Z",
+      "dateUpdated": "2023-08-25T14:02:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-25T14:02:28.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Release 2.1.3",
+      "number": 661,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-08T15:28:04.000Z",
+      "dateUpdated": "2023-08-16T16:46:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-16T16:46:02.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce SDK Configuration Properties for Creative Factory Timeout",
+      "number": 664,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "jsligh",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-10T17:54:06.000Z",
+      "dateUpdated": "2023-08-16T08:17:57.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-16T08:17:54.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improve memory management for Native ads",
+      "number": 666,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-11T10:38:06.000Z",
+      "dateUpdated": "2023-08-15T07:05:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-15T07:05:11.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Set 2 default ad formats for interstitial",
+      "number": 659,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-07T09:06:50.000Z",
+      "dateUpdated": "2023-08-07T15:35:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-07T15:35:30.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Feature/incluewinners and include bidder key flags",
+      "number": 653,
+      "author": {
+        "login": "AbrahamArmasCordero",
+        "id": 36243865
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AbrahamArmasCordero",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-13T10:14:42.000Z",
+      "dateUpdated": "2023-08-03T14:56:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-03T14:56:13.000Z",
+      "commitAuthors": {
+        "36243865": {
+          "identifier": "36243865",
+          "displayName": "AbrahamArmasCordero",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Set plugin renderer in bid request as an object to leverage from all plugin properties",
+      "number": 648,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-27T12:32:31.000Z",
+      "dateUpdated": "2023-08-01T09:00:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-01T09:00:10.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

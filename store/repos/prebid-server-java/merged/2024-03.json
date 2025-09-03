@@ -1,0 +1,1166 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 3,
+    "itemCount": 33,
+    "lastUpdated": "2025-09-03T00:16:49.976Z"
+  },
+  "items": [
+    {
+      "title": "Smrtconnect: Add new bidder",
+      "number": 3060,
+      "author": {
+        "login": "psmrt",
+        "id": 162991810
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "psmrt",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-03-15T12:16:08.000Z",
+      "dateUpdated": "2024-03-27T14:51:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T14:51:54.000Z",
+      "commitAuthors": {
+        "pragnesh": {
+          "identifier": "pragnesh",
+          "displayName": "pragnesh",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Geo Lookup update for IP in header",
+      "number": 3081,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-26T21:21:17.000Z",
+      "dateUpdated": "2024-03-27T14:34:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T14:34:45.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Additonal coverage for geo",
+      "number": 3080,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-26T19:47:49.000Z",
+      "dateUpdated": "2024-03-27T13:15:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T13:15:09.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Null handling to not throw exceptions",
+      "number": 3035,
+      "author": {
+        "login": "amanpatniajmer",
+        "id": 34913883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-06T11:34:51.000Z",
+      "dateUpdated": "2024-03-27T12:33:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T12:33:06.000Z",
+      "commitAuthors": {
+        "12745839": {
+          "identifier": "12745839",
+          "displayName": "rajatgoyal2510",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "34913883": {
+          "identifier": "34913883",
+          "displayName": "amanpatniajmer",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "110666914": {
+          "identifier": "110666914",
+          "displayName": "amanjain-directi",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new zMaticoo bidder",
+      "number": 3055,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-13T14:57:03.000Z",
+      "dateUpdated": "2024-03-27T12:26:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T12:26:35.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adprime: Resolve BidType from Mtype",
+      "number": 3036,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-06T14:50:19.000Z",
+      "dateUpdated": "2024-03-27T10:46:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-27T10:46:56.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab: Add Digital Service Act (DSA) support",
+      "number": 3011,
+      "author": {
+        "login": "william-harris",
+        "id": 10398044
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "rey1128",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "william-harris",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "brushmate",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-23T07:26:18.000Z",
+      "dateUpdated": "2024-03-26T14:54:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T14:54:37.000Z",
+      "commitAuthors": {
+        "William Harris": {
+          "identifier": "William Harris",
+          "displayName": "William Harris",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Refactor Default Account Resolving",
+      "number": 3012,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-23T08:11:31.000Z",
+      "dateUpdated": "2024-03-26T13:47:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T13:47:39.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adf adapter: cookie matching domain updated",
+      "number": 3072,
+      "author": {
+        "login": "braizhas",
+        "id": 4699750
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-22T15:30:59.000Z",
+      "dateUpdated": "2024-03-26T12:35:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T12:35:39.000Z",
+      "commitAuthors": {
+        "4699750": {
+          "identifier": "4699750",
+          "displayName": "braizhas",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "junit 5.10.2",
+      "number": 3074,
+      "author": {
+        "login": "sullis",
+        "id": 30938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-25T16:55:54.000Z",
+      "dateUpdated": "2024-03-26T14:52:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T12:30:29.000Z",
+      "commitAuthors": {
+        "30938": {
+          "identifier": "30938",
+          "displayName": "sullis",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: add ability to fetch data from site.ext",
+      "number": 3051,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-12T12:11:45.000Z",
+      "dateUpdated": "2024-03-26T12:27:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T12:27:47.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Add tests for exponential backoff",
+      "number": 2970,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-13T13:39:37.000Z",
+      "dateUpdated": "2024-03-26T12:17:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T12:17:13.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove unused allure report",
+      "number": 3073,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-25T10:04:47.000Z",
+      "dateUpdated": "2024-03-26T12:15:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-26T12:15:47.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RTB House: regional endpoints",
+      "number": 3023,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-29T10:26:12.000Z",
+      "dateUpdated": "2024-03-25T14:55:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T14:55:37.000Z",
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MediaGrid: Add GPP Macros",
+      "number": 3042,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-07T14:30:33.000Z",
+      "dateUpdated": "2024-03-25T14:53:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T14:53:47.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bizzclick: host parameter update",
+      "number": 2962,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "VeryExtraordinaryUsername",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-11T13:51:49.000Z",
+      "dateUpdated": "2024-03-25T14:49:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T14:49:50.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Iqzone: Add mType support",
+      "number": 3044,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-08T13:55:50.000Z",
+      "dateUpdated": "2024-03-25T14:09:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-25T14:09:11.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "add Netty epoll arm64 dependency",
+      "number": 3064,
+      "author": {
+        "login": "sullis",
+        "id": 30938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-15T18:26:35.000Z",
+      "dateUpdated": "2024-03-20T12:02:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-20T10:36:53.000Z",
+      "commitAuthors": {
+        "30938": {
+          "identifier": "30938",
+          "displayName": "sullis",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Geo Lookup Updates",
+      "number": 3057,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-14T09:54:14.000Z",
+      "dateUpdated": "2024-03-20T10:34:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-20T10:34:09.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Relax VAST tag matching for `vtrack` handling",
+      "number": 3059,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-15T11:24:54.000Z",
+      "dateUpdated": "2024-03-19T12:24:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-19T12:24:33.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update mgidx.yaml",
+      "number": 3053,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-12T17:52:25.000Z",
+      "dateUpdated": "2024-03-19T12:20:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-19T12:20:49.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Documentation for transmitEids",
+      "number": 3058,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-14T20:30:18.000Z",
+      "dateUpdated": "2024-03-19T10:36:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-19T10:36:41.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Remove flaky timeout tests",
+      "number": 3043,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-08T11:15:00.000Z",
+      "dateUpdated": "2024-03-19T10:35:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-19T10:35:12.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: increase coverage for `/vtrack`",
+      "number": 3070,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-18T21:46:40.000Z",
+      "dateUpdated": "2024-03-19T10:30:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-19T10:30:56.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: geo lookup",
+      "number": 3062,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-03-15T13:14:37.000Z",
+      "dateUpdated": "2024-03-18T13:16:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-18T13:16:21.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab: Fix the default endpoint",
+      "number": 3021,
+      "author": {
+        "login": "brushmate",
+        "id": 439727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-28T13:42:55.000Z",
+      "dateUpdated": "2024-03-12T15:34:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-12T15:34:51.000Z",
+      "commitAuthors": {
+        "439727": {
+          "identifier": "439727",
+          "displayName": "brushmate",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Verticles: Refactoring",
+      "number": 3047,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-11T13:24:23.000Z",
+      "dateUpdated": "2024-03-11T15:06:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-11T15:06:32.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactor `ContextRunner`.",
+      "number": 3037,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-06T14:50:29.000Z",
+      "dateUpdated": "2024-03-06T14:56:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-06T14:56:05.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `TransmitEids` activity",
+      "number": 2901,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-12T12:52:50.000Z",
+      "dateUpdated": "2024-03-06T14:18:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-06T14:18:49.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 24,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix memory leak issue",
+      "number": 3033,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-05T21:06:20.000Z",
+      "dateUpdated": "2024-03-06T10:26:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-06T10:26:03.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Verticles: Make deployment synchronous",
+      "number": 2313,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-04-24T11:58:11.000Z",
+      "dateUpdated": "2024-03-04T12:04:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-04T12:04:48.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MinuteMedia: Add new bidder",
+      "number": 3019,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-27T01:08:40.000Z",
+      "dateUpdated": "2024-03-01T13:37:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-01T13:37:30.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Workflows: Add trivy dependency scanner",
+      "number": 3024,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-29T12:33:57.000Z",
+      "dateUpdated": "2024-03-01T11:52:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-01T11:52:37.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}

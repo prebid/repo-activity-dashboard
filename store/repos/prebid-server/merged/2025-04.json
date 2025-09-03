@@ -4,697 +4,778 @@
     "year": 2025,
     "month": 4,
     "itemCount": 20,
-    "lastUpdated": "2025-08-30T16:17:51.163Z"
+    "lastUpdated": "2025-09-02T23:36:35.264Z"
   },
   "items": [
     {
       "title": "Rules Engine Module: Tree build and search functions",
       "number": 4301,
-      "author": "VeronikaSolovei9",
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-15T06:51:48.000Z",
       "dateUpdated": "2025-04-29T21:18:08.000Z",
       "status": "merged",
       "dateMerged": "2025-04-29T21:18:08.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          },
-          "VeronikaSolovei9": {
-            "count": 4,
-            "author": "VeronikaSolovei9"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "InMobi : Add redirect usersync",
       "number": 4310,
-      "author": "SiddhantAgrawal",
+      "author": {
+        "login": "SiddhantAgrawal",
+        "id": 7847210
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-22T08:42:08.000Z",
       "dateUpdated": "2025-04-24T18:23:59.000Z",
       "status": "merged",
       "dateMerged": "2025-04-24T18:23:59.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "SiddhantAgrawal": {
-            "count": 1,
-            "author": "SiddhantAgrawal"
-          }
+      "commitAuthors": {
+        "7847210": {
+          "identifier": "7847210",
+          "displayName": "SiddhantAgrawal",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Criteo: Declare ORTB 2.6 support",
       "number": 4311,
-      "author": "TheodorCiuciucCriteo",
+      "author": {
+        "login": "TheodorCiuciucCriteo",
+        "id": 207864862
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-22T12:44:10.000Z",
       "dateUpdated": "2025-04-24T18:09:52.000Z",
       "status": "merged",
       "dateMerged": "2025-04-24T18:09:52.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "TheodorCiuciucCriteo": {
-            "count": 1,
-            "author": "TheodorCiuciucCriteo"
-          }
+      "commitAuthors": {
+        "207864862": {
+          "identifier": "207864862",
+          "displayName": "TheodorCiuciucCriteo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Bump golang.org/x/net from 0.36.0 to 0.38.0",
       "number": 4305,
-      "author": "dependabot[bot]",
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
       "assignees": [
         "guscarreon",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-16T23:20:50.000Z",
       "dateUpdated": "2025-04-24T13:24:18.000Z",
       "status": "merged",
       "dateMerged": "2025-04-24T13:24:09.000Z",
-      "labels": [
-        "dependencies",
-        "go"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "TheTradeDesk: Dynamically construct endpoint using supplySourceId",
       "number": 4294,
-      "author": "andre-gielow-ttd",
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
       "assignees": [
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "andre-gielow-ttd"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-10T15:56:32.000Z",
       "dateUpdated": "2025-04-23T15:59:43.000Z",
       "status": "merged",
       "dateMerged": "2025-04-23T15:59:43.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "andre-gielow-ttd": {
-            "count": 1,
-            "author": "andre-gielow-ttd"
-          }
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Mobkoi",
       "number": 4240,
-      "author": "Ventilateur",
+      "author": {
+        "login": "Ventilateur",
+        "id": 12599715
+      },
       "assignees": [
         "pm-isha-bharti",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "github-actions[bot]",
-          "Ventilateur",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Ventilateur",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "DISMISSED"
+        }
+      ],
       "dateCreated": "2025-02-26T20:17:56.000Z",
       "dateUpdated": "2025-04-22T16:54:31.000Z",
       "status": "merged",
       "dateMerged": "2025-04-22T16:45:34.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "Ventilateur": {
-            "count": 10,
-            "author": "Ventilateur"
-          }
+      "commitAuthors": {
+        "12599715": {
+          "identifier": "12599715",
+          "displayName": "Ventilateur",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rules Engine Module: Tree building thread",
       "number": 4298,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-12T00:47:30.000Z",
       "dateUpdated": "2025-04-15T06:42:27.000Z",
       "status": "merged",
       "dateMerged": "2025-04-15T06:42:26.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Rules Engine Module: Skeleton",
       "number": 4288,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-04-02T19:59:09.000Z",
       "dateUpdated": "2025-04-10T17:20:56.000Z",
       "status": "merged",
       "dateMerged": "2025-04-10T17:20:56.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "bidder-optimization-module"
+      }
     },
     {
       "title": "Adnuntius: Add multi-format and native support",
       "number": 4223,
-      "author": "mikael-lundin",
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
       "assignees": [
         "VeronikaSolovei9",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "pm-isha-bharti",
-          "mikael-lundin",
-          "przemkaczmarek",
-          "VeronikaSolovei9"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-02-18T20:07:49.000Z",
       "dateUpdated": "2025-04-10T17:14:12.000Z",
       "status": "merged",
       "dateMerged": "2025-04-10T17:14:11.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "mikael-lundin": {
-            "count": 10,
-            "author": "mikael-lundin"
-          }
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Improve Digital: Add iframe user sync",
       "number": 4274,
-      "author": "jbartek25",
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
       "assignees": [
         "VeronikaSolovei9",
         "ccorbo"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-21T16:03:02.000Z",
       "dateUpdated": "2025-04-08T15:01:29.000Z",
       "status": "merged",
       "dateMerged": "2025-04-08T15:01:28.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "jbartek25": {
-            "count": 1,
-            "author": "jbartek25"
-          }
+      "commitAuthors": {
+        "31618107": {
+          "identifier": "31618107",
+          "displayName": "jbartek25",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Medianet: Update codepath-notification email",
       "number": 4276,
-      "author": "monisq",
+      "author": {
+        "login": "monisq",
+        "id": 29942373
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "ricardobentin"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ricardobentin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-24T06:44:39.000Z",
       "dateUpdated": "2025-04-08T14:48:26.000Z",
       "status": "merged",
       "dateMerged": "2025-04-08T14:48:26.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "monisq": {
-            "count": 1,
-            "author": "monisq"
-          }
+      "commitAuthors": {
+        "29942373": {
+          "identifier": "29942373",
+          "displayName": "monisq",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Kobler: Add app support",
       "number": 4268,
-      "author": "TommyHPettersen",
+      "author": {
+        "login": "TommyHPettersen",
+        "id": 42890605
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "TommyHPettersen"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "TommyHPettersen",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-19T14:01:50.000Z",
       "dateUpdated": "2025-04-08T14:31:52.000Z",
       "status": "merged",
       "dateMerged": "2025-04-08T14:31:51.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 19,
-        "byAuthor": {
-          "TommyHPettersen": {
-            "count": 18,
-            "author": "TommyHPettersen"
-          },
-          "acsbendi": {
-            "count": 1,
-            "author": "acsbendi"
-          }
+      "commitAuthors": {
+        "30595431": {
+          "identifier": "30595431",
+          "displayName": "acsbendi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "42890605": {
+          "identifier": "42890605",
+          "displayName": "TommyHPettersen",
+          "count": 18,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Algorix: Add site support",
       "number": 4265,
-      "author": "Bugxyb",
+      "author": {
+        "login": "Bugxyb",
+        "id": 6049660
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "Bugxyb"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Bugxyb",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-18T08:57:30.000Z",
       "dateUpdated": "2025-04-08T14:20:30.000Z",
       "status": "merged",
       "dateMerged": "2025-04-08T14:20:30.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "xunyunbo": {
-            "count": 2,
-            "author": "xunyunbo"
-          }
+      "commitAuthors": {
+        "xunyunbo": {
+          "identifier": "xunyunbo",
+          "displayName": "xunyunbo",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "EPlanning: Add schain support",
       "number": 4146,
-      "author": "maximilianozurita",
+      "author": {
+        "login": "maximilianozurita",
+        "id": 76264143
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "bsardo"
-        ],
-        "pending": [
-          "hhhjort",
-          "maximilianozurita"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "maximilianozurita",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-09T19:36:53.000Z",
       "dateUpdated": "2025-04-07T21:22:21.000Z",
       "status": "merged",
       "dateMerged": "2025-04-07T21:22:21.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "Maxi": {
-            "count": 1,
-            "author": "Maxi"
-          },
-          "maximilianozurita": {
-            "count": 6,
-            "author": "maximilianozurita"
-          }
+      "commitAuthors": {
+        "76264143": {
+          "identifier": "76264143",
+          "displayName": "maximilianozurita",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "Maxi": {
+          "identifier": "Maxi",
+          "displayName": "Maxi",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Smaato: Add iframe user sync",
       "number": 4280,
-      "author": "el-chuck",
+      "author": {
+        "login": "el-chuck",
+        "id": 1151341
+      },
       "assignees": [
         "bsardo",
         "pm-isha-bharti"
       ],
-      "reviewers": {
-        "approved": [
-          "pm-isha-bharti",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-26T11:46:03.000Z",
       "dateUpdated": "2025-04-07T21:01:08.000Z",
       "status": "merged",
       "dateMerged": "2025-04-07T21:01:08.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "el-chuck": {
-            "count": 1,
-            "author": "el-chuck"
-          }
+      "commitAuthors": {
+        "1151341": {
+          "identifier": "1151341",
+          "displayName": "el-chuck",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: AdTarget.org - Limelight Alias",
       "number": 4211,
-      "author": "apykhteyev",
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "ShriprasadM",
-          "apykhteyev",
-          "bretg"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "ShriprasadM",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "apykhteyev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-13T18:24:26.000Z",
       "dateUpdated": "2025-04-07T19:21:25.000Z",
       "status": "merged",
       "dateMerged": "2025-04-07T19:21:25.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "apykhteyev": {
-            "count": 3,
-            "author": "apykhteyev"
-          }
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: MadSense",
       "number": 4169,
-      "author": "madsenseops",
+      "author": {
+        "login": "madsenseops",
+        "id": 187631770
+      },
       "assignees": [
         "bsardo",
         "scr-oath"
       ],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "pm-jaydeep-mohite",
-          "madsenseops",
-          "bsardo",
-          "scr-oath"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "madsenseops",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "dateCreated": "2025-01-21T09:19:51.000Z",
       "dateUpdated": "2025-04-07T19:00:43.000Z",
       "status": "merged",
       "dateMerged": "2025-04-07T19:00:43.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 11,
-        "byAuthor": {
-          "madsenseops": {
-            "count": 11,
-            "author": "madsenseops"
-          }
+      "commitAuthors": {
+        "187631770": {
+          "identifier": "187631770",
+          "displayName": "madsenseops",
+          "count": 11,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "AppNexus: Support member param as int",
       "number": 4284,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-28T21:01:13.000Z",
       "dateUpdated": "2025-04-07T15:40:21.000Z",
       "status": "merged",
       "dateMerged": "2025-04-07T15:40:21.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "bsardo": {
-            "count": 3,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "IX: Pass ext.ixdiag fields through",
       "number": 4262,
-      "author": "oronno",
+      "author": {
+        "login": "oronno",
+        "id": 825290
+      },
       "assignees": [
         "VeronikaSolovei9",
         "ccorbo"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-03-13T20:53:45.000Z",
       "dateUpdated": "2025-04-03T14:36:28.000Z",
       "status": "merged",
       "dateMerged": "2025-04-03T14:36:27.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Oronno Mamun": {
-            "count": 1,
-            "author": "Oronno Mamun"
-          }
+      "commitAuthors": {
+        "Oronno Mamun": {
+          "identifier": "Oronno Mamun",
+          "displayName": "Oronno Mamun",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Filter Multi-Format Requests",
       "number": 4162,
-      "author": "pm-isha-bharti",
+      "author": {
+        "login": "pm-isha-bharti",
+        "id": 8835973
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "pm-isha-bharti"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-18T05:41:27.000Z",
       "dateUpdated": "2025-04-03T13:12:38.000Z",
       "status": "merged",
       "dateMerged": "2025-04-03T13:12:38.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 12,
-        "byAuthor": {
-          "pm-isha-bharti": {
-            "count": 12,
-            "author": "pm-isha-bharti"
-          }
+      "commitAuthors": {
+        "8835973": {
+          "identifier": "8835973",
+          "displayName": "pm-isha-bharti",
+          "count": 12,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

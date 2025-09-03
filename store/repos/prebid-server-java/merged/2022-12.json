@@ -1,0 +1,642 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 12,
+    "itemCount": 19,
+    "lastUpdated": "2025-09-03T00:16:49.985Z"
+  },
+  "items": [
+    {
+      "title": "enhanced sample directory",
+      "number": 2102,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-21T18:55:04.000Z",
+      "dateUpdated": "2022-12-28T14:51:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-28T14:51:12.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: add missing metrics",
+      "number": 2089,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-02T15:34:20.000Z",
+      "dateUpdated": "2022-12-28T14:32:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-28T14:32:53.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactoring: Move BidResponseCreator class to optional approach",
+      "number": 2074,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-07T17:51:00.000Z",
+      "dateUpdated": "2022-12-22T13:56:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-22T13:56:21.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Second part of functional test",
+      "number": 2082,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-21T11:04:50.000Z",
+      "dateUpdated": "2022-12-22T13:55:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-22T13:55:39.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tid processing enhancements",
+      "number": 2093,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-12-05T14:29:23.000Z",
+      "dateUpdated": "2022-12-22T13:32:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-22T13:32:32.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Fix functional tests",
+      "number": 2091,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-02T20:29:34.000Z",
+      "dateUpdated": "2022-12-22T02:00:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-22T01:37:33.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for `tid` processing enhancements ",
+      "number": 2099,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-15T16:28:46.000Z",
+      "dateUpdated": "2022-12-21T19:52:01.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-21T19:52:00.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add string support to UID",
+      "number": 2096,
+      "author": {
+        "login": "deubaka",
+        "id": 1931819
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-07T14:34:29.000Z",
+      "dateUpdated": "2022-12-19T10:23:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-19T10:23:31.000Z",
+      "commitAuthors": {
+        "1931819": {
+          "identifier": "1931819",
+          "displayName": "deubaka",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Blocking-module: Change precedence of blocking attributes for incoming request",
+      "number": 2006,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-30T13:08:22.000Z",
+      "dateUpdated": "2022-12-14T13:49:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T13:49:49.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refine FPD",
+      "number": 2059,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-10-18T11:58:38.000Z",
+      "dateUpdated": "2022-12-14T13:47:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T13:47:49.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX: Add multi-format ad unit support",
+      "number": 2078,
+      "author": {
+        "login": "liliana-sortable",
+        "id": 23314937
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "liliana-sortable",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-09T14:35:09.000Z",
+      "dateUpdated": "2022-12-12T06:43:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-12T06:43:28.000Z",
+      "commitAuthors": {
+        "23314937": {
+          "identifier": "23314937",
+          "displayName": "liliana-sortable",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump postgresql from 42.4.1 to 42.4.3",
+      "number": 2084,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-23T22:22:29.000Z",
+      "dateUpdated": "2022-12-12T06:41:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-12T06:41:39.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dianomi: Endpoint update",
+      "number": 2095,
+      "author": {
+        "login": "DianomiJH",
+        "id": 84312830
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-06T17:29:50.000Z",
+      "dateUpdated": "2022-12-10T11:54:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-10T11:54:45.000Z",
+      "commitAuthors": {
+        "84312830": {
+          "identifier": "84312830",
+          "displayName": "DianomiJH",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX: Add iframe usersync support",
+      "number": 2080,
+      "author": {
+        "login": "nicgallardo",
+        "id": 13043723
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-15T21:26:12.000Z",
+      "dateUpdated": "2022-12-10T11:50:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-10T11:50:52.000Z",
+      "commitAuthors": {
+        "13043723": {
+          "identifier": "13043723",
+          "displayName": "nicgallardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Alkimi: add `adUnitCode` parameter",
+      "number": 2076,
+      "author": {
+        "login": "pro-nsk",
+        "id": 32703851
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-08T13:19:37.000Z",
+      "dateUpdated": "2022-12-10T11:48:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-10T11:48:52.000Z",
+      "commitAuthors": {
+        "32703851": {
+          "identifier": "32703851",
+          "displayName": "pro-nsk",
+          "count": 22,
+          "isGitHubUser": true
+        },
+        "87458443": {
+          "identifier": "87458443",
+          "displayName": "abalalaev",
+          "count": 10,
+          "isGitHubUser": true
+        },
+        "92710748": {
+          "identifier": "92710748",
+          "displayName": "mihanikw2g",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "`lmt` bug fix",
+      "number": 2094,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-05T19:39:14.000Z",
+      "dateUpdated": "2022-12-08T14:05:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-08T14:05:53.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Remove redundant fields from bidder request",
+      "number": 2079,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-10T13:33:13.000Z",
+      "dateUpdated": "2022-12-06T03:39:24.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-06T03:39:22.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update an auction timeout if `bidRequest.tmax` has changed",
+      "number": 2068,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-10-27T12:55:02.000Z",
+      "dateUpdated": "2022-12-05T15:47:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-05T15:47:22.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Update an auction timeout if `bidRequest.tmax` has changed ",
+      "number": 2077,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-08T16:40:04.000Z",
+      "dateUpdated": "2022-12-05T12:32:36.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-05T12:32:35.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

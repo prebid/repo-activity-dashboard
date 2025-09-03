@@ -39,9 +39,9 @@ export class DataFetcher {
       });
       allOpenIssues = openIssues;
       
-      // Fetch merged PRs from 2024 onwards
-      const since2024 = new Date('2024-01-01T00:00:00Z');
-      const mergedPRs = await this.githubService.fetchMergedPRs(repo, since2024, {
+      // Fetch merged PRs from 2020 onwards (to ensure we capture all 2023+ merged PRs)
+      const since2020 = new Date('2020-01-01T00:00:00Z');
+      const mergedPRs = await this.githubService.fetchMergedPRs(repo, since2020, {
         onBatch: async (batch) => {
           allMergedPRs = [...allMergedPRs, ...batch];
           await this.storageService.saveMergedPRs(repo, allMergedPRs);
@@ -49,8 +49,8 @@ export class DataFetcher {
       });
       allMergedPRs = mergedPRs;
       
-      // Fetch closed issues from 2024 onwards
-      const closedIssues = await this.githubService.fetchClosedIssues(repo, since2024, {
+      // Fetch closed issues from 2020 onwards
+      const closedIssues = await this.githubService.fetchClosedIssues(repo, since2020, {
         onBatch: async (batch) => {
           allClosedIssues = [...allClosedIssues, ...batch];
           await this.storageService.saveClosedIssues(repo, allClosedIssues);

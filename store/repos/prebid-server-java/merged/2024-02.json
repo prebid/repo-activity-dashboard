@@ -1,0 +1,1256 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 2,
+    "itemCount": 39,
+    "lastUpdated": "2025-09-03T00:16:49.976Z"
+  },
+  "items": [
+    {
+      "title": "Add functional tests for aligning TCF and tests for support transmitEids activity controls",
+      "number": 2893,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-01-09T17:12:32.000Z",
+      "dateUpdated": "2024-02-29T12:21:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-29T12:21:48.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove documentation references to metrics that are no longer available",
+      "number": 3016,
+      "author": {
+        "login": "kuleszaj",
+        "id": 495522
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-26T15:00:30.000Z",
+      "dateUpdated": "2024-02-29T12:19:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-29T12:19:23.000Z",
+      "commitAuthors": {
+        "495522": {
+          "identifier": "495522",
+          "displayName": "kuleszaj",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Confiant AdQuality: Skip scanning for bidders with empty bids",
+      "number": 3000,
+      "author": {
+        "login": "IvanTsymbal",
+        "id": 114987876
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "IvanTsymbal",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-21T17:18:43.000Z",
+      "dateUpdated": "2024-02-29T10:31:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-29T10:31:51.000Z",
+      "commitAuthors": {
+        "114987876": {
+          "identifier": "114987876",
+          "displayName": "IvanTsymbal",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix flaky tests",
+      "number": 3015,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-26T13:33:23.000Z",
+      "dateUpdated": "2024-02-28T09:56:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T09:56:02.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Disable module tests for default maven verify runs",
+      "number": 3013,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-23T13:57:37.000Z",
+      "dateUpdated": "2024-02-28T09:55:16.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T09:55:15.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Medianet: Upgrade to Openrtb 2.6",
+      "number": 3007,
+      "author": {
+        "login": "rajatgoyal2510",
+        "id": 12745839
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-22T13:09:09.000Z",
+      "dateUpdated": "2024-02-26T09:47:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-26T09:47:52.000Z",
+      "commitAuthors": {
+        "12745839": {
+          "identifier": "12745839",
+          "displayName": "rajatgoyal2510",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "110666914": {
+          "identifier": "110666914",
+          "displayName": "amanjain-directi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactoring: Add `TimeoutContext`",
+      "number": 2976,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T01:16:06.000Z",
+      "dateUpdated": "2024-02-26T09:46:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-26T09:46:33.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update index page",
+      "number": 3014,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "SerhiiNahornyi"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-23T17:11:17.000Z",
+      "dateUpdated": "2024-02-23T19:31:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T19:31:57.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Revert predicate logic",
+      "number": 3006,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-22T09:46:27.000Z",
+      "dateUpdated": "2024-02-22T11:28:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T11:28:48.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support Testing Label Header",
+      "number": 2987,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-15T17:37:30.000Z",
+      "dateUpdated": "2024-02-21T20:39:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T20:39:53.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump org.apache.commons:commons-compress from 1.21 to 1.26.0",
+      "number": 2996,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-21T00:00:51.000Z",
+      "dateUpdated": "2024-02-21T12:09:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T12:09:00.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump org.postgresql:postgresql from 42.4.3 to 42.7.2",
+      "number": 2997,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-21T00:11:56.000Z",
+      "dateUpdated": "2024-02-21T12:08:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T12:08:45.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `Sec-Browsing-Topics` support.",
+      "number": 2750,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-11-07T12:01:00.000Z",
+      "dateUpdated": "2024-02-21T12:06:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T12:06:37.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for support testing label header",
+      "number": 2963,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T08:42:45.000Z",
+      "dateUpdated": "2024-02-20T14:48:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T14:48:46.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support Seat Non-bid for DSA Rejections",
+      "number": 2990,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-16T13:34:05.000Z",
+      "dateUpdated": "2024-02-20T14:17:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T14:17:38.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Medianet: enable gzip and update usersync url",
+      "number": 2994,
+      "author": {
+        "login": "rajatgoyal2510",
+        "id": 12745839
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-19T09:31:09.000Z",
+      "dateUpdated": "2024-02-20T14:15:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T14:15:00.000Z",
+      "commitAuthors": {
+        "12745839": {
+          "identifier": "12745839",
+          "displayName": "rajatgoyal2510",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "110666914": {
+          "identifier": "110666914",
+          "displayName": "amanjain-directi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: `Sec-Browsing-Topic` header",
+      "number": 2992,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-17T18:00:13.000Z",
+      "dateUpdated": "2024-02-20T14:14:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T14:14:23.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactoring: extract floors configuration processing",
+      "number": 2957,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-08T21:21:01.000Z",
+      "dateUpdated": "2024-02-20T13:30:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T13:30:28.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic Adapter Updates",
+      "number": 2965,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T13:28:48.000Z",
+      "dateUpdated": "2024-02-14T17:18:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T17:18:02.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "StroeerCore: support DSA",
+      "number": 2977,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T02:44:45.000Z",
+      "dateUpdated": "2024-02-14T20:19:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T15:23:21.000Z",
+      "commitAuthors": {
+        "2080240": {
+          "identifier": "2080240",
+          "displayName": "philipwatson",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Boldwin: get bid type from bid.mtype",
+      "number": 2967,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [
+        "VeryExtraordinaryUsername"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T17:24:04.000Z",
+      "dateUpdated": "2024-02-14T15:21:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T15:21:15.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improvedigital: Consent processor issue fix #2942",
+      "number": 2954,
+      "author": {
+        "login": "ishihanvcs",
+        "id": 93646635
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "VeryExtraordinaryUsername",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-07T12:52:58.000Z",
+      "dateUpdated": "2024-02-14T15:18:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T15:18:55.000Z",
+      "commitAuthors": {
+        "Mohammad Nurul Islam Shihan": {
+          "identifier": "Mohammad Nurul Islam Shihan",
+          "displayName": "Mohammad Nurul Islam Shihan",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GitHub: changed workflow trigger for several jobs",
+      "number": 2971,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-13T14:02:13.000Z",
+      "dateUpdated": "2024-02-14T14:03:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T14:03:28.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adkernel: Add multiformat imp splitting",
+      "number": 2966,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T15:29:03.000Z",
+      "dateUpdated": "2024-02-14T13:55:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T13:55:45.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add DSA fields and validation",
+      "number": 2931,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2024-01-25T10:30:15.000Z",
+      "dateUpdated": "2024-02-12T14:28:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T14:27:59.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Api field is not required for Video imp",
+      "number": 2964,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T09:28:04.000Z",
+      "dateUpdated": "2024-02-12T12:39:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T12:39:30.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "update BMTM maintainer address",
+      "number": 2960,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T18:52:18.000Z",
+      "dateUpdated": "2024-02-12T12:37:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T12:37:35.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Feature: Default account DSA support",
+      "number": 2955,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-08T01:37:07.000Z",
+      "dateUpdated": "2024-02-12T12:27:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T12:27:20.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Default account DSA support",
+      "number": 2959,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-09T00:35:22.000Z",
+      "dateUpdated": "2024-02-14T04:27:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T12:26:48.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new `AdQuery` bidder",
+      "number": 2922,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-23T07:40:38.000Z",
+      "dateUpdated": "2024-02-07T10:21:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-07T10:21:48.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add bid adapter for Yearxero;",
+      "number": 2948,
+      "author": {
+        "login": "BogdanKosarev",
+        "id": 157313242
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "BogdanKosarev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-01T19:45:12.000Z",
+      "dateUpdated": "2024-02-06T19:41:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-06T16:19:53.000Z",
+      "commitAuthors": {
+        "157313242": {
+          "identifier": "157313242",
+          "displayName": "BogdanKosarev",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Aidem: Url resolution updates",
+      "number": 2951,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-05T11:31:28.000Z",
+      "dateUpdated": "2024-02-05T19:07:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-05T19:07:36.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: added warning in case of invalid targeting key prefix",
+      "number": 2860,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [
+        "VeryExtraordinaryUsername"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-12-21T16:43:09.000Z",
+      "dateUpdated": "2024-02-05T09:52:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-05T09:52:35.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cover DSA fields and validation",
+      "number": 2939,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-30T10:21:09.000Z",
+      "dateUpdated": "2024-02-05T09:49:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-05T09:49:43.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GVL: Add backoff for vendor list fetching",
+      "number": 2919,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-22T13:19:36.000Z",
+      "dateUpdated": "2024-02-04T11:35:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-04T11:35:45.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adelement: adapter update (#2940)",
+      "number": 2949,
+      "author": {
+        "login": "radadiapg",
+        "id": 77797977
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-02T04:45:40.000Z",
+      "dateUpdated": "2024-02-04T11:03:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-04T11:03:39.000Z",
+      "commitAuthors": {
+        "77797977": {
+          "identifier": "77797977",
+          "displayName": "radadiapg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Added gpp and gpp_sid to user sync url",
+      "number": 2947,
+      "author": {
+        "login": "ym-prasanth",
+        "id": 80693980
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-01T19:30:23.000Z",
+      "dateUpdated": "2024-02-04T10:58:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-04T10:58:35.000Z",
+      "commitAuthors": {
+        "80693980": {
+          "identifier": "80693980",
+          "displayName": "ym-prasanth",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Adapter simplifications",
+      "number": 2944,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-31T13:24:01.000Z",
+      "dateUpdated": "2024-02-01T14:35:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-01T14:35:34.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: api field is not required for Video imp ",
+      "number": 2945,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-01T14:14:55.000Z",
+      "dateUpdated": "2024-02-01T14:24:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-01T14:24:55.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1186 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 7,
+    "itemCount": 38,
+    "lastUpdated": "2025-09-03T00:16:49.987Z"
+  },
+  "items": [
+    {
+      "title": "Rubicon: add native support",
+      "number": 1970,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-27T10:34:19.000Z",
+      "dateUpdated": "2022-07-31T10:32:35.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-31T10:32:34.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo: Enable gzip compression",
+      "number": 1972,
+      "author": {
+        "login": "wwongkargo",
+        "id": 98759502
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-28T16:34:29.000Z",
+      "dateUpdated": "2022-07-29T12:33:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-29T12:33:03.000Z",
+      "commitAuthors": {
+        "5454953": {
+          "identifier": "5454953",
+          "displayName": "jsadwith",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "98759502": {
+          "identifier": "98759502",
+          "displayName": "wwongkargo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Add support ortb 2.6 for all tests by default",
+      "number": 1973,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-28T16:56:34.000Z",
+      "dateUpdated": "2022-07-29T12:32:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-29T12:32:45.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift: gzip support",
+      "number": 1967,
+      "author": {
+        "login": "nllerandi3lift",
+        "id": 75995508
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T18:19:43.000Z",
+      "dateUpdated": "2022-07-28T08:58:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-28T08:58:09.000Z",
+      "commitAuthors": {
+        "75995508": {
+          "identifier": "75995508",
+          "displayName": "nllerandi3lift",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Openrtb 2.6",
+      "number": 1968,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T19:50:15.000Z",
+      "dateUpdated": "2022-07-28T08:57:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-28T08:57:43.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OneTag: enable endpoint-compression",
+      "number": 1969,
+      "author": {
+        "login": "onetag-dev",
+        "id": 38786435
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-26T10:28:31.000Z",
+      "dateUpdated": "2022-07-28T08:56:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-28T08:56:42.000Z",
+      "commitAuthors": {
+        "165936143": {
+          "identifier": "165936143",
+          "displayName": "l-baglini",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Add `cattax` field support for blocking module",
+      "number": 1966,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T13:03:58.000Z",
+      "dateUpdated": "2022-07-27T14:29:56.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-27T14:29:55.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Remove new fields from request for bidders that support ORTB 2.5",
+      "number": 1963,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-21T10:35:18.000Z",
+      "dateUpdated": "2022-07-22T08:02:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-22T08:01:59.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Move validation of site and app inclusion after FPD stage",
+      "number": 1942,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-08T13:48:59.000Z",
+      "dateUpdated": "2022-07-21T12:35:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T12:35:15.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PG: Update validation of `Pg Deal Bid`",
+      "number": 1927,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-30T14:49:36.000Z",
+      "dateUpdated": "2022-07-21T12:34:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T12:34:37.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Enable endpoint-compression for mobilefuse adapter",
+      "number": 1957,
+      "author": {
+        "login": "dtbarne",
+        "id": 7635750
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-19T18:09:18.000Z",
+      "dateUpdated": "2022-07-21T13:13:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T10:13:36.000Z",
+      "commitAuthors": {
+        "7635750": {
+          "identifier": "7635750",
+          "displayName": "dtbarne",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improve Digital adapter: enable gzip conversion of requests",
+      "number": 1961,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-20T12:25:00.000Z",
+      "dateUpdated": "2022-07-21T10:10:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T10:10:31.000Z",
+      "commitAuthors": {
+        "31618107": {
+          "identifier": "31618107",
+          "displayName": "jbartek25",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix integration flaky tests",
+      "number": 1955,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-18T16:04:10.000Z",
+      "dateUpdated": "2022-07-21T10:08:18.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T10:08:17.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1962,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-07-21T08:28:58.000Z",
+      "dateUpdated": "2022-07-21T09:30:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-21T09:30:52.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Update auction to use new fields",
+      "number": 1914,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-17T15:35:47.000Z",
+      "dateUpdated": "2022-07-20T11:53:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-20T11:53:49.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 41,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "nextmillennium contact info update",
+      "number": 1959,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-19T20:02:23.000Z",
+      "dateUpdated": "2022-07-19T20:23:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T20:23:44.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix NextMillennium bidder adapter name",
+      "number": 1960,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-19T20:15:21.000Z",
+      "dateUpdated": "2022-07-19T20:21:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T20:21:29.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "nextmillennium config typo",
+      "number": 1958,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-19T19:33:04.000Z",
+      "dateUpdated": "2022-07-19T19:39:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T19:39:09.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Aax Bidder: Update",
+      "number": 1937,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T12:19:39.000Z",
+      "dateUpdated": "2022-07-19T10:11:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T10:11:42.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 23,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Bump jetty and wiremock versions",
+      "number": 1953,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-18T05:28:37.000Z",
+      "dateUpdated": "2022-07-19T10:07:55.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T10:07:54.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Automatad: add new bidder",
+      "number": 1946,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-13T11:03:08.000Z",
+      "dateUpdated": "2022-07-19T07:21:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T07:21:22.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB 2.6: Add `2.5->2.6` and `2.6->2.5` converters",
+      "number": 1903,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-08T13:34:44.000Z",
+      "dateUpdated": "2022-07-19T07:17:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-19T07:17:47.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 25,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix unwanted VAST XML linebreaks",
+      "number": 1952,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-15T15:37:16.000Z",
+      "dateUpdated": "2022-07-15T17:43:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T17:43:21.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support `Imp.ext.tid` as not a bidder properties object.",
+      "number": 1947,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-13T13:56:06.000Z",
+      "dateUpdated": "2022-07-18T11:18:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T16:29:26.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "`NextMillenium`: Add `group_id` field",
+      "number": 1935,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T11:32:43.000Z",
+      "dateUpdated": "2022-07-15T15:49:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T15:49:51.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "`NextMillenium`: Add usersync url",
+      "number": 1934,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-06T13:34:00.000Z",
+      "dateUpdated": "2022-07-15T15:48:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T15:48:57.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Update validation of Pg Deal Bid ",
+      "number": 1931,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-01T15:33:08.000Z",
+      "dateUpdated": "2022-07-15T13:10:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T13:10:29.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fixing usersync copy-paste errors",
+      "number": 1948,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-13T21:06:55.000Z",
+      "dateUpdated": "2022-07-15T12:31:08.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T12:31:07.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo Bidder: Adding usersync URL",
+      "number": 1943,
+      "author": {
+        "login": "jsadwith",
+        "id": 5454953
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-11T19:13:07.000Z",
+      "dateUpdated": "2022-07-15T12:30:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T12:30:48.000Z",
+      "commitAuthors": {
+        "5454953": {
+          "identifier": "5454953",
+          "displayName": "jsadwith",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Java17 syntax migration",
+      "number": 1924,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-29T11:10:34.000Z",
+      "dateUpdated": "2022-07-15T11:43:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-15T11:43:47.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 12,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1941,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-07-08T10:10:47.000Z",
+      "dateUpdated": "2022-07-11T09:45:05.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-11T09:45:04.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `Bliink` bidder",
+      "number": 1938,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-07T16:05:32.000Z",
+      "dateUpdated": "2022-07-08T13:25:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-08T13:25:49.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new bidder Kargo",
+      "number": 1933,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-05T11:19:03.000Z",
+      "dateUpdated": "2022-07-07T13:54:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-07T13:54:19.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update maven release plugin version",
+      "number": 1932,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-04T09:14:08.000Z",
+      "dateUpdated": "2022-07-04T11:13:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-04T11:13:31.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Migrate to java17",
+      "number": 1917,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-22T07:28:32.000Z",
+      "dateUpdated": "2022-07-04T11:05:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-04T11:05:38.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bidders: Fix missing equals in sync `redirect-url`",
+      "number": 1928,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-30T20:23:30.000Z",
+      "dateUpdated": "2022-07-04T05:12:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-04T05:12:43.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Connectad: change usersync type",
+      "number": 1929,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-30T20:51:25.000Z",
+      "dateUpdated": "2022-07-04T05:12:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-04T05:12:15.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1930,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-07-01T10:49:06.000Z",
+      "dateUpdated": "2022-07-01T11:37:15.000Z",
+      "status": "merged",
+      "dateMerged": "2022-07-01T11:37:15.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

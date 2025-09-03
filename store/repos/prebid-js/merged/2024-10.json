@@ -1,0 +1,2767 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid.js",
+    "year": 2024,
+    "month": 10,
+    "itemCount": 85,
+    "lastUpdated": "2025-09-02T06:13:20.930Z"
+  },
+  "items": [
+    {
+      "title": "YandexAnalyticsAdapter: Added init event with prebid version",
+      "number": 12386,
+      "author": {
+        "login": "Stanislavsky34200",
+        "id": 15885297
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T15:34:27.000Z",
+      "dateUpdated": "2024-10-31T16:26:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T16:26:00.000Z",
+      "commitAuthors": {
+        "15885297": {
+          "identifier": "15885297",
+          "displayName": "Stanislavsky34200",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Snigel Bid Adapter: add placement counter and adapter version field",
+      "number": 12358,
+      "author": {
+        "login": "snigelweb",
+        "id": 108489367
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-23T11:03:39.000Z",
+      "dateUpdated": "2025-04-11T07:23:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T13:48:49.000Z",
+      "commitAuthors": {
+        "108489367": {
+          "identifier": "108489367",
+          "displayName": "snigelweb",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena Bid Adapter : send coppa and autoplay",
+      "number": 12352,
+      "author": {
+        "login": "pdamoc",
+        "id": 878106
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pdamoc",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-22T09:23:28.000Z",
+      "dateUpdated": "2024-12-05T06:56:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T13:30:57.000Z",
+      "commitAuthors": {
+        "878106": {
+          "identifier": "878106",
+          "displayName": "pdamoc",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adagio Analytics Adapter : track relevant ad-units only",
+      "number": 12383,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T09:53:33.000Z",
+      "dateUpdated": "2024-10-31T13:13:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T13:13:25.000Z",
+      "commitAuthors": {
+        "16453882": {
+          "identifier": "16453882",
+          "displayName": "osazos",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "smartx Bid Adapter : add propagation of aderror event",
+      "number": 12388,
+      "author": {
+        "login": "renebaudisch",
+        "id": 15980546
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T17:15:49.000Z",
+      "dateUpdated": "2024-10-31T12:27:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T12:27:10.000Z",
+      "commitAuthors": {
+        "15980546": {
+          "identifier": "15980546",
+          "displayName": "renebaudisch",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "rubicon Bid Adapter : add support for twin ad units",
+      "number": 12328,
+      "author": {
+        "login": "ourcraig",
+        "id": 12490985
+      },
+      "assignees": [
+        "ChrisHuie",
+        "robertrmartinez"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ourcraig",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-15T06:31:36.000Z",
+      "dateUpdated": "2024-10-31T02:30:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T02:30:56.000Z",
+      "commitAuthors": {
+        "12490985": {
+          "identifier": "12490985",
+          "displayName": "ourcraig",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: allow renderAd on main document for bids with a renderer",
+      "number": 12391,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T21:28:33.000Z",
+      "dateUpdated": "2024-10-31T02:26:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-31T02:26:19.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo Bid Adapter: replaces triggerPixel with fetch",
+      "number": 12387,
+      "author": {
+        "login": "nickllerandi",
+        "id": 12804307
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T15:39:32.000Z",
+      "dateUpdated": "2024-10-30T19:18:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-30T19:18:23.000Z",
+      "commitAuthors": {
+        "12804307": {
+          "identifier": "12804307",
+          "displayName": "nickllerandi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Qortex Rtd Provider : implements rate limiting options for qortex enrichment and analytics",
+      "number": 12372,
+      "author": {
+        "login": "shilohannese",
+        "id": 4607514
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-25T20:21:05.000Z",
+      "dateUpdated": "2024-10-29T20:01:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-29T20:01:00.000Z",
+      "commitAuthors": {
+        "4607514": {
+          "identifier": "4607514",
+          "displayName": "shilohannese",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ats Analytics Module : change caching of sampling rate cookie",
+      "number": 12380,
+      "author": {
+        "login": "danielsao",
+        "id": 37441336
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-29T13:29:56.000Z",
+      "dateUpdated": "2024-10-29T18:58:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-29T18:58:49.000Z",
+      "commitAuthors": {
+        "37441336": {
+          "identifier": "37441336",
+          "displayName": "danielsao",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Impactify Bid Adapter: fix uspConsent logic",
+      "number": 12332,
+      "author": {
+        "login": "disparate1",
+        "id": 40374175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-16T07:52:26.000Z",
+      "dateUpdated": "2024-10-29T16:36:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-29T16:17:40.000Z",
+      "commitAuthors": {
+        "16678307": {
+          "identifier": "16678307",
+          "displayName": "filipeneves",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "40374175": {
+          "identifier": "40374175",
+          "displayName": "disparate1",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Abderrahmen Ghadbane": {
+          "identifier": "Abderrahmen Ghadbane",
+          "displayName": "Abderrahmen Ghadbane",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Connatix Bid Adapter : listen for user id's",
+      "number": 12312,
+      "author": {
+        "login": "OctaviaS20",
+        "id": 151752110
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T11:29:14.000Z",
+      "dateUpdated": "2024-10-29T16:00:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-29T16:00:17.000Z",
+      "commitAuthors": {
+        "Octavia Suceava": {
+          "identifier": "Octavia Suceava",
+          "displayName": "Octavia Suceava",
+          "count": 24,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "NextMillenniumBidAdapter: Added OpenRTB 2.6 parameters support: `bcat`, `badv`, `wlang`, `wlangb` and `tmax`",
+      "number": 12368,
+      "author": {
+        "login": "mhlm",
+        "id": 238981
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mhlm",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-24T23:47:04.000Z",
+      "dateUpdated": "2024-10-28T20:55:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T20:55:01.000Z",
+      "commitAuthors": {
+        "238981": {
+          "identifier": "238981",
+          "displayName": "mhlm",
+          "count": 38,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic bid adapter add ortb2 device",
+      "number": 11783,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "jlquaccia",
+        "pm-harshad-mane"
+      ],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "pm-harshad-mane",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-12T20:36:29.000Z",
+      "dateUpdated": "2025-03-05T10:12:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T16:20:15.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Equativ Bid Adapter: initial release, Smartadserver Bid Adapter: take lowest floor to send to endpoint",
+      "number": 12326,
+      "author": {
+        "login": "krzysztofequativ",
+        "id": 88041828
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "krzysztofequativ",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-14T14:58:57.000Z",
+      "dateUpdated": "2024-10-31T09:21:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T15:05:40.000Z",
+      "commitAuthors": {
+        "88041828": {
+          "identifier": "88041828",
+          "displayName": "krzysztofequativ",
+          "count": 26,
+          "isGitHubUser": true
+        },
+        "103245435": {
+          "identifier": "103245435",
+          "displayName": "janzych-smart",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "155961428": {
+          "identifier": "155961428",
+          "displayName": "eszponder",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "LiveIntent UserId Module : add support for sharethrough, sonobi, vidazoo IDs",
+      "number": 12374,
+      "author": {
+        "login": "3link",
+        "id": 34981284
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-28T08:09:09.000Z",
+      "dateUpdated": "2025-01-20T09:39:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-28T10:10:15.000Z",
+      "commitAuthors": {
+        "34981284": {
+          "identifier": "34981284",
+          "displayName": "3link",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Bid Adapter : add more sizes",
+      "number": 12371,
+      "author": {
+        "login": "robertrmartinez",
+        "id": 13972794
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "harpere",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-25T16:24:38.000Z",
+      "dateUpdated": "2024-10-25T17:17:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-25T17:17:15.000Z",
+      "commitAuthors": {
+        "13972794": {
+          "identifier": "13972794",
+          "displayName": "robertrmartinez",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AppNexus Bid Adapter: Add support for 'video' in custom Native fields",
+      "number": 12345,
+      "author": {
+        "login": "JaroVDH",
+        "id": 6927640
+      },
+      "assignees": [
+        "jsnellbaker"
+      ],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-21T09:36:34.000Z",
+      "dateUpdated": "2024-10-25T17:43:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-25T16:28:29.000Z",
+      "commitAuthors": {
+        "6927640": {
+          "identifier": "6927640",
+          "displayName": "JaroVDH",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "QortexRtdProvider: Supports new Qortex bid enrichment process",
+      "number": 12173,
+      "author": {
+        "login": "shilohannese",
+        "id": 4607514
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "shilohannese",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "rrochwick",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-27T08:38:04.000Z",
+      "dateUpdated": "2024-10-25T14:47:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-25T14:47:32.000Z",
+      "commitAuthors": {
+        "4607514": {
+          "identifier": "4607514",
+          "displayName": "shilohannese",
+          "count": 27,
+          "isGitHubUser": true
+        },
+        "65189775": {
+          "identifier": "65189775",
+          "displayName": "rrochwick",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Showheroes Bid Adapter : full rework of the adapter",
+      "number": 12283,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "Rothalack"
+      ],
+      "reviewers": [
+        {
+          "login": "Rothalack",
+          "state": "APPROVED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        },
+        {
+          "login": "FilipStamenkovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "musikele",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-30T12:58:28.000Z",
+      "dateUpdated": "2024-10-25T06:53:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-25T02:35:22.000Z",
+      "commitAuthors": {
+        "2239793": {
+          "identifier": "2239793",
+          "displayName": "musikele",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "12955765": {
+          "identifier": "12955765",
+          "displayName": "FilipStamenkovic",
+          "count": 20,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Preciso Bid adapter : Native implemented ",
+      "number": 12278,
+      "author": {
+        "login": "NikhilGopalChennissery",
+        "id": 137479857
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-27T12:21:27.000Z",
+      "dateUpdated": "2024-10-24T18:45:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T18:45:49.000Z",
+      "commitAuthors": {
+        "134591565": {
+          "identifier": "134591565",
+          "displayName": "PrecisoSRL",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "137479857": {
+          "identifier": "137479857",
+          "displayName": "NikhilGopalChennissery",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Contxtful Bid Adapter : initial release",
+      "number": 12256,
+      "author": {
+        "login": "sebastienrufiange",
+        "id": 131205907
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "sebastienrufiange",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-19T03:06:16.000Z",
+      "dateUpdated": "2024-10-24T17:37:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T17:37:13.000Z",
+      "commitAuthors": {
+        "3171376": {
+          "identifier": "3171376",
+          "displayName": "rufiange",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Nexx360 Bid Adapter: fix localStorage access errors",
+      "number": 12367,
+      "author": {
+        "login": "dariomannu",
+        "id": 9026890
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-24T13:43:52.000Z",
+      "dateUpdated": "2024-11-13T09:56:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T16:32:48.000Z",
+      "commitAuthors": {
+        "9026890": {
+          "identifier": "9026890",
+          "displayName": "dariomannu",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "bidResponseFilter Module : do not run if not configured",
+      "number": 12362,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-23T18:12:23.000Z",
+      "dateUpdated": "2024-10-24T14:47:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T14:47:42.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius Bid Adapter: support multi-format ads.",
+      "number": 12265,
+      "author": {
+        "login": "antosarho",
+        "id": 2877398
+      },
+      "assignees": [
+        "Rothalack"
+      ],
+      "reviewers": [
+        {
+          "login": "Rothalack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-24T00:38:37.000Z",
+      "dateUpdated": "2024-10-24T13:56:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T13:56:13.000Z",
+      "commitAuthors": {
+        "2877398": {
+          "identifier": "2877398",
+          "displayName": "antosarho",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Permutive Identity Manager: initial implementation",
+      "number": 12337,
+      "author": {
+        "login": "talbotja",
+        "id": 6088261
+      },
+      "assignees": [
+        "JulieLorin"
+      ],
+      "reviewers": [
+        {
+          "login": "AntonioGargaro",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "talbotja",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "JulieLorin",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-17T09:42:26.000Z",
+      "dateUpdated": "2024-10-24T10:58:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-24T10:58:16.000Z",
+      "commitAuthors": {
+        "6088261": {
+          "identifier": "6088261",
+          "displayName": "talbotja",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Paapi: log error instead of warning when auction configs are received too late",
+      "number": 12363,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-23T18:45:58.000Z",
+      "dateUpdated": "2024-10-23T22:25:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T22:25:55.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": " gptPreAuction: fix missing gpid when using mcmEnabled",
+      "number": 12361,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "muuki88"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-23T17:38:33.000Z",
+      "dateUpdated": "2024-10-23T19:28:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T19:28:05.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"gptPreAuction: fix missing gpid when using mcmEnabled\"",
+      "number": 12360,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2024-10-23T17:15:49.000Z",
+      "dateUpdated": "2024-10-23T17:36:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T17:36:02.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PAAPI: parallel contextual and IG auctions",
+      "number": 12205,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "JulieLorin",
+        "laurb9"
+      ],
+      "reviewers": [
+        {
+          "login": "laurb9",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "zapo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkendall07",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "JulieLorin",
+          "state": "APPROVED"
+        },
+        {
+          "login": "spotxslagle",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-04T20:29:50.000Z",
+      "dateUpdated": "2024-10-23T16:52:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T16:52:04.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IntentIq ID & Analytics Modules : manual reporting, bug fixes, refactoring",
+      "number": 12314,
+      "author": {
+        "login": "dLepetynskyiIntentiq",
+        "id": 177517029
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T14:07:53.000Z",
+      "dateUpdated": "2024-10-23T11:05:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-23T11:05:25.000Z",
+      "commitAuthors": {
+        "139111483": {
+          "identifier": "139111483",
+          "displayName": "DimaIntentIQ",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "177517029": {
+          "identifier": "177517029",
+          "displayName": "dLepetynskyiIntentiq",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Grid bid adapter add ortb2 device",
+      "number": 11786,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-12T20:40:02.000Z",
+      "dateUpdated": "2025-03-05T10:14:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T19:07:49.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "gptPreAuction: fix missing gpid when using mcmEnabled",
+      "number": 12356,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "muuki88"
+      ],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-22T15:33:08.000Z",
+      "dateUpdated": "2024-10-22T18:04:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T18:04:59.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: do not send native targeting keys on ortb requests",
+      "number": 12348,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-21T16:25:57.000Z",
+      "dateUpdated": "2024-10-22T16:30:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T16:30:14.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: fix missing BID_WON for some native ad units",
+      "number": 12349,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-21T17:03:53.000Z",
+      "dateUpdated": "2024-10-22T15:30:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T15:30:14.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kimberlite Bidder Adapter: expand auction price & currency macros",
+      "number": 12325,
+      "author": {
+        "login": "solta-dev",
+        "id": 157274710
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-14T13:40:50.000Z",
+      "dateUpdated": "2024-10-22T13:12:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T13:12:23.000Z",
+      "commitAuthors": {
+        "157212717": {
+          "identifier": "157212717",
+          "displayName": "os-solta",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "docereeAdManager Bid Adapter : updated bid adapter",
+      "number": 12333,
+      "author": {
+        "login": "Doceree-techStack",
+        "id": 143162581
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-16T09:44:30.000Z",
+      "dateUpdated": "2024-10-22T12:46:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T12:46:34.000Z",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "109790614": {
+          "identifier": "109790614",
+          "displayName": "lokesh-doceree",
+          "count": 25,
+          "isGitHubUser": true
+        },
+        "143162581": {
+          "identifier": "143162581",
+          "displayName": "Doceree-techStack",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo bid adapter: write cookie only on TLD+1",
+      "number": 12323,
+      "author": {
+        "login": "dzhang-criteo",
+        "id": 87757739
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T16:42:14.000Z",
+      "dateUpdated": "2024-10-22T12:31:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-22T12:31:17.000Z",
+      "commitAuthors": {
+        "87757739": {
+          "identifier": "87757739",
+          "displayName": "dzhang-criteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ads_interactiveBidAdapter: fix broken test",
+      "number": 12350,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-21T17:23:45.000Z",
+      "dateUpdated": "2024-10-21T18:11:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T18:11:31.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "51Degrees RTD submodule: add `crossorigin` attribute to `script` tag",
+      "number": 12329,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-15T11:10:49.000Z",
+      "dateUpdated": "2025-03-05T12:50:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T15:31:07.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Aniview Bid Adapter: oRTB support; Plain banner support; Refactoring",
+      "number": 12275,
+      "author": {
+        "login": "s-solodovnikov",
+        "id": 16705814
+      },
+      "assignees": [
+        "JulieLorin"
+      ],
+      "reviewers": [
+        {
+          "login": "roshecode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "JulieLorin",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-26T13:03:47.000Z",
+      "dateUpdated": "2024-10-21T13:19:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T13:19:05.000Z",
+      "commitAuthors": {
+        "16705814": {
+          "identifier": "16705814",
+          "displayName": "s-solodovnikov",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Viqeo Bid Adapter : updated endpoint, docs and refactored sections",
+      "number": 12338,
+      "author": {
+        "login": "kinoshnik2070",
+        "id": 8624801
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-17T09:44:23.000Z",
+      "dateUpdated": "2024-10-21T13:08:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T13:08:32.000Z",
+      "commitAuthors": {
+        "8624801": {
+          "identifier": "8624801",
+          "displayName": "kinoshnik2070",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ads Interactive Bid Adpter : add gvlid",
+      "number": 12324,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-14T13:27:54.000Z",
+      "dateUpdated": "2024-10-21T12:43:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-21T12:43:25.000Z",
+      "commitAuthors": {
+        "180516962": {
+          "identifier": "180516962",
+          "displayName": "AdsInteractive",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "tnc Id System : fixes for docs and performance improvements",
+      "number": 12315,
+      "author": {
+        "login": "annavane",
+        "id": 101708287
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T14:19:42.000Z",
+      "dateUpdated": "2024-10-20T13:31:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-20T13:31:26.000Z",
+      "commitAuthors": {
+        "101708287": {
+          "identifier": "101708287",
+          "displayName": "annavane",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Richaudience Bid Adapter : add gvlid to alias",
+      "number": 12330,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-15T16:21:53.000Z",
+      "dateUpdated": "2024-10-19T11:19:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-19T11:19:15.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sparteo Bid Adapter: add adUnitCode",
+      "number": 12305,
+      "author": {
+        "login": "tanguylemeur-sparteo",
+        "id": 163292075
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "tanguylemeur-sparteo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-09T09:52:36.000Z",
+      "dateUpdated": "2024-10-19T01:39:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-19T01:38:37.000Z",
+      "commitAuthors": {
+        "163292075": {
+          "identifier": "163292075",
+          "displayName": "tanguylemeur-sparteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "LiveIntent User ID Module: Add DEFAULT_DELAY",
+      "number": 12334,
+      "author": {
+        "login": "3link",
+        "id": 34981284
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "peixunzhang",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mschuwalow",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-16T13:04:27.000Z",
+      "dateUpdated": "2024-10-19T01:37:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-19T01:37:36.000Z",
+      "commitAuthors": {
+        "34981284": {
+          "identifier": "34981284",
+          "displayName": "3link",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improve Digital Bid Adapter: Bid floor is sent in USD when possible",
+      "number": 12341,
+      "author": {
+        "login": "lyubomirshishkov",
+        "id": 61063794
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-17T14:44:18.000Z",
+      "dateUpdated": "2024-10-19T01:35:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-19T01:35:34.000Z",
+      "commitAuthors": {
+        "31618107": {
+          "identifier": "31618107",
+          "displayName": "jbartek25",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "139150636": {
+          "identifier": "139150636",
+          "displayName": "lshishkov",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Greenbids RTD Module : add flag to disable filtering",
+      "number": 12331,
+      "author": {
+        "login": "maelmrgt",
+        "id": 77864748
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-16T07:30:40.000Z",
+      "dateUpdated": "2024-10-18T18:21:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-18T18:21:20.000Z",
+      "commitAuthors": {
+        "77864748": {
+          "identifier": "77864748",
+          "displayName": "maelmrgt",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sparteo Bid Adapter : adapt error messages following param deprecation",
+      "number": 12321,
+      "author": {
+        "login": "tanguylemeur-sparteo",
+        "id": 163292075
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T09:58:02.000Z",
+      "dateUpdated": "2024-10-18T02:14:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-18T02:14:05.000Z",
+      "commitAuthors": {
+        "163292075": {
+          "identifier": "163292075",
+          "displayName": "tanguylemeur-sparteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IQzone Bid Adapter : update user sync domain",
+      "number": 12320,
+      "author": {
+        "login": "IQZoneAdx",
+        "id": 88879712
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T09:40:05.000Z",
+      "dateUpdated": "2024-10-18T00:03:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-18T00:03:25.000Z",
+      "commitAuthors": {
+        "88879712": {
+          "identifier": "88879712",
+          "displayName": "IQZoneAdx",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Bidder:tapnative",
+      "number": 12322,
+      "author": {
+        "login": "pranavsheth",
+        "id": 57259342
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T10:42:12.000Z",
+      "dateUpdated": "2024-10-11T18:16:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T18:16:41.000Z",
+      "commitAuthors": {
+        "57259342": {
+          "identifier": "57259342",
+          "displayName": "pranavsheth",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Exco Bid Adapter : initial release",
+      "number": 12317,
+      "author": {
+        "login": "saar120",
+        "id": 89377180
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T15:31:37.000Z",
+      "dateUpdated": "2024-10-11T18:13:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T18:13:48.000Z",
+      "commitAuthors": {
+        "89377180": {
+          "identifier": "89377180",
+          "displayName": "saar120",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ads Interactive: fix main domain",
+      "number": 12319,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T08:24:38.000Z",
+      "dateUpdated": "2024-10-11T15:30:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T15:30:17.000Z",
+      "commitAuthors": {
+        "180516962": {
+          "identifier": "180516962",
+          "displayName": "AdsInteractive",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GumGum Bid Adapter : add ORTB2 device data to request payload",
+      "number": 12008,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "BohdanVV",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MartinGumGum",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-19T10:14:16.000Z",
+      "dateUpdated": "2025-03-05T12:47:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T14:34:32.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Humansecurity Rtd Provider : update activity control for loadExternalScript",
+      "number": 12318,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T17:22:07.000Z",
+      "dateUpdated": "2024-10-11T01:20:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-11T01:19:59.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Impactify Bid Adapter: Adding logger for onBidderError",
+      "number": 12300,
+      "author": {
+        "login": "filipeneves",
+        "id": 16678307
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-08T05:17:02.000Z",
+      "dateUpdated": "2024-10-10T19:35:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T19:35:20.000Z",
+      "commitAuthors": {
+        "16678307": {
+          "identifier": "16678307",
+          "displayName": "filipeneves",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: New activity control - load external script",
+      "number": 12207,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T10:00:08.000Z",
+      "dateUpdated": "2024-10-10T16:56:08.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T16:56:06.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Marcin Komorski": {
+          "identifier": "Marcin Komorski",
+          "displayName": "Marcin Komorski",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Missena Bid Adapter : send schain & uspConsent",
+      "number": 12296,
+      "author": {
+        "login": "pdamoc",
+        "id": 878106
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T09:57:36.000Z",
+      "dateUpdated": "2024-10-11T17:46:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T16:33:38.000Z",
+      "commitAuthors": {
+        "878106": {
+          "identifier": "878106",
+          "displayName": "pdamoc",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobian RTD module: add ap values to mobian RTD provider",
+      "number": 12289,
+      "author": {
+        "login": "ehb-mtk",
+        "id": 163182361
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-03T15:51:28.000Z",
+      "dateUpdated": "2024-10-10T16:07:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T16:07:27.000Z",
+      "commitAuthors": {
+        "163182361": {
+          "identifier": "163182361",
+          "displayName": "ehb-mtk",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SymitriDap RTD Module : segment taxonomy values changed to Symitri registered values",
+      "number": 12311,
+      "author": {
+        "login": "mp4symitri",
+        "id": 176822364
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T11:26:37.000Z",
+      "dateUpdated": "2024-10-10T15:50:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T15:50:07.000Z",
+      "commitAuthors": {
+        "Manan": {
+          "identifier": "Manan",
+          "displayName": "Manan",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bump cookie, express and socket.io",
+      "number": 12316,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-10T15:22:36.000Z",
+      "dateUpdated": "2024-10-10T15:47:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T15:47:56.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Teads Bid Adapter: Add ORTB2 device data to request payload",
+      "number": 12054,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-30T08:20:31.000Z",
+      "dateUpdated": "2025-03-05T12:48:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-10T15:46:52.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid-Server adapter: remove OpenX PBS config",
+      "number": 12310,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T21:33:09.000Z",
+      "dateUpdated": "2024-10-09T22:07:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T22:07:23.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Bid Adapter : fix jsdoc issue",
+      "number": 12309,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T17:00:54.000Z",
+      "dateUpdated": "2024-10-09T19:45:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T19:45:36.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Eskimi Bid Adapter : support string placementId and adjust user-sync logic",
+      "number": 12286,
+      "author": {
+        "login": "AndriusFromLTU",
+        "id": 2422341
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-01T08:12:24.000Z",
+      "dateUpdated": "2024-10-09T16:38:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T16:38:39.000Z",
+      "commitAuthors": {
+        "Andrius Versockas": {
+          "identifier": "Andrius Versockas",
+          "displayName": "Andrius Versockas",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "BeOp Bid Adapter : PSEGS are now part of BPSEGS",
+      "number": 12282,
+      "author": {
+        "login": "sebrobert",
+        "id": 10391799
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-30T12:47:52.000Z",
+      "dateUpdated": "2024-10-09T14:37:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T14:37:49.000Z",
+      "commitAuthors": {
+        "10391799": {
+          "identifier": "10391799",
+          "displayName": "sebrobert",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "51Degrees RTD submodule: small improvements and fixes",
+      "number": 12302,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-08T13:44:09.000Z",
+      "dateUpdated": "2025-03-05T12:50:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T14:22:39.000Z",
+      "commitAuthors": {
+        "25197509": {
+          "identifier": "25197509",
+          "displayName": "BohdanVV",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "nextMillenniumBidAdapter: fixed a bug where there was no requestId in the response",
+      "number": 12304,
+      "author": {
+        "login": "mhlm",
+        "id": 238981
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-08T22:24:09.000Z",
+      "dateUpdated": "2024-10-09T14:17:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T14:17:36.000Z",
+      "commitAuthors": {
+        "238981": {
+          "identifier": "238981",
+          "displayName": "mhlm",
+          "count": 32,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adkernel: rxnetwork alias",
+      "number": 12307,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T12:14:16.000Z",
+      "dateUpdated": "2024-11-13T13:51:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T14:13:03.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ZetaGlobalSsp Analytics : fix array.find bug",
+      "number": 12306,
+      "author": {
+        "login": "asurovenko-zeta",
+        "id": 80847074
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-09T11:08:20.000Z",
+      "dateUpdated": "2024-10-09T14:11:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-09T14:11:31.000Z",
+      "commitAuthors": {
+        "80847074": {
+          "identifier": "80847074",
+          "displayName": "asurovenko-zeta",
+          "count": 28,
+          "isGitHubUser": true
+        },
+        "98164430": {
+          "identifier": "98164430",
+          "displayName": "surovenko",
+          "count": 33,
+          "isGitHubUser": true
+        },
+        "Alexey Surovenko": {
+          "identifier": "Alexey Surovenko",
+          "displayName": "Alexey Surovenko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AdMatic Bid Adapter : add admaticde and netaddiction alias",
+      "number": 12301,
+      "author": {
+        "login": "fatihkaya84",
+        "id": 10175507
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-08T13:28:10.000Z",
+      "dateUpdated": "2024-10-08T22:31:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-08T22:31:37.000Z",
+      "commitAuthors": {
+        "10175507": {
+          "identifier": "10175507",
+          "displayName": "fatihkaya84",
+          "count": 81,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Magnite Analytics Adapter : track to PBS Analytics Event and ATAG",
+      "number": 12043,
+      "author": {
+        "login": "spotxslagle",
+        "id": 42588549
+      },
+      "assignees": [
+        "robertrmartinez"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-26T17:08:35.000Z",
+      "dateUpdated": "2024-10-08T18:09:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-08T18:09:18.000Z",
+      "commitAuthors": {
+        "42588549": {
+          "identifier": "42588549",
+          "displayName": "spotxslagle",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Module: Bid response filter",
+      "number": 12147,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-20T12:23:30.000Z",
+      "dateUpdated": "2024-10-08T03:21:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-08T03:21:55.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Marcin Komorski": {
+          "identifier": "Marcin Komorski",
+          "displayName": "Marcin Komorski",
+          "count": 8,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix: Incorrect generation of analytics impression url when bid response is a VAST URL (videoTrackers.js)",
+      "number": 12252,
+      "author": {
+        "login": "shubham-si",
+        "id": 60253122
+      },
+      "assignees": [
+        "dgirardi",
+        "karimMourra"
+      ],
+      "reviewers": [
+        {
+          "login": "karimMourra",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-18T11:29:25.000Z",
+      "dateUpdated": "2024-10-07T16:26:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T16:26:00.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "shubham.si": {
+          "identifier": "shubham.si",
+          "displayName": "shubham.si",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "VidazooUtils : update auction timeout logic",
+      "number": 12298,
+      "author": {
+        "login": "elad-yosifon",
+        "id": 2989684
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T12:04:22.000Z",
+      "dateUpdated": "2024-10-07T13:50:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T13:50:42.000Z",
+      "commitAuthors": {
+        "2989684": {
+          "identifier": "2989684",
+          "displayName": "elad-yosifon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SmartyTech Bid Adapter : change contact email",
+      "number": 12291,
+      "author": {
+        "login": "nalexand",
+        "id": 35492736
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-04T18:34:07.000Z",
+      "dateUpdated": "2024-10-07T13:36:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T13:36:37.000Z",
+      "commitAuthors": {
+        "35492736": {
+          "identifier": "35492736",
+          "displayName": "nalexand",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdsInteractive Bid Adapter : unit test fix",
+      "number": 12294,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T09:01:04.000Z",
+      "dateUpdated": "2024-10-07T13:27:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T13:27:47.000Z",
+      "commitAuthors": {
+        "Marcin Komorski": {
+          "identifier": "Marcin Komorski",
+          "displayName": "Marcin Komorski",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Smoot Bid Adapter: initial release",
+      "number": 12268,
+      "author": {
+        "login": "leamarty",
+        "id": 3124547
+      },
+      "assignees": [
+        "Fawke"
+      ],
+      "reviewers": [
+        {
+          "login": "Fawke",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-25T09:38:30.000Z",
+      "dateUpdated": "2024-10-07T11:13:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-07T11:13:40.000Z",
+      "commitAuthors": {
+        "3124547": {
+          "identifier": "3124547",
+          "displayName": "leamarty",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Digital Matter Bid Adapter: define GVLID",
+      "number": 12285,
+      "author": {
+        "login": "digital-matter",
+        "id": 177652917
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-01T05:39:37.000Z",
+      "dateUpdated": "2024-10-03T14:12:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-03T14:12:17.000Z",
+      "commitAuthors": {
+        "177652917": {
+          "identifier": "177652917",
+          "displayName": "digital-matter",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdPlayerPro Video Module : initial module release",
+      "number": 12150,
+      "author": {
+        "login": "artemAdp",
+        "id": 133973660
+      },
+      "assignees": [
+        "karimMourra"
+      ],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "PENDING"
+        },
+        {
+          "login": "karimMourra",
+          "state": "APPROVED"
+        },
+        {
+          "login": "artemAdp",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-20T15:00:12.000Z",
+      "dateUpdated": "2024-10-02T13:52:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-02T13:52:05.000Z",
+      "commitAuthors": {
+        "133973660": {
+          "identifier": "133973660",
+          "displayName": "artemAdp",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ads Interactive Bid Adapter : initial release",
+      "number": 12251,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [
+        "JulieLorin"
+      ],
+      "reviewers": [
+        {
+          "login": "JulieLorin",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-17T21:53:07.000Z",
+      "dateUpdated": "2024-10-07T16:18:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-02T13:48:56.000Z",
+      "commitAuthors": {
+        "180516962": {
+          "identifier": "180516962",
+          "displayName": "AdsInteractive",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Seedtag Bid Adapter: reads and sends bidFloor when available",
+      "number": 12277,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-27T11:44:36.000Z",
+      "dateUpdated": "2024-10-01T18:27:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-01T18:27:22.000Z",
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adagio Analytics Adapter: add beacon data bdrs_timeout, adsrv, adsrv_empty",
+      "number": 12281,
+      "author": {
+        "login": "System-Glitch",
+        "id": 7251668
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-27T15:13:53.000Z",
+      "dateUpdated": "2024-10-29T16:47:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-01T18:26:45.000Z",
+      "commitAuthors": {
+        "7251668": {
+          "identifier": "7251668",
+          "displayName": "System-Glitch",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Core: refactor to targeting file for readability and efficiency",
+      "number": 12273,
+      "author": {
+        "login": "mmoschovas",
+        "id": 63253416
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mmoschovas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "coreyb-cbs",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-25T16:44:23.000Z",
+      "dateUpdated": "2025-05-12T19:01:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-10-01T18:12:42.000Z",
+      "commitAuthors": {
+        "Michael Moschovas": {
+          "identifier": "Michael Moschovas",
+          "displayName": "Michael Moschovas",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}

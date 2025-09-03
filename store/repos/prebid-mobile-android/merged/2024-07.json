@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2024,
+    "month": 7,
+    "itemCount": 3,
+    "lastUpdated": "2025-09-02T20:49:03.482Z"
+  },
+  "items": [
+    {
+      "title": "Fix Gradle Build",
+      "number": 779,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-28T17:35:32.000Z",
+      "dateUpdated": "2024-07-09T17:53:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T17:53:22.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove bad PR (My Fault)",
+      "number": 785,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-09T16:16:13.000Z",
+      "dateUpdated": "2024-07-09T16:49:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T16:49:34.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix(includebidderkeys): server responding with bidder keys even tho bidderkeys flag is not present in the request",
+      "number": 781,
+      "author": {
+        "login": "AbrahamArmasCordero",
+        "id": 36243865
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-09T09:54:38.000Z",
+      "dateUpdated": "2024-07-09T15:51:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T15:51:13.000Z",
+      "commitAuthors": {
+        "36243865": {
+          "identifier": "36243865",
+          "displayName": "AbrahamArmasCordero",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

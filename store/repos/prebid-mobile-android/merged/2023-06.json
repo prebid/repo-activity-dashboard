@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2023,
+    "month": 6,
+    "itemCount": 7,
+    "lastUpdated": "2025-09-02T20:49:03.484Z"
+  },
+  "items": [
+    {
+      "title": "Expose video view listeners to BannerView",
+      "number": 639,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-09T14:38:04.000Z",
+      "dateUpdated": "2023-06-20T10:28:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-20T10:28:12.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Release 2.1.1",
+      "number": 645,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-15T11:08:45.000Z",
+      "dateUpdated": "2023-06-19T11:18:54.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-19T11:17:56.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MS-5342 Fix for Prebid Asset id missing even after enabling assignNativeAssetID",
+      "number": 642,
+      "author": {
+        "login": "avohraa",
+        "id": 42031593
+      },
+      "assignees": [
+        "Kowshickkarthick"
+      ],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "github-lucas-bon",
+          "state": "PENDING"
+        },
+        {
+          "login": "Kowshickkarthick",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-14T08:37:08.000Z",
+      "dateUpdated": "2023-06-15T10:16:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-15T10:14:43.000Z",
+      "commitAuthors": {
+        "42031593": {
+          "identifier": "42031593",
+          "displayName": "avohraa",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remote js scripts",
+      "number": 643,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-14T17:24:36.000Z",
+      "dateUpdated": "2023-06-15T10:12:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-15T10:12:41.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Copy JS files for JSdelivr urls  ",
+      "number": 641,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-13T10:37:45.000Z",
+      "dateUpdated": "2023-06-13T11:55:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-13T11:55:39.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add check if SDK was initialized inside BidLoader",
+      "number": 636,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-06T08:45:47.000Z",
+      "dateUpdated": "2023-06-12T11:24:53.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-12T11:24:50.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update config ids",
+      "number": 637,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-06T09:23:22.000Z",
+      "dateUpdated": "2023-06-07T15:01:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-07T15:01:50.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

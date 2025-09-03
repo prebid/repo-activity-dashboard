@@ -4,1123 +4,1261 @@
     "year": 2025,
     "month": 2,
     "itemCount": 32,
-    "lastUpdated": "2025-08-30T16:17:51.164Z"
+    "lastUpdated": "2025-09-02T23:36:35.265Z"
   },
   "items": [
     {
       "title": "New Adapter: Seedtag",
       "number": 4198,
-      "author": "sangarbe",
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
       "assignees": [
         "bsardo",
         "ccorbo"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "bsardo"
-        ],
-        "pending": [
-          "sangarbe"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sangarbe",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-11T10:18:53.000Z",
       "dateUpdated": "2025-02-25T18:02:51.000Z",
       "status": "merged",
       "dateMerged": "2025-02-25T18:02:50.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "sangarbe": {
-            "count": 6,
-            "author": "sangarbe"
-          }
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Artechnology - Attekmi (SmartHub) alias",
       "number": 4165,
-      "author": "SmartHubSolutions",
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "SmartHubSolutions"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-20T07:36:41.000Z",
       "dateUpdated": "2025-02-25T16:11:49.000Z",
       "status": "merged",
       "dateMerged": "2025-02-25T16:11:49.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "SmartHubSolutions": {
-            "count": 2,
-            "author": "SmartHubSolutions"
-          }
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Adinify - Attekmi (SmartHub) alias",
       "number": 4164,
-      "author": "SmartHubSolutions",
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "SmartHubSolutions"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-20T07:06:36.000Z",
       "dateUpdated": "2025-02-26T06:55:34.000Z",
       "status": "merged",
       "dateMerged": "2025-02-25T15:11:29.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "SmartHubSolutions": {
-            "count": 2,
-            "author": "SmartHubSolutions"
-          }
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Jambojar - Attekmi (SmartHub) Alias",
       "number": 4199,
-      "author": "SmartHubSolutions",
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-12T11:55:49.000Z",
       "dateUpdated": "2025-02-25T04:00:52.000Z",
       "status": "merged",
       "dateMerged": "2025-02-25T04:00:52.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "SmartHubSolutions": {
-            "count": 1,
-            "author": "SmartHubSolutions"
-          }
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Attekmi: Remove partnerName param requirement",
       "number": 4208,
-      "author": "SmartHubSolutions",
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": [
-          "SmartHubSolutions"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-13T17:20:58.000Z",
       "dateUpdated": "2025-02-25T03:51:25.000Z",
       "status": "merged",
       "dateMerged": "2025-02-25T03:51:25.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "SmartHubSolutions": {
-            "count": 4,
-            "author": "SmartHubSolutions"
-          }
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 4,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Upgrade to Go 1.24",
       "number": 4234,
-      "author": "bsardo",
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
       "assignees": [
         "SyntaxNode",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "SyntaxNode",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-21T17:07:30.000Z",
       "dateUpdated": "2025-02-24T17:26:06.000Z",
       "status": "merged",
       "dateMerged": "2025-02-24T17:26:06.000Z",
-      "labels": [
-        "do not port"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Undertone: Declare OpenRTB 2.6 support",
       "number": 4204,
-      "author": "tamarm-p",
+      "author": {
+        "login": "tamarm-p",
+        "id": 198902782
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-13T12:55:44.000Z",
       "dateUpdated": "2025-02-20T03:39:49.000Z",
       "status": "merged",
       "dateMerged": "2025-02-20T03:39:49.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "shahaf-undertone": {
-            "count": 3,
-            "author": "shahaf-undertone"
-          },
-          "idanbotbol": {
-            "count": 4,
-            "author": "idanbotbol"
-          },
-          "tamarm-p": {
-            "count": 3,
-            "author": "tamarm-p"
-          }
+      "commitAuthors": {
+        "101515807": {
+          "identifier": "101515807",
+          "displayName": "shahaf-undertone",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "109655567": {
+          "identifier": "109655567",
+          "displayName": "idanbotbol",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "198902782": {
+          "identifier": "198902782",
+          "displayName": "tamarm-p",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "RTB House: Declare OpenRTB 2.6 support",
       "number": 4202,
-      "author": "piotrj-rtbh",
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
       "assignees": [
         "VeronikaSolovei9",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "VeronikaSolovei9"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-13T11:56:15.000Z",
       "dateUpdated": "2025-02-20T03:27:40.000Z",
       "status": "merged",
       "dateMerged": "2025-02-20T03:27:39.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "piotrj-rtbh": {
-            "count": 1,
-            "author": "piotrj-rtbh"
-          }
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "OMS: Video support",
       "number": 4172,
-      "author": "denis-s-oms",
+      "author": {
+        "login": "denis-s-oms",
+        "id": 181628772
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "ccorbo",
-          "scr-oath",
-          "denis-s-oms"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "denis-s-oms",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-22T13:14:16.000Z",
       "dateUpdated": "2025-02-19T21:45:12.000Z",
       "status": "merged",
       "dateMerged": "2025-02-19T21:45:11.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "denis-s-oms": {
-            "count": 5,
-            "author": "denis-s-oms"
-          }
+      "commitAuthors": {
+        "181628772": {
+          "identifier": "181628772",
+          "displayName": "denis-s-oms",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rubicon: Remove pchain support",
       "number": 4166,
-      "author": "AntoxaAntoxic",
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": [
-          "AntoxaAntoxic"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-20T08:58:43.000Z",
       "dateUpdated": "2025-02-19T20:47:26.000Z",
       "status": "merged",
       "dateMerged": "2025-02-19T20:47:26.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "AntoxaAntoxic": {
-            "count": 3,
-            "author": "AntoxaAntoxic"
-          }
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rubicon: Remove imp.ext.context references",
       "number": 3918,
-      "author": "CTMBNara",
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "VeronikaSolovei9",
-          "bsardo"
-        ],
-        "pending": [
-          "CTMBNara"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-09-13T11:33:38.000Z",
       "dateUpdated": "2025-02-19T18:10:01.000Z",
       "status": "merged",
       "dateMerged": "2025-02-19T18:10:01.000Z",
-      "labels": [
-        "do not port",
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "ddubyk": {
-            "count": 4,
-            "author": "ddubyk"
-          }
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 4,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Mediasquare",
       "number": 3994,
-      "author": "mediasquare-alexandre",
+      "author": {
+        "login": "mediasquare-alexandre",
+        "id": 101182841
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "mediasquare-alexandre",
-          "matthieularere-msq",
-          "bsardo"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mediasquare-alexandre",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "matthieularere-msq",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-18T13:31:29.000Z",
       "dateUpdated": "2025-02-18T18:12:21.000Z",
       "status": "merged",
       "dateMerged": "2025-02-18T18:12:20.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 16,
-        "byAuthor": {
-          "harribey": {
-            "count": 8,
-            "author": "harribey"
-          },
-          "mediasquare-alexandre": {
-            "count": 8,
-            "author": "mediasquare-alexandre"
-          }
+      "commitAuthors": {
+        "101182841": {
+          "identifier": "101182841",
+          "displayName": "mediasquare-alexandre",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "harribey": {
+          "identifier": "harribey",
+          "displayName": "harribey",
+          "count": 8,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "EEA countries account-level override",
       "number": 4118,
-      "author": "przemkaczmarek",
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
       "assignees": [
         "bsardo",
         "VeronikaSolovei9"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "VeronikaSolovei9"
-        ],
-        "pending": [
-          "SyntaxNode"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-12-20T13:17:04.000Z",
       "dateUpdated": "2025-02-14T18:04:08.000Z",
       "status": "merged",
       "dateMerged": "2025-02-14T18:04:08.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "przemkaczmarek": {
-            "count": 10,
-            "author": "przemkaczmarek"
-          }
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 10,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Remove deprecated github.com/pkg/errors",
       "number": 4174,
-      "author": "linux019",
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-27T14:32:53.000Z",
       "dateUpdated": "2025-02-14T07:37:55.000Z",
       "status": "merged",
       "dateMerged": "2025-02-14T03:27:10.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "oleksandr": {
-            "count": 2,
-            "author": "oleksandr"
-          }
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Adt - Admatic alias",
       "number": 4183,
-      "author": "bakicam",
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": [
-          "bakicam",
-          "farukcam"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bakicam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "farukcam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-29T09:19:34.000Z",
       "dateUpdated": "2025-02-12T19:36:21.000Z",
       "status": "merged",
       "dateMerged": "2025-02-12T19:36:20.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 71,
-        "byAuthor": {
-          "bakicam": {
-            "count": 36,
-            "author": "bakicam"
-          },
-          "farukcam": {
-            "count": 35,
-            "author": "farukcam"
-          }
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 35,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 36,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Loopme",
       "number": 4023,
-      "author": "ambalashov",
+      "author": {
+        "login": "ambalashov",
+        "id": 1453605
+      },
       "assignees": [
         "bsardo",
         "MaksymTeqBlaze"
       ],
-      "reviewers": {
-        "approved": [
-          "MaksymTeqBlaze",
-          "bsardo"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "PyjamaWarrior",
-          "ambalashov"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "PyjamaWarrior",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ambalashov",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-10-29T14:23:26.000Z",
       "dateUpdated": "2025-02-12T17:49:48.000Z",
       "status": "merged",
       "dateMerged": "2025-02-12T17:49:48.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "ambalashov": {
-            "count": 6,
-            "author": "ambalashov"
-          }
+      "commitAuthors": {
+        "1453605": {
+          "identifier": "1453605",
+          "displayName": "ambalashov",
+          "count": 6,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Tighten security on code-path-changes workflow",
       "number": 4193,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-04T17:52:44.000Z",
       "dateUpdated": "2025-02-12T16:59:05.000Z",
       "status": "merged",
       "dateMerged": "2025-02-12T16:59:05.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bretg": {
-            "count": 1,
-            "author": "bretg"
-          }
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Addigi - Attekmi (SmartHub) Alias",
       "number": 4176,
-      "author": "SmartHubSolutions",
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
       "assignees": [
         "bsardo",
         "SyntaxNode"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "SyntaxNode"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-28T12:55:45.000Z",
       "dateUpdated": "2025-02-12T15:43:40.000Z",
       "status": "merged",
       "dateMerged": "2025-02-12T15:43:39.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "SmartHubSolutions": {
-            "count": 1,
-            "author": "SmartHubSolutions"
-          }
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "sspBC: Endpoint update",
       "number": 4184,
-      "author": "spanwp",
+      "author": {
+        "login": "spanwp",
+        "id": 104571800
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "wojciech-bialy-wpm",
-          "alkmc",
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "wojciech-bialy-wpm",
+          "state": "APPROVED"
+        },
+        {
+          "login": "alkmc",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-29T09:40:35.000Z",
       "dateUpdated": "2025-02-11T22:57:21.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T22:57:21.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "spanwp": {
-            "count": 1,
-            "author": "spanwp"
-          }
+      "commitAuthors": {
+        "104571800": {
+          "identifier": "104571800",
+          "displayName": "spanwp",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Pubrise: Fix endpoint",
       "number": 4190,
-      "author": "Pubrise",
+      "author": {
+        "login": "Pubrise",
+        "id": 177027029
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-03T09:36:35.000Z",
       "dateUpdated": "2025-02-11T21:56:24.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T21:56:23.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Pubrise": {
-            "count": 3,
-            "author": "Pubrise"
-          }
+      "commitAuthors": {
+        "177027029": {
+          "identifier": "177027029",
+          "displayName": "Pubrise",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Copper6SSP: Fix endpoint",
       "number": 4191,
-      "author": "Copper6SSP",
+      "author": {
+        "login": "Copper6SSP",
+        "id": 172067567
+      },
       "assignees": [
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "hhhjort"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-02-03T10:13:06.000Z",
       "dateUpdated": "2025-02-11T21:44:37.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T21:44:37.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 13,
-        "byAuthor": {
-          "Copper6SSP": {
-            "count": 13,
-            "author": "Copper6SSP"
-          }
+      "commitAuthors": {
+        "172067567": {
+          "identifier": "172067567",
+          "displayName": "Copper6SSP",
+          "count": 13,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Connatix: Add viewability field",
       "number": 4168,
-      "author": "monicaroxanabota",
+      "author": {
+        "login": "monicaroxanabota",
+        "id": 55977025
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "karimMourra",
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": [
-          "monicaroxanabota"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "karimMourra",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "monicaroxanabota",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-20T15:47:41.000Z",
       "dateUpdated": "2025-02-11T17:03:22.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T17:03:22.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "monicaroxanabota": {
-            "count": 1,
-            "author": "monicaroxanabota"
-          }
+      "commitAuthors": {
+        "55977025": {
+          "identifier": "55977025",
+          "displayName": "monicaroxanabota",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Smoot",
       "number": 4148,
-      "author": "leamarty",
+      "author": {
+        "login": "leamarty",
+        "id": 3124547
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "ccorbo",
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": [
-          "leamarty"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "leamarty",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-13T16:08:01.000Z",
       "dateUpdated": "2025-02-11T16:54:25.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T16:54:25.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "leamarty": {
-            "count": 5,
-            "author": "leamarty"
-          }
+      "commitAuthors": {
+        "3124547": {
+          "identifier": "3124547",
+          "displayName": "leamarty",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "NextMillennium: Adapter and server version",
       "number": 4154,
-      "author": "allar15",
+      "author": {
+        "login": "allar15",
+        "id": 60257866
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "pm-isha-bharti",
-          "bsardo"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-16T13:29:46.000Z",
       "dateUpdated": "2025-02-11T16:45:18.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T16:45:18.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "allar15": {
-            "count": 1,
-            "author": "allar15"
-          }
+      "commitAuthors": {
+        "60257866": {
+          "identifier": "60257866",
+          "displayName": "allar15",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix graceful shutdown if admin server is not enabled",
       "number": 4155,
-      "author": "linux019",
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "guscarreon",
-          "bsardo"
-        ],
-        "pending": [
-          "linux019"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-17T08:08:17.000Z",
       "dateUpdated": "2025-02-12T08:40:45.000Z",
       "status": "merged",
       "dateMerged": "2025-02-11T16:36:16.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "oleksandr": {
-            "count": 3,
-            "author": "oleksandr"
-          }
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 3,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Adnuntius: Copy advertiserDomains to ORTB bid response adomain",
       "number": 4113,
-      "author": "antosarho",
+      "author": {
+        "login": "antosarho",
+        "id": 2877398
+      },
       "assignees": [
         "guscarreon",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "przemkaczmarek",
-          "guscarreon"
-        ],
-        "pending": [
-          "bsardo",
-          "antosarho"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "antosarho",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-12-17T00:01:38.000Z",
       "dateUpdated": "2025-02-06T18:53:42.000Z",
       "status": "merged",
       "dateMerged": "2025-02-06T18:53:42.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "antosarho": {
-            "count": 1,
-            "author": "antosarho"
-          }
+      "commitAuthors": {
+        "2877398": {
+          "identifier": "2877398",
+          "displayName": "antosarho",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Compass: Add user sync GPP support",
       "number": 4093,
-      "author": "CompassSSP",
+      "author": {
+        "login": "CompassSSP",
+        "id": 95415988
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "przemkaczmarek"
-        ],
-        "pending": [
-          "CompassSSP"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CompassSSP",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-12-09T21:36:32.000Z",
       "dateUpdated": "2025-02-06T15:41:14.000Z",
       "status": "merged",
       "dateMerged": "2025-02-06T15:41:14.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 9,
-        "byAuthor": {
-          "CompassSSP": {
-            "count": 9,
-            "author": "CompassSSP"
-          }
+      "commitAuthors": {
+        "95415988": {
+          "identifier": "95415988",
+          "displayName": "CompassSSP",
+          "count": 9,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Add JSON RawMessage alias, vars to consts and fix godoc comments",
       "number": 4188,
-      "author": "scr-oath",
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-31T19:34:18.000Z",
       "dateUpdated": "2025-02-05T23:30:52.000Z",
       "status": "merged",
       "dateMerged": "2025-02-05T23:30:52.000Z",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "scr-oath": {
-            "count": 1,
-            "author": "scr-oath"
-          }
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New adapter: Connektai - Xeworks alias",
       "number": 4149,
-      "author": "dimashirokov",
+      "author": {
+        "login": "dimashirokov",
+        "id": 10505753
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "scr-oath",
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-14T12:11:55.000Z",
       "dateUpdated": "2025-02-05T23:10:59.000Z",
       "status": "merged",
       "dateMerged": "2025-02-05T23:10:59.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "dimashirokov": {
-            "count": 2,
-            "author": "dimashirokov"
-          }
+      "commitAuthors": {
+        "10505753": {
+          "identifier": "10505753",
+          "displayName": "dimashirokov",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Rubicon: Pass imp[].ext.tid",
       "number": 4153,
-      "author": "AntoxaAntoxic",
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-01-16T10:25:22.000Z",
       "dateUpdated": "2025-02-05T23:01:41.000Z",
       "status": "merged",
       "dateMerged": "2025-02-05T23:01:41.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "AntoxaAntoxic": {
-            "count": 2,
-            "author": "AntoxaAntoxic"
-          }
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: 152 Media - Adkernel alias",
       "number": 4116,
-      "author": "ckbo3hrk",
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
       "assignees": [
         "bsardo",
         "guscarreon"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo",
-          "guscarreon"
-        ],
-        "pending": []
-      },
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-12-19T09:05:17.000Z",
       "dateUpdated": "2025-02-11T15:25:57.000Z",
       "status": "merged",
       "dateMerged": "2025-02-05T16:59:52.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "ckbo3hrk": {
-            "count": 2,
-            "author": "ckbo3hrk"
-          }
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New Adapter: Bidtheatre",
       "number": 4069,
-      "author": "andreasgreen",
+      "author": {
+        "login": "andreasgreen",
+        "id": 1759626
+      },
       "assignees": [
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": {
-        "approved": [
-          "bsardo"
-        ],
-        "pending": [
-          "github-actions[bot]",
-          "przemkaczmarek",
-          "andreasgreen",
-          "VeronikaSolovei9",
-          "pm-nikhil-vaidya"
-        ]
-      },
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "andreasgreen",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2024-11-21T15:36:08.000Z",
       "dateUpdated": "2025-02-04T22:04:47.000Z",
       "status": "merged",
       "dateMerged": "2025-02-04T22:04:47.000Z",
-      "labels": [
-        "adapter"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "andreasgreen": {
-            "count": 3,
-            "author": "andreasgreen"
-          }
+      "commitAuthors": {
+        "1759626": {
+          "identifier": "1759626",
+          "displayName": "andreasgreen",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

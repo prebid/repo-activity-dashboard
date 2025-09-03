@@ -1,0 +1,546 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 9,
+    "itemCount": 14,
+    "lastUpdated": "2025-09-02T23:36:35.283Z"
+  },
+  "items": [
+    {
+      "title": "Changed FS bidder names to mixed case",
+      "number": 2390,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-26T20:36:46.000Z",
+      "dateUpdated": "2023-03-13T13:55:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-29T20:45:20.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Load bidders names from file system in lowercase",
+      "number": 2388,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-22T23:31:09.000Z",
+      "dateUpdated": "2023-03-13T13:55:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-23T20:17:35.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "consumable adapter: add schain and coppa support",
+      "number": 2361,
+      "author": {
+        "login": "jpiros",
+        "id": 6511755
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jpiros",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-08-25T16:15:26.000Z",
+      "dateUpdated": "2022-09-20T19:50:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-20T19:50:47.000Z",
+      "commitAuthors": {
+        "6511755": {
+          "identifier": "6511755",
+          "displayName": "jpiros",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adapter aliases: moved adapter related configs to bidder.yaml files",
+      "number": 2353,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-08-18T03:12:22.000Z",
+      "dateUpdated": "2023-03-13T13:55:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-20T12:58:41.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 24,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "pubmatic adapter: add param prebiddealpriority",
+      "number": 2281,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T02:43:54.000Z",
+      "dateUpdated": "2022-10-08T04:04:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-19T19:58:11.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab Adapter: Add support for ad unit sizes",
+      "number": 2364,
+      "author": {
+        "login": "Mufas61",
+        "id": 17430344
+      },
+      "assignees": [
+        "mansinahar",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nkloeber",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "brushmate",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-30T14:34:58.000Z",
+      "dateUpdated": "2022-09-15T17:16:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-15T17:16:42.000Z",
+      "commitAuthors": {
+        "Lion Pierau": {
+          "identifier": "Lion Pierau",
+          "displayName": "Lion Pierau",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GDPR: add enforce_algo config flag and convert enforce_purpose to bool",
+      "number": 2330,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-29T19:04:38.000Z",
+      "dateUpdated": "2022-09-14T01:50:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-14T01:50:48.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 16,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Resolves CVE-2022-27664",
+      "number": 2376,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-13T17:41:15.000Z",
+      "dateUpdated": "2022-09-26T20:08:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-13T19:08:12.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AMP Endpoint: support parameters consentType and gdprApplies",
+      "number": 2338,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-08-03T21:42:33.000Z",
+      "dateUpdated": "2022-09-13T11:53:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-13T11:53:09.000Z",
+      "commitAuthors": {
+        "Gus Carreon": {
+          "identifier": "Gus Carreon",
+          "displayName": "Gus Carreon",
+          "count": 32,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Dianomi - added usync for redirect",
+      "number": 2368,
+      "author": {
+        "login": "DianomiJH",
+        "id": 84312830
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "PENDING"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "DianomiJH",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-05T14:07:22.000Z",
+      "dateUpdated": "2022-09-13T06:50:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-13T06:50:37.000Z",
+      "commitAuthors": {
+        "84312830": {
+          "identifier": "84312830",
+          "displayName": "DianomiJH",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Create issue_prioritization.yml",
+      "number": 2372,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "PENDING"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-06T19:14:10.000Z",
+      "dateUpdated": "2023-03-13T13:55:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-08T20:42:20.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update yaml files for gzip supported bidders",
+      "number": 2365,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-31T15:27:13.000Z",
+      "dateUpdated": "2022-09-06T17:21:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-06T17:21:46.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius Adapter: Set no cookies as a parameter",
+      "number": 2352,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-17T13:49:51.000Z",
+      "dateUpdated": "2022-09-06T17:11:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-06T17:11:02.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove support for yssp adapter",
+      "number": 2360,
+      "author": {
+        "login": "mansinahar",
+        "id": 11689819
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "oath-jac",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-24T16:46:25.000Z",
+      "dateUpdated": "2022-09-01T17:15:15.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-01T17:15:15.000Z",
+      "commitAuthors": {
+        "11689819": {
+          "identifier": "11689819",
+          "displayName": "mansinahar",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}
