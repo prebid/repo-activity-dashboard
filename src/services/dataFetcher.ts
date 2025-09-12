@@ -185,7 +185,7 @@ export class DataFetcher {
     console.log(`🔄 Incremental sync for ${repo.name}...`);
     
     const syncState = await this.storageService.loadSyncState(repo);
-    const since = syncState?.lastIncrementalSync || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const since = syncState?.lastIncrementalSync || new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
     
     try {
       let allCurrentOpenPRs: PRData[] = [];

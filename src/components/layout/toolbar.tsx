@@ -1,6 +1,6 @@
 'use client';
 
-import { Sun, Moon, Menu, Home } from 'lucide-react';
+import { Sun, Moon, Menu, Home, Users } from 'lucide-react';
 import { useTheme } from '../providers/theme-provider';
 import Image from 'next/image';
 import {
@@ -41,9 +41,13 @@ export function Toolbar() {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-8 space-y-2">
-                  <a href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
+                  <a href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
                     <Home className="h-5 w-5" />
                     <span>Dashboard</span>
+                  </a>
+                  <a href="/contributors" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
+                    <Users className="h-5 w-5" />
+                    <span>Contributors</span>
                   </a>
                 </nav>
               </SheetContent>

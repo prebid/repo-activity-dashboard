@@ -101,6 +101,10 @@
   display: inline;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .inline-flex {
   display: inline-flex;
 }
@@ -127,6 +131,14 @@
 
 .h-\[350px\] {
   height: 350px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
+.h-\[2400px\] {
+  height: 2400px;
 }
 
 .h-\[var\(--radix-select-trigger-height\)\] {

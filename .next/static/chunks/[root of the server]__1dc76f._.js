@@ -8422,7 +8422,7 @@ class Router {
         };
         if ("TURBOPACK compile-time truthy", 1) {
             const { BloomFilter } = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/bloom-filter.js [client] (ecmascript)");
-            const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":2,"errorRate":0.0001,"numBits":39,"numHashes":14,"bitArray":[0,1,1,0,0,1,1,1,0,0,0,0,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0]}'));
+            const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":3,"errorRate":0.0001,"numBits":58,"numHashes":14,"bitArray":[1,1,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,1,1,1,0,1,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1,0]}'));
             const staticFilterData = routerFilterSValue ? routerFilterSValue : undefined;
             const routerFilterDValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":0,"errorRate":0.0001,"numBits":0,"numHashes":null,"bitArray":[]}'));
             const dynamicFilterData = routerFilterDValue ? routerFilterDValue : undefined;

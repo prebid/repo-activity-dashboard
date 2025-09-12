@@ -7,6 +7,7 @@ interface FetchOptions {
   onProgress?: (current: number, total: number) => void;
   onBatch?: (items: any[]) => Promise<void>;
   maxItems?: number;
+  since?: Date;
 }
 
 export class GitHubService {
@@ -60,16 +61,19 @@ export class GitHubService {
       
       const items = response.data || [];
       
-      // For closed PRs, check if we've gone too far back in time
-      if (endpoint.includes('pulls-closed') && items.length > 0) {
+      // For closed PRs or issues, check if we've gone too far back in time
+      if ((endpoint.includes('pulls-closed') || endpoint.includes('issues-closed')) && items.length > 0) {
         const lastItem = items[items.length - 1];
         const lastUpdated = new Date(lastItem.updated_at);
         
-        // If the last item is before 2020, filter and stop
-        if (lastUpdated < new Date('2020-01-01')) {
-          console.log(`    ⏹️  Reached PRs from ${lastUpdated.getFullYear()}, filtering and stopping...`);
-          // Only include items updated in 2020 or later
-          const filtered = items.filter((item: any) => new Date(item.updated_at) >= new Date('2020-01-01'));
+        // Check against the cutoff date passed in options
+        const cutoffDate = options.since || new Date('2020-01-01');
+        
+        // If the last item is before cutoff, filter and stop
+        if (lastUpdated < cutoffDate) {
+          console.log(`    ⏹️  Reached items from ${lastUpdated.toISOString().split('T')[0]}, stopping pagination (cutoff: ${cutoffDate.toISOString().split('T')[0]})...`);
+          // Only include items updated after cutoff
+          const filtered = items.filter((item: any) => new Date(item.updated_at) >= cutoffDate);
           results.push(...filtered);
           totalItems += filtered.length;
           break; // Stop pagination
@@ -82,7 +86,7 @@ export class GitHubService {
       // Call progress callback
       if (options.onProgress) {
         const estimatedTotal = this.estimateTotalFromLink(response.headers?.link);
-        options.onProgress(totalItems, estimatedTotal || totalItems);
+        options.onProgress(totalItems, estimatedTotal || 0);
       }
       
       
@@ -106,10 +110,8 @@ export class GitHubService {
 
   private estimateTotalFromLink(linkHeader?: string): number {
     if (!linkHeader) return 0;
-    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
-    if (match) {
-      return parseInt(match[1]) * 100;
-    }
+    // Don't try to estimate total from last page - it's often wrong for filtered results
+    // GitHub's pagination can include total pages for ALL items, not just filtered ones
     return 0;
   }
 
@@ -143,8 +145,9 @@ export class GitHubService {
       {
         ...options,
         onProgress: (current, total) => {
-          if (total > current) {
-            console.log(`    Progress: ${current}/${total} PRs fetched`);
+          // Don't show estimated total since it's often wrong for filtered queries
+          if (current > 0 && current % 100 === 0) {
+            console.log(`    Progress: ${current} PRs fetched...`);
           }
         }
       }
@@ -165,14 +168,21 @@ export class GitHubService {
         per_page: 100,
         page,
         sort: 'updated',
-        direction: 'desc',
-        ...(since && { since: since.toISOString() })
+        direction: 'desc'
+        // Note: pulls endpoint doesn't support 'since' parameter - we filter after
       }),
-      options
+      { ...options, since } // Pass since date to pagination logic
     );
     
-    const mergedPulls = pulls.filter(pr => pr.merged_at !== null);
-    console.log(`    Filtered ${mergedPulls.length} merged PRs from ${pulls.length} closed PRs`);
+    // Filter for merged PRs that were updated after 'since' date
+    let mergedPulls = pulls.filter(pr => pr.merged_at !== null);
+    if (since) {
+      const originalCount = mergedPulls.length;
+      mergedPulls = mergedPulls.filter(pr => new Date(pr.updated_at) >= since);
+      console.log(`    Filtered ${mergedPulls.length} merged PRs (from ${originalCount} total merged, ${pulls.length} total closed)`);
+    } else {
+      console.log(`    Filtered ${mergedPulls.length} merged PRs from ${pulls.length} closed PRs`);
+    }
     return this.processPRs(repo, mergedPulls, options);
   }
 
@@ -349,8 +359,9 @@ export class GitHubService {
       {
         ...options,
         onProgress: (current, total) => {
-          if (total > current) {
-            console.log(`    Progress: ${current}/${total} issues fetched`);
+          // Don't show estimated total since it's often wrong for filtered queries
+          if (current > 0 && current % 100 === 0) {
+            console.log(`    Progress: ${current} issues fetched...`);
           }
         }
       }
@@ -376,7 +387,7 @@ export class GitHubService {
         direction: 'desc',
         ...(since && { since: since.toISOString() })
       }),
-      options
+      { ...options, since } // Pass since date for pagination cutoff
     );
     
     const filteredIssues = issues.filter(issue => !issue.pull_request);
