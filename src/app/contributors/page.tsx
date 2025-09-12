@@ -89,7 +89,7 @@ export default function ContributorsPage() {
       
       // Determine metric index: [openedPRs, mergedPRs, reviewedPRs, mergedCommits, openedIssues]
       let metricIndex = 1; // Default to merged PRs
-      if (metric === 'Opened PRs') metricIndex = 0;
+      if (metric === 'Open PRs') metricIndex = 0;
       else if (metric === 'Merged PRs') metricIndex = 1;
       else if (metric === 'Reviewed PRs') metricIndex = 2;
       else if (metric === 'Merged Commits') metricIndex = 3;
@@ -227,7 +227,7 @@ export default function ContributorsPage() {
             <SelectItem value="Reviewed PRs">Reviewed PRs</SelectItem>
             <SelectItem value="Merged Commits">Merged Commits</SelectItem>
             <SelectItem value="Opened Issues">Opened Issues</SelectItem>
-            <SelectItem value="Opened PRs">Opened PRs</SelectItem>
+            <SelectItem value="Open PRs">Open PRs</SelectItem>
           </SelectContent>
         </Select>
         

@@ -379,7 +379,7 @@ function ContributorsPage() {
             }
             // Determine metric index: [openedPRs, mergedPRs, reviewedPRs, mergedCommits, openedIssues]
             let metricIndex = 1; // Default to merged PRs
-            if (metric === 'Opened PRs') metricIndex = 0;
+            if (metric === 'Open PRs') metricIndex = 0;
             else if (metric === 'Merged PRs') metricIndex = 1;
             else if (metric === 'Reviewed PRs') metricIndex = 2;
             else if (metric === 'Merged Commits') metricIndex = 3;
@@ -596,8 +596,8 @@ function ContributorsPage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                        value: "Opened PRs",
-                                        children: "Opened PRs"
+                                        value: "Open PRs",
+                                        children: "Open PRs"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/contributors/page.tsx",
                                         lineNumber: 230,

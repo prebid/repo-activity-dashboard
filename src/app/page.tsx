@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -20,31 +20,448 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Legend,
 } from 'recharts';
+import contributorData from '../../contributor-repo-timeline.json';
 
-// Repository list
+// Repository list with keys
 const repositories = [
-  'Prebid.js',
-  'Prebid Server',
-  'Prebid Server Java',
-  'Prebid Mobile iOS',
-  'Prebid Mobile Android',
-  'Prebid Docs',
+  { name: 'Prebid.js', key: 'prebid-js', storeKey: 'prebid-js' },
+  { name: 'Prebid Server', key: 'prebid-server', storeKey: 'prebid-server' },
+  { name: 'Prebid Server Java', key: 'prebid-server-java', storeKey: 'prebid-server-java' },
+  { name: 'Prebid Mobile iOS', key: 'prebid-mobile-ios', storeKey: 'prebid-mobile-ios' },
+  { name: 'Prebid Mobile Android', key: 'prebid-mobile-android', storeKey: 'prebid-mobile-android' },
+  { name: 'Prebid Docs', key: 'prebid-github-io', storeKey: 'prebid-github-io' },
 ];
 
-// Dummy data for the chart
-const chartData = [
-  { month: 'Jan', value: 186 },
-  { month: 'Feb', value: 305 },
-  { month: 'Mar', value: 237 },
-  { month: 'Apr', value: 73 },
-  { month: 'May', value: 209 },
-  { month: 'Jun', value: 214 },
-];
+interface RepoStats {
+  openPRs: number;
+  mergedPRs: number;
+  openedIssues: number;
+  contributors: number;
+}
+
+interface OpenPRData {
+  metadata: {
+    itemCount: number;
+  };
+  items: any[];
+}
+
+interface ChartDataPoint {
+  period: string;
+  mergedPRs: number;
+  contributors: number;
+  openedIssues: number;
+}
 
 export default function Home() {
-  const [activeMetric, setActiveMetric] = useState('open');
-  const [timeRange, setTimeRange] = useState('This Week');
+  const [activeMetric, setActiveMetric] = useState('merged');
+  const [timeRange, setTimeRange] = useState('This Year');
+  const [repoStats, setRepoStats] = useState<Record<string, RepoStats>>({});
+  const [openPRCounts, setOpenPRCounts] = useState<Record<string, number>>({});
+  const [chartDataByRepo, setChartDataByRepo] = useState<Record<string, ChartDataPoint[]>>({});
+
+  // Load open PR counts on mount
+  useEffect(() => {
+    const loadOpenPRs = async () => {
+      const counts: Record<string, number> = {};
+      
+      for (const repo of repositories) {
+        try {
+          const response = await fetch(`/store/repos/${repo.storeKey}/open-prs.json`);
+          if (response.ok) {
+            const data: OpenPRData = await response.json();
+            counts[repo.key] = data.metadata?.itemCount || data.items?.length || 0;
+          } else {
+            counts[repo.key] = 0;
+          }
+        } catch (error) {
+          console.error(`Failed to load open PRs for ${repo.name}:`, error);
+          counts[repo.key] = 0;
+        }
+      }
+      
+      setOpenPRCounts(counts);
+    };
+    
+    loadOpenPRs();
+  }, []);
+
+  // Process data based on time range
+  useEffect(() => {
+    const processData = () => {
+      if (!contributorData || !contributorData.data) {
+        console.error('No contributor data available!');
+        return;
+      }
+
+      const stats: Record<string, RepoStats> = {};
+      const chartData: Record<string, ChartDataPoint[]> = {};
+      
+      // Initialize stats for each repo
+      repositories.forEach(repo => {
+        stats[repo.key] = {
+          openPRs: openPRCounts[repo.key] || 0,
+          mergedPRs: 0,
+          openedIssues: 0,
+          contributors: 0
+        };
+        chartData[repo.key] = [];
+      });
+
+      const currentDate = new Date();
+      const currentYear = 2025;
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentWeek = getWeekNumber(currentDate);
+      
+      // Process based on time range
+      if (timeRange === 'This Year' || timeRange === 'Last Year') {
+        // Monthly view for year ranges
+        const targetYear = timeRange === 'This Year' ? '25' : '24';
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        
+        // Determine the last month to show (don't show future months for current year)
+        const lastMonth = (timeRange === 'This Year') ? currentMonth : 12;
+        
+        repositories.forEach(repo => {
+          const monthlyData: ChartDataPoint[] = [];
+          
+          for (let month = 1; month <= lastMonth; month++) {
+            const monthKey = `${targetYear}-${String(month).padStart(2, '0')}`;
+            let monthMerged = 0;
+            let monthIssues = 0;
+            const monthContributors = new Set<string>();
+            
+            // Aggregate data for this month
+            Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+              const repoData = repos[repo.key];
+              if (repoData && repoData.m && repoData.m[monthKey]) {
+                const metrics = repoData.m[monthKey];
+                const openedPRs = metrics[0] || 0; // All PRs (open + merged)
+                const merged = metrics[1] || 0;
+                const issues = metrics[4] || 0;
+                
+                // Count as contributor if they opened PRs, had PRs merged, or opened issues
+                if (openedPRs > 0 || issues > 0) {
+                  monthContributors.add(contributor);
+                  monthMerged += merged;
+                  monthIssues += issues;
+                }
+              }
+            });
+            
+            monthlyData.push({
+              period: monthNames[month - 1],
+              mergedPRs: monthMerged,
+              contributors: monthContributors.size,
+              openedIssues: monthIssues
+            });
+            
+            // Add to totals
+            stats[repo.key].mergedPRs += monthMerged;
+            stats[repo.key].openedIssues += monthIssues;
+          }
+          
+          chartData[repo.key] = monthlyData;
+        });
+      } else if (timeRange === 'This Month' || timeRange === 'Last Month') {
+        // Weekly view for month ranges
+        const targetMonth = timeRange === 'This Month' ? currentMonth : (currentMonth === 1 ? 12 : currentMonth - 1);
+        const targetYear = (timeRange === 'Last Month' && currentMonth === 1) ? currentYear - 1 : currentYear;
+        
+        // Find all weeks that fall within this month
+        repositories.forEach(repo => {
+          const weeklyData: ChartDataPoint[] = [];
+          const weekTotals: { [week: string]: { merged: number; issues: number; contributors: Set<string> } } = {};
+          
+          // Get the first and last day of the month
+          const firstDay = new Date(targetYear, targetMonth - 1, 1);
+          let lastDay = new Date(targetYear, targetMonth, 0);
+          
+          // For "This Month", don't go beyond current date
+          if (timeRange === 'This Month' && lastDay > currentDate) {
+            lastDay = currentDate;
+          }
+          
+          // Calculate week numbers for the month
+          const firstWeek = getWeekNumber(firstDay);
+          const lastWeek = getWeekNumber(lastDay);
+          
+          // Initialize weeks
+          for (let week = firstWeek; week <= lastWeek; week++) {
+            const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
+            weekTotals[weekKey] = { merged: 0, issues: 0, contributors: new Set() };
+          }
+          
+          // Aggregate weekly data
+          Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+            const repoData = repos[repo.key];
+            if (repoData && repoData.w) {
+              for (let week = firstWeek; week <= lastWeek; week++) {
+                const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
+                if (repoData.w[weekKey]) {
+                  const metrics = repoData.w[weekKey];
+                  const openedPRs = metrics[0] || 0; // All PRs (open + merged)
+                  const merged = metrics[1] || 0;
+                  const issues = metrics[4] || 0;
+                  
+                  // Count as contributor if they opened PRs, had PRs merged, or opened issues
+                  if (openedPRs > 0 || issues > 0) {
+                    weekTotals[weekKey].contributors.add(contributor);
+                    weekTotals[weekKey].merged += merged;
+                    weekTotals[weekKey].issues += issues;
+                  }
+                }
+              }
+            }
+          });
+          
+          // Convert to chart data
+          let weekNum = 1;
+          for (let week = firstWeek; week <= lastWeek; week++) {
+            const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
+            const totals = weekTotals[weekKey];
+            
+            weeklyData.push({
+              period: `Week ${weekNum}`,
+              mergedPRs: totals.merged,
+              contributors: totals.contributors.size,
+              openedIssues: totals.issues
+            });
+            
+            // Add to totals
+            stats[repo.key].mergedPRs += totals.merged;
+            stats[repo.key].openedIssues += totals.issues;
+            weekNum++;
+          }
+          
+          chartData[repo.key] = weeklyData;
+        });
+      } else if (timeRange === 'This Week' || timeRange === 'Last Week') {
+        // Daily view for week ranges
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const currentDayIndex = currentDate.getDay();
+        // Convert Sunday (0) to 7 for our Mon-Sun week
+        const adjustedDayIndex = currentDayIndex === 0 ? 7 : currentDayIndex;
+        
+        repositories.forEach(repo => {
+          const dailyData: ChartDataPoint[] = [];
+          
+          // For "This Week", only show days up to today
+          const daysToShow = timeRange === 'This Week' ? adjustedDayIndex : 7;
+          
+          for (let i = 0; i < daysToShow; i++) {
+            // This is a placeholder - in production we'd aggregate from actual PR data
+            dailyData.push({
+              period: days[i],
+              mergedPRs: 0,
+              contributors: 0,
+              openedIssues: 0
+            });
+          }
+          
+          chartData[repo.key] = dailyData;
+        });
+      }
+
+      // Calculate total unique contributors for the period
+      repositories.forEach(repo => {
+        const allContributors = new Set<string>();
+        const timeKey = (timeRange === 'This Year' || timeRange === 'Last Year') ? 'y' : 
+                       (timeRange === 'This Month' || timeRange === 'Last Month') ? 'm' : 'w';
+        let targetPeriod = '';
+        
+        if (timeRange === 'This Week') {
+          targetPeriod = `${currentYear}-${String(currentWeek).padStart(2, '0')}`;
+        } else if (timeRange === 'Last Week') {
+          targetPeriod = `${currentYear}-${String(currentWeek - 1).padStart(2, '0')}`;
+        } else if (timeRange === 'This Month') {
+          targetPeriod = `${String(currentYear).slice(-2)}-${String(currentMonth).padStart(2, '0')}`;
+        } else if (timeRange === 'Last Month') {
+          const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+          const year = currentMonth === 1 ? currentYear - 1 : currentYear;
+          targetPeriod = `${String(year).slice(-2)}-${String(lastMonth).padStart(2, '0')}`;
+        } else if (timeRange === 'This Year') {
+          targetPeriod = '25';
+        } else if (timeRange === 'Last Year') {
+          targetPeriod = '24';
+        }
+        
+        Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+          const repoData = repos[repo.key];
+          if (repoData && repoData[timeKey] && repoData[timeKey][targetPeriod]) {
+            const metrics = repoData[timeKey][targetPeriod];
+            const openedPRs = metrics[0] || 0;
+            const issues = metrics[4] || 0;
+            // Count as contributor if they opened PRs or opened issues
+            if (openedPRs > 0 || issues > 0) {
+              allContributors.add(contributor);
+            }
+          }
+        });
+        
+        stats[repo.key].contributors = allContributors.size;
+      });
+
+      setRepoStats(stats);
+      setChartDataByRepo(chartData);
+    };
+    
+    processData();
+  }, [timeRange, openPRCounts]);
+
+  // Helper function to get week number
+  function getWeekNumber(date: Date): number {
+    const year = date.getFullYear();
+    const week = Math.floor((date.getTime() - new Date(year, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
+    return week;
+  }
+
+  const renderRepoCard = (repo: typeof repositories[0]) => {
+    const stats = repoStats[repo.key] || { openPRs: 0, mergedPRs: 0, openedIssues: 0, contributors: 0 };
+    const chartData = chartDataByRepo[repo.key] || [];
+    
+    return (
+      <div key={repo.key} style={{ width: 'calc(33.333% - 0.5rem)' }}>
+        <Card>
+          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
+                {repo.name}
+              </h3>
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
+                Showing total activity
+              </p>
+            </div>
+            <div className="flex">
+              <button
+                type="button"
+                data-active={activeMetric === 'open'}
+                onClick={() => setActiveMetric('open')}
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
+                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
+                }`}
+              >
+                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#10B981' }}>{stats.openPRs}</span>
+              </button>
+              
+              <button
+                type="button"
+                data-active={activeMetric === 'merged'}
+                onClick={() => setActiveMetric('merged')}
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
+                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
+                }`}
+              >
+                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#3B82F6' }}>{stats.mergedPRs}</span>
+              </button>
+              
+              <button
+                type="button"
+                data-active={activeMetric === 'issues'}
+                onClick={() => setActiveMetric('issues')}
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
+                  activeMetric === 'issues' ? 'ring-2 ring-primary/20' : ''
+                }`}
+              >
+                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Opened Issues</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#F59E0B' }}>{stats.openedIssues}</span>
+              </button>
+              
+              <button
+                type="button"
+                data-active={activeMetric === 'contributors'}
+                onClick={() => setActiveMetric('contributors')}
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
+                  activeMetric === 'contributors' ? 'ring-2 ring-primary/20' : ''
+                }`}
+              >
+                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Contributors</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#8B5CF6' }}>{stats.contributors}</span>
+              </button>
+            </div>
+          </div>
+          
+          <CardContent className="pt-6">
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} margin={{ top: 0, right: 30, bottom: 0, left: 0 }}>
+                  <CartesianGrid 
+                    strokeDasharray="3 3" 
+                    vertical={false}
+                    horizontal={true}
+                    strokeOpacity={0.3}
+                  />
+                  <XAxis 
+                    dataKey="period"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 10 }}
+                    stroke="#888888"
+                  />
+                  <YAxis 
+                    yAxisId="left"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 10 }}
+                    stroke="#888888"
+                  />
+                  <YAxis 
+                    yAxisId="right"
+                    orientation="right"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 10 }}
+                    stroke="#888888"
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--background))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: 'var(--radius)',
+                    }}
+                  />
+                  <Legend 
+                    wrapperStyle={{ 
+                      fontSize: '13px',
+                      paddingTop: '5px',
+                      marginTop: '-20px'
+                    }}
+                    verticalAlign="bottom"
+                    height={40}
+                  />
+                  <Bar 
+                    yAxisId="left"
+                    dataKey="mergedPRs" 
+                    fill="#3B82F6"
+                    name="Merged PRs"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar 
+                    yAxisId="right"
+                    dataKey="contributors" 
+                    fill="#8B5CF6"
+                    name="Contributors"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar 
+                    yAxisId="left"
+                    dataKey="openedIssues" 
+                    fill="#F59E0B"
+                    name="Issues"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
 
   return (
     <div className="w-full py-8" style={{ paddingLeft: '0.1rem', paddingRight: '0.1rem', paddingTop: '2rem' }}>
@@ -65,641 +482,15 @@ export default function Home() {
         </Select>
       </div>
       
+      {/* First Row of Charts */}
       <div className="flex flex-row justify-between" style={{ gap: '0.75rem' }}>
-        {/* First Chart */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[0]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
-
-        {/* Second Chart (Duplicate) */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[1]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
-
-        {/* Third Chart (Duplicate) */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[2]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
+        {repositories.slice(0, 3).map((repo) => renderRepoCard(repo))}
       </div>
 
       {/* Second Row of Charts */}
       <div className="flex flex-row justify-between" style={{ gap: '0.75rem', marginTop: '4rem' }}>
-        {/* Fourth Chart */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[3]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
-
-        {/* Fifth Chart */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[4]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
-
-        {/* Sixth Chart */}
-        <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
-          <Card>
-          <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repositories[5]}
-              </h3>
-              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
-                Showing total activity for the last 6 months
-              </p>
-            </div>
-            <div className="flex">
-              <button
-                type="button"
-                data-active={activeMetric === 'open'}
-                onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'merged'}
-                onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'openIssues'}
-                onClick={() => setActiveMetric('openIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'openIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
-              </button>
-              
-              <button
-                type="button"
-                data-active={activeMetric === 'closedIssues'}
-                onClick={() => setActiveMetric('closedIssues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'closedIssues' ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
-              </button>
-            </div>
-          </div>
-          
-          <CardContent className="pt-6">
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                  <CartesianGrid 
-                    strokeDasharray="3 3" 
-                    vertical={false}
-                    horizontal={true}
-                    strokeOpacity={0.3}
-                  />
-                  <XAxis 
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                    stroke="#888888"
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: 'var(--radius)',
-                    }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    fill="#3b82f6"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        </div>
+        {repositories.slice(3, 6).map((repo) => renderRepoCard(repo))}
       </div>
-
     </div>
   );
 }
