@@ -6,6 +6,13 @@ import {
   CardContent,
 } from '@/components/ui/card';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Bar,
   BarChart,
   CartesianGrid,
@@ -36,21 +43,38 @@ const chartData = [
 ];
 
 export default function Home() {
-  const [selectedRepo, setSelectedRepo] = useState(repositories[0]);
   const [activeMetric, setActiveMetric] = useState('open');
+  const [timeRange, setTimeRange] = useState('This Week');
 
   return (
     <div className="w-full py-8" style={{ paddingLeft: '0.1rem', paddingRight: '0.1rem', paddingTop: '2rem' }}>
+      {/* Time Range Selector */}
+      <div style={{ paddingLeft: '1rem', paddingRight: '1rem', marginBottom: '2rem' }}>
+        <Select value={timeRange} onValueChange={setTimeRange}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Select time range" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="This Week">This Week</SelectItem>
+            <SelectItem value="Last Week">Last Week</SelectItem>
+            <SelectItem value="This Month">This Month</SelectItem>
+            <SelectItem value="Last Month">Last Month</SelectItem>
+            <SelectItem value="This Year">This Year</SelectItem>
+            <SelectItem value="Last Year">Last Year</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      
       <div className="flex flex-row justify-between" style={{ gap: '0.75rem' }}>
         {/* First Chart */}
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[0]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -64,7 +88,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -76,7 +100,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -88,7 +112,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -100,7 +124,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -151,11 +175,11 @@ export default function Home() {
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[1]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -169,7 +193,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -181,7 +205,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -193,7 +217,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -205,7 +229,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -256,11 +280,11 @@ export default function Home() {
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[2]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -274,7 +298,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -286,7 +310,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -298,7 +322,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -310,7 +334,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -364,11 +388,11 @@ export default function Home() {
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[3]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -382,7 +406,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -394,7 +418,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -406,7 +430,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -418,7 +442,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -469,11 +493,11 @@ export default function Home() {
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[4]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -487,7 +511,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -499,7 +523,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -511,7 +535,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -523,7 +547,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -574,11 +598,11 @@ export default function Home() {
         <div style={{ width: 'calc(33.333% - 0.5rem)' }}>
           <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
-            <div className="flex flex-1 flex-col justify-center gap-1 py-4" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-xl font-semibold leading-none tracking-tight">
+            <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
                 {repositories[5]}
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity for the last 6 months
               </p>
             </div>
@@ -592,7 +616,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">234</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>234</span>
               </button>
               
               <button
@@ -604,7 +628,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">1,429</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>1,429</span>
               </button>
               
               <button
@@ -616,7 +640,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">87</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>87</span>
               </button>
               
               <button
@@ -628,7 +652,7 @@ export default function Home() {
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Closed Issues</span>
-                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1 }} className="text-foreground">542</span>
+                <span style={{ fontSize: '36px', fontWeight: 'bold', lineHeight: 1, color: '#FF9500' }}>542</span>
               </button>
             </div>
           </div>
@@ -676,24 +700,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Repository Selector */}
-      <div className="mt-6">
-        <div className="flex flex-wrap gap-2">
-          {repositories.map((repo) => (
-            <button
-              key={repo}
-              onClick={() => setSelectedRepo(repo)}
-              className={`px-4 py-2 rounded-lg border transition-all text-sm ${
-                selectedRepo === repo
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-background border-border hover:bg-accent'
-              }`}
-            >
-              {repo}
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
