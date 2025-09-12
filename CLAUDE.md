@@ -3,7 +3,10 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-A TypeScript Node.js application that fetches GitHub repository activity data. The system maintains real-time tracking of open PRs/issues and archives merged PRs and closed issues organized by month. Features advanced rate limiting, pagination support, and concurrent request management.
+A TypeScript Node.js application that fetches GitHub repository activity data, currently being transformed into a production-ready Next.js dashboard. The system maintains real-time tracking of open PRs/issues and archives merged PRs and closed issues organized by month. Features advanced rate limiting, pagination support, and concurrent request management.
+
+## Current Status: Next.js Migration
+The project is being migrated from a CLI data collection tool to a full-stack Next.js dashboard application. See `NEXTJS_INTEGRATION_PLAN.md` for the complete migration strategy.
 
 ## Key Architecture Decisions
 
@@ -215,6 +218,60 @@ The `tests/fixtures/testData.ts` file provides:
 - **DataFetcher**: Sync logic, incremental updates, batch processing
 - **RepoParser**: URL parsing, repository loading
 
+## Next.js Dashboard Implementation
+
+### Development Approach
+1. **Incremental Implementation**: Add dependencies only when needed for specific features
+2. **Hot Module Replacement**: Configured for rapid development with instant updates
+3. **Theme System**: Automatic light/dark mode detection with manual override
+4. **Data Source**: Use existing JSON files from `store/` directory
+5. **Organization Mapping**: Excel file stored externally (S3/HTTP/local) for GitHub username to organization mapping
+
+### Key Implementation Principles
+- **NO UNNECESSARY DEPENDENCIES**: Only install packages when implementing features that need them
+- **USE EXISTING DATA**: Work with current JSON structure, don't recreate data
+- **PRESERVE BACKEND**: Keep all existing data fetching services intact
+- **REAL-TIME FEEDBACK**: Use HMR and fast refresh for immediate visual updates
+- **USER-SPECIFIED CHARTS**: Don't prescribe chart types - wait for specific requirements
+
+### Dashboard Architecture
+```
+app/                    # Next.js App Router
+├── api/               # API routes using existing services
+├── repos/             # Repository views
+├── contributors/      # Contributor views
+└── organizations/     # Organization analytics (from Excel mapping)
+
+components/
+├── ui/                # shadcn/ui components (add as needed)
+├── charts/            # Chart components (user-specified)
+└── layout/            # Layout components
+
+services/              # EXISTING - Keep all current services
+lib/                   # Utilities and data transformations
+```
+
+### Development Workflow
+1. Start with minimal Next.js setup: `next`, `react`, `react-dom`, `typescript`
+2. Add Tailwind/shadcn when building UI: `tailwindcss`, `@radix-ui/*`, `clsx`
+3. Add charts when specified: Evaluate options (recharts, tremor, visx)
+4. Add Excel support when needed: `xlsx`, `@aws-sdk/client-s3`
+5. Add data fetching when needed: `@tanstack/react-query` or `swr`
+
+### Excel Organization Mapping
+```typescript
+// Load from external source (S3/HTTP/local)
+const orgMapping = await loadFromSource(process.env.ORG_MAPPING_SOURCE);
+// Maps: githubUsername -> organization
+```
+
+### Environment Variables
+```env
+GITHUB_TOKEN=xxx                    # Existing
+ORG_MAPPING_SOURCE=s3://bucket/file.xlsx  # New - Excel file location
+AWS_REGION=us-east-1               # If using S3
+```
+
 ## Common Tasks
 
 ### Add a new repository
@@ -265,6 +322,31 @@ const prs = await github.fetchOpenPRs(repo, {
 });
 ```
 
+## Dashboard Development Guidelines
+
+### When Building Charts
+1. **Wait for user specification**: Don't implement charts until the user specifies exactly what they want
+2. **Use actual data**: Charts should visualize the existing JSON data from `store/` directory
+3. **Consider performance**: Large datasets may need virtualization or pagination
+4. **Theme-aware**: Charts must work in both light and dark modes
+
+### API Development
+1. **Reuse existing services**: API routes should call existing services from `src/services/`
+2. **Cache strategically**: Expensive aggregations should be cached
+3. **Return consistent format**: All APIs should return `{ data, meta, pagination? }`
+
+### UI Components
+1. **Start minimal**: Begin with basic HTML/CSS, add shadcn/ui components as needed
+2. **Mobile-responsive**: Dashboard should work on all screen sizes
+3. **Loading states**: Every data fetch should have loading and error states
+4. **Accessibility**: Use semantic HTML and ARIA labels
+
+### Performance Targets
+- Initial page load: < 2 seconds
+- API responses: < 200ms (cached), < 1s (uncached)
+- Chart rendering: < 500ms
+- Smooth scrolling and interactions (60 FPS)
+
 ## Important Notes
 
 - The system only stores open and merged PRs (never closed-but-not-merged)
@@ -276,3 +358,14 @@ const prs = await github.fetchOpenPRs(repo, {
 - Rate limiting is adaptive and adjusts delays based on remaining quota
 - Batch saving occurs during processing to prevent data loss on interruption
 - Sequential repository processing ensures stability over speed
+
+## Next.js Dashboard Specific Instructions
+When implementing the dashboard:
+- **DO NOT** install dependencies until implementing features that need them
+- **DO NOT** create placeholder or example charts - wait for user specifications
+- **DO NOT** generate mock data - use actual JSON files from store/ directory
+- **DO NOT** modify existing services - preserve all data fetching logic
+- **ALWAYS** use hot module replacement for rapid development iteration
+- **ALWAYS** check NEXTJS_INTEGRATION_PLAN.md for architectural decisions
+- **ALWAYS** reuse existing TypeScript types from src/types/
+- **WHEN** adding UI components, start minimal and add complexity incrementally
