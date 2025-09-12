@@ -55,14 +55,20 @@ export function HorizontalBarChart({ data }: HorizontalBarChartProps) {
     <ResponsiveContainer width="100%" height="100%">
       <BarChart 
         data={chartData}
-        margin={{ top: 20, right: 30, bottom: 40, left: 150 }}
+        margin={{ top: 40, right: 30, bottom: 60, left: 150 }}
         layout="vertical"
       >
         <CartesianGrid 
           strokeDasharray="3 3" 
           strokeOpacity={0.3}
         />
-        <XAxis type="number" />
+        {/* X-axis at top */}
+        <XAxis 
+          type="number"
+          orientation="top"
+          tick={{ fontSize: 11 }}
+          stroke="#888"
+        />
         <YAxis 
           type="category" 
           dataKey="name"

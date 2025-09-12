@@ -56,9 +56,9 @@ function HorizontalBarChart({ data }) {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$BarChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BarChart"], {
             data: chartData,
             margin: {
-                top: 20,
+                top: 40,
                 right: 30,
-                bottom: 40,
+                bottom: 60,
                 left: 150
             },
             layout: "vertical",
@@ -72,10 +72,15 @@ function HorizontalBarChart({ data }) {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["XAxis"], {
-                    type: "number"
+                    type: "number",
+                    orientation: "top",
+                    tick: {
+                        fontSize: 11
+                    },
+                    stroke: "#888"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 65,
+                    lineNumber: 66,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$YAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["YAxis"], {
@@ -91,7 +96,7 @@ function HorizontalBarChart({ data }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 66,
+                    lineNumber: 72,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tooltip"], {
@@ -102,7 +107,7 @@ function HorizontalBarChart({ data }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 76,
+                    lineNumber: 82,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Legend$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Legend"], {
@@ -137,7 +142,7 @@ function HorizontalBarChart({ data }) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 102,
                                             columnNumber: 21
                                         }, void 0),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -147,24 +152,24 @@ function HorizontalBarChart({ data }) {
                                             children: entry.value
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                                            lineNumber: 105,
+                                            lineNumber: 111,
                                             columnNumber: 21
                                         }, void 0)
                                     ]
                                 }, `item-${index}`, true, {
                                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                                    lineNumber: 95,
+                                    lineNumber: 101,
                                     columnNumber: 19
                                 }, void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                            lineNumber: 93,
+                            lineNumber: 99,
                             columnNumber: 15
                         }, void 0);
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 83,
+                    lineNumber: 89,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -174,7 +179,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid.js"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 112,
+                    lineNumber: 118,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -184,7 +189,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid Server"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 113,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -194,7 +199,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid Server Java"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 114,
+                    lineNumber: 120,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -204,7 +209,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid Mobile iOS"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 115,
+                    lineNumber: 121,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -214,7 +219,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid Mobile Android"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 116,
+                    lineNumber: 122,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Bar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Bar"], {
@@ -224,7 +229,7 @@ function HorizontalBarChart({ data }) {
                     name: "Prebid Docs"
                 }, void 0, false, {
                     fileName: "[project]/src/components/HorizontalBarChart.tsx",
-                    lineNumber: 117,
+                    lineNumber: 123,
                     columnNumber: 9
                 }, this)
             ]

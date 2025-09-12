@@ -38,6 +38,7 @@ export default function ContributorsPage() {
   const [timeRange, setTimeRange] = useState('This Year'); // 2025
   const [metric, setMetric] = useState('Merged PRs');
   const [selectedRepo, setSelectedRepo] = useState('All');
+  const [resultLimit, setResultLimit] = useState('100');
   const [chartData, setChartData] = useState<any[]>([]);
 
   // Process data based on selections
@@ -161,6 +162,7 @@ export default function ContributorsPage() {
       });
       
       // Convert to array and sort by total contributions
+      const limit = parseInt(resultLimit) || 100;
       const dataArray = Array.from(contributorMap.entries())
         .map(([name, repos]) => ({
           name,
@@ -168,7 +170,7 @@ export default function ContributorsPage() {
           total: Object.values(repos).reduce((sum, val) => sum + val, 0)
         }))
         .sort((a, b) => b.total - a.total)
-        .slice(0, 100) // Top 100 contributors
+        .slice(0, limit) // Top N contributors based on selector
         .map(({ total, ...rest }) => rest);
       
       console.log('Found any data for period?', foundAnyData);
@@ -183,7 +185,7 @@ export default function ContributorsPage() {
     };
     
     processData();
-  }, [timeRange, metric, selectedRepo]);
+  }, [timeRange, metric, selectedRepo, resultLimit]);
   
   // Helper function to get week number - must match generateContributorStats.ts
   function getWeekNumber(date: Date): number {
@@ -241,6 +243,25 @@ export default function ContributorsPage() {
             <SelectItem value="Last Month">Last Month</SelectItem>
             <SelectItem value="This Year">This Year</SelectItem>
             <SelectItem value="Last Year">Last Year</SelectItem>
+          </SelectContent>
+        </Select>
+        
+        {/* Result Limit Selector */}
+        <Select value={resultLimit} onValueChange={setResultLimit}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Number of results" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="5">Top 5</SelectItem>
+            <SelectItem value="10">Top 10</SelectItem>
+            <SelectItem value="15">Top 15</SelectItem>
+            <SelectItem value="20">Top 20</SelectItem>
+            <SelectItem value="25">Top 25</SelectItem>
+            <SelectItem value="50">Top 50</SelectItem>
+            <SelectItem value="100">Top 100</SelectItem>
+            <SelectItem value="200">Top 200</SelectItem>
+            <SelectItem value="500">Top 500</SelectItem>
+            <SelectItem value="1000">Top 1000</SelectItem>
           </SelectContent>
         </Select>
       </div>
