@@ -48,47 +48,48 @@ export function Toolbar() {
                   <Menu className="h-6 w-6" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]" style={{ top: 0 }}>
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] border-r" style={{ top: 0, backgroundColor: 'var(--sidebar)', transition: 'none' }}>
                 <SheetHeader className="flex items-center">
                   <SheetTitle className="flex justify-center">
                     <div style={{ width: '150px', height: '150px', position: 'relative' }}>
-                      <Image 
-                        src="/prebid-logo.png" 
-                        alt="Prebid Logo" 
+                      <Image
+                        src="/prebid-logo.png"
+                        alt="Prebid Logo"
                         fill
                         style={{ objectFit: 'contain' }}
                       />
                     </div>
                   </SheetTitle>
                 </SheetHeader>
-                <nav className="mt-8 space-y-2">
+                <nav className="mt-8" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <button
                     onClick={() => handleProtectedNavigation('/')}
-                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <span>Dashboard</span>
-                    <span className="text-xs text-muted-foreground ml-auto">Public</span>
+                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Dashboard</span>
                   </button>
                   <button
                     onClick={() => handleProtectedNavigation('/contributors')}
-                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <span>Contributors</span>
-                    {!session && <span className="text-xs text-muted-foreground ml-auto">Login Required</span>}
+                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Contributors</span>
                   </button>
                   <button
                     onClick={() => handleProtectedNavigation('/companies')}
-                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <span>Companies</span>
-                    {!session && <span className="text-xs text-muted-foreground ml-auto">Login Required</span>}
+                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Companies</span>
                   </button>
                   {session?.user?.role === 'admin' && (
                     <button
                       onClick={() => handleProtectedNavigation('/admin/users')}
-                      className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                      className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
+                      style={{ backgroundColor: 'transparent', border: 'none' }}
                     >
-                      <span>User Management</span>
+                      <span style={{ fontSize: '20px', fontWeight: 500 }}>User Management</span>
                     </button>
                   )}
                 </nav>
