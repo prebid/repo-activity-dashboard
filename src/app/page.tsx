@@ -26,12 +26,12 @@ import contributorData from '../../contributor-repo-timeline.json';
 
 // Repository list with keys
 const repositories = [
-  { name: 'Prebid.js', key: 'prebid-js', storeKey: 'prebid-js' },
-  { name: 'Prebid Server', key: 'prebid-server', storeKey: 'prebid-server' },
-  { name: 'Prebid Server Java', key: 'prebid-server-java', storeKey: 'prebid-server-java' },
-  { name: 'Prebid Mobile iOS', key: 'prebid-mobile-ios', storeKey: 'prebid-mobile-ios' },
-  { name: 'Prebid Mobile Android', key: 'prebid-mobile-android', storeKey: 'prebid-mobile-android' },
-  { name: 'Prebid Docs', key: 'prebid-github-io', storeKey: 'prebid-github-io' },
+  { name: 'Prebid.js', displayName: 'Prebid.js\n\u00A0', key: 'prebid-js', storeKey: 'prebid-js' },
+  { name: 'Prebid Server', displayName: 'Prebid Server\nGo', key: 'prebid-server', storeKey: 'prebid-server' },
+  { name: 'Prebid Server Java', displayName: 'Prebid Server\nJava', key: 'prebid-server-java', storeKey: 'prebid-server-java' },
+  { name: 'Prebid Mobile iOS', displayName: 'Prebid Mobile\niOS', key: 'prebid-mobile-ios', storeKey: 'prebid-mobile-ios' },
+  { name: 'Prebid Mobile Android', displayName: 'Prebid Mobile\nAndroid', key: 'prebid-mobile-android', storeKey: 'prebid-mobile-android' },
+  { name: 'Prebid Docs', displayName: 'Prebid\nDocs', key: 'prebid-github-io', storeKey: 'prebid-github-io' },
 ];
 
 interface RepoStats {
@@ -56,7 +56,7 @@ interface ChartDataPoint {
 }
 
 export default function Home() {
-  const [activeMetric, setActiveMetric] = useState('merged');
+  const [activeMetric, setActiveMetric] = useState('');
   const [timeRange, setTimeRange] = useState('This Month');
   const [repoStats, setRepoStats] = useState<Record<string, RepoStats>>({});
   const [openPRCounts, setOpenPRCounts] = useState<Record<string, number>>({});
@@ -348,8 +348,8 @@ export default function Home() {
         <Card>
           <div className="flex flex-row items-stretch space-y-0 border-b p-0">
             <div className="flex flex-1 flex-col justify-center gap-1 py-3" style={{ paddingLeft: '1.5rem' }}>
-              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center' }}>
-                {repo.name}
+              <h3 className="text-base font-semibold" style={{ transform: 'scale(1.5) translate(1rem, 0.5rem)', transformOrigin: 'left center', whiteSpace: 'pre-line' }}>
+                {repo.displayName || repo.name}
               </h3>
               <p className="text-xs text-muted-foreground" style={{ visibility: 'hidden' }}>
                 Showing total activity
@@ -360,8 +360,8 @@ export default function Home() {
                 type="button"
                 data-active={activeMetric === 'open'}
                 onClick={() => setActiveMetric('open')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'open' ? 'ring-2 ring-primary/20' : ''
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-primary/10 hover:bg-muted/70 ${
+                  activeMetric === 'open' ? 'ring-1 ring-primary/20' : ''
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Open PRs</span>
@@ -372,8 +372,8 @@ export default function Home() {
                 type="button"
                 data-active={activeMetric === 'merged'}
                 onClick={() => setActiveMetric('merged')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'merged' ? 'ring-2 ring-primary/20' : ''
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-primary/10 hover:bg-muted/70 ${
+                  activeMetric === 'merged' ? 'ring-1 ring-primary/20' : ''
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Merged PRs</span>
@@ -384,8 +384,8 @@ export default function Home() {
                 type="button"
                 data-active={activeMetric === 'issues'}
                 onClick={() => setActiveMetric('issues')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'issues' ? 'ring-2 ring-primary/20' : ''
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-primary/10 hover:bg-muted/70 ${
+                  activeMetric === 'issues' ? 'ring-1 ring-primary/20' : ''
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Opened Issues</span>
@@ -396,8 +396,8 @@ export default function Home() {
                 type="button"
                 data-active={activeMetric === 'contributors'}
                 onClick={() => setActiveMetric('contributors')}
-                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-muted/50 hover:bg-muted/70 ${
-                  activeMetric === 'contributors' ? 'ring-2 ring-primary/20' : ''
+                className={`relative z-30 flex flex-col items-center justify-center border-l px-5 py-5 bg-primary/10 hover:bg-muted/70 rounded-tr-lg ${
+                  activeMetric === 'contributors' ? 'ring-1 ring-primary/20' : ''
                 }`}
               >
                 <span style={{ fontSize: '12px', marginBottom: '6px' }} className="text-muted-foreground">Contributors</span>
@@ -409,7 +409,7 @@ export default function Home() {
           <CardContent className="pt-6">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 0, right: 30, bottom: 0, left: 0 }}>
+                <BarChart data={chartData} margin={{ top: 20, right: 30, bottom: 0, left: 0 }}>
                   <CartesianGrid 
                     strokeDasharray="3 3" 
                     vertical={false}
@@ -423,16 +423,7 @@ export default function Home() {
                     tick={{ fontSize: 10 }}
                     stroke="#888888"
                   />
-                  <YAxis 
-                    yAxisId="left"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 10 }}
-                    stroke="#888888"
-                  />
-                  <YAxis 
-                    yAxisId="right"
-                    orientation="right"
+                  <YAxis
                     tickLine={false}
                     axisLine={false}
                     tick={{ fontSize: 10 }}
@@ -454,23 +445,14 @@ export default function Home() {
                     verticalAlign="bottom"
                     height={40}
                   />
-                  <Bar 
-                    yAxisId="left"
-                    dataKey="mergedPRs" 
+                  <Bar
+                    dataKey="mergedPRs"
                     fill="#3B82F6"
                     name="Merged PRs"
                     radius={[4, 4, 0, 0]}
                   />
-                  <Bar 
-                    yAxisId="right"
-                    dataKey="contributors" 
-                    fill="#8B5CF6"
-                    name="Contributors"
-                    radius={[4, 4, 0, 0]}
-                  />
-                  <Bar 
-                    yAxisId="left"
-                    dataKey="openedIssues" 
+                  <Bar
+                    dataKey="openedIssues"
                     fill="#F59E0B"
                     name="Issues"
                     radius={[4, 4, 0, 0]}

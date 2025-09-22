@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
   // Define route types
-  const isPublicRoute = pathname === "/" || pathname === "";
+  const isPublicRoute = pathname === "/" || pathname === "" || pathname.startsWith("/store");
   const isAuthRoute = pathname.startsWith("/auth");
   const isPasswordChangePage = pathname === "/auth/change-password";
   const isAdminRoute = pathname.startsWith("/admin");
