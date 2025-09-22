@@ -1,7 +1,9 @@
 'use client';
 
-import { Sun, Moon, Menu, Home, Users, Building } from 'lucide-react';
+import { Sun, Moon, Menu, Home, Users, Building, LogIn, LogOut, User, Shield } from 'lucide-react';
 import { useTheme } from '../providers/theme-provider';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
   Sheet,
@@ -10,9 +12,28 @@ import {
   SheetTrigger,
   SheetTitle,
 } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export function Toolbar() {
   const { resolvedTheme, setTheme } = useTheme();
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const handleProtectedNavigation = (href: string) => {
+    if (!session && href !== '/') {
+      // If not logged in and trying to access protected route, redirect to login
+      router.push(`/auth/login?callbackUrl=${encodeURIComponent(href)}`);
+    } else {
+      router.push(href);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -41,18 +62,39 @@ export function Toolbar() {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-8 space-y-2">
-                  <a href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
+                  <button
+                    onClick={() => handleProtectedNavigation('/')}
+                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                  >
                     <Home className="h-5 w-5" />
                     <span>Dashboard</span>
-                  </a>
-                  <a href="/contributors" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
+                    <span className="text-xs text-muted-foreground ml-auto">Public</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/contributors')}
+                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                  >
                     <Users className="h-5 w-5" />
                     <span>Contributors</span>
-                  </a>
-                  <a href="/companies" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors">
+                    {!session && <LogIn className="h-4 w-4 ml-auto text-muted-foreground" />}
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/companies')}
+                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                  >
                     <Building className="h-5 w-5" />
                     <span>Companies</span>
-                  </a>
+                    {!session && <LogIn className="h-4 w-4 ml-auto text-muted-foreground" />}
+                  </button>
+                  {session?.user?.role === 'admin' && (
+                    <button
+                      onClick={() => handleProtectedNavigation('/admin')}
+                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    >
+                      <Shield className="h-5 w-5" />
+                      <span>Admin Panel</span>
+                    </button>
+                  )}
                 </nav>
               </SheetContent>
             </Sheet>
@@ -68,23 +110,70 @@ export function Toolbar() {
             </div>
           </div>
 
-          {/* Title and Theme Toggle */}
-          <div className="flex items-center" style={{ gap: '2rem' }}>
-            <h1 style={{ 
-              fontSize: '1.125rem', 
-              fontWeight: '500', 
+          {/* Title, Auth, and Theme Toggle */}
+          <div className="flex items-center" style={{ gap: '1rem' }}>
+            <h1 className="hidden sm:block" style={{
+              fontSize: '1.125rem',
+              fontWeight: '500',
               color: 'var(--foreground)',
               fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif',
               letterSpacing: '-0.025em'
             }}>
               Repo Activity Dashboard
             </h1>
+
+            {/* Auth Section */}
+            {status === 'loading' ? (
+              <div className="h-10 w-10 rounded-lg bg-accent animate-pulse" />
+            ) : session ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="h-10 w-10 rounded-lg border transition-all duration-300 flex items-center justify-center hover:bg-accent">
+                    <User className="h-5 w-5" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{session.user.name || session.user.email}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
+                      {session.user.role && (
+                        <p className="text-xs leading-none text-muted-foreground capitalize">Role: {session.user.role}</p>
+                      )}
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {session.user.role === 'admin' && (
+                    <>
+                      <DropdownMenuItem onClick={() => router.push('/admin')}>
+                        <Shield className="mr-2 h-4 w-4" />
+                        Admin Panel
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem onClick={() => signOut()}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <button
+                onClick={() => router.push('/auth/login')}
+                className="h-10 px-4 rounded-lg border transition-all duration-300 flex items-center justify-center hover:bg-accent gap-2"
+              >
+                <LogIn className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign In</span>
+              </button>
+            )}
+
             {/* Theme Toggle Button */}
             <button
               onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
               className={`h-10 w-10 rounded-lg border transition-all duration-300 flex items-center justify-center ${
-                resolvedTheme === 'dark' 
-                  ? 'bg-gray-900 border-gray-600 hover:bg-gray-800' 
+                resolvedTheme === 'dark'
+                  ? 'bg-gray-900 border-gray-600 hover:bg-gray-800'
                   : 'bg-white border-gray-200 hover:bg-gray-50'
               }`}
               aria-label="Toggle theme"

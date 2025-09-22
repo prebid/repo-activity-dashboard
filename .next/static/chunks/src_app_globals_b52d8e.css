@@ -61,6 +61,10 @@
   margin-inline: auto;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .block {
   display: block;
 }
@@ -71,10 +75,6 @@
 
 .flex {
   display: flex;
-}
-
-.grid {
-  display: grid;
 }
 
 .hidden {
@@ -117,6 +117,10 @@
   max-height: --radix-select-content-available-height;
 }
 
+.max-h-\[var\(--radix-dropdown-menu-content-available-height\)\] {
+  max-height: var(--radix-dropdown-menu-content-available-height);
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -153,8 +157,8 @@
   flex-shrink: 0;
 }
 
-.grow {
-  flex-grow: 1;
+.origin-\[--radix-dropdown-menu-content-transform-origin\] {
+  transform-origin: --radix-dropdown-menu-content-transform-origin;
 }
 
 .origin-\[--radix-select-content-transform-origin\] {
@@ -171,10 +175,6 @@
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.resize {
-  resize: both;
 }
 
 .flex-col {
@@ -203,6 +203,10 @@
 
 .justify-center {
   justify-content: center;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-x-hidden {
@@ -263,12 +267,26 @@
   border-left-width: 1px;
 }
 
+.border-destructive\/50 {
+  border-color: var(--destructive);
+}
+
+@supports (color: color-mix(in lab, red, red)) {
+  .border-destructive\/50 {
+    border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  }
+}
+
 .border-input {
   border-color: var(--input);
 }
 
 .border-transparent {
   border-color: #0000;
+}
+
+.bg-accent {
+  background-color: var(--accent);
 }
 
 .bg-background {
@@ -289,6 +307,10 @@
   background-color: var(--card);
 }
 
+.bg-destructive {
+  background-color: var(--destructive);
+}
+
 .bg-muted {
   background-color: var(--muted);
 }
@@ -307,8 +329,28 @@
   background-color: var(--popover);
 }
 
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-transparent {
+  background-color: #0000;
+}
+
+.fill-current {
+  fill: currentColor;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .leading-none {
@@ -324,6 +366,10 @@
   color: var(--card-foreground);
 }
 
+.text-destructive {
+  color: var(--destructive);
+}
+
 .text-foreground {
   color: var(--foreground);
 }
@@ -336,12 +382,36 @@
   color: var(--popover-foreground);
 }
 
+.text-primary {
+  color: var(--primary);
+}
+
+.text-primary-foreground {
+  color: var(--primary-foreground);
+}
+
+.text-secondary-foreground {
+  color: var(--secondary-foreground);
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
 .lowercase {
   text-transform: lowercase;
 }
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
+}
+
+.opacity-60 {
+  opacity: .6;
 }
 
 .opacity-70 {
@@ -370,6 +440,11 @@
 
 .ring-offset-background {
   --tw-ring-offset-color: var(--background);
+}
+
+.outline {
+  outline-style: var(--tw-outline-style);
+  outline-width: 1px;
 }
 
 .filter {
@@ -430,13 +505,50 @@
   animation-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
-.running {
-  animation-play-state: running;
+.peer-disabled\:cursor-not-allowed:is(:where(.peer):disabled ~ *) {
+  cursor: not-allowed;
+}
+
+.peer-disabled\:opacity-70:is(:where(.peer):disabled ~ *) {
+  opacity: .7;
+}
+
+.file\:border-0::file-selector-button {
+  border-style: var(--tw-border-style);
+  border-width: 0;
+}
+
+.file\:bg-transparent::file-selector-button {
+  background-color: #0000;
+}
+
+.file\:text-foreground::file-selector-button {
+  color: var(--foreground);
+}
+
+.placeholder\:text-muted-foreground::-moz-placeholder {
+  color: var(--muted-foreground);
+}
+
+.placeholder\:text-muted-foreground::placeholder {
+  color: var(--muted-foreground);
 }
 
 @media (hover: hover) {
   .hover\:bg-accent:hover {
     background-color: var(--accent);
+  }
+}
+
+@media (hover: hover) {
+  .hover\:bg-destructive\/90:hover {
+    background-color: var(--destructive);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .hover\:bg-destructive\/90:hover {
+      background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+    }
   }
 }
 
@@ -453,8 +565,38 @@
 }
 
 @media (hover: hover) {
+  .hover\:bg-primary\/90:hover {
+    background-color: var(--primary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .hover\:bg-primary\/90:hover {
+      background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .hover\:bg-secondary\/80:hover {
+    background-color: var(--secondary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .hover\:bg-secondary\/80:hover {
+      background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
+    }
+  }
+}
+
+@media (hover: hover) {
   .hover\:text-accent-foreground:hover {
     color: var(--accent-foreground);
+  }
+}
+
+@media (hover: hover) {
+  .hover\:underline:hover {
+    text-decoration-line: underline;
   }
 }
 
@@ -494,6 +636,11 @@
 .focus\:outline-none:focus {
   --tw-outline-style: none;
   outline-style: none;
+}
+
+.focus-visible\:ring-1:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 
 .focus-visible\:ring-2:focus-visible {
@@ -605,6 +752,10 @@
   --tw-exit-scale: .95;
 }
 
+.data-\[state\=open\]\:bg-accent[data-state="open"] {
+  background-color: var(--accent);
+}
+
 .data-\[state\=open\]\:bg-secondary[data-state="open"] {
   background-color: var(--secondary);
 }
@@ -667,8 +818,41 @@
   }
 }
 
+.dark\:border-destructive:is(.dark *) {
+  border-color: var(--destructive);
+}
+
+.\[\&_svg\]\:pointer-events-none svg {
+  pointer-events: none;
+}
+
+.\[\&_svg\]\:shrink-0 svg {
+  flex-shrink: 0;
+}
+
 .\[\&\>span\]\:text-foreground > span {
   color: var(--foreground);
+}
+
+.\[\&\>svg\]\:absolute > svg {
+  position: absolute;
+}
+
+.\[\&\>svg\]\:shrink-0 > svg {
+  flex-shrink: 0;
+}
+
+.\[\&\>svg\]\:text-destructive > svg {
+  color: var(--destructive);
+}
+
+.\[\&\>svg\]\:text-foreground > svg {
+  color: var(--foreground);
+}
+
+.\[\&\>svg\+div\]\:translate-y-\[-3px\] > svg + div {
+  --tw-translate-y: -3px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 
 @layer base {
@@ -921,6 +1105,12 @@ body {
   initial-value: 0 0 #0000;
 }
 
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
 @property --tw-blur {
   syntax: "*";
   inherits: false
@@ -992,6 +1182,24 @@ body {
   inherits: false
 }
 
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
     *, :before, :after, ::backdrop {
@@ -1016,6 +1224,7 @@ body {
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
@@ -1030,6 +1239,9 @@ body {
       --tw-drop-shadow-alpha: 100%;
       --tw-drop-shadow-size: initial;
       --tw-duration: initial;
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
     }
   }
 }
