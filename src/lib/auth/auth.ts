@@ -103,11 +103,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       session.user = {
         id: token.id,
-        email: token.email,
+        email: token.email as string,
         name: token.name || undefined,
         role: token.role || undefined,
         company: token.company || undefined,
         mustChangePassword: token.mustChangePassword,
+        emailVerified: null,
       };
       return session;
     },

@@ -181,11 +181,15 @@ export class DataFetcher {
     }
   }
 
-  async incrementalSync(repo: Repository): Promise<void> {
+  async incrementalSync(repo: Repository, overrideSince?: Date): Promise<void> {
     console.log(`🔄 Incremental sync for ${repo.name}...`);
-    
+
     const syncState = await this.storageService.loadSyncState(repo);
-    const since = syncState?.lastIncrementalSync || new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
+    const since = overrideSince || syncState?.lastIncrementalSync;
+
+    if (!since) {
+      throw new Error(`No last sync date found for ${repo.name} and no override date provided. Please provide a since date or run a full sync first.`);
+    }
     
     try {
       let allCurrentOpenPRs: PRData[] = [];

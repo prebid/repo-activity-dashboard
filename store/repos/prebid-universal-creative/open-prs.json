@@ -1,209 +1,98 @@
 {
   "metadata": {
     "repository": "prebid/prebid-universal-creative",
-    "lastSync": "2025-08-30T16:47:53.570Z",
-    "itemCount": 9
+    "lastSync": "2025-09-22T16:30:14.793Z",
+    "itemCount": 4
   },
   "items": [
     {
-      "title": "Bump cipher-base from 1.0.4 to 1.0.6",
-      "number": 292,
-      "author": "dependabot[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-21T15:59:10.000Z",
-      "dateUpdated": "2025-08-21T15:59:11.000Z",
-      "status": "open",
-      "labels": [
-        "dependencies",
-        "javascript"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
-        }
+      "title": "Bump webpack-dev-middleware and karma-webpack",
+      "number": 228,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2024-03-22T00:01:06.000Z",
+      "dateUpdated": "2025-09-09T18:08:39.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump sha.js from 2.4.11 to 2.4.12",
+      "number": 294,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-09T18:07:11.000Z",
+      "dateUpdated": "2025-09-09T18:08:35.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "Mobile app rendering: if burl is missing from bid, write ad markup after MRAID-viewable",
       "number": 248,
-      "author": "rickyblaha",
+      "author": {
+        "login": "rickyblaha",
+        "id": 701990
+      },
       "assignees": [],
+      "reviewers": [],
       "dateCreated": "2024-12-20T04:24:55.000Z",
       "dateUpdated": "2025-08-13T16:37:09.000Z",
       "status": "open",
-      "labels": [
-        "Needs: Update"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "Ricky Blaha": {
-            "count": 2,
-            "author": "Ricky Blaha"
-          }
+      "commitAuthors": {
+        "Ricky Blaha": {
+          "identifier": "Ricky Blaha",
+          "displayName": "Ricky Blaha",
+          "count": 2,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Use scrollHeight when body has height 0",
-      "number": 291,
-      "author": "dgirardi",
-      "assignees": [],
-      "dateCreated": "2025-08-12T17:30:29.000Z",
-      "dateUpdated": "2025-08-12T17:30:29.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dgirardi": {
-            "count": 1,
-            "author": "dgirardi"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Introduce mobile impression tracking with Open Measurement",
       "number": 258,
-      "author": "ValentinPostindustria",
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
       "assignees": [],
+      "reviewers": [],
       "dateCreated": "2025-02-20T08:48:46.000Z",
       "dateUpdated": "2025-08-12T13:34:29.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "ValentinPostindustria": {
-            "count": 2,
-            "author": "ValentinPostindustria"
-          }
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Update nativeAssetManager for requestHeightResize fallback",
-      "number": 290,
-      "author": "ourcraig",
-      "assignees": [],
-      "dateCreated": "2025-08-12T00:35:10.000Z",
-      "dateUpdated": "2025-08-12T00:35:10.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ourcraig": {
-            "count": 1,
-            "author": "ourcraig"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Bump pbkdf2 from 3.0.17 to 3.1.3",
-      "number": 282,
-      "author": "dependabot[bot]",
-      "assignees": [],
-      "dateCreated": "2025-06-24T05:23:58.000Z",
-      "dateUpdated": "2025-06-24T05:23:58.000Z",
-      "status": "open",
-      "labels": [
-        "dependencies",
-        "javascript"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Bump tar-fs from 3.0.8 to 3.0.9",
-      "number": 281,
-      "author": "dependabot[bot]",
-      "assignees": [],
-      "dateCreated": "2025-06-03T07:00:07.000Z",
-      "dateUpdated": "2025-06-03T07:00:07.000Z",
-      "status": "open",
-      "labels": [
-        "dependencies",
-        "javascript"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "fix for code scanning alert no. 14: Inefficient regular expression",
-      "number": 267,
-      "author": "patmmccann",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "github-advanced-security[bot]"
-        ]
-      },
-      "dateCreated": "2025-02-20T22:51:25.000Z",
-      "dateUpdated": "2025-05-15T16:57:33.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 10,
-        "byAuthor": {
-          "patmmccann": {
-            "count": 10,
-            "author": "patmmccann"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Bump webpack-dev-middleware and karma-webpack",
-      "number": 228,
-      "author": "dependabot[bot]",
-      "assignees": [],
-      "dateCreated": "2024-03-22T00:01:06.000Z",
-      "dateUpdated": "2025-03-10T16:49:08.000Z",
-      "status": "open",
-      "labels": [
-        "Needs: Update",
-        "dependencies"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dependabot[bot]": {
-            "count": 1,
-            "author": "dependabot[bot]"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

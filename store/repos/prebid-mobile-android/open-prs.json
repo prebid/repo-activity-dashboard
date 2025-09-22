@@ -1,119 +1,259 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2025-08-30T16:48:06.577Z",
-    "itemCount": 5
+    "lastSync": "2025-09-22T16:22:57.822Z",
+    "itemCount": 9
   },
   "items": [
     {
+      "title": "Configurable Location Decimal Precision for User and Device Geo",
+      "number": 880,
+      "author": {
+        "login": "jerrycychen",
+        "id": 16475922
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jerrycychen",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-04T17:53:17.000Z",
+      "dateUpdated": "2025-09-22T16:19:00.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "jchen17": {
+          "identifier": "jchen17",
+          "displayName": "jchen17",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Ad position for multiformat ad unit",
+      "number": 886,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2025-09-22T14:13:13.000Z",
+      "dateUpdated": "2025-09-22T14:52:52.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update README.md - add links to documentation",
+      "number": 884,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-22T09:02:37.000Z",
+      "dateUpdated": "2025-09-22T10:08:55.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
       "title": "Change VIDEO_INTERSTITIAL_PLAYBACK_END default from 2 → 1 for interstitial video ads",
       "number": 875,
-      "author": "ZenyB",
-      "assignees": [],
-      "dateCreated": "2025-08-15T14:05:40.000Z",
-      "dateUpdated": "2025-08-21T16:47:33.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ZenyB": {
-            "count": 1,
-            "author": "ZenyB"
-          }
-        }
+      "author": {
+        "login": "ZenyB",
+        "id": 106144398
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-15T14:05:40.000Z",
+      "dateUpdated": "2025-09-22T09:23:55.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "106144398": {
+          "identifier": "106144398",
+          "displayName": "ZenyB",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix: fire exposureChange on addEventListener",
+      "number": 879,
+      "author": {
+        "login": "jhorrocks-tl",
+        "id": 58949019
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-02T15:13:22.000Z",
+      "dateUpdated": "2025-09-02T15:13:22.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "58949019": {
+          "identifier": "58949019",
+          "displayName": "jhorrocks-tl",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "Exoplayer examples ",
       "number": 862,
-      "author": "mdanylov-sigma",
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
       "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        }
+      ],
       "dateCreated": "2025-05-12T21:23:11.000Z",
       "dateUpdated": "2025-05-12T21:23:11.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "mdanylov-sigma": {
-            "count": 1,
-            "author": "mdanylov-sigma"
-          }
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "chore: Centralize dependencies to version catalog",
       "number": 846,
-      "author": "shinwan2",
+      "author": {
+        "login": "shinwan2",
+        "id": 11733537
+      },
       "assignees": [],
+      "reviewers": [],
       "dateCreated": "2025-03-29T00:34:55.000Z",
       "dateUpdated": "2025-04-27T07:24:54.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 40,
-        "byAuthor": {
-          "shinwan2": {
-            "count": 40,
-            "author": "shinwan2"
-          }
+      "commitAuthors": {
+        "11733537": {
+          "identifier": "11733537",
+          "displayName": "shinwan2",
+          "count": 40,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "fixed mraid.fireEvent() in mraid.js",
       "number": 732,
-      "author": "AdviewOpen",
+      "author": {
+        "login": "AdviewOpen",
+        "id": 4382674
+      },
       "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        }
+      ],
       "dateCreated": "2024-01-04T03:39:52.000Z",
       "dateUpdated": "2024-01-09T04:52:40.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "wilder0601": {
-            "count": 1,
-            "author": "wilder0601"
-          },
-          "AdviewOpen": {
-            "count": 2,
-            "author": "AdviewOpen"
-          }
+      "commitAuthors": {
+        "4382674": {
+          "identifier": "4382674",
+          "displayName": "AdviewOpen",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95598353": {
+          "identifier": "95598353",
+          "displayName": "wilder0601",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "added install instructions for Kotlin DSL",
       "number": 718,
-      "author": "charlie-docwriter",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "jsligh"
-        ],
-        "pending": []
+      "author": {
+        "login": "charlie-docwriter",
+        "id": 131265944
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2023-11-29T12:48:22.000Z",
       "dateUpdated": "2024-01-03T17:03:53.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "charles-the-developer": {
-            "count": 1,
-            "author": "charles-the-developer"
-          }
+      "commitAuthors": {
+        "909642": {
+          "identifier": "909642",
+          "displayName": "charles-the-developer",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

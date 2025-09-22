@@ -1,1320 +1,1323 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-08-30T17:05:18.863Z",
-    "itemCount": 47
+    "lastSync": "2025-09-22T16:28:26.247Z",
+    "itemCount": 45
   },
   "items": [
     {
-      "title": "Add Alva (alvads) bidder adapter documentation",
-      "number": 6231,
-      "author": "SamuelAlejandroNT",
-      "assignees": [],
-      "dateCreated": "2025-08-28T13:16:12.000Z",
-      "dateUpdated": "2025-08-29T19:14:03.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Samuel Alejandro Maldonado Garcia": {
-            "count": 2,
-            "author": "Samuel Alejandro Maldonado Garcia"
-          },
-          "SamuelAlejandroNT": {
-            "count": 1,
-            "author": "SamuelAlejandroNT"
-          }
-        }
+      "title": "Public Good - new adapter",
+      "number": 6258,
+      "author": {
+        "login": "aaronkoss",
+        "id": 7459907
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-15T15:30:19.000Z",
+      "dateUpdated": "2025-09-22T14:51:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "7459907": {
+          "identifier": "7459907",
+          "displayName": "aaronkoss",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
     },
     {
-      "title": "init appstockSSP Bid Adapter",
-      "number": 6177,
-      "author": "AppstockLTD",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
+      "title": "Update SmartyTech adapter documentation with userId, consents, and chunks",
+      "number": 6259,
+      "author": {
+        "login": "Artem-Maliuha",
+        "id": 9397641
       },
-      "dateCreated": "2025-07-25T09:44:51.000Z",
-      "dateUpdated": "2025-08-29T14:35:36.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
       ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Kanceliarenko": {
-            "count": 1,
-            "author": "Kanceliarenko"
-          },
-          "AppstockLTD": {
-            "count": 2,
-            "author": "AppstockLTD"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Nexx360BidAdapter - RevNew Adapter added",
-      "number": 6227,
-      "author": "gchicoye",
-      "assignees": [],
-      "dateCreated": "2025-08-26T15:45:14.000Z",
-      "dateUpdated": "2025-08-29T14:11:14.000Z",
+      "dateCreated": "2025-09-15T23:54:14.000Z",
+      "dateUpdated": "2025-09-22T11:16:31.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "Gabriel Chicoye": {
-            "count": 2,
-            "author": "Gabriel Chicoye"
-          },
-          "gchicoye": {
-            "count": 2,
-            "author": "gchicoye"
-          }
+      "commitAuthors": {
+        "9397641": {
+          "identifier": "9397641",
+          "displayName": "Artem-Maliuha",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Update TIDs for pr that made them bidder specific",
-      "number": 6229,
-      "author": "ChrisHuie",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "dgirardi"
-        ]
-      },
-      "dateCreated": "2025-08-27T16:05:13.000Z",
-      "dateUpdated": "2025-08-29T13:26:38.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "ChrisHuie": {
-            "count": 3,
-            "author": "ChrisHuie"
-          },
-          "dgirardi": {
-            "count": 1,
-            "author": "dgirardi"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Datawrkz Analytics Adapter : initial release",
-      "number": 6225,
-      "author": "Likhith329",
-      "assignees": [],
-      "dateCreated": "2025-08-25T09:16:27.000Z",
-      "dateUpdated": "2025-08-29T06:05:59.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "Likhithdatawrkz": {
-            "count": 1,
-            "author": "Likhithdatawrkz"
-          },
-          "Likhith329": {
-            "count": 1,
-            "author": "Likhith329"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add Scope3 RTD Provider documentation",
-      "number": 6217,
-      "author": "bokelley",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "lpagnypubstack"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-08-19T01:24:02.000Z",
-      "dateUpdated": "2025-08-28T07:05:27.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "Pending PBJS Release",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "bokelley": {
-            "count": 4,
-            "author": "bokelley"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "New Adapter: PinkLion",
-      "number": 6087,
-      "author": "prebidPinkLion",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "ChrisHuie"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-06-05T13:11:48.000Z",
-      "dateUpdated": "2025-08-27T22:21:15.000Z",
-      "status": "open",
-      "labels": [
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "prebidPinkLion": {
-            "count": 6,
-            "author": "prebidPinkLion"
-          },
-          "ChrisHuie": {
-            "count": 1,
-            "author": "ChrisHuie"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "New adapter - DXTech",
-      "number": 6230,
-      "author": "dxtech-git",
-      "assignees": [],
-      "dateCreated": "2025-08-27T21:14:26.000Z",
-      "dateUpdated": "2025-08-27T21:16:18.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "dxtech-git": {
-            "count": 1,
-            "author": "dxtech-git"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "align: docs with code changes",
-      "number": 6228,
-      "author": "anna-y-perion",
-      "assignees": [],
-      "dateCreated": "2025-08-26T16:01:33.000Z",
-      "dateUpdated": "2025-08-26T16:10:21.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "anna-y-perion": {
-            "count": 2,
-            "author": "anna-y-perion"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Typo Fix in Js Getting Started for Developers",
-      "number": 6226,
-      "author": "ChrisHuie",
-      "assignees": [],
-      "dateCreated": "2025-08-26T15:14:50.000Z",
-      "dateUpdated": "2025-08-26T15:16:35.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ChrisHuie": {
-            "count": 1,
-            "author": "ChrisHuie"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "RocketLab Adapter: pbs set to true",
-      "number": 6105,
-      "author": "leamarty",
-      "assignees": [],
-      "dateCreated": "2025-06-16T08:39:08.000Z",
-      "dateUpdated": "2025-08-26T13:22:14.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "leamarty": {
-            "count": 2,
-            "author": "leamarty"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Documentation for 152media RTD module",
-      "number": 6135,
-      "author": "arezitopedia",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": [
-          "jefftmahoney",
-          "arezitopedia"
-        ]
-      },
-      "dateCreated": "2025-07-04T15:21:40.000Z",
-      "dateUpdated": "2025-08-21T14:57:20.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending Prebid Module Release"
-      ],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "arezitopedia": {
-            "count": 3,
-            "author": "arezitopedia"
-          },
-          "muuki88": {
-            "count": 1,
-            "author": "muuki88"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "init new adapter Bidfuse",
-      "number": 6221,
-      "author": "bidfuse",
-      "assignees": [],
-      "dateCreated": "2025-08-19T14:38:19.000Z",
-      "dateUpdated": "2025-08-20T10:10:14.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "bidfuse": {
-            "count": 7,
-            "author": "bidfuse"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add Boldwin Rapid Bidder Adapter documentation",
-      "number": 6202,
-      "author": "BoldwinDev",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-08-08T11:29:40.000Z",
-      "dateUpdated": "2025-08-18T18:11:57.000Z",
-      "status": "open",
-      "labels": [
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "BoldwinDev": {
-            "count": 2,
-            "author": "BoldwinDev"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "new adapter stellorMediaRtb",
-      "number": 6209,
-      "author": "maksimD24",
-      "assignees": [],
-      "dateCreated": "2025-08-13T18:38:49.000Z",
-      "dateUpdated": "2025-08-14T17:42:53.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "mderevyanko": {
-            "count": 3,
-            "author": "mderevyanko"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Remove required host from Limelight prebid server adapters",
-      "number": 6031,
-      "author": "apykhteyev",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-05-09T12:12:27.000Z",
-      "dateUpdated": "2025-08-14T17:25:05.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "apykhteyev": {
-            "count": 1,
-            "author": "apykhteyev"
-          },
-          "belousovdmitry": {
-            "count": 1,
-            "author": "belousovdmitry"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Enable PBS support in goldbach.md",
-      "number": 6198,
-      "author": "simonaebli",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-08-07T11:51:46.000Z",
-      "dateUpdated": "2025-08-12T20:17:38.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "simonaebli": {
-            "count": 1,
-            "author": "simonaebli"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add bid parameters for Contxtful bid adapter and document Prebid Server support",
-      "number": 6181,
-      "author": "sebhtml",
-      "assignees": [],
-      "dateCreated": "2025-07-29T12:50:13.000Z",
-      "dateUpdated": "2025-08-11T19:41:53.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 12,
-        "byAuthor": {
-          "sebhtml": {
-            "count": 12,
-            "author": "sebhtml"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add Gemius ID submodule documentation.",
-      "number": 6191,
-      "author": "mmuras",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "lpagnypubstack"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-08-05T07:35:25.000Z",
-      "dateUpdated": "2025-08-05T11:56:37.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "Pending PBJS Release",
-        "not merged yet"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "mmuras": {
-            "count": 1,
-            "author": "mmuras"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "AdOcean Adapter: Removed",
-      "number": 5991,
-      "author": "patryk-grzegorczyk",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "lpagnypubstack"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-04-11T12:40:14.000Z",
-      "dateUpdated": "2025-08-05T08:30:48.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release",
-        "Pending Next Major Release"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "patryk-grzegorczyk": {
-            "count": 1,
-            "author": "patryk-grzegorczyk"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add audio mediaType",
-      "number": 6183,
-      "author": "mkomorski",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "patmmccann",
-          "muuki88"
-        ]
-      },
-      "dateCreated": "2025-07-30T09:25:33.000Z",
-      "dateUpdated": "2025-08-01T18:53:56.000Z",
-      "status": "open",
-      "labels": [
-        "needs work"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Marcin Komorski": {
-            "count": 1,
-            "author": "Marcin Komorski"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Update definemedia.md",
-      "number": 6187,
-      "author": "mkdefinemedia",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "muuki88"
-        ]
-      },
-      "dateCreated": "2025-08-01T14:45:21.000Z",
-      "dateUpdated": "2025-08-01T18:52:20.000Z",
-      "status": "open",
-      "labels": [
-        "Pending PBJS Release",
-        "not merged yet"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "mkdefinemedia": {
-            "count": 1,
-            "author": "mkdefinemedia"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Added and updated AdPlus docs",
-      "number": 6114,
-      "author": "tccdeniz",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-06-30T08:43:14.000Z",
-      "dateUpdated": "2025-07-30T12:13:17.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "Pending PBJS Release",
-        "not merged yet"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "tccdeniz": {
-            "count": 3,
-            "author": "tccdeniz"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "feat: afront adapter doc",
-      "number": 6097,
-      "author": "Afrontio",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "muuki88",
-          "Afrontio"
-        ]
-      },
-      "dateCreated": "2025-06-09T09:59:37.000Z",
-      "dateUpdated": "2025-07-21T11:15:57.000Z",
-      "status": "open",
-      "labels": [
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "Afrontio": {
-            "count": 3,
-            "author": "Afrontio"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "New Adapter: RobustApps",
-      "number": 6142,
-      "author": "rbstdev",
-      "assignees": [
-        "lpagnypubstack"
-      ],
-      "dateCreated": "2025-07-11T14:41:42.000Z",
-      "dateUpdated": "2025-07-15T07:34:19.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "rbstdev": {
-            "count": 1,
-            "author": "rbstdev"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Enable PBS support in tagoras.md",
-      "number": 6130,
-      "author": "saar120",
-      "assignees": [],
-      "dateCreated": "2025-07-03T12:42:25.000Z",
-      "dateUpdated": "2025-07-10T13:35:54.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "saar120": {
-            "count": 1,
-            "author": "saar120"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "New pbs adapter 360playvid",
-      "number": 6131,
-      "author": "pb360playvid",
-      "assignees": [],
-      "dateCreated": "2025-07-03T17:02:13.000Z",
-      "dateUpdated": "2025-07-10T13:35:38.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "Bohdan Lashko": {
-            "count": 1,
-            "author": "Bohdan Lashko"
-          },
-          "pb360playvid": {
-            "count": 6,
-            "author": "pb360playvid"
-          },
-          "ChrisHuie": {
-            "count": 1,
-            "author": "ChrisHuie"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "AdsInteractive Adapter: Make old adapter as alias for current, update params",
-      "number": 6076,
-      "author": "AdsInteractive",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-05-30T14:00:32.000Z",
-      "dateUpdated": "2025-07-02T20:06:57.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "AdsInteractive": {
-            "count": 7,
-            "author": "AdsInteractive"
-          },
-          "muuki88": {
-            "count": 1,
-            "author": "muuki88"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "pbs rules engine module",
       "number": 6044,
-      "author": "bretg",
-      "assignees": [],
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-05-22T14:57:35.000Z",
-      "dateUpdated": "2025-07-02T20:06:20.000Z",
+      "dateUpdated": "2025-09-19T01:51:41.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "bretg": {
-            "count": 3,
-            "author": "bretg"
-          }
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Update adipolo docs",
-      "number": 6048,
-      "author": "And-Rud",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "ChrisHuie"
-        ],
-        "pending": []
+      "title": "relevatehealth bid adapter -  added instructions for first party data",
+      "number": 6262,
+      "author": {
+        "login": "hasanideepak",
+        "id": 80700939
       },
-      "dateCreated": "2025-05-23T12:08:58.000Z",
-      "dateUpdated": "2025-06-30T12:26:33.000Z",
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-18T07:55:37.000Z",
+      "dateUpdated": "2025-09-18T07:57:33.000Z",
       "status": "open",
-      "labels": [
-        "not merged yet"
+      "commitAuthors": {
+        "80700939": {
+          "identifier": "80700939",
+          "displayName": "hasanideepak",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "init new adapter Bidfuse",
+      "number": 6221,
+      "author": {
+        "login": "bidfuse",
+        "id": 227335669
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-08-19T14:38:19.000Z",
+      "dateUpdated": "2025-09-17T16:09:56.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "227335669": {
+          "identifier": "227335669",
+          "displayName": "bidfuse",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adkernel: documenting smartyexchange alias",
+      "number": 6261,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
       ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "And-Rud": {
-            "count": 1,
-            "author": "And-Rud"
-          }
+      "dateCreated": "2025-09-17T08:12:40.000Z",
+      "dateUpdated": "2025-09-17T16:09:05.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Nativery: enable pbs support",
-      "number": 6108,
-      "author": "andreafassina",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
+      "title": "Update docs",
+      "number": 6251,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
       },
-      "dateCreated": "2025-06-20T07:24:48.000Z",
-      "dateUpdated": "2025-06-27T11:53:28.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
       ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "andreafassina": {
-            "count": 1,
-            "author": "andreafassina"
-          }
+      "dateCreated": "2025-09-10T11:16:10.000Z",
+      "dateUpdated": "2025-09-17T14:49:24.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Start.io Bid Adapter: Enable coppa, usp, floors and ortb_blocking support",
-      "number": 6110,
-      "author": "prebid-startio",
+      "title": "Adkernel: documenting xapads alias",
+      "number": 6257,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
       "assignees": [],
-      "dateCreated": "2025-06-25T09:30:30.000Z",
-      "dateUpdated": "2025-06-27T11:45:22.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "Pending PBJS Release",
-        "not merged yet"
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
       ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "prebid-startio": {
-            "count": 1,
-            "author": "prebid-startio"
-          }
+      "dateCreated": "2025-09-15T13:51:09.000Z",
+      "dateUpdated": "2025-09-17T14:41:28.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Adding documentation for the Mobian RTD module for docs.prebid.org",
-      "number": 5775,
-      "author": "richmtk",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "bretg",
-          "muuki88"
-        ]
+      "title": "Adagio: Update Placement Max Length Doc",
+      "number": 6247,
+      "author": {
+        "login": "GodefroiRoussel",
+        "id": 16046142
       },
-      "dateCreated": "2024-12-12T21:37:14.000Z",
-      "dateUpdated": "2025-06-26T15:23:28.000Z",
-      "status": "open",
-      "labels": [
-        "needs work"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
       ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "richmtk": {
-            "count": 7,
-            "author": "richmtk"
-          }
+      "dateCreated": "2025-09-08T10:20:08.000Z",
+      "dateUpdated": "2025-09-17T14:40:41.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Godefroi Roussel": {
+          "identifier": "Godefroi Roussel",
+          "displayName": "Godefroi Roussel",
+          "count": 1,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "MediaYo: new adapter",
-      "number": 6102,
-      "author": "mediayo",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
+      "title": "Update definemedia.md",
+      "number": 6187,
+      "author": {
+        "login": "mkdefinemedia",
+        "id": 20317873
       },
-      "dateCreated": "2025-06-10T22:42:53.000Z",
-      "dateUpdated": "2025-06-12T14:07:07.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkdefinemedia",
+          "state": "COMMENTED"
+        }
       ],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "mediayo": {
-            "count": 1,
-            "author": "mediayo"
-          },
-          "muuki88": {
-            "count": 2,
-            "author": "muuki88"
-          }
+      "dateCreated": "2025-08-01T14:45:21.000Z",
+      "dateUpdated": "2025-09-17T12:02:33.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "20317873": {
+          "identifier": "20317873",
+          "displayName": "mkdefinemedia",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Download page: show gzipped size",
-      "number": 6067,
-      "author": "patmmccann",
+      "title": "Datawrkz Analytics Adapter : initial release",
+      "number": 6225,
+      "author": {
+        "login": "Likhith329",
+        "id": 111145706
+      },
       "assignees": [],
-      "dateCreated": "2025-05-27T14:17:17.000Z",
-      "dateUpdated": "2025-06-11T21:47:34.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "patmmccann": {
-            "count": 7,
-            "author": "patmmccann"
-          }
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Likhith329",
+          "state": "COMMENTED"
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add adapter: Matterfull",
-      "number": 6042,
-      "author": "Matterfull",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "muuki88"
-        ]
-      },
-      "dateCreated": "2025-05-19T09:22:53.000Z",
-      "dateUpdated": "2025-05-29T12:56:09.000Z",
-      "status": "open",
-      "labels": [
-        "not merged yet",
-        "Pending PBS Release"
       ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "Matterfull": {
-            "count": 2,
-            "author": "Matterfull"
-          },
-          "muuki88": {
-            "count": 4,
-            "author": "muuki88"
-          }
+      "dateCreated": "2025-08-25T09:16:27.000Z",
+      "dateUpdated": "2025-09-15T10:57:10.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "111145706": {
+          "identifier": "111145706",
+          "displayName": "Likhith329",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "139539788": {
+          "identifier": "139539788",
+          "displayName": "Likhithdatawrkz",
+          "count": 9,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
-      "title": "Update SDK Global Parameters ",
-      "number": 6057,
-      "author": "OlenaPostindustria",
-      "assignees": [],
-      "dateCreated": "2025-05-26T07:16:21.000Z",
-      "dateUpdated": "2025-05-26T07:21:01.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "OlenaPostindustria": {
-            "count": 1,
-            "author": "OlenaPostindustria"
-          }
-        }
+      "title": "New pbs adapter: Showheroes",
+      "number": 6256,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-15T08:39:11.000Z",
+      "dateUpdated": "2025-09-15T08:44:38.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "12955765": {
+          "identifier": "12955765",
+          "displayName": "FilipStamenkovic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
     },
     {
-      "title": "New Adapter: 9dotsmedialtd",
-      "number": 5966,
-      "author": "maksimD24",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": [
-          "bretg",
-          "maksimD24",
-          "apykhteyev"
-        ]
+      "title": "PubxAi doc added + other fix",
+      "number": 6245,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
       },
-      "dateCreated": "2025-03-27T11:47:24.000Z",
-      "dateUpdated": "2025-05-15T13:46:49.000Z",
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-04T11:38:11.000Z",
+      "dateUpdated": "2025-09-12T08:49:08.000Z",
       "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
+      "commitAuthors": {
+        "Gabriel Chicoye": {
+          "identifier": "Gabriel Chicoye",
+          "displayName": "Gabriel Chicoye",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "33across Bid Adapter: zone id config option & app related info",
+      "number": 6254,
+      "author": {
+        "login": "carlosfelix",
+        "id": 136311
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-11T16:27:19.000Z",
+      "dateUpdated": "2025-09-11T16:29:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "136311": {
+          "identifier": "136311",
+          "displayName": "carlosfelix",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Alva (alvads) bidder adapter documentation",
+      "number": 6231,
+      "author": {
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
       ],
-      "commits": {
-        "totalCount": 8,
-        "byAuthor": {
-          "mderevyanko": {
-            "count": 3,
-            "author": "mderevyanko"
-          },
-          "maksimD24": {
-            "count": 3,
-            "author": "maksimD24"
-          },
-          "apykhteyev": {
-            "count": 2,
-            "author": "apykhteyev"
-          }
+      "dateCreated": "2025-08-28T13:16:12.000Z",
+      "dateUpdated": "2025-09-11T14:00:01.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "228544051": {
+          "identifier": "228544051",
+          "displayName": "SamuelAlejandroNT",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Samuel Alejandro Maldonado Garcia": {
+          "identifier": "Samuel Alejandro Maldonado Garcia",
+          "displayName": "Samuel Alejandro Maldonado Garcia",
+          "count": 4,
+          "isGitHubUser": false
         }
+      }
+    },
+    {
+      "title": "Update colossus docs",
+      "number": 6252,
+      "author": {
+        "login": "bhasker-ddh",
+        "id": 159261864
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-11T05:35:52.000Z",
+      "dateUpdated": "2025-09-11T05:36:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "28923476": {
+          "identifier": "28923476",
+          "displayName": "vladis-teqblaze",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "159261864": {
+          "identifier": "159261864",
+          "displayName": "bhasker-ddh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Bill Newman": {
+          "identifier": "Bill Newman",
+          "displayName": "Bill Newman",
+          "count": 12,
+          "isGitHubUser": false
+        },
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "huddled.masses": {
+          "identifier": "huddled.masses",
+          "displayName": "huddled.masses",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "HuddledMasses": {
+          "identifier": "HuddledMasses",
+          "displayName": "HuddledMasses",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New adapter - DXTech",
+      "number": 6230,
+      "author": {
+        "login": "dxtech-git",
+        "id": 227376282
+      },
+      "assignees": [
+        "lpagnypubstack"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-08-27T21:14:26.000Z",
+      "dateUpdated": "2025-09-08T19:30:39.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "227376282": {
+          "identifier": "227376282",
+          "displayName": "dxtech-git",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove required host from Limelight prebid server adapters",
+      "number": 6031,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-09T12:12:27.000Z",
+      "dateUpdated": "2025-09-04T10:39:53.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "5434335": {
+          "identifier": "5434335",
+          "displayName": "belousovdmitry",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
     },
     {
       "title": "Introduce mobile impression tracker's setter for PUC",
       "number": 5906,
-      "author": "ValentinPostindustria",
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
       "assignees": [],
+      "reviewers": [],
       "dateCreated": "2025-02-21T12:21:18.000Z",
-      "dateUpdated": "2025-05-15T13:40:19.000Z",
+      "dateUpdated": "2025-09-04T07:36:49.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "ValentinPostindustria": {
-            "count": 1,
-            "author": "ValentinPostindustria"
-          },
-          "muuki88": {
-            "count": 1,
-            "author": "muuki88"
-          }
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Add Microsoft adapter",
-      "number": 5908,
-      "author": "bsardo",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "bretg",
-          "muuki88"
-        ]
-      },
-      "dateCreated": "2025-02-21T18:44:08.000Z",
-      "dateUpdated": "2025-05-15T13:38:50.000Z",
-      "status": "open",
-      "labels": [
-        "needs work"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "bsardo": {
-            "count": 1,
-            "author": "bsardo"
-          }
-        }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Zeta Global SSP: update supported modules, media types, PBS params.",
-      "number": 5620,
-      "author": "abermanov-zeta",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "ChrisHuie"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2024-09-25T14:23:23.000Z",
-      "dateUpdated": "2025-05-15T13:33:02.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 6,
-        "byAuthor": {
-          "abermanov-zeta": {
-            "count": 6,
-            "author": "abermanov-zeta"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "New adapter: Performist",
       "number": 5968,
-      "author": "maksimD24",
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
       "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "bretg",
-          "maksimD24",
-          "apykhteyev"
-        ]
-      },
-      "dateCreated": "2025-03-27T15:49:16.000Z",
-      "dateUpdated": "2025-05-09T12:28:22.000Z",
-      "status": "open",
-      "labels": [
-        "needs work"
-      ],
-      "commits": {
-        "totalCount": 7,
-        "byAuthor": {
-          "mderevyanko": {
-            "count": 2,
-            "author": "mderevyanko"
-          },
-          "maksimD24": {
-            "count": 4,
-            "author": "maksimD24"
-          },
-          "apykhteyev": {
-            "count": 1,
-            "author": "apykhteyev"
-          }
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "quietPusher",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "apykhteyev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
         }
+      ],
+      "dateCreated": "2025-03-27T15:49:16.000Z",
+      "dateUpdated": "2025-09-04T06:34:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "4188019": {
+          "identifier": "4188019",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New adapter: Screencore pbjs",
+      "number": 6237,
+      "author": {
+        "login": "screencore-dev",
+        "id": 229771208
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-02T10:55:17.000Z",
+      "dateUpdated": "2025-09-03T14:58:17.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "229771208": {
+          "identifier": "229771208",
+          "displayName": "screencore-dev",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Download page: show gzipped size",
+      "number": 6067,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "muuki88"
+      ],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-05-27T14:17:17.000Z",
+      "dateUpdated": "2025-09-03T14:39:37.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Attekmi Add region",
+      "number": 6238,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-03T06:32:39.000Z",
+      "dateUpdated": "2025-09-03T14:38:30.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Victor": {
+          "identifier": "Victor",
+          "displayName": "Victor",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add Scalibur bidder adapter documentation",
+      "number": 6235,
+      "author": {
+        "login": "bTimor",
+        "id": 184917484
+      },
+      "assignees": [
+        "lpagnypubstack"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-09-01T13:26:27.000Z",
+      "dateUpdated": "2025-09-02T07:22:37.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Timor Bibi": {
+          "identifier": "Timor Bibi",
+          "displayName": "Timor Bibi",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: RobustApps",
+      "number": 6142,
+      "author": {
+        "login": "rbstdev",
+        "id": 219820768
+      },
+      "assignees": [
+        "lpagnypubstack"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-07-11T14:41:42.000Z",
+      "dateUpdated": "2025-09-01T20:13:44.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "90603301": {
+          "identifier": "90603301",
+          "displayName": "lpagnypubstack",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "rbstdev": {
+          "identifier": "rbstdev",
+          "displayName": "rbstdev",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add Scope3 RTD Provider documentation",
+      "number": 6217,
+      "author": {
+        "login": "bokelley",
+        "id": 134922
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-19T01:24:02.000Z",
+      "dateUpdated": "2025-09-01T20:08:08.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "134922": {
+          "identifier": "134922",
+          "displayName": "bokelley",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "align: docs with code changes",
+      "number": 6228,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-26T16:01:33.000Z",
+      "dateUpdated": "2025-09-01T19:51:40.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Boldwin Rapid Bidder Adapter documentation",
+      "number": 6202,
+      "author": {
+        "login": "BoldwinDev",
+        "id": 225151908
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-08T11:29:40.000Z",
+      "dateUpdated": "2025-08-18T18:11:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "225151908": {
+          "identifier": "225151908",
+          "displayName": "BoldwinDev",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Enable PBS support in goldbach.md",
+      "number": 6198,
+      "author": {
+        "login": "simonaebli",
+        "id": 203809323
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-07T11:51:46.000Z",
+      "dateUpdated": "2025-08-12T20:17:38.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "203809323": {
+          "identifier": "203809323",
+          "displayName": "simonaebli",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add bid parameters for Contxtful bid adapter and document Prebid Server support",
+      "number": 6181,
+      "author": {
+        "login": "sebhtml",
+        "id": 824460
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-07-29T12:50:13.000Z",
+      "dateUpdated": "2025-08-11T19:41:53.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "824460": {
+          "identifier": "824460",
+          "displayName": "sebhtml",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add audio mediaType",
+      "number": 6183,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-07-30T09:25:33.000Z",
+      "dateUpdated": "2025-08-01T18:53:56.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Marcin Komorski": {
+          "identifier": "Marcin Komorski",
+          "displayName": "Marcin Komorski",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "feat: afront adapter doc",
+      "number": 6097,
+      "author": {
+        "login": "Afrontio",
+        "id": 214840451
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "Afrontio",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-09T09:59:37.000Z",
+      "dateUpdated": "2025-07-21T11:15:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "214840451": {
+          "identifier": "214840451",
+          "displayName": "Afrontio",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New pbs adapter 360playvid",
+      "number": 6131,
+      "author": {
+        "login": "pb360playvid",
+        "id": 211947707
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-07-03T17:02:13.000Z",
+      "dateUpdated": "2025-07-10T13:35:38.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "211947707": {
+          "identifier": "211947707",
+          "displayName": "pb360playvid",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "Bohdan Lashko": {
+          "identifier": "Bohdan Lashko",
+          "displayName": "Bohdan Lashko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AdsInteractive Adapter: Make old adapter as alias for current, update params",
+      "number": 6076,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-30T14:00:32.000Z",
+      "dateUpdated": "2025-07-02T20:06:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "180516962": {
+          "identifier": "180516962",
+          "displayName": "AdsInteractive",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "AdsInteractive": {
+          "identifier": "AdsInteractive",
+          "displayName": "AdsInteractive",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Nativery: enable pbs support",
+      "number": 6108,
+      "author": {
+        "login": "andreafassina",
+        "id": 127768714
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-20T07:24:48.000Z",
+      "dateUpdated": "2025-06-27T11:53:28.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "127768714": {
+          "identifier": "127768714",
+          "displayName": "andreafassina",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adding documentation for the Mobian RTD module for docs.prebid.org",
+      "number": 5775,
+      "author": {
+        "login": "richmtk",
+        "id": 153646362
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-12-12T21:37:14.000Z",
+      "dateUpdated": "2025-06-26T15:23:28.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "153646362": {
+          "identifier": "153646362",
+          "displayName": "richmtk",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MediaYo: new adapter",
+      "number": 6102,
+      "author": {
+        "login": "mediayo",
+        "id": 212916208
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T22:42:53.000Z",
+      "dateUpdated": "2025-06-12T14:07:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "212916208": {
+          "identifier": "212916208",
+          "displayName": "mediayo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add adapter: Matterfull",
+      "number": 6042,
+      "author": {
+        "login": "Matterfull",
+        "id": 204218625
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-19T09:22:53.000Z",
+      "dateUpdated": "2025-05-29T12:56:09.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "204218625": {
+          "identifier": "204218625",
+          "displayName": "Matterfull",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update SDK Global Parameters ",
+      "number": 6057,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2025-05-26T07:16:21.000Z",
+      "dateUpdated": "2025-05-26T07:21:01.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: 9dotsmedialtd",
+      "number": 5966,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "quietPusher",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "apykhteyev",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-27T11:47:24.000Z",
+      "dateUpdated": "2025-05-15T13:46:49.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "4188019": {
+          "identifier": "4188019",
+          "displayName": "apykhteyev",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add Microsoft adapter",
+      "number": 5908,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-21T18:44:08.000Z",
+      "dateUpdated": "2025-05-15T13:38:50.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Zeta Global SSP: update supported modules, media types, PBS params.",
+      "number": 5620,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-25T14:23:23.000Z",
+      "dateUpdated": "2025-05-15T13:33:02.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "95416296": {
+          "identifier": "95416296",
+          "displayName": "abermanov-zeta",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "New Adapter: TRUSTX 2.0",
       "number": 6017,
-      "author": "trustXops",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "muuki88"
-        ]
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2025-04-29T08:15:53.000Z",
       "dateUpdated": "2025-05-09T08:12:23.000Z",
       "status": "open",
-      "labels": [
-        "needs work",
-        "Pending PBJS Release",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "trustXops": {
-            "count": 5,
-            "author": "trustXops"
-          }
+      "commitAuthors": {
+        "207739730": {
+          "identifier": "207739730",
+          "displayName": "trustXops",
+          "count": 5,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "Adverxo Bid Adapter: Remove Mobupps as alias",
-      "number": 6009,
-      "author": "dev-adverxo",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "ChrisHuie"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2025-04-25T11:42:27.000Z",
-      "dateUpdated": "2025-04-28T11:42:17.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "Pending Next Major Release"
-      ],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "Adverxo": {
-            "count": 1,
-            "author": "Adverxo"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Fix #5565 WIP start working on naming faq entry",
       "number": 5958,
-      "author": "muuki88",
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
       "assignees": [],
+      "reviewers": [],
       "dateCreated": "2025-03-20T13:18:13.000Z",
       "dateUpdated": "2025-03-20T13:20:14.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "muuki88": {
-            "count": 1,
-            "author": "muuki88"
-          }
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
-    },
-    {
-      "title": "New bidder adapter: Zentotem",
-      "number": 5553,
-      "author": "zentotem",
-      "assignees": [],
-      "reviewers": {
-        "approved": [
-          "muuki88"
-        ],
-        "pending": []
-      },
-      "dateCreated": "2024-08-16T23:15:17.000Z",
-      "dateUpdated": "2025-03-20T13:00:42.000Z",
-      "status": "open",
-      "labels": [
-        "LGTM",
-        "not merged yet",
-        "Pending PBS Release"
-      ],
-      "commits": {
-        "totalCount": 5,
-        "byAuthor": {
-          "GermanBogatov": {
-            "count": 4,
-            "author": "GermanBogatov"
-          },
-          "zentotem": {
-            "count": 1,
-            "author": "zentotem"
-          }
-        }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Add stored impressions examples",
       "number": 5611,
-      "author": "muuki88",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "bretg",
-          "muuki88"
-        ]
+      "author": {
+        "login": "muuki88",
+        "id": 647727
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-09-19T13:37:47.000Z",
       "dateUpdated": "2024-10-07T20:14:41.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "muuki88": {
-            "count": 1,
-            "author": "muuki88"
-          },
-          "bretg": {
-            "count": 1,
-            "author": "bretg"
-          }
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

@@ -53,9 +53,17 @@ const REPO_DISPLAY_NAMES: Record<string, string> = {
 };
 
 function getWeekKey(date: Date): string {
-  const year = date.getFullYear();
-  const week = Math.floor((date.getTime() - new Date(year, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
-  return `${year}-${String(week).padStart(2, '0')}`; // Format: 2025-13
+  // ISO 8601 week calculation
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNumber = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+
+  // Use the year of the Thursday in this week (ISO 8601)
+  const year = d.getUTCFullYear();
+
+  return `${year}-${String(weekNumber).padStart(2, '0')}`; // Format: 2025-13
 }
 
 function getMonthKey(date: Date): string {
@@ -119,13 +127,13 @@ function processRepository(repoName: string): ContributorStats {
     
     for (const pr of prs) {
       if (!pr.author?.login) continue;
-      
-      const date = new Date(pr.dateUpdated || pr.updated_at || pr.created_at);
-      
+
+      const date = new Date(pr.dateCreated || pr.created_at);
+
       // Count as opened PR (index 0)
       addStat(pr.author.login, date, 0);
       
-      // Count reviewers (index 2)
+      // Count reviewers (index 2) - using PR created date
       if (pr.reviewers && Array.isArray(pr.reviewers)) {
         for (const reviewer of pr.reviewers) {
           if (reviewer.login) {
@@ -148,10 +156,12 @@ function processRepository(repoName: string): ContributorStats {
       for (const pr of prs) {
         if (!pr.author?.login) continue;
         
-        const mergedDate = new Date(pr.dateMerged || pr.merged_at || pr.dateUpdated || pr.updated_at);
-        
-        // Count as both opened (index 0) and merged (index 1)
-        addStat(pr.author.login, mergedDate, 0);
+        const mergedDate = new Date(pr.dateMerged || pr.merged_at);
+        const createdDate = new Date(pr.dateCreated || pr.created_at);
+
+        // Count as opened PR (index 0) using created date
+        addStat(pr.author.login, createdDate, 0);
+        // Count as merged PR (index 1) using merged date
         addStat(pr.author.login, mergedDate, 1);
         
         // Count reviewers (index 2)
@@ -191,9 +201,9 @@ function processRepository(repoName: string): ContributorStats {
       // Issues have author as a string, not an object
       const author = typeof issue.author === 'string' ? issue.author : issue.author?.login;
       if (!author) continue;
-      
-      const date = new Date(issue.dateUpdated || issue.updated_at || issue.created_at);
-      
+
+      const date = new Date(issue.dateCreated || issue.created_at);
+
       // Count as opened issue (index 4)
       addStat(author, date, 4);
     }
@@ -213,10 +223,10 @@ function processRepository(repoName: string): ContributorStats {
         const author = typeof issue.author === 'string' ? issue.author : issue.author?.login;
         if (!author) continue;
         
-        const closedDate = new Date(issue.dateClosed || issue.closed_at || issue.dateUpdated || issue.updated_at);
-        
-        // Count as opened issue (index 4) - issues that are closed were still opened by the author
-        addStat(author, closedDate, 4);
+        const createdDate = new Date(issue.dateCreated || issue.created_at);
+
+        // Count as opened issue (index 4) - use created date, not closed date
+        addStat(author, createdDate, 4);
       }
     }
   }

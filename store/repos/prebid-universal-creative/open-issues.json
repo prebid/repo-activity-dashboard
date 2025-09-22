@@ -1,171 +1,196 @@
 {
   "metadata": {
     "repository": "prebid/prebid-universal-creative",
-    "lastSync": "2025-08-30T16:47:53.570Z",
+    "lastSync": "2025-09-22T16:30:14.793Z",
     "itemCount": 15
   },
   "items": [
     {
+      "title": "Migrate from latest to a versioned release scheme",
+      "number": 187,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2022-10-27T20:04:02.000Z",
+      "dateUpdated": "2025-09-10T16:17:36.000Z",
+      "status": "open"
+    },
+    {
       "title": "finish removing cookie sync logic from here",
       "number": 289,
-      "author": "patmmccann",
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
       "assignees": [],
       "dateCreated": "2025-08-11T15:34:49.000Z",
       "dateUpdated": "2025-08-11T15:34:49.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Mobile PUC Failover App Event",
       "number": 255,
-      "author": "justadreamer",
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
       "assignees": [],
       "dateCreated": "2025-02-12T14:23:45.000Z",
       "dateUpdated": "2025-06-24T13:13:36.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "isSafeFrame detection not detecting AMP forced SafeFrame",
       "number": 242,
-      "author": "Sir-Will",
+      "author": {
+        "login": "Sir-Will",
+        "id": 5961995
+      },
       "assignees": [
         "dgirardi"
       ],
       "dateCreated": "2024-10-06T14:34:52.000Z",
       "dateUpdated": "2025-05-23T14:03:16.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
+      "status": "open"
     },
     {
       "title": "PUC Automated Testing on iOS",
       "number": 279,
-      "author": "justadreamer",
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
       "assignees": [],
       "dateCreated": "2025-04-30T20:24:53.000Z",
       "dateUpdated": "2025-04-30T20:24:53.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Integration test does not want to pass on Webkit",
       "number": 256,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2025-02-13T15:57:16.000Z",
       "dateUpdated": "2025-02-13T15:57:16.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Exception when iframe with UC is in srcdoc iframe",
       "number": 147,
-      "author": "Zer0Divis0r",
+      "author": {
+        "login": "Zer0Divis0r",
+        "id": 10449753
+      },
       "assignees": [
         "dgirardi"
       ],
       "dateCreated": "2021-11-25T08:53:10.000Z",
       "dateUpdated": "2024-10-08T20:29:23.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
-    },
-    {
-      "title": "Migrate from latest to a versioned release scheme",
-      "number": 187,
-      "author": "muuki88",
-      "assignees": [],
-      "dateCreated": "2022-10-27T20:04:02.000Z",
-      "dateUpdated": "2024-03-11T15:42:49.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Feature Request: Have the PUC find the $$PREBID_GLOBAL$$ ",
       "number": 168,
-      "author": "ethyde",
+      "author": {
+        "login": "ethyde",
+        "id": 409987
+      },
       "assignees": [],
       "dateCreated": "2022-05-09T08:50:07.000Z",
       "dateUpdated": "2024-02-21T20:12:40.000Z",
       "status": "open",
-      "labels": [
-        "enhancement"
-      ]
+      "closedBy": "patmmccann"
     },
     {
       "title": "Improve creative resizing logic",
       "number": 191,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2022-11-09T15:25:29.000Z",
       "dateUpdated": "2024-01-16T19:28:30.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
+      "status": "open"
     },
     {
       "title": "Align the PUC for mobile and AMP",
       "number": 208,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [],
       "dateCreated": "2023-04-05T18:51:31.000Z",
       "dateUpdated": "2023-04-07T13:19:14.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Release automation does not work for `load-cookie.html`",
       "number": 186,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2022-10-26T19:46:34.000Z",
       "dateUpdated": "2022-10-26T19:46:34.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "AUCTION_PRICE macro does not work on AMP/mobile pages that use `nurl`",
       "number": 183,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2022-10-06T17:23:42.000Z",
       "dateUpdated": "2022-10-06T17:25:09.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "`adServerDomain` setup in creatives appears to be useless",
       "number": 181,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2022-10-03T16:24:27.000Z",
       "dateUpdated": "2022-10-03T17:16:15.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Fix code scanning alert - Inefficient regular expression",
       "number": 175,
-      "author": "patmmccann",
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
       "assignees": [],
       "dateCreated": "2022-09-07T14:24:55.000Z",
       "dateUpdated": "2022-09-07T14:26:45.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Better detection of AMP environment",
       "number": 107,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [],
       "dateCreated": "2020-06-28T00:09:30.000Z",
       "dateUpdated": "2020-06-28T00:09:30.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     }
   ]
 }

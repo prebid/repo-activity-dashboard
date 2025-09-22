@@ -1,321 +1,375 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2025-08-30T16:48:06.578Z",
-    "itemCount": 26
+    "lastSync": "2025-09-22T16:22:57.824Z",
+    "itemCount": 29
   },
   "items": [
     {
+      "title": "Ad position (`pos`) for multiformat `PrebidAdUnit`",
+      "number": 883,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [
+        "ValentinPostindustria"
+      ],
+      "dateCreated": "2025-09-19T09:08:07.000Z",
+      "dateUpdated": "2025-09-22T08:41:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Suggestion: Should VIDEO_INTERSTITIAL_PLAYBACK_END value be changed from 2 → 1 for interstitial videos?",
+      "number": 876,
+      "author": {
+        "login": "ZenyB",
+        "id": 106144398
+      },
+      "assignees": [
+        "ZenyB"
+      ],
+      "dateCreated": "2025-08-15T14:10:22.000Z",
+      "dateUpdated": "2025-09-22T08:34:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Android SDK should rely on `ext.prebid.type` on selectong the rendering engine",
+      "number": 769,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "ValentinPostindustria"
+      ],
+      "dateCreated": "2024-06-18T14:01:45.000Z",
+      "dateUpdated": "2025-09-22T08:32:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature Flags for Location Precision",
+      "number": 881,
+      "author": {
+        "login": "jerrycychen",
+        "id": 16475922
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-04T18:01:14.000Z",
+      "dateUpdated": "2025-09-04T19:58:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Android SDK's mraid.js doesn't fire exposureChange or audioVolumeChange on addEventListener",
+      "number": 878,
+      "author": {
+        "login": "jhorrocks-tl",
+        "id": 58949019
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-02T15:05:36.000Z",
+      "dateUpdated": "2025-09-02T15:05:36.000Z",
+      "status": "open"
+    },
+    {
       "title": "Question about getting ExpandProperties when the ad is MRAID but is not expandable",
       "number": 867,
-      "author": "elq81hc",
+      "author": {
+        "login": "elq81hc",
+        "id": 71596165
+      },
       "assignees": [],
       "dateCreated": "2025-06-15T07:49:23.000Z",
       "dateUpdated": "2025-08-25T16:03:23.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "JSbridge",
       "number": 855,
-      "author": "codofags",
+      "author": {
+        "login": "codofags",
+        "id": 46934060
+      },
       "assignees": [],
       "dateCreated": "2025-04-21T07:42:42.000Z",
       "dateUpdated": "2025-08-19T12:16:08.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "Prebid univernal native creative is not parsing the js tracker",
       "number": 603,
-      "author": "inesmouadil1",
+      "author": {
+        "login": "inesmouadil1",
+        "id": 115710751
+      },
       "assignees": [
         "ChrisHuie"
       ],
       "dateCreated": "2023-02-02T09:44:09.000Z",
       "dateUpdated": "2025-08-19T12:06:25.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "Support video assets for native Ads",
       "number": 665,
-      "author": "yangling1985",
+      "author": {
+        "login": "yangling1985",
+        "id": 85200577
+      },
       "assignees": [],
       "dateCreated": "2023-08-10T21:02:09.000Z",
       "dateUpdated": "2025-08-19T12:05:11.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required"
-      ]
+      "status": "open"
     },
     {
       "title": "Allow to resume auto refresh for MediationBannerAdUnit",
       "number": 710,
-      "author": "linean",
+      "author": {
+        "login": "linean",
+        "id": 17886739
+      },
       "assignees": [],
       "dateCreated": "2023-11-06T09:14:27.000Z",
       "dateUpdated": "2025-08-19T12:04:37.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Header bidding solution for Flutter/Reactnative apps",
       "number": 728,
-      "author": "maxacademind1",
+      "author": {
+        "login": "maxacademind1",
+        "id": 136687446
+      },
       "assignees": [],
       "dateCreated": "2023-12-20T12:11:55.000Z",
       "dateUpdated": "2025-08-19T12:02:17.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Support Termination Handling API",
       "number": 740,
-      "author": "takenorim",
+      "author": {
+        "login": "takenorim",
+        "id": 19651358
+      },
       "assignees": [],
       "dateCreated": "2024-03-05T06:20:17.000Z",
       "dateUpdated": "2025-08-19T12:00:55.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "GAM Rendering API key values issue",
       "number": 745,
-      "author": "acampbellthescore",
+      "author": {
+        "login": "acampbellthescore",
+        "id": 7306257
+      },
       "assignees": [],
       "dateCreated": "2024-04-11T17:52:03.000Z",
       "dateUpdated": "2025-08-18T13:01:40.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "sdk internal error",
       "number": 766,
-      "author": "rajeshb10",
+      "author": {
+        "login": "rajeshb10",
+        "id": 171242420
+      },
       "assignees": [],
       "dateCreated": "2024-06-11T07:06:48.000Z",
       "dateUpdated": "2025-08-18T12:55:12.000Z",
-      "status": "open",
-      "labels": []
-    },
-    {
-      "title": "Android SDK should rely on `ext.prebid.type` on selectong the rendering engine",
-      "number": 769,
-      "author": "YuriyVelichkoPI",
-      "assignees": [],
-      "dateCreated": "2024-06-18T14:01:45.000Z",
-      "dateUpdated": "2025-08-18T12:52:18.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "Video banner restarts video after 30-100ms  ",
       "number": 793,
-      "author": "ValentinTeqBlaze",
+      "author": {
+        "login": "ValentinTeqBlaze",
+        "id": 179249052
+      },
       "assignees": [],
       "dateCreated": "2024-08-23T16:23:24.000Z",
       "dateUpdated": "2025-08-18T12:48:41.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Using Kotlin outside of the Example?",
       "number": 844,
-      "author": "shinwan2",
+      "author": {
+        "login": "shinwan2",
+        "id": 11733537
+      },
       "assignees": [],
       "dateCreated": "2025-03-19T10:02:03.000Z",
       "dateUpdated": "2025-08-18T12:40:18.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required"
-      ]
+      "status": "open"
     },
     {
       "title": "Release publishing repository is deprecated",
       "number": 852,
-      "author": "ValentinPostindustria",
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
       "assignees": [],
       "dateCreated": "2025-04-09T09:50:01.000Z",
       "dateUpdated": "2025-08-18T12:32:26.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "SDK does not fire Prebid impression event URL in DISPLAY interstitial",
       "number": 858,
-      "author": "elq81hc",
+      "author": {
+        "login": "elq81hc",
+        "id": 71596165
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-05-01T03:01:50.000Z",
       "dateUpdated": "2025-08-18T12:26:46.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "PrebidMobile.timeoutMillis setting does not appear to work correctly for readTimeout",
       "number": 859,
-      "author": "hamanfang",
+      "author": {
+        "login": "hamanfang",
+        "id": 2002724
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-05-09T08:08:43.000Z",
       "dateUpdated": "2025-08-18T12:26:00.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "New in-stream examples based on Media3 (ExoPlayer deprecated)",
       "number": 860,
-      "author": "ValentinPostindustria",
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
       "assignees": [],
       "dateCreated": "2025-05-12T09:18:45.000Z",
       "dateUpdated": "2025-08-18T12:24:04.000Z",
-      "status": "open",
-      "labels": [
-        "tech debt",
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "device.geo.country is being sent in iso alpha-2 format",
       "number": 872,
-      "author": "justadreamer",
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
       "assignees": [],
       "dateCreated": "2025-07-23T10:25:12.000Z",
       "dateUpdated": "2025-08-18T12:19:54.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "Inconsistent Interstitial Behavior Between Android and iOS with GAM Rendering",
       "number": 877,
-      "author": "JahonovAsilbek",
+      "author": {
+        "login": "JahonovAsilbek",
+        "id": 60385044
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-08-18T05:44:29.000Z",
       "dateUpdated": "2025-08-18T12:15:49.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Disappearing/Blank Ads -> Rendering API -> Banner API",
       "number": 746,
-      "author": "omertanveer",
+      "author": {
+        "login": "omertanveer",
+        "id": 3583890
+      },
       "assignees": [],
       "dateCreated": "2024-04-12T14:13:36.000Z",
       "dateUpdated": "2025-08-16T09:10:15.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "RewardedAdinterstitial",
       "number": 870,
-      "author": "AbrahamArmasCordero",
+      "author": {
+        "login": "AbrahamArmasCordero",
+        "id": 36243865
+      },
       "assignees": [],
       "dateCreated": "2025-07-09T08:38:00.000Z",
       "dateUpdated": "2025-08-16T08:41:52.000Z",
-      "status": "open",
-      "labels": [
-        "Intent to Implement",
-        "4.0 Creatives Standardization"
-      ]
-    },
-    {
-      "title": "Suggestion: Should VIDEO_INTERSTITIAL_PLAYBACK_END value be changed from 2 → 1 for interstitial videos?",
-      "number": 876,
-      "author": "ZenyB",
-      "assignees": [],
-      "dateCreated": "2025-08-15T14:10:22.000Z",
-      "dateUpdated": "2025-08-16T08:00:49.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required",
-        "4.0 In-App Header Bidding",
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "Multiple Host within single initialization",
       "number": 777,
-      "author": "andriiginting",
+      "author": {
+        "login": "andriiginting",
+        "id": 22597869
+      },
       "assignees": [],
       "dateCreated": "2024-06-24T08:43:57.000Z",
       "dateUpdated": "2025-08-16T05:31:45.000Z",
-      "status": "open",
-      "labels": [
-        "feature request",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "AdViewUtils.findPrebidCreativeSize pollutes logcat with an unnecessary warning when no size object found",
       "number": 725,
-      "author": "justadreamer",
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2023-12-12T14:00:51.000Z",
       "dateUpdated": "2025-07-17T13:07:47.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Wrap Managed WebView in background-thread-safe-invocation wrapper so JS Bridge doesn't throw Errors",
       "number": 739,
-      "author": "jsligh",
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2024-02-29T20:43:37.000Z",
       "dateUpdated": "2025-07-17T13:03:17.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "GAM Original Api InStream Video Config_ID Ad gives code 999, WARNING: request.imp[0].ext must contain at least one valid bidder",
       "number": 787,
-      "author": "noureen",
+      "author": {
+        "login": "noureen",
+        "id": 5036603
+      },
       "assignees": [],
       "dateCreated": "2024-07-19T13:41:48.000Z",
       "dateUpdated": "2024-07-23T07:11:09.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "[DRAFT] Confirm SDK to Privacy Sandbox requirements ",
       "number": 646,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2023-06-16T14:00:56.000Z",
       "dateUpdated": "2024-06-04T13:27:50.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required"
-      ]
+      "status": "open"
     }
   ]
 }

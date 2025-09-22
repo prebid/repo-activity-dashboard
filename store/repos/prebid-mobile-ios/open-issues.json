@@ -1,596 +1,563 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-08-30T16:48:00.551Z",
-    "itemCount": 46
+    "lastSync": "2025-09-22T16:25:55.510Z",
+    "itemCount": 44
   },
   "items": [
     {
       "title": "Bug: 1px tracking URL is fired when the ad is not shown",
       "number": 1211,
-      "author": "elq81hc",
+      "author": {
+        "login": "elq81hc",
+        "id": 71596165
+      },
       "assignees": [],
       "dateCreated": "2025-08-28T07:12:36.000Z",
-      "dateUpdated": "2025-08-30T08:26:24.000Z",
-      "status": "open",
-      "labels": []
+      "dateUpdated": "2025-09-09T10:27:15.000Z",
+      "status": "open"
     },
     {
       "title": "Configuring adSizes for Interstitial ad",
       "number": 1135,
-      "author": "artur-puha-nixs",
+      "author": {
+        "login": "artur-puha-nixs",
+        "id": 120473907
+      },
       "assignees": [],
       "dateCreated": "2025-05-08T10:23:05.000Z",
       "dateUpdated": "2025-08-27T08:11:19.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "[DRAFT] In-App Creatives Repository",
       "number": 1207,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2025-08-25T08:29:41.000Z",
       "dateUpdated": "2025-08-25T08:29:41.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "[DRAFT] Unified BidRequest API",
       "number": 1206,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-08-25T07:53:10.000Z",
       "dateUpdated": "2025-08-25T07:54:00.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Add BannerVideoListener Equivalent for Video Playback Events in Prebid Mobile iOS",
       "number": 1197,
-      "author": "savan-verse",
+      "author": {
+        "login": "savan-verse",
+        "id": 163307039
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-08-13T06:25:59.000Z",
       "dateUpdated": "2025-08-21T13:27:53.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "[DRAFT] Support Rewarder Display",
       "number": 713,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2022-11-10T07:44:29.000Z",
       "dateUpdated": "2025-08-21T10:22:19.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Add Support for GMA Inline Adaptive Banners in Demo Apps",
       "number": 836,
-      "author": "ourcraig",
+      "author": {
+        "login": "ourcraig",
+        "id": 12490985
+      },
       "assignees": [],
       "dateCreated": "2023-05-01T20:51:26.000Z",
       "dateUpdated": "2025-08-21T10:20:51.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Add Support for GMA App Open Banners",
       "number": 837,
-      "author": "ourcraig",
+      "author": {
+        "login": "ourcraig",
+        "id": 12490985
+      },
       "assignees": [],
       "dateCreated": "2023-05-01T20:52:56.000Z",
       "dateUpdated": "2025-08-21T10:20:39.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Expire ads respectively to the `seatbid.bid.exp`",
       "number": 850,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2023-05-19T06:50:35.000Z",
       "dateUpdated": "2025-08-21T10:20:01.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Introduce the bid session and memory management policy of the Prebid SDK",
       "number": 910,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2023-08-30T10:09:00.000Z",
       "dateUpdated": "2025-08-21T10:16:14.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Introduce common logging policy ",
       "number": 922,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2023-09-27T10:33:06.000Z",
       "dateUpdated": "2025-08-21T10:15:31.000Z",
-      "status": "open",
-      "labels": [
-        "needs docs",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Additional step in the SDK test coverage",
       "number": 948,
-      "author": "alexsavelyev",
+      "author": {
+        "login": "alexsavelyev",
+        "id": 13422794
+      },
       "assignees": [],
       "dateCreated": "2024-01-11T16:22:23.000Z",
       "dateUpdated": "2025-08-21T10:15:12.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "product reliability"
-      ]
+      "status": "open"
     },
     {
       "title": "App freeze in loading screen after dismiss the ad",
       "number": 972,
-      "author": "huanzhiNB",
+      "author": {
+        "login": "huanzhiNB",
+        "id": 83240596
+      },
       "assignees": [],
       "dateCreated": "2024-04-26T23:37:41.000Z",
       "dateUpdated": "2025-08-21T10:14:13.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
-    },
-    {
-      "title": "ad is not rendering properly",
-      "number": 973,
-      "author": "aybarska",
-      "assignees": [],
-      "dateCreated": "2024-04-30T15:51:12.000Z",
-      "dateUpdated": "2025-08-21T10:13:24.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Problem with printing Logging and build dynamic Framework from source code",
       "number": 1015,
-      "author": "maiquannguyen",
+      "author": {
+        "login": "maiquannguyen",
+        "id": 4607287
+      },
       "assignees": [],
       "dateCreated": "2024-06-24T06:58:23.000Z",
       "dateUpdated": "2025-08-21T10:09:12.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Investigate how to find SDK Adoption Numbers",
       "number": 1030,
-      "author": "jsligh",
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
       "assignees": [
         "alexsavelyev"
       ],
       "dateCreated": "2024-07-30T14:38:35.000Z",
       "dateUpdated": "2025-08-21T10:05:56.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Platfrom"
-      ]
+      "status": "open"
     },
     {
       "title": "[DOC] Format the code snippets in the SDK docs in the same manner ",
       "number": 1054,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2024-09-25T08:11:50.000Z",
       "dateUpdated": "2025-08-21T10:04:45.000Z",
-      "status": "open",
-      "labels": [
-        "needs docs"
-      ]
+      "status": "open"
     },
     {
       "title": "Support passing parameters to GMA SDK in integration scenarios with rendering API. ",
       "number": 1072,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2024-12-11T09:03:05.000Z",
       "dateUpdated": "2025-08-21T09:28:46.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Incorrect ad size in the GMA SDK + Rendering API  integration scenario ",
       "number": 1073,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2024-12-11T09:11:35.000Z",
       "dateUpdated": "2025-08-21T08:58:41.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "POC: Introduce Prebid's OM Script",
       "number": 1095,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-01-30T07:21:17.000Z",
       "dateUpdated": "2025-08-21T08:57:30.000Z",
-      "status": "open",
-      "labels": [
-        "feature",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Cache bids locally for Bidding Only API",
       "number": 1103,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2025-02-11T09:50:34.000Z",
       "dateUpdated": "2025-08-21T08:56:36.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "feature",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Crash on swiftui preview with xcode 16.2",
       "number": 1106,
-      "author": "aybarska",
+      "author": {
+        "login": "aybarska",
+        "id": 8801700
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-02-17T14:11:27.000Z",
       "dateUpdated": "2025-08-21T08:55:19.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "AdPosition Enum un-matched definitions between Android and iOS",
       "number": 1111,
-      "author": "AbrahamArmasCordero",
+      "author": {
+        "login": "AbrahamArmasCordero",
+        "id": 36243865
+      },
       "assignees": [],
       "dateCreated": "2025-02-26T14:50:41.000Z",
       "dateUpdated": "2025-08-21T08:53:44.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization"
-      ]
+      "status": "open"
     },
     {
       "title": "2.4.0 drops ExternalUserId values without an atype",
       "number": 1118,
-      "author": "dcaunt",
+      "author": {
+        "login": "dcaunt",
+        "id": 157314
+      },
       "assignees": [],
       "dateCreated": "2025-03-14T15:20:53.000Z",
       "dateUpdated": "2025-08-21T08:52:43.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
+      "status": "open"
     },
     {
       "title": "PUC rendering flow broke with 1.17.0",
       "number": 1119,
-      "author": "dgirardi",
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
       "assignees": [],
       "dateCreated": "2025-03-19T15:10:33.000Z",
       "dateUpdated": "2025-08-21T08:49:48.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Document the smoke tests for PUC",
       "number": 1120,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-03-20T16:18:42.000Z",
       "dateUpdated": "2025-08-21T08:48:22.000Z",
-      "status": "open",
-      "labels": [
-        "product reliability"
-      ]
-    },
-    {
-      "title": "Feature Flags for Location Precision",
-      "number": 1205,
-      "author": "ankit-thanekar007",
-      "assignees": [],
-      "dateCreated": "2025-08-20T19:10:11.000Z",
-      "dateUpdated": "2025-08-20T19:10:11.000Z",
-      "status": "open",
-      "labels": [
-        "Intent to Implement"
-      ]
+      "status": "open"
     },
     {
       "title": "Memory Leak when fetch Demand",
       "number": 959,
-      "author": "rBeefrz",
+      "author": {
+        "login": "rBeefrz",
+        "id": 124368054
+      },
       "assignees": [
         "jsligh",
         "mdanylov-sigma"
       ],
       "dateCreated": "2024-02-29T15:50:08.000Z",
       "dateUpdated": "2025-08-16T09:13:04.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Add support for 1px impression counting methodology",
       "number": 790,
-      "author": "patrik-eriksson",
+      "author": {
+        "login": "patrik-eriksson",
+        "id": 59650488
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2023-02-10T15:24:46.000Z",
       "dateUpdated": "2025-08-16T08:07:33.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 Creatives Standardization",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Fix Expand - 2 Part example",
       "number": 1156,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-06-03T06:17:25.000Z",
       "dateUpdated": "2025-08-16T07:15:13.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
+      "status": "open"
     },
     {
       "title": "Reorganize the repository and product structure to integration via SPM",
       "number": 1184,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-07-11T11:53:41.000Z",
       "dateUpdated": "2025-08-16T07:13:49.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "[DRAFT] Support Remote SDK Config",
       "number": 1188,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-07-18T05:59:06.000Z",
       "dateUpdated": "2025-08-16T07:12:31.000Z",
-      "status": "open",
-      "labels": [
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Plugin System for Prebid",
       "number": 461,
-      "author": "CJxD",
+      "author": {
+        "login": "CJxD",
+        "id": 1629692
+      },
       "assignees": [],
       "dateCreated": "2021-12-02T16:54:59.000Z",
       "dateUpdated": "2025-08-16T05:22:36.000Z",
       "status": "open",
-      "labels": [
-        "feature",
-        "PMC discussion required",
-        "4.0 In-App Header Bidding"
-      ]
+      "closedBy": "jsligh"
     },
     {
       "title": "Multi-AdUnit Auction and Winner Selection Logic",
       "number": 950,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [],
       "dateCreated": "2024-01-11T20:46:25.000Z",
       "dateUpdated": "2025-08-16T05:19:08.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Support HTML-based outstream video",
       "number": 979,
-      "author": "bretg",
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2024-05-15T16:44:09.000Z",
       "dateUpdated": "2025-08-16T05:18:00.000Z",
-      "status": "open",
-      "labels": [
-        "needs docs",
-        "PMC discussion required",
-        "4.0 Creatives Standardization",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "please support 'PrivacyInfo.xcprivacy' for developer",
       "number": 1128,
-      "author": "v5huang",
+      "author": {
+        "login": "v5huang",
+        "id": 3320671
+      },
       "assignees": [],
       "dateCreated": "2025-04-02T02:30:28.000Z",
       "dateUpdated": "2025-08-16T05:16:20.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Change AppLovin adapter to post-bid with bidfloor",
       "number": 1113,
-      "author": "justadreamer",
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
       "assignees": [],
       "dateCreated": "2025-02-27T12:37:15.000Z",
       "dateUpdated": "2025-08-16T05:15:24.000Z",
-      "status": "open",
-      "labels": [
-        "feature",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Align auto refresh API and approach among integration scenarious",
       "number": 1163,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [
         "YuriyVelichkoPI"
       ],
       "dateCreated": "2025-06-16T10:09:17.000Z",
       "dateUpdated": "2025-08-16T05:14:30.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Suggestion: Should playbackend value be changed from 2 → 1 for interstitial videos?",
       "number": 1199,
-      "author": "ZenyB",
+      "author": {
+        "login": "ZenyB",
+        "id": 106144398
+      },
       "assignees": [],
       "dateCreated": "2025-08-15T10:35:49.000Z",
       "dateUpdated": "2025-08-16T05:05:23.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "PMC discussion required"
-      ]
+      "status": "open"
     },
     {
       "title": "Introduce the ability to modify the targeting keys before sending them to ad server",
       "number": 1190,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
       "dateCreated": "2025-07-29T12:44:15.000Z",
       "dateUpdated": "2025-08-16T05:00:15.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Need for slot-specific targeting key-values",
       "number": 1194,
-      "author": "Umreg",
+      "author": {
+        "login": "Umreg",
+        "id": 10233988
+      },
       "assignees": [],
       "dateCreated": "2025-08-06T11:13:30.000Z",
       "dateUpdated": "2025-08-16T04:59:39.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "4.0 In-App Header Bidding"
-      ]
+      "status": "open"
     },
     {
       "title": "Bug: device.w/h should be in physical pixels in request",
       "number": 1196,
-      "author": "OlenaPostindustria",
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
       "assignees": [
         "OlenaPostindustria"
       ],
       "dateCreated": "2025-08-07T13:48:28.000Z",
       "dateUpdated": "2025-08-16T04:50:07.000Z",
-      "status": "open",
-      "labels": [
-        "PMC discussion required"
-      ]
+      "status": "open"
     },
     {
       "title": "App Crashed: com.apple.NSURLSession-delegate",
       "number": 1195,
-      "author": "thomas-ibm-weather",
+      "author": {
+        "login": "thomas-ibm-weather",
+        "id": 125295855
+      },
       "assignees": [
         "mdanylov-sigma"
       ],
       "dateCreated": "2025-08-06T14:59:19.000Z",
       "dateUpdated": "2025-08-16T04:49:44.000Z",
-      "status": "open",
-      "labels": [
-        "bug"
-      ]
+      "status": "open"
     },
     {
       "title": "Analyze keywords from bid response instead of webView approach",
       "number": 523,
-      "author": "OlenaPostindustria",
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
       "assignees": [],
       "dateCreated": "2022-02-11T11:20:41.000Z",
       "dateUpdated": "2025-07-18T05:35:01.000Z",
-      "status": "open",
-      "labels": [
-        "enhancement",
-        "PMC discussion required"
-      ]
+      "status": "open"
     },
     {
       "title": "IOS SDK Rendering API supports VAST version 3 and above",
       "number": 882,
-      "author": "BaiShuoyang",
+      "author": {
+        "login": "BaiShuoyang",
+        "id": 7251653
+      },
       "assignees": [],
       "dateCreated": "2023-07-19T02:37:29.000Z",
       "dateUpdated": "2025-07-17T13:01:37.000Z",
-      "status": "open",
-      "labels": [
-        "iOS & Android"
-      ]
+      "status": "open"
     },
     {
       "title": "Add Support for Third-party Plugin Renderers in Adapters",
       "number": 1071,
-      "author": "OlenaPostindustria",
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
       "assignees": [],
       "dateCreated": "2024-12-11T08:28:03.000Z",
       "dateUpdated": "2024-12-11T08:28:12.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     }
   ]
 }

@@ -158,7 +158,66 @@ export class GitHubService {
 
   async fetchMergedPRs(repo: Repository, since?: Date, options: FetchOptions = {}): Promise<PRData[]> {
     console.log(`  📥 Fetching merged PRs for ${repo.name}${since ? ` (since ${since.toISOString()})` : ''}...`);
-    
+
+    // If we have a recent 'since' date (within last 90 days), use Search API for efficiency
+    if (since && since > new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)) {
+      const sinceStr = since.toISOString().split('T')[0];
+      const query = `repo:${repo.owner}/${repo.repo} is:pr is:merged updated:>${sinceStr}`;
+
+      console.log(`    Using Search API with query: ${query}`);
+
+      let allItems: any[] = [];
+      let page = 1;
+
+      while (true) {
+        try {
+          const response = await this.octokit.search.issuesAndPullRequests({
+            q: query,
+            per_page: 100,
+            page: page,
+            sort: 'updated',
+            order: 'desc'
+          });
+
+          allItems = allItems.concat(response.data.items);
+          console.log(`    Fetched page ${page}: ${response.data.items.length} items (total: ${allItems.length}/${response.data.total_count})`);
+
+          if (response.data.items.length < 100 || allItems.length >= response.data.total_count || allItems.length >= 1000) {
+            break;
+          }
+
+          page++;
+          await new Promise(resolve => setTimeout(resolve, 2000)); // Rate limit pause
+        } catch (error: any) {
+          if (error.status === 403 && error.message?.includes('rate limit')) {
+            console.log('    Hit Search API rate limit, waiting 60 seconds...');
+            await new Promise(resolve => setTimeout(resolve, 60000));
+            continue;
+          }
+          throw error;
+        }
+      }
+
+      // Fetch full PR details for each item (Search API returns limited fields)
+      const fullPRs = [];
+      for (const item of allItems) {
+        try {
+          const { data: pr } = await this.octokit.rest.pulls.get({
+            owner: repo.owner,
+            repo: repo.repo,
+            pull_number: item.number
+          });
+          fullPRs.push(pr);
+        } catch (error) {
+          console.log(`    Warning: Could not fetch full details for PR #${item.number}`);
+        }
+      }
+
+      console.log(`    Retrieved ${fullPRs.length} merged PRs using Search API`);
+      return this.processPRs(repo, fullPRs, options);
+    }
+
+    // Fall back to original implementation for older dates or full fetch
     const pulls = await this.fetchAllPages<any>(
       `repos/${repo.owner}/${repo.repo}/pulls-closed`,
       (page) => this.octokit.rest.pulls.list({
@@ -169,12 +228,10 @@ export class GitHubService {
         page,
         sort: 'updated',
         direction: 'desc'
-        // Note: pulls endpoint doesn't support 'since' parameter - we filter after
       }),
-      { ...options, since } // Pass since date to pagination logic
+      { ...options, since }
     );
-    
-    // Filter for merged PRs that were updated after 'since' date
+
     let mergedPulls = pulls.filter(pr => pr.merged_at !== null);
     if (since) {
       const originalCount = mergedPulls.length;

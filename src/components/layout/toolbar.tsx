@@ -1,6 +1,6 @@
 'use client';
 
-import { Sun, Moon, Menu, Home, Users, Building, LogIn, LogOut, User, Shield } from 'lucide-react';
+import { Sun, Moon, Menu, LogOut, User } from 'lucide-react';
 import { useTheme } from '../providers/theme-provider';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -64,35 +64,31 @@ export function Toolbar() {
                 <nav className="mt-8 space-y-2">
                   <button
                     onClick={() => handleProtectedNavigation('/')}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
                   >
-                    <Home className="h-5 w-5" />
                     <span>Dashboard</span>
                     <span className="text-xs text-muted-foreground ml-auto">Public</span>
                   </button>
                   <button
                     onClick={() => handleProtectedNavigation('/contributors')}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
                   >
-                    <Users className="h-5 w-5" />
                     <span>Contributors</span>
-                    {!session && <LogIn className="h-4 w-4 ml-auto text-muted-foreground" />}
+                    {!session && <span className="text-xs text-muted-foreground ml-auto">Login Required</span>}
                   </button>
                   <button
                     onClick={() => handleProtectedNavigation('/companies')}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                    className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
                   >
-                    <Building className="h-5 w-5" />
                     <span>Companies</span>
-                    {!session && <LogIn className="h-4 w-4 ml-auto text-muted-foreground" />}
+                    {!session && <span className="text-xs text-muted-foreground ml-auto">Login Required</span>}
                   </button>
                   {session?.user?.role === 'admin' && (
                     <button
-                      onClick={() => handleProtectedNavigation('/admin')}
-                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
+                      onClick={() => handleProtectedNavigation('/admin/users')}
+                      className="w-full flex items-center px-3 py-2 rounded-lg hover:bg-accent transition-colors text-left"
                     >
-                      <Shield className="h-5 w-5" />
-                      <span>Admin Panel</span>
+                      <span>User Management</span>
                     </button>
                   )}
                 </nav>
@@ -146,7 +142,6 @@ export function Toolbar() {
                   {session.user.role === 'admin' && (
                     <>
                       <DropdownMenuItem onClick={() => router.push('/admin')}>
-                        <Shield className="mr-2 h-4 w-4" />
                         Admin Panel
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
@@ -161,10 +156,9 @@ export function Toolbar() {
             ) : (
               <button
                 onClick={() => router.push('/auth/login')}
-                className="h-10 px-4 rounded-lg border transition-all duration-300 flex items-center justify-center hover:bg-accent gap-2"
+                className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
               >
-                <LogIn className="h-4 w-4" />
-                <span className="hidden sm:inline">Sign In</span>
+                Sign In
               </button>
             )}
 

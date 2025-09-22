@@ -32,7 +32,7 @@ export async function addToWhitelist(
         isActive: true,
         role,
         addedBy,
-        addedAt: Date.now(),
+        addedAt: new Date().toISOString(),
       },
     })
   );

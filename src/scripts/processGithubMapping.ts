@@ -2,13 +2,13 @@ import { readFileSync, writeFileSync } from 'fs';
 import { parse } from 'csv-parse/sync';
 
 interface UserMapping {
-  username: string;
-  name: string;
-  company: string;
-  notes: string;
-  member: 'Yes' | 'No' | 'Unknown' | '';
-  pmcReviewer: string;
-  pmcReviewerNotes: string;
+  Username: string;
+  Name: string;
+  Company: string;
+  Notes: string;
+  Member: 'Yes' | 'No' | 'Unknown' | '';
+  'PMC Reviewer': string;
+  'PMC Reviewer Notes': string;
 }
 
 interface CompanyMapping {

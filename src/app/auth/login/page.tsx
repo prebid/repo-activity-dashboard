@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Home, Loader2 } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 
 export default function LoginPage() {
@@ -56,103 +56,104 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-6">
-        {/* Logo */}
-        <div className="flex justify-center mb-8">
-          <div style={{ width: '150px', height: '150px', position: 'relative' }}>
-            <Image
-              src="/prebid-logo.png"
-              alt="Prebid Logo"
-              fill
-              style={{ objectFit: 'contain' }}
-            />
-          </div>
-        </div>
-
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Sign In</CardTitle>
-            <CardDescription className="text-center">
-              Enter your credentials to access the dashboard
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-1 lg:px-0">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
+        <Card style={{ padding: '32px 48px 48px 48px' }}>
+          <div>
+            {/* Logo */}
+            <div className="flex justify-center mb-4">
+              <div style={{ width: '150px', height: '150px', position: 'relative' }}>
+                <Image
+                  src="/prebid-logo.png"
+                  alt="Prebid Logo"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+            <p className="text-center text-sm text-muted-foreground mb-4">
+              Enter your email to access your account
+            </p>
+            {/* Form container with additional padding */}
+            <div style={{ padding: '0 24px' }}>
+              <form onSubmit={handleSubmit}>
               {error && (
-                <Alert variant="destructive">
+                <Alert variant="destructive" style={{ marginBottom: '20px' }}>
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+              <div style={{ marginBottom: '20px' }}>
+                <Label htmlFor="email" style={{ display: 'block', marginBottom: '8px' }}>Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={isLoading}
+                  autoCapitalize="none"
                   autoComplete="email"
-                  autoFocus
+                  autoCorrect="off"
+                  className="bg-background text-foreground"
+                  style={{ height: '48px' }}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div style={{ marginBottom: '24px' }}>
+                <Label htmlFor="password" style={{ display: 'block', marginBottom: '8px' }}>Password</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={isLoading}
                   autoComplete="current-password"
+                  className="bg-background text-foreground"
+                  style={{ height: '48px' }}
                 />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
-                  </>
-                ) : (
-                  'Sign In'
-                )}
-              </Button>
-            </form>
+              <div>
+                <Button
+                  type="submit"
+                  className="w-full font-semibold text-base"
+                  style={{ height: '48px', marginBottom: '12px' }}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Logging in...
+                    </>
+                  ) : (
+                    'Login'
+                  )}
+                </Button>
 
-            <div className="mt-6 text-center">
-              <Button
-                variant="ghost"
-                onClick={() => router.push('/')}
-                className="text-sm"
-              >
-                <Home className="mr-2 h-4 w-4" />
-                Back to Dashboard
-              </Button>
+                {/* Back to Dashboard */}
+                <Button
+                  variant="secondary"
+                  className="w-full font-medium"
+                  style={{ height: '48px' }}
+                  onClick={() => router.push('/')}
+                  type="button"
+                >
+                  Back to Dashboard
+                </Button>
+              </div>
+            </form>
             </div>
 
-            {callbackUrl !== '/' && (
-              <p className="mt-4 text-center text-sm text-muted-foreground">
-                You'll be redirected to your requested page after signing in
-              </p>
-            )}
-          </CardContent>
+            {/* Footer text */}
+            <div className="text-center text-sm text-muted-foreground mt-6">
+              <p>Access is restricted to authorized users.</p>
+              <p className="mt-1">Contact your administrator for credentials.</p>
+            </div>
+          </div>
         </Card>
-
-        <div className="text-center text-sm text-muted-foreground">
-          <p>Access is restricted to authorized users only.</p>
-          <p>Contact your administrator for credentials.</p>
-        </div>
       </div>
     </div>
   );

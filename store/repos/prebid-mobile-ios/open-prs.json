@@ -1,186 +1,233 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-08-30T16:48:00.551Z",
-    "itemCount": 7
+    "lastSync": "2025-09-22T16:25:55.509Z",
+    "itemCount": 8
   },
   "items": [
     {
       "title": "Content ORTB config",
       "number": 1203,
-      "author": "mdanylov-sigma",
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
       "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "YuriyVelichkoPI",
-          "mdanylov-sigma"
-        ]
-      },
-      "dateCreated": "2025-08-19T17:53:41.000Z",
-      "dateUpdated": "2025-08-28T07:27:57.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "mdanylov-sigma": {
-            "count": 2,
-            "author": "mdanylov-sigma"
-          }
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
         }
-      },
-      "baseBranch": "master"
+      ],
+      "dateCreated": "2025-08-19T17:53:41.000Z",
+      "dateUpdated": "2025-09-22T09:19:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "BannerView delegate to manage video playback ",
       "number": 1202,
-      "author": "mdanylov-sigma",
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
       "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "YuriyVelichkoPI"
-        ]
-      },
-      "dateCreated": "2025-08-19T17:49:16.000Z",
-      "dateUpdated": "2025-08-27T14:13:19.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 2,
-        "byAuthor": {
-          "mdanylov-sigma": {
-            "count": 2,
-            "author": "mdanylov-sigma"
-          }
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
         }
-      },
-      "baseBranch": "master"
+      ],
+      "dateCreated": "2025-08-19T17:49:16.000Z",
+      "dateUpdated": "2025-09-22T09:19:12.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
     },
     {
-      "title": "Device screen size in pixels in a request",
-      "number": 1204,
-      "author": "mdanylov-sigma",
+      "title": "Update README.md ",
+      "number": 1214,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "OlenaPostindustria"
-        ]
-      },
-      "dateCreated": "2025-08-19T18:32:35.000Z",
-      "dateUpdated": "2025-08-27T08:05:42.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "mdanylov-sigma": {
-            "count": 1,
-            "author": "mdanylov-sigma"
-          }
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
         }
-      },
-      "baseBranch": "master"
+      ],
+      "dateCreated": "2025-09-22T08:57:49.000Z",
+      "dateUpdated": "2025-09-22T09:18:49.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "Update playbackend default value from 2 → 1 for interstitial video ads",
       "number": 1201,
-      "author": "ZenyB",
+      "author": {
+        "login": "ZenyB",
+        "id": 106144398
+      },
       "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "YuriyVelichkoPI"
-        ]
-      },
-      "dateCreated": "2025-08-15T14:37:00.000Z",
-      "dateUpdated": "2025-08-25T02:51:40.000Z",
-      "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "ZenyB": {
-            "count": 1,
-            "author": "ZenyB"
-          }
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
         }
+      ],
+      "dateCreated": "2025-08-15T14:37:00.000Z",
+      "dateUpdated": "2025-09-03T14:20:58.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "106144398": {
+          "identifier": "106144398",
+          "displayName": "ZenyB",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Device screen size in pixels in a request",
+      "number": 1204,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
       },
-      "baseBranch": "master"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-08-19T18:32:35.000Z",
+      "dateUpdated": "2025-08-27T08:05:42.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
     },
     {
       "title": "Type-safe parsing of JSON response",
       "number": 1127,
-      "author": "jclou",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "YuriyVelichkoPI"
-        ]
+      "author": {
+        "login": "jclou",
+        "id": 1572104
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "dateCreated": "2025-04-01T23:51:12.000Z",
       "dateUpdated": "2025-07-15T13:53:02.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 4,
-        "byAuthor": {
-          "James Lou": {
-            "count": 4,
-            "author": "James Lou"
-          }
+      "commitAuthors": {
+        "James Lou": {
+          "identifier": "James Lou",
+          "displayName": "James Lou",
+          "count": 4,
+          "isGitHubUser": false
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "Add UserAgentDefaults for Managing User Agent String Persistence",
       "number": 992,
-      "author": "weibel",
+      "author": {
+        "login": "weibel",
+        "id": 12939
+      },
       "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        }
+      ],
       "dateCreated": "2024-05-31T10:48:30.000Z",
       "dateUpdated": "2025-06-18T20:14:34.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 3,
-        "byAuthor": {
-          "weibel": {
-            "count": 3,
-            "author": "weibel"
-          }
+      "commitAuthors": {
+        "12939": {
+          "identifier": "12939",
+          "displayName": "weibel",
+          "count": 3,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     },
     {
       "title": "fixed fireEvent() in mraid.js.",
       "number": 942,
-      "author": "AdviewOpen",
-      "assignees": [],
-      "reviewers": {
-        "approved": [],
-        "pending": [
-          "YuriyVelichkoPI"
-        ]
+      "author": {
+        "login": "AdviewOpen",
+        "id": 4382674
       },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
       "dateCreated": "2024-01-04T02:06:32.000Z",
       "dateUpdated": "2024-01-09T05:11:11.000Z",
       "status": "open",
-      "labels": [],
-      "commits": {
-        "totalCount": 1,
-        "byAuthor": {
-          "wilder0601": {
-            "count": 1,
-            "author": "wilder0601"
-          }
+      "commitAuthors": {
+        "95598353": {
+          "identifier": "95598353",
+          "displayName": "wilder0601",
+          "count": 1,
+          "isGitHubUser": true
         }
-      },
-      "baseBranch": "master"
+      }
     }
   ]
 }

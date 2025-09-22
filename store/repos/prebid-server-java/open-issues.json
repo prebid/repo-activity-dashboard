@@ -1,464 +1,293 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-08-30T16:47:22.979Z",
-    "itemCount": 36
+    "lastSync": "2025-09-22T16:19:25.518Z",
+    "itemCount": 22
   },
   "items": [
     {
-      "title": "Port PR from PBS-Go: Onetag: imp.ext read generalization",
-      "number": 4155,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-08-25T19:46:07.000Z",
-      "dateUpdated": "2025-08-29T13:36:14.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Smartadserver: Add second endpoint for programmatic guaranteed",
-      "number": 4142,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-08-19T18:13:58.000Z",
-      "dateUpdated": "2025-08-28T08:25:01.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: zMaticoo: Update endpoint",
-      "number": 4160,
-      "author": "cross-repo-issue-creation[bot]",
+      "title": "Port PR from PBS-Go: Dockerfile vulnerabilities fixes",
+      "number": 3862,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
-      "dateCreated": "2025-08-27T18:36:03.000Z",
-      "dateUpdated": "2025-08-27T18:36:03.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "dateCreated": "2025-03-24T17:07:49.000Z",
+      "dateUpdated": "2025-09-19T13:39:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Dependencies: Update compatibility-breaking dependencies",
+      "number": 3917,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-04-16T23:59:57.000Z",
+      "dateUpdated": "2025-09-18T08:20:45.000Z",
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Sovrn: Fix passing through imp.ext.gpid",
       "number": 4141,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [
         "EmilNadimanov"
       ],
       "dateCreated": "2025-08-19T17:51:16.000Z",
       "dateUpdated": "2025-08-27T09:24:48.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: RocketLab",
-      "number": 4158,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-26T12:59:23.000Z",
-      "dateUpdated": "2025-08-26T12:59:23.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: IX: Pass ext.ixdiag fields through",
-      "number": 3886,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-04-03T14:36:39.000Z",
-      "dateUpdated": "2025-08-26T08:46:40.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Rules Engine Module: Cache update frequency config",
-      "number": 4156,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-25T19:58:31.000Z",
-      "dateUpdated": "2025-08-25T19:58:31.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Bidder specific info from the client request is applied to all aliases of the same bidder",
       "number": 4149,
-      "author": "YuriyVelichkoPI",
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
       "assignees": [
         "AntoxaAntoxic"
       ],
       "dateCreated": "2025-08-20T12:31:21.000Z",
       "dateUpdated": "2025-08-25T15:01:31.000Z",
-      "status": "open",
-      "labels": []
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Afront",
-      "number": 4146,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-08-19T19:19:46.000Z",
-      "dateUpdated": "2025-08-22T08:23:08.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: TeqBlaze",
-      "number": 4152,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-08-21T14:57:48.000Z",
-      "dateUpdated": "2025-08-22T07:48:56.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Adipolo - Xeworks alias (#4350)",
-      "number": 4144,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-19T18:54:27.000Z",
-      "dateUpdated": "2025-08-19T18:54:27.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: sspBC: Adapter update",
-      "number": 4143,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-19T18:41:42.000Z",
-      "dateUpdated": "2025-08-19T18:41:42.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Bidder throttling code to increase network stability.",
-      "number": 4112,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-08-04T17:08:48.000Z",
-      "dateUpdated": "2025-08-11T07:40:33.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Define An Adapter As White Label Only",
       "number": 4125,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-08-08T00:43:51.000Z",
       "dateUpdated": "2025-08-08T00:43:51.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Yandex: Add video support",
       "number": 4117,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-08-06T02:15:27.000Z",
       "dateUpdated": "2025-08-06T02:15:27.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: RTB House: Remove PAAPI signals from imp[].ext",
       "number": 4084,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-07-24T16:10:41.000Z",
       "dateUpdated": "2025-08-05T13:44:59.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Zeta Global SSP: Declare OpenRTB 2.6 and GPP support",
       "number": 4060,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [
         "AntoxaAntoxic"
       ],
       "dateCreated": "2025-07-14T19:06:16.000Z",
       "dateUpdated": "2025-07-31T08:03:56.000Z",
       "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "closedBy": "CTMBNara"
     },
     {
       "title": "Port PR from PBS-Go: Zeta Global SSP: Add sid parameter and audio support",
       "number": 3818,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [
         "AntoxaAntoxic"
       ],
       "dateCreated": "2025-03-10T16:51:38.000Z",
       "dateUpdated": "2025-07-31T08:03:50.000Z",
       "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "closedBy": "CTMBNara"
     },
     {
       "title": "Port PR from PBS-Go: TMax: Add default host config",
       "number": 4070,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-07-17T13:34:26.000Z",
       "dateUpdated": "2025-07-28T09:04:59.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Record metric unsuccessful for PBC non-200 response status code or error",
-      "number": 4061,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-07-14T19:19:49.000Z",
-      "dateUpdated": "2025-07-25T14:19:35.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Rules Engine Module: Phase 1",
       "number": 4040,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [
         "And1sS"
       ],
       "dateCreated": "2025-06-26T17:52:27.000Z",
       "dateUpdated": "2025-07-11T14:16:08.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "TCF metrics by account and adapter",
       "number": 1936,
-      "author": "muuki88",
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
       "assignees": [
         "Net-burst"
       ],
       "dateCreated": "2022-07-07T11:51:32.000Z",
       "dateUpdated": "2025-06-28T05:51:24.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Criteo: Set geoscope to global",
       "number": 3998,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-06-05T16:55:22.000Z",
       "dateUpdated": "2025-06-05T16:55:22.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Sharethrough: Add geoscope to config",
       "number": 3995,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-06-05T16:04:02.000Z",
       "dateUpdated": "2025-06-05T16:04:02.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Smaato: Add geoscope to bidder info",
       "number": 3987,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2025-06-04T16:37:41.000Z",
       "dateUpdated": "2025-06-04T16:37:41.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Validation doesn't allow stored impressions without bidders",
       "number": 2975,
-      "author": "muuki88",
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
       "assignees": [
         "Net-burst"
       ],
       "dateCreated": "2024-02-13T22:25:58.000Z",
       "dateUpdated": "2025-05-30T14:24:11.000Z",
-      "status": "open",
-      "labels": []
+      "status": "open"
     },
     {
       "title": "Incorrect enforcement of request.imp.metric",
       "number": 3971,
-      "author": "naegelin",
+      "author": {
+        "login": "naegelin",
+        "id": 1544569
+      },
       "assignees": [
         "Net-burst"
       ],
       "dateCreated": "2025-05-21T17:59:01.000Z",
       "dateUpdated": "2025-05-30T14:23:07.000Z",
-      "status": "open",
-      "labels": []
-    },
-    {
-      "title": "Dependencies: Update compatibility-breaking dependencies",
-      "number": 3917,
-      "author": "Net-burst",
-      "assignees": [
-        "Net-burst"
-      ],
-      "dateCreated": "2025-04-16T23:59:57.000Z",
-      "dateUpdated": "2025-04-17T00:00:06.000Z",
-      "status": "open",
-      "labels": []
-    },
-    {
-      "title": "Port PR from PBS-Go: Kobler: Add app support",
-      "number": 3898,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-04-08T14:32:01.000Z",
-      "dateUpdated": "2025-04-08T15:49:42.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Dockerfile vulnerabilities fixes",
-      "number": 3862,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [],
-      "dateCreated": "2025-03-24T17:07:49.000Z",
-      "dateUpdated": "2025-03-27T16:47:46.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "[Feature Request] Integrate IPinfo's free IP to Country Database",
       "number": 3663,
-      "author": "abdullahdevrel",
+      "author": {
+        "login": "abdullahdevrel",
+        "id": 111275753
+      },
       "assignees": [],
       "dateCreated": "2025-01-08T04:33:01.000Z",
       "dateUpdated": "2025-01-09T22:05:20.000Z",
-      "status": "open",
-      "labels": [
-        "needs community"
-      ]
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Video endpoint -- pass req.ext.prebid.targeting.includebrandcategory To Bidders",
       "number": 3568,
-      "author": "cross-repo-issue-creation[bot]",
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
       "assignees": [],
       "dateCreated": "2024-11-21T20:40:12.000Z",
       "dateUpdated": "2025-01-06T20:13:01.000Z",
-      "status": "open",
-      "labels": [
-        "auto",
-        "needs community"
-      ]
+      "status": "open"
     },
     {
       "title": "Bad input metrics if bidder is disabled and stored impression still contains bidder",
       "number": 3209,
-      "author": "muuki88",
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
       "assignees": [],
       "dateCreated": "2024-05-23T21:20:29.000Z",
       "dateUpdated": "2025-01-06T20:11:42.000Z",
-      "status": "open",
-      "labels": [
-        "needs community"
-      ]
-    },
-    {
-      "title": "Port PR from PBS-Go: Copper6ssp: Add GVL vendor ID",
-      "number": 3582,
-      "author": "cross-repo-issue-creation[bot]",
-      "assignees": [
-        "rmattis"
-      ],
-      "dateCreated": "2024-11-26T22:16:46.000Z",
-      "dateUpdated": "2024-12-10T20:11:48.000Z",
-      "status": "open",
-      "labels": [
-        "auto"
-      ]
+      "status": "open"
     },
     {
       "title": "Support for logging Outbound Bidder Request",
       "number": 3157,
-      "author": "ghost",
+      "author": {
+        "login": "ghost",
+        "id": 10137
+      },
       "assignees": [],
       "dateCreated": "2024-04-30T08:46:35.000Z",
       "dateUpdated": "2024-11-13T21:59:15.000Z",
-      "status": "open",
-      "labels": [
-        "needs community"
-      ]
+      "status": "open"
     },
     {
       "title": "Account settings via HttpPeriodicRefreshService",
       "number": 1665,
-      "author": "jbartek25",
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
       "assignees": [],
       "dateCreated": "2022-01-03T14:53:27.000Z",
       "dateUpdated": "2024-11-13T20:41:13.000Z",
-      "status": "open",
-      "labels": [
-        "needs community"
-      ]
+      "status": "open"
     }
   ]
 }

@@ -1,10 +1,138 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-09-12T06:25:48.524Z",
+    "lastSync": "2025-09-22T16:14:59.060Z",
     "itemCount": 196
   },
   "items": [
+    {
+      "title": "Pass alias bidder name to pubmatic adapter",
+      "number": 4497,
+      "author": {
+        "login": "Pubmatic-Supriya-Patil",
+        "id": 131644110
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2025-08-21T06:37:23.000Z",
+      "dateUpdated": "2025-09-22T16:08:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "AMP auction `ProcessStoredResponses` errors are unchecked",
+      "number": 4541,
+      "author": {
+        "login": "lukasschwab",
+        "id": 4955943
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-20T00:23:17.000Z",
+      "dateUpdated": "2025-09-20T00:23:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Preserve ORTB seat",
+      "number": 2424,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2022-10-14T19:43:20.000Z",
+      "dateUpdated": "2025-09-19T15:01:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Enhance AMP debug responses",
+      "number": 2406,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2022-10-05T23:03:08.000Z",
+      "dateUpdated": "2025-09-19T14:55:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Discuss Prebid Server alias behavior",
+      "number": 2391,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2022-09-26T20:47:48.000Z",
+      "dateUpdated": "2025-09-19T14:50:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Review ext.prebid fields sent to bidders",
+      "number": 2383,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2022-09-16T20:09:38.000Z",
+      "dateUpdated": "2025-09-19T14:44:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS - Provision for Injecting Video Event Trackers",
+      "number": 1725,
+      "author": {
+        "login": "ShriprasadM",
+        "id": 9314645
+      },
+      "assignees": [],
+      "dateCreated": "2021-02-25T12:28:57.000Z",
+      "dateUpdated": "2025-09-19T14:33:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Enhance module A/B testing by adding an ad server targeting keyword into the response",
+      "number": 4527,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-10T12:57:45.000Z",
+      "dateUpdated": "2025-09-19T14:26:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bidder throttling",
+      "number": 4520,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort"
+      ],
+      "dateCreated": "2025-09-05T14:54:56.000Z",
+      "dateUpdated": "2025-09-19T14:19:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS-Go: mutations should be in a predictable order",
+      "number": 4278,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "scr-oath"
+      ],
+      "dateCreated": "2025-03-24T21:56:34.000Z",
+      "dateUpdated": "2025-09-19T13:40:58.000Z",
+      "status": "open"
+    },
     {
       "title": "Prebid Server 4.0",
       "number": 3861,
@@ -14,7 +142,22 @@
       },
       "assignees": [],
       "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2025-09-11T14:34:23.000Z",
+      "dateUpdated": "2025-09-18T17:49:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Is there TCF and GDPR support in Activity Control",
+      "number": 4483,
+      "author": {
+        "login": "stevemenezes",
+        "id": 45364637
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2025-08-13T07:03:29.000Z",
+      "dateUpdated": "2025-09-13T01:25:08.000Z",
       "status": "open"
     },
     {
@@ -80,32 +223,6 @@
       "status": "open"
     },
     {
-      "title": "Pass alias bidder name to pubmatic adapter",
-      "number": 4497,
-      "author": {
-        "login": "Pubmatic-Supriya-Patil",
-        "id": 131644110
-      },
-      "assignees": [
-        "ChrisHuie"
-      ],
-      "dateCreated": "2025-08-21T06:37:23.000Z",
-      "dateUpdated": "2025-09-10T14:26:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Enhance module A/B testing by adding an ad server targeting keyword into the response",
-      "number": 4527,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-10T12:57:45.000Z",
-      "dateUpdated": "2025-09-10T13:32:41.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support general GET interface",
       "number": 3726,
       "author": {
@@ -131,20 +248,6 @@
       ],
       "dateCreated": "2024-12-18T15:17:18.000Z",
       "dateUpdated": "2025-09-08T13:12:13.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder throttling",
-      "number": 4520,
-      "author": {
-        "login": "bsardo",
-        "id": 1168933
-      },
-      "assignees": [
-        "hhhjort"
-      ],
-      "dateCreated": "2025-09-05T14:54:56.000Z",
-      "dateUpdated": "2025-09-05T14:54:56.000Z",
       "status": "open"
     },
     {
@@ -301,21 +404,6 @@
       ],
       "dateCreated": "2025-08-20T13:45:52.000Z",
       "dateUpdated": "2025-08-22T14:26:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Is there TCF and GDPR support in Activity Control",
-      "number": 4483,
-      "author": {
-        "login": "stevemenezes",
-        "id": 45364637
-      },
-      "assignees": [
-        "Net-burst",
-        "bsardo"
-      ],
-      "dateCreated": "2025-08-13T07:03:29.000Z",
-      "dateUpdated": "2025-08-22T14:16:20.000Z",
       "status": "open"
     },
     {
@@ -1020,20 +1108,6 @@
       "status": "open"
     },
     {
-      "title": "PBS-GO: mutations should be in a predictable order",
-      "number": 4278,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [
-        "scr-oath"
-      ],
-      "dateCreated": "2025-03-24T21:56:34.000Z",
-      "dateUpdated": "2025-03-26T13:01:14.000Z",
-      "status": "open"
-    },
-    {
       "title": "Getting alias bidder name in the bid.ext.prebid.meta.adaptercode instead of corebidder",
       "number": 3363,
       "author": {
@@ -1136,18 +1210,6 @@
       "assignees": [],
       "dateCreated": "2024-08-23T13:31:33.000Z",
       "dateUpdated": "2025-03-17T14:53:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New module stage: exitpoint",
-      "number": 4044,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-11-08T16:58:46.000Z",
-      "dateUpdated": "2025-03-17T14:53:12.000Z",
       "status": "open"
     },
     {
@@ -1352,18 +1414,6 @@
       "status": "open"
     },
     {
-      "title": "Discuss Prebid Server alias behavior",
-      "number": 2391,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-09-26T20:47:48.000Z",
-      "dateUpdated": "2025-01-15T14:02:16.000Z",
-      "status": "open"
-    },
-    {
       "title": "Enhance setuid TCF ",
       "number": 2475,
       "author": {
@@ -1520,18 +1570,6 @@
       },
       "assignees": [],
       "dateCreated": "2021-03-01T18:19:25.000Z",
-      "dateUpdated": "2024-12-11T21:57:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS - Provision for Injecting Video Event Trackers",
-      "number": 1725,
-      "author": {
-        "login": "ShriprasadM",
-        "id": 9314645
-      },
-      "assignees": [],
-      "dateCreated": "2021-02-25T12:28:57.000Z",
       "dateUpdated": "2024-12-11T21:57:05.000Z",
       "status": "open"
     },
@@ -1831,18 +1869,6 @@
       "status": "open"
     },
     {
-      "title": "Enhance AMP debug responses",
-      "number": 2406,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-05T23:03:08.000Z",
-      "dateUpdated": "2024-11-12T22:01:42.000Z",
-      "status": "open"
-    },
-    {
       "title": "Ensure that the context from incoming request gets to outgoing requests",
       "number": 3962,
       "author": {
@@ -1915,18 +1941,6 @@
       "assignees": [],
       "dateCreated": "2024-02-20T02:28:30.000Z",
       "dateUpdated": "2024-09-26T15:15:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Preserve ORTB seat",
-      "number": 2424,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-14T19:43:20.000Z",
-      "dateUpdated": "2024-09-25T14:38:24.000Z",
       "status": "open"
     },
     {
@@ -2393,18 +2407,6 @@
       ],
       "dateCreated": "2023-02-14T15:40:48.000Z",
       "dateUpdated": "2023-02-28T18:32:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Review ext.prebid fields sent to bidders",
-      "number": 2383,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-09-16T20:09:38.000Z",
-      "dateUpdated": "2023-02-24T20:43:32.000Z",
       "status": "open"
     },
     {

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, signIn } from 'next-auth/react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -62,9 +62,21 @@ export default function ChangePasswordPage() {
         setError(data.error || 'Failed to change password');
       } else {
         // Password changed successfully
-        // Sign out and redirect to login with success message
-        await signOut({ redirect: false });
-        router.push('/auth/login?passwordChanged=true');
+        // Automatically sign in with the new password
+        const signInResult = await signIn('credentials', {
+          email: session?.user?.email,
+          password: newPassword,
+          redirect: false,
+        });
+
+        if (signInResult?.ok) {
+          // Successfully logged in with new password, redirect to dashboard
+          router.push('/');
+        } else {
+          // If auto-login fails for some reason, sign out and redirect to login
+          await signOut({ redirect: false });
+          router.push('/auth/login?passwordChanged=true');
+        }
       }
     } catch (error) {
       setError('An unexpected error occurred. Please try again.');

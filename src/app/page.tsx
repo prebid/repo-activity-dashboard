@@ -57,7 +57,7 @@ interface ChartDataPoint {
 
 export default function Home() {
   const [activeMetric, setActiveMetric] = useState('merged');
-  const [timeRange, setTimeRange] = useState('This Year');
+  const [timeRange, setTimeRange] = useState('This Month');
   const [repoStats, setRepoStats] = useState<Record<string, RepoStats>>({});
   const [openPRCounts, setOpenPRCounts] = useState<Record<string, number>>({});
   const [chartDataByRepo, setChartDataByRepo] = useState<Record<string, ChartDataPoint[]>>({});
@@ -239,29 +239,46 @@ export default function Home() {
           chartData[repo.key] = weeklyData;
         });
       } else if (timeRange === 'This Week' || timeRange === 'Last Week') {
-        // Daily view for week ranges
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        const currentDayIndex = currentDate.getDay();
-        // Convert Sunday (0) to 7 for our Mon-Sun week
-        const adjustedDayIndex = currentDayIndex === 0 ? 7 : currentDayIndex;
-        
+        // Weekly aggregation for This Week and Last Week
+        const targetWeek = timeRange === 'This Week' ? currentWeek : (currentWeek > 1 ? currentWeek - 1 : 52);
+        const targetYear = (timeRange === 'Last Week' && currentWeek === 1) ? currentYear - 1 : currentYear;
+        const weekKey = `${targetYear}-${String(targetWeek).padStart(2, '0')}`;
+
         repositories.forEach(repo => {
-          const dailyData: ChartDataPoint[] = [];
-          
-          // For "This Week", only show days up to today
-          const daysToShow = timeRange === 'This Week' ? adjustedDayIndex : 7;
-          
-          for (let i = 0; i < daysToShow; i++) {
-            // This is a placeholder - in production we'd aggregate from actual PR data
-            dailyData.push({
-              period: days[i],
-              mergedPRs: 0,
-              contributors: 0,
-              openedIssues: 0
-            });
-          }
-          
-          chartData[repo.key] = dailyData;
+          let weekMerged = 0;
+          let weekIssues = 0;
+          const weekContributors = new Set<string>();
+
+          // Aggregate weekly data
+          Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+            const repoData = repos[repo.key];
+            if (repoData && repoData.w && repoData.w[weekKey]) {
+              const metrics = repoData.w[weekKey];
+              const openedPRs = metrics[0] || 0;
+              const merged = metrics[1] || 0;
+              const issues = metrics[4] || 0;
+
+              if (openedPRs > 0 || issues > 0) {
+                weekContributors.add(contributor);
+                weekMerged += merged;
+                weekIssues += issues;
+              }
+            }
+          });
+
+          // For weekly view, show just the single week's data
+          const weeklyData: ChartDataPoint[] = [{
+            period: timeRange === 'This Week' ? 'This Week' : 'Last Week',
+            mergedPRs: weekMerged,
+            contributors: weekContributors.size,
+            openedIssues: weekIssues
+          }];
+
+          // Update stats
+          stats[repo.key].mergedPRs = weekMerged;
+          stats[repo.key].openedIssues = weekIssues;
+
+          chartData[repo.key] = weeklyData;
         });
       }
 
@@ -275,7 +292,9 @@ export default function Home() {
         if (timeRange === 'This Week') {
           targetPeriod = `${currentYear}-${String(currentWeek).padStart(2, '0')}`;
         } else if (timeRange === 'Last Week') {
-          targetPeriod = `${currentYear}-${String(currentWeek - 1).padStart(2, '0')}`;
+          const lastWeek = currentWeek > 1 ? currentWeek - 1 : 52;
+          const year = currentWeek === 1 ? currentYear - 1 : currentYear;
+          targetPeriod = `${year}-${String(lastWeek).padStart(2, '0')}`;
         } else if (timeRange === 'This Month') {
           targetPeriod = `${String(currentYear).slice(-2)}-${String(currentMonth).padStart(2, '0')}`;
         } else if (timeRange === 'Last Month') {
@@ -311,11 +330,13 @@ export default function Home() {
     processData();
   }, [timeRange, openPRCounts]);
 
-  // Helper function to get week number
+  // Helper function to get ISO week number
   function getWeekNumber(date: Date): number {
-    const year = date.getFullYear();
-    const week = Math.floor((date.getTime() - new Date(year, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
-    return week;
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
   }
 
   const renderRepoCard = (repo: typeof repositories[0]) => {

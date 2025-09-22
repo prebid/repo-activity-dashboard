@@ -70,9 +70,17 @@ const REPOS = [
 ];
 
 function getWeekKey(date: Date): string {
-  const year = date.getFullYear();
-  const week = Math.floor((date.getTime() - new Date(year, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
-  return `${year}-W${String(week).padStart(2, '0')}`;
+  // ISO 8601 week calculation
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNumber = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+
+  // Use the year of the Thursday in this week (ISO 8601)
+  const year = d.getUTCFullYear();
+
+  return `${year}-W${String(weekNumber).padStart(2, '0')}`;
 }
 
 function getWeekStart(date: Date): string {
@@ -201,7 +209,7 @@ function processRepository(repoName: string, stats: ContributorStats['byContribu
     for (const pr of prs) {
       if (!pr.author?.login) continue;
       
-      const date = new Date(pr.dateCreated || pr.created_at || pr.dateUpdated || pr.updated_at);
+      const date = new Date(pr.dateCreated || pr.created_at);
       
       // Count as authored PR
       updateContributorStats(pr.author.login, date, 'authored');
@@ -229,10 +237,11 @@ function processRepository(repoName: string, stats: ContributorStats['byContribu
       for (const pr of prs) {
         if (!pr.author?.login) continue;
         
-        const mergedDate = new Date(pr.dateMerged || pr.merged_at || pr.dateUpdated || pr.updated_at);
-        
-        // Count as authored PR
-        updateContributorStats(pr.author.login, mergedDate, 'authored');
+        const mergedDate = new Date(pr.dateMerged || pr.merged_at);
+        const createdDate = new Date(pr.dateCreated || pr.created_at);
+
+        // Count as authored PR using created date
+        updateContributorStats(pr.author.login, createdDate, 'authored');
         
         // Count reviewers
         if (pr.reviewers && Array.isArray(pr.reviewers)) {
