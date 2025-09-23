@@ -1,47 +1,37 @@
 version: 1
-applications:
-  - frontend:
-      phases:
-        preBuild:
-          commands:
-            # Install dependencies
-            - npm ci
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Install dependencies
+        - npm ci
 
-            # Sync GitHub mapping from S3 (will use env vars from Amplify console)
-            - echo "Syncing contributor mapping from S3..."
-            - npm run sync:mapping
+        # Sync GitHub mapping from S3 (will use env vars from Amplify console)
+        - echo "Syncing contributor mapping from S3..."
+        - npm run sync:mapping
 
-            # Generate contributor statistics if needed
-            - echo "Checking contributor data..."
-            - ls -la store/sheets/
-            - ls -la contributor-repo-timeline.json || echo "Contributor timeline not found, may need generation"
+        # Generate contributor statistics if needed
+        - echo "Checking contributor data..."
+        - ls -la store/sheets/
+        - ls -la contributor-repo-timeline.json || echo "Contributor timeline not found, may need generation"
 
-        build:
-          commands:
-            # Build the Next.js app
-            - npm run build
+    build:
+      commands:
+        # Build the Next.js app
+        - npm run build
 
-        postBuild:
-          commands:
-            # List build output for debugging
-            - echo "Build completed successfully"
-            - ls -la .next/
+    postBuild:
+      commands:
+        # List build output for debugging
+        - echo "Build completed successfully"
+        - ls -la .next/
 
-      artifacts:
-        baseDirectory: .next
-        files:
-          - '**/*'
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
 
-      cache:
-        paths:
-          - node_modules/**/*
-          - .next/cache/**/*
-
-    appRoot: /
-
-    # Environment settings
-    buildSpec:
-      env:
-        variables:
-          NODE_ENV: production
-          NEXT_TELEMETRY_DISABLED: 1
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
