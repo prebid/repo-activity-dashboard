@@ -5,8 +5,8 @@ import type { NextRequest } from "next/server";
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
-  // Allow health check endpoint to bypass auth
-  if (pathname === "/api/health") {
+  // Allow health check and test endpoints to bypass auth
+  if (pathname === "/api/health" || pathname === "/test") {
     return NextResponse.next();
   }
 
@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // If user is authenticated
-  if (session) {
+  if (session && session.user) {
     // Check if user must change password (except if already on password change page)
     if (session.user.mustChangePassword && !isPasswordChangePage) {
       return NextResponse.redirect(new URL("/auth/change-password", req.url));
