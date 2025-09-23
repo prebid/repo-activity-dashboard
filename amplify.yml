@@ -3,41 +3,40 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Install dependencies
-        - echo "Installing dependencies..."
-        - npm ci
-        - echo "Dependencies installed successfully"
-
-        # Check environment variables
-        - echo "Checking environment variables..."
-        - 'echo "S3_BUCKET_NAME is set: $S3_BUCKET_NAME"'
-        - 'echo "Node version:"'
+        # Check Node version
         - node --version
-        - 'echo "NPM version:"'
         - npm --version
 
-        # Sync GitHub mapping from S3
-        - echo "Starting S3 sync..."
-        - npm run sync:mapping || echo "S3 sync failed but continuing"
+        # Install dependencies with better error handling
+        - echo "Installing dependencies..."
+        - npm install --legacy-peer-deps --verbose || npm install --force
+        - echo "Dependencies installed"
 
-        # Check if required files exist
-        - echo "Checking required files..."
-        - ls -la store/sheets/ || echo "No store/sheets directory"
-        - ls -la contributor-repo-timeline.json || echo "No contributor timeline file"
-        - ls -la package.json
+        # Check environment
+        - echo "Environment check..."
+        - 'echo "S3_BUCKET_NAME: $S3_BUCKET_NAME"'
+        - 'echo "Current directory:"'
+        - pwd
+        - ls -la
+
+        # Sync GitHub mapping from S3 (optional - continue if fails)
+        - echo "Syncing from S3..."
+        - npm run sync:mapping || echo "S3 sync skipped"
+
+        # Verify critical files exist
+        - echo "Verifying files..."
+        - test -f contributor-repo-timeline.json || echo "Warning - contributor timeline missing"
+        - test -f package.json || exit 1
 
     build:
       commands:
-        # Build the Next.js app
-        - echo "Starting Next.js build..."
-        - npm run build
-        - echo "Build completed"
+        # Increase Node memory for build
+        - export NODE_OPTIONS=--max-old-space-size=4096
 
-    postBuild:
-      commands:
-        # List build output for debugging
-        - echo "Checking build output..."
-        - ls -la .next/ || echo "No .next directory found"
+        # Build Next.js
+        - echo "Building Next.js app..."
+        - npm run build || exit 1
+        - echo "Build successful"
 
   artifacts:
     baseDirectory: .next
@@ -47,4 +46,3 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-      - .next/cache/**/*
