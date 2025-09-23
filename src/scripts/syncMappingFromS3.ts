@@ -28,8 +28,13 @@ async function syncMappingFromS3() {
     return;
   }
 
+  // Check for S3 configuration - try both naming conventions
+  const accessKeyId = process.env.S3_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
+  const region = process.env.S3_REGION || process.env.AWS_REGION || 'us-east-1';
+
   // Skip if no S3 configuration
-  if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+  if (!accessKeyId || !secretAccessKey) {
     console.log('⚠️  No AWS credentials found in environment');
 
     // Check if local file exists
@@ -47,7 +52,6 @@ async function syncMappingFromS3() {
   }
 
   const bucketName = process.env.S3_BUCKET_NAME || 'prebid-dashboard-data';
-  const region = process.env.AWS_REGION || 'us-east-1';
 
   console.log('🔄 Fetching GitHub mapping from S3...');
   console.log(`   ├─ Bucket: ${bucketName}`);
@@ -57,8 +61,8 @@ async function syncMappingFromS3() {
   const s3Client = new S3Client({
     region,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+      accessKeyId: accessKeyId!,
+      secretAccessKey: secretAccessKey!,
     },
   });
 
