@@ -1,4 +1,3 @@
-import { docClient } from "@/lib/aws/clients";
 import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,6 +23,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     // Use Scan with filter since we don't have email-index GSI
     // This is fine for small user tables (which this will be)
     const { ScanCommand } = await import('@aws-sdk/lib-dynamodb');
+    const { docClient } = await import("@/lib/aws/clients");
     const result = await docClient.send(
       new ScanCommand({
         TableName: USERS_TABLE,
@@ -44,6 +44,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 
 export async function getUserById(id: string): Promise<User | null> {
   try {
+    const { docClient } = await import("@/lib/aws/clients");
     const result = await docClient.send(
       new GetCommand({
         TableName: USERS_TABLE,
@@ -76,6 +77,7 @@ export async function createUser(userData: {
     updatedAt: new Date().toISOString(),
   };
 
+  const { docClient } = await import("@/lib/aws/clients");
   await docClient.send(
     new PutCommand({
       TableName: USERS_TABLE,
@@ -126,6 +128,7 @@ export async function adminCreateUser(
     mustChangePassword: true,
   };
 
+  const { docClient } = await import("@/lib/aws/clients");
   await docClient.send(
     new PutCommand({
       TableName: USERS_TABLE,
@@ -146,6 +149,7 @@ export async function updateUserPassword(
   newHashedPassword: string
 ) {
   const { UpdateCommand } = await import('@aws-sdk/lib-dynamodb');
+  const { docClient } = await import("@/lib/aws/clients");
 
   await docClient.send(
     new UpdateCommand({
@@ -175,6 +179,7 @@ export async function adminResetPassword(email: string) {
   const hashedPassword = await hashPassword(tempPassword);
 
   const { UpdateCommand } = await import('@aws-sdk/lib-dynamodb');
+  const { docClient } = await import("@/lib/aws/clients");
 
   await docClient.send(
     new UpdateCommand({
