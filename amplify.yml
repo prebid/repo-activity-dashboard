@@ -37,6 +37,11 @@ frontend:
         # Increase Node memory for build
         - export NODE_OPTIONS=--max-old-space-size=4096
 
+        # Copy store files to public directory for static serving
+        - echo "Copying store files to public..."
+        - mkdir -p public/store
+        - cp -r store/* public/store/ || echo "Store copy warning"
+
         # Build Next.js
         - echo "Building Next.js app..."
         - npm run build || exit 1
