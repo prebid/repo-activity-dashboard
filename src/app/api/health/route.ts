@@ -10,7 +10,6 @@ export async function GET() {
     checks: {}
   };
 
-  // Check environment variables
   diagnostics.checks.envVars = {
     NEXTAUTH_URL: !!process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: !!process.env.NEXTAUTH_SECRET,
@@ -18,14 +17,21 @@ export async function GET() {
     S3_SECRET_ACCESS_KEY: !!process.env.S3_SECRET_ACCESS_KEY,
     S3_REGION: !!process.env.S3_REGION,
     S3_BUCKET_NAME: !!process.env.S3_BUCKET_NAME,
-    DYNAMODB_REGION: !!process.env.DYNAMODB_REGION,
-    DYNAMODB_TABLE_NAME: !!process.env.DYNAMODB_TABLE_NAME,
+    DYNAMODB_USERS_TABLE: !!process.env.DYNAMODB_USERS_TABLE,
     DYNAMODB_ACCOUNTS_TABLE: !!process.env.DYNAMODB_ACCOUNTS_TABLE,
-    DYNAMODB_SESSIONS_TABLE: !!process.env.DYNAMODB_SESSIONS_TABLE,
-    DYNAMODB_VERIFICATION_TOKENS_TABLE: !!process.env.DYNAMODB_VERIFICATION_TOKENS_TABLE,
+    DYNAMODB_WHITELIST_TABLE: !!process.env.DYNAMODB_WHITELIST_TABLE,
+    AWS_REGION: !!process.env.AWS_REGION,
   };
 
-  // Check critical files
+  diagnostics.checks.actualValues = {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'not set',
+    AWS_REGION: process.env.AWS_REGION || 'not set',
+    S3_REGION: process.env.S3_REGION || 'not set',
+    DYNAMODB_USERS_TABLE: process.env.DYNAMODB_USERS_TABLE || 'not set',
+    DYNAMODB_ACCOUNTS_TABLE: process.env.DYNAMODB_ACCOUNTS_TABLE || 'not set',
+    DYNAMODB_WHITELIST_TABLE: process.env.DYNAMODB_WHITELIST_TABLE || 'not set',
+  };
+
   const mappingPath = path.join(process.cwd(), 'store/sheets/github-mapping.json');
   const timelinePath = path.join(process.cwd(), 'contributor-repo-timeline.json');
 
@@ -34,7 +40,6 @@ export async function GET() {
     'contributor-repo-timeline.json': fs.existsSync(timelinePath),
   };
 
-  // Check if files have content
   if (fs.existsSync(mappingPath)) {
     const stats = fs.statSync(mappingPath);
     diagnostics.checks.criticalFiles['github-mapping.json-size'] = stats.size;
@@ -45,13 +50,11 @@ export async function GET() {
     diagnostics.checks.criticalFiles['contributor-repo-timeline.json-size'] = stats.size;
   }
 
-  // Test AWS connectivity (without actually connecting)
   diagnostics.checks.awsConfig = {
     hasCredentials: !!(process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY),
     hasRegion: !!process.env.S3_REGION,
   };
 
-  // Overall status
   const envVarsOk = Object.values(diagnostics.checks.envVars).every(v => v === true);
   const filesOk = diagnostics.checks.criticalFiles['github-mapping.json'] &&
                   diagnostics.checks.criticalFiles['contributor-repo-timeline.json'];
