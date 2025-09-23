@@ -4,27 +4,38 @@ frontend:
     preBuild:
       commands:
         # Install dependencies
+        - echo "Installing dependencies..."
         - npm ci
+        - echo "Dependencies installed successfully"
 
-        # Sync GitHub mapping from S3 (will use env vars from Amplify console)
-        - echo "Syncing contributor mapping from S3..."
-        - npm run sync:mapping
+        # Check environment variables
+        - echo "Checking environment variables..."
+        - echo "S3_BUCKET_NAME is set: $S3_BUCKET_NAME"
+        - echo "Node version:" && node --version
+        - echo "NPM version:" && npm --version
 
-        # Generate contributor statistics if needed
-        - echo "Checking contributor data..."
-        - ls -la store/sheets/
-        - ls -la contributor-repo-timeline.json || echo "Contributor timeline not found, may need generation"
+        # Sync GitHub mapping from S3
+        - echo "Starting S3 sync..."
+        - npm run sync:mapping || echo "S3 sync failed but continuing"
+
+        # Check if required files exist
+        - echo "Checking required files..."
+        - ls -la store/sheets/ || echo "No store/sheets directory"
+        - ls -la contributor-repo-timeline.json || echo "No contributor timeline file"
+        - ls -la package.json
 
     build:
       commands:
         # Build the Next.js app
+        - echo "Starting Next.js build..."
         - npm run build
+        - echo "Build completed"
 
     postBuild:
       commands:
         # List build output for debugging
-        - echo "Build completed successfully"
-        - ls -la .next/
+        - echo "Checking build output..."
+        - ls -la .next/ || echo "No .next directory found"
 
   artifacts:
     baseDirectory: .next
