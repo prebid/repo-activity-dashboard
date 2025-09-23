@@ -10,9 +10,11 @@ frontend:
 
         # Check environment variables
         - echo "Checking environment variables..."
-        - echo "S3_BUCKET_NAME is set: $S3_BUCKET_NAME"
-        - echo "Node version:" && node --version
-        - echo "NPM version:" && npm --version
+        - 'echo "S3_BUCKET_NAME is set: $S3_BUCKET_NAME"'
+        - 'echo "Node version:"'
+        - node --version
+        - 'echo "NPM version:"'
+        - npm --version
 
         # Sync GitHub mapping from S3
         - echo "Starting S3 sync..."
