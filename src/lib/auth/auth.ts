@@ -38,6 +38,7 @@ declare module "next-auth/jwt" {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -119,4 +120,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: "/auth/login",
     error: "/auth/error",
   },
+
+  debug: process.env.NODE_ENV === 'development',
 });
