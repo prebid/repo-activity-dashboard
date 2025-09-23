@@ -70,8 +70,15 @@ export async function GET() {
   // Test DynamoDB access
   diagnostics.checks.dynamoDb = {};
   try {
+    console.log('[Health] About to import AWS clients');
+    console.log('[Health] Current env vars:');
+    console.log('  S3_ACCESS_KEY_ID:', !!process.env.S3_ACCESS_KEY_ID);
+    console.log('  S3_SECRET_ACCESS_KEY:', !!process.env.S3_SECRET_ACCESS_KEY);
+
     const { docClient } = await import('@/lib/aws/clients');
     const { ScanCommand } = await import('@aws-sdk/lib-dynamodb');
+
+    console.log('[Health] docClient imported, testing tables');
 
     // Test whitelist table access
     try {

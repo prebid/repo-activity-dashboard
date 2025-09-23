@@ -4,7 +4,14 @@ const WHITELIST_TABLE = process.env.DYNAMODB_WHITELIST_TABLE!;
 
 export async function isEmailWhitelisted(email: string): Promise<boolean> {
   try {
+    console.log('[Whitelist] About to import AWS clients');
+    console.log('[Whitelist] Current env vars:');
+    console.log('  S3_ACCESS_KEY_ID:', !!process.env.S3_ACCESS_KEY_ID);
+    console.log('  S3_SECRET_ACCESS_KEY:', !!process.env.S3_SECRET_ACCESS_KEY);
+
     const { docClient } = await import("@/lib/aws/clients");
+
+    console.log('[Whitelist] docClient imported, sending command');
     const result = await docClient.send(
       new GetCommand({
         TableName: WHITELIST_TABLE,
