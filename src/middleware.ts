@@ -17,6 +17,11 @@ export async function middleware(req: NextRequest) {
   const isAdminRoute = pathname.startsWith("/admin");
   const isProtectedRoute = !isPublicRoute && !isAuthRoute;
 
+  // Skip auth check for auth routes to prevent circular redirects
+  if (isAuthRoute) {
+    return NextResponse.next();
+  }
+
   // Try to get session with error handling
   let session;
   try {
