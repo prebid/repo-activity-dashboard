@@ -13,6 +13,8 @@ export async function GET() {
   diagnostics.checks.envVars = {
     NEXTAUTH_URL: !!process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: !!process.env.NEXTAUTH_SECRET,
+    NEXT_PUBLIC_APP_URL: !!process.env.NEXT_PUBLIC_APP_URL,
+    AUTH_URL: !!process.env.AUTH_URL,
     S3_ACCESS_KEY_ID: !!process.env.S3_ACCESS_KEY_ID,
     S3_SECRET_ACCESS_KEY: !!process.env.S3_SECRET_ACCESS_KEY,
     S3_REGION: !!process.env.S3_REGION,
@@ -25,6 +27,9 @@ export async function GET() {
 
   diagnostics.checks.actualValues = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'not set',
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'not set',
+    AUTH_URL: process.env.AUTH_URL || 'not set',
+    NODE_ENV: process.env.NODE_ENV || 'not set',
     AWS_REGION: process.env.AWS_REGION || 'not set',
     S3_REGION: process.env.S3_REGION || 'not set',
     DYNAMODB_USERS_TABLE: process.env.DYNAMODB_USERS_TABLE || 'not set',
@@ -54,6 +59,13 @@ export async function GET() {
     hasCredentials: !!(process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY),
     hasRegion: !!process.env.S3_REGION,
   };
+
+  try {
+    const { auth } = await import('@/lib/auth/auth');
+    diagnostics.checks.authInit = 'Success - NextAuth initialized';
+  } catch (error: any) {
+    diagnostics.checks.authInit = `Failed - ${error.message}`;
+  }
 
   const envVarsOk = Object.values(diagnostics.checks.envVars).every(v => v === true);
   const filesOk = diagnostics.checks.criticalFiles['github-mapping.json'] &&
