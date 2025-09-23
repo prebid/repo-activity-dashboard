@@ -37,6 +37,11 @@ frontend:
         # Increase Node memory for build
         - export NODE_OPTIONS=--max-old-space-size=4096
 
+        # Debug environment variables
+        - echo "NEXTAUTH_URL=$NEXTAUTH_URL"
+        - echo "NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL"
+        - export AUTH_URL=$NEXTAUTH_URL
+
         # Copy store files to public directory for static serving
         - echo "Copying store files to public..."
         - mkdir -p public/store
