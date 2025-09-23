@@ -40,7 +40,7 @@ frontend:
         # Debug environment variables
         - echo "NEXTAUTH_URL=$NEXTAUTH_URL"
         - echo "NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL"
-        - echo "NEXTAUTH_SECRET is set: $(if [ -n \"$NEXTAUTH_SECRET\" ]; then echo YES; else echo NO; fi)"
+        - 'echo "NEXTAUTH_SECRET is set"'
         - export AUTH_URL=$NEXTAUTH_URL
         - export AUTH_SECRET=$NEXTAUTH_SECRET
 
