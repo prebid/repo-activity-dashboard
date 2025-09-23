@@ -36,9 +36,11 @@ declare module "next-auth/jwt" {
   }
 }
 
+import { nextAuthSecret } from './get-secret';
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: nextAuthSecret,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
