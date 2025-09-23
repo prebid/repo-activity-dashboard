@@ -54,38 +54,58 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
 
       async authorize(credentials) {
+        console.log('[Auth] Authorize called with email:', credentials?.email);
+
         if (!credentials?.email || !credentials?.password) {
+          console.log('[Auth] Missing credentials');
           throw new Error("Email and password are required");
         }
 
         const email = credentials.email as string;
         const password = credentials.password as string;
 
-        // Check whitelist
-        if (!(await isEmailWhitelisted(email))) {
-          throw new Error("Your email is not authorized. Contact administrator.");
-        }
+        try {
+          // Check whitelist
+          console.log('[Auth] Checking whitelist for:', email);
+          const isWhitelisted = await isEmailWhitelisted(email);
+          console.log('[Auth] Whitelist result:', isWhitelisted);
 
-        // Get user and verify password
-        const user = await getUserByEmail(email);
-        if (!user) {
-          throw new Error("No account found with this email");
-        }
+          if (!isWhitelisted) {
+            throw new Error("Your email is not authorized. Contact administrator.");
+          }
 
-        const isValidPassword = await verifyPassword(password, user.password);
-        if (!isValidPassword) {
-          throw new Error("Invalid password");
-        }
+          // Get user and verify password
+          console.log('[Auth] Getting user by email');
+          const user = await getUserByEmail(email);
+          console.log('[Auth] User found:', !!user);
 
-        // Return user without password
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          company: user.company,
-          mustChangePassword: user.mustChangePassword,
-        };
+          if (!user) {
+            throw new Error("No account found with this email");
+          }
+
+          console.log('[Auth] Verifying password');
+          const isValidPassword = await verifyPassword(password, user.password);
+          console.log('[Auth] Password valid:', isValidPassword);
+
+          if (!isValidPassword) {
+            throw new Error("Invalid password");
+          }
+
+          // Return user without password
+          console.log('[Auth] Authentication successful for:', email);
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            company: user.company,
+            mustChangePassword: user.mustChangePassword,
+          };
+        } catch (error: any) {
+          console.error('[Auth] Error during authentication:', error.message);
+          console.error('[Auth] Full error:', error);
+          throw error;
+        }
       },
     }),
   ],
