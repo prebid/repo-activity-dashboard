@@ -67,6 +67,60 @@ export async function GET() {
     diagnostics.checks.authInit = `Failed - ${error.message}`;
   }
 
+  // Test DynamoDB access
+  diagnostics.checks.dynamoDb = {};
+  try {
+    const { docClient } = await import('@/lib/aws/clients');
+    const { ScanCommand } = await import('@aws-sdk/lib-dynamodb');
+
+    // Test whitelist table access
+    try {
+      const result = await docClient.send(
+        new ScanCommand({
+          TableName: process.env.DYNAMODB_WHITELIST_TABLE || 'repo-dashboard-whitelist',
+          Limit: 1,
+        })
+      );
+      diagnostics.checks.dynamoDb.whitelist = {
+        accessible: true,
+        itemCount: result.Items?.length || 0,
+      };
+    } catch (error: any) {
+      diagnostics.checks.dynamoDb.whitelist = {
+        accessible: false,
+        error: error.name,
+        message: error.message,
+        code: error.$metadata?.httpStatusCode,
+      };
+    }
+
+    // Test users table access
+    try {
+      const result = await docClient.send(
+        new ScanCommand({
+          TableName: process.env.DYNAMODB_USERS_TABLE || 'repo-dashboard-users',
+          Limit: 1,
+        })
+      );
+      diagnostics.checks.dynamoDb.users = {
+        accessible: true,
+        itemCount: result.Items?.length || 0,
+      };
+    } catch (error: any) {
+      diagnostics.checks.dynamoDb.users = {
+        accessible: false,
+        error: error.name,
+        message: error.message,
+        code: error.$metadata?.httpStatusCode,
+      };
+    }
+  } catch (error: any) {
+    diagnostics.checks.dynamoDb = {
+      error: 'Failed to initialize DynamoDB client',
+      message: error.message,
+    };
+  }
+
   const envVarsOk = Object.values(diagnostics.checks.envVars).every(v => v === true);
   const filesOk = diagnostics.checks.criticalFiles['github-mapping.json'] &&
                   diagnostics.checks.criticalFiles['contributor-repo-timeline.json'];
