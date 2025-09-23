@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getAuthUrl } from '@/lib/auth/client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -40,7 +39,6 @@ export default function LoginPage() {
         email,
         password,
         redirect: false,
-        callbackUrl: callbackUrl,
       });
 
       if (result?.error) {

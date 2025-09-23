@@ -11,9 +11,6 @@ const nextConfig = {
     // Critical: This embeds the secret into the build
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
-
-  // For Amplify SSR deployment
-  output: 'standalone',
 };
 
 export default nextConfig;

@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
+import { nextAuthSecret } from './get-secret';
 import { isEmailWhitelisted } from "./whitelist";
 import { verifyPassword } from "./passwords";
 import { getUserByEmail } from "./users";
@@ -35,8 +36,6 @@ declare module "next-auth/jwt" {
     mustChangePassword?: boolean;
   }
 }
-
-import { nextAuthSecret } from './get-secret';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
