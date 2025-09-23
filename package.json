@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
+    "prebuild": "tsx src/scripts/syncMappingFromS3.ts",
     "build": "next build",
     "start": "next start",
+    "sync:mapping": "tsx src/scripts/syncMappingFromS3.ts",
     "build:cli": "tsc",
     "start:cli": "node dist/index.js",
     "dev:cli": "nodemon --exec \"node --loader ts-node/esm src/index.ts\"",
@@ -18,7 +20,9 @@
     "test:coverage": "vitest run --coverage",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
-    "validate": "tsx src/scripts/validate.ts"
+    "validate": "tsx src/scripts/validate.ts",
+    "generate:stats": "tsx src/scripts/generateContributorStats.ts",
+    "process:mapping": "tsx src/scripts/processGithubMapping.ts"
   },
   "keywords": [],
   "author": "",
