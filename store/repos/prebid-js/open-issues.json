@@ -1,44 +1,44 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-09-22T16:09:43.216Z",
-    "itemCount": 108
+    "lastSync": "2025-10-06T08:28:29.273Z",
+    "itemCount": 112
   },
   "items": [
     {
-      "title": "Fingerprinting APIs",
-      "number": 12060,
+      "title": "Viewabillity dropped",
+      "number": 13946,
+      "author": {
+        "login": "BerendKemper",
+        "id": 46784771
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-29T15:04:16.000Z",
+      "dateUpdated": "2025-10-06T08:07:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "LocalStorage Problem with ID hashes",
+      "number": 13955,
+      "author": {
+        "login": "mikemangas",
+        "id": 85886271
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-01T09:27:05.000Z",
+      "dateUpdated": "2025-10-03T19:13:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "should we ban getTimezoneOffset",
+      "number": 13972,
       "author": {
         "login": "patmmccann",
         "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2024-07-30T19:58:12.000Z",
-      "dateUpdated": "2025-09-22T16:07:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Shaping rules module",
-      "number": 12663,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-01-15T19:00:17.000Z",
-      "dateUpdated": "2025-09-22T15:32:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: replace expired bids that are about to be rendered",
-      "number": 13838,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-02T17:19:27.000Z",
-      "dateUpdated": "2025-09-22T15:29:10.000Z",
+      "dateCreated": "2025-10-03T17:50:56.000Z",
+      "dateUpdated": "2025-10-03T17:50:56.000Z",
       "status": "open"
     },
     {
@@ -50,19 +50,7 @@
       },
       "assignees": [],
       "dateCreated": "2025-09-18T09:18:04.000Z",
-      "dateUpdated": "2025-09-22T15:20:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "endpointCompression url construction issue",
-      "number": 13900,
-      "author": {
-        "login": "mergut",
-        "id": 5824504
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-16T10:01:44.000Z",
-      "dateUpdated": "2025-09-16T10:01:44.000Z",
+      "dateUpdated": "2025-10-02T11:47:41.000Z",
       "status": "open"
     },
     {
@@ -76,7 +64,93 @@
         "dgirardi"
       ],
       "dateCreated": "2025-09-10T10:33:06.000Z",
-      "dateUpdated": "2025-09-15T09:29:34.000Z",
+      "dateUpdated": "2025-10-01T12:55:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Create InBannerVideo Blocker",
+      "number": 13932,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-24T22:01:01.000Z",
+      "dateUpdated": "2025-09-30T14:51:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Shaping rules module",
+      "number": 12663,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-01-15T19:00:17.000Z",
+      "dateUpdated": "2025-09-25T15:08:02.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fingerprinting APIs",
+      "number": 12060,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-07-30T19:58:12.000Z",
+      "dateUpdated": "2025-09-24T16:35:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "devicePixelRatio: remove or polyfill",
+      "number": 13920,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:57:56.000Z",
+      "dateUpdated": "2025-09-23T13:57:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DoNotTrack: ban access to navigator call",
+      "number": 13919,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:53:35.000Z",
+      "dateUpdated": "2025-09-23T13:53:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "id5 id module: canCookieSync | is still used?",
+      "number": 13842,
+      "author": {
+        "login": "wvazquez",
+        "id": 16522957
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-03T21:10:26.000Z",
+      "dateUpdated": "2025-09-23T08:50:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature request: replace expired bids that are about to be rendered",
+      "number": 13838,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-02T17:19:27.000Z",
+      "dateUpdated": "2025-09-22T15:29:10.000Z",
       "status": "open"
     },
     {
@@ -103,18 +177,6 @@
       ],
       "dateCreated": "2025-07-31T16:39:04.000Z",
       "dateUpdated": "2025-09-08T09:30:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "id5 id module: canCookieSync | is still used?",
-      "number": 13842,
-      "author": {
-        "login": "wvazquez",
-        "id": 16522957
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-03T21:10:26.000Z",
-      "dateUpdated": "2025-09-03T21:12:55.000Z",
       "status": "open"
     },
     {
@@ -250,20 +312,6 @@
       "assignees": [],
       "dateCreated": "2025-08-13T16:07:24.000Z",
       "dateUpdated": "2025-08-13T16:07:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Listen for heavy intervention reports, generate event",
-      "number": 13560,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2025-07-10T13:16:46.000Z",
-      "dateUpdated": "2025-08-11T20:06:02.000Z",
       "status": "open"
     },
     {

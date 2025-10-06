@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function Toolbar() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -165,15 +165,15 @@ export function Toolbar() {
 
             {/* Theme Toggle Button */}
             <button
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               className={`h-10 w-10 rounded-lg border transition-all duration-300 flex items-center justify-center ${
-                resolvedTheme === 'dark'
+                theme === 'dark'
                   ? 'bg-gray-900 border-gray-600 hover:bg-gray-800'
                   : 'bg-white border-gray-200 hover:bg-gray-50'
               }`}
               aria-label="Toggle theme"
             >
-              {resolvedTheme === 'dark' ? (
+              {theme === 'dark' ? (
                 <Moon className="h-5 w-5 text-blue-400" />
               ) : (
                 <Sun className="h-5 w-5 text-yellow-500" />

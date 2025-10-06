@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <AuthSessionProvider>
-          <ThemeProvider defaultTheme="system">
+          <ThemeProvider>
             <Toolbar />
             <main className="flex-1">
               {children}

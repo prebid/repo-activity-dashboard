@@ -57,34 +57,58 @@ export default function ContributorsPage() {
       
       const contributorMap = new Map<string, Record<string, number>>();
       const currentDate = new Date();
-      // Use 2025 as the current year since that's what the data has
-      const currentYear = 2025;
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1;
       const currentWeek = getWeekNumber(currentDate);
-      
+
       // Determine time key based on selection
       let timeKey = 'y'; // year
       let targetPeriod = '';
-      
-      if (timeRange === 'This Week') {
+      let targetPeriods: string[] = []; // For quarters, we need multiple periods
+      let isQuarterly = false;
+
+      if (timeRange === 'This Quarter' || timeRange === 'Last Quarter') {
+        // Handle quarterly aggregation
+        isQuarterly = true;
+        timeKey = 'm';
+        const currentQuarter = Math.floor((currentMonth - 1) / 3) + 1;
+        const isThisQuarter = timeRange === 'This Quarter';
+        const targetQuarter = isThisQuarter ? currentQuarter : (currentQuarter === 1 ? 4 : currentQuarter - 1);
+        const targetYear = (timeRange === 'Last Quarter' && currentQuarter === 1) ? currentYear - 1 : currentYear;
+        const targetYearShort = String(targetYear).slice(-2);
+
+        // Calculate months in the quarter
+        const quarterStartMonth = (targetQuarter - 1) * 3 + 1;
+        let quarterMonths = [quarterStartMonth, quarterStartMonth + 1, quarterStartMonth + 2];
+
+        // For "This Quarter", only include months up to current month
+        if (isThisQuarter) {
+          quarterMonths = quarterMonths.filter(m => m <= currentMonth);
+        }
+
+        targetPeriods = quarterMonths.map(m => `${targetYearShort}-${String(m).padStart(2, '0')}`);
+      } else if (timeRange === 'This Week') {
         timeKey = 'w';
         targetPeriod = `${currentYear}-${String(currentWeek).padStart(2, '0')}`;
       } else if (timeRange === 'Last Week') {
         timeKey = 'w';
-        targetPeriod = `${currentYear}-${String(currentWeek - 1).padStart(2, '0')}`;
+        const lastWeek = currentWeek > 1 ? currentWeek - 1 : 52;
+        const year = currentWeek === 1 ? currentYear - 1 : currentYear;
+        targetPeriod = `${year}-${String(lastWeek).padStart(2, '0')}`;
       } else if (timeRange === 'This Month') {
         timeKey = 'm';
-        targetPeriod = `${String(currentYear).slice(-2)}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+        targetPeriod = `${String(currentYear).slice(-2)}-${String(currentMonth).padStart(2, '0')}`;
       } else if (timeRange === 'Last Month') {
         timeKey = 'm';
-        const lastMonth = currentDate.getMonth() === 0 ? 12 : currentDate.getMonth();
-        const year = currentDate.getMonth() === 0 ? currentYear - 1 : currentYear;
+        const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+        const year = currentMonth === 1 ? currentYear - 1 : currentYear;
         targetPeriod = `${String(year).slice(-2)}-${String(lastMonth).padStart(2, '0')}`;
       } else if (timeRange === 'This Year') {
         timeKey = 'y';
-        targetPeriod = '25'; // 2025
+        targetPeriod = String(currentYear).slice(-2);
       } else if (timeRange === 'Last Year') {
         timeKey = 'y';
-        targetPeriod = '24'; // 2024
+        targetPeriod = String(currentYear - 1).slice(-2);
       }
       
       // Determine metric index: [openedPRs, mergedPRs, reviewedPRs, mergedCommits, openedIssues]
@@ -143,12 +167,27 @@ export default function ContributorsPage() {
           if (selectedRepo === 'All' || selectedRepo === repo.name) {
             const repoKey = repo.key;
             const simplifiedKey = repoKeyMap[repoKey];
-            
-            if (repos[repoKey] && repos[repoKey][timeKey] && repos[repoKey][timeKey][targetPeriod]) {
-              const value = repos[repoKey][timeKey][targetPeriod][metricIndex] || 0;
+
+            if (isQuarterly) {
+              // Aggregate across all months in the quarter
+              let quarterTotal = 0;
+              targetPeriods.forEach(period => {
+                if (repos[repoKey] && repos[repoKey][timeKey] && repos[repoKey][timeKey][period]) {
+                  quarterTotal += repos[repoKey][timeKey][period][metricIndex] || 0;
+                }
+              });
               if (simplifiedKey) {
-                repoData[simplifiedKey] = value;
-                if (value > 0) foundAnyData = true;
+                repoData[simplifiedKey] = quarterTotal;
+                if (quarterTotal > 0) foundAnyData = true;
+              }
+            } else {
+              // Single period (week, month, or year)
+              if (repos[repoKey] && repos[repoKey][timeKey] && repos[repoKey][timeKey][targetPeriod]) {
+                const value = repos[repoKey][timeKey][targetPeriod][metricIndex] || 0;
+                if (simplifiedKey) {
+                  repoData[simplifiedKey] = value;
+                  if (value > 0) foundAnyData = true;
+                }
               }
             }
           }
@@ -241,6 +280,8 @@ export default function ContributorsPage() {
             <SelectItem value="Last Week">Last Week</SelectItem>
             <SelectItem value="This Month">This Month</SelectItem>
             <SelectItem value="Last Month">Last Month</SelectItem>
+            <SelectItem value="This Quarter">This Quarter</SelectItem>
+            <SelectItem value="Last Quarter">Last Quarter</SelectItem>
             <SelectItem value="This Year">This Year</SelectItem>
             <SelectItem value="Last Year">Last Year</SelectItem>
           </SelectContent>

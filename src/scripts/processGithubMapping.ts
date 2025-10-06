@@ -6,7 +6,7 @@ interface UserMapping {
   Name: string;
   Company: string;
   Notes: string;
-  Member: 'Yes' | 'No' | 'Unknown' | '';
+  Member: 'Yes' | 'No' | 'Unknown' | 'Prebid' | '';
   'PMC Reviewer': string;
   'PMC Reviewer Notes': string;
 }
@@ -14,6 +14,7 @@ interface UserMapping {
 interface CompanyMapping {
   [username: string]: {
     company: string;
+    category: 'member' | 'non-member' | 'prebid';
     isMember: boolean;
     name?: string;
   };
@@ -53,18 +54,21 @@ function processMapping(): void {
   records.forEach(record => {
     const username = record.Username?.toLowerCase();
     if (!username) return;
-    
+
     const company = cleanCompanyName(record.Company) || 'Unknown Organization';
-    const isMember = record.Member === 'Yes';
-    
+    const isPrebid = record.Member === 'Prebid';
+    const isMember = record.Member === 'Yes' || isPrebid;
+    const category = isPrebid ? 'prebid' : (record.Member === 'Yes' ? 'member' : 'non-member');
+
     mapping[username] = {
       company,
-      isMember: record.Member === 'Yes',
+      category,
+      isMember,
       name: record.Name || undefined
     };
-    
+
     companies.add(company);
-    
+
     if (record.Member === 'Yes') memberCount++;
     else if (record.Member === 'No') nonMemberCount++;
     else unknownCount++;

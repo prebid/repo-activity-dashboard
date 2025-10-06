@@ -244,7 +244,8 @@ class RecentDataUpdater {
       { owner: 'prebid', repo: 'prebid-server-java', name: 'prebid-server-java' },
       { owner: 'prebid', repo: 'prebid-mobile-android', name: 'prebid-mobile-android' },
       { owner: 'prebid', repo: 'prebid-mobile-ios', name: 'prebid-mobile-ios' },
-      { owner: 'prebid', repo: 'openrtb', name: 'openrtb' }
+      { owner: 'prebid', repo: 'prebid.github.io', name: 'prebid-github-io' },
+      { owner: 'prebid', repo: 'prebid-universal-creative', name: 'prebid-universal-creative' }
     ];
 
     const stats = {

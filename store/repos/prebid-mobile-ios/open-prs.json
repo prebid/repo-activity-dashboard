@@ -1,97 +1,33 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-09-22T16:25:55.509Z",
-    "itemCount": 8
+    "lastSync": "2025-10-06T08:46:06.965Z",
+    "itemCount": 5
   },
   "items": [
     {
-      "title": "Content ORTB config",
-      "number": 1203,
+      "title": "Type-safe parsing of JSON response",
+      "number": 1127,
       "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
+        "login": "jclou",
+        "id": 1572104
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "YuriyVelichkoPI",
           "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "mdanylov-sigma",
-          "state": "COMMENTED"
         }
       ],
-      "dateCreated": "2025-08-19T17:53:41.000Z",
-      "dateUpdated": "2025-09-22T09:19:19.000Z",
+      "dateCreated": "2025-04-01T23:51:12.000Z",
+      "dateUpdated": "2025-10-03T19:23:52.000Z",
       "status": "open",
       "commitAuthors": {
-        "146753616": {
-          "identifier": "146753616",
-          "displayName": "mdanylov-sigma",
-          "count": 3,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "BannerView delegate to manage video playback ",
-      "number": 1202,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "YuriyVelichkoPI",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "mdanylov-sigma",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-08-19T17:49:16.000Z",
-      "dateUpdated": "2025-09-22T09:19:12.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "146753616": {
-          "identifier": "146753616",
-          "displayName": "mdanylov-sigma",
-          "count": 3,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Update README.md ",
-      "number": 1214,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "OlenaPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "mdanylov-sigma",
-          "state": "APPROVED"
-        }
-      ],
-      "dateCreated": "2025-09-22T08:57:49.000Z",
-      "dateUpdated": "2025-09-22T09:18:49.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "21169695": {
-          "identifier": "21169695",
-          "displayName": "YuriyVelichkoPI",
-          "count": 2,
-          "isGitHubUser": true
+        "James Lou": {
+          "identifier": "James Lou",
+          "displayName": "James Lou",
+          "count": 4,
+          "isGitHubUser": false
         }
       }
     },
@@ -144,32 +80,6 @@
           "displayName": "mdanylov-sigma",
           "count": 1,
           "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Type-safe parsing of JSON response",
-      "number": 1127,
-      "author": {
-        "login": "jclou",
-        "id": 1572104
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "YuriyVelichkoPI",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "dateCreated": "2025-04-01T23:51:12.000Z",
-      "dateUpdated": "2025-07-15T13:53:02.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "James Lou": {
-          "identifier": "James Lou",
-          "displayName": "James Lou",
-          "count": 4,
-          "isGitHubUser": false
         }
       }
     },

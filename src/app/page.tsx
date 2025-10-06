@@ -111,16 +111,74 @@ export default function Home() {
       });
 
       const currentDate = new Date();
-      const currentYear = 2025;
+      const currentYear = currentDate.getFullYear();
       const currentMonth = currentDate.getMonth() + 1;
       const currentWeek = getWeekNumber(currentDate);
       
       // Process based on time range
-      if (timeRange === 'This Year' || timeRange === 'Last Year') {
-        // Monthly view for year ranges
-        const targetYear = timeRange === 'This Year' ? '25' : '24';
+      if (timeRange === 'This Quarter' || timeRange === 'Last Quarter') {
+        // Monthly view for quarter ranges (3 months)
+        const currentQuarterInfo = getQuarterInfo(currentDate);
+        const isThisQuarter = timeRange === 'This Quarter';
+        const targetQuarter = isThisQuarter ? currentQuarterInfo.quarter : (currentQuarterInfo.quarter === 1 ? 4 : currentQuarterInfo.quarter - 1);
+        const targetYear = (timeRange === 'Last Quarter' && currentQuarterInfo.quarter === 1) ? currentYear - 1 : currentYear;
+        const targetYearShort = String(targetYear).slice(-2);
+
+        const quarterMonths = getQuarterMonths(targetQuarter);
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        
+
+        // For "This Quarter", only show months up to current month
+        let monthsToShow = quarterMonths;
+        if (isThisQuarter) {
+          monthsToShow = quarterMonths.filter(m => m <= currentMonth);
+        }
+
+        repositories.forEach(repo => {
+          const monthlyData: ChartDataPoint[] = [];
+
+          monthsToShow.forEach(month => {
+            const monthKey = `${targetYearShort}-${String(month).padStart(2, '0')}`;
+            let monthMerged = 0;
+            let monthIssues = 0;
+            const monthContributors = new Set<string>();
+
+            // Aggregate data for this month
+            Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+              const repoData = repos[repo.key];
+              if (repoData && repoData.m && repoData.m[monthKey]) {
+                const metrics = repoData.m[monthKey];
+                const openedPRs = metrics[0] || 0;
+                const merged = metrics[1] || 0;
+                const issues = metrics[4] || 0;
+
+                if (openedPRs > 0 || issues > 0) {
+                  monthContributors.add(contributor);
+                  monthMerged += merged;
+                  monthIssues += issues;
+                }
+              }
+            });
+
+            monthlyData.push({
+              period: monthNames[month - 1],
+              mergedPRs: monthMerged,
+              contributors: monthContributors.size,
+              openedIssues: monthIssues
+            });
+
+            // Add to totals
+            stats[repo.key].mergedPRs += monthMerged;
+            stats[repo.key].openedIssues += monthIssues;
+          });
+
+          chartData[repo.key] = monthlyData;
+        });
+      } else if (timeRange === 'This Year' || timeRange === 'Last Year') {
+        // Monthly view for year ranges
+        const targetYear = timeRange === 'This Year' ? currentYear : currentYear - 1;
+        const targetYearShort = String(targetYear).slice(-2);
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
         // Determine the last month to show (don't show future months for current year)
         const lastMonth = (timeRange === 'This Year') ? currentMonth : 12;
         
@@ -128,7 +186,7 @@ export default function Home() {
           const monthlyData: ChartDataPoint[] = [];
           
           for (let month = 1; month <= lastMonth; month++) {
-            const monthKey = `${targetYear}-${String(month).padStart(2, '0')}`;
+            const monthKey = `${targetYearShort}-${String(month).padStart(2, '0')}`;
             let monthMerged = 0;
             let monthIssues = 0;
             const monthContributors = new Set<string>();
@@ -285,41 +343,71 @@ export default function Home() {
       // Calculate total unique contributors for the period
       repositories.forEach(repo => {
         const allContributors = new Set<string>();
-        const timeKey = (timeRange === 'This Year' || timeRange === 'Last Year') ? 'y' : 
-                       (timeRange === 'This Month' || timeRange === 'Last Month') ? 'm' : 'w';
-        let targetPeriod = '';
-        
-        if (timeRange === 'This Week') {
-          targetPeriod = `${currentYear}-${String(currentWeek).padStart(2, '0')}`;
-        } else if (timeRange === 'Last Week') {
-          const lastWeek = currentWeek > 1 ? currentWeek - 1 : 52;
-          const year = currentWeek === 1 ? currentYear - 1 : currentYear;
-          targetPeriod = `${year}-${String(lastWeek).padStart(2, '0')}`;
-        } else if (timeRange === 'This Month') {
-          targetPeriod = `${String(currentYear).slice(-2)}-${String(currentMonth).padStart(2, '0')}`;
-        } else if (timeRange === 'Last Month') {
-          const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-          const year = currentMonth === 1 ? currentYear - 1 : currentYear;
-          targetPeriod = `${String(year).slice(-2)}-${String(lastMonth).padStart(2, '0')}`;
-        } else if (timeRange === 'This Year') {
-          targetPeriod = '25';
-        } else if (timeRange === 'Last Year') {
-          targetPeriod = '24';
-        }
-        
-        Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
-          const repoData = repos[repo.key];
-          if (repoData && repoData[timeKey] && repoData[timeKey][targetPeriod]) {
-            const metrics = repoData[timeKey][targetPeriod];
-            const openedPRs = metrics[0] || 0;
-            const issues = metrics[4] || 0;
-            // Count as contributor if they opened PRs or opened issues
-            if (openedPRs > 0 || issues > 0) {
-              allContributors.add(contributor);
-            }
+
+        if (timeRange === 'This Quarter' || timeRange === 'Last Quarter') {
+          // For quarters, aggregate across all months in the quarter
+          const currentQuarterInfo = getQuarterInfo(currentDate);
+          const isThisQuarter = timeRange === 'This Quarter';
+          const targetQuarter = isThisQuarter ? currentQuarterInfo.quarter : (currentQuarterInfo.quarter === 1 ? 4 : currentQuarterInfo.quarter - 1);
+          const targetYear = (timeRange === 'Last Quarter' && currentQuarterInfo.quarter === 1) ? currentYear - 1 : currentYear;
+          const targetYearShort = String(targetYear).slice(-2);
+
+          let quarterMonths = getQuarterMonths(targetQuarter);
+          if (isThisQuarter) {
+            quarterMonths = quarterMonths.filter(m => m <= currentMonth);
           }
-        });
-        
+
+          quarterMonths.forEach(month => {
+            const monthKey = `${targetYearShort}-${String(month).padStart(2, '0')}`;
+            Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+              const repoData = repos[repo.key];
+              if (repoData && repoData.m && repoData.m[monthKey]) {
+                const metrics = repoData.m[monthKey];
+                const openedPRs = metrics[0] || 0;
+                const issues = metrics[4] || 0;
+                if (openedPRs > 0 || issues > 0) {
+                  allContributors.add(contributor);
+                }
+              }
+            });
+          });
+        } else {
+          const timeKey = (timeRange === 'This Year' || timeRange === 'Last Year') ? 'y' :
+                         (timeRange === 'This Month' || timeRange === 'Last Month') ? 'm' : 'w';
+          let targetPeriod = '';
+
+          if (timeRange === 'This Week') {
+            targetPeriod = `${currentYear}-${String(currentWeek).padStart(2, '0')}`;
+          } else if (timeRange === 'Last Week') {
+            const lastWeek = currentWeek > 1 ? currentWeek - 1 : 52;
+            const year = currentWeek === 1 ? currentYear - 1 : currentYear;
+            targetPeriod = `${year}-${String(lastWeek).padStart(2, '0')}`;
+          } else if (timeRange === 'This Month') {
+            targetPeriod = `${String(currentYear).slice(-2)}-${String(currentMonth).padStart(2, '0')}`;
+          } else if (timeRange === 'Last Month') {
+            const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+            const year = currentMonth === 1 ? currentYear - 1 : currentYear;
+            targetPeriod = `${String(year).slice(-2)}-${String(lastMonth).padStart(2, '0')}`;
+          } else if (timeRange === 'This Year') {
+            targetPeriod = String(currentYear).slice(-2);
+          } else if (timeRange === 'Last Year') {
+            targetPeriod = String(currentYear - 1).slice(-2);
+          }
+
+          Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+            const repoData = repos[repo.key];
+            if (repoData && repoData[timeKey] && repoData[timeKey][targetPeriod]) {
+              const metrics = repoData[timeKey][targetPeriod];
+              const openedPRs = metrics[0] || 0;
+              const issues = metrics[4] || 0;
+              // Count as contributor if they opened PRs or opened issues
+              if (openedPRs > 0 || issues > 0) {
+                allContributors.add(contributor);
+              }
+            }
+          });
+        }
+
         stats[repo.key].contributors = allContributors.size;
       });
 
@@ -337,6 +425,25 @@ export default function Home() {
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
     const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
     return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  }
+
+  // Helper function to get quarter number (1-4) from month
+  function getQuarter(month: number): number {
+    return Math.floor((month - 1) / 3) + 1;
+  }
+
+  // Helper function to get quarter info
+  function getQuarterInfo(date: Date): { quarter: number; year: number } {
+    return {
+      quarter: getQuarter(date.getMonth() + 1),
+      year: date.getFullYear()
+    };
+  }
+
+  // Helper function to get months in a quarter
+  function getQuarterMonths(quarter: number): number[] {
+    const startMonth = (quarter - 1) * 3 + 1;
+    return [startMonth, startMonth + 1, startMonth + 2];
   }
 
   const renderRepoCard = (repo: typeof repositories[0]) => {
@@ -479,6 +586,8 @@ export default function Home() {
             <SelectItem value="Last Week">Last Week</SelectItem>
             <SelectItem value="This Month">This Month</SelectItem>
             <SelectItem value="Last Month">Last Month</SelectItem>
+            <SelectItem value="This Quarter">This Quarter</SelectItem>
+            <SelectItem value="Last Quarter">Last Quarter</SelectItem>
             <SelectItem value="This Year">This Year</SelectItem>
             <SelectItem value="Last Year">Last Year</SelectItem>
           </SelectContent>

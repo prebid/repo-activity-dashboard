@@ -1,10 +1,204 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-09-22T16:19:25.518Z",
-    "itemCount": 22
+    "lastSync": "2025-10-06T08:44:53.335Z",
+    "itemCount": 36
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Go: e-planning: Add support for adomain",
+      "number": 4199,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-09-22T17:37:15.000Z",
+      "dateUpdated": "2025-10-03T08:30:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: CPMStar: imp.ext passthrough ",
+      "number": 4220,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-09-25T14:03:49.000Z",
+      "dateUpdated": "2025-10-03T08:30:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Nativery",
+      "number": 4198,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-09-22T16:38:37.000Z",
+      "dateUpdated": "2025-10-02T17:15:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New adapter: 360playvid",
+      "number": 4202,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "EmilNadimanov"
+      ],
+      "dateCreated": "2025-09-23T13:22:02.000Z",
+      "dateUpdated": "2025-09-25T08:41:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: MediaYo",
+      "number": 4203,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "EmilNadimanov"
+      ],
+      "dateCreated": "2025-09-23T13:47:16.000Z",
+      "dateUpdated": "2025-09-25T08:41:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: RobustApps - Xeworks alias",
+      "number": 4206,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "EmilNadimanov"
+      ],
+      "dateCreated": "2025-09-23T14:34:46.000Z",
+      "dateUpdated": "2025-09-25T08:41:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Contxtful",
+      "number": 4213,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-09-24T12:54:18.000Z",
+      "dateUpdated": "2025-09-25T08:38:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Kargo: Add email to codepath notification workflow",
+      "number": 4212,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T21:03:31.000Z",
+      "dateUpdated": "2025-09-23T21:03:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: KueezRTB: Remove additionalProperties from schema",
+      "number": 4211,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T19:55:55.000Z",
+      "dateUpdated": "2025-09-23T19:55:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Metrics: Add connection dial metrics by adapter",
+      "number": 4210,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T19:40:31.000Z",
+      "dateUpdated": "2025-09-23T19:40:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Module: Scope3 Real-Time Data",
+      "number": 4209,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T15:47:07.000Z",
+      "dateUpdated": "2025-09-23T15:47:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: fwssp: Add iframe usersync",
+      "number": 4208,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T15:26:48.000Z",
+      "dateUpdated": "2025-09-23T15:26:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Remove max length on params",
+      "number": 4207,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T14:49:57.000Z",
+      "dateUpdated": "2025-09-23T14:49:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Add configurable dialer timeouts to HTTP clients",
+      "number": 4201,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-22T18:00:40.000Z",
+      "dateUpdated": "2025-09-22T18:00:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: SmileWanted: Append zoneId to endpoint path",
+      "number": 4200,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-22T17:48:10.000Z",
+      "dateUpdated": "2025-09-22T17:48:10.000Z",
+      "status": "open"
+    },
     {
       "title": "Port PR from PBS-Go: Dockerfile vulnerabilities fixes",
       "number": 3862,
@@ -43,20 +237,6 @@
       ],
       "dateCreated": "2025-08-19T17:51:16.000Z",
       "dateUpdated": "2025-08-27T09:24:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder specific info from the client request is applied to all aliases of the same bidder",
-      "number": 4149,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-08-20T12:31:21.000Z",
-      "dateUpdated": "2025-08-25T15:01:31.000Z",
       "status": "open"
     },
     {
