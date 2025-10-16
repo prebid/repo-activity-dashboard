@@ -150,8 +150,11 @@ export default function CompaniesPage() {
         // Get company for this contributor
         const userMapping = (githubMapping.mapping as any)[contributor.toLowerCase()];
         const company = userMapping?.company || 'Unknown Organization';
-        const category = userMapping?.category || 'non-member';
         const isMember = userMapping?.isMember || false;
+
+        // Derive category since S3 file doesn't have it yet
+        const isPrebid = company === 'Prebid';
+        const category = isPrebid ? 'prebid' : (isMember ? 'member' : 'non-member');
 
         // Count categories
         if (category === 'prebid') filterCounts.prebid++;
