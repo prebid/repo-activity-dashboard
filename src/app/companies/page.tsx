@@ -14,7 +14,7 @@ import {
   CardContent,
 } from '@/components/ui/card';
 import contributorData from '../../../contributor-repo-timeline.json';
-import githubMapping from '../../../store/sheets/github-mapping.json';
+import githubMapping from '../../../public/store/sheets/github-mapping.json';
 
 // Dynamic import to avoid SSR issues
 const HorizontalBarChart = dynamic(
@@ -133,6 +133,8 @@ export default function CompaniesPage() {
       console.log('Number of contributors in data:', entries.length);
       console.log('Time settings - timeKey:', timeKey, 'targetPeriod:', targetPeriod, 'metricIndex:', metricIndex);
       console.log('Member filter:', memberFilter);
+
+      let filterCounts = { member: 0, nonMember: 0, prebid: 0, unknown: 0 };
       
       // Repository key mapping
       const repoKeyMap: Record<string, string> = {
@@ -150,6 +152,12 @@ export default function CompaniesPage() {
         const company = userMapping?.company || 'Unknown Organization';
         const category = userMapping?.category || 'non-member';
         const isMember = userMapping?.isMember || false;
+
+        // Count categories
+        if (category === 'prebid') filterCounts.prebid++;
+        else if (category === 'member') filterCounts.member++;
+        else if (category === 'non-member') filterCounts.nonMember++;
+        else filterCounts.unknown++;
 
         // Apply member filter
         switch (memberFilter) {
@@ -238,6 +246,7 @@ export default function CompaniesPage() {
         .slice(0, limit) // Top N companies based on selector
         .map(({ total, ...rest }) => rest);
       
+      console.log('Category counts - prebid:', filterCounts.prebid, 'member:', filterCounts.member, 'non-member:', filterCounts.nonMember, 'unknown:', filterCounts.unknown);
       console.log('Final processed companies:', dataArray.length);
       console.log('Sample company:', dataArray[0]);
       setChartData(dataArray);
