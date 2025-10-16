@@ -316,11 +316,12 @@ export default function Home() {
               const merged = metrics[1] || 0;
               const issues = metrics[4] || 0;
 
-              if (openedPRs > 0 || issues > 0) {
+              if (openedPRs > 0 || merged > 0 || issues > 0) {
                 weekContributors.add(contributor);
-                weekMerged += merged;
-                weekIssues += issues;
               }
+
+              weekMerged += merged;
+              weekIssues += issues;
             }
           });
 
