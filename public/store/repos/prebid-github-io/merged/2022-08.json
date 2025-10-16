@@ -1,0 +1,1359 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid.github.io",
+    "year": 2022,
+    "month": 8,
+    "itemCount": 45,
+    "lastUpdated": "2025-09-02T20:35:32.299Z"
+  },
+  "items": [
+    {
+      "title": "PBS modularity update",
+      "number": 3991,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-08-31T20:14:06.000Z",
+      "dateUpdated": "2022-08-31T20:15:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-31T20:14:13.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix global link in  faq.md",
+      "number": 3986,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-29T16:53:56.000Z",
+      "dateUpdated": "2022-08-31T13:12:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-31T13:12:29.000Z",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "mediago enabled-false flag removed",
+      "number": 3984,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-08-29T15:33:07.000Z",
+      "dateUpdated": "2022-08-29T15:34:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-29T15:33:13.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "mediago bid adapter doc",
+      "number": 3972,
+      "author": {
+        "login": "BaronJHYu",
+        "id": 18692279
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "a-chatten",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bear-pond",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-23T12:45:24.000Z",
+      "dateUpdated": "2022-08-29T10:50:17.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-29T10:50:16.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "18692279": {
+          "identifier": "18692279",
+          "displayName": "BaronJHYu",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Wordsmithing Rubicon bidder doc",
+      "number": 3982,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-08-28T22:39:06.000Z",
+      "dateUpdated": "2022-08-28T22:40:43.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-28T22:39:26.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Closed fenced code block",
+      "number": 3979,
+      "author": {
+        "login": "msmeza",
+        "id": 29439179
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-26T08:27:18.000Z",
+      "dateUpdated": "2022-08-26T17:05:26.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-26T17:05:26.000Z",
+      "commitAuthors": {
+        "29439179": {
+          "identifier": "29439179",
+          "displayName": "msmeza",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ID5 User Id Module, add new config parameter",
+      "number": 3944,
+      "author": {
+        "login": "smenzer",
+        "id": 624392
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-04T14:29:03.000Z",
+      "dateUpdated": "2022-08-18T23:20:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-18T23:20:42.000Z",
+      "commitAuthors": {
+        "624392": {
+          "identifier": "624392",
+          "displayName": "smenzer",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PBJS: update analytics adapter guide with new file paths",
+      "number": 3863,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-22T21:27:58.000Z",
+      "dateUpdated": "2022-08-17T22:46:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:46:23.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adtargetme adapter: rename Adtargetme to AdserverAdtarget",
+      "number": 3892,
+      "author": {
+        "login": "grakholsky",
+        "id": 48243894
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-12T07:57:26.000Z",
+      "dateUpdated": "2022-08-17T22:46:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:46:08.000Z",
+      "commitAuthors": {
+        "48243894": {
+          "identifier": "48243894",
+          "displayName": "grakholsky",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TTD Adapter updates",
+      "number": 3897,
+      "author": {
+        "login": "julian-burger-ttd",
+        "id": 105891200
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-12T18:06:27.000Z",
+      "dateUpdated": "2022-08-17T22:44:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:44:14.000Z",
+      "commitAuthors": {
+        "54119199": {
+          "identifier": "54119199",
+          "displayName": "minh-daole-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AndBeyondMedia Bid Adapter: add new bid adapter",
+      "number": 3899,
+      "author": {
+        "login": "AndBeyondMediaHB",
+        "id": 107686862
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-12T23:43:37.000Z",
+      "dateUpdated": "2022-08-17T22:43:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:43:43.000Z",
+      "commitAuthors": {
+        "107686862": {
+          "identifier": "107686862",
+          "displayName": "AndBeyondMediaHB",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add new Prebid Server Adapter - Boldwin",
+      "number": 3921,
+      "author": {
+        "login": "Wls-demo",
+        "id": 67785512
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "icharmlard",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-22T19:41:25.000Z",
+      "dateUpdated": "2022-08-17T22:43:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:43:11.000Z",
+      "commitAuthors": {
+        "67785512": {
+          "identifier": "67785512",
+          "displayName": "Wls-demo",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Wls-demo": {
+          "identifier": "Wls-demo",
+          "displayName": "Wls-demo",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Bid Adapter Dev Docs: datawrkz",
+      "number": 3933,
+      "author": {
+        "login": "vishal-dw",
+        "id": 109065778
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-28T08:35:14.000Z",
+      "dateUpdated": "2022-08-17T22:41:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:41:50.000Z",
+      "commitAuthors": {
+        "109065778": {
+          "identifier": "109065778",
+          "displayName": "vishal-dw",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update PBS Go Java Feature List",
+      "number": 3941,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-02T18:10:46.000Z",
+      "dateUpdated": "2023-04-19T22:48:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:38:42.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo - Add coppa support (#8781)",
+      "number": 3943,
+      "author": {
+        "login": "Pgb-Criteo",
+        "id": 92986445
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-04T11:57:17.000Z",
+      "dateUpdated": "2022-08-17T22:38:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:38:07.000Z",
+      "commitAuthors": {
+        "92986445": {
+          "identifier": "92986445",
+          "displayName": "Pgb-Criteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo: remove disclosure on adId",
+      "number": 3945,
+      "author": {
+        "login": "dzhang-criteo",
+        "id": 87757739
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-04T17:24:07.000Z",
+      "dateUpdated": "2022-08-17T22:36:02.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:36:02.000Z",
+      "commitAuthors": {
+        "87757739": {
+          "identifier": "87757739",
+          "displayName": "dzhang-criteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "add video support to Consumable docs",
+      "number": 3946,
+      "author": {
+        "login": "jpiros",
+        "id": 6511755
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-05T16:11:22.000Z",
+      "dateUpdated": "2022-08-17T22:35:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:35:25.000Z",
+      "commitAuthors": {
+        "6511755": {
+          "identifier": "6511755",
+          "displayName": "jpiros",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update rise adapter bidder params",
+      "number": 3949,
+      "author": {
+        "login": "innay",
+        "id": 6281294
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-08T13:21:46.000Z",
+      "dateUpdated": "2022-08-17T22:33:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:33:51.000Z",
+      "commitAuthors": {
+        "12394846": {
+          "identifier": "12394846",
+          "displayName": "noamtzu",
+          "count": 16,
+          "isGitHubUser": true
+        },
+        "Inna Yaretsky": {
+          "identifier": "Inna Yaretsky",
+          "displayName": "Inna Yaretsky",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Ozone MD File Updates",
+      "number": 3951,
+      "author": {
+        "login": "AskRupert-DM",
+        "id": 35333377
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-09T06:57:32.000Z",
+      "dateUpdated": "2022-08-17T22:33:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:33:10.000Z",
+      "commitAuthors": {
+        "35333377": {
+          "identifier": "35333377",
+          "displayName": "AskRupert-DM",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adkernel: Documenting displayioads",
+      "number": 3952,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-09T16:11:53.000Z",
+      "dateUpdated": "2022-12-26T15:16:06.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:29:01.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update smartyads meta data",
+      "number": 3954,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-09T19:40:50.000Z",
+      "dateUpdated": "2022-08-17T22:28:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:28:45.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OCM doc",
+      "number": 3955,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-10T11:11:26.000Z",
+      "dateUpdated": "2022-08-17T22:28:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:28:13.000Z",
+      "commitAuthors": {
+        "1539907": {
+          "identifier": "1539907",
+          "displayName": "GeneGenie",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ShowHeroes Bid Adapter: update params",
+      "number": 3956,
+      "author": {
+        "login": "vadim-mazzherin",
+        "id": 27551375
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-10T17:35:18.000Z",
+      "dateUpdated": "2022-08-17T22:27:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:27:49.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "27551375": {
+          "identifier": "27551375",
+          "displayName": "vadim-mazzherin",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix #3830 and add ESP registerSignalSources docs",
+      "number": 3957,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-12T10:04:33.000Z",
+      "dateUpdated": "2022-08-17T22:07:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:07:51.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Create pgammedia.md",
+      "number": 3959,
+      "author": {
+        "login": "AndriiTokarGL",
+        "id": 111281550
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-15T13:41:05.000Z",
+      "dateUpdated": "2022-08-17T22:01:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T22:01:07.000Z",
+      "commitAuthors": {
+        "111281550": {
+          "identifier": "111281550",
+          "displayName": "AndriiTokarGL",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update invibes meta data",
+      "number": 3963,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "fowler446",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-16T15:33:08.000Z",
+      "dateUpdated": "2022-08-17T21:56:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T21:56:26.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "remove OpenX analytics",
+      "number": 3947,
+      "author": {
+        "login": "bwschmidt",
+        "id": 2507535
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-05T21:18:32.000Z",
+      "dateUpdated": "2022-08-17T21:17:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T21:17:30.000Z",
+      "commitAuthors": {
+        "2507535": {
+          "identifier": "2507535",
+          "displayName": "bwschmidt",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update missing params for Seeding Alliance",
+      "number": 3927,
+      "author": {
+        "login": "sag-celejd",
+        "id": 109062661
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "icharmlard",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sag-celejd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T14:07:23.000Z",
+      "dateUpdated": "2022-08-17T21:16:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T21:16:50.000Z",
+      "commitAuthors": {
+        "55976067": {
+          "identifier": "55976067",
+          "displayName": "SeedingAllianceTech",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "78849369": {
+          "identifier": "78849369",
+          "displayName": "sag-jonhil",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "109062661": {
+          "identifier": "109062661",
+          "displayName": "sag-celejd",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift: Typo, updates version for outstream",
+      "number": 3967,
+      "author": {
+        "login": "nllerandi3lift",
+        "id": 75995508
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-17T16:50:38.000Z",
+      "dateUpdated": "2022-08-17T21:14:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T21:14:11.000Z",
+      "commitAuthors": {
+        "75995508": {
+          "identifier": "75995508",
+          "displayName": "nllerandi3lift",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix typo",
+      "number": 3966,
+      "author": {
+        "login": "dnicolson",
+        "id": 2276355
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-17T16:23:47.000Z",
+      "dateUpdated": "2022-08-17T19:58:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T19:58:24.000Z",
+      "commitAuthors": {
+        "2276355": {
+          "identifier": "2276355",
+          "displayName": "dnicolson",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: Improve Doc for First Party Data and ORTB Blocking",
+      "number": 3953,
+      "author": {
+        "login": "maphe",
+        "id": 2337357
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-09T16:41:06.000Z",
+      "dateUpdated": "2022-08-16T19:28:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-16T19:26:26.000Z",
+      "commitAuthors": {
+        "maphe": {
+          "identifier": "maphe",
+          "displayName": "maphe",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Criteo Adapter: Add Price floor support (#8815)",
+      "number": 3958,
+      "author": {
+        "login": "Pgb-Criteo",
+        "id": 92986445
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-12T12:30:03.000Z",
+      "dateUpdated": "2022-08-13T21:08:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-12T12:51:24.000Z",
+      "commitAuthors": {
+        "92986445": {
+          "identifier": "92986445",
+          "displayName": "Pgb-Criteo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid mobile release 2 1 0",
+      "number": 3820,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-02T10:00:16.000Z",
+      "dateUpdated": "2022-10-31T09:55:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-11T13:56:40.000Z",
+      "commitAuthors": {
+        "25932345": {
+          "identifier": "25932345",
+          "displayName": "MartianTribe",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "33247734": {
+          "identifier": "33247734",
+          "displayName": "Valllent",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "79920743": {
+          "identifier": "79920743",
+          "displayName": "YuriyVelichkoOpenX",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo bid adapter",
+      "number": 3852,
+      "author": {
+        "login": "ssadman22",
+        "id": 97482944
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ssadman22",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-16T19:24:24.000Z",
+      "dateUpdated": "2022-08-22T14:26:06.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-10T17:17:42.000Z",
+      "commitAuthors": {
+        "5454953": {
+          "identifier": "5454953",
+          "displayName": "jsadwith",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "97482944": {
+          "identifier": "97482944",
+          "displayName": "ssadman22",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius Documentation",
+      "number": 3905,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-07-16T11:28:09.000Z",
+      "dateUpdated": "2022-08-10T15:48:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-10T15:47:59.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Data Controller module dev documentation",
+      "number": 3928,
+      "author": {
+        "login": "SKOCHERI",
+        "id": 37454420
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "PENDING"
+        },
+        {
+          "login": "jdwieland8282",
+          "state": "PENDING"
+        },
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-25T20:28:11.000Z",
+      "dateUpdated": "2022-08-10T15:45:03.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-10T15:45:03.000Z",
+      "commitAuthors": {
+        "25932345": {
+          "identifier": "25932345",
+          "displayName": "MartianTribe",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "skocheri": {
+          "identifier": "skocheri",
+          "displayName": "skocheri",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adrino Adapter: prebid server enabled",
+      "number": 3937,
+      "author": {
+        "login": "tmielcarz",
+        "id": 7307339
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-29T00:25:15.000Z",
+      "dateUpdated": "2022-08-10T15:39:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-10T15:39:46.000Z",
+      "commitAuthors": {
+        "Tomasz Mielcarz": {
+          "identifier": "Tomasz Mielcarz",
+          "displayName": "Tomasz Mielcarz",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update PBS Auction Endpoint Doc",
+      "number": 3940,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MartianTribe",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-02T17:58:37.000Z",
+      "dateUpdated": "2023-04-19T22:48:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-10T15:38:32.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "adding TCF device storage disclosure",
+      "number": 3950,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "jdwieland8282"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "PENDING"
+        },
+        {
+          "login": "jdwieland8282",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-08T19:07:14.000Z",
+      "dateUpdated": "2022-08-09T14:58:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-09T14:56:42.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adapter update: Dianomi PBS & video",
+      "number": 3872,
+      "author": {
+        "login": "DianomiJH",
+        "id": 84312830
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T10:03:35.000Z",
+      "dateUpdated": "2022-08-08T14:14:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-08T14:14:49.000Z",
+      "commitAuthors": {
+        "84312830": {
+          "identifier": "84312830",
+          "displayName": "DianomiJH",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OFT media Server doc",
+      "number": 3934,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-28T14:16:59.000Z",
+      "dateUpdated": "2022-08-08T14:13:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-08T14:13:45.000Z",
+      "commitAuthors": {
+        "1539907": {
+          "identifier": "1539907",
+          "displayName": "GeneGenie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "add prebid.github.io docs for Snigel",
+      "number": 3919,
+      "author": {
+        "login": "snigelweb",
+        "id": 108489367
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "icharmlard",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-21T13:58:41.000Z",
+      "dateUpdated": "2023-07-19T09:45:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-08T11:13:23.000Z",
+      "commitAuthors": {
+        "108489367": {
+          "identifier": "108489367",
+          "displayName": "snigelweb",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift: Outstream support",
+      "number": 3942,
+      "author": {
+        "login": "nllerandi3lift",
+        "id": 75995508
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-03T18:29:33.000Z",
+      "dateUpdated": "2022-08-04T11:33:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-04T11:33:31.000Z",
+      "commitAuthors": {
+        "108293084": {
+          "identifier": "108293084",
+          "displayName": "k8dineen",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Kathryn Dineen": {
+          "identifier": "Kathryn Dineen",
+          "displayName": "Kathryn Dineen",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "updated bid adapter markdown file changes",
+      "number": 3938,
+      "author": {
+        "login": "sasikumar-c1x",
+        "id": 83545471
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-29T10:50:21.000Z",
+      "dateUpdated": "2022-08-04T11:32:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-04T11:32:29.000Z",
+      "commitAuthors": {
+        "37347003": {
+          "identifier": "37347003",
+          "displayName": "sasikumarsri",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "83545471": {
+          "identifier": "83545471",
+          "displayName": "sasikumar-c1x",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "sspBC Bid Adapter: prebid server version is now available",
+      "number": 3939,
+      "author": {
+        "login": "wojciech-bialy-wpm",
+        "id": 67895844
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-01T10:02:57.000Z",
+      "dateUpdated": "2022-08-03T15:03:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-03T15:03:58.000Z",
+      "commitAuthors": {
+        "67895844": {
+          "identifier": "67895844",
+          "displayName": "wojciech-bialy-wpm",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

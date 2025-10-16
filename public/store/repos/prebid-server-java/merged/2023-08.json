@@ -1,0 +1,716 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 8,
+    "itemCount": 21,
+    "lastUpdated": "2025-09-03T00:16:49.981Z"
+  },
+  "items": [
+    {
+      "title": "feature: Added Confiant AdQuality module",
+      "number": 2326,
+      "author": {
+        "login": "IvanTsymbal",
+        "id": 114987876
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "IvanTsymbal",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-01T14:42:34.000Z",
+      "dateUpdated": "2023-08-22T18:51:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-22T11:56:58.000Z",
+      "commitAuthors": {
+        "114987876": {
+          "identifier": "114987876",
+          "displayName": "IvanTsymbal",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Convert Region to Uppercase",
+      "number": 2553,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-07T08:28:55.000Z",
+      "dateUpdated": "2023-08-21T13:14:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-21T13:14:58.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Screencore Bidder",
+      "number": 2549,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-04T08:29:02.000Z",
+      "dateUpdated": "2023-08-21T13:13:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-21T13:13:48.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add the Vox Bidder",
+      "number": 2539,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-01T14:04:55.000Z",
+      "dateUpdated": "2023-08-21T13:13:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-21T13:13:10.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add the GothamAds Bidder",
+      "number": 2536,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-31T09:10:40.000Z",
+      "dateUpdated": "2023-08-18T10:08:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-18T10:08:34.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: bidonmultiformat updates",
+      "number": 2503,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-14T12:50:10.000Z",
+      "dateUpdated": "2023-08-15T11:51:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-15T11:51:16.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AlkimiBidAdapter: add audio support",
+      "number": 2569,
+      "author": {
+        "login": "pro-nsk",
+        "id": 32703851
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-09T19:10:37.000Z",
+      "dateUpdated": "2023-08-15T11:48:43.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-15T11:48:42.000Z",
+      "commitAuthors": {
+        "32703851": {
+          "identifier": "32703851",
+          "displayName": "pro-nsk",
+          "count": 51,
+          "isGitHubUser": true
+        },
+        "87458443": {
+          "identifier": "87458443",
+          "displayName": "abalalaev",
+          "count": 31,
+          "isGitHubUser": true
+        },
+        "92710748": {
+          "identifier": "92710748",
+          "displayName": "mihanikw2g",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: update code style guide",
+      "number": 2564,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-08T12:49:47.000Z",
+      "dateUpdated": "2023-08-15T11:46:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-15T11:46:33.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "YahooAdvertising rebranding to Yahoo Ads",
+      "number": 2460,
+      "author": {
+        "login": "radubarbos",
+        "id": 3379075
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "radubarbos",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-06-27T10:15:23.000Z",
+      "dateUpdated": "2023-08-11T09:24:09.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-11T09:24:09.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Preciso Bid Adapter : changed user sync url ",
+      "number": 2526,
+      "author": {
+        "login": "PrecisoSRL",
+        "id": 134591565
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "PrecisoSRL",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-27T06:25:15.000Z",
+      "dateUpdated": "2023-08-11T09:23:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-11T09:23:29.000Z",
+      "commitAuthors": {
+        "134591565": {
+          "identifier": "134591565",
+          "displayName": "PrecisoSRL",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "137479857": {
+          "identifier": "137479857",
+          "displayName": "NikhilGopalChennissery",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORBIDDER: BidType detection, web-sites new types",
+      "number": 2527,
+      "author": {
+        "login": "arneschulz1984",
+        "id": 22349602
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "michaelwilgosch0303",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-27T14:54:02.000Z",
+      "dateUpdated": "2023-08-10T10:48:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-10T10:48:52.000Z",
+      "commitAuthors": {
+        "22349602": {
+          "identifier": "22349602",
+          "displayName": "arneschulz1984",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "57181142": {
+          "identifier": "57181142",
+          "displayName": "michaelwilgosch0303",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Convert `region` to uppercase",
+      "number": 2562,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-08T08:23:30.000Z",
+      "dateUpdated": "2023-08-09T10:06:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-09T10:06:13.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Fix flaky `gdpr` functional test",
+      "number": 2557,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-07T12:51:00.000Z",
+      "dateUpdated": "2023-08-09T10:06:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-09T10:05:58.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update alkimi.yaml",
+      "number": 2559,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-07T20:02:59.000Z",
+      "dateUpdated": "2023-08-08T15:39:10.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-08T15:39:09.000Z",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Gpp `/setuid` endpoint phase 2",
+      "number": 2563,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-08T10:04:43.000Z",
+      "dateUpdated": "2023-08-08T15:34:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-08T15:34:41.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Not required context field",
+      "number": 2550,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-04T09:08:35.000Z",
+      "dateUpdated": "2023-08-07T13:38:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-07T13:38:54.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AlkimiBidAdapter update ",
+      "number": 2538,
+      "author": {
+        "login": "pro-nsk",
+        "id": 32703851
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-31T18:21:32.000Z",
+      "dateUpdated": "2023-08-07T12:51:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-07T12:51:05.000Z",
+      "commitAuthors": {
+        "32703851": {
+          "identifier": "32703851",
+          "displayName": "pro-nsk",
+          "count": 47,
+          "isGitHubUser": true
+        },
+        "87458443": {
+          "identifier": "87458443",
+          "displayName": "abalalaev",
+          "count": 31,
+          "isGitHubUser": true
+        },
+        "92710748": {
+          "identifier": "92710748",
+          "displayName": "mihanikw2g",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Fix gdpr flaky test",
+      "number": 2554,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-07T09:26:38.000Z",
+      "dateUpdated": "2023-08-07T11:34:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-07T11:34:44.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `USNat` privacy module",
+      "number": 2521,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-26T09:38:08.000Z",
+      "dateUpdated": "2023-08-02T15:09:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-02T15:09:39.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 28,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update functional tests for metrics",
+      "number": 2542,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-02T11:27:26.000Z",
+      "dateUpdated": "2023-08-02T12:06:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-02T12:06:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "`GPP4`: Functional tests for full GPP support",
+      "number": 2405,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-02T08:40:28.000Z",
+      "dateUpdated": "2023-08-02T08:31:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-08-02T08:31:13.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 26,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

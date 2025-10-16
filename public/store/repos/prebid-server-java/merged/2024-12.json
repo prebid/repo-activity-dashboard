@@ -1,0 +1,1237 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 12,
+    "itemCount": 36,
+    "lastUpdated": "2025-09-03T00:16:49.969Z"
+  },
+  "items": [
+    {
+      "title": "Rubicon: pass imp[].ext.tid",
+      "number": 3648,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-20T21:05:37.000Z",
+      "dateUpdated": "2024-12-24T12:20:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-24T12:20:00.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update privacy functional test: GVL file handling",
+      "number": 3644,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-19T18:51:03.000Z",
+      "dateUpdated": "2024-12-20T14:28:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-20T14:28:07.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PgamSSP adapter : add GVL ID",
+      "number": 3641,
+      "author": {
+        "login": "chicoman25",
+        "id": 422814
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chicoman25",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-18T00:14:01.000Z",
+      "dateUpdated": "2024-12-19T14:10:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T14:10:19.000Z",
+      "commitAuthors": {
+        "422814": {
+          "identifier": "422814",
+          "displayName": "chicoman25",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Fix incorrect Java version reference in the build.md",
+      "number": 3640,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-17T23:19:49.000Z",
+      "dateUpdated": "2024-12-19T14:09:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T14:09:34.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Create slack-stale-pr.yml",
+      "number": 3638,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-16T19:46:23.000Z",
+      "dateUpdated": "2024-12-19T14:09:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-19T14:09:11.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Add adUnitCode to exception list",
+      "number": 3599,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-09T17:16:23.000Z",
+      "dateUpdated": "2024-12-17T11:58:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-17T11:58:26.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix #3581 declare PubMatic support for openRTB 2.6",
+      "number": 3623,
+      "author": {
+        "login": "EmilNadimanov",
+        "id": 63649196
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "EmilNadimanov",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-13T13:25:56.000Z",
+      "dateUpdated": "2025-01-15T12:42:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-17T11:44:03.000Z",
+      "commitAuthors": {
+        "Emil Nadimanov": {
+          "identifier": "Emil Nadimanov",
+          "displayName": "Emil Nadimanov",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "update functional test for module execution",
+      "number": 3617,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-12T09:15:39.000Z",
+      "dateUpdated": "2024-12-17T11:42:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-17T11:42:14.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix #3574 add driftpixel userSync redirect url",
+      "number": 3613,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-11T09:07:29.000Z",
+      "dateUpdated": "2024-12-17T11:41:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-17T11:41:29.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Conversant: Enable audio requests #3605",
+      "number": 3616,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-11T14:51:24.000Z",
+      "dateUpdated": "2024-12-16T14:22:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:14:19.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AGMA: Fix Nullpointer on empty auction context",
+      "number": 3618,
+      "author": {
+        "login": "steffenmllr",
+        "id": 449563
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "steffenmllr",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-12T09:19:09.000Z",
+      "dateUpdated": "2024-12-18T14:42:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:13:23.000Z",
+      "commitAuthors": {
+        "Steffen Müller": {
+          "identifier": "Steffen Müller",
+          "displayName": "Steffen Müller",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GreenBids module: Ignore broken tests",
+      "number": 3624,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-13T15:16:35.000Z",
+      "dateUpdated": "2024-12-13T15:35:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T15:35:02.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Make pb-richmedia-filter global properties optional",
+      "number": 3612,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-10T22:35:32.000Z",
+      "dateUpdated": "2024-12-11T15:59:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-11T12:39:28.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional test for empty config",
+      "number": 3614,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-11T09:19:06.000Z",
+      "dateUpdated": "2024-12-11T11:20:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-11T11:20:03.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon Bidder: Add Bid Meta Seat Field",
+      "number": 3587,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-28T11:01:57.000Z",
+      "dateUpdated": "2024-12-10T13:06:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T13:06:44.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bids Rejection Refactoring",
+      "number": 3597,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-06T12:39:31.000Z",
+      "dateUpdated": "2024-12-10T11:48:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T11:48:35.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: PBS sample",
+      "number": 3598,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-09T15:14:53.000Z",
+      "dateUpdated": "2024-12-10T11:41:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T11:41:56.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add missing server config properties for config-app.md file",
+      "number": 3591,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-04T10:06:50.000Z",
+      "dateUpdated": "2024-12-10T11:41:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T11:41:33.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modules: Fix NPE that can occur during  hooks execution",
+      "number": 3593,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-04T22:58:50.000Z",
+      "dateUpdated": "2024-12-05T14:20:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-05T14:20:08.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add module-execution config on the host level",
+      "number": 3594,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-05T08:22:02.000Z",
+      "dateUpdated": "2024-12-05T14:17:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-05T14:17:08.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for module-execution host level config",
+      "number": 3595,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-05T09:30:00.000Z",
+      "dateUpdated": "2024-12-05T12:13:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-05T12:13:39.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Exitpoint Stage",
+      "number": 3564,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-21T08:51:16.000Z",
+      "dateUpdated": "2024-12-04T18:00:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T18:00:31.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modules: AB testing",
+      "number": 3576,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-22T23:46:36.000Z",
+      "dateUpdated": "2024-12-04T16:21:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T16:21:19.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Module Execution Host Config Check",
+      "number": 3566,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2024-11-21T13:57:58.000Z",
+      "dateUpdated": "2024-12-04T14:59:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T14:59:36.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Privacy: Fix GDPR being ignored when in COPPA scope",
+      "number": 3565,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-21T09:59:01.000Z",
+      "dateUpdated": "2024-12-04T14:55:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T14:55:56.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 12,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for A/B testing",
+      "number": 3588,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-11-30T14:40:03.000Z",
+      "dateUpdated": "2024-12-04T12:48:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T12:48:22.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: `consented_providers_settings`",
+      "number": 3577,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-25T14:29:04.000Z",
+      "dateUpdated": "2024-12-04T11:41:43.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T11:41:40.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support Default Bids Cache TTL",
+      "number": 3543,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-08T10:03:28.000Z",
+      "dateUpdated": "2024-12-04T11:39:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T11:39:01.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use video.plcmt to Resolve Media Type",
+      "number": 3572,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-22T09:21:05.000Z",
+      "dateUpdated": "2024-12-04T11:35:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T11:35:57.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Increase test coverage for GDPR enforcement when COPPA in scope",
+      "number": 3559,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-20T13:24:15.000Z",
+      "dateUpdated": "2024-12-04T10:59:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T10:59:30.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for module execution host config check",
+      "number": 3589,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-12-01T20:55:53.000Z",
+      "dateUpdated": "2024-12-04T10:51:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-04T10:51:29.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Amp: update consented providers settings support",
+      "number": 3590,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-03T13:49:59.000Z",
+      "dateUpdated": "2024-12-03T14:28:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-03T14:28:18.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support iframe usersync for medianet",
+      "number": 3586,
+      "author": {
+        "login": "rishi-parmar",
+        "id": 189334788
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-28T10:38:09.000Z",
+      "dateUpdated": "2024-12-04T05:17:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-03T13:10:31.000Z",
+      "commitAuthors": {
+        "189334788": {
+          "identifier": "189334788",
+          "displayName": "rishi-parmar",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: declare support for oRTB 2.6",
+      "number": 3561,
+      "author": {
+        "login": "jefftmahoney",
+        "id": 2761266
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-20T19:35:40.000Z",
+      "dateUpdated": "2024-12-03T13:08:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-03T13:08:23.000Z",
+      "commitAuthors": {
+        "2761266": {
+          "identifier": "2761266",
+          "displayName": "jefftmahoney",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: default bids cache ttl",
+      "number": 3558,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-11-19T23:03:38.000Z",
+      "dateUpdated": "2024-12-02T16:54:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-02T16:54:09.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: `plcmt` logic to bidadjustment mediatype",
+      "number": 3584,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-27T09:19:46.000Z",
+      "dateUpdated": "2024-12-02T16:46:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-02T16:46:35.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

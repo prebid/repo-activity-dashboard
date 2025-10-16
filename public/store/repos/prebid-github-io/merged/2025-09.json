@@ -1,0 +1,995 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid.github.io",
+    "year": 2025,
+    "month": 9,
+    "itemCount": 32,
+    "lastUpdated": "2025-10-16T13:13:31.840Z"
+  },
+  "items": [
+    {
+      "title": "PubxAi doc added + other fix",
+      "number": 6245,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T11:38:11.000Z",
+      "dateUpdated": "2025-09-29T10:26:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-29T10:26:02.000Z",
+      "commitAuthors": {
+        "Gabriel Chicoye": {
+          "identifier": "Gabriel Chicoye",
+          "displayName": "Gabriel Chicoye",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update body-end.html",
+      "number": 6263,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "zachsavishinsky",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-19T09:11:14.000Z",
+      "dateUpdated": "2025-09-19T09:26:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-19T09:26:46.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "lane4 adapter: added instructions for first party data",
+      "number": 6260,
+      "author": {
+        "login": "hasanideepak",
+        "id": 80700939
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-17T06:15:09.000Z",
+      "dateUpdated": "2025-09-17T17:20:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-17T17:20:02.000Z",
+      "commitAuthors": {
+        "80700939": {
+          "identifier": "80700939",
+          "displayName": "hasanideepak",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update fwssp.md after prebidjs-10.10.0 release",
+      "number": 6248,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-08T15:42:40.000Z",
+      "dateUpdated": "2025-09-17T15:10:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-17T15:10:21.000Z",
+      "commitAuthors": {
+        "4663682": {
+          "identifier": "4663682",
+          "displayName": "FreeWheelVIS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update intentiq.md",
+      "number": 6249,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-09T08:37:52.000Z",
+      "dateUpdated": "2025-09-17T14:56:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-17T14:56:00.000Z",
+      "commitAuthors": {
+        "191837040": {
+          "identifier": "191837040",
+          "displayName": "robin-crazygames",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix typo in userId.md",
+      "number": 6250,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-10T06:35:35.000Z",
+      "dateUpdated": "2025-09-17T14:48:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-17T14:48:34.000Z",
+      "commitAuthors": {
+        "191837040": {
+          "identifier": "191837040",
+          "displayName": "robin-crazygames",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix : gpt url link update in introduction",
+      "number": 6253,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-11T15:26:48.000Z",
+      "dateUpdated": "2025-09-17T14:42:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-17T14:42:32.000Z",
+      "commitAuthors": {
+        "Komal Kumari": {
+          "identifier": "Komal Kumari",
+          "displayName": "Komal Kumari",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add Gemius ID submodule documentation.",
+      "number": 6191,
+      "author": {
+        "login": "mmuras",
+        "id": 47107445
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-05T07:35:25.000Z",
+      "dateUpdated": "2025-09-16T14:11:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-16T14:11:59.000Z",
+      "commitAuthors": {
+        "47107445": {
+          "identifier": "47107445",
+          "displayName": "mmuras",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "init appstockSSP Bid Adapter",
+      "number": 6177,
+      "author": {
+        "login": "AppstockLTD",
+        "id": 180516379
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-25T09:44:51.000Z",
+      "dateUpdated": "2025-09-15T17:57:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:57:02.000Z",
+      "commitAuthors": {
+        "180516379": {
+          "identifier": "180516379",
+          "displayName": "AppstockLTD",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Kanceliarenko": {
+          "identifier": "Kanceliarenko",
+          "displayName": "Kanceliarenko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Documentation for 152media RTD module",
+      "number": 6135,
+      "author": {
+        "login": "arezitopedia",
+        "id": 49372179
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jefftmahoney",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "arezitopedia",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-04T15:21:40.000Z",
+      "dateUpdated": "2025-09-15T17:51:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:51:55.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "49372179": {
+          "identifier": "49372179",
+          "displayName": "arezitopedia",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Enable PBS support in tagoras.md",
+      "number": 6130,
+      "author": {
+        "login": "saar120",
+        "id": 89377180
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-03T12:42:25.000Z",
+      "dateUpdated": "2025-09-15T17:43:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:43:31.000Z",
+      "commitAuthors": {
+        "89377180": {
+          "identifier": "89377180",
+          "displayName": "saar120",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: PinkLion",
+      "number": 6087,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-05T13:11:48.000Z",
+      "dateUpdated": "2025-09-15T17:38:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:38:25.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "214807971": {
+          "identifier": "214807971",
+          "displayName": "prebidPinkLion",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update adipolo docs",
+      "number": 6048,
+      "author": {
+        "login": "And-Rud",
+        "id": 96918101
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-23T12:08:58.000Z",
+      "dateUpdated": "2025-09-15T17:31:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:31:07.000Z",
+      "commitAuthors": {
+        "And-Rud": {
+          "identifier": "And-Rud",
+          "displayName": "And-Rud",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New bidder adapter: Zentotem",
+      "number": 5553,
+      "author": {
+        "login": "zentotem",
+        "id": 173259805
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-16T23:15:17.000Z",
+      "dateUpdated": "2025-09-15T17:20:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:20:44.000Z",
+      "commitAuthors": {
+        "55272989": {
+          "identifier": "55272989",
+          "displayName": "GermanBogatov",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "173259805": {
+          "identifier": "173259805",
+          "displayName": "zentotem",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IntentIq ID & Analytics Modules: Client Hints timeout documentation",
+      "number": 6246,
+      "author": {
+        "login": "dmytro-po",
+        "id": 169376745
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T11:44:16.000Z",
+      "dateUpdated": "2025-09-15T17:14:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-15T17:14:40.000Z",
+      "commitAuthors": {
+        "169376745": {
+          "identifier": "169376745",
+          "displayName": "dmytro-po",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "CTV : add requirements doc for comment",
+      "number": 6255,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-11T16:42:12.000Z",
+      "dateUpdated": "2025-09-11T16:49:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-11T16:49:00.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Valuad Bid Adapter: Update tcf support",
+      "number": 6236,
+      "author": {
+        "login": "natanavra",
+        "id": 4521300
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-02T08:43:45.000Z",
+      "dateUpdated": "2025-09-08T07:08:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:08:58.000Z",
+      "commitAuthors": {
+        "4521300": {
+          "identifier": "4521300",
+          "displayName": "natanavra",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Altstar Media",
+      "number": 6244,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T10:41:15.000Z",
+      "dateUpdated": "2025-09-08T07:05:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:05:53.000Z",
+      "commitAuthors": {
+        "5434335": {
+          "identifier": "5434335",
+          "displayName": "belousovdmitry",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Rtb Demand",
+      "number": 6243,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T10:36:55.000Z",
+      "dateUpdated": "2025-09-08T07:04:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:04:56.000Z",
+      "commitAuthors": {
+        "5434335": {
+          "identifier": "5434335",
+          "displayName": "belousovdmitry",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Adnimation",
+      "number": 6242,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T10:29:02.000Z",
+      "dateUpdated": "2025-09-08T07:03:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:03:41.000Z",
+      "commitAuthors": {
+        "5434335": {
+          "identifier": "5434335",
+          "displayName": "belousovdmitry",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New adapter: Anzu Exchange",
+      "number": 6241,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T10:08:45.000Z",
+      "dateUpdated": "2025-09-08T07:02:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:02:05.000Z",
+      "commitAuthors": {
+        "5434335": {
+          "identifier": "5434335",
+          "displayName": "belousovdmitry",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update documentation for PubMatic Bid Adapter",
+      "number": 6240,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T08:14:55.000Z",
+      "dateUpdated": "2025-09-08T07:00:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T07:00:50.000Z",
+      "commitAuthors": {
+        "Komal Kumari": {
+          "identifier": "Komal Kumari",
+          "displayName": "Komal Kumari",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AdOcean Adapter: Removed",
+      "number": 5991,
+      "author": {
+        "login": "patryk-grzegorczyk",
+        "id": 131142828
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-11T12:40:14.000Z",
+      "dateUpdated": "2025-09-04T08:15:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T08:15:53.000Z",
+      "commitAuthors": {
+        "131142828": {
+          "identifier": "131142828",
+          "displayName": "patryk-grzegorczyk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adverxo Bid Adapter: Remove Mobupps as alias",
+      "number": 6009,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-25T11:42:27.000Z",
+      "dateUpdated": "2025-09-04T06:30:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T06:30:42.000Z",
+      "commitAuthors": {
+        "Adverxo": {
+          "identifier": "Adverxo",
+          "displayName": "Adverxo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "RocketLab Adapter: pbs set to true",
+      "number": 6105,
+      "author": {
+        "login": "leamarty",
+        "id": 3124547
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-16T08:39:08.000Z",
+      "dateUpdated": "2025-09-04T06:57:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T06:27:44.000Z",
+      "commitAuthors": {
+        "3124547": {
+          "identifier": "3124547",
+          "displayName": "leamarty",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add daily motion as member",
+      "number": 6239,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-03T13:42:48.000Z",
+      "dateUpdated": "2025-09-03T13:46:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-03T13:46:27.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "new adapter stellorMediaRtb",
+      "number": 6209,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-13T18:38:49.000Z",
+      "dateUpdated": "2025-09-02T06:38:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-02T06:38:06.000Z",
+      "commitAuthors": {
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update TIDs for pr that made them bidder specific",
+      "number": 6229,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-27T16:05:13.000Z",
+      "dateUpdated": "2025-09-02T06:37:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-02T06:36:58.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "added inmobi mobile plugin renderer",
+      "number": 6234,
+      "author": {
+        "login": "riteshghodrao",
+        "id": 14103026
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-31T18:17:33.000Z",
+      "dateUpdated": "2025-09-02T06:35:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-02T06:35:56.000Z",
+      "commitAuthors": {
+        "113163003": {
+          "identifier": "113163003",
+          "displayName": "ritesh-inmobi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Added and updated AdPlus docs",
+      "number": 6114,
+      "author": {
+        "login": "tccdeniz",
+        "id": 207675289
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-30T08:43:14.000Z",
+      "dateUpdated": "2025-09-01T20:06:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-01T20:06:08.000Z",
+      "commitAuthors": {
+        "207675289": {
+          "identifier": "207675289",
+          "displayName": "tccdeniz",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Start.io Bid Adapter: Enable coppa, usp, floors and ortb_blocking support",
+      "number": 6110,
+      "author": {
+        "login": "prebid-startio",
+        "id": 202108819
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-25T09:30:30.000Z",
+      "dateUpdated": "2025-09-01T20:04:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-01T20:04:13.000Z",
+      "commitAuthors": {
+        "202108819": {
+          "identifier": "202108819",
+          "displayName": "prebid-startio",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Typo Fix in Js Getting Started for Developers",
+      "number": 6226,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-26T15:14:50.000Z",
+      "dateUpdated": "2025-09-01T19:54:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-01T19:54:58.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1612 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 2,
+    "itemCount": 43,
+    "lastUpdated": "2025-09-02T23:36:35.273Z"
+  },
+  "items": [
+    {
+      "title": "Rubicon: Remove api validation",
+      "number": 3493,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-13T13:45:33.000Z",
+      "dateUpdated": "2024-03-01T05:55:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-03-01T05:55:07.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheMediaGrid: Add GPP macros",
+      "number": 3545,
+      "author": {
+        "login": "dzhang-criteo",
+        "id": 87757739
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-26T15:40:14.000Z",
+      "dateUpdated": "2024-02-29T13:11:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-29T13:11:09.000Z",
+      "commitAuthors": {
+        "87757739": {
+          "identifier": "87757739",
+          "displayName": "dzhang-criteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use Json compacter in the bidders/params endpoint",
+      "number": 3395,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-10T17:39:07.000Z",
+      "dateUpdated": "2024-02-28T19:48:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T19:48:36.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 24,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo: add GPP macros",
+      "number": 3544,
+      "author": {
+        "login": "dzhang-criteo",
+        "id": 87757739
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-26T15:28:04.000Z",
+      "dateUpdated": "2024-02-28T13:49:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-28T13:49:22.000Z",
+      "commitAuthors": {
+        "87757739": {
+          "identifier": "87757739",
+          "displayName": "dzhang-criteo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Reformat structures to use key names",
+      "number": 3524,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dmitris",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-21T10:42:55.000Z",
+      "dateUpdated": "2024-02-28T09:24:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T22:24:19.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Module template & builder produces duplicate map keys",
+      "number": 3534,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-22T10:27:07.000Z",
+      "dateUpdated": "2024-02-27T20:35:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T19:51:35.000Z",
+      "commitAuthors": {
+        "oaleksieiev": {
+          "identifier": "oaleksieiev",
+          "displayName": "oaleksieiev",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "DSA: Bid response adrender, behalf & paid validations",
+      "number": 3523,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-20T20:29:05.000Z",
+      "dateUpdated": "2024-02-27T19:27:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T19:27:22.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Pubstack memory leak",
+      "number": 3541,
+      "author": {
+        "login": "AvinashKapre",
+        "id": 112699665
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AvinashKapre",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-26T06:59:06.000Z",
+      "dateUpdated": "2024-02-27T16:30:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-27T16:30:58.000Z",
+      "commitAuthors": {
+        "112699665": {
+          "identifier": "112699665",
+          "displayName": "AvinashKapre",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Taboola: Fix gpp query param ",
+      "number": 3515,
+      "author": {
+        "login": "ahmadlob",
+        "id": 109217988
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-20T07:16:29.000Z",
+      "dateUpdated": "2024-02-26T18:46:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-26T18:46:39.000Z",
+      "commitAuthors": {
+        "109217988": {
+          "identifier": "109217988",
+          "displayName": "ahmadlob",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update prebid.org url to https",
+      "number": 3529,
+      "author": {
+        "login": "maditya",
+        "id": 4553307
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-21T15:40:03.000Z",
+      "dateUpdated": "2024-02-23T01:30:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:30:21.000Z",
+      "commitAuthors": {
+        "4553307": {
+          "identifier": "4553307",
+          "displayName": "maditya",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MinuteMedia: Add GPP macros",
+      "number": 3497,
+      "author": {
+        "login": "zkosanovic",
+        "id": 41286499
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "zkosanovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T05:11:37.000Z",
+      "dateUpdated": "2024-02-23T01:23:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:23:53.000Z",
+      "commitAuthors": {
+        "Zdravko Kosanovic": {
+          "identifier": "Zdravko Kosanovic",
+          "displayName": "Zdravko Kosanovic",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "SeedingAlliance: Deprecate seatId in favor of accountId",
+      "number": 3486,
+      "author": {
+        "login": "sag-henmus",
+        "id": 107099114
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T12:52:31.000Z",
+      "dateUpdated": "2024-02-23T01:00:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-23T01:00:35.000Z",
+      "commitAuthors": {
+        "107099114": {
+          "identifier": "107099114",
+          "displayName": "sag-henmus",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add formatcheck make target",
+      "number": 3480,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T16:49:25.000Z",
+      "dateUpdated": "2024-02-22T20:36:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T20:11:21.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rise: Add GPP macros",
+      "number": 3496,
+      "author": {
+        "login": "zkosanovic",
+        "id": 41286499
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T05:03:34.000Z",
+      "dateUpdated": "2024-02-22T05:59:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:59:47.000Z",
+      "commitAuthors": {
+        "Zdravko Kosanovic": {
+          "identifier": "Zdravko Kosanovic",
+          "displayName": "Zdravko Kosanovic",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "ADF: Regional endpoints",
+      "number": 3503,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "braizhas",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T16:59:00.000Z",
+      "dateUpdated": "2024-02-22T05:59:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:59:30.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "BMTM: Update maintainer address",
+      "number": 3483,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T18:53:30.000Z",
+      "dateUpdated": "2024-02-22T05:51:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:51:22.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Stroeercore: Support DSA",
+      "number": 3495,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "philipwatson",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-14T02:42:29.000Z",
+      "dateUpdated": "2024-03-04T01:41:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T05:50:09.000Z",
+      "commitAuthors": {
+        "2080240": {
+          "identifier": "2080240",
+          "displayName": "philipwatson",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "DSA: Use seat nonbid code 300",
+      "number": 3531,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-21T19:14:24.000Z",
+      "dateUpdated": "2024-02-22T01:09:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-22T01:09:24.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX: Add DSA test",
+      "number": 3510,
+      "author": {
+        "login": "ccorbo",
+        "id": 19716777
+      },
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-15T15:44:42.000Z",
+      "dateUpdated": "2024-02-21T06:32:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T06:32:26.000Z",
+      "commitAuthors": {
+        "19716777": {
+          "identifier": "19716777",
+          "displayName": "ccorbo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix go vet 'composite literals with unkeyed fields'",
+      "number": 3522,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-20T20:06:30.000Z",
+      "dateUpdated": "2024-02-21T07:41:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-21T04:54:33.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "DSA: Remove bids missing DSA object when required",
+      "number": 3487,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T13:55:50.000Z",
+      "dateUpdated": "2024-02-20T20:22:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T20:22:19.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix go vet composite literals with unkeyed fields",
+      "number": 3507,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dmitris",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-15T13:13:50.000Z",
+      "dateUpdated": "2024-02-20T19:05:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-20T17:45:21.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: BoldwinX",
+      "number": 3430,
+      "author": {
+        "login": "bold-win",
+        "id": 157734532
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bold-win",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-26T13:00:40.000Z",
+      "dateUpdated": "2024-02-19T08:54:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-19T08:54:00.000Z",
+      "commitAuthors": {
+        "157734532": {
+          "identifier": "157734532",
+          "displayName": "bold-win",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "boldwin": {
+          "identifier": "boldwin",
+          "displayName": "boldwin",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Targeting: Add alwaysincludedeals flag",
+      "number": 3454,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-06T00:47:01.000Z",
+      "dateUpdated": "2024-02-16T14:25:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-16T14:25:17.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Extra Buffer from GZIP Compression",
+      "number": 3494,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-13T21:57:11.000Z",
+      "dateUpdated": "2024-02-15T21:16:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T21:16:41.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Release workflow permissions",
+      "number": 3506,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-02-15T08:50:50.000Z",
+      "dateUpdated": "2024-02-15T15:52:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T15:52:31.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add log lines in release workflow",
+      "number": 3504,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-15T06:13:29.000Z",
+      "dateUpdated": "2024-02-15T06:32:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-15T06:32:54.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Yieldlab: Add Digital Service Act (DSA) handling",
+      "number": 3473,
+      "author": {
+        "login": "Mufas61",
+        "id": 17430344
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "brushmate",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Mufas61",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-07T14:32:58.000Z",
+      "dateUpdated": "2024-02-14T20:53:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T20:53:39.000Z",
+      "commitAuthors": {
+        "17430344": {
+          "identifier": "17430344",
+          "displayName": "Mufas61",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix function godoc comment",
+      "number": 3502,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-14T15:50:54.000Z",
+      "dateUpdated": "2024-02-15T12:19:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T18:56:13.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update trivy check workflow to use node 20 actions",
+      "number": 3472,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-07T13:02:17.000Z",
+      "dateUpdated": "2024-02-15T08:19:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T13:26:44.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Kargo: Adding GPP macros to bidder-info",
+      "number": 3490,
+      "author": {
+        "login": "jsadwith",
+        "id": 5454953
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T15:56:46.000Z",
+      "dateUpdated": "2024-02-14T10:51:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T10:51:16.000Z",
+      "commitAuthors": {
+        "5454953": {
+          "identifier": "5454953",
+          "displayName": "jsadwith",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update release workflow to use actions with node 20 support",
+      "number": 3478,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T10:44:15.000Z",
+      "dateUpdated": "2024-02-15T08:19:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T05:58:03.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update code semgrep workflow to use actions with node 20 support",
+      "number": 3471,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-07T11:18:40.000Z",
+      "dateUpdated": "2024-02-15T08:19:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-14T04:49:09.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Medianet: enable gzip and update usersync url",
+      "number": 3489,
+      "author": {
+        "login": "rajatgoyal2510",
+        "id": 12745839
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-12T14:28:26.000Z",
+      "dateUpdated": "2024-02-13T15:38:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:38:52.000Z",
+      "commitAuthors": {
+        "12745839": {
+          "identifier": "12745839",
+          "displayName": "rajatgoyal2510",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "110666914": {
+          "identifier": "110666914",
+          "displayName": "amanjain-directi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update issue tracking workflow to use actions with node version 20 support",
+      "number": 3479,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T11:17:40.000Z",
+      "dateUpdated": "2024-02-15T08:19:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:33:11.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update validate pull request workflows to use node 20 actions",
+      "number": 3474,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-08T10:16:56.000Z",
+      "dateUpdated": "2024-02-15T08:19:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T15:25:56.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "ImproveDigital: Bad-Input Error ",
+      "number": 3469,
+      "author": {
+        "login": "ishihanvcs",
+        "id": 93646635
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-06T21:16:21.000Z",
+      "dateUpdated": "2024-02-13T10:23:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-13T10:23:51.000Z",
+      "commitAuthors": {
+        "93646635": {
+          "identifier": "93646635",
+          "displayName": "ishihanvcs",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "update code coverage workflow to use actions with node 20 support",
+      "number": 3470,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-07T08:30:11.000Z",
+      "dateUpdated": "2024-02-15T08:19:08.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-12T18:26:33.000Z",
+      "commitAuthors": {
+        "onkar hanumante": {
+          "identifier": "onkar hanumante",
+          "displayName": "onkar hanumante",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Yieldmo: Add support for gpp and gpp_sid",
+      "number": 3442,
+      "author": {
+        "login": "ym-prasanth",
+        "id": 80693980
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ym-prasanth",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-01T18:50:38.000Z",
+      "dateUpdated": "2024-02-08T06:50:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-08T06:50:38.000Z",
+      "commitAuthors": {
+        "80693980": {
+          "identifier": "80693980",
+          "displayName": "ym-prasanth",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adprime: Add mtype",
+      "number": 3439,
+      "author": {
+        "login": "Adprime",
+        "id": 64427228
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-01T14:22:11.000Z",
+      "dateUpdated": "2024-02-07T05:48:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-07T05:48:58.000Z",
+      "commitAuthors": {
+        "64427228": {
+          "identifier": "64427228",
+          "displayName": "Adprime",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 13,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AdView: support multi imps request & formattype tag for bid response",
+      "number": 3355,
+      "author": {
+        "login": "AdviewOpen",
+        "id": 4382674
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AdviewOpen",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-12-15T01:07:59.000Z",
+      "dateUpdated": "2024-02-06T05:42:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-06T05:42:30.000Z",
+      "commitAuthors": {
+        "4382674": {
+          "identifier": "4382674",
+          "displayName": "AdviewOpen",
+          "count": 14,
+          "isGitHubUser": true
+        },
+        "26789924": {
+          "identifier": "26789924",
+          "displayName": "wildcat0601",
+          "count": 15,
+          "isGitHubUser": true
+        },
+        "95598353": {
+          "identifier": "95598353",
+          "displayName": "wilder0601",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Boldwin: get bid type from bid.mtype",
+      "number": 3433,
+      "author": {
+        "login": "Wls-demo",
+        "id": 67785512
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Wls-demo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-01-29T12:27:56.000Z",
+      "dateUpdated": "2024-02-05T06:40:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-05T06:40:55.000Z",
+      "commitAuthors": {
+        "67785512": {
+          "identifier": "67785512",
+          "displayName": "Wls-demo",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Wls-demo": {
+          "identifier": "Wls-demo",
+          "displayName": "Wls-demo",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Capture SeatNonBids for rejected creatives due to insecurity and invalid size",
+      "number": 3376,
+      "author": {
+        "login": "ashishshinde-pubm",
+        "id": 109787960
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ashishshinde-pubm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-12-22T03:33:51.000Z",
+      "dateUpdated": "2024-02-01T18:06:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-02-01T18:06:46.000Z",
+      "commitAuthors": {
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

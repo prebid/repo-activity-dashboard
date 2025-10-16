@@ -1,0 +1,941 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 6,
+    "itemCount": 28,
+    "lastUpdated": "2025-09-03T00:16:49.974Z"
+  },
+  "items": [
+    {
+      "title": "CPMStar: Updated vendor-id for TCF/GVL",
+      "number": 3269,
+      "author": {
+        "login": "JoshuaMGoldstein",
+        "id": 25335799
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-28T07:58:55.000Z",
+      "dateUpdated": "2024-06-28T12:51:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-28T12:51:30.000Z",
+      "commitAuthors": {
+        "25335799": {
+          "identifier": "25335799",
+          "displayName": "JoshuaMGoldstein",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove redundant modifiers",
+      "number": 3268,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-27T21:11:46.000Z",
+      "dateUpdated": "2024-06-28T12:47:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-28T12:47:55.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add support for multiple cases for account",
+      "number": 3224,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-03T14:34:12.000Z",
+      "dateUpdated": "2024-06-27T12:04:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-27T12:04:02.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 25,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Greenbids Analytics Adapter",
+      "number": 3096,
+      "author": {
+        "login": "EvgeniiMunin",
+        "id": 35193823
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "EvgeniiMunin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-04-04T22:43:56.000Z",
+      "dateUpdated": "2024-06-26T13:56:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T13:56:28.000Z",
+      "commitAuthors": {
+        "35193823": {
+          "identifier": "35193823",
+          "displayName": "EvgeniiMunin",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "EvgeniiMunin": {
+          "identifier": "EvgeniiMunin",
+          "displayName": "EvgeniiMunin",
+          "count": 52,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rubicon: No longer copy FPD fields",
+      "number": 3263,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-26T11:13:07.000Z",
+      "dateUpdated": "2024-06-26T13:52:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T13:52:00.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add No Signal Bidder Feature for Price Floors",
+      "number": 3026,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-29T15:05:40.000Z",
+      "dateUpdated": "2024-06-25T11:31:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T11:31:25.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Logback support for metrics",
+      "number": 3246,
+      "author": {
+        "login": "ianwow",
+        "id": 54998167
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-17T23:47:55.000Z",
+      "dateUpdated": "2024-06-25T10:17:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T10:17:49.000Z",
+      "commitAuthors": {
+        "54998167": {
+          "identifier": "54998167",
+          "displayName": "ianwow",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: support for multiple cases for account",
+      "number": 3239,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-11T20:48:17.000Z",
+      "dateUpdated": "2024-06-25T07:35:46.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T07:35:46.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Housekeeping: Bump minor dependencies",
+      "number": 3252,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-19T19:48:52.000Z",
+      "dateUpdated": "2024-06-25T07:34:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T07:34:33.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Log for failed gpp sid parse",
+      "number": 3233,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-06T13:43:42.000Z",
+      "dateUpdated": "2024-06-24T09:37:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T09:37:33.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Warning for invalid `gppSid`",
+      "number": 3256,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-21T09:45:43.000Z",
+      "dateUpdated": "2024-06-24T08:07:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T08:07:30.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Remove only server side video.size_id logic",
+      "number": 3255,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-21T08:03:59.000Z",
+      "dateUpdated": "2024-06-21T08:20:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-21T08:20:03.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `account.privacy.gdpr.eea-countries` property",
+      "number": 3212,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-27T12:14:14.000Z",
+      "dateUpdated": "2024-06-21T08:18:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-21T08:18:22.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Epsilon Bid Adapter: requests have to be made in USD or it will be re…",
+      "number": 3199,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "pycnvr",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "johnwier",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-17T20:25:59.000Z",
+      "dateUpdated": "2024-06-19T11:30:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-19T11:30:21.000Z",
+      "commitAuthors": {
+        "johwier": {
+          "identifier": "johwier",
+          "displayName": "johwier",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Always Return Bid Exp",
+      "number": 3213,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-28T08:35:21.000Z",
+      "dateUpdated": "2024-06-19T11:14:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-19T11:14:41.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for noFloorSignalBidders support",
+      "number": 3234,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-07T13:26:13.000Z",
+      "dateUpdated": "2024-06-17T11:05:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T11:05:24.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add analytics tags to response",
+      "number": 3197,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-16T13:45:40.000Z",
+      "dateUpdated": "2024-06-17T10:52:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T10:52:11.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for bid.exp in response",
+      "number": 3222,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-31T15:05:12.000Z",
+      "dateUpdated": "2024-06-12T12:35:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-12T12:35:02.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Remove video.size_id logic",
+      "number": 3193,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-15T11:52:39.000Z",
+      "dateUpdated": "2024-06-12T11:40:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-12T11:40:21.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldmo Adapter: add currency conversion for bid floors",
+      "number": 3200,
+      "author": {
+        "login": "ym-winston",
+        "id": 46379634
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ym-winston",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-05-21T18:00:54.000Z",
+      "dateUpdated": "2024-06-05T10:37:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T10:37:41.000Z",
+      "commitAuthors": {
+        "46379634": {
+          "identifier": "46379634",
+          "displayName": "ym-winston",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for analytics tags",
+      "number": 3220,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-30T16:59:24.000Z",
+      "dateUpdated": "2024-06-05T10:36:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T10:36:36.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: `eea-country to account config`",
+      "number": 3226,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-04T09:00:19.000Z",
+      "dateUpdated": "2024-06-04T12:18:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T12:18:46.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GitHub: Add pull request checklist",
+      "number": 3227,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-04T11:46:04.000Z",
+      "dateUpdated": "2024-06-04T12:05:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T12:05:31.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Playdigo (#3166)",
+      "number": 3210,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-24T12:50:02.000Z",
+      "dateUpdated": "2024-06-03T13:13:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T13:13:08.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add invalidate for cached account errors",
+      "number": 3113,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-10T15:09:11.000Z",
+      "dateUpdated": "2024-06-03T12:54:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T12:54:10.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Loyal: New Adapter (#3140)",
+      "number": 3183,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-05-09T12:14:05.000Z",
+      "dateUpdated": "2024-06-03T12:34:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T12:34:12.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 22,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix flaky test",
+      "number": 3214,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-28T18:42:33.000Z",
+      "dateUpdated": "2024-06-03T10:56:28.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T10:56:27.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Add information about `auction.strict-app-site-dooh` property",
+      "number": 3219,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-30T11:40:32.000Z",
+      "dateUpdated": "2024-06-03T10:13:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T10:13:41.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

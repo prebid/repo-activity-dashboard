@@ -1,0 +1,1227 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 7,
+    "itemCount": 30,
+    "lastUpdated": "2025-09-02T23:36:35.261Z"
+  },
+  "items": [
+    {
+      "title": "TheTradeDesk: Resolve AUCTION_PRICE macro",
+      "number": 4448,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-21T20:29:22.000Z",
+      "dateUpdated": "2025-07-30T18:41:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-30T18:41:55.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ogury: Support gpp for cookie sync",
+      "number": 4406,
+      "author": {
+        "login": "vincent-ogury",
+        "id": 19665868
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "fermeaux",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vincent-ogury",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-23T09:23:42.000Z",
+      "dateUpdated": "2025-07-29T20:58:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T20:58:51.000Z",
+      "commitAuthors": {
+        "19665868": {
+          "identifier": "19665868",
+          "displayName": "vincent-ogury",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Blis",
+      "number": 4304,
+      "author": {
+        "login": "tomaskoutny-blis",
+        "id": 60094686
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "tomaskoutny-blis",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2025-04-16T22:47:44.000Z",
+      "dateUpdated": "2025-07-29T15:21:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T15:21:56.000Z",
+      "commitAuthors": {
+        "60094686": {
+          "identifier": "60094686",
+          "displayName": "tomaskoutny-blis",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Tomas Koutny": {
+          "identifier": "Tomas Koutny",
+          "displayName": "Tomas Koutny",
+          "count": 16,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "OpenX: Add gpp params to user sync",
+      "number": 4445,
+      "author": {
+        "login": "Fuska1",
+        "id": 174440987
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "laurb9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-18T12:44:55.000Z",
+      "dateUpdated": "2025-07-28T20:29:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:29:21.000Z",
+      "commitAuthors": {
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Pass ext.prebid.multibid[].maxbids to XAPI",
+      "number": 4412,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-30T09:03:44.000Z",
+      "dateUpdated": "2025-07-28T20:20:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:20:53.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: Add hook code to module invocation context",
+      "number": 4036,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-04T21:36:40.000Z",
+      "dateUpdated": "2025-07-28T20:10:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T20:10:21.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adagio: Add site bidder param and web inventory tests",
+      "number": 4403,
+      "author": {
+        "login": "GodefroiRoussel",
+        "id": 16046142
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-19T12:21:09.000Z",
+      "dateUpdated": "2025-07-28T19:53:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T19:53:54.000Z",
+      "commitAuthors": {
+        "Godefroi Roussel": {
+          "identifier": "Godefroi Roussel",
+          "displayName": "Godefroi Roussel",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "MinuteMedia: Add test endpoint",
+      "number": 4425,
+      "author": {
+        "login": "innay",
+        "id": 6281294
+      },
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-09T08:53:30.000Z",
+      "dateUpdated": "2025-07-28T18:53:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:53:33.000Z",
+      "commitAuthors": {
+        "Inna Yaretsky": {
+          "identifier": "Inna Yaretsky",
+          "displayName": "Inna Yaretsky",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Kuantyx - Aso alias",
+      "number": 4420,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "adserver-online",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-04T08:20:19.000Z",
+      "dateUpdated": "2025-07-28T18:39:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:39:22.000Z",
+      "commitAuthors": {
+        "dev": {
+          "identifier": "dev",
+          "displayName": "dev",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: progx - Vidazoo alias",
+      "number": 4428,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-09T14:39:45.000Z",
+      "dateUpdated": "2025-07-28T18:28:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T18:28:41.000Z",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tappx: Add GPID support",
+      "number": 4438,
+      "author": {
+        "login": "jordi-tappx",
+        "id": 202985769
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-16T15:08:05.000Z",
+      "dateUpdated": "2025-07-25T06:44:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-25T03:02:22.000Z",
+      "commitAuthors": {
+        "202985769": {
+          "identifier": "202985769",
+          "displayName": "jordi-tappx",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Jordi Arnau": {
+          "identifier": "Jordi Arnau",
+          "displayName": "Jordi Arnau",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GumGum: Enable Opt-In change notification",
+      "number": 4390,
+      "author": {
+        "login": "sindhuja-sridharan",
+        "id": 148382298
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T21:51:44.000Z",
+      "dateUpdated": "2025-07-24T17:18:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T17:18:14.000Z",
+      "commitAuthors": {
+        "148382298": {
+          "identifier": "148382298",
+          "displayName": "sindhuja-sridharan",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RTB House: Remove PAAPI signals from imp[].ext",
+      "number": 4399,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-13T11:50:50.000Z",
+      "dateUpdated": "2025-07-24T16:10:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T16:10:34.000Z",
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smartadserver : Send multi-impression requests without flattening",
+      "number": 4402,
+      "author": {
+        "login": "nathanleSommer",
+        "id": 16020728
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-17T08:32:32.000Z",
+      "dateUpdated": "2025-07-24T15:19:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T15:19:19.000Z",
+      "commitAuthors": {
+        "16020728": {
+          "identifier": "16020728",
+          "displayName": "nathanleSommer",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "216024569": {
+          "identifier": "216024569",
+          "displayName": "nlesommer",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheTradeDesk: Throw error for malformed endpoint url",
+      "number": 4419,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "khang-vu-ttd",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-03T22:27:04.000Z",
+      "dateUpdated": "2025-07-23T16:25:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-23T16:25:26.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix the package (iterators) to agree with the dir (iterutil).",
+      "number": 4447,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-21T15:23:57.000Z",
+      "dateUpdated": "2025-07-21T22:34:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-21T22:34:21.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TMax: Add default host config",
+      "number": 4430,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-09T20:03:42.000Z",
+      "dateUpdated": "2025-07-17T13:34:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-17T13:34:19.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "VIS.X: Relay bid currency from bid response",
+      "number": 4381,
+      "author": {
+        "login": "vfedoseev",
+        "id": 8183991
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-09T17:48:31.000Z",
+      "dateUpdated": "2025-07-16T19:20:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T19:20:53.000Z",
+      "commitAuthors": {
+        "8183991": {
+          "identifier": "8183991",
+          "displayName": "vfedoseev",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Stroeercore: Add adomain to bids",
+      "number": 4392,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-11T03:48:33.000Z",
+      "dateUpdated": "2025-07-16T18:12:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T18:12:08.000Z",
+      "commitAuthors": {
+        "2080240": {
+          "identifier": "2080240",
+          "displayName": "philipwatson",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Floors: Fix panic while getting adunit code for signaling",
+      "number": 4424,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-07T11:35:25.000Z",
+      "dateUpdated": "2025-07-16T03:13:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T03:13:02.000Z",
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Exco",
+      "number": 4250,
+      "author": {
+        "login": "pb-pete",
+        "id": 39055514
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pb-pete",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-06T10:35:36.000Z",
+      "dateUpdated": "2025-07-16T02:37:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-16T02:37:25.000Z",
+      "commitAuthors": {
+        "39055514": {
+          "identifier": "39055514",
+          "displayName": "pb-pete",
+          "count": 19,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Zentotem",
+      "number": 4053,
+      "author": {
+        "login": "zentotem",
+        "id": 173259805
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "zentotem",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dobb2",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-11-13T22:52:49.000Z",
+      "dateUpdated": "2025-07-14T20:04:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T20:04:41.000Z",
+      "commitAuthors": {
+        "55272989": {
+          "identifier": "55272989",
+          "displayName": "GermanBogatov",
+          "count": 25,
+          "isGitHubUser": true
+        },
+        "173259805": {
+          "identifier": "173259805",
+          "displayName": "zentotem",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Petrukhin Dmitrii": {
+          "identifier": "Petrukhin Dmitrii",
+          "displayName": "Petrukhin Dmitrii",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Akcelo",
+      "number": 4237,
+      "author": {
+        "login": "rogerDyl",
+        "id": 104763658
+      },
+      "assignees": [
+        "ShriprasadM",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ShriprasadM",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "rogerDyl",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-02-25T13:52:27.000Z",
+      "dateUpdated": "2025-07-14T19:48:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:48:42.000Z",
+      "commitAuthors": {
+        "104763658": {
+          "identifier": "104763658",
+          "displayName": "rogerDyl",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Record metric unsuccessful for PBC non-200 response status code or error",
+      "number": 4341,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-15T16:03:01.000Z",
+      "dateUpdated": "2025-07-14T19:19:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:19:39.000Z",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Zeta Global SSP: Declare OpenRTB 2.6 and GPP support",
+      "number": 4389,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T13:47:22.000Z",
+      "dateUpdated": "2025-07-14T19:06:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T19:06:08.000Z",
+      "commitAuthors": {
+        "95416296": {
+          "identifier": "95416296",
+          "displayName": "abermanov-zeta",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Rediads",
+      "number": 4233,
+      "author": {
+        "login": "rediads",
+        "id": 123890182
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "rediads",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "symplorpro",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "symplor-alpha",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gamesindian",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-21T14:14:29.000Z",
+      "dateUpdated": "2025-07-14T18:52:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T18:52:37.000Z",
+      "commitAuthors": {
+        "96935284": {
+          "identifier": "96935284",
+          "displayName": "gamesindian",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "112776856": {
+          "identifier": "112776856",
+          "displayName": "symplor-alpha",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "123890182": {
+          "identifier": "123890182",
+          "displayName": "rediads",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "161066329": {
+          "identifier": "161066329",
+          "displayName": "eromsinghal",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "161946060": {
+          "identifier": "161946060",
+          "displayName": "symplorpro",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "178993100": {
+          "identifier": "178993100",
+          "displayName": "symplorEcho",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena: Pass full openrtb request",
+      "number": 4394,
+      "author": {
+        "login": "jney",
+        "id": 747
+      },
+      "assignees": [
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-11T13:26:26.000Z",
+      "dateUpdated": "2025-07-14T18:33:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-14T18:33:54.000Z",
+      "commitAuthors": {
+        "747": {
+          "identifier": "747",
+          "displayName": "jney",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RichAudience: change endpoint to https",
+      "number": 4384,
+      "author": {
+        "login": "richaudience",
+        "id": 26602871
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "richaudience",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T11:10:48.000Z",
+      "dateUpdated": "2025-07-08T19:52:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T19:52:56.000Z",
+      "commitAuthors": {
+        "225259546": {
+          "identifier": "225259546",
+          "displayName": "ianmusachs-stack",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Remove module per request JSON marshal and add custom viper decoder",
+      "number": 4422,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-05T03:03:39.000Z",
+      "dateUpdated": "2025-07-08T19:51:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T19:51:36.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Fix missing bid type in bid response",
+      "number": 4417,
+      "author": {
+        "login": "pm-isha-bharti",
+        "id": 8835973
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ShriprasadM",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-02T17:47:09.000Z",
+      "dateUpdated": "2025-07-03T18:38:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-03T18:38:18.000Z",
+      "commitAuthors": {
+        "8835973": {
+          "identifier": "8835973",
+          "displayName": "pm-isha-bharti",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

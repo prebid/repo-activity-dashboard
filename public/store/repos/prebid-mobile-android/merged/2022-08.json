@@ -1,0 +1,284 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2022,
+    "month": 8,
+    "itemCount": 9,
+    "lastUpdated": "2025-09-02T20:49:03.486Z"
+  },
+  "items": [
+    {
+      "title": "Update release version to 2.0.3",
+      "number": 490,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-15T11:40:09.000Z",
+      "dateUpdated": "2022-08-17T07:53:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-17T07:53:28.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update exoplayer to version 2.15.1 and replace deprecated code (#482)",
+      "number": 489,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-15T10:43:07.000Z",
+      "dateUpdated": "2022-08-15T11:19:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T11:19:51.000Z",
+      "commitAuthors": {
+        "10000271": {
+          "identifier": "10000271",
+          "displayName": "gerzalez",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Geolocation fixes merge",
+      "number": 488,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-15T09:37:59.000Z",
+      "dateUpdated": "2022-08-15T11:14:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T11:14:37.000Z",
+      "commitAuthors": {
+        "9356373": {
+          "identifier": "9356373",
+          "displayName": "davidracl",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update exoplayer to version 2.15.1 and replace deprecated code",
+      "number": 482,
+      "author": {
+        "login": "gerzalez",
+        "id": 10000271
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-20T15:12:16.000Z",
+      "dateUpdated": "2022-08-15T10:39:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T10:39:16.000Z",
+      "commitAuthors": {
+        "110118032": {
+          "identifier": "110118032",
+          "displayName": "gerzalez-x3m",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix(Render): fix NPE in ad response parser vast on get vast url method",
+      "number": 487,
+      "author": {
+        "login": "gerzalez-x3m",
+        "id": 110118032
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-10T18:54:26.000Z",
+      "dateUpdated": "2022-08-15T09:47:07.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T09:47:07.000Z",
+      "commitAuthors": {
+        "110118032": {
+          "identifier": "110118032",
+          "displayName": "gerzalez-x3m",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix(Render): Add get query params on url request builder",
+      "number": 486,
+      "author": {
+        "login": "gerzalez-x3m",
+        "id": 110118032
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-08-10T18:49:05.000Z",
+      "dateUpdated": "2022-08-15T09:42:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T09:42:25.000Z",
+      "commitAuthors": {
+        "110118032": {
+          "identifier": "110118032",
+          "displayName": "gerzalez-x3m",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ShareGeoLocation issue fix",
+      "number": 484,
+      "author": {
+        "login": "davidracl",
+        "id": 9356373
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-28T08:54:14.000Z",
+      "dateUpdated": "2022-08-15T09:25:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T09:25:32.000Z",
+      "commitAuthors": {
+        "9356373": {
+          "identifier": "9356373",
+          "displayName": "davidracl",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use OMID Partner name and version from TargetingParams",
+      "number": 480,
+      "author": {
+        "login": "ibb-jile",
+        "id": 25363592
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-07-11T08:40:07.000Z",
+      "dateUpdated": "2022-08-15T08:59:20.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T08:59:20.000Z",
+      "commitAuthors": {
+        "9356373": {
+          "identifier": "9356373",
+          "displayName": "davidracl",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "25363592": {
+          "identifier": "25363592",
+          "displayName": "ibb-jile",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "25428210": {
+          "identifier": "25428210",
+          "displayName": "ondra-kormanik",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "52072711": {
+          "identifier": "52072711",
+          "displayName": "gianpiero-bozza",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Populate device.geo.country property",
+      "number": 477,
+      "author": {
+        "login": "GenarC",
+        "id": 20942609
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-06-28T08:38:57.000Z",
+      "dateUpdated": "2022-08-15T08:40:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-08-15T08:40:57.000Z",
+      "commitAuthors": {
+        "20942609": {
+          "identifier": "20942609",
+          "displayName": "GenarC",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,690 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2025,
+    "month": 1,
+    "itemCount": 19,
+    "lastUpdated": "2025-09-02T21:29:40.494Z"
+  },
+  "items": [
+    {
+      "title": "Generate SharedId and send in auction requests",
+      "number": 1082,
+      "author": {
+        "login": "jclou",
+        "id": 1572104
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jclou",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-01-09T19:22:29.000Z",
+      "dateUpdated": "2025-01-31T07:45:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-31T07:45:36.000Z",
+      "commitAuthors": {
+        "James Lou": {
+          "identifier": "James Lou",
+          "displayName": "James Lou",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Deprecated clickthroughbrowser.",
+      "number": 1041,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-27T16:56:27.000Z",
+      "dateUpdated": "2025-01-30T14:51:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:51:48.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "1000 remove or deprecate impclickbrowsertype",
+      "number": 1044,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-03T17:03:26.000Z",
+      "dateUpdated": "2025-01-30T14:09:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T14:09:47.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Add/SetCustomParams",
+      "number": 1042,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-29T12:08:40.000Z",
+      "dateUpdated": "2025-01-30T12:42:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T12:42:07.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "1001 remove or deprecate ios buyeruid and android setbuyerid",
+      "number": 1045,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-03T17:07:02.000Z",
+      "dateUpdated": "2025-01-30T12:27:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T12:27:02.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated userCustomData",
+      "number": 1047,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T12:16:38.000Z",
+      "dateUpdated": "2025-01-30T12:01:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T12:01:47.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated year of birth, age, and gender functions.",
+      "number": 1048,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T12:47:29.000Z",
+      "dateUpdated": "2025-01-30T12:00:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T12:00:26.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Deprecated LocationPrecision",
+      "number": 1049,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-05T12:58:22.000Z",
+      "dateUpdated": "2025-01-30T11:57:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T11:57:42.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Added support for privacyUrl",
+      "number": 1027,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "jsligh",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-16T15:34:28.000Z",
+      "dateUpdated": "2025-01-30T11:57:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-30T11:57:08.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update TargetingInfo Behavior ",
+      "number": 1088,
+      "author": {
+        "login": "ankit-thanekar007",
+        "id": 26094255
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ankit-thanekar007",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-16T15:29:07.000Z",
+      "dateUpdated": "2025-01-28T12:05:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-28T07:28:05.000Z",
+      "commitAuthors": {
+        "Ankit Rajendra Thanekar": {
+          "identifier": "Ankit Rajendra Thanekar",
+          "displayName": "Ankit Rajendra Thanekar",
+          "count": 13,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Introduce test cases for PUC",
+      "number": 1077,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-24T10:08:34.000Z",
+      "dateUpdated": "2025-01-27T07:56:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-27T07:56:25.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix unit tests after merging #1035 (Implement Event Delegate)",
+      "number": 1089,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-20T15:36:56.000Z",
+      "dateUpdated": "2025-01-21T10:11:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-21T10:11:20.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add getter for click URL for native ad",
+      "number": 1084,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-10T09:25:53.000Z",
+      "dateUpdated": "2025-01-10T09:42:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:42:51.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Custom logger implementation on iOS",
+      "number": 1026,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "OlenaPostindustria"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-07-16T15:06:14.000Z",
+      "dateUpdated": "2025-01-10T09:28:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:28:41.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Implement Event Delegate",
+      "number": 1035,
+      "author": {
+        "login": "kimar",
+        "id": 126418
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-07T13:44:06.000Z",
+      "dateUpdated": "2025-01-27T07:42:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:08:31.000Z",
+      "commitAuthors": {
+        "126418": {
+          "identifier": "126418",
+          "displayName": "kimar",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "449563": {
+          "identifier": "449563",
+          "displayName": "steffenmllr",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Do not send device size for interstitial ads",
+      "number": 1078,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-08T08:19:00.000Z",
+      "dateUpdated": "2025-01-10T09:01:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-10T09:01:26.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix build: add missing file to project",
+      "number": 1079,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-09T10:09:15.000Z",
+      "dateUpdated": "2025-01-09T10:28:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-09T10:28:00.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix naming of the PluginEventListener -> PluginEventDelegate",
+      "number": 1046,
+      "author": {
+        "login": "github-richard-depierre",
+        "id": 146739800
+      },
+      "assignees": [
+        "github-richard-depierre"
+      ],
+      "reviewers": [
+        {
+          "login": "github-lucas-bon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-04T13:05:32.000Z",
+      "dateUpdated": "2025-01-08T09:21:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-08T09:21:06.000Z",
+      "commitAuthors": {
+        "146739800": {
+          "identifier": "146739800",
+          "displayName": "github-richard-depierre",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid plugin render changes",
+      "number": 1068,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-lucas-bon",
+          "state": "PENDING"
+        },
+        {
+          "login": "jangirtony2009",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "github-richard-depierre",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-03T12:54:45.000Z",
+      "dateUpdated": "2025-01-06T08:08:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-01-06T08:07:55.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

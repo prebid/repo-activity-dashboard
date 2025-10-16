@@ -1,0 +1,603 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 12,
+    "itemCount": 15,
+    "lastUpdated": "2025-09-02T23:36:35.282Z"
+  },
+  "items": [
+    {
+      "title": "Modularity: Processed auction request stage implementation",
+      "number": 2497,
+      "author": {
+        "login": "legendko",
+        "id": 26163638
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-20T11:53:55.000Z",
+      "dateUpdated": "2022-12-21T03:41:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-21T03:41:23.000Z",
+      "commitAuthors": {
+        "8760739": {
+          "identifier": "8760739",
+          "displayName": "4lexvav",
+          "count": 60,
+          "isGitHubUser": true
+        },
+        "26163638": {
+          "identifier": "26163638",
+          "displayName": "legendko",
+          "count": 40,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update to support reading GDPR and US Privacy from GPP string",
+      "number": 2496,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-12-16T16:45:30.000Z",
+      "dateUpdated": "2023-03-13T13:55:56.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-21T01:28:35.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: Raw auction stage implementation",
+      "number": 2495,
+      "author": {
+        "login": "legendko",
+        "id": 26163638
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "legendko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "4lexvav",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-15T10:37:25.000Z",
+      "dateUpdated": "2022-12-19T21:34:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-19T21:34:34.000Z",
+      "commitAuthors": {
+        "8760739": {
+          "identifier": "8760739",
+          "displayName": "4lexvav",
+          "count": 60,
+          "isGitHubUser": true
+        },
+        "26163638": {
+          "identifier": "26163638",
+          "displayName": "legendko",
+          "count": 40,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: Metrics infrastructure and collection",
+      "number": 2484,
+      "author": {
+        "login": "legendko",
+        "id": 26163638
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "legendko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-07T10:58:10.000Z",
+      "dateUpdated": "2022-12-14T22:15:24.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T22:15:24.000Z",
+      "commitAuthors": {
+        "8760739": {
+          "identifier": "8760739",
+          "displayName": "4lexvav",
+          "count": 66,
+          "isGitHubUser": true
+        },
+        "26163638": {
+          "identifier": "26163638",
+          "displayName": "legendko",
+          "count": 34,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "refactor: move from io/ioutil to io and os packages",
+      "number": 2463,
+      "author": {
+        "login": "Juneezee",
+        "id": 20135478
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-23T14:16:28.000Z",
+      "dateUpdated": "2023-02-16T15:42:56.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:53:30.000Z",
+      "commitAuthors": {
+        "20135478": {
+          "identifier": "20135478",
+          "displayName": "Juneezee",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix extra-bid's multicurrency scenario",
+      "number": 2467,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-25T07:42:36.000Z",
+      "dateUpdated": "2022-12-14T17:44:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:44:16.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidstack Adapter: Added optional Placement ID field",
+      "number": 2464,
+      "author": {
+        "login": "valdis-abrams-bidstack",
+        "id": 102524632
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-23T14:41:01.000Z",
+      "dateUpdated": "2022-12-14T17:36:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:36:27.000Z",
+      "commitAuthors": {
+        "1751652": {
+          "identifier": "1751652",
+          "displayName": "arthurlataks",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "102524632": {
+          "identifier": "102524632",
+          "displayName": "valdis-abrams-bidstack",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "adapter sspBC: Update to v5.8",
+      "number": 2480,
+      "author": {
+        "login": "spanwp",
+        "id": 104571800
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-05T13:52:14.000Z",
+      "dateUpdated": "2022-12-14T17:28:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:28:39.000Z",
+      "commitAuthors": {
+        "104571800": {
+          "identifier": "104571800",
+          "displayName": "spanwp",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OneTag: update usersync endpoint",
+      "number": 2430,
+      "author": {
+        "login": "onetag-dev",
+        "id": 38786435
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onetag-dev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-10-21T11:04:17.000Z",
+      "dateUpdated": "2022-12-14T17:20:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:20:50.000Z",
+      "commitAuthors": {
+        "165936143": {
+          "identifier": "165936143",
+          "displayName": "l-baglini",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Taboola",
+      "number": 2455,
+      "author": {
+        "login": "ahmadlob",
+        "id": 109217988
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ahmadlob",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-15T15:54:16.000Z",
+      "dateUpdated": "2022-12-14T17:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:14:21.000Z",
+      "commitAuthors": {
+        "109217988": {
+          "identifier": "109217988",
+          "displayName": "ahmadlob",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Schema To OpenRTB 2.6-202211",
+      "number": 2494,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-12T19:09:49.000Z",
+      "dateUpdated": "2023-03-13T13:55:46.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T17:06:12.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: module builders generator",
+      "number": 2491,
+      "author": {
+        "login": "4lexvav",
+        "id": 8760739
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-09T16:09:30.000Z",
+      "dateUpdated": "2022-12-14T16:57:18.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T16:57:17.000Z",
+      "commitAuthors": {
+        "8760739": {
+          "identifier": "8760739",
+          "displayName": "4lexvav",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Perform full path host db config lookups in migration to detect presence",
+      "number": 2493,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-12T16:49:10.000Z",
+      "dateUpdated": "2022-12-14T06:40:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-14T06:40:49.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modularity: Hook invocation Process [Entrypoint Stage]",
+      "number": 2462,
+      "author": {
+        "login": "legendko",
+        "id": 26163638
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "4lexvav",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "legendko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-22T16:01:24.000Z",
+      "dateUpdated": "2022-12-06T16:08:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-06T16:08:09.000Z",
+      "commitAuthors": {
+        "8760739": {
+          "identifier": "8760739",
+          "displayName": "4lexvav",
+          "count": 79,
+          "isGitHubUser": true
+        },
+        "26163638": {
+          "identifier": "26163638",
+          "displayName": "legendko",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Upgrade Messages For Legacy Bidder Params Location",
+      "number": 2460,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-18T16:06:35.000Z",
+      "dateUpdated": "2023-04-20T20:45:18.000Z",
+      "status": "merged",
+      "dateMerged": "2022-12-01T19:13:36.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

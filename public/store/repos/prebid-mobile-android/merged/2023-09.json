@@ -1,0 +1,395 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2023,
+    "month": 9,
+    "itemCount": 11,
+    "lastUpdated": "2025-09-02T20:49:03.483Z"
+  },
+  "items": [
+    {
+      "title": "Setting up for Release v2.1.5",
+      "number": 697,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-29T12:20:09.000Z",
+      "dateUpdated": "2023-09-29T13:24:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T13:24:46.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix for 680 NullPointerException in Requester.sendAdException",
+      "number": 692,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linean",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-19T16:57:05.000Z",
+      "dateUpdated": "2023-09-29T12:04:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T12:04:17.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Multiformat ad unit",
+      "number": 694,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-22T12:56:33.000Z",
+      "dateUpdated": "2023-09-28T16:11:54.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-28T16:11:51.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "auto detect device type",
+      "number": 695,
+      "author": {
+        "login": "github-maxime-liege",
+        "id": 56251840
+      },
+      "assignees": [
+        "github-maxime-liege"
+      ],
+      "reviewers": [
+        {
+          "login": "github-lucas-bon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-26T11:53:30.000Z",
+      "dateUpdated": "2023-09-26T13:09:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T13:09:06.000Z",
+      "commitAuthors": {
+        "56251840": {
+          "identifier": "56251840",
+          "displayName": "github-maxime-liege",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Auto detect simple device type",
+      "number": 689,
+      "author": {
+        "login": "github-maxime-liege",
+        "id": 56251840
+      },
+      "assignees": [
+        "github-maxime-liege"
+      ],
+      "reviewers": [
+        {
+          "login": "github-lucas-bon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-15T07:37:17.000Z",
+      "dateUpdated": "2023-09-26T11:52:24.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:25:57.000Z",
+      "commitAuthors": {
+        "56251840": {
+          "identifier": "56251840",
+          "displayName": "github-maxime-liege",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix for 683 ShareGeoLocation not working without precise location",
+      "number": 691,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-19T16:47:17.000Z",
+      "dateUpdated": "2023-09-20T11:38:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T11:38:07.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update compile and target version to 33; Update Kotlin plugin to 1.8.22; Update Google SDK version to 22.4.0",
+      "number": 690,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon",
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-18T12:33:16.000Z",
+      "dateUpdated": "2023-09-19T12:08:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-19T12:08:25.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix renderers key node on bid request",
+      "number": 685,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-12T14:31:18.000Z",
+      "dateUpdated": "2023-09-13T11:49:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-13T11:49:27.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Replace token field by data field on plugin renderer interface",
+      "number": 682,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [
+        "github-lucas-bon"
+      ],
+      "reviewers": [
+        {
+          "login": "github-paul-nicolas",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-05T11:38:13.000Z",
+      "dateUpdated": "2023-09-13T11:05:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-13T11:05:41.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update SDK version to 2.1.4",
+      "number": 684,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-08T18:16:09.000Z",
+      "dateUpdated": "2023-09-08T18:39:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-08T18:39:36.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Move initialization steps to background ",
+      "number": 681,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "github-lucas-bon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-05T09:59:21.000Z",
+      "dateUpdated": "2023-09-08T17:18:30.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-08T17:18:25.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

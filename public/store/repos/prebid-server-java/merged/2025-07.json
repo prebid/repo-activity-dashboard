@@ -1,0 +1,1373 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 7,
+    "itemCount": 44,
+    "lastUpdated": "2025-09-03T00:16:49.965Z"
+  },
+  "items": [
+    {
+      "title": "New module: optable-targeting",
+      "number": 3815,
+      "author": {
+        "login": "zapo",
+        "id": 550884
+      },
+      "assignees": [
+        "zapo"
+      ],
+      "reviewers": [
+        {
+          "login": "softcoder594",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-03-07T15:30:22.000Z",
+      "dateUpdated": "2025-07-30T13:50:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-30T13:50:56.000Z",
+      "commitAuthors": {
+        "softcoder594": {
+          "identifier": "softcoder594",
+          "displayName": "softcoder594",
+          "count": 46,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Revert \"ZetaGlobalSSP Adapter: Add sid parameter and audio support\"",
+      "number": 4104,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-30T13:36:48.000Z",
+      "dateUpdated": "2025-07-30T13:43:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-30T13:43:57.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheTradeDesk: Resolve AUCTION_PRICE macro",
+      "number": 4081,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-24T00:18:19.000Z",
+      "dateUpdated": "2025-07-29T12:30:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T12:30:42.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ZetaGlobalSSP Adapter: Add sid parameter and audio support",
+      "number": 4055,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-11T10:27:12.000Z",
+      "dateUpdated": "2025-07-29T12:28:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T12:28:09.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RFC 3986 compatibility as optional for HttpApplicationSettings",
+      "number": 4057,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-14T13:31:16.000Z",
+      "dateUpdated": "2025-07-29T12:26:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T12:26:58.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Madsense Adapter",
+      "number": 3972,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-26T13:26:42.000Z",
+      "dateUpdated": "2025-07-29T12:26:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T12:26:24.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Visx Adapter: Relay bid currency from bid respons",
+      "number": 4077,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-22T09:58:19.000Z",
+      "dateUpdated": "2025-07-29T12:26:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-29T12:26:13.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Akcelo Adapter",
+      "number": 4087,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-25T13:26:04.000Z",
+      "dateUpdated": "2025-07-28T15:38:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T15:38:17.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Rediads Adapter",
+      "number": 4082,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-24T13:28:56.000Z",
+      "dateUpdated": "2025-07-28T15:36:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T15:36:51.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Mediasquare Adapter",
+      "number": 4031,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-25T13:17:35.000Z",
+      "dateUpdated": "2025-07-28T15:24:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T15:24:21.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Nexx360 Adapter",
+      "number": 4053,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-09T12:37:48.000Z",
+      "dateUpdated": "2025-07-28T11:43:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:43:51.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Account config for limiting number of impressions",
+      "number": 4064,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-15T13:36:41.000Z",
+      "dateUpdated": "2025-07-28T11:42:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:42:25.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenX provide gpp params for user sync",
+      "number": 4071,
+      "author": {
+        "login": "Fuska1",
+        "id": 174440987
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "laurb9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-18T12:43:10.000Z",
+      "dateUpdated": "2025-07-28T11:39:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:38:59.000Z",
+      "commitAuthors": {
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder Usersync Skipwhen Config",
+      "number": 3974,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-27T08:58:54.000Z",
+      "dateUpdated": "2025-07-28T11:37:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:37:12.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic Adapter: Set bid.meta.mediaType=video when bid.ext.ibv=true",
+      "number": 4049,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-08T13:34:08.000Z",
+      "dateUpdated": "2025-07-28T11:37:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:59.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RichAudience Adapter: change endpoint to https",
+      "number": 4052,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-09T08:30:35.000Z",
+      "dateUpdated": "2025-07-28T11:36:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:49.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Optidigital Adapter",
+      "number": 4054,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-11T10:17:48.000Z",
+      "dateUpdated": "2025-07-28T11:36:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:37.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena Adapter: Pass full openrtb request",
+      "number": 4075,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-22T07:53:03.000Z",
+      "dateUpdated": "2025-07-28T11:36:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:28.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Stroeercore Adapter: Add adomain to bids",
+      "number": 4076,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-22T08:52:06.000Z",
+      "dateUpdated": "2025-07-28T11:36:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:20.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Zentotem Adapter",
+      "number": 4078,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-23T10:39:49.000Z",
+      "dateUpdated": "2025-07-28T11:36:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T11:36:03.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: RFC 3986 compatibility as optional for HttpApplicationSettings",
+      "number": 4069,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-17T11:51:06.000Z",
+      "dateUpdated": "2025-07-28T07:17:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-28T07:17:06.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Account config for limiting number of impressions",
+      "number": 4072,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-18T12:51:25.000Z",
+      "dateUpdated": "2025-07-25T16:43:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-25T16:43:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheTradeDesk throw error for malformed endpoint url",
+      "number": 4047,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "khang-vu-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-03T22:38:19.000Z",
+      "dateUpdated": "2025-07-24T11:56:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-24T11:56:38.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Flatads Adapter",
+      "number": 4045,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-01T12:02:42.000Z",
+      "dateUpdated": "2025-07-09T14:00:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T14:00:51.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New BidTheatre Adapter",
+      "number": 4023,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-17T08:36:52.000Z",
+      "dateUpdated": "2025-07-09T14:00:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T14:00:40.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Smoot Adapter",
+      "number": 4021,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-16T09:19:03.000Z",
+      "dateUpdated": "2025-07-09T13:45:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T13:45:53.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New AdupTech Adapter",
+      "number": 4024,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-17T13:01:48.000Z",
+      "dateUpdated": "2025-07-09T13:33:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T13:33:23.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adagio Adapter",
+      "number": 4027,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-18T09:12:25.000Z",
+      "dateUpdated": "2025-07-09T13:27:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T13:27:46.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "FreewheelSSP: new alias fwssp",
+      "number": 4019,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-13T13:32:02.000Z",
+      "dateUpdated": "2025-07-09T12:06:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T12:06:52.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Inmobi: Port usersync redirect",
+      "number": 4029,
+      "author": {
+        "login": "kim-ng93",
+        "id": 76963037
+      },
+      "assignees": [
+        "kim-ng93"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-20T21:18:32.000Z",
+      "dateUpdated": "2025-07-09T12:03:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T12:03:46.000Z",
+      "commitAuthors": {
+        "76963037": {
+          "identifier": "76963037",
+          "displayName": "kim-ng93",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add toggle to enable round-robin inet address selection of the ip address to use ",
+      "number": 4048,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-08T12:53:03.000Z",
+      "dateUpdated": "2025-07-09T09:34:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-09T09:34:07.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MobileFuse Adapter: Add usersync info",
+      "number": 4011,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T13:03:35.000Z",
+      "dateUpdated": "2025-07-08T10:39:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:39:02.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adport & Bidsmind Adapters: Change user sync urls",
+      "number": 4012,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T13:10:06.000Z",
+      "dateUpdated": "2025-07-08T10:38:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:38:55.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic Adapter: Enable Gzip compression",
+      "number": 4013,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T13:12:44.000Z",
+      "dateUpdated": "2025-07-08T10:38:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:38:26.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Colossus Adapter: Declare OpenRTB 2.6 support",
+      "number": 4014,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T13:17:16.000Z",
+      "dateUpdated": "2025-07-08T10:38:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:38:02.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Admatic Alias: Netaddiction",
+      "number": 4018,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-13T08:57:54.000Z",
+      "dateUpdated": "2025-07-08T10:37:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:37:37.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dianomi Adapter: Update user syncs to send gdpr_consent",
+      "number": 4022,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-16T13:32:10.000Z",
+      "dateUpdated": "2025-07-08T10:37:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:37:27.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Remove default maxbids value",
+      "number": 4041,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-27T09:04:58.000Z",
+      "dateUpdated": "2025-07-08T10:37:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:37:14.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Gothamads Adapter: New Intenze Alias",
+      "number": 4042,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-27T11:06:59.000Z",
+      "dateUpdated": "2025-07-08T10:36:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:36:57.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kobler Adapter: Remove sensitive device and user data",
+      "number": 4043,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-27T11:34:33.000Z",
+      "dateUpdated": "2025-07-08T10:36:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-08T10:36:49.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MobileFuse Adapter: Remove tagid_src and pub_id params",
+      "number": 3915,
+      "author": {
+        "login": "tomaszbmf",
+        "id": 142428312
+      },
+      "assignees": [
+        "tomaszbmf"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "tomaszbmf",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T16:27:50.000Z",
+      "dateUpdated": "2025-07-01T19:41:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-01T19:41:33.000Z",
+      "commitAuthors": {
+        "142428312": {
+          "identifier": "142428312",
+          "displayName": "tomaszbmf",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GumGum: Collect the ad unit name for reporting",
+      "number": 3912,
+      "author": {
+        "login": "ShayanK16GumGum",
+        "id": 186135777
+      },
+      "assignees": [
+        "ShayanK16GumGum"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T07:22:39.000Z",
+      "dateUpdated": "2025-07-01T19:41:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-01T19:41:18.000Z",
+      "commitAuthors": {
+        "ShayanK16": {
+          "identifier": "ShayanK16",
+          "displayName": "ShayanK16",
+          "count": 9,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GumGum: Enable Opt-In change notification for GumGum Adapter",
+      "number": 4006,
+      "author": {
+        "login": "sindhuja-sridharan",
+        "id": 148382298
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T21:57:10.000Z",
+      "dateUpdated": "2025-07-01T19:40:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-01T19:40:50.000Z",
+      "commitAuthors": {
+        "148382298": {
+          "identifier": "148382298",
+          "displayName": "sindhuja-sridharan",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Housekeeping: Move DB drivers to test scope",
+      "number": 4017,
+      "author": {
+        "login": "JimTharioAmazon",
+        "id": 33331284
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-12T15:46:13.000Z",
+      "dateUpdated": "2025-07-01T19:40:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-07-01T19:40:22.000Z",
+      "commitAuthors": {
+        "33331284": {
+          "identifier": "33331284",
+          "displayName": "JimTharioAmazon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

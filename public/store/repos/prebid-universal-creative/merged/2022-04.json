@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-universal-creative",
+    "year": 2022,
+    "month": 4,
+    "itemCount": 2,
+    "lastUpdated": "2025-09-03T00:26:45.905Z"
+  },
+  "items": [
+    {
+      "title": "Use MessageChannel for cross-frame messages",
+      "number": 154,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "robertrmartinez"
+      ],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-21T22:26:09.000Z",
+      "dateUpdated": "2022-10-11T07:11:54.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T16:54:28.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Upgrade dependencies make the build work on recent(ish) versions of Node",
+      "number": 159,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-23T19:54:14.000Z",
+      "dateUpdated": "2022-04-07T20:52:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-07T20:52:41.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

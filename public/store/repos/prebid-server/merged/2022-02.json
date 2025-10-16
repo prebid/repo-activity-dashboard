@@ -1,0 +1,555 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 2,
+    "itemCount": 14,
+    "lastUpdated": "2025-09-02T23:36:35.284Z"
+  },
+  "items": [
+    {
+      "title": "Single stored auction response",
+      "number": 2132,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2022-01-13T06:25:33.000Z",
+      "dateUpdated": "2023-03-13T13:55:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-01T00:14:26.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adot: add new bid param publisherPath",
+      "number": 2164,
+      "author": {
+        "login": "ramyferjaniadot",
+        "id": 90328697
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ramyferjaniadot",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-02-22T17:12:13.000Z",
+      "dateUpdated": "2022-02-28T18:18:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-28T18:18:11.000Z",
+      "commitAuthors": {
+        "90328697": {
+          "identifier": "90328697",
+          "displayName": "ramyferjaniadot",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies - Part 4",
+      "number": 2162,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-18T18:54:07.000Z",
+      "dateUpdated": "2022-03-21T20:30:44.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-24T16:15:09.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Dockerfile to use run command for chmod",
+      "number": 2163,
+      "author": {
+        "login": "mansinahar",
+        "id": 11689819
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "PENDING"
+        },
+        {
+          "login": "mansinahar",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-22T15:37:19.000Z",
+      "dateUpdated": "2022-02-22T18:29:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-22T18:29:52.000Z",
+      "commitAuthors": {
+        "11689819": {
+          "identifier": "11689819",
+          "displayName": "mansinahar",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "rubicon: adding support for in-app video",
+      "number": 2158,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-08T20:19:33.000Z",
+      "dateUpdated": "2023-03-13T13:55:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-14T20:20:20.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Address Dockerfile Security Recommendations",
+      "number": 2153,
+      "author": {
+        "login": "mansinahar",
+        "id": 11689819
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "danads-labs",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-02-07T15:44:31.000Z",
+      "dateUpdated": "2022-02-22T14:22:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-14T20:09:27.000Z",
+      "commitAuthors": {
+        "11689819": {
+          "identifier": "11689819",
+          "displayName": "mansinahar",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SomoAudience: Remove Adapter",
+      "number": 2154,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-07T17:27:48.000Z",
+      "dateUpdated": "2022-02-18T19:53:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-14T20:02:09.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "synacormedia - Update YAML with new contact email and usersync endpoint",
+      "number": 2148,
+      "author": {
+        "login": "ecammit",
+        "id": 729933
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ecammit",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-03T15:09:03.000Z",
+      "dateUpdated": "2022-02-14T18:50:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-14T18:50:10.000Z",
+      "commitAuthors": {
+        "Timothy M. Ace": {
+          "identifier": "Timothy M. Ace",
+          "displayName": "Timothy M. Ace",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Tim Ace": {
+          "identifier": "Tim Ace",
+          "displayName": "Tim Ace",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Integration Type Implementation",
+      "number": 2111,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-14T17:42:40.000Z",
+      "dateUpdated": "2022-02-14T18:44:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-14T18:44:33.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies - Part 3",
+      "number": 2151,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-04T13:55:56.000Z",
+      "dateUpdated": "2022-02-18T19:53:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-09T18:45:17.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Invibes Bid Adapter - replaced Host macro with ZoneID",
+      "number": 2141,
+      "author": {
+        "login": "rcheptanariu",
+        "id": 35690143
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-25T13:45:03.000Z",
+      "dateUpdated": "2022-02-08T22:30:04.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-08T22:30:03.000Z",
+      "commitAuthors": {
+        "35690143": {
+          "identifier": "35690143",
+          "displayName": "rcheptanariu",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheMediaGrid: support skadn field",
+      "number": 2145,
+      "author": {
+        "login": "TheMediaGrid",
+        "id": 44166371
+      },
+      "assignees": [
+        "guscarreon",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "TheMediaGrid",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-01T13:35:10.000Z",
+      "dateUpdated": "2022-02-07T20:26:37.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-07T20:26:37.000Z",
+      "commitAuthors": {
+        "44166371": {
+          "identifier": "44166371",
+          "displayName": "TheMediaGrid",
+          "count": 67,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Medianet",
+      "number": 2133,
+      "author": {
+        "login": "eshaanmangal",
+        "id": 35827250
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "eshaanmangal",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-01-13T06:40:13.000Z",
+      "dateUpdated": "2022-02-07T19:36:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-07T19:36:34.000Z",
+      "commitAuthors": {
+        "35827250": {
+          "identifier": "35827250",
+          "displayName": "eshaanmangal",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "eshaanmangal": {
+          "identifier": "eshaanmangal",
+          "displayName": "eshaanmangal",
+          "count": 13,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update Some Dependencies - Part 2",
+      "number": 2143,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-26T21:27:02.000Z",
+      "dateUpdated": "2022-02-18T19:53:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-02-01T18:30:54.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

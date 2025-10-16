@@ -1,0 +1,753 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 11,
+    "itemCount": 20,
+    "lastUpdated": "2025-09-02T23:36:35.269Z"
+  },
+  "items": [
+    {
+      "title": "PgamSSP: Add GVL vendor ID",
+      "number": 4056,
+      "author": {
+        "login": "PGAMSSP",
+        "id": 142323401
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-18T11:43:29.000Z",
+      "dateUpdated": "2024-11-26T22:28:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T22:28:48.000Z",
+      "commitAuthors": {
+        "142323401": {
+          "identifier": "142323401",
+          "displayName": "PGAMSSP",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Copper6ssp: Add GVL vendor ID",
+      "number": 4072,
+      "author": {
+        "login": "Copper6SSP",
+        "id": 172067567
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-25T12:32:32.000Z",
+      "dateUpdated": "2024-11-26T22:16:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T22:16:36.000Z",
+      "commitAuthors": {
+        "172067567": {
+          "identifier": "172067567",
+          "displayName": "Copper6SSP",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Declare support for OpenRTB 2.6",
+      "number": 4078,
+      "author": {
+        "login": "pm-isha-bharti",
+        "id": 8835973
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-26T13:54:11.000Z",
+      "dateUpdated": "2024-11-26T21:56:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:56:29.000Z",
+      "commitAuthors": {
+        "8835973": {
+          "identifier": "8835973",
+          "displayName": "pm-isha-bharti",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unruly: Remove indicated support for gzip",
+      "number": 4028,
+      "author": {
+        "login": "bhainesnexxen",
+        "id": 146981622
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T20:18:01.000Z",
+      "dateUpdated": "2024-11-26T21:40:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:40:29.000Z",
+      "commitAuthors": {
+        "Brian Haines": {
+          "identifier": "Brian Haines",
+          "displayName": "Brian Haines",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Reserve IGS name",
+      "number": 4073,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-25T14:42:17.000Z",
+      "dateUpdated": "2024-11-26T21:31:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:31:10.000Z",
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pass through unknown imp.ext values to adapters",
+      "number": 3878,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "justadreamer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T11:01:13.000Z",
+      "dateUpdated": "2024-11-26T21:13:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-26T21:13:33.000Z",
+      "commitAuthors": {
+        "341967": {
+          "identifier": "341967",
+          "displayName": "justadreamer",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "134273403": {
+          "identifier": "134273403",
+          "displayName": "AntonYPost",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: Declare support for OpenRTB 2.6",
+      "number": 4066,
+      "author": {
+        "login": "jefftmahoney",
+        "id": 2761266
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-20T19:30:11.000Z",
+      "dateUpdated": "2024-12-02T18:30:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T19:05:08.000Z",
+      "commitAuthors": {
+        "2761266": {
+          "identifier": "2761266",
+          "displayName": "jefftmahoney",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Driftpixel: Add default cookie sync endpoint",
+      "number": 3973,
+      "author": {
+        "login": "driftpixelai",
+        "id": 166716541
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T12:22:01.000Z",
+      "dateUpdated": "2024-11-22T18:01:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T18:01:56.000Z",
+      "commitAuthors": {
+        "166716541": {
+          "identifier": "166716541",
+          "displayName": "driftpixelai",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modules: Add bidder response to raw bidder response stage payload",
+      "number": 3882,
+      "author": {
+        "login": "ashishshinde-pubm",
+        "id": 109787960
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-25T12:59:31.000Z",
+      "dateUpdated": "2024-11-22T17:29:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T17:29:03.000Z",
+      "commitAuthors": {
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Floors: Modify fetchrate to usefetchdatarate",
+      "number": 3972,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T11:18:31.000Z",
+      "dateUpdated": "2024-11-22T17:15:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T17:15:27.000Z",
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix cache init and update timeouts in stored requests",
+      "number": 4027,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "SyntaxNode",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T15:53:07.000Z",
+      "dateUpdated": "2024-11-22T06:22:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T03:20:00.000Z",
+      "commitAuthors": {
+        "developer": {
+          "identifier": "developer",
+          "displayName": "developer",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AlgoriX: Add GVL vendor ID",
+      "number": 4068,
+      "author": {
+        "login": "Bugxyb",
+        "id": 6049660
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-21T12:13:27.000Z",
+      "dateUpdated": "2024-11-22T02:48:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-22T02:48:55.000Z",
+      "commitAuthors": {
+        "xunyunbo": {
+          "identifier": "xunyunbo",
+          "displayName": "xunyunbo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Pass \"req.ext.prebid.targeting.includebrandcategory\" To Bidders",
+      "number": 3817,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-23T05:08:28.000Z",
+      "dateUpdated": "2024-11-21T20:40:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-21T20:39:59.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix imp ext prebid adunitcode drop",
+      "number": 4064,
+      "author": {
+        "login": "Abyfall",
+        "id": 24632659
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Abyfall",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "System-Glitch",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-20T16:35:57.000Z",
+      "dateUpdated": "2024-11-21T16:35:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-21T16:35:11.000Z",
+      "commitAuthors": {
+        "24632659": {
+          "identifier": "24632659",
+          "displayName": "Abyfall",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Nativo",
+      "number": 3790,
+      "author": {
+        "login": "rafataveira",
+        "id": 103446145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rafataveira",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-03T06:28:54.000Z",
+      "dateUpdated": "2024-11-13T16:39:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:27:32.000Z",
+      "commitAuthors": {
+        "14280535": {
+          "identifier": "14280535",
+          "displayName": "aparekh-nativo",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "103446145": {
+          "identifier": "103446145",
+          "displayName": "rafataveira",
+          "count": 27,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Krushmedia: update user sync urls",
+      "number": 3979,
+      "author": {
+        "login": "Krushmedia",
+        "id": 71434282
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-14T10:39:34.000Z",
+      "dateUpdated": "2024-11-13T16:17:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:17:27.000Z",
+      "commitAuthors": {
+        "71434282": {
+          "identifier": "71434282",
+          "displayName": "Krushmedia",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 14,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix: Delete user.ext.prebid.buyeruids after extraction",
+      "number": 4049,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-12T13:42:49.000Z",
+      "dateUpdated": "2024-11-13T16:07:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-13T16:07:14.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IQzone: Add user sync",
+      "number": 3971,
+      "author": {
+        "login": "IQZoneAdx",
+        "id": 88879712
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-11T09:52:41.000Z",
+      "dateUpdated": "2024-11-04T21:54:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T21:54:00.000Z",
+      "commitAuthors": {
+        "88879712": {
+          "identifier": "88879712",
+          "displayName": "IQZoneAdx",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PgamSSP: Add currency converter",
+      "number": 3907,
+      "author": {
+        "login": "PGAMSSP",
+        "id": 142323401
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "PGAMSSP",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-09T10:57:23.000Z",
+      "dateUpdated": "2024-11-04T21:31:00.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T21:31:00.000Z",
+      "commitAuthors": {
+        "142323401": {
+          "identifier": "142323401",
+          "displayName": "PGAMSSP",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GumGum: Override the default currency",
+      "number": 3928,
+      "author": {
+        "login": "MartinGumGum",
+        "id": 109325501
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "MartinGumGum",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-17T21:32:59.000Z",
+      "dateUpdated": "2024-11-04T19:14:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-11-04T19:14:07.000Z",
+      "commitAuthors": {
+        "109325501": {
+          "identifier": "109325501",
+          "displayName": "MartinGumGum",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

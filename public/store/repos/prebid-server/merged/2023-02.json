@@ -1,0 +1,1152 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2023,
+    "month": 2,
+    "itemCount": 29,
+    "lastUpdated": "2025-09-02T23:36:35.282Z"
+  },
+  "items": [
+    {
+      "title": "Taboola Bid Adapter: Support page type and position, Always support event trackers",
+      "number": 2582,
+      "author": {
+        "login": "thetalkeren",
+        "id": 109023983
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "thetalkeren",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ahmadlob",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-14T11:41:26.000Z",
+      "dateUpdated": "2023-02-28T05:52:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-28T05:52:33.000Z",
+      "commitAuthors": {
+        "109217988": {
+          "identifier": "109217988",
+          "displayName": "ahmadlob",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "tal.k": {
+          "identifier": "tal.k",
+          "displayName": "tal.k",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Default imp.secure To 1",
+      "number": 2608,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-22T22:36:22.000Z",
+      "dateUpdated": "2023-04-20T20:44:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T14:42:18.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Algorix: add EUC EP",
+      "number": 2602,
+      "author": {
+        "login": "Bugxyb",
+        "id": 6049660
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-20T07:55:10.000Z",
+      "dateUpdated": "2023-02-27T10:33:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T10:33:03.000Z",
+      "commitAuthors": {
+        "xunyunbo": {
+          "identifier": "xunyunbo",
+          "displayName": "xunyunbo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Openx: Pass through imp.ext wholesale except prebid, bidder",
+      "number": 2592,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "laurb9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-16T01:44:07.000Z",
+      "dateUpdated": "2023-02-27T16:37:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T06:50:10.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo : Add user sync url for criteo",
+      "number": 2595,
+      "author": {
+        "login": "vraybaud",
+        "id": 11096082
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vraybaud",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-16T15:21:49.000Z",
+      "dateUpdated": "2023-02-27T06:43:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T06:43:37.000Z",
+      "commitAuthors": {
+        "v.raybaud": {
+          "identifier": "v.raybaud",
+          "displayName": "v.raybaud",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Undertone",
+      "number": 2527,
+      "author": {
+        "login": "tamarm-perion",
+        "id": 40788385
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "PENDING"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "tamarm-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2023-01-12T12:11:37.000Z",
+      "dateUpdated": "2023-02-27T06:35:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T06:34:53.000Z",
+      "commitAuthors": {
+        "40788385": {
+          "identifier": "40788385",
+          "displayName": "tamarm-perion",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "101515807": {
+          "identifier": "101515807",
+          "displayName": "shahaf-undertone",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "198902782": {
+          "identifier": "198902782",
+          "displayName": "tamarm-p",
+          "count": 27,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: VisibleMeasures",
+      "number": 2560,
+      "author": {
+        "login": "VisibleMeasuresHB",
+        "id": 123548546
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VisibleMeasuresHB",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-31T14:30:30.000Z",
+      "dateUpdated": "2023-02-24T09:37:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-24T09:37:26.000Z",
+      "commitAuthors": {
+        "123548546": {
+          "identifier": "123548546",
+          "displayName": "VisibleMeasuresHB",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unruly: Add support for \"siteId\" bidder parameter (different casing)",
+      "number": 2524,
+      "author": {
+        "login": "arielunruly",
+        "id": 64743745
+      },
+      "assignees": [
+        "AlexBVolcy",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "arielunruly",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-10T11:18:48.000Z",
+      "dateUpdated": "2023-02-22T16:10:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-22T16:10:07.000Z",
+      "commitAuthors": {
+        "3200929": {
+          "identifier": "3200929",
+          "displayName": "arielbouskila",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics for deprecated account config fields",
+      "number": 2538,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-23T22:58:45.000Z",
+      "dateUpdated": "2023-02-22T15:20:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-22T15:17:42.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Floors: host and account config",
+      "number": 2568,
+      "author": {
+        "login": "pm-jaydeep-mohite",
+        "id": 30924180
+      },
+      "assignees": [
+        "bsardo",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-07T10:47:22.000Z",
+      "dateUpdated": "2023-02-21T21:05:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-21T21:05:01.000Z",
+      "commitAuthors": {
+        "30924180": {
+          "identifier": "30924180",
+          "displayName": "pm-jaydeep-mohite",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "bump golang.org/x/net from 0.5.0 to 0.7.0",
+      "number": 2601,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-18T04:54:35.000Z",
+      "dateUpdated": "2023-02-21T20:52:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-21T20:52:33.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "cross-repo workflow update",
+      "number": 2596,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-16T19:30:57.000Z",
+      "dateUpdated": "2023-03-13T13:55:57.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-21T16:56:46.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "nextMillennium Bid Adapter: Add URL for sync type redirect",
+      "number": 2583,
+      "author": {
+        "login": "mifanich",
+        "id": 15190975
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-14T15:00:12.000Z",
+      "dateUpdated": "2023-02-21T07:38:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-21T07:38:07.000Z",
+      "commitAuthors": {
+        "15190975": {
+          "identifier": "15190975",
+          "displayName": "mifanich",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenRTB 2.6: Remove 2.6-x Fields",
+      "number": 2577,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-10T20:37:04.000Z",
+      "dateUpdated": "2023-04-20T20:45:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-16T15:16:59.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo : update adapter to send open rtb request",
+      "number": 2576,
+      "author": {
+        "login": "vraybaud",
+        "id": 11096082
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vraybaud",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-09T10:08:16.000Z",
+      "dateUpdated": "2023-02-16T14:09:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-16T14:09:38.000Z",
+      "commitAuthors": {
+        "v.raybaud": {
+          "identifier": "v.raybaud",
+          "displayName": "v.raybaud",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Refactor Targeting + Price Granularity JSON Unmarshal",
+      "number": 2567,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-06T20:17:17.000Z",
+      "dateUpdated": "2023-04-20T20:45:06.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-15T18:12:24.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AndBeyondMedia Adapter: add userSync",
+      "number": 2546,
+      "author": {
+        "login": "AndBeyondMediaHB",
+        "id": 107686862
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AndBeyondMediaHB",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-26T12:49:52.000Z",
+      "dateUpdated": "2023-02-15T15:51:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-15T15:51:41.000Z",
+      "commitAuthors": {
+        "107686862": {
+          "identifier": "107686862",
+          "displayName": "AndBeyondMediaHB",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato: add gpp and gpp_sid into json to ensure it is being sent",
+      "number": 2579,
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-13T05:51:30.000Z",
+      "dateUpdated": "2023-02-15T15:42:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-15T15:42:35.000Z",
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GPP passthrough for cookiesync",
+      "number": 2575,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-08T23:46:31.000Z",
+      "dateUpdated": "2023-03-13T13:55:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-13T21:43:39.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Taboola Adapter: support native ",
+      "number": 2550,
+      "author": {
+        "login": "ahmadlob",
+        "id": 109217988
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "ahmadlob",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-29T10:08:49.000Z",
+      "dateUpdated": "2023-02-13T06:11:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-13T06:11:21.000Z",
+      "commitAuthors": {
+        "109217988": {
+          "identifier": "109217988",
+          "displayName": "ahmadlob",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Logan",
+      "number": 2510,
+      "author": {
+        "login": "WlsLogan",
+        "id": 77974248
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "WlsLogan",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-29T11:05:04.000Z",
+      "dateUpdated": "2023-02-09T19:05:50.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-09T19:05:50.000Z",
+      "commitAuthors": {
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Mykhailo Yaremchuk": {
+          "identifier": "Mykhailo Yaremchuk",
+          "displayName": "Mykhailo Yaremchuk",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "skip Trivy scan for PRs with no go.mod changes",
+      "number": 2564,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-03T10:12:14.000Z",
+      "dateUpdated": "2023-03-13T13:56:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-08T14:24:06.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Initial infrastructure to support bidder openRTB support flags",
+      "number": 2540,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-24T16:23:10.000Z",
+      "dateUpdated": "2023-03-13T13:56:09.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-07T18:52:09.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PBS core: add hb_deal targeting to video endpoint response ",
+      "number": 2549,
+      "author": {
+        "login": "shahinrahbariasl",
+        "id": 56240400
+      },
+      "assignees": [
+        "mansinahar",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "shahinrahbariasl",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-27T16:16:07.000Z",
+      "dateUpdated": "2023-02-07T18:43:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-07T18:43:20.000Z",
+      "commitAuthors": {
+        "85574246": {
+          "identifier": "85574246",
+          "displayName": "shahin-rahbariasl",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Global targeting parameters for AMP",
+      "number": 2513,
+      "author": {
+        "login": "aidarbek",
+        "id": 5136677
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-03T14:23:26.000Z",
+      "dateUpdated": "2023-02-27T14:40:32.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-07T18:33:41.000Z",
+      "commitAuthors": {
+        "5136677": {
+          "identifier": "5136677",
+          "displayName": "aidarbek",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Replace `admobject` with `adm_native`",
+      "number": 2565,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-06T12:05:33.000Z",
+      "dateUpdated": "2023-02-06T17:47:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T17:47:25.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: KiviAds",
+      "number": 2446,
+      "author": {
+        "login": "KiviAds",
+        "id": 117356365
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "KiviAds",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-03T12:44:54.000Z",
+      "dateUpdated": "2023-02-06T16:15:57.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T16:15:56.000Z",
+      "commitAuthors": {
+        "117356365": {
+          "identifier": "117356365",
+          "displayName": "KiviAds",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Adsinteractive",
+      "number": 2523,
+      "author": {
+        "login": "balintvargha",
+        "id": 122350182
+      },
+      "assignees": [
+        "mansinahar",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-10T10:19:47.000Z",
+      "dateUpdated": "2023-02-06T15:45:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T14:45:08.000Z",
+      "commitAuthors": {
+        "211319188": {
+          "identifier": "211319188",
+          "displayName": "varghabalint",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bliink: endpoint set to https",
+      "number": 2553,
+      "author": {
+        "login": "LouisBillaut",
+        "id": 62858397
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-30T09:37:37.000Z",
+      "dateUpdated": "2023-02-02T18:24:31.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-02T18:24:31.000Z",
+      "commitAuthors": {
+        "62858397": {
+          "identifier": "62858397",
+          "displayName": "LouisBillaut",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "louisbillaut": {
+          "identifier": "louisbillaut",
+          "displayName": "louisbillaut",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}

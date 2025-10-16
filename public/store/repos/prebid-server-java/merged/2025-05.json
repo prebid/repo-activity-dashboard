@@ -1,0 +1,805 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 5,
+    "itemCount": 24,
+    "lastUpdated": "2025-09-03T00:16:49.967Z"
+  },
+  "items": [
+    {
+      "title": "Tests: adjust floors for bidadjustments",
+      "number": 3868,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-27T11:10:09.000Z",
+      "dateUpdated": "2025-05-30T19:39:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-30T19:38:59.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: bid adjustments matching strategy",
+      "number": 3940,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-28T12:22:17.000Z",
+      "dateUpdated": "2025-05-28T08:46:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-28T08:46:21.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Bid rounding",
+      "number": 3903,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-09T22:06:22.000Z",
+      "dateUpdated": "2025-05-23T15:35:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-23T15:35:06.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 10,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Dependencies: Change spring-boot version (#3954)\"",
+      "number": 3968,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-20T14:03:52.000Z",
+      "dateUpdated": "2025-05-20T14:05:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-20T14:05:30.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix invalid functional tests",
+      "number": 3967,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-20T11:41:31.000Z",
+      "dateUpdated": "2025-05-20T12:07:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-20T12:07:36.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Zeta Global SSP bidder port",
+      "number": 3966,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-20T07:28:17.000Z",
+      "dateUpdated": "2025-05-20T12:07:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-20T12:07:23.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix invalid GPP tests",
+      "number": 3965,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-19T16:55:51.000Z",
+      "dateUpdated": "2025-05-19T17:21:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T17:21:41.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ActivityInfrastructure: Add exception handling",
+      "number": 3961,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-15T10:00:59.000Z",
+      "dateUpdated": "2025-05-19T14:59:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T14:59:45.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floor Logs Update",
+      "number": 3950,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-05T14:32:20.000Z",
+      "dateUpdated": "2025-05-19T13:31:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T13:31:05.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dependencies: Change spring-boot version",
+      "number": 3954,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-12T07:31:52.000Z",
+      "dateUpdated": "2025-05-19T13:28:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T13:28:12.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Epsilon: native support",
+      "number": 3880,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [
+        "johnwier"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "johnwier",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-31T17:05:57.000Z",
+      "dateUpdated": "2025-05-19T12:41:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T12:41:40.000Z",
+      "commitAuthors": {
+        "johnwier": {
+          "identifier": "johnwier",
+          "displayName": "johnwier",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "johwier": {
+          "identifier": "johwier",
+          "displayName": "johwier",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Test: Invalid GPP string for request handling",
+      "number": 3958,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-13T18:43:53.000Z",
+      "dateUpdated": "2025-05-19T12:40:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T12:40:30.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Zeta Global SSP: Add sid parameter and audio support, no longer generic",
+      "number": 3865,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-25T16:28:07.000Z",
+      "dateUpdated": "2025-05-19T11:33:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T11:32:58.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Increase coverage for floors logs tests",
+      "number": 3952,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-07T20:04:24.000Z",
+      "dateUpdated": "2025-05-19T10:47:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-19T10:47:49.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Core: Pad GPP consent string sections\"",
+      "number": 3963,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-16T12:23:11.000Z",
+      "dateUpdated": "2025-05-16T15:40:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:40:06.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "InvibesBidder: fix parameter parsing issue",
+      "number": 3956,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-13T10:10:07.000Z",
+      "dateUpdated": "2025-05-16T15:39:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:39:41.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Port TheTradeDesk: Dynamically construct endpoint using supplySourceId",
+      "number": 3951,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-06T08:45:32.000Z",
+      "dateUpdated": "2025-05-16T15:39:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:39:32.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Rename `ModelGroup`",
+      "number": 3949,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-05T13:33:24.000Z",
+      "dateUpdated": "2025-05-16T15:39:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:39:21.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Support bidder specific device data",
+      "number": 3922,
+      "author": {
+        "login": "andreacastello",
+        "id": 2606638
+      },
+      "assignees": [
+        "andreacastello"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andreacastello",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-17T20:37:17.000Z",
+      "dateUpdated": "2025-05-16T15:39:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:39:10.000Z",
+      "commitAuthors": {
+        "2606638": {
+          "identifier": "2606638",
+          "displayName": "andreacastello",
+          "count": 52,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Seedtag",
+      "number": 3916,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [
+        "sangarbe"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sangarbe",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T18:18:38.000Z",
+      "dateUpdated": "2025-05-16T15:39:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:39:01.000Z",
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "NextMillennium: Adapter and server version",
+      "number": 3814,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-06T14:00:08.000Z",
+      "dateUpdated": "2025-05-16T15:38:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-16T15:38:52.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GitHub: Add TheTradeDesk codepath notifications",
+      "number": 3959,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-14T00:49:36.000Z",
+      "dateUpdated": "2025-05-14T13:45:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-14T13:45:21.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Price Floor Logs Update\"",
+      "number": 3948,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-05T12:46:56.000Z",
+      "dateUpdated": "2025-05-05T12:48:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-05T12:48:38.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Tests: fix alert.general metric conflict\"",
+      "number": 3947,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-05T12:45:48.000Z",
+      "dateUpdated": "2025-05-05T12:46:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-05-05T12:46:33.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

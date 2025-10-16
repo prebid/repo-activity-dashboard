@@ -1,0 +1,320 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 11,
+    "itemCount": 9,
+    "lastUpdated": "2025-09-03T00:16:49.985Z"
+  },
+  "items": [
+    {
+      "title": "Cookie-sync: Add request bidders shuffling",
+      "number": 2086,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-29T13:12:30.000Z",
+      "dateUpdated": "2022-11-29T14:11:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-29T14:10:59.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: refactoring, new error for limit, uids-cookie prioritization",
+      "number": 2085,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-25T11:42:47.000Z",
+      "dateUpdated": "2022-11-28T11:44:22.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-28T11:44:21.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Refine core logic of `/cookie-sync` endpoint",
+      "number": 2065,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-10-26T13:14:39.000Z",
+      "dateUpdated": "2022-11-15T17:42:34.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-15T17:42:31.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 42,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Cookie-sync refine core logic of /cookie-sync endpoint ",
+      "number": 2071,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-04T12:34:01.000Z",
+      "dateUpdated": "2022-11-15T04:22:01.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-15T04:22:01.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix for Refine FPD",
+      "number": 2073,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-07T12:59:38.000Z",
+      "dateUpdated": "2022-11-07T23:42:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-07T23:42:13.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: remove `user.data` and `site.content.data`",
+      "number": 2070,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-02T13:46:06.000Z",
+      "dateUpdated": "2022-11-07T10:47:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-07T10:47:32.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Support fpd int arrays",
+      "number": 2072,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-04T12:55:15.000Z",
+      "dateUpdated": "2022-11-07T07:10:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-07T07:10:15.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PG: Fix line items comparator",
+      "number": 2061,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-10-20T10:02:35.000Z",
+      "dateUpdated": "2022-11-01T11:19:30.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-01T11:19:29.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Onetag: Usersync update",
+      "number": 2069,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-01T09:06:45.000Z",
+      "dateUpdated": "2022-11-01T11:19:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-11-01T11:19:11.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

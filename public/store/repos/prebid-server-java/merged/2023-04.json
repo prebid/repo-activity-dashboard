@@ -1,0 +1,1084 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 4,
+    "itemCount": 33,
+    "lastUpdated": "2025-09-03T00:16:49.983Z"
+  },
+  "items": [
+    {
+      "title": "Bugfix: Fix modules test run",
+      "number": 2323,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-27T20:51:15.000Z",
+      "dateUpdated": "2023-04-28T09:34:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-28T09:34:38.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ortb-blocking: Fix unit test",
+      "number": 2321,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-27T12:00:51.000Z",
+      "dateUpdated": "2023-04-27T20:01:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-27T20:01:03.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Workaround for absent Apple ARM proto compiler",
+      "number": 2320,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-26T18:28:22.000Z",
+      "dateUpdated": "2023-04-27T08:09:09.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-27T08:09:08.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdsInteractive: Add usersync url",
+      "number": 2319,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-26T11:54:00.000Z",
+      "dateUpdated": "2023-04-26T12:55:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-26T12:55:05.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdsInteractive: Add bidder",
+      "number": 2303,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-19T15:15:21.000Z",
+      "dateUpdated": "2023-04-25T11:47:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-25T11:47:39.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdYouLike: Endpoint update",
+      "number": 2295,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-18T07:35:52.000Z",
+      "dateUpdated": "2023-04-25T11:37:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-25T11:37:46.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Add functional fix for circumvent generic alias",
+      "number": 2314,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-24T12:12:21.000Z",
+      "dateUpdated": "2023-04-24T13:10:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-24T13:10:02.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Taboola: Support insensitive tagId, gvlID",
+      "number": 2280,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-07T09:16:33.000Z",
+      "dateUpdated": "2023-04-13T15:41:58.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-13T15:41:57.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adtrgtme: Added siteId",
+      "number": 2269,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-03T17:42:35.000Z",
+      "dateUpdated": "2023-04-13T14:50:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-13T14:50:25.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests: Add alias functional tests",
+      "number": 2126,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-23T12:04:03.000Z",
+      "dateUpdated": "2023-04-13T14:23:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-13T14:23:54.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pwbid: Add new bidder",
+      "number": 2278,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-05T11:43:50.000Z",
+      "dateUpdated": "2023-04-13T13:41:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-13T13:41:33.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Yandex: Add bid adapter",
+      "number": 1801,
+      "author": {
+        "login": "DridgerVE",
+        "id": 33929311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T13:08:44.000Z",
+      "dateUpdated": "2023-04-12T06:25:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-12T06:25:16.000Z",
+      "commitAuthors": {
+        "33929311": {
+          "identifier": "33929311",
+          "displayName": "DridgerVE",
+          "count": 22,
+          "isGitHubUser": true
+        },
+        "123445033": {
+          "identifier": "123445033",
+          "displayName": "v-dridger",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Evtech: Added new bidder",
+      "number": 2265,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-03T11:08:36.000Z",
+      "dateUpdated": "2023-04-11T15:08:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T15:08:11.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Added dealId field",
+      "number": 2247,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-21T14:38:07.000Z",
+      "dateUpdated": "2023-04-11T13:52:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T13:52:31.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Oftmedia: Removed adapter",
+      "number": 2273,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-04T08:46:07.000Z",
+      "dateUpdated": "2023-04-11T13:40:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T13:40:41.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Core: Added defaultBidRequest for possible bidders",
+      "number": 2285,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-10T11:53:14.000Z",
+      "dateUpdated": "2023-04-11T12:04:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T12:04:38.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Impactify: Updated contact email address",
+      "number": 2281,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-07T12:08:02.000Z",
+      "dateUpdated": "2023-04-11T12:01:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T12:01:47.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Madvertise: Updated contact email address",
+      "number": 2282,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-07T12:12:50.000Z",
+      "dateUpdated": "2023-04-11T12:01:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-11T12:01:24.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Globalsun: Add new bidder",
+      "number": 2237,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValeriiBarsuk",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-20T14:25:29.000Z",
+      "dateUpdated": "2023-04-10T13:05:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-10T13:05:28.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Zeta Global SSP",
+      "number": 2267,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "abermanov-zeta",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-04-03T14:24:21.000Z",
+      "dateUpdated": "2023-04-20T09:47:57.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-10T12:19:31.000Z",
+      "commitAuthors": {
+        "95416296": {
+          "identifier": "95416296",
+          "displayName": "abermanov-zeta",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SeedingAlliance: Add adapter",
+      "number": 2235,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-17T13:34:06.000Z",
+      "dateUpdated": "2023-04-10T11:43:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-10T11:43:48.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Details in native parse error message",
+      "number": 2283,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-10T07:57:14.000Z",
+      "dateUpdated": "2023-04-10T11:43:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-10T11:43:03.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Telemetry jmx support",
+      "number": 2264,
+      "author": {
+        "login": "VeryExtraordinaryUsername",
+        "id": 46626223
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-03T10:08:02.000Z",
+      "dateUpdated": "2023-04-10T07:38:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-10T07:38:46.000Z",
+      "commitAuthors": {
+        "46626223": {
+          "identifier": "46626223",
+          "displayName": "VeryExtraordinaryUsername",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Infytv: Added new bidder",
+      "number": 2252,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-24T19:16:00.000Z",
+      "dateUpdated": "2023-04-07T10:34:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-07T10:34:14.000Z",
+      "commitAuthors": {
+        "Valerii Barsuk": {
+          "identifier": "Valerii Barsuk",
+          "displayName": "Valerii Barsuk",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests: fix connection exhaustion issue",
+      "number": 2271,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-03T23:40:36.000Z",
+      "dateUpdated": "2023-04-07T09:50:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-07T09:50:44.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improve Digital adapter: Publisher specific endpoint (Port from PBS Go)",
+      "number": 2240,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ishihanvcs",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-03-20T16:12:09.000Z",
+      "dateUpdated": "2023-04-05T09:08:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-05T09:08:27.000Z",
+      "commitAuthors": {
+        "93646635": {
+          "identifier": "93646635",
+          "displayName": "ishihanvcs",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Mohammad Nurul Islam Shihan": {
+          "identifier": "Mohammad Nurul Islam Shihan",
+          "displayName": "Mohammad Nurul Islam Shihan",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Cwire: update yaml",
+      "number": 2259,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-28T10:43:51.000Z",
+      "dateUpdated": "2023-04-04T13:12:30.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-04T13:12:28.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Increase functional tests coverage for `GDPR` and `CCPA`",
+      "number": 2274,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-04-04T08:55:15.000Z",
+      "dateUpdated": "2023-04-04T13:04:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-04T13:04:19.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Taboola: Add new adapter",
+      "number": 2208,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-03-03T16:29:16.000Z",
+      "dateUpdated": "2023-04-04T13:00:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-04T13:00:32.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AppNexus: Accept placementId as int or string",
+      "number": 2236,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-20T13:13:21.000Z",
+      "dateUpdated": "2023-04-04T11:26:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-04T11:26:46.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Test: Override pbs bidder config",
+      "number": 2260,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-28T13:19:39.000Z",
+      "dateUpdated": "2023-04-03T13:15:11.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-03T13:15:08.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactor database config",
+      "number": 2261,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-03-28T14:20:06.000Z",
+      "dateUpdated": "2023-04-03T10:07:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-03T09:59:48.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add mechanism for applying different retry strategies",
+      "number": 2002,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-08-23T18:12:25.000Z",
+      "dateUpdated": "2023-04-03T09:51:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-04-03T09:51:55.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

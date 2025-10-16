@@ -1,0 +1,1163 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid.github.io",
+    "year": 2023,
+    "month": 10,
+    "itemCount": 38,
+    "lastUpdated": "2025-09-02T20:35:32.294Z"
+  },
+  "items": [
+    {
+      "title": "IQX bidder adapter docs init",
+      "number": 4902,
+      "author": {
+        "login": "IQzoneIT",
+        "id": 12058382
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "IQzoneIT",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-29T09:05:56.000Z",
+      "dateUpdated": "2023-10-30T18:29:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-30T18:29:48.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "12058382": {
+          "identifier": "12058382",
+          "displayName": "IQzoneIT",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update oxxionRtdProvide.md",
+      "number": 4893,
+      "author": {
+        "login": "matthieularere-msq",
+        "id": 63732822
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-27T16:19:59.000Z",
+      "dateUpdated": "2023-10-30T18:28:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-30T18:28:34.000Z",
+      "commitAuthors": {
+        "63732822": {
+          "identifier": "63732822",
+          "displayName": "matthieularere-msq",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sparteo Bid Adapter: Add Sparteo documentation",
+      "number": 4917,
+      "author": {
+        "login": "geoffray-viously",
+        "id": 95097046
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-06T12:31:57.000Z",
+      "dateUpdated": "2023-11-16T11:36:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-30T18:26:44.000Z",
+      "commitAuthors": {
+        "95097046": {
+          "identifier": "95097046",
+          "displayName": "geoffray-viously",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump browserify-sign from 4.2.1 to 4.2.2",
+      "number": 4953,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-27T14:53:05.000Z",
+      "dateUpdated": "2023-10-30T09:14:58.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-30T09:14:57.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adagio: Add documentation for video player implementation",
+      "number": 4942,
+      "author": {
+        "login": "soupape34",
+        "id": 5301526
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-20T12:29:07.000Z",
+      "dateUpdated": "2023-10-24T23:41:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-24T23:41:50.000Z",
+      "commitAuthors": {
+        "Remi Henriot": {
+          "identifier": "Remi Henriot",
+          "displayName": "Remi Henriot",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fixed docs for Kobler adapter.",
+      "number": 4943,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-20T12:53:00.000Z",
+      "dateUpdated": "2023-10-24T23:40:46.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-24T23:40:46.000Z",
+      "commitAuthors": {
+        "30595431": {
+          "identifier": "30595431",
+          "displayName": "acsbendi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "LemmaDigital Adapter: pbs support",
+      "number": 4897,
+      "author": {
+        "login": "lm-ved",
+        "id": 105272141
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "lm-ved",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-28T10:46:11.000Z",
+      "dateUpdated": "2023-10-24T02:18:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-24T02:18:06.000Z",
+      "commitAuthors": {
+        "105272141": {
+          "identifier": "105272141",
+          "displayName": "lm-ved",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix issues with links on plugin renderer docs",
+      "number": 4945,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-21T06:51:37.000Z",
+      "dateUpdated": "2023-10-21T23:36:32.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-21T23:36:32.000Z",
+      "commitAuthors": {
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Create Android Plugin Renderer documentation",
+      "number": 4869,
+      "author": {
+        "login": "github-lucas-bon",
+        "id": 99195905
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "elneruda",
+          "state": "APPROVED"
+        },
+        {
+          "login": "github-lucas-bon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-maxime-liege",
+          "state": "APPROVED"
+        },
+        {
+          "login": "github-paul-nicolas",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-18T18:19:02.000Z",
+      "dateUpdated": "2023-10-20T16:04:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-20T16:04:12.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "99195905": {
+          "identifier": "99195905",
+          "displayName": "github-lucas-bon",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump @babel/traverse from 7.23.0 to 7.23.2",
+      "number": 4939,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-19T13:36:18.000Z",
+      "dateUpdated": "2023-10-19T18:58:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-19T18:58:41.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "rubicon: added plcmt to video",
+      "number": 4937,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-18T14:41:11.000Z",
+      "dateUpdated": "2023-10-18T14:57:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-18T14:57:47.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter Edge226",
+      "number": 4864,
+      "author": {
+        "login": "Edge226Ads",
+        "id": 144908224
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-14T16:02:54.000Z",
+      "dateUpdated": "2023-10-17T16:06:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-17T16:06:40.000Z",
+      "commitAuthors": {
+        "144908224": {
+          "identifier": "144908224",
+          "displayName": "Edge226Ads",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PBS event endpoint update",
+      "number": 4934,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-17T15:16:04.000Z",
+      "dateUpdated": "2023-10-17T15:21:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-17T15:20:06.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobile extend api for gpid and events",
+      "number": 4929,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-12T16:17:08.000Z",
+      "dateUpdated": "2023-10-13T19:27:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T19:27:07.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add Pubmatic And Openx Doc",
+      "number": 4910,
+      "author": {
+        "login": "peixunzhang",
+        "id": 74068135
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-04T08:22:56.000Z",
+      "dateUpdated": "2023-10-13T18:46:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T18:46:00.000Z",
+      "commitAuthors": {
+        "74068135": {
+          "identifier": "74068135",
+          "displayName": "peixunzhang",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "update docs to create an alias using new pattern",
+      "number": 4925,
+      "author": {
+        "login": "gargcreation1992",
+        "id": 8147531
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-12T10:49:44.000Z",
+      "dateUpdated": "2023-10-13T18:33:06.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T18:33:06.000Z",
+      "commitAuthors": {
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "update smartx documentation for support pbs",
+      "number": 4912,
+      "author": {
+        "login": "schubert-sc",
+        "id": 144821265
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-04T17:02:20.000Z",
+      "dateUpdated": "2023-10-13T17:23:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T17:23:43.000Z",
+      "commitAuthors": {
+        "144821265": {
+          "identifier": "144821265",
+          "displayName": "schubert-sc",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: make minduration recommended",
+      "number": 4915,
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-06T11:42:23.000Z",
+      "dateUpdated": "2023-10-13T17:14:09.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T17:14:09.000Z",
+      "commitAuthors": {
+        "15611775": {
+          "identifier": "15611775",
+          "displayName": "ikagotso",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Change Intro -> Introduction in Intro to Prebid Header",
+      "number": 4919,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-08T18:43:54.000Z",
+      "dateUpdated": "2023-10-13T11:37:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-13T11:37:54.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Lunamedia PBS adapter docs",
+      "number": 4916,
+      "author": {
+        "login": "lunamedia",
+        "id": 73552749
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-06T11:52:13.000Z",
+      "dateUpdated": "2023-10-12T21:10:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T21:10:41.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "73552749": {
+          "identifier": "73552749",
+          "displayName": "lunamedia",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "refine minBidCacheTTL wording",
+      "number": 4930,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-12T19:08:19.000Z",
+      "dateUpdated": "2023-10-12T19:53:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T19:53:12.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Delete removed aliases docs",
+      "number": 4839,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-05T13:40:51.000Z",
+      "dateUpdated": "2023-10-12T16:53:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T16:53:26.000Z",
+      "commitAuthors": {
+        "1539907": {
+          "identifier": "1539907",
+          "displayName": "GeneGenie",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Mobile extend api for gpid and events\"",
+      "number": 4928,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-12T16:14:40.000Z",
+      "dateUpdated": "2023-10-12T16:16:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T16:14:48.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobile extend api for gpid and events",
+      "number": 4927,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-12T14:57:56.000Z",
+      "dateUpdated": "2023-10-12T16:14:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-12T16:13:00.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update ix.md",
+      "number": 4913,
+      "author": {
+        "login": "rimaburder-index",
+        "id": 55195208
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-05T13:29:04.000Z",
+      "dateUpdated": "2023-10-11T16:59:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-11T16:59:21.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "55195208": {
+          "identifier": "55195208",
+          "displayName": "rimaburder-index",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MSPA-USNat update: add transmitTid activity",
+      "number": 4921,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-11T13:47:57.000Z",
+      "dateUpdated": "2023-10-11T13:54:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-11T13:54:40.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "NoBid Analytics: Enable download",
+      "number": 4907,
+      "author": {
+        "login": "redaguermas",
+        "id": 4294677
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-02T15:54:16.000Z",
+      "dateUpdated": "2023-10-10T01:03:46.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-06T14:44:49.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "4294677": {
+          "identifier": "4294677",
+          "displayName": "redaguermas",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Reda Guermas": {
+          "identifier": "Reda Guermas",
+          "displayName": "Reda Guermas",
+          "count": 15,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Lm kiviads",
+      "number": 4829,
+      "author": {
+        "login": "KiviAds",
+        "id": 117356365
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T11:30:18.000Z",
+      "dateUpdated": "2023-10-06T14:44:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-06T14:44:14.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "38964447": {
+          "identifier": "38964447",
+          "displayName": "jeanstemp",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "117356365": {
+          "identifier": "117356365",
+          "displayName": "KiviAds",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "Chucky-choo": {
+          "identifier": "Chucky-choo",
+          "displayName": "Chucky-choo",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Smartyads/add_prebid_server_params",
+      "number": 4898,
+      "author": {
+        "login": "rishko00",
+        "id": 43280707
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-28T15:02:42.000Z",
+      "dateUpdated": "2023-10-05T15:54:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-05T15:54:19.000Z",
+      "commitAuthors": {
+        "43280707": {
+          "identifier": "43280707",
+          "displayName": "rishko00",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "141218108": {
+          "identifier": "141218108",
+          "displayName": "vrishko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump postcss and laravel-mix",
+      "number": 4909,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-10-04T00:33:10.000Z",
+      "dateUpdated": "2023-10-05T13:57:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-05T13:55:40.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon clarify multiformat native",
+      "number": 4911,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-04T16:58:05.000Z",
+      "dateUpdated": "2023-10-04T17:01:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-04T17:00:32.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Qortex RealTime Data Module Documentation",
+      "number": 4892,
+      "author": {
+        "login": "shilohannese",
+        "id": 4607514
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "shilohannese",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-26T19:09:22.000Z",
+      "dateUpdated": "2023-10-06T17:22:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-03T19:24:32.000Z",
+      "commitAuthors": {
+        "65189775": {
+          "identifier": "65189775",
+          "displayName": "rrochwick",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "mickannese": {
+          "identifier": "mickannese",
+          "displayName": "mickannese",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "Mick": {
+          "identifier": "Mick",
+          "displayName": "Mick",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add c1x markdown back and change download to true",
+      "number": 4830,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T14:19:12.000Z",
+      "dateUpdated": "2023-10-02T14:01:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-02T14:01:28.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update incrementx filename for download page",
+      "number": 4888,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-26T12:12:11.000Z",
+      "dateUpdated": "2023-10-01T09:52:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-01T09:52:15.000Z",
+      "commitAuthors": {
+        "3444727": {
+          "identifier": "3444727",
+          "displayName": "ChrisHuie",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid SDK - multiformat ad unit for original api",
+      "number": 4889,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-26T12:16:32.000Z",
+      "dateUpdated": "2023-10-01T09:51:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-01T09:51:16.000Z",
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Replace load external js with include",
+      "number": 4906,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-01T09:17:50.000Z",
+      "dateUpdated": "2023-10-05T14:21:36.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-01T09:25:13.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Replace remaining gpp_supported doc in bidder adaptor",
+      "number": 4905,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-10-01T08:52:49.000Z",
+      "dateUpdated": "2023-10-01T09:18:32.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-01T09:18:29.000Z",
+      "commitAuthors": {
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Concert: Add supported userIds",
+      "number": 4904,
+      "author": {
+        "login": "Skitelman",
+        "id": 13573071
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-29T14:48:23.000Z",
+      "dateUpdated": "2023-10-01T08:54:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-10-01T08:54:36.000Z",
+      "commitAuthors": {
+        "13573071": {
+          "identifier": "13573071",
+          "displayName": "Skitelman",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "38990705": {
+          "identifier": "38990705",
+          "displayName": "BrettBlox",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,2626 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "lastSync": "2025-10-16T11:54:48.686Z",
+    "itemCount": 78
+  },
+  "items": [
+    {
+      "title": "New adapter: Showheroes",
+      "number": 4533,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "guscarreon",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "FilipStamenkovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-15T08:41:18.000Z",
+      "dateUpdated": "2025-10-16T09:58:39.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "12955765": {
+          "identifier": "12955765",
+          "displayName": "FilipStamenkovic",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Omnidex Adapter Update:  adding glvid",
+      "number": 4568,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-16T08:47:44.000Z",
+      "dateUpdated": "2025-10-16T08:47:44.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Goldbach",
+      "number": 4476,
+      "author": {
+        "login": "simonaebli",
+        "id": 203809323
+      },
+      "assignees": [
+        "linux019",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "simonaebli",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-07T11:50:31.000Z",
+      "dateUpdated": "2025-10-16T07:32:31.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "203809323": {
+          "identifier": "203809323",
+          "displayName": "simonaebli",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GDPR: Move enforcement processing upstream",
+      "number": 4567,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-10-15T21:16:10.000Z",
+      "dateUpdated": "2025-10-15T21:19:10.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GDPR: Purpose 7 Analytics",
+      "number": 4398,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-06-12T22:17:13.000Z",
+      "dateUpdated": "2025-10-15T20:08:36.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 19,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: DXTech",
+      "number": 4506,
+      "author": {
+        "login": "dxtech-git",
+        "id": 227376282
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "dxtech-git",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-30T21:15:02.000Z",
+      "dateUpdated": "2025-10-15T18:11:35.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "227376282": {
+          "identifier": "227376282",
+          "displayName": "dxtech-git",
+          "count": 20,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2025-10-15T14:14:21.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "191453837": {
+          "identifier": "191453837",
+          "displayName": "t-sormonte",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ProgX: Change to ProgrammaticX",
+      "number": 4456,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-29T07:46:14.000Z",
+      "dateUpdated": "2025-10-15T09:07:41.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Opamarketplace",
+      "number": 4526,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-10T11:14:55.000Z",
+      "dateUpdated": "2025-10-15T07:57:58.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Bidfuse",
+      "number": 4532,
+      "author": {
+        "login": "bidfuse",
+        "id": 227335669
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bidfuse",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-11T23:20:06.000Z",
+      "dateUpdated": "2025-10-15T07:39:23.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "227335669": {
+          "identifier": "227335669",
+          "displayName": "bidfuse",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Kanceliarenko": {
+          "identifier": "Kanceliarenko",
+          "displayName": "Kanceliarenko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Include a warning in the auction response for bidders blocked by privacy settings",
+      "number": 4537,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-18T14:27:37.000Z",
+      "dateUpdated": "2025-10-14T17:31:42.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "WIP",
+      "number": 4566,
+      "author": {
+        "login": "jeans11",
+        "id": 7700239
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-10-13T15:50:45.000Z",
+      "dateUpdated": "2025-10-14T15:46:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "7700239": {
+          "identifier": "7700239",
+          "displayName": "jeans11",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Nuba Bid Adapter: initial release",
+      "number": 4565,
+      "author": {
+        "login": "nuba-io",
+        "id": 236982007
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-10-10T11:53:14.000Z",
+      "dateUpdated": "2025-10-14T07:24:30.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "236982007": {
+          "identifier": "236982007",
+          "displayName": "nuba-io",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ResetDigital: OpenRTB",
+      "number": 4475,
+      "author": {
+        "login": "Valentino3",
+        "id": 57947465
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Valentino3",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-06T16:13:31.000Z",
+      "dateUpdated": "2025-10-13T20:38:54.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "57947465": {
+          "identifier": "57947465",
+          "displayName": "Valentino3",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobkoi: Remove url endpoint override",
+      "number": 4555,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-10-01T13:26:11.000Z",
+      "dateUpdated": "2025-10-13T19:32:56.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "26904355": {
+          "identifier": "26904355",
+          "displayName": "mbonnafon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: Gravite",
+      "number": 4547,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "teqblaze",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-26T08:11:31.000Z",
+      "dateUpdated": "2025-10-13T14:09:36.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Gravite": {
+          "identifier": "Gravite",
+          "displayName": "Gravite",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "ProgX: Change alias of",
+      "number": 4352,
+      "author": {
+        "login": "ProgrammaticX",
+        "id": 213039951
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "ProgrammaticX",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-23T13:45:28.000Z",
+      "dateUpdated": "2025-10-11T10:19:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "213039951": {
+          "identifier": "213039951",
+          "displayName": "ProgrammaticX",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Analytics: Configure per account",
+      "number": 4459,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-29T12:42:57.000Z",
+      "dateUpdated": "2025-10-11T09:55:01.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Attekmi: Remove Vimayx alias",
+      "number": 4546,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-26T06:58:46.000Z",
+      "dateUpdated": "2025-10-11T09:47:20.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AdsInteractive: Make old adapter as alias for current",
+      "number": 4359,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AdsInteractive",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-30T13:58:37.000Z",
+      "dateUpdated": "2025-10-11T09:46:53.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "180516962": {
+          "identifier": "180516962",
+          "displayName": "AdsInteractive",
+          "count": 11,
+          "isGitHubUser": true
+        },
+        "AdsInteractive": {
+          "identifier": "AdsInteractive",
+          "displayName": "AdsInteractive",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "AdOcean: Remove adapter",
+      "number": 4296,
+      "author": {
+        "login": "patryk-grzegorczyk",
+        "id": 131142828
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-11T12:39:40.000Z",
+      "dateUpdated": "2025-10-11T09:44:59.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "131142828": {
+          "identifier": "131142828",
+          "displayName": "patryk-grzegorczyk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adverxo: Remove Mobupps alias",
+      "number": 4323,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-29T07:48:42.000Z",
+      "dateUpdated": "2025-10-10T18:00:05.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "186024688": {
+          "identifier": "186024688",
+          "displayName": "dev-adverxo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Gothamads: Rename to intenze",
+      "number": 4333,
+      "author": {
+        "login": "support-gotham-ads",
+        "id": 208789779
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-08T11:39:34.000Z",
+      "dateUpdated": "2025-10-10T17:38:17.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "208789779": {
+          "identifier": "208789779",
+          "displayName": "support-gotham-ads",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Zeta Global SSP: Make sid param required",
+      "number": 3849,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "abermanov-zeta",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-08T14:04:56.000Z",
+      "dateUpdated": "2025-10-10T17:19:18.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "95416296": {
+          "identifier": "95416296",
+          "displayName": "abermanov-zeta",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: RiseMediaTech",
+      "number": 4437,
+      "author": {
+        "login": "pritishmd-talentica",
+        "id": 159415077
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "pritishmd-talentica",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-15T10:40:31.000Z",
+      "dateUpdated": "2025-10-10T05:22:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "159415077": {
+          "identifier": "159415077",
+          "displayName": "pritishmd-talentica",
+          "count": 27,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Release pipeline: modify the publish to dockerhub step",
+      "number": 4558,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-10-02T15:30:06.000Z",
+      "dateUpdated": "2025-10-09T19:16:04.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4535,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "pm-nikhil-vaidya",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "cto-clydo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-16T14:21:04.000Z",
+      "dateUpdated": "2025-10-09T15:46:29.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "232556003": {
+          "identifier": "232556003",
+          "displayName": "cto-clydo",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RTBHouse: PMP removal, `publisherId` parameter extraction",
+      "number": 4564,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-09T11:08:34.000Z",
+      "dateUpdated": "2025-10-09T11:55:48.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Boldwin Rapid",
+      "number": 4478,
+      "author": {
+        "login": "BoldwinDev",
+        "id": 225151908
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "BoldwinDev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-08T11:28:43.000Z",
+      "dateUpdated": "2025-10-09T11:50:49.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "225151908": {
+          "identifier": "225151908",
+          "displayName": "BoldwinDev",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics: Standardize adapter connection metrics name",
+      "number": 4549,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-26T15:43:42.000Z",
+      "dateUpdated": "2025-10-08T19:46:43.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Waardex",
+      "number": 4563,
+      "author": {
+        "login": "yegorWaardex",
+        "id": 59033363
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-10-08T08:03:43.000Z",
+      "dateUpdated": "2025-10-08T19:44:25.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "39600905": {
+          "identifier": "39600905",
+          "displayName": "yegorHeiz",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "BidTheatre: Update endpoint and add redirect user sync",
+      "number": 4562,
+      "author": {
+        "login": "andreasgreen",
+        "id": 1759626
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-07T12:10:59.000Z",
+      "dateUpdated": "2025-10-08T19:44:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1759626": {
+          "identifier": "1759626",
+          "displayName": "andreasgreen",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Improve Digital: Switch to HTTPS",
+      "number": 4559,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-10-03T12:00:16.000Z",
+      "dateUpdated": "2025-10-08T19:44:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "31618107": {
+          "identifier": "31618107",
+          "displayName": "jbartek25",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: appStockSSP",
+      "number": 4502,
+      "author": {
+        "login": "AppstockLTD",
+        "id": 180516379
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AppstockLTD",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-27T22:51:18.000Z",
+      "dateUpdated": "2025-10-08T19:20:24.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "180516379": {
+          "identifier": "180516379",
+          "displayName": "AppstockLTD",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Kanceliarenko": {
+          "identifier": "Kanceliarenko",
+          "displayName": "Kanceliarenko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New adapter: alliance_gravity",
+      "number": 4522,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-06T19:04:34.000Z",
+      "dateUpdated": "2025-10-07T16:53:59.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "52867769": {
+          "identifier": "52867769",
+          "displayName": "danielbaud",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Dynamic ruleset from YAML geoscopes",
+      "number": 4509,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-03T14:05:53.000Z",
+      "dateUpdated": "2025-10-06T16:13:54.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "CWire: Add userSync",
+      "number": 4516,
+      "author": {
+        "login": "roarc0",
+        "id": 130094
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "GMilica",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ruidefreitas",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-04T14:26:41.000Z",
+      "dateUpdated": "2025-10-03T18:23:42.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "130094": {
+          "identifier": "130094",
+          "displayName": "roarc0",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Missena: Update parameters and add versioning support",
+      "number": 4557,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-01T14:09:31.000Z",
+      "dateUpdated": "2025-10-03T18:22:05.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "9834101": {
+          "identifier": "9834101",
+          "displayName": "ysfbsf",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Mobkoi: Update endpoint",
+      "number": 4523,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mbonnafon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-08T09:36:24.000Z",
+      "dateUpdated": "2025-10-01T14:11:40.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "26904355": {
+          "identifier": "26904355",
+          "displayName": "mbonnafon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "A/B testing support for modules",
+      "number": 4553,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-29T12:36:07.000Z",
+      "dateUpdated": "2025-09-30T17:24:18.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "217833752": {
+          "identifier": "217833752",
+          "displayName": "postindustria-code",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: RevX",
+      "number": 4335,
+      "author": {
+        "login": "nikithacode",
+        "id": 207976706
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nikithacode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "asifrahiman",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-09T06:08:50.000Z",
+      "dateUpdated": "2025-09-30T15:33:54.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "63034195": {
+          "identifier": "63034195",
+          "displayName": "asifarahiman",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "207976706": {
+          "identifier": "207976706",
+          "displayName": "nikithacode",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New module: WURFL Device Enrichment Module",
+      "number": 4158,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "lucor",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-01-17T13:55:51.000Z",
+      "dateUpdated": "2025-09-30T14:49:55.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "313577": {
+          "identifier": "313577",
+          "displayName": "lucor",
+          "count": 23,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce SeatNonBid in hookoutcome",
+      "number": 3416,
+      "author": {
+        "login": "ashishshinde-pubm",
+        "id": 109787960
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ashishshinde-pubm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2024-01-19T03:44:31.000Z",
+      "dateUpdated": "2025-09-30T07:18:02.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PoC: global shim for logger",
+      "number": 4085,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "justadreamer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-12-04T00:35:34.000Z",
+      "dateUpdated": "2025-09-29T16:00:50.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "341967": {
+          "identifier": "341967",
+          "displayName": "justadreamer",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "22117194": {
+          "identifier": "22117194",
+          "displayName": "Marycka9",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "217833752": {
+          "identifier": "217833752",
+          "displayName": "postindustria-code",
+          "count": 20,
+          "isGitHubUser": true
+        },
+        "225151908": {
+          "identifier": "225151908",
+          "displayName": "BoldwinDev",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenWeb: Add support for test mode",
+      "number": 4458,
+      "author": {
+        "login": "Dedis23",
+        "id": 32620962
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Dedis23",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-29T09:17:38.000Z",
+      "dateUpdated": "2025-09-29T14:01:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "32620962": {
+          "identifier": "32620962",
+          "displayName": "Dedis23",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Inna Yaretsky": {
+          "identifier": "Inna Yaretsky",
+          "displayName": "Inna Yaretsky",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "fix: various fixes for scope3 RTD module",
+      "number": 4544,
+      "author": {
+        "login": "gravelg",
+        "id": 105263
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gravelg",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-24T14:17:26.000Z",
+      "dateUpdated": "2025-09-29T13:46:33.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "105263": {
+          "identifier": "105263",
+          "displayName": "gravelg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "[Issue 4114] - Changed the bidder validation process when debug mode …",
+      "number": 4508,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-02T14:28:15.000Z",
+      "dateUpdated": "2025-09-29T11:54:19.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "217833752": {
+          "identifier": "217833752",
+          "displayName": "postindustria-code",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Issue 4006 AND Issue 3913 ortb blocking module lack of media type strictness configuration for battr",
+      "number": 4551,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-29T11:50:04.000Z",
+      "dateUpdated": "2025-09-29T11:50:04.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "217833752": {
+          "identifier": "217833752",
+          "displayName": "postindustria-code",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Matterfull",
+      "number": 4343,
+      "author": {
+        "login": "Matterfull",
+        "id": 204218625
+      },
+      "assignees": [
+        "hhhjort",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "Matterfull",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-19T09:22:21.000Z",
+      "dateUpdated": "2025-10-13T12:41:16.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "165268449": {
+          "identifier": "165268449",
+          "displayName": "RainbowKill",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "204218625": {
+          "identifier": "204218625",
+          "displayName": "Matterfull",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "VolodymyrKapatsyn": {
+          "identifier": "VolodymyrKapatsyn",
+          "displayName": "VolodymyrKapatsyn",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Pass targeting to ad server from prebid request.",
+      "number": 4545,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-25T11:25:23.000Z",
+      "dateUpdated": "2025-09-25T11:26:16.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Log nested structures from the configuration",
+      "number": 4519,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2025-09-05T09:53:08.000Z",
+      "dateUpdated": "2025-09-24T15:52:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Limit number of impressions in auction request",
+      "number": 4360,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2025-06-02T12:27:20.000Z",
+      "dateUpdated": "2025-09-24T13:56:21.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Mobkoi: Set integration type field to pbs and use the correct bidder endpoint",
+      "number": 4449,
+      "author": {
+        "login": "zeeye",
+        "id": 56828723
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-07-23T20:02:30.000Z",
+      "dateUpdated": "2025-09-22T21:03:35.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "zhihuiye": {
+          "identifier": "zhihuiye",
+          "displayName": "zhihuiye",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Seedtag: Adds GPP macros on user sync url",
+      "number": 4465,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-31T07:20:40.000Z",
+      "dateUpdated": "2025-09-16T13:42:52.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Oprx",
+      "number": 4432,
+      "author": {
+        "login": "Ivan-Z-Oprx",
+        "id": 218219476
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Ivan-Z-Oprx",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-11T10:47:15.000Z",
+      "dateUpdated": "2025-09-16T13:33:48.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "218219476": {
+          "identifier": "218219476",
+          "displayName": "Ivan-Z-Oprx",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rise: Support test mode",
+      "number": 4457,
+      "author": {
+        "login": "innay",
+        "id": 6281294
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "ShriprasadM",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-29T08:03:42.000Z",
+      "dateUpdated": "2025-09-08T13:39:58.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Inna Yaretsky": {
+          "identifier": "Inna Yaretsky",
+          "displayName": "Inna Yaretsky",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "ORTB Error Response",
+      "number": 4503,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-28T09:16:16.000Z",
+      "dateUpdated": "2025-09-05T09:50:07.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Analytics: Configure per account - phase-2",
+      "number": 4515,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-04T13:24:29.000Z",
+      "dateUpdated": "2025-09-04T13:24:29.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Pixfuture",
+      "number": 4117,
+      "author": {
+        "login": "pixfuture-media",
+        "id": 84333122
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "PENDING"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pixfuture-media",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-12-19T15:23:08.000Z",
+      "dateUpdated": "2025-08-26T21:04:54.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "84333122": {
+          "identifier": "84333122",
+          "displayName": "pixfuture-media",
+          "count": 65,
+          "isGitHubUser": true
+        },
+        "root": {
+          "identifier": "root",
+          "displayName": "root",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rules engine phase 2: User sync in process auction payload",
+      "number": 4485,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-08-14T01:22:22.000Z",
+      "dateUpdated": "2025-08-25T17:41:29.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "VeronikaSolovei9": {
+          "identifier": "VeronikaSolovei9",
+          "displayName": "VeronikaSolovei9",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Events: Inject tracker if events are enabled",
+      "number": 3803,
+      "author": {
+        "login": "Pubmatic-Dhruv-Sonone",
+        "id": 83747371
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "PENDING"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-07-09T16:18:46.000Z",
+      "dateUpdated": "2025-08-10T04:23:44.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support ticker-tasks as methods on modules rather than requiring separate implementing classes.",
+      "number": 4171,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-01-21T18:16:12.000Z",
+      "dateUpdated": "2025-08-06T18:22:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORTB Blocking Module: lack of media type strictness configuration for battr",
+      "number": 4444,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-07-18T10:54:37.000Z",
+      "dateUpdated": "2025-08-06T13:12:30.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "217833752": {
+          "identifier": "217833752",
+          "displayName": "postindustria-code",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Floors: Fetchers race condition & upgrade testify",
+      "number": 4255,
+      "author": {
+        "login": "Marycka9",
+        "id": 22117194
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-03-12T10:07:33.000Z",
+      "dateUpdated": "2025-07-14T15:23:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "22117194": {
+          "identifier": "22117194",
+          "displayName": "Marycka9",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ip address geolocation lookup",
+      "number": 3887,
+      "author": {
+        "login": "aptxx",
+        "id": 2224883
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "dateCreated": "2024-08-27T11:33:22.000Z",
+      "dateUpdated": "2025-06-29T04:13:08.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "2224883": {
+          "identifier": "2224883",
+          "displayName": "aptxx",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Alias: Performist",
+      "number": 4283,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-26T17:12:48.000Z",
+      "dateUpdated": "2025-06-26T14:29:46.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "4188019": {
+          "identifier": "4188019",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Use Concurrency To Download Vendor List",
+      "number": 4005,
+      "author": {
+        "login": "zhongshixi",
+        "id": 6433625
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "zhongshixi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sebhtml",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-22T00:53:20.000Z",
+      "dateUpdated": "2025-06-11T15:47:01.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "6433625": {
+          "identifier": "6433625",
+          "displayName": "zhongshixi",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: 9dotsmedialtd",
+      "number": 4281,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "quietPusher",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-26T17:07:03.000Z",
+      "dateUpdated": "2025-05-09T12:29:25.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "4188019": {
+          "identifier": "4188019",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Update segtax logic",
+      "number": 4224,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-18T22:00:41.000Z",
+      "dateUpdated": "2025-04-28T02:09:47.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 12,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "In order to protect users of prebid-server that don't use CGO, add build flag",
+      "number": 4058,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "justadreamer",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "jwrosewell",
+          "state": "APPROVED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-18T23:53:19.000Z",
+      "dateUpdated": "2025-04-28T02:06:33.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Analytics Adapter: PubxAi",
+      "number": 3863,
+      "author": {
+        "login": "tej656",
+        "id": 139129627
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "tej656",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-16T11:23:29.000Z",
+      "dateUpdated": "2025-04-28T02:01:31.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "139129627": {
+          "identifier": "139129627",
+          "displayName": "tej656",
+          "count": 27,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix Agma Module Shutdown() test",
+      "number": 3844,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-07T02:00:17.000Z",
+      "dateUpdated": "2025-04-28T02:01:10.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Do not include hooks from disabled modules into execution plan",
+      "number": 3829,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2024-07-30T10:14:10.000Z",
+      "dateUpdated": "2025-04-28T01:59:52.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "341967": {
+          "identifier": "341967",
+          "displayName": "justadreamer",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "134273403": {
+          "identifier": "134273403",
+          "displayName": "AntonYPost",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Metrics: Open Telemetry",
+      "number": 4065,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2024-11-20T17:22:26.000Z",
+      "dateUpdated": "2025-04-24T22:38:46.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Optimize BuildBidderNameHashSet",
+      "number": 4026,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "dateCreated": "2024-10-30T15:14:27.000Z",
+      "dateUpdated": "2025-02-27T01:08:34.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "developer": {
+          "identifier": "developer",
+          "displayName": "developer",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Modules: Carry context from incoming requests to hooks",
+      "number": 4007,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2024-10-22T22:31:44.000Z",
+      "dateUpdated": "2025-02-27T01:07:33.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Capture and log bids rejected due to NBR 300 (Response-Rejected General)",
+      "number": 3807,
+      "author": {
+        "login": "ashishshinde-pubm",
+        "id": 109787960
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "ShriprasadM",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ashishshinde-pubm",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-07-12T03:23:30.000Z",
+      "dateUpdated": "2025-01-23T03:46:36.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Buzzoola",
+      "number": 2192,
+      "author": {
+        "login": "Timeryaev",
+        "id": 39266194
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-03-21T13:14:09.000Z",
+      "dateUpdated": "2025-01-22T18:59:22.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "39266194": {
+          "identifier": "39266194",
+          "displayName": "Timeryaev",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

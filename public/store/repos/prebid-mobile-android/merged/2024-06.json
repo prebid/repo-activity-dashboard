@@ -1,0 +1,284 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2024,
+    "month": 6,
+    "itemCount": 9,
+    "lastUpdated": "2025-09-02T20:49:03.482Z"
+  },
+  "items": [
+    {
+      "title": "2.2.3 Changes",
+      "number": 778,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-28T15:27:19.000Z",
+      "dateUpdated": "2024-06-28T15:45:35.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-28T15:45:34.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix: Set video dimensions based on banner configuration if not set",
+      "number": 775,
+      "author": {
+        "login": "shinwan2",
+        "id": 11733537
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        },
+        {
+          "login": "shinwan2",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-06-23T04:30:31.000Z",
+      "dateUpdated": "2024-06-25T13:44:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T13:42:22.000Z",
+      "commitAuthors": {
+        "11733537": {
+          "identifier": "11733537",
+          "displayName": "shinwan2",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Introduce `hwv` parameter ",
+      "number": 774,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [
+        "ValentinPostindustria"
+      ],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-21T11:43:27.000Z",
+      "dateUpdated": "2024-06-21T13:07:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-21T13:07:31.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add support for privacy url",
+      "number": 754,
+      "author": {
+        "login": "andriiginting",
+        "id": 22597869
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-29T01:59:38.000Z",
+      "dateUpdated": "2024-06-24T14:54:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-21T12:09:57.000Z",
+      "commitAuthors": {
+        "22597869": {
+          "identifier": "22597869",
+          "displayName": "andriiginting",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update GMA Version to 23.1.0",
+      "number": 767,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-11T17:54:12.000Z",
+      "dateUpdated": "2024-06-20T17:38:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-20T17:38:49.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 26,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Set SDK Initialization True before Completion Handler Invocation ",
+      "number": 761,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-05T14:50:20.000Z",
+      "dateUpdated": "2024-06-11T17:07:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T17:07:29.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Return error if FetchDemandResult Contains \"no internet\"",
+      "number": 760,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-04T14:36:31.000Z",
+      "dateUpdated": "2024-06-10T14:21:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-10T14:21:24.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove checks for debug",
+      "number": 759,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [
+        "jsligh"
+      ],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-03T16:38:33.000Z",
+      "dateUpdated": "2024-06-10T13:25:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-10T13:25:40.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix instl flag",
+      "number": 758,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-03T11:15:08.000Z",
+      "dateUpdated": "2024-06-04T08:02:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-03T14:14:10.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

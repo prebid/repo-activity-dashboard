@@ -1,0 +1,598 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-android",
+    "year": 2022,
+    "month": 3,
+    "itemCount": 19,
+    "lastUpdated": "2025-09-02T20:49:03.487Z"
+  },
+  "items": [
+    {
+      "title": "Updated endpoint for Xandr requests",
+      "number": 397,
+      "author": {
+        "login": "avohraa",
+        "id": 42031593
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ppuviarasu",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "Kowshickkarthick",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-25T13:53:21.000Z",
+      "dateUpdated": "2022-03-30T08:34:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-30T08:34:30.000Z",
+      "commitAuthors": {
+        "42031593": {
+          "identifier": "42031593",
+          "displayName": "avohraa",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Multi-format interstitial ad units",
+      "number": 398,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-28T18:25:32.000Z",
+      "dateUpdated": "2022-03-29T09:44:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-29T09:44:44.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: InternalTestApp from mock server to pbs on aws",
+      "number": 396,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-25T11:25:41.000Z",
+      "dateUpdated": "2022-03-25T12:06:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-25T12:06:04.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration native ads internaltestapp from mock server to pbs on aws",
+      "number": 395,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-24T13:26:04.000Z",
+      "dateUpdated": "2022-03-24T15:24:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-24T15:24:17.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unify the bid requesting for original and rendering API",
+      "number": 394,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-24T11:27:01.000Z",
+      "dateUpdated": "2022-03-24T12:36:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-24T12:36:48.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unification corrections",
+      "number": 384,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-23T17:30:23.000Z",
+      "dateUpdated": "2022-03-24T11:20:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-24T11:20:50.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Apply bid loader from rendering instead of demand fetcher",
+      "number": 381,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-22T15:26:58.000Z",
+      "dateUpdated": "2022-03-23T13:19:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-23T13:19:13.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Use unified logging system",
+      "number": 383,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-22T17:59:19.000Z",
+      "dateUpdated": "2022-03-23T11:06:49.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-23T11:06:46.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: MRAID test cases from mock server to pbs on aws",
+      "number": 380,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-21T19:34:29.000Z",
+      "dateUpdated": "2022-03-22T18:00:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-22T18:00:41.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Apply unified ad units configuration",
+      "number": 379,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-18T09:45:18.000Z",
+      "dateUpdated": "2022-03-18T16:26:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-18T16:26:28.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid configuration unification ",
+      "number": 378,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-16T15:46:26.000Z",
+      "dateUpdated": "2022-03-17T09:40:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-17T09:40:35.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: Video cases in internaltestapp from mock server  to pbs on aws",
+      "number": 377,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-15T17:35:08.000Z",
+      "dateUpdated": "2022-03-16T11:56:17.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-16T11:56:14.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Merge of core and rendering modules",
+      "number": 376,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-15T16:39:39.000Z",
+      "dateUpdated": "2022-03-16T10:28:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-16T10:28:42.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migration: video interstitial from mock server to pbs on aws",
+      "number": 375,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-11T11:35:43.000Z",
+      "dateUpdated": "2022-03-14T15:16:19.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-14T15:16:15.000Z",
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unification of configuration and targeting",
+      "number": 374,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-09T15:12:36.000Z",
+      "dateUpdated": "2022-03-10T12:18:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-10T12:18:04.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "migrated display interstitial to pbs on aws",
+      "number": 373,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-08T13:27:01.000Z",
+      "dateUpdated": "2022-03-09T14:35:45.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-09T14:35:39.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Migrate banner cases internaltestapp to pbs on aws",
+      "number": 365,
+      "author": {
+        "login": "MaksPetrukhnoPI",
+        "id": 94057303
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "ValentinPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-21T16:27:04.000Z",
+      "dateUpdated": "2022-03-07T15:28:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-07T15:28:06.000Z",
+      "commitAuthors": {
+        "94057303": {
+          "identifier": "94057303",
+          "displayName": "MaksPetrukhnoPI",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Corrections in Internal test app",
+      "number": 369,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-02T13:02:34.000Z",
+      "dateUpdated": "2022-03-02T13:53:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-02T13:53:26.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support for Seller-Defined Audiences for First Party Data",
+      "number": 366,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-02-23T09:27:46.000Z",
+      "dateUpdated": "2022-05-20T08:14:16.000Z",
+      "status": "merged",
+      "dateMerged": "2022-03-01T10:17:16.000Z",
+      "commitAuthors": {
+        "72038591": {
+          "identifier": "72038591",
+          "displayName": "ValentinPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

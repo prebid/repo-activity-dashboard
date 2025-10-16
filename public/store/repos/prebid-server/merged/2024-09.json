@@ -1,0 +1,914 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 9,
+    "itemCount": 23,
+    "lastUpdated": "2025-09-02T23:36:35.271Z"
+  },
+  "items": [
+    {
+      "title": "Removed old 2.5 location usages",
+      "number": 3923,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-16T21:13:43.000Z",
+      "dateUpdated": "2024-09-30T18:48:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-30T18:48:51.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Request validation upgrade to 2.6 locations",
+      "number": 3906,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-08T22:05:21.000Z",
+      "dateUpdated": "2024-09-25T17:04:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T17:04:51.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Streamlyn ",
+      "number": 3900,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-03T18:58:00.000Z",
+      "dateUpdated": "2024-09-25T16:08:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T16:08:24.000Z",
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GPC: Set extension based on header",
+      "number": 3895,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-31T12:12:05.000Z",
+      "dateUpdated": "2024-09-25T15:53:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T15:53:07.000Z",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "InMobi: mtype support",
+      "number": 3921,
+      "author": {
+        "login": "bkaneyama",
+        "id": 20980152
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "riteshghodrao",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bkaneyama",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-14T03:13:36.000Z",
+      "dateUpdated": "2024-09-25T14:46:01.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:46:01.000Z",
+      "commitAuthors": {
+        "20980152": {
+          "identifier": "20980152",
+          "displayName": "bkaneyama",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add docs build readme ",
+      "number": 3930,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "justadreamer",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-18T16:29:02.000Z",
+      "dateUpdated": "2024-09-25T14:22:18.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:22:18.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "51degrees module + Dockerfile + build instructions",
+      "number": 3893,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-29T11:22:13.000Z",
+      "dateUpdated": "2024-09-25T14:11:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-25T14:11:45.000Z",
+      "commitAuthors": {
+        "341967": {
+          "identifier": "341967",
+          "displayName": "justadreamer",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Upconvert to rtb 2.6 (Some tests not working, need validation to support 2.6)",
+      "number": 3914,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-11T18:57:01.000Z",
+      "dateUpdated": "2024-09-23T17:27:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-23T17:27:19.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Pass PBS host info to XAPI",
+      "number": 3903,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-04T11:57:59.000Z",
+      "dateUpdated": "2024-10-09T12:09:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-23T13:54:19.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ConnectAd: String/int fix",
+      "number": 3925,
+      "author": {
+        "login": "rtuschkany",
+        "id": 35923908
+      },
+      "assignees": [
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-17T12:29:49.000Z",
+      "dateUpdated": "2024-09-19T21:45:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-19T21:45:32.000Z",
+      "commitAuthors": {
+        "35923908": {
+          "identifier": "35923908",
+          "displayName": "rtuschkany",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Log non bid reasons in bidder framework",
+      "number": 2891,
+      "author": {
+        "login": "ShriprasadM",
+        "id": 9314645
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ShriprasadM",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ashishshinde-pubm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-shriprasad-marathe",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-03T11:21:50.000Z",
+      "dateUpdated": "2024-09-19T13:00:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-19T13:00:21.000Z",
+      "commitAuthors": {
+        "8835925": {
+          "identifier": "8835925",
+          "displayName": "pm-shriprasad-marathe",
+          "count": 34,
+          "isGitHubUser": true
+        },
+        "9314645": {
+          "identifier": "9314645",
+          "displayName": "ShriprasadM",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Return DSA in bid response",
+      "number": 3777,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-27T10:20:20.000Z",
+      "dateUpdated": "2024-09-18T11:38:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-18T11:38:50.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "LemmaDigital: change endpoint",
+      "number": 3862,
+      "author": {
+        "login": "lm-ved",
+        "id": 105272141
+      },
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "lm-ved",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "imedvedko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-16T04:51:44.000Z",
+      "dateUpdated": "2024-09-16T06:47:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-16T06:47:55.000Z",
+      "commitAuthors": {
+        "105272141": {
+          "identifier": "105272141",
+          "displayName": "lm-ved",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: TGM",
+      "number": 3848,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "apykhteyev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-07T11:32:35.000Z",
+      "dateUpdated": "2024-09-13T21:04:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-13T21:04:09.000Z",
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: AdTonos",
+      "number": 3853,
+      "author": {
+        "login": "rkaw92",
+        "id": 1665638
+      },
+      "assignees": [
+        "gargcreation1992",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "rkaw92",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-12T13:22:50.000Z",
+      "dateUpdated": "2024-09-12T19:52:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:52:51.000Z",
+      "commitAuthors": {
+        "1665638": {
+          "identifier": "1665638",
+          "displayName": "rkaw92",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update exchange json tests with correct hb_pb_cat_dur ",
+      "number": 3836,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T04:49:46.000Z",
+      "dateUpdated": "2024-09-12T21:57:47.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:34:46.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update adapter json test framework to validate BidVideo",
+      "number": 3835,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "laurb9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-31T19:29:00.000Z",
+      "dateUpdated": "2024-09-12T21:58:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-12T19:27:07.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smartx: Declare OpenRTB 2.6 support",
+      "number": 3896,
+      "author": {
+        "login": "schubert-sc",
+        "id": 144821265
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-02T09:03:24.000Z",
+      "dateUpdated": "2024-09-11T16:41:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:41:54.000Z",
+      "commitAuthors": {
+        "144821265": {
+          "identifier": "144821265",
+          "displayName": "schubert-sc",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "QT: Add tcfeu support",
+      "number": 3892,
+      "author": {
+        "login": "qt-io",
+        "id": 104574052
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-29T08:08:07.000Z",
+      "dateUpdated": "2024-09-11T16:31:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:31:58.000Z",
+      "commitAuthors": {
+        "104574052": {
+          "identifier": "104574052",
+          "displayName": "qt-io",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "qt-io": {
+          "identifier": "qt-io",
+          "displayName": "qt-io",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Playdigo: Add tcfeu support",
+      "number": 3890,
+      "author": {
+        "login": "Yanivplaydigo",
+        "id": 165155195
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-27T16:41:41.000Z",
+      "dateUpdated": "2024-09-11T16:19:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T16:19:12.000Z",
+      "commitAuthors": {
+        "165155195": {
+          "identifier": "165155195",
+          "displayName": "Yanivplaydigo",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update github.com/rs/cors to v1.11.0",
+      "number": 3884,
+      "author": {
+        "login": "ccorbo",
+        "id": 19716777
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-26T14:23:11.000Z",
+      "dateUpdated": "2024-09-11T13:53:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-11T13:53:54.000Z",
+      "commitAuthors": {
+        "19716777": {
+          "identifier": "19716777",
+          "displayName": "ccorbo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Agma: Allow app.bundle to be used as selector for apps",
+      "number": 3780,
+      "author": {
+        "login": "steffenmllr",
+        "id": 449563
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-28T12:12:58.000Z",
+      "dateUpdated": "2024-09-04T13:51:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-04T13:51:44.000Z",
+      "commitAuthors": {
+        "449563": {
+          "identifier": "449563",
+          "displayName": "steffenmllr",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactor Bid Splitter Privacy Functions",
+      "number": 3645,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-26T02:45:01.000Z",
+      "dateUpdated": "2024-09-03T18:34:57.000Z",
+      "status": "merged",
+      "dateMerged": "2024-09-03T18:34:56.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

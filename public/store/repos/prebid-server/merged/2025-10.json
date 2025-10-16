@@ -1,0 +1,284 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 10,
+    "itemCount": 7,
+    "lastUpdated": "2025-10-16T11:54:48.689Z"
+  },
+  "items": [
+    {
+      "title": "Accounts: Add coop cookiesync priority groups",
+      "number": 4561,
+      "author": {
+        "login": "hhhjort",
+        "id": 31041505
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-10-06T18:34:35.000Z",
+      "dateUpdated": "2025-10-09T18:58:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-09T18:58:29.000Z",
+      "commitAuthors": {
+        "31041505": {
+          "identifier": "31041505",
+          "displayName": "hhhjort",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Nextmillennium: New fields and adapter version update",
+      "number": 4486,
+      "author": {
+        "login": "allar15",
+        "id": 60257866
+      },
+      "assignees": [
+        "pm-nikhil-vaidya",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "allar15",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-18T12:46:01.000Z",
+      "dateUpdated": "2025-10-08T19:47:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T19:47:28.000Z",
+      "commitAuthors": {
+        "60257866": {
+          "identifier": "60257866",
+          "displayName": "allar15",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yandex: Set referer and target-ref to site.page",
+      "number": 4488,
+      "author": {
+        "login": "DiMurer",
+        "id": 3616413
+      },
+      "assignees": [
+        "guscarreon",
+        "pm-nikhil-vaidya",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-18T15:31:16.000Z",
+      "dateUpdated": "2025-10-08T19:37:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T19:37:08.000Z",
+      "commitAuthors": {
+        "3616413": {
+          "identifier": "3616413",
+          "displayName": "DiMurer",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenX: Return buyer exts in response",
+      "number": 4507,
+      "author": {
+        "login": "Fuska1",
+        "id": 174440987
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bukrain",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Fuska1",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-02T06:35:26.000Z",
+      "dateUpdated": "2025-10-08T19:21:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T19:21:47.000Z",
+      "commitAuthors": {
+        "19549178": {
+          "identifier": "19549178",
+          "displayName": "bukrain",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Connatix: Add GPP macros",
+      "number": 4525,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-09T14:27:19.000Z",
+      "dateUpdated": "2025-10-08T19:10:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T19:10:00.000Z",
+      "commitAuthors": {
+        "12138319": {
+          "identifier": "12138319",
+          "displayName": "karimMourra",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Xapads - AdKernel alias",
+      "number": 4534,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ckbo3hrk",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-15T13:26:12.000Z",
+      "dateUpdated": "2025-10-09T08:22:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T18:58:22.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MetaX: Add redirect user sync",
+      "number": 4550,
+      "author": {
+        "login": "metax-kehan",
+        "id": 115962296
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-28T09:22:46.000Z",
+      "dateUpdated": "2025-10-08T18:40:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-08T18:40:36.000Z",
+      "commitAuthors": {
+        "115962296": {
+          "identifier": "115962296",
+          "displayName": "metax-kehan",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

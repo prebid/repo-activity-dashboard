@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-universal-creative",
+    "year": 2023,
+    "month": 9,
+    "itemCount": 2,
+    "lastUpdated": "2025-09-03T00:26:45.904Z"
+  },
+  "items": [
+    {
+      "title": "Emit AD_RENDER_SUCCEEDED and AD_RENDER_FAILED for native ads",
+      "number": 199,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "musikele"
+      ],
+      "reviewers": [
+        {
+          "login": "musikele",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-12T16:49:06.000Z",
+      "dateUpdated": "2023-09-07T18:14:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T18:14:33.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Log error when renderAd lookup failed",
+      "number": 217,
+      "author": {
+        "login": "Sir-Will",
+        "id": 5961995
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-19T23:30:45.000Z",
+      "dateUpdated": "2023-09-08T19:15:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T13:48:48.000Z",
+      "commitAuthors": {
+        "5961995": {
+          "identifier": "5961995",
+          "displayName": "Sir-Will",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

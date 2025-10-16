@@ -1,0 +1,780 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 7,
+    "itemCount": 25,
+    "lastUpdated": "2025-09-03T00:16:49.981Z"
+  },
+  "items": [
+    {
+      "title": "Documentation: How to run unit tests",
+      "number": 2477,
+      "author": {
+        "login": "maxime-dupuis",
+        "id": 118775839
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-04T19:54:35.000Z",
+      "dateUpdated": "2023-07-24T13:24:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-24T08:22:49.000Z",
+      "commitAuthors": {
+        "Maxime Dupuis": {
+          "identifier": "Maxime Dupuis",
+          "displayName": "Maxime Dupuis",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: Split multiformat bid request into 1 bid request per media type",
+      "number": 2476,
+      "author": {
+        "login": "maxime-dupuis",
+        "id": 118775839
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-04T19:37:22.000Z",
+      "dateUpdated": "2023-07-24T13:20:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-24T08:20:39.000Z",
+      "commitAuthors": {
+        "Maxime Dupuis": {
+          "identifier": "Maxime Dupuis",
+          "displayName": "Maxime Dupuis",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "fixing inmobi contact email",
+      "number": 2513,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-21T14:54:17.000Z",
+      "dateUpdated": "2023-07-24T08:19:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-24T08:19:03.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix for currency conversion",
+      "number": 2436,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-15T11:25:36.000Z",
+      "dateUpdated": "2023-07-13T12:27:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T12:27:20.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 24,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update connection reset filtering expression",
+      "number": 2491,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-07T14:47:48.000Z",
+      "dateUpdated": "2023-07-13T12:26:31.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T12:26:30.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Aidem: Bidder implementation",
+      "number": 2496,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-10T16:24:24.000Z",
+      "dateUpdated": "2023-07-13T12:07:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T12:07:01.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Consumable: Add `gpp`, `gpp_sid` support",
+      "number": 2499,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-12T14:53:02.000Z",
+      "dateUpdated": "2023-07-13T12:06:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T12:06:34.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Added note IMDS sync note",
+      "number": 2500,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ecammit",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-12T20:24:30.000Z",
+      "dateUpdated": "2023-07-13T10:45:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T10:45:14.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX: Add `gpp`, `gpp_sid` support",
+      "number": 2498,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-12T13:38:45.000Z",
+      "dateUpdated": "2023-07-13T10:36:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T10:36:25.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift: Add `gpp`, `gpp_sid` support",
+      "number": 2497,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-12T13:19:28.000Z",
+      "dateUpdated": "2023-07-13T10:35:53.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-13T10:35:52.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for `/setuid` endpoint",
+      "number": 2490,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-07T10:59:31.000Z",
+      "dateUpdated": "2023-07-12T12:07:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-12T12:07:00.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Checkstyle: Add rule for mandatory final keyword",
+      "number": 2475,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-04T11:07:59.000Z",
+      "dateUpdated": "2023-07-12T12:05:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-12T12:05:37.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bluesea: Add adapter",
+      "number": 2493,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-08T15:07:22.000Z",
+      "dateUpdated": "2023-07-12T11:49:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-12T11:49:14.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fluky integration tests fix",
+      "number": 2488,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-07T09:38:17.000Z",
+      "dateUpdated": "2023-07-12T11:39:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-12T11:27:40.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Synacormedia: Renames to \"imds\", mirrors prebid-server-go features, adds GPP macros",
+      "number": 2371,
+      "author": {
+        "login": "ecammit",
+        "id": 729933
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ecammit",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-05-19T14:16:29.000Z",
+      "dateUpdated": "2023-07-11T11:54:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-11T11:54:55.000Z",
+      "commitAuthors": {
+        "729933": {
+          "identifier": "729933",
+          "displayName": "ecammit",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Timothy M. Ace": {
+          "identifier": "Timothy M. Ace",
+          "displayName": "Timothy M. Ace",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bump h2 from 2.1.214 to 2.2.220",
+      "number": 2492,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-07T21:59:08.000Z",
+      "dateUpdated": "2023-07-11T11:53:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-11T11:53:27.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TCF: Vendor list updates",
+      "number": 2441,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-19T12:20:55.000Z",
+      "dateUpdated": "2023-07-05T10:38:11.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-05T10:38:10.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump jetty-server from 9.4.48.v20220622 to 9.4.51.v20230217",
+      "number": 2430,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-13T23:20:03.000Z",
+      "dateUpdated": "2023-07-05T09:17:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-05T09:17:49.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Update exist functional tests with mock vendor list",
+      "number": 2478,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-04T21:12:24.000Z",
+      "dateUpdated": "2023-07-05T09:16:53.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-05T09:16:52.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ortb: Add missing fields",
+      "number": 2343,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-05T12:00:30.000Z",
+      "dateUpdated": "2023-07-04T12:57:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-04T12:57:24.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Removal of Brightroll bidder.",
+      "number": 2474,
+      "author": {
+        "login": "radubarbos",
+        "id": 3379075
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-04T06:48:38.000Z",
+      "dateUpdated": "2023-07-04T12:57:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-04T12:57:02.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Refactoring GVL V3 functional tests",
+      "number": 2473,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-07-03T18:21:28.000Z",
+      "dateUpdated": "2023-07-04T10:22:31.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-04T10:22:29.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": " New bidder : Added Preciso bidder",
+      "number": 2433,
+      "author": {
+        "login": "PrecisoSRL",
+        "id": 134591565
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "PrecisoSRL",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-15T05:16:47.000Z",
+      "dateUpdated": "2023-07-04T09:12:50.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-04T09:12:49.000Z",
+      "commitAuthors": {
+        "134591565": {
+          "identifier": "134591565",
+          "displayName": "PrecisoSRL",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "137479857": {
+          "identifier": "137479857",
+          "displayName": "NikhilGopalChennissery",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Usersync gpp support",
+      "number": 2470,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-30T12:25:17.000Z",
+      "dateUpdated": "2023-07-03T10:24:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-03T10:24:32.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Change Adhese bidder to use /openrtb2 endpoint",
+      "number": 2447,
+      "author": {
+        "login": "karol-adhese",
+        "id": 91728190
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "JakubKAdhese",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-21T08:40:58.000Z",
+      "dateUpdated": "2023-07-03T10:23:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-07-03T10:23:22.000Z",
+      "commitAuthors": {
+        "91728190": {
+          "identifier": "91728190",
+          "displayName": "karol-adhese",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

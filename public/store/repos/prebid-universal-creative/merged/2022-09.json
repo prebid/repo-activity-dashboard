@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-universal-creative",
+    "year": 2022,
+    "month": 9,
+    "itemCount": 3,
+    "lastUpdated": "2025-09-03T00:26:45.904Z"
+  },
+  "items": [
+    {
+      "title": "Native ortb",
+      "number": 150,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "FilipStamenkovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "musikele",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2021-12-17T15:56:52.000Z",
+      "dateUpdated": "2023-08-04T14:07:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-14T16:05:34.000Z",
+      "commitAuthors": {
+        "2239793": {
+          "identifier": "2239793",
+          "displayName": "musikele",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "12955765": {
+          "identifier": "12955765",
+          "displayName": "FilipStamenkovic",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "Michele Nasti": {
+          "identifier": "Michele Nasti",
+          "displayName": "Michele Nasti",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Bump yargs-parser from 5.0.0 to 5.0.1",
+      "number": 164,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-03-11T16:01:37.000Z",
+      "dateUpdated": "2022-09-12T19:03:40.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-12T19:03:32.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix bugs / tests with empty string default for missing assets",
+      "number": 178,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "musikele"
+      ],
+      "reviewers": [
+        {
+          "login": "musikele",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-08T16:07:10.000Z",
+      "dateUpdated": "2022-09-12T18:42:25.000Z",
+      "status": "merged",
+      "dateMerged": "2022-09-12T18:42:25.000Z",
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

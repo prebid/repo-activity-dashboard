@@ -1,0 +1,514 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2022,
+    "month": 4,
+    "itemCount": 13,
+    "lastUpdated": "2025-09-02T23:36:35.283Z"
+  },
+  "items": [
+    {
+      "title": "yahoossp:  Enabled by default with a generic endpoint.",
+      "number": 2224,
+      "author": {
+        "login": "oath-jac",
+        "id": 45564796
+      },
+      "assignees": [
+        "mansinahar",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-15T18:55:17.000Z",
+      "dateUpdated": "2022-04-26T16:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-26T16:14:21.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Add userSync redirect url",
+      "number": 2221,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-04-14T08:53:07.000Z",
+      "dateUpdated": "2022-05-02T09:42:15.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T20:19:24.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix CVE-2022-27191",
+      "number": 2229,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-20T16:50:06.000Z",
+      "dateUpdated": "2022-06-10T19:06:50.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T17:58:39.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AMX Adapter: support native format",
+      "number": 2220,
+      "author": {
+        "login": "nickjacob",
+        "id": 1192267
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "mansinahar"
+      ],
+      "reviewers": [
+        {
+          "login": "mansinahar",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-13T21:22:44.000Z",
+      "dateUpdated": "2022-04-25T17:50:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T17:50:42.000Z",
+      "commitAuthors": {
+        "1192267": {
+          "identifier": "1192267",
+          "displayName": "nickjacob",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Colossus Bid Adapter: add new param",
+      "number": 2205,
+      "author": {
+        "login": "HuddledMasses",
+        "id": 26742091
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "HuddledMasses",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-25T17:50:27.000Z",
+      "dateUpdated": "2022-04-25T17:45:10.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T17:45:09.000Z",
+      "commitAuthors": {
+        "Aiholkin": {
+          "identifier": "Aiholkin",
+          "displayName": "Aiholkin",
+          "count": 22,
+          "isGitHubUser": false
+        },
+        "Bill Newman": {
+          "identifier": "Bill Newman",
+          "displayName": "Bill Newman",
+          "count": 9,
+          "isGitHubUser": false
+        },
+        "HuddledMasses": {
+          "identifier": "HuddledMasses",
+          "displayName": "HuddledMasses",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Initialize GDPR fields in the AMP and Video endpoints",
+      "number": 2222,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-14T17:43:07.000Z",
+      "dateUpdated": "2022-04-21T17:39:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T17:39:50.000Z",
+      "commitAuthors": {
+        "Gus Carreon": {
+          "identifier": "Gus Carreon",
+          "displayName": "Gus Carreon",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Improve Digital adapter: Google additional consent support",
+      "number": 2202,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "samiul-shanto",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-24T13:36:01.000Z",
+      "dateUpdated": "2022-04-13T17:07:33.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-13T17:07:33.000Z",
+      "commitAuthors": {
+        "93644987": {
+          "identifier": "93644987",
+          "displayName": "samiul-shanto",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "First party data fix for resolved request",
+      "number": 2196,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-22T01:04:56.000Z",
+      "dateUpdated": "2023-03-13T13:55:23.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-12T17:09:44.000Z",
+      "commitAuthors": {
+        "vsolovei": {
+          "identifier": "vsolovei",
+          "displayName": "vsolovei",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Yieldlab: Fix GDPR handling for AMP",
+      "number": 2213,
+      "author": {
+        "login": "mirkorean",
+        "id": 3244291
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T12:11:50.000Z",
+      "dateUpdated": "2022-04-07T17:11:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-07T17:11:41.000Z",
+      "commitAuthors": {
+        "Mirko Feddern": {
+          "identifier": "Mirko Feddern",
+          "displayName": "Mirko Feddern",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "GDPR: Add account-level purpose and feature overrides",
+      "number": 2146,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "Jmp24",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-02-03T03:35:41.000Z",
+      "dateUpdated": "2022-04-05T15:48:47.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T15:48:46.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: add \"acat\" parameter",
+      "number": 2201,
+      "author": {
+        "login": "pm-nilesh-chate",
+        "id": 97721111
+      },
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nilesh-chate",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-23T14:27:22.000Z",
+      "dateUpdated": "2022-05-02T09:42:05.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T17:17:06.000Z",
+      "commitAuthors": {
+        "97721111": {
+          "identifier": "97721111",
+          "displayName": "pm-nilesh-chate",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Restrictions for UUID Generation For Stored Bid Requests",
+      "number": 2203,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-25T01:15:58.000Z",
+      "dateUpdated": "2022-04-04T15:02:06.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T15:02:05.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Apply new Truncate Targeting Config to Key",
+      "number": 2204,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-25T01:24:57.000Z",
+      "dateUpdated": "2022-04-01T19:50:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-01T19:50:29.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1049 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 12,
+    "itemCount": 26,
+    "lastUpdated": "2025-10-16T11:54:48.696Z"
+  },
+  "items": [
+    {
+      "title": "Smarthub: Update to Attekmi Endpoint",
+      "number": 4047,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-10T18:26:48.000Z",
+      "dateUpdated": "2024-12-16T18:56:24.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:56:24.000Z",
+      "commitAuthors": {
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adding stale PR workflow",
+      "number": 4098,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-11T14:07:06.000Z",
+      "dateUpdated": "2024-12-16T18:41:39.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:41:39.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Remove empty prebid object from failing tests",
+      "number": 4109,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-16T14:50:24.000Z",
+      "dateUpdated": "2024-12-16T18:03:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T18:03:40.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Remove req.ext.prebid from bid requests",
+      "number": 4092,
+      "author": {
+        "login": "pm-viral-vala",
+        "id": 63396712
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-viral-vala",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-06T09:18:39.000Z",
+      "dateUpdated": "2024-12-16T14:09:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:09:06.000Z",
+      "commitAuthors": {
+        "63396712": {
+          "identifier": "63396712",
+          "displayName": "pm-viral-vala",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MetaX: Add BidVideo for video ads",
+      "number": 4095,
+      "author": {
+        "login": "metax-kehan",
+        "id": 115962296
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "metax-kehan",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-10T07:05:07.000Z",
+      "dateUpdated": "2024-12-16T14:01:34.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-16T14:01:34.000Z",
+      "commitAuthors": {
+        "115962296": {
+          "identifier": "115962296",
+          "displayName": "metax-kehan",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenRTB 2.6-202402 + OpenRTB 2.6-202409 Field Support",
+      "number": 4100,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-12T21:34:47.000Z",
+      "dateUpdated": "2025-10-07T20:40:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T23:08:55.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update code-reviews.md",
+      "number": 3905,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-06T14:29:53.000Z",
+      "dateUpdated": "2024-12-13T19:27:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T19:27:12.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Older devices are sending \"gpc\": 1 and this can't marshal.",
+      "number": 4070,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-22T00:00:19.000Z",
+      "dateUpdated": "2024-12-13T19:25:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T19:25:40.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Medianet: Add iframe sync",
+      "number": 4081,
+      "author": {
+        "login": "rishi-parmar",
+        "id": 189334788
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rishi-parmar",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-11-28T10:49:21.000Z",
+      "dateUpdated": "2024-12-13T16:46:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T16:46:11.000Z",
+      "commitAuthors": {
+        "189334788": {
+          "identifier": "189334788",
+          "displayName": "rishi-parmar",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: No longer copy certain FPD fields",
+      "number": 3919,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-13T11:49:29.000Z",
+      "dateUpdated": "2024-12-13T02:23:42.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T02:23:41.000Z",
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Update video size-id logic",
+      "number": 3917,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-13T10:49:11.000Z",
+      "dateUpdated": "2024-12-13T02:11:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-13T02:11:51.000Z",
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Use format=prebidServer on adserver requests",
+      "number": 4094,
+      "author": {
+        "login": "antosarho",
+        "id": 2877398
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-10T04:05:04.000Z",
+      "dateUpdated": "2024-12-12T21:53:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:53:04.000Z",
+      "commitAuthors": {
+        "2877398": {
+          "identifier": "2877398",
+          "displayName": "antosarho",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump golang.org/x/crypto from 0.21.0 to 0.31.0",
+      "number": 4099,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-12-11T23:53:13.000Z",
+      "dateUpdated": "2024-12-12T21:42:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:42:20.000Z",
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Insticator",
+      "number": 3806,
+      "author": {
+        "login": "shubhamc-ins",
+        "id": 127132399
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "PENDING"
+        },
+        {
+          "login": "shubhamc-ins",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2024-07-10T18:31:01.000Z",
+      "dateUpdated": "2024-12-12T21:41:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-12T21:41:04.000Z",
+      "commitAuthors": {
+        "127132399": {
+          "identifier": "127132399",
+          "displayName": "shubhamc-ins",
+          "count": 19,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Flipp: use height value from server response",
+      "number": 3940,
+      "author": {
+        "login": "MishelleBit",
+        "id": 169296245
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-25T17:40:47.000Z",
+      "dateUpdated": "2024-12-10T22:29:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T22:29:11.000Z",
+      "commitAuthors": {
+        "230002709": {
+          "identifier": "230002709",
+          "displayName": "mishellebitman222",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Blue: Add placementId bidder param",
+      "number": 4051,
+      "author": {
+        "login": "samuelfabel",
+        "id": 12991852
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "samuelfabel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-12T19:45:51.000Z",
+      "dateUpdated": "2025-02-06T13:43:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T02:25:25.000Z",
+      "commitAuthors": {
+        "12991852": {
+          "identifier": "12991852",
+          "displayName": "samuelfabel",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "111318359": {
+          "identifier": "111318359",
+          "displayName": "samuelfabelopencircle",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Equativ: SmartAdserver alias with update to use mtype",
+      "number": 4045,
+      "author": {
+        "login": "rneuplanche",
+        "id": 148577486
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "mdaddario-STR",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rneuplanche",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-08T18:22:48.000Z",
+      "dateUpdated": "2024-12-10T09:19:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T02:05:09.000Z",
+      "commitAuthors": {
+        "148577486": {
+          "identifier": "148577486",
+          "displayName": "rneuplanche",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rise: Update bidder info yaml",
+      "number": 4039,
+      "author": {
+        "login": "zkosanovic",
+        "id": 41286499
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "zkosanovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-05T10:57:59.000Z",
+      "dateUpdated": "2024-12-10T01:55:33.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:55:33.000Z",
+      "commitAuthors": {
+        "41286499": {
+          "identifier": "41286499",
+          "displayName": "zkosanovic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Zdravko Kosanovic": {
+          "identifier": "Zdravko Kosanovic",
+          "displayName": "Zdravko Kosanovic",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Forward displaymanager and displaymanagerver from app ext",
+      "number": 4000,
+      "author": {
+        "login": "AvinashKapre",
+        "id": 112699665
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AvinashKapre",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-20T10:33:46.000Z",
+      "dateUpdated": "2024-12-10T01:47:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:47:49.000Z",
+      "commitAuthors": {
+        "112699665": {
+          "identifier": "112699665",
+          "displayName": "AvinashKapre",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Conversant: Enable audio requests",
+      "number": 3996,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "johnwier",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-18T16:27:54.000Z",
+      "dateUpdated": "2024-12-10T01:40:45.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:40:45.000Z",
+      "commitAuthors": {
+        "johwier": {
+          "identifier": "johwier",
+          "displayName": "johwier",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Smaato: Send imp.ext object entirely",
+      "number": 3995,
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "eros902002",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-10-18T14:12:57.000Z",
+      "dateUpdated": "2024-12-10T09:07:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:27:56.000Z",
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adkernel: rxnetwork alias",
+      "number": 3956,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ckbo3hrk",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-07T09:29:28.000Z",
+      "dateUpdated": "2024-12-12T08:28:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:14:28.000Z",
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Add bid.ext.prebid.meta tests",
+      "number": 3949,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-01T09:37:34.000Z",
+      "dateUpdated": "2024-12-10T01:04:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T01:04:04.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Silvermob: Use mtype and add global host",
+      "number": 3936,
+      "author": {
+        "login": "freemmy",
+        "id": 1087285
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "freemmy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-24T13:40:44.000Z",
+      "dateUpdated": "2024-12-10T00:51:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T00:51:23.000Z",
+      "commitAuthors": {
+        "1087285": {
+          "identifier": "1087285",
+          "displayName": "freemmy",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Connatix",
+      "number": 3916,
+      "author": {
+        "login": "patrickszeleczki-cnx",
+        "id": 177103545
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patrickszeleczki-cnx",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "karimMourra",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-09-12T14:47:25.000Z",
+      "dateUpdated": "2024-12-10T00:01:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-10T00:01:38.000Z",
+      "commitAuthors": {
+        "177103545": {
+          "identifier": "177103545",
+          "displayName": "patrickszeleczki-cnx",
+          "count": 36,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adf: Update cookie matching endpoint domain",
+      "number": 3585,
+      "author": {
+        "login": "braizhas",
+        "id": 4699750
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "braizhas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-03-22T15:24:33.000Z",
+      "dateUpdated": "2024-12-09T23:51:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-12-09T23:51:40.000Z",
+      "commitAuthors": {
+        "4699750": {
+          "identifier": "4699750",
+          "displayName": "braizhas",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1140 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 3,
+    "itemCount": 29,
+    "lastUpdated": "2025-09-22T16:14:59.067Z"
+  },
+  "items": [
+    {
+      "title": "Run actions workflow jobs on ubuntu-latest",
+      "number": 4251,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-10T18:18:04.000Z",
+      "dateUpdated": "2025-03-25T12:15:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-25T12:15:47.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update dockerfile to use Ubuntu 22.04 as base image",
+      "number": 4252,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-10T18:18:22.000Z",
+      "dateUpdated": "2025-03-24T20:47:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T20:47:35.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dockerfile vulnerabilities fixes",
+      "number": 4270,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-19T23:03:17.000Z",
+      "dateUpdated": "2025-03-24T17:07:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T17:07:37.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Nextmillennium: Add gzip compression",
+      "number": 4261,
+      "author": {
+        "login": "JacobKlein26",
+        "id": 42449375
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-13T20:19:49.000Z",
+      "dateUpdated": "2025-03-24T16:50:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T16:50:55.000Z",
+      "commitAuthors": {
+        "Yakov Klein": {
+          "identifier": "Yakov Klein",
+          "displayName": "Yakov Klein",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "OpenX: Determine bid type from bid.mtype",
+      "number": 4241,
+      "author": {
+        "login": "gmiedlar-ox",
+        "id": 155444733
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ShriprasadM",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-27T13:48:51.000Z",
+      "dateUpdated": "2025-03-24T16:42:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T16:42:21.000Z",
+      "commitAuthors": {
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Yobee - Admatic alias",
+      "number": 4217,
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T07:55:32.000Z",
+      "dateUpdated": "2025-03-24T16:30:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T16:30:58.000Z",
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 39,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 43,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smilewanted: change endpoint to HTTPS",
+      "number": 4269,
+      "author": {
+        "login": "QuentinGallard",
+        "id": 1264024
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-19T15:17:28.000Z",
+      "dateUpdated": "2025-03-24T15:50:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T15:50:37.000Z",
+      "commitAuthors": {
+        "1264024": {
+          "identifier": "1264024",
+          "displayName": "QuentinGallard",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove invalid user EIDs and UIDs from bid request",
+      "number": 3891,
+      "author": {
+        "login": "Pubmatic-Supriya-Patil",
+        "id": 131644110
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Pubmatic-Supriya-Patil",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-28T06:08:01.000Z",
+      "dateUpdated": "2025-03-24T13:59:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-24T13:59:24.000Z",
+      "commitAuthors": {
+        "131644110": {
+          "identifier": "131644110",
+          "displayName": "Pubmatic-Supriya-Patil",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bump golang.org/x/net from 0.33.0 to 0.36.0",
+      "number": 4259,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-13T01:41:50.000Z",
+      "dateUpdated": "2025-03-20T19:20:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-20T19:20:09.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Currency: Common currency reference conversion",
+      "number": 4205,
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sigma-software-prebid",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-13T13:35:42.000Z",
+      "dateUpdated": "2025-08-29T15:48:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-20T18:37:30.000Z",
+      "commitAuthors": {
+        "196663574": {
+          "identifier": "196663574",
+          "displayName": "sigma-software-prebid",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Connatix: Enhance endpoint with DC",
+      "number": 4219,
+      "author": {
+        "login": "monicaroxanabota",
+        "id": 55977025
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "karimMourra",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "monicaroxanabota",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-14T12:02:40.000Z",
+      "dateUpdated": "2025-03-14T14:01:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-14T14:01:32.000Z",
+      "commitAuthors": {
+        "55977025": {
+          "identifier": "55977025",
+          "displayName": "monicaroxanabota",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Admatic GMBH - Admatic alias",
+      "number": 4216,
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "farukcam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T07:50:36.000Z",
+      "dateUpdated": "2025-03-13T15:08:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T15:08:59.000Z",
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 38,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 44,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Upgrade jsonpatch to v5",
+      "number": 4071,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-11-22T04:03:19.000Z",
+      "dateUpdated": "2025-03-13T14:36:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T14:36:38.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Monetix Ads - Admatic alias",
+      "number": 4215,
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "farukcam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T07:46:33.000Z",
+      "dateUpdated": "2025-03-13T14:24:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T14:24:27.000Z",
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 38,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 42,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Pixad - Admatic alias",
+      "number": 4214,
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "farukcam",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T07:43:09.000Z",
+      "dateUpdated": "2025-03-13T13:31:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-13T13:31:30.000Z",
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 37,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 41,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update codepath-notification",
+      "number": 4245,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-04T21:31:48.000Z",
+      "dateUpdated": "2025-03-12T17:27:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-12T17:27:50.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IIon: Add GVL ID",
+      "number": 4253,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-11T11:48:08.000Z",
+      "dateUpdated": "2025-03-11T18:54:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T18:54:16.000Z",
+      "commitAuthors": {
+        "4188019": {
+          "identifier": "4188019",
+          "displayName": "apykhteyev",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Trustedstack: Add iframe usersync",
+      "number": 4222,
+      "author": {
+        "login": "product-trustedstack",
+        "id": 141160331
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-18T13:53:44.000Z",
+      "dateUpdated": "2025-03-11T18:41:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T18:41:03.000Z",
+      "commitAuthors": {
+        "141160331": {
+          "identifier": "141160331",
+          "displayName": "product-trustedstack",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Alkimi: Add imp extension support",
+      "number": 4213,
+      "author": {
+        "login": "kalidas-alkimi",
+        "id": 92875788
+      },
+      "assignees": [
+        "guscarreon",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "kalidas-alkimi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T20:46:50.000Z",
+      "dateUpdated": "2025-03-11T18:11:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T18:11:12.000Z",
+      "commitAuthors": {
+        "32703851": {
+          "identifier": "32703851",
+          "displayName": "pro-nsk",
+          "count": 83,
+          "isGitHubUser": true
+        },
+        "87458443": {
+          "identifier": "87458443",
+          "displayName": "abalalaev",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "Kalidas": {
+          "identifier": "Kalidas",
+          "displayName": "Kalidas",
+          "count": 9,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Velonium - Limelight Alias",
+      "number": 4212,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T18:25:16.000Z",
+      "dateUpdated": "2025-03-11T17:32:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T17:32:31.000Z",
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Aidem: Support only banner and video formats",
+      "number": 4203,
+      "author": {
+        "login": "dsabaras-aidem",
+        "id": 195924201
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "Wazabit",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dsabaras-aidem",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T12:17:17.000Z",
+      "dateUpdated": "2025-03-11T16:45:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-11T16:45:23.000Z",
+      "commitAuthors": {
+        "195924201": {
+          "identifier": "195924201",
+          "displayName": "dsabaras-aidem",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: OCM Media - Limelight Alias",
+      "number": 4210,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T18:23:29.000Z",
+      "dateUpdated": "2025-03-10T21:11:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-10T21:11:34.000Z",
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Zeta Global SSP: Add sid parameter and audio support",
+      "number": 3939,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "abermanov-zeta",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-25T13:56:29.000Z",
+      "dateUpdated": "2025-03-10T16:51:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-10T16:51:26.000Z",
+      "commitAuthors": {
+        "95416296": {
+          "identifier": "95416296",
+          "displayName": "abermanov-zeta",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ogury: Update endpoint to https",
+      "number": 4218,
+      "author": {
+        "login": "krdzo",
+        "id": 31158143
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-14T09:27:13.000Z",
+      "dateUpdated": "2025-03-03T20:09:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T20:09:16.000Z",
+      "commitAuthors": {
+        "31158143": {
+          "identifier": "31158143",
+          "displayName": "krdzo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Consumable: Endpoint Update",
+      "number": 4206,
+      "author": {
+        "login": "SuprPhatAnon",
+        "id": 944378
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T16:12:49.000Z",
+      "dateUpdated": "2025-03-03T19:59:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T19:59:45.000Z",
+      "commitAuthors": {
+        "944378": {
+          "identifier": "944378",
+          "displayName": "SuprPhatAnon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Catch panic in executeHook",
+      "number": 4025,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-10-30T14:55:30.000Z",
+      "dateUpdated": "2025-03-04T06:20:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T19:43:01.000Z",
+      "commitAuthors": {
+        "developer": {
+          "identifier": "developer",
+          "displayName": "developer",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Vidazoo: Declare OpenRTB 2.6 support",
+      "number": 4221,
+      "author": {
+        "login": "saar120",
+        "id": 89377180
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-18T12:49:49.000Z",
+      "dateUpdated": "2025-03-03T19:31:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T19:31:37.000Z",
+      "commitAuthors": {
+        "89377180": {
+          "identifier": "89377180",
+          "displayName": "saar120",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Streamvision - Limelight Alias",
+      "number": 4209,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T18:22:41.000Z",
+      "dateUpdated": "2025-03-03T19:20:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T19:20:53.000Z",
+      "commitAuthors": {
+        "apykhteyev": {
+          "identifier": "apykhteyev",
+          "displayName": "apykhteyev",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix goroutine leak in hooks execution group",
+      "number": 3911,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-09-10T13:01:28.000Z",
+      "dateUpdated": "2025-03-04T06:19:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-03-03T19:07:06.000Z",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}

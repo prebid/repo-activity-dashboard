@@ -1,0 +1,1442 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2024,
+    "month": 8,
+    "itemCount": 45,
+    "lastUpdated": "2025-09-03T00:16:49.971Z"
+  },
+  "items": [
+    {
+      "title": "Adtarget and Adtelligent Bidders: Change Aid Type",
+      "number": 3387,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-21T08:36:24.000Z",
+      "dateUpdated": "2024-08-28T06:48:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-28T06:48:39.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Move privacy-related fields from extensions to their root objects ",
+      "number": 2958,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-02-09T00:14:46.000Z",
+      "dateUpdated": "2024-08-27T13:51:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T13:51:28.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix bug caused by incorrect usage of Promise",
+      "number": 3385,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-20T18:41:12.000Z",
+      "dateUpdated": "2024-08-27T10:26:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T10:26:02.000Z",
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Taboola Bidder: App Support",
+      "number": 3407,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-27T06:58:55.000Z",
+      "dateUpdated": "2024-08-27T10:24:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T10:24:30.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Loopme: Add Bidder",
+      "number": 3394,
+      "author": {
+        "login": "ambalashov",
+        "id": 1453605
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T04:49:38.000Z",
+      "dateUpdated": "2024-10-29T14:41:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T10:23:09.000Z",
+      "commitAuthors": {
+        "1453605": {
+          "identifier": "1453605",
+          "displayName": "ambalashov",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenX: indicate support for OpenRTB 2.6",
+      "number": 3400,
+      "author": {
+        "login": "bwschmidt",
+        "id": 2507535
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T23:00:49.000Z",
+      "dateUpdated": "2024-08-27T07:54:10.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-27T07:54:10.000Z",
+      "commitAuthors": {
+        "2507535": {
+          "identifier": "2507535",
+          "displayName": "bwschmidt",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix merging imp.ext.prebid.imp into imp",
+      "number": 3396,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T08:06:27.000Z",
+      "dateUpdated": "2024-08-26T14:24:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-26T14:24:27.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "wiremock 3.9.1",
+      "number": 3404,
+      "author": {
+        "login": "sullis",
+        "id": 30938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-26T03:37:55.000Z",
+      "dateUpdated": "2024-08-26T13:54:55.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-26T13:43:42.000Z",
+      "commitAuthors": {
+        "30938": {
+          "identifier": "30938",
+          "displayName": "sullis",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubrise Bidder",
+      "number": 3405,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-26T07:26:39.000Z",
+      "dateUpdated": "2024-08-26T13:42:04.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-26T13:42:03.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidders Ortb Version Update",
+      "number": 3406,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-26T11:12:21.000Z",
+      "dateUpdated": "2024-08-26T13:40:53.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-26T13:40:51.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Consumable: Endpoint update",
+      "number": 3402,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-23T12:14:08.000Z",
+      "dateUpdated": "2024-08-23T13:53:21.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-23T13:53:19.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smarthub: New aliasses (`VimayX`, `FelixAds`)",
+      "number": 3403,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-23T12:40:49.000Z",
+      "dateUpdated": "2024-08-23T13:52:12.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-23T13:52:10.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Use format=prebid on adserver requests",
+      "number": 3401,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-23T11:58:32.000Z",
+      "dateUpdated": "2024-08-23T13:46:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-23T13:46:09.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add a functional test to ensure that bidder implementation is always merged",
+      "number": 3397,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T08:32:02.000Z",
+      "dateUpdated": "2024-08-23T12:18:03.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-23T12:18:01.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Github actions: fix github container registry workflow",
+      "number": 3398,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-22T09:13:11.000Z",
+      "dateUpdated": "2024-08-22T10:32:49.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-22T10:32:47.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MeloZen Bidder",
+      "number": 3381,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-20T09:10:33.000Z",
+      "dateUpdated": "2024-08-21T10:37:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T10:37:13.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MetaX: New bidder",
+      "number": 3386,
+      "author": {
+        "login": "Compile-Ninja",
+        "id": 178788484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-20T20:38:40.000Z",
+      "dateUpdated": "2024-08-21T10:10:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T10:10:18.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove all imp.ext.prebid.imp",
+      "number": 3378,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-18T08:21:19.000Z",
+      "dateUpdated": "2024-08-21T06:11:40.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-21T06:11:38.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rename Liftoff to Vungle",
+      "number": 3383,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-20T11:30:53.000Z",
+      "dateUpdated": "2024-08-20T13:30:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-20T13:24:05.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "LimeLightDigital Bidder: Filmzie Alias",
+      "number": 3384,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-20T12:28:14.000Z",
+      "dateUpdated": "2024-08-20T13:00:58.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-20T13:00:57.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Fix currency conversion bug",
+      "number": 3380,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Compile-Ninja",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-19T14:12:55.000Z",
+      "dateUpdated": "2024-08-20T11:22:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-20T11:22:12.000Z",
+      "commitAuthors": {
+        "ddubyk": {
+          "identifier": "ddubyk",
+          "displayName": "ddubyk",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Updated xapi integration",
+      "number": 3377,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-13T12:57:57.000Z",
+      "dateUpdated": "2024-08-13T13:27:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-13T13:27:04.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "The Trade Desk Bidder",
+      "number": 3370,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-12T12:47:58.000Z",
+      "dateUpdated": "2024-08-13T13:25:36.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-13T13:25:34.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new `OwnAdx` bidder",
+      "number": 2868,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-12-28T14:40:55.000Z",
+      "dateUpdated": "2024-08-13T13:22:25.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-13T13:22:23.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support Bidder Specific Imp Level Params",
+      "number": 3254,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-21T07:32:43.000Z",
+      "dateUpdated": "2024-08-13T10:01:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-13T10:01:04.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Fix naming for storage service",
+      "number": 3374,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-12T13:33:29.000Z",
+      "dateUpdated": "2024-08-12T16:03:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T16:03:21.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add More Seat Non Bid Codes",
+      "number": 3240,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-12T07:37:00.000Z",
+      "dateUpdated": "2024-08-12T13:24:05.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T13:24:03.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 10,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Case Insensitive Check for Bidder Controls",
+      "number": 3352,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-08-06T07:10:46.000Z",
+      "dateUpdated": "2024-08-12T12:33:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T12:33:05.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Playdigo Bidder: Usersync Support",
+      "number": 3368,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-09T13:30:49.000Z",
+      "dateUpdated": "2024-08-12T10:51:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T10:51:39.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors Test Fix",
+      "number": 3369,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-09T14:06:17.000Z",
+      "dateUpdated": "2024-08-12T10:50:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-12T10:50:14.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Increase test coverage for naming and alias cases in bidderControls",
+      "number": 3362,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-07T10:33:45.000Z",
+      "dateUpdated": "2024-08-09T13:34:26.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-09T13:34:25.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "QT: Add adapter",
+      "number": 3355,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-06T13:27:36.000Z",
+      "dateUpdated": "2024-08-09T13:33:44.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-09T13:33:41.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo Bidder: Support Fledge",
+      "number": 3344,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T08:19:19.000Z",
+      "dateUpdated": "2024-08-09T13:04:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-09T13:04:28.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for additional SeatNonBid codes",
+      "number": 3340,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-30T11:11:13.000Z",
+      "dateUpdated": "2024-08-09T12:56:30.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-09T12:56:28.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OpenX: populate BidderBid.videoInfo for targeting",
+      "number": 3364,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-08T04:29:37.000Z",
+      "dateUpdated": "2024-08-09T16:56:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-09T12:17:48.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add multiformat support for rubicon bidder",
+      "number": 3347,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T13:53:30.000Z",
+      "dateUpdated": "2024-08-07T10:57:59.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-07T10:57:58.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Gumgum remove video validations",
+      "number": 3357,
+      "author": {
+        "login": "gg-natalia",
+        "id": 148577437
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-06T15:21:19.000Z",
+      "dateUpdated": "2024-08-06T20:47:14.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T20:47:13.000Z",
+      "commitAuthors": {
+        "148577437": {
+          "identifier": "148577437",
+          "displayName": "gg-natalia",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix flaky floors test",
+      "number": 3354,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-06T13:23:40.000Z",
+      "dateUpdated": "2024-08-06T20:44:41.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T20:44:38.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Redefine logic regarding `imp.ext.<bidder>`",
+      "number": 3318,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-23T11:38:35.000Z",
+      "dateUpdated": "2024-08-06T11:24:51.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T11:24:49.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Housekeeping: JaCoCo config cleanup",
+      "number": 3349,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T19:58:28.000Z",
+      "dateUpdated": "2024-08-06T11:23:09.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-06T11:23:08.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AMX: Demand Source and aDomain support",
+      "number": 3350,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-02T11:33:24.000Z",
+      "dateUpdated": "2024-08-05T13:31:29.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-05T13:31:27.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Unruly: Add duration to video bids",
+      "number": 3345,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T11:52:36.000Z",
+      "dateUpdated": "2024-08-05T13:31:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-05T13:31:14.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for bidder specific imp-level parameters",
+      "number": 3346,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-08-01T11:53:24.000Z",
+      "dateUpdated": "2024-08-05T11:21:16.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-05T11:21:14.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Triplelift Native Bidder Update",
+      "number": 3335,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-29T13:11:21.000Z",
+      "dateUpdated": "2024-08-01T12:38:37.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-01T12:38:34.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato Bidder Updates",
+      "number": 3332,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-29T09:08:55.000Z",
+      "dateUpdated": "2024-08-01T12:37:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-08-01T12:37:48.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

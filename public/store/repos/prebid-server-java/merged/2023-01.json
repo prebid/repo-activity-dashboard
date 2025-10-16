@@ -1,0 +1,961 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 1,
+    "itemCount": 30,
+    "lastUpdated": "2025-09-03T00:16:49.966Z"
+  },
+  "items": [
+    {
+      "title": "GPP: Add cookie sync passthrough",
+      "number": 2127,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-23T15:27:39.000Z",
+      "dateUpdated": "2023-01-31T12:13:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-31T12:13:13.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix fluky functional test",
+      "number": 2125,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-20T13:31:19.000Z",
+      "dateUpdated": "2023-01-31T03:25:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-31T03:25:54.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Functional tests for `gpp`",
+      "number": 2129,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-24T12:04:47.000Z",
+      "dateUpdated": "2023-01-31T03:23:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-31T03:23:03.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Migrate multi bid test to generic",
+      "number": 2132,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-26T11:13:56.000Z",
+      "dateUpdated": "2023-01-30T12:55:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-30T12:54:59.000Z",
+      "commitAuthors": {
+        "121865116": {
+          "identifier": "121865116",
+          "displayName": "ValeriiBarsuk",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "issue tracker workflow changes",
+      "number": 2133,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-26T15:45:24.000Z",
+      "dateUpdated": "2023-01-30T12:43:31.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-30T12:43:30.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Workflows: Cross-repo workflow",
+      "number": 2134,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-26T17:32:59.000Z",
+      "dateUpdated": "2023-01-30T12:42:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-30T12:42:46.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Return all bid status: move ext.prebid.seatnonbid to ext.seatnonbid",
+      "number": 2128,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-24T11:25:11.000Z",
+      "dateUpdated": "2023-01-24T13:09:10.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-24T13:09:09.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Setuid: Add functional tests for prioritization",
+      "number": 2087,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-30T14:38:31.000Z",
+      "dateUpdated": "2023-01-24T13:01:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-24T13:01:32.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: First part of functional tests",
+      "number": 2081,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-11-16T13:06:08.000Z",
+      "dateUpdated": "2023-01-24T13:01:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-24T13:01:11.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dependencies: Upgrade some of the dependencies",
+      "number": 2124,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-20T10:20:49.000Z",
+      "dateUpdated": "2023-01-23T10:47:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-23T10:47:37.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bugfix: Rubicon fix regs population",
+      "number": 2123,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-17T15:28:47.000Z",
+      "dateUpdated": "2023-01-17T16:15:29.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-17T16:15:28.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Lower `tmax` for bidders",
+      "number": 2113,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-12T10:34:16.000Z",
+      "dateUpdated": "2025-07-29T01:44:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-17T16:12:19.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 15,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Return all bid status: remove enablement when debug true",
+      "number": 2122,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-17T13:11:15.000Z",
+      "dateUpdated": "2023-01-17T15:41:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-17T15:41:46.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for lower `tmax`",
+      "number": 2118,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-16T11:57:23.000Z",
+      "dateUpdated": "2023-01-17T15:32:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-17T15:32:39.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix functional `returnallbidstatus flag` tests",
+      "number": 2120,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-17T11:13:59.000Z",
+      "dateUpdated": "2023-01-17T14:20:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-17T14:20:25.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Migrate core test to generic bidder",
+      "number": 2115,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-13T14:26:56.000Z",
+      "dateUpdated": "2023-01-16T15:04:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T15:04:27.000Z",
+      "commitAuthors": {
+        "121865116": {
+          "identifier": "121865116",
+          "displayName": "ValeriiBarsuk",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: ORTB 2.6 initial support",
+      "number": 2090,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-02T17:01:25.000Z",
+      "dateUpdated": "2023-01-16T14:43:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T14:43:43.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Remove gpp data for 2.5 adapters",
+      "number": 2117,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-16T09:36:36.000Z",
+      "dateUpdated": "2023-01-16T13:04:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T13:04:18.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Feature: `returnallbidstatus` flag early stage",
+      "number": 2109,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-05T15:47:16.000Z",
+      "dateUpdated": "2023-01-16T13:04:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T13:04:00.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 15,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests for remove `gpp` data for 2.5 adapters.",
+      "number": 2119,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-16T12:31:30.000Z",
+      "dateUpdated": "2023-01-16T12:35:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T12:35:37.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional test for feature `returnallbidstatus` flag",
+      "number": 2112,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-10T16:05:14.000Z",
+      "dateUpdated": "2023-01-16T03:39:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-16T03:39:39.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Refining README",
+      "number": 2116,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-13T14:39:36.000Z",
+      "dateUpdated": "2023-01-13T16:04:09.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-13T16:04:07.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: `imp.secure` default to 1",
+      "number": 2105,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-27T10:33:44.000Z",
+      "dateUpdated": "2023-01-11T14:06:50.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-11T14:06:48.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for `imp.secure`",
+      "number": 2103,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-23T14:43:11.000Z",
+      "dateUpdated": "2023-01-11T12:58:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-11T12:58:55.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Raise URL length limit to 8KB",
+      "number": 2111,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-10T12:03:54.000Z",
+      "dateUpdated": "2023-01-10T13:31:08.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-10T13:31:07.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Core: Refine FPD (#2059)\"",
+      "number": 2110,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-10T11:50:29.000Z",
+      "dateUpdated": "2023-01-10T13:28:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-10T13:28:01.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Undertone: Bidder implementation",
+      "number": 2106,
+      "author": {
+        "login": "tamarm-perion",
+        "id": 40788385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "tamarm-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-12-28T12:33:25.000Z",
+      "dateUpdated": "2023-01-06T15:11:32.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-06T15:11:31.000Z",
+      "commitAuthors": {
+        "40788385": {
+          "identifier": "40788385",
+          "displayName": "tamarm-perion",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "101515807": {
+          "identifier": "101515807",
+          "displayName": "shahaf-undertone",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "198902782": {
+          "identifier": "198902782",
+          "displayName": "tamarm-p",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add pass-through GPP auction support",
+      "number": 2108,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-05T11:46:28.000Z",
+      "dateUpdated": "2023-01-05T15:02:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-05T15:02:00.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Support `multiformat` parameter",
+      "number": 2083,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-11-21T14:31:09.000Z",
+      "dateUpdated": "2023-01-03T12:40:31.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-03T12:40:30.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix `ССE` in `OrtbTypesResolver`",
+      "number": 2107,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-29T11:33:25.000Z",
+      "dateUpdated": "2023-01-03T12:33:32.000Z",
+      "status": "merged",
+      "dateMerged": "2023-01-03T12:33:31.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,730 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 8,
+    "itemCount": 23,
+    "lastUpdated": "2025-09-03T00:16:49.964Z"
+  },
+  "items": [
+    {
+      "title": "Taboola Adapter: Schema Fix",
+      "number": 4148,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-20T11:37:38.000Z",
+      "dateUpdated": "2025-08-21T11:48:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-21T11:48:17.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "optable-targeting: update macros, fail early if tenant and origin are not configured",
+      "number": 4131,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-11T16:58:35.000Z",
+      "dateUpdated": "2025-08-21T11:45:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-21T11:45:32.000Z",
+      "commitAuthors": {
+        "softcoder594": {
+          "identifier": "softcoder594",
+          "displayName": "softcoder594",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "optable-targeting: Fix query string construction when IDs are missing.",
+      "number": 4138,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-15T15:09:17.000Z",
+      "dateUpdated": "2025-08-21T11:45:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-21T11:45:19.000Z",
+      "commitAuthors": {
+        "softcoder594": {
+          "identifier": "softcoder594",
+          "displayName": "softcoder594",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Exco Adapter",
+      "number": 4111,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-04T07:45:34.000Z",
+      "dateUpdated": "2025-08-20T13:30:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:30:43.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Sparteo",
+      "number": 3985,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "t-sormonte"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-04T09:07:44.000Z",
+      "dateUpdated": "2025-08-20T13:26:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:52.000Z",
+      "commitAuthors": {
+        "191453837": {
+          "identifier": "191453837",
+          "displayName": "t-sormonte",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Blis Adapter",
+      "number": 4107,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-31T09:19:35.000Z",
+      "dateUpdated": "2025-08-20T13:26:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:39.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Support Alternate Bidder Codes",
+      "number": 4113,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-05T07:46:26.000Z",
+      "dateUpdated": "2025-08-20T13:26:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:28.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smartadserver Adapter: Send multi-impression requests without flattening",
+      "number": 4115,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-05T09:00:21.000Z",
+      "dateUpdated": "2025-08-20T13:26:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:17.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldlab Adapter: Forward ADomain to OpenRTB bid",
+      "number": 4118,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-06T08:01:26.000Z",
+      "dateUpdated": "2025-08-20T13:26:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:09.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Housekeeping: Update Java base image version",
+      "number": 4119,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-07T01:37:01.000Z",
+      "dateUpdated": "2025-08-20T13:26:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:26:02.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Live intent omni channel module",
+      "number": 4127,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-08T09:39:58.000Z",
+      "dateUpdated": "2025-08-20T13:25:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:25:53.000Z",
+      "commitAuthors": {
+        "7934182": {
+          "identifier": "7934182",
+          "displayName": "SuperIzya",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "34981284": {
+          "identifier": "34981284",
+          "displayName": "3link",
+          "count": 26,
+          "isGitHubUser": true
+        },
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "ilya": {
+          "identifier": "ilya",
+          "displayName": "ilya",
+          "count": 5,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Vidazoo Adapter: New Omnidex and Tagoras Aliases",
+      "number": 4128,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-08T10:08:41.000Z",
+      "dateUpdated": "2025-08-20T13:25:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:25:43.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic Adapter: Forward skadn object in bid request",
+      "number": 4130,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-11T07:59:31.000Z",
+      "dateUpdated": "2025-08-20T13:25:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:25:34.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheTradeDesk adapter should resolve burl if not resolved",
+      "number": 4133,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andre-gielow-ttd",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-12T19:31:13.000Z",
+      "dateUpdated": "2025-08-20T13:25:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:25:24.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Connatix Bidder Adapter: support GPID",
+      "number": 4134,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-12T20:55:04.000Z",
+      "dateUpdated": "2025-08-20T13:25:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-20T13:25:13.000Z",
+      "commitAuthors": {
+        "12138319": {
+          "identifier": "12138319",
+          "displayName": "karimMourra",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ogury Adapter: Support gpp for cookie sync",
+      "number": 4102,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-30T07:51:48.000Z",
+      "dateUpdated": "2025-08-01T13:29:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:29:02.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adagio Adapter: Add site bidder param and web inventory",
+      "number": 4101,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-30T07:46:48.000Z",
+      "dateUpdated": "2025-08-01T13:28:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:28:53.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Vidazoo Adapter: New Progx Alias",
+      "number": 4098,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-29T09:32:08.000Z",
+      "dateUpdated": "2025-08-01T13:28:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:28:44.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Aso Adapter: New Kuantyx Alias",
+      "number": 4097,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-29T08:42:41.000Z",
+      "dateUpdated": "2025-08-01T13:28:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:28:21.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MinuteMedia Adapter: Add test endpoint",
+      "number": 4096,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-29T08:31:47.000Z",
+      "dateUpdated": "2025-08-01T13:28:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:28:14.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tappx Adapter: Add GPID support",
+      "number": 4089,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-28T13:12:25.000Z",
+      "dateUpdated": "2025-08-01T13:28:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:28:01.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Equativ: SmartAdserver alias with update to use mtype",
+      "number": 3678,
+      "author": {
+        "login": "EmilNadimanov",
+        "id": 63649196
+      },
+      "assignees": [
+        "EmilNadimanov"
+      ],
+      "reviewers": [
+        {
+          "login": "EmilNadimanov",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-01-15T15:28:50.000Z",
+      "dateUpdated": "2025-08-01T13:26:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:26:43.000Z",
+      "commitAuthors": {
+        "Emil Nadimanov": {
+          "identifier": "Emil Nadimanov",
+          "displayName": "Emil Nadimanov",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New module: WURFL device enrichment",
+      "number": 3685,
+      "author": {
+        "login": "andreacastello",
+        "id": 2606638
+      },
+      "assignees": [
+        "andreacastello"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "andreacastello",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-01-17T14:01:01.000Z",
+      "dateUpdated": "2025-08-01T13:26:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-08-01T13:26:25.000Z",
+      "commitAuthors": {
+        "2606638": {
+          "identifier": "2606638",
+          "displayName": "andreacastello",
+          "count": 100,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

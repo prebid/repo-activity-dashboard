@@ -1,0 +1,863 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 2,
+    "itemCount": 28,
+    "lastUpdated": "2025-09-03T00:16:49.984Z"
+  },
+  "items": [
+    {
+      "title": "Tests: Create a wrapper for IAB GPP library",
+      "number": 2195,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-23T00:58:38.000Z",
+      "dateUpdated": "2023-02-27T12:24:10.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-27T12:24:08.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "KiviAds: Add adapter",
+      "number": 2156,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-14T15:19:21.000Z",
+      "dateUpdated": "2023-02-20T15:20:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-20T15:20:16.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Gpp amp passthrough",
+      "number": 2183,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-19T13:34:22.000Z",
+      "dateUpdated": "2023-02-20T15:16:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-20T15:16:36.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Openx: Pass through imp.ext wholesale except prebid, bidder",
+      "number": 2180,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "laurb9",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-16T01:50:58.000Z",
+      "dateUpdated": "2023-02-27T16:40:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-20T12:25:53.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Algorix: Add EUC endpoint",
+      "number": 2184,
+      "author": {
+        "login": "Bugxyb",
+        "id": 6049660
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-20T07:55:24.000Z",
+      "dateUpdated": "2023-02-20T12:15:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-20T12:15:40.000Z",
+      "commitAuthors": {
+        "xunyunbo": {
+          "identifier": "xunyunbo",
+          "displayName": "xunyunbo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Workflows: update cross-repo workflow",
+      "number": 2182,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-17T14:23:54.000Z",
+      "dateUpdated": "2023-02-17T14:52:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-17T14:52:15.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "YahooSSP adapter providing gpp data to our openRTB2.5 backend.",
+      "number": 2144,
+      "author": {
+        "login": "radubarbos",
+        "id": 3379075
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "radubarbos",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-02T12:09:42.000Z",
+      "dateUpdated": "2023-02-17T13:16:55.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-17T13:16:54.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Seatnonbid: Add ability to specify impIds related to bidder error",
+      "number": 2178,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-15T13:54:59.000Z",
+      "dateUpdated": "2023-02-17T13:11:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-17T13:11:57.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "VideoHeroes: Add adapter",
+      "number": 2177,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-15T13:06:43.000Z",
+      "dateUpdated": "2023-02-17T12:01:51.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-17T12:01:50.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Logan: Add adapter",
+      "number": 2155,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-14T14:27:48.000Z",
+      "dateUpdated": "2023-02-17T10:46:58.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-17T10:46:56.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Clickonometrics: Add adapter",
+      "number": 2166,
+      "author": {
+        "login": "SeongJaeMoon92",
+        "id": 40183538
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-14T17:30:07.000Z",
+      "dateUpdated": "2023-02-16T13:32:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-16T13:32:16.000Z",
+      "commitAuthors": {
+        "40183538": {
+          "identifier": "40183538",
+          "displayName": "SeongJaeMoon92",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Move PG deals population",
+      "number": 2011,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-09-05T15:38:10.000Z",
+      "dateUpdated": "2023-02-16T12:12:58.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-16T12:12:57.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Resetdigital: add GVL ID",
+      "number": 2157,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-14T15:41:24.000Z",
+      "dateUpdated": "2023-02-15T06:50:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-15T06:50:27.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Remove redundant fields from bidder request",
+      "number": 2063,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-10-25T10:34:02.000Z",
+      "dateUpdated": "2023-02-13T14:33:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-13T14:33:17.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Refactoring. Move media type processor",
+      "number": 2148,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-07T14:09:28.000Z",
+      "dateUpdated": "2023-02-10T14:42:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-10T14:42:12.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Appush: Add adapter",
+      "number": 2142,
+      "author": {
+        "login": "vpontesfreestar",
+        "id": 122633335
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-01T14:07:56.000Z",
+      "dateUpdated": "2023-02-09T12:48:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-09T12:48:45.000Z",
+      "commitAuthors": {
+        "122633335": {
+          "identifier": "122633335",
+          "displayName": "vpontesfreestar",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Fix user.ext properties population",
+      "number": 2150,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-09T08:50:35.000Z",
+      "dateUpdated": "2023-02-09T09:45:17.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-09T09:45:16.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `usersync.enabled` property",
+      "number": 2147,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-06T16:18:26.000Z",
+      "dateUpdated": "2023-02-08T13:49:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-08T13:49:40.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests  for `fledge` config",
+      "number": 2101,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-12-16T15:42:13.000Z",
+      "dateUpdated": "2023-02-08T09:05:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-08T09:05:04.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Functional tests for `<bidder>.usersync.enabled` property",
+      "number": 2145,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-02-06T11:43:44.000Z",
+      "dateUpdated": "2023-02-08T09:03:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-08T08:57:12.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Replace `admobject` with `adm_native`",
+      "number": 2146,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-06T12:01:48.000Z",
+      "dateUpdated": "2023-02-06T15:01:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T15:01:39.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update cross-repo-issue.yml for omit `tests` label",
+      "number": 2140,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-01T13:20:44.000Z",
+      "dateUpdated": "2023-02-06T12:22:54.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T12:22:53.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "FLEDGE support #2411",
+      "number": 2092,
+      "author": {
+        "login": "laurb9",
+        "id": 5796634
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "laurb9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-12-03T04:33:37.000Z",
+      "dateUpdated": "2023-02-06T19:00:58.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-06T12:09:22.000Z",
+      "commitAuthors": {
+        "5796634": {
+          "identifier": "5796634",
+          "displayName": "laurb9",
+          "count": 22,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Move user.consent",
+      "number": 2143,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-02-02T01:28:10.000Z",
+      "dateUpdated": "2023-02-02T12:40:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-02T12:23:16.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add utilization of host cookie value for user.buyeruid",
+      "number": 2139,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-31T19:18:56.000Z",
+      "dateUpdated": "2023-02-01T18:13:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-01T18:13:43.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Uids cookie is to pass `user.buyeruid` to bid adapters.",
+      "number": 2097,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2022-12-08T13:32:52.000Z",
+      "dateUpdated": "2023-02-01T13:17:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-01T13:17:32.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Downgrade `user.consent` to 2.5 place",
+      "number": 2138,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-01-31T17:06:04.000Z",
+      "dateUpdated": "2023-02-01T10:26:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-01T10:26:47.000Z",
+      "commitAuthors": {
+        "121865116": {
+          "identifier": "121865116",
+          "displayName": "ValeriiBarsuk",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Migrate stored, amp, cache tests to generic",
+      "number": 2137,
+      "author": {
+        "login": "ValeriiBarsuk",
+        "id": 121865116
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ValeriiBarsuk",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-01-31T10:04:06.000Z",
+      "dateUpdated": "2023-02-01T10:20:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-02-01T10:20:24.000Z",
+      "commitAuthors": {
+        "121865116": {
+          "identifier": "121865116",
+          "displayName": "ValeriiBarsuk",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

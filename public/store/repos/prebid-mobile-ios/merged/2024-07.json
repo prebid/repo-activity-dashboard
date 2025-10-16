@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2024,
+    "month": 7,
+    "itemCount": 4,
+    "lastUpdated": "2025-09-02T21:29:40.496Z"
+  },
+  "items": [
+    {
+      "title": "Revert \"fix(includebidderkeys): server responding with bidder keys even tho bidderkeys flag is not present in the request\"",
+      "number": 1024,
+      "author": {
+        "login": "jsligh",
+        "id": 139150153
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "bretg",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-09T16:16:56.000Z",
+      "dateUpdated": "2024-07-09T16:49:22.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T16:49:22.000Z",
+      "commitAuthors": {
+        "139150153": {
+          "identifier": "139150153",
+          "displayName": "jsligh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix(includebidderkeys): server responding with bidder keys even tho bidderkeys flag is not present in the request",
+      "number": 1022,
+      "author": {
+        "login": "AbrahamArmasCordero",
+        "id": 36243865
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-09T10:01:35.000Z",
+      "dateUpdated": "2024-07-09T15:52:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T15:52:15.000Z",
+      "commitAuthors": {
+        "36243865": {
+          "identifier": "36243865",
+          "displayName": "AbrahamArmasCordero",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `hwv` to bid request",
+      "number": 1013,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-18T10:09:14.000Z",
+      "dateUpdated": "2024-07-09T15:45:27.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-09T15:45:25.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix tests & support GMA SDK 11.6.0",
+      "number": 1020,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsligh",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-07-03T05:59:57.000Z",
+      "dateUpdated": "2024-07-03T14:19:16.000Z",
+      "status": "merged",
+      "dateMerged": "2024-07-03T14:19:11.000Z",
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

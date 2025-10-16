@@ -1,0 +1,2124 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2023,
+    "month": 9,
+    "itemCount": 56,
+    "lastUpdated": "2025-09-02T23:36:35.276Z"
+  },
+  "items": [
+    {
+      "title": "Remove Config Backwards Compatibility: Account GDPR Purpose",
+      "number": 3154,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-26T16:44:04.000Z",
+      "dateUpdated": "2023-09-29T15:58:00.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T15:58:00.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Host GDPR Options",
+      "number": 3153,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-26T15:27:15.000Z",
+      "dateUpdated": "2023-09-29T15:29:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T15:29:43.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adapter alias - syncer changes",
+      "number": 3082,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "gargcreation1992",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-07T06:06:10.000Z",
+      "dateUpdated": "2023-10-03T18:26:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T10:43:59.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 19,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Remove eids logic",
+      "number": 3111,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-18T12:59:19.000Z",
+      "dateUpdated": "2023-09-29T08:32:24.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:32:13.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adnuntius: Add Price Type",
+      "number": 3084,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mikael-lundin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-07T17:37:07.000Z",
+      "dateUpdated": "2023-09-29T08:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:14:35.000Z",
+      "commitAuthors": {
+        "1043973": {
+          "identifier": "1043973",
+          "displayName": "mikael-lundin",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ORBIDDER: add user sync redirect url",
+      "number": 3118,
+      "author": {
+        "login": "arneschulz1984",
+        "id": 22349602
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "arneschulz1984",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-20T16:26:45.000Z",
+      "dateUpdated": "2023-09-29T08:09:43.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T08:09:43.000Z",
+      "commitAuthors": {
+        "22349602": {
+          "identifier": "22349602",
+          "displayName": "arneschulz1984",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ImproveDigital: updates",
+      "number": 3077,
+      "author": {
+        "login": "ishihanvcs",
+        "id": 93646635
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ishihanvcs",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-06T09:53:40.000Z",
+      "dateUpdated": "2023-09-29T06:36:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-29T06:36:59.000Z",
+      "commitAuthors": {
+        "93646635": {
+          "identifier": "93646635",
+          "displayName": "ishihanvcs",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: DB Connection Info",
+      "number": 3146,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T22:55:13.000Z",
+      "dateUpdated": "2023-09-28T19:04:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-28T19:04:33.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Enable GZIP",
+      "number": 3125,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-22T20:04:06.000Z",
+      "dateUpdated": "2023-09-27T19:31:04.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T19:31:04.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: Enable Events",
+      "number": 3135,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T15:56:05.000Z",
+      "dateUpdated": "2023-09-27T17:31:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T17:31:22.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Config Backwards Compatibility: File System Stored Requests",
+      "number": 3124,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-22T19:42:18.000Z",
+      "dateUpdated": "2023-09-27T13:09:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-27T13:09:42.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: Nano Interactive",
+      "number": 3134,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T15:24:01.000Z",
+      "dateUpdated": "2023-09-26T19:45:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:57:27.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: engageBDR",
+      "number": 3131,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-25T15:02:55.000Z",
+      "dateUpdated": "2023-09-26T19:45:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:23:39.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: Yeahmobi",
+      "number": 3143,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T19:26:07.000Z",
+      "dateUpdated": "2023-09-26T19:45:36.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T11:10:36.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: NinthDecimal",
+      "number": 3142,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T19:22:29.000Z",
+      "dateUpdated": "2023-09-26T19:45:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T10:57:10.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: Kubient",
+      "number": 3133,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T15:18:58.000Z",
+      "dateUpdated": "2023-09-26T19:45:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T09:30:31.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: Define Media",
+      "number": 3132,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T15:15:56.000Z",
+      "dateUpdated": "2023-09-26T19:45:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T09:08:07.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: Applogy",
+      "number": 3130,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T14:56:16.000Z",
+      "dateUpdated": "2023-09-26T19:45:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T08:38:09.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "make NormalizeBidderName to do faster lookup",
+      "number": 3138,
+      "author": {
+        "login": "gargcreation1992",
+        "id": 8147531
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T17:40:44.000Z",
+      "dateUpdated": "2023-10-02T17:53:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T08:06:19.000Z",
+      "commitAuthors": {
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Remove Adapter: RhythmOne",
+      "number": 3129,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T14:54:52.000Z",
+      "dateUpdated": "2023-09-26T19:45:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T07:43:58.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support case insensitive bidder name in eidpermissions",
+      "number": 3141,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T18:30:34.000Z",
+      "dateUpdated": "2023-10-04T06:17:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:07:14.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support case insensitive bidder name in bidadjustmentfactors",
+      "number": 3140,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T18:26:56.000Z",
+      "dateUpdated": "2023-09-26T18:51:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:06:39.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support case insensitive bidder name in storedbidresponse",
+      "number": 3139,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T18:09:53.000Z",
+      "dateUpdated": "2023-10-02T17:53:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T06:03:23.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix adapter code-coverage github action",
+      "number": 3145,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T20:30:16.000Z",
+      "dateUpdated": "2023-10-02T17:53:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:58:48.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "make bidderInfo endpoint case insensitive",
+      "number": 3136,
+      "author": {
+        "login": "gargcreation1992",
+        "id": 8147531
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-25T17:23:15.000Z",
+      "dateUpdated": "2023-10-02T17:53:16.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:56:53.000Z",
+      "commitAuthors": {
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Silvermob: host validation (us, eu, apac)",
+      "number": 3110,
+      "author": {
+        "login": "freemmy",
+        "id": 1087285
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "freemmy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-15T09:25:17.000Z",
+      "dateUpdated": "2023-09-26T05:51:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-26T05:51:20.000Z",
+      "commitAuthors": {
+        "1087285": {
+          "identifier": "1087285",
+          "displayName": "freemmy",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "make case insensitive comparison in auction request",
+      "number": 3113,
+      "author": {
+        "login": "gargcreation1992",
+        "id": 8147531
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-20T08:17:12.000Z",
+      "dateUpdated": "2023-10-02T17:53:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-25T16:52:54.000Z",
+      "commitAuthors": {
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cleanup Prometheus Type Conversions",
+      "number": 3106,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-14T16:29:44.000Z",
+      "dateUpdated": "2023-09-26T19:45:48.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T21:35:55.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "record tmax timeout error in adapter error metric",
+      "number": 3104,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-14T07:38:14.000Z",
+      "dateUpdated": "2023-10-02T17:53:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T18:33:29.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "DOOH support",
+      "number": 2758,
+      "author": {
+        "login": "minaguib",
+        "id": 11226
+      },
+      "assignees": [
+        "SyntaxNode",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "minaguib",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-05-09T00:06:38.000Z",
+      "dateUpdated": "2023-09-20T18:22:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-20T18:22:40.000Z",
+      "commitAuthors": {
+        "11226": {
+          "identifier": "11226",
+          "displayName": "minaguib",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Priority Bidder Ejection",
+      "number": 2952,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-19T21:18:27.000Z",
+      "dateUpdated": "2023-09-19T18:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-19T18:14:21.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 23,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder Info Endpoint: Base Adapter Only Filter ",
+      "number": 3088,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-08T20:07:01.000Z",
+      "dateUpdated": "2023-09-18T20:35:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-18T20:35:05.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SetUID Error Handling Refactor",
+      "number": 3050,
+      "author": {
+        "login": "AlexBVolcy",
+        "id": 74930484
+      },
+      "assignees": [
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-23T23:41:13.000Z",
+      "dateUpdated": "2023-09-18T17:22:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-18T17:22:02.000Z",
+      "commitAuthors": {
+        "74930484": {
+          "identifier": "74930484",
+          "displayName": "AlexBVolcy",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter mabidder",
+      "number": 3080,
+      "author": {
+        "login": "ecdrsvc",
+        "id": 82906140
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-06T20:34:56.000Z",
+      "dateUpdated": "2023-09-15T10:52:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-15T10:52:44.000Z",
+      "commitAuthors": {
+        "82906140": {
+          "identifier": "82906140",
+          "displayName": "ecdrsvc",
+          "count": 27,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: PGAMSSP",
+      "number": 3035,
+      "author": {
+        "login": "PGAMSSP",
+        "id": 142323401
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "PGAMSSP",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-18T07:06:30.000Z",
+      "dateUpdated": "2023-09-15T10:52:01.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-15T10:52:00.000Z",
+      "commitAuthors": {
+        "142323401": {
+          "identifier": "142323401",
+          "displayName": "PGAMSSP",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Privacy Activities: Pass Request",
+      "number": 3064,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T19:35:55.000Z",
+      "dateUpdated": "2023-09-13T15:34:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-13T15:34:52.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "release.yml run build before creating new tag",
+      "number": 3032,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-15T21:50:25.000Z",
+      "dateUpdated": "2023-10-02T17:53:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T13:44:46.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adjust imp.BidFloor using BidAdjustment",
+      "number": 3063,
+      "author": {
+        "login": "Pubmatic-Dhruv-Sonone",
+        "id": 83747371
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Pubmatic-Dhruv-Sonone",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-30T19:14:55.000Z",
+      "dateUpdated": "2023-09-12T13:44:15.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T13:44:15.000Z",
+      "commitAuthors": {
+        "83747371": {
+          "identifier": "83747371",
+          "displayName": "Pubmatic-Dhruv-Sonone",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: GreedyGame",
+      "number": 3083,
+      "author": {
+        "login": "imedvedko",
+        "id": 1075688
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "imedvedko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-07T06:13:39.000Z",
+      "dateUpdated": "2023-10-20T12:32:28.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-12T06:00:39.000Z",
+      "commitAuthors": {
+        "1075688": {
+          "identifier": "1075688",
+          "displayName": "imedvedko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Activities: Back To Spec",
+      "number": 3081,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-09-07T01:37:56.000Z",
+      "dateUpdated": "2023-09-11T21:54:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T21:54:27.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Meta Data: Add RendererUrl",
+      "number": 3087,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-08T14:23:44.000Z",
+      "dateUpdated": "2023-09-11T20:54:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T20:54:41.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Adapter to accept ad unit codes",
+      "number": 3060,
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ikagotso",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T13:26:54.000Z",
+      "dateUpdated": "2023-09-11T09:59:02.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T09:59:02.000Z",
+      "commitAuthors": {
+        "15611775": {
+          "identifier": "15611775",
+          "displayName": "ikagotso",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix CheckResponseStatusCodeForErrors adapter response util",
+      "number": 3086,
+      "author": {
+        "login": "onkarvhanumante",
+        "id": 24757781
+      },
+      "assignees": [
+        "gargcreation1992"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-08T10:37:25.000Z",
+      "dateUpdated": "2023-09-25T19:19:47.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-11T05:28:45.000Z",
+      "commitAuthors": {
+        "24757781": {
+          "identifier": "24757781",
+          "displayName": "onkarvhanumante",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New adapter: Appstock",
+      "number": 3054,
+      "author": {
+        "login": "imedvedko",
+        "id": 1075688
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "imedvedko",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-08-25T09:58:15.000Z",
+      "dateUpdated": "2023-09-08T15:14:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-08T09:42:10.000Z",
+      "commitAuthors": {
+        "1075688": {
+          "identifier": "1075688",
+          "displayName": "imedvedko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: BidRequest updated by ProcessedAuction hook is getting overridde…",
+      "number": 3045,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "PENDING"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-22T15:32:05.000Z",
+      "dateUpdated": "2023-09-07T17:08:03.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T17:08:03.000Z",
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Undertone: adding GPID support",
+      "number": 3078,
+      "author": {
+        "login": "idanbotbol",
+        "id": 109655567
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "idanbotbol",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-06T10:34:10.000Z",
+      "dateUpdated": "2023-09-07T08:44:59.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T08:44:59.000Z",
+      "commitAuthors": {
+        "101515807": {
+          "identifier": "101515807",
+          "displayName": "shahaf-undertone",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "109655567": {
+          "identifier": "109655567",
+          "displayName": "idanbotbol",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Huawei Ads: fix cta text empty and fill rate issue",
+      "number": 3070,
+      "author": {
+        "login": "afk59",
+        "id": 65093478
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "afk59",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-01T20:40:55.000Z",
+      "dateUpdated": "2023-09-07T08:01:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-07T08:01:27.000Z",
+      "commitAuthors": {
+        "65093478": {
+          "identifier": "65093478",
+          "displayName": "afk59",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Taboola Bidder Adapter:  Change Endpoint ",
+      "number": 3058,
+      "author": {
+        "login": "ahmadlob",
+        "id": 109217988
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ahmadlob",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-27T12:11:35.000Z",
+      "dateUpdated": "2023-09-06T12:48:19.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-06T12:48:19.000Z",
+      "commitAuthors": {
+        "109217988": {
+          "identifier": "109217988",
+          "displayName": "ahmadlob",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add data field for custom renderers",
+      "number": 3059,
+      "author": {
+        "login": "github-maxime-liege",
+        "id": 56251840
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T09:11:01.000Z",
+      "dateUpdated": "2023-09-05T17:52:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:52:34.000Z",
+      "commitAuthors": {
+        "56251840": {
+          "identifier": "56251840",
+          "displayName": "github-maxime-liege",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix panic observed in setSiteImplicitly function",
+      "number": 3053,
+      "author": {
+        "login": "ashishshinde-pubm",
+        "id": 109787960
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ashishshinde-pubm",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-24T12:25:57.000Z",
+      "dateUpdated": "2023-09-05T17:18:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:18:35.000Z",
+      "commitAuthors": {
+        "109787960": {
+          "identifier": "109787960",
+          "displayName": "ashishshinde-pubm",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Added float precision check in floor price comparision",
+      "number": 3042,
+      "author": {
+        "login": "pm-jaydeep-mohite",
+        "id": 30924180
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-22T04:49:24.000Z",
+      "dateUpdated": "2023-09-05T17:13:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:13:52.000Z",
+      "commitAuthors": {
+        "30924180": {
+          "identifier": "30924180",
+          "displayName": "pm-jaydeep-mohite",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IP scrubber",
+      "number": 2990,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "SyntaxNode",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-07-29T04:30:01.000Z",
+      "dateUpdated": "2023-10-02T17:53:26.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T17:09:14.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sovrn: Adapter update user sync urls for gpp",
+      "number": 3061,
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dmitrybor",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-30T14:06:51.000Z",
+      "dateUpdated": "2023-09-05T06:22:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T06:22:21.000Z",
+      "commitAuthors": {
+        "36228400": {
+          "identifier": "36228400",
+          "displayName": "dmitrybor",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update HuaweiAds email",
+      "number": 3071,
+      "author": {
+        "login": "afk59",
+        "id": 65093478
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "afk59",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-09-01T22:52:54.000Z",
+      "dateUpdated": "2023-09-05T06:17:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T06:17:27.000Z",
+      "commitAuthors": {
+        "65093478": {
+          "identifier": "65093478",
+          "displayName": "afk59",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix few adapter aliases bug",
+      "number": 3055,
+      "author": {
+        "login": "gargcreation1992",
+        "id": 8147531
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-08-25T16:26:49.000Z",
+      "dateUpdated": "2023-09-05T05:50:37.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-05T05:50:33.000Z",
+      "commitAuthors": {
+        "8147531": {
+          "identifier": "8147531",
+          "displayName": "gargcreation1992",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update datablocks adapter",
+      "number": 2838,
+      "author": {
+        "login": "jmayor",
+        "id": 622248
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jmayor",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-06-12T16:58:05.000Z",
+      "dateUpdated": "2023-09-04T12:48:41.000Z",
+      "status": "merged",
+      "dateMerged": "2023-09-04T12:48:40.000Z",
+      "commitAuthors": {
+        "622248": {
+          "identifier": "622248",
+          "displayName": "jmayor",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

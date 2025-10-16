@@ -1,0 +1,1076 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2023,
+    "month": 6,
+    "itemCount": 36,
+    "lastUpdated": "2025-09-03T00:16:49.982Z"
+  },
+  "items": [
+    {
+      "title": "Update config for the Sovrn adapter to forward GPP signals via dedicated parameters",
+      "number": 2439,
+      "author": {
+        "login": "dmitrybor",
+        "id": 36228400
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-16T15:45:07.000Z",
+      "dateUpdated": "2023-06-30T12:17:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-30T12:17:04.000Z",
+      "commitAuthors": {
+        "36228400": {
+          "identifier": "36228400",
+          "displayName": "dmitrybor",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SmartAdServer: Added native support",
+      "number": 2446,
+      "author": {
+        "login": "EmanueleSimonelli",
+        "id": 136568337
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-21T07:48:25.000Z",
+      "dateUpdated": "2023-06-30T12:39:43.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-30T12:14:59.000Z",
+      "commitAuthors": {
+        "136568337": {
+          "identifier": "136568337",
+          "displayName": "EmanueleSimonelli",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "UCFunnel: added note about requiring registration",
+      "number": 2432,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-14T14:39:36.000Z",
+      "dateUpdated": "2023-06-30T12:14:06.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-30T12:14:05.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Logs: Add filter of \"Connection reset by peer\" exceptions",
+      "number": 2411,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-06T10:00:07.000Z",
+      "dateUpdated": "2023-06-30T12:13:12.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-30T12:13:11.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix import",
+      "number": 2467,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2023-06-29T15:18:21.000Z",
+      "dateUpdated": "2023-06-29T17:36:27.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T17:36:26.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add functional tests for `New GVL location`",
+      "number": 2431,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-14T13:08:03.000Z",
+      "dateUpdated": "2023-06-29T13:54:39.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T13:54:38.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `gpc` condition",
+      "number": 2458,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-26T14:08:00.000Z",
+      "dateUpdated": "2023-06-29T13:22:14.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T13:22:13.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Gpc condition",
+      "number": 2466,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2023-06-29T11:59:50.000Z",
+      "dateUpdated": "2023-06-29T12:03:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T12:03:16.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yandex: Endpoint update",
+      "number": 2463,
+      "author": {
+        "login": "DridgerVE",
+        "id": 33929311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-28T12:38:25.000Z",
+      "dateUpdated": "2023-06-29T08:33:18.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T08:33:17.000Z",
+      "commitAuthors": {
+        "33929311": {
+          "identifier": "33929311",
+          "displayName": "DridgerVE",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Always populate `country` and `region` on lookup",
+      "number": 2459,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-26T23:13:39.000Z",
+      "dateUpdated": "2023-06-29T08:25:35.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T08:25:33.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix geo rule config matcher",
+      "number": 2461,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-27T10:16:25.000Z",
+      "dateUpdated": "2023-06-29T08:23:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-29T08:23:19.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rise: Add bidder",
+      "number": 2455,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-23T09:31:38.000Z",
+      "dateUpdated": "2023-06-27T13:43:05.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-27T13:43:03.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MgidX: Add bidder",
+      "number": 2457,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-26T12:53:43.000Z",
+      "dateUpdated": "2023-06-27T13:42:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-27T13:42:51.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Docs: Update account coop-sync priorities doc",
+      "number": 2453,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-22T12:35:24.000Z",
+      "dateUpdated": "2023-06-27T13:41:45.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-27T13:41:44.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `gpc` field",
+      "number": 2450,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-06-21T17:00:06.000Z",
+      "dateUpdated": "2023-06-27T09:55:36.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-27T09:55:35.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update README.md",
+      "number": 2399,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-31T12:42:19.000Z",
+      "dateUpdated": "2023-06-26T09:09:49.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-26T09:09:48.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix for info bidders spec",
+      "number": 2442,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-19T14:02:08.000Z",
+      "dateUpdated": "2023-06-26T08:59:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-26T08:59:51.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "ZetaGlobalSsp; Remove `pbs-enforces-ccpa` property",
+      "number": 2454,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-22T12:37:29.000Z",
+      "dateUpdated": "2023-06-26T08:53:38.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-26T08:53:37.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Motorik: Add bidder",
+      "number": 2449,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-21T13:58:56.000Z",
+      "dateUpdated": "2023-06-26T15:38:56.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-26T08:51:26.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: `gpc` field",
+      "number": 2452,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-22T11:51:39.000Z",
+      "dateUpdated": "2023-06-22T13:43:44.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-22T13:43:43.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Activity Infrastructure: Initial `USNat` support",
+      "number": 2400,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-05-31T15:12:08.000Z",
+      "dateUpdated": "2023-06-20T13:04:50.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-20T13:04:48.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 14,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: `Gpp phase 3.5`",
+      "number": 2401,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2023-06-01T11:54:09.000Z",
+      "dateUpdated": "2023-06-20T09:49:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-20T09:49:23.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 29,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add `ConfigurationGeoLocationService`",
+      "number": 2437,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-15T16:19:33.000Z",
+      "dateUpdated": "2023-06-19T06:34:42.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-19T06:34:40.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Cookie-sync: Remove bday field from uids cookie",
+      "number": 2420,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-08T13:58:10.000Z",
+      "dateUpdated": "2023-06-15T13:41:13.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-15T13:41:12.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato: bidder update",
+      "number": 2391,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-29T10:09:34.000Z",
+      "dateUpdated": "2023-06-14T12:34:33.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-14T12:34:32.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Removed bday field from uids cookie functional tests",
+      "number": 2428,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-13T06:30:35.000Z",
+      "dateUpdated": "2023-06-14T12:31:40.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-14T12:31:39.000Z",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "`Criteo`: add processing network field",
+      "number": 2393,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-29T12:40:59.000Z",
+      "dateUpdated": "2023-06-14T12:31:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-14T12:31:05.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: Add native support",
+      "number": 2409,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-05T17:00:11.000Z",
+      "dateUpdated": "2023-06-14T12:28:21.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-14T12:28:19.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "revising smartadserver contact",
+      "number": 2427,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-12T15:23:14.000Z",
+      "dateUpdated": "2023-06-14T12:18:07.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-14T12:18:06.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "YahooSSP rebranding to Yahoo Advertising",
+      "number": 2412,
+      "author": {
+        "login": "radubarbos",
+        "id": 3379075
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-06T11:14:56.000Z",
+      "dateUpdated": "2023-06-12T11:01:25.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-12T11:01:24.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Update colossus contact email",
+      "number": 2413,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-06T19:25:58.000Z",
+      "dateUpdated": "2023-06-09T12:23:23.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-09T12:23:22.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: `Kargo` normalize placementId naming ",
+      "number": 2386,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-25T14:07:50.000Z",
+      "dateUpdated": "2023-06-09T12:18:52.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-09T12:18:51.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Xeworks: Add adapter",
+      "number": 2396,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-30T14:14:03.000Z",
+      "dateUpdated": "2023-06-09T12:12:10.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-09T12:12:09.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Core: Add new `Flipp` bidder",
+      "number": 2385,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-05-25T12:20:50.000Z",
+      "dateUpdated": "2023-06-06T14:37:34.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-06T14:37:33.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 21,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Update smartadserver contact info",
+      "number": 2408,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-05T13:23:47.000Z",
+      "dateUpdated": "2023-06-05T17:07:22.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-05T17:07:20.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Add native support and dealPriority",
+      "number": 2402,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2023-06-01T12:33:39.000Z",
+      "dateUpdated": "2023-06-05T17:06:20.000Z",
+      "status": "merged",
+      "dateMerged": "2023-06-05T17:06:19.000Z",
+      "commitAuthors": {
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

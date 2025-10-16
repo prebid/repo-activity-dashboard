@@ -1,0 +1,842 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2024,
+    "month": 6,
+    "itemCount": 21,
+    "lastUpdated": "2025-10-16T11:54:48.691Z"
+  },
+  "items": [
+    {
+      "title": "New Adapter: Сointraffic",
+      "number": 3647,
+      "author": {
+        "login": "sergeykcointraffic",
+        "id": 158448507
+      },
+      "assignees": [
+        "bsardo",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "stsepelin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-26T07:35:38.000Z",
+      "dateUpdated": "2024-06-28T17:01:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-28T17:01:56.000Z",
+      "commitAuthors": {
+        "8102174": {
+          "identifier": "8102174",
+          "displayName": "stsepelin",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "158448507": {
+          "identifier": "158448507",
+          "displayName": "sergeykcointraffic",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Nobid: Add iframe sync support",
+      "number": 3732,
+      "author": {
+        "login": "redaguermas",
+        "id": 4294677
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-05T15:30:40.000Z",
+      "dateUpdated": "2024-06-27T13:45:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-27T13:45:38.000Z",
+      "commitAuthors": {
+        "Reda Guermas": {
+          "identifier": "Reda Guermas",
+          "displayName": "Reda Guermas",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "IX: save/restore global var in test",
+      "number": 3638,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-24T10:34:20.000Z",
+      "dateUpdated": "2024-06-27T08:20:50.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T18:29:27.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AppNexus: Forward GPID",
+      "number": 3767,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-21T00:17:59.000Z",
+      "dateUpdated": "2025-10-07T20:40:54.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-26T16:10:20.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AMX: Support overriding seat and demandSource",
+      "number": 3733,
+      "author": {
+        "login": "nickjacob",
+        "id": 1192267
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-05T20:18:33.000Z",
+      "dateUpdated": "2024-06-25T12:19:11.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T12:19:11.000Z",
+      "commitAuthors": {
+        "1192267": {
+          "identifier": "1192267",
+          "displayName": "nickjacob",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "OwnAdx: Add cookie sync",
+      "number": 3713,
+      "author": {
+        "login": "ownAdx-prebid",
+        "id": 135326256
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ownAdx-prebid",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-31T07:04:20.000Z",
+      "dateUpdated": "2024-06-25T12:16:48.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-25T12:16:48.000Z",
+      "commitAuthors": {
+        "Hina Yadav": {
+          "identifier": "Hina Yadav",
+          "displayName": "Hina Yadav",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "Hina": {
+          "identifier": "Hina",
+          "displayName": "Hina",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Gitignore changes",
+      "number": 3752,
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-14T03:11:33.000Z",
+      "dateUpdated": "2024-06-24T17:41:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T17:41:07.000Z",
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter : MediaGo",
+      "number": 3705,
+      "author": {
+        "login": "SylviaF",
+        "id": 7777427
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SylviaF",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "thetruebelieber",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "JimmyLuoJW",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-05-24T08:42:53.000Z",
+      "dateUpdated": "2024-06-24T09:43:07.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-24T09:43:07.000Z",
+      "commitAuthors": {
+        "7777427": {
+          "identifier": "7777427",
+          "displayName": "SylviaF",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Driftpixel",
+      "number": 3684,
+      "author": {
+        "login": "driftpixelai",
+        "id": 166716541
+      },
+      "assignees": [
+        "onkarvhanumante",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-16T14:28:27.000Z",
+      "dateUpdated": "2024-06-17T12:26:15.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T12:26:15.000Z",
+      "commitAuthors": {
+        "166716541": {
+          "identifier": "166716541",
+          "displayName": "driftpixelai",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Concert",
+      "number": 3651,
+      "author": {
+        "login": "BrettBlox",
+        "id": 38990705
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        },
+        {
+          "login": "BrettBlox",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-01T21:23:33.000Z",
+      "dateUpdated": "2024-06-17T07:54:02.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T07:54:02.000Z",
+      "commitAuthors": {
+        "38990705": {
+          "identifier": "38990705",
+          "displayName": "BrettBlox",
+          "count": 48,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Boldwin: update maintainer email",
+      "number": 3701,
+      "author": {
+        "login": "Wls-demo",
+        "id": 67785512
+      },
+      "assignees": [
+        "gargcreation1992",
+        "onkarvhanumante"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Wls-demo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-22T11:57:03.000Z",
+      "dateUpdated": "2024-06-17T07:38:32.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-17T07:38:32.000Z",
+      "commitAuthors": {
+        "67785512": {
+          "identifier": "67785512",
+          "displayName": "Wls-demo",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Wls-demo": {
+          "identifier": "Wls-demo",
+          "displayName": "Wls-demo",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Fix semgrep issue with dgryski Go ruleset",
+      "number": 3719,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-03T16:26:52.000Z",
+      "dateUpdated": "2024-06-11T19:35:52.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T19:26:18.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fix golangci-lint issues",
+      "number": 3679,
+      "author": {
+        "login": "dmitris",
+        "id": 31205
+      },
+      "assignees": [
+        "hhhjort",
+        "AlexBVolcy"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AlexBVolcy",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dmitris",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-05-10T17:32:07.000Z",
+      "dateUpdated": "2024-06-11T19:35:38.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T17:23:39.000Z",
+      "commitAuthors": {
+        "31205": {
+          "identifier": "31205",
+          "displayName": "dmitris",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Vungle: Rename from liftoff",
+      "number": 3727,
+      "author": {
+        "login": "Vungle-GordonTian",
+        "id": 115982294
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "yingchen0706v",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Vungle-GordonTian",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2024-06-05T03:46:24.000Z",
+      "dateUpdated": "2024-06-15T03:59:06.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-11T14:24:50.000Z",
+      "commitAuthors": {
+        "115982294": {
+          "identifier": "115982294",
+          "displayName": "Vungle-GordonTian",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Upgrade To Go 1.22",
+      "number": 3686,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-17T14:48:29.000Z",
+      "dateUpdated": "2025-10-07T20:40:56.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-07T16:16:07.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Smaato: Add ORTB2.6 tests",
+      "number": 3646,
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "onkarvhanumante",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "el-chuck",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-04-26T03:50:47.000Z",
+      "dateUpdated": "2024-07-29T15:19:31.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T11:07:22.000Z",
+      "commitAuthors": {
+        "Ruslan Sibgatullin": {
+          "identifier": "Ruslan Sibgatullin",
+          "displayName": "Ruslan Sibgatullin",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Imp FPD: Skip bidder params and native validation",
+      "number": 3720,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-04T04:45:51.000Z",
+      "dateUpdated": "2024-06-05T16:21:17.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-05T01:07:45.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Expect Array Overwrites in Imp FPD Tests",
+      "number": 3725,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-06-04T18:40:28.000Z",
+      "dateUpdated": "2024-06-04T20:33:23.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T20:33:23.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "FPD: Don't Merge Arrays",
+      "number": 3708,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-28T22:08:07.000Z",
+      "dateUpdated": "2024-06-04T17:36:19.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T17:36:19.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder-specific imp FPD",
+      "number": 3704,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-23T15:47:54.000Z",
+      "dateUpdated": "2024-06-04T02:16:20.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-04T02:16:20.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yieldmo: Add bid floor currency conversion",
+      "number": 3697,
+      "author": {
+        "login": "ym-winston",
+        "id": 46379634
+      },
+      "assignees": [
+        "gargcreation1992",
+        "Sonali-More-Xandr"
+      ],
+      "reviewers": [
+        {
+          "login": "gargcreation1992",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ym-winston",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Sonali-More-Xandr",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2024-05-21T17:56:59.000Z",
+      "dateUpdated": "2024-06-02T05:13:13.000Z",
+      "status": "merged",
+      "dateMerged": "2024-06-02T05:13:13.000Z",
+      "commitAuthors": {
+        "46379634": {
+          "identifier": "46379634",
+          "displayName": "ym-winston",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

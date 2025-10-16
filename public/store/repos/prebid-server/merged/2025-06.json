@@ -1,0 +1,1798 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 6,
+    "itemCount": 47,
+    "lastUpdated": "2025-09-02T23:36:35.263Z"
+  },
+  "items": [
+    {
+      "title": "New Adapter: Sparteo",
+      "number": 4275,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "ccorbo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-21T17:53:04.000Z",
+      "dateUpdated": "2025-06-27T18:30:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-27T18:30:56.000Z",
+      "commitAuthors": {
+        "191453837": {
+          "identifier": "191453837",
+          "displayName": "t-sormonte",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Phase 1",
+      "number": 4407,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-23T18:44:03.000Z",
+      "dateUpdated": "2025-07-02T14:06:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-26T17:52:09.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Pubmatic: Set bid.meta.mediaType=video when bid.ext.ibv=true",
+      "number": 4189,
+      "author": {
+        "login": "pm-priyanka-bagade",
+        "id": 156899734
+      },
+      "assignees": [
+        "guscarreon",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "pm-priyanka-bagade",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-saurabh-narkhede",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-02-03T07:41:49.000Z",
+      "dateUpdated": "2025-06-26T13:16:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-26T13:16:43.000Z",
+      "commitAuthors": {
+        "156899734": {
+          "identifier": "156899734",
+          "displayName": "pm-priyanka-bagade",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Targeting: Add configurable targeting prefix",
+      "number": 4355,
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sigma-software-prebid",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-29T13:08:59.000Z",
+      "dateUpdated": "2025-06-26T13:03:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-26T13:03:20.000Z",
+      "commitAuthors": {
+        "196663574": {
+          "identifier": "196663574",
+          "displayName": "sigma-software-prebid",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "HTTP Fetcher: Implement RFC 3986 compatibility as optional",
+      "number": 4272,
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sigma-software-prebid",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-20T16:32:04.000Z",
+      "dateUpdated": "2025-06-25T20:37:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T20:37:19.000Z",
+      "commitAuthors": {
+        "196663574": {
+          "identifier": "196663574",
+          "displayName": "sigma-software-prebid",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Nexx360",
+      "number": 4286,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gchicoye",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-02T11:04:18.000Z",
+      "dateUpdated": "2025-06-25T16:01:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T16:00:53.000Z",
+      "commitAuthors": {
+        "Gabriel Chicoye": {
+          "identifier": "Gabriel Chicoye",
+          "displayName": "Gabriel Chicoye",
+          "count": 16,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Kobler: Remove sensitive device and user data",
+      "number": 4295,
+      "author": {
+        "login": "TommyHPettersen",
+        "id": 42890605
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "TommyHPettersen",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-11T08:26:51.000Z",
+      "dateUpdated": "2025-06-25T15:04:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T15:04:56.000Z",
+      "commitAuthors": {
+        "42890605": {
+          "identifier": "42890605",
+          "displayName": "TommyHPettersen",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Seedtag: Fix required content-type header on http calls",
+      "number": 4299,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-14T07:57:27.000Z",
+      "dateUpdated": "2025-06-25T14:11:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T14:11:44.000Z",
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "GumGum: Collect ad unit name for reporting",
+      "number": 4302,
+      "author": {
+        "login": "ShayanK16GumGum",
+        "id": 186135777
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T07:32:33.000Z",
+      "dateUpdated": "2025-06-25T13:41:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T13:41:35.000Z",
+      "commitAuthors": {
+        "ShayanK16": {
+          "identifier": "ShayanK16",
+          "displayName": "ShayanK16",
+          "count": 7,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Gothamads: Add Intenze alias",
+      "number": 4319,
+      "author": {
+        "login": "support-gotham-ads",
+        "id": 208789779
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "support-gotham-ads",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-25T16:33:32.000Z",
+      "dateUpdated": "2025-06-25T13:33:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T13:33:05.000Z",
+      "commitAuthors": {
+        "208789779": {
+          "identifier": "208789779",
+          "displayName": "support-gotham-ads",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Add bid meta seat",
+      "number": 4348,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-22T09:03:08.000Z",
+      "dateUpdated": "2025-06-25T13:23:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T13:23:15.000Z",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Flatads",
+      "number": 4243,
+      "author": {
+        "login": "flatads",
+        "id": 83808812
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "flatads",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-03-04T05:52:52.000Z",
+      "dateUpdated": "2025-06-25T13:13:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-25T13:13:20.000Z",
+      "commitAuthors": {
+        "20946583": {
+          "identifier": "20946583",
+          "displayName": "WuCh1k1n",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Return nil when module config not found",
+      "number": 4408,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-23T21:07:58.000Z",
+      "dateUpdated": "2025-06-24T20:12:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-24T20:12:52.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Fix validateRuleSet bug",
+      "number": 4409,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-24T15:45:09.000Z",
+      "dateUpdated": "2025-06-24T19:04:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-24T19:04:58.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Tree manager tests",
+      "number": 4378,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-06T16:38:42.000Z",
+      "dateUpdated": "2025-06-20T19:39:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-20T19:39:12.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MobileFuse: Remove tagid_src and pub_id params",
+      "number": 4303,
+      "author": {
+        "login": "tomaszbmf",
+        "id": 142428312
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "tomaszbmf",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-16T11:14:43.000Z",
+      "dateUpdated": "2025-06-17T21:01:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-17T21:01:12.000Z",
+      "commitAuthors": {
+        "142428312": {
+          "identifier": "142428312",
+          "displayName": "tomaszbmf",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Validation fixes",
+      "number": 4401,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-14T00:46:42.000Z",
+      "dateUpdated": "2025-06-16T22:32:32.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-16T22:32:32.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dianomi: Update user syncs to send gdpr_consent",
+      "number": 4345,
+      "author": {
+        "login": "michael-stevens",
+        "id": 17146530
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-21T13:03:15.000Z",
+      "dateUpdated": "2025-06-13T19:26:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-13T19:26:41.000Z",
+      "commitAuthors": {
+        "17146530": {
+          "identifier": "17146530",
+          "displayName": "michael-stevens",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Lowercase config and E2E testing fixes",
+      "number": 4396,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-11T18:18:03.000Z",
+      "dateUpdated": "2025-06-11T22:14:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T22:14:00.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: HandleProcessedAuctionHook UTs",
+      "number": 4377,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-05T23:35:01.000Z",
+      "dateUpdated": "2025-06-11T21:52:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T21:52:58.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: module.go tests",
+      "number": 4382,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-09T22:48:35.000Z",
+      "dateUpdated": "2025-06-11T21:51:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T21:51:52.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: tree builder, result functions and mutations UTs",
+      "number": 4375,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-05T02:39:53.000Z",
+      "dateUpdated": "2025-06-11T21:50:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T21:50:36.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Cache entry unit tests",
+      "number": 4367,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-04T01:16:55.000Z",
+      "dateUpdated": "2025-06-11T13:59:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-11T13:59:51.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add some iterator utilities to go with the v1.23.0 upgrade.",
+      "number": 4238,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-26T03:46:41.000Z",
+      "dateUpdated": "2025-06-09T15:07:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-09T15:07:51.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adverxo: Change alias user sync urls",
+      "number": 4317,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dev-adverxo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-25T11:40:23.000Z",
+      "dateUpdated": "2025-06-05T19:27:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T19:27:05.000Z",
+      "commitAuthors": {
+        "186024688": {
+          "identifier": "186024688",
+          "displayName": "dev-adverxo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "MobileFuse: Add usersync info",
+      "number": 4320,
+      "author": {
+        "login": "dtbarne",
+        "id": 7635750
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-25T23:05:43.000Z",
+      "dateUpdated": "2025-06-05T19:15:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T19:15:41.000Z",
+      "commitAuthors": {
+        "7635750": {
+          "identifier": "7635750",
+          "displayName": "dtbarne",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "51Degrees Module: Update devicetype mapping",
+      "number": 4356,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-29T13:55:05.000Z",
+      "dateUpdated": "2025-06-05T18:49:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T18:49:48.000Z",
+      "commitAuthors": {
+        "341967": {
+          "identifier": "341967",
+          "displayName": "justadreamer",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Schema function changes",
+      "number": 4374,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-04T22:12:54.000Z",
+      "dateUpdated": "2025-06-05T18:35:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T18:35:43.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PubMatic: Enable Gzip compression",
+      "number": 4332,
+      "author": {
+        "login": "pm-priyanka-bagade",
+        "id": 156899734
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-08T06:42:17.000Z",
+      "dateUpdated": "2025-06-05T17:15:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T17:15:43.000Z",
+      "commitAuthors": {
+        "156899734": {
+          "identifier": "156899734",
+          "displayName": "pm-priyanka-bagade",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Criteo: Set geoscope to global",
+      "number": 4372,
+      "author": {
+        "login": "Ticki84",
+        "id": 19912480
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-04T13:13:29.000Z",
+      "dateUpdated": "2025-06-05T16:55:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T16:55:11.000Z",
+      "commitAuthors": {
+        "19912480": {
+          "identifier": "19912480",
+          "displayName": "Ticki84",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Colossus: Declare OpenRTB 2.6 support",
+      "number": 4373,
+      "author": {
+        "login": "naveen-ddh",
+        "id": 214460704
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-04T14:24:21.000Z",
+      "dateUpdated": "2025-06-05T16:30:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T16:30:06.000Z",
+      "commitAuthors": {
+        "214460704": {
+          "identifier": "214460704",
+          "displayName": "naveen-ddh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: ttd - TheTradeDesk alias",
+      "number": 4357,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-29T17:11:20.000Z",
+      "dateUpdated": "2025-06-05T16:13:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T16:13:03.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sharethrough: Add geoscope to config",
+      "number": 4366,
+      "author": {
+        "login": "jefftmahoney",
+        "id": 2761266
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-03T18:07:43.000Z",
+      "dateUpdated": "2025-06-05T16:03:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T16:03:52.000Z",
+      "commitAuthors": {
+        "2761266": {
+          "identifier": "2761266",
+          "displayName": "jefftmahoney",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Jeff Mahoney": {
+          "identifier": "Jeff Mahoney",
+          "displayName": "Jeff Mahoney",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Netaddiction - Admatic alias",
+      "number": 4201,
+      "author": {
+        "login": "bakicam",
+        "id": 71071893
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-13T08:04:41.000Z",
+      "dateUpdated": "2025-06-05T13:31:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T13:31:23.000Z",
+      "commitAuthors": {
+        "13196803": {
+          "identifier": "13196803",
+          "displayName": "farukcam",
+          "count": 40,
+          "isGitHubUser": true
+        },
+        "71071893": {
+          "identifier": "71071893",
+          "displayName": "bakicam",
+          "count": 40,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Ogury: Enable in app traffic",
+      "number": 4314,
+      "author": {
+        "login": "krdzo",
+        "id": 31158143
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "krdzo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-24T10:36:28.000Z",
+      "dateUpdated": "2025-06-05T04:04:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T04:04:24.000Z",
+      "commitAuthors": {
+        "31158143": {
+          "identifier": "31158143",
+          "displayName": "krdzo",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: fwssp",
+      "number": 4309,
+      "author": {
+        "login": "ghluo-fw",
+        "id": 208563424
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ghluo-fw",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-22T07:04:43.000Z",
+      "dateUpdated": "2025-06-05T03:54:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T03:54:28.000Z",
+      "commitAuthors": {
+        "208563424": {
+          "identifier": "208563424",
+          "displayName": "ghluo-fw",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Conversant: Enable native requests",
+      "number": 4277,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "ccorbo",
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-24T18:02:16.000Z",
+      "dateUpdated": "2025-06-05T03:38:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T03:38:30.000Z",
+      "commitAuthors": {
+        "johwier": {
+          "identifier": "johwier",
+          "displayName": "johwier",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Start.io",
+      "number": 4324,
+      "author": {
+        "login": "prebid-startio",
+        "id": 202108819
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "prebid-startio",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-29T10:22:35.000Z",
+      "dateUpdated": "2025-06-05T03:21:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T03:21:51.000Z",
+      "commitAuthors": {
+        "202108819": {
+          "identifier": "202108819",
+          "displayName": "prebid-startio",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Optidigital",
+      "number": 4287,
+      "author": {
+        "login": "optidigital-prebid",
+        "id": 124287395
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "optidigital-prebid",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-04-02T13:51:20.000Z",
+      "dateUpdated": "2025-06-05T02:48:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T02:48:00.000Z",
+      "commitAuthors": {
+        "124287395": {
+          "identifier": "124287395",
+          "displayName": "optidigital-prebid",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Victor Gonzalez": {
+          "identifier": "Victor Gonzalez",
+          "displayName": "Victor Gonzalez",
+          "count": 8,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Adagio",
+      "number": 4300,
+      "author": {
+        "login": "GodefroiRoussel",
+        "id": 16046142
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "GodefroiRoussel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-04-14T16:22:31.000Z",
+      "dateUpdated": "2025-06-05T02:39:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-05T02:39:54.000Z",
+      "commitAuthors": {
+        "Godefroi Roussel": {
+          "identifier": "Godefroi Roussel",
+          "displayName": "Godefroi Roussel",
+          "count": 8,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Smaato: Add geoscope to bidder info",
+      "number": 4363,
+      "author": {
+        "login": "el-chuck",
+        "id": 1151341
+      },
+      "assignees": [
+        "SyntaxNode",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-03T12:08:20.000Z",
+      "dateUpdated": "2025-06-04T16:37:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T16:37:33.000Z",
+      "commitAuthors": {
+        "1151341": {
+          "identifier": "1151341",
+          "displayName": "el-chuck",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Result func arguments",
+      "number": 4362,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-03T06:13:33.000Z",
+      "dateUpdated": "2025-06-04T16:35:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T16:35:54.000Z",
+      "commitAuthors": {
+        "4790765": {
+          "identifier": "4790765",
+          "displayName": "VeronikaSolovei9",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support bidder-specific device data",
+      "number": 4197,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "lucor",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-02-07T14:19:06.000Z",
+      "dateUpdated": "2025-06-04T01:51:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T01:51:09.000Z",
+      "commitAuthors": {
+        "313577": {
+          "identifier": "313577",
+          "displayName": "lucor",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: log validation errors, graceful tree mgr shutdown",
+      "number": 4361,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-03T01:47:43.000Z",
+      "dateUpdated": "2025-06-04T01:19:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T01:19:15.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Tree unit tests",
+      "number": 4354,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-05-28T19:28:08.000Z",
+      "dateUpdated": "2025-06-04T00:11:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-04T00:11:11.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: HookResult as Tree T2",
+      "number": 4358,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-05-29T20:37:14.000Z",
+      "dateUpdated": "2025-06-02T13:32:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-02T13:32:21.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Rules Engine Module: Schema Function Refactoring",
+      "number": 4346,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-05-21T18:44:50.000Z",
+      "dateUpdated": "2025-06-05T18:12:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-06-02T13:30:06.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1246 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2022,
+    "month": 4,
+    "itemCount": 32,
+    "lastUpdated": "2025-09-03T00:16:49.988Z"
+  },
+  "items": [
+    {
+      "title": "Add test for pass server info to request",
+      "number": 1815,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-12T08:20:59.000Z",
+      "dateUpdated": "2022-04-28T11:51:58.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-28T11:51:57.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Generic yahoossp adapter endpoint and active by default.",
+      "number": 1825,
+      "author": {
+        "login": "oath-jac",
+        "id": 45564796
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-15T20:46:08.000Z",
+      "dateUpdated": "2022-04-28T10:06:52.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-28T10:06:52.000Z",
+      "commitAuthors": {
+        "oath-jac": {
+          "identifier": "oath-jac",
+          "displayName": "oath-jac",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Amx  adapter: add support native format",
+      "number": 1842,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-26T13:07:43.000Z",
+      "dateUpdated": "2022-04-28T10:02:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-28T10:02:27.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Colossus: adding `colossusssp` as an alias",
+      "number": 1824,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-15T20:09:10.000Z",
+      "dateUpdated": "2022-04-28T10:01:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-28T10:01:13.000Z",
+      "commitAuthors": {
+        "4412838": {
+          "identifier": "4412838",
+          "displayName": "bretg",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add tests to cover PG user FPD targeting is taken from bidRequest.user",
+      "number": 1833,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-21T06:30:06.000Z",
+      "dateUpdated": "2022-04-28T09:58:09.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-28T09:58:08.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1843,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-04-27T09:08:38.000Z",
+      "dateUpdated": "2022-04-27T10:01:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-27T10:01:37.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Fix unused param",
+      "number": 1840,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mtuchkova",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-26T10:54:31.000Z",
+      "dateUpdated": "2022-04-26T12:47:27.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-26T12:47:26.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Provider contract change",
+      "number": 1837,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-26T08:09:45.000Z",
+      "dateUpdated": "2022-04-26T12:47:00.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-26T12:46:59.000Z",
+      "commitAuthors": {
+        "47950518": {
+          "identifier": "47950518",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors tests: Provider contract change",
+      "number": 1839,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-26T10:13:45.000Z",
+      "dateUpdated": "2022-04-26T12:01:38.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-26T12:01:38.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1838,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-04-26T08:23:02.000Z",
+      "dateUpdated": "2022-04-26T09:05:57.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-26T09:05:57.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Restore enforce-valid-account config",
+      "number": 1836,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-22T16:58:10.000Z",
+      "dateUpdated": "2022-04-25T13:05:32.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-25T13:05:32.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Increase test coverage",
+      "number": 1829,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-19T12:24:57.000Z",
+      "dateUpdated": "2022-04-21T15:14:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T15:14:13.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Add IT tests",
+      "number": 1782,
+      "author": {
+        "login": "yevhenii-viktorov",
+        "id": 91950229
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2022-03-24T16:51:53.000Z",
+      "dateUpdated": "2022-04-21T14:12:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T14:12:41.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "29976213": {
+          "identifier": "29976213",
+          "displayName": "rpanchyk",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 14,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 28,
+          "isGitHubUser": false
+        },
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add tests for BasicPriceFloorProcessor",
+      "number": 1834,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-21T09:22:57.000Z",
+      "dateUpdated": "2022-04-21T11:08:11.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-21T11:08:11.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Add tests for validating request rules: modelGroups, values",
+      "number": 1827,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-18T10:33:08.000Z",
+      "dateUpdated": "2022-04-19T13:10:17.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-19T13:10:16.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Add tests for PriceFloorRulesValidator",
+      "number": 1828,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-18T13:35:12.000Z",
+      "dateUpdated": "2022-04-19T12:25:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-19T12:25:52.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Feature enhancements",
+      "number": 1820,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-13T06:38:59.000Z",
+      "dateUpdated": "2022-04-16T18:19:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-16T18:19:52.000Z",
+      "commitAuthors": {
+        "47950518": {
+          "identifier": "47950518",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 9,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price floors/enhancements tests",
+      "number": 1823,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-14T08:05:52.000Z",
+      "dateUpdated": "2022-04-16T17:28:59.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-16T17:28:58.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Rubicon: Add specific floors resolving",
+      "number": 1812,
+      "author": {
+        "login": "yevhenii-viktorov",
+        "id": 91950229
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-11T07:55:34.000Z",
+      "dateUpdated": "2022-04-12T08:02:51.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-12T08:02:50.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "29976213": {
+          "identifier": "29976213",
+          "displayName": "rpanchyk",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "47950518": {
+          "identifier": "47950518",
+          "displayName": "mtuchkova",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 41,
+          "isGitHubUser": false
+        },
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 4,
+          "isGitHubUser": false
+        },
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests: Update price floors test conditions",
+      "number": 1814,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2022-04-11T13:49:53.000Z",
+      "dateUpdated": "2022-04-12T07:35:48.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-12T07:35:48.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Oleksandr Zhevedenko": {
+          "identifier": "Oleksandr Zhevedenko",
+          "displayName": "Oleksandr Zhevedenko",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Add feature functionality",
+      "number": 1619,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        },
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2021-12-09T14:20:32.000Z",
+      "dateUpdated": "2022-04-09T14:56:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-09T14:56:31.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "29976213": {
+          "identifier": "29976213",
+          "displayName": "rpanchyk",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "47950518": {
+          "identifier": "47950518",
+          "displayName": "mtuchkova",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "56919177": {
+          "identifier": "56919177",
+          "displayName": "SerhiiNahornyi",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "91950229": {
+          "identifier": "91950229",
+          "displayName": "yevhenii-viktorov",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 39,
+          "isGitHubUser": false
+        },
+        "rpanchyk": {
+          "identifier": "rpanchyk",
+          "displayName": "rpanchyk",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Minor test fixes + temporary ignore of 1 test",
+      "number": 1810,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-09T08:16:48.000Z",
+      "dateUpdated": "2022-04-09T08:39:28.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-09T08:38:52.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Price Floors tests: refactoring",
+      "number": 1809,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-08T12:39:18.000Z",
+      "dateUpdated": "2022-04-08T12:43:29.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-08T12:42:37.000Z",
+      "commitAuthors": {
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Tests: price floors",
+      "number": 1692,
+      "author": {
+        "login": "mtuchkova",
+        "id": 47950518
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "yevhenii-viktorov",
+          "state": "PENDING"
+        },
+        {
+          "login": "bretg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hupaloo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-01-19T16:54:24.000Z",
+      "dateUpdated": "2022-04-08T11:00:42.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-08T11:00:42.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "mtuchkova": {
+          "identifier": "mtuchkova",
+          "displayName": "mtuchkova",
+          "count": 6,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Minor refactoring",
+      "number": 1808,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        }
+      ],
+      "dateCreated": "2022-04-07T17:16:36.000Z",
+      "dateUpdated": "2022-04-07T17:17:31.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-07T17:17:31.000Z",
+      "commitAuthors": {
+        "28010702": {
+          "identifier": "28010702",
+          "displayName": "And1sS",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Prebid Server prepare for next development iteration",
+      "number": 1805,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2022-04-07T06:56:16.000Z",
+      "dateUpdated": "2022-04-07T07:15:53.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-07T07:15:53.000Z",
+      "commitAuthors": {
+        "178788484": {
+          "identifier": "178788484",
+          "displayName": "Compile-Ninja",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "PG: Add alternative sources to match targeting",
+      "number": 1800,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T11:57:23.000Z",
+      "dateUpdated": "2022-04-05T14:13:14.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T14:13:14.000Z",
+      "commitAuthors": {
+        "45672370": {
+          "identifier": "45672370",
+          "displayName": "CTMBNara",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "46037169": {
+          "identifier": "46037169",
+          "displayName": "hupaloo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Cover that PBS takes alternative sources to match PG targeting",
+      "number": 1803,
+      "author": {
+        "login": "hupaloo",
+        "id": 46037169
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "mtuchkova",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "PENDING"
+        },
+        {
+          "login": "hupaloo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-05T10:37:22.000Z",
+      "dateUpdated": "2022-04-05T13:39:12.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-05T13:39:12.000Z",
+      "commitAuthors": {
+        "mhupalo": {
+          "identifier": "mhupalo",
+          "displayName": "mhupalo",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Price Floors: Add logging and metric if conversion or enforcement failed",
+      "number": 1799,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "yevhenii-viktorov",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-04-04T06:34:08.000Z",
+      "dateUpdated": "2022-04-04T09:09:17.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T09:09:16.000Z",
+      "commitAuthors": {
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "CurrencyConversionService update integration logic",
+      "number": 1784,
+      "author": {
+        "login": "SerhiiNahornyi",
+        "id": 56919177
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-28T10:51:16.000Z",
+      "dateUpdated": "2022-04-04T05:15:39.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-04T05:15:38.000Z",
+      "commitAuthors": {
+        "720803": {
+          "identifier": "720803",
+          "displayName": "Net-burst",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adyoulike: add currency conversion",
+      "number": 1791,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-29T10:43:25.000Z",
+      "dateUpdated": "2022-04-01T13:24:13.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-01T13:24:13.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Adot: add new bid param publisherPath",
+      "number": 1792,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "SerhiiNahornyi",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2022-03-29T13:27:55.000Z",
+      "dateUpdated": "2022-04-01T06:31:21.000Z",
+      "status": "merged",
+      "dateMerged": "2022-04-01T06:31:20.000Z",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "Serhii Nahornyi": {
+          "identifier": "Serhii Nahornyi",
+          "displayName": "Serhii Nahornyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    }
+  ]
+}
