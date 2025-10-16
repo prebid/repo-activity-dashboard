@@ -1,10 +1,22 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-10-06T08:46:06.965Z",
+    "lastSync": "2025-10-16T13:12:21.312Z",
     "itemCount": 42
   },
   "items": [
+    {
+      "title": "Bug: From version 2.5.0, Prebid SDK doesn't replace ${AUCTION_PRICE} inside the nativeAdMarkup with the actual winning bid price",
+      "number": 1217,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-10T16:05:58.000Z",
+      "dateUpdated": "2025-10-16T09:02:54.000Z",
+      "status": "open"
+    },
     {
       "title": "Bug: 1px tracking URL is fired when the ad is not shown",
       "number": 1211,
@@ -431,18 +443,6 @@
       ],
       "dateCreated": "2025-06-16T10:09:17.000Z",
       "dateUpdated": "2025-08-16T05:14:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Suggestion: Should playbackend value be changed from 2 → 1 for interstitial videos?",
-      "number": 1199,
-      "author": {
-        "login": "ZenyB",
-        "id": 106144398
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-15T10:35:49.000Z",
-      "dateUpdated": "2025-08-16T05:05:23.000Z",
       "status": "open"
     },
     {

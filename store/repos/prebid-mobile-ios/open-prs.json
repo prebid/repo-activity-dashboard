@@ -1,10 +1,36 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-10-06T08:46:06.965Z",
+    "lastSync": "2025-10-16T13:12:21.312Z",
     "itemCount": 5
   },
   "items": [
+    {
+      "title": "Replace ${AUCTION_PRICE} with the actual winning bid price inside the nativeAdMarkup",
+      "number": 1218,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-10-11T08:06:15.000Z",
+      "dateUpdated": "2025-10-16T08:41:55.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Viet Ta": {
+          "identifier": "Viet Ta",
+          "displayName": "Viet Ta",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
     {
       "title": "Type-safe parsing of JSON response",
       "number": 1127,
@@ -20,39 +46,39 @@
         }
       ],
       "dateCreated": "2025-04-01T23:51:12.000Z",
-      "dateUpdated": "2025-10-03T19:23:52.000Z",
+      "dateUpdated": "2025-10-15T09:20:02.000Z",
       "status": "open",
       "commitAuthors": {
         "James Lou": {
           "identifier": "James Lou",
           "displayName": "James Lou",
-          "count": 4,
+          "count": 1,
           "isGitHubUser": false
         }
       }
     },
     {
-      "title": "Update playbackend default value from 2 → 1 for interstitial video ads",
-      "number": 1201,
+      "title": "Add UserAgentDefaults for Managing User Agent String Persistence",
+      "number": 992,
       "author": {
-        "login": "ZenyB",
-        "id": 106144398
+        "login": "weibel",
+        "id": 12939
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "YuriyVelichkoPI",
-          "state": "APPROVED"
+          "state": "DISMISSED"
         }
       ],
-      "dateCreated": "2025-08-15T14:37:00.000Z",
-      "dateUpdated": "2025-09-03T14:20:58.000Z",
+      "dateCreated": "2024-05-31T10:48:30.000Z",
+      "dateUpdated": "2025-10-15T08:54:58.000Z",
       "status": "open",
       "commitAuthors": {
-        "106144398": {
-          "identifier": "106144398",
-          "displayName": "ZenyB",
-          "count": 1,
+        "12939": {
+          "identifier": "12939",
+          "displayName": "weibel",
+          "count": 3,
           "isGitHubUser": true
         }
       }
@@ -79,32 +105,6 @@
           "identifier": "146753616",
           "displayName": "mdanylov-sigma",
           "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Add UserAgentDefaults for Managing User Agent String Persistence",
-      "number": 992,
-      "author": {
-        "login": "weibel",
-        "id": 12939
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "YuriyVelichkoPI",
-          "state": "DISMISSED"
-        }
-      ],
-      "dateCreated": "2024-05-31T10:48:30.000Z",
-      "dateUpdated": "2025-06-18T20:14:34.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "12939": {
-          "identifier": "12939",
-          "displayName": "weibel",
-          "count": 3,
           "isGitHubUser": true
         }
       }

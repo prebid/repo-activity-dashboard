@@ -1,46 +1,341 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-06T08:44:53.335Z",
-    "itemCount": 33
+    "lastSync": "2025-10-16T11:53:41.586Z",
+    "itemCount": 38
   },
   "items": [
     {
-      "title": "Module: Rules engine",
-      "number": 4147,
+      "title": "Test: get `/vtrack` endpoint",
+      "number": 4238,
       "author": {
-        "login": "And1sS",
-        "id": 28010702
+        "login": "marki1an",
+        "id": 95693607
       },
       "assignees": [
-        "And1sS"
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-10-09T22:16:06.000Z",
+      "dateUpdated": "2025-10-16T10:52:11.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "95693607": {
+          "identifier": "95693607",
+          "displayName": "marki1an",
+          "count": 13,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Sparteo: add required query params to adapter endpoint",
+      "number": 4225,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-10-01T15:05:51.000Z",
+      "dateUpdated": "2025-10-16T09:36:38.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "191453837": {
+          "identifier": "191453837",
+          "displayName": "t-sormonte",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Yandex Bid Adapter : add support for video ads",
+      "number": 4004,
+      "author": {
+        "login": "DiMurer",
+        "id": 3616413
+      },
+      "assignees": [
+        "DiMurer"
       ],
       "reviewers": [
         {
           "login": "CTMBNara",
           "state": "DISMISSED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "DiMurer",
+          "state": "COMMENTED"
         }
       ],
-      "dateCreated": "2025-08-19T23:39:05.000Z",
-      "dateUpdated": "2025-10-06T08:16:12.000Z",
+      "dateCreated": "2025-06-06T13:35:46.000Z",
+      "dateUpdated": "2025-10-16T08:23:09.000Z",
       "status": "open",
       "commitAuthors": {
-        "28010702": {
-          "identifier": "28010702",
-          "displayName": "And1sS",
-          "count": 94,
+        "3616413": {
+          "identifier": "3616413",
+          "displayName": "DiMurer",
+          "count": 11,
           "isGitHubUser": true
-        },
-        "95693607": {
-          "identifier": "95693607",
-          "displayName": "marki1an",
+        }
+      }
+    },
+    {
+      "title": "New Contxtful Adapter",
+      "number": 4240,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-10-15T13:14:28.000Z",
+      "dateUpdated": "2025-10-15T13:14:28.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
           "count": 1,
           "isGitHubUser": true
-        },
+        }
+      }
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2025-10-14T18:28:43.000Z",
+      "status": "open",
+      "commitAuthors": {
         "125548596": {
           "identifier": "125548596",
           "displayName": "osulzhenko",
           "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "CpmStar: Adapter Update bidder implementation to allow imp.ext passth…",
+      "number": 4228,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-10-07T05:02:11.000Z",
+      "dateUpdated": "2025-10-14T14:23:55.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Showheroes bidder",
+      "number": 4190,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "FilipStamenkovic"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "FilipStamenkovic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-15T09:46:52.000Z",
+      "dateUpdated": "2025-10-14T11:22:17.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "12955765": {
+          "identifier": "12955765",
+          "displayName": "FilipStamenkovic",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "RTBHouse: Add PMP Removal and Publisher ID Extraction",
+      "number": 4229,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-10-08T14:32:49.000Z",
+      "dateUpdated": "2025-10-14T11:11:46.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "109736938": {
+          "identifier": "109736938",
+          "displayName": "piotrj-rtbh",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Nativery",
+      "number": 4223,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-30T15:02:07.000Z",
+      "dateUpdated": "2025-10-14T10:34:34.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Tests: Module Storage Metrics",
+      "number": 4219,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-09-25T12:47:45.000Z",
+      "dateUpdated": "2025-10-14T09:58:05.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "125548596": {
+          "identifier": "125548596",
+          "displayName": "osulzhenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Dependencies: Update compatibility-breaking dependencies",
+      "number": 4235,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-10-09T09:43:11.000Z",
+      "dateUpdated": "2025-10-13T13:29:08.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Support GET on the /vtrack endpoint",
+      "number": 4073,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-21T10:20:12.000Z",
+      "dateUpdated": "2025-10-13T12:50:29.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 7,
           "isGitHubUser": true
         }
       }
@@ -56,39 +351,122 @@
       "reviewers": [
         {
           "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
+          "state": "APPROVED"
+        },
+        {
+          "login": "softcoder594",
+          "state": "COMMENTED"
         }
       ],
       "dateCreated": "2025-09-26T18:13:26.000Z",
-      "dateUpdated": "2025-10-03T15:31:14.000Z",
+      "dateUpdated": "2025-10-13T12:46:09.000Z",
       "status": "open",
       "commitAuthors": {
         "softcoder594": {
           "identifier": "softcoder594",
           "displayName": "softcoder594",
-          "count": 6,
+          "count": 7,
           "isGitHubUser": false
         }
       }
     },
     {
-      "title": "Eplanning: Add support for adomain",
-      "number": 4227,
+      "title": "DATA-22937: LI analytics adapter",
+      "number": 4154,
       "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
+        "login": "SuperIzya",
+        "id": 7934182
       },
-      "assignees": [
-        "przemkaczmarek"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "SuperIzya",
+          "state": "COMMENTED"
+        }
       ],
-      "reviewers": [],
-      "dateCreated": "2025-10-03T14:19:23.000Z",
-      "dateUpdated": "2025-10-03T14:19:23.000Z",
+      "dateCreated": "2025-08-25T11:06:46.000Z",
+      "dateUpdated": "2025-10-13T12:41:58.000Z",
       "status": "open",
       "commitAuthors": {
-        "167743744": {
-          "identifier": "167743744",
-          "displayName": "przemkaczmarek",
+        "7934182": {
+          "identifier": "7934182",
+          "displayName": "SuperIzya",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "34981284": {
+          "identifier": "34981284",
+          "displayName": "3link",
+          "count": 26,
+          "isGitHubUser": true
+        },
+        "ilya": {
+          "identifier": "ilya",
+          "displayName": "ilya",
+          "count": 17,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Sovrn: pass-through imp.ext unaltered",
+      "number": 4197,
+      "author": {
+        "login": "EmilNadimanov",
+        "id": 63649196
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-22T13:37:32.000Z",
+      "dateUpdated": "2025-10-13T12:40:03.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Emil Nadimanov": {
+          "identifier": "Emil Nadimanov",
+          "displayName": "Emil Nadimanov",
+          "count": 4,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "mobkoi: remove url endpoint override",
+      "number": 4224,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-10-01T13:00:46.000Z",
+      "dateUpdated": "2025-10-13T12:39:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "26904355": {
+          "identifier": "26904355",
+          "displayName": "mbonnafon",
           "count": 1,
           "isGitHubUser": true
         }
@@ -102,9 +480,18 @@
         "id": 31618107
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
       "dateCreated": "2025-10-03T12:23:13.000Z",
-      "dateUpdated": "2025-10-03T12:23:13.000Z",
+      "dateUpdated": "2025-10-13T12:38:43.000Z",
       "status": "open",
       "commitAuthors": {
         "31618107": {
@@ -112,6 +499,217 @@
           "displayName": "jbartek25",
           "count": 1,
           "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Bidder Configuration Fixes & URL Validation",
+      "number": 4126,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-08-08T06:35:57.000Z",
+      "dateUpdated": "2025-10-13T09:35:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "76536883": {
+          "identifier": "76536883",
+          "displayName": "AntoxaAntoxic",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "AudienceNetwork (S2S): add missing ext.security_app_id in OpenRTB requests to fix production auth failures",
+      "number": 4196,
+      "author": {
+        "login": "PeakLee",
+        "id": 1582487
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "PeakLee",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-19T08:26:48.000Z",
+      "dateUpdated": "2025-10-09T07:56:46.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "1582487": {
+          "identifier": "1582487",
+          "displayName": "PeakLee",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "SmileWanted endpoint now supports dynamic zoneId and integrates prebid server technology",
+      "number": 4109,
+      "author": {
+        "login": "QuentinGallard",
+        "id": 1264024
+      },
+      "assignees": [
+        "QuentinGallard"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-31T14:34:00.000Z",
+      "dateUpdated": "2025-10-09T07:55:57.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "QuentinGallard": {
+          "identifier": "QuentinGallard",
+          "displayName": "QuentinGallard",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New adapter: alliance_gravity",
+      "number": 4221,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [],
+      "dateCreated": "2025-09-26T15:56:58.000Z",
+      "dateUpdated": "2025-10-09T07:55:15.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "52867769": {
+          "identifier": "52867769",
+          "displayName": "danielbaud",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Eplanning: Add support for adomain",
+      "number": 4227,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-10-03T14:19:23.000Z",
+      "dateUpdated": "2025-10-07T05:17:50.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "IX Adapter feature dynamic account id support",
+      "number": 4218,
+      "author": {
+        "login": "mmoschovas",
+        "id": 63253416
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "dateCreated": "2025-09-25T11:04:27.000Z",
+      "dateUpdated": "2025-10-06T13:04:06.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Michael Moschovas": {
+          "identifier": "Michael Moschovas",
+          "displayName": "Michael Moschovas",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Alvads Adapter",
+      "number": 4194,
+      "author": {
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "SamuelAlejandroNT",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-10-06T10:01:34.000Z",
+      "status": "open",
+      "commitAuthors": {
+        "Samuel Alejandro Maldonado Garcia": {
+          "identifier": "Samuel Alejandro Maldonado Garcia",
+          "displayName": "Samuel Alejandro Maldonado Garcia",
+          "count": 5,
+          "isGitHubUser": false
         }
       }
     },
@@ -206,229 +804,6 @@
       }
     },
     {
-      "title": "New Adapter: Nativery",
-      "number": 4223,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "PENDING"
-        }
-      ],
-      "dateCreated": "2025-09-30T15:02:07.000Z",
-      "dateUpdated": "2025-10-02T17:16:04.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "167743744": {
-          "identifier": "167743744",
-          "displayName": "przemkaczmarek",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Yandex Bid Adapter : add support for video ads",
-      "number": 4004,
-      "author": {
-        "login": "DiMurer",
-        "id": 3616413
-      },
-      "assignees": [
-        "DiMurer"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "DiMurer",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-06-06T13:35:46.000Z",
-      "dateUpdated": "2025-10-02T15:38:53.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "3616413": {
-          "identifier": "3616413",
-          "displayName": "DiMurer",
-          "count": 9,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Sparteo: add required query params to adapter endpoint",
-      "number": 4225,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-10-02T14:16:54.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "191453837": {
-          "identifier": "191453837",
-          "displayName": "t-sormonte",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "mobkoi: remove url endpoint override",
-      "number": 4224,
-      "author": {
-        "login": "mbonnafon",
-        "id": 26904355
-      },
-      "assignees": [],
-      "reviewers": [],
-      "dateCreated": "2025-10-01T13:00:46.000Z",
-      "dateUpdated": "2025-10-02T11:24:17.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "26904355": {
-          "identifier": "26904355",
-          "displayName": "mbonnafon",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Bidder Configuration Fixes & URL Validation",
-      "number": 4126,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2025-09-30T10:43:21.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "76536883": {
-          "identifier": "76536883",
-          "displayName": "AntoxaAntoxic",
-          "count": 6,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-09-29T19:02:21.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "Samuel Alejandro Maldonado Garcia": {
-          "identifier": "Samuel Alejandro Maldonado Garcia",
-          "displayName": "Samuel Alejandro Maldonado Garcia",
-          "count": 5,
-          "isGitHubUser": false
-        }
-      }
-    },
-    {
-      "title": "AudienceNetwork (S2S): add missing ext.security_app_id in OpenRTB requests to fix production auth failures",
-      "number": 4196,
-      "author": {
-        "login": "PeakLee",
-        "id": 1582487
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "PeakLee",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-09-19T08:26:48.000Z",
-      "dateUpdated": "2025-09-29T02:17:10.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "1582487": {
-          "identifier": "1582487",
-          "displayName": "PeakLee",
-          "count": 5,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "New adapter: alliance_gravity",
-      "number": 4221,
-      "author": {
-        "login": "danielbaud",
-        "id": 52867769
-      },
-      "assignees": [],
-      "reviewers": [],
-      "dateCreated": "2025-09-26T15:56:58.000Z",
-      "dateUpdated": "2025-09-26T15:57:17.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "52867769": {
-          "identifier": "52867769",
-          "displayName": "danielbaud",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
       "title": "consumable: updated yaml config",
       "number": 4139,
       "author": {
@@ -463,217 +838,6 @@
           "displayName": "richardngo-consumable",
           "count": 5,
           "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "DATA-22937: LI analytics adapter",
-      "number": 4154,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "SuperIzya",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-08-25T11:06:46.000Z",
-      "dateUpdated": "2025-09-26T09:47:04.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "7934182": {
-          "identifier": "7934182",
-          "displayName": "SuperIzya",
-          "count": 1,
-          "isGitHubUser": true
-        },
-        "34981284": {
-          "identifier": "34981284",
-          "displayName": "3link",
-          "count": 26,
-          "isGitHubUser": true
-        },
-        "ilya": {
-          "identifier": "ilya",
-          "displayName": "ilya",
-          "count": 17,
-          "isGitHubUser": false
-        }
-      }
-    },
-    {
-      "title": "Support GET on the /vtrack endpoint",
-      "number": 4073,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-07-21T10:20:12.000Z",
-      "dateUpdated": "2025-09-26T07:49:20.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "76536883": {
-          "identifier": "76536883",
-          "displayName": "AntoxaAntoxic",
-          "count": 7,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Tests: Module Storage Metrics",
-      "number": 4219,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "PENDING"
-        }
-      ],
-      "dateCreated": "2025-09-25T12:47:45.000Z",
-      "dateUpdated": "2025-09-25T12:47:45.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "125548596": {
-          "identifier": "125548596",
-          "displayName": "osulzhenko",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "SmileWanted endpoint now supports dynamic zoneId and integrates prebid server technology",
-      "number": 4109,
-      "author": {
-        "login": "QuentinGallard",
-        "id": 1264024
-      },
-      "assignees": [
-        "QuentinGallard"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "APPROVED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "dateCreated": "2025-07-31T14:34:00.000Z",
-      "dateUpdated": "2025-09-25T12:38:45.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "QuentinGallard": {
-          "identifier": "QuentinGallard",
-          "displayName": "QuentinGallard",
-          "count": 1,
-          "isGitHubUser": false
-        }
-      }
-    },
-    {
-      "title": "Showheroes bidder",
-      "number": 4190,
-      "author": {
-        "login": "FilipStamenkovic",
-        "id": 12955765
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "APPROVED"
-        },
-        {
-          "login": "FilipStamenkovic",
-          "state": "COMMENTED"
-        }
-      ],
-      "dateCreated": "2025-09-15T09:46:52.000Z",
-      "dateUpdated": "2025-09-25T12:14:45.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "12955765": {
-          "identifier": "12955765",
-          "displayName": "FilipStamenkovic",
-          "count": 7,
-          "isGitHubUser": true
-        }
-      }
-    },
-    {
-      "title": "Sovrn: pass-through imp.ext unaltered",
-      "number": 4197,
-      "author": {
-        "login": "EmilNadimanov",
-        "id": 63649196
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "APPROVED"
-        }
-      ],
-      "dateCreated": "2025-09-22T13:37:32.000Z",
-      "dateUpdated": "2025-09-25T11:08:57.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "Emil Nadimanov": {
-          "identifier": "Emil Nadimanov",
-          "displayName": "Emil Nadimanov",
-          "count": 4,
-          "isGitHubUser": false
-        }
-      }
-    },
-    {
-      "title": "IX Adapter feature dynamic account id support",
-      "number": 4218,
-      "author": {
-        "login": "mmoschovas",
-        "id": 63253416
-      },
-      "assignees": [],
-      "reviewers": [],
-      "dateCreated": "2025-09-25T11:04:27.000Z",
-      "dateUpdated": "2025-09-25T11:05:00.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "Michael Moschovas": {
-          "identifier": "Michael Moschovas",
-          "displayName": "Michael Moschovas",
-          "count": 1,
-          "isGitHubUser": false
         }
       }
     },

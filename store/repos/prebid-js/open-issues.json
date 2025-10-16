@@ -1,44 +1,32 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-06T08:28:29.273Z",
-    "itemCount": 112
+    "lastSync": "2025-10-16T12:47:43.580Z",
+    "itemCount": 114
   },
   "items": [
     {
-      "title": "Viewabillity dropped",
-      "number": 13946,
+      "title": "Missing consent string in first bid requests since v10",
+      "number": 14015,
       "author": {
-        "login": "BerendKemper",
-        "id": 46784771
+        "login": "kpiegza",
+        "id": 52244018
       },
       "assignees": [],
-      "dateCreated": "2025-09-29T15:04:16.000Z",
-      "dateUpdated": "2025-10-06T08:07:46.000Z",
+      "dateCreated": "2025-10-14T17:06:08.000Z",
+      "dateUpdated": "2025-10-14T17:06:08.000Z",
       "status": "open"
     },
     {
-      "title": "LocalStorage Problem with ID hashes",
-      "number": 13955,
+      "title": "Cache useLocal and IMA params",
+      "number": 14014,
       "author": {
-        "login": "mikemangas",
-        "id": 85886271
+        "login": "ReinoutStevens",
+        "id": 518971
       },
       "assignees": [],
-      "dateCreated": "2025-10-01T09:27:05.000Z",
-      "dateUpdated": "2025-10-03T19:13:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "should we ban getTimezoneOffset",
-      "number": 13972,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-03T17:50:56.000Z",
-      "dateUpdated": "2025-10-03T17:50:56.000Z",
+      "dateCreated": "2025-10-14T14:02:43.000Z",
+      "dateUpdated": "2025-10-14T14:02:43.000Z",
       "status": "open"
     },
     {
@@ -50,7 +38,129 @@
       },
       "assignees": [],
       "dateCreated": "2025-09-18T09:18:04.000Z",
-      "dateUpdated": "2025-10-02T11:47:41.000Z",
+      "dateUpdated": "2025-10-10T09:12:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "TCF/GPP consentManagement Module not fully disabled when consentManagement module is disabled",
+      "number": 13651,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [
+        "pm-nitin-shirsat"
+      ],
+      "dateCreated": "2025-07-23T11:54:35.000Z",
+      "dateUpdated": "2025-10-09T09:27:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Discrepancy in interstitial ad rendering and analytics reporting",
+      "number": 13807,
+      "author": {
+        "login": "nirav777",
+        "id": 82255305
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-26T12:20:57.000Z",
+      "dateUpdated": "2025-10-08T17:02:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature request: replace expired bids that are about to be rendered",
+      "number": 13838,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-02T17:19:27.000Z",
+      "dateUpdated": "2025-10-08T17:01:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Spin off bot detection apis",
+      "number": 13984,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-07T14:25:04.000Z",
+      "dateUpdated": "2025-10-07T14:25:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "LocalStorage Problem with ID hashes",
+      "number": 13955,
+      "author": {
+        "login": "mikemangas",
+        "id": 85886271
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-01T09:27:05.000Z",
+      "dateUpdated": "2025-10-07T07:21:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Generic analytics adapter: skinny events",
+      "number": 13980,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-07T01:27:21.000Z",
+      "dateUpdated": "2025-10-07T01:29:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Create InBannerVideo Blocker",
+      "number": 13932,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-24T22:01:01.000Z",
+      "dateUpdated": "2025-10-06T17:51:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "FreeWheel SSP - 400 bad request response",
+      "number": 12016,
+      "author": {
+        "login": "hkimmgni",
+        "id": 144719203
+      },
+      "assignees": [],
+      "dateCreated": "2024-07-22T18:41:58.000Z",
+      "dateUpdated": "2025-10-06T15:42:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "should we ban getTimezoneOffset",
+      "number": 13972,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-03T17:50:56.000Z",
+      "dateUpdated": "2025-10-06T15:28:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DoNotTrack: ban access to navigator call",
+      "number": 13919,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:53:35.000Z",
+      "dateUpdated": "2025-10-06T15:16:25.000Z",
       "status": "open"
     },
     {
@@ -65,18 +175,6 @@
       ],
       "dateCreated": "2025-09-10T10:33:06.000Z",
       "dateUpdated": "2025-10-01T12:55:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Create InBannerVideo Blocker",
-      "number": 13932,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-24T22:01:01.000Z",
-      "dateUpdated": "2025-09-30T14:51:50.000Z",
       "status": "open"
     },
     {
@@ -118,18 +216,6 @@
       "status": "open"
     },
     {
-      "title": "DoNotTrack: ban access to navigator call",
-      "number": 13919,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T13:53:35.000Z",
-      "dateUpdated": "2025-09-23T13:53:53.000Z",
-      "status": "open"
-    },
-    {
       "title": "id5 id module: canCookieSync | is still used?",
       "number": 13842,
       "author": {
@@ -139,18 +225,6 @@
       "assignees": [],
       "dateCreated": "2025-09-03T21:10:26.000Z",
       "dateUpdated": "2025-09-23T08:50:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: replace expired bids that are about to be rendered",
-      "number": 13838,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-02T17:19:27.000Z",
-      "dateUpdated": "2025-09-22T15:29:10.000Z",
       "status": "open"
     },
     {
@@ -177,18 +251,6 @@
       ],
       "dateCreated": "2025-07-31T16:39:04.000Z",
       "dateUpdated": "2025-09-08T09:30:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Discrepancy in interstitial ad rendering and analytics reporting",
-      "number": 13807,
-      "author": {
-        "login": "nirav777",
-        "id": 82255305
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-26T12:20:57.000Z",
-      "dateUpdated": "2025-09-02T17:44:39.000Z",
       "status": "open"
     },
     {
@@ -324,20 +386,6 @@
       "assignees": [],
       "dateCreated": "2025-08-06T16:39:45.000Z",
       "dateUpdated": "2025-08-11T15:23:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "TCF/GPP consentManagement Module not fully disabled when consentManagement module is disabled",
-      "number": 13651,
-      "author": {
-        "login": "pm-nitin-shirsat",
-        "id": 107102698
-      },
-      "assignees": [
-        "pm-nitin-shirsat"
-      ],
-      "dateCreated": "2025-07-23T11:54:35.000Z",
-      "dateUpdated": "2025-07-29T13:53:41.000Z",
       "status": "open"
     },
     {
@@ -611,18 +659,6 @@
       "status": "open"
     },
     {
-      "title": "FreeWheel SSP - 400 bad request response",
-      "number": 12016,
-      "author": {
-        "login": "hkimmgni",
-        "id": 144719203
-      },
-      "assignees": [],
-      "dateCreated": "2024-07-22T18:41:58.000Z",
-      "dateUpdated": "2025-05-26T08:53:56.000Z",
-      "status": "open"
-    },
-    {
       "title": "Testing Prebid with AppNexus in NextJS",
       "number": 13075,
       "author": {
@@ -779,20 +815,6 @@
       ],
       "dateCreated": "2025-03-07T04:36:31.000Z",
       "dateUpdated": "2025-04-07T15:51:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: Make send n bids dynamic",
-      "number": 9842,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2023-04-21T15:37:31.000Z",
-      "dateUpdated": "2025-03-26T13:41:10.000Z",
       "status": "open"
     },
     {
