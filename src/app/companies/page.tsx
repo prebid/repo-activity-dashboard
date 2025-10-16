@@ -154,16 +154,20 @@ export default function CompaniesPage() {
         // Apply member filter
         switch (memberFilter) {
           case 'Member':
+            // Only members, exclude prebid
             if (!isMember || category === 'prebid') return;
             break;
           case 'Non-Member':
+            // Only non-members, exclude prebid
             if (isMember || category === 'prebid') return;
             break;
           case 'Prebid':
+            // Only prebid
             if (category !== 'prebid') return;
             break;
           case 'Prebid-As-Member':
-            if (category !== 'prebid' && !isMember) return;
+            // Members OR prebid (includes both)
+            if (!isMember && category !== 'prebid') return;
             break;
           case 'All':
           default:
