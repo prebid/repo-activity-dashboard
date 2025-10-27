@@ -1,10 +1,128 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-16T11:53:41.587Z",
-    "itemCount": 42
+    "lastSync": "2025-10-27T00:00:54.816Z",
+    "itemCount": 35
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Go: Rules Engine Module: Dynamic ruleset from YAML geoscopes",
+      "number": 4267,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-24T13:46:10.000Z",
+      "dateUpdated": "2025-10-24T13:46:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Unruly - support gpid",
+      "number": 4252,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "zxPhoenix"
+      ],
+      "dateCreated": "2025-10-21T10:37:02.000Z",
+      "dateUpdated": "2025-10-24T09:46:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Omnidex: Add GVL ID",
+      "number": 4255,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-21T15:31:03.000Z",
+      "dateUpdated": "2025-10-24T09:38:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: appStockSSP",
+      "number": 4264,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-23T13:38:53.000Z",
+      "dateUpdated": "2025-10-24T08:19:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Fix typo",
+      "number": 4256,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T15:47:06.000Z",
+      "dateUpdated": "2025-10-21T15:47:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Remove max length on params",
+      "number": 4207,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "dateCreated": "2025-09-23T14:49:57.000Z",
+      "dateUpdated": "2025-10-21T07:51:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Actions: Add publish to docker hub workflow",
+      "number": 4251,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-20T20:54:27.000Z",
+      "dateUpdated": "2025-10-20T20:54:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
+      "number": 4248,
+      "author": {
+        "login": "KoBilla",
+        "id": 33809658
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-20T12:01:17.000Z",
+      "dateUpdated": "2025-10-20T12:07:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Nextmillennium: New fields and adapter version update",
+      "number": 4234,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-10-08T19:47:40.000Z",
+      "dateUpdated": "2025-10-17T08:13:31.000Z",
+      "status": "open"
+    },
     {
       "title": "The JAVA server makes some RTB fields visible to bidders that shouldn't be visible",
       "number": 4236,
@@ -15,82 +133,6 @@
       "assignees": [],
       "dateCreated": "2025-10-09T10:12:25.000Z",
       "dateUpdated": "2025-10-16T10:56:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Accounts: Add coop cookiesync priority groups",
-      "number": 4237,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-10-09T18:58:40.000Z",
-      "dateUpdated": "2025-10-16T09:13:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Nextmillennium: New fields and adapter version update",
-      "number": 4234,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-08T19:47:40.000Z",
-      "dateUpdated": "2025-10-08T19:47:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Yandex: Set referer and target-ref to site.page",
-      "number": 4233,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-08T19:37:27.000Z",
-      "dateUpdated": "2025-10-08T19:37:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: xapads - adkernel alias",
-      "number": 4231,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-08T18:58:35.000Z",
-      "dateUpdated": "2025-10-08T18:58:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: MetaX: Add redirect user sync",
-      "number": 4230,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-08T18:40:44.000Z",
-      "dateUpdated": "2025-10-08T18:40:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: e-planning: Add support for adomain",
-      "number": 4199,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-09-22T17:37:15.000Z",
-      "dateUpdated": "2025-10-03T08:30:43.000Z",
       "status": "open"
     },
     {
@@ -164,44 +206,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: New Adapter: Contxtful",
-      "number": 4213,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-09-24T12:54:18.000Z",
-      "dateUpdated": "2025-09-25T08:38:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Kargo: Add email to codepath notification workflow",
-      "number": 4212,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T21:03:31.000Z",
-      "dateUpdated": "2025-09-23T21:03:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: KueezRTB: Remove additionalProperties from schema",
-      "number": 4211,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T19:55:55.000Z",
-      "dateUpdated": "2025-09-23T19:55:55.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: Metrics: Add connection dial metrics by adapter",
       "number": 4210,
       "author": {
@@ -223,54 +227,6 @@
       "assignees": [],
       "dateCreated": "2025-09-23T15:47:07.000Z",
       "dateUpdated": "2025-09-23T15:47:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: fwssp: Add iframe usersync",
-      "number": 4208,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T15:26:48.000Z",
-      "dateUpdated": "2025-09-23T15:26:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Adagio: Remove max length on params",
-      "number": 4207,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T14:49:57.000Z",
-      "dateUpdated": "2025-09-23T14:49:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Add configurable dialer timeouts to HTTP clients",
-      "number": 4201,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-22T18:00:40.000Z",
-      "dateUpdated": "2025-09-22T18:00:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: SmileWanted: Append zoneId to endpoint path",
-      "number": 4200,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-22T17:48:10.000Z",
-      "dateUpdated": "2025-09-22T17:48:10.000Z",
       "status": "open"
     },
     {
@@ -300,20 +256,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Sovrn: Fix passing through imp.ext.gpid",
-      "number": 4141,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "EmilNadimanov"
-      ],
-      "dateCreated": "2025-08-19T17:51:16.000Z",
-      "dateUpdated": "2025-08-27T09:24:48.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: Define An Adapter As White Label Only",
       "number": 4125,
       "author": {
@@ -323,18 +265,6 @@
       "assignees": [],
       "dateCreated": "2025-08-08T00:43:51.000Z",
       "dateUpdated": "2025-08-08T00:43:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Yandex: Add video support",
-      "number": 4117,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-06T02:15:27.000Z",
-      "dateUpdated": "2025-08-06T02:15:27.000Z",
       "status": "open"
     },
     {
@@ -361,8 +291,7 @@
       ],
       "dateCreated": "2025-07-14T19:06:16.000Z",
       "dateUpdated": "2025-07-31T08:03:56.000Z",
-      "status": "open",
-      "closedBy": "CTMBNara"
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: Zeta Global SSP: Add sid parameter and audio support",
@@ -376,8 +305,7 @@
       ],
       "dateCreated": "2025-03-10T16:51:38.000Z",
       "dateUpdated": "2025-07-31T08:03:50.000Z",
-      "status": "open",
-      "closedBy": "CTMBNara"
+      "status": "open"
     },
     {
       "title": "Port PR from PBS-Go: TMax: Add default host config",
@@ -453,20 +381,6 @@
       "assignees": [],
       "dateCreated": "2025-06-04T16:37:41.000Z",
       "dateUpdated": "2025-06-04T16:37:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Validation doesn't allow stored impressions without bidders",
-      "number": 2975,
-      "author": {
-        "login": "muuki88",
-        "id": 647727
-      },
-      "assignees": [
-        "Net-burst"
-      ],
-      "dateCreated": "2024-02-13T22:25:58.000Z",
-      "dateUpdated": "2025-05-30T14:24:11.000Z",
       "status": "open"
     },
     {

@@ -3,10 +3,162 @@
     "repository": "prebid/Prebid.js",
     "year": 2025,
     "month": 10,
-    "itemCount": 7,
-    "lastUpdated": "2025-10-16T12:47:43.596Z"
+    "itemCount": 18,
+    "lastUpdated": "2025-10-27T00:00:44.559Z"
   },
   "items": [
+    {
+      "title": "Video Module: support postmessages from PAAPI iframes",
+      "number": 11142,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "fowler446",
+        "karimMourra"
+      ],
+      "dateCreated": "2024-02-26T16:28:30.000Z",
+      "dateUpdated": "2025-10-26T11:55:14.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-26T11:55:14.000Z"
+    },
+    {
+      "title": "Paapi: add some browser features to request",
+      "number": 11696,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-06-04T20:52:32.000Z",
+      "dateUpdated": "2025-10-26T11:55:06.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-26T11:55:06.000Z"
+    },
+    {
+      "title": "Feature: break PAAPI for the TLS for some slots",
+      "number": 11859,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-06-24T21:27:18.000Z",
+      "dateUpdated": "2025-10-26T11:54:58.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-26T11:54:58.000Z"
+    },
+    {
+      "title": "[PAAPI] Allow bidders to store auctionConfig for future parallel on-device auctions",
+      "number": 12902,
+      "author": {
+        "login": "FlorentDancy",
+        "id": 6455459
+      },
+      "assignees": [],
+      "dateCreated": "2025-03-19T11:32:52.000Z",
+      "dateUpdated": "2025-10-26T11:54:50.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-26T11:54:50.000Z"
+    },
+    {
+      "title": "Enable PA API module on cookie-less inventory only",
+      "number": 12729,
+      "author": {
+        "login": "zhuoli-fledge",
+        "id": 168483110
+      },
+      "assignees": [],
+      "dateCreated": "2025-02-04T22:43:06.000Z",
+      "dateUpdated": "2025-10-26T11:54:26.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-26T11:54:26.000Z"
+    },
+    {
+      "title": "Spin off bot detection apis",
+      "number": 13984,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-07T14:25:04.000Z",
+      "dateUpdated": "2025-10-24T00:01:37.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-24T00:01:37.000Z"
+    },
+    {
+      "title": "Keep Adagio bidder params's compatibility",
+      "number": 12845,
+      "author": {
+        "login": "takenorim",
+        "id": 19651358
+      },
+      "assignees": [
+        "osazos"
+      ],
+      "dateCreated": "2025-03-07T04:36:31.000Z",
+      "dateUpdated": "2025-10-23T15:25:16.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T15:25:16.000Z"
+    },
+    {
+      "title": "TCF/GPP consentManagement Module not fully disabled when consentManagement module is disabled",
+      "number": 13651,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [
+        "pm-nitin-shirsat"
+      ],
+      "dateCreated": "2025-07-23T11:54:35.000Z",
+      "dateUpdated": "2025-10-23T14:50:46.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T14:50:46.000Z"
+    },
+    {
+      "title": "Module bids fail for non-banner ad units",
+      "number": 14057,
+      "author": {
+        "login": "gwhigs",
+        "id": 6107378
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-22T18:19:07.000Z",
+      "dateUpdated": "2025-10-22T22:03:47.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-22T22:03:47.000Z"
+    },
+    {
+      "title": "getAllPrebidWinningBids includes bids with sizes that do not match the sizes in the adunits",
+      "number": 14055,
+      "author": {
+        "login": "Kian-MH",
+        "id": 141834545
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-22T14:34:04.000Z",
+      "dateUpdated": "2025-10-22T14:37:57.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-22T14:37:57.000Z"
+    },
+    {
+      "title": "Missing consent string in first bid requests since v10",
+      "number": 14015,
+      "author": {
+        "login": "kpiegza",
+        "id": 52244018
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-10-14T17:06:08.000Z",
+      "dateUpdated": "2025-10-17T10:59:35.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-17T10:52:34.000Z"
+    },
     {
       "title": "Mmm123456",
       "number": 14005,
@@ -18,9 +170,7 @@
       "dateCreated": "2025-10-13T02:13:46.000Z",
       "dateUpdated": "2025-10-16T02:34:22.000Z",
       "status": "closed",
-      "dateClosed": "2025-10-16T02:34:22.000Z",
-      "closedBy": "ChrisHuie",
-      "closureReason": "completed"
+      "dateClosed": "2025-10-16T02:34:22.000Z"
     },
     {
       "title": "Prebid 10.8.0: window.googletag.secureSignalProviders is not an array",

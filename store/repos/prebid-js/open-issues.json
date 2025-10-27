@@ -1,20 +1,72 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-16T12:47:43.580Z",
-    "itemCount": 114
+    "lastSync": "2025-10-27T00:00:44.551Z",
+    "itemCount": 110
   },
   "items": [
     {
-      "title": "Missing consent string in first bid requests since v10",
-      "number": 14015,
+      "title": "unexpected behavior with TCF control and permutive RTD module",
+      "number": 14069,
       "author": {
-        "login": "kpiegza",
-        "id": 52244018
+        "login": "jdelhommeau",
+        "id": 14938467
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-10-24T16:17:48.000Z",
+      "dateUpdated": "2025-10-26T11:53:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DoNotTrack: ban access to navigator call",
+      "number": 13919,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2025-10-14T17:06:08.000Z",
-      "dateUpdated": "2025-10-14T17:06:08.000Z",
+      "dateCreated": "2025-09-23T13:53:35.000Z",
+      "dateUpdated": "2025-10-24T19:39:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
+      "number": 14068,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-24T16:06:16.000Z",
+      "dateUpdated": "2025-10-24T16:06:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 10.12.0 prebid.renderAd does not render BANNER ads anymore",
+      "number": 14048,
+      "author": {
+        "login": "damjan25",
+        "id": 60606529
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T15:39:01.000Z",
+      "dateUpdated": "2025-10-24T14:01:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bid filter module: expand into meta fields",
+      "number": 14056,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-10-22T16:19:30.000Z",
+      "dateUpdated": "2025-10-23T15:06:27.000Z",
       "status": "open"
     },
     {
@@ -26,7 +78,67 @@
       },
       "assignees": [],
       "dateCreated": "2025-10-14T14:02:43.000Z",
-      "dateUpdated": "2025-10-14T14:02:43.000Z",
+      "dateUpdated": "2025-10-23T09:10:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Create InBannerVideo Blocker",
+      "number": 13932,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-24T22:01:01.000Z",
+      "dateUpdated": "2025-10-22T21:05:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fingerprinting APIs",
+      "number": 12060,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-07-30T19:58:12.000Z",
+      "dateUpdated": "2025-10-22T16:56:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature Request: enforce sizes",
+      "number": 9154,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2022-10-25T18:55:02.000Z",
+      "dateUpdated": "2025-10-22T14:41:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 11: retire paapi and topics ",
+      "number": 14029,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-17T13:10:26.000Z",
+      "dateUpdated": "2025-10-20T16:02:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "should we ban getTimezoneOffset",
+      "number": 13972,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-03T17:50:56.000Z",
+      "dateUpdated": "2025-10-20T14:09:30.000Z",
       "status": "open"
     },
     {
@@ -39,20 +151,6 @@
       "assignees": [],
       "dateCreated": "2025-09-18T09:18:04.000Z",
       "dateUpdated": "2025-10-10T09:12:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "TCF/GPP consentManagement Module not fully disabled when consentManagement module is disabled",
-      "number": 13651,
-      "author": {
-        "login": "pm-nitin-shirsat",
-        "id": 107102698
-      },
-      "assignees": [
-        "pm-nitin-shirsat"
-      ],
-      "dateCreated": "2025-07-23T11:54:35.000Z",
-      "dateUpdated": "2025-10-09T09:27:48.000Z",
       "status": "open"
     },
     {
@@ -80,18 +178,6 @@
       "status": "open"
     },
     {
-      "title": "Spin off bot detection apis",
-      "number": 13984,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-07T14:25:04.000Z",
-      "dateUpdated": "2025-10-07T14:25:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "LocalStorage Problem with ID hashes",
       "number": 13955,
       "author": {
@@ -116,18 +202,6 @@
       "status": "open"
     },
     {
-      "title": "Create InBannerVideo Blocker",
-      "number": 13932,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-24T22:01:01.000Z",
-      "dateUpdated": "2025-10-06T17:51:55.000Z",
-      "status": "open"
-    },
-    {
       "title": "FreeWheel SSP - 400 bad request response",
       "number": 12016,
       "author": {
@@ -137,30 +211,6 @@
       "assignees": [],
       "dateCreated": "2024-07-22T18:41:58.000Z",
       "dateUpdated": "2025-10-06T15:42:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "should we ban getTimezoneOffset",
-      "number": 13972,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-03T17:50:56.000Z",
-      "dateUpdated": "2025-10-06T15:28:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DoNotTrack: ban access to navigator call",
-      "number": 13919,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T13:53:35.000Z",
-      "dateUpdated": "2025-10-06T15:16:25.000Z",
       "status": "open"
     },
     {
@@ -189,18 +239,6 @@
       ],
       "dateCreated": "2025-01-15T19:00:17.000Z",
       "dateUpdated": "2025-09-25T15:08:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Fingerprinting APIs",
-      "number": 12060,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-07-30T19:58:12.000Z",
-      "dateUpdated": "2025-09-24T16:35:27.000Z",
       "status": "open"
     },
     {
@@ -337,8 +375,7 @@
       ],
       "dateCreated": "2021-08-26T17:51:58.000Z",
       "dateUpdated": "2025-08-22T23:25:53.000Z",
-      "status": "open",
-      "closedBy": "patmmccann"
+      "status": "open"
     },
     {
       "title": "UserIds - default localStorage saving applies unnecessary encoding/decoding, corrupting the values third parties expect to read",
@@ -707,30 +744,6 @@
       "status": "open"
     },
     {
-      "title": "[PAAPI] Allow bidders to store auctionConfig for future parallel on-device auctions",
-      "number": 12902,
-      "author": {
-        "login": "FlorentDancy",
-        "id": 6455459
-      },
-      "assignees": [],
-      "dateCreated": "2025-03-19T11:32:52.000Z",
-      "dateUpdated": "2025-04-23T16:20:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Enable PA API module on cookie-less inventory only",
-      "number": 12729,
-      "author": {
-        "login": "zhuoli-fledge",
-        "id": 168483110
-      },
-      "assignees": [],
-      "dateCreated": "2025-02-04T22:43:06.000Z",
-      "dateUpdated": "2025-04-22T17:58:14.000Z",
-      "status": "open"
-    },
-    {
       "title": "More polite syncs",
       "number": 12992,
       "author": {
@@ -776,8 +789,7 @@
       "assignees": [],
       "dateCreated": "2019-10-31T21:24:25.000Z",
       "dateUpdated": "2025-04-09T16:34:03.000Z",
-      "status": "open",
-      "closedBy": "stale[bot]"
+      "status": "open"
     },
     {
       "title": "TCF restrictions for server-side bidders ",
@@ -804,20 +816,6 @@
       "status": "open"
     },
     {
-      "title": "Keep Adagio bidder params's compatibility",
-      "number": 12845,
-      "author": {
-        "login": "takenorim",
-        "id": 19651358
-      },
-      "assignees": [
-        "osazos"
-      ],
-      "dateCreated": "2025-03-07T04:36:31.000Z",
-      "dateUpdated": "2025-04-07T15:51:07.000Z",
-      "status": "open"
-    },
-    {
       "title": "PubX RTD Module Endpoint Logic Issue",
       "number": 12892,
       "author": {
@@ -841,8 +839,7 @@
       ],
       "dateCreated": "2020-12-14T20:04:51.000Z",
       "dateUpdated": "2025-03-24T13:35:53.000Z",
-      "status": "open",
-      "closedBy": "ChrisHuie"
+      "status": "open"
     },
     {
       "title": "TCF enforcement module: Support for ACL vendor ids",
@@ -866,19 +863,6 @@
       "assignees": [],
       "dateCreated": "2023-12-12T11:46:01.000Z",
       "dateUpdated": "2025-02-27T19:20:16.000Z",
-      "status": "open",
-      "closedBy": "ChrisHuie"
-    },
-    {
-      "title": "Feature Request: enforce sizes",
-      "number": 9154,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-25T18:55:02.000Z",
-      "dateUpdated": "2025-02-26T17:29:11.000Z",
       "status": "open"
     },
     {
@@ -917,8 +901,7 @@
       "assignees": [],
       "dateCreated": "2024-12-04T18:03:20.000Z",
       "dateUpdated": "2024-12-16T17:17:35.000Z",
-      "status": "open",
-      "closedBy": "ChrisHuie"
+      "status": "open"
     },
     {
       "title": "Feature request: detect ad blocking environment",
@@ -990,8 +973,7 @@
       "assignees": [],
       "dateCreated": "2024-10-23T08:09:46.000Z",
       "dateUpdated": "2024-11-11T08:19:00.000Z",
-      "status": "open",
-      "closedBy": "patmmccann"
+      "status": "open"
     },
     {
       "title": "Building bid adapters without building the whole project",
@@ -1066,18 +1048,6 @@
       "status": "open"
     },
     {
-      "title": "Feature: break PAAPI for the TLS for some slots",
-      "number": 11859,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-06-24T21:27:18.000Z",
-      "dateUpdated": "2024-09-03T14:39:10.000Z",
-      "status": "open"
-    },
-    {
       "title": "`maxRequestsPerOrigin` should apply to all requests, not just bidders",
       "number": 10350,
       "author": {
@@ -1104,18 +1074,6 @@
       "status": "open"
     },
     {
-      "title": "Paapi: add some browser features to request",
-      "number": 11696,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-06-04T20:52:32.000Z",
-      "dateUpdated": "2024-08-29T00:03:18.000Z",
-      "status": "open"
-    },
-    {
       "title": "Passing GPP data for bidViewability and dfpAdServerVideo modules follow-up",
       "number": 9364,
       "author": {
@@ -1137,21 +1095,6 @@
       "assignees": [],
       "dateCreated": "2024-07-29T15:39:07.000Z",
       "dateUpdated": "2024-07-29T15:39:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Video Module: support postmessages from PAAPI iframes",
-      "number": 11142,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "fowler446",
-        "karimMourra"
-      ],
-      "dateCreated": "2024-02-26T16:28:30.000Z",
-      "dateUpdated": "2024-07-09T20:26:14.000Z",
       "status": "open"
     },
     {

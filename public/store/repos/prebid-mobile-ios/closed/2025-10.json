@@ -3,10 +3,23 @@
     "repository": "prebid/prebid-mobile-ios",
     "year": 2025,
     "month": 10,
-    "itemCount": 3,
-    "lastUpdated": "2025-10-16T13:12:21.315Z"
+    "itemCount": 4,
+    "lastUpdated": "2025-10-27T00:01:01.770Z"
   },
   "items": [
+    {
+      "title": "Bug: From version 2.5.0, Prebid SDK doesn't replace ${AUCTION_PRICE} inside the nativeAdMarkup with the actual winning bid price",
+      "number": 1217,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-10T16:05:58.000Z",
+      "dateUpdated": "2025-10-21T20:29:38.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T20:29:37.000Z"
+    },
     {
       "title": "Suggestion: Should playbackend value be changed from 2 → 1 for interstitial videos?",
       "number": 1199,
@@ -18,9 +31,7 @@
       "dateCreated": "2025-08-15T10:35:49.000Z",
       "dateUpdated": "2025-10-16T09:30:00.000Z",
       "status": "closed",
-      "dateClosed": "2025-10-16T09:30:00.000Z",
-      "closedBy": "mdanylov-sigma",
-      "closureReason": "completed"
+      "dateClosed": "2025-10-16T09:30:00.000Z"
     },
     {
       "title": "AdPosition Enum un-matched definitions between Android and iOS",

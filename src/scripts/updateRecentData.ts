@@ -5,6 +5,7 @@
 
 import { config } from 'dotenv';
 import { Octokit } from '@octokit/rest';
+import { execSync } from 'child_process';
 import { StorageService } from '../services/storageService';
 import type { Repository, PRData, IssueData } from '../types/index';
 
@@ -85,23 +86,30 @@ class RecentDataUpdater {
   }
 
   /**
-   * Fetch recent issues - Issues API already supports 'since' so this works
+   * Fetch recent issues - Issues API supports 'since' but only use it for closed issues
    */
-  async fetchRecentIssues(owner: string, repo: string, since: Date, state: 'open' | 'closed' = 'closed'): Promise<Awaited<ReturnType<typeof this.octokit.issues.listForRepo>>['data']> {
+  async fetchRecentIssues(owner: string, repo: string, since: Date | null, state: 'open' | 'closed' = 'closed'): Promise<Awaited<ReturnType<typeof this.octokit.issues.listForRepo>>['data']> {
     let allIssues: Awaited<ReturnType<typeof this.octokit.issues.listForRepo>>['data'] = [];
     let page = 1;
 
     while (true) {
-      const response = await this.octokit.issues.listForRepo({
+      const params: any = {
         owner,
         repo,
         state,
-        since: since.toISOString(),  // Issues API supports 'since'!
         per_page: 100,
         page,
         sort: 'updated',
         direction: 'desc'
-      });
+      };
+
+      // Only use 'since' filter for closed issues with a real date
+      // For open issues, we want ALL of them regardless of update date
+      if (state === 'closed' && since) {
+        params.since = since.toISOString();
+      }
+
+      const response = await this.octokit.issues.listForRepo(params);
 
       // Filter out pull requests (issues API returns both)
       const issues = response.data.filter(item => !item.pull_request);
@@ -136,7 +144,7 @@ class RecentDataUpdater {
 
       // Fetch open issues
       console.log('  📋 Fetching open issues...');
-      const openIssues = await this.fetchRecentIssues(owner, repo, new Date(0), 'open');
+      const openIssues = await this.fetchRecentIssues(owner, repo, null, 'open');
       console.log(`    ✓ Found ${openIssues.length} open issues`);
 
       // Fetch recently closed issues
@@ -276,7 +284,6 @@ class RecentDataUpdater {
 
     // Copy to public and regenerate stats
     console.log('\n📂 Copying to public directory...');
-    const { execSync } = require('child_process');
     execSync('cp -r store/repos public/store/', { stdio: 'inherit' });
 
     console.log('📊 Regenerating statistics...');

@@ -3,10 +3,342 @@
     "repository": "prebid/prebid-server-java",
     "year": 2025,
     "month": 10,
-    "itemCount": 2,
-    "lastUpdated": "2025-10-06T08:44:53.336Z"
+    "itemCount": 21,
+    "lastUpdated": "2025-10-27T00:00:54.817Z"
   },
   "items": [
+    {
+      "title": "Support GET on the /vtrack endpoint",
+      "number": 4073,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-21T10:20:12.000Z",
+      "dateUpdated": "2025-10-22T12:44:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-22T12:44:35.000Z",
+      "dateClosed": "2025-10-22T12:44:35.000Z"
+    },
+    {
+      "title": "Tests: Module Storage Metrics",
+      "number": 4219,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T12:47:45.000Z",
+      "dateUpdated": "2025-10-22T08:46:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-22T08:46:55.000Z",
+      "dateClosed": "2025-10-22T08:46:55.000Z"
+    },
+    {
+      "title": "Test: get `/vtrack` endpoint",
+      "number": 4238,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-09T22:16:06.000Z",
+      "dateUpdated": "2025-10-22T08:18:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-22T08:18:55.000Z",
+      "dateClosed": "2025-10-22T08:18:55.000Z"
+    },
+    {
+      "title": "Showheroes: Rename test file",
+      "number": 4253,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T13:55:50.000Z",
+      "dateUpdated": "2025-10-21T14:00:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T14:00:14.000Z",
+      "dateClosed": "2025-10-21T14:00:14.000Z"
+    },
+    {
+      "title": "Showheroes bidder",
+      "number": 4190,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "FilipStamenkovic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-15T09:46:52.000Z",
+      "dateUpdated": "2025-10-21T12:47:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:47:25.000Z",
+      "dateClosed": "2025-10-21T12:47:25.000Z"
+    },
+    {
+      "title": "Eplanning: Add support for adomain",
+      "number": 4227,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-03T14:19:23.000Z",
+      "dateUpdated": "2025-10-21T12:30:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:30:03.000Z",
+      "dateClosed": "2025-10-21T12:30:03.000Z"
+    },
+    {
+      "title": "mobkoi: remove url endpoint override",
+      "number": 4224,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:00:46.000Z",
+      "dateUpdated": "2025-10-21T12:24:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:24:50.000Z",
+      "dateClosed": "2025-10-21T12:24:50.000Z"
+    },
+    {
+      "title": "optable-targeting: Optimize Optable requests for more precise ranging and performance insights",
+      "number": 4222,
+      "author": {
+        "login": "softcoder594",
+        "id": 195325408
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-26T18:13:26.000Z",
+      "dateUpdated": "2025-10-21T12:24:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:24:30.000Z",
+      "dateClosed": "2025-10-21T12:24:30.000Z"
+    },
+    {
+      "title": "Sovrn: pass-through imp.ext unaltered",
+      "number": 4197,
+      "author": {
+        "login": "EmilNadimanov",
+        "id": 63649196
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-22T13:37:32.000Z",
+      "dateUpdated": "2025-10-21T12:24:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:24:16.000Z",
+      "dateClosed": "2025-10-21T12:24:16.000Z"
+    },
+    {
+      "title": "SmileWanted endpoint now supports dynamic zoneId and integrates prebid server technology",
+      "number": 4109,
+      "author": {
+        "login": "QuentinGallard",
+        "id": 1264024
+      },
+      "assignees": [
+        "QuentinGallard"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-31T14:34:00.000Z",
+      "dateUpdated": "2025-10-21T12:22:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:22:48.000Z",
+      "dateClosed": "2025-10-21T12:22:48.000Z"
+    },
+    {
+      "title": "Yandex Bid Adapter : add support for video ads",
+      "number": 4004,
+      "author": {
+        "login": "DiMurer",
+        "id": 3616413
+      },
+      "assignees": [
+        "DiMurer"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-06-06T13:35:46.000Z",
+      "dateUpdated": "2025-10-21T12:22:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:22:27.000Z",
+      "dateClosed": "2025-10-21T12:22:27.000Z"
+    },
+    {
+      "title": "Improve Digital adapter: switch to HTTPS",
+      "number": 4226,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-03T12:23:13.000Z",
+      "dateUpdated": "2025-10-21T12:22:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:22:15.000Z",
+      "dateClosed": "2025-10-21T12:22:15.000Z"
+    },
+    {
+      "title": "New Contxtful Adapter",
+      "number": 4240,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T13:14:28.000Z",
+      "dateUpdated": "2025-10-21T12:21:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:21:56.000Z",
+      "dateClosed": "2025-10-21T12:21:56.000Z"
+    },
+    {
+      "title": "Adkernel Alias: Xapads",
+      "number": 4242,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-17T09:24:29.000Z",
+      "dateUpdated": "2025-10-21T12:21:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:21:47.000Z",
+      "dateClosed": "2025-10-21T12:21:47.000Z"
+    },
+    {
+      "title": "MetaX: Add redirect user sync",
+      "number": 4243,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-17T10:20:14.000Z",
+      "dateUpdated": "2025-10-21T12:21:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:21:24.000Z",
+      "dateClosed": "2025-10-21T12:21:24.000Z"
+    },
+    {
+      "title": "KueezRTB: Remove additionalProperties from schema",
+      "number": 4244,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-17T10:33:22.000Z",
+      "dateUpdated": "2025-10-21T12:21:14.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:21:12.000Z",
+      "dateClosed": "2025-10-21T12:21:13.000Z"
+    },
+    {
+      "title": "fwssp: Add iframe usersync",
+      "number": 4245,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-17T10:50:22.000Z",
+      "dateUpdated": "2025-10-21T12:21:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:21:05.000Z",
+      "dateClosed": "2025-10-21T12:21:05.000Z"
+    },
+    {
+      "title": "Kargo: Add email to codepath notification workflow",
+      "number": 4247,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T07:51:14.000Z",
+      "dateUpdated": "2025-10-21T12:20:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T12:20:56.000Z",
+      "dateClosed": "2025-10-21T12:20:56.000Z"
+    },
+    {
+      "title": "Test: Vtrack account ttl",
+      "number": 4241,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-16T13:26:33.000Z",
+      "dateUpdated": "2025-10-20T14:03:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-20T14:03:12.000Z",
+      "dateClosed": "2025-10-20T14:03:13.000Z"
+    },
     {
       "title": "Test: Rule Engine",
       "number": 4103,

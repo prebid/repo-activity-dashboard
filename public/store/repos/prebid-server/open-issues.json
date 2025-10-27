@@ -1,10 +1,24 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-10-16T11:54:48.687Z",
-    "itemCount": 200
+    "lastSync": "2025-10-27T00:00:50.512Z",
+    "itemCount": 201
   },
   "items": [
+    {
+      "title": "setuid's not picking up an account id",
+      "number": 4494,
+      "author": {
+        "login": "spormeon",
+        "id": 8503167
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-08-20T14:06:00.000Z",
+      "dateUpdated": "2025-10-24T12:06:45.000Z",
+      "status": "open"
+    },
     {
       "title": "Support the delivery of custom bid data to prebid.js",
       "number": 4554,
@@ -14,19 +28,95 @@
       },
       "assignees": [],
       "dateCreated": "2025-09-29T22:02:21.000Z",
-      "dateUpdated": "2025-10-06T02:27:17.000Z",
+      "dateUpdated": "2025-10-24T01:20:20.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: LiveIntent module: Restrict LI enrichment based on allowed activity",
-      "number": 4560,
+      "title": "Pass alias bidder name to pubmatic adapter",
+      "number": 4497,
+      "author": {
+        "login": "Pubmatic-Supriya-Patil",
+        "id": 131644110
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2025-08-21T06:37:23.000Z",
+      "dateUpdated": "2025-10-22T14:16:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Support GET on the /vtrack endpoint",
+      "number": 4577,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2025-10-03T16:20:18.000Z",
-      "dateUpdated": "2025-10-03T16:20:18.000Z",
+      "dateCreated": "2025-10-22T12:44:52.000Z",
+      "dateUpdated": "2025-10-22T12:44:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Enhance module A/B testing by adding an ad server targeting keyword into the response",
+      "number": 4527,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-10T12:57:45.000Z",
+      "dateUpdated": "2025-10-21T14:35:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Showheroes: Rename test file",
+      "number": 4574,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T14:00:28.000Z",
+      "dateUpdated": "2025-10-21T14:00:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: optable-targeting: Optimize Optable requests for more precise ranging and performance insights",
+      "number": 4572,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T12:28:50.000Z",
+      "dateUpdated": "2025-10-21T12:28:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Question: How can user IDs be forwarded from one Prebid Server to another?",
+      "number": 4569,
+      "author": {
+        "login": "Mickael-van-der-Beek",
+        "id": 4224802
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-16T11:59:57.000Z",
+      "dateUpdated": "2025-10-17T14:21:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Switch from glog to slog for structured (as well as leveled) logging",
+      "number": 4103,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2024-12-13T07:12:25.000Z",
+      "dateUpdated": "2025-10-16T13:20:39.000Z",
       "status": "open"
     },
     {
@@ -134,18 +224,6 @@
       "status": "open"
     },
     {
-      "title": "Enhance module A/B testing by adding an ad server targeting keyword into the response",
-      "number": 4527,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-10T12:57:45.000Z",
-      "dateUpdated": "2025-09-24T14:53:55.000Z",
-      "status": "open"
-    },
-    {
       "title": "Prebid Server 4.0",
       "number": 3861,
       "author": {
@@ -155,32 +233,6 @@
       "assignees": [],
       "dateCreated": "2024-08-14T16:19:08.000Z",
       "dateUpdated": "2025-09-24T14:45:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Limit number of impressions in auction request",
-      "number": 4121,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-26T15:50:49.000Z",
-      "dateUpdated": "2025-09-24T14:06:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Pass alias bidder name to pubmatic adapter",
-      "number": 4497,
-      "author": {
-        "login": "Pubmatic-Supriya-Patil",
-        "id": 131644110
-      },
-      "assignees": [
-        "ChrisHuie"
-      ],
-      "dateCreated": "2025-08-21T06:37:23.000Z",
-      "dateUpdated": "2025-09-22T16:08:06.000Z",
       "status": "open"
     },
     {
@@ -415,20 +467,6 @@
       "status": "open"
     },
     {
-      "title": "setuid's not picking up an account id",
-      "number": 4494,
-      "author": {
-        "login": "spormeon",
-        "id": 8503167
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2025-08-20T14:06:00.000Z",
-      "dateUpdated": "2025-08-27T14:35:59.000Z",
-      "status": "open"
-    },
-    {
       "title": "Rules Engine Module: Generate rules from YAML geoscope annotations",
       "number": 4379,
       "author": {
@@ -645,18 +683,6 @@
       ],
       "dateCreated": "2025-04-25T10:22:19.000Z",
       "dateUpdated": "2025-07-11T14:55:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Switch from glog to slog for structured (as well as leveled) logging",
-      "number": 4103,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-13T07:12:25.000Z",
-      "dateUpdated": "2025-07-11T14:51:35.000Z",
       "status": "open"
     },
     {
@@ -935,18 +961,6 @@
       ],
       "dateCreated": "2024-10-30T13:43:08.000Z",
       "dateUpdated": "2025-05-30T14:47:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support format specific floor value in case of multi-format request",
-      "number": 4207,
-      "author": {
-        "login": "pm-jaydeep-mohite",
-        "id": 30924180
-      },
-      "assignees": [],
-      "dateCreated": "2025-02-13T16:26:08.000Z",
-      "dateUpdated": "2025-05-30T14:40:51.000Z",
       "status": "open"
     },
     {
@@ -1247,8 +1261,7 @@
       ],
       "dateCreated": "2024-03-15T15:57:52.000Z",
       "dateUpdated": "2025-03-17T14:55:05.000Z",
-      "status": "open",
-      "closedBy": "bretg"
+      "status": "open"
     },
     {
       "title": "Modules and execution plans",
@@ -1485,8 +1498,7 @@
       "assignees": [],
       "dateCreated": "2024-12-04T00:32:23.000Z",
       "dateUpdated": "2025-01-13T15:19:38.000Z",
-      "status": "open",
-      "closedBy": "bretg"
+      "status": "open"
     },
     {
       "title": "[Feature Request] Inject Server-Side Floor Values into Prebid.js Bid Object for Analytics",
@@ -1558,8 +1570,7 @@
       "assignees": [],
       "dateCreated": "2024-09-17T16:31:56.000Z",
       "dateUpdated": "2024-12-11T22:03:37.000Z",
-      "status": "open",
-      "closedBy": "bretg"
+      "status": "open"
     },
     {
       "title": "Bid Adapters should be able to specify custom targeting",
@@ -1659,8 +1670,7 @@
       ],
       "dateCreated": "2023-06-16T14:31:31.000Z",
       "dateUpdated": "2024-12-11T21:53:24.000Z",
-      "status": "open",
-      "closedBy": "bretg"
+      "status": "open"
     },
     {
       "title": "Extend GeoLookup ability",
@@ -2328,8 +2338,7 @@
       "assignees": [],
       "dateCreated": "2023-08-02T08:51:18.000Z",
       "dateUpdated": "2023-09-13T18:09:16.000Z",
-      "status": "open",
-      "closedBy": "guscarreon"
+      "status": "open"
     },
     {
       "title": "Add E2E test for deal support",

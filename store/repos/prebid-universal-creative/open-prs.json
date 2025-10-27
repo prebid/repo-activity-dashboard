@@ -1,10 +1,24 @@
 {
   "metadata": {
     "repository": "prebid/prebid-universal-creative",
-    "lastSync": "2025-10-16T13:13:52.301Z",
-    "itemCount": 5
+    "lastSync": "2025-10-27T00:01:09.866Z",
+    "itemCount": 6
   },
   "items": [
+    {
+      "title": "Bump playwright and @playwright/test",
+      "number": 297,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T18:57:02.000Z",
+      "dateUpdated": "2025-10-20T18:57:02.000Z",
+      "status": "open"
+    },
     {
       "title": "Bump tar-fs from 3.0.9 to 3.1.1",
       "number": 295,
@@ -14,17 +28,10 @@
       },
       "assignees": [],
       "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-09-24T21:07:30.000Z",
       "dateUpdated": "2025-09-24T21:07:30.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "49699333": {
-          "identifier": "49699333",
-          "displayName": "dependabot[bot]",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
+      "status": "open"
     },
     {
       "title": "Bump webpack-dev-middleware and karma-webpack",
@@ -35,17 +42,10 @@
       },
       "assignees": [],
       "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2024-03-22T00:01:06.000Z",
       "dateUpdated": "2025-09-09T18:08:39.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "49699333": {
-          "identifier": "49699333",
-          "displayName": "dependabot[bot]",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
+      "status": "open"
     },
     {
       "title": "Bump sha.js from 2.4.11 to 2.4.12",
@@ -55,23 +55,11 @@
         "id": 49699333
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-09-09T18:07:11.000Z",
       "dateUpdated": "2025-09-09T18:08:35.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "49699333": {
-          "identifier": "49699333",
-          "displayName": "dependabot[bot]",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
+      "status": "open"
     },
     {
       "title": "Mobile app rendering: if burl is missing from bid, write ad markup after MRAID-viewable",
@@ -82,17 +70,10 @@
       },
       "assignees": [],
       "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2024-12-20T04:24:55.000Z",
       "dateUpdated": "2025-08-13T16:37:09.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "Ricky Blaha": {
-          "identifier": "Ricky Blaha",
-          "displayName": "Ricky Blaha",
-          "count": 2,
-          "isGitHubUser": false
-        }
-      }
+      "status": "open"
     },
     {
       "title": "Introduce mobile impression tracking with Open Measurement",
@@ -103,17 +84,10 @@
       },
       "assignees": [],
       "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-02-20T08:48:46.000Z",
       "dateUpdated": "2025-08-12T13:34:29.000Z",
-      "status": "open",
-      "commitAuthors": {
-        "72038591": {
-          "identifier": "72038591",
-          "displayName": "ValentinPostindustria",
-          "count": 2,
-          "isGitHubUser": true
-        }
-      }
+      "status": "open"
     }
   ]
 }

@@ -3,10 +3,279 @@
     "repository": "prebid/prebid-server-java",
     "year": 2025,
     "month": 10,
-    "itemCount": 1,
-    "lastUpdated": "2025-10-16T11:53:41.588Z"
+    "itemCount": 20,
+    "lastUpdated": "2025-10-27T00:00:54.817Z"
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Go: GDPR: Move enforcement processing upstream",
+      "number": 4250,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-20T18:23:17.000Z",
+      "dateUpdated": "2025-10-24T12:40:51.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-24T12:40:51.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Accounts: Add coop cookiesync priority groups",
+      "number": 4237,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-09T18:58:40.000Z",
+      "dateUpdated": "2025-10-24T10:38:50.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-24T10:38:50.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Add configurable dialer timeouts to HTTP clients",
+      "number": 4201,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-22T18:00:40.000Z",
+      "dateUpdated": "2025-10-24T08:17:54.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-24T08:17:53.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Mobkoi: Remove url endpoint override",
+      "number": 4249,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "dateCreated": "2025-10-20T17:00:32.000Z",
+      "dateUpdated": "2025-10-23T13:32:09.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T13:32:09.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Improve Digital: Switch to HTTPS",
+      "number": 4257,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T15:58:47.000Z",
+      "dateUpdated": "2025-10-23T13:29:39.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T13:29:39.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Mobkoi: Update endpoint",
+      "number": 4260,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-22T17:54:06.000Z",
+      "dateUpdated": "2025-10-23T13:27:44.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T13:27:43.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Remove flaky agma test",
+      "number": 4261,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-22T20:46:04.000Z",
+      "dateUpdated": "2025-10-23T13:22:07.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-23T13:22:07.000Z"
+    },
+    {
+      "title": "Validation doesn't allow stored impressions without bidders",
+      "number": 2975,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2024-02-13T22:25:58.000Z",
+      "dateUpdated": "2025-10-21T20:09:45.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T20:09:45.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: e-planning: Add support for adomain",
+      "number": 4199,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-09-22T17:37:15.000Z",
+      "dateUpdated": "2025-10-21T12:30:04.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:30:04.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Sovrn: Fix passing through imp.ext.gpid",
+      "number": 4141,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "EmilNadimanov"
+      ],
+      "dateCreated": "2025-08-19T17:51:16.000Z",
+      "dateUpdated": "2025-10-21T12:24:17.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:24:17.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: SmileWanted: Append zoneId to endpoint path",
+      "number": 4200,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-22T17:48:10.000Z",
+      "dateUpdated": "2025-10-21T12:22:49.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:22:49.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Yandex: Set referer and target-ref to site.page",
+      "number": 4233,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-08T19:37:27.000Z",
+      "dateUpdated": "2025-10-21T12:22:29.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:22:29.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Yandex: Add video support",
+      "number": 4117,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-06T02:15:27.000Z",
+      "dateUpdated": "2025-10-21T12:22:28.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:22:28.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Contxtful",
+      "number": 4213,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-09-24T12:54:18.000Z",
+      "dateUpdated": "2025-10-21T12:21:57.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:21:57.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: xapads - adkernel alias",
+      "number": 4231,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-08T18:58:35.000Z",
+      "dateUpdated": "2025-10-21T12:21:48.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:21:48.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: MetaX: Add redirect user sync",
+      "number": 4230,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-08T18:40:44.000Z",
+      "dateUpdated": "2025-10-21T12:21:25.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:21:24.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: KueezRTB: Remove additionalProperties from schema",
+      "number": 4211,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-09-23T19:55:55.000Z",
+      "dateUpdated": "2025-10-21T12:21:13.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:21:13.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: fwssp: Add iframe usersync",
+      "number": 4208,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-09-23T15:26:48.000Z",
+      "dateUpdated": "2025-10-21T12:21:06.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:21:06.000Z"
+    },
+    {
+      "title": "Port PR from PBS-Go: Kargo: Add email to codepath notification workflow",
+      "number": 4212,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-09-23T21:03:31.000Z",
+      "dateUpdated": "2025-10-21T12:20:56.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-21T12:20:56.000Z"
+    },
     {
       "title": "Port PR from PBS-Go: OpenX: Return buyer exts in response",
       "number": 4232,
@@ -20,9 +289,7 @@
       "dateCreated": "2025-10-08T19:21:57.000Z",
       "dateUpdated": "2025-10-16T08:39:22.000Z",
       "status": "closed",
-      "dateClosed": "2025-10-16T08:39:22.000Z",
-      "closedBy": "AntoxaAntoxic",
-      "closureReason": "completed"
+      "dateClosed": "2025-10-16T08:39:22.000Z"
     }
   ]
 }

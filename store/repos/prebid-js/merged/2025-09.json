@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 9,
     "itemCount": 77,
-    "lastUpdated": "2025-10-16T12:47:43.586Z"
+    "lastUpdated": "2025-10-27T00:00:44.557Z"
   },
   "items": [
     {
@@ -398,24 +398,13 @@
         "id": 49699333
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-09-24T20:25:43.000Z",
-      "dateUpdated": "2025-09-25T19:31:48.000Z",
+      "dateUpdated": "2025-10-17T23:40:47.000Z",
       "status": "merged",
       "dateMerged": "2025-09-25T19:31:47.000Z",
-      "commitAuthors": {
-        "49699333": {
-          "identifier": "49699333",
-          "displayName": "dependabot[bot]",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-09-25T19:31:47.000Z"
     },
     {
       "title": "CI: automate generation of codeql rules for fingerprinting APIs",

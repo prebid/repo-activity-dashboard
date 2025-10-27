@@ -3,10 +3,200 @@
     "repository": "prebid/prebid-server",
     "year": 2025,
     "month": 10,
-    "itemCount": 7,
-    "lastUpdated": "2025-10-16T11:54:48.689Z"
+    "itemCount": 17,
+    "lastUpdated": "2025-10-27T00:00:50.514Z"
   },
   "items": [
+    {
+      "title": "Rules Engine Module: Dynamic ruleset from YAML geoscopes",
+      "number": 4509,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-03T14:05:53.000Z",
+      "dateUpdated": "2025-10-24T13:45:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-24T13:45:54.000Z",
+      "dateClosed": "2025-10-24T13:45:54.000Z"
+    },
+    {
+      "title": "New Adapter: appStockSSP",
+      "number": 4502,
+      "author": {
+        "login": "AppstockLTD",
+        "id": 180516379
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-27T22:51:18.000Z",
+      "dateUpdated": "2025-10-23T13:38:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-23T13:38:35.000Z",
+      "dateClosed": "2025-10-23T13:38:35.000Z"
+    },
+    {
+      "title": "Remove flaky agma test",
+      "number": 4578,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T16:34:37.000Z",
+      "dateUpdated": "2025-10-22T20:45:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-22T20:45:47.000Z",
+      "dateClosed": "2025-10-22T20:45:47.000Z"
+    },
+    {
+      "title": "Mobkoi: Update endpoint",
+      "number": 4523,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-08T09:36:24.000Z",
+      "dateUpdated": "2025-10-22T17:53:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-22T17:53:51.000Z",
+      "dateClosed": "2025-10-22T17:53:51.000Z"
+    },
+    {
+      "title": "Improve Digital: Switch to HTTPS",
+      "number": 4559,
+      "author": {
+        "login": "jbartek25",
+        "id": 31618107
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-03T12:00:16.000Z",
+      "dateUpdated": "2025-10-21T15:58:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T15:58:30.000Z",
+      "dateClosed": "2025-10-21T15:58:30.000Z"
+    },
+    {
+      "title": "Adagio: Fix typo",
+      "number": 4570,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T10:42:05.000Z",
+      "dateUpdated": "2025-10-21T15:46:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T15:46:47.000Z",
+      "dateClosed": "2025-10-21T15:46:47.000Z"
+    },
+    {
+      "title": "Omnidex: Add GVL ID",
+      "number": 4568,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-16T08:47:44.000Z",
+      "dateUpdated": "2025-10-21T15:30:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-21T15:30:45.000Z",
+      "dateClosed": "2025-10-21T15:30:45.000Z"
+    },
+    {
+      "title": "Actions: Add publish to docker hub workflow",
+      "number": 4558,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-02T15:30:06.000Z",
+      "dateUpdated": "2025-10-20T20:54:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-20T20:54:13.000Z",
+      "dateClosed": "2025-10-20T20:54:13.000Z"
+    },
+    {
+      "title": "GDPR: Move enforcement processing upstream",
+      "number": 4567,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T21:16:10.000Z",
+      "dateUpdated": "2025-10-20T18:23:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-20T18:23:07.000Z",
+      "dateClosed": "2025-10-20T18:23:07.000Z"
+    },
+    {
+      "title": "Mobkoi: Remove url endpoint override",
+      "number": 4555,
+      "author": {
+        "login": "mbonnafon",
+        "id": 26904355
+      },
+      "assignees": [
+        "linux019",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:26:11.000Z",
+      "dateUpdated": "2025-10-20T17:00:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-20T17:00:24.000Z",
+      "dateClosed": "2025-10-20T17:00:24.000Z"
+    },
     {
       "title": "Accounts: Add coop cookiesync priority groups",
       "number": 4561,

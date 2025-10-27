@@ -3,10 +3,26 @@
     "repository": "prebid/prebid-mobile-android",
     "year": 2025,
     "month": 10,
-    "itemCount": 5,
-    "lastUpdated": "2025-10-16T13:11:51.122Z"
+    "itemCount": 6,
+    "lastUpdated": "2025-10-27T00:00:58.054Z"
   },
   "items": [
+    {
+      "title": "Bump to 3.1.0",
+      "number": 894,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T14:32:30.000Z",
+      "dateUpdated": "2025-10-20T09:06:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-20T09:06:29.000Z",
+      "dateClosed": "2025-10-20T09:06:29.000Z"
+    },
     {
       "title": "Maven Central deployment instead of OSSRH",
       "number": 890,
@@ -15,28 +31,13 @@
         "id": 146753616
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "YuriyVelichkoPI",
-          "state": "PENDING"
-        },
-        {
-          "login": "ValentinPostindustria",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-10-01T10:17:17.000Z",
       "dateUpdated": "2025-10-15T12:40:21.000Z",
       "status": "merged",
       "dateMerged": "2025-10-15T12:40:16.000Z",
-      "commitAuthors": {
-        "146753616": {
-          "identifier": "146753616",
-          "displayName": "mdanylov-sigma",
-          "count": 2,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-10-15T12:40:16.000Z"
     },
     {
       "title": "Change VIDEO_INTERSTITIAL_PLAYBACK_END default from 2 → 1 for interstitial video ads",
