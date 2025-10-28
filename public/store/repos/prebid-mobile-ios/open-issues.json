@@ -1,10 +1,48 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-10-27T00:01:01.769Z",
-    "itemCount": 41
+    "lastSync": "2025-10-28T11:15:38.626Z",
+    "itemCount": 39
   },
   "items": [
+    {
+      "title": "[DRAFT] Support Rewarder Display",
+      "number": 713,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2022-11-10T07:44:29.000Z",
+      "dateUpdated": "2025-10-27T07:40:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Multi-AdUnit Auction and Winner Selection Logic",
+      "number": 950,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-01-11T20:46:25.000Z",
+      "dateUpdated": "2025-10-27T07:40:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "App Crashed: com.apple.NSURLSession-delegate",
+      "number": 1195,
+      "author": {
+        "login": "thomas-ibm-weather",
+        "id": 125295855
+      },
+      "assignees": [
+        "mdanylov-sigma"
+      ],
+      "dateCreated": "2025-08-06T14:59:19.000Z",
+      "dateUpdated": "2025-10-27T07:27:28.000Z",
+      "status": "open"
+    },
     {
       "title": "Bug: 1px tracking URL is fired when the ad is not shown",
       "number": 1211,
@@ -53,18 +91,6 @@
       "assignees": [],
       "dateCreated": "2025-08-25T07:53:10.000Z",
       "dateUpdated": "2025-08-25T07:54:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[DRAFT] Support Rewarder Display",
-      "number": 713,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2022-11-10T07:44:29.000Z",
-      "dateUpdated": "2025-08-21T10:22:19.000Z",
       "status": "open"
     },
     {
@@ -242,20 +268,6 @@
       "status": "open"
     },
     {
-      "title": "Crash on swiftui preview with xcode 16.2",
-      "number": 1106,
-      "author": {
-        "login": "aybarska",
-        "id": 8801700
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2025-02-17T14:11:27.000Z",
-      "dateUpdated": "2025-08-21T08:55:19.000Z",
-      "status": "open"
-    },
-    {
       "title": "2.4.0 drops ExternalUserId values without an atype",
       "number": 1118,
       "author": {
@@ -289,21 +301,6 @@
       "assignees": [],
       "dateCreated": "2025-03-20T16:18:42.000Z",
       "dateUpdated": "2025-08-21T08:48:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Memory Leak when fetch Demand",
-      "number": 959,
-      "author": {
-        "login": "rBeefrz",
-        "id": 124368054
-      },
-      "assignees": [
-        "jsligh",
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2024-02-29T15:50:08.000Z",
-      "dateUpdated": "2025-08-16T09:13:04.000Z",
       "status": "open"
     },
     {
@@ -366,18 +363,6 @@
       "assignees": [],
       "dateCreated": "2021-12-02T16:54:59.000Z",
       "dateUpdated": "2025-08-16T05:22:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Multi-AdUnit Auction and Winner Selection Logic",
-      "number": 950,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-01-11T20:46:25.000Z",
-      "dateUpdated": "2025-08-16T05:19:08.000Z",
       "status": "open"
     },
     {
@@ -468,20 +453,6 @@
       ],
       "dateCreated": "2025-08-07T13:48:28.000Z",
       "dateUpdated": "2025-08-16T04:50:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "App Crashed: com.apple.NSURLSession-delegate",
-      "number": 1195,
-      "author": {
-        "login": "thomas-ibm-weather",
-        "id": 125295855
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2025-08-06T14:59:19.000Z",
-      "dateUpdated": "2025-08-16T04:49:44.000Z",
       "status": "open"
     },
     {

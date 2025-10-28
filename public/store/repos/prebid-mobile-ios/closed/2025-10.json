@@ -3,10 +3,41 @@
     "repository": "prebid/prebid-mobile-ios",
     "year": 2025,
     "month": 10,
-    "itemCount": 4,
-    "lastUpdated": "2025-10-27T00:01:01.770Z"
+    "itemCount": 6,
+    "lastUpdated": "2025-10-28T11:15:38.627Z"
   },
   "items": [
+    {
+      "title": "Crash on swiftui preview with xcode 16.2",
+      "number": 1106,
+      "author": {
+        "login": "aybarska",
+        "id": 8801700
+      },
+      "assignees": [
+        "mdanylov-sigma"
+      ],
+      "dateCreated": "2025-02-17T14:11:27.000Z",
+      "dateUpdated": "2025-10-27T17:46:19.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-27T17:46:18.000Z"
+    },
+    {
+      "title": "Memory Leak when fetch Demand",
+      "number": 959,
+      "author": {
+        "login": "rBeefrz",
+        "id": 124368054
+      },
+      "assignees": [
+        "jsligh",
+        "mdanylov-sigma"
+      ],
+      "dateCreated": "2024-02-29T15:50:08.000Z",
+      "dateUpdated": "2025-10-27T17:44:25.000Z",
+      "status": "closed",
+      "dateClosed": "2025-10-27T17:44:25.000Z"
+    },
     {
       "title": "Bug: From version 2.5.0, Prebid SDK doesn't replace ${AUCTION_PRICE} inside the nativeAdMarkup with the actual winning bid price",
       "number": 1217,

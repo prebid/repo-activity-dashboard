@@ -1,38 +1,24 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-27T00:00:54.815Z",
-    "itemCount": 33
+    "lastSync": "2025-10-28T11:15:31.723Z",
+    "itemCount": 28
   },
   "items": [
     {
-      "title": "Module Storage Metrics",
-      "number": 4151,
+      "title": "Test: Update `pr-java/functional-ci` work flow",
+      "number": 3904,
       "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
+        "login": "marki1an",
+        "id": 95693607
       },
       "assignees": [
-        "AntoxaAntoxic"
+        "marki1an"
       ],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-08-21T10:56:34.000Z",
-      "dateUpdated": "2025-10-24T17:45:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Connatix Bid Adapter: Support GZIP",
-      "number": 4258,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T17:49:53.000Z",
-      "dateUpdated": "2025-10-24T14:19:16.000Z",
+      "dateCreated": "2025-04-10T15:24:07.000Z",
+      "dateUpdated": "2025-10-28T10:43:45.000Z",
       "status": "open"
     },
     {
@@ -48,7 +34,7 @@
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-10-18T17:21:42.000Z",
-      "dateUpdated": "2025-10-24T10:30:21.000Z",
+      "dateUpdated": "2025-10-28T10:04:33.000Z",
       "status": "open"
     },
     {
@@ -62,12 +48,12 @@
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-10-22T15:37:21.000Z",
-      "dateUpdated": "2025-10-24T10:12:33.000Z",
+      "dateUpdated": "2025-10-28T10:00:51.000Z",
       "status": "open"
     },
     {
-      "title": "Omnidex: Add GVL ID",
-      "number": 4266,
+      "title": "Bidder Configuration Fixes & URL Validation",
+      "number": 4126,
       "author": {
         "login": "AntoxaAntoxic",
         "id": 76536883
@@ -77,8 +63,64 @@
       ],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-24T09:42:56.000Z",
-      "dateUpdated": "2025-10-24T09:42:56.000Z",
+      "dateCreated": "2025-08-08T06:35:57.000Z",
+      "dateUpdated": "2025-10-28T09:26:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DATA-22937: LI analytics adapter",
+      "number": 4154,
+      "author": {
+        "login": "SuperIzya",
+        "id": 7934182
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-25T11:06:46.000Z",
+      "dateUpdated": "2025-10-28T08:48:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTBHouse: Add PMP Removal and Publisher ID Extraction",
+      "number": 4229,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T14:32:49.000Z",
+      "dateUpdated": "2025-10-27T14:36:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo: add required query params to adapter endpoint",
+      "number": 4225,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T15:05:51.000Z",
+      "dateUpdated": "2025-10-27T12:59:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Alvads Adapter",
+      "number": 4194,
+      "author": {
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-10-27T12:43:14.000Z",
       "status": "open"
     },
     {
@@ -95,20 +137,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-24T09:33:10.000Z",
       "dateUpdated": "2025-10-24T09:33:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DATA-22937: LI analytics adapter",
-      "number": 4154,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-25T11:06:46.000Z",
-      "dateUpdated": "2025-10-24T08:33:18.000Z",
       "status": "open"
     },
     {
@@ -142,22 +170,6 @@
       "status": "open"
     },
     {
-      "title": "Bidder Configuration Fixes & URL Validation",
-      "number": 4126,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2025-10-23T15:51:00.000Z",
-      "status": "open"
-    },
-    {
       "title": "AudienceNetwork (S2S): add missing ext.security_app_id in OpenRTB requests to fix production auth failures",
       "number": 4196,
       "author": {
@@ -186,20 +198,6 @@
       "status": "open"
     },
     {
-      "title": "Rule Engine: Change level for rule parsing log",
-      "number": 4262,
-      "author": {
-        "login": "And1sS",
-        "id": 28010702
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T12:53:31.000Z",
-      "dateUpdated": "2025-10-23T12:57:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "Add video cache TTL enforcement for /vtrack endpoint",
       "number": 4136,
       "author": {
@@ -213,20 +211,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-13T13:29:20.000Z",
       "dateUpdated": "2025-10-23T08:52:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTBHouse: Add PMP Removal and Publisher ID Extraction",
-      "number": 4229,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T14:32:49.000Z",
-      "dateUpdated": "2025-10-22T13:41:41.000Z",
       "status": "open"
     },
     {
@@ -246,34 +230,6 @@
       "status": "open"
     },
     {
-      "title": "CpmStar: Adapter Update bidder implementation to allow imp.ext passth…",
-      "number": 4228,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T05:02:11.000Z",
-      "dateUpdated": "2025-10-22T11:22:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo: add required query params to adapter endpoint",
-      "number": 4225,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-10-22T09:07:36.000Z",
-      "status": "open"
-    },
-    {
       "title": "Dependencies: Update compatibility-breaking dependencies",
       "number": 4235,
       "author": {
@@ -290,22 +246,6 @@
       "status": "open"
     },
     {
-      "title": "Test: Update `pr-java/functional-ci` work flow",
-      "number": 3904,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-10T15:24:07.000Z",
-      "dateUpdated": "2025-10-17T08:57:18.000Z",
-      "status": "open"
-    },
-    {
       "title": "IX Adapter feature dynamic account id support",
       "number": 4218,
       "author": {
@@ -317,20 +257,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-25T11:04:27.000Z",
       "dateUpdated": "2025-10-17T08:35:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-10-16T14:17:25.000Z",
       "status": "open"
     },
     {

@@ -1,22 +1,52 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-27T00:00:44.550Z",
-    "itemCount": 31
+    "lastSync": "2025-10-28T11:15:20.592Z",
+    "itemCount": 35
   },
   "items": [
     {
-      "title": "ConnectID Adapter: fix storage type configuration not being respected",
-      "number": 14018,
+      "title": "Clickio Bid Adapter: initial release",
+      "number": 14023,
       "author": {
-        "login": "zach-bowman-yahooinc",
-        "id": 238321008
+        "login": "ClickioTech",
+        "id": 163025633
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-15T19:41:15.000Z",
-      "dateUpdated": "2025-10-25T13:58:37.000Z",
+      "dateCreated": "2025-10-16T10:44:15.000Z",
+      "dateUpdated": "2025-10-28T10:17:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Consent Management : reset functionality to properly disable TCF/GPP modules",
+      "number": 14070,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T08:35:29.000Z",
+      "dateUpdated": "2025-10-28T05:09:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Medianet Analytics Adapter: pass ext from Prebid Server Response and Prebid 10 Updates",
+      "number": 13825,
+      "author": {
+        "login": "iamumarr",
+        "id": 227820841
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-01T13:00:00.000Z",
+      "dateUpdated": "2025-10-27T22:40:44.000Z",
       "status": "open"
     },
     {
@@ -33,7 +63,149 @@
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-08-20T16:33:58.000Z",
-      "dateUpdated": "2025-10-24T18:04:21.000Z",
+      "dateUpdated": "2025-10-27T22:27:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: fix bug where activity checks on RTD modules can hide data from unrelated modules",
+      "number": 14074,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T21:07:06.000Z",
+      "dateUpdated": "2025-10-27T21:13:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ConnectID Adapter: fix storage type configuration not being respected",
+      "number": 14018,
+      "author": {
+        "login": "zach-bowman-yahooinc",
+        "id": 238321008
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T19:41:15.000Z",
+      "dateUpdated": "2025-10-27T18:19:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "AdOcean Bid Adapter: initial release",
+      "number": 13982,
+      "author": {
+        "login": "patryk-grzegorczyk",
+        "id": 131142828
+      },
+      "assignees": [
+        "mmoschovas"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-07T11:42:51.000Z",
+      "dateUpdated": "2025-10-27T16:01:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Richaudience Bid Adapter: add compatibility with ortb2Imp.ext.gpid",
+      "number": 14073,
+      "author": {
+        "login": "richaudience",
+        "id": 26602871
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T15:43:04.000Z",
+      "dateUpdated": "2025-10-27T15:43:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo Bid Adapter:  support new required query params",
+      "number": 13986,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T07:56:44.000Z",
+      "dateUpdated": "2025-10-27T14:36:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add TopOn adapter",
+      "number": 14072,
+      "author": {
+        "login": "topOnFens",
+        "id": 118327552
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T12:37:32.000Z",
+      "dateUpdated": "2025-10-27T12:37:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bid response filter: Extending with mediaTypes",
+      "number": 14071,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T10:10:11.000Z",
+      "dateUpdated": "2025-10-27T10:10:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Page view ID",
+      "number": 14051,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T08:31:03.000Z",
+      "dateUpdated": "2025-10-27T10:10:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "SeenThis Brand Stories Rendering Module: initial release (fixed)",
+      "number": 14044,
+      "author": {
+        "login": "seenthis-alex",
+        "id": 146713650
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T11:39:20.000Z",
+      "dateUpdated": "2025-10-27T09:10:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CI: Complete codeQL fingerprinting rules",
+      "number": 14066,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T20:50:08.000Z",
+      "dateUpdated": "2025-10-27T07:44:04.000Z",
       "status": "open"
     },
     {
@@ -50,20 +222,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-09T14:57:33.000Z",
       "dateUpdated": "2025-10-24T16:18:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "CI: Complete codeQL fingerprinting rules",
-      "number": 14066,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T20:50:08.000Z",
-      "dateUpdated": "2025-10-24T15:58:40.000Z",
       "status": "open"
     },
     {
@@ -94,20 +252,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-24T12:39:15.000Z",
       "dateUpdated": "2025-10-24T12:39:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Yield one bid adapter: Conditionally stop sending push_sync requests for bot-like traffic",
-      "number": 14062,
-      "author": {
-        "login": "alukonin1",
-        "id": 152840501
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T09:43:09.000Z",
-      "dateUpdated": "2025-10-24T10:49:54.000Z",
       "status": "open"
     },
     {
@@ -186,36 +330,6 @@
       "status": "open"
     },
     {
-      "title": "AdOcean Bid Adapter: initial release",
-      "number": 13982,
-      "author": {
-        "login": "patryk-grzegorczyk",
-        "id": 131142828
-      },
-      "assignees": [
-        "mmoschovas"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T11:42:51.000Z",
-      "dateUpdated": "2025-10-22T15:44:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo Bid Adapter:  support new required query params",
-      "number": 13986,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T07:56:44.000Z",
-      "dateUpdated": "2025-10-22T15:09:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "Remove quantcastId",
       "number": 14045,
       "author": {
@@ -227,34 +341,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-21T12:52:54.000Z",
       "dateUpdated": "2025-10-22T13:40:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Clickio Bid Adapter: initial release",
-      "number": 14023,
-      "author": {
-        "login": "ClickioTech",
-        "id": 163025633
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-16T10:44:15.000Z",
-      "dateUpdated": "2025-10-22T09:24:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Page view ID",
-      "number": 14051,
-      "author": {
-        "login": "acsbendi",
-        "id": 30595431
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T08:31:03.000Z",
-      "dateUpdated": "2025-10-22T09:05:21.000Z",
       "status": "open"
     },
     {
@@ -285,20 +371,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-25T18:54:06.000Z",
       "dateUpdated": "2025-10-21T18:41:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "SeenThis Brand Stories Rendering Module: initial release (fixed)",
-      "number": 14044,
-      "author": {
-        "login": "seenthis-alex",
-        "id": 146713650
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T11:39:20.000Z",
-      "dateUpdated": "2025-10-21T17:27:52.000Z",
       "status": "open"
     },
     {
@@ -406,22 +478,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-25T14:09:09.000Z",
       "dateUpdated": "2025-10-08T07:57:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Medianet Analytics Adapter: pass ext from Prebid Server Response and Prebid 10 Updates",
-      "number": 13825,
-      "author": {
-        "login": "iamumarr",
-        "id": 227820841
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-01T13:00:00.000Z",
-      "dateUpdated": "2025-10-07T12:03:47.000Z",
       "status": "open"
     },
     {

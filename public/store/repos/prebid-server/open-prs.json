@@ -1,10 +1,195 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-10-27T00:00:50.510Z",
-    "itemCount": 72
+    "lastSync": "2025-10-28T11:15:27.606Z",
+    "itemCount": 71
   },
   "items": [
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4535,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "pm-nikhil-vaidya",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-16T14:21:04.000Z",
+      "dateUpdated": "2025-10-28T08:37:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CWire: Add userSync",
+      "number": 4516,
+      "author": {
+        "login": "roarc0",
+        "id": 130094
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-04T14:26:41.000Z",
+      "dateUpdated": "2025-10-28T06:58:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: RevX",
+      "number": 4335,
+      "author": {
+        "login": "nikithacode",
+        "id": 207976706
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-09T06:08:50.000Z",
+      "dateUpdated": "2025-10-27T18:43:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Use Concurrency To Download Vendor List",
+      "number": 4005,
+      "author": {
+        "login": "zhongshixi",
+        "id": 6433625
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2024-10-22T00:53:20.000Z",
+      "dateUpdated": "2025-10-27T16:58:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Pixfuture",
+      "number": 4117,
+      "author": {
+        "login": "pixfuture-media",
+        "id": 84333122
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon",
+        "scr-oath"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2024-12-19T15:23:08.000Z",
+      "dateUpdated": "2025-10-27T16:53:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PoC: global shim for logger",
+      "number": 4085,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2024-12-04T00:35:34.000Z",
+      "dateUpdated": "2025-10-27T16:48:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Matterfull",
+      "number": 4343,
+      "author": {
+        "login": "Matterfull",
+        "id": 204218625
+      },
+      "assignees": [
+        "hhhjort",
+        "scr-oath"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-19T09:22:21.000Z",
+      "dateUpdated": "2025-10-27T16:36:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: RiseMediaTech",
+      "number": 4437,
+      "author": {
+        "login": "pritishmd-talentica",
+        "id": 159415077
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-15T10:40:31.000Z",
+      "dateUpdated": "2025-10-27T16:36:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adot doc: constraint publisher path to an enum list",
+      "number": 4573,
+      "author": {
+        "login": "khouajaSadok",
+        "id": 172402730
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T12:32:53.000Z",
+      "dateUpdated": "2025-10-27T14:17:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2025-10-27T10:20:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Goldbach",
+      "number": 4476,
+      "author": {
+        "login": "simonaebli",
+        "id": 203809323
+      },
+      "assignees": [
+        "linux019",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-07T11:50:31.000Z",
+      "dateUpdated": "2025-10-27T06:15:50.000Z",
+      "status": "open"
+    },
     {
       "title": "Zeta Global SSP: Make sid param required",
       "number": 3849,
@@ -197,22 +382,6 @@
       "status": "open"
     },
     {
-      "title": "Adot: Remove param from bidder endpoint",
-      "number": 4573,
-      "author": {
-        "login": "khouajaSadok",
-        "id": 172402730
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:32:53.000Z",
-      "dateUpdated": "2025-10-22T16:37:54.000Z",
-      "status": "open"
-    },
-    {
       "title": "Connatix: Support GZIP",
       "number": 4575,
       "author": {
@@ -226,23 +395,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-21T17:51:27.000Z",
       "dateUpdated": "2025-10-22T16:37:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Clydo",
-      "number": 4535,
-      "author": {
-        "login": "cto-clydo",
-        "id": 232556003
-      },
-      "assignees": [
-        "pm-nikhil-vaidya",
-        "przemkaczmarek"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-16T14:21:04.000Z",
-      "dateUpdated": "2025-10-22T15:13:54.000Z",
       "status": "open"
     },
     {
@@ -271,20 +423,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-25T11:25:23.000Z",
       "dateUpdated": "2025-10-22T13:09:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo: Add required query params to adapter endpoint",
-      "number": 4556,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T13:31:46.000Z",
-      "dateUpdated": "2025-10-22T13:05:14.000Z",
       "status": "open"
     },
     {
@@ -363,23 +501,6 @@
       "status": "open"
     },
     {
-      "title": "CWire: Add userSync",
-      "number": 4516,
-      "author": {
-        "login": "roarc0",
-        "id": 130094
-      },
-      "assignees": [
-        "ccorbo",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-04T14:26:41.000Z",
-      "dateUpdated": "2025-10-21T09:29:43.000Z",
-      "status": "open"
-    },
-    {
       "title": "ProgX: Change alias of",
       "number": 4352,
       "author": {
@@ -411,23 +532,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-11T23:20:06.000Z",
       "dateUpdated": "2025-10-20T18:24:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PoC: global shim for logger",
-      "number": 4085,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [
-        "bsardo",
-        "hhhjort"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2024-12-04T00:35:34.000Z",
-      "dateUpdated": "2025-10-20T12:52:48.000Z",
       "status": "open"
     },
     {
@@ -532,23 +636,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Goldbach",
-      "number": 4476,
-      "author": {
-        "login": "simonaebli",
-        "id": 203809323
-      },
-      "assignees": [
-        "linux019",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-07T11:50:31.000Z",
-      "dateUpdated": "2025-10-16T15:29:00.000Z",
-      "status": "open"
-    },
-    {
       "title": "Include a warning in the auction response for bidders blocked by privacy settings",
       "number": 4537,
       "author": {
@@ -611,23 +698,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-05-30T13:58:37.000Z",
       "dateUpdated": "2025-10-11T09:46:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: RiseMediaTech",
-      "number": 4437,
-      "author": {
-        "login": "pritishmd-talentica",
-        "id": 159415077
-      },
-      "assignees": [
-        "scr-oath",
-        "przemkaczmarek"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-15T10:40:31.000Z",
-      "dateUpdated": "2025-10-10T05:22:19.000Z",
       "status": "open"
     },
     {
@@ -701,23 +771,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-01T14:09:31.000Z",
       "dateUpdated": "2025-10-03T18:22:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: RevX",
-      "number": 4335,
-      "author": {
-        "login": "nikithacode",
-        "id": 207976706
-      },
-      "assignees": [
-        "ccorbo",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-09T06:08:50.000Z",
-      "dateUpdated": "2025-09-30T15:33:54.000Z",
       "status": "open"
     },
     {
@@ -800,23 +853,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Matterfull",
-      "number": 4343,
-      "author": {
-        "login": "Matterfull",
-        "id": 204218625
-      },
-      "assignees": [
-        "hhhjort",
-        "scr-oath"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-19T09:22:21.000Z",
-      "dateUpdated": "2025-10-13T12:41:16.000Z",
-      "status": "open"
-    },
-    {
       "title": "Log nested structures from the configuration",
       "number": 4519,
       "author": {
@@ -862,24 +898,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-04T13:24:29.000Z",
       "dateUpdated": "2025-09-04T13:24:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Pixfuture",
-      "number": 4117,
-      "author": {
-        "login": "pixfuture-media",
-        "id": 84333122
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon",
-        "scr-oath"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2024-12-19T15:23:08.000Z",
-      "dateUpdated": "2025-08-26T21:04:54.000Z",
       "status": "open"
     },
     {
@@ -998,24 +1016,6 @@
       "status": "open"
     },
     {
-      "title": "Use Concurrency To Download Vendor List",
-      "number": 4005,
-      "author": {
-        "login": "zhongshixi",
-        "id": 6433625
-      },
-      "assignees": [
-        "bsardo",
-        "VeronikaSolovei9",
-        "guscarreon"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2024-10-22T00:53:20.000Z",
-      "dateUpdated": "2025-06-11T15:47:01.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: 9dotsmedialtd",
       "number": 4281,
       "author": {
@@ -1047,23 +1047,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-02-18T22:00:41.000Z",
       "dateUpdated": "2025-04-28T02:09:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "In order to protect users of prebid-server that don't use CGO, add build flag",
-      "number": 4058,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2024-11-18T23:53:19.000Z",
-      "dateUpdated": "2025-04-28T02:06:33.000Z",
       "status": "open"
     },
     {
