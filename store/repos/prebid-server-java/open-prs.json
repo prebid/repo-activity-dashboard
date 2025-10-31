@@ -1,31 +1,112 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-28T12:51:50.636Z",
-    "itemCount": 28
+    "lastSync": "2025-10-31T13:17:14.131Z",
+    "itemCount": 24
   },
   "items": [
     {
-      "title": "DATA-22937: LI analytics adapter",
-      "number": 4154,
+      "title": "New Alvads Adapter",
+      "number": 4194,
       "author": {
-        "login": "SuperIzya",
-        "id": 7934182
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "SamuelAlejandroNT",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-10-31T12:53:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "dateUpdated": "2025-10-31T11:26:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bidder Configuration Fixes & URL Validation",
+      "number": 4126,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-08T06:35:57.000Z",
+      "dateUpdated": "2025-10-31T10:36:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo: add required query params to adapter endpoint",
+      "number": 4225,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
+          "state": "PENDING"
         },
         {
-          "login": "SuperIzya",
-          "state": "COMMENTED"
+          "login": "AntoxaAntoxic",
+          "state": "PENDING"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-08-25T11:06:46.000Z",
-      "dateUpdated": "2025-10-28T12:41:11.000Z",
+      "dateCreated": "2025-10-01T15:05:51.000Z",
+      "dateUpdated": "2025-10-31T09:56:50.000Z",
       "status": "open"
     },
     {
@@ -46,7 +127,114 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-04-10T15:24:07.000Z",
-      "dateUpdated": "2025-10-28T12:23:48.000Z",
+      "dateUpdated": "2025-10-30T12:03:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Dependencies: Update compatibility-breaking dependencies",
+      "number": 4235,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-09T09:43:11.000Z",
+      "dateUpdated": "2025-10-30T11:12:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IX Adapter feature dynamic account id support",
+      "number": 4218,
+      "author": {
+        "login": "mmoschovas",
+        "id": 63253416
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T11:04:27.000Z",
+      "dateUpdated": "2025-10-30T11:12:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nativery",
+      "number": 4223,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-30T15:02:07.000Z",
+      "dateUpdated": "2025-10-30T10:39:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2025-10-29T12:03:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add video cache TTL enforcement for /vtrack endpoint",
+      "number": 4136,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-13T13:29:20.000Z",
+      "dateUpdated": "2025-10-28T14:15:58.000Z",
       "status": "open"
     },
     {
@@ -72,159 +260,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-18T17:21:42.000Z",
       "dateUpdated": "2025-10-28T10:04:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Unruly: Include GPID in request payload",
-      "number": 4259,
-      "author": {
-        "login": "zxPhoenix",
-        "id": 1951316
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "zxPhoenix",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T15:37:21.000Z",
-      "dateUpdated": "2025-10-28T10:00:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder Configuration Fixes & URL Validation",
-      "number": 4126,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2025-10-28T09:26:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTBHouse: Add PMP Removal and Publisher ID Extraction",
-      "number": 4229,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "piotrj-rtbh",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T14:32:49.000Z",
-      "dateUpdated": "2025-10-27T14:36:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo: add required query params to adapter endpoint",
-      "number": 4225,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-10-27T12:59:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-10-27T12:43:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Teqblaze Alias: AppStockSSP",
-      "number": 4265,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-24T09:33:10.000Z",
-      "dateUpdated": "2025-10-24T09:33:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2025-10-23T15:51:35.000Z",
       "status": "open"
     },
     {
@@ -283,88 +318,6 @@
       "status": "open"
     },
     {
-      "title": "Add video cache TTL enforcement for /vtrack endpoint",
-      "number": 4136,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "DISMISSED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-13T13:29:20.000Z",
-      "dateUpdated": "2025-10-23T08:52:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Nativery",
-      "number": 4223,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-30T15:02:07.000Z",
-      "dateUpdated": "2025-10-22T13:28:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Dependencies: Update compatibility-breaking dependencies",
-      "number": 4235,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T09:43:11.000Z",
-      "dateUpdated": "2025-10-20T14:23:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IX Adapter feature dynamic account id support",
-      "number": 4218,
-      "author": {
-        "login": "mmoschovas",
-        "id": 63253416
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T11:04:27.000Z",
-      "dateUpdated": "2025-10-17T08:35:23.000Z",
-      "status": "open"
-    },
-    {
       "title": "consumable: updated yaml config",
       "number": 4139,
       "author": {
@@ -409,31 +362,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-07-31T09:21:36.000Z",
       "dateUpdated": "2025-07-31T09:21:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Refactoring functional tests",
-      "number": 3657,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2025-07-16T12:38:18.000Z",
       "status": "open"
     },
     {

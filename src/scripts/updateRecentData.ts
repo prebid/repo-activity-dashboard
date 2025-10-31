@@ -344,7 +344,7 @@ class RecentDataUpdater {
 
 // Run it
 const updater = new RecentDataUpdater();
-const daysBack = process.argv[2] ? parseInt(process.argv[2]) : 14;
+const daysBack = process.argv[2] ? parseInt(process.argv[2]) : 3;
 
 console.log(`Will fetch data from last ${daysBack} days\n`);
 

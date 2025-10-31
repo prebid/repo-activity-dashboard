@@ -1,10 +1,221 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-28T12:51:34.938Z",
+    "lastSync": "2025-10-31T13:16:57.992Z",
     "itemCount": 36
   },
   "items": [
+    {
+      "title": "feat: wallet_profiling",
+      "number": 14067,
+      "author": {
+        "login": "VelRaj21",
+        "id": 132557157
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-24T12:39:15.000Z",
+      "dateUpdated": "2025-10-31T09:43:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
+      "number": 14084,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:25:46.000Z",
+      "dateUpdated": "2025-10-31T07:10:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
+      "number": 14085,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:32:16.000Z",
+      "dateUpdated": "2025-10-31T07:10:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add TCF vendor id PinkLion",
+      "number": 14083,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T14:00:46.000Z",
+      "dateUpdated": "2025-10-30T14:04:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bid response filter: Extending with mediaTypes",
+      "number": 14071,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T10:10:11.000Z",
+      "dateUpdated": "2025-10-30T13:01:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "VISX Bid Adapter: Added support for GPID",
+      "number": 14080,
+      "author": {
+        "login": "vfedoseev",
+        "id": 8183991
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T15:45:50.000Z",
+      "dateUpdated": "2025-10-30T11:39:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "gamAdServerVideo: Add GPP consent information to the DFP video url",
+      "number": 13761,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-12T06:26:33.000Z",
+      "dateUpdated": "2025-10-29T22:07:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: clydo",
+      "number": 13936,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "jsnellbaker"
+      ],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "cto-clydo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T18:54:06.000Z",
+      "dateUpdated": "2025-10-29T19:10:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New module: Shaping rules",
+      "number": 14079,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T13:26:39.000Z",
+      "dateUpdated": "2025-10-29T13:26:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo Bid Adapter:  support new required query params",
+      "number": 13986,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T07:56:44.000Z",
+      "dateUpdated": "2025-10-29T08:57:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adkernel Bid Adapter: add bluTonic alias",
+      "number": 14078,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T08:28:38.000Z",
+      "dateUpdated": "2025-10-29T08:29:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix(adapter): align uniquest_widgetBidAdapter file name with docs biddercode",
+      "number": 14043,
+      "author": {
+        "login": "kazutoshi-uekawa-muneee",
+        "id": 114455471
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T09:41:16.000Z",
+      "dateUpdated": "2025-10-29T07:33:03.000Z",
+      "status": "open"
+    },
     {
       "title": "IntentIq ID Module: GAM updates",
       "number": 13969,
@@ -32,26 +243,136 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-02T17:37:57.000Z",
-      "dateUpdated": "2025-10-28T12:23:57.000Z",
+      "dateUpdated": "2025-10-29T07:11:01.000Z",
       "status": "open"
     },
     {
-      "title": "holidBidAdapter: propagate adomain → meta.advertiserDomains (enables hb_adomain)",
-      "number": 14075,
+      "title": "Public Good Bid Adapter : initial release",
+      "number": 13896,
       "author": {
-        "login": "holidio",
-        "id": 72393300
+        "login": "aaronkoss",
+        "id": 7459907
       },
-      "assignees": [],
+      "assignees": [
+        "Rothalack"
+      ],
       "reviewers": [
         {
-          "login": "jsnellbaker",
+          "login": "gwhigs",
           "state": "PENDING"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-28T12:08:45.000Z",
-      "dateUpdated": "2025-10-28T12:08:56.000Z",
+      "dateCreated": "2025-09-15T15:29:45.000Z",
+      "dateUpdated": "2025-10-28T22:04:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ConnectID Adapter: fix storage type configuration not being respected",
+      "number": 14018,
+      "author": {
+        "login": "zach-bowman-yahooinc",
+        "id": 238321008
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "DeepthiNeeladri",
+          "state": "APPROVED"
+        },
+        {
+          "login": "harthikotapati",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T19:41:15.000Z",
+      "dateUpdated": "2025-10-28T19:48:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: fix bug where activity checks on RTD modules can hide data from unrelated modules",
+      "number": 14074,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T21:07:06.000Z",
+      "dateUpdated": "2025-10-28T16:48:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "sevio Bid Adapter : add extra parameters required by the BE",
+      "number": 13904,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-17T14:03:38.000Z",
+      "dateUpdated": "2025-10-28T15:12:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sevio Bid Adapter : detect keywords when those were not provided as params",
+      "number": 13814,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-27T11:46:23.000Z",
+      "dateUpdated": "2025-10-28T15:10:10.000Z",
       "status": "open"
     },
     {
@@ -71,29 +392,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-16T10:44:15.000Z",
       "dateUpdated": "2025-10-28T10:17:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Consent Management : reset functionality to properly disable TCF/GPP modules",
-      "number": 14070,
-      "author": {
-        "login": "pm-nitin-shirsat",
-        "id": 107102698
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "PENDING"
-        },
-        {
-          "login": "jsnellbaker",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T08:35:29.000Z",
-      "dateUpdated": "2025-10-28T05:09:40.000Z",
       "status": "open"
     },
     {
@@ -148,111 +446,6 @@
       "status": "open"
     },
     {
-      "title": "Core: fix bug where activity checks on RTD modules can hide data from unrelated modules",
-      "number": 14074,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jefftmahoney",
-          "state": "PENDING"
-        },
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T21:07:06.000Z",
-      "dateUpdated": "2025-10-27T21:13:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ConnectID Adapter: fix storage type configuration not being respected",
-      "number": 14018,
-      "author": {
-        "login": "zach-bowman-yahooinc",
-        "id": 238321008
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        },
-        {
-          "login": "DeepthiNeeladri",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-15T19:41:15.000Z",
-      "dateUpdated": "2025-10-27T18:19:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdOcean Bid Adapter: initial release",
-      "number": 13982,
-      "author": {
-        "login": "patryk-grzegorczyk",
-        "id": 131142828
-      },
-      "assignees": [
-        "mmoschovas"
-      ],
-      "reviewers": [
-        {
-          "login": "lksharma",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T11:42:51.000Z",
-      "dateUpdated": "2025-10-27T16:01:28.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Richaudience Bid Adapter: add compatibility with ortb2Imp.ext.gpid",
-      "number": 14073,
-      "author": {
-        "login": "richaudience",
-        "id": 26602871
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T15:43:04.000Z",
-      "dateUpdated": "2025-10-27T15:43:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo Bid Adapter:  support new required query params",
-      "number": 13986,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "monis0395",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T07:56:44.000Z",
-      "dateUpdated": "2025-10-27T14:36:23.000Z",
-      "status": "open"
-    },
-    {
       "title": "Add TopOn adapter",
       "number": 14072,
       "author": {
@@ -269,29 +462,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-27T12:37:32.000Z",
       "dateUpdated": "2025-10-27T12:37:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bid response filter: Extending with mediaTypes",
-      "number": 14071,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "PENDING"
-        },
-        {
-          "login": "osazos",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T10:10:11.000Z",
-      "dateUpdated": "2025-10-27T10:10:56.000Z",
       "status": "open"
     },
     {
@@ -346,150 +516,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-21T11:39:20.000Z",
       "dateUpdated": "2025-10-27T09:10:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "CI: Complete codeQL fingerprinting rules",
-      "number": 14066,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
-        },
-        {
-          "login": "monis0395",
-          "state": "APPROVED"
-        },
-        {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T20:50:08.000Z",
-      "dateUpdated": "2025-10-27T07:44:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Opsco Bid Adapter : refactor to use ortb converter",
-      "number": 13998,
-      "author": {
-        "login": "ops-co",
-        "id": 159886704
-      },
-      "assignees": [
-        "ncolletti"
-      ],
-      "reviewers": [
-        {
-          "login": "ncolletti",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T14:57:33.000Z",
-      "dateUpdated": "2025-10-24T16:18:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sevio Bid Adapter : detect keywords when those were not provided as params",
-      "number": 13814,
-      "author": {
-        "login": "petrican",
-        "id": 1708561
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "petrican",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-27T11:46:23.000Z",
-      "dateUpdated": "2025-10-24T13:24:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "feat: wallet_profiling",
-      "number": 14067,
-      "author": {
-        "login": "VelRaj21",
-        "id": 132557157
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jefftmahoney",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-24T12:39:15.000Z",
-      "dateUpdated": "2025-10-24T12:39:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "sevio Bid Adapter : add extra parameters required by the BE",
-      "number": 13904,
-      "author": {
-        "login": "petrican",
-        "id": 1708561
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "jlquaccia",
-          "state": "PENDING"
-        },
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "petrican",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-17T14:03:38.000Z",
-      "dateUpdated": "2025-10-24T05:40:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "fix(adapter): align uniquest_widgetBidAdapter file name with docs biddercode",
-      "number": 14043,
-      "author": {
-        "login": "kazutoshi-uekawa-muneee",
-        "id": 114455471
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "osazos",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T09:41:16.000Z",
-      "dateUpdated": "2025-10-24T03:28:22.000Z",
       "status": "open"
     },
     {
@@ -556,52 +582,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T00:48:49.000Z",
       "dateUpdated": "2025-10-22T00:49:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: clydo",
-      "number": 13936,
-      "author": {
-        "login": "cto-clydo",
-        "id": 232556003
-      },
-      "assignees": [
-        "jsnellbaker"
-      ],
-      "reviewers": [
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "jsnellbaker",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T18:54:06.000Z",
-      "dateUpdated": "2025-10-21T18:41:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Public Good Bid Adapter : initial release",
-      "number": 13896,
-      "author": {
-        "login": "aaronkoss",
-        "id": 7459907
-      },
-      "assignees": [
-        "Rothalack"
-      ],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-15T15:29:45.000Z",
-      "dateUpdated": "2025-10-21T15:18:32.000Z",
       "status": "open"
     },
     {
@@ -766,20 +746,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-23T14:47:50.000Z",
       "dateUpdated": "2025-10-07T10:42:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "gamAdServerVideo: Add GPP consent information to the DFP video url",
-      "number": 13761,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-12T06:26:33.000Z",
-      "dateUpdated": "2025-09-26T14:25:00.000Z",
       "status": "open"
     },
     {

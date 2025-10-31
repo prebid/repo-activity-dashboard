@@ -3,10 +3,92 @@
     "repository": "prebid/Prebid.js",
     "year": 2025,
     "month": 10,
-    "itemCount": 84,
-    "lastUpdated": "2025-10-28T12:51:34.941Z"
+    "itemCount": 89,
+    "lastUpdated": "2025-10-31T13:16:57.996Z"
   },
   "items": [
+    {
+      "title": "Opsco Bid Adapter : refactor to use ortb converter",
+      "number": 13998,
+      "author": {
+        "login": "ops-co",
+        "id": 159886704
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-09T14:57:33.000Z",
+      "dateUpdated": "2025-10-30T19:11:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-30T19:11:39.000Z",
+      "dateClosed": "2025-10-30T19:11:39.000Z"
+    },
+    {
+      "title": "CI: Complete codeQL fingerprinting rules",
+      "number": 14066,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T20:50:08.000Z",
+      "dateUpdated": "2025-10-30T11:27:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-30T11:27:25.000Z",
+      "dateClosed": "2025-10-30T11:27:25.000Z"
+    },
+    {
+      "title": "Core: fix bug with DNT lookup throwing exceptions when in an iframe",
+      "number": 14081,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T18:44:19.000Z",
+      "dateUpdated": "2025-10-30T10:03:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-30T10:03:21.000Z",
+      "dateClosed": "2025-10-30T10:03:21.000Z"
+    },
+    {
+      "title": "Consent Management : reset functionality to properly disable TCF/GPP modules",
+      "number": 14070,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T08:35:29.000Z",
+      "dateUpdated": "2025-10-31T07:18:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-30T10:01:38.000Z",
+      "dateClosed": "2025-10-30T10:01:38.000Z"
+    },
+    {
+      "title": "MSFT bid adapter - update endpoint query params",
+      "number": 14076,
+      "author": {
+        "login": "jsnellbaker",
+        "id": 31102355
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-28T16:19:14.000Z",
+      "dateUpdated": "2025-10-29T17:05:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-29T17:03:20.000Z",
+      "dateClosed": "2025-10-29T17:03:20.000Z"
+    },
     {
       "title": "Yield one bid adapter: Conditionally stop sending push_sync requests for bot-like traffic",
       "number": 14062,
@@ -68,7 +150,7 @@
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-10-23T15:33:54.000Z",
-      "dateUpdated": "2025-10-23T15:35:22.000Z",
+      "dateUpdated": "2025-10-31T10:18:43.000Z",
       "status": "merged",
       "dateMerged": "2025-10-23T15:35:22.000Z",
       "dateClosed": "2025-10-23T15:35:22.000Z"

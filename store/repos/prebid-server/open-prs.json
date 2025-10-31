@@ -1,50 +1,35 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-10-28T12:51:43.901Z",
-    "itemCount": 71
+    "lastSync": "2025-10-31T13:17:07.558Z",
+    "itemCount": 73
   },
   "items": [
     {
-      "title": "New Adapter: Clydo",
-      "number": 4535,
+      "title": "New Adapter: targetVideo",
+      "number": 4593,
       "author": {
-        "login": "cto-clydo",
-        "id": 232556003
+        "login": "pedjoni8",
+        "id": 32640009
       },
-      "assignees": [
-        "pm-nikhil-vaidya",
-        "przemkaczmarek"
-      ],
+      "assignees": [],
       "reviewers": [
         {
-          "login": "guscarreon",
-          "state": "COMMENTED"
-        },
-        {
           "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "cto-clydo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-16T14:21:04.000Z",
-      "dateUpdated": "2025-10-28T12:49:54.000Z",
+      "dateCreated": "2025-10-31T08:37:26.000Z",
+      "dateUpdated": "2025-10-31T13:01:55.000Z",
       "status": "open"
     },
     {
-      "title": "New Adapter: RiseMediaTech",
-      "number": 4437,
+      "title": "Adnuntius: Pass targeting to ad server",
+      "number": 4545,
       "author": {
-        "login": "pritishmd-talentica",
-        "id": 159415077
+        "login": "mikael-lundin",
+        "id": 1043973
       },
       "assignees": [
         "scr-oath",
@@ -52,63 +37,367 @@
       ],
       "reviewers": [
         {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "linux019",
-          "state": "DISMISSED"
-        },
-        {
           "login": "scr-oath",
-          "state": "COMMENTED"
+          "state": "APPROVED"
         },
         {
-          "login": "przemkaczmarek",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "pritishmd-talentica",
+          "login": "mikael-lundin",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-07-15T10:40:31.000Z",
-      "dateUpdated": "2025-10-28T12:04:50.000Z",
+      "dateCreated": "2025-09-25T11:25:23.000Z",
+      "dateUpdated": "2025-10-31T10:00:00.000Z",
       "status": "open"
     },
     {
-      "title": "CWire: Add userSync",
-      "number": 4516,
+      "title": "RTBHouse: PMP removal, `publisherId` parameter extraction",
+      "number": 4564,
       "author": {
-        "login": "roarc0",
-        "id": 130094
+        "login": "piotrj-rtbh",
+        "id": 109736938
       },
       "assignees": [
-        "ccorbo",
-        "pm-nikhil-vaidya"
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "piotrj-rtbh",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-09T11:08:34.000Z",
+      "dateUpdated": "2025-10-31T08:38:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: Enable site capability",
+      "number": 4590,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T13:48:41.000Z",
+      "dateUpdated": "2025-10-31T05:54:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PinkLion: Add TCF Vendor ID",
+      "number": 4591,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T14:02:29.000Z",
+      "dateUpdated": "2025-10-30T21:13:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: 9dotsmedialtd",
+      "number": 4281,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "quietPusher",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-03-26T17:07:03.000Z",
+      "dateUpdated": "2025-10-30T21:04:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Microsoft (msft)",
+      "number": 4592,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:55:22.000Z",
+      "dateUpdated": "2025-10-30T20:58:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "OpenWeb: Add support for test mode",
+      "number": 4458,
+      "author": {
+        "login": "Dedis23",
+        "id": 32620962
+      },
+      "assignees": [
+        "bsardo",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Dedis23",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-29T09:17:38.000Z",
+      "dateUpdated": "2025-10-30T20:50:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rise: Support test mode",
+      "number": 4457,
+      "author": {
+        "login": "innay",
+        "id": 6281294
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "ShriprasadM",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-29T08:03:42.000Z",
+      "dateUpdated": "2025-10-30T20:49:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mediasquare: Add user sync & site capabilities",
+      "number": 4589,
+      "author": {
+        "login": "mediasquare-alexandre",
+        "id": 101182841
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T10:44:01.000Z",
+      "dateUpdated": "2025-10-30T20:17:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2025-10-30T18:10:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Include a warning in the auction response for bidders blocked by privacy settings",
+      "number": 4537,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T14:27:37.000Z",
+      "dateUpdated": "2025-10-30T14:04:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PoC: global shim for logger",
+      "number": 4085,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
       ],
       "reviewers": [
         {
           "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "justadreamer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
           "state": "CHANGES_REQUESTED"
-        },
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2024-12-04T00:35:34.000Z",
+      "dateUpdated": "2025-10-30T09:57:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pass alias bidder name to pubmatic adapter",
+      "number": 4588,
+      "author": {
+        "login": "Pubmatic-Supriya-Patil",
+        "id": 131644110
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T08:58:51.000Z",
+      "dateUpdated": "2025-10-30T09:23:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Adklip - Aso alias",
+      "number": 4581,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [
+        "linux019"
+      ],
+      "reviewers": [
         {
-          "login": "GMilica",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ruidefreitas",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
+          "login": "bsardo",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-04T14:26:41.000Z",
-      "dateUpdated": "2025-10-28T06:58:48.000Z",
+      "dateCreated": "2025-10-23T13:44:48.000Z",
+      "dateUpdated": "2025-10-29T21:22:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Boldwin Rapid",
+      "number": 4478,
+      "author": {
+        "login": "BoldwinDev",
+        "id": 225151908
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "BoldwinDev",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-08T11:28:43.000Z",
+      "dateUpdated": "2025-10-29T18:42:30.000Z",
       "status": "open"
     },
     {
@@ -146,34 +435,387 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-05-09T06:08:50.000Z",
-      "dateUpdated": "2025-10-27T18:43:44.000Z",
+      "dateUpdated": "2025-10-29T18:27:33.000Z",
       "status": "open"
     },
     {
-      "title": "Use Concurrency To Download Vendor List",
-      "number": 4005,
+      "title": "New Adapter: Clydo",
+      "number": 4535,
       "author": {
-        "login": "zhongshixi",
-        "id": 6433625
+        "login": "cto-clydo",
+        "id": 232556003
       },
       "assignees": [
-        "bsardo",
-        "VeronikaSolovei9",
-        "guscarreon"
+        "guscarreon",
+        "pm-nikhil-vaidya"
       ],
       "reviewers": [
         {
-          "login": "zhongshixi",
+          "login": "github-actions[bot]",
           "state": "COMMENTED"
         },
         {
-          "login": "sebhtml",
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "cto-clydo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2024-10-22T00:53:20.000Z",
-      "dateUpdated": "2025-10-27T16:58:06.000Z",
+      "dateCreated": "2025-09-16T14:21:04.000Z",
+      "dateUpdated": "2025-10-29T18:25:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CWire: Add userSync",
+      "number": 4516,
+      "author": {
+        "login": "roarc0",
+        "id": 130094
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "GMilica",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ruidefreitas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "roarc0",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-04T14:26:41.000Z",
+      "dateUpdated": "2025-10-29T14:27:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rules Engine Module: User sync in process auction payload",
+      "number": 4485,
+      "author": {
+        "login": "VeronikaSolovei9",
+        "id": 4790765
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-14T01:22:22.000Z",
+      "dateUpdated": "2025-10-29T14:18:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules: Execute mutations in sequence (clean implementation)",
+      "number": 4586,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-28T18:32:00.000Z",
+      "dateUpdated": "2025-10-29T14:13:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules: A/B testing support",
+      "number": 4553,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-29T12:36:07.000Z",
+      "dateUpdated": "2025-10-29T14:12:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ORTB Blocking Module: battr media type strictness",
+      "number": 4551,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-29T11:50:04.000Z",
+      "dateUpdated": "2025-10-29T14:08:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Opamarketplace",
+      "number": 4526,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:14:55.000Z",
+      "dateUpdated": "2025-10-29T07:09:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: RiseMediaTech",
+      "number": 4437,
+      "author": {
+        "login": "pritishmd-talentica",
+        "id": 159415077
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "pritishmd-talentica",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-15T10:40:31.000Z",
+      "dateUpdated": "2025-10-29T04:36:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Missena: Update parameters and add versioning support",
+      "number": 4557,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T14:09:31.000Z",
+      "dateUpdated": "2025-10-28T19:15:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rename dxkulture adapter",
+      "number": 4579,
+      "author": {
+        "login": "dxtech-git",
+        "id": 227376282
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T19:19:55.000Z",
+      "dateUpdated": "2025-10-28T16:45:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Aso: Add user sync endpoint",
+      "number": 4580,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T13:33:53.000Z",
+      "dateUpdated": "2025-10-28T16:44:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adot: Constrain publisher path to an enum list",
+      "number": 4573,
+      "author": {
+        "login": "khouajaSadok",
+        "id": 172402730
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "khouajaSadok",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T12:32:53.000Z",
+      "dateUpdated": "2025-10-28T16:42:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nuba",
+      "number": 4565,
+      "author": {
+        "login": "nuba-io",
+        "id": 236982007
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nuba-io",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-10T11:53:14.000Z",
+      "dateUpdated": "2025-10-28T16:38:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Waardex",
+      "number": 4563,
+      "author": {
+        "login": "yegorWaardex",
+        "id": 59033363
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T08:03:43.000Z",
+      "dateUpdated": "2025-10-28T16:33:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "BidTheatre: Update endpoint and add redirect user sync",
+      "number": 4562,
+      "author": {
+        "login": "andreasgreen",
+        "id": 1759626
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-07T12:10:59.000Z",
+      "dateUpdated": "2025-10-28T16:32:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Matterfull",
+      "number": 4343,
+      "author": {
+        "login": "Matterfull",
+        "id": 204218625
+      },
+      "assignees": [
+        "hhhjort",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "Matterfull",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-19T09:22:21.000Z",
+      "dateUpdated": "2025-10-28T15:18:19.000Z",
       "status": "open"
     },
     {
@@ -216,160 +858,34 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2024-12-19T15:23:08.000Z",
-      "dateUpdated": "2025-10-27T16:53:00.000Z",
+      "dateUpdated": "2025-10-28T13:36:07.000Z",
       "status": "open"
     },
     {
-      "title": "PoC: global shim for logger",
-      "number": 4085,
+      "title": "Use Concurrency To Download Vendor List",
+      "number": 4005,
       "author": {
-        "login": "justadreamer",
-        "id": 341967
+        "login": "zhongshixi",
+        "id": 6433625
       },
       "assignees": [
         "bsardo",
-        "hhhjort"
+        "VeronikaSolovei9",
+        "guscarreon"
       ],
       "reviewers": [
         {
-          "login": "SyntaxNode",
+          "login": "zhongshixi",
           "state": "COMMENTED"
         },
         {
-          "login": "justadreamer",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "hhhjort",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "linux019",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "scr-oath",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2024-12-04T00:35:34.000Z",
-      "dateUpdated": "2025-10-27T16:48:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Matterfull",
-      "number": 4343,
-      "author": {
-        "login": "Matterfull",
-        "id": 204218625
-      },
-      "assignees": [
-        "hhhjort",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "scr-oath",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "Matterfull",
+          "login": "sebhtml",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-05-19T09:22:21.000Z",
-      "dateUpdated": "2025-10-27T16:36:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adot doc: constraint publisher path to an enum list",
-      "number": 4573,
-      "author": {
-        "login": "khouajaSadok",
-        "id": 172402730
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "khouajaSadok",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:32:53.000Z",
-      "dateUpdated": "2025-10-27T14:17:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo: Add required query params to adapter endpoint",
-      "number": 4556,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T13:31:46.000Z",
-      "dateUpdated": "2025-10-27T10:20:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Goldbach",
-      "number": 4476,
-      "author": {
-        "login": "simonaebli",
-        "id": 203809323
-      },
-      "assignees": [
-        "linux019",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "simonaebli",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "linux019",
-          "state": "APPROVED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-07T11:50:31.000Z",
-      "dateUpdated": "2025-10-27T06:15:50.000Z",
+      "dateCreated": "2024-10-22T00:53:20.000Z",
+      "dateUpdated": "2025-10-27T16:58:06.000Z",
       "status": "open"
     },
     {
@@ -484,57 +1000,6 @@
       "status": "open"
     },
     {
-      "title": "Nuba Bid Adapter: initial release",
-      "number": 4565,
-      "author": {
-        "login": "nuba-io",
-        "id": 236982007
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "nuba-io",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-10T11:53:14.000Z",
-      "dateUpdated": "2025-10-23T14:20:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Adklip - Aso alias",
-      "number": 4581,
-      "author": {
-        "login": "adserver-online",
-        "id": 61009237
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T13:44:48.000Z",
-      "dateUpdated": "2025-10-23T13:52:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Aso Bid Adapter: added user sync endpoint",
-      "number": 4580,
-      "author": {
-        "login": "adserver-online",
-        "id": 61009237
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T13:33:53.000Z",
-      "dateUpdated": "2025-10-23T13:51:54.000Z",
-      "status": "open"
-    },
-    {
       "title": "ResetDigital: OpenRTB",
       "number": 4475,
       "author": {
@@ -566,62 +1031,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-06T16:13:31.000Z",
       "dateUpdated": "2025-10-23T12:53:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Showheroes",
-      "number": 4533,
-      "author": {
-        "login": "FilipStamenkovic",
-        "id": 12955765
-      },
-      "assignees": [
-        "guscarreon",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "guscarreon",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "FilipStamenkovic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-15T08:41:19.000Z",
-      "dateUpdated": "2025-10-23T07:39:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Opamarketplace",
-      "number": 4526,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:14:55.000Z",
-      "dateUpdated": "2025-10-23T07:16:54.000Z",
       "status": "open"
     },
     {
@@ -659,20 +1068,6 @@
       "status": "open"
     },
     {
-      "title": "Rename dxkulture adapter",
-      "number": 4579,
-      "author": {
-        "login": "dxtech-git",
-        "id": 227376282
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T19:19:55.000Z",
-      "dateUpdated": "2025-10-22T20:45:28.000Z",
-      "status": "open"
-    },
-    {
       "title": "Connatix: Support GZIP",
       "number": 4575,
       "author": {
@@ -680,7 +1075,8 @@
         "id": 12138319
       },
       "assignees": [
-        "bsardo"
+        "bsardo",
+        "przemkaczmarek"
       ],
       "reviewers": [
         {
@@ -713,20 +1109,6 @@
       "status": "open"
     },
     {
-      "title": "Adnuntius Bidder: Pass targeting to ad server from prebid request.",
-      "number": 4545,
-      "author": {
-        "login": "mikael-lundin",
-        "id": 1043973
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T11:25:23.000Z",
-      "dateUpdated": "2025-10-22T13:09:57.000Z",
-      "status": "open"
-    },
-    {
       "title": "Page view ID.",
       "number": 4576,
       "author": {
@@ -738,20 +1120,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T08:32:09.000Z",
       "dateUpdated": "2025-10-22T08:58:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTBHouse: PMP removal, `publisherId` parameter extraction",
-      "number": 4564,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T11:08:34.000Z",
-      "dateUpdated": "2025-10-22T08:38:45.000Z",
       "status": "open"
     },
     {
@@ -807,20 +1175,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-28T09:16:16.000Z",
       "dateUpdated": "2025-10-21T17:25:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "A/B testing support for modules",
-      "number": 4553,
-      "author": {
-        "login": "postindustria-code",
-        "id": 217833752
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-29T12:36:07.000Z",
-      "dateUpdated": "2025-10-21T14:58:37.000Z",
       "status": "open"
     },
     {
@@ -906,40 +1260,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-01-17T13:55:51.000Z",
       "dateUpdated": "2025-10-20T08:58:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Boldwin Rapid",
-      "number": 4478,
-      "author": {
-        "login": "BoldwinDev",
-        "id": 225151908
-      },
-      "assignees": [
-        "guscarreon",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "guscarreon",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "BoldwinDev",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T11:28:43.000Z",
-      "dateUpdated": "2025-10-23T09:02:41.000Z",
       "status": "open"
     },
     {
@@ -1035,51 +1355,6 @@
       "status": "open"
     },
     {
-      "title": "Include a warning in the auction response for bidders blocked by privacy settings",
-      "number": 4537,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "guscarreon",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T14:27:37.000Z",
-      "dateUpdated": "2025-10-14T17:31:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Gravite",
-      "number": 4547,
-      "author": {
-        "login": "teqblaze",
-        "id": 162988436
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "APPROVED"
-        },
-        {
-          "login": "teqblaze",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-26T08:11:31.000Z",
-      "dateUpdated": "2025-10-13T14:09:36.000Z",
-      "status": "open"
-    },
-    {
       "title": "Attekmi: Remove Vimayx alias",
       "number": 4546,
       "author": {
@@ -1154,39 +1429,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Waardex",
-      "number": 4563,
-      "author": {
-        "login": "yegorWaardex",
-        "id": 59033363
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T08:03:43.000Z",
-      "dateUpdated": "2025-10-08T19:44:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "BidTheatre: Update endpoint and add redirect user sync",
-      "number": 4562,
-      "author": {
-        "login": "andreasgreen",
-        "id": 1759626
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T12:10:59.000Z",
-      "dateUpdated": "2025-10-08T19:44:15.000Z",
-      "status": "open"
-    },
-    {
       "title": "New adapter: alliance_gravity",
       "number": 4522,
       "author": {
@@ -1203,20 +1445,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-06T19:04:34.000Z",
       "dateUpdated": "2025-10-07T16:53:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Missena: Update parameters and add versioning support",
-      "number": 4557,
-      "author": {
-        "login": "ysfbsf",
-        "id": 9834101
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T14:09:31.000Z",
-      "dateUpdated": "2025-10-03T18:22:05.000Z",
       "status": "open"
     },
     {
@@ -1266,32 +1494,6 @@
       "status": "open"
     },
     {
-      "title": "OpenWeb: Add support for test mode",
-      "number": 4458,
-      "author": {
-        "login": "Dedis23",
-        "id": 32620962
-      },
-      "assignees": [
-        "bsardo",
-        "pm-isha-bharti"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Dedis23",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-29T09:17:38.000Z",
-      "dateUpdated": "2025-09-29T14:01:07.000Z",
-      "status": "open"
-    },
-    {
       "title": "fix: various fixes for scope3 RTD module",
       "number": 4544,
       "author": {
@@ -1337,20 +1539,6 @@
       "status": "open"
     },
     {
-      "title": "Issue 4006 AND Issue 3913 ortb blocking module lack of media type strictness configuration for battr",
-      "number": 4551,
-      "author": {
-        "login": "postindustria-code",
-        "id": 217833752
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-29T11:50:04.000Z",
-      "dateUpdated": "2025-09-29T11:50:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "Log nested structures from the configuration",
       "number": 4519,
       "author": {
@@ -1373,36 +1561,6 @@
       "status": "open"
     },
     {
-      "title": "Rise: Support test mode",
-      "number": 4457,
-      "author": {
-        "login": "innay",
-        "id": 6281294
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "ShriprasadM",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-29T08:03:42.000Z",
-      "dateUpdated": "2025-09-08T13:39:58.000Z",
-      "status": "open"
-    },
-    {
       "title": "Analytics: Configure per account - phase-2",
       "number": 4515,
       "author": {
@@ -1414,23 +1572,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-04T13:24:29.000Z",
       "dateUpdated": "2025-09-04T13:24:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Rules engine phase 2: User sync in process auction payload",
-      "number": 4485,
-      "author": {
-        "login": "VeronikaSolovei9",
-        "id": 4790765
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-14T01:22:22.000Z",
-      "dateUpdated": "2025-08-25T17:41:29.000Z",
       "status": "open"
     },
     {
@@ -1469,28 +1610,6 @@
       "commitAuthors": {},
       "dateCreated": "2024-07-09T16:18:46.000Z",
       "dateUpdated": "2025-08-10T04:23:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support ticker-tasks as methods on modules rather than requiring separate implementing classes.",
-      "number": 4171,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [
-        "bsardo",
-        "VeronikaSolovei9"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-21T18:16:12.000Z",
-      "dateUpdated": "2025-08-06T18:22:57.000Z",
       "status": "open"
     },
     {
@@ -1538,54 +1657,6 @@
       "commitAuthors": {},
       "dateCreated": "2024-08-27T11:33:22.000Z",
       "dateUpdated": "2025-06-29T04:13:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Alias: Performist",
-      "number": 4283,
-      "author": {
-        "login": "quietPusher",
-        "id": 129727954
-      },
-      "assignees": [
-        "bsardo",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-03-26T17:12:48.000Z",
-      "dateUpdated": "2025-06-26T14:29:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: 9dotsmedialtd",
-      "number": 4281,
-      "author": {
-        "login": "quietPusher",
-        "id": 129727954
-      },
-      "assignees": [
-        "bsardo",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "quietPusher",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-03-26T17:07:03.000Z",
-      "dateUpdated": "2025-05-09T12:29:25.000Z",
       "status": "open"
     },
     {
