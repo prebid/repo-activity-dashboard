@@ -83,13 +83,61 @@ export function Toolbar() {
                   >
                     <span style={{ fontSize: '20px', fontWeight: 500 }}>Companies</span>
                   </button>
+                  
+                  {/* Repos Section */}
+                  <div className="w-full flex items-center justify-center py-2">
+                    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--foreground)' }}>Repos</span>
+                  </div>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebidjs')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid.js</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebidserver')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Server (Go)</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebidserverjava')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Server (Java)</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebidmobileios')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Mobile (iOS)</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebidmobileandroid')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Mobile (Android)</span>
+                  </button>
+                  <button
+                    onClick={() => handleProtectedNavigation('/repos/prebiddocs')}
+                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ backgroundColor: 'transparent', border: 'none' }}
+                  >
+                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Documentation</span>
+                  </button>
+                  
                   {session?.user?.role === 'admin' && (
                     <button
                       onClick={() => handleProtectedNavigation('/admin/users')}
                       className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
                       style={{ backgroundColor: 'transparent', border: 'none' }}
                     >
-                      <span style={{ fontSize: '20px', fontWeight: 500 }}>User Management</span>
+                      <span style={{ fontSize: '20px', fontWeight: 500 }}>Users</span>
                     </button>
                   )}
                 </nav>
