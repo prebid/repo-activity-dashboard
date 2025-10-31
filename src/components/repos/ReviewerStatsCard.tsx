@@ -43,33 +43,33 @@ export function ReviewerStatsCard({ stats }: ReviewerStatsCardProps) {
           <span className="font-semibold" style={{ color: '#16a34a' }}>{stats.length}</span> <span style={{ color: '#60a5fa' }}>reviewer{stats.length !== 1 ? 's' : ''} with assignments</span>
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6 pt-0">
-        <div className="space-y-3 flex flex-col items-center mt-6">
+      <CardContent className="px-6 pb-6 pt-0">
+        <div className="space-y-3 flex flex-col mt-6">
           {/* Column Headers */}
-          <div className="flex items-center justify-between px-4 py-2 w-full text-xs font-medium text-muted-foreground">
-            <div className="min-w-[140px]">Reviewer</div>
-            <div className="flex items-center gap-2">
-              <div className="w-[60px] text-center">Total</div>
-              <div className="w-[75px] text-center">Approved</div>
-              <div className="w-[75px] text-center">Changes</div>
-              <div className="w-[85px] text-center">Comments</div>
-              <div className="w-[75px] text-center">Pending</div>
+          <div className="flex items-center py-2 w-full text-xs font-medium text-muted-foreground">
+            <div className="flex-1 min-w-[140px] pl-4">Reviewer</div>
+            <div className="flex items-center pr-6" style={{ gap: '1.1rem' }}>
+              <div className="w-[50px] text-center">Total</div>
+              <div className="w-[65px] text-center">Approve</div>
+              <div className="w-[65px] text-center">Change</div>
+              <div className="w-[75px] text-center">Comment</div>
+              <div className="w-[70px] text-center">Pending</div>
             </div>
           </div>
 
           {stats.map((reviewer) => (
             <div
               key={reviewer.login}
-              className="flex items-center justify-between px-4 py-3 rounded-md bg-muted/50 hover:bg-muted transition-colors w-full"
+              className="flex items-center px-4 py-3 rounded-md bg-muted/50 hover:bg-muted transition-colors w-full"
             >
-              <div className="font-semibold text-sm min-w-[140px]" style={{ color: '#f97316' }}>{reviewer.login}</div>
-              <div className="flex items-center gap-2">
-                <div className="w-[60px] flex justify-center">
+              <div className="flex-1 min-w-[140px] font-semibold text-sm" style={{ color: '#f97316' }}>{reviewer.login}</div>
+              <div className="flex items-center pr-6" style={{ gap: '1.1rem' }}>
+                <div className="w-[50px] flex justify-center">
                   <Badge variant="outline" className="font-medium">
                     {reviewer.totalAssigned}
                   </Badge>
                 </div>
-                <div className="w-[75px] flex justify-center">
+                <div className="w-[65px] flex justify-center">
                   {reviewer.approved > 0 ? (
                     <Badge className="bg-green-600 hover:bg-green-600 text-white dark:bg-green-700 text-xs">
                       {reviewer.approved}
@@ -78,7 +78,7 @@ export function ReviewerStatsCard({ stats }: ReviewerStatsCardProps) {
                     <span className="text-muted-foreground text-xs">-</span>
                   )}
                 </div>
-                <div className="w-[75px] flex justify-center">
+                <div className="w-[65px] flex justify-center">
                   {reviewer.changesRequested > 0 ? (
                     <Badge className="bg-red-600 hover:bg-red-600 text-white dark:bg-red-700 text-xs">
                       {reviewer.changesRequested}
@@ -87,7 +87,7 @@ export function ReviewerStatsCard({ stats }: ReviewerStatsCardProps) {
                     <span className="text-muted-foreground text-xs">-</span>
                   )}
                 </div>
-                <div className="w-[85px] flex justify-center">
+                <div className="w-[75px] flex justify-center">
                   {reviewer.commented > 0 ? (
                     <Badge className="bg-blue-600 hover:bg-blue-600 text-white dark:bg-blue-700 text-xs">
                       {reviewer.commented}
@@ -96,7 +96,7 @@ export function ReviewerStatsCard({ stats }: ReviewerStatsCardProps) {
                     <span className="text-muted-foreground text-xs">-</span>
                   )}
                 </div>
-                <div className="w-[75px] flex justify-center">
+                <div className="w-[70px] flex justify-center">
                   {reviewer.pending > 0 ? (
                     <Badge variant="secondary" className="font-medium text-xs">
                       {reviewer.pending}
