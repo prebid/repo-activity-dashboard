@@ -1,10 +1,59 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-28T11:15:20.592Z",
-    "itemCount": 35
+    "lastSync": "2025-10-28T12:51:34.938Z",
+    "itemCount": 36
   },
   "items": [
+    {
+      "title": "IntentIq ID Module: GAM updates",
+      "number": 13969,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "dgirardi",
+        "mmoschovas"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-02T17:37:57.000Z",
+      "dateUpdated": "2025-10-28T12:23:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "holidBidAdapter: propagate adomain → meta.advertiserDomains (enables hb_adomain)",
+      "number": 14075,
+      "author": {
+        "login": "holidio",
+        "id": 72393300
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-28T12:08:45.000Z",
+      "dateUpdated": "2025-10-28T12:08:56.000Z",
+      "status": "open"
+    },
     {
       "title": "Clickio Bid Adapter: initial release",
       "number": 14023,
@@ -13,7 +62,12 @@
         "id": 163025633
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-16T10:44:15.000Z",
       "dateUpdated": "2025-10-28T10:17:36.000Z",
@@ -27,7 +81,16 @@
         "id": 107102698
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T08:35:29.000Z",
       "dateUpdated": "2025-10-28T05:09:40.000Z",
@@ -43,7 +106,16 @@
       "assignees": [
         "dgirardi"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "iamumarr",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-01T13:00:00.000Z",
       "dateUpdated": "2025-10-27T22:40:44.000Z",
@@ -60,7 +132,16 @@
         "robertrmartinez",
         "Fawke"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fawke",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-08-20T16:33:58.000Z",
       "dateUpdated": "2025-10-27T22:27:34.000Z",
@@ -74,7 +155,16 @@
         "id": 10151381
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T21:07:06.000Z",
       "dateUpdated": "2025-10-27T21:13:52.000Z",
@@ -88,7 +178,16 @@
         "id": 238321008
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "DeepthiNeeladri",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-15T19:41:15.000Z",
       "dateUpdated": "2025-10-27T18:19:54.000Z",
@@ -104,7 +203,12 @@
       "assignees": [
         "mmoschovas"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-07T11:42:51.000Z",
       "dateUpdated": "2025-10-27T16:01:28.000Z",
@@ -118,7 +222,12 @@
         "id": 26602871
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T15:43:04.000Z",
       "dateUpdated": "2025-10-27T15:43:18.000Z",
@@ -132,7 +241,12 @@
         "id": 191453837
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-08T07:56:44.000Z",
       "dateUpdated": "2025-10-27T14:36:23.000Z",
@@ -146,7 +260,12 @@
         "id": 118327552
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T12:37:32.000Z",
       "dateUpdated": "2025-10-27T12:37:52.000Z",
@@ -160,7 +279,16 @@
         "id": 25056697
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T10:10:11.000Z",
       "dateUpdated": "2025-10-27T10:10:56.000Z",
@@ -174,7 +302,20 @@
         "id": 30595431
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        },
+        {
+          "login": "acsbendi",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-22T08:31:03.000Z",
       "dateUpdated": "2025-10-27T10:10:23.000Z",
@@ -188,7 +329,20 @@
         "id": 146713650
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "seenthis-alex",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-21T11:39:20.000Z",
       "dateUpdated": "2025-10-27T09:10:01.000Z",
@@ -202,7 +356,20 @@
         "id": 10151381
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "monis0395",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-23T20:50:08.000Z",
       "dateUpdated": "2025-10-27T07:44:04.000Z",
@@ -218,7 +385,12 @@
       "assignees": [
         "ncolletti"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-09T14:57:33.000Z",
       "dateUpdated": "2025-10-24T16:18:08.000Z",
@@ -234,7 +406,16 @@
       "assignees": [
         "patmmccann"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-08-27T11:46:23.000Z",
       "dateUpdated": "2025-10-24T13:24:06.000Z",
@@ -248,7 +429,12 @@
         "id": 132557157
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-24T12:39:15.000Z",
       "dateUpdated": "2025-10-24T12:39:34.000Z",
@@ -264,7 +450,24 @@
       "assignees": [
         "patmmccann"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-17T14:03:38.000Z",
       "dateUpdated": "2025-10-24T05:40:18.000Z",
@@ -278,7 +481,12 @@
         "id": 114455471
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-21T09:41:16.000Z",
       "dateUpdated": "2025-10-24T03:28:22.000Z",
@@ -299,23 +507,6 @@
       "status": "open"
     },
     {
-      "title": "IntentIq ID Module: GAM updates",
-      "number": 13969,
-      "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
-      },
-      "assignees": [
-        "dgirardi",
-        "mmoschovas"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-02T17:37:57.000Z",
-      "dateUpdated": "2025-10-23T15:34:24.000Z",
-      "status": "open"
-    },
-    {
       "title": "SSP Genie Bid Adapter: Change logic of specified currency bid-params do not refer to adServerCurrency.",
       "number": 14061,
       "author": {
@@ -323,7 +514,12 @@
         "id": 127374021
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-23T07:29:51.000Z",
       "dateUpdated": "2025-10-23T08:26:08.000Z",
@@ -351,7 +547,12 @@
         "id": 236771058
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-22T00:48:49.000Z",
       "dateUpdated": "2025-10-22T00:49:08.000Z",
@@ -367,7 +568,16 @@
       "assignees": [
         "jsnellbaker"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-25T18:54:06.000Z",
       "dateUpdated": "2025-10-21T18:41:29.000Z",
@@ -383,7 +593,12 @@
       "assignees": [
         "Rothalack"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-15T15:29:45.000Z",
       "dateUpdated": "2025-10-21T15:18:32.000Z",
@@ -399,7 +614,16 @@
       "assignees": [
         "patmmccann"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-08-04T10:15:38.000Z",
       "dateUpdated": "2025-10-20T18:02:33.000Z",
@@ -413,7 +637,16 @@
         "id": 1683175
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-20T13:48:59.000Z",
       "dateUpdated": "2025-10-20T13:49:16.000Z",
@@ -430,7 +663,20 @@
         "jlquaccia",
         "dgirardi"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gchicoye",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-08T09:04:22.000Z",
       "dateUpdated": "2025-10-17T09:31:42.000Z",
@@ -444,7 +690,16 @@
         "id": 169047654
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-10-15T03:39:23.000Z",
       "dateUpdated": "2025-10-16T05:54:19.000Z",
@@ -458,7 +713,16 @@
         "id": 1683175
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-05-30T13:50:45.000Z",
       "dateUpdated": "2025-10-08T20:47:32.000Z",
@@ -474,7 +738,12 @@
       "assignees": [
         "osazos"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-25T14:09:09.000Z",
       "dateUpdated": "2025-10-08T07:57:52.000Z",
@@ -488,7 +757,12 @@
         "id": 1683175
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-09-23T14:47:50.000Z",
       "dateUpdated": "2025-10-07T10:42:30.000Z",
@@ -518,7 +792,20 @@
       "assignees": [
         "robertrmartinez"
       ],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "Sir-Will",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-07-21T16:31:37.000Z",
       "dateUpdated": "2025-09-14T23:15:39.000Z",

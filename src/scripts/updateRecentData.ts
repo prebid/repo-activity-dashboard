@@ -86,6 +86,52 @@ class RecentDataUpdater {
   }
 
   /**
+   * Fetch reviewer details for a specific PR
+   * This enriches PR data with requested_reviewers and actual review statuses
+   */
+  async fetchPRReviewers(owner: string, repo: string, prNumber: number): Promise<{ login: string; state: 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'PENDING' }[]> {
+    try {
+      // Fetch the PR details to get requested_reviewers
+      const prResponse = await this.octokit.pulls.get({
+        owner,
+        repo,
+        pull_number: prNumber,
+      });
+
+      // Fetch reviews
+      const reviewsResponse = await this.octokit.pulls.listReviews({
+        owner,
+        repo,
+        pull_number: prNumber,
+      });
+
+      const reviewerMap = new Map<string, 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'PENDING'>();
+
+      // First, add requested reviewers as PENDING
+      if (prResponse.data.requested_reviewers) {
+        for (const requestedReviewer of prResponse.data.requested_reviewers) {
+          if (requestedReviewer && requestedReviewer.login) {
+            reviewerMap.set(requestedReviewer.login, 'PENDING');
+          }
+        }
+      }
+
+      // Then process actual reviews, updating to their final state
+      for (const review of reviewsResponse.data) {
+        if (review.user && review.state) {
+          // Only keep the last review state per user (overwrites PENDING or previous reviews)
+          reviewerMap.set(review.user.login, review.state as 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'PENDING');
+        }
+      }
+
+      return Array.from(reviewerMap.entries()).map(([login, state]) => ({ login, state }));
+    } catch (error) {
+      console.error(`    ⚠️  Failed to fetch reviewers for PR #${prNumber}:`, error);
+      return [];
+    }
+  }
+
+  /**
    * Fetch recent issues - Issues API supports 'since' but only use it for closed issues
    */
   async fetchRecentIssues(owner: string, repo: string, since: Date | null, state: 'open' | 'closed' = 'closed'): Promise<Awaited<ReturnType<typeof this.octokit.issues.listForRepo>>['data']> {
@@ -132,31 +178,34 @@ class RecentDataUpdater {
     console.log(`  📅 Fetching data updated since: ${since.toISOString()}`);
 
     try {
-      // Fetch open PRs (these need to be complete)
-      console.log('  🔍 Fetching open PRs using Search API...');
+      console.log('  🔍 Fetching open PRs...');
       const openPRs = await this.fetchRecentPRs(owner, repo, new Date(0), 'open');
       console.log(`    ✓ Found ${openPRs.length} open PRs`);
 
-      // Fetch recently merged PRs
-      console.log(`  🔍 Fetching merged PRs from last ${daysBack} days using Search API...`);
+      console.log('  👥 Fetching reviewer data...');
+      const enrichedOpenPRs = await Promise.all(
+        openPRs.map(async (pr) => {
+          const reviewers = await this.fetchPRReviewers(owner, repo, pr.number);
+          return { ...pr, reviewers };
+        })
+      );
+      console.log(`    ✓ Enriched ${enrichedOpenPRs.length} PRs with reviewer data`);
+
+      console.log(`  🔍 Fetching merged PRs from last ${daysBack} days...`);
       const mergedPRs = await this.fetchRecentPRs(owner, repo, since, 'merged');
       console.log(`    ✓ Found ${mergedPRs.length} recently merged PRs`);
 
-      // Fetch open issues
       console.log('  📋 Fetching open issues...');
       const openIssues = await this.fetchRecentIssues(owner, repo, null, 'open');
       console.log(`    ✓ Found ${openIssues.length} open issues`);
 
-      // Fetch recently closed issues
       console.log(`  📋 Fetching closed issues from last ${daysBack} days...`);
       const closedIssues = await this.fetchRecentIssues(owner, repo, since, 'closed');
       console.log(`    ✓ Found ${closedIssues.length} recently closed issues`);
 
-      // Convert search results to our format and save
       const repoObj: Repository = { owner, repo, name, category: 'main', url: `https://github.com/${owner}/${repo}` };
 
-      // Save open items (complete replacement)
-      await this.storageService.saveOpenPRs(repoObj, this.convertSearchPRsToFormat(openPRs));
+      await this.storageService.saveOpenPRs(repoObj, this.convertSearchPRsToFormat(enrichedOpenPRs));
       await this.storageService.saveOpenIssues(repoObj, this.convertIssuesToFormat(openIssues));
 
       // Save closed/merged items
@@ -185,7 +234,7 @@ class RecentDataUpdater {
   /**
    * Convert search API PR results to match existing format
    */
-  private convertSearchPRsToFormat(searchResults: Awaited<ReturnType<typeof this.octokit.search.issuesAndPullRequests>>['data']['items']): PRData[] {
+  private convertSearchPRsToFormat(searchResults: any[]): PRData[] {
     return searchResults.map(item => {
       const pr: PRData = {
         title: item.title,
@@ -194,8 +243,8 @@ class RecentDataUpdater {
           login: item.user?.login || 'unknown',
           id: item.user?.id || 0
         },
-        assignees: item.assignees?.map(a => a.login) || [],
-        reviewers: [], // Search API doesn't provide reviewers
+        assignees: item.assignees?.map((a: any) => a.login) || [],
+        reviewers: item.reviewers || [],
         commitAuthors: new Map(), // Search API doesn't provide commit authors
         dateCreated: new Date(item.created_at),
         dateUpdated: new Date(item.updated_at),
