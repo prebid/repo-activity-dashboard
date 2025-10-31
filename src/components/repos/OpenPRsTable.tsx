@@ -25,7 +25,7 @@ interface OpenPRsTableProps {
   prs: PRTableRow[];
 }
 
-type SortField = 'number' | 'reviewersAssigned' | 'reviewersApproved' | 'daysSinceOpen' | 'daysSinceUpdate';
+type SortField = 'number' | 'reviewersAssigned' | 'reviewersApproved' | 'reviewersChangesRequested' | 'reviewersCommented' | 'daysSinceOpen' | 'daysSinceUpdate';
 type SortDirection = 'asc' | 'desc';
 
 export function OpenPRsTable({ prs }: OpenPRsTableProps) {
@@ -81,17 +81,23 @@ export function OpenPRsTable({ prs }: OpenPRsTableProps) {
                 <SortButton field="number">PR #</SortButton>
               </TableHead>
               <TableHead>Title</TableHead>
-              <TableHead className="w-[120px]">
+              <TableHead className="w-[100px]">
                 <SortButton field="reviewersAssigned">Reviewers</SortButton>
               </TableHead>
-              <TableHead className="w-[100px]">
+              <TableHead className="w-[90px]">
                 <SortButton field="reviewersApproved">Approved</SortButton>
               </TableHead>
-              <TableHead className="w-[120px]">
+              <TableHead className="w-[90px]">
+                <SortButton field="reviewersChangesRequested">Changes</SortButton>
+              </TableHead>
+              <TableHead className="w-[100px]">
+                <SortButton field="reviewersCommented">Comments</SortButton>
+              </TableHead>
+              <TableHead className="w-[110px]">
                 <SortButton field="daysSinceOpen">Days Open</SortButton>
               </TableHead>
-              <TableHead className="w-[140px]">
-                <SortButton field="daysSinceUpdate">Days Since Update</SortButton>
+              <TableHead className="w-[130px]">
+                <SortButton field="daysSinceUpdate">Last Update</SortButton>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -133,6 +139,24 @@ export function OpenPRsTable({ prs }: OpenPRsTableProps) {
                     {pr.reviewersApproved > 0 ? (
                       <Badge className="bg-green-600 hover:bg-green-600 text-white dark:bg-green-700 dark:text-white">
                         ✓ {pr.reviewersApproved}
+                      </Badge>
+                    ) : (
+                      <span className="text-muted-foreground text-sm">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {pr.reviewersChangesRequested > 0 ? (
+                      <Badge className="bg-red-600 hover:bg-red-600 text-white dark:bg-red-700 dark:text-white">
+                        {pr.reviewersChangesRequested}
+                      </Badge>
+                    ) : (
+                      <span className="text-muted-foreground text-sm">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {pr.reviewersCommented > 0 ? (
+                      <Badge className="bg-blue-600 hover:bg-blue-600 text-white dark:bg-blue-700 dark:text-white">
+                        {pr.reviewersCommented}
                       </Badge>
                     ) : (
                       <span className="text-muted-foreground text-sm">-</span>

@@ -25,6 +25,7 @@ function aggregateReviewerStats(prs: PRData[]): ReviewerStats[] {
         totalAssigned: 0,
         approved: 0,
         changesRequested: 0,
+        commented: 0,
         pending: 0,
       };
 
@@ -36,6 +37,9 @@ function aggregateReviewerStats(prs: PRData[]): ReviewerStats[] {
           break;
         case 'CHANGES_REQUESTED':
           existing.changesRequested++;
+          break;
+        case 'COMMENTED':
+          existing.commented++;
           break;
         case 'PENDING':
           existing.pending++;
@@ -85,6 +89,8 @@ function transformPRsForTable(prs: PRData[], repoUrl: string): PRTableRow[] {
   return prs.map(pr => {
     const reviewersAssigned = pr.reviewers?.length || 0;
     const reviewersApproved = pr.reviewers?.filter(r => r.state === 'APPROVED').length || 0;
+    const reviewersChangesRequested = pr.reviewers?.filter(r => r.state === 'CHANGES_REQUESTED').length || 0;
+    const reviewersCommented = pr.reviewers?.filter(r => r.state === 'COMMENTED').length || 0;
     const reviewersPending = pr.reviewers?.filter(r => r.state === 'PENDING').length || 0;
 
     return {
@@ -93,6 +99,8 @@ function transformPRsForTable(prs: PRData[], repoUrl: string): PRTableRow[] {
       author: pr.author.login,
       reviewersAssigned,
       reviewersApproved,
+      reviewersChangesRequested,
+      reviewersCommented,
       reviewersPending,
       daysSinceOpen: daysBetween(pr.dateCreated, now),
       daysSinceUpdate: daysBetween(pr.dateUpdated, now),

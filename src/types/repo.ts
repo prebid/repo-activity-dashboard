@@ -19,6 +19,7 @@ export interface ReviewerStats {
   totalAssigned: number;  // Total PRs they are assigned to review
   approved: number;       // PRs they've approved
   changesRequested: number;
+  commented: number;      // PRs where they've commented (no approval/changes)
   pending: number;        // Requested but haven't reviewed yet
 }
 
@@ -35,6 +36,8 @@ export interface PRTableRow {
   author: string;
   reviewersAssigned: number;      // Total reviewers assigned
   reviewersApproved: number;      // Reviewers who approved
+  reviewersChangesRequested: number; // Reviewers who requested changes
+  reviewersCommented: number;     // Reviewers who commented only
   reviewersPending: number;       // Reviewers who haven't reviewed
   daysSinceOpen: number;
   daysSinceUpdate: number;
