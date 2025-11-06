@@ -1,10 +1,70 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-31T13:16:57.994Z",
-    "itemCount": 112
+    "lastSync": "2025-11-06T13:45:19.017Z",
+    "itemCount": 113
   },
   "items": [
+    {
+      "title": "storage.cookiesAreEnabled incorrectly returns true for Safari Version 26.0.1",
+      "number": 14102,
+      "author": {
+        "login": "tccdeniz",
+        "id": 207675289
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-06T05:30:09.000Z",
+      "dateUpdated": "2025-11-06T05:30:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bidRequest.auctionId is no longer a valid uuid",
+      "number": 14082,
+      "author": {
+        "login": "arneschulz1984",
+        "id": 22349602
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-29T20:28:44.000Z",
+      "dateUpdated": "2025-11-05T17:58:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Discrepancy in interstitial ad rendering and analytics reporting",
+      "number": 13807,
+      "author": {
+        "login": "nirav777",
+        "id": 82255305
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-26T12:20:57.000Z",
+      "dateUpdated": "2025-11-05T17:01:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 10.12.0 prebid.renderAd does not render certain banner ads that break out of the frame but do not walk up additional frames anymore",
+      "number": 14048,
+      "author": {
+        "login": "damjan25",
+        "id": 60606529
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T15:39:01.000Z",
+      "dateUpdated": "2025-11-04T15:44:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
+      "number": 14068,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-24T16:06:16.000Z",
+      "dateUpdated": "2025-11-03T16:23:07.000Z",
+      "status": "open"
+    },
     {
       "title": "GPP Control - Incorrect \"PersonalDataConsents\" check?",
       "number": 14077,
@@ -16,7 +76,7 @@
         "patmmccann"
       ],
       "dateCreated": "2025-10-28T21:13:29.000Z",
-      "dateUpdated": "2025-10-30T20:38:24.000Z",
+      "dateUpdated": "2025-10-31T15:33:44.000Z",
       "status": "open"
     },
     {
@@ -34,30 +94,6 @@
       "status": "open"
     },
     {
-      "title": "bidRequest.auctionId is no longer a valid uuid",
-      "number": 14082,
-      "author": {
-        "login": "arneschulz1984",
-        "id": 22349602
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-29T20:28:44.000Z",
-      "dateUpdated": "2025-10-29T21:00:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 10.12.0 prebid.renderAd does not render certain banner ads that break out of the frame but do not walk up additional frames anymore",
-      "number": 14048,
-      "author": {
-        "login": "damjan25",
-        "id": 60606529
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-21T15:39:01.000Z",
-      "dateUpdated": "2025-10-28T15:08:06.000Z",
-      "status": "open"
-    },
-    {
       "title": "DoNotTrack: ban access to navigator call",
       "number": 13919,
       "author": {
@@ -67,18 +103,6 @@
       "assignees": [],
       "dateCreated": "2025-09-23T13:53:35.000Z",
       "dateUpdated": "2025-10-24T19:39:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
-      "number": 14068,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T16:06:16.000Z",
-      "dateUpdated": "2025-10-24T16:06:16.000Z",
       "status": "open"
     },
     {
@@ -177,18 +201,6 @@
       "assignees": [],
       "dateCreated": "2025-09-18T09:18:04.000Z",
       "dateUpdated": "2025-10-10T09:12:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Discrepancy in interstitial ad rendering and analytics reporting",
-      "number": 13807,
-      "author": {
-        "login": "nirav777",
-        "id": 82255305
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-26T12:20:57.000Z",
-      "dateUpdated": "2025-10-08T17:02:28.000Z",
       "status": "open"
     },
     {

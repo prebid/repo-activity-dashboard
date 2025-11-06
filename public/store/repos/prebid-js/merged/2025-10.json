@@ -3,10 +3,42 @@
     "repository": "prebid/Prebid.js",
     "year": 2025,
     "month": 10,
-    "itemCount": 89,
-    "lastUpdated": "2025-10-31T13:16:57.996Z"
+    "itemCount": 91,
+    "lastUpdated": "2025-11-06T13:45:19.022Z"
   },
   "items": [
+    {
+      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
+      "number": 14084,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:25:46.000Z",
+      "dateUpdated": "2025-10-31T19:20:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-31T19:20:49.000Z",
+      "dateClosed": "2025-10-31T19:20:49.000Z"
+    },
+    {
+      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
+      "number": 14085,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:32:16.000Z",
+      "dateUpdated": "2025-10-31T19:13:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-10-31T19:13:54.000Z",
+      "dateClosed": "2025-10-31T19:13:54.000Z"
+    },
     {
       "title": "Opsco Bid Adapter : refactor to use ortb converter",
       "number": 13998,
@@ -1705,28 +1737,13 @@
       "assignees": [
         "monis0395"
       ],
-      "reviewers": [
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
-        },
-        {
-          "login": "monis0395",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-09-16T02:47:01.000Z",
-      "dateUpdated": "2025-10-03T12:14:21.000Z",
+      "dateUpdated": "2025-11-04T02:15:38.000Z",
       "status": "merged",
       "dateMerged": "2025-10-03T12:14:21.000Z",
-      "commitAuthors": {
-        "Love Sharma": {
-          "identifier": "Love Sharma",
-          "displayName": "Love Sharma",
-          "count": 3,
-          "isGitHubUser": false
-        }
-      }
+      "dateClosed": "2025-10-03T12:14:21.000Z"
     },
     {
       "title": "Github Actions: reduce test chunk retries",

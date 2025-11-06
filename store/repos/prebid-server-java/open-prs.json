@@ -1,8 +1,8 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-31T13:17:14.131Z",
-    "itemCount": 24
+    "lastSync": "2025-11-06T13:45:35.043Z",
+    "itemCount": 23
   },
   "items": [
     {
@@ -15,12 +15,37 @@
       "assignees": [],
       "reviewers": [
         {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
           "login": "AntoxaAntoxic",
           "state": "CHANGES_REQUESTED"
         },
         {
           "login": "SamuelAlejandroNT",
           "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-11-06T13:13:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nativery",
+      "number": 4223,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
         },
         {
           "login": "CTMBNara",
@@ -28,33 +53,54 @@
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-10-31T12:53:12.000Z",
+      "dateCreated": "2025-09-30T15:02:07.000Z",
+      "dateUpdated": "2025-11-06T09:32:01.000Z",
       "status": "open"
     },
     {
-      "title": "Tests: Refactoring functional tests",
-      "number": 3657,
+      "title": "Test: Update `pr-java/functional-ci` work flow",
+      "number": 3904,
       "author": {
-        "login": "osulzhenko",
-        "id": 125548596
+        "login": "marki1an",
+        "id": 95693607
       },
       "assignees": [
-        "osulzhenko"
+        "marki1an"
       ],
       "reviewers": [
         {
-          "login": "marki1an",
-          "state": "COMMENTED"
-        },
-        {
           "login": "osulzhenko",
-          "state": "COMMENTED"
+          "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2025-10-31T11:26:15.000Z",
+      "dateCreated": "2025-04-10T15:24:07.000Z",
+      "dateUpdated": "2025-11-05T16:14:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add video cache TTL enforcement for /vtrack endpoint",
+      "number": 4136,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-13T13:29:20.000Z",
+      "dateUpdated": "2025-11-05T11:41:26.000Z",
       "status": "open"
     },
     {
@@ -83,7 +129,7 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2025-10-31T10:36:26.000Z",
+      "dateUpdated": "2025-11-05T11:06:48.000Z",
       "status": "open"
     },
     {
@@ -101,33 +147,87 @@
         },
         {
           "login": "AntoxaAntoxic",
-          "state": "PENDING"
+          "state": "COMMENTED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-10-31T09:56:50.000Z",
+      "dateUpdated": "2025-11-05T09:44:59.000Z",
       "status": "open"
     },
     {
-      "title": "Test: Update `pr-java/functional-ci` work flow",
-      "number": 3904,
+      "title": "Nextmillennium: New fields and adapter version update",
+      "number": 4246,
       "author": {
-        "login": "marki1an",
-        "id": 95693607
+        "login": "przemkaczmarek",
+        "id": 167743744
       },
       "assignees": [
-        "marki1an"
+        "przemkaczmarek"
       ],
       "reviewers": [
         {
-          "login": "osulzhenko",
-          "state": "DISMISSED"
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-04-10T15:24:07.000Z",
-      "dateUpdated": "2025-10-30T12:03:51.000Z",
+      "dateCreated": "2025-10-18T17:21:42.000Z",
+      "dateUpdated": "2025-11-05T08:56:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2025-11-04T13:03:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "dateUpdated": "2025-11-03T16:51:03.000Z",
       "status": "open"
     },
     {
@@ -171,98 +271,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Nativery",
-      "number": 4223,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-30T15:02:07.000Z",
-      "dateUpdated": "2025-10-30T10:39:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2025-10-29T12:03:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add video cache TTL enforcement for /vtrack endpoint",
-      "number": 4136,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-13T13:29:20.000Z",
-      "dateUpdated": "2025-10-28T14:15:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Nextmillennium: New fields and adapter version update",
-      "number": 4246,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-18T17:21:42.000Z",
-      "dateUpdated": "2025-10-28T10:04:33.000Z",
-      "status": "open"
-    },
-    {
       "title": "New adapter: alliance_gravity",
       "number": 4221,
       "author": {
@@ -301,20 +309,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-19T08:26:48.000Z",
       "dateUpdated": "2025-10-23T15:50:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: Remove max length on params ",
-      "number": 4263,
-      "author": {
-        "login": "And1sS",
-        "id": 28010702
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T13:03:22.000Z",
-      "dateUpdated": "2025-10-23T15:02:46.000Z",
       "status": "open"
     },
     {

@@ -1,32 +1,64 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-10-31T13:16:57.992Z",
-    "itemCount": 36
+    "lastSync": "2025-11-06T13:45:19.014Z",
+    "itemCount": 44
   },
   "items": [
     {
-      "title": "feat: wallet_profiling",
-      "number": 14067,
+      "title": "New module: Shaping rules",
+      "number": 14079,
       "author": {
-        "login": "VelRaj21",
-        "id": 132557157
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T13:26:39.000Z",
+      "dateUpdated": "2025-11-06T12:59:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "T Advertising Solutions Bid Adapter: Fix handling of no bid response",
+      "number": 14105,
+      "author": {
+        "login": "tb-emq",
+        "id": 217763234
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T08:50:01.000Z",
+      "dateUpdated": "2025-11-06T09:44:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "AJA Bid Adapter: refactor JSDoc and code style improvements",
+      "number": 14091,
+      "author": {
+        "login": "0tarof",
+        "id": 6879289
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "jefftmahoney",
-          "state": "PENDING"
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "0tarof",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-24T12:39:15.000Z",
-      "dateUpdated": "2025-10-31T09:43:46.000Z",
+      "dateCreated": "2025-11-04T13:36:57.000Z",
+      "dateUpdated": "2025-11-06T09:27:08.000Z",
       "status": "open"
     },
     {
-      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
-      "number": 14084,
+      "title": "Pubmatic Rtd Provider: add dynamic timeout plugin & code refactoring",
+      "number": 14103,
       "author": {
         "login": "pm-komal-kumari",
         "id": 169047654
@@ -34,36 +66,97 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-30T18:25:46.000Z",
-      "dateUpdated": "2025-10-31T07:10:55.000Z",
+      "dateCreated": "2025-11-06T06:48:15.000Z",
+      "dateUpdated": "2025-11-06T07:17:48.000Z",
       "status": "open"
     },
     {
-      "title": "Pubmatic bid adapter: remove extra transactionId from bidder request",
-      "number": 14085,
+      "title": "PubMatic RTD Provider: Dynamic timeout plugin & code refactoring for 10.x",
+      "number": 14104,
       "author": {
-        "login": "pm-komal-kumari",
-        "id": 169047654
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-30T18:32:16.000Z",
-      "dateUpdated": "2025-10-31T07:10:23.000Z",
+      "dateCreated": "2025-11-06T07:01:16.000Z",
+      "dateUpdated": "2025-11-06T07:02:29.000Z",
       "status": "open"
     },
     {
-      "title": "Add TCF vendor id PinkLion",
-      "number": 14083,
+      "title": "sevio Bid Adapter : add extra parameters required by the BE",
+      "number": 13904,
       "author": {
-        "login": "prebidPinkLion",
-        "id": 214807971
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-17T14:03:38.000Z",
+      "dateUpdated": "2025-11-06T06:10:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CI: remove reviewer assignment action",
+      "number": 14100,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-30T14:00:46.000Z",
-      "dateUpdated": "2025-10-30T14:04:31.000Z",
+      "dateCreated": "2025-11-05T18:20:11.000Z",
+      "dateUpdated": "2025-11-05T19:29:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "optimeraRTD: Updated scorefile fetching logic",
+      "number": 14101,
+      "author": {
+        "login": "kcandiotti",
+        "id": 29559397
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T19:24:00.000Z",
+      "dateUpdated": "2025-11-05T19:28:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: fix spurious validation warnings on mediaType / ortb2Imp",
+      "number": 14099,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T16:54:57.000Z",
+      "dateUpdated": "2025-11-05T16:54:57.000Z",
       "status": "open"
     },
     {
@@ -76,12 +169,12 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        },
-        {
           "login": "osazos",
           "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
         },
         {
           "login": "mkomorski",
@@ -90,21 +183,212 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-27T10:10:11.000Z",
-      "dateUpdated": "2025-10-30T13:01:41.000Z",
+      "dateUpdated": "2025-11-05T16:08:02.000Z",
       "status": "open"
     },
     {
-      "title": "VISX Bid Adapter: Added support for GPID",
-      "number": 14080,
+      "title": "ConnectID Adapter: fix storage type configuration not being respected",
+      "number": 14018,
       "author": {
-        "login": "vfedoseev",
-        "id": 8183991
+        "login": "zach-bowman-yahooinc",
+        "id": 238321008
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "DeepthiNeeladri",
+          "state": "APPROVED"
+        },
+        {
+          "login": "harthikotapati",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T19:41:15.000Z",
+      "dateUpdated": "2025-11-05T14:59:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: Add timeToRespond in noBid responses",
+      "number": 14097,
+      "author": {
+        "login": "rogerDyl",
+        "id": 104763658
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-29T15:45:50.000Z",
-      "dateUpdated": "2025-10-30T11:39:10.000Z",
+      "dateCreated": "2025-11-05T13:49:10.000Z",
+      "dateUpdated": "2025-11-05T13:49:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adverxo Bid Adapter: new alias harrenmedia",
+      "number": 14096,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T11:22:58.000Z",
+      "dateUpdated": "2025-11-05T11:22:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add MarlinAds alias",
+      "number": 14094,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T18:01:11.000Z",
+      "dateUpdated": "2025-11-04T18:03:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Teza Bid Adapter: initial release",
+      "number": 14093,
+      "author": {
+        "login": "vadim-frolov",
+        "id": 30404654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T16:55:04.000Z",
+      "dateUpdated": "2025-11-04T16:55:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pixfuture_adapter uids update",
+      "number": 14092,
+      "author": {
+        "login": "Arthur482",
+        "id": 66466997
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T14:53:05.000Z",
+      "dateUpdated": "2025-11-04T16:09:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add TCF vendor id PinkLion",
+      "number": 14083,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T14:00:46.000Z",
+      "dateUpdated": "2025-11-04T15:51:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bump actions/upload-artifact from 4 to 5",
+      "number": 14087,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-01T14:01:18.000Z",
+      "dateUpdated": "2025-11-04T15:39:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "feat: wallet_profiling",
+      "number": 14067,
+      "author": {
+        "login": "VelRaj21",
+        "id": 132557157
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VelRaj21",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-24T12:39:15.000Z",
+      "dateUpdated": "2025-11-04T15:05:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix(adapter): align uniquest_widgetBidAdapter file name with docs biddercode",
+      "number": 14043,
+      "author": {
+        "login": "kazutoshi-uekawa-muneee",
+        "id": 114455471
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T09:41:16.000Z",
+      "dateUpdated": "2025-11-04T07:33:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Neuwo Rtd Module: Add url cleaning feature to Neuwo RTD module ",
+      "number": 14089,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T13:50:49.000Z",
+      "dateUpdated": "2025-11-04T06:41:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tappx Bid Adapter: Fix advertiserDomains assignment",
+      "number": 14090,
+      "author": {
+        "login": "eduardoguette",
+        "id": 61714979
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T15:31:38.000Z",
+      "dateUpdated": "2025-11-03T15:34:51.000Z",
       "status": "open"
     },
     {
@@ -151,20 +435,6 @@
       "status": "open"
     },
     {
-      "title": "New module: Shaping rules",
-      "number": 14079,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T13:26:39.000Z",
-      "dateUpdated": "2025-10-29T13:26:39.000Z",
-      "status": "open"
-    },
-    {
       "title": "Sparteo Bid Adapter:  support new required query params",
       "number": 13986,
       "author": {
@@ -181,69 +451,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-08T07:56:44.000Z",
       "dateUpdated": "2025-10-29T08:57:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adkernel Bid Adapter: add bluTonic alias",
-      "number": 14078,
-      "author": {
-        "login": "ckbo3hrk",
-        "id": 8065653
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T08:28:38.000Z",
-      "dateUpdated": "2025-10-29T08:29:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "fix(adapter): align uniquest_widgetBidAdapter file name with docs biddercode",
-      "number": 14043,
-      "author": {
-        "login": "kazutoshi-uekawa-muneee",
-        "id": 114455471
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "osazos",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T09:41:16.000Z",
-      "dateUpdated": "2025-10-29T07:33:03.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IntentIq ID Module: GAM updates",
-      "number": 13969,
-      "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
-      },
-      "assignees": [
-        "dgirardi",
-        "mmoschovas"
-      ],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "monis0395",
-          "state": "PENDING"
-        },
-        {
-          "login": "dgirardi",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-02T17:37:57.000Z",
-      "dateUpdated": "2025-10-29T07:11:01.000Z",
       "status": "open"
     },
     {
@@ -265,33 +472,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-15T15:29:45.000Z",
       "dateUpdated": "2025-10-28T22:04:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ConnectID Adapter: fix storage type configuration not being respected",
-      "number": 14018,
-      "author": {
-        "login": "zach-bowman-yahooinc",
-        "id": 238321008
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        },
-        {
-          "login": "DeepthiNeeladri",
-          "state": "APPROVED"
-        },
-        {
-          "login": "harthikotapati",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-15T19:41:15.000Z",
-      "dateUpdated": "2025-10-28T19:48:51.000Z",
       "status": "open"
     },
     {
@@ -318,64 +498,6 @@
       "status": "open"
     },
     {
-      "title": "sevio Bid Adapter : add extra parameters required by the BE",
-      "number": 13904,
-      "author": {
-        "login": "petrican",
-        "id": 1708561
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "reviewers": [
-        {
-          "login": "jlquaccia",
-          "state": "PENDING"
-        },
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "petrican",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-17T14:03:38.000Z",
-      "dateUpdated": "2025-10-28T15:12:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sevio Bid Adapter : detect keywords when those were not provided as params",
-      "number": 13814,
-      "author": {
-        "login": "petrican",
-        "id": 1708561
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "petrican",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-27T11:46:23.000Z",
-      "dateUpdated": "2025-10-28T15:10:10.000Z",
-      "status": "open"
-    },
-    {
       "title": "Clickio Bid Adapter: initial release",
       "number": 14023,
       "author": {
@@ -392,31 +514,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-16T10:44:15.000Z",
       "dateUpdated": "2025-10-28T10:17:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Medianet Analytics Adapter: pass ext from Prebid Server Response and Prebid 10 Updates",
-      "number": 13825,
-      "author": {
-        "login": "iamumarr",
-        "id": 227820841
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "APPROVED"
-        },
-        {
-          "login": "iamumarr",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-01T13:00:00.000Z",
-      "dateUpdated": "2025-10-27T22:40:44.000Z",
       "status": "open"
     },
     {

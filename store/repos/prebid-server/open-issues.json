@@ -1,10 +1,84 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-10-31T13:17:07.560Z",
-    "itemCount": 203
+    "lastSync": "2025-11-06T13:45:29.232Z",
+    "itemCount": 201
   },
   "items": [
+    {
+      "title": "Prebid Server 4.0",
+      "number": 3861,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-08-14T16:19:08.000Z",
+      "dateUpdated": "2025-11-05T15:55:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "/openrtb2/video endpoint deprecation",
+      "number": 4599,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-05T15:54:59.000Z",
+      "dateUpdated": "2025-11-05T15:54:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Adagio: Remove max length on params ",
+      "number": 4598,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-05T14:21:40.000Z",
+      "dateUpdated": "2025-11-05T14:21:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Client Hint support.",
+      "number": 2646,
+      "author": {
+        "login": "pm-harshad-mane",
+        "id": 8835908
+      },
+      "assignees": [],
+      "dateCreated": "2023-03-16T03:06:28.000Z",
+      "dateUpdated": "2025-11-05T14:02:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support the delivery of custom bid data to prebid.js",
+      "number": 4554,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-09-29T22:02:21.000Z",
+      "dateUpdated": "2025-10-31T15:01:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Link COPPA flag to Activity Controls",
+      "number": 3415,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-01-18T22:34:19.000Z",
+      "dateUpdated": "2025-10-31T14:46:37.000Z",
+      "status": "open"
+    },
     {
       "title": "Port PR from PBS-Java: Unruly: Include GPID in request payload",
       "number": 4594,
@@ -12,9 +86,37 @@
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [],
+      "assignees": [
+        "bsardo"
+      ],
       "dateCreated": "2025-10-31T12:30:01.000Z",
-      "dateUpdated": "2025-10-31T12:30:01.000Z",
+      "dateUpdated": "2025-10-31T14:27:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Module Storage Metrics",
+      "number": 4583,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2025-10-27T13:38:38.000Z",
+      "dateUpdated": "2025-10-31T14:25:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support GET on the /vtrack endpoint",
+      "number": 3629,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-04-17T19:00:57.000Z",
+      "dateUpdated": "2025-10-31T14:23:15.000Z",
       "status": "open"
     },
     {
@@ -32,42 +134,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: DATA-22937: LI analytics adapter",
-      "number": 4584,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-28T15:31:53.000Z",
-      "dateUpdated": "2025-10-28T15:31:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server 4.0",
-      "number": 3861,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2025-10-28T14:30:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Module Storage Metrics",
-      "number": 4583,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-27T13:38:38.000Z",
-      "dateUpdated": "2025-10-27T13:38:38.000Z",
-      "status": "open"
-    },
-    {
       "title": "setuid's not picking up an account id",
       "number": 4494,
       "author": {
@@ -82,30 +148,6 @@
       "status": "open"
     },
     {
-      "title": "Support the delivery of custom bid data to prebid.js",
-      "number": 4554,
-      "author": {
-        "login": "philipwatson",
-        "id": 2080240
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-29T22:02:21.000Z",
-      "dateUpdated": "2025-10-24T01:20:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Support GET on the /vtrack endpoint",
-      "number": 4577,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-22T12:44:52.000Z",
-      "dateUpdated": "2025-10-22T12:44:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "Enhance module A/B testing by adding an ad server targeting keyword into the response",
       "number": 4527,
       "author": {
@@ -115,30 +157,6 @@
       "assignees": [],
       "dateCreated": "2025-09-10T12:57:45.000Z",
       "dateUpdated": "2025-10-21T14:35:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: optable-targeting: Optimize Optable requests for more precise ranging and performance insights",
-      "number": 4572,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-21T12:28:50.000Z",
-      "dateUpdated": "2025-10-21T12:28:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Question: How can user IDs be forwarded from one Prebid Server to another?",
-      "number": 4569,
-      "author": {
-        "login": "Mickael-van-der-Beek",
-        "id": 4224802
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-16T11:59:57.000Z",
-      "dateUpdated": "2025-10-17T14:21:53.000Z",
       "status": "open"
     },
     {
@@ -374,18 +392,6 @@
       "assignees": [],
       "dateCreated": "2023-09-26T13:24:16.000Z",
       "dateUpdated": "2025-09-11T03:14:28.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Client Hint support.",
-      "number": 2646,
-      "author": {
-        "login": "pm-harshad-mane",
-        "id": 8835908
-      },
-      "assignees": [],
-      "dateCreated": "2023-03-16T03:06:28.000Z",
-      "dateUpdated": "2025-09-11T02:58:23.000Z",
       "status": "open"
     },
     {
@@ -684,18 +690,6 @@
       "status": "open"
     },
     {
-      "title": "Support GET on the /vtrack endpoint",
-      "number": 3629,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-04-17T19:00:57.000Z",
-      "dateUpdated": "2025-07-18T01:15:13.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Java: Pubmatic: adapter seems to crash occasionally on invalid native ads",
       "number": 4316,
       "author": {
@@ -836,18 +830,6 @@
       "assignees": [],
       "dateCreated": "2021-09-03T18:32:44.000Z",
       "dateUpdated": "2025-06-13T14:51:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Link COPPA flag to Activity Controls",
-      "number": 3415,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-01-18T22:34:19.000Z",
-      "dateUpdated": "2025-06-13T14:46:51.000Z",
       "status": "open"
     },
     {

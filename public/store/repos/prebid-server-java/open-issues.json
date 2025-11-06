@@ -1,50 +1,70 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-10-31T13:17:14.132Z",
-    "itemCount": 35
+    "lastSync": "2025-11-06T13:45:35.046Z",
+    "itemCount": 31
   },
   "items": [
     {
-      "title": "Port PR from PBS-Go: New adapter: Gravite",
-      "number": 4268,
+      "title": "Port PR from PBS-Go: New adapter: 360playvid",
+      "number": 4202,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-10-28T17:37:38.000Z",
-      "dateUpdated": "2025-10-31T09:12:17.000Z",
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:22:02.000Z",
+      "dateUpdated": "2025-11-06T13:15:16.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: New Adapter: Performist - Limelight Alias",
-      "number": 4271,
+      "title": "Port PR from PBS-Go: New Adapter: MediaYo",
+      "number": 4203,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-10-30T21:00:07.000Z",
-      "dateUpdated": "2025-10-31T09:12:10.000Z",
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:47:16.000Z",
+      "dateUpdated": "2025-11-06T13:13:32.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: New adapter: Showheroes",
-      "number": 4270,
+      "title": "Port PR from PBS-Go: New Adapter: RobustApps - Xeworks alias",
+      "number": 4206,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
+      "assignees": [],
+      "dateCreated": "2025-09-23T14:34:46.000Z",
+      "dateUpdated": "2025-11-06T13:13:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Connatix: Support GZIP",
+      "number": 4274,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-03T15:48:56.000Z",
+      "dateUpdated": "2025-11-03T15:48:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
+      "number": 4248,
+      "author": {
+        "login": "KoBilla",
+        "id": 33809658
+      },
       "assignees": [
-        "And1sS"
+        "osulzhenko"
       ],
-      "dateCreated": "2025-10-29T20:40:49.000Z",
-      "dateUpdated": "2025-10-30T10:44:01.000Z",
+      "dateCreated": "2025-10-20T12:01:17.000Z",
+      "dateUpdated": "2025-10-31T14:18:33.000Z",
       "status": "open"
     },
     {
@@ -74,18 +94,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Adagio: Fix typo",
-      "number": 4256,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-21T15:47:06.000Z",
-      "dateUpdated": "2025-10-21T15:47:06.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: Adagio: Remove max length on params",
       "number": 4207,
       "author": {
@@ -97,30 +105,6 @@
       ],
       "dateCreated": "2025-09-23T14:49:57.000Z",
       "dateUpdated": "2025-10-21T07:51:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Actions: Add publish to docker hub workflow",
-      "number": 4251,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-20T20:54:27.000Z",
-      "dateUpdated": "2025-10-20T20:54:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
-      "number": 4248,
-      "author": {
-        "login": "KoBilla",
-        "id": 33809658
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-20T12:01:17.000Z",
-      "dateUpdated": "2025-10-20T12:07:26.000Z",
       "status": "open"
     },
     {
@@ -161,48 +145,6 @@
       ],
       "dateCreated": "2025-09-22T16:38:37.000Z",
       "dateUpdated": "2025-10-02T17:15:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New adapter: 360playvid",
-      "number": 4202,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "EmilNadimanov"
-      ],
-      "dateCreated": "2025-09-23T13:22:02.000Z",
-      "dateUpdated": "2025-09-25T08:41:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: MediaYo",
-      "number": 4203,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "EmilNadimanov"
-      ],
-      "dateCreated": "2025-09-23T13:47:16.000Z",
-      "dateUpdated": "2025-09-25T08:41:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: RobustApps - Xeworks alias",
-      "number": 4206,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "EmilNadimanov"
-      ],
-      "dateCreated": "2025-09-23T14:34:46.000Z",
-      "dateUpdated": "2025-09-25T08:41:22.000Z",
       "status": "open"
     },
     {
