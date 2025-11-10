@@ -1,10 +1,201 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-11-06T13:45:29.229Z",
+    "lastSync": "2025-11-10T13:48:53.918Z",
     "itemCount": 75
   },
   "items": [
+    {
+      "title": "PinkLion: Add TCF Vendor ID",
+      "number": 4591,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T14:02:29.000Z",
+      "dateUpdated": "2025-11-10T11:47:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Waardex",
+      "number": 4563,
+      "author": {
+        "login": "yegorWaardex",
+        "id": 59033363
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "yegorWaardex",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T08:03:43.000Z",
+      "dateUpdated": "2025-11-10T10:02:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "BidTheatre: Update endpoint and add redirect user sync",
+      "number": 4562,
+      "author": {
+        "login": "andreasgreen",
+        "id": 1759626
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-07T12:10:59.000Z",
+      "dateUpdated": "2025-11-10T06:48:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Opamarketplace",
+      "number": 4526,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:14:55.000Z",
+      "dateUpdated": "2025-11-10T05:11:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: various fixes for scope3 RTD module",
+      "number": 4544,
+      "author": {
+        "login": "gravelg",
+        "id": 105263
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gravelg",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-24T14:17:26.000Z",
+      "dateUpdated": "2025-11-08T19:27:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: Enable site capability",
+      "number": 4590,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T13:48:41.000Z",
+      "dateUpdated": "2025-11-07T09:21:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4535,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "guscarreon",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "cto-clydo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-16T14:21:04.000Z",
+      "dateUpdated": "2025-11-06T17:30:12.000Z",
+      "status": "open"
+    },
     {
       "title": "Analytics: Configure per account",
       "number": 4459,
@@ -23,7 +214,7 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-07-29T12:42:57.000Z",
-      "dateUpdated": "2025-11-06T10:56:51.000Z",
+      "dateUpdated": "2025-11-06T15:12:05.000Z",
       "status": "open"
     },
     {
@@ -290,32 +481,6 @@
       "status": "open"
     },
     {
-      "title": "fix: various fixes for scope3 RTD module",
-      "number": 4544,
-      "author": {
-        "login": "gravelg",
-        "id": 105263
-      },
-      "assignees": [
-        "bsardo",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "scr-oath",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "gravelg",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-24T14:17:26.000Z",
-      "dateUpdated": "2025-11-03T20:18:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "Adagio: add Site to capabilities and correct error type",
       "number": 4595,
       "author": {
@@ -434,61 +599,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Clydo",
-      "number": 4535,
-      "author": {
-        "login": "cto-clydo",
-        "id": 232556003
-      },
-      "assignees": [
-        "guscarreon",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "guscarreon",
-          "state": "APPROVED"
-        },
-        {
-          "login": "cto-clydo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-16T14:21:04.000Z",
-      "dateUpdated": "2025-11-03T09:57:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "BidTheatre: Update endpoint and add redirect user sync",
-      "number": 4562,
-      "author": {
-        "login": "andreasgreen",
-        "id": 1759626
-      },
-      "assignees": [
-        "pm-jaydeep-mohite",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T12:10:59.000Z",
-      "dateUpdated": "2025-11-03T09:14:26.000Z",
-      "status": "open"
-    },
-    {
       "title": "PoC: global shim for logger",
       "number": 4085,
       "author": {
@@ -603,43 +713,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-31T08:37:26.000Z",
       "dateUpdated": "2025-10-31T13:01:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: Enable site capability",
-      "number": 4590,
-      "author": {
-        "login": "osazos",
-        "id": 16453882
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T13:48:41.000Z",
-      "dateUpdated": "2025-10-31T05:54:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PinkLion: Add TCF Vendor ID",
-      "number": 4591,
-      "author": {
-        "login": "prebidPinkLion",
-        "id": 214807971
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T14:02:29.000Z",
-      "dateUpdated": "2025-10-30T21:13:28.000Z",
       "status": "open"
     },
     {
@@ -860,32 +933,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Opamarketplace",
-      "number": 4526,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:14:55.000Z",
-      "dateUpdated": "2025-10-29T07:09:54.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: RiseMediaTech",
       "number": 4437,
       "author": {
@@ -951,28 +998,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-23T13:33:53.000Z",
       "dateUpdated": "2025-10-28T16:44:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Waardex",
-      "number": 4563,
-      "author": {
-        "login": "yegorWaardex",
-        "id": 59033363
-      },
-      "assignees": [
-        "pm-jaydeep-mohite",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T08:03:43.000Z",
-      "dateUpdated": "2025-10-28T16:33:48.000Z",
       "status": "open"
     },
     {

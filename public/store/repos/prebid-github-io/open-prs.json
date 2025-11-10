@@ -1,8 +1,8 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-11-06T13:45:52.496Z",
-    "itemCount": 60
+    "lastSync": "2025-11-10T13:49:15.688Z",
+    "itemCount": 48
   },
   "items": [
     {
@@ -13,10 +13,272 @@
         "id": 242417420
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-11-06T13:09:56.000Z",
-      "dateUpdated": "2025-11-06T13:12:11.000Z",
+      "dateUpdated": "2025-11-10T13:48:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix typo on setConfig docs",
+      "number": 6332,
+      "author": {
+        "login": "skolb469",
+        "id": 821326
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-10T11:53:56.000Z",
+      "dateUpdated": "2025-11-10T11:55:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update docs",
+      "number": 6251,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:16:10.000Z",
+      "dateUpdated": "2025-11-09T11:21:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fwssp:update key value description ",
+      "number": 6297,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T15:33:00.000Z",
+      "dateUpdated": "2025-11-07T20:08:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bidResponseFilter: extend with mediaTypes",
+      "number": 6330,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T15:42:35.000Z",
+      "dateUpdated": "2025-11-07T16:50:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: allegro",
+      "number": 6329,
+      "author": {
+        "login": "m-figurski-allegro",
+        "id": 224607016
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:14:42.000Z",
+      "dateUpdated": "2025-11-07T14:23:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: Teza",
+      "number": 6320,
+      "author": {
+        "login": "vadim-frolov",
+        "id": 30404654
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T16:54:16.000Z",
+      "dateUpdated": "2025-11-07T14:12:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: bid adapter supports endpoint_compression",
+      "number": 6328,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T13:48:18.000Z",
+      "dateUpdated": "2025-11-07T13:50:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: update bidder adapter documentation",
+      "number": 6327,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T09:18:49.000Z",
+      "dateUpdated": "2025-11-07T12:54:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update colossus docs",
+      "number": 6252,
+      "author": {
+        "login": "bhasker-ddh",
+        "id": 159261864
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-11T05:35:52.000Z",
+      "dateUpdated": "2025-11-07T09:35:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add new Adverxo Bidder alias: harrenmedia",
+      "number": 6322,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dev-adverxo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T12:03:52.000Z",
+      "dateUpdated": "2025-11-07T09:30:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adcluster Bid Adapter: Support Adcluster",
+      "number": 6304,
+      "author": {
+        "login": "adclusterdev",
+        "id": 236771058
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T00:50:17.000Z",
+      "dateUpdated": "2025-11-07T09:27:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Contxtful: Documentation update",
+      "number": 6313,
+      "author": {
+        "login": "sebastienrufiange",
+        "id": 131205907
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T18:36:15.000Z",
+      "dateUpdated": "2025-11-07T09:25:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DAS Bid Adapter:",
+      "number": 6326,
+      "author": {
+        "login": "aszydlo-ras",
+        "id": 182861439
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T13:59:28.000Z",
+      "dateUpdated": "2025-11-07T09:23:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "docs: Update Neuwo RTD module documentation with url cleaning information",
+      "number": 6319,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T13:51:04.000Z",
+      "dateUpdated": "2025-11-07T09:22:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add MarlinAds alias",
+      "number": 6321,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T17:53:42.000Z",
+      "dateUpdated": "2025-11-07T09:19:59.000Z",
       "status": "open"
     },
     {
@@ -27,51 +289,15 @@
         "id": 10151381
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T17:07:30.000Z",
-      "dateUpdated": "2025-11-05T17:33:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Fixed filename for freedomadnetwork.md",
-      "number": 6323,
-      "author": {
-        "login": "klaussilveira",
-        "id": 467729
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T14:08:20.000Z",
-      "dateUpdated": "2025-11-05T14:10:03.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Update definemedia.md",
-      "number": 6187,
-      "author": {
-        "login": "mkdefinemedia",
-        "id": 20317873
-      },
-      "assignees": [],
       "reviewers": [
         {
           "login": "muuki88",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "mkdefinemedia",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
+          "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-08-01T14:45:21.000Z",
-      "dateUpdated": "2025-11-05T13:23:46.000Z",
+      "dateCreated": "2025-11-05T17:07:30.000Z",
+      "dateUpdated": "2025-11-07T09:17:08.000Z",
       "status": "open"
     },
     {
@@ -94,97 +320,6 @@
       "status": "open"
     },
     {
-      "title": "Add new Adverxo Bidder alias: harrenmedia",
-      "number": 6322,
-      "author": {
-        "login": "dev-adverxo",
-        "id": 186024688
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T12:03:52.000Z",
-      "dateUpdated": "2025-11-05T12:05:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi: add MarlinAds alias",
-      "number": 6321,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-04T17:53:42.000Z",
-      "dateUpdated": "2025-11-04T17:55:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Teza",
-      "number": 6320,
-      "author": {
-        "login": "vadim-frolov",
-        "id": 30404654
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-04T16:54:16.000Z",
-      "dateUpdated": "2025-11-04T16:56:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "docs: Update Neuwo RTD module documentation with url cleaning information",
-      "number": 6319,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T13:51:04.000Z",
-      "dateUpdated": "2025-11-04T06:45:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Update colossus docs",
-      "number": 6252,
-      "author": {
-        "login": "bhasker-ddh",
-        "id": 159261864
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-11T05:35:52.000Z",
-      "dateUpdated": "2025-11-04T06:10:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add Scalibur bidder adapter documentation",
-      "number": 6235,
-      "author": {
-        "login": "bTimor",
-        "id": 184917484
-      },
-      "assignees": [
-        "lpagnypubstack"
-      ],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-01T13:26:27.000Z",
-      "dateUpdated": "2025-11-03T08:24:23.000Z",
-      "status": "open"
-    },
-    {
       "title": "Update targetvideo docs",
       "number": 6316,
       "author": {
@@ -201,20 +336,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-31T07:54:15.000Z",
       "dateUpdated": "2025-11-02T16:00:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add pbs app support tagoras kueezrtb",
-      "number": 6318,
-      "author": {
-        "login": "amoskueez",
-        "id": 147311247
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-02T09:31:17.000Z",
-      "dateUpdated": "2025-11-02T09:39:16.000Z",
       "status": "open"
     },
     {
@@ -250,20 +371,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-03-27T11:47:24.000Z",
       "dateUpdated": "2025-10-30T21:08:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adkernel: documenting blutonic alias",
-      "number": 6312,
-      "author": {
-        "login": "ckbo3hrk",
-        "id": 8065653
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T08:28:55.000Z",
-      "dateUpdated": "2025-10-30T14:10:26.000Z",
       "status": "open"
     },
     {
@@ -357,61 +464,6 @@
       "status": "open"
     },
     {
-      "title": "AdGeneration: Align first-party data example with OpenRTB spec ",
-      "number": 6310,
-      "author": {
-        "login": "ss-toshihide-tajima",
-        "id": 89903823
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T02:20:12.000Z",
-      "dateUpdated": "2025-10-30T11:16:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Contxtful: Documentation update",
-      "number": 6313,
-      "author": {
-        "login": "sebastienrufiange",
-        "id": 131205907
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T18:36:15.000Z",
-      "dateUpdated": "2025-10-29T19:40:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Update docs",
-      "number": 6251,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:16:10.000Z",
-      "dateUpdated": "2025-10-29T07:12:32.000Z",
-      "status": "open"
-    },
-    {
       "title": "IntentIq ID Module: Add new param",
       "number": 6278,
       "author": {
@@ -445,39 +497,6 @@
       "status": "open"
     },
     {
-      "title": "Fwssp:update key value description ",
-      "number": 6297,
-      "author": {
-        "login": "FreeWheelVIS",
-        "id": 4663682
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-15T15:33:00.000Z",
-      "dateUpdated": "2025-10-27T13:43:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Omnidex update details",
-      "number": 6298,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-16T09:15:30.000Z",
-      "dateUpdated": "2025-10-27T12:02:44.000Z",
-      "status": "open"
-    },
-    {
       "title": "Docs for page view ID-related changes.",
       "number": 6305,
       "author": {
@@ -497,71 +516,6 @@
       "status": "open"
     },
     {
-      "title": "Datawrkz Analytics Adapter : initial release",
-      "number": 6225,
-      "author": {
-        "login": "Likhith329",
-        "id": 111145706
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lpagnypubstack",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Likhith329",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-25T09:16:27.000Z",
-      "dateUpdated": "2025-10-23T05:53:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adcluster Bid Adapter: Support Adcluster",
-      "number": 6304,
-      "author": {
-        "login": "adclusterdev",
-        "id": 236771058
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T00:50:17.000Z",
-      "dateUpdated": "2025-10-22T00:52:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove quantcastId",
-      "number": 6302,
-      "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T13:56:55.000Z",
-      "dateUpdated": "2025-10-21T14:08:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature/smartytech add auid",
-      "number": 6287,
-      "author": {
-        "login": "Artem-Maliuha",
-        "id": 9397641
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T12:15:37.000Z",
-      "dateUpdated": "2025-10-21T11:05:48.000Z",
-      "status": "open"
-    },
-    {
       "title": "Ybidder added",
       "number": 6291,
       "author": {
@@ -578,31 +532,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-08T15:59:48.000Z",
       "dateUpdated": "2025-10-20T18:53:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter - DXTech",
-      "number": 6230,
-      "author": {
-        "login": "dxtech-git",
-        "id": 227376282
-      },
-      "assignees": [
-        "lpagnypubstack"
-      ],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "dxtech-git",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-27T21:14:26.000Z",
-      "dateUpdated": "2025-10-20T18:07:15.000Z",
       "status": "open"
     },
     {
@@ -667,25 +596,6 @@
       "status": "open"
     },
     {
-      "title": "Added Bid Adapter Nuba.io",
-      "number": 6295,
-      "author": {
-        "login": "nuba-io",
-        "id": 236982007
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-10T09:57:23.000Z",
-      "dateUpdated": "2025-10-15T09:49:20.000Z",
-      "status": "open"
-    },
-    {
       "title": "docs: document WURFL Device Detection Module for Prebid Server",
       "number": 6279,
       "author": {
@@ -735,20 +645,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-26T14:32:31.000Z",
       "dateUpdated": "2025-10-02T11:55:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Gravite",
-      "number": 6269,
-      "author": {
-        "login": "teqblaze",
-        "id": 162988436
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-26T08:13:32.000Z",
-      "dateUpdated": "2025-10-02T11:50:38.000Z",
       "status": "open"
     },
     {
@@ -817,57 +713,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-30T11:14:10.000Z",
       "dateUpdated": "2025-10-01T08:55:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi Add region",
-      "number": 6238,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "SmartHubSolutions",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-03T06:32:39.000Z",
-      "dateUpdated": "2025-09-26T07:02:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "init new adapter Bidfuse",
-      "number": 6221,
-      "author": {
-        "login": "bidfuse",
-        "id": 227335669
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-19T14:38:19.000Z",
-      "dateUpdated": "2025-09-17T16:09:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "33across Bid Adapter: zone id config option & app related info",
-      "number": 6254,
-      "author": {
-        "login": "carlosfelix",
-        "id": 136311
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-11T16:27:19.000Z",
-      "dateUpdated": "2025-09-11T16:29:19.000Z",
       "status": "open"
     },
     {
@@ -951,44 +796,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-08T11:29:40.000Z",
       "dateUpdated": "2025-08-18T18:11:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Enable PBS support in goldbach.md",
-      "number": 6198,
-      "author": {
-        "login": "simonaebli",
-        "id": 203809323
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-07T11:51:46.000Z",
-      "dateUpdated": "2025-08-12T20:17:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdsInteractive Adapter: Make old adapter as alias for current, update params",
-      "number": 6076,
-      "author": {
-        "login": "AdsInteractive",
-        "id": 180516962
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-30T14:00:32.000Z",
-      "dateUpdated": "2025-07-02T20:06:57.000Z",
       "status": "open"
     },
     {
