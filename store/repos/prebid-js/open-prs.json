@@ -1,10 +1,29 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-11-10T13:48:44.544Z",
-    "itemCount": 35
+    "lastSync": "2025-11-13T10:16:21.260Z",
+    "itemCount": 40
   },
   "items": [
+    {
+      "title": "WURFL RTD: Add zero-latency device detection",
+      "number": 14115,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T10:05:03.000Z",
+      "dateUpdated": "2025-11-13T10:12:25.000Z",
+      "status": "open"
+    },
     {
       "title": "Allegro Bid Adapter: initial release",
       "number": 14111,
@@ -21,21 +40,53 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-07T14:18:07.000Z",
-      "dateUpdated": "2025-11-10T13:35:28.000Z",
+      "dateUpdated": "2025-11-13T08:23:26.000Z",
       "status": "open"
     },
     {
-      "title": "Pubmatic Rtd Provider: add dynamic timeout plugin & code refactoring (legacy)",
-      "number": 14103,
+      "title": "Sparteo Bid Adapter:  support new required query params",
+      "number": 13986,
       "author": {
-        "login": "pm-komal-kumari",
-        "id": 169047654
+        "login": "t-sormonte",
+        "id": 191453837
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "PENDING"
+        },
+        {
+          "login": "monis0395",
+          "state": "APPROVED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-06T06:48:15.000Z",
-      "dateUpdated": "2025-11-10T12:20:31.000Z",
+      "dateCreated": "2025-10-08T07:56:44.000Z",
+      "dateUpdated": "2025-11-13T08:05:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "StartioBidAdapter: Change the protocol from http to https",
+      "number": 14128,
+      "author": {
+        "login": "SvenKoster",
+        "id": 169342633
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T07:30:31.000Z",
+      "dateUpdated": "2025-11-13T07:40:36.000Z",
       "status": "open"
     },
     {
@@ -49,89 +100,164 @@
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-11-06T07:01:16.000Z",
-      "dateUpdated": "2025-11-10T12:20:14.000Z",
+      "dateUpdated": "2025-11-13T05:17:22.000Z",
       "status": "open"
     },
     {
-      "title": "Attekmi Bid Adapter : add MarlinAds alias",
-      "number": 14094,
+      "title": "Tercept Analytics Adapter: Ehanced bid response fields capture & BIDDER_ERROR support",
+      "number": 14119,
       "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
+        "login": "mdusmanalvi",
+        "id": 72804728
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        }
-      ],
+      "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-04T18:01:11.000Z",
-      "dateUpdated": "2025-11-10T12:19:02.000Z",
+      "dateCreated": "2025-11-12T06:46:38.000Z",
+      "dateUpdated": "2025-11-13T04:29:44.000Z",
       "status": "open"
     },
     {
-      "title": "Clickio Bid Adapter: initial release",
-      "number": 14023,
+      "title": "CI: increase karma browserNoActivityTimeout",
+      "number": 14126,
       "author": {
-        "login": "ClickioTech",
-        "id": 163025633
+        "login": "dgirardi",
+        "id": 10151381
       },
       "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T20:01:34.000Z",
+      "dateUpdated": "2025-11-12T22:45:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Optable RTD Module : Multi-instance support & removed default handleRTD",
+      "number": 14123,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T18:22:43.000Z",
+      "dateUpdated": "2025-11-12T20:24:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: test cookies can be set as part of cookiesAreEnabled",
+      "number": 14125,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T19:59:41.000Z",
+      "dateUpdated": "2025-11-12T19:59:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Microsoft Adapter: Add 152media alias",
+      "number": 14118,
+      "author": {
+        "login": "arezitopedia",
+        "id": 49372179
+      },
+      "assignees": [
+        "jsnellbaker"
+      ],
       "reviewers": [
         {
-          "login": "gwhigs",
+          "login": "jsnellbaker",
           "state": "PENDING"
         },
         {
-          "login": "patmmccann",
+          "login": "copilot-pull-request-reviewer[bot]",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-16T10:44:15.000Z",
-      "dateUpdated": "2025-11-10T12:16:07.000Z",
+      "dateCreated": "2025-11-11T17:55:57.000Z",
+      "dateUpdated": "2025-11-12T17:54:21.000Z",
       "status": "open"
     },
     {
-      "title": "Floxis Bid Adapter : initial release",
-      "number": 13934,
+      "title": "New module: Shaping rules",
+      "number": 14079,
       "author": {
-        "login": "floxis-tech",
-        "id": 234334311
-      },
-      "assignees": [
-        "osazos"
-      ],
-      "reviewers": [
-        {
-          "login": "osazos",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T14:09:09.000Z",
-      "dateUpdated": "2025-11-10T12:12:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Sparteo Bid Adapter:  support new required query params",
-      "number": 13986,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
+        "login": "mkomorski",
+        "id": 25056697
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "monis0395",
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T13:26:39.000Z",
+      "dateUpdated": "2025-11-12T15:04:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Cointraffic Bid Adapter: Added device information to payload",
+      "number": 14120,
+      "author": {
+        "login": "stsepelin",
+        "id": 8102174
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T14:13:32.000Z",
+      "dateUpdated": "2025-11-12T14:53:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: clydo",
+      "number": 13936,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "jsnellbaker"
+      ],
+      "reviewers": [
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "cto-clydo",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-08T07:56:44.000Z",
-      "dateUpdated": "2025-11-10T12:06:24.000Z",
+      "dateCreated": "2025-09-25T18:54:06.000Z",
+      "dateUpdated": "2025-11-12T12:36:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Neuwo Rtd Module: Add url cleaning feature to Neuwo RTD module ",
+      "number": 14089,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T13:50:49.000Z",
+      "dateUpdated": "2025-11-12T09:48:58.000Z",
       "status": "open"
     },
     {
@@ -158,7 +284,83 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-21T11:39:20.000Z",
-      "dateUpdated": "2025-11-10T11:59:46.000Z",
+      "dateUpdated": "2025-11-11T12:38:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pixfuture_adapter uids update",
+      "number": 14092,
+      "author": {
+        "login": "Arthur482",
+        "id": 66466997
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T14:53:05.000Z",
+      "dateUpdated": "2025-11-10T15:38:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Clickio Bid Adapter: initial release",
+      "number": 14023,
+      "author": {
+        "login": "ClickioTech",
+        "id": 163025633
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ClickioTech",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-16T10:44:15.000Z",
+      "dateUpdated": "2025-11-10T15:09:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pubmatic Rtd Provider: add dynamic timeout plugin & code refactoring (legacy)",
+      "number": 14103,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T06:48:15.000Z",
+      "dateUpdated": "2025-11-10T12:20:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Floxis Bid Adapter : initial release",
+      "number": 13934,
+      "author": {
+        "login": "floxis-tech",
+        "id": 234334311
+      },
+      "assignees": [
+        "osazos"
+      ],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T14:09:09.000Z",
+      "dateUpdated": "2025-11-10T12:12:19.000Z",
       "status": "open"
     },
     {
@@ -178,25 +380,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T00:48:49.000Z",
       "dateUpdated": "2025-11-10T11:57:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTB House Bid Adapter: fix floor price handling",
-      "number": 14112,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T14:36:35.000Z",
-      "dateUpdated": "2025-11-07T14:44:12.000Z",
       "status": "open"
     },
     {
@@ -256,20 +439,6 @@
       "status": "open"
     },
     {
-      "title": "New module: Shaping rules",
-      "number": 14079,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T13:26:39.000Z",
-      "dateUpdated": "2025-11-06T15:06:20.000Z",
-      "status": "open"
-    },
-    {
       "title": "optimeraRTD: Updated scorefile fetching logic",
       "number": 14101,
       "author": {
@@ -326,20 +495,6 @@
       "status": "open"
     },
     {
-      "title": "Pixfuture_adapter uids update",
-      "number": 14092,
-      "author": {
-        "login": "Arthur482",
-        "id": 66466997
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-04T14:53:05.000Z",
-      "dateUpdated": "2025-11-04T16:09:58.000Z",
-      "status": "open"
-    },
-    {
       "title": "Bump actions/upload-artifact from 4 to 5",
       "number": 14087,
       "author": {
@@ -373,39 +528,6 @@
       "status": "open"
     },
     {
-      "title": "Neuwo Rtd Module: Add url cleaning feature to Neuwo RTD module ",
-      "number": 14089,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T13:50:49.000Z",
-      "dateUpdated": "2025-11-04T06:41:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tappx Bid Adapter: Fix advertiserDomains assignment",
-      "number": 14090,
-      "author": {
-        "login": "eduardoguette",
-        "id": 61714979
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T15:31:38.000Z",
-      "dateUpdated": "2025-11-03T15:34:51.000Z",
-      "status": "open"
-    },
-    {
       "title": "gamAdServerVideo: Add GPP consent information to the DFP video url",
       "number": 13761,
       "author": {
@@ -417,35 +539,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-12T06:26:33.000Z",
       "dateUpdated": "2025-10-29T22:07:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: clydo",
-      "number": 13936,
-      "author": {
-        "login": "cto-clydo",
-        "id": 232556003
-      },
-      "assignees": [
-        "jsnellbaker"
-      ],
-      "reviewers": [
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "jsnellbaker",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "cto-clydo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T18:54:06.000Z",
-      "dateUpdated": "2025-10-29T19:10:50.000Z",
       "status": "open"
     },
     {

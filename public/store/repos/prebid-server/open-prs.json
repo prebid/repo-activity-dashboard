@@ -1,29 +1,391 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-11-10T13:48:53.918Z",
-    "itemCount": 75
+    "lastSync": "2025-11-13T10:16:31.292Z",
+    "itemCount": 72
   },
   "items": [
     {
-      "title": "PinkLion: Add TCF Vendor ID",
-      "number": 4591,
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
       "author": {
-        "login": "prebidPinkLion",
-        "id": 214807971
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2025-11-13T09:37:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Nexx360: ext usage added for imp and gvlVendorID added",
+      "number": 4604,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T10:16:30.000Z",
+      "dateUpdated": "2025-11-13T09:10:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: Enable site capability",
+      "number": 4590,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T13:48:41.000Z",
+      "dateUpdated": "2025-11-13T09:09:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: add Site to capabilities and correct error type",
+      "number": 4595,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-01T10:36:14.000Z",
+      "dateUpdated": "2025-11-13T08:44:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: iqiyi",
+      "number": 4605,
+      "author": {
+        "login": "Heihuang",
+        "id": 21191895
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Heihuang",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T07:37:04.000Z",
+      "dateUpdated": "2025-11-13T08:24:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4535,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "guscarreon",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "cto-clydo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-16T14:21:04.000Z",
+      "dateUpdated": "2025-11-13T07:01:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Microsoft (msft)",
+      "number": 4592,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T18:55:22.000Z",
+      "dateUpdated": "2025-11-12T06:05:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules: Concurrency issue with module context fix",
+      "number": 4603,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T19:02:02.000Z",
+      "dateUpdated": "2025-11-12T05:58:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CWire: Add userSync",
+      "number": 4516,
+      "author": {
+        "login": "roarc0",
+        "id": 130094
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "GMilica",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ruidefreitas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "roarc0",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-04T14:26:41.000Z",
+      "dateUpdated": "2025-11-11T20:13:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: targetVideo",
+      "number": 4593,
+      "author": {
+        "login": "pedjoni8",
+        "id": 32640009
       },
       "assignees": [
         "bsardo"
       ],
       "reviewers": [
         {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-31T08:37:26.000Z",
+      "dateUpdated": "2025-11-11T16:44:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "BidTheatre: Update endpoint and add redirect user sync",
+      "number": 4562,
+      "author": {
+        "login": "andreasgreen",
+        "id": 1759626
+      },
+      "assignees": [
+        "pm-nikhil-vaidya",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "andreasgreen",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-07T12:10:59.000Z",
+      "dateUpdated": "2025-11-11T16:40:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Logging: Add interface with default glog implementation",
+      "number": 4085,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "justadreamer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2024-12-04T00:35:34.000Z",
+      "dateUpdated": "2025-11-11T15:39:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "AdsInteractive: Make old adapter as alias for current",
+      "number": 4359,
+      "author": {
+        "login": "AdsInteractive",
+        "id": 180516962
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "AdsInteractive",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-30T13:58:37.000Z",
+      "dateUpdated": "2025-11-11T15:05:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ResetDigital: OpenRTB",
+      "number": 4475,
+      "author": {
+        "login": "Valentino3",
+        "id": 57947465
+      },
+      "assignees": [
+        "guscarreon",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "Valentino3",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
           "login": "bsardo",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-30T14:02:29.000Z",
-      "dateUpdated": "2025-11-10T11:47:56.000Z",
+      "dateCreated": "2025-08-06T16:13:31.000Z",
+      "dateUpdated": "2025-11-10T14:32:55.000Z",
       "status": "open"
     },
     {
@@ -65,28 +427,6 @@
       "status": "open"
     },
     {
-      "title": "BidTheatre: Update endpoint and add redirect user sync",
-      "number": 4562,
-      "author": {
-        "login": "andreasgreen",
-        "id": 1759626
-      },
-      "assignees": [
-        "pm-jaydeep-mohite",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T12:10:59.000Z",
-      "dateUpdated": "2025-11-10T06:48:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: Opamarketplace",
       "number": 4526,
       "author": {
@@ -117,86 +457,6 @@
       "status": "open"
     },
     {
-      "title": "fix: various fixes for scope3 RTD module",
-      "number": 4544,
-      "author": {
-        "login": "gravelg",
-        "id": 105263
-      },
-      "assignees": [
-        "bsardo",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "scr-oath",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "gravelg",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-24T14:17:26.000Z",
-      "dateUpdated": "2025-11-08T19:27:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: Enable site capability",
-      "number": 4590,
-      "author": {
-        "login": "osazos",
-        "id": 16453882
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T13:48:41.000Z",
-      "dateUpdated": "2025-11-07T09:21:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Clydo",
-      "number": 4535,
-      "author": {
-        "login": "cto-clydo",
-        "id": 232556003
-      },
-      "assignees": [
-        "guscarreon",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "guscarreon",
-          "state": "APPROVED"
-        },
-        {
-          "login": "cto-clydo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-16T14:21:04.000Z",
-      "dateUpdated": "2025-11-06T17:30:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "Analytics: Configure per account",
       "number": 4459,
       "author": {
@@ -218,32 +478,6 @@
       "status": "open"
     },
     {
-      "title": "Sparteo: Add required query params to adapter endpoint",
-      "number": 4556,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "t-sormonte",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T13:31:46.000Z",
-      "dateUpdated": "2025-11-06T08:10:13.000Z",
-      "status": "open"
-    },
-    {
       "title": "Adverxo Bid Adapter: New alias harrenmedia",
       "number": 4597,
       "author": {
@@ -255,32 +489,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-05T11:52:34.000Z",
       "dateUpdated": "2025-11-05T19:05:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Microsoft (msft)",
-      "number": 4592,
-      "author": {
-        "login": "SyntaxNode",
-        "id": 1653437
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T18:55:22.000Z",
-      "dateUpdated": "2025-11-05T19:05:05.000Z",
       "status": "open"
     },
     {
@@ -319,40 +527,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-05-09T06:08:50.000Z",
       "dateUpdated": "2025-11-05T18:23:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Boldwin Rapid",
-      "number": 4478,
-      "author": {
-        "login": "BoldwinDev",
-        "id": 225151908
-      },
-      "assignees": [
-        "guscarreon",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "BoldwinDev",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "guscarreon",
-          "state": "APPROVED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T11:28:43.000Z",
-      "dateUpdated": "2025-11-05T18:06:39.000Z",
       "status": "open"
     },
     {
@@ -425,39 +599,6 @@
       "status": "open"
     },
     {
-      "title": "Pass alias bidder name to pubmatic adapter",
-      "number": 4588,
-      "author": {
-        "login": "Pubmatic-Supriya-Patil",
-        "id": 131644110
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Pubmatic-Supriya-Patil",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-isha-bharti",
-          "state": "APPROVED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T08:58:51.000Z",
-      "dateUpdated": "2025-11-04T08:54:38.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: Nuba",
       "number": 4565,
       "author": {
@@ -478,20 +619,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-10T11:53:14.000Z",
       "dateUpdated": "2025-11-04T08:05:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: add Site to capabilities and correct error type",
-      "number": 4595,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-01T10:36:14.000Z",
-      "dateUpdated": "2025-11-03T16:30:22.000Z",
       "status": "open"
     },
     {
@@ -539,112 +666,6 @@
       "status": "open"
     },
     {
-      "title": "RTBHouse: PMP removal, `publisherId` parameter extraction",
-      "number": 4564,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [
-        "linux019",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "linux019",
-          "state": "APPROVED"
-        },
-        {
-          "login": "piotrj-rtbh",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T11:08:34.000Z",
-      "dateUpdated": "2025-11-03T13:31:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adnuntius: Pass targeting to ad server",
-      "number": 4545,
-      "author": {
-        "login": "mikael-lundin",
-        "id": 1043973
-      },
-      "assignees": [
-        "scr-oath",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "scr-oath",
-          "state": "APPROVED"
-        },
-        {
-          "login": "mikael-lundin",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T11:25:23.000Z",
-      "dateUpdated": "2025-11-03T13:29:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PoC: global shim for logger",
-      "number": 4085,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [
-        "bsardo",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "justadreamer",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "hhhjort",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "linux019",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "scr-oath",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2024-12-04T00:35:34.000Z",
-      "dateUpdated": "2025-11-03T08:47:09.000Z",
-      "status": "open"
-    },
-    {
       "title": "ProgX: Change to ProgrammaticX",
       "number": 4456,
       "author": {
@@ -664,55 +685,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-07-29T07:46:14.000Z",
       "dateUpdated": "2025-11-03T06:56:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdsInteractive: Make old adapter as alias for current",
-      "number": 4359,
-      "author": {
-        "login": "AdsInteractive",
-        "id": 180516962
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "AdsInteractive",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-30T13:58:37.000Z",
-      "dateUpdated": "2025-10-31T18:45:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: targetVideo",
-      "number": 4593,
-      "author": {
-        "login": "pedjoni8",
-        "id": 32640009
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-31T08:37:26.000Z",
-      "dateUpdated": "2025-10-31T13:01:55.000Z",
       "status": "open"
     },
     {
@@ -826,44 +798,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-18T14:27:37.000Z",
       "dateUpdated": "2025-10-30T14:04:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "CWire: Add userSync",
-      "number": 4516,
-      "author": {
-        "login": "roarc0",
-        "id": 130094
-      },
-      "assignees": [
-        "ccorbo",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SyntaxNode",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "GMilica",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ruidefreitas",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "roarc0",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-04T14:26:41.000Z",
-      "dateUpdated": "2025-10-29T14:27:38.000Z",
       "status": "open"
     },
     {
@@ -1192,40 +1126,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-30T21:15:02.000Z",
       "dateUpdated": "2025-10-23T17:39:28.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ResetDigital: OpenRTB",
-      "number": 4475,
-      "author": {
-        "login": "Valentino3",
-        "id": 57947465
-      },
-      "assignees": [
-        "guscarreon",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "guscarreon",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "Valentino3",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-06T16:13:31.000Z",
-      "dateUpdated": "2025-10-23T12:53:05.000Z",
       "status": "open"
     },
     {

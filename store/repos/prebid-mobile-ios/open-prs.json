@@ -1,10 +1,33 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-11-10T13:49:08.548Z",
-    "itemCount": 3
+    "lastSync": "2025-11-13T10:16:45.849Z",
+    "itemCount": 4
   },
   "items": [
+    {
+      "title": "Fix crash from duplicate network callbacks in PBMBidRequester (#1195)",
+      "number": 1221,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-10T18:13:44.000Z",
+      "dateUpdated": "2025-11-11T10:04:55.000Z",
+      "status": "open"
+    },
     {
       "title": "Type-safe parsing of JSON response",
       "number": 1127,

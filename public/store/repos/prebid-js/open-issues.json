@@ -1,10 +1,36 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-11-10T13:48:44.547Z",
-    "itemCount": 110
+    "lastSync": "2025-11-13T10:16:21.263Z",
+    "itemCount": 108
   },
   "items": [
+    {
+      "title": "Build impossible due to `ts` and/or `tsc`",
+      "number": 14121,
+      "author": {
+        "login": "mdemauroy",
+        "id": 17426300
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-12T16:27:07.000Z",
+      "dateUpdated": "2025-11-13T09:22:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "storage.cookiesAreEnabled incorrectly returns true for Safari Version 26.0.1",
+      "number": 14102,
+      "author": {
+        "login": "tccdeniz",
+        "id": 207675289
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-11-06T05:30:09.000Z",
+      "dateUpdated": "2025-11-10T18:13:25.000Z",
+      "status": "open"
+    },
     {
       "title": "BOTTOM Anchor ad alignment issue after resize fix",
       "number": 13875,
@@ -17,30 +43,6 @@
       ],
       "dateCreated": "2025-09-10T10:33:06.000Z",
       "dateUpdated": "2025-11-06T16:44:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "storage.cookiesAreEnabled incorrectly returns true for Safari Version 26.0.1",
-      "number": 14102,
-      "author": {
-        "login": "tccdeniz",
-        "id": 207675289
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-06T05:30:09.000Z",
-      "dateUpdated": "2025-11-06T05:30:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "bidRequest.auctionId is no longer a valid uuid",
-      "number": 14082,
-      "author": {
-        "login": "arneschulz1984",
-        "id": 22349602
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-29T20:28:44.000Z",
-      "dateUpdated": "2025-11-05T17:58:00.000Z",
       "status": "open"
     },
     {
@@ -1118,18 +1120,6 @@
       "status": "open"
     },
     {
-      "title": "Github actions: flagging linting exceptions",
-      "number": 11814,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-06-17T15:21:26.000Z",
-      "dateUpdated": "2024-06-17T15:21:26.000Z",
-      "status": "open"
-    },
-    {
       "title": "idImportLibrary.js is intercepting communications without an active submission action",
       "number": 11708,
       "author": {
@@ -1139,18 +1129,6 @@
       "assignees": [],
       "dateCreated": "2024-06-05T18:17:58.000Z",
       "dateUpdated": "2024-06-10T23:15:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Storage Manager: write to shared storage method",
-      "number": 11231,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-03-18T16:44:01.000Z",
-      "dateUpdated": "2024-05-22T16:44:36.000Z",
       "status": "open"
     },
     {

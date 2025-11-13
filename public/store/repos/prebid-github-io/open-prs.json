@@ -1,10 +1,76 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-11-10T13:49:15.688Z",
-    "itemCount": 48
+    "lastSync": "2025-11-13T10:16:52.776Z",
+    "itemCount": 46
   },
   "items": [
+    {
+      "title": "New adapter: AdOcean",
+      "number": 6286,
+      "author": {
+        "login": "patryk-grzegorczyk",
+        "id": 131142828
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-07T11:47:14.000Z",
+      "dateUpdated": "2025-11-13T09:53:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: allegro",
+      "number": 6329,
+      "author": {
+        "login": "m-figurski-allegro",
+        "id": 224607016
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:14:42.000Z",
+      "dateUpdated": "2025-11-13T08:26:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add a note for advertising.com adapter to avoid v10.7.0 to v10.11.0 s…",
+      "number": 6334,
+      "author": {
+        "login": "pratik-chavan-advertising-dot-com",
+        "id": 200691010
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T15:43:03.000Z",
+      "dateUpdated": "2025-11-12T15:44:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "docs: Update Neuwo RTD module documentation with url cleaning information",
+      "number": 6319,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T13:51:04.000Z",
+      "dateUpdated": "2025-11-12T09:51:46.000Z",
+      "status": "open"
+    },
     {
       "title": "Deprecate 'openwebxchange' bidder page (use 'openweb')",
       "number": 6325,
@@ -21,21 +87,7 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-06T13:09:56.000Z",
-      "dateUpdated": "2025-11-10T13:48:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "fix typo on setConfig docs",
-      "number": 6332,
-      "author": {
-        "login": "skolb469",
-        "id": 821326
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-10T11:53:56.000Z",
-      "dateUpdated": "2025-11-10T11:55:52.000Z",
+      "dateUpdated": "2025-11-10T13:51:11.000Z",
       "status": "open"
     },
     {
@@ -63,48 +115,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-10T11:16:10.000Z",
       "dateUpdated": "2025-11-09T11:21:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Fwssp:update key value description ",
-      "number": 6297,
-      "author": {
-        "login": "FreeWheelVIS",
-        "id": 4663682
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-15T15:33:00.000Z",
-      "dateUpdated": "2025-11-07T20:08:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "bidResponseFilter: extend with mediaTypes",
-      "number": 6330,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T15:42:35.000Z",
-      "dateUpdated": "2025-11-07T16:50:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: allegro",
-      "number": 6329,
-      "author": {
-        "login": "m-figurski-allegro",
-        "id": 224607016
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T14:14:42.000Z",
-      "dateUpdated": "2025-11-07T14:23:36.000Z",
       "status": "open"
     },
     {
@@ -244,25 +254,6 @@
       "status": "open"
     },
     {
-      "title": "docs: Update Neuwo RTD module documentation with url cleaning information",
-      "number": 6319,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T13:51:04.000Z",
-      "dateUpdated": "2025-11-07T09:22:44.000Z",
-      "status": "open"
-    },
-    {
       "title": "Attekmi: add MarlinAds alias",
       "number": 6321,
       "author": {
@@ -298,25 +289,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-05T17:07:30.000Z",
       "dateUpdated": "2025-11-07T09:17:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: AdOcean",
-      "number": 6286,
-      "author": {
-        "login": "patryk-grzegorczyk",
-        "id": 131142828
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-07T11:47:14.000Z",
-      "dateUpdated": "2025-11-05T13:02:22.000Z",
       "status": "open"
     },
     {

@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 7,
     "itemCount": 178,
-    "lastUpdated": "2025-10-06T08:28:29.301Z"
+    "lastUpdated": "2025-11-13T10:16:21.269Z"
   },
   "items": [
     {
@@ -761,31 +761,20 @@
       }
     },
     {
-      "title": "Tercept Analytics Adapter: bug fixes for No Bid and missing params",
+      "title": "Tercept Analytics Adapter: big fixes and NO BID support",
       "number": 13671,
       "author": {
         "login": "mdusmanalvi",
         "id": 72804728
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-07-25T06:57:22.000Z",
-      "dateUpdated": "2025-07-28T14:07:37.000Z",
+      "dateUpdated": "2025-11-12T06:46:22.000Z",
       "status": "merged",
       "dateMerged": "2025-07-28T14:07:37.000Z",
-      "commitAuthors": {
-        "72804728": {
-          "identifier": "72804728",
-          "displayName": "mdusmanalvi",
-          "count": 4,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-07-28T14:07:37.000Z"
     },
     {
       "title": "Relaido Bid Adapter: update overview maintainer",
