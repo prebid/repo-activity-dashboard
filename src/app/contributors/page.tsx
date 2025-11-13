@@ -228,9 +228,13 @@ export default function ContributorsPage() {
   
   // Helper function to get week number - must match generateContributorStats.ts
   function getWeekNumber(date: Date): number {
-    const year = date.getFullYear();
-    const week = Math.floor((date.getTime() - new Date(year, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
-    return week;
+    // ISO 8601 week calculation (matches data generation script)
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNumber = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+    return weekNumber;
   }
 
   console.log('About to render, chartData is:', chartData);
