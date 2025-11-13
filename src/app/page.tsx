@@ -151,11 +151,14 @@ export default function Home() {
                 const merged = metrics[1] || 0;
                 const issues = metrics[4] || 0;
 
-                if (openedPRs > 0 || issues > 0) {
+                // Count as contributor if they have any activity
+                if (openedPRs > 0 || merged > 0 || issues > 0) {
                   monthContributors.add(contributor);
-                  monthMerged += merged;
-                  monthIssues += issues;
                 }
+
+                // Always count merged PRs and issues
+                monthMerged += merged;
+                monthIssues += issues;
               }
             });
 
@@ -199,13 +202,15 @@ export default function Home() {
                 const openedPRs = metrics[0] || 0; // All PRs (open + merged)
                 const merged = metrics[1] || 0;
                 const issues = metrics[4] || 0;
-                
-                // Count as contributor if they opened PRs, had PRs merged, or opened issues
-                if (openedPRs > 0 || issues > 0) {
+
+                // Count as contributor if they have any activity
+                if (openedPRs > 0 || merged > 0 || issues > 0) {
                   monthContributors.add(contributor);
-                  monthMerged += merged;
-                  monthIssues += issues;
                 }
+
+                // Always count merged PRs and issues
+                monthMerged += merged;
+                monthIssues += issues;
               }
             });
             
@@ -263,13 +268,15 @@ export default function Home() {
                   const openedPRs = metrics[0] || 0; // All PRs (open + merged)
                   const merged = metrics[1] || 0;
                   const issues = metrics[4] || 0;
-                  
+
                   // Count as contributor if they opened PRs, had PRs merged, or opened issues
-                  if (openedPRs > 0 || issues > 0) {
+                  if (openedPRs > 0 || merged > 0 || issues > 0) {
                     weekTotals[weekKey].contributors.add(contributor);
-                    weekTotals[weekKey].merged += merged;
-                    weekTotals[weekKey].issues += issues;
                   }
+
+                  // Always count merged PRs and issues
+                  weekTotals[weekKey].merged += merged;
+                  weekTotals[weekKey].issues += issues;
                 }
               }
             }
@@ -365,8 +372,9 @@ export default function Home() {
               if (repoData && repoData.m && repoData.m[monthKey]) {
                 const metrics = repoData.m[monthKey];
                 const openedPRs = metrics[0] || 0;
+                const merged = metrics[1] || 0;
                 const issues = metrics[4] || 0;
-                if (openedPRs > 0 || issues > 0) {
+                if (openedPRs > 0 || merged > 0 || issues > 0) {
                   allContributors.add(contributor);
                 }
               }
@@ -400,9 +408,10 @@ export default function Home() {
             if (repoData && repoData[timeKey] && repoData[timeKey][targetPeriod]) {
               const metrics = repoData[timeKey][targetPeriod];
               const openedPRs = metrics[0] || 0;
+              const merged = metrics[1] || 0;
               const issues = metrics[4] || 0;
-              // Count as contributor if they opened PRs or opened issues
-              if (openedPRs > 0 || issues > 0) {
+              // Count as contributor if they have any activity
+              if (openedPRs > 0 || merged > 0 || issues > 0) {
                 allContributors.add(contributor);
               }
             }
