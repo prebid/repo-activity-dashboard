@@ -229,35 +229,63 @@ export default function Home() {
           chartData[repo.key] = monthlyData;
         });
       } else if (timeRange === 'This Month' || timeRange === 'Last Month') {
-        // Weekly view for month ranges
+        // Monthly data for card stats, weekly view for charts
         const targetMonth = timeRange === 'This Month' ? currentMonth : (currentMonth === 1 ? 12 : currentMonth - 1);
         const targetYear = (timeRange === 'Last Month' && currentMonth === 1) ? currentYear - 1 : currentYear;
-        
-        // Find all weeks that fall within this month
+        const targetYearShort = String(targetYear).slice(-2);
+        const monthKey = `${targetYearShort}-${String(targetMonth).padStart(2, '0')}`;
+
         repositories.forEach(repo => {
+          // Use month data for card stats (total merged PRs and issues)
+          let monthMerged = 0;
+          let monthIssues = 0;
+          const monthContributors = new Set<string>();
+
+          Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
+            const repoData = repos[repo.key];
+            if (repoData && repoData.m && repoData.m[monthKey]) {
+              const metrics = repoData.m[monthKey];
+              const openedPRs = metrics[0] || 0;
+              const merged = metrics[1] || 0;
+              const issues = metrics[4] || 0;
+
+              if (openedPRs > 0 || merged > 0 || issues > 0) {
+                monthContributors.add(contributor);
+              }
+
+              monthMerged += merged;
+              monthIssues += issues;
+            }
+          });
+
+          // Set card totals using month data
+          stats[repo.key].mergedPRs = monthMerged;
+          stats[repo.key].openedIssues = monthIssues;
+
+          // Build weekly chart data for visualization
           const weeklyData: ChartDataPoint[] = [];
           const weekTotals: { [week: string]: { merged: number; issues: number; contributors: Set<string> } } = {};
-          
+
           // Get the first and last day of the month
           const firstDay = new Date(targetYear, targetMonth - 1, 1);
           let lastDay = new Date(targetYear, targetMonth, 0);
-          
+
           // For "This Month", don't go beyond current date
           if (timeRange === 'This Month' && lastDay > currentDate) {
             lastDay = currentDate;
           }
-          
+
           // Calculate week numbers for the month
           const firstWeek = getWeekNumber(firstDay);
           const lastWeek = getWeekNumber(lastDay);
-          
+
           // Initialize weeks
           for (let week = firstWeek; week <= lastWeek; week++) {
             const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
             weekTotals[weekKey] = { merged: 0, issues: 0, contributors: new Set() };
           }
-          
-          // Aggregate weekly data
+
+          // Aggregate weekly data for chart only
           Object.entries(contributorData.data).forEach(([contributor, repos]: [string, any]) => {
             const repoData = repos[repo.key];
             if (repoData && repoData.w) {
@@ -265,42 +293,37 @@ export default function Home() {
                 const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
                 if (repoData.w[weekKey]) {
                   const metrics = repoData.w[weekKey];
-                  const openedPRs = metrics[0] || 0; // All PRs (open + merged)
+                  const openedPRs = metrics[0] || 0;
                   const merged = metrics[1] || 0;
                   const issues = metrics[4] || 0;
 
-                  // Count as contributor if they opened PRs, had PRs merged, or opened issues
                   if (openedPRs > 0 || merged > 0 || issues > 0) {
                     weekTotals[weekKey].contributors.add(contributor);
                   }
 
-                  // Always count merged PRs and issues
                   weekTotals[weekKey].merged += merged;
                   weekTotals[weekKey].issues += issues;
                 }
               }
             }
           });
-          
+
           // Convert to chart data
           let weekNum = 1;
           for (let week = firstWeek; week <= lastWeek; week++) {
             const weekKey = `${targetYear}-${String(week).padStart(2, '0')}`;
             const totals = weekTotals[weekKey];
-            
+
             weeklyData.push({
               period: `Week ${weekNum}`,
               mergedPRs: totals.merged,
               contributors: totals.contributors.size,
               openedIssues: totals.issues
             });
-            
-            // Add to totals
-            stats[repo.key].mergedPRs += totals.merged;
-            stats[repo.key].openedIssues += totals.issues;
+
             weekNum++;
           }
-          
+
           chartData[repo.key] = weeklyData;
         });
       } else if (timeRange === 'This Week' || timeRange === 'Last Week') {
