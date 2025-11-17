@@ -1,10 +1,76 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-11-13T10:16:31.294Z",
-    "itemCount": 203
+    "lastSync": "2025-11-17T14:10:50.109Z",
+    "itemCount": 202
   },
   "items": [
+    {
+      "title": "Error calling GET https://vendor-list.consensu.org/v3/vendor-list.json",
+      "number": 3254,
+      "author": {
+        "login": "matthieularere-msq",
+        "id": 63732822
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2023-10-24T17:54:43.000Z",
+      "dateUpdated": "2025-11-14T15:32:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposed tracking update",
+      "number": 4152,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "bretg"
+      ],
+      "dateCreated": "2025-01-15T11:16:22.000Z",
+      "dateUpdated": "2025-11-13T15:44:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposal: previous auction info module",
+      "number": 3333,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2023-12-04T18:01:15.000Z",
+      "dateUpdated": "2025-11-13T15:42:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Dynamic tmax buffer",
+      "number": 4416,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "dateCreated": "2025-07-02T14:54:03.000Z",
+      "dateUpdated": "2025-11-13T15:39:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "/openrtb2/video endpoint deprecation",
+      "number": 4599,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-05T15:54:59.000Z",
+      "dateUpdated": "2025-11-13T15:26:25.000Z",
+      "status": "open"
+    },
     {
       "title": "more information on win/imp events",
       "number": 4602,
@@ -51,18 +117,6 @@
       "assignees": [],
       "dateCreated": "2024-08-14T16:19:08.000Z",
       "dateUpdated": "2025-11-05T15:55:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "/openrtb2/video endpoint deprecation",
-      "number": 4599,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-05T15:54:59.000Z",
-      "dateUpdated": "2025-11-05T15:54:59.000Z",
       "status": "open"
     },
     {
@@ -127,20 +181,6 @@
       ],
       "dateCreated": "2025-10-31T12:30:01.000Z",
       "dateUpdated": "2025-10-31T14:27:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Module Storage Metrics",
-      "number": 4583,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "Net-burst"
-      ],
-      "dateCreated": "2025-10-27T13:38:38.000Z",
-      "dateUpdated": "2025-10-31T14:25:14.000Z",
       "status": "open"
     },
     {
@@ -583,18 +623,6 @@
       "status": "open"
     },
     {
-      "title": "Proposal: previous auction info module",
-      "number": 3333,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2023-12-04T18:01:15.000Z",
-      "dateUpdated": "2025-08-13T14:29:13.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support For Ads.Cert 2.0",
       "number": 2063,
       "author": {
@@ -695,20 +723,6 @@
       ],
       "dateCreated": "2025-04-24T21:42:33.000Z",
       "dateUpdated": "2025-07-21T15:21:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Dynamic tmax buffer",
-      "number": 4416,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "dateCreated": "2025-07-02T14:54:03.000Z",
-      "dateUpdated": "2025-07-21T12:43:16.000Z",
       "status": "open"
     },
     {
@@ -1143,20 +1157,6 @@
       "assignees": [],
       "dateCreated": "2023-07-19T19:22:24.000Z",
       "dateUpdated": "2025-04-18T09:48:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Proposed tracking update",
-      "number": 4152,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [
-        "bretg"
-      ],
-      "dateCreated": "2025-01-15T11:16:22.000Z",
-      "dateUpdated": "2025-04-17T18:07:20.000Z",
       "status": "open"
     },
     {
@@ -1770,20 +1770,6 @@
       "assignees": [],
       "dateCreated": "2023-07-05T21:19:12.000Z",
       "dateUpdated": "2024-12-11T19:44:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Error calling GET https://vendor-list.consensu.org/v3/vendor-list.json",
-      "number": 3254,
-      "author": {
-        "login": "matthieularere-msq",
-        "id": 63732822
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2023-10-24T17:54:43.000Z",
-      "dateUpdated": "2024-12-11T19:42:19.000Z",
       "status": "open"
     },
     {

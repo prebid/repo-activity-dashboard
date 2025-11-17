@@ -1,10 +1,193 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-11-13T10:16:31.292Z",
+    "lastSync": "2025-11-17T14:10:50.106Z",
     "itemCount": 72
   },
   "items": [
+    {
+      "title": "New Adapter: RevX",
+      "number": 4335,
+      "author": {
+        "login": "nikithacode",
+        "id": 207976706
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nikithacode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "asifrahiman",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-09T06:08:50.000Z",
+      "dateUpdated": "2025-11-17T07:27:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Opamarketplace",
+      "number": 4526,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:14:55.000Z",
+      "dateUpdated": "2025-11-16T07:10:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: also put scope3 rtd targeting in seatbid",
+      "number": 4606,
+      "author": {
+        "login": "gravelg",
+        "id": 105263
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T21:49:34.000Z",
+      "dateUpdated": "2025-11-15T00:20:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Pixfuture",
+      "number": 4117,
+      "author": {
+        "login": "pixfuture-media",
+        "id": 84333122
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "bretg",
+          "state": "PENDING"
+        },
+        {
+          "login": "gargcreation1992",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pixfuture-media",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2024-12-19T15:23:08.000Z",
+      "dateUpdated": "2025-11-14T19:05:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nuba",
+      "number": 4565,
+      "author": {
+        "login": "nuba-io",
+        "id": 236982007
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nuba-io",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-10T11:53:14.000Z",
+      "dateUpdated": "2025-11-14T10:51:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Missena: Update parameters and add versioning support",
+      "number": 4557,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T14:09:31.000Z",
+      "dateUpdated": "2025-11-14T05:42:20.000Z",
+      "status": "open"
+    },
     {
       "title": "Sparteo: Add required query params to adapter endpoint",
       "number": 4556,
@@ -28,7 +211,30 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-01T13:31:46.000Z",
-      "dateUpdated": "2025-11-13T09:37:53.000Z",
+      "dateUpdated": "2025-11-13T16:07:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: iqiyi",
+      "number": 4605,
+      "author": {
+        "login": "Heihuang",
+        "id": 21191895
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Heihuang",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T07:37:04.000Z",
+      "dateUpdated": "2025-11-13T12:16:32.000Z",
       "status": "open"
     },
     {
@@ -59,43 +265,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-30T13:48:41.000Z",
       "dateUpdated": "2025-11-13T09:09:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: add Site to capabilities and correct error type",
-      "number": 4595,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-01T10:36:14.000Z",
-      "dateUpdated": "2025-11-13T08:44:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: iqiyi",
-      "number": 4605,
-      "author": {
-        "login": "Heihuang",
-        "id": 21191895
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Heihuang",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T07:37:04.000Z",
-      "dateUpdated": "2025-11-13T08:24:20.000Z",
       "status": "open"
     },
     {
@@ -427,36 +596,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Opamarketplace",
-      "number": 4526,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:14:55.000Z",
-      "dateUpdated": "2025-11-10T05:11:20.000Z",
-      "status": "open"
-    },
-    {
       "title": "Analytics: Configure per account",
       "number": 4459,
       "author": {
@@ -489,44 +628,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-05T11:52:34.000Z",
       "dateUpdated": "2025-11-05T19:05:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: RevX",
-      "number": 4335,
-      "author": {
-        "login": "nikithacode",
-        "id": 207976706
-      },
-      "assignees": [
-        "ccorbo",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "nikithacode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "asifrahiman",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-09T06:08:50.000Z",
-      "dateUpdated": "2025-11-05T18:23:15.000Z",
       "status": "open"
     },
     {
@@ -570,55 +671,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-30T10:44:01.000Z",
       "dateUpdated": "2025-11-04T17:26:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Missena: Update parameters and add versioning support",
-      "number": 4557,
-      "author": {
-        "login": "ysfbsf",
-        "id": 9834101
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T14:09:31.000Z",
-      "dateUpdated": "2025-11-04T14:19:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Nuba",
-      "number": 4565,
-      "author": {
-        "login": "nuba-io",
-        "id": 236982007
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "nuba-io",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-10T11:53:14.000Z",
-      "dateUpdated": "2025-11-04T08:05:39.000Z",
       "status": "open"
     },
     {
@@ -966,49 +1018,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-05-19T09:22:21.000Z",
       "dateUpdated": "2025-10-28T15:18:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Pixfuture",
-      "number": 4117,
-      "author": {
-        "login": "pixfuture-media",
-        "id": 84333122
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon",
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "bretg",
-          "state": "PENDING"
-        },
-        {
-          "login": "gargcreation1992",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pixfuture-media",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "scr-oath",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2024-12-19T15:23:08.000Z",
-      "dateUpdated": "2025-10-28T13:36:07.000Z",
       "status": "open"
     },
     {

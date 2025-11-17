@@ -1,10 +1,148 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-11-13T10:16:36.858Z",
-    "itemCount": 24
+    "lastSync": "2025-11-17T14:10:55.703Z",
+    "itemCount": 26
   },
   "items": [
+    {
+      "title": "Housekeeping: Bump Groovy-related dependencies",
+      "number": 4276,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-10T16:48:48.000Z",
+      "dateUpdated": "2025-11-17T12:02:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adnuntius: Pass targeting to ad server",
+      "number": 4282,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T10:07:15.000Z",
+      "dateUpdated": "2025-11-17T12:00:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "BidTheatre: Update endpoint and add redirect user sync",
+      "number": 4283,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T15:08:40.000Z",
+      "dateUpdated": "2025-11-17T11:54:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nativery",
+      "number": 4223,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-30T15:02:07.000Z",
+      "dateUpdated": "2025-11-17T09:19:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DATA-43462: Limiting LI ids to bidders",
+      "number": 4281,
+      "author": {
+        "login": "SuperIzya",
+        "id": 7934182
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T11:31:25.000Z",
+      "dateUpdated": "2025-11-14T17:58:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Update `pr-java/functional-ci` work flow",
+      "number": 3904,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "DISMISSED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-04-10T15:24:07.000Z",
+      "dateUpdated": "2025-11-14T17:02:07.000Z",
+      "status": "open"
+    },
     {
       "title": "Tests: Support GET interface profiles",
       "number": 4239,
@@ -27,7 +165,38 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2025-11-13T08:40:48.000Z",
+      "dateUpdated": "2025-11-14T09:36:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Alvads Adapter",
+      "number": 4194,
+      "author": {
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SamuelAlejandroNT",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-11-14T08:59:20.000Z",
       "status": "open"
     },
     {
@@ -54,76 +223,7 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-11-13T08:04:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Housekeeping: Bump Groovy-related dependencies",
-      "number": 4276,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-10T16:48:48.000Z",
-      "dateUpdated": "2025-11-12T18:59:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DATA-43462: Limiting LI ids to bidders",
-      "number": 4281,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-12T11:31:25.000Z",
-      "dateUpdated": "2025-11-12T14:30:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-11-12T12:39:28.000Z",
+      "dateUpdated": "2025-11-14T08:54:29.000Z",
       "status": "open"
     },
     {
@@ -139,7 +239,7 @@
       "reviewers": [
         {
           "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
+          "state": "APPROVED"
         },
         {
           "login": "przemkaczmarek",
@@ -148,36 +248,7 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-18T17:21:42.000Z",
-      "dateUpdated": "2025-11-08T13:49:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Nativery",
-      "number": 4223,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-30T15:02:07.000Z",
-      "dateUpdated": "2025-11-08T12:29:01.000Z",
+      "dateUpdated": "2025-11-14T08:52:34.000Z",
       "status": "open"
     },
     {
@@ -193,7 +264,7 @@
       "reviewers": [
         {
           "login": "marki1an",
-          "state": "COMMENTED"
+          "state": "CHANGES_REQUESTED"
         },
         {
           "login": "osulzhenko",
@@ -202,7 +273,32 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2025-11-07T08:25:57.000Z",
+      "dateUpdated": "2025-11-14T07:58:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Dependencies: Update compatibility-breaking dependencies",
+      "number": 4235,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-09T09:43:11.000Z",
+      "dateUpdated": "2025-11-14T07:28:06.000Z",
       "status": "open"
     },
     {
@@ -247,27 +343,6 @@
       "status": "open"
     },
     {
-      "title": "Test: Update `pr-java/functional-ci` work flow",
-      "number": 3904,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-10T15:24:07.000Z",
-      "dateUpdated": "2025-11-05T16:14:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "Bidder Configuration Fixes & URL Validation",
       "number": 4126,
       "author": {
@@ -294,27 +369,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-08T06:35:57.000Z",
       "dateUpdated": "2025-11-05T11:06:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Dependencies: Update compatibility-breaking dependencies",
-      "number": 4235,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T09:43:11.000Z",
-      "dateUpdated": "2025-10-30T11:12:29.000Z",
       "status": "open"
     },
     {
