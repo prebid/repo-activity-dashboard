@@ -1,146 +1,22 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-11-17T14:10:55.703Z",
-    "itemCount": 26
+    "lastSync": "2025-12-02T15:36:02.742Z",
+    "itemCount": 23
   },
   "items": [
     {
-      "title": "Housekeeping: Bump Groovy-related dependencies",
-      "number": 4276,
+      "title": "Fix #4304: incorrect naming in userSync configs",
+      "number": 4305,
       "author": {
-        "login": "Net-burst",
-        "id": 720803
+        "login": "EmilNadimanov",
+        "id": 63649196
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "APPROVED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-10T16:48:48.000Z",
-      "dateUpdated": "2025-11-17T12:02:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adnuntius: Pass targeting to ad server",
-      "number": 4282,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-14T10:07:15.000Z",
-      "dateUpdated": "2025-11-17T12:00:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "BidTheatre: Update endpoint and add redirect user sync",
-      "number": 4283,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-14T15:08:40.000Z",
-      "dateUpdated": "2025-11-17T11:54:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Nativery",
-      "number": 4223,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-30T15:02:07.000Z",
-      "dateUpdated": "2025-11-17T09:19:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DATA-43462: Limiting LI ids to bidders",
-      "number": 4281,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-12T11:31:25.000Z",
-      "dateUpdated": "2025-11-14T17:58:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Update `pr-java/functional-ci` work flow",
-      "number": 3904,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "DISMISSED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-10T15:24:07.000Z",
-      "dateUpdated": "2025-11-14T17:02:07.000Z",
+      "dateCreated": "2025-12-02T13:57:50.000Z",
+      "dateUpdated": "2025-12-02T13:57:50.000Z",
       "status": "open"
     },
     {
@@ -165,115 +41,131 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2025-11-14T09:36:58.000Z",
+      "dateUpdated": "2025-12-02T13:51:24.000Z",
       "status": "open"
     },
     {
-      "title": "New Alvads Adapter",
-      "number": 4194,
+      "title": "Decrease the version of the InfluxDB metrics",
+      "number": 4292,
       "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T10:37:42.000Z",
+      "dateUpdated": "2025-12-02T12:44:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Goldbach",
+      "number": 4300,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
+          "state": "PENDING"
         },
         {
           "login": "CTMBNara",
           "state": "CHANGES_REQUESTED"
         },
         {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
+          "login": "Lightwood13",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-11-14T08:59:20.000Z",
+      "dateCreated": "2025-12-01T12:07:51.000Z",
+      "dateUpdated": "2025-12-02T09:01:55.000Z",
       "status": "open"
     },
     {
-      "title": "Sparteo: add required query params to adapter endpoint",
-      "number": 4225,
+      "title": "Test: Remove `Fledge` feature",
+      "number": 4297,
       "author": {
-        "login": "t-sormonte",
-        "id": 191453837
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T13:58:01.000Z",
+      "dateUpdated": "2025-12-01T17:34:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Remove `PAAPI` feature",
+      "number": 4298,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T14:21:17.000Z",
+      "dateUpdated": "2025-12-01T17:25:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4299,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "CTMBNara",
           "state": "PENDING"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "t-sormonte",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-01T15:05:51.000Z",
-      "dateUpdated": "2025-11-14T08:54:29.000Z",
+      "dateCreated": "2025-11-30T10:10:01.000Z",
+      "dateUpdated": "2025-12-01T09:31:24.000Z",
       "status": "open"
     },
     {
-      "title": "Nextmillennium: New fields and adapter version update",
-      "number": 4246,
+      "title": "CWire: Add userSync",
+      "number": 4288,
       "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
+        "login": "AntoxaAntoxic",
+        "id": 76536883
       },
       "assignees": [
-        "przemkaczmarek"
+        "AntoxaAntoxic"
       ],
       "reviewers": [
         {
-          "login": "AntoxaAntoxic",
+          "login": "CTMBNara",
           "state": "APPROVED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-18T17:21:42.000Z",
-      "dateUpdated": "2025-11-14T08:52:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Refactoring functional tests",
-      "number": 3657,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2025-11-14T07:58:03.000Z",
+      "dateCreated": "2025-11-19T08:32:46.000Z",
+      "dateUpdated": "2025-11-28T14:15:10.000Z",
       "status": "open"
     },
     {
@@ -298,7 +190,98 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-09T09:43:11.000Z",
-      "dateUpdated": "2025-11-14T07:28:06.000Z",
+      "dateUpdated": "2025-11-28T08:38:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "dateUpdated": "2025-11-28T08:36:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Make functional test compilation optional",
+      "number": 4293,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T15:16:01.000Z",
+      "dateUpdated": "2025-11-27T20:21:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Alvads Adapter",
+      "number": 4194,
+      "author": {
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SamuelAlejandroNT",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2025-11-27T12:03:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get Interface",
+      "number": 4295,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T16:55:27.000Z",
+      "dateUpdated": "2025-11-25T18:08:37.000Z",
       "status": "open"
     },
     {
@@ -391,37 +374,6 @@
       "status": "open"
     },
     {
-      "title": "consumable: updated yaml config",
-      "number": 4139,
-      "author": {
-        "login": "richardngo-consumable",
-        "id": 184112982
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "APPROVED"
-        },
-        {
-          "login": "richardngo-consumable",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "travisbeale",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-19T13:50:58.000Z",
-      "dateUpdated": "2025-09-26T10:41:51.000Z",
-      "status": "open"
-    },
-    {
       "title": "ZetaGlobalSsp Bidder Update",
       "number": 4108,
       "author": {
@@ -456,27 +408,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-06-11T14:12:40.000Z",
       "dateUpdated": "2025-07-11T07:43:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Remove default-account from base floors container config",
-      "number": 3735,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-02-06T16:28:51.000Z",
-      "dateUpdated": "2025-06-10T12:41:35.000Z",
       "status": "open"
     },
     {
@@ -551,48 +482,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-02-26T13:15:07.000Z",
       "dateUpdated": "2025-04-11T05:49:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: Support GPP USNat v2",
-      "number": 3690,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-22T10:14:13.000Z",
-      "dateUpdated": "2025-02-28T12:21:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support GPP USNat v2",
-      "number": 3766,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-02-18T21:27:08.000Z",
-      "dateUpdated": "2025-02-18T21:27:12.000Z",
       "status": "open"
     }
   ]

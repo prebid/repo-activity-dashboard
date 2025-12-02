@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 8,
     "itemCount": 89,
-    "lastUpdated": "2025-09-22T16:09:43.222Z"
+    "lastUpdated": "2025-12-02T15:35:44.216Z"
   },
   "items": [
     {
@@ -1318,32 +1318,13 @@
         "dgirardi",
         "robertrmartinez"
       ],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "APPROVED"
-        },
-        {
-          "login": "robertrmartinez",
-          "state": "APPROVED"
-        },
-        {
-          "login": "apukh-magnite",
-          "state": "COMMENTED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-08-05T16:56:35.000Z",
-      "dateUpdated": "2025-08-14T14:44:33.000Z",
+      "dateUpdated": "2025-11-24T09:27:48.000Z",
       "status": "merged",
       "dateMerged": "2025-08-14T14:44:33.000Z",
-      "commitAuthors": {
-        "152202940": {
-          "identifier": "152202940",
-          "displayName": "apukh-magnite",
-          "count": 8,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-08-14T14:44:33.000Z"
     },
     {
       "title": "Build system: fix bug where NPM consumers see modules removed by webpack's tree shaking",

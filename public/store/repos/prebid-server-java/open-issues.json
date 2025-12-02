@@ -1,27 +1,97 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-11-17T14:10:55.704Z",
-    "itemCount": 33
+    "lastSync": "2025-12-02T15:36:02.743Z",
+    "itemCount": 28
   },
   "items": [
     {
-      "title": "Port PR from PBS-Go: New Adapter: Boldwin Rapid",
-      "number": 4279,
+      "title": "Several bidder configurations use incorrect keys in usersync.iframe and usersync.redirect",
+      "number": 4304,
       "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
+        "login": "EmilNadimanov",
+        "id": 63649196
       },
       "assignees": [
-        "AntoxaAntoxic"
+        "EmilNadimanov"
       ],
-      "dateCreated": "2025-11-11T03:19:22.000Z",
-      "dateUpdated": "2025-11-14T09:19:45.000Z",
+      "dateCreated": "2025-12-02T13:45:32.000Z",
+      "dateUpdated": "2025-12-02T13:45:32.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Adnuntius: Pass targeting to ad server",
-      "number": 4278,
+      "title": "Port PR from PBS-Go: New Adapter: Microsoft (msft)",
+      "number": 4294,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "Lightwood13"
+      ],
+      "dateCreated": "2025-11-21T16:24:24.000Z",
+      "dateUpdated": "2025-12-01T11:47:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Goldbach",
+      "number": 4269,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "Lightwood13"
+      ],
+      "dateCreated": "2025-10-28T18:42:44.000Z",
+      "dateUpdated": "2025-11-27T14:38:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Clydo",
+      "number": 4291,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-11-19T22:00:14.000Z",
+      "dateUpdated": "2025-11-25T13:42:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
+      "number": 4248,
+      "author": {
+        "login": "KoBilla",
+        "id": 33809658
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "dateCreated": "2025-10-20T12:01:17.000Z",
+      "dateUpdated": "2025-11-20T10:32:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "The JAVA server makes some RTB fields visible to bidders that shouldn't be visible",
+      "number": 4236,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-10-09T10:12:25.000Z",
+      "dateUpdated": "2025-11-19T15:49:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: CWire: Add userSync",
+      "number": 4287,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
@@ -29,8 +99,8 @@
       "assignees": [
         "AntoxaAntoxic"
       ],
-      "dateCreated": "2025-11-11T03:07:57.000Z",
-      "dateUpdated": "2025-11-14T09:19:40.000Z",
+      "dateCreated": "2025-11-18T21:38:21.000Z",
+      "dateUpdated": "2025-11-19T08:32:59.000Z",
       "status": "open"
     },
     {
@@ -84,46 +154,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Connatix: Support GZIP",
-      "number": 4274,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-03T15:48:56.000Z",
-      "dateUpdated": "2025-11-03T15:48:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
-      "number": 4248,
-      "author": {
-        "login": "KoBilla",
-        "id": 33809658
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "dateCreated": "2025-10-20T12:01:17.000Z",
-      "dateUpdated": "2025-10-31T14:18:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Goldbach",
-      "number": 4269,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "And1sS"
-      ],
-      "dateCreated": "2025-10-28T18:42:44.000Z",
-      "dateUpdated": "2025-10-30T10:43:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: Rules Engine Module: Dynamic ruleset from YAML geoscopes",
       "number": 4267,
       "author": {
@@ -147,46 +177,6 @@
       ],
       "dateCreated": "2025-09-23T14:49:57.000Z",
       "dateUpdated": "2025-10-21T07:51:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Nextmillennium: New fields and adapter version update",
-      "number": 4234,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-10-08T19:47:40.000Z",
-      "dateUpdated": "2025-10-17T08:13:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "The JAVA server makes some RTB fields visible to bidders that shouldn't be visible",
-      "number": 4236,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-09T10:12:25.000Z",
-      "dateUpdated": "2025-10-16T10:56:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Nativery",
-      "number": 4198,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2025-09-22T16:38:37.000Z",
-      "dateUpdated": "2025-10-02T17:15:51.000Z",
       "status": "open"
     },
     {
@@ -292,20 +282,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Rules Engine Module: Phase 1",
-      "number": 4040,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "And1sS"
-      ],
-      "dateCreated": "2025-06-26T17:52:27.000Z",
-      "dateUpdated": "2025-07-11T14:16:08.000Z",
-      "status": "open"
-    },
-    {
       "title": "TCF metrics by account and adapter",
       "number": 1936,
       "author": {
@@ -317,42 +293,6 @@
       ],
       "dateCreated": "2022-07-07T11:51:32.000Z",
       "dateUpdated": "2025-06-28T05:51:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Criteo: Set geoscope to global",
-      "number": 3998,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-06-05T16:55:22.000Z",
-      "dateUpdated": "2025-06-05T16:55:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Sharethrough: Add geoscope to config",
-      "number": 3995,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-06-05T16:04:02.000Z",
-      "dateUpdated": "2025-06-05T16:04:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Smaato: Add geoscope to bidder info",
-      "number": 3987,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-06-04T16:37:41.000Z",
-      "dateUpdated": "2025-06-04T16:37:41.000Z",
       "status": "open"
     },
     {

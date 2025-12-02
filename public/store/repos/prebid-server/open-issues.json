@@ -1,10 +1,130 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-11-17T14:10:50.109Z",
-    "itemCount": 202
+    "lastSync": "2025-12-02T15:35:55.072Z",
+    "itemCount": 205
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Java: Core: Support GPP USNat v2",
+      "number": 4620,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-01T13:07:24.000Z",
+      "dateUpdated": "2025-12-01T13:07:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Seedtag: sets bid request's currency to USD",
+      "number": 4619,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-01T12:59:05.000Z",
+      "dateUpdated": "2025-12-01T12:59:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Running server locally fails",
+      "number": 4618,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-28T17:40:13.000Z",
+      "dateUpdated": "2025-11-28T17:41:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Option to do array merges or permissioning on user segments",
+      "number": 4111,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-12-16T16:15:22.000Z",
+      "dateUpdated": "2025-11-24T23:30:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Use video.plcmt to Resolve Media Type",
+      "number": 4086,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2024-12-04T11:36:11.000Z",
+      "dateUpdated": "2025-11-24T16:21:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "incompatible gzip request compression support between Prebid.js and prebid-server",
+      "number": 4474,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-05T13:13:36.000Z",
+      "dateUpdated": "2025-11-20T21:44:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Primary & Secondary Bidders",
+      "number": 4612,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-20T18:16:02.000Z",
+      "dateUpdated": "2025-11-20T18:48:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PAAPI deprecation",
+      "number": 4601,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-06T16:14:49.000Z",
+      "dateUpdated": "2025-11-20T18:01:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support for GPP US National string v2",
+      "number": 4170,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2025-01-21T17:52:13.000Z",
+      "dateUpdated": "2025-11-19T18:52:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "more information on win/imp events",
+      "number": 4602,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-11T17:15:19.000Z",
+      "dateUpdated": "2025-11-19T15:33:19.000Z",
+      "status": "open"
+    },
     {
       "title": "Error calling GET https://vendor-list.consensu.org/v3/vendor-list.json",
       "number": 3254,
@@ -46,20 +166,6 @@
       "status": "open"
     },
     {
-      "title": "Dynamic tmax buffer",
-      "number": 4416,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "patmmccann"
-      ],
-      "dateCreated": "2025-07-02T14:54:03.000Z",
-      "dateUpdated": "2025-11-13T15:39:33.000Z",
-      "status": "open"
-    },
-    {
       "title": "/openrtb2/video endpoint deprecation",
       "number": 4599,
       "author": {
@@ -69,30 +175,6 @@
       "assignees": [],
       "dateCreated": "2025-11-05T15:54:59.000Z",
       "dateUpdated": "2025-11-13T15:26:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "more information on win/imp events",
-      "number": 4602,
-      "author": {
-        "login": "ollyburns",
-        "id": 75783836
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-11T17:15:19.000Z",
-      "dateUpdated": "2025-11-11T17:15:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PAAPI deprecation",
-      "number": 4601,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-06T16:14:49.000Z",
-      "dateUpdated": "2025-11-06T16:14:49.000Z",
       "status": "open"
     },
     {
@@ -547,18 +629,6 @@
       "status": "open"
     },
     {
-      "title": "incompatible gzip request compression support between Prebid.js and prebid-server",
-      "number": 4474,
-      "author": {
-        "login": "postindustria-code",
-        "id": 217833752
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-05T13:13:36.000Z",
-      "dateUpdated": "2025-09-04T13:15:06.000Z",
-      "status": "open"
-    },
-    {
       "title": "Rules Engine Module: Generate rules from YAML geoscope annotations",
       "number": 4379,
       "author": {
@@ -682,18 +752,6 @@
       "assignees": [],
       "dateCreated": "2025-07-31T10:13:12.000Z",
       "dateUpdated": "2025-08-08T14:18:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Option to do array merges or permissioning on user segments",
-      "number": 4111,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-16T16:15:22.000Z",
-      "dateUpdated": "2025-07-28T16:31:31.000Z",
       "status": "open"
     },
     {
@@ -1481,18 +1539,6 @@
       "status": "open"
     },
     {
-      "title": "Support for GPP US National string v2",
-      "number": 4170,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2025-01-21T17:52:13.000Z",
-      "dateUpdated": "2025-01-21T17:52:13.000Z",
-      "status": "open"
-    },
-    {
       "title": "Debugging enhancement for mobile apps",
       "number": 2518,
       "author": {
@@ -1794,18 +1840,6 @@
       "assignees": [],
       "dateCreated": "2024-03-18T17:19:08.000Z",
       "dateUpdated": "2024-12-11T19:31:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Use video.plcmt to Resolve Media Type",
-      "number": 4086,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-04T11:36:11.000Z",
-      "dateUpdated": "2024-12-11T19:01:55.000Z",
       "status": "open"
     },
     {

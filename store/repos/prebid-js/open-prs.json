@@ -1,72 +1,158 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-11-17T14:10:40.543Z",
-    "itemCount": 41
+    "lastSync": "2025-12-02T15:35:44.210Z",
+    "itemCount": 29
   },
   "items": [
     {
-      "title": "WURFL RTD: Add zero-latency device detection",
-      "number": 14115,
+      "title": "PubMatic RTD Provider: Dynamic timeout plugin & code refactoring",
+      "number": 14104,
       "author": {
-        "login": "lucor",
-        "id": 313577
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "github-advanced-security[bot]",
+          "login": "dgirardi",
           "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-11T10:05:03.000Z",
-      "dateUpdated": "2025-11-17T11:46:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "StartioBidAdapter: Change the protocol from http to https",
-      "number": 14128,
-      "author": {
-        "login": "SvenKoster",
-        "id": 169342633
-      },
-      "assignees": [],
-      "reviewers": [
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "pm-nitin-shirsat",
+          "state": "COMMENTED"
+        },
         {
           "login": "patmmccann",
           "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T07:01:16.000Z",
+      "dateUpdated": "2025-12-02T15:35:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Various modules: Ensure modules use connection utils",
+      "number": 14038,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
         },
         {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T13:48:59.000Z",
+      "dateUpdated": "2025-12-02T15:28:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Optable RTD Module: Support multiple instances on page",
+      "number": 14228,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
         },
         {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SvenKoster",
+          "login": "patmmccann",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-13T07:30:31.000Z",
-      "dateUpdated": "2025-11-17T10:18:01.000Z",
+      "dateCreated": "2025-11-28T14:50:50.000Z",
+      "dateUpdated": "2025-12-02T14:53:01.000Z",
       "status": "open"
     },
     {
-      "title": "IntentIq ID Module: AB group updates, bug fixes",
-      "number": 14136,
+      "title": "Core: Add support to also use keywords from application/ld+json to 1p enrichment",
+      "number": 14216,
       "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
+        "login": "petrican",
+        "id": 1708561
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-17T09:14:21.000Z",
-      "dateUpdated": "2025-11-17T09:14:21.000Z",
+      "dateCreated": "2025-11-26T14:02:57.000Z",
+      "dateUpdated": "2025-12-02T14:45:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New module: Shaping rules",
+      "number": 14079,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T13:26:39.000Z",
+      "dateUpdated": "2025-12-02T13:13:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "LI Analytics: include ad size as a field that in the data collected by the client side analytics adapter",
+      "number": 14207,
+      "author": {
+        "login": "zeta-xiao",
+        "id": 234264143
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "zeta-xiao",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T15:50:39.000Z",
+      "dateUpdated": "2025-12-02T09:28:10.000Z",
       "status": "open"
     },
     {
@@ -79,27 +165,202 @@
       "assignees": [],
       "reviewers": [
         {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
           "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "tkogut-allegro",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "m-figurski-allegro",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-07T14:18:07.000Z",
-      "dateUpdated": "2025-11-17T08:31:49.000Z",
+      "dateUpdated": "2025-12-02T09:07:05.000Z",
       "status": "open"
     },
     {
-      "title": "sevioBidAdapter_bugfix: Send all sizes instead of just maxSize",
-      "number": 14133,
+      "title": "TRUSTX Bid Adapter: initial release",
+      "number": 14218,
       "author": {
-        "login": "petrican",
-        "id": 1708561
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [
+        "jefftmahoney"
+      ],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:40:45.000Z",
+      "dateUpdated": "2025-12-02T03:02:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Various adapters: Centralize timezone retrieval",
+      "number": 14193,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T22:19:53.000Z",
+      "dateUpdated": "2025-12-01T21:01:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Various adapters: consolidate devicepixelratio usage into approximation",
+      "number": 14192,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T22:17:17.000Z",
+      "dateUpdated": "2025-12-01T20:15:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "OMS Bid Adapter: fix response for video (add vastXml), fix banner size in request (remove video size), update tests",
+      "number": 14201,
+      "author": {
+        "login": "siminkovladyslav",
+        "id": 85431371
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T12:46:27.000Z",
+      "dateUpdated": "2025-12-01T19:22:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: Add timeToRespond in noBid responses",
+      "number": 14097,
+      "author": {
+        "login": "rogerDyl",
+        "id": 104763658
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T13:49:10.000Z",
+      "dateUpdated": "2025-12-01T17:10:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IntentIq ID Module: AB group updates, bug fixes",
+      "number": 14136,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T09:14:21.000Z",
+      "dateUpdated": "2025-12-01T07:58:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adquery Bid Adapter: added video outstreamsupport ",
+      "number": 14166,
+      "author": {
+        "login": "adquery",
+        "id": 89853721
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "adquery",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T08:43:30.000Z",
+      "dateUpdated": "2025-11-27T12:58:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove quantcastId",
+      "number": 14045,
+      "author": {
+        "login": "dpapworth-qc",
+        "id": 50959025
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-14T11:00:25.000Z",
-      "dateUpdated": "2025-11-17T06:30:25.000Z",
+      "dateCreated": "2025-10-21T12:52:54.000Z",
+      "dateUpdated": "2025-11-27T11:23:08.000Z",
       "status": "open"
     },
     {
@@ -110,122 +371,80 @@
         "id": 72804728
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2025-11-12T06:46:38.000Z",
-      "dateUpdated": "2025-11-17T04:19:15.000Z",
+      "dateUpdated": "2025-11-26T16:37:23.000Z",
       "status": "open"
     },
     {
-      "title": "CI: split tests into smaller chunks",
-      "number": 14126,
+      "title": "Revnew Bid Adapter: transfer from alias",
+      "number": 14212,
       "author": {
-        "login": "dgirardi",
-        "id": 10151381
+        "login": "gchicoye",
+        "id": 22325848
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-12T20:01:34.000Z",
-      "dateUpdated": "2025-11-15T07:42:58.000Z",
+      "dateCreated": "2025-11-25T19:35:29.000Z",
+      "dateUpdated": "2025-11-25T19:46:41.000Z",
       "status": "open"
     },
     {
-      "title": "FWSSP Adapter: update schain serialization logic and add fallback for missing videoassetid",
-      "number": 14135,
+      "title": "DAS Bid Adapter:",
+      "number": 14106,
       "author": {
-        "login": "FreeWheelVIS",
-        "id": 4663682
+        "login": "aszydlo-ras",
+        "id": 182861439
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "aszydlo-ras",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-14T19:18:49.000Z",
-      "dateUpdated": "2025-11-14T20:31:03.000Z",
+      "dateCreated": "2025-11-06T13:54:42.000Z",
+      "dateUpdated": "2025-11-21T15:25:15.000Z",
       "status": "open"
     },
     {
-      "title": "Core: Dynamic loading of bid adapters",
-      "number": 14134,
+      "title": "ReVantage Bid Adapter",
+      "number": 14180,
       "author": {
-        "login": "mkomorski",
-        "id": 25056697
+        "login": "v0idxyz",
+        "id": 58184010
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-14T15:06:30.000Z",
-      "dateUpdated": "2025-11-14T15:53:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PubMatic RTD Provider: Dynamic timeout plugin & code refactoring",
-      "number": 14104,
-      "author": {
-        "login": "pm-nitin-shirsat",
-        "id": 107102698
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T07:01:16.000Z",
-      "dateUpdated": "2025-11-14T04:41:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump axios and tar-fs",
-      "number": 14132,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T19:22:25.000Z",
-      "dateUpdated": "2025-11-13T19:30:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: update min-document lock entry",
-      "number": 14130,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T18:56:01.000Z",
-      "dateUpdated": "2025-11-13T19:16:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Permutive modules: define gvl id",
-      "number": 14131,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T19:01:44.000Z",
-      "dateUpdated": "2025-11-13T19:16:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Pubmatic Rtd Provider: add dynamic timeout plugin & code refactoring (legacy)",
-      "number": 14103,
-      "author": {
-        "login": "pm-komal-kumari",
-        "id": 169047654
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T06:48:15.000Z",
-      "dateUpdated": "2025-11-13T18:48:24.000Z",
+      "dateCreated": "2025-11-20T19:36:06.000Z",
+      "dateUpdated": "2025-11-20T20:05:16.000Z",
       "status": "open"
     },
     {
@@ -254,133 +473,21 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-09-25T18:54:06.000Z",
-      "dateUpdated": "2025-11-13T17:18:09.000Z",
+      "dateUpdated": "2025-11-19T13:16:43.000Z",
       "status": "open"
     },
     {
-      "title": "Various modules: Ensure modules use connection utils",
-      "number": 14038,
+      "title": "Pixfuture_adapter uids update",
+      "number": 14092,
       "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "PENDING"
-        },
-        {
-          "login": "robertrmartinez",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-20T13:48:59.000Z",
-      "dateUpdated": "2025-11-13T16:11:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PubMatic Analytics Adapter : add getFloor() method in bidderDone Event [legacy]",
-      "number": 14016,
-      "author": {
-        "login": "pm-komal-kumari",
-        "id": 169047654
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jefftmahoney",
-          "state": "PENDING"
-        },
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-15T03:39:23.000Z",
-      "dateUpdated": "2025-11-13T16:09:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Public Good Bid Adapter : initial release",
-      "number": 13896,
-      "author": {
-        "login": "aaronkoss",
-        "id": 7459907
-      },
-      "assignees": [
-        "Rothalack"
-      ],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "aaronkoss",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-15T15:29:45.000Z",
-      "dateUpdated": "2025-11-13T15:54:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ID5 Analytics module - support gzip compression of large events",
-      "number": 14129,
-      "author": {
-        "login": "abazylewicz-id5",
-        "id": 106807984
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "abazylewicz-id5",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T11:32:31.000Z",
-      "dateUpdated": "2025-11-13T13:39:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Optable RTD Module : Multi-instance support & removed default handleRTD",
-      "number": 14123,
-      "author": {
-        "login": "mosherBT",
-        "id": 115997271
+        "login": "Arthur482",
+        "id": 66466997
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-12T18:22:43.000Z",
-      "dateUpdated": "2025-11-12T20:24:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: test cookies can be set as part of cookiesAreEnabled",
-      "number": 14125,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-12T19:59:41.000Z",
-      "dateUpdated": "2025-11-12T19:59:41.000Z",
+      "dateCreated": "2025-11-04T14:53:05.000Z",
+      "dateUpdated": "2025-11-18T16:47:28.000Z",
       "status": "open"
     },
     {
@@ -406,80 +513,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-11T17:55:57.000Z",
       "dateUpdated": "2025-11-12T17:54:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New module: Shaping rules",
-      "number": 14079,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T13:26:39.000Z",
-      "dateUpdated": "2025-11-12T15:04:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Neuwo Rtd Module: Add url cleaning feature to Neuwo RTD module ",
-      "number": 14089,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T13:50:49.000Z",
-      "dateUpdated": "2025-11-12T09:48:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "SeenThis Brand Stories Rendering Module: initial release (fixed)",
-      "number": 14044,
-      "author": {
-        "login": "seenthis-alex",
-        "id": 146713650
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "osazos",
-          "state": "PENDING"
-        },
-        {
-          "login": "seenthis-alex",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T11:39:20.000Z",
-      "dateUpdated": "2025-11-13T23:51:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Pixfuture_adapter uids update",
-      "number": 14092,
-      "author": {
-        "login": "Arthur482",
-        "id": 66466997
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-04T14:53:05.000Z",
-      "dateUpdated": "2025-11-10T15:38:31.000Z",
       "status": "open"
     },
     {
@@ -523,62 +556,6 @@
       "status": "open"
     },
     {
-      "title": "DAS Bid Adapter:",
-      "number": 14106,
-      "author": {
-        "login": "aszydlo-ras",
-        "id": 182861439
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "aszydlo-ras",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T13:54:42.000Z",
-      "dateUpdated": "2025-11-07T09:58:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: fix resizing of anchor slots",
-      "number": 14107,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T16:34:00.000Z",
-      "dateUpdated": "2025-11-06T21:08:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: Add timeToRespond in noBid responses",
-      "number": 14097,
-      "author": {
-        "login": "rogerDyl",
-        "id": 104763658
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T13:49:10.000Z",
-      "dateUpdated": "2025-11-05T13:49:10.000Z",
-      "status": "open"
-    },
-    {
       "title": "Teza Bid Adapter: initial release",
       "number": 14093,
       "author": {
@@ -590,39 +567,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-04T16:55:04.000Z",
       "dateUpdated": "2025-11-04T16:55:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump actions/upload-artifact from 4 to 5",
-      "number": 14087,
-      "author": {
-        "login": "dependabot[bot]",
-        "id": 49699333
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-01T14:01:18.000Z",
-      "dateUpdated": "2025-11-04T15:39:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "fix(adapter): align uniquest_widgetBidAdapter file name with docs biddercode",
-      "number": 14043,
-      "author": {
-        "login": "kazutoshi-uekawa-muneee",
-        "id": 114455471
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "osazos",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T09:41:16.000Z",
-      "dateUpdated": "2025-11-09T23:30:27.000Z",
       "status": "open"
     },
     {
@@ -666,25 +610,6 @@
       "status": "open"
     },
     {
-      "title": "Add TopOn adapter",
-      "number": 14072,
-      "author": {
-        "login": "topOnFens",
-        "id": 118327552
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lksharma",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T12:37:32.000Z",
-      "dateUpdated": "2025-10-27T12:37:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "Remove quantcast bid adapter",
       "number": 14054,
       "author": {
@@ -696,43 +621,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T13:05:55.000Z",
       "dateUpdated": "2025-10-23T16:16:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove quantcastId",
-      "number": 14045,
-      "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:52:54.000Z",
-      "dateUpdated": "2025-10-22T13:40:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: add opera to browserstack",
-      "number": 13223,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jlquaccia",
-          "state": "PENDING"
-        },
-        {
-          "login": "mkomorski",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-30T13:50:45.000Z",
-      "dateUpdated": "2025-10-08T20:47:32.000Z",
       "status": "open"
     },
     {

@@ -1,20 +1,44 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2025-11-17T14:11:05.412Z",
+    "lastSync": "2025-12-02T15:36:12.860Z",
     "itemCount": 40
   },
   "items": [
     {
-      "title": "UIKit and CoreLocation imports are missing in the Objective-C code",
-      "number": 1222,
+      "title": "Consider if `forceSdkToChooseWinner = false` should be the default behaviour",
+      "number": 1225,
       "author": {
-        "login": "bulutoztemur",
-        "id": 15092443
+        "login": "Heinemark",
+        "id": 1006245
       },
       "assignees": [],
-      "dateCreated": "2025-11-17T11:51:17.000Z",
-      "dateUpdated": "2025-11-17T11:51:32.000Z",
+      "dateCreated": "2025-11-25T19:10:27.000Z",
+      "dateUpdated": "2025-11-25T22:13:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Reorganize the repository and product structure to integration via SPM",
+      "number": 1184,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-07-11T11:53:41.000Z",
+      "dateUpdated": "2025-11-19T14:33:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Need for slot-specific targeting key-values",
+      "number": 1194,
+      "author": {
+        "login": "Umreg",
+        "id": 10233988
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-06T11:13:30.000Z",
+      "dateUpdated": "2025-11-19T14:25:21.000Z",
       "status": "open"
     },
     {
@@ -352,18 +376,6 @@
       "status": "open"
     },
     {
-      "title": "Reorganize the repository and product structure to integration via SPM",
-      "number": 1184,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-11T11:53:41.000Z",
-      "dateUpdated": "2025-08-16T07:13:49.000Z",
-      "status": "open"
-    },
-    {
       "title": "Plugin System for Prebid",
       "number": 461,
       "author": {
@@ -437,18 +449,6 @@
       "assignees": [],
       "dateCreated": "2025-07-29T12:44:15.000Z",
       "dateUpdated": "2025-08-16T05:00:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Need for slot-specific targeting key-values",
-      "number": 1194,
-      "author": {
-        "login": "Umreg",
-        "id": 10233988
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-06T11:13:30.000Z",
-      "dateUpdated": "2025-08-16T04:59:39.000Z",
       "status": "open"
     },
     {

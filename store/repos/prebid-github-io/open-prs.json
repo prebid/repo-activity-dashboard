@@ -1,10 +1,216 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-11-17T14:11:11.592Z",
-    "itemCount": 45
+    "lastSync": "2025-12-02T15:36:19.895Z",
+    "itemCount": 52
   },
   "items": [
+    {
+      "title": "Loading modules separately",
+      "number": 6353,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T14:35:55.000Z",
+      "dateUpdated": "2025-12-02T15:14:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "WURFL RTD: zero-latency version update",
+      "number": 6336,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T15:25:27.000Z",
+      "dateUpdated": "2025-12-02T14:50:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add RadiantFusion alias",
+      "number": 6356,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T07:59:55.000Z",
+      "dateUpdated": "2025-11-27T22:19:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: allegro",
+      "number": 6329,
+      "author": {
+        "login": "m-figurski-allegro",
+        "id": 224607016
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "m-figurski-allegro",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:14:42.000Z",
+      "dateUpdated": "2025-11-27T14:05:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add PBS to Amcom",
+      "number": 6357,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T11:43:02.000Z",
+      "dateUpdated": "2025-11-27T11:47:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Public Good - new adapter",
+      "number": 6258,
+      "author": {
+        "login": "aaronkoss",
+        "id": 7459907
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "aaronkoss",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-15T15:30:19.000Z",
+      "dateUpdated": "2025-11-26T18:59:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Trustx bidder adapter",
+      "number": 6355,
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:48:59.000Z",
+      "dateUpdated": "2025-11-26T15:50:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Nexx360 BidAdapter: placement added",
+      "number": 6349,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T09:31:03.000Z",
+      "dateUpdated": "2025-11-25T17:15:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: alliance_gravity",
+      "number": 6347,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T16:33:41.000Z",
+      "dateUpdated": "2025-11-25T17:10:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add Adastra alias",
+      "number": 6343,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T17:25:34.000Z",
+      "dateUpdated": "2025-11-25T11:36:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IntentIq ID Module: Add new param",
+      "number": 6278,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-02T17:28:16.000Z",
+      "dateUpdated": "2025-11-24T10:52:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "docs(permutive): update consent section",
+      "number": 6352,
+      "author": {
+        "login": "AntonioGargaro",
+        "id": 38767071
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T10:30:04.000Z",
+      "dateUpdated": "2025-11-24T10:32:12.000Z",
+      "status": "open"
+    },
     {
       "title": "Update docs",
       "number": 6251,
@@ -29,12 +235,31 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-09-10T11:16:10.000Z",
-      "dateUpdated": "2025-11-16T07:13:06.000Z",
+      "dateUpdated": "2025-11-23T08:33:38.000Z",
       "status": "open"
     },
     {
-      "title": "Fwssp: update videoAssetId to default to 0",
-      "number": 6339,
+      "title": "Deprecate 'openwebxchange' bidder page (use 'openweb')",
+      "number": 6325,
+      "author": {
+        "login": "liranm-creator",
+        "id": 242417420
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T13:09:56.000Z",
+      "dateUpdated": "2025-11-20T16:13:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fwssp: remove old docs related to SFX/sitckyads",
+      "number": 6346,
       "author": {
         "login": "FreeWheelVIS",
         "id": 4663682
@@ -42,8 +267,27 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-14T19:20:43.000Z",
-      "dateUpdated": "2025-11-14T19:22:43.000Z",
+      "dateCreated": "2025-11-18T16:19:09.000Z",
+      "dateUpdated": "2025-11-18T16:21:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add documentation for iOS ORTB response custom parsing",
+      "number": 6344,
+      "author": {
+        "login": "jclou",
+        "id": 1572104
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T23:32:23.000Z",
+      "dateUpdated": "2025-11-18T16:18:49.000Z",
       "status": "open"
     },
     {
@@ -89,43 +333,6 @@
       "status": "open"
     },
     {
-      "title": "WURFL RTD: zero-latency version update",
-      "number": 6336,
-      "author": {
-        "login": "lucor",
-        "id": 313577
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T15:25:27.000Z",
-      "dateUpdated": "2025-11-13T15:27:28.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: allegro",
-      "number": 6329,
-      "author": {
-        "login": "m-figurski-allegro",
-        "id": 224607016
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        },
-        {
-          "login": "m-figurski-allegro",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T14:14:42.000Z",
-      "dateUpdated": "2025-11-13T13:50:29.000Z",
-      "status": "open"
-    },
-    {
       "title": "Adagio: update bidder adapter documentation",
       "number": 6327,
       "author": {
@@ -156,25 +363,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-03T13:51:04.000Z",
       "dateUpdated": "2025-11-12T09:51:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Deprecate 'openwebxchange' bidder page (use 'openweb')",
-      "number": 6325,
-      "author": {
-        "login": "liranm-creator",
-        "id": 242417420
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T13:09:56.000Z",
-      "dateUpdated": "2025-11-10T13:51:11.000Z",
       "status": "open"
     },
     {
@@ -253,25 +441,6 @@
       "status": "open"
     },
     {
-      "title": "Contxtful: Documentation update",
-      "number": 6313,
-      "author": {
-        "login": "sebastienrufiange",
-        "id": 131205907
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T18:36:15.000Z",
-      "dateUpdated": "2025-11-07T09:25:40.000Z",
-      "status": "open"
-    },
-    {
       "title": "DAS Bid Adapter:",
       "number": 6326,
       "author": {
@@ -337,29 +506,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-03-27T11:47:24.000Z",
       "dateUpdated": "2025-10-30T21:08:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Public Good - new adapter",
-      "number": 6258,
-      "author": {
-        "login": "aaronkoss",
-        "id": 7459907
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        },
-        {
-          "login": "aaronkoss",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-15T15:30:19.000Z",
-      "dateUpdated": "2025-10-30T14:09:31.000Z",
       "status": "open"
     },
     {
@@ -430,25 +576,6 @@
       "status": "open"
     },
     {
-      "title": "IntentIq ID Module: Add new param",
-      "number": 6278,
-      "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-02T17:28:16.000Z",
-      "dateUpdated": "2025-10-28T11:25:53.000Z",
-      "status": "open"
-    },
-    {
       "title": "Remove Quantcast bidder documentation.",
       "number": 6306,
       "author": {
@@ -479,25 +606,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T08:33:12.000Z",
       "dateUpdated": "2025-10-23T09:31:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Ybidder added",
-      "number": 6291,
-      "author": {
-        "login": "gchicoye",
-        "id": 22325848
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T15:59:48.000Z",
-      "dateUpdated": "2025-10-20T18:53:10.000Z",
       "status": "open"
     },
     {

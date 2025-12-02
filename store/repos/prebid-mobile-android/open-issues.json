@@ -1,10 +1,58 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2025-11-17T14:11:00.635Z",
-    "itemCount": 25
+    "lastSync": "2025-12-02T15:36:07.633Z",
+    "itemCount": 23
   },
   "items": [
+    {
+      "title": "Internal crash when opening Ad",
+      "number": 905,
+      "author": {
+        "login": "radiopatrick",
+        "id": 165185426
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-25T08:00:49.000Z",
+      "dateUpdated": "2025-12-01T09:04:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PrebidNativeCache stores Native adm without the mandatory \"native\" wrapper (OpenRTB Native 1.2 / ORTB 2.5 Compliance Issue)",
+      "number": 904,
+      "author": {
+        "login": "AndrewHoang1995",
+        "id": 163831439
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-25T03:41:26.000Z",
+      "dateUpdated": "2025-11-27T11:54:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Question: MRAID Two-Part Expandable Ad Works in GAM but Fails in Prebid Server",
+      "number": 895,
+      "author": {
+        "login": "SitoGitHub",
+        "id": 65915050
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-24T12:15:55.000Z",
+      "dateUpdated": "2025-11-20T11:17:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Question: SDK Integration with Non-Prebid ORTB Server",
+      "number": 901,
+      "author": {
+        "login": "ewingelen",
+        "id": 61424141
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-18T19:29:48.000Z",
+      "dateUpdated": "2025-11-20T10:46:33.000Z",
+      "status": "open"
+    },
     {
       "title": "Using Kotlin outside of the Example?",
       "number": 844,
@@ -15,20 +63,6 @@
       "assignees": [],
       "dateCreated": "2025-03-19T10:02:03.000Z",
       "dateUpdated": "2025-11-14T17:11:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "SDK does not fire Prebid impression event URL in DISPLAY interstitial",
-      "number": 858,
-      "author": {
-        "login": "elq81hc",
-        "id": 71596165
-      },
-      "assignees": [
-        "ValentinPostindustria"
-      ],
-      "dateCreated": "2025-05-01T03:01:50.000Z",
-      "dateUpdated": "2025-11-06T11:54:35.000Z",
       "status": "open"
     },
     {
@@ -55,46 +89,6 @@
       "assignees": [],
       "dateCreated": "2025-10-10T09:05:55.000Z",
       "dateUpdated": "2025-10-29T09:32:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdViewUtils.findPrebidCreativeSize pollutes logcat with an unnecessary warning when no size object found",
-      "number": 725,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2023-12-12T14:00:51.000Z",
-      "dateUpdated": "2025-10-29T09:07:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Inconsistent Interstitial Behavior Between Android and iOS with GAM Rendering",
-      "number": 877,
-      "author": {
-        "login": "JahonovAsilbek",
-        "id": 60385044
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2025-08-18T05:44:29.000Z",
-      "dateUpdated": "2025-10-29T09:04:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Question: MRAID Two-Part Expandable Ad Works in GAM but Fails in Prebid Server",
-      "number": 895,
-      "author": {
-        "login": "SitoGitHub",
-        "id": 65915050
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T12:15:55.000Z",
-      "dateUpdated": "2025-10-28T12:40:48.000Z",
       "status": "open"
     },
     {
@@ -208,20 +202,6 @@
       "status": "open"
     },
     {
-      "title": "PrebidMobile.timeoutMillis setting does not appear to work correctly for readTimeout",
-      "number": 859,
-      "author": {
-        "login": "hamanfang",
-        "id": 2002724
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2025-05-09T08:08:43.000Z",
-      "dateUpdated": "2025-08-18T12:26:00.000Z",
-      "status": "open"
-    },
-    {
       "title": "New in-stream examples based on Media3 (ExoPlayer deprecated)",
       "number": 860,
       "author": {
@@ -255,18 +235,6 @@
       "assignees": [],
       "dateCreated": "2024-04-12T14:13:36.000Z",
       "dateUpdated": "2025-08-16T09:10:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RewardedAdinterstitial",
-      "number": 870,
-      "author": {
-        "login": "AbrahamArmasCordero",
-        "id": 36243865
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-09T08:38:00.000Z",
-      "dateUpdated": "2025-08-16T08:41:52.000Z",
       "status": "open"
     },
     {
