@@ -1,10 +1,72 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-12-02T15:35:55.072Z",
-    "itemCount": 205
+    "lastSync": "2025-12-09T15:29:00.281Z",
+    "itemCount": 207
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Java: Rule Engine: Fix eviction policy for rule cache",
+      "number": 4628,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-09T00:15:21.000Z",
+      "dateUpdated": "2025-12-09T00:15:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Run golangci-lint on the software as part of CI/CD checks",
+      "number": 4627,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-05T16:02:27.000Z",
+      "dateUpdated": "2025-12-08T21:13:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules and execution plans",
+      "number": 3880,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-08-23T13:31:33.000Z",
+      "dateUpdated": "2025-12-05T10:21:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Expanding Prebid Cache for module data",
+      "number": 3512,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2024-02-16T16:36:54.000Z",
+      "dateUpdated": "2025-12-04T17:50:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Extend EID Permissions",
+      "number": 4623,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-03T01:49:37.000Z",
+      "dateUpdated": "2025-12-03T15:40:44.000Z",
+      "status": "open"
+    },
     {
       "title": "Port PR from PBS-Java: Core: Support GPP USNat v2",
       "number": 4620,
@@ -27,18 +89,6 @@
       "assignees": [],
       "dateCreated": "2025-12-01T12:59:05.000Z",
       "dateUpdated": "2025-12-01T12:59:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Running server locally fails",
-      "number": 4618,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-28T17:40:13.000Z",
-      "dateUpdated": "2025-11-28T17:41:36.000Z",
       "status": "open"
     },
     {
@@ -839,20 +889,6 @@
       "status": "open"
     },
     {
-      "title": "Expanding Prebid Cache for module data",
-      "number": 3512,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2024-02-16T16:36:54.000Z",
-      "dateUpdated": "2025-07-10T23:23:53.000Z",
-      "status": "open"
-    },
-    {
       "title": "DSA legal basis validations",
       "number": 3508,
       "author": {
@@ -1347,18 +1383,6 @@
       ],
       "dateCreated": "2024-03-15T15:57:52.000Z",
       "dateUpdated": "2025-03-17T14:55:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Modules and execution plans",
-      "number": 3880,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-08-23T13:31:33.000Z",
-      "dateUpdated": "2025-03-17T14:53:48.000Z",
       "status": "open"
     },
     {

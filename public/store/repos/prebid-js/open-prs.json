@@ -1,47 +1,16 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-12-02T15:35:44.210Z",
-    "itemCount": 29
+    "lastSync": "2025-12-09T15:28:42.232Z",
+    "itemCount": 27
   },
   "items": [
     {
-      "title": "PubMatic RTD Provider: Dynamic timeout plugin & code refactoring",
-      "number": 14104,
+      "title": "Sovrn Bid Adapter: remove paapi support",
+      "number": 14248,
       "author": {
-        "login": "pm-nitin-shirsat",
-        "id": 107102698
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ncolletti",
-          "state": "PENDING"
-        },
-        {
-          "login": "pm-nitin-shirsat",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T07:01:16.000Z",
-      "dateUpdated": "2025-12-02T15:35:17.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Various modules: Ensure modules use connection utils",
-      "number": 14038,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
+        "login": "ikagotso",
+        "id": 15611775
       },
       "assignees": [],
       "reviewers": [
@@ -50,59 +19,40 @@
           "state": "PENDING"
         },
         {
-          "login": "dgirardi",
+          "login": "sejanick",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-20T13:48:59.000Z",
-      "dateUpdated": "2025-12-02T15:28:27.000Z",
+      "dateCreated": "2025-12-09T09:26:09.000Z",
+      "dateUpdated": "2025-12-09T15:23:56.000Z",
       "status": "open"
     },
     {
-      "title": "Optable RTD Module: Support multiple instances on page",
-      "number": 14228,
+      "title": "tcfControl: add deferS2Sbidders flag",
+      "number": 14252,
       "author": {
-        "login": "mosherBT",
-        "id": 115997271
+        "login": "mkomorski",
+        "id": 25056697
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "lksharma",
+          "login": "jefftmahoney",
           "state": "PENDING"
         },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T14:50:50.000Z",
-      "dateUpdated": "2025-12-02T14:53:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: Add support to also use keywords from application/ld+json to 1p enrichment",
-      "number": 14216,
-      "author": {
-        "login": "petrican",
-        "id": 1708561
-      },
-      "assignees": [],
-      "reviewers": [
         {
           "login": "monis0395",
           "state": "PENDING"
         },
         {
-          "login": "robertrmartinez",
-          "state": "PENDING"
+          "login": "dgirardi",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-26T14:02:57.000Z",
-      "dateUpdated": "2025-12-02T14:45:31.000Z",
+      "dateCreated": "2025-12-09T12:30:37.000Z",
+      "dateUpdated": "2025-12-09T15:10:58.000Z",
       "status": "open"
     },
     {
@@ -115,44 +65,58 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        },
-        {
           "login": "lksharma",
           "state": "PENDING"
         },
         {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
           "login": "mkomorski",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robertrmartinez",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-10-29T13:26:39.000Z",
-      "dateUpdated": "2025-12-02T13:13:12.000Z",
+      "dateUpdated": "2025-12-09T15:04:15.000Z",
       "status": "open"
     },
     {
-      "title": "LI Analytics: include ad size as a field that in the data collected by the client side analytics adapter",
-      "number": 14207,
+      "title": "WURFL RTD: Remove fingerprinting APIs from LCE detection",
+      "number": 14251,
       "author": {
-        "login": "zeta-xiao",
-        "id": 234264143
+        "login": "lucor",
+        "id": 313577
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "robertrmartinez",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "zeta-xiao",
-          "state": "COMMENTED"
+          "login": "mkomorski",
+          "state": "PENDING"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-25T15:50:39.000Z",
-      "dateUpdated": "2025-12-02T09:28:10.000Z",
+      "dateCreated": "2025-12-09T11:20:17.000Z",
+      "dateUpdated": "2025-12-09T11:21:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "sevioBidAdapter - fix contextual data in legacy",
+      "number": 14250,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T10:46:10.000Z",
+      "dateUpdated": "2025-12-09T10:46:10.000Z",
       "status": "open"
     },
     {
@@ -187,7 +151,88 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-07T14:18:07.000Z",
-      "dateUpdated": "2025-12-02T09:07:05.000Z",
+      "dateUpdated": "2025-12-09T10:28:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "sevioBidAdapter: change how pageTitle and pageDescription are sent to the BE",
+      "number": 14247,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T08:19:12.000Z",
+      "dateUpdated": "2025-12-09T09:04:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IntentIq ID Module: AB group updates, bug fixes",
+      "number": 14136,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "DimaIntentIQ",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T09:14:21.000Z",
+      "dateUpdated": "2025-12-08T19:27:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RealTimeData: fix bug with missing first party data (9.53.x backport)",
+      "number": 14246,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-08T18:48:31.000Z",
+      "dateUpdated": "2025-12-08T18:56:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Various modules: Ensure modules use connection utils",
+      "number": 14038,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T13:48:59.000Z",
+      "dateUpdated": "2025-12-08T18:12:54.000Z",
       "status": "open"
     },
     {
@@ -198,44 +243,93 @@
         "id": 207739730
       },
       "assignees": [
-        "jefftmahoney"
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "trustXops",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:40:45.000Z",
+      "dateUpdated": "2025-12-05T15:23:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ReVantage Bid Adapter",
+      "number": 14180,
+      "author": {
+        "login": "v0idxyz",
+        "id": 58184010
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T19:36:06.000Z",
+      "dateUpdated": "2025-12-05T15:16:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mile Analytics Adapter: Initial Release",
+      "number": 14234,
+      "author": {
+        "login": "shashankatd",
+        "id": 101392500
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T10:04:44.000Z",
+      "dateUpdated": "2025-12-05T07:03:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: granular settings for main thread yielding - Seeking Quantitative Testers",
+      "number": 13789,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "robertrmartinez",
+        "Fawke"
       ],
       "reviewers": [
         {
           "login": "jefftmahoney",
           "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-26T15:40:45.000Z",
-      "dateUpdated": "2025-12-02T03:02:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Various adapters: Centralize timezone retrieval",
-      "number": 14193,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "reviewers": [
+        },
         {
-          "login": "dgirardi",
+          "login": "robertrmartinez",
           "state": "PENDING"
         },
         {
-          "login": "jsnellbaker",
+          "login": "Fawke",
           "state": "PENDING"
-        },
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-20T22:19:53.000Z",
-      "dateUpdated": "2025-12-01T21:01:50.000Z",
+      "dateCreated": "2025-08-20T16:33:58.000Z",
+      "dateUpdated": "2025-12-04T20:37:57.000Z",
       "status": "open"
     },
     {
@@ -248,119 +342,17 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "ncolletti",
-          "state": "PENDING"
-        },
-        {
           "login": "dgirardi",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-20T22:17:17.000Z",
-      "dateUpdated": "2025-12-01T20:15:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "OMS Bid Adapter: fix response for video (add vastXml), fix banner size in request (remove video size), update tests",
-      "number": 14201,
-      "author": {
-        "login": "siminkovladyslav",
-        "id": 85431371
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lksharma",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T12:46:27.000Z",
-      "dateUpdated": "2025-12-01T19:22:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: Add timeToRespond in noBid responses",
-      "number": 14097,
-      "author": {
-        "login": "rogerDyl",
-        "id": 104763658
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "dgirardi",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T13:49:10.000Z",
-      "dateUpdated": "2025-12-01T17:10:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IntentIq ID Module: AB group updates, bug fixes",
-      "number": 14136,
-      "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ncolletti",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-17T09:14:21.000Z",
-      "dateUpdated": "2025-12-01T07:58:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adquery Bid Adapter: added video outstreamsupport ",
-      "number": 14166,
-      "author": {
-        "login": "adquery",
-        "id": 89853721
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "monis0395",
           "state": "CHANGES_REQUESTED"
         },
         {
           "login": "github-advanced-security[bot]",
           "state": "COMMENTED"
-        },
-        {
-          "login": "adquery",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-19T08:43:30.000Z",
-      "dateUpdated": "2025-11-27T12:58:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove quantcastId",
-      "number": 14045,
-      "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:52:54.000Z",
-      "dateUpdated": "2025-11-27T11:23:08.000Z",
+      "dateCreated": "2025-11-20T22:17:17.000Z",
+      "dateUpdated": "2025-12-03T19:00:47.000Z",
       "status": "open"
     },
     {
@@ -379,30 +371,21 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-12T06:46:38.000Z",
-      "dateUpdated": "2025-11-26T16:37:23.000Z",
+      "dateUpdated": "2025-12-03T05:38:41.000Z",
       "status": "open"
     },
     {
-      "title": "Revnew Bid Adapter: transfer from alias",
-      "number": 14212,
+      "title": "Remove quantcastId",
+      "number": 14045,
       "author": {
-        "login": "gchicoye",
-        "id": 22325848
+        "login": "dpapworth-qc",
+        "id": 50959025
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "jsnellbaker",
-          "state": "PENDING"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
+      "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-25T19:35:29.000Z",
-      "dateUpdated": "2025-11-25T19:46:41.000Z",
+      "dateCreated": "2025-10-21T12:52:54.000Z",
+      "dateUpdated": "2025-11-27T11:23:08.000Z",
       "status": "open"
     },
     {
@@ -426,25 +409,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-06T13:54:42.000Z",
       "dateUpdated": "2025-11-21T15:25:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ReVantage Bid Adapter",
-      "number": 14180,
-      "author": {
-        "login": "v0idxyz",
-        "id": 58184010
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-20T19:36:06.000Z",
-      "dateUpdated": "2025-11-20T20:05:16.000Z",
       "status": "open"
     },
     {
@@ -581,32 +545,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-08-12T06:26:33.000Z",
       "dateUpdated": "2025-10-29T22:07:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: granular settings for main thread yielding; turn yielding off - Seeking Quantitative Testers",
-      "number": 13789,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [
-        "robertrmartinez",
-        "Fawke"
-      ],
-      "reviewers": [
-        {
-          "login": "robertrmartinez",
-          "state": "PENDING"
-        },
-        {
-          "login": "Fawke",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-20T16:33:58.000Z",
-      "dateUpdated": "2025-10-27T22:27:34.000Z",
       "status": "open"
     },
     {

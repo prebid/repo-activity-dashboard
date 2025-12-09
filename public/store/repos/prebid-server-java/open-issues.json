@@ -1,22 +1,56 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-12-02T15:36:02.743Z",
-    "itemCount": 28
+    "lastSync": "2025-12-09T15:29:08.945Z",
+    "itemCount": 29
   },
   "items": [
     {
-      "title": "Several bidder configurations use incorrect keys in usersync.iframe and usersync.redirect",
-      "number": 4304,
+      "title": "Port PR from PBS-Go: Warn in auction response for bidders blocked by privacy settings",
+      "number": 4314,
       "author": {
-        "login": "EmilNadimanov",
-        "id": 63649196
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
       },
-      "assignees": [
-        "EmilNadimanov"
-      ],
-      "dateCreated": "2025-12-02T13:45:32.000Z",
-      "dateUpdated": "2025-12-02T13:45:32.000Z",
+      "assignees": [],
+      "dateCreated": "2025-12-09T02:57:36.000Z",
+      "dateUpdated": "2025-12-09T02:57:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Remove hardcoded adagio seat name",
+      "number": 4313,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-09T02:45:53.000Z",
+      "dateUpdated": "2025-12-09T02:45:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Enable site capability",
+      "number": 4312,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-09T02:01:12.000Z",
+      "dateUpdated": "2025-12-09T02:01:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Syncer: Allow Duplicate Syncer Key For Identical Config",
+      "number": 4311,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-08T21:42:30.000Z",
+      "dateUpdated": "2025-12-08T21:42:30.000Z",
       "status": "open"
     },
     {
@@ -62,20 +96,6 @@
       "status": "open"
     },
     {
-      "title": "Bug: InfluxDB reporter writes count=0 for Counter metrics since 3.25.0 (while /metrics shows non-zero)",
-      "number": 4248,
-      "author": {
-        "login": "KoBilla",
-        "id": 33809658
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-10-20T12:01:17.000Z",
-      "dateUpdated": "2025-11-20T10:32:56.000Z",
-      "status": "open"
-    },
-    {
       "title": "The JAVA server makes some RTB fields visible to bidders that shouldn't be visible",
       "number": 4236,
       "author": {
@@ -87,20 +107,6 @@
       ],
       "dateCreated": "2025-10-09T10:12:25.000Z",
       "dateUpdated": "2025-11-19T15:49:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: CWire: Add userSync",
-      "number": 4287,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-11-18T21:38:21.000Z",
-      "dateUpdated": "2025-11-19T08:32:59.000Z",
       "status": "open"
     },
     {

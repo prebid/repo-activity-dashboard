@@ -1,41 +1,60 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-12-02T15:36:19.895Z",
-    "itemCount": 52
+    "lastSync": "2025-12-09T15:29:27.686Z",
+    "itemCount": 45
   },
   "items": [
     {
-      "title": "Loading modules separately",
-      "number": 6353,
+      "title": "IntentIq ID:  add new parameter `abPercentage`",
+      "number": 6361,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T11:53:19.000Z",
+      "dateUpdated": "2025-12-09T11:55:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Shaping rules module",
+      "number": 6359,
       "author": {
         "login": "mkomorski",
         "id": 25056697
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-24T14:35:55.000Z",
-      "dateUpdated": "2025-12-02T15:14:25.000Z",
+      "dateCreated": "2025-12-04T13:13:03.000Z",
+      "dateUpdated": "2025-12-08T18:29:29.000Z",
       "status": "open"
     },
     {
-      "title": "WURFL RTD: zero-latency version update",
-      "number": 6336,
+      "title": "Ybidder adapter added",
+      "number": 6360,
       "author": {
-        "login": "lucor",
-        "id": 313577
+        "login": "gchicoye",
+        "id": 22325848
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-13T15:25:27.000Z",
-      "dateUpdated": "2025-12-02T14:50:11.000Z",
+      "dateCreated": "2025-12-08T15:54:01.000Z",
+      "dateUpdated": "2025-12-08T15:55:51.000Z",
       "status": "open"
     },
     {
-      "title": "Attekmi: add RadiantFusion alias",
-      "number": 6356,
+      "title": "Attekmi: add PBS to Amcom",
+      "number": 6357,
       "author": {
         "login": "SmartHubSolutions",
         "id": 87376145
@@ -43,13 +62,27 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "lpagnypubstack",
+          "login": "ChrisHuie",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-27T07:59:55.000Z",
-      "dateUpdated": "2025-11-27T22:19:37.000Z",
+      "dateCreated": "2025-11-27T11:43:02.000Z",
+      "dateUpdated": "2025-12-05T21:48:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Trustx bidder adapter",
+      "number": 6355,
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:48:59.000Z",
+      "dateUpdated": "2025-12-05T15:03:58.000Z",
       "status": "open"
     },
     {
@@ -72,72 +105,111 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-11-07T14:14:42.000Z",
-      "dateUpdated": "2025-11-27T14:05:53.000Z",
+      "dateUpdated": "2025-12-05T13:12:26.000Z",
       "status": "open"
     },
     {
-      "title": "Attekmi: add PBS to Amcom",
-      "number": 6357,
+      "title": "Mile Analytics: Updated Analytics Adapter",
+      "number": 6358,
+      "author": {
+        "login": "shashankatd",
+        "id": 101392500
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T10:52:49.000Z",
+      "dateUpdated": "2025-12-05T07:03:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "docs: document WURFL Device Detection Module for Prebid Server",
+      "number": 6279,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-03T11:02:41.000Z",
+      "dateUpdated": "2025-12-04T16:21:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Download page: show gzipped size",
+      "number": 6067,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "muuki88"
+      ],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-27T14:17:17.000Z",
+      "dateUpdated": "2025-12-04T16:09:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update docs",
+      "number": 6251,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:16:10.000Z",
+      "dateUpdated": "2025-12-02T15:58:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add RadiantFusion alias",
+      "number": 6356,
       "author": {
         "login": "SmartHubSolutions",
         "id": 87376145
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-27T11:43:02.000Z",
-      "dateUpdated": "2025-11-27T11:47:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Public Good - new adapter",
-      "number": 6258,
-      "author": {
-        "login": "aaronkoss",
-        "id": 7459907
-      },
-      "assignees": [],
       "reviewers": [
         {
-          "login": "muuki88",
+          "login": "lpagnypubstack",
           "state": "APPROVED"
-        },
-        {
-          "login": "aaronkoss",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-15T15:30:19.000Z",
-      "dateUpdated": "2025-11-26T18:59:13.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Trustx bidder adapter",
-      "number": 6355,
-      "author": {
-        "login": "trustXops",
-        "id": 207739730
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-26T15:48:59.000Z",
-      "dateUpdated": "2025-11-26T15:50:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Nexx360 BidAdapter: placement added",
-      "number": 6349,
-      "author": {
-        "login": "gchicoye",
-        "id": 22325848
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-20T09:31:03.000Z",
-      "dateUpdated": "2025-11-25T17:15:19.000Z",
+      "dateCreated": "2025-11-27T07:59:55.000Z",
+      "dateUpdated": "2025-11-27T22:19:37.000Z",
       "status": "open"
     },
     {
@@ -179,25 +251,6 @@
       "status": "open"
     },
     {
-      "title": "IntentIq ID Module: Add new param",
-      "number": 6278,
-      "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-02T17:28:16.000Z",
-      "dateUpdated": "2025-11-24T10:52:33.000Z",
-      "status": "open"
-    },
-    {
       "title": "docs(permutive): update consent section",
       "number": 6352,
       "author": {
@@ -209,33 +262,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-24T10:30:04.000Z",
       "dateUpdated": "2025-11-24T10:32:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Update docs",
-      "number": 6251,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:16:10.000Z",
-      "dateUpdated": "2025-11-23T08:33:38.000Z",
       "status": "open"
     },
     {
@@ -310,29 +336,6 @@
       "status": "open"
     },
     {
-      "title": "Document flex ad mediaType / bidResponse options",
-      "number": 6324,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T17:07:30.000Z",
-      "dateUpdated": "2025-11-13T15:51:34.000Z",
-      "status": "open"
-    },
-    {
       "title": "Adagio: update bidder adapter documentation",
       "number": 6327,
       "author": {
@@ -344,25 +347,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-07T09:18:49.000Z",
       "dateUpdated": "2025-11-13T10:29:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "docs: Update Neuwo RTD module documentation with url cleaning information",
-      "number": 6319,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-03T13:51:04.000Z",
-      "dateUpdated": "2025-11-12T09:51:46.000Z",
       "status": "open"
     },
     {
@@ -557,25 +541,6 @@
       "status": "open"
     },
     {
-      "title": "Add TopOn adapter",
-      "number": 6311,
-      "author": {
-        "login": "topOnFens",
-        "id": 118327552
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lpagnypubstack",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-27T12:37:33.000Z",
-      "dateUpdated": "2025-10-30T12:58:48.000Z",
-      "status": "open"
-    },
-    {
       "title": "Remove Quantcast bidder documentation.",
       "number": 6306,
       "author": {
@@ -587,25 +552,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T13:34:28.000Z",
       "dateUpdated": "2025-10-28T08:07:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Docs for page view ID-related changes.",
-      "number": 6305,
-      "author": {
-        "login": "acsbendi",
-        "id": 30595431
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T08:33:12.000Z",
-      "dateUpdated": "2025-10-23T09:31:08.000Z",
       "status": "open"
     },
     {
@@ -670,39 +616,6 @@
       "status": "open"
     },
     {
-      "title": "docs: document WURFL Device Detection Module for Prebid Server",
-      "number": 6279,
-      "author": {
-        "login": "lucor",
-        "id": 313577
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-03T11:02:41.000Z",
-      "dateUpdated": "2025-10-13T13:03:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "optable: Update server-side module configuration instructions to reflect the latest changes",
-      "number": 6272,
-      "author": {
-        "login": "softcoder594",
-        "id": 195325408
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-29T17:54:29.000Z",
-      "dateUpdated": "2025-10-04T10:36:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "Update Appstock Bid Adapter documentation",
       "number": 6270,
       "author": {
@@ -755,27 +668,6 @@
       "status": "open"
     },
     {
-      "title": "Download page: show gzipped size",
-      "number": 6067,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "muuki88"
-      ],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-27T14:17:17.000Z",
-      "dateUpdated": "2025-10-01T15:15:46.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Module: SeenThis Brand Stories",
       "number": 6274,
       "author": {
@@ -820,37 +712,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-02-21T12:21:18.000Z",
       "dateUpdated": "2025-09-04T07:36:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Performist",
-      "number": 5968,
-      "author": {
-        "login": "quietPusher",
-        "id": 129727954
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "bretg",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "quietPusher",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "apykhteyev",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-03-27T15:49:16.000Z",
-      "dateUpdated": "2025-09-04T06:34:07.000Z",
       "status": "open"
     },
     {

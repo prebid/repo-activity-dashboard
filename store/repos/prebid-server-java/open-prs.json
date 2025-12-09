@@ -1,59 +1,70 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-12-02T15:36:02.742Z",
+    "lastSync": "2025-12-09T15:29:08.944Z",
     "itemCount": 23
   },
   "items": [
     {
-      "title": "Fix #4304: incorrect naming in userSync configs",
-      "number": 4305,
+      "title": "DATA-46374: LI EID permissions",
+      "number": 4315,
       "author": {
-        "login": "EmilNadimanov",
-        "id": 63649196
+        "login": "SuperIzya",
+        "id": 7934182
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-12-02T13:57:50.000Z",
-      "dateUpdated": "2025-12-02T13:57:50.000Z",
+      "dateCreated": "2025-12-09T09:25:43.000Z",
+      "dateUpdated": "2025-12-09T09:26:38.000Z",
       "status": "open"
     },
     {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
+      "title": "RTBHouse: Extract tagid from Imp fields",
+      "number": 4306,
       "author": {
-        "login": "osulzhenko",
-        "id": 125548596
+        "login": "piotrj-rtbh",
+        "id": 109736938
       },
-      "assignees": [
-        "osulzhenko"
-      ],
+      "assignees": [],
       "reviewers": [
         {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
+          "login": "CTMBNara",
+          "state": "PENDING"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2025-12-02T13:51:24.000Z",
+      "dateCreated": "2025-12-02T16:08:52.000Z",
+      "dateUpdated": "2025-12-08T08:33:56.000Z",
       "status": "open"
     },
     {
-      "title": "Decrease the version of the InfluxDB metrics",
-      "number": 4292,
+      "title": "New Adapter: Clydo",
+      "number": 4299,
       "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
+        "login": "przemkaczmarek",
+        "id": 167743744
       },
-      "assignees": [
-        "AntoxaAntoxic"
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
       ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-30T10:10:01.000Z",
+      "dateUpdated": "2025-12-06T13:18:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: Microsoft",
+      "number": 4310,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
       "reviewers": [
         {
           "login": "And1sS",
@@ -65,8 +76,8 @@
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-20T10:37:42.000Z",
-      "dateUpdated": "2025-12-02T12:44:17.000Z",
+      "dateCreated": "2025-12-05T13:18:24.000Z",
+      "dateUpdated": "2025-12-05T13:18:24.000Z",
       "status": "open"
     },
     {
@@ -93,7 +104,76 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-01T12:07:51.000Z",
-      "dateUpdated": "2025-12-02T09:01:55.000Z",
+      "dateUpdated": "2025-12-05T12:43:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2025-12-05T09:40:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "dateUpdated": "2025-12-04T11:24:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get Interface",
+      "number": 4295,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T16:55:27.000Z",
+      "dateUpdated": "2025-12-03T13:01:05.000Z",
       "status": "open"
     },
     {
@@ -129,46 +209,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Clydo",
-      "number": 4299,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-30T10:10:01.000Z",
-      "dateUpdated": "2025-12-01T09:31:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "CWire: Add userSync",
-      "number": 4288,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-19T08:32:46.000Z",
-      "dateUpdated": "2025-11-28T14:15:10.000Z",
-      "status": "open"
-    },
-    {
       "title": "Dependencies: Update compatibility-breaking dependencies",
       "number": 4235,
       "author": {
@@ -191,31 +231,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-09T09:43:11.000Z",
       "dateUpdated": "2025-11-28T08:38:17.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Refactoring functional tests",
-      "number": 3657,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2025-11-28T08:36:52.000Z",
       "status": "open"
     },
     {
@@ -263,25 +278,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-18T13:29:49.000Z",
       "dateUpdated": "2025-11-27T12:03:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Get Interface",
-      "number": 4295,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T16:55:27.000Z",
-      "dateUpdated": "2025-11-25T18:08:37.000Z",
       "status": "open"
     },
     {

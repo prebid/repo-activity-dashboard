@@ -1,10 +1,90 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2025-12-02T15:35:44.212Z",
+    "lastSync": "2025-12-09T15:28:42.233Z",
     "itemCount": 101
   },
   "items": [
+    {
+      "title": "Professor Prebid with Prebid 10+ causes log spam",
+      "number": 14244,
+      "author": {
+        "login": "salvoaranzulla",
+        "id": 5984607
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-08T16:43:11.000Z",
+      "dateUpdated": "2025-12-08T17:56:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 10.12.0 prebid.renderAd does not render certain banner ads that break out of the frame but do not walk up additional frames anymore",
+      "number": 14048,
+      "author": {
+        "login": "damjan25",
+        "id": 60606529
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-21T15:39:01.000Z",
+      "dateUpdated": "2025-12-04T08:08:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Cache useLocal and IMA params",
+      "number": 14014,
+      "author": {
+        "login": "ReinoutStevens",
+        "id": 518971
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-10-14T14:02:43.000Z",
+      "dateUpdated": "2025-12-03T22:00:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "maxRequestsPerOrigin should be configurable by bidder or possible to disable from the bidder spec",
+      "number": 14231,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-12-02T16:20:26.000Z",
+      "dateUpdated": "2025-12-03T17:47:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "TCF restrictions for server-side bidders ",
+      "number": 12084,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2024-08-02T21:57:02.000Z",
+      "dateUpdated": "2025-12-02T16:24:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PubxAi and Pubmatic RTD: remove import of continueAuction",
+      "number": 14230,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "pm-harshad-mane"
+      ],
+      "dateCreated": "2025-12-02T15:42:29.000Z",
+      "dateUpdated": "2025-12-02T16:14:56.000Z",
+      "status": "open"
+    },
     {
       "title": "TCF Module: submit dsa render info to external api / enable publisher to render",
       "number": 10958,
@@ -42,18 +122,6 @@
       "status": "open"
     },
     {
-      "title": "Prebid 10.12.0 prebid.renderAd does not render certain banner ads that break out of the frame but do not walk up additional frames anymore",
-      "number": 14048,
-      "author": {
-        "login": "damjan25",
-        "id": 60606529
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-21T15:39:01.000Z",
-      "dateUpdated": "2025-12-01T16:03:28.000Z",
-      "status": "open"
-    },
-    {
       "title": "Feature: pass renderer into frames",
       "number": 10780,
       "author": {
@@ -78,18 +146,6 @@
       "status": "open"
     },
     {
-      "title": "Fingerprinting APIs",
-      "number": 12060,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-07-30T19:58:12.000Z",
-      "dateUpdated": "2025-11-20T21:40:03.000Z",
-      "status": "open"
-    },
-    {
       "title": "Suggestion: Yahoo bidder can avoid preflight requests",
       "number": 12948,
       "author": {
@@ -99,18 +155,6 @@
       "assignees": [],
       "dateCreated": "2025-04-01T18:54:07.000Z",
       "dateUpdated": "2025-11-20T13:16:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Cache useLocal and IMA params",
-      "number": 14014,
-      "author": {
-        "login": "ReinoutStevens",
-        "id": 518971
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-14T14:02:43.000Z",
-      "dateUpdated": "2025-11-19T18:45:58.000Z",
       "status": "open"
     },
     {
@@ -321,18 +365,6 @@
       "assignees": [],
       "dateCreated": "2024-04-17T20:22:08.000Z",
       "dateUpdated": "2025-08-25T15:41:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: restore skip enrichment flag",
-      "number": 11184,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-03-07T19:48:53.000Z",
-      "dateUpdated": "2025-08-25T15:36:38.000Z",
       "status": "open"
     },
     {
@@ -776,18 +808,6 @@
       "status": "open"
     },
     {
-      "title": "TCF restrictions for server-side bidders ",
-      "number": 12084,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-08-02T21:57:02.000Z",
-      "dateUpdated": "2025-04-08T15:11:40.000Z",
-      "status": "open"
-    },
-    {
       "title": "Additional Data for Auction Debugging and Auction End Events in Compliance Scenarios",
       "number": 12927,
       "author": {
@@ -981,20 +1001,6 @@
       "assignees": [],
       "dateCreated": "2024-09-03T15:01:30.000Z",
       "dateUpdated": "2024-09-03T15:01:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "`maxRequestsPerOrigin` should apply to all requests, not just bidders",
-      "number": 10350,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2023-08-10T21:27:49.000Z",
-      "dateUpdated": "2024-09-03T14:04:43.000Z",
       "status": "open"
     },
     {
