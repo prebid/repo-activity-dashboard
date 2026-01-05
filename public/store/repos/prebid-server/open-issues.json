@@ -1,20 +1,188 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2025-12-09T15:29:00.281Z",
-    "itemCount": 207
+    "lastSync": "2026-01-05T12:43:14.198Z",
+    "itemCount": 212
   },
   "items": [
     {
-      "title": "Port PR from PBS-Java: Rule Engine: Fix eviction policy for rule cache",
-      "number": 4628,
+      "title": "Feature request: page view ID",
+      "number": 4649,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-05T11:00:13.000Z",
+      "dateUpdated": "2026-01-05T11:00:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server 5.0",
+      "number": 4643,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-22T15:58:25.000Z",
+      "dateUpdated": "2025-12-22T15:58:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server 4.0",
+      "number": 3861,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2024-08-14T16:19:08.000Z",
+      "dateUpdated": "2025-12-22T15:55:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Fix vulnerability in cross-repo-issue GitHub action",
+      "number": 4642,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2025-12-09T00:15:21.000Z",
-      "dateUpdated": "2025-12-09T00:15:21.000Z",
+      "dateCreated": "2025-12-22T14:42:22.000Z",
+      "dateUpdated": "2025-12-22T14:42:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Handle deleted GVL entities",
+      "number": 4439,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-07-16T17:16:02.000Z",
+      "dateUpdated": "2025-12-17T18:40:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Option to do array merges on bcat and badv",
+      "number": 4638,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-17T17:22:07.000Z",
+      "dateUpdated": "2025-12-17T17:22:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Option to do array merges or permissioning on user segments",
+      "number": 4111,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2024-12-16T16:15:22.000Z",
+      "dateUpdated": "2025-12-17T15:48:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Extend EID Permissions",
+      "number": 4623,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-03T01:49:37.000Z",
+      "dateUpdated": "2025-12-17T15:29:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bidder adapter data race test doesn't detect modifications of slices' underlying arrays",
+      "number": 4637,
+      "author": {
+        "login": "peterfajdiga-a11",
+        "id": 216509079
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-17T13:37:22.000Z",
+      "dateUpdated": "2025-12-17T13:37:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS-Go: Use global logging objects through shims to be able to swap implementations",
+      "number": 4084,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "dateCreated": "2024-12-04T00:32:23.000Z",
+      "dateUpdated": "2025-12-12T06:16:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Add a warning for when targeting attributes are truncated",
+      "number": 4552,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-09-29T12:02:33.000Z",
+      "dateUpdated": "2025-12-11T15:43:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
+      "number": 4501,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-27T08:01:38.000Z",
+      "dateUpdated": "2025-12-11T15:42:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Inconsistent consented_providers format between Prebid Server and Google – integers vs. strings",
+      "number": 4466,
+      "author": {
+        "login": "pm-isha-bharti",
+        "id": 8835973
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2025-07-31T10:13:12.000Z",
+      "dateUpdated": "2025-12-11T15:40:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS event tracking with local caching",
+      "number": 4315,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2025-04-24T21:42:33.000Z",
+      "dateUpdated": "2025-12-11T15:28:43.000Z",
       "status": "open"
     },
     {
@@ -26,19 +194,21 @@
       },
       "assignees": [],
       "dateCreated": "2025-12-05T16:02:27.000Z",
-      "dateUpdated": "2025-12-08T21:13:58.000Z",
+      "dateUpdated": "2025-12-11T15:14:47.000Z",
       "status": "open"
     },
     {
-      "title": "Modules and execution plans",
-      "number": 3880,
+      "title": "Support general GET interface",
+      "number": 3726,
       "author": {
         "login": "bretg",
         "id": 4412838
       },
-      "assignees": [],
-      "dateCreated": "2024-08-23T13:31:33.000Z",
-      "dateUpdated": "2025-12-05T10:21:09.000Z",
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2024-06-04T19:06:43.000Z",
+      "dateUpdated": "2025-12-09T16:23:50.000Z",
       "status": "open"
     },
     {
@@ -52,19 +222,31 @@
         "sigma-software-prebid"
       ],
       "dateCreated": "2024-02-16T16:36:54.000Z",
-      "dateUpdated": "2025-12-04T17:50:09.000Z",
+      "dateUpdated": "2025-12-09T16:23:31.000Z",
       "status": "open"
     },
     {
-      "title": "Extend EID Permissions",
-      "number": 4623,
+      "title": "Port PR from PBS-Java: Rule Engine: Fix eviction policy for rule cache",
+      "number": 4628,
       "author": {
-        "login": "Net-burst",
-        "id": 720803
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2025-12-03T01:49:37.000Z",
-      "dateUpdated": "2025-12-03T15:40:44.000Z",
+      "dateCreated": "2025-12-09T00:15:21.000Z",
+      "dateUpdated": "2025-12-09T00:15:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules and execution plans",
+      "number": 3880,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-08-23T13:31:33.000Z",
+      "dateUpdated": "2025-12-05T10:21:09.000Z",
       "status": "open"
     },
     {
@@ -89,18 +271,6 @@
       "assignees": [],
       "dateCreated": "2025-12-01T12:59:05.000Z",
       "dateUpdated": "2025-12-01T12:59:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Option to do array merges or permissioning on user segments",
-      "number": 4111,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-16T16:15:22.000Z",
-      "dateUpdated": "2025-11-24T23:30:15.000Z",
       "status": "open"
     },
     {
@@ -240,18 +410,6 @@
       "status": "open"
     },
     {
-      "title": "Prebid Server 4.0",
-      "number": 3861,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2025-11-05T15:55:23.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Java: Adagio: Remove max length on params ",
       "number": 4598,
       "author": {
@@ -368,18 +526,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Add a warning for when targeting attributes are truncated",
-      "number": 4552,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-29T12:02:33.000Z",
-      "dateUpdated": "2025-10-03T14:51:30.000Z",
-      "status": "open"
-    },
-    {
       "title": "AMP auction `ProcessStoredResponses` errors are unchecked",
       "number": 4541,
       "author": {
@@ -457,18 +603,6 @@
       ],
       "dateCreated": "2025-09-05T14:54:56.000Z",
       "dateUpdated": "2025-09-26T06:00:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Handle deleted GVL entities",
-      "number": 4439,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-16T17:16:02.000Z",
-      "dateUpdated": "2025-09-24T16:15:39.000Z",
       "status": "open"
     },
     {
@@ -598,32 +732,6 @@
       "assignees": [],
       "dateCreated": "2022-07-06T18:21:06.000Z",
       "dateUpdated": "2025-09-11T02:42:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
-      "number": 4501,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-27T08:01:38.000Z",
-      "dateUpdated": "2025-09-10T14:48:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support general GET interface",
-      "number": 3726,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2024-06-04T19:06:43.000Z",
-      "dateUpdated": "2025-09-08T14:02:46.000Z",
       "status": "open"
     },
     {
@@ -793,18 +901,6 @@
       "status": "open"
     },
     {
-      "title": "Inconsistent consented_providers format between Prebid Server and Google – integers vs. strings",
-      "number": 4466,
-      "author": {
-        "login": "pm-isha-bharti",
-        "id": 8835973
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-31T10:13:12.000Z",
-      "dateUpdated": "2025-08-08T14:18:53.000Z",
-      "status": "open"
-    },
-    {
       "title": "Configure analytics adapters per account",
       "number": 3809,
       "author": {
@@ -816,21 +912,6 @@
       ],
       "dateCreated": "2024-07-12T17:53:40.000Z",
       "dateUpdated": "2025-07-22T14:06:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS event tracking with local caching",
-      "number": 4315,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [
-        "Net-burst",
-        "bsardo"
-      ],
-      "dateCreated": "2025-04-24T21:42:33.000Z",
-      "dateUpdated": "2025-07-21T15:21:24.000Z",
       "status": "open"
     },
     {
@@ -882,7 +963,8 @@
         "id": 122121745
       },
       "assignees": [
-        "bsardo"
+        "bsardo",
+        "SyntaxNode"
       ],
       "dateCreated": "2025-07-09T09:34:16.000Z",
       "dateUpdated": "2025-07-11T14:29:11.000Z",
@@ -1092,7 +1174,6 @@
         "id": 122121745
       },
       "assignees": [
-        "Net-burst",
         "bsardo"
       ],
       "dateCreated": "2024-10-30T13:43:08.000Z",
@@ -1584,18 +1665,6 @@
       "assignees": [],
       "dateCreated": "2022-11-29T15:14:58.000Z",
       "dateUpdated": "2025-01-15T14:01:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS-Go: Use global objects through shims to be able to swap implementations",
-      "number": 4084,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-04T00:32:23.000Z",
-      "dateUpdated": "2025-01-13T15:19:38.000Z",
       "status": "open"
     },
     {

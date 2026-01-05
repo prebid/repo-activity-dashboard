@@ -1,32 +1,50 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2025-12-09T15:29:08.945Z",
-    "itemCount": 29
+    "lastSync": "2026-01-05T12:43:21.302Z",
+    "itemCount": 28
   },
   "items": [
     {
-      "title": "Port PR from PBS-Go: Warn in auction response for bidders blocked by privacy settings",
-      "number": 4314,
+      "title": "IX adapter crashes when there is no interstitial size",
+      "number": 4325,
       "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
+        "login": "justadreamer",
+        "id": 341967
       },
-      "assignees": [],
-      "dateCreated": "2025-12-09T02:57:36.000Z",
-      "dateUpdated": "2025-12-09T02:57:36.000Z",
+      "assignees": [
+        "Lightwood13"
+      ],
+      "dateCreated": "2025-12-16T22:13:56.000Z",
+      "dateUpdated": "2026-01-02T14:05:04.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Adagio: Remove hardcoded adagio seat name",
-      "number": 4313,
+      "title": "Dependencies: Update compatibility-breaking dependencies",
+      "number": 3917,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2025-04-16T23:59:57.000Z",
+      "dateUpdated": "2025-12-22T16:37:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Rules Engine Module: Dynamic ruleset from YAML geoscopes",
+      "number": 4267,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [],
-      "dateCreated": "2025-12-09T02:45:53.000Z",
-      "dateUpdated": "2025-12-09T02:45:53.000Z",
+      "assignees": [
+        "And1sS"
+      ],
+      "dateCreated": "2025-10-24T13:46:10.000Z",
+      "dateUpdated": "2025-12-12T08:32:56.000Z",
       "status": "open"
     },
     {
@@ -36,9 +54,54 @@
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [],
+      "assignees": [
+        "przemkaczmarek"
+      ],
       "dateCreated": "2025-12-09T02:01:12.000Z",
-      "dateUpdated": "2025-12-09T02:01:12.000Z",
+      "dateUpdated": "2025-12-12T08:28:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adagio: Remove hardcoded adagio seat name",
+      "number": 4313,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2025-12-09T02:45:53.000Z",
+      "dateUpdated": "2025-12-12T08:28:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Warn in auction response for bidders blocked by privacy settings",
+      "number": 4314,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-12-09T02:57:36.000Z",
+      "dateUpdated": "2025-12-12T08:18:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: TMax: Add default host config",
+      "number": 4070,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2025-07-17T13:34:26.000Z",
+      "dateUpdated": "2025-12-11T15:39:14.000Z",
       "status": "open"
     },
     {
@@ -48,9 +111,25 @@
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
-      "assignees": [],
+      "assignees": [
+        "Lightwood13"
+      ],
       "dateCreated": "2025-12-08T21:42:30.000Z",
-      "dateUpdated": "2025-12-08T21:42:30.000Z",
+      "dateUpdated": "2025-12-11T15:15:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Zeta Global SSP: Add sid parameter and audio support",
+      "number": 3818,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2025-03-10T16:51:38.000Z",
+      "dateUpdated": "2025-12-11T15:05:12.000Z",
       "status": "open"
     },
     {
@@ -110,20 +189,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Metrics: Add connection dial metrics by adapter",
-      "number": 4210,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "dateCreated": "2025-09-23T19:40:31.000Z",
-      "dateUpdated": "2025-11-13T15:13:48.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: New adapter: 360playvid",
       "number": 4202,
       "author": {
@@ -157,18 +222,6 @@
       "assignees": [],
       "dateCreated": "2025-09-23T14:34:46.000Z",
       "dateUpdated": "2025-11-06T13:13:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Rules Engine Module: Dynamic ruleset from YAML geoscopes",
-      "number": 4267,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T13:46:10.000Z",
-      "dateUpdated": "2025-10-24T13:46:10.000Z",
       "status": "open"
     },
     {
@@ -210,32 +263,6 @@
       "status": "open"
     },
     {
-      "title": "Dependencies: Update compatibility-breaking dependencies",
-      "number": 3917,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-04-16T23:59:57.000Z",
-      "dateUpdated": "2025-09-18T08:20:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Define An Adapter As White Label Only",
-      "number": 4125,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-08T00:43:51.000Z",
-      "dateUpdated": "2025-08-08T00:43:51.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: RTB House: Remove PAAPI signals from imp[].ext",
       "number": 4084,
       "author": {
@@ -255,36 +282,11 @@
         "id": 122121745
       },
       "assignees": [
-        "AntoxaAntoxic"
+        "AntoxaAntoxic",
+        "osulzhenko"
       ],
       "dateCreated": "2025-07-14T19:06:16.000Z",
       "dateUpdated": "2025-07-31T08:03:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Zeta Global SSP: Add sid parameter and audio support",
-      "number": 3818,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "dateCreated": "2025-03-10T16:51:38.000Z",
-      "dateUpdated": "2025-07-31T08:03:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: TMax: Add default host config",
-      "number": 4070,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-17T13:34:26.000Z",
-      "dateUpdated": "2025-07-28T09:04:59.000Z",
       "status": "open"
     },
     {

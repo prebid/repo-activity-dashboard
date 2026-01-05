@@ -1,22 +1,220 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2025-12-09T15:29:27.686Z",
-    "itemCount": 45
+    "lastSync": "2026-01-05T12:43:40.238Z",
+    "itemCount": 56
   },
   "items": [
     {
-      "title": "IntentIq ID:  add new parameter `abPercentage`",
-      "number": 6361,
+      "title": "[Update] Add Prebid Server support for Scalibur bidder",
+      "number": 6381,
       "author": {
-        "login": "DimaIntentIQ",
-        "id": 139111483
+        "login": "bTimor",
+        "id": 184917484
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-12-09T11:53:19.000Z",
-      "dateUpdated": "2025-12-09T11:55:15.000Z",
+      "dateCreated": "2025-12-28T09:42:33.000Z",
+      "dateUpdated": "2025-12-28T09:44:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adkernel: documenting appmonsta alias",
+      "number": 6380,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-24T13:11:11.000Z",
+      "dateUpdated": "2025-12-24T13:13:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Adoppler/ElementaTv:",
+      "number": 6374,
+      "author": {
+        "login": "pavel-ptashyts",
+        "id": 49400901
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "pavel-ptashyts",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T09:52:38.000Z",
+      "dateUpdated": "2025-12-23T13:57:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adkernel: updating waardex_ak alias",
+      "number": 6379,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T13:09:59.000Z",
+      "dateUpdated": "2025-12-23T13:12:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Added Bid Adapter MyCodeMedia",
+      "number": 6362,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T17:02:58.000Z",
+      "dateUpdated": "2025-12-22T15:50:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Ogury: update prebid doc - allow inventory mapping for in-app.",
+      "number": 6371,
+      "author": {
+        "login": "crepi",
+        "id": 6392930
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T09:48:41.000Z",
+      "dateUpdated": "2025-12-22T15:47:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Bid Adapter: Alliance Gravity",
+      "number": 6372,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T14:19:08.000Z",
+      "dateUpdated": "2025-12-22T15:46:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Revise Opt Out Advertising documentation",
+      "number": 6375,
+      "author": {
+        "login": "doelwit",
+        "id": 1334100
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T11:21:56.000Z",
+      "dateUpdated": "2025-12-22T15:40:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[tcfControl module] deferS2Sbidders flag",
+      "number": 6377,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T14:56:39.000Z",
+      "dateUpdated": "2025-12-22T15:34:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Document new requestBids event argument",
+      "number": 6378,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T15:22:38.000Z",
+      "dateUpdated": "2025-12-22T15:33:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBJS: documentation for yield and legacyRender flags",
+      "number": 6376,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T14:33:08.000Z",
+      "dateUpdated": "2025-12-22T15:29:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove required host from Limelight prebid server adapters",
+      "number": 6031,
+      "author": {
+        "login": "apykhteyev",
+        "id": 4188019
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-09T12:12:27.000Z",
+      "dateUpdated": "2025-12-19T12:36:51.000Z",
       "status": "open"
     },
     {
@@ -35,21 +233,134 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-04T13:13:03.000Z",
-      "dateUpdated": "2025-12-08T18:29:29.000Z",
+      "dateUpdated": "2025-12-18T14:50:56.000Z",
       "status": "open"
     },
     {
-      "title": "Ybidder adapter added",
-      "number": 6360,
+      "title": "JS: documentation for FPD keywords configuration options",
+      "number": 6364,
       "author": {
-        "login": "gchicoye",
-        "id": 22325848
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T18:02:36.000Z",
+      "dateUpdated": "2025-12-17T16:58:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: allegro",
+      "number": 6329,
+      "author": {
+        "login": "m-figurski-allegro",
+        "id": 224607016
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "m-figurski-allegro",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:14:42.000Z",
+      "dateUpdated": "2025-12-16T14:21:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "51degrees: add ThirdPartyCookiesEnabled support",
+      "number": 6368,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T19:59:36.000Z",
+      "dateUpdated": "2025-12-16T00:52:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "DAS Bid Adapter:",
+      "number": 6326,
+      "author": {
+        "login": "aszydlo-ras",
+        "id": 182861439
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T13:59:28.000Z",
+      "dateUpdated": "2025-12-11T08:01:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: add region to Markapp",
+      "number": 6366,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-12-08T15:54:01.000Z",
-      "dateUpdated": "2025-12-08T15:55:51.000Z",
+      "dateCreated": "2025-12-11T07:49:56.000Z",
+      "dateUpdated": "2025-12-11T08:00:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "APS Bid Adapter Initial Release",
+      "number": 6363,
+      "author": {
+        "login": "bjoberg-amzn",
+        "id": 234021370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T21:35:15.000Z",
+      "dateUpdated": "2025-12-10T17:29:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "docs(permutive): update consent section",
+      "number": 6352,
+      "author": {
+        "login": "AntonioGargaro",
+        "id": 38767071
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T10:30:04.000Z",
+      "dateUpdated": "2025-12-09T21:21:39.000Z",
       "status": "open"
     },
     {
@@ -83,43 +394,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-26T15:48:59.000Z",
       "dateUpdated": "2025-12-05T15:03:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: allegro",
-      "number": 6329,
-      "author": {
-        "login": "m-figurski-allegro",
-        "id": 224607016
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        },
-        {
-          "login": "m-figurski-allegro",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T14:14:42.000Z",
-      "dateUpdated": "2025-12-05T13:12:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Mile Analytics: Updated Analytics Adapter",
-      "number": 6358,
-      "author": {
-        "login": "shashankatd",
-        "id": 101392500
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-04T10:52:49.000Z",
-      "dateUpdated": "2025-12-05T07:03:21.000Z",
       "status": "open"
     },
     {
@@ -251,20 +525,6 @@
       "status": "open"
     },
     {
-      "title": "docs(permutive): update consent section",
-      "number": 6352,
-      "author": {
-        "login": "AntonioGargaro",
-        "id": 38767071
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T10:30:04.000Z",
-      "dateUpdated": "2025-11-24T10:32:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "Deprecate 'openwebxchange' bidder page (use 'openweb')",
       "number": 6325,
       "author": {
@@ -333,20 +593,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-14T08:21:18.000Z",
       "dateUpdated": "2025-11-14T08:38:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: update bidder adapter documentation",
-      "number": 6327,
-      "author": {
-        "login": "osazos",
-        "id": 16453882
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-07T09:18:49.000Z",
-      "dateUpdated": "2025-11-13T10:29:24.000Z",
       "status": "open"
     },
     {
@@ -422,20 +668,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T00:50:17.000Z",
       "dateUpdated": "2025-11-07T09:27:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DAS Bid Adapter:",
-      "number": 6326,
-      "author": {
-        "login": "aszydlo-ras",
-        "id": 182861439
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-06T13:59:28.000Z",
-      "dateUpdated": "2025-11-07T09:23:27.000Z",
       "status": "open"
     },
     {
@@ -679,25 +911,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-30T11:14:10.000Z",
       "dateUpdated": "2025-10-01T08:55:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove required host from Limelight prebid server adapters",
-      "number": 6031,
-      "author": {
-        "login": "apykhteyev",
-        "id": 4188019
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-09T12:12:27.000Z",
-      "dateUpdated": "2025-09-04T10:39:53.000Z",
       "status": "open"
     },
     {
