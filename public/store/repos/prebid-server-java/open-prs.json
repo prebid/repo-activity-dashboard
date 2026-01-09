@@ -1,35 +1,10 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2026-01-05T12:43:21.299Z",
-    "itemCount": 35
+    "lastSync": "2026-01-09T12:04:21.873Z",
+    "itemCount": 38
   },
   "items": [
-    {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2026-01-05T10:25:20.000Z",
-      "status": "open"
-    },
     {
       "title": "New adapter: Rename adoppler bidder adapter to elementaltv add adoppler as alias t…",
       "number": 4326,
@@ -40,17 +15,67 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
           "login": "pavel-ptashyts",
           "state": "COMMENTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-18T11:01:10.000Z",
-      "dateUpdated": "2026-01-05T09:48:59.000Z",
+      "dateUpdated": "2026-01-09T11:55:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTBHouse: Extract tagid from Imp fields",
+      "number": 4306,
+      "author": {
+        "login": "pjaworski-rtbh",
+        "id": 109736938
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "pjaworski-rtbh",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-02T16:08:52.000Z",
+      "dateUpdated": "2026-01-09T11:49:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Optidigital adapter: Add GPP support",
+      "number": 4333,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "Lightwood13",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-07T11:15:18.000Z",
+      "dateUpdated": "2026-01-09T11:44:05.000Z",
       "status": "open"
     },
     {
@@ -66,12 +91,221 @@
       "reviewers": [
         {
           "login": "osulzhenko",
-          "state": "PENDING"
+          "state": "CHANGES_REQUESTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-31T11:05:55.000Z",
-      "dateUpdated": "2026-01-02T14:18:57.000Z",
+      "dateUpdated": "2026-01-09T11:15:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2026-01-09T10:38:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Fix NPE for removing invalid config.",
+      "number": 4330,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-31T15:24:54.000Z",
+      "dateUpdated": "2026-01-09T09:19:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Remove `PAAPI` feature",
+      "number": 4298,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T14:21:17.000Z",
+      "dateUpdated": "2026-01-09T08:22:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Remove `Fledge` feature",
+      "number": 4297,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T13:58:01.000Z",
+      "dateUpdated": "2026-01-09T08:22:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get Interface",
+      "number": 4295,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T16:55:27.000Z",
+      "dateUpdated": "2026-01-09T08:22:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Allow duplicate cookie family names",
+      "number": 4316,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T14:41:30.000Z",
+      "dateUpdated": "2026-01-08T16:15:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove fields from requests to bidders",
+      "number": 4332,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T15:01:18.000Z",
+      "dateUpdated": "2026-01-08T15:09:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "StroeerCore: Use bid.ext as-is from the response",
+      "number": 4317,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T04:45:21.000Z",
+      "dateUpdated": "2026-01-08T14:12:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Refactoring: Add bidder request post-processing",
+      "number": 4322,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "Lightwood13",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T15:00:42.000Z",
+      "dateUpdated": "2026-01-08T12:48:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: Microsoft",
+      "number": 4310,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-05T13:18:24.000Z",
+      "dateUpdated": "2026-01-07T16:07:42.000Z",
       "status": "open"
     },
     {
@@ -92,7 +326,106 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-24T22:15:11.000Z",
-      "dateUpdated": "2026-01-02T14:18:48.000Z",
+      "dateUpdated": "2026-01-07T14:34:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Secondary bidders",
+      "number": 4331,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T14:29:29.000Z",
+      "dateUpdated": "2026-01-06T14:30:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mobkoi: Always set the TagID with our placementID",
+      "number": 4327,
+      "author": {
+        "login": "gabrielmougard",
+        "id": 27967361
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-22T17:52:20.000Z",
+      "dateUpdated": "2026-01-05T16:58:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Ogury: Allow inventory mapping for in-app traffic.",
+      "number": 4321,
+      "author": {
+        "login": "crepi",
+        "id": 6392930
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T09:56:35.000Z",
+      "dateUpdated": "2026-01-05T16:45:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: Enable site capability",
+      "number": 4320,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-13T13:02:35.000Z",
+      "dateUpdated": "2026-01-05T16:38:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adagio: Remove hardcoded seat name",
+      "number": 4319,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-13T12:57:51.000Z",
+      "dateUpdated": "2026-01-05T16:37:28.000Z",
       "status": "open"
     },
     {
@@ -110,12 +443,31 @@
         },
         {
           "login": "CTMBNara",
-          "state": "PENDING"
+          "state": "CHANGES_REQUESTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-09T09:25:43.000Z",
-      "dateUpdated": "2026-01-02T09:43:07.000Z",
+      "dateUpdated": "2026-01-05T16:07:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Clydo",
+      "number": 4299,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-30T10:10:01.000Z",
+      "dateUpdated": "2026-01-05T15:29:04.000Z",
       "status": "open"
     },
     {
@@ -171,126 +523,6 @@
       "status": "open"
     },
     {
-      "title": "Mobkoi: Always set the TagID with our placementID",
-      "number": 4327,
-      "author": {
-        "login": "gabrielmougard",
-        "id": 27967361
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-22T17:52:20.000Z",
-      "dateUpdated": "2026-01-02T09:18:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Refactoring: Add bidder request post-processing",
-      "number": 4322,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "Lightwood13",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-15T15:00:42.000Z",
-      "dateUpdated": "2026-01-02T09:17:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Ogury: Allow inventory mapping for in-app traffic.",
-      "number": 4321,
-      "author": {
-        "login": "crepi",
-        "id": 6392930
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-15T09:56:35.000Z",
-      "dateUpdated": "2026-01-02T09:16:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: Enable site capability",
-      "number": 4320,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-13T13:02:35.000Z",
-      "dateUpdated": "2026-01-02T09:16:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adagio: Remove hardcoded seat name",
-      "number": 4319,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-13T12:57:51.000Z",
-      "dateUpdated": "2026-01-02T09:16:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTBHouse: Extract tagid from Imp fields",
-      "number": 4306,
-      "author": {
-        "login": "piotrj-rtbh",
-        "id": 109736938
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-02T16:08:52.000Z",
-      "dateUpdated": "2026-01-02T09:15:43.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: Goldbach",
       "number": 4300,
       "author": {
@@ -317,25 +549,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-01T12:07:51.000Z",
       "dateUpdated": "2026-01-02T09:13:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Clydo",
-      "number": 4299,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-30T10:10:01.000Z",
-      "dateUpdated": "2026-01-02T09:12:31.000Z",
       "status": "open"
     },
     {
@@ -386,148 +599,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-09T09:43:11.000Z",
       "dateUpdated": "2026-01-02T09:10:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Fix NPE for removing invalid config.",
-      "number": 4330,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-31T15:24:54.000Z",
-      "dateUpdated": "2025-12-31T15:25:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Get Interface",
-      "number": 4295,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T16:55:27.000Z",
-      "dateUpdated": "2025-12-31T11:19:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `Fledge` feature",
-      "number": 4297,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T13:58:01.000Z",
-      "dateUpdated": "2025-12-31T11:18:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `PAAPI` feature",
-      "number": 4298,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T14:21:17.000Z",
-      "dateUpdated": "2025-12-31T11:18:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Microsoft",
-      "number": 4310,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-05T13:18:24.000Z",
-      "dateUpdated": "2025-12-31T11:17:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Allow duplicate cookie family names",
-      "number": 4316,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-10T14:41:30.000Z",
-      "dateUpdated": "2025-12-31T11:16:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "StroeerCore: Use bid.ext as-is from the response",
-      "number": 4317,
-      "author": {
-        "login": "philipwatson",
-        "id": 2080240
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-11T04:45:21.000Z",
-      "dateUpdated": "2025-12-31T11:16:09.000Z",
       "status": "open"
     },
     {
