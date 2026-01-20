@@ -1,16 +1,46 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-01-09T12:04:15.919Z",
-    "itemCount": 93
+    "lastSync": "2026-01-20T14:32:13.715Z",
+    "itemCount": 83
   },
   "items": [
     {
-      "title": "New Adapter: Adastra - Attekmi alias",
-      "number": 4607,
+      "title": "New Adapter: ElementalTv",
+      "number": 4639,
       "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
+        "login": "pavel-ptashyts",
+        "id": 49400901
+      },
+      "assignees": [
+        "bsardo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pavel-ptashyts",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T09:00:35.000Z",
+      "dateUpdated": "2026-01-20T13:18:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adverxo Bid Adapter: New alias harrenmedia",
+      "number": 4597,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
       },
       "assignees": [
         "bsardo",
@@ -19,34 +49,260 @@
       "reviewers": [
         {
           "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T11:52:34.000Z",
+      "dateUpdated": "2026-01-20T09:15:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Missena: Update parameters and add versioning support",
+      "number": 4557,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ysfbsf",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T14:09:31.000Z",
+      "dateUpdated": "2026-01-20T08:15:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Adklip - Aso alias",
+      "number": 4581,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "adserver-online",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
           "state": "APPROVED"
         },
         {
-          "login": "SmartHubSolutions",
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sleptor",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T13:44:48.000Z",
+      "dateUpdated": "2026-01-19T19:19:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: iqiyi",
+      "number": 4605,
+      "author": {
+        "login": "Heihuang",
+        "id": 21191895
+      },
+      "assignees": [
+        "pm-nikhil-vaidya",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Heihuang",
           "state": "COMMENTED"
         },
         {
           "login": "postindustria-code",
           "state": "APPROVED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-17T18:15:28.000Z",
-      "dateUpdated": "2026-01-09T11:27:03.000Z",
+      "dateCreated": "2025-11-13T07:37:04.000Z",
+      "dateUpdated": "2026-01-19T09:34:36.000Z",
       "status": "open"
     },
     {
-      "title": "New Adapter: TRUSTX (remove Grid alias)",
-      "number": 4614,
+      "title": "New Bidder: Scalibur",
+      "number": 4640,
       "author": {
-        "login": "trustXops",
-        "id": 207739730
+        "login": "bTimor",
+        "id": 184917484
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bTimor",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-21T14:31:25.000Z",
+      "dateUpdated": "2026-01-19T08:38:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix PWN vulnerability in workflow files",
+      "number": 4657,
+      "author": {
+        "login": "jun06t",
+        "id": 4252009
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "barakharyati",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jun06t",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2025-11-26T15:16:07.000Z",
-      "dateUpdated": "2026-01-09T10:23:06.000Z",
+      "dateCreated": "2026-01-13T06:24:37.000Z",
+      "dateUpdated": "2026-01-19T02:04:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Screencore: Convert to Teqblaze alias",
+      "number": 4611,
+      "author": {
+        "login": "screencore-dev",
+        "id": 229771208
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T12:08:01.000Z",
+      "dateUpdated": "2026-01-17T10:37:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Limelight Adapters",
+      "number": 4651,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-07T14:09:07.000Z",
+      "dateUpdated": "2026-01-16T16:55:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Waardex",
+      "number": 4563,
+      "author": {
+        "login": "yegorWaardex",
+        "id": 59033363
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "yegorWaardex",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T08:03:43.000Z",
+      "dateUpdated": "2026-01-16T14:02:20.000Z",
       "status": "open"
     },
     {
@@ -76,7 +332,846 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-01-17T13:55:51.000Z",
-      "dateUpdated": "2026-01-08T15:49:00.000Z",
+      "dateUpdated": "2026-01-16T11:31:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adverxo Bid Adapter: New alias alchemyx",
+      "number": 4663,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-16T11:07:42.000Z",
+      "dateUpdated": "2026-01-16T11:07:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Validate execution plans at startup to remove per-request warnings",
+      "number": 4662,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-15T15:34:28.000Z",
+      "dateUpdated": "2026-01-15T15:37:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: targetVideo",
+      "number": 4593,
+      "author": {
+        "login": "pedjoni8",
+        "id": 32640009
+      },
+      "assignees": [
+        "bsardo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pedjoni8",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-31T08:37:26.000Z",
+      "dateUpdated": "2026-01-15T08:42:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Amcom - Attekmi alias",
+      "number": 4617,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T11:45:48.000Z",
+      "dateUpdated": "2026-01-15T08:27:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Adastra - Attekmi alias",
+      "number": 4607,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T18:15:28.000Z",
+      "dateUpdated": "2026-01-15T08:26:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Ogury: Allow inventory mapping for in-app traffic.",
+      "number": 4636,
+      "author": {
+        "login": "crepi",
+        "id": 6392930
+      },
+      "assignees": [
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T09:49:34.000Z",
+      "dateUpdated": "2026-01-14T15:12:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adnuntius: Send EIDs in URL instead of body",
+      "number": 4632,
+      "author": {
+        "login": "mikael-lundin",
+        "id": 1043973
+      },
+      "assignees": [
+        "linux019",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T17:24:36.000Z",
+      "dateUpdated": "2026-01-14T15:10:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Opamarketplace",
+      "number": 4526,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-isha-bharti",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-10T11:14:55.000Z",
+      "dateUpdated": "2026-01-14T13:12:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: BeOp",
+      "number": 4660,
+      "author": {
+        "login": "jeans11",
+        "id": 7700239
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-14T09:57:25.000Z",
+      "dateUpdated": "2026-01-14T09:58:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Nexx360: ext usage added for imp and gvlVendorID added",
+      "number": 4604,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T10:16:30.000Z",
+      "dateUpdated": "2026-01-13T18:24:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: MyCodeMedia",
+      "number": 4630,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T17:15:36.000Z",
+      "dateUpdated": "2026-01-13T17:10:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: TRUSTX (remove Grid alias)",
+      "number": 4614,
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "karwaankit32",
+          "state": "APPROVED"
+        },
+        {
+          "login": "trustXops",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:16:07.000Z",
+      "dateUpdated": "2026-01-13T16:50:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PinkLion: Add TCF Vendor ID",
+      "number": 4591,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T14:02:29.000Z",
+      "dateUpdated": "2026-01-13T15:08:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Seedtag: Adds GPP macros on user sync url",
+      "number": 4465,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [
+        "pm-jaydeep-mohite",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sangarbe",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-31T07:20:40.000Z",
+      "dateUpdated": "2026-01-13T06:33:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Alliance Gravity",
+      "number": 4522,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "danielbaud",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-06T19:04:34.000Z",
+      "dateUpdated": "2026-01-13T06:31:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove dxkulture adapter",
+      "number": 4653,
+      "author": {
+        "login": "dxtech-git",
+        "id": 227376282
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-11T19:03:10.000Z",
+      "dateUpdated": "2026-01-13T06:29:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix script injection vulnerability in cross-repo-issue workflow",
+      "number": 4656,
+      "author": {
+        "login": "jun06t",
+        "id": 4252009
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-13T06:12:05.000Z",
+      "dateUpdated": "2026-01-13T06:12:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Nuba",
+      "number": 4565,
+      "author": {
+        "login": "nuba-io",
+        "id": 236982007
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nuba-io",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-10T11:53:14.000Z",
+      "dateUpdated": "2026-01-12T19:38:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modules: Execute mutations in sequence (clean implementation)",
+      "number": 4586,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-28T18:32:00.000Z",
+      "dateUpdated": "2026-01-12T18:30:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Log nested structures from the configuration",
+      "number": 4519,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-05T09:53:08.000Z",
+      "dateUpdated": "2026-01-12T13:25:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "t-sormonte",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2026-01-12T09:12:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Stroeercore: Use bid.ext as-is from the response",
+      "number": 4633,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T04:41:14.000Z",
+      "dateUpdated": "2026-01-12T03:00:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTBHouse: Extract tagid from Imp fields",
+      "number": 4624,
+      "author": {
+        "login": "pjaworski-rtbh",
+        "id": 109736938
+      },
+      "assignees": [
+        "bsardo",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-03T13:08:31.000Z",
+      "dateUpdated": "2026-01-12T02:48:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Scope3: Add rtd targeting in seatbid",
+      "number": 4606,
+      "author": {
+        "login": "gravelg",
+        "id": 105263
+      },
+      "assignees": [
+        "bsardo",
+        "scr-oath"
+      ],
+      "reviewers": [
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        },
+        {
+          "login": "gravelg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "terry11n",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T21:49:34.000Z",
+      "dateUpdated": "2026-01-12T02:39:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: DXTech",
+      "number": 4506,
+      "author": {
+        "login": "dxtech-git",
+        "id": 227376282
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "dxtech-git",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-30T21:15:02.000Z",
+      "dateUpdated": "2026-01-11T19:06:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ProgX: Change to ProgrammaticX",
+      "number": 4456,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-29T07:46:14.000Z",
+      "dateUpdated": "2026-01-11T17:13:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Waardex - Adkernel alias",
+      "number": 4645,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T13:05:49.000Z",
+      "dateUpdated": "2026-01-11T04:10:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Attekmi: update root domain",
+      "number": 4608,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T18:21:19.000Z",
+      "dateUpdated": "2026-01-10T21:54:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Alias: Do not inherit the GVL ID from the parent by default",
+      "number": 4641,
+      "author": {
+        "login": "sigma-software-prebid",
+        "id": 196663574
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sigma-software-prebid",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-21T23:09:03.000Z",
+      "dateUpdated": "2026-01-10T21:29:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Gothamads: Rename to intenze",
+      "number": 4333,
+      "author": {
+        "login": "support-gotham-ads",
+        "id": 208789779
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-08T11:39:34.000Z",
+      "dateUpdated": "2026-01-10T21:22:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: RiseMediaTech",
+      "number": 4437,
+      "author": {
+        "login": "pritishmd-talentica",
+        "id": 159415077
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pritishmd-talentica",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-15T10:40:31.000Z",
+      "dateUpdated": "2026-01-10T01:08:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: RevX",
+      "number": 4335,
+      "author": {
+        "login": "nikithacode",
+        "id": 207976706
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nikithacode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "asifrahiman",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-09T06:08:50.000Z",
+      "dateUpdated": "2026-01-09T22:43:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Haoyang msp addpyro",
+      "number": 4652,
+      "author": {
+        "login": "HaoyangYuan2000",
+        "id": 195989303
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-09T21:59:33.000Z",
+      "dateUpdated": "2026-01-09T21:59:33.000Z",
       "status": "open"
     },
     {
@@ -107,179 +1202,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-11T19:02:02.000Z",
       "dateUpdated": "2026-01-08T13:17:17.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: iqiyi",
-      "number": 4605,
-      "author": {
-        "login": "Heihuang",
-        "id": 21191895
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Heihuang",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-13T07:37:04.000Z",
-      "dateUpdated": "2026-01-08T02:42:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Bidder: Scalibur",
-      "number": 4640,
-      "author": {
-        "login": "bTimor",
-        "id": 184917484
-      },
-      "assignees": [
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-21T14:31:25.000Z",
-      "dateUpdated": "2026-01-07T16:43:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Seedtag: Sets bid request's currency to USD",
-      "number": 4615,
-      "author": {
-        "login": "sangarbe",
-        "id": 10627477
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-26T15:26:21.000Z",
-      "dateUpdated": "2026-01-08T07:21:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Limelight Adapters",
-      "number": 4651,
-      "author": {
-        "login": "quietPusher",
-        "id": 129727954
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-07T14:09:07.000Z",
-      "dateUpdated": "2026-01-07T14:12:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi: add RadiantFusion alias",
-      "number": 4616,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        },
-        {
-          "login": "SmartHubSolutions",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-27T08:09:17.000Z",
-      "dateUpdated": "2026-01-07T13:38:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Stroeercore: Use bid.ext as-is from the response",
-      "number": 4633,
-      "author": {
-        "login": "philipwatson",
-        "id": 2080240
-      },
-      "assignees": [
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-11T04:41:14.000Z",
-      "dateUpdated": "2026-01-06T19:14:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Alliance Gravity",
-      "number": 4522,
-      "author": {
-        "login": "danielbaud",
-        "id": 52867769
-      },
-      "assignees": [
-        "ccorbo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        },
-        {
-          "login": "danielbaud",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-06T19:04:34.000Z",
-      "dateUpdated": "2026-01-06T19:09:00.000Z",
       "status": "open"
     },
     {
@@ -324,7 +1246,8 @@
         "id": 37686606
       },
       "assignees": [
-        "bsardo"
+        "bsardo",
+        "SyntaxNode"
       ],
       "reviewers": [],
       "commitAuthors": {},
@@ -340,33 +1263,13 @@
         "id": 41922797
       },
       "assignees": [
-        "bsardo"
+        "bsardo",
+        "postindustria-code"
       ],
       "reviewers": [],
       "commitAuthors": {},
       "dateCreated": "2025-12-12T07:01:59.000Z",
       "dateUpdated": "2026-01-06T16:23:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Optidigital: Add GPP support",
-      "number": 4646,
-      "author": {
-        "login": "optidigital-prebid",
-        "id": 124287395
-      },
-      "assignees": [
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-23T14:33:51.000Z",
-      "dateUpdated": "2026-01-06T15:58:39.000Z",
       "status": "open"
     },
     {
@@ -381,90 +1284,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-22T18:00:41.000Z",
       "dateUpdated": "2026-01-06T15:58:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Waardex - Adkernel alias",
-      "number": 4645,
-      "author": {
-        "login": "ckbo3hrk",
-        "id": 8065653
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-23T13:05:49.000Z",
-      "dateUpdated": "2026-01-06T15:58:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Adoppler/ElementaTv",
-      "number": 4639,
-      "author": {
-        "login": "pavel-ptashyts",
-        "id": 49400901
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pavel-ptashyts",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-18T09:00:35.000Z",
-      "dateUpdated": "2026-01-06T15:58:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Ogury: Allow inventory mapping for in-app traffic.",
-      "number": 4636,
-      "author": {
-        "login": "crepi",
-        "id": 6392930
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-15T09:49:34.000Z",
-      "dateUpdated": "2026-01-06T15:58:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adnuntius Bid Adapter: Moved EIDs to be sent over URL instead of in the body",
-      "number": 4632,
-      "author": {
-        "login": "mikael-lundin",
-        "id": 1043973
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-10T17:24:36.000Z",
-      "dateUpdated": "2026-01-06T15:58:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: MyCodeMedia",
-      "number": 4630,
-      "author": {
-        "login": "teqblaze",
-        "id": 162988436
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-09T17:15:36.000Z",
-      "dateUpdated": "2026-01-06T15:58:34.000Z",
       "status": "open"
     },
     {
@@ -494,100 +1313,6 @@
       "status": "open"
     },
     {
-      "title": "Sparteo: Add required query params to adapter endpoint",
-      "number": 4556,
-      "author": {
-        "login": "t-sormonte",
-        "id": 191453837
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "t-sormonte",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T13:31:46.000Z",
-      "dateUpdated": "2026-01-02T08:55:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Adklip - Aso alias",
-      "number": 4581,
-      "author": {
-        "login": "adserver-online",
-        "id": 61009237
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "linux019"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "adserver-online",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "linux019",
-          "state": "APPROVED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "sleptor",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T13:44:48.000Z",
-      "dateUpdated": "2025-12-31T11:19:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Aso: Add user sync endpoint",
-      "number": 4580,
-      "author": {
-        "login": "adserver-online",
-        "id": 61009237
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-23T13:33:53.000Z",
-      "dateUpdated": "2025-12-31T08:02:40.000Z",
-      "status": "open"
-    },
-    {
       "title": "Bid Adjustment: Upgrade matching strategy",
       "number": 4647,
       "author": {
@@ -599,29 +1324,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-23T22:49:31.000Z",
       "dateUpdated": "2025-12-23T22:49:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Alias: Do not inherit the GVL ID from the parent by default",
-      "number": 4641,
-      "author": {
-        "login": "sigma-software-prebid",
-        "id": 196663574
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "sigma-software-prebid",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-21T23:09:03.000Z",
-      "dateUpdated": "2025-12-22T16:34:29.000Z",
       "status": "open"
     },
     {
@@ -698,44 +1400,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: RevX",
-      "number": 4335,
-      "author": {
-        "login": "nikithacode",
-        "id": 207976706
-      },
-      "assignees": [
-        "ccorbo",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "nikithacode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "asifrahiman",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-09T06:08:50.000Z",
-      "dateUpdated": "2025-12-18T17:50:16.000Z",
-      "status": "open"
-    },
-    {
       "title": "Deprecate Embedded Certs",
       "number": 4625,
       "author": {
@@ -743,7 +1407,8 @@
         "id": 1653437
       },
       "assignees": [
-        "bsardo"
+        "bsardo",
+        "guscarreon"
       ],
       "reviewers": [
         {
@@ -754,62 +1419,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-03T15:29:55.000Z",
       "dateUpdated": "2025-12-17T20:06:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ResetDigital: OpenRTB",
-      "number": 4475,
-      "author": {
-        "login": "Valentino3",
-        "id": 57947465
-      },
-      "assignees": [
-        "guscarreon",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "guscarreon",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "Valentino3",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-06T16:13:31.000Z",
-      "dateUpdated": "2025-12-17T18:54:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ProgX: Change to ProgrammaticX",
-      "number": 4456,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-29T07:46:14.000Z",
-      "dateUpdated": "2025-12-17T18:52:13.000Z",
       "status": "open"
     },
     {
@@ -832,95 +1441,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Nuba",
-      "number": 4565,
-      "author": {
-        "login": "nuba-io",
-        "id": 236982007
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "nuba-io",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-10T11:53:14.000Z",
-      "dateUpdated": "2025-12-16T20:38:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: DXTech",
-      "number": 4506,
-      "author": {
-        "login": "dxtech-git",
-        "id": 227376282
-      },
-      "assignees": [
-        "bsardo",
-        "guscarreon"
-      ],
-      "reviewers": [
-        {
-          "login": "guscarreon",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "dxtech-git",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-30T21:15:02.000Z",
-      "dateUpdated": "2025-12-16T19:38:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: targetVideo",
-      "number": 4593,
-      "author": {
-        "login": "pedjoni8",
-        "id": 32640009
-      },
-      "assignees": [
-        "bsardo",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pedjoni8",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-31T08:37:26.000Z",
-      "dateUpdated": "2025-12-11T09:08:24.000Z",
-      "status": "open"
-    },
-    {
       "title": "Client Hint support",
       "number": 4634,
       "author": {
@@ -932,20 +1452,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-11T07:35:57.000Z",
       "dateUpdated": "2025-12-11T07:35:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Nexx360: ext usage added for imp and gvlVendorID added",
-      "number": 4604,
-      "author": {
-        "login": "gchicoye",
-        "id": 22325848
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-12T10:16:30.000Z",
-      "dateUpdated": "2025-12-10T12:01:04.000Z",
       "status": "open"
     },
     {
@@ -990,175 +1496,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: Bidfuse",
-      "number": 4532,
-      "author": {
-        "login": "bidfuse",
-        "id": 227335669
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bidfuse",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-11T23:20:06.000Z",
-      "dateUpdated": "2025-12-09T16:02:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Flipp: update endpoint to not use cdn",
-      "number": 4621,
-      "author": {
-        "login": "hasan-kanjee",
-        "id": 55110940
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-02T17:15:10.000Z",
-      "dateUpdated": "2025-12-09T16:01:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Mobilefuse: Add site media types",
-      "number": 4613,
-      "author": {
-        "login": "dtbarne",
-        "id": 7635750
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-25T22:24:32.000Z",
-      "dateUpdated": "2025-12-09T15:47:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi: update root domain",
-      "number": 4608,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-17T18:21:19.000Z",
-      "dateUpdated": "2025-12-09T15:47:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adverxo Bid Adapter: New alias harrenmedia",
-      "number": 4597,
-      "author": {
-        "login": "dev-adverxo",
-        "id": 186024688
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-05T11:52:34.000Z",
-      "dateUpdated": "2025-12-09T15:37:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Opamarketplace",
-      "number": 4526,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [
-        "bsardo",
-        "pm-jaydeep-mohite"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "anna-y-perion",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-10T11:14:55.000Z",
-      "dateUpdated": "2025-12-09T15:26:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PinkLion: Add TCF Vendor ID",
-      "number": 4591,
-      "author": {
-        "login": "prebidPinkLion",
-        "id": 214807971
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T14:02:29.000Z",
-      "dateUpdated": "2025-12-09T11:50:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "AMP auction ProcessStoredResponses errors are unchecked #4541",
       "number": 4629,
       "author": {
@@ -1173,35 +1510,6 @@
       "status": "open"
     },
     {
-      "title": "Scope3: Add rtd targeting in seatbid",
-      "number": 4606,
-      "author": {
-        "login": "gravelg",
-        "id": 105263
-      },
-      "assignees": [
-        "scr-oath"
-      ],
-      "reviewers": [
-        {
-          "login": "scr-oath",
-          "state": "APPROVED"
-        },
-        {
-          "login": "gravelg",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "terry11n",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-14T21:49:34.000Z",
-      "dateUpdated": "2025-12-05T19:07:17.000Z",
-      "status": "open"
-    },
-    {
       "title": "Add GPP support for AMP endpoint (consent_type=4) (#3577)",
       "number": 4626,
       "author": {
@@ -1213,34 +1521,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-05T08:56:28.000Z",
       "dateUpdated": "2025-12-05T08:56:28.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RTBHouse: Extract tagid from Imp fields",
-      "number": 4624,
-      "author": {
-        "login": "pjaworski-rtbh",
-        "id": 109736938
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-03T13:08:31.000Z",
-      "dateUpdated": "2025-12-03T21:56:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi: add Amcom alias",
-      "number": 4617,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-27T11:45:48.000Z",
-      "dateUpdated": "2025-12-03T21:56:33.000Z",
       "status": "open"
     },
     {
@@ -1262,20 +1542,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-07-29T12:42:57.000Z",
       "dateUpdated": "2025-11-25T19:57:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Screencore: Convert to Teqblaze alias",
-      "number": 4611,
-      "author": {
-        "login": "screencore-dev",
-        "id": 229771208
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-20T12:08:01.000Z",
-      "dateUpdated": "2025-11-25T15:47:55.000Z",
       "status": "open"
     },
     {
@@ -1304,124 +1570,6 @@
       "status": "open"
     },
     {
-      "title": "New Adapter: RiseMediaTech",
-      "number": 4437,
-      "author": {
-        "login": "pritishmd-talentica",
-        "id": 159415077
-      },
-      "assignees": [
-        "scr-oath",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "linux019",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "scr-oath",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        },
-        {
-          "login": "pritishmd-talentica",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-15T10:40:31.000Z",
-      "dateUpdated": "2025-11-25T05:56:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Missena: Update parameters and add versioning support",
-      "number": 4557,
-      "author": {
-        "login": "ysfbsf",
-        "id": 9834101
-      },
-      "assignees": [
-        "pm-isha-bharti",
-        "ccorbo"
-      ],
-      "reviewers": [
-        {
-          "login": "ccorbo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-isha-bharti",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-01T14:09:31.000Z",
-      "dateUpdated": "2025-11-20T17:22:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove dxkulture adapter",
-      "number": 4579,
-      "author": {
-        "login": "dxtech-git",
-        "id": 227376282
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T19:19:55.000Z",
-      "dateUpdated": "2025-11-20T16:41:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Seedtag: Adds GPP macros on user sync url",
-      "number": 4465,
-      "author": {
-        "login": "sangarbe",
-        "id": 10627477
-      },
-      "assignees": [
-        "pm-jaydeep-mohite",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-07-31T07:20:40.000Z",
-      "dateUpdated": "2025-11-19T22:23:15.000Z",
-      "status": "open"
-    },
-    {
       "title": "Page view ID.",
       "number": 4576,
       "author": {
@@ -1433,104 +1581,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-10-22T08:32:09.000Z",
       "dateUpdated": "2025-11-18T15:06:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdsInteractive: Make old adapter as alias for current",
-      "number": 4359,
-      "author": {
-        "login": "AdsInteractive",
-        "id": 180516962
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "AdsInteractive",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-30T13:58:37.000Z",
-      "dateUpdated": "2025-11-11T15:05:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Waardex",
-      "number": 4563,
-      "author": {
-        "login": "yegorWaardex",
-        "id": 59033363
-      },
-      "assignees": [
-        "pm-jaydeep-mohite",
-        "pm-nikhil-vaidya"
-      ],
-      "reviewers": [
-        {
-          "login": "github-actions[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-nikhil-vaidya",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "yegorWaardex",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-08T08:03:43.000Z",
-      "dateUpdated": "2025-11-10T10:02:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adot: Constrain publisher path to an enum list",
-      "number": 4573,
-      "author": {
-        "login": "khouajaSadok",
-        "id": 172402730
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "khouajaSadok",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:32:53.000Z",
-      "dateUpdated": "2025-11-03T13:32:12.000Z",
       "status": "open"
     },
     {
@@ -1611,27 +1661,6 @@
       "status": "open"
     },
     {
-      "title": "Modules: Execute mutations in sequence (clean implementation)",
-      "number": 4586,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-28T18:32:00.000Z",
-      "dateUpdated": "2025-10-29T14:13:13.000Z",
-      "status": "open"
-    },
-    {
       "title": "Modules: A/B testing support",
       "number": 4553,
       "author": {
@@ -1670,44 +1699,6 @@
       "commitAuthors": {},
       "dateCreated": "2024-10-22T00:53:20.000Z",
       "dateUpdated": "2025-10-27T16:58:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Zeta Global SSP: Make sid param required",
-      "number": 3849,
-      "author": {
-        "login": "abermanov-zeta",
-        "id": 95416296
-      },
-      "assignees": [
-        "bsardo",
-        "VeronikaSolovei9"
-      ],
-      "reviewers": [
-        {
-          "login": "SyntaxNode",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "Sonali-More-Xandr",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "abermanov-zeta",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "VeronikaSolovei9",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2024-08-08T14:04:57.000Z",
-      "dateUpdated": "2025-10-24T13:43:30.000Z",
       "status": "open"
     },
     {
@@ -1764,154 +1755,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-07-11T10:47:15.000Z",
       "dateUpdated": "2025-10-22T20:48:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ProgX: Change alias of",
-      "number": 4352,
-      "author": {
-        "login": "ProgrammaticX",
-        "id": 213039951
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "pm-jaydeep-mohite",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "ProgrammaticX",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-23T13:45:28.000Z",
-      "dateUpdated": "2025-10-21T05:54:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adverxo: Remove Mobupps alias",
-      "number": 4323,
-      "author": {
-        "login": "dev-adverxo",
-        "id": 186024688
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "DISMISSED"
-        },
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-29T07:48:42.000Z",
-      "dateUpdated": "2025-10-16T17:20:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Gothamads: Rename to intenze",
-      "number": 4333,
-      "author": {
-        "login": "support-gotham-ads",
-        "id": 208789779
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-05-08T11:39:34.000Z",
-      "dateUpdated": "2025-10-16T17:18:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AdOcean: Remove adapter",
-      "number": 4296,
-      "author": {
-        "login": "patryk-grzegorczyk",
-        "id": 131142828
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-11T12:39:40.000Z",
-      "dateUpdated": "2025-10-16T17:18:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Attekmi: Remove Vimayx alias",
-      "number": 4546,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [
-        "bsardo",
-        "przemkaczmarek"
-      ],
-      "reviewers": [
-        {
-          "login": "przemkaczmarek",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-26T06:58:46.000Z",
-      "dateUpdated": "2025-10-11T09:47:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Metrics: Standardize adapter connection metrics name",
-      "number": 4549,
-      "author": {
-        "login": "guscarreon",
-        "id": 15863840
-      },
-      "assignees": [
-        "bsardo",
-        "hhhjort"
-      ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-26T15:43:42.000Z",
-      "dateUpdated": "2025-10-08T19:46:43.000Z",
       "status": "open"
     },
     {
@@ -1977,28 +1820,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-02T14:28:15.000Z",
       "dateUpdated": "2025-09-29T11:54:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Log nested structures from the configuration",
-      "number": 4519,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [
-        "VeronikaSolovei9",
-        "hhhjort"
-      ],
-      "reviewers": [
-        {
-          "login": "VeronikaSolovei9",
-          "state": "DISMISSED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-05T09:53:08.000Z",
-      "dateUpdated": "2025-09-24T15:52:07.000Z",
       "status": "open"
     },
     {

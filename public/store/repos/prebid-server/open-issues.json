@@ -1,10 +1,48 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-01-09T12:04:15.922Z",
-    "itemCount": 212
+    "lastSync": "2026-01-20T14:32:13.718Z",
+    "itemCount": 217
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Java: Core: EID Permissions extension",
+      "number": 4666,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-20T13:35:56.000Z",
+      "dateUpdated": "2026-01-20T13:35:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS marks video as banner",
+      "number": 4665,
+      "author": {
+        "login": "fprotimaru",
+        "id": 60222966
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-20T06:19:44.000Z",
+      "dateUpdated": "2026-01-20T06:23:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS attempts to build execution plan for hooks from disabled modules",
+      "number": 3748,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "justadreamer"
+      ],
+      "dateCreated": "2024-06-12T12:56:21.000Z",
+      "dateUpdated": "2026-01-15T15:48:11.000Z",
+      "status": "open"
+    },
     {
       "title": "Feature request: page view ID",
       "number": 4649,
@@ -14,7 +52,95 @@
       },
       "assignees": [],
       "dateCreated": "2026-01-05T11:00:13.000Z",
-      "dateUpdated": "2026-01-05T11:00:13.000Z",
+      "dateUpdated": "2026-01-15T12:44:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "more information on win/imp events",
+      "number": 4602,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-11T17:15:19.000Z",
+      "dateUpdated": "2026-01-14T15:31:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Option to do array merges on bcat and badv",
+      "number": 4638,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2025-12-17T17:22:07.000Z",
+      "dateUpdated": "2026-01-14T15:27:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Security issue",
+      "number": 4659,
+      "author": {
+        "login": "barakharyati",
+        "id": 41957095
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-01-13T22:33:50.000Z",
+      "dateUpdated": "2026-01-14T14:48:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ortb2blocking module issue: concurrent map read and map write\t",
+      "number": 3570,
+      "author": {
+        "login": "shunj-nb",
+        "id": 75647253
+      },
+      "assignees": [],
+      "dateCreated": "2024-03-12T23:51:39.000Z",
+      "dateUpdated": "2026-01-14T07:51:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Extend EID Permissions",
+      "number": 4623,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-03T01:49:37.000Z",
+      "dateUpdated": "2026-01-13T14:12:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Ogury: Allow inventory mapping for in-app traffic.",
+      "number": 4658,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-13T11:26:18.000Z",
+      "dateUpdated": "2026-01-13T11:26:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: New adapter: Rename adoppler bidder adapter to elementaltv add adoppler as alias t…",
+      "number": 4655,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-12T13:15:47.000Z",
+      "dateUpdated": "2026-01-12T13:15:47.000Z",
       "status": "open"
     },
     {
@@ -69,18 +195,6 @@
       "status": "open"
     },
     {
-      "title": "Option to do array merges on bcat and badv",
-      "number": 4638,
-      "author": {
-        "login": "ollyburns",
-        "id": 75783836
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-17T17:22:07.000Z",
-      "dateUpdated": "2025-12-17T17:22:07.000Z",
-      "status": "open"
-    },
-    {
       "title": "Option to do array merges or permissioning on user segments",
       "number": 4111,
       "author": {
@@ -92,18 +206,6 @@
       ],
       "dateCreated": "2024-12-16T16:15:22.000Z",
       "dateUpdated": "2025-12-17T15:48:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Extend EID Permissions",
-      "number": 4623,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-03T01:49:37.000Z",
-      "dateUpdated": "2025-12-17T15:29:36.000Z",
       "status": "open"
     },
     {
@@ -331,18 +433,6 @@
       "assignees": [],
       "dateCreated": "2025-01-21T17:52:13.000Z",
       "dateUpdated": "2025-11-19T18:52:22.000Z",
-      "status": "open"
-    },
-    {
-      "title": "more information on win/imp events",
-      "number": 4602,
-      "author": {
-        "login": "ollyburns",
-        "id": 75783836
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-11T17:15:19.000Z",
-      "dateUpdated": "2025-11-19T15:33:19.000Z",
       "status": "open"
     },
     {
@@ -1413,18 +1503,6 @@
       "status": "open"
     },
     {
-      "title": "ortb2blocking module issue: concurrent map read and map write\t",
-      "number": 3570,
-      "author": {
-        "login": "shunj-nb",
-        "id": 75647253
-      },
-      "assignees": [],
-      "dateCreated": "2024-03-12T23:51:39.000Z",
-      "dateUpdated": "2025-03-17T14:55:56.000Z",
-      "status": "open"
-    },
-    {
       "title": "`go test -race ./...` fails with races detected",
       "number": 3482,
       "author": {
@@ -1436,20 +1514,6 @@
       ],
       "dateCreated": "2024-02-09T17:56:40.000Z",
       "dateUpdated": "2025-03-17T14:55:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS attempts to build execution plan for hooks from disabled modules",
-      "number": 3748,
-      "author": {
-        "login": "linux019",
-        "id": 15028965
-      },
-      "assignees": [
-        "justadreamer"
-      ],
-      "dateCreated": "2024-06-12T12:56:21.000Z",
-      "dateUpdated": "2025-03-17T14:55:06.000Z",
       "status": "open"
     },
     {
