@@ -1,20 +1,125 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-01-20T14:32:13.718Z",
-    "itemCount": 217
+    "lastSync": "2026-02-19T11:57:28.252Z",
+    "itemCount": 213
   },
   "items": [
     {
-      "title": "Port PR from PBS-Java: Core: EID Permissions extension",
-      "number": 4666,
+      "title": "GVL Startup Fetch Creates Thundering Herd at Scale — Need Cluster-Wide Caching",
+      "number": 4687,
       "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
+        "login": "scr-oath",
+        "id": 41922797
       },
       "assignees": [],
-      "dateCreated": "2026-01-20T13:35:56.000Z",
-      "dateUpdated": "2026-01-20T13:35:56.000Z",
+      "dateCreated": "2026-02-17T17:42:58.000Z",
+      "dateUpdated": "2026-02-17T17:42:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Option to do array merges or permissioning on user segments",
+      "number": 4111,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2024-12-16T16:15:22.000Z",
+      "dateUpdated": "2026-02-11T15:48:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modularity configuration extension",
+      "number": 4686,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-11T03:35:39.000Z",
+      "dateUpdated": "2026-02-11T03:35:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS-Go: mutations should be in a predictable order",
+      "number": 4278,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "scr-oath"
+      ],
+      "dateCreated": "2025-03-24T21:56:34.000Z",
+      "dateUpdated": "2026-02-10T21:32:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server 4.0",
+      "number": 3861,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2024-08-14T16:19:08.000Z",
+      "dateUpdated": "2026-02-10T16:11:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS 4.0: Drop old AMP targeting.site FPD behavior",
+      "number": 4079,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-11-27T15:45:58.000Z",
+      "dateUpdated": "2026-02-10T16:09:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposed tracking update",
+      "number": 4152,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "bretg"
+      ],
+      "dateCreated": "2025-01-15T11:16:22.000Z",
+      "dateUpdated": "2026-02-05T16:48:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Module LRU Cache",
+      "number": 3703,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-05-22T15:59:20.000Z",
+      "dateUpdated": "2026-02-05T16:35:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Privacy Module: TCF-Canada",
+      "number": 2971,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2023-07-25T17:21:19.000Z",
+      "dateUpdated": "2026-02-05T16:27:59.000Z",
       "status": "open"
     },
     {
@@ -26,7 +131,143 @@
       },
       "assignees": [],
       "dateCreated": "2026-01-20T06:19:44.000Z",
-      "dateUpdated": "2026-01-20T06:23:04.000Z",
+      "dateUpdated": "2026-02-05T16:25:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Connect Ad Server / Direct Campaign Server into Prebid Server to make it a complete ad stack",
+      "number": 4676,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-04T14:41:20.000Z",
+      "dateUpdated": "2026-02-04T14:41:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature request: page view ID",
+      "number": 4649,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-05T11:00:13.000Z",
+      "dateUpdated": "2026-02-02T09:19:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
+      "number": 4501,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-27T08:01:38.000Z",
+      "dateUpdated": "2026-01-26T12:03:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support Secondary Bidder feature",
+      "number": 2620,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2023-03-03T15:22:49.000Z",
+      "dateUpdated": "2026-01-22T17:01:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Cookie Sync Metrics and Thresholds",
+      "number": 4505,
+      "author": {
+        "login": "muuki88",
+        "id": 647727
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-28T19:24:49.000Z",
+      "dateUpdated": "2026-01-22T16:47:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Extend EID Permissions",
+      "number": 4623,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-03T01:49:37.000Z",
+      "dateUpdated": "2026-01-22T16:35:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Fix vulnerability in cross-repo-issue GitHub action",
+      "number": 4642,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-12-22T14:42:22.000Z",
+      "dateUpdated": "2026-01-22T16:25:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bidder adapter data race test doesn't detect modifications of slices' underlying arrays",
+      "number": 4637,
+      "author": {
+        "login": "peterfajdiga-a11",
+        "id": 216509079
+      },
+      "assignees": [],
+      "dateCreated": "2025-12-17T13:37:22.000Z",
+      "dateUpdated": "2026-01-22T16:25:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support for GPP US National string v2",
+      "number": 4170,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2025-01-21T17:52:13.000Z",
+      "dateUpdated": "2026-01-22T16:23:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Unruly: Include GPID in request payload",
+      "number": 4594,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-10-31T12:30:01.000Z",
+      "dateUpdated": "2026-01-22T16:18:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Enhance AMP debug responses",
+      "number": 2406,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2022-10-05T23:03:08.000Z",
+      "dateUpdated": "2026-01-20T14:49:43.000Z",
       "status": "open"
     },
     {
@@ -41,18 +282,6 @@
       ],
       "dateCreated": "2024-06-12T12:56:21.000Z",
       "dateUpdated": "2026-01-15T15:48:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: page view ID",
-      "number": 4649,
-      "author": {
-        "login": "acsbendi",
-        "id": 30595431
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-05T11:00:13.000Z",
-      "dateUpdated": "2026-01-15T12:44:40.000Z",
       "status": "open"
     },
     {
@@ -108,42 +337,6 @@
       "status": "open"
     },
     {
-      "title": "Extend EID Permissions",
-      "number": 4623,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-03T01:49:37.000Z",
-      "dateUpdated": "2026-01-13T14:12:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Ogury: Allow inventory mapping for in-app traffic.",
-      "number": 4658,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-13T11:26:18.000Z",
-      "dateUpdated": "2026-01-13T11:26:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: New adapter: Rename adoppler bidder adapter to elementaltv add adoppler as alias t…",
-      "number": 4655,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-12T13:15:47.000Z",
-      "dateUpdated": "2026-01-12T13:15:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "Prebid Server 5.0",
       "number": 4643,
       "author": {
@@ -156,33 +349,6 @@
       "status": "open"
     },
     {
-      "title": "Prebid Server 4.0",
-      "number": 3861,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "Net-burst",
-        "bsardo"
-      ],
-      "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2025-12-22T15:55:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Fix vulnerability in cross-repo-issue GitHub action",
-      "number": 4642,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-22T14:42:22.000Z",
-      "dateUpdated": "2025-12-22T14:42:22.000Z",
-      "status": "open"
-    },
-    {
       "title": "Handle deleted GVL entities",
       "number": 4439,
       "author": {
@@ -192,32 +358,6 @@
       "assignees": [],
       "dateCreated": "2025-07-16T17:16:02.000Z",
       "dateUpdated": "2025-12-17T18:40:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Option to do array merges or permissioning on user segments",
-      "number": 4111,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2024-12-16T16:15:22.000Z",
-      "dateUpdated": "2025-12-17T15:48:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder adapter data race test doesn't detect modifications of slices' underlying arrays",
-      "number": 4637,
-      "author": {
-        "login": "peterfajdiga-a11",
-        "id": 216509079
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-17T13:37:22.000Z",
-      "dateUpdated": "2025-12-17T13:37:22.000Z",
       "status": "open"
     },
     {
@@ -244,18 +384,6 @@
       ],
       "dateCreated": "2025-09-29T12:02:33.000Z",
       "dateUpdated": "2025-12-11T15:43:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
-      "number": 4501,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-27T08:01:38.000Z",
-      "dateUpdated": "2025-12-11T15:42:32.000Z",
       "status": "open"
     },
     {
@@ -328,18 +456,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Rule Engine: Fix eviction policy for rule cache",
-      "number": 4628,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-09T00:15:21.000Z",
-      "dateUpdated": "2025-12-09T00:15:21.000Z",
-      "status": "open"
-    },
-    {
       "title": "Modules and execution plans",
       "number": 3880,
       "author": {
@@ -349,30 +465,6 @@
       "assignees": [],
       "dateCreated": "2024-08-23T13:31:33.000Z",
       "dateUpdated": "2025-12-05T10:21:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Core: Support GPP USNat v2",
-      "number": 4620,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-01T13:07:24.000Z",
-      "dateUpdated": "2025-12-01T13:07:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Seedtag: sets bid request's currency to USD",
-      "number": 4619,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-01T12:59:05.000Z",
-      "dateUpdated": "2025-12-01T12:59:05.000Z",
       "status": "open"
     },
     {
@@ -400,18 +492,6 @@
       "status": "open"
     },
     {
-      "title": "Primary & Secondary Bidders",
-      "number": 4612,
-      "author": {
-        "login": "bsardo",
-        "id": 1168933
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-20T18:16:02.000Z",
-      "dateUpdated": "2025-11-20T18:48:40.000Z",
-      "status": "open"
-    },
-    {
       "title": "PAAPI deprecation",
       "number": 4601,
       "author": {
@@ -421,18 +501,6 @@
       "assignees": [],
       "dateCreated": "2025-11-06T16:14:49.000Z",
       "dateUpdated": "2025-11-20T18:01:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support for GPP US National string v2",
-      "number": 4170,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2025-01-21T17:52:13.000Z",
-      "dateUpdated": "2025-11-19T18:52:22.000Z",
       "status": "open"
     },
     {
@@ -447,20 +515,6 @@
       ],
       "dateCreated": "2023-10-24T17:54:43.000Z",
       "dateUpdated": "2025-11-14T15:32:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Proposed tracking update",
-      "number": 4152,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [
-        "bretg"
-      ],
-      "dateCreated": "2025-01-15T11:16:22.000Z",
-      "dateUpdated": "2025-11-13T15:44:42.000Z",
       "status": "open"
     },
     {
@@ -547,20 +601,6 @@
       "assignees": [],
       "dateCreated": "2024-01-18T22:34:19.000Z",
       "dateUpdated": "2025-10-31T14:46:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: Unruly: Include GPID in request payload",
-      "number": 4594,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2025-10-31T12:30:01.000Z",
-      "dateUpdated": "2025-10-31T14:27:54.000Z",
       "status": "open"
     },
     {
@@ -708,18 +748,6 @@
       "status": "open"
     },
     {
-      "title": "Enhance AMP debug responses",
-      "number": 2406,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-05T23:03:08.000Z",
-      "dateUpdated": "2025-09-19T14:55:41.000Z",
-      "status": "open"
-    },
-    {
       "title": "Discuss Prebid Server alias behavior",
       "number": 2391,
       "author": {
@@ -755,20 +783,6 @@
       "assignees": [],
       "dateCreated": "2021-02-25T12:28:57.000Z",
       "dateUpdated": "2025-09-19T14:33:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS-Go: mutations should be in a predictable order",
-      "number": 4278,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [
-        "scr-oath"
-      ],
-      "dateCreated": "2025-03-24T21:56:34.000Z",
-      "dateUpdated": "2025-09-19T13:40:58.000Z",
       "status": "open"
     },
     {
@@ -850,18 +864,6 @@
       ],
       "dateCreated": "2024-11-05T17:46:20.000Z",
       "dateUpdated": "2025-09-05T14:44:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Cookie Sync Metrics and Thresholds",
-      "number": 4505,
-      "author": {
-        "login": "muuki88",
-        "id": 647727
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-28T19:24:49.000Z",
-      "dateUpdated": "2025-09-05T14:31:19.000Z",
       "status": "open"
     },
     {
@@ -1144,18 +1146,6 @@
       "assignees": [],
       "dateCreated": "2024-01-16T18:57:26.000Z",
       "dateUpdated": "2025-06-13T14:40:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Privacy Module: TCF-Canada",
-      "number": 2971,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2023-07-25T17:21:19.000Z",
-      "dateUpdated": "2025-06-13T14:34:06.000Z",
       "status": "open"
     },
     {
@@ -1768,18 +1758,6 @@
       "status": "open"
     },
     {
-      "title": "Support Secondary Bidder feature",
-      "number": 2620,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2023-03-03T15:22:49.000Z",
-      "dateUpdated": "2025-01-07T22:47:02.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port: Confiant AdQuality module",
       "number": 3044,
       "author": {
@@ -1997,18 +1975,6 @@
       "assignees": [],
       "dateCreated": "2024-03-18T17:19:08.000Z",
       "dateUpdated": "2024-12-11T19:31:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS 4.0: Drop old AMP targeting.site FPD behavior",
-      "number": 4079,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-11-27T15:45:58.000Z",
-      "dateUpdated": "2024-11-27T15:46:12.000Z",
       "status": "open"
     },
     {
@@ -2333,18 +2299,6 @@
       "assignees": [],
       "dateCreated": "2024-05-31T18:19:25.000Z",
       "dateUpdated": "2024-05-31T20:05:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Module LRU Cache",
-      "number": 3703,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-05-22T15:59:20.000Z",
-      "dateUpdated": "2024-05-25T13:44:04.000Z",
       "status": "open"
     },
     {

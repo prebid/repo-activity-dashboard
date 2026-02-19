@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 3,
     "itemCount": 87,
-    "lastUpdated": "2025-10-06T08:28:29.297Z"
+    "lastUpdated": "2026-02-19T11:57:17.606Z"
   },
   "items": [
     {
@@ -2644,38 +2644,13 @@
       "assignees": [
         "patmmccann"
       ],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "APPROVED"
-        },
-        {
-          "login": "dmytro-po",
-          "state": "COMMENTED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-02-06T15:18:35.000Z",
-      "dateUpdated": "2025-03-02T17:06:49.000Z",
+      "dateUpdated": "2026-01-23T10:54:07.000Z",
       "status": "merged",
       "dateMerged": "2025-03-02T17:06:49.000Z",
-      "commitAuthors": {
-        "139111483": {
-          "identifier": "139111483",
-          "displayName": "DimaIntentIQ",
-          "count": 1,
-          "isGitHubUser": true
-        },
-        "169376745": {
-          "identifier": "169376745",
-          "displayName": "dmytro-po",
-          "count": 23,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-03-02T17:06:49.000Z"
     },
     {
       "title": "Core: start yielding control of the main thread",

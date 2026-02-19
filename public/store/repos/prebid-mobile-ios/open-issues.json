@@ -1,10 +1,70 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2026-01-20T14:32:34.283Z",
-    "itemCount": 43
+    "lastSync": "2026-02-19T11:57:45.517Z",
+    "itemCount": 41
   },
   "items": [
+    {
+      "title": "Support integration in Unity applications",
+      "number": 1244,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-17T10:46:20.000Z",
+      "dateUpdated": "2026-02-17T11:10:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Support Display Rewarded Ads",
+      "number": 713,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2022-11-10T07:44:29.000Z",
+      "dateUpdated": "2026-02-17T10:59:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Reorganize the repository and product structure to integration via SPM",
+      "number": 1184,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-07-11T11:53:41.000Z",
+      "dateUpdated": "2026-02-16T11:09:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Introduce Analytics Module",
+      "number": 1241,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-12T16:15:44.000Z",
+      "dateUpdated": "2026-02-14T14:42:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Change AppLovin adapter to post-bid with bidfloor",
+      "number": 1113,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "dateCreated": "2025-02-27T12:37:15.000Z",
+      "dateUpdated": "2026-02-11T13:04:08.000Z",
+      "status": "open"
+    },
     {
       "title": "PrebidMobileTests fail on iOS 26.2",
       "number": 1234,
@@ -14,21 +74,55 @@
       },
       "assignees": [],
       "dateCreated": "2026-01-09T09:02:54.000Z",
-      "dateUpdated": "2026-01-09T09:04:42.000Z",
+      "dateUpdated": "2026-02-09T08:59:55.000Z",
       "status": "open"
     },
     {
-      "title": "BannerAdLoader fails to render GAM ad after GAMBannerEventHandler signals win",
-      "number": 1229,
+      "title": "Introduce the ability to modify the targeting keys before sending them to ad server",
+      "number": 1190,
       "author": {
-        "login": "MattMur",
-        "id": 1305984
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
       },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2025-12-18T01:18:43.000Z",
-      "dateUpdated": "2025-12-23T06:51:45.000Z",
+      "assignees": [],
+      "dateCreated": "2025-07-29T12:44:15.000Z",
+      "dateUpdated": "2026-02-07T21:52:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add Support for Third-party Plugin Renderers in Adapters",
+      "number": 1071,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "dateCreated": "2024-12-11T08:28:03.000Z",
+      "dateUpdated": "2026-02-07T21:49:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Support Remote SDK Config",
+      "number": 1188,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-07-18T05:59:06.000Z",
+      "dateUpdated": "2026-02-07T21:41:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Analyze keywords from bid response instead of webView approach",
+      "number": 523,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "dateCreated": "2022-02-11T11:20:41.000Z",
+      "dateUpdated": "2026-02-07T21:35:31.000Z",
       "status": "open"
     },
     {
@@ -46,54 +140,6 @@
       "status": "open"
     },
     {
-      "title": "Consider if `forceSdkToChooseWinner = false` should be the default behaviour",
-      "number": 1225,
-      "author": {
-        "login": "Heinemark",
-        "id": 1006245
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-25T19:10:27.000Z",
-      "dateUpdated": "2025-11-25T22:13:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Reorganize the repository and product structure to integration via SPM",
-      "number": 1184,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-11T11:53:41.000Z",
-      "dateUpdated": "2025-11-19T14:33:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Need for slot-specific targeting key-values",
-      "number": 1194,
-      "author": {
-        "login": "Umreg",
-        "id": 10233988
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-06T11:13:30.000Z",
-      "dateUpdated": "2025-11-19T14:25:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bug: 1px tracking URL is fired when the ad is not shown",
-      "number": 1211,
-      "author": {
-        "login": "elq81hc",
-        "id": 71596165
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-28T07:12:36.000Z",
-      "dateUpdated": "2025-11-14T17:50:20.000Z",
-      "status": "open"
-    },
-    {
       "title": "Configuring adSizes for Interstitial ad",
       "number": 1135,
       "author": {
@@ -106,18 +152,6 @@
       "status": "open"
     },
     {
-      "title": "[DRAFT] Support Remote SDK Config",
-      "number": 1188,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-18T05:59:06.000Z",
-      "dateUpdated": "2025-11-10T08:24:28.000Z",
-      "status": "open"
-    },
-    {
       "title": "DisplayViewLoadingDelegate fires displayViewDidLoadAd with empty view",
       "number": 1220,
       "author": {
@@ -127,18 +161,6 @@
       "assignees": [],
       "dateCreated": "2025-11-03T21:51:19.000Z",
       "dateUpdated": "2025-11-03T22:54:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[DRAFT] Support Rewarder Display",
-      "number": 713,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2022-11-10T07:44:29.000Z",
-      "dateUpdated": "2025-10-27T07:40:59.000Z",
       "status": "open"
     },
     {
@@ -454,18 +476,6 @@
       "status": "open"
     },
     {
-      "title": "Change AppLovin adapter to post-bid with bidfloor",
-      "number": 1113,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [],
-      "dateCreated": "2025-02-27T12:37:15.000Z",
-      "dateUpdated": "2025-08-16T05:15:24.000Z",
-      "status": "open"
-    },
-    {
       "title": "Align auto refresh API and approach among integration scenarious",
       "number": 1163,
       "author": {
@@ -477,18 +487,6 @@
       ],
       "dateCreated": "2025-06-16T10:09:17.000Z",
       "dateUpdated": "2025-08-16T05:14:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Introduce the ability to modify the targeting keys before sending them to ad server",
-      "number": 1190,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-29T12:44:15.000Z",
-      "dateUpdated": "2025-08-16T05:00:15.000Z",
       "status": "open"
     },
     {
@@ -506,18 +504,6 @@
       "status": "open"
     },
     {
-      "title": "Analyze keywords from bid response instead of webView approach",
-      "number": 523,
-      "author": {
-        "login": "OlenaPostindustria",
-        "id": 92721590
-      },
-      "assignees": [],
-      "dateCreated": "2022-02-11T11:20:41.000Z",
-      "dateUpdated": "2025-07-18T05:35:01.000Z",
-      "status": "open"
-    },
-    {
       "title": "IOS SDK Rendering API supports VAST version 3 and above",
       "number": 882,
       "author": {
@@ -527,18 +513,6 @@
       "assignees": [],
       "dateCreated": "2023-07-19T02:37:29.000Z",
       "dateUpdated": "2025-07-17T13:01:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add Support for Third-party Plugin Renderers in Adapters",
-      "number": 1071,
-      "author": {
-        "login": "OlenaPostindustria",
-        "id": 92721590
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-11T08:28:03.000Z",
-      "dateUpdated": "2024-12-11T08:28:12.000Z",
       "status": "open"
     }
   ]

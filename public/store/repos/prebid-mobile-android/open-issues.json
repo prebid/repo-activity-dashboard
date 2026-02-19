@@ -1,10 +1,62 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2026-01-20T14:32:28.475Z",
-    "itemCount": 22
+    "lastSync": "2026-02-19T11:57:40.112Z",
+    "itemCount": 18
   },
   "items": [
+    {
+      "title": "Investigate support of GMA Next-Gen SDK",
+      "number": 921,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2026-01-26T12:13:29.000Z",
+      "dateUpdated": "2026-02-07T21:52:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "GAM Original Api InStream Video Config_ID Ad gives code 999, WARNING: request.imp[0].ext must contain at least one valid bidder",
+      "number": 787,
+      "author": {
+        "login": "noureen",
+        "id": 5036603
+      },
+      "assignees": [],
+      "dateCreated": "2024-07-19T13:41:48.000Z",
+      "dateUpdated": "2026-02-07T21:49:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New in-stream examples based on Media3 (ExoPlayer deprecated)",
+      "number": 860,
+      "author": {
+        "login": "ValentinPostindustria",
+        "id": 72038591
+      },
+      "assignees": [],
+      "dateCreated": "2025-05-12T09:18:45.000Z",
+      "dateUpdated": "2026-02-07T21:40:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bug: Click tracking events not properly registered for end cards",
+      "number": 917,
+      "author": {
+        "login": "thanhhaidev",
+        "id": 20614629
+      },
+      "assignees": [
+        "ValentinPostindustria"
+      ],
+      "dateCreated": "2025-12-12T09:14:33.000Z",
+      "dateUpdated": "2026-01-22T13:18:48.000Z",
+      "status": "open"
+    },
     {
       "title": "Question: What is com.google.android.gms.ads.APPLICATION_ID for Google Ad Manager?",
       "number": 918,
@@ -15,18 +67,6 @@
       "assignees": [],
       "dateCreated": "2026-01-08T04:54:01.000Z",
       "dateUpdated": "2026-01-15T10:13:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bug: Click tracking events not properly registered for end cards",
-      "number": 917,
-      "author": {
-        "login": "thanhhaidev",
-        "id": 20614629
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-12T09:14:33.000Z",
-      "dateUpdated": "2025-12-24T07:28:19.000Z",
       "status": "open"
     },
     {
@@ -42,34 +82,6 @@
       "status": "open"
     },
     {
-      "title": "Disappearing/Blank Ads -> Rendering API -> Banner API",
-      "number": 746,
-      "author": {
-        "login": "omertanveer",
-        "id": 3583890
-      },
-      "assignees": [
-        "ValentinPostindustria"
-      ],
-      "dateCreated": "2024-04-12T14:13:36.000Z",
-      "dateUpdated": "2025-12-12T13:19:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "sdk internal error",
-      "number": 766,
-      "author": {
-        "login": "rajeshb10",
-        "id": 171242420
-      },
-      "assignees": [
-        "ValentinPostindustria"
-      ],
-      "dateCreated": "2024-06-11T07:06:48.000Z",
-      "dateUpdated": "2025-12-09T08:45:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "Using Kotlin outside of the Example?",
       "number": 844,
       "author": {
@@ -79,30 +91,6 @@
       "assignees": [],
       "dateCreated": "2025-03-19T10:02:03.000Z",
       "dateUpdated": "2025-12-05T02:47:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PrebidNativeCache stores Native adm without the mandatory \"native\" wrapper (OpenRTB Native 1.2 / ORTB 2.5 Compliance Issue)",
-      "number": 904,
-      "author": {
-        "login": "AndrewHoang1995",
-        "id": 163831439
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-25T03:41:26.000Z",
-      "dateUpdated": "2025-11-27T11:54:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Question: MRAID Two-Part Expandable Ad Works in GAM but Fails in Prebid Server",
-      "number": 895,
-      "author": {
-        "login": "SitoGitHub",
-        "id": 65915050
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T12:15:55.000Z",
-      "dateUpdated": "2025-11-20T11:17:37.000Z",
       "status": "open"
     },
     {
@@ -206,18 +194,6 @@
       "status": "open"
     },
     {
-      "title": "New in-stream examples based on Media3 (ExoPlayer deprecated)",
-      "number": 860,
-      "author": {
-        "login": "ValentinPostindustria",
-        "id": 72038591
-      },
-      "assignees": [],
-      "dateCreated": "2025-05-12T09:18:45.000Z",
-      "dateUpdated": "2025-08-18T12:24:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "device.geo.country is being sent in iso alpha-2 format",
       "number": 872,
       "author": {
@@ -253,30 +229,6 @@
       ],
       "dateCreated": "2024-02-29T20:43:37.000Z",
       "dateUpdated": "2025-07-17T13:03:17.000Z",
-      "status": "open"
-    },
-    {
-      "title": "GAM Original Api InStream Video Config_ID Ad gives code 999, WARNING: request.imp[0].ext must contain at least one valid bidder",
-      "number": 787,
-      "author": {
-        "login": "noureen",
-        "id": 5036603
-      },
-      "assignees": [],
-      "dateCreated": "2024-07-19T13:41:48.000Z",
-      "dateUpdated": "2024-07-23T07:11:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[DRAFT] Confirm SDK to Privacy Sandbox requirements ",
-      "number": 646,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2023-06-16T14:00:56.000Z",
-      "dateUpdated": "2024-06-04T13:27:50.000Z",
       "status": "open"
     }
   ]

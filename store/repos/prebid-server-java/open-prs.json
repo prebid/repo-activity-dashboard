@@ -1,55 +1,257 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2026-01-20T14:32:22.110Z",
-    "itemCount": 35
+    "lastSync": "2026-02-19T11:57:35.300Z",
+    "itemCount": 47
   },
   "items": [
     {
-      "title": "ProgX: Change alias of",
-      "number": 4356,
+      "title": "Test: Replaceing mock server with wiremock",
+      "number": 4390,
       "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
+        "login": "marki1an",
+        "id": 95693607
       },
-      "assignees": [],
+      "assignees": [
+        "marki1an"
+      ],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-01-17T09:44:44.000Z",
-      "dateUpdated": "2026-01-17T09:44:44.000Z",
+      "dateCreated": "2026-02-18T10:35:16.000Z",
+      "dateUpdated": "2026-02-19T10:08:07.000Z",
       "status": "open"
     },
     {
-      "title": "AdOcean: Remove adapter",
-      "number": 4355,
+      "title": "New Alvads Adapter",
+      "number": 4194,
       "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
+        "login": "SamuelAlejandroNT",
+        "id": 228544051
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SamuelAlejandroNT",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-17T08:51:43.000Z",
-      "dateUpdated": "2026-01-17T08:51:43.000Z",
+      "dateCreated": "2025-09-18T13:29:49.000Z",
+      "dateUpdated": "2026-02-19T09:08:32.000Z",
       "status": "open"
     },
     {
-      "title": "Adot: Constrain publisher path to an enum list",
-      "number": 4354,
+      "title": "AdsInteractive: Change to aliases",
+      "number": 4362,
       "author": {
         "login": "przemkaczmarek",
         "id": 167743744
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-17T08:28:01.000Z",
-      "dateUpdated": "2026-01-17T08:28:01.000Z",
+      "dateCreated": "2026-01-27T16:35:54.000Z",
+      "dateUpdated": "2026-02-19T09:05:25.000Z",
       "status": "open"
     },
     {
-      "title": "Aso: Add user sync endpoint to adapter and aliases",
-      "number": 4353,
+      "title": "Epsilon: pass prebid server version",
+      "number": 4392,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T23:18:50.000Z",
+      "dateUpdated": "2026-02-18T23:18:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Nativo: Add optional placementId parameter and SDK Renderer Version in response",
+      "number": 4380,
+      "author": {
+        "login": "rafataveira",
+        "id": 103446145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T19:11:26.000Z",
+      "dateUpdated": "2026-02-18T17:56:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bump aquasecurity/trivy-action from 0.33.1 to 0.34.0 in /.github/workflows",
+      "number": 4391,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T15:59:09.000Z",
+      "dateUpdated": "2026-02-18T15:59:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "LI module: Fixing permission logic",
+      "number": 4389,
+      "author": {
+        "login": "SuperIzya",
+        "id": 7934182
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-17T16:03:57.000Z",
+      "dateUpdated": "2026-02-18T15:45:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: `secure-creative` validation",
+      "number": 3883,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-04-03T11:46:59.000Z",
+      "dateUpdated": "2026-02-18T09:37:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Missena Bid Adapter: add GPP params to cookie sync URL",
+      "number": 4383,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "DISMISSED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T14:21:59.000Z",
+      "dateUpdated": "2026-02-17T15:51:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bidder Configuration Fixes & URL Validation",
+      "number": 4126,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-08T06:35:57.000Z",
+      "dateUpdated": "2026-02-17T11:11:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Remove `PAAPI` feature",
+      "number": 4298,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T14:21:17.000Z",
+      "dateUpdated": "2026-02-17T09:35:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Remove `Fledge` feature",
+      "number": 4297,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T13:58:01.000Z",
+      "dateUpdated": "2026-02-17T09:19:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ResetDigital: Switch to OpenRTB",
+      "number": 4385,
       "author": {
         "login": "przemkaczmarek",
         "id": 167743744
@@ -57,8 +259,50 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-01-17T08:21:18.000Z",
-      "dateUpdated": "2026-01-17T08:21:18.000Z",
+      "dateCreated": "2026-02-12T13:22:42.000Z",
+      "dateUpdated": "2026-02-16T17:12:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Bidfuse",
+      "number": 4370,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T08:38:46.000Z",
+      "dateUpdated": "2026-02-16T17:11:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mobilefuse: Add site media types",
+      "number": 4369,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T07:46:10.000Z",
+      "dateUpdated": "2026-02-16T17:11:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Flipp: Update endpoint to not use cdn",
+      "number": 4368,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T07:43:25.000Z",
+      "dateUpdated": "2026-02-16T17:11:20.000Z",
       "status": "open"
     },
     {
@@ -72,37 +316,80 @@
       "reviewers": [
         {
           "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
+          "state": "COMMENTED"
         },
         {
           "login": "gabrielmougard",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "osulzhenko",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-22T17:52:20.000Z",
-      "dateUpdated": "2026-01-16T13:14:55.000Z",
+      "dateUpdated": "2026-02-16T17:10:26.000Z",
       "status": "open"
     },
     {
-      "title": "Test: Secondary bidder",
-      "number": 4328,
+      "title": "AudienceNetwork (S2S): add missing ext.security_app_id in OpenRTB requests to fix production auth failures",
+      "number": 4196,
       "author": {
-        "login": "marki1an",
-        "id": 95693607
+        "login": "PeakLee",
+        "id": 1582487
       },
-      "assignees": [
-        "marki1an"
-      ],
+      "assignees": [],
       "reviewers": [
         {
-          "login": "osulzhenko",
-          "state": "PENDING"
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "PeakLee",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-12-24T22:15:11.000Z",
-      "dateUpdated": "2026-01-16T08:29:47.000Z",
+      "dateCreated": "2025-09-19T08:26:48.000Z",
+      "dateUpdated": "2026-02-16T17:08:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: alliance_gravity",
+      "number": 4221,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-26T15:56:58.000Z",
+      "dateUpdated": "2026-02-16T17:08:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IX Adapter feature dynamic account id support",
+      "number": 4218,
+      "author": {
+        "login": "mmoschovas",
+        "id": 63253416
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "AntoxaAntoxic",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T11:04:27.000Z",
+      "dateUpdated": "2026-02-16T17:07:55.000Z",
       "status": "open"
     },
     {
@@ -119,17 +406,392 @@
           "state": "PENDING"
         },
         {
-          "login": "CTMBNara",
+          "login": "osulzhenko",
           "state": "PENDING"
         },
         {
-          "login": "osulzhenko",
-          "state": "PENDING"
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-11T11:12:21.000Z",
-      "dateUpdated": "2026-01-16T08:28:51.000Z",
+      "dateUpdated": "2026-02-16T13:28:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support bidderconfig array concat option",
+      "number": 3816,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-03-07T17:21:07.000Z",
+      "dateUpdated": "2026-02-16T12:45:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Dependencies: Fix Testcontainers client APi issue",
+      "number": 4387,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-16T11:40:14.000Z",
+      "dateUpdated": "2026-02-16T11:40:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: ORTB Error Response",
+      "number": 4386,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-16T09:37:58.000Z",
+      "dateUpdated": "2026-02-16T11:17:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: 360playvid",
+      "number": 4361,
+      "author": {
+        "login": "jcerone",
+        "id": 116585446
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "jcerone",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-27T15:10:38.000Z",
+      "dateUpdated": "2026-02-12T21:57:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Add support for endpoints with same path but different method",
+      "number": 4382,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T12:21:28.000Z",
+      "dateUpdated": "2026-02-11T08:31:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Add http_method field to ExtRequestPrebidServer",
+      "number": 4384,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T16:53:14.000Z",
+      "dateUpdated": "2026-02-10T16:53:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add `http_method` field to `ExtRequestPrebidServer`",
+      "number": 4378,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-05T21:55:51.000Z",
+      "dateUpdated": "2026-02-10T16:51:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Teal: Add GPP params to usersync",
+      "number": 4379,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T07:45:09.000Z",
+      "dateUpdated": "2026-02-06T17:02:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modularity: Add support for endpoints with same path but different method",
+      "number": 4372,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T22:07:48.000Z",
+      "dateUpdated": "2026-02-05T18:22:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Make functional test compilation optional",
+      "number": 4293,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T15:16:01.000Z",
+      "dateUpdated": "2026-02-05T11:07:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Allow duplicate cookie family names",
+      "number": 4360,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-27T12:07:33.000Z",
+      "dateUpdated": "2026-02-03T17:32:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Secondary bidder",
+      "number": 4328,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-24T22:15:11.000Z",
+      "dateUpdated": "2026-02-03T11:48:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Bidder removal fields",
+      "number": 4329,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "marki1an",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-31T11:05:55.000Z",
+      "dateUpdated": "2026-02-02T18:22:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove fields from requests to bidders",
+      "number": 4332,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T15:01:18.000Z",
+      "dateUpdated": "2026-01-29T10:05:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Allow duplicate cookie family names",
+      "number": 4316,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T14:41:30.000Z",
+      "dateUpdated": "2026-01-23T09:46:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2026-01-23T09:45:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get Interface",
+      "number": 4295,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T16:55:27.000Z",
+      "dateUpdated": "2026-01-23T09:44:48.000Z",
       "status": "open"
     },
     {
@@ -153,27 +815,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-05T13:18:24.000Z",
       "dateUpdated": "2026-01-16T08:28:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Make functional test compilation optional",
-      "number": 4293,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-21T15:16:01.000Z",
-      "dateUpdated": "2026-01-16T08:28:33.000Z",
       "status": "open"
     },
     {
@@ -231,236 +872,6 @@
       "status": "open"
     },
     {
-      "title": "Module update: LI EID permissions",
-      "number": 4315,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SuperIzya",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-09T09:25:43.000Z",
-      "dateUpdated": "2026-01-15T13:17:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Bidder removal fields",
-      "number": 4329,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-31T11:05:55.000Z",
-      "dateUpdated": "2026-01-15T12:55:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove fields from requests to bidders",
-      "number": 4332,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-05T15:01:18.000Z",
-      "dateUpdated": "2026-01-15T12:55:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Clydo",
-      "number": 4299,
-      "author": {
-        "login": "przemkaczmarek",
-        "id": 167743744
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-30T10:10:01.000Z",
-      "dateUpdated": "2026-01-15T12:26:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Teal: new adapter",
-      "number": 4350,
-      "author": {
-        "login": "ollyburns",
-        "id": 75783836
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-13T11:48:51.000Z",
-      "dateUpdated": "2026-01-13T20:26:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "APPROVED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2026-01-09T10:38:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Fix NPE for removing invalid config.",
-      "number": 4330,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-31T15:24:54.000Z",
-      "dateUpdated": "2026-01-09T09:19:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `PAAPI` feature",
-      "number": 4298,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T14:21:17.000Z",
-      "dateUpdated": "2026-01-09T08:22:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `Fledge` feature",
-      "number": 4297,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T13:58:01.000Z",
-      "dateUpdated": "2026-01-09T08:22:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Get Interface",
-      "number": 4295,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T16:55:27.000Z",
-      "dateUpdated": "2026-01-09T08:22:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Allow duplicate cookie family names",
-      "number": 4316,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-10T14:41:30.000Z",
-      "dateUpdated": "2026-01-08T16:15:10.000Z",
-      "status": "open"
-    },
-    {
       "title": "Secondary bidders",
       "number": 4331,
       "author": {
@@ -510,126 +921,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-01T12:07:51.000Z",
       "dateUpdated": "2026-01-02T09:13:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder Configuration Fixes & URL Validation",
-      "number": 4126,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2025-12-22T15:50:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2025-12-10T13:17:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: alliance_gravity",
-      "number": 4221,
-      "author": {
-        "login": "danielbaud",
-        "id": 52867769
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-26T15:56:58.000Z",
-      "dateUpdated": "2025-11-07T07:46:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "AudienceNetwork (S2S): add missing ext.security_app_id in OpenRTB requests to fix production auth failures",
-      "number": 4196,
-      "author": {
-        "login": "PeakLee",
-        "id": 1582487
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "PeakLee",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-19T08:26:48.000Z",
-      "dateUpdated": "2025-11-07T07:46:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IX Adapter feature dynamic account id support",
-      "number": 4218,
-      "author": {
-        "login": "mmoschovas",
-        "id": 63253416
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "AntoxaAntoxic",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T11:04:27.000Z",
-      "dateUpdated": "2025-10-30T11:12:17.000Z",
       "status": "open"
     },
     {
@@ -683,43 +974,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-05-09T07:19:02.000Z",
       "dateUpdated": "2025-06-06T07:11:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: `secure-creative` validation",
-      "number": 3883,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-04-03T11:46:59.000Z",
-      "dateUpdated": "2025-05-23T14:42:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support bidderconfig array concat option",
-      "number": 3816,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-03-07T17:21:07.000Z",
-      "dateUpdated": "2025-05-16T07:53:46.000Z",
       "status": "open"
     },
     {

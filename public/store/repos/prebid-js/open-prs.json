@@ -1,13 +1,13 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-01-20T14:31:48.853Z",
-    "itemCount": 30
+    "lastSync": "2026-02-19T11:57:17.587Z",
+    "itemCount": 46
   },
   "items": [
     {
-      "title": "Core: loading external scripts linting rule",
-      "number": 14354,
+      "title": " Prebid 11: gpt slots matching to ad units logic unification",
+      "number": 14480,
       "author": {
         "login": "mkomorski",
         "id": 25056697
@@ -15,12 +15,315 @@
       "assignees": [],
       "reviewers": [
         {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-17T15:07:07.000Z",
+      "dateUpdated": "2026-02-19T11:12:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ReVantage Bid Adapter: initial release",
+      "number": 14180,
+      "author": {
+        "login": "v0idxyz",
+        "id": 58184010
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "v0idxyz",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T19:36:06.000Z",
+      "dateUpdated": "2026-02-19T10:57:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PubmaticBidAdapter: Adding support for privacyLink",
+      "number": 14491,
+      "author": {
+        "login": "pm-priyanka-deshmane",
+        "id": 107103300
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T08:37:43.000Z",
+      "dateUpdated": "2026-02-19T09:22:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proxistore Bid Adapter: migration to OpenRTB",
+      "number": 14411,
+      "author": {
+        "login": "anthonyrichir",
+        "id": 5638857
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-03T20:02:46.000Z",
+      "dateUpdated": "2026-02-19T08:06:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 11: add `adUnit.element` option",
+      "number": 14467,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "monis0395",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T22:43:56.000Z",
+      "dateUpdated": "2026-02-19T07:17:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Magnite Bid Adapter: New ORTB Adapter for magnite (rubicon)",
+      "number": 14476,
+      "author": {
+        "login": "robertrmartinez",
+        "id": 13972794
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T23:26:26.000Z",
+      "dateUpdated": "2026-02-18T23:29:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "feat: add pubstackBidAdapter (#1)",
+      "number": 14490,
+      "author": {
+        "login": "gpolaert",
+        "id": 1678246
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T21:12:02.000Z",
+      "dateUpdated": "2026-02-18T21:48:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 11: document TypeScript-first policy for new source files",
+      "number": 14488,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T16:41:22.000Z",
+      "dateUpdated": "2026-02-18T20:58:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "mediafuseBidAdapter - Updates and Refactor",
+      "number": 14469,
+      "author": {
+        "login": "ibhattacharya-dev",
+        "id": 255350131
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ibhattacharya-dev",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T14:51:24.000Z",
+      "dateUpdated": "2026-02-18T20:36:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Floxis Bid Adapter: initial release",
+      "number": 13934,
+      "author": {
+        "login": "floxis-tech",
+        "id": 234334311
+      },
+      "assignees": [
+        "osazos"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
           "login": "osazos",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T14:09:09.000Z",
+      "dateUpdated": "2026-02-18T19:24:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 11: remove deprecated DNT/DoNotTrack usage and force static dnt handling",
+      "number": 14448,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
           "state": "PENDING"
         },
         {
-          "login": "jsnellbaker",
-          "state": "PENDING"
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T22:00:17.000Z",
+      "dateUpdated": "2026-02-18T19:02:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "InsurAds Bid Adapter: Initial Implementation",
+      "number": 14470,
+      "author": {
+        "login": "JoseClimaco",
+        "id": 1490338
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
         },
         {
           "login": "chatgpt-codex-connector[bot]",
@@ -28,16 +331,51 @@
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-20T11:51:59.000Z",
-      "dateUpdated": "2026-01-20T12:25:55.000Z",
+      "dateCreated": "2026-02-12T15:24:35.000Z",
+      "dateUpdated": "2026-02-18T18:46:17.000Z",
       "status": "open"
     },
     {
-      "title": "New Adapter: Panxo - AI traffic monetization SSP",
-      "number": 14351,
+      "title": "Adcluster Bid Adapter: Support Adcluster",
+      "number": 14050,
       "author": {
-        "login": "css12s",
-        "id": 16015876
+        "login": "adclusterdev",
+        "id": 236771058
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-advanced-security[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "adclusterdev",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T00:48:49.000Z",
+      "dateUpdated": "2026-02-18T18:34:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mobian RTD Provider: use URL based cache",
+      "number": 14481,
+      "author": {
+        "login": "RomuloVitoi",
+        "id": 1702334
       },
       "assignees": [],
       "reviewers": [
@@ -46,21 +384,52 @@
           "state": "COMMENTED"
         },
         {
-          "login": "css12s",
+          "login": "copilot-pull-request-reviewer[bot]",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-17T23:48:52.000Z",
-      "dateUpdated": "2026-01-20T11:51:43.000Z",
+      "dateCreated": "2026-02-17T23:39:39.000Z",
+      "dateUpdated": "2026-02-18T18:32:46.000Z",
       "status": "open"
     },
     {
-      "title": "Bridgewell Bid Adapter: expand request data",
-      "number": 14320,
+      "title": "Prebid 11.0",
+      "number": 14433,
       "author": {
-        "login": "donnychang",
-        "id": 178991516
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T20:34:18.000Z",
+      "dateUpdated": "2026-02-18T16:00:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Vast trackers: additional event injection feature",
+      "number": 14409,
+      "author": {
+        "login": "vivekyadav15",
+        "id": 185897626
       },
       "assignees": [],
       "reviewers": [
@@ -73,18 +442,206 @@
           "state": "COMMENTED"
         },
         {
-          "login": "donnychang",
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "vivekyadav15",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-09T02:05:28.000Z",
-      "dateUpdated": "2026-01-20T06:11:33.000Z",
+      "dateCreated": "2026-02-03T17:20:30.000Z",
+      "dateUpdated": "2026-02-18T13:32:20.000Z",
       "status": "open"
     },
     {
-      "title": "Core: Added src field to client bidRequests to ensure consistent payload structure",
-      "number": 14301,
+      "title": "Taboola: support native",
+      "number": 14486,
+      "author": {
+        "login": "ronishefi9",
+        "id": 168074830
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T13:19:22.000Z",
+      "dateUpdated": "2026-02-18T13:24:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rtd/datamage contextual provider",
+      "number": 14485,
+      "author": {
+        "login": "leiforion",
+        "id": 471705
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T13:14:02.000Z",
+      "dateUpdated": "2026-02-18T13:19:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Insticator Bid Adapter: Add support for 2.6rtb request/response and video ad-pod handling ",
+      "number": 14373,
+      "author": {
+        "login": "shubhamc-ins",
+        "id": 127132399
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "shubhamc-ins",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-23T11:17:17.000Z",
+      "dateUpdated": "2026-02-18T12:55:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "LeagueM BId Adapter: initial release",
+      "number": 14479,
+      "author": {
+        "login": "mo4rock",
+        "id": 98119227
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-16T14:53:14.000Z",
+      "dateUpdated": "2026-02-18T11:51:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "TargetVideo bid adapter: send price floor param",
+      "number": 14406,
+      "author": {
+        "login": "danijel-ristic",
+        "id": 168181386
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-03T08:40:30.000Z",
+      "dateUpdated": "2026-02-18T09:03:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Harion",
+      "number": 14398,
+      "author": {
+        "login": "markappmedia",
+        "id": 257992832
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-29T13:50:27.000Z",
+      "dateUpdated": "2026-02-18T08:30:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Yahoo Bid Adapter: upgrade to OpenRTB 2.6",
+      "number": 14435,
+      "author": {
+        "login": "DeepthiNeeladri",
+        "id": 12966265
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T12:09:00.000Z",
+      "dateUpdated": "2026-02-17T20:32:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Openx bid adapter: WIP deduplicate request",
+      "number": 14477,
+      "author": {
+        "login": "marcin-wrobel-ox",
+        "id": 56037672
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-13T15:40:00.000Z",
+      "dateUpdated": "2026-02-17T16:45:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: validate bid response mediaType against ad unit mediaTypes",
+      "number": 14468,
       "author": {
         "login": "anastasiiapankivFS",
         "id": 153929408
@@ -92,25 +649,56 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "jlquaccia",
+          "login": "gwhigs",
           "state": "PENDING"
         },
         {
-          "login": "dgirardi",
-          "state": "APPROVED"
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
         },
         {
           "login": "patmmccann",
           "state": "COMMENTED"
-        },
-        {
-          "login": "anastasiiapankivFS",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-12-30T14:53:17.000Z",
-      "dateUpdated": "2026-01-19T14:20:23.000Z",
+      "dateCreated": "2026-02-12T09:02:53.000Z",
+      "dateUpdated": "2026-02-17T16:10:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: bid targeting exclusion",
+      "number": 14453,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T11:53:54.000Z",
+      "dateUpdated": "2026-02-16T10:53:37.000Z",
       "status": "open"
     },
     {
@@ -133,293 +721,104 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2026-01-19T08:24:46.000Z",
-      "dateUpdated": "2026-01-19T09:07:15.000Z",
+      "dateUpdated": "2026-02-13T10:13:49.000Z",
       "status": "open"
     },
     {
-      "title": "Taboola support extra signals",
-      "number": 14299,
+      "title": "Performax adapter: Add user sync and reporting URLs",
+      "number": 14429,
       "author": {
-        "login": "talavital7",
-        "id": 48999246
+        "login": "michalkvacek",
+        "id": 18511303
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "patmmccann",
+          "login": "chatgpt-codex-connector[bot]",
           "state": "COMMENTED"
         },
+        {
+          "login": "michalkvacek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T13:04:14.000Z",
+      "dateUpdated": "2026-02-13T07:26:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Various modules: remove legacy GPT targeting fallbacks",
+      "number": 14450,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
         {
           "login": "robertrmartinez",
-          "state": "COMMENTED"
+          "state": "PENDING"
         },
         {
-          "login": "talavital7",
+          "login": "chatgpt-codex-connector[bot]",
           "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-28T13:44:49.000Z",
-      "dateUpdated": "2026-01-19T08:50:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Zeta SSP Analytics Adapter: pass floors.",
-      "number": 14350,
-      "author": {
-        "login": "abermanov-zeta",
-        "id": 95416296
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jlquaccia",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-17T22:25:50.000Z",
-      "dateUpdated": "2026-01-17T22:59:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ADBRO Bid Adapter: HTTP Request Compression support",
-      "number": 14349,
-      "author": {
-        "login": "inebritov",
-        "id": 6717482
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-16T16:07:06.000Z",
-      "dateUpdated": "2026-01-16T16:20:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: normalize FPD fields that have different ORTB 2.5 / 2.6 names; add `toOrtb26` translation utility",
-      "number": 14260,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "mkomorski",
-          "state": "PENDING"
         },
         {
           "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-12-11T14:54:56.000Z",
-      "dateUpdated": "2026-01-15T15:43:53.000Z",
+      "dateCreated": "2026-02-10T23:04:34.000Z",
+      "dateUpdated": "2026-02-12T18:03:48.000Z",
       "status": "open"
     },
     {
-      "title": "Adcluster Bid Adapter: Support Adcluster",
-      "number": 14050,
+      "title": "bidResponseFilter: read mediaType from bid, not bid.meta",
+      "number": 14415,
       "author": {
-        "login": "adclusterdev",
-        "id": 236771058
+        "login": "anastasiiapankivFS",
+        "id": 153929408
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "ncolletti",
-          "state": "PENDING"
+          "login": "nunomfelixf",
+          "state": "APPROVED"
         },
         {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "github-advanced-security[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T00:48:49.000Z",
-      "dateUpdated": "2026-01-14T22:13:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: granular settings for main thread yielding",
-      "number": 13789,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [
-        "robertrmartinez",
-        "Fawke"
-      ],
-      "reviewers": [
-        {
-          "login": "jefftmahoney",
-          "state": "PENDING"
-        },
-        {
-          "login": "robertrmartinez",
-          "state": "PENDING"
-        },
-        {
-          "login": "Fawke",
-          "state": "PENDING"
-        },
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-20T16:33:58.000Z",
-      "dateUpdated": "2026-01-14T21:31:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Chrome AI RTD Provider: fix QuotaExceededError with large page content",
-      "number": 14295,
-      "author": {
-        "login": "drpaulfarrow",
-        "id": 21990123
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
+          "login": "ericlarsonfreestar",
+          "state": "APPROVED"
         },
         {
           "login": "jsnellbaker",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
           "state": "CHANGES_REQUESTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-12-23T10:11:39.000Z",
-      "dateUpdated": "2026-01-14T21:19:39.000Z",
+      "dateCreated": "2026-02-05T09:59:23.000Z",
+      "dateUpdated": "2026-02-12T16:31:50.000Z",
       "status": "open"
     },
     {
-      "title": "ID5 ID module: add option to use custom external targeting ",
-      "number": 14324,
+      "title": "New adapter DPAI",
+      "number": 14434,
       "author": {
-        "login": "pg-id5",
-        "id": 253932022
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "robertrmartinez",
-          "state": "PENDING"
-        },
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "abazylewicz-id5",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-09T15:52:07.000Z",
-      "dateUpdated": "2026-01-14T08:46:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: adding ima params to local cache request",
-      "number": 14312,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "gwhigs",
-          "state": "PENDING"
-        },
-        {
-          "login": "robertrmartinez",
-          "state": "PENDING"
-        },
-        {
-          "login": "karimMourra",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-05T12:46:22.000Z",
-      "dateUpdated": "2026-01-13T17:41:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Microsoft Adapter: Add 152media alias",
-      "number": 14118,
-      "author": {
-        "login": "arezitopedia",
-        "id": 49372179
-      },
-      "assignees": [
-        "jsnellbaker"
-      ],
-      "reviewers": [
-        {
-          "login": "jsnellbaker",
-          "state": "PENDING"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-11T17:55:57.000Z",
-      "dateUpdated": "2026-01-13T16:52:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Teza Bid Adapter: initial release",
-      "number": 14093,
-      "author": {
-        "login": "vadim-frolov",
-        "id": 30404654
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "jefftmahoney",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-04T16:55:04.000Z",
-      "dateUpdated": "2026-01-13T15:33:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "update optout bidadapter",
-      "number": 14282,
-      "author": {
-        "login": "doelwit",
-        "id": 1334100
+        "login": "driftpixelai",
+        "id": 166716541
       },
       "assignees": [],
       "reviewers": [
@@ -430,111 +829,11 @@
         {
           "login": "chatgpt-codex-connector[bot]",
           "state": "COMMENTED"
-        },
-        {
-          "login": "doelwit",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-12-18T13:38:44.000Z",
-      "dateUpdated": "2026-01-13T08:27:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Neuwo Rtd Module: Quality of life improvements and feautres",
-      "number": 14323,
-      "author": {
-        "login": "gregneuwo",
-        "id": 226034698
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lksharma",
-          "state": "PENDING"
-        },
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-09T13:03:46.000Z",
-      "dateUpdated": "2026-01-12T11:18:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Nuclion Bid Adapter: Initial Release",
-      "number": 14318,
-      "author": {
-        "login": "v0idxyz",
-        "id": 58184010
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lksharma",
-          "state": "PENDING"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-08T14:39:55.000Z",
-      "dateUpdated": "2026-01-08T14:44:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidmatic Bid Adapter: update adapter",
-      "number": 14317,
-      "author": {
-        "login": "Gunnar97",
-        "id": 135347097
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "chatgpt-codex-connector[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-08T11:45:47.000Z",
-      "dateUpdated": "2026-01-08T12:11:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PubMatic Bid Adapter: Support Billing URL (burl) and implement onBidBillable handler",
-      "number": 14313,
-      "author": {
-        "login": "pm-azhar-mulla",
-        "id": 75726247
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "dgirardi",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-06T06:15:01.000Z",
-      "dateUpdated": "2026-01-06T06:16:18.000Z",
+      "dateCreated": "2026-02-10T08:38:16.000Z",
+      "dateUpdated": "2026-02-12T16:26:55.000Z",
       "status": "open"
     },
     {
@@ -557,12 +856,89 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-13T17:47:22.000Z",
-      "dateUpdated": "2025-12-26T15:18:52.000Z",
+      "dateUpdated": "2026-02-11T23:14:55.000Z",
       "status": "open"
     },
     {
-      "title": "New module: Shaping rules",
-      "number": 14079,
+      "title": "sevioBidAdapter - mapping by id in natives as fallback when there is …",
+      "number": 14391,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "petrican",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-28T12:28:31.000Z",
+      "dateUpdated": "2026-02-11T17:14:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Chrome AI RTD Provider: fix QuotaExceededError with large page content",
+      "number": 14295,
+      "author": {
+        "login": "drpaulfarrow",
+        "id": 21990123
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T10:11:39.000Z",
+      "dateUpdated": "2026-02-11T19:01:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Zeta SSP Analytics Adapter: pass floors.",
+      "number": 14350,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-17T22:25:50.000Z",
+      "dateUpdated": "2026-02-10T16:09:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bidResponseFilter: cattax handling",
+      "number": 14428,
       "author": {
         "login": "mkomorski",
         "id": 25056697
@@ -570,29 +946,205 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "dgirardi",
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T11:57:29.000Z",
+      "dateUpdated": "2026-02-09T14:49:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Optable RTD Module: Call targeting directly",
+      "number": 14405,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T21:42:41.000Z",
+      "dateUpdated": "2026-02-06T14:30:02.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Conceptx bid adapter: Update request destination",
+      "number": 14420,
+      "author": {
+        "login": "cpcpn-emil",
+        "id": 115714010
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T12:43:23.000Z",
+      "dateUpdated": "2026-02-06T12:45:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "update optout bidadapter",
+      "number": 14282,
+      "author": {
+        "login": "doelwit",
+        "id": 1334100
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
           "state": "COMMENTED"
         },
         {
-          "login": "robertrmartinez",
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
           "state": "COMMENTED"
         },
+        {
+          "login": "doelwit",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T13:38:44.000Z",
+      "dateUpdated": "2026-02-05T08:08:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: disabling fingerprinting apis",
+      "number": 14404,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
         {
           "login": "lksharma",
           "state": "PENDING"
         },
         {
-          "login": "pm-komal-kumari",
-          "state": "COMMENTED"
+          "login": "ncolletti",
+          "state": "PENDING"
         },
         {
-          "login": "mkomorski",
+          "login": "github-advanced-security[bot]",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-10-29T13:26:39.000Z",
-      "dateUpdated": "2025-12-19T14:45:23.000Z",
+      "dateCreated": "2026-02-02T11:20:11.000Z",
+      "dateUpdated": "2026-02-04T10:15:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mediasquare bid adapter: manage burl object",
+      "number": 14357,
+      "author": {
+        "login": "matthieularere-msq",
+        "id": 63732822
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-20T17:08:52.000Z",
+      "dateUpdated": "2026-02-03T15:13:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Neuwo Rtd Module: Version v2.0.0 and Quality of Life Improvements",
+      "number": 14323,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-09T13:03:46.000Z",
+      "dateUpdated": "2026-01-27T12:52:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Teza Bid Adapter: initial release",
+      "number": 14093,
+      "author": {
+        "login": "vadim-frolov",
+        "id": 30404654
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T16:55:04.000Z",
+      "dateUpdated": "2026-01-13T15:33:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PubMatic Bid Adapter: Support Billing URL (burl) and implement onBidBillable handler",
+      "number": 14313,
+      "author": {
+        "login": "pm-azhar-mulla",
+        "id": 75726247
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-06T06:15:01.000Z",
+      "dateUpdated": "2026-01-06T06:16:18.000Z",
       "status": "open"
     },
     {
@@ -628,101 +1180,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-18T03:31:53.000Z",
       "dateUpdated": "2025-12-19T00:32:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IIQ: Allow Publisher to Pass Group",
-      "number": 14256,
-      "author": {
-        "login": "ncolletti",
-        "id": 34142758
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-10T00:09:39.000Z",
-      "dateUpdated": "2025-12-17T18:26:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ReVantage Bid Adapter",
-      "number": 14180,
-      "author": {
-        "login": "v0idxyz",
-        "id": 58184010
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ncolletti",
-          "state": "PENDING"
-        },
-        {
-          "login": "copilot-pull-request-reviewer[bot]",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-20T19:36:06.000Z",
-      "dateUpdated": "2025-12-15T15:05:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove quantcastId",
-      "number": 14045,
-      "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-21T12:52:54.000Z",
-      "dateUpdated": "2025-12-10T16:47:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove quantcast bid adapter",
-      "number": 14054,
-      "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-22T13:05:55.000Z",
-      "dateUpdated": "2025-12-10T16:47:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Floxis Bid Adapter : initial release",
-      "number": 13934,
-      "author": {
-        "login": "floxis-tech",
-        "id": 234334311
-      },
-      "assignees": [
-        "osazos"
-      ],
-      "reviewers": [
-        {
-          "login": "osazos",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T14:09:09.000Z",
-      "dateUpdated": "2025-11-10T12:12:19.000Z",
       "status": "open"
     },
     {

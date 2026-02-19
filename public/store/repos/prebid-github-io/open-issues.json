@@ -1,10 +1,36 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2026-01-20T14:32:46.102Z",
-    "itemCount": 41
+    "lastSync": "2026-02-19T11:57:53.938Z",
+    "itemCount": 40
   },
   "items": [
+    {
+      "title": "fix pbadslot discussion",
+      "number": 6435,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-17T15:48:09.000Z",
+      "dateUpdated": "2026-02-17T15:48:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "update native adops guide to stop recommending puc",
+      "number": 6401,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-01-20T15:36:17.000Z",
+      "dateUpdated": "2026-01-20T15:36:24.000Z",
+      "status": "open"
+    },
     {
       "title": "Fix multi format and instream examples",
       "number": 6394,
@@ -20,20 +46,6 @@
       "status": "open"
     },
     {
-      "title": "Update RTD submodule documentation: reflect Proxy-based ortb2Fragments.bidder mutation pattern (10.x)",
-      "number": 6341,
-      "author": {
-        "login": "lucor",
-        "id": 313577
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2025-11-17T14:21:29.000Z",
-      "dateUpdated": "2026-01-13T16:16:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "[New RTD Module] Add Mixpeek RTD Provider Documentation",
       "number": 6385,
       "author": {
@@ -46,18 +58,6 @@
       "status": "open"
     },
     {
-      "title": "Remove old alias bidder",
-      "number": 6392,
-      "author": {
-        "login": "tb-emq",
-        "id": 217763234
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-13T14:05:41.000Z",
-      "dateUpdated": "2026-01-13T14:05:41.000Z",
-      "status": "open"
-    },
-    {
       "title": "[Pubmatic]The example value for the dctr bid param shows an unneeded \\",
       "number": 6391,
       "author": {
@@ -67,20 +67,6 @@
       "assignees": [],
       "dateCreated": "2026-01-13T11:41:29.000Z",
       "dateUpdated": "2026-01-13T11:41:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IncrementX adapter build failing in Prebid v10+ download builder",
-      "number": 6389,
-      "author": {
-        "login": "Prebid-Vertoz",
-        "id": 23209608
-      },
-      "assignees": [
-        "ChrisHuie"
-      ],
-      "dateCreated": "2025-12-22T10:49:58.000Z",
-      "dateUpdated": "2026-01-12T16:13:23.000Z",
       "status": "open"
     },
     {
