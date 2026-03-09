@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "repository": "prebid/prebid.js",
+    "repository": "prebid/Prebid.js",
     "year": 2024,
     "month": 2,
     "itemCount": 104,
-    "lastUpdated": "2025-09-02T06:13:20.928Z"
+    "lastUpdated": "2026-03-09T17:55:06.650Z"
   },
   "items": [
     {
@@ -3268,32 +3268,13 @@
       "assignees": [
         "ncolletti"
       ],
-      "reviewers": [
-        {
-          "login": "patmmccann",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "dgirardi",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "ncolletti",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2024-01-30T22:10:45.000Z",
-      "dateUpdated": "2024-02-03T15:56:43.000Z",
+      "dateUpdated": "2026-02-27T12:13:44.000Z",
       "status": "merged",
       "dateMerged": "2024-02-03T15:56:42.000Z",
-      "commitAuthors": {
-        "5796634": {
-          "identifier": "5796634",
-          "displayName": "laurb9",
-          "count": 2,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2024-02-03T15:56:42.000Z"
     },
     {
       "title": "priceFloors: do not log error on missing floor definitions",

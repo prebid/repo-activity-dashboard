@@ -1,44 +1,20 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-02-19T11:57:17.591Z",
-    "itemCount": 93
+    "lastSync": "2026-03-09T17:55:06.624Z",
+    "itemCount": 88
   },
   "items": [
     {
-      "title": "ORTB2 cattax + bcat (Ad Product Taxonomy v2.0) causes SSP request failures",
-      "number": 14483,
-      "author": {
-        "login": "marco-prontera",
-        "id": 50167854
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-18T08:54:12.000Z",
-      "dateUpdated": "2026-02-18T17:31:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "transformBidParams comments",
-      "number": 14489,
+      "title": "intersection rtd module: still in use?",
+      "number": 13125,
       "author": {
         "login": "patmmccann",
         "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2026-02-18T16:48:46.000Z",
-      "dateUpdated": "2026-02-18T16:48:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "bidResponseFilter: IBV not detected on multi-format ad units",
-      "number": 14475,
-      "author": {
-        "login": "antoine-ga",
-        "id": 17828425
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-12T20:58:37.000Z",
-      "dateUpdated": "2026-02-17T16:03:30.000Z",
+      "dateCreated": "2025-05-22T14:40:01.000Z",
+      "dateUpdated": "2026-03-09T15:11:33.000Z",
       "status": "open"
     },
     {
@@ -52,21 +28,81 @@
         "mkomorski"
       ],
       "dateCreated": "2026-02-03T17:16:01.000Z",
-      "dateUpdated": "2026-02-17T13:37:42.000Z",
+      "dateUpdated": "2026-03-09T15:11:00.000Z",
       "status": "open"
     },
     {
-      "title": "Native mediatype: Track Visible impression",
-      "number": 6358,
+      "title": "Npm releases are broken - fix may move releaser to GH Actions",
+      "number": 14425,
       "author": {
-        "login": "guiann",
-        "id": 1107730
+        "login": "patmmccann",
+        "id": 1683175
       },
       "assignees": [
         "dgirardi"
       ],
-      "dateCreated": "2021-02-25T11:35:03.000Z",
-      "dateUpdated": "2026-02-12T16:40:49.000Z",
+      "dateCreated": "2026-02-07T11:12:55.000Z",
+      "dateUpdated": "2026-03-09T14:58:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bidResponseFilter: IBV not detected on multi-format ad units",
+      "number": 14475,
+      "author": {
+        "login": "antoine-ga",
+        "id": 17828425
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-12T20:58:37.000Z",
+      "dateUpdated": "2026-03-07T03:50:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
+      "number": 14068,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-24T16:06:16.000Z",
+      "dateUpdated": "2026-02-26T15:52:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "GVL storage disclosure files failing to fetch",
+      "number": 14314,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-06T16:59:32.000Z",
+      "dateUpdated": "2026-02-24T16:01:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ORTB2 cattax + bcat (Ad Product Taxonomy v2.0) causes SSP request failures",
+      "number": 14483,
+      "author": {
+        "login": "marco-prontera",
+        "id": 50167854
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-18T08:54:12.000Z",
+      "dateUpdated": "2026-02-24T10:27:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove obligation to use Cache for Video Bids containing Vast XML",
+      "number": 14509,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-23T15:31:44.000Z",
+      "dateUpdated": "2026-02-23T16:19:16.000Z",
       "status": "open"
     },
     {
@@ -91,18 +127,6 @@
       "assignees": [],
       "dateCreated": "2026-02-11T18:02:58.000Z",
       "dateUpdated": "2026-02-11T18:02:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Npm releases are broken - fix may move releaser to GH Actions",
-      "number": 14425,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-07T11:12:55.000Z",
-      "dateUpdated": "2026-02-11T17:06:29.000Z",
       "status": "open"
     },
     {
@@ -132,32 +156,6 @@
       "status": "open"
     },
     {
-      "title": "Feature request: `cattax` support in bidResponseFilter",
-      "number": 12481,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2024-11-20T19:14:26.000Z",
-      "dateUpdated": "2026-02-05T14:47:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "intersection rtd module: still in use?",
-      "number": 13125,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-05-22T14:40:01.000Z",
-      "dateUpdated": "2026-02-03T19:35:31.000Z",
-      "status": "open"
-    },
-    {
       "title": "Add error and video playback tracker support",
       "number": 14353,
       "author": {
@@ -167,18 +165,6 @@
       "assignees": [],
       "dateCreated": "2026-01-20T08:38:30.000Z",
       "dateUpdated": "2026-02-03T17:27:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DoNotTrack: ban access to navigator call",
-      "number": 13919,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T13:53:35.000Z",
-      "dateUpdated": "2026-01-29T16:26:31.000Z",
       "status": "open"
     },
     {
@@ -239,20 +225,6 @@
       "assignees": [],
       "dateCreated": "2022-10-25T18:55:02.000Z",
       "dateUpdated": "2026-01-28T17:56:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "disable fingerprinting borderline apis with config",
-      "number": 14283,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2025-12-18T16:02:02.000Z",
-      "dateUpdated": "2026-01-28T17:38:18.000Z",
       "status": "open"
     },
     {
@@ -325,18 +297,6 @@
       "assignees": [],
       "dateCreated": "2023-07-19T17:14:41.000Z",
       "dateUpdated": "2026-01-26T16:34:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "GVL storage disclosure files failing to fetch",
-      "number": 14314,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-06T16:59:32.000Z",
-      "dateUpdated": "2026-01-22T23:35:44.000Z",
       "status": "open"
     },
     {
@@ -452,18 +412,6 @@
       "status": "open"
     },
     {
-      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
-      "number": 14068,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T16:06:16.000Z",
-      "dateUpdated": "2025-11-03T16:23:07.000Z",
-      "status": "open"
-    },
-    {
       "title": "Create InBannerVideo Blocker",
       "number": 13932,
       "author": {
@@ -497,18 +445,6 @@
       "assignees": [],
       "dateCreated": "2025-10-07T01:27:21.000Z",
       "dateUpdated": "2025-10-07T01:29:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "devicePixelRatio: remove or polyfill",
-      "number": 13920,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-09-23T13:57:56.000Z",
-      "dateUpdated": "2025-09-23T13:57:56.000Z",
       "status": "open"
     },
     {

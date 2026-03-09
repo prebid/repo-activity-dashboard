@@ -1,10 +1,46 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-02-19T11:57:28.252Z",
-    "itemCount": 213
+    "lastSync": "2026-03-09T17:55:18.282Z",
+    "itemCount": 214
   },
   "items": [
+    {
+      "title": "/openrtb2/video endpoint deprecation",
+      "number": 4599,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-05T15:54:59.000Z",
+      "dateUpdated": "2026-03-06T14:11:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Drop 'support-cors' usersync YAML config",
+      "number": 4160,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2025-01-17T19:19:45.000Z",
+      "dateUpdated": "2026-03-06T14:09:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: OMS: Add `{{PublisherId}}` macro",
+      "number": 4705,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-02T11:15:57.000Z",
+      "dateUpdated": "2026-03-05T17:47:48.000Z",
+      "status": "open"
+    },
     {
       "title": "GVL Startup Fetch Creates Thundering Herd at Scale — Need Cluster-Wide Caching",
       "number": 4687,
@@ -12,9 +48,168 @@
         "login": "scr-oath",
         "id": 41922797
       },
-      "assignees": [],
+      "assignees": [
+        "Net-burst"
+      ],
       "dateCreated": "2026-02-17T17:42:58.000Z",
-      "dateUpdated": "2026-02-17T17:42:58.000Z",
+      "dateUpdated": "2026-03-05T16:58:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS marks video as banner",
+      "number": 4665,
+      "author": {
+        "login": "fprotimaru",
+        "id": 60222966
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-20T06:19:44.000Z",
+      "dateUpdated": "2026-03-05T16:52:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support the delivery of custom bid data to prebid.js",
+      "number": 4554,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-09-29T22:02:21.000Z",
+      "dateUpdated": "2026-03-05T16:51:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Teal: Add GPP params to usersync",
+      "number": 4703,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-02T11:15:20.000Z",
+      "dateUpdated": "2026-03-05T09:08:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Aliases inheriting GVL IDs",
+      "number": 4463,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2025-07-30T13:43:31.000Z",
+      "dateUpdated": "2026-03-05T04:24:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Handle deleted GVL entities",
+      "number": 4439,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-07-16T17:16:02.000Z",
+      "dateUpdated": "2026-03-04T21:43:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposed tracking update",
+      "number": 4152,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "bretg"
+      ],
+      "dateCreated": "2025-01-15T11:16:22.000Z",
+      "dateUpdated": "2026-03-04T12:31:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Missena Bid Adapter: add GPP params to cookie sync URL",
+      "number": 4702,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-02T11:14:44.000Z",
+      "dateUpdated": "2026-03-02T11:14:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Epsilon: pass prebid server version",
+      "number": 4701,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-02T11:00:38.000Z",
+      "dateUpdated": "2026-03-02T11:00:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server 4.0",
+      "number": 3861,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2024-08-14T16:19:08.000Z",
+      "dateUpdated": "2026-02-25T14:08:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Adipolo: Add GVL ID",
+      "number": 4699,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-02-24T18:46:08.000Z",
+      "dateUpdated": "2026-02-24T18:46:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Debug Metrics",
+      "number": 1474,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2020-09-03T16:09:31.000Z",
+      "dateUpdated": "2026-02-19T16:46:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Question] Basic configuration documentation",
+      "number": 1191,
+      "author": {
+        "login": "akira28",
+        "id": 996257
+      },
+      "assignees": [],
+      "dateCreated": "2020-02-12T18:39:10.000Z",
+      "dateUpdated": "2026-02-19T16:44:03.000Z",
       "status": "open"
     },
     {
@@ -58,21 +253,6 @@
       "status": "open"
     },
     {
-      "title": "Prebid Server 4.0",
-      "number": 3861,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "Net-burst",
-        "bsardo"
-      ],
-      "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2026-02-10T16:11:21.000Z",
-      "status": "open"
-    },
-    {
       "title": "PBS 4.0: Drop old AMP targeting.site FPD behavior",
       "number": 4079,
       "author": {
@@ -82,20 +262,6 @@
       "assignees": [],
       "dateCreated": "2024-11-27T15:45:58.000Z",
       "dateUpdated": "2026-02-10T16:09:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Proposed tracking update",
-      "number": 4152,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [
-        "bretg"
-      ],
-      "dateCreated": "2025-01-15T11:16:22.000Z",
-      "dateUpdated": "2026-02-05T16:48:52.000Z",
       "status": "open"
     },
     {
@@ -120,18 +286,6 @@
       "assignees": [],
       "dateCreated": "2023-07-25T17:21:19.000Z",
       "dateUpdated": "2026-02-05T16:27:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS marks video as banner",
-      "number": 4665,
-      "author": {
-        "login": "fprotimaru",
-        "id": 60222966
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-20T06:19:44.000Z",
-      "dateUpdated": "2026-02-05T16:25:23.000Z",
       "status": "open"
     },
     {
@@ -349,18 +503,6 @@
       "status": "open"
     },
     {
-      "title": "Handle deleted GVL entities",
-      "number": 4439,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-16T17:16:02.000Z",
-      "dateUpdated": "2025-12-17T18:40:37.000Z",
-      "status": "open"
-    },
-    {
       "title": "PBS-Go: Use global logging objects through shims to be able to swap implementations",
       "number": 4084,
       "author": {
@@ -530,18 +672,6 @@
       "status": "open"
     },
     {
-      "title": "/openrtb2/video endpoint deprecation",
-      "number": 4599,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-05T15:54:59.000Z",
-      "dateUpdated": "2025-11-13T15:26:25.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Java: Add video cache TTL enforcement for /vtrack endpoint",
       "number": 4600,
       "author": {
@@ -575,20 +705,6 @@
       "assignees": [],
       "dateCreated": "2023-03-16T03:06:28.000Z",
       "dateUpdated": "2025-11-05T14:02:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support the delivery of custom bid data to prebid.js",
-      "number": 4554,
-      "author": {
-        "login": "philipwatson",
-        "id": 2080240
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2025-09-29T22:02:21.000Z",
-      "dateUpdated": "2025-10-31T15:01:11.000Z",
       "status": "open"
     },
     {
@@ -679,34 +795,6 @@
       ],
       "dateCreated": "2025-02-21T17:41:34.000Z",
       "dateUpdated": "2025-09-29T14:13:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ORTB Blocking module: support video and audio battr",
-      "number": 3913,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "justadreamer"
-      ],
-      "dateCreated": "2024-09-10T17:18:29.000Z",
-      "dateUpdated": "2025-09-29T11:51:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ORTB Blocking module: lack of media type strictness configuration for `battr`",
-      "number": 4006,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [
-        "justadreamer"
-      ],
-      "dateCreated": "2024-10-22T17:47:08.000Z",
-      "dateUpdated": "2025-09-29T11:50:51.000Z",
       "status": "open"
     },
     {
@@ -891,20 +979,6 @@
       "status": "open"
     },
     {
-      "title": "Aliases inheriting GVL IDs",
-      "number": 4463,
-      "author": {
-        "login": "bsardo",
-        "id": 1168933
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2025-07-30T13:43:31.000Z",
-      "dateUpdated": "2025-08-27T13:25:24.000Z",
-      "status": "open"
-    },
-    {
       "title": "Send errors and warnings only in debug mode",
       "number": 3584,
       "author": {
@@ -1033,18 +1107,6 @@
       ],
       "dateCreated": "2022-12-09T20:27:07.000Z",
       "dateUpdated": "2025-07-11T14:48:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Many adapters add x-openrtb-version - can the core code do this automatically based on bidder-info?",
-      "number": 4429,
-      "author": {
-        "login": "scr-oath",
-        "id": 41922797
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-09T15:49:30.000Z",
-      "dateUpdated": "2025-07-11T14:39:28.000Z",
       "status": "open"
     },
     {
@@ -1536,20 +1598,6 @@
       "status": "open"
     },
     {
-      "title": "Debug Metrics",
-      "number": 1474,
-      "author": {
-        "login": "SyntaxNode",
-        "id": 1653437
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2020-09-03T16:09:31.000Z",
-      "dateUpdated": "2025-03-04T14:09:42.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Java: Undertone: Declare OpenRTB 2.6 support",
       "number": 4242,
       "author": {
@@ -1635,18 +1683,6 @@
       "assignees": [],
       "dateCreated": "2023-01-24T21:28:06.000Z",
       "dateUpdated": "2025-02-14T16:18:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Drop 'support-cors' usersync YAML config",
-      "number": 4160,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2025-01-17T19:19:45.000Z",
-      "dateUpdated": "2025-02-12T15:25:03.000Z",
       "status": "open"
     },
     {
@@ -2628,20 +2664,6 @@
       "status": "open"
     },
     {
-      "title": "Getting accountId from self hosted PBS Go (for testing purposes)",
-      "number": 2472,
-      "author": {
-        "login": "MatejaMaric",
-        "id": 52680258
-      },
-      "assignees": [
-        "SyntaxNode"
-      ],
-      "dateCreated": "2022-11-29T09:39:15.000Z",
-      "dateUpdated": "2022-12-19T09:45:30.000Z",
-      "status": "open"
-    },
-    {
       "title": "Align platforms on error messaging",
       "number": 2401,
       "author": {
@@ -2665,18 +2687,6 @@
       ],
       "dateCreated": "2022-09-06T18:17:44.000Z",
       "dateUpdated": "2022-09-23T20:52:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Question] Basic configuration documentation",
-      "number": 1191,
-      "author": {
-        "login": "akira28",
-        "id": 996257
-      },
-      "assignees": [],
-      "dateCreated": "2020-02-12T18:39:10.000Z",
-      "dateUpdated": "2022-09-08T21:21:05.000Z",
       "status": "open"
     },
     {
