@@ -1,34 +1,220 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-03-09T17:55:06.624Z",
-    "itemCount": 88
+    "lastSync": "2026-04-08T16:19:41.728Z",
+    "itemCount": 98
   },
   "items": [
     {
-      "title": "intersection rtd module: still in use?",
-      "number": 13125,
+      "title": "Local vast cache: only store bids that aren't cached remotely yet",
+      "number": 14631,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-03-23T15:46:36.000Z",
+      "dateUpdated": "2026-04-08T16:01:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support build options in non-Webpack bundlers",
+      "number": 14639,
+      "author": {
+        "login": "marco-prontera",
+        "id": 50167854
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-25T11:14:23.000Z",
+      "dateUpdated": "2026-04-08T08:36:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature: pass renderer into frames",
+      "number": 10780,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-11-30T19:25:45.000Z",
+      "dateUpdated": "2026-04-02T15:05:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get rid of device.ext.cdep",
+      "number": 14607,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-03-17T18:29:42.000Z",
+      "dateUpdated": "2026-04-01T09:07:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Research: 55% of ads.txt DIRECT claims contradict sellers.json",
+      "number": 14633,
+      "author": {
+        "login": "ivp5",
+        "id": 68510611
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-23T22:42:57.000Z",
+      "dateUpdated": "2026-03-31T12:10:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "pbjs.requestBids calls the bidsBackHandler with the wrong arguments in V10",
+      "number": 14652,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-27T08:39:43.000Z",
+      "dateUpdated": "2026-03-27T08:39:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS Adapter: empty bidder array in eidpermissions causes s2s auction to fail",
+      "number": 14645,
+      "author": {
+        "login": "derdeka",
+        "id": 13640166
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-25T20:36:44.000Z",
+      "dateUpdated": "2026-03-25T20:36:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "option to deny accessRequestCredentials on gppControl module",
+      "number": 14624,
       "author": {
         "login": "patmmccann",
         "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2025-05-22T14:40:01.000Z",
-      "dateUpdated": "2026-03-09T15:11:33.000Z",
+      "dateCreated": "2026-03-20T14:50:37.000Z",
+      "dateUpdated": "2026-03-20T14:50:37.000Z",
       "status": "open"
     },
     {
-      "title": "Prebid 11: review/consolidate `BID_VIEWABLE`, `bidViewability` and `bidViewabilityIO`",
-      "number": 14408,
+      "title": "Publisher purpose restrictions",
+      "number": 14616,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-19T10:33:55.000Z",
+      "dateUpdated": "2026-03-19T16:57:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Vendors relying on LI for purpose 7 are blocked by tcfcontrol",
+      "number": 14615,
+      "author": {
+        "login": "bjorn-lw",
+        "id": 32431346
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-19T07:45:01.000Z",
+      "dateUpdated": "2026-03-19T16:38:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "delete risemediatech",
+      "number": 14609,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-18T03:44:08.000Z",
+      "dateUpdated": "2026-03-18T14:27:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "focused ads",
+      "number": 14605,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-17T17:13:38.000Z",
+      "dateUpdated": "2026-03-17T18:37:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Paapi module no longer exists in pbjs11",
+      "number": 14587,
+      "author": {
+        "login": "renebaudisch",
+        "id": 15980546
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-13T08:16:44.000Z",
+      "dateUpdated": "2026-03-17T15:20:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Recommended modules",
+      "number": 14603,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-17T14:49:29.000Z",
+      "dateUpdated": "2026-03-17T14:53:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid.org download page: improve monitoring & cleanup",
+      "number": 14590,
       "author": {
         "login": "dgirardi",
         "id": 10151381
       },
+      "assignees": [],
+      "dateCreated": "2026-03-13T18:04:06.000Z",
+      "dateUpdated": "2026-03-13T18:04:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Using Prebid with Typescript requires specific (undocumented) settings in tsconfig.json",
+      "number": 14412,
+      "author": {
+        "login": "a-lopatin-muse",
+        "id": 134909024
+      },
       "assignees": [
         "mkomorski"
       ],
-      "dateCreated": "2026-02-03T17:16:01.000Z",
-      "dateUpdated": "2026-03-09T15:11:00.000Z",
+      "dateCreated": "2026-02-04T14:51:50.000Z",
+      "dateUpdated": "2026-03-10T15:21:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "getHighEntropy: use our methods",
+      "number": 14574,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-10T14:53:40.000Z",
+      "dateUpdated": "2026-03-10T14:54:54.000Z",
       "status": "open"
     },
     {
@@ -94,18 +280,6 @@
       "status": "open"
     },
     {
-      "title": "Remove obligation to use Cache for Video Bids containing Vast XML",
-      "number": 14509,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-23T15:31:44.000Z",
-      "dateUpdated": "2026-02-23T16:19:16.000Z",
-      "status": "open"
-    },
-    {
       "title": "ChromeAI convert from summarizer to prompt",
       "number": 14285,
       "author": {
@@ -115,30 +289,6 @@
       "assignees": [],
       "dateCreated": "2025-12-18T16:24:44.000Z",
       "dateUpdated": "2026-02-12T00:56:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "mediatype enforcement in core",
-      "number": 14459,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-11T18:02:58.000Z",
-      "dateUpdated": "2026-02-11T18:02:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Using Prebid with Typescript requires specific (undocumented) settings in tsconfig.json",
-      "number": 14412,
-      "author": {
-        "login": "a-lopatin-muse",
-        "id": 134909024
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-04T14:51:50.000Z",
-      "dateUpdated": "2026-02-11T07:50:59.000Z",
       "status": "open"
     },
     {
@@ -335,18 +485,6 @@
       "assignees": [],
       "dateCreated": "2025-11-25T18:28:03.000Z",
       "dateUpdated": "2025-12-01T16:08:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature: pass renderer into frames",
-      "number": 10780,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2023-11-30T19:25:45.000Z",
-      "dateUpdated": "2025-12-01T07:53:56.000Z",
       "status": "open"
     },
     {
@@ -765,18 +903,6 @@
       "assignees": [],
       "dateCreated": "2025-04-11T13:51:32.000Z",
       "dateUpdated": "2025-04-21T15:19:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: don't expire winning bids",
-      "number": 12987,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-04-10T16:12:57.000Z",
-      "dateUpdated": "2025-04-21T15:15:03.000Z",
       "status": "open"
     },
     {

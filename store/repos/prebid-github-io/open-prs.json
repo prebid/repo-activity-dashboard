@@ -1,64 +1,110 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2026-03-09T17:55:48.509Z",
-    "itemCount": 69
+    "lastSync": "2026-04-08T16:20:15.009Z",
+    "itemCount": 78
   },
   "items": [
     {
-      "title": "InsurAds Rtd Provider Documentation",
-      "number": 6465,
+      "title": "Displayio: add audio and native ad formats support info",
+      "number": 6500,
       "author": {
-        "login": "JoseClimaco",
-        "id": 1490338
+        "login": "xdevel",
+        "id": 618192
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T16:21:04.000Z",
-      "dateUpdated": "2026-03-09T14:31:48.000Z",
+      "dateCreated": "2026-03-24T23:44:33.000Z",
+      "dateUpdated": "2026-04-08T13:17:49.000Z",
       "status": "open"
     },
     {
-      "title": "Intent IQ: Fix additional parameters doc",
-      "number": 6462,
+      "title": "Video docs",
+      "number": 6520,
       "author": {
-        "login": "dmytro-po",
-        "id": 169376745
+        "login": "adzida-adquery",
+        "id": 267343183
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-03-05T14:57:13.000Z",
-      "dateUpdated": "2026-03-09T13:33:36.000Z",
+      "dateCreated": "2026-04-08T12:30:04.000Z",
+      "dateUpdated": "2026-04-08T12:41:48.000Z",
       "status": "open"
     },
     {
-      "title": "getBidResponses.md: document the meta object",
-      "number": 6472,
+      "title": "New adapter adsmovil",
+      "number": 6461,
       "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
+        "login": "teqblaze",
+        "id": 162988436
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-09T12:30:50.000Z",
-      "dateUpdated": "2026-03-09T12:35:13.000Z",
+      "dateCreated": "2026-03-05T12:51:02.000Z",
+      "dateUpdated": "2026-04-08T09:40:04.000Z",
       "status": "open"
     },
     {
-      "title": "Remove Quantcast bidder documentation.",
-      "number": 6306,
+      "title": "Docs: add minWinningBidCacheTTL / targeted-bid cache TTL to setConfig",
+      "number": 6479,
       "author": {
-        "login": "dpapworth-qc",
-        "id": 50959025
+        "login": "vasujain00",
+        "id": 10598041
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "vasujain00",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-12T07:44:18.000Z",
+      "dateUpdated": "2026-04-07T18:03:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "adds agentic audiences module docs",
+      "number": 6518,
+      "author": {
+        "login": "therevoltingx",
+        "id": 191371
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-10-22T13:34:28.000Z",
-      "dateUpdated": "2026-03-09T11:22:54.000Z",
+      "dateCreated": "2026-04-06T21:05:22.000Z",
+      "dateUpdated": "2026-04-06T21:06:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "51d: introduce hwv into PBS module",
+      "number": 6517,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-06T12:58:27.000Z",
+      "dateUpdated": "2026-04-06T13:14:55.000Z",
       "status": "open"
     },
     {
@@ -69,131 +115,635 @@
         "id": 105729243
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "KushAdsolut",
+          "state": "COMMENTED"
+        }
+      ],
       "commitAuthors": {},
       "dateCreated": "2026-02-26T12:12:31.000Z",
-      "dateUpdated": "2026-03-09T09:42:38.000Z",
+      "dateUpdated": "2026-04-06T10:54:48.000Z",
       "status": "open"
     },
     {
-      "title": "Mile Bidder Adapter: Initial Release",
-      "number": 6410,
+      "title": "Documentation for Next-Gen SDK support",
+      "number": 6510,
       "author": {
-        "login": "shashankatd",
-        "id": 101392500
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-30T13:48:41.000Z",
+      "dateUpdated": "2026-04-06T09:21:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update reference docs with the changes made in V10",
+      "number": 6506,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robin-crazygames",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-26T11:36:07.000Z",
+      "dateUpdated": "2026-04-03T13:34:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update prebid.js doc for adapter consistency ",
+      "number": 6516,
+      "author": {
+        "login": "e-volution-tech",
+        "id": 61746103
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-03T09:44:50.000Z",
+      "dateUpdated": "2026-04-03T09:57:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Removed tagUrl parameter",
+      "number": 6515,
+      "author": {
+        "login": "kyrylenko",
+        "id": 10921133
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-02T12:26:36.000Z",
+      "dateUpdated": "2026-04-03T09:44:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Documentation update for msft.md",
+      "number": 6512,
+      "author": {
+        "login": "jasonc721",
+        "id": 272580739
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T16:51:24.000Z",
+      "dateUpdated": "2026-04-02T22:48:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Contxtful - Add GVL vendor ID",
+      "number": 6513,
+      "author": {
+        "login": "sebastienrufiange",
+        "id": 131205907
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T17:38:01.000Z",
+      "dateUpdated": "2026-04-02T22:48:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "add LOGLY bidder adapter",
+      "number": 6514,
+      "author": {
+        "login": "shiba44",
+        "id": 38831888
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-02T04:52:59.000Z",
+      "dateUpdated": "2026-04-02T05:24:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove the postinstall script which didn't work",
+      "number": 6511,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T10:12:15.000Z",
+      "dateUpdated": "2026-03-31T10:13:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix(wurfl-rtd): correct devicetype value in bid request example",
+      "number": 6509,
+      "author": {
+        "login": "lucor-sm",
+        "id": 267320714
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-30T08:53:45.000Z",
+      "dateUpdated": "2026-03-30T08:59:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Magnite Bid Adapter: Update Registration Text Only",
+      "number": 6508,
+      "author": {
+        "login": "robertrmartinez",
+        "id": 13972794
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-26T17:31:12.000Z",
+      "dateUpdated": "2026-03-26T17:49:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update LeagueM bid adapter: add prebid server",
+      "number": 6507,
+      "author": {
+        "login": "mo4rock",
+        "id": 98119227
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-26T14:52:00.000Z",
+      "dateUpdated": "2026-03-26T14:53:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Showheroes Bid Adapter: enable gzip compression",
+      "number": 6504,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
       },
       "assignees": [],
       "reviewers": [
         {
           "login": "muuki88",
-          "state": "COMMENTED"
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T16:59:48.000Z",
+      "dateUpdated": "2026-03-26T09:07:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Showheroes Bid Adapter: rename",
+      "number": 6505,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T17:30:25.000Z",
+      "dateUpdated": "2026-03-26T09:07:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add Rediads user ID module documentation",
+      "number": 6503,
+      "author": {
+        "login": "symplorpro",
+        "id": 161946060
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T12:41:53.000Z",
+      "dateUpdated": "2026-03-25T12:59:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix/module code automatad analytics",
+      "number": 6502,
+      "author": {
+        "login": "mohanjpAtmd",
+        "id": 101256106
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T08:58:16.000Z",
+      "dateUpdated": "2026-03-25T09:50:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: t Advertising x blis",
+      "number": 6458,
+      "author": {
+        "login": "tb-emq",
+        "id": 217763234
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-02T13:44:02.000Z",
+      "dateUpdated": "2026-03-24T12:24:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: AppMonstaMedia",
+      "number": 6498,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-24T10:41:51.000Z",
+      "dateUpdated": "2026-03-24T10:53:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Updated adplus docs",
+      "number": 6476,
+      "author": {
+        "login": "tccdeniz",
+        "id": 207675289
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-11T05:08:33.000Z",
+      "dateUpdated": "2026-03-24T05:33:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update targetvideo docs",
+      "number": 6316,
+      "author": {
+        "login": "danijel-ristic",
+        "id": 168181386
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-31T07:54:15.000Z",
+      "dateUpdated": "2026-03-23T12:57:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix in bidResponseFilter example",
+      "number": 6426,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
         },
         {
-          "login": "shashankatd",
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T14:01:01.000Z",
+      "dateUpdated": "2026-03-23T12:54:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Adnimation adapter",
+      "number": 6446,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T07:14:12.000Z",
+      "dateUpdated": "2026-03-23T12:53:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Apester adapter",
+      "number": 6448,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T13:57:20.000Z",
+      "dateUpdated": "2026-03-23T12:52:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update oprx doc",
+      "number": 6456,
+      "author": {
+        "login": "Ivan-Z-Oprx",
+        "id": 218219476
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T17:12:34.000Z",
+      "dateUpdated": "2026-03-23T12:50:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Paywalls Modules: RTD Provider and Analytics Adapter docs",
+      "number": 6457,
+      "author": {
+        "login": "paywalls-mike",
+        "id": 203701412
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-02T00:25:07.000Z",
+      "dateUpdated": "2026-03-23T12:45:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: Panxo",
+      "number": 6494,
+      "author": {
+        "login": "css12s",
+        "id": 16015876
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "css12s",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-28T11:54:43.000Z",
-      "dateUpdated": "2026-03-09T09:11:15.000Z",
+      "dateCreated": "2026-03-20T11:13:22.000Z",
+      "dateUpdated": "2026-03-30T13:04:30.000Z",
       "status": "open"
     },
     {
-      "title": "MediaEyes Bid Adapter: update support video type",
-      "number": 6471,
+      "title": "getBidResponses.md: document the meta object",
+      "number": 6472,
       "author": {
-        "login": "giathinhly",
-        "id": 96400885
+        "login": "robin-crazygames",
+        "id": 191837040
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-09T09:08:03.000Z",
-      "dateUpdated": "2026-03-09T09:09:37.000Z",
+      "dateCreated": "2026-03-09T12:30:50.000Z",
+      "dateUpdated": "2026-03-23T10:32:18.000Z",
       "status": "open"
     },
     {
-      "title": "MS Clarity RTD Module: add documentation page",
-      "number": 6470,
+      "title": "New adapter: MyCodeMedia",
+      "number": 6488,
       "author": {
-        "login": "drpaulfarrow",
-        "id": 21990123
+        "login": "teqblaze",
+        "id": 162988436
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-08T22:54:37.000Z",
-      "dateUpdated": "2026-03-08T22:56:11.000Z",
+      "dateCreated": "2026-03-19T12:45:16.000Z",
+      "dateUpdated": "2026-03-23T10:28:23.000Z",
       "status": "open"
     },
     {
-      "title": "Limelight New Adapter: pgamrtb ",
-      "number": 6469,
+      "title": "New Adapter: DPAI",
+      "number": 6489,
       "author": {
-        "login": "quietPusher",
-        "id": 129727954
+        "login": "driftpixelai",
+        "id": 166716541
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T20:31:46.000Z",
-      "dateUpdated": "2026-03-06T20:37:45.000Z",
+      "dateCreated": "2026-03-19T12:54:26.000Z",
+      "dateUpdated": "2026-03-23T10:27:44.000Z",
       "status": "open"
     },
     {
-      "title": "Limelight: enable pbjs embimedia",
-      "number": 6468,
+      "title": "New adapter: Verben",
+      "number": 6490,
       "author": {
-        "login": "quietPusher",
-        "id": 129727954
+        "login": "verben-gh",
+        "id": 258838817
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T20:20:08.000Z",
-      "dateUpdated": "2026-03-06T20:21:37.000Z",
+      "dateCreated": "2026-03-19T13:00:36.000Z",
+      "dateUpdated": "2026-03-23T10:27:07.000Z",
       "status": "open"
     },
     {
-      "title": "AdSmartX Bidder Documentation : New Bidder Adapter",
-      "number": 6467,
+      "title": "New Adapter: revealon",
+      "number": 6493,
       "author": {
-        "login": "pritishmd-talentica",
-        "id": 159415077
+        "login": "Chucky-choo",
+        "id": 72217414
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T17:23:26.000Z",
-      "dateUpdated": "2026-03-06T17:25:04.000Z",
+      "dateCreated": "2026-03-19T17:18:44.000Z",
+      "dateUpdated": "2026-03-23T10:24:53.000Z",
       "status": "open"
     },
     {
-      "title": "Add prebid server support to rtb stack docs",
-      "number": 6464,
+      "title": "StackAdapt: enable PBS",
+      "number": 6496,
       "author": {
-        "login": "DariaBoykoAdmixer",
-        "id": 221987289
+        "login": "franklong-sa",
+        "id": 204051893
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T15:53:16.000Z",
-      "dateUpdated": "2026-03-06T15:58:36.000Z",
+      "dateCreated": "2026-03-20T15:16:08.000Z",
+      "dateUpdated": "2026-03-23T10:19:02.000Z",
       "status": "open"
     },
     {
-      "title": "New adapter clickio",
-      "number": 6463,
+      "title": "adding customGptSlotMatching to top-level config",
+      "number": 6440,
       "author": {
-        "login": "ClickioTech",
-        "id": 163025633
+        "login": "mkomorski",
+        "id": 25056697
       },
       "assignees": [],
-      "reviewers": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-06T15:02:20.000Z",
-      "dateUpdated": "2026-03-06T15:08:28.000Z",
+      "dateCreated": "2026-02-19T11:00:01.000Z",
+      "dateUpdated": "2026-03-23T09:37:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter: alliance_gravity",
+      "number": 6347,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T16:33:41.000Z",
+      "dateUpdated": "2026-03-22T17:54:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New adapter reklamup",
+      "number": 6460,
+      "author": {
+        "login": "prebid-reklamup",
+        "id": 265310176
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-05T10:57:47.000Z",
+      "dateUpdated": "2026-03-19T11:57:38.000Z",
       "status": "open"
     },
     {
@@ -212,99 +762,29 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2026-01-29T13:48:55.000Z",
-      "dateUpdated": "2026-03-05T16:02:35.000Z",
+      "dateUpdated": "2026-03-19T07:22:10.000Z",
       "status": "open"
     },
     {
-      "title": "New adapter adsmovil",
-      "number": 6461,
+      "title": "Update getEvents.md: added auctionTimeout event",
+      "number": 6486,
       "author": {
-        "login": "teqblaze",
-        "id": 162988436
+        "login": "robin-crazygames",
+        "id": 191837040
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-03-05T12:51:02.000Z",
-      "dateUpdated": "2026-03-05T12:52:40.000Z",
+      "dateCreated": "2026-03-18T14:44:09.000Z",
+      "dateUpdated": "2026-03-18T14:45:48.000Z",
       "status": "open"
     },
     {
-      "title": "New adapter reklamup",
-      "number": 6460,
+      "title": "Add prebid server support to rtb stack docs",
+      "number": 6464,
       "author": {
-        "login": "prebid-reklamup",
-        "id": 265310176
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-05T10:57:47.000Z",
-      "dateUpdated": "2026-03-05T10:59:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "adquery: update bidder documentation with expanded specs and examples",
-      "number": 6450,
-      "author": {
-        "login": "adquery",
-        "id": 89853721
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-25T13:00:53.000Z",
-      "dateUpdated": "2026-03-04T10:01:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Paywalls Modules: RTD Provider and Analytics Adapter docs",
-      "number": 6457,
-      "author": {
-        "login": "paywalls-mike",
-        "id": 203701412
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-02T00:25:07.000Z",
-      "dateUpdated": "2026-03-03T16:57:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Deprecate dmd userid provider",
-      "number": 6459,
-      "author": {
-        "login": "matthewfitz",
-        "id": 208401
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-03T16:20:17.000Z",
-      "dateUpdated": "2026-03-03T16:43:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: t Advertising x blis",
-      "number": 6458,
-      "author": {
-        "login": "tb-emq",
-        "id": 217763234
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-02T13:44:02.000Z",
-      "dateUpdated": "2026-03-02T13:47:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "aceexBidAdapter/docs",
-      "number": 6399,
-      "author": {
-        "login": "rishko00",
-        "id": 43280707
+        "login": "DariaBoykoAdmixer",
+        "id": 221987289
       },
       "assignees": [],
       "reviewers": [
@@ -314,41 +794,107 @@
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-01-19T09:02:17.000Z",
-      "dateUpdated": "2026-03-02T11:15:59.000Z",
+      "dateCreated": "2026-03-06T15:53:16.000Z",
+      "dateUpdated": "2026-03-17T23:01:47.000Z",
       "status": "open"
     },
     {
-      "title": "Update oprx doc",
-      "number": 6456,
+      "title": "InsurAds Rtd Provider Documentation",
+      "number": 6465,
       "author": {
-        "login": "Ivan-Z-Oprx",
-        "id": 218219476
+        "login": "JoseClimaco",
+        "id": 1490338
       },
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-02-27T17:12:34.000Z",
-      "dateUpdated": "2026-02-27T17:16:28.000Z",
+      "dateCreated": "2026-03-06T16:21:04.000Z",
+      "dateUpdated": "2026-03-17T22:59:46.000Z",
       "status": "open"
     },
     {
-      "title": "Seedtag: update params",
-      "number": 6449,
+      "title": "AdSmartX Bidder Documentation : New Bidder Adapter",
+      "number": 6467,
       "author": {
-        "login": "dalmenarDevST",
-        "id": 116064809
+        "login": "pritishmd-talentica",
+        "id": 159415077
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "muuki88",
+          "login": "lpagnypubstack",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-02-25T10:53:41.000Z",
-      "dateUpdated": "2026-02-27T08:47:36.000Z",
+      "dateCreated": "2026-03-06T17:23:26.000Z",
+      "dateUpdated": "2026-03-17T22:55:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Limelight New Adapter: pgamrtb ",
+      "number": 6469,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-06T20:31:46.000Z",
+      "dateUpdated": "2026-03-17T22:50:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Updated documentaion to reflect adapter changes.",
+      "number": 6475,
+      "author": {
+        "login": "iprom-adserver",
+        "id": 79305981
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-10T11:01:01.000Z",
+      "dateUpdated": "2026-03-17T22:33:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Salesagent Docs",
+      "number": 6474,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-10T02:08:47.000Z",
+      "dateUpdated": "2026-03-10T14:43:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "MS Clarity RTD Module: add documentation page",
+      "number": 6470,
+      "author": {
+        "login": "drpaulfarrow",
+        "id": 21990123
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-08T22:54:37.000Z",
+      "dateUpdated": "2026-03-10T13:28:07.000Z",
       "status": "open"
     },
     {
@@ -375,151 +921,6 @@
       "status": "open"
     },
     {
-      "title": "First Draft => Salesagent Documentation and Implementation",
-      "number": 6451,
-      "author": {
-        "login": "ChrisHuie",
-        "id": 3444727
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-25T17:01:57.000Z",
-      "dateUpdated": "2026-02-25T18:31:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Apester adapter",
-      "number": 6448,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-24T13:57:20.000Z",
-      "dateUpdated": "2026-02-24T13:59:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Adnimation adapter",
-      "number": 6446,
-      "author": {
-        "login": "anna-y-perion",
-        "id": 211479965
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-24T07:14:12.000Z",
-      "dateUpdated": "2026-02-24T07:58:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "BeOp Adapter : Add Prebid Server in Doc",
-      "number": 6432,
-      "author": {
-        "login": "sebrobert",
-        "id": 10391799
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-13T16:32:44.000Z",
-      "dateUpdated": "2026-02-23T18:33:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "adding customGptSlotMatching to top-level config",
-      "number": 6440,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-19T11:00:01.000Z",
-      "dateUpdated": "2026-02-23T18:20:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: Magnite Bid Adapter",
-      "number": 6436,
-      "author": {
-        "login": "robertrmartinez",
-        "id": 13972794
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-17T22:59:02.000Z",
-      "dateUpdated": "2026-02-23T18:19:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter DPAI",
-      "number": 6427,
-      "author": {
-        "login": "driftpixelai",
-        "id": 166716541
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "karwaankit32",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "driftpixelai",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "lpagnypubstack",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-10T08:33:30.000Z",
-      "dateUpdated": "2026-02-18T08:52:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "fix in bidResponseFilter example",
-      "number": 6426,
-      "author": {
-        "login": "mkomorski",
-        "id": 25056697
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lpagnypubstack",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-06T14:01:01.000Z",
-      "dateUpdated": "2026-02-18T08:49:16.000Z",
-      "status": "open"
-    },
-    {
       "title": "Enable Prebid Server (PBS) support for Proxistore",
       "number": 6420,
       "author": {
@@ -539,25 +940,6 @@
       "status": "open"
     },
     {
-      "title": "Floxis Bid Adapter: initial release",
-      "number": 6267,
-      "author": {
-        "login": "floxis-tech",
-        "id": 234334311
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lpagnypubstack",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-25T14:43:30.000Z",
-      "dateUpdated": "2026-02-18T07:26:14.000Z",
-      "status": "open"
-    },
-    {
       "title": "docs(permutive): update consent section",
       "number": 6352,
       "author": {
@@ -574,25 +956,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-11-24T10:30:04.000Z",
       "dateUpdated": "2026-02-10T15:50:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Emetriq Bid Alias: Remove Emetriq Adapter as  Appnexus Alias",
-      "number": 6407,
-      "author": {
-        "login": "tb-emq",
-        "id": 217763234
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-22T09:24:24.000Z",
-      "dateUpdated": "2026-02-09T10:54:05.000Z",
       "status": "open"
     },
     {
@@ -631,29 +994,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-01-16T09:34:40.000Z",
       "dateUpdated": "2026-01-30T08:02:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Added Bid Adapter MyCodeMedia",
-      "number": 6362,
-      "author": {
-        "login": "teqblaze",
-        "id": 162988436
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        },
-        {
-          "login": "teqblaze",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-09T17:02:58.000Z",
-      "dateUpdated": "2026-01-29T09:16:54.000Z",
       "status": "open"
     },
     {
@@ -752,25 +1092,6 @@
       "status": "open"
     },
     {
-      "title": "Attekmi: add Adastra alias",
-      "number": 6343,
-      "author": {
-        "login": "SmartHubSolutions",
-        "id": 87376145
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-17T17:25:34.000Z",
-      "dateUpdated": "2026-01-13T08:05:31.000Z",
-      "status": "open"
-    },
-    {
       "title": "Attekmi: add PBS to Amcom",
       "number": 6357,
       "author": {
@@ -806,39 +1127,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-12-28T09:42:33.000Z",
       "dateUpdated": "2026-01-08T15:17:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Bid Adapter: Alliance Gravity",
-      "number": 6372,
-      "author": {
-        "login": "danielbaud",
-        "id": 52867769
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-15T14:19:08.000Z",
-      "dateUpdated": "2025-12-22T15:46:18.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBJS: documentation for yield and legacyRender flags",
-      "number": 6376,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-18T14:33:08.000Z",
-      "dateUpdated": "2025-12-22T15:29:41.000Z",
       "status": "open"
     },
     {
@@ -883,25 +1171,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-05-27T14:17:17.000Z",
       "dateUpdated": "2025-12-04T16:09:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: alliance_gravity",
-      "number": 6347,
-      "author": {
-        "login": "danielbaud",
-        "id": 52867769
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "lpagnypubstack",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-18T16:33:41.000Z",
-      "dateUpdated": "2025-11-25T17:10:47.000Z",
       "status": "open"
     },
     {
@@ -981,25 +1250,6 @@
       "status": "open"
     },
     {
-      "title": "Update targetvideo docs",
-      "number": 6316,
-      "author": {
-        "login": "danijel-ristic",
-        "id": 168181386
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "muuki88",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-31T07:54:15.000Z",
-      "dateUpdated": "2025-11-02T16:00:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "New Adapter: 9dotsmedialtd",
       "number": 5966,
       "author": {
@@ -1032,25 +1282,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-03-27T11:47:24.000Z",
       "dateUpdated": "2025-10-30T21:08:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add TCF vendor id PinkLion",
-      "number": 6314,
-      "author": {
-        "login": "prebidPinkLion",
-        "id": 214807971
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ChrisHuie",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-30T13:58:59.000Z",
-      "dateUpdated": "2025-10-30T14:08:56.000Z",
       "status": "open"
     },
     {
@@ -1122,20 +1353,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-09-26T14:32:31.000Z",
       "dateUpdated": "2025-10-02T11:55:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Module: SeenThis Brand Stories",
-      "number": 6274,
-      "author": {
-        "login": "seenthis-alex",
-        "id": 146713650
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-30T11:14:10.000Z",
-      "dateUpdated": "2025-10-01T08:55:33.000Z",
       "status": "open"
     },
     {
