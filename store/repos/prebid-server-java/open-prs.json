@@ -1,10 +1,228 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2026-04-08T16:19:56.883Z",
-    "itemCount": 48
+    "lastSync": "2026-04-22T18:40:20.096Z",
+    "itemCount": 49
   },
   "items": [
+    {
+      "title": "Add Vert.x `UriTemplate`",
+      "number": 4444,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T23:09:46.000Z",
+      "dateUpdated": "2026-04-22T12:43:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Module: ID5 User ID",
+      "number": 4318,
+      "author": {
+        "login": "pkowalski-id5",
+        "id": 112544015
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "pkowalski-id5",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T11:12:21.000Z",
+      "dateUpdated": "2026-04-22T11:01:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Update cookie sync to use bidder name instead of cookie family",
+      "number": 4464,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T12:37:28.000Z",
+      "dateUpdated": "2026-04-20T12:57:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Secondary bidders",
+      "number": 4331,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T14:29:29.000Z",
+      "dateUpdated": "2026-04-17T13:45:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Ybidder: New Nexx360 alias",
+      "number": 4467,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T20:11:40.000Z",
+      "dateUpdated": "2026-04-16T20:11:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Seedtag: adds ron id support for seedtag adapter",
+      "number": 4466,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T13:42:23.000Z",
+      "dateUpdated": "2026-04-16T13:42:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ResetDigital: Switch to OpenRTB (#4385)",
+      "number": 4463,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T08:03:22.000Z",
+      "dateUpdated": "2026-04-16T08:04:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Medianet: Update cookie sync url",
+      "number": 4443,
+      "author": {
+        "login": "akshatgmnet",
+        "id": 189992357
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T10:54:09.000Z",
+      "dateUpdated": "2026-04-13T13:42:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IX adapter: Handle missing interstitial formats",
+      "number": 4459,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-06T15:32:00.000Z",
+      "dateUpdated": "2026-04-09T07:10:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Secondary bidder",
+      "number": 4328,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-24T22:15:11.000Z",
+      "dateUpdated": "2026-04-08T17:05:49.000Z",
+      "status": "open"
+    },
     {
       "title": "Core: Fix incorrect enforcement of request.imp.metric",
       "number": 4460,
@@ -27,27 +245,6 @@
       "status": "open"
     },
     {
-      "title": "IX adapter: Handle missing interstitial formats",
-      "number": 4459,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-06T15:32:00.000Z",
-      "dateUpdated": "2026-04-08T10:19:49.000Z",
-      "status": "open"
-    },
-    {
       "title": "51Degrees module: extend device detection module with new fields",
       "number": 4458,
       "author": {
@@ -64,37 +261,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-04-06T09:06:36.000Z",
       "dateUpdated": "2026-04-08T10:12:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Nativo: Add optional placementId parameter and Prebid Renderer in response",
-      "number": 4380,
-      "author": {
-        "login": "rafataveira",
-        "id": 103446145
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        },
-        {
-          "login": "rafataveira",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "MattMur",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-06T19:11:26.000Z",
-      "dateUpdated": "2026-04-08T10:10:18.000Z",
       "status": "open"
     },
     {
@@ -122,79 +288,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-03-26T22:42:10.000Z",
       "dateUpdated": "2026-04-08T09:19:13.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Adapter: 360playvid",
-      "number": 4361,
-      "author": {
-        "login": "jcerone",
-        "id": 116585446
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        },
-        {
-          "login": "jcerone",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-27T15:10:38.000Z",
-      "dateUpdated": "2026-04-08T09:03:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add Vert.x `UriTemplate`",
-      "number": 4444,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-31T23:09:46.000Z",
-      "dateUpdated": "2026-04-07T21:54:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Secondary bidders",
-      "number": 4331,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-05T14:29:29.000Z",
-      "dateUpdated": "2026-04-07T15:31:52.000Z",
       "status": "open"
     },
     {
@@ -234,84 +327,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-04-02T11:26:42.000Z",
       "dateUpdated": "2026-04-02T11:26:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Medianet: Update cookie sync url",
-      "number": 4443,
-      "author": {
-        "login": "akshatgmnet",
-        "id": 189992357
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-31T10:54:09.000Z",
-      "dateUpdated": "2026-03-31T23:08:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New Module: ID5 User ID",
-      "number": 4318,
-      "author": {
-        "login": "pkowalski-id5",
-        "id": 112544015
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "PENDING"
-        },
-        {
-          "login": "pkowalski-id5",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-11T11:12:21.000Z",
-      "dateUpdated": "2026-03-31T09:57:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "LI module: Fixing permission logic",
-      "number": 4389,
-      "author": {
-        "login": "SuperIzya",
-        "id": 7934182
-      },
-      "assignees": [
-        "Net-burst"
-      ],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        },
-        {
-          "login": "SuperIzya",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-17T16:03:57.000Z",
-      "dateUpdated": "2026-03-30T13:41:44.000Z",
       "status": "open"
     },
     {
@@ -410,27 +425,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-02-26T12:24:13.000Z",
       "dateUpdated": "2026-03-25T12:27:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Secondary bidder",
-      "number": 4328,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-24T22:15:11.000Z",
-      "dateUpdated": "2026-03-24T09:30:44.000Z",
       "status": "open"
     },
     {

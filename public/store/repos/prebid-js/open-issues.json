@@ -1,34 +1,120 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-04-08T16:19:41.728Z",
-    "itemCount": 98
+    "lastSync": "2026-04-22T18:40:04.344Z",
+    "itemCount": 91
   },
   "items": [
     {
-      "title": "Local vast cache: only store bids that aren't cached remotely yet",
-      "number": 14631,
+      "title": "rtd modules: adjust timing of settargeting methods",
+      "number": 14706,
       "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
+        "login": "patmmccann",
+        "id": 1683175
       },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2026-03-23T15:46:36.000Z",
-      "dateUpdated": "2026-04-08T16:01:46.000Z",
+      "assignees": [],
+      "dateCreated": "2026-04-13T17:11:40.000Z",
+      "dateUpdated": "2026-04-22T16:19:11.000Z",
       "status": "open"
     },
     {
-      "title": "Support build options in non-Webpack bundlers",
-      "number": 14639,
+      "title": "option to deny accessRequestCredentials on gppControl module",
+      "number": 14624,
       "author": {
-        "login": "marco-prontera",
-        "id": 50167854
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-03-20T14:50:37.000Z",
+      "dateUpdated": "2026-04-21T16:17:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Module takes a vector of gvlids",
+      "number": 14713,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-04-13T21:16:19.000Z",
+      "dateUpdated": "2026-04-21T13:56:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: delete old showheroes file",
+      "number": 14751,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2026-03-25T11:14:23.000Z",
-      "dateUpdated": "2026-04-08T08:36:34.000Z",
+      "dateCreated": "2026-04-20T21:05:12.000Z",
+      "dateUpdated": "2026-04-20T21:05:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: del risemediatech",
+      "number": 14717,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-14T11:43:29.000Z",
+      "dateUpdated": "2026-04-20T20:43:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: rhythmone adapter",
+      "number": 14750,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-20T20:01:36.000Z",
+      "dateUpdated": "2026-04-20T20:01:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "getHighEntropy: use our methods",
+      "number": 14574,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-10T14:53:40.000Z",
+      "dateUpdated": "2026-04-20T15:22:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test cases to cover new tcdata form",
+      "number": 14733,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-16T13:13:00.000Z",
+      "dateUpdated": "2026-04-16T13:20:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Improve usersync exclusions",
+      "number": 14730,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-15T17:25:06.000Z",
+      "dateUpdated": "2026-04-15T17:25:52.000Z",
       "status": "open"
     },
     {
@@ -43,68 +129,6 @@
       ],
       "dateCreated": "2023-11-30T19:25:45.000Z",
       "dateUpdated": "2026-04-02T15:05:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Get rid of device.ext.cdep",
-      "number": 14607,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2026-03-17T18:29:42.000Z",
-      "dateUpdated": "2026-04-01T09:07:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Research: 55% of ads.txt DIRECT claims contradict sellers.json",
-      "number": 14633,
-      "author": {
-        "login": "ivp5",
-        "id": 68510611
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-23T22:42:57.000Z",
-      "dateUpdated": "2026-03-31T12:10:26.000Z",
-      "status": "open"
-    },
-    {
-      "title": "pbjs.requestBids calls the bidsBackHandler with the wrong arguments in V10",
-      "number": 14652,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-27T08:39:43.000Z",
-      "dateUpdated": "2026-03-27T08:39:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS Adapter: empty bidder array in eidpermissions causes s2s auction to fail",
-      "number": 14645,
-      "author": {
-        "login": "derdeka",
-        "id": 13640166
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-25T20:36:44.000Z",
-      "dateUpdated": "2026-03-25T20:36:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "option to deny accessRequestCredentials on gppControl module",
-      "number": 14624,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-20T14:50:37.000Z",
-      "dateUpdated": "2026-03-20T14:50:37.000Z",
       "status": "open"
     },
     {
@@ -129,42 +153,6 @@
       "assignees": [],
       "dateCreated": "2026-03-19T07:45:01.000Z",
       "dateUpdated": "2026-03-19T16:38:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "delete risemediatech",
-      "number": 14609,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-18T03:44:08.000Z",
-      "dateUpdated": "2026-03-18T14:27:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "focused ads",
-      "number": 14605,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-17T17:13:38.000Z",
-      "dateUpdated": "2026-03-17T18:37:33.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Paapi module no longer exists in pbjs11",
-      "number": 14587,
-      "author": {
-        "login": "renebaudisch",
-        "id": 15980546
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-13T08:16:44.000Z",
-      "dateUpdated": "2026-03-17T15:20:36.000Z",
       "status": "open"
     },
     {
@@ -206,44 +194,6 @@
       "status": "open"
     },
     {
-      "title": "getHighEntropy: use our methods",
-      "number": 14574,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-10T14:53:40.000Z",
-      "dateUpdated": "2026-03-10T14:54:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Npm releases are broken - fix may move releaser to GH Actions",
-      "number": 14425,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2026-02-07T11:12:55.000Z",
-      "dateUpdated": "2026-03-09T14:58:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "bidResponseFilter: IBV not detected on multi-format ad units",
-      "number": 14475,
-      "author": {
-        "login": "antoine-ga",
-        "id": 17828425
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-12T20:58:37.000Z",
-      "dateUpdated": "2026-03-07T03:50:04.000Z",
-      "status": "open"
-    },
-    {
       "title": "Replace the usage of the deprecated googletag methods with the updated versions",
       "number": 14068,
       "author": {
@@ -253,18 +203,6 @@
       "assignees": [],
       "dateCreated": "2025-10-24T16:06:16.000Z",
       "dateUpdated": "2026-02-26T15:52:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "GVL storage disclosure files failing to fetch",
-      "number": 14314,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-06T16:59:32.000Z",
-      "dateUpdated": "2026-02-24T16:01:09.000Z",
       "status": "open"
     },
     {
@@ -303,18 +241,6 @@
       ],
       "dateCreated": "2024-11-02T16:53:06.000Z",
       "dateUpdated": "2026-02-10T13:09:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add error and video playback tracker support",
-      "number": 14353,
-      "author": {
-        "login": "vivekyadav15",
-        "id": 185897626
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-20T08:38:30.000Z",
-      "dateUpdated": "2026-02-03T17:27:14.000Z",
       "status": "open"
     },
     {
@@ -363,18 +289,6 @@
       "assignees": [],
       "dateCreated": "2026-01-28T17:18:52.000Z",
       "dateUpdated": "2026-01-28T18:40:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature Request: enforce sizes",
-      "number": 9154,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-25T18:55:02.000Z",
-      "dateUpdated": "2026-01-28T17:56:43.000Z",
       "status": "open"
     },
     {

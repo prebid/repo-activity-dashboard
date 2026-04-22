@@ -1,10 +1,38 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2026-04-08T16:20:06.473Z",
-    "itemCount": 3
+    "lastSync": "2026-04-22T18:40:30.109Z",
+    "itemCount": 5
   },
   "items": [
+    {
+      "title": "Fix Objective-C interoperability conflict by renaming UserUniqueID.id to uniqueId",
+      "number": 1257,
+      "author": {
+        "login": "Brawl93",
+        "id": 47883741
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-21T10:50:49.000Z",
+      "dateUpdated": "2026-04-21T12:18:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix SKAdNetwork click flow for bid servers returning itunesitem, sourceapp, and timestamp as strings",
+      "number": 1256,
+      "author": {
+        "login": "berkbtasdemir",
+        "id": 69919328
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-21T00:59:14.000Z",
+      "dateUpdated": "2026-04-21T01:02:11.000Z",
+      "status": "open"
+    },
     {
       "title": "Add missing GAMEventHandler callbacks for click and impression events",
       "number": 1252,

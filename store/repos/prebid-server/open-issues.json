@@ -1,10 +1,85 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-04-08T16:19:50.253Z",
-    "itemCount": 216
+    "lastSync": "2026-04-22T18:40:12.867Z",
+    "itemCount": 220
   },
   "items": [
+    {
+      "title": "Incompatible gzip request compression support between Prebid.js and prebid-server",
+      "number": 4474,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-05T13:13:36.000Z",
+      "dateUpdated": "2026-04-22T16:06:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Nativo: Add optional placementId parameter and Prebid Renderer in response",
+      "number": 4749,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-22T13:53:16.000Z",
+      "dateUpdated": "2026-04-22T13:53:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: LI module: Fixing permission logic",
+      "number": 4748,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-22T13:52:59.000Z",
+      "dateUpdated": "2026-04-22T13:52:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature: `priority_groups_only` for Cooperative Cookie Syncing",
+      "number": 4747,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-22T11:30:32.000Z",
+      "dateUpdated": "2026-04-22T13:16:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server 4.0",
+      "number": 3861,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2024-08-14T16:19:08.000Z",
+      "dateUpdated": "2026-04-22T08:39:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove prefix from Prometheus Go process metrics",
+      "number": 4742,
+      "author": {
+        "login": "peterfajdiga-a11",
+        "id": 216509079
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-09T14:42:00.000Z",
+      "dateUpdated": "2026-04-20T17:05:35.000Z",
+      "status": "open"
+    },
     {
       "title": "Feature: Host and account-level control to disable iframe cookie syncs",
       "number": 4741,
@@ -14,7 +89,7 @@
       },
       "assignees": [],
       "dateCreated": "2026-04-07T19:21:33.000Z",
-      "dateUpdated": "2026-04-07T19:27:48.000Z",
+      "dateUpdated": "2026-04-16T16:11:54.000Z",
       "status": "open"
     },
     {
@@ -28,7 +103,19 @@
         "postindustria-code"
       ],
       "dateCreated": "2026-02-11T03:35:39.000Z",
-      "dateUpdated": "2026-03-31T15:12:01.000Z",
+      "dateUpdated": "2026-04-15T15:17:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Shrink the PBS uids cookie",
+      "number": 1985,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2021-09-03T16:17:34.000Z",
+      "dateUpdated": "2026-04-08T16:33:53.000Z",
       "status": "open"
     },
     {
@@ -71,21 +158,6 @@
       ],
       "dateCreated": "2026-03-18T20:58:16.000Z",
       "dateUpdated": "2026-03-19T18:40:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server 4.0",
-      "number": 3861,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "Net-burst",
-        "bsardo"
-      ],
-      "dateCreated": "2024-08-14T16:19:08.000Z",
-      "dateUpdated": "2026-03-19T14:19:57.000Z",
       "status": "open"
     },
     {
@@ -650,18 +722,6 @@
       "assignees": [],
       "dateCreated": "2024-12-04T11:36:11.000Z",
       "dateUpdated": "2025-11-24T16:21:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "incompatible gzip request compression support between Prebid.js and prebid-server",
-      "number": 4474,
-      "author": {
-        "login": "postindustria-code",
-        "id": 217833752
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-05T13:13:36.000Z",
-      "dateUpdated": "2025-11-20T21:44:44.000Z",
       "status": "open"
     },
     {
@@ -1738,18 +1798,6 @@
       "assignees": [],
       "dateCreated": "2024-02-22T20:20:49.000Z",
       "dateUpdated": "2025-01-31T17:59:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Shrink the PBS uids cookie",
-      "number": 1985,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2021-09-03T16:17:34.000Z",
-      "dateUpdated": "2025-01-27T17:37:15.000Z",
       "status": "open"
     },
     {
