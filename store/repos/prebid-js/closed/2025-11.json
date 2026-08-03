@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2025,
+    "month": 11,
+    "itemCount": 18,
+    "lastUpdated": "2026-01-05T12:43:02.616Z"
+  },
+  "items": [
+    {
+      "title": "BOTTOM Anchor ad alignment issue after resize fix",
+      "number": 13875,
+      "author": {
+        "login": "dqureshiumar",
+        "id": 48860398
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-09-10T10:33:06.000Z",
+      "dateUpdated": "2025-11-25T18:27:21.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-25T18:27:21.000Z"
+    },
+    {
+      "title": "`npm ci` & `npm install` not working since v9.51.0+ due to change from npm lockfileVersion 2 to 3",
+      "number": 14205,
+      "author": {
+        "login": "andyblackwell",
+        "id": 372590
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-25T11:23:58.000Z",
+      "dateUpdated": "2025-11-25T18:11:19.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-25T18:08:25.000Z"
+    },
+    {
+      "title": "storage.cookiesAreEnabled incorrectly returns true for Safari Version 26.0.1",
+      "number": 14102,
+      "author": {
+        "login": "tccdeniz",
+        "id": 207675289
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-11-06T05:30:09.000Z",
+      "dateUpdated": "2025-11-24T21:56:08.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-24T21:56:08.000Z"
+    },
+    {
+      "title": "Onetag bid adapter: eliminate use of screenx, screeny, screenleft",
+      "number": 14182,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-20T20:49:29.000Z",
+      "dateUpdated": "2025-11-24T21:55:57.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-24T21:55:57.000Z"
+    },
+    {
+      "title": "Build fails due to outdated schema-utils import in buildOptions.mjs (since v10.11.0)",
+      "number": 14167,
+      "author": {
+        "login": "LukaszSawicki",
+        "id": 24721924
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-19T12:16:19.000Z",
+      "dateUpdated": "2025-11-19T18:20:16.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-19T18:20:16.000Z"
+    },
+    {
+      "title": "id5 id module: canCookieSync | is still used?",
+      "number": 13842,
+      "author": {
+        "login": "wvazquez",
+        "id": 16522957
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-03T21:10:26.000Z",
+      "dateUpdated": "2025-11-17T16:31:16.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:31:16.000Z"
+    },
+    {
+      "title": "stroeerCoreBidAdapter - possibility to split bid request by adtype",
+      "number": 12357,
+      "author": {
+        "login": "vlyby-nadja",
+        "id": 83579236
+      },
+      "assignees": [],
+      "dateCreated": "2024-10-23T08:09:46.000Z",
+      "dateUpdated": "2025-11-17T16:29:44.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:29:43.000Z"
+    },
+    {
+      "title": "PubX RTD Module Endpoint Logic Issue",
+      "number": 12892,
+      "author": {
+        "login": "zachsavishinsky",
+        "id": 33969235
+      },
+      "assignees": [],
+      "dateCreated": "2025-03-18T10:44:04.000Z",
+      "dateUpdated": "2025-11-17T16:27:39.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:27:39.000Z"
+    },
+    {
+      "title": "FreeWheel SSP - 400 bad request response",
+      "number": 12016,
+      "author": {
+        "login": "hkimmgni",
+        "id": 144719203
+      },
+      "assignees": [],
+      "dateCreated": "2024-07-22T18:41:58.000Z",
+      "dateUpdated": "2025-11-17T16:26:25.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:26:25.000Z"
+    },
+    {
+      "title": "Teads Bid Adapter does not support ad slot name in code parameter of ad unit",
+      "number": 10824,
+      "author": {
+        "login": "gwi-mmuths",
+        "id": 29041888
+      },
+      "assignees": [],
+      "dateCreated": "2023-12-12T11:46:01.000Z",
+      "dateUpdated": "2025-11-17T16:25:41.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:25:41.000Z"
+    },
+    {
+      "title": "Feature request: page view ID",
+      "number": 13908,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-18T09:18:04.000Z",
+      "dateUpdated": "2025-11-18T15:09:36.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-17T16:24:35.000Z"
+    },
+    {
+      "title": "Build impossible due to `ts` and/or `tsc`",
+      "number": 14121,
+      "author": {
+        "login": "mdemauroy",
+        "id": 17426300
+      },
+      "assignees": [],
+      "dateCreated": "2025-11-12T16:27:07.000Z",
+      "dateUpdated": "2025-11-13T16:11:55.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-13T16:11:55.000Z"
+    },
+    {
+      "title": "bidRequest.auctionId is no longer a valid uuid",
+      "number": 14082,
+      "author": {
+        "login": "arneschulz1984",
+        "id": 22349602
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-29T20:28:44.000Z",
+      "dateUpdated": "2025-11-12T21:23:53.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-12T21:23:53.000Z"
+    },
+    {
+      "title": "Github actions: flagging linting exceptions",
+      "number": 11814,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-06-17T15:21:26.000Z",
+      "dateUpdated": "2025-11-12T17:08:01.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-12T17:08:01.000Z"
+    },
+    {
+      "title": "Storage Manager: write to shared storage method",
+      "number": 11231,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-03-18T16:44:01.000Z",
+      "dateUpdated": "2025-11-12T17:07:24.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-12T17:07:24.000Z"
+    },
+    {
+      "title": "unexpected behavior with TCF control and permutive RTD module",
+      "number": 14069,
+      "author": {
+        "login": "jdelhommeau",
+        "id": 14938467
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2025-10-24T16:17:48.000Z",
+      "dateUpdated": "2025-11-06T20:48:39.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-06T20:48:39.000Z"
+    },
+    {
+      "title": "Bid filter module: expand into meta fields",
+      "number": 14056,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-10-22T16:19:30.000Z",
+      "dateUpdated": "2025-11-06T14:53:41.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-06T14:53:40.000Z"
+    },
+    {
+      "title": "GPP Control - Incorrect \"PersonalDataConsents\" check?",
+      "number": 14077,
+      "author": {
+        "login": "Sir-Will",
+        "id": 5961995
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "dateCreated": "2025-10-28T21:13:29.000Z",
+      "dateUpdated": "2025-11-27T08:22:10.000Z",
+      "status": "closed",
+      "dateClosed": "2025-11-06T14:52:05.000Z"
+    }
+  ]
+}

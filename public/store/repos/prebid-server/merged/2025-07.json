@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 7,
     "itemCount": 30,
-    "lastUpdated": "2025-09-02T23:36:35.261Z"
+    "lastUpdated": "2026-08-03T19:53:13.713Z"
   },
   "items": [
     {
@@ -151,38 +151,13 @@
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": [
-        {
-          "login": "laurb9",
-          "state": "APPROVED"
-        },
-        {
-          "login": "hhhjort",
-          "state": "APPROVED"
-        },
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-07-18T12:44:55.000Z",
-      "dateUpdated": "2025-07-28T20:29:22.000Z",
+      "dateUpdated": "2026-08-03T00:02:21.000Z",
       "status": "merged",
       "dateMerged": "2025-07-28T20:29:21.000Z",
-      "commitAuthors": {
-        "155444733": {
-          "identifier": "155444733",
-          "displayName": "gmiedlar-ox",
-          "count": 1,
-          "isGitHubUser": true
-        },
-        "174440987": {
-          "identifier": "174440987",
-          "displayName": "Fuska1",
-          "count": 3,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-07-28T20:29:21.000Z"
     },
     {
       "title": "Rubicon: Pass ext.prebid.multibid[].maxbids to XAPI",
@@ -706,28 +681,13 @@
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": [
-        {
-          "login": "bsardo",
-          "state": "APPROVED"
-        },
-        {
-          "login": "hhhjort",
-          "state": "APPROVED"
-        }
-      ],
+      "reviewers": [],
+      "commitAuthors": {},
       "dateCreated": "2025-06-11T03:48:33.000Z",
-      "dateUpdated": "2025-07-16T18:12:08.000Z",
+      "dateUpdated": "2026-06-23T23:02:42.000Z",
       "status": "merged",
       "dateMerged": "2025-07-16T18:12:08.000Z",
-      "commitAuthors": {
-        "2080240": {
-          "identifier": "2080240",
-          "displayName": "philipwatson",
-          "count": 1,
-          "isGitHubUser": true
-        }
-      }
+      "dateClosed": "2025-07-16T18:12:08.000Z"
     },
     {
       "title": "Floors: Fix panic while getting adunit code for signaling",

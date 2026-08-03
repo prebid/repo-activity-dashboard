@@ -1,25 +1,115 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-04-22T18:40:04.344Z",
-    "itemCount": 91
+    "lastSync": "2026-08-03T19:52:57.089Z",
+    "itemCount": 94
   },
   "items": [
     {
-      "title": "rtd modules: adjust timing of settargeting methods",
-      "number": 14706,
+      "title": "Feature: VAST Unwrapper module",
+      "number": 12143,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "dateCreated": "2024-08-19T21:06:03.000Z",
+      "dateUpdated": "2026-08-02T00:24:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "slowdowns in version 11",
+      "number": 15403,
+      "author": {
+        "login": "arossiIT",
+        "id": 310282033
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-07-28T17:54:39.000Z",
+      "dateUpdated": "2026-07-31T14:32:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "multiple sha256 callers",
+      "number": 15404,
       "author": {
         "login": "patmmccann",
         "id": 1683175
       },
       "assignees": [],
-      "dateCreated": "2026-04-13T17:11:40.000Z",
-      "dateUpdated": "2026-04-22T16:19:11.000Z",
+      "dateCreated": "2026-07-28T18:37:00.000Z",
+      "dateUpdated": "2026-07-29T16:38:41.000Z",
       "status": "open"
     },
     {
-      "title": "option to deny accessRequestCredentials on gppControl module",
-      "number": 14624,
+      "title": "UserId module: allow to configure a transformation for the ppid",
+      "number": 15385,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-24T09:25:37.000Z",
+      "dateUpdated": "2026-07-29T12:59:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposal for prebid 12: ban bidders from importing config",
+      "number": 15393,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-27T16:49:40.000Z",
+      "dateUpdated": "2026-07-27T21:05:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Using Prebid with Typescript requires specific (undocumented) settings in tsconfig.json",
+      "number": 14412,
+      "author": {
+        "login": "a-lopatin-muse",
+        "id": 134909024
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-02-04T14:51:50.000Z",
+      "dateUpdated": "2026-07-27T15:47:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTD  modules: reprocess config on config change",
+      "number": 15381,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-23T14:45:26.000Z",
+      "dateUpdated": "2026-07-23T14:46:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Clear targeting at render time or bidwon",
+      "number": 14943,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-05-25T12:03:18.000Z",
+      "dateUpdated": "2026-07-23T13:20:23.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Expose metrics to chrome-devtools-mcp",
+      "number": 15355,
       "author": {
         "login": "patmmccann",
         "id": 1683175
@@ -27,8 +117,228 @@
       "assignees": [
         "dgirardi"
       ],
-      "dateCreated": "2026-03-20T14:50:37.000Z",
-      "dateUpdated": "2026-04-21T16:17:52.000Z",
+      "dateCreated": "2026-07-14T15:04:37.000Z",
+      "dateUpdated": "2026-07-15T17:13:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "disable Analytics",
+      "number": 15026,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-09T15:01:05.000Z",
+      "dateUpdated": "2026-07-15T16:51:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "KV mismatch in GAM: cust_param handling in gamAdServerVideo.js uses formatQS() which handles arrays explicitly with bracket notation",
+      "number": 15357,
+      "author": {
+        "login": "suchhanda-crazygames",
+        "id": 299282572
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-14T17:24:14.000Z",
+      "dateUpdated": "2026-07-14T18:42:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Evaluate Browserslist query policy for Prebid.js",
+      "number": 15311,
+      "author": {
+        "login": "monis0395",
+        "id": 11406818
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-03T12:47:02.000Z",
+      "dateUpdated": "2026-07-13T15:27:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "explore publishing a library to cross origin storage",
+      "number": 15256,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-29T02:39:20.000Z",
+      "dateUpdated": "2026-07-10T12:24:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12 proposal: no more bidder ids",
+      "number": 15247,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-25T15:38:16.000Z",
+      "dateUpdated": "2026-07-01T17:03:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "prebid 12: uaHints default flip",
+      "number": 15294,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-01T16:47:58.000Z",
+      "dateUpdated": "2026-07-01T16:48:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Postbid integration example",
+      "number": 15244,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-25T09:57:26.000Z",
+      "dateUpdated": "2026-06-29T16:00:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bump or delete macos version pin on github runner",
+      "number": 15157,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-22T17:43:42.000Z",
+      "dateUpdated": "2026-06-22T17:53:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "sandboxed iframe syncs",
+      "number": 15131,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-17T17:06:50.000Z",
+      "dateUpdated": "2026-06-17T17:06:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature Request - add support video assets in Prebid Native",
+      "number": 10275,
+      "author": {
+        "login": "jsnellbaker",
+        "id": 31102355
+      },
+      "assignees": [],
+      "dateCreated": "2023-07-24T15:44:56.000Z",
+      "dateUpdated": "2026-06-16T11:55:48.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PubxAi and Pubmatic RTD: remove import of continueAuction",
+      "number": 14230,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "pm-harshad-mane"
+      ],
+      "dateCreated": "2025-12-02T15:42:29.000Z",
+      "dateUpdated": "2026-06-10T06:45:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: delete viewdeos",
+      "number": 15023,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-09T13:03:53.000Z",
+      "dateUpdated": "2026-06-09T13:04:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: Inconsistent handling of CMP error conditions",
+      "number": 14933,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-20T18:21:08.000Z",
+      "dateUpdated": "2026-06-03T16:55:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PBS Adapter: user segments in bidder config may grow the payload object size with repeated information",
+      "number": 12575,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2024-12-12T16:08:32.000Z",
+      "dateUpdated": "2026-06-01T15:56:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: Typescript typings still allow for invalid properties (for id providers)",
+      "number": 14895,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-15T12:02:35.000Z",
+      "dateUpdated": "2026-05-22T20:03:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: delete old showheroes file",
+      "number": 14751,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-20T21:05:12.000Z",
+      "dateUpdated": "2026-05-18T21:15:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Generic analytics adapter: skinny events",
+      "number": 13980,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-10-07T01:27:21.000Z",
+      "dateUpdated": "2026-05-18T15:58:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "rtd modules: adjust timing of settargeting methods",
+      "number": 14706,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-04-13T17:11:40.000Z",
+      "dateUpdated": "2026-04-23T13:27:15.000Z",
       "status": "open"
     },
     {
@@ -43,18 +353,6 @@
       ],
       "dateCreated": "2026-04-13T21:16:19.000Z",
       "dateUpdated": "2026-04-21T13:56:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: delete old showheroes file",
-      "number": 14751,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-20T21:05:12.000Z",
-      "dateUpdated": "2026-04-20T21:05:20.000Z",
       "status": "open"
     },
     {
@@ -94,68 +392,6 @@
       "status": "open"
     },
     {
-      "title": "Test cases to cover new tcdata form",
-      "number": 14733,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-16T13:13:00.000Z",
-      "dateUpdated": "2026-04-16T13:20:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Improve usersync exclusions",
-      "number": 14730,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-15T17:25:06.000Z",
-      "dateUpdated": "2026-04-15T17:25:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature: pass renderer into frames",
-      "number": 10780,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2023-11-30T19:25:45.000Z",
-      "dateUpdated": "2026-04-02T15:05:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Publisher purpose restrictions",
-      "number": 14616,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-19T10:33:55.000Z",
-      "dateUpdated": "2026-03-19T16:57:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Vendors relying on LI for purpose 7 are blocked by tcfcontrol",
-      "number": 14615,
-      "author": {
-        "login": "bjorn-lw",
-        "id": 32431346
-      },
-      "assignees": [],
-      "dateCreated": "2026-03-19T07:45:01.000Z",
-      "dateUpdated": "2026-03-19T16:38:48.000Z",
-      "status": "open"
-    },
-    {
       "title": "Recommended modules",
       "number": 14603,
       "author": {
@@ -177,32 +413,6 @@
       "assignees": [],
       "dateCreated": "2026-03-13T18:04:06.000Z",
       "dateUpdated": "2026-03-13T18:04:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Using Prebid with Typescript requires specific (undocumented) settings in tsconfig.json",
-      "number": 14412,
-      "author": {
-        "login": "a-lopatin-muse",
-        "id": 134909024
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2026-02-04T14:51:50.000Z",
-      "dateUpdated": "2026-03-10T15:21:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
-      "number": 14068,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-24T16:06:16.000Z",
-      "dateUpdated": "2026-02-26T15:52:09.000Z",
       "status": "open"
     },
     {
@@ -230,20 +440,6 @@
       "status": "open"
     },
     {
-      "title": "Publishers should be able to filter the bids entering the auction",
-      "number": 12399,
-      "author": {
-        "login": "pm-harshad-mane",
-        "id": 8835908
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2024-11-02T16:53:06.000Z",
-      "dateUpdated": "2026-02-10T13:09:23.000Z",
-      "status": "open"
-    },
-    {
       "title": "Prebid future breaking change: remove eids on adunits object",
       "number": 13790,
       "author": {
@@ -265,18 +461,6 @@
       "assignees": [],
       "dateCreated": "2025-06-12T14:46:57.000Z",
       "dateUpdated": "2026-01-29T16:13:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: retire topics",
-      "number": 14394,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-28T18:42:44.000Z",
-      "dateUpdated": "2026-01-28T18:43:49.000Z",
       "status": "open"
     },
     {
@@ -364,20 +548,6 @@
       "status": "open"
     },
     {
-      "title": "PubxAi and Pubmatic RTD: remove import of continueAuction",
-      "number": 14230,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "pm-harshad-mane"
-      ],
-      "dateCreated": "2025-12-02T15:42:29.000Z",
-      "dateUpdated": "2026-01-15T16:05:50.000Z",
-      "status": "open"
-    },
-    {
       "title": "TCF Module: submit dsa render info to external api / enable publisher to render",
       "number": 10958,
       "author": {
@@ -402,18 +572,6 @@
       "status": "open"
     },
     {
-      "title": "Suggestion: Yahoo bidder can avoid preflight requests",
-      "number": 12948,
-      "author": {
-        "login": "pm-harshad-mane",
-        "id": 8835908
-      },
-      "assignees": [],
-      "dateCreated": "2025-04-01T18:54:07.000Z",
-      "dateUpdated": "2025-11-20T13:16:26.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support GPP sections 13-23 (FL, MT, OR, TX, DE, IA, NE, NH, NJ, TN, MN)",
       "number": 11978,
       "author": {
@@ -435,20 +593,6 @@
       "assignees": [],
       "dateCreated": "2025-10-01T09:27:05.000Z",
       "dateUpdated": "2025-11-17T16:10:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature Request: Dynamic Bidder Modules",
-      "number": 11862,
-      "author": {
-        "login": "ReinoutStevens",
-        "id": 518971
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2024-06-25T12:28:03.000Z",
-      "dateUpdated": "2025-11-13T14:06:20.000Z",
       "status": "open"
     },
     {
@@ -488,18 +632,6 @@
       "status": "open"
     },
     {
-      "title": "Generic analytics adapter: skinny events",
-      "number": 13980,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-07T01:27:21.000Z",
-      "dateUpdated": "2025-10-07T01:29:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "Enhancement: Log matched floor rule during requestBidsHook for model training",
       "number": 13822,
       "author": {
@@ -535,18 +667,6 @@
       "assignees": [],
       "dateCreated": "2023-12-28T09:25:09.000Z",
       "dateUpdated": "2025-08-25T15:19:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PBS Adapter: user segments in bidder config may grow the payload object size with repeated information",
-      "number": 12575,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-12T16:08:32.000Z",
-      "dateUpdated": "2025-08-25T15:11:01.000Z",
       "status": "open"
     },
     {
@@ -611,18 +731,6 @@
       ],
       "dateCreated": "2023-12-11T14:53:01.000Z",
       "dateUpdated": "2025-07-24T15:45:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support for dynamic renderer in PBS adapter",
-      "number": 10434,
-      "author": {
-        "login": "ccorbo",
-        "id": 19716777
-      },
-      "assignees": [],
-      "dateCreated": "2023-09-05T20:04:30.000Z",
-      "dateUpdated": "2025-07-22T14:22:32.000Z",
       "status": "open"
     },
     {
@@ -808,30 +916,6 @@
       "status": "open"
     },
     {
-      "title": "More polite syncs",
-      "number": 12992,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-04-11T13:51:32.000Z",
-      "dateUpdated": "2025-04-21T15:19:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "feature request: Using video duration or other fields to score bid in addition to cpm",
-      "number": 4411,
-      "author": {
-        "login": "khatibda",
-        "id": 1466555
-      },
-      "assignees": [],
-      "dateCreated": "2019-10-31T21:24:25.000Z",
-      "dateUpdated": "2025-04-09T16:34:03.000Z",
-      "status": "open"
-    },
-    {
       "title": "Additional Data for Auction Debugging and Auction End Events in Compliance Scenarios",
       "number": 12927,
       "author": {
@@ -906,18 +990,6 @@
       "status": "open"
     },
     {
-      "title": "Feature: VAST Unwrapper module",
-      "number": 12143,
-      "author": {
-        "login": "karimMourra",
-        "id": 12138319
-      },
-      "assignees": [],
-      "dateCreated": "2024-08-19T21:06:03.000Z",
-      "dateUpdated": "2024-12-10T20:04:22.000Z",
-      "status": "open"
-    },
-    {
       "title": "Feature request: timeouts and no bid timeToRespond in AUCTION_END",
       "number": 12504,
       "author": {
@@ -975,18 +1047,6 @@
       "assignees": [],
       "dateCreated": "2024-08-29T16:06:16.000Z",
       "dateUpdated": "2024-08-29T16:07:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Passing GPP data for bidViewability and dfpAdServerVideo modules follow-up",
-      "number": 9364,
-      "author": {
-        "login": "jsnellbaker",
-        "id": 31102355
-      },
-      "assignees": [],
-      "dateCreated": "2022-12-21T17:55:07.000Z",
-      "dateUpdated": "2024-08-26T15:38:24.000Z",
       "status": "open"
     },
     {
@@ -1064,18 +1124,6 @@
       "status": "open"
     },
     {
-      "title": "PBS Adapter: generalize dual endpoints to use activity control",
-      "number": 10364,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2023-08-16T15:00:55.000Z",
-      "dateUpdated": "2023-08-31T15:46:33.000Z",
-      "status": "open"
-    },
-    {
       "title": "Download page automated version sync with applicable adapters/modules",
       "number": 9410,
       "author": {
@@ -1085,18 +1133,6 @@
       "assignees": [],
       "dateCreated": "2023-01-11T13:26:49.000Z",
       "dateUpdated": "2023-08-28T16:04:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature Request - add support video assets in Prebid Native",
-      "number": 10275,
-      "author": {
-        "login": "jsnellbaker",
-        "id": 31102355
-      },
-      "assignees": [],
-      "dateCreated": "2023-07-24T15:44:56.000Z",
-      "dateUpdated": "2023-08-16T16:34:35.000Z",
       "status": "open"
     },
     {

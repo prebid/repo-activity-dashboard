@@ -1,10 +1,362 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-04-22T18:40:12.867Z",
-    "itemCount": 220
+    "lastSync": "2026-08-03T19:53:13.710Z",
+    "itemCount": 238
   },
   "items": [
+    {
+      "title": "Port PR from PBS-Java: Rename `radianfusion` to `radiantfusion`",
+      "number": 4892,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-30T12:38:14.000Z",
+      "dateUpdated": "2026-07-30T12:38:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Rename `rubicon` leftovers to `magnite`",
+      "number": 4891,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-30T12:31:08.000Z",
+      "dateUpdated": "2026-07-30T12:31:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Rename `bidagency` to `bidgency`",
+      "number": 4890,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-30T12:25:34.000Z",
+      "dateUpdated": "2026-07-30T12:25:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Magnite adapter: Rebrand Rubicon adapter into Magnite adapter",
+      "number": 4884,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-27T17:14:17.000Z",
+      "dateUpdated": "2026-07-27T17:14:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Fix VendorListFileStoreTest",
+      "number": 4881,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-23T19:18:17.000Z",
+      "dateUpdated": "2026-07-23T19:18:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Silent rules engine / geoscope filtering",
+      "number": 4722,
+      "author": {
+        "login": "PBDMSFT",
+        "id": 89027546
+      },
+      "assignees": [
+        "karwaankit32",
+        "anishb-ms"
+      ],
+      "dateCreated": "2026-03-18T20:58:16.000Z",
+      "dateUpdated": "2026-07-23T15:49:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "PrepareCookieForWrite swallows encoder.Encode error and reports success",
+      "number": 4843,
+      "author": {
+        "login": "alibazlamit",
+        "id": 5726532
+      },
+      "assignees": [
+        "karwaankit32"
+      ],
+      "dateCreated": "2026-07-02T10:21:53.000Z",
+      "dateUpdated": "2026-07-23T15:41:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "AMP: valid CCPA consent dropped when gdpr_applies=true (advisory warning short-circuits overrideWithParams)",
+      "number": 4867,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [
+        "karwaankit32",
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-07-21T11:39:33.000Z",
+      "dateUpdated": "2026-07-23T15:40:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RFC: First-class TMP support in Prebid Server",
+      "number": 4845,
+      "author": {
+        "login": "bokelley",
+        "id": 134922
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2026-07-03T05:30:05.000Z",
+      "dateUpdated": "2026-07-23T15:36:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "artf support",
+      "number": 4754,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2026-04-27T18:15:20.000Z",
+      "dateUpdated": "2026-07-23T15:36:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fetchers 2.0 Re-design",
+      "number": 4860,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "karwaankit32"
+      ],
+      "dateCreated": "2026-07-15T08:41:41.000Z",
+      "dateUpdated": "2026-07-22T06:53:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Modularity configuration extension",
+      "number": 4686,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2026-02-11T03:35:39.000Z",
+      "dateUpdated": "2026-07-21T16:55:33.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Eidpermissions race condition causes intermittent EID stripping",
+      "number": 4792,
+      "author": {
+        "login": "dgreenhouse1",
+        "id": 24715626
+      },
+      "assignees": [
+        "anishb-ms"
+      ],
+      "dateCreated": "2026-05-22T09:46:22.000Z",
+      "dateUpdated": "2026-07-13T20:13:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Request for status / timeline on PR #4803 (Yahoo Ads: Migrate to OpenRTB 2.6)",
+      "number": 4850,
+      "author": {
+        "login": "MananRPatel",
+        "id": 67188104
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-07-07T17:49:50.000Z",
+      "dateUpdated": "2026-07-09T15:12:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature request: page view ID",
+      "number": 4649,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-05T11:00:13.000Z",
+      "dateUpdated": "2026-07-02T10:39:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Media.net adapter: support regional (geo-routed) endpoints",
+      "number": 4827,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "anishb-ms"
+      ],
+      "dateCreated": "2026-06-22T06:03:28.000Z",
+      "dateUpdated": "2026-06-23T14:13:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support Non-Bidder Usersyncers in Cookie Sync",
+      "number": 4788,
+      "author": {
+        "login": "pkowalski-id5",
+        "id": 112544015
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-21T07:55:57.000Z",
+      "dateUpdated": "2026-06-15T11:32:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Client-Side State Exchange for Prebid Server",
+      "number": 4789,
+      "author": {
+        "login": "pkowalski-id5",
+        "id": 112544015
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-21T07:56:12.000Z",
+      "dateUpdated": "2026-06-11T16:10:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature: priority_groups_only for Cooperative Cookie Syncing",
+      "number": 4747,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2026-04-22T11:30:32.000Z",
+      "dateUpdated": "2026-06-01T13:42:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Deleted GVL Entries",
+      "number": 4800,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-05-28T14:00:44.000Z",
+      "dateUpdated": "2026-05-28T15:41:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Handle deleted GVL entities",
+      "number": 4439,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-07-16T17:16:02.000Z",
+      "dateUpdated": "2026-05-28T15:41:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "appnexus adapter: AUCTION_PRICE macro in creatives causes revenue discrepancies",
+      "number": 4777,
+      "author": {
+        "login": "nickogl",
+        "id": 87699286
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2026-05-14T15:12:58.000Z",
+      "dateUpdated": "2026-05-28T15:21:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Events: Add new request.ext.prebid.events.enabled toggle",
+      "number": 4762,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-04-30T18:44:47.000Z",
+      "dateUpdated": "2026-05-28T15:10:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Aliases inheriting GVL IDs",
+      "number": 4463,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "sigma-software-prebid"
+      ],
+      "dateCreated": "2025-07-30T13:43:31.000Z",
+      "dateUpdated": "2026-05-26T14:17:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature: Host and account-level control to disable iframe cookie syncs",
+      "number": 4741,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "Net-burst",
+        "bsardo"
+      ],
+      "dateCreated": "2026-04-07T19:21:33.000Z",
+      "dateUpdated": "2026-05-21T19:45:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Support general GET interface",
+      "number": 3726,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2024-06-04T19:06:43.000Z",
+      "dateUpdated": "2026-05-21T13:58:38.000Z",
+      "status": "open"
+    },
     {
       "title": "Incompatible gzip request compression support between Prebid.js and prebid-server",
       "number": 4474,
@@ -14,43 +366,59 @@
       },
       "assignees": [],
       "dateCreated": "2025-08-05T13:13:36.000Z",
-      "dateUpdated": "2026-04-22T16:06:54.000Z",
+      "dateUpdated": "2026-05-06T14:42:40.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Nativo: Add optional placementId parameter and Prebid Renderer in response",
-      "number": 4749,
+      "title": "TCF 2.3 Updates",
+      "number": 4750,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2026-04-22T21:26:11.000Z",
+      "dateUpdated": "2026-04-30T19:26:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Evaluate bytedance/sonic as JSON library replacement for json-iterator/go",
+      "number": 4759,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-04-28T21:04:20.000Z",
+      "dateUpdated": "2026-04-30T17:20:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove prefix from Prometheus Go process metrics",
+      "number": 4742,
+      "author": {
+        "login": "peterfajdiga-a11",
+        "id": 216509079
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-09T14:42:00.000Z",
+      "dateUpdated": "2026-04-30T15:09:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Ybidder: New Nexx360 alias",
+      "number": 4753,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2026-04-22T13:53:16.000Z",
-      "dateUpdated": "2026-04-22T13:53:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Java: LI module: Fixing permission logic",
-      "number": 4748,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-22T13:52:59.000Z",
-      "dateUpdated": "2026-04-22T13:52:59.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature: `priority_groups_only` for Cooperative Cookie Syncing",
-      "number": 4747,
-      "author": {
-        "login": "anishb-ms",
-        "id": 122366082
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-22T11:30:32.000Z",
-      "dateUpdated": "2026-04-22T13:16:05.000Z",
+      "dateCreated": "2026-04-27T10:41:08.000Z",
+      "dateUpdated": "2026-04-27T10:41:08.000Z",
       "status": "open"
     },
     {
@@ -66,44 +434,6 @@
       ],
       "dateCreated": "2024-08-14T16:19:08.000Z",
       "dateUpdated": "2026-04-22T08:39:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove prefix from Prometheus Go process metrics",
-      "number": 4742,
-      "author": {
-        "login": "peterfajdiga-a11",
-        "id": 216509079
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-09T14:42:00.000Z",
-      "dateUpdated": "2026-04-20T17:05:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature: Host and account-level control to disable iframe cookie syncs",
-      "number": 4741,
-      "author": {
-        "login": "anishb-ms",
-        "id": 122366082
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-07T19:21:33.000Z",
-      "dateUpdated": "2026-04-16T16:11:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Modularity configuration extension",
-      "number": 4686,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [
-        "postindustria-code"
-      ],
-      "dateCreated": "2026-02-11T03:35:39.000Z",
-      "dateUpdated": "2026-04-15T15:17:20.000Z",
       "status": "open"
     },
     {
@@ -143,21 +473,6 @@
       "assignees": [],
       "dateCreated": "2024-08-23T13:31:33.000Z",
       "dateUpdated": "2026-03-20T14:58:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Silent rules engine / geoscope filtering",
-      "number": 4722,
-      "author": {
-        "login": "PBDMSFT",
-        "id": 89027546
-      },
-      "assignees": [
-        "karwaankit32",
-        "anishb-ms"
-      ],
-      "dateCreated": "2026-03-18T20:58:16.000Z",
-      "dateUpdated": "2026-03-19T18:40:56.000Z",
       "status": "open"
     },
     {
@@ -226,18 +541,6 @@
       "status": "open"
     },
     {
-      "title": "PBS marks video as banner",
-      "number": 4665,
-      "author": {
-        "login": "fprotimaru",
-        "id": 60222966
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-20T06:19:44.000Z",
-      "dateUpdated": "2026-03-05T16:52:25.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support the delivery of custom bid data to prebid.js",
       "number": 4554,
       "author": {
@@ -261,34 +564,6 @@
       "assignees": [],
       "dateCreated": "2026-03-02T11:15:20.000Z",
       "dateUpdated": "2026-03-05T09:08:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Aliases inheriting GVL IDs",
-      "number": 4463,
-      "author": {
-        "login": "bsardo",
-        "id": 1168933
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2025-07-30T13:43:31.000Z",
-      "dateUpdated": "2026-03-05T04:24:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Handle deleted GVL entities",
-      "number": 4439,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2025-07-16T17:16:02.000Z",
-      "dateUpdated": "2026-03-04T21:43:07.000Z",
       "status": "open"
     },
     {
@@ -413,18 +688,6 @@
       "assignees": [],
       "dateCreated": "2026-02-04T14:41:20.000Z",
       "dateUpdated": "2026-02-04T14:41:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature request: page view ID",
-      "number": 4649,
-      "author": {
-        "login": "acsbendi",
-        "id": 30595431
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-05T11:00:13.000Z",
-      "dateUpdated": "2026-02-02T09:19:26.000Z",
       "status": "open"
     },
     {
@@ -682,20 +945,6 @@
       "assignees": [],
       "dateCreated": "2025-12-05T16:02:27.000Z",
       "dateUpdated": "2025-12-11T15:14:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support general GET interface",
-      "number": 3726,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "sigma-software-prebid"
-      ],
-      "dateCreated": "2024-06-04T19:06:43.000Z",
-      "dateUpdated": "2025-12-09T16:23:50.000Z",
       "status": "open"
     },
     {

@@ -1,0 +1,273 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2025,
+    "month": 12,
+    "itemCount": 15,
+    "lastUpdated": "2026-01-05T12:43:21.304Z"
+  },
+  "items": [
+    {
+      "title": "Fix vulnerability in cross-repo-issue GitHub action",
+      "number": 4324,
+      "author": {
+        "login": "zxPhoenix",
+        "id": 1951316
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-16T16:58:25.000Z",
+      "dateUpdated": "2025-12-22T14:42:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-22T14:42:12.000Z",
+      "dateClosed": "2025-12-22T14:42:12.000Z"
+    },
+    {
+      "title": "Decrease the version of the InfluxDB metrics",
+      "number": 4292,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T10:37:42.000Z",
+      "dateUpdated": "2025-12-09T13:47:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T13:47:19.000Z",
+      "dateClosed": "2025-12-09T13:47:19.000Z"
+    },
+    {
+      "title": "Test: Remove post in pr-java-ci.yml",
+      "number": 4307,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-03T09:56:42.000Z",
+      "dateUpdated": "2025-12-09T11:56:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T11:56:56.000Z",
+      "dateClosed": "2025-12-09T11:56:56.000Z"
+    },
+    {
+      "title": "Tests: Fix flaky GPP tests and refactor code",
+      "number": 4309,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T12:25:31.000Z",
+      "dateUpdated": "2025-12-09T00:24:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T00:24:21.000Z",
+      "dateClosed": "2025-12-09T00:24:21.000Z"
+    },
+    {
+      "title": "Rule Engine: Fix eviction policy for rule cache",
+      "number": 4308,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-03T19:46:03.000Z",
+      "dateUpdated": "2025-12-09T00:15:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T00:15:14.000Z",
+      "dateClosed": "2025-12-09T00:15:14.000Z"
+    },
+    {
+      "title": "CWire: Add userSync",
+      "number": 4288,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T08:32:46.000Z",
+      "dateUpdated": "2025-12-09T00:14:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T00:14:48.000Z",
+      "dateClosed": "2025-12-09T00:14:48.000Z"
+    },
+    {
+      "title": "Fix #4304: incorrect naming in userSync configs",
+      "number": 4305,
+      "author": {
+        "login": "EmilNadimanov",
+        "id": 63649196
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-02T13:57:50.000Z",
+      "dateUpdated": "2025-12-02T19:39:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T19:39:10.000Z",
+      "dateClosed": "2025-12-02T19:39:10.000Z"
+    },
+    {
+      "title": "Test: Add Influx db coverage",
+      "number": 4284,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T16:00:44.000Z",
+      "dateUpdated": "2025-12-02T12:38:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T12:38:23.000Z",
+      "dateClosed": "2025-12-02T12:38:23.000Z"
+    },
+    {
+      "title": "Test: Update `pr-java/functional-ci` work flow",
+      "number": 3904,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-04-10T15:24:07.000Z",
+      "dateUpdated": "2025-12-01T14:55:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T14:55:02.000Z",
+      "dateClosed": "2025-12-01T14:55:02.000Z"
+    },
+    {
+      "title": "Core: Support GPP USNat v2",
+      "number": 3690,
+      "author": {
+        "login": "AntoxaAntoxic",
+        "id": 76536883
+      },
+      "assignees": [
+        "AntoxaAntoxic"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-22T10:14:13.000Z",
+      "dateUpdated": "2025-12-01T13:07:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T13:07:15.000Z",
+      "dateClosed": "2025-12-01T13:07:15.000Z"
+    },
+    {
+      "title": "Criteo: Set geoscope to global",
+      "number": 4303,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-01T12:16:40.000Z",
+      "dateUpdated": "2025-12-01T13:06:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T13:06:41.000Z",
+      "dateClosed": "2025-12-01T13:06:41.000Z"
+    },
+    {
+      "title": "Sharethrough: Add geoscope to config",
+      "number": 4302,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-01T12:14:30.000Z",
+      "dateUpdated": "2025-12-01T13:04:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T13:04:55.000Z",
+      "dateClosed": "2025-12-01T13:04:55.000Z"
+    },
+    {
+      "title": "Smaato: Add geoscope to bidder info",
+      "number": 4301,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-01T12:11:51.000Z",
+      "dateUpdated": "2025-12-01T13:04:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T13:04:18.000Z",
+      "dateClosed": "2025-12-01T13:04:18.000Z"
+    },
+    {
+      "title": "Seedtag: sets bid request's currency to USD",
+      "number": 4296,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T16:08:47.000Z",
+      "dateUpdated": "2025-12-01T12:58:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T12:58:54.000Z",
+      "dateClosed": "2025-12-01T12:58:54.000Z"
+    },
+    {
+      "title": "consumable: updated yaml config",
+      "number": 4139,
+      "author": {
+        "login": "richardngo-consumable",
+        "id": 184112982
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-19T13:50:58.000Z",
+      "dateUpdated": "2025-12-01T12:58:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T12:58:44.000Z",
+      "dateClosed": "2025-12-01T12:58:44.000Z"
+    }
+  ]
+}

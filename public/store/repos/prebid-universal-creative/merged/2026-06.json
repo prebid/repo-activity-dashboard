@@ -1,0 +1,653 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-universal-creative",
+    "year": 2026,
+    "month": 6,
+    "itemCount": 40,
+    "lastUpdated": "2026-08-03T19:53:59.061Z"
+  },
+  "items": [
+    {
+      "title": "Revert \"Replace gulp-eslint with gulp-eslint-new\"",
+      "number": 355,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-16T15:55:05.000Z",
+      "dateUpdated": "2026-06-16T15:55:14.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-16T15:55:14.000Z",
+      "dateClosed": "2026-06-16T15:55:14.000Z"
+    },
+    {
+      "title": "Bump ws, engine.io and socket.io-adapter",
+      "number": 353,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-16T11:28:59.000Z",
+      "dateUpdated": "2026-06-16T15:45:17.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-16T15:45:08.000Z",
+      "dateClosed": "2026-06-16T15:45:08.000Z"
+    },
+    {
+      "title": "Replace gulp-eslint with gulp-eslint-new",
+      "number": 350,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-16T02:15:56.000Z",
+      "dateUpdated": "2026-06-16T15:44:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-16T15:44:54.000Z",
+      "dateClosed": "2026-06-16T15:44:55.000Z"
+    },
+    {
+      "title": "Bump mocha to 11.7.6",
+      "number": 351,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-16T02:16:21.000Z",
+      "dateUpdated": "2026-06-16T15:44:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-16T15:44:30.000Z",
+      "dateClosed": "2026-06-16T15:44:30.000Z"
+    },
+    {
+      "title": "Fix unused imports and variables",
+      "number": 352,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-16T02:31:11.000Z",
+      "dateUpdated": "2026-06-16T15:44:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-16T15:44:16.000Z",
+      "dateClosed": "2026-06-16T15:44:16.000Z"
+    },
+    {
+      "title": "Upgrade sinon to ^22 and modernize tests (recreate PR #343)",
+      "number": 347,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-15T17:37:50.000Z",
+      "dateUpdated": "2026-06-15T17:38:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-15T17:38:35.000Z",
+      "dateClosed": "2026-06-15T17:38:35.000Z"
+    },
+    {
+      "title": "Fix for Useless conditional",
+      "number": 321,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T00:48:04.000Z",
+      "dateUpdated": "2026-06-15T16:46:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-15T16:46:20.000Z",
+      "dateClosed": "2026-06-15T16:46:20.000Z"
+    },
+    {
+      "title": "Remove duplicate static VAST gulp task",
+      "number": 322,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T00:54:01.000Z",
+      "dateUpdated": "2026-06-15T16:46:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-15T16:46:04.000Z",
+      "dateClosed": "2026-06-15T16:46:04.000Z"
+    },
+    {
+      "title": "Upgrade core-js and core-js-pure to ^3.49.0",
+      "number": 344,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-11T15:51:58.000Z",
+      "dateUpdated": "2026-06-11T17:04:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T17:04:42.000Z",
+      "dateClosed": "2026-06-11T17:04:42.000Z"
+    },
+    {
+      "title": "Apply non-breaking dependency updates via `npm audit fix`",
+      "number": 341,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-11T15:35:00.000Z",
+      "dateUpdated": "2026-06-11T15:39:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T15:39:03.000Z",
+      "dateClosed": "2026-06-11T15:39:03.000Z"
+    },
+    {
+      "title": "Bump playwright and @playwright/test",
+      "number": 297,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T18:57:02.000Z",
+      "dateUpdated": "2026-06-11T15:31:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T15:31:07.000Z",
+      "dateClosed": "2026-06-11T15:31:07.000Z"
+    },
+    {
+      "title": "Bump ws, engine.io and socket.io-adapter",
+      "number": 333,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T03:02:02.000Z",
+      "dateUpdated": "2026-06-11T15:23:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T15:23:00.000Z",
+      "dateClosed": "2026-06-11T15:23:00.000Z"
+    },
+    {
+      "title": "Bump loader-utils from 1.2.3 to 1.4.2",
+      "number": 336,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T14:22:22.000Z",
+      "dateUpdated": "2026-06-11T13:03:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T13:03:42.000Z",
+      "dateClosed": "2026-06-11T13:03:42.000Z"
+    },
+    {
+      "title": "Bump async, karma-coverage and karma-coverage-istanbul-reporter",
+      "number": 337,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-11T01:11:52.000Z",
+      "dateUpdated": "2026-06-11T01:38:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T01:38:16.000Z",
+      "dateClosed": "2026-06-11T01:38:16.000Z"
+    },
+    {
+      "title": "Bump acorn and gulp-eslint",
+      "number": 338,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-11T01:14:57.000Z",
+      "dateUpdated": "2026-06-11T01:36:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T01:36:29.000Z",
+      "dateClosed": "2026-06-11T01:36:29.000Z"
+    },
+    {
+      "title": "Bump json5 from 1.0.1 to 1.0.2",
+      "number": 335,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T14:21:58.000Z",
+      "dateUpdated": "2026-06-11T01:13:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-11T01:13:39.000Z",
+      "dateClosed": "2026-06-11T01:13:39.000Z"
+    },
+    {
+      "title": "Bump socket.io-parser from 4.2.4 to 4.2.6",
+      "number": 329,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T02:09:32.000Z",
+      "dateUpdated": "2026-06-10T14:16:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T14:16:08.000Z",
+      "dateClosed": "2026-06-10T14:16:09.000Z"
+    },
+    {
+      "title": "Bump get-func-name from 2.0.0 to 2.0.2",
+      "number": 328,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T02:07:13.000Z",
+      "dateUpdated": "2026-06-10T14:15:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T14:15:49.000Z",
+      "dateClosed": "2026-06-10T14:15:49.000Z"
+    },
+    {
+      "title": "Upgrade webpack toolchain to Webpack 5 and update test tooling",
+      "number": 323,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T01:24:47.000Z",
+      "dateUpdated": "2026-06-10T14:15:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T14:15:23.000Z",
+      "dateClosed": "2026-06-10T14:15:23.000Z"
+    },
+    {
+      "title": "Fix for Semicolon insertion",
+      "number": 327,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T01:29:21.000Z",
+      "dateUpdated": "2026-06-10T01:32:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T01:32:16.000Z",
+      "dateClosed": "2026-06-10T01:32:16.000Z"
+    },
+    {
+      "title": "Fix for Semicolon insertion",
+      "number": 326,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T01:29:15.000Z",
+      "dateUpdated": "2026-06-10T01:32:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T01:32:03.000Z",
+      "dateClosed": "2026-06-10T01:32:03.000Z"
+    },
+    {
+      "title": "Fix for Semicolon insertion",
+      "number": 325,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T01:29:09.000Z",
+      "dateUpdated": "2026-06-10T01:31:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T01:31:49.000Z",
+      "dateClosed": "2026-06-10T01:31:49.000Z"
+    },
+    {
+      "title": "Fix for Semicolon insertion",
+      "number": 324,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T01:29:02.000Z",
+      "dateUpdated": "2026-06-10T01:31:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T01:31:33.000Z",
+      "dateClosed": "2026-06-10T01:31:33.000Z"
+    },
+    {
+      "title": "Update BrowserStack browser versions",
+      "number": 318,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T23:46:27.000Z",
+      "dateUpdated": "2026-06-10T00:14:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T00:14:23.000Z",
+      "dateClosed": "2026-06-10T00:14:23.000Z"
+    },
+    {
+      "title": "Bump browserstack-local from 1.5.1 to 1.5.13",
+      "number": 320,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T00:05:58.000Z",
+      "dateUpdated": "2026-06-10T00:11:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-10T00:11:41.000Z",
+      "dateClosed": "2026-06-10T00:11:41.000Z"
+    },
+    {
+      "title": "Bump undici from 6.21.3 to 6.26.0",
+      "number": 316,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T22:08:45.000Z",
+      "dateUpdated": "2026-06-09T23:49:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T23:49:19.000Z",
+      "dateClosed": "2026-06-09T23:49:19.000Z"
+    },
+    {
+      "title": "Bump qs and body-parser",
+      "number": 309,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:33:56.000Z",
+      "dateUpdated": "2026-06-09T23:48:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T23:48:19.000Z",
+      "dateClosed": "2026-06-09T23:48:19.000Z"
+    },
+    {
+      "title": "Bump flatted from 3.2.7 to 3.4.2",
+      "number": 317,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T22:09:33.000Z",
+      "dateUpdated": "2026-06-09T23:47:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T23:47:12.000Z",
+      "dateClosed": "2026-06-09T23:47:12.000Z"
+    },
+    {
+      "title": "Bump handlebars from 4.7.7 to 4.7.9",
+      "number": 314,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T16:14:03.000Z",
+      "dateUpdated": "2026-06-09T21:51:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T21:51:37.000Z",
+      "dateClosed": "2026-06-09T21:51:37.000Z"
+    },
+    {
+      "title": "Bump ip-address and socks",
+      "number": 307,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:33:52.000Z",
+      "dateUpdated": "2026-06-09T21:48:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T21:48:29.000Z",
+      "dateClosed": "2026-06-09T21:48:29.000Z"
+    },
+    {
+      "title": "Bump fast-xml-parser and edgedriver",
+      "number": 308,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:33:55.000Z",
+      "dateUpdated": "2026-06-09T21:45:34.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T21:45:26.000Z",
+      "dateClosed": "2026-06-09T21:45:26.000Z"
+    },
+    {
+      "title": "Bump follow-redirects from 1.15.6 to 1.16.0",
+      "number": 310,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:34:01.000Z",
+      "dateUpdated": "2026-06-09T17:15:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T17:15:07.000Z",
+      "dateClosed": "2026-06-09T17:15:07.000Z"
+    },
+    {
+      "title": "Bump basic-ftp from 5.0.5 to 5.3.1",
+      "number": 311,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:34:02.000Z",
+      "dateUpdated": "2026-06-09T16:18:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T16:17:54.000Z",
+      "dateClosed": "2026-06-09T16:17:54.000Z"
+    },
+    {
+      "title": "Bump lodash.template from 4.5.0 to 4.18.1",
+      "number": 313,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T14:01:10.000Z",
+      "dateUpdated": "2026-06-09T16:12:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T16:12:48.000Z",
+      "dateClosed": "2026-06-09T16:12:48.000Z"
+    },
+    {
+      "title": "Bump lodash from 4.17.23 to 4.18.1",
+      "number": 312,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-09T13:34:08.000Z",
+      "dateUpdated": "2026-06-09T13:59:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:59:38.000Z",
+      "dateClosed": "2026-06-09T13:59:38.000Z"
+    },
+    {
+      "title": "Bump tar-fs from 3.0.9 to 3.1.1",
+      "number": 295,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-24T21:07:30.000Z",
+      "dateUpdated": "2026-06-09T13:35:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:35:11.000Z",
+      "dateClosed": "2026-06-09T13:35:11.000Z"
+    },
+    {
+      "title": "Bump lodash from 4.17.21 to 4.17.23",
+      "number": 304,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T23:44:39.000Z",
+      "dateUpdated": "2026-06-09T13:34:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:33:56.000Z",
+      "dateClosed": "2026-06-09T13:33:56.000Z"
+    },
+    {
+      "title": "Bump qs and body-parser",
+      "number": 305,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-14T03:50:27.000Z",
+      "dateUpdated": "2026-06-09T13:33:46.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:33:12.000Z",
+      "dateClosed": "2026-06-09T13:33:12.000Z"
+    },
+    {
+      "title": "Bump js-yaml",
+      "number": 300,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T11:58:50.000Z",
+      "dateUpdated": "2026-06-09T13:33:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:32:53.000Z",
+      "dateClosed": "2026-06-09T13:32:53.000Z"
+    },
+    {
+      "title": "Bump sha.js from 2.4.11 to 2.4.12",
+      "number": 294,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-09T18:07:11.000Z",
+      "dateUpdated": "2026-06-09T13:33:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:32:33.000Z",
+      "dateClosed": "2026-06-09T13:32:33.000Z"
+    }
+  ]
+}

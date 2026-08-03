@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 3,
+    "itemCount": 15,
+    "lastUpdated": "2026-08-03T20:01:28.905Z"
+  },
+  "items": [
+    {
+      "title": "adds geoscope for deepintent",
+      "number": 4721,
+      "author": {
+        "login": "parthshah51999",
+        "id": 48864138
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-18T07:05:50.000Z",
+      "dateUpdated": "2026-03-25T17:26:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-25T17:26:52.000Z",
+      "dateClosed": "2026-03-25T17:26:52.000Z"
+    },
+    {
+      "title": "New Adapter: Nuba",
+      "number": 4565,
+      "author": {
+        "login": "nuba-io-devs",
+        "id": 236982007
+      },
+      "assignees": [
+        "bsardo",
+        "danylo-kazymyrov-teqblaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-10T11:53:14.000Z",
+      "dateUpdated": "2026-03-20T18:42:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-20T18:42:31.000Z",
+      "dateClosed": "2026-03-20T18:42:31.000Z"
+    },
+    {
+      "title": "Increment package version to v4",
+      "number": 4710,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-04T01:16:15.000Z",
+      "dateUpdated": "2026-03-05T17:38:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-05T17:38:57.000Z",
+      "dateClosed": "2026-03-05T17:38:57.000Z"
+    },
+    {
+      "title": "Fix: Require explicit GVL vendor ID declaration for aliases",
+      "number": 4683,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T05:10:51.000Z",
+      "dateUpdated": "2026-03-05T04:25:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-05T04:25:08.000Z",
+      "dateClosed": "2026-03-05T04:25:08.000Z"
+    },
+    {
+      "title": "Cookie Sync: Allow turning off sync for specific adapter",
+      "number": 4707,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-02T15:22:36.000Z",
+      "dateUpdated": "2026-03-04T22:23:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-04T22:23:04.000Z",
+      "dateClosed": "2026-03-04T22:23:04.000Z"
+    },
+    {
+      "title": "GVL: Periodically fetch latest valid IDs indicating deletions",
+      "number": 4700,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T20:51:52.000Z",
+      "dateUpdated": "2026-03-04T21:42:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-04T21:42:34.000Z",
+      "dateClosed": "2026-03-04T21:42:34.000Z"
+    },
+    {
+      "title": "New Adapter: ElementalTv (remove Adoppler)",
+      "number": 4639,
+      "author": {
+        "login": "pavel-ptashyts",
+        "id": 49400901
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T09:00:35.000Z",
+      "dateUpdated": "2026-03-06T20:11:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-04T14:32:05.000Z",
+      "dateClosed": "2026-03-04T14:32:05.000Z"
+    },
+    {
+      "title": "Nexx360: Add gvlVendorID and update imp.ext field management",
+      "number": 4604,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T10:16:30.000Z",
+      "dateUpdated": "2026-03-03T20:42:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T20:42:22.000Z",
+      "dateClosed": "2026-03-03T20:42:22.000Z"
+    },
+    {
+      "title": "New Adapter: Adastra - Attekmi alias",
+      "number": 4607,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T18:15:28.000Z",
+      "dateUpdated": "2026-03-03T20:28:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T20:28:49.000Z",
+      "dateClosed": "2026-03-03T20:28:49.000Z"
+    },
+    {
+      "title": "New adapter: BeOp",
+      "number": 4660,
+      "author": {
+        "login": "jeans11",
+        "id": 7700239
+      },
+      "assignees": [
+        "karwaankit32",
+        "danylo-kazymyrov-teqblaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-14T09:57:25.000Z",
+      "dateUpdated": "2026-03-03T20:19:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T20:19:08.000Z",
+      "dateClosed": "2026-03-03T20:19:08.000Z"
+    },
+    {
+      "title": "Mediasquare: Add user sync & site capabilities",
+      "number": 4589,
+      "author": {
+        "login": "mediasquare-alexandre",
+        "id": 101182841
+      },
+      "assignees": [
+        "Taxel",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-30T10:44:01.000Z",
+      "dateUpdated": "2026-03-03T15:29:02.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T15:29:02.000Z",
+      "dateClosed": "2026-03-03T15:29:02.000Z"
+    },
+    {
+      "title": "New Limelight Adapters",
+      "number": 4651,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-07T14:09:07.000Z",
+      "dateUpdated": "2026-03-03T14:52:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T14:52:30.000Z",
+      "dateClosed": "2026-03-03T14:52:30.000Z"
+    },
+    {
+      "title": "Mobkoi: Always set TagID with placementID",
+      "number": 4644,
+      "author": {
+        "login": "gabrielmougard",
+        "id": 27967361
+      },
+      "assignees": [
+        "Taxel",
+        "postindustria-code"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-22T18:00:41.000Z",
+      "dateUpdated": "2026-03-03T14:41:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T14:41:45.000Z",
+      "dateClosed": "2026-03-03T14:41:45.000Z"
+    },
+    {
+      "title": "Insticator: Support OpenRTB 2.6 and add app endpoint",
+      "number": 4668,
+      "author": {
+        "login": "shubhamc-ins",
+        "id": 127132399
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-23T12:47:24.000Z",
+      "dateUpdated": "2026-03-03T14:14:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T14:14:40.000Z",
+      "dateClosed": "2026-03-03T14:14:40.000Z"
+    },
+    {
+      "title": "Stroeercore: Use bid.ext as-is from the response",
+      "number": 4633,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T04:41:14.000Z",
+      "dateUpdated": "2026-06-23T23:01:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T13:31:01.000Z",
+      "dateClosed": "2026-03-03T13:31:01.000Z"
+    }
+  ]
+}

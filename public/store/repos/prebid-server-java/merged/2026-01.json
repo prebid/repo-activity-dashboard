@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2026,
+    "month": 1,
+    "itemCount": 11,
+    "lastUpdated": "2026-08-03T19:53:23.825Z"
+  },
+  "items": [
+    {
+      "title": "Core: EID Permissions extension",
+      "number": 4349,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-12T04:36:11.000Z",
+      "dateUpdated": "2026-01-20T13:35:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-20T13:35:45.000Z",
+      "dateClosed": "2026-01-20T13:35:45.000Z"
+    },
+    {
+      "title": "Tests: EID Permissions extension",
+      "number": 4357,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-19T19:47:49.000Z",
+      "dateUpdated": "2026-01-20T07:58:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-20T05:57:12.000Z",
+      "dateClosed": "2026-01-20T05:57:12.000Z"
+    },
+    {
+      "title": "CI: Update GitHub workflows",
+      "number": 4351,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-15T02:57:57.000Z",
+      "dateUpdated": "2026-01-16T02:44:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-16T02:44:36.000Z",
+      "dateClosed": "2026-01-16T02:44:36.000Z"
+    },
+    {
+      "title": "Refactoring: Add bidder request post-processing",
+      "number": 4322,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T15:00:42.000Z",
+      "dateUpdated": "2026-01-14T14:58:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-14T14:58:26.000Z",
+      "dateClosed": "2026-01-14T14:58:26.000Z"
+    },
+    {
+      "title": "RTBHouse: Extract tagid from Imp fields",
+      "number": 4306,
+      "author": {
+        "login": "pjaworski-rtbh",
+        "id": 109736938
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-02T16:08:52.000Z",
+      "dateUpdated": "2026-01-13T11:26:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-13T11:26:21.000Z",
+      "dateClosed": "2026-01-13T11:26:21.000Z"
+    },
+    {
+      "title": "Ogury: Allow inventory mapping for in-app traffic.",
+      "number": 4321,
+      "author": {
+        "login": "crepi",
+        "id": 6392930
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T09:56:35.000Z",
+      "dateUpdated": "2026-01-13T11:26:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-13T11:26:07.000Z",
+      "dateClosed": "2026-01-13T11:26:07.000Z"
+    },
+    {
+      "title": "StroeerCore: Use bid.ext as-is from the response",
+      "number": 4317,
+      "author": {
+        "login": "philipwatson",
+        "id": 2080240
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T04:45:21.000Z",
+      "dateUpdated": "2026-06-23T22:44:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-12T13:44:32.000Z",
+      "dateClosed": "2026-01-12T13:44:32.000Z"
+    },
+    {
+      "title": "New adapter: Rename adoppler bidder adapter to elementaltv add adoppler as alias t…",
+      "number": 4326,
+      "author": {
+        "login": "pavel-ptashyts",
+        "id": 49400901
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T11:01:10.000Z",
+      "dateUpdated": "2026-01-12T13:18:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-12T13:15:35.000Z",
+      "dateClosed": "2026-01-12T13:15:35.000Z"
+    },
+    {
+      "title": "Adagio: Remove hardcoded seat name",
+      "number": 4319,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-13T12:57:51.000Z",
+      "dateUpdated": "2026-01-12T13:02:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-12T13:02:55.000Z",
+      "dateClosed": "2026-01-12T13:02:55.000Z"
+    },
+    {
+      "title": "Adagio: Enable site capability",
+      "number": 4320,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-13T13:02:35.000Z",
+      "dateUpdated": "2026-01-12T13:02:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-12T13:02:47.000Z",
+      "dateClosed": "2026-01-12T13:02:47.000Z"
+    },
+    {
+      "title": "Optidigital adapter: Add GPP support",
+      "number": 4333,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-07T11:15:18.000Z",
+      "dateUpdated": "2026-01-12T12:59:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-01-12T12:59:04.000Z",
+      "dateClosed": "2026-01-12T12:59:04.000Z"
+    }
+  ]
+}

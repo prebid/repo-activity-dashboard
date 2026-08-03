@@ -1,0 +1,388 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 5,
+    "itemCount": 20,
+    "lastUpdated": "2026-08-03T19:53:13.717Z"
+  },
+  "items": [
+    {
+      "title": "Relevant Digital: Add useSourceBidderCode option",
+      "number": 4694,
+      "author": {
+        "login": "hugolm84",
+        "id": 867096
+      },
+      "assignees": [
+        "Taxel",
+        "pm-isha-bharti"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-20T14:22:12.000Z",
+      "dateUpdated": "2026-05-26T14:48:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-26T14:48:34.000Z",
+      "dateClosed": "2026-05-26T14:48:34.000Z"
+    },
+    {
+      "title": "MobileFuse: Update to support OpenRTB MType",
+      "number": 4719,
+      "author": {
+        "login": "tomaszbmf",
+        "id": 142428312
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-16T13:23:58.000Z",
+      "dateUpdated": "2026-05-26T14:28:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-26T14:28:41.000Z",
+      "dateClosed": "2026-05-26T14:28:41.000Z"
+    },
+    {
+      "title": "Modules: Concurrency module context fix",
+      "number": 4603,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [
+        "scr-oath",
+        "postindustria-code"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T19:02:02.000Z",
+      "dateUpdated": "2026-05-26T14:12:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-26T14:12:35.000Z",
+      "dateClosed": "2026-05-26T14:12:35.000Z"
+    },
+    {
+      "title": "audienceNetwork: Add rewarded video support and allow rewarded interstitials",
+      "number": 4763,
+      "author": {
+        "login": "PBDMSFT",
+        "id": 89027546
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-30T21:10:05.000Z",
+      "dateUpdated": "2026-05-19T20:59:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-19T20:59:09.000Z",
+      "dateClosed": "2026-05-19T20:59:09.000Z"
+    },
+    {
+      "title": "Coop Cookie Sync: Add option to skip appending remaining available bidders",
+      "number": 4764,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-04T09:21:25.000Z",
+      "dateUpdated": "2026-05-19T19:50:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-19T19:50:15.000Z",
+      "dateClosed": "2026-05-19T19:50:15.000Z"
+    },
+    {
+      "title": "Adapter Code Coverage workflow: Support Go version upgrades",
+      "number": 4760,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-29T08:31:27.000Z",
+      "dateUpdated": "2026-05-15T20:58:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-15T20:58:59.000Z",
+      "dateClosed": "2026-05-15T20:58:59.000Z"
+    },
+    {
+      "title": "Pin trivy-action to v0.35.0 SHA for supply chain security",
+      "number": 4776,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-14T03:44:41.000Z",
+      "dateUpdated": "2026-05-14T18:33:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-14T18:33:20.000Z",
+      "dateClosed": "2026-05-14T18:33:20.000Z"
+    },
+    {
+      "title": "Adapter Code Coverage Workflow: Split into two stages",
+      "number": 4775,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "SyntaxNode",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-14T02:06:27.000Z",
+      "dateUpdated": "2026-05-14T18:19:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-14T18:19:52.000Z",
+      "dateClosed": "2026-05-14T18:19:52.000Z"
+    },
+    {
+      "title": "New Adapter: RTBStack",
+      "number": 4685,
+      "author": {
+        "login": "volokha",
+        "id": 13019449
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T13:51:24.000Z",
+      "dateUpdated": "2026-05-13T04:02:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-13T04:02:20.000Z",
+      "dateClosed": "2026-05-13T04:02:21.000Z"
+    },
+    {
+      "title": "New Adapter: Cortex",
+      "number": 4755,
+      "author": {
+        "login": "cortex-tech",
+        "id": 274468104
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-28T08:20:12.000Z",
+      "dateUpdated": "2026-05-13T03:49:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-13T03:49:03.000Z",
+      "dateClosed": "2026-05-13T03:49:03.000Z"
+    },
+    {
+      "title": "Nativo: Add optional placementId param & Prebid Renderer in response",
+      "number": 4679,
+      "author": {
+        "login": "rafataveira",
+        "id": 103446145
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T19:20:23.000Z",
+      "dateUpdated": "2026-05-13T03:33:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-13T03:33:18.000Z",
+      "dateClosed": "2026-05-13T03:33:18.000Z"
+    },
+    {
+      "title": "New Adapter: Waardex - Adkernel alias",
+      "number": 4645,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T13:05:49.000Z",
+      "dateUpdated": "2026-05-30T05:18:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-13T02:58:49.000Z",
+      "dateClosed": "2026-05-13T02:58:49.000Z"
+    },
+    {
+      "title": "Showheroes: Enable gzip compression",
+      "number": 4730,
+      "author": {
+        "login": "FilipStamenkovic",
+        "id": 12955765
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T16:55:21.000Z",
+      "dateUpdated": "2026-05-13T08:00:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-13T02:49:17.000Z",
+      "dateClosed": "2026-05-13T02:49:17.000Z"
+    },
+    {
+      "title": "Adipolo: Add GVL Vendor ID",
+      "number": 4734,
+      "author": {
+        "login": "dimashirokov",
+        "id": 10505753
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T12:30:53.000Z",
+      "dateUpdated": "2026-05-12T20:10:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-12T20:10:25.000Z",
+      "dateClosed": "2026-05-12T20:10:25.000Z"
+    },
+    {
+      "title": "New Adapter: T Advertising Blis",
+      "number": 4706,
+      "author": {
+        "login": "tb-emq",
+        "id": 217763234
+      },
+      "assignees": [
+        "linux019",
+        "postindustria-code"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-02T13:44:13.000Z",
+      "dateUpdated": "2026-05-12T16:52:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-12T16:52:03.000Z",
+      "dateClosed": "2026-05-12T16:52:03.000Z"
+    },
+    {
+      "title": "Sparteo: Add required query params to adapter endpoint",
+      "number": 4556,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T13:31:46.000Z",
+      "dateUpdated": "2026-05-06T03:23:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-06T03:23:15.000Z",
+      "dateClosed": "2026-05-06T03:23:15.000Z"
+    },
+    {
+      "title": "New Adapter: 9dotsmedialtd - Limelight Alias",
+      "number": 4281,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "Pubmatic-Supriya-Patil"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-03-26T17:07:03.000Z",
+      "dateUpdated": "2026-05-06T02:16:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-06T02:16:55.000Z",
+      "dateClosed": "2026-05-06T02:16:55.000Z"
+    },
+    {
+      "title": "New Adapter: ReklamUp",
+      "number": 4711,
+      "author": {
+        "login": "prebid-reklamup",
+        "id": 265310176
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-05T10:55:57.000Z",
+      "dateUpdated": "2026-05-01T18:27:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-01T18:27:24.000Z",
+      "dateClosed": "2026-05-01T18:27:24.000Z"
+    },
+    {
+      "title": "Upgrade jsonparser from v1.1.1 to v1.1.2",
+      "number": 4736,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "sumits",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-01T04:53:28.000Z",
+      "dateUpdated": "2026-05-01T15:49:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-01T15:49:16.000Z",
+      "dateClosed": "2026-05-01T15:49:16.000Z"
+    },
+    {
+      "title": "Insticator: Move DSP seat from TypedBid to Meta to prevent bid rejection",
+      "number": 4726,
+      "author": {
+        "login": "shubhamc-ins",
+        "id": 127132399
+      },
+      "assignees": [
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-23T14:58:10.000Z",
+      "dateUpdated": "2026-05-01T15:40:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-05-01T15:40:17.000Z",
+      "dateClosed": "2026-05-01T15:40:17.000Z"
+    }
+  ]
+}

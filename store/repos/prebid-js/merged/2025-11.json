@@ -1,0 +1,1691 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2025,
+    "month": 11,
+    "itemCount": 104,
+    "lastUpdated": "2026-01-05T12:43:02.613Z"
+  },
+  "items": [
+    {
+      "title": "Add oftmediaRtdProvider to .submodules.json",
+      "number": 14225,
+      "author": {
+        "login": "arezitopedia",
+        "id": 49372179
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T13:10:21.000Z",
+      "dateUpdated": "2025-11-28T05:15:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-28T05:15:07.000Z",
+      "dateClosed": "2025-11-28T05:15:08.000Z"
+    },
+    {
+      "title": "Impactify Bid Adapter: Removing unused logger on onBidderError.",
+      "number": 14215,
+      "author": {
+        "login": "filipeneves",
+        "id": 16678307
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T09:53:29.000Z",
+      "dateUpdated": "2025-11-27T03:07:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-27T03:07:53.000Z",
+      "dateClosed": "2025-11-27T03:07:53.000Z"
+    },
+    {
+      "title": "RTD Module: Fix spread operator preventing RTD changes from persisting during auction (9.53.x-legacy)",
+      "number": 14221,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T20:14:54.000Z",
+      "dateUpdated": "2025-11-27T03:06:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-27T03:06:48.000Z",
+      "dateClosed": "2025-11-27T03:06:48.000Z"
+    },
+    {
+      "title": "RTD Module: Fix spread operator preventing RTD changes from persisting during auction",
+      "number": 14214,
+      "author": {
+        "login": "pm-azhar-mulla",
+        "id": 75726247
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T09:52:58.000Z",
+      "dateUpdated": "2025-11-27T03:06:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-27T03:06:10.000Z",
+      "dateClosed": "2025-11-27T03:06:10.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: fix tests",
+      "number": 14220,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T19:55:28.000Z",
+      "dateUpdated": "2025-11-26T21:20:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T21:20:19.000Z",
+      "dateClosed": "2025-11-26T21:20:19.000Z"
+    },
+    {
+      "title": "Revert \"RTD Module (9.53.x) : Fix spread operator preventing RTD changes from persisting during auction\"",
+      "number": 14219,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T17:09:42.000Z",
+      "dateUpdated": "2025-11-26T17:09:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T17:09:49.000Z",
+      "dateClosed": "2025-11-26T17:09:49.000Z"
+    },
+    {
+      "title": "RTD Module (9.53.x) : Fix spread operator preventing RTD changes from persisting during auction",
+      "number": 14213,
+      "author": {
+        "login": "pm-azhar-mulla",
+        "id": 75726247
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T09:15:41.000Z",
+      "dateUpdated": "2025-11-26T17:06:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T17:06:03.000Z",
+      "dateClosed": "2025-11-26T17:06:03.000Z"
+    },
+    {
+      "title": "PubMatic Analytics Adapter : add getFloor() method in bidderDone Event [legacy]",
+      "number": 14016,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T03:39:23.000Z",
+      "dateUpdated": "2025-11-26T17:05:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T17:05:29.000Z",
+      "dateClosed": "2025-11-26T17:05:29.000Z"
+    },
+    {
+      "title": "Pubmatic Rtd Provider: add dynamic timeout plugin & code refactoring (legacy)",
+      "number": 14103,
+      "author": {
+        "login": "pm-komal-kumari",
+        "id": 169047654
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T06:48:15.000Z",
+      "dateUpdated": "2025-11-26T17:05:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T17:05:09.000Z",
+      "dateClosed": "2025-11-26T17:05:09.000Z"
+    },
+    {
+      "title": "Optable RTD Module: Wait for Optable event on HandleRTD (backport",
+      "number": 14217,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:28:12.000Z",
+      "dateUpdated": "2025-11-26T15:29:23.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T15:29:23.000Z",
+      "dateClosed": "2025-11-26T15:29:23.000Z"
+    },
+    {
+      "title": "fluct Add support for floor price retrieval via getFloor()",
+      "number": 14142,
+      "author": {
+        "login": "s103ng",
+        "id": 36146555
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T05:45:27.000Z",
+      "dateUpdated": "2025-11-26T10:39:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T10:39:06.000Z",
+      "dateClosed": "2025-11-26T10:39:06.000Z"
+    },
+    {
+      "title": "Build system: lock `eslint` version",
+      "number": 14210,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T19:07:43.000Z",
+      "dateUpdated": "2025-11-26T03:11:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T03:11:28.000Z",
+      "dateClosed": "2025-11-26T03:11:28.000Z"
+    },
+    {
+      "title": "Build system: lock eslint version (9.53.x-legacy backport)",
+      "number": 14211,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T19:26:24.000Z",
+      "dateUpdated": "2025-11-26T03:10:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-26T03:10:53.000Z",
+      "dateClosed": "2025-11-26T03:10:53.000Z"
+    },
+    {
+      "title": "yieldmo bid adapter: fix prebid adapter start delay",
+      "number": 14204,
+      "author": {
+        "login": "ym-aaron",
+        "id": 89419575
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T23:12:35.000Z",
+      "dateUpdated": "2025-11-25T19:10:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T19:10:46.000Z",
+      "dateClosed": "2025-11-25T19:10:46.000Z"
+    },
+    {
+      "title": "Core: fix resizing of anchor slots",
+      "number": 14107,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T16:34:00.000Z",
+      "dateUpdated": "2025-11-25T19:11:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T18:27:20.000Z",
+      "dateClosed": "2025-11-25T18:27:20.000Z"
+    },
+    {
+      "title": "datablocks bid adapter: Remove colorDepth and availheight and width",
+      "number": 14183,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T20:57:21.000Z",
+      "dateUpdated": "2025-11-25T18:25:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T18:25:50.000Z",
+      "dateClosed": "2025-11-25T18:25:50.000Z"
+    },
+    {
+      "title": "Build system: set lockFileVersion=2",
+      "number": 14208,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T16:36:10.000Z",
+      "dateUpdated": "2025-12-06T09:35:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T18:08:24.000Z",
+      "dateClosed": "2025-11-25T18:08:24.000Z"
+    },
+    {
+      "title": "Core: override send dependency",
+      "number": 14185,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:01:07.000Z",
+      "dateUpdated": "2025-11-25T15:44:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T15:44:57.000Z",
+      "dateClosed": "2025-11-25T15:44:57.000Z"
+    },
+    {
+      "title": "Permutive modules: allow for vendorless consent / allow option to use tcf id",
+      "number": 14203,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T22:05:35.000Z",
+      "dateUpdated": "2025-11-25T13:53:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-25T13:53:58.000Z",
+      "dateClosed": "2025-11-25T13:53:58.000Z"
+    },
+    {
+      "title": "Optable RTD Module: Wait for Optable event on HandleRTD",
+      "number": 14178,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T19:07:59.000Z",
+      "dateUpdated": "2025-11-24T21:57:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T21:57:56.000Z",
+      "dateClosed": "2025-11-24T21:57:56.000Z"
+    },
+    {
+      "title": "Core: test cookies can be set as part of cookiesAreEnabled",
+      "number": 14125,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T19:59:41.000Z",
+      "dateUpdated": "2025-11-24T21:56:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T21:56:07.000Z",
+      "dateClosed": "2025-11-24T21:56:07.000Z"
+    },
+    {
+      "title": "Onetag Adapter: remove screenLeft usage",
+      "number": 14184,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T20:59:04.000Z",
+      "dateUpdated": "2025-11-25T13:48:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T21:55:57.000Z",
+      "dateClosed": "2025-11-24T21:55:57.000Z"
+    },
+    {
+      "title": "CodeQL: scope JSON request check to bid adapters",
+      "number": 14189,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:42:03.000Z",
+      "dateUpdated": "2025-11-24T21:55:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T21:55:48.000Z",
+      "dateClosed": "2025-11-24T21:55:48.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: update legacy",
+      "number": 14202,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T13:55:56.000Z",
+      "dateUpdated": "2025-11-25T06:57:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T17:35:57.000Z",
+      "dateClosed": "2025-11-24T17:35:57.000Z"
+    },
+    {
+      "title": "fix bug in AmxBidAdapter userSync settings handling",
+      "number": 14200,
+      "author": {
+        "login": "sneako",
+        "id": 7762396
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T09:26:28.000Z",
+      "dateUpdated": "2025-11-24T12:39:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-24T12:39:42.000Z",
+      "dateClosed": "2025-11-24T12:39:42.000Z"
+    },
+    {
+      "title": "Rubicon Bid Adapter: Remove PAAPI support",
+      "number": 14197,
+      "author": {
+        "login": "apukh-magnite",
+        "id": 152202940
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T13:53:27.000Z",
+      "dateUpdated": "2025-11-21T16:57:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-21T16:57:54.000Z",
+      "dateClosed": "2025-11-21T16:57:54.000Z"
+    },
+    {
+      "title": "Screencore Bid Adapter: add endpointId parameter",
+      "number": 14169,
+      "author": {
+        "login": "screencore-dev",
+        "id": 229771208
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T15:22:16.000Z",
+      "dateUpdated": "2025-11-21T15:27:34.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-21T15:27:34.000Z",
+      "dateClosed": "2025-11-21T15:27:34.000Z"
+    },
+    {
+      "title": "CI: set localIdentifier for browserstack tests",
+      "number": 14195,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T00:17:33.000Z",
+      "dateUpdated": "2025-11-21T15:20:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-21T15:20:06.000Z",
+      "dateClosed": "2025-11-21T15:20:06.000Z"
+    },
+    {
+      "title": "Various modules: fix tests",
+      "number": 14194,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T22:46:53.000Z",
+      "dateUpdated": "2025-11-21T15:19:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-21T15:19:35.000Z",
+      "dateClosed": "2025-11-21T15:19:35.000Z"
+    },
+    {
+      "title": "SeenThis Brand Stories Rendering Module: initial release (fixed)",
+      "number": 14044,
+      "author": {
+        "login": "seenthis-alex",
+        "id": 146713650
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T11:39:20.000Z",
+      "dateUpdated": "2025-11-20T22:40:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T22:40:05.000Z",
+      "dateClosed": "2025-11-20T22:40:06.000Z"
+    },
+    {
+      "title": "Greenbids bid adapter: rename spec file",
+      "number": 14191,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:46:46.000Z",
+      "dateUpdated": "2025-11-20T21:59:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T21:59:39.000Z",
+      "dateClosed": "2025-11-20T21:59:39.000Z"
+    },
+    {
+      "title": "StartioBidAdapter: Change the protocol from http to https",
+      "number": 14128,
+      "author": {
+        "login": "SvenKoster",
+        "id": 169342633
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T07:30:31.000Z",
+      "dateUpdated": "2025-11-23T10:03:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T21:59:20.000Z",
+      "dateClosed": "2025-11-20T21:59:20.000Z"
+    },
+    {
+      "title": "Core: fix proxy identity issue in objectGuard by caching wrapped objects",
+      "number": 14171,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T17:13:24.000Z",
+      "dateUpdated": "2025-11-26T15:22:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T21:33:11.000Z",
+      "dateClosed": "2025-11-20T21:33:11.000Z"
+    },
+    {
+      "title": "CI: bump chrome 109 to 113 and move it off browserstack",
+      "number": 14187,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:17:31.000Z",
+      "dateUpdated": "2025-11-20T21:23:27.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T21:23:26.000Z",
+      "dateClosed": "2025-11-20T21:23:26.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: send currency if this is set in the config",
+      "number": 14143,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T07:12:17.000Z",
+      "dateUpdated": "2025-11-21T07:10:05.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T19:58:36.000Z",
+      "dateClosed": "2025-11-20T19:58:36.000Z"
+    },
+    {
+      "title": "CI: fix issue with PR review automation",
+      "number": 14179,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T19:16:17.000Z",
+      "dateUpdated": "2025-11-20T19:21:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T19:21:23.000Z",
+      "dateClosed": "2025-11-20T19:21:24.000Z"
+    },
+    {
+      "title": "CI: improve PR review assignment automation",
+      "number": 14177,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T18:48:58.000Z",
+      "dateUpdated": "2025-11-20T19:00:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T19:00:42.000Z",
+      "dateClosed": "2025-11-20T19:00:42.000Z"
+    },
+    {
+      "title": "CI: Automatic review assignment",
+      "number": 14176,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T17:54:14.000Z",
+      "dateUpdated": "2025-11-20T18:17:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T18:15:20.000Z",
+      "dateClosed": "2025-11-20T18:15:20.000Z"
+    },
+    {
+      "title": "Core: Delete .circleci/config.yml",
+      "number": 14137,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T14:39:56.000Z",
+      "dateUpdated": "2025-11-20T15:47:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T15:47:11.000Z",
+      "dateClosed": "2025-11-20T15:47:11.000Z"
+    },
+    {
+      "title": "CI: do not use browserstack for e2e tests",
+      "number": 14174,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T22:10:04.000Z",
+      "dateUpdated": "2025-11-20T15:46:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T15:46:35.000Z",
+      "dateClosed": "2025-11-20T15:46:35.000Z"
+    },
+    {
+      "title": "Bump axios from 1.9.0 to 1.13.2",
+      "number": 14161,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T22:06:56.000Z",
+      "dateUpdated": "2025-11-20T14:37:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T14:37:02.000Z",
+      "dateClosed": "2025-11-20T14:37:02.000Z"
+    },
+    {
+      "title": "Bump glob from 10.4.5 to 10.5.0",
+      "number": 14170,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T15:57:12.000Z",
+      "dateUpdated": "2025-11-20T14:36:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T14:36:11.000Z",
+      "dateClosed": "2025-11-20T14:36:11.000Z"
+    },
+    {
+      "title": "FWSSP Adapter: add schain and caid fallback to 9.53 legacy release",
+      "number": 14173,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T21:21:44.000Z",
+      "dateUpdated": "2025-11-20T14:35:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-20T14:35:16.000Z",
+      "dateClosed": "2025-11-20T14:35:16.000Z"
+    },
+    {
+      "title": "Public Good Bid Adapter : initial release",
+      "number": 13896,
+      "author": {
+        "login": "aaronkoss",
+        "id": 7459907
+      },
+      "assignees": [
+        "Rothalack"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-15T15:29:45.000Z",
+      "dateUpdated": "2025-11-19T20:27:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T20:27:44.000Z",
+      "dateClosed": "2025-11-19T20:27:44.000Z"
+    },
+    {
+      "title": "Bump js-yaml",
+      "number": 14164,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T22:34:44.000Z",
+      "dateUpdated": "2025-11-19T20:26:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T20:26:02.000Z",
+      "dateClosed": "2025-11-19T20:26:02.000Z"
+    },
+    {
+      "title": "Bump tar-fs from 3.0.9 to 3.1.1",
+      "number": 14163,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T22:33:40.000Z",
+      "dateUpdated": "2025-11-19T20:24:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T20:24:41.000Z",
+      "dateClosed": "2025-11-19T20:24:41.000Z"
+    },
+    {
+      "title": "Bump actions/download-artifact from 5 to 6",
+      "number": 14146,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:49:02.000Z",
+      "dateUpdated": "2025-11-19T18:26:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T18:26:36.000Z",
+      "dateClosed": "2025-11-19T18:26:36.000Z"
+    },
+    {
+      "title": "Core: fix schema-utils import",
+      "number": 14168,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T13:14:48.000Z",
+      "dateUpdated": "2025-11-19T18:20:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T18:20:15.000Z",
+      "dateClosed": "2025-11-19T18:20:15.000Z"
+    },
+    {
+      "title": "CI: reduce dependency on browserstack",
+      "number": 14165,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T23:04:55.000Z",
+      "dateUpdated": "2025-11-19T15:56:04.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-19T15:56:03.000Z",
+      "dateClosed": "2025-11-19T15:56:03.000Z"
+    },
+    {
+      "title": "Bump min-document from 2.19.0 to 2.19.2",
+      "number": 14162,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T22:13:49.000Z",
+      "dateUpdated": "2025-11-18T22:26:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T22:26:12.000Z",
+      "dateClosed": "2025-11-18T22:26:12.000Z"
+    },
+    {
+      "title": "Bump @babel/plugin-transform-classes from 7.27.1 to 7.28.4",
+      "number": 14160,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:56:41.000Z",
+      "dateUpdated": "2025-11-18T21:58:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:58:46.000Z",
+      "dateClosed": "2025-11-18T21:58:46.000Z"
+    },
+    {
+      "title": "Bump @types/yargs from 17.0.33 to 17.0.35",
+      "number": 14159,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:56:29.000Z",
+      "dateUpdated": "2025-11-18T21:58:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:58:35.000Z",
+      "dateClosed": "2025-11-18T21:58:35.000Z"
+    },
+    {
+      "title": "Neuwo Rtd Module: Add url cleaning feature to Neuwo RTD module ",
+      "number": 14089,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-03T13:50:49.000Z",
+      "dateUpdated": "2025-11-18T21:57:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:57:51.000Z",
+      "dateClosed": "2025-11-18T21:57:51.000Z"
+    },
+    {
+      "title": "Bump @babel/plugin-bugfix-firefox-class-in-computed-class-key from 7.27.1 to 7.28.5",
+      "number": 14157,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:55:13.000Z",
+      "dateUpdated": "2025-11-18T21:56:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:56:26.000Z",
+      "dateClosed": "2025-11-18T21:56:26.000Z"
+    },
+    {
+      "title": "Bump @babel/traverse from 7.28.4 to 7.28.5",
+      "number": 14158,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:55:44.000Z",
+      "dateUpdated": "2025-11-18T21:56:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:56:17.000Z",
+      "dateClosed": "2025-11-18T21:56:17.000Z"
+    },
+    {
+      "title": "Bump @babel/generator from 7.28.3 to 7.28.5",
+      "number": 14156,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:54:08.000Z",
+      "dateUpdated": "2025-11-18T21:55:25.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:55:24.000Z",
+      "dateClosed": "2025-11-18T21:55:24.000Z"
+    },
+    {
+      "title": "Bump @babel/preset-env from 7.27.2 to 7.28.5",
+      "number": 14155,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:53:54.000Z",
+      "dateUpdated": "2025-11-18T21:55:07.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:55:05.000Z",
+      "dateClosed": "2025-11-18T21:55:05.000Z"
+    },
+    {
+      "title": "Bump @babel/plugin-transform-exponentiation-operator from 7.27.1 to 7.28.5",
+      "number": 14154,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:53:42.000Z",
+      "dateUpdated": "2025-11-18T21:53:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:53:54.000Z",
+      "dateClosed": "2025-11-18T21:53:55.000Z"
+    },
+    {
+      "title": "Bump @babel/plugin-transform-regenerator from 7.27.5 to 7.28.4",
+      "number": 14152,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:53:07.000Z",
+      "dateUpdated": "2025-11-18T21:53:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:53:45.000Z",
+      "dateClosed": "2025-11-18T21:53:45.000Z"
+    },
+    {
+      "title": "Bump webpack from 5.102.1 to 5.103.0",
+      "number": 14153,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:53:19.000Z",
+      "dateUpdated": "2025-11-18T21:53:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:53:33.000Z",
+      "dateClosed": "2025-11-18T21:53:33.000Z"
+    },
+    {
+      "title": "Bump @types/mocha from 10.0.6 to 10.0.10",
+      "number": 14150,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:52:21.000Z",
+      "dateUpdated": "2025-11-18T21:53:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:53:10.000Z",
+      "dateClosed": "2025-11-18T21:53:10.000Z"
+    },
+    {
+      "title": "Bump @babel/helper-create-regexp-features-plugin from 7.27.1 to 7.28.5",
+      "number": 14151,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:52:33.000Z",
+      "dateUpdated": "2025-11-18T21:52:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:52:52.000Z",
+      "dateClosed": "2025-11-18T21:52:52.000Z"
+    },
+    {
+      "title": "Bump @babel/preset-typescript from 7.27.1 to 7.28.5",
+      "number": 14148,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:49:41.000Z",
+      "dateUpdated": "2025-11-18T21:52:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:52:17.000Z",
+      "dateClosed": "2025-11-18T21:52:17.000Z"
+    },
+    {
+      "title": "Bump @types/node from 20.14.2 to 20.19.25",
+      "number": 14147,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:49:30.000Z",
+      "dateUpdated": "2025-11-18T21:52:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:52:10.000Z",
+      "dateClosed": "2025-11-18T21:52:10.000Z"
+    },
+    {
+      "title": "Master into dependabot target",
+      "number": 14149,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T21:51:41.000Z",
+      "dateUpdated": "2025-11-18T21:51:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:51:51.000Z",
+      "dateClosed": "2025-11-18T21:51:51.000Z"
+    },
+    {
+      "title": "FWSSP Adapter: update schain serialization logic and add fallback for missing videoassetid",
+      "number": 14135,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T19:18:49.000Z",
+      "dateUpdated": "2025-11-18T21:30:10.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T21:30:10.000Z",
+      "dateClosed": "2025-11-18T21:30:10.000Z"
+    },
+    {
+      "title": "uniquest_widgetBidAdapter: fix biddercode to match filename",
+      "number": 14043,
+      "author": {
+        "login": "kazutoshi-uekawa-muneee",
+        "id": 114455471
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-21T09:41:16.000Z",
+      "dateUpdated": "2025-11-18T22:56:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T20:45:19.000Z",
+      "dateClosed": "2025-11-18T20:45:19.000Z"
+    },
+    {
+      "title": "Nexx360 Bid Adapter: buildImp fix",
+      "number": 14139,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T16:56:19.000Z",
+      "dateUpdated": "2025-11-18T20:41:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T20:41:37.000Z",
+      "dateClosed": "2025-11-18T20:41:37.000Z"
+    },
+    {
+      "title": "Sparteo   backport adapter changes",
+      "number": 14145,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T16:17:45.000Z",
+      "dateUpdated": "2025-11-18T20:33:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T20:33:15.000Z",
+      "dateClosed": "2025-11-18T20:33:15.000Z"
+    },
+    {
+      "title": "Smarthub Bi9d Adapter : add Adastra Tech alias",
+      "number": 14141,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T18:33:24.000Z",
+      "dateUpdated": "2025-11-18T18:07:18.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-18T18:07:18.000Z",
+      "dateClosed": "2025-11-18T18:07:18.000Z"
+    },
+    {
+      "title": "sevioBidAdapter_bugfix: Send all sizes instead of just maxSize",
+      "number": 14133,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T11:00:25.000Z",
+      "dateUpdated": "2025-11-18T06:06:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-17T17:00:36.000Z",
+      "dateClosed": "2025-11-17T17:00:36.000Z"
+    },
+    {
+      "title": "Core: fix spurious validation warnings on mediaType / ortb2Imp",
+      "number": 14099,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T16:54:57.000Z",
+      "dateUpdated": "2025-11-13T18:23:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T18:23:44.000Z",
+      "dateClosed": "2025-11-13T18:23:44.000Z"
+    },
+    {
+      "title": "Cointraffic Bid Adapter: Added device information to payload",
+      "number": 14120,
+      "author": {
+        "login": "stsepelin",
+        "id": 8102174
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T14:13:32.000Z",
+      "dateUpdated": "2025-11-14T07:07:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T18:23:29.000Z",
+      "dateClosed": "2025-11-13T18:23:29.000Z"
+    },
+    {
+      "title": "optimeraRTD: Updated scorefile fetching logic",
+      "number": 14101,
+      "author": {
+        "login": "kcandiotti",
+        "id": 29559397
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T19:24:00.000Z",
+      "dateUpdated": "2025-11-13T16:40:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T16:40:15.000Z",
+      "dateClosed": "2025-11-13T16:40:15.000Z"
+    },
+    {
+      "title": "Clickio Bid Adapter: initial release",
+      "number": 14023,
+      "author": {
+        "login": "ClickioTech",
+        "id": 163025633
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-16T10:44:15.000Z",
+      "dateUpdated": "2025-11-13T16:10:48.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T16:10:48.000Z",
+      "dateClosed": "2025-11-13T16:10:48.000Z"
+    },
+    {
+      "title": "Sparteo Bid Adapter:  support new optional query params",
+      "number": 13986,
+      "author": {
+        "login": "t-sormonte",
+        "id": 191453837
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T07:56:44.000Z",
+      "dateUpdated": "2025-11-13T16:07:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T16:07:12.000Z",
+      "dateClosed": "2025-11-13T16:07:12.000Z"
+    },
+    {
+      "title": "Core: Dev Tools: Fix node version within dev container ",
+      "number": 14109,
+      "author": {
+        "login": "UuqV",
+        "id": 7958039
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T00:12:37.000Z",
+      "dateUpdated": "2025-11-13T16:01:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T16:01:52.000Z",
+      "dateClosed": "2025-11-13T16:01:52.000Z"
+    },
+    {
+      "title": "Sharethrough Bid Adapter: adjust how values are saved on meta prop",
+      "number": 14114,
+      "author": {
+        "login": "jefftmahoney",
+        "id": 2761266
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T00:06:02.000Z",
+      "dateUpdated": "2025-11-13T08:18:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-13T08:18:08.000Z",
+      "dateClosed": "2025-11-13T08:18:08.000Z"
+    },
+    {
+      "title": "RTB House Bid Adapter: fix floor price handling",
+      "number": 14112,
+      "author": {
+        "login": "piotrj-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:36:35.000Z",
+      "dateUpdated": "2025-11-12T21:29:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T21:29:15.000Z",
+      "dateClosed": "2025-11-12T21:29:15.000Z"
+    },
+    {
+      "title": "Tappx Adapter Fix: obtain Adomain from response and add test",
+      "number": 14113,
+      "author": {
+        "login": "yaiza-tappx",
+        "id": 205910913
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-10T16:37:36.000Z",
+      "dateUpdated": "2025-11-12T21:25:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T21:25:36.000Z",
+      "dateClosed": "2025-11-12T21:25:36.000Z"
+    },
+    {
+      "title": "OMS Bid Adapter: add banner media type check in buildRequests",
+      "number": 14117,
+      "author": {
+        "login": "siminkovladyslav",
+        "id": 85431371
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T12:15:09.000Z",
+      "dateUpdated": "2025-11-12T21:20:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T21:20:44.000Z",
+      "dateClosed": "2025-11-12T21:20:44.000Z"
+    },
+    {
+      "title": "Attekmi Bid Adapter : add MarlinAds alias",
+      "number": 14094,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T18:01:11.000Z",
+      "dateUpdated": "2025-11-12T21:20:12.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T21:19:49.000Z",
+      "dateClosed": "2025-11-12T21:19:49.000Z"
+    },
+    {
+      "title": "CI: run release drafter on legacy branches",
+      "number": 14124,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T19:28:43.000Z",
+      "dateUpdated": "2025-11-12T20:11:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T20:10:13.000Z",
+      "dateClosed": "2025-11-12T20:10:13.000Z"
+    },
+    {
+      "title": "Vidazoo utils: fix screen resolution detection",
+      "number": 14122,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-12T17:45:52.000Z",
+      "dateUpdated": "2025-11-12T19:56:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-12T19:56:43.000Z",
+      "dateClosed": "2025-11-12T19:56:43.000Z"
+    },
+    {
+      "title": "ConnectID Adapter: fix storage type configuration not being respected",
+      "number": 14018,
+      "author": {
+        "login": "zach-bowman-yahooinc",
+        "id": 238321008
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-15T19:41:15.000Z",
+      "dateUpdated": "2025-11-10T18:29:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-10T12:14:06.000Z",
+      "dateClosed": "2025-11-10T12:14:06.000Z"
+    },
+    {
+      "title": "Nexx360 Bid Adapter : typescript conversion & ybidder alias added",
+      "number": 13987,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [
+        "jlquaccia",
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-08T09:04:22.000Z",
+      "dateUpdated": "2025-11-10T12:10:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-10T12:10:55.000Z",
+      "dateClosed": "2025-11-10T12:10:55.000Z"
+    },
+    {
+      "title": "SSP Genie Bid Adapter: Change logic of specified currency bid-params do not refer to adServerCurrency.",
+      "number": 14061,
+      "author": {
+        "login": "hieund-geniee",
+        "id": 127374021
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T07:29:51.000Z",
+      "dateUpdated": "2025-11-10T12:02:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-10T12:02:20.000Z",
+      "dateClosed": "2025-11-10T12:02:20.000Z"
+    },
+    {
+      "title": "sevio Bid Adapter : add extra parameters required by the BE",
+      "number": 13904,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-17T14:03:38.000Z",
+      "dateUpdated": "2025-11-11T06:03:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-10T11:56:50.000Z",
+      "dateClosed": "2025-11-10T11:56:50.000Z"
+    },
+    {
+      "title": "Various modules: consolidate page view ID logic",
+      "number": 14051,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T08:31:03.000Z",
+      "dateUpdated": "2025-11-10T11:49:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-10T11:49:17.000Z",
+      "dateClosed": "2025-11-10T11:49:17.000Z"
+    },
+    {
+      "title": "Adagio Bid Adapter: enable gzip compression",
+      "number": 14110,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T13:47:57.000Z",
+      "dateUpdated": "2025-11-07T17:26:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-07T17:26:41.000Z",
+      "dateClosed": "2025-11-07T17:26:41.000Z"
+    },
+    {
+      "title": "Core: fix bug where activity checks on RTD modules can hide data from unrelated modules (9.53.x backport)",
+      "number": 14108,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T18:45:39.000Z",
+      "dateUpdated": "2025-11-06T20:49:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T20:49:17.000Z",
+      "dateClosed": "2025-11-06T20:49:17.000Z"
+    },
+    {
+      "title": "Core: fix bug where activity checks on RTD modules can hide data from unrelated modules",
+      "number": 14074,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T21:07:06.000Z",
+      "dateUpdated": "2025-11-06T20:48:40.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T20:48:38.000Z",
+      "dateClosed": "2025-11-06T20:48:38.000Z"
+    },
+    {
+      "title": "Alkimi Bid Adapter: wallet_profiling",
+      "number": 14067,
+      "author": {
+        "login": "VelRaj21",
+        "id": 132557157
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-24T12:39:15.000Z",
+      "dateUpdated": "2025-11-06T16:48:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T16:48:44.000Z",
+      "dateClosed": "2025-11-06T16:48:44.000Z"
+    },
+    {
+      "title": "T Advertising Bid Adapter : fix handling of no bid response",
+      "number": 14105,
+      "author": {
+        "login": "tb-emq",
+        "id": 217763234
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T08:50:01.000Z",
+      "dateUpdated": "2025-11-06T15:35:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T15:35:19.000Z",
+      "dateClosed": "2025-11-06T15:35:19.000Z"
+    },
+    {
+      "title": "AJA Bid Adapter: refactor JSDoc and code style improvements",
+      "number": 14091,
+      "author": {
+        "login": "0tarof",
+        "id": 6879289
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T13:36:57.000Z",
+      "dateUpdated": "2025-11-06T14:55:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T14:55:42.000Z",
+      "dateClosed": "2025-11-06T14:55:42.000Z"
+    },
+    {
+      "title": "Bid response filter: Extending with mediaTypes",
+      "number": 14071,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-27T10:10:11.000Z",
+      "dateUpdated": "2025-11-07T15:47:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T14:53:39.000Z",
+      "dateClosed": "2025-11-06T14:53:39.000Z"
+    },
+    {
+      "title": "Adverxo Bid Adapter: new alias harrenmedia",
+      "number": 14096,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T11:22:58.000Z",
+      "dateUpdated": "2025-11-06T14:00:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T14:00:45.000Z",
+      "dateClosed": "2025-11-06T14:00:46.000Z"
+    },
+    {
+      "title": "CI: remove reviewer assignment action",
+      "number": 14100,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T18:20:11.000Z",
+      "dateUpdated": "2025-11-06T13:55:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T13:55:09.000Z",
+      "dateClosed": "2025-11-06T13:55:09.000Z"
+    },
+    {
+      "title": "Medianet Analytics Adapter: pass ext from Prebid Server Response and Prebid 10 Updates",
+      "number": 13825,
+      "author": {
+        "login": "iamumarr",
+        "id": 227820841
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-01T13:00:00.000Z",
+      "dateUpdated": "2025-11-06T02:17:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T02:17:41.000Z",
+      "dateClosed": "2025-11-06T02:17:41.000Z"
+    },
+    {
+      "title": "Sevio Bid Adapter : detect keywords when those were not provided as params",
+      "number": 13814,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-27T11:46:23.000Z",
+      "dateUpdated": "2025-11-06T05:54:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-06T02:16:22.000Z",
+      "dateClosed": "2025-11-06T02:16:22.000Z"
+    },
+    {
+      "title": "UID2 Shared library: Update Optout token to be consistent between UID2 and EUID",
+      "number": 14086,
+      "author": {
+        "login": "ashleysmithTTD",
+        "id": 157655209
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-31T20:32:01.000Z",
+      "dateUpdated": "2025-11-04T15:41:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-04T15:41:01.000Z",
+      "dateClosed": "2025-11-04T15:41:01.000Z"
+    },
+    {
+      "title": "VISX Bid Adapter : added support for GPID",
+      "number": 14080,
+      "author": {
+        "login": "vfedoseev",
+        "id": 8183991
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T15:45:50.000Z",
+      "dateUpdated": "2025-11-03T16:00:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-03T16:00:10.000Z",
+      "dateClosed": "2025-11-03T16:00:10.000Z"
+    },
+    {
+      "title": "IntentIq ID Module: GAM updates",
+      "number": 13969,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "dgirardi",
+        "mmoschovas"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-02T17:37:57.000Z",
+      "dateUpdated": "2025-11-03T14:42:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-03T14:42:53.000Z",
+      "dateClosed": "2025-11-03T14:42:53.000Z"
+    },
+    {
+      "title": "Adkernel Bid Adapter: add bluTonic alias",
+      "number": 14078,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T08:28:38.000Z",
+      "dateUpdated": "2025-11-03T08:07:29.000Z",
+      "status": "merged",
+      "dateMerged": "2025-11-02T00:53:35.000Z",
+      "dateClosed": "2025-11-02T00:53:35.000Z"
+    }
+  ]
+}

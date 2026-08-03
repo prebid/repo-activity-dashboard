@@ -1,0 +1,1033 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2025,
+    "month": 12,
+    "itemCount": 63,
+    "lastUpdated": "2026-08-03T19:52:57.101Z"
+  },
+  "items": [
+    {
+      "title": "Uid2 library: BugFix for Refresh so id always shows latest UID2/EUID token",
+      "number": 14290,
+      "author": {
+        "login": "ashleysmithTTD",
+        "id": 157655209
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-19T02:47:57.000Z",
+      "dateUpdated": "2025-12-26T17:52:54.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-26T17:52:54.000Z",
+      "dateClosed": "2025-12-26T17:52:54.000Z"
+    },
+    {
+      "title": "TopOn Bid Adapter: modify User Syncs Url",
+      "number": 14296,
+      "author": {
+        "login": "ftchh",
+        "id": 81294765
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T10:34:13.000Z",
+      "dateUpdated": "2025-12-23T19:35:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-23T19:35:28.000Z",
+      "dateClosed": "2025-12-23T19:35:28.000Z"
+    },
+    {
+      "title": "Various adapters: consolidate devicepixelratio usage into a library",
+      "number": 14192,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T22:17:17.000Z",
+      "dateUpdated": "2025-12-18T18:37:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-18T18:16:04.000Z",
+      "dateClosed": "2025-12-18T18:16:04.000Z"
+    },
+    {
+      "title": "TopOn Bid Adapter: add user syncs",
+      "number": 14275,
+      "author": {
+        "login": "ftchh",
+        "id": 81294765
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-17T08:38:48.000Z",
+      "dateUpdated": "2025-12-18T18:13:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-18T18:13:06.000Z",
+      "dateClosed": "2025-12-18T18:13:06.000Z"
+    },
+    {
+      "title": "WURFL RTD: remove usage of window.devicePixelRatio from LCE detection",
+      "number": 14286,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-18T17:03:29.000Z",
+      "dateUpdated": "2025-12-18T18:12:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-18T18:12:28.000Z",
+      "dateClosed": "2025-12-18T18:12:28.000Z"
+    },
+    {
+      "title": "51degrees rtd adapter: add property thirdpartycookiesenabled",
+      "number": 14262,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T19:56:00.000Z",
+      "dateUpdated": "2026-06-23T15:30:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T19:01:29.000Z",
+      "dateClosed": "2025-12-17T19:01:29.000Z"
+    },
+    {
+      "title": "LI Analytics: include ad size as a field that in the data collected by the client side analytics adapter",
+      "number": 14279,
+      "author": {
+        "login": "zeta-xiao",
+        "id": 234264143
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-17T18:39:06.000Z",
+      "dateUpdated": "2025-12-17T19:00:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T19:00:38.000Z",
+      "dateClosed": "2025-12-17T19:00:38.000Z"
+    },
+    {
+      "title": "IncrementX Adapter Update",
+      "number": 14269,
+      "author": {
+        "login": "Prebid-Vertoz",
+        "id": 23209608
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-15T09:03:51.000Z",
+      "dateUpdated": "2025-12-17T18:27:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T18:26:59.000Z",
+      "dateClosed": "2025-12-17T18:27:00.000Z"
+    },
+    {
+      "title": "PubMatic RTD Provider : Added support for dayOfWeek and hourOfDay floor schema fields",
+      "number": 14257,
+      "author": {
+        "login": "pm-abhinav-deshpande",
+        "id": 171024473
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T08:46:33.000Z",
+      "dateUpdated": "2025-12-17T18:25:43.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T18:25:43.000Z",
+      "dateClosed": "2025-12-17T18:25:43.000Z"
+    },
+    {
+      "title": "Various modules: Ensure modules use connection utils",
+      "number": 14038,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-20T13:48:59.000Z",
+      "dateUpdated": "2025-12-17T17:00:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T17:00:38.000Z",
+      "dateClosed": "2025-12-17T17:00:38.000Z"
+    },
+    {
+      "title": "WURFL RTD: Add low latency device detection (9.53.x backport)",
+      "number": 14277,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-17T15:09:41.000Z",
+      "dateUpdated": "2025-12-17T15:25:37.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T15:25:37.000Z",
+      "dateClosed": "2025-12-17T15:25:37.000Z"
+    },
+    {
+      "title": "WURFL RTD: update beacon to use bid.bidder as preferred field",
+      "number": 14276,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-17T13:54:59.000Z",
+      "dateUpdated": "2025-12-17T15:25:01.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T15:25:00.000Z",
+      "dateClosed": "2025-12-17T15:25:00.000Z"
+    },
+    {
+      "title": "Opera Bid Adapter: change the domain name of some endpoints",
+      "number": 14274,
+      "author": {
+        "login": "duduchristian",
+        "id": 98148000
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-17T08:05:02.000Z",
+      "dateUpdated": "2025-12-17T12:47:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-17T12:47:55.000Z",
+      "dateClosed": "2025-12-17T12:47:55.000Z"
+    },
+    {
+      "title": "Documentation: Update PR review and testing guidelines in AGENTS.md",
+      "number": 14268,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-14T15:49:30.000Z",
+      "dateUpdated": "2025-12-16T18:45:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T18:45:54.000Z",
+      "dateClosed": "2025-12-16T18:45:54.000Z"
+    },
+    {
+      "title": "nextMillenniumBidAdapter: ImpId generation has been changed",
+      "number": 14266,
+      "author": {
+        "login": "mhlm",
+        "id": 238981
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-12T17:06:03.000Z",
+      "dateUpdated": "2025-12-16T18:45:44.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T18:45:44.000Z",
+      "dateClosed": "2025-12-16T18:45:44.000Z"
+    },
+    {
+      "title": "IntentIq ID Module: add new query parameter ",
+      "number": 14273,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-16T16:27:48.000Z",
+      "dateUpdated": "2026-01-23T10:52:36.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T17:05:49.000Z",
+      "dateClosed": "2025-12-16T17:05:49.000Z"
+    },
+    {
+      "title": "Allegro Bid Adapter: initial release",
+      "number": 14111,
+      "author": {
+        "login": "m-figurski-allegro",
+        "id": 224607016
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-07T14:18:07.000Z",
+      "dateUpdated": "2025-12-16T15:36:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T15:36:42.000Z",
+      "dateClosed": "2025-12-16T15:36:42.000Z"
+    },
+    {
+      "title": "IntentIq ID Analytical Adapter: Check on report duplicates only when GAM prediction is enabled",
+      "number": 14272,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-16T12:31:27.000Z",
+      "dateUpdated": "2026-01-23T10:52:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T15:35:53.000Z",
+      "dateClosed": "2025-12-16T15:35:53.000Z"
+    },
+    {
+      "title": "YahooAdsAdapter: fix user.ext merging to prevent nested structure in legacy",
+      "number": 14270,
+      "author": {
+        "login": "DeepthiNeeladri",
+        "id": 12966265
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-16T05:35:04.000Z",
+      "dateUpdated": "2026-01-19T13:50:14.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T15:34:23.000Z",
+      "dateClosed": "2025-12-16T15:34:24.000Z"
+    },
+    {
+      "title": "Nexx360 Bid Adapter: netads alias added",
+      "number": 14271,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-16T11:52:04.000Z",
+      "dateUpdated": "2025-12-16T15:04:28.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-16T15:04:28.000Z",
+      "dateClosed": "2025-12-16T15:04:28.000Z"
+    },
+    {
+      "title": "IntentIq ID Module: AB group updates, bug fixes",
+      "number": 14136,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "ncolletti"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T09:14:21.000Z",
+      "dateUpdated": "2025-12-15T23:25:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-15T23:25:42.000Z",
+      "dateClosed": "2025-12-15T23:25:42.000Z"
+    },
+    {
+      "title": "Attekmi: add region APAC to Markapp",
+      "number": 14258,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T07:43:24.000Z",
+      "dateUpdated": "2025-12-15T20:07:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-15T20:07:53.000Z",
+      "dateClosed": "2025-12-15T20:07:53.000Z"
+    },
+    {
+      "title": "Connatix Bid Adapter: stop storing ids in cookie",
+      "number": 14265,
+      "author": {
+        "login": "Dan-Lucian",
+        "id": 83463253
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-12T15:45:34.000Z",
+      "dateUpdated": "2025-12-15T20:06:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-15T20:06:51.000Z",
+      "dateClosed": "2025-12-15T20:06:51.000Z"
+    },
+    {
+      "title": "New adapter: clydo",
+      "number": 13936,
+      "author": {
+        "login": "cto-clydo",
+        "id": 232556003
+      },
+      "assignees": [
+        "jsnellbaker"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T18:54:06.000Z",
+      "dateUpdated": "2025-12-12T15:28:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-12T15:28:20.000Z",
+      "dateClosed": "2025-12-12T15:28:20.000Z"
+    },
+    {
+      "title": "YahooAdsAdapter: fix user.ext merging to prevent nested structure",
+      "number": 14261,
+      "author": {
+        "login": "DeepthiNeeladri",
+        "id": 12966265
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-11T15:13:21.000Z",
+      "dateUpdated": "2025-12-12T13:11:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-12T13:11:20.000Z",
+      "dateClosed": "2025-12-12T13:11:20.000Z"
+    },
+    {
+      "title": "Seedtag Bid Adapter - use bidderRequestCount",
+      "number": 14264,
+      "author": {
+        "login": "ybootin",
+        "id": 1788867
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-12T08:59:06.000Z",
+      "dateUpdated": "2025-12-12T13:09:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-12T13:09:24.000Z",
+      "dateClosed": "2025-12-12T13:09:24.000Z"
+    },
+    {
+      "title": "Pixfuture Bid Adapter: uids update",
+      "number": 14092,
+      "author": {
+        "login": "Arthur482",
+        "id": 66466997
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-04T14:53:05.000Z",
+      "dateUpdated": "2025-12-10T17:07:09.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-10T17:07:09.000Z",
+      "dateClosed": "2025-12-10T17:07:09.000Z"
+    },
+    {
+      "title": "MyCodeMedia Bid Adapter: initial release",
+      "number": 14254,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T17:06:49.000Z",
+      "dateUpdated": "2025-12-09T21:33:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T21:33:08.000Z",
+      "dateClosed": "2025-12-09T21:33:08.000Z"
+    },
+    {
+      "title": "WURFL RTD: Remove some APIs from LCE detection",
+      "number": 14251,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T11:20:17.000Z",
+      "dateUpdated": "2025-12-09T21:20:51.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T21:20:50.000Z",
+      "dateClosed": "2025-12-09T21:20:50.000Z"
+    },
+    {
+      "title": "TRUSTX Bid Adapter: initial release",
+      "number": 14218,
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:40:45.000Z",
+      "dateUpdated": "2025-12-09T21:19:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T21:19:56.000Z",
+      "dateClosed": "2025-12-09T21:19:56.000Z"
+    },
+    {
+      "title": "FWSSP Bid Adapter: Update _fw_gdpr value",
+      "number": 14253,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T16:52:02.000Z",
+      "dateUpdated": "2025-12-09T20:33:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T20:33:11.000Z",
+      "dateClosed": "2025-12-09T20:33:11.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: change how pageTitle and pageDescription are sent to the BE",
+      "number": 14247,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T08:19:12.000Z",
+      "dateUpdated": "2025-12-09T18:49:16.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T18:49:15.000Z",
+      "dateClosed": "2025-12-09T18:49:16.000Z"
+    },
+    {
+      "title": "sevioBidAdapter - fix contextual data in legacy",
+      "number": 14250,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T10:46:10.000Z",
+      "dateUpdated": "2025-12-09T16:43:56.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T16:19:55.000Z",
+      "dateClosed": "2025-12-09T16:19:56.000Z"
+    },
+    {
+      "title": "Sovrn Bid Adapter: remove paapi support",
+      "number": 14248,
+      "author": {
+        "login": "ikagotso",
+        "id": 15611775
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-09T09:26:09.000Z",
+      "dateUpdated": "2025-12-09T15:48:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T15:48:17.000Z",
+      "dateClosed": "2025-12-09T15:48:17.000Z"
+    },
+    {
+      "title": "RealTimeData: fix bug with missing first party data (9.53.x backport)",
+      "number": 14246,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-08T18:48:31.000Z",
+      "dateUpdated": "2025-12-09T16:44:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T15:35:59.000Z",
+      "dateClosed": "2025-12-09T15:35:59.000Z"
+    },
+    {
+      "title": "RealTimeData: fix bug with missing first party data",
+      "number": 14245,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-08T18:44:50.000Z",
+      "dateUpdated": "2025-12-24T02:36:42.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-09T11:53:46.000Z",
+      "dateClosed": "2025-12-09T11:53:46.000Z"
+    },
+    {
+      "title": "Revnew Bid Adapter: transfer from alias",
+      "number": 14212,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T19:35:29.000Z",
+      "dateUpdated": "2025-12-08T18:12:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-08T18:12:26.000Z",
+      "dateClosed": "2025-12-08T18:12:26.000Z"
+    },
+    {
+      "title": "Core: Add support to also use keywords from application/ld+json to 1p enrichment",
+      "number": 14238,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T19:00:30.000Z",
+      "dateUpdated": "2025-12-08T18:09:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-08T18:09:03.000Z",
+      "dateClosed": "2025-12-08T18:09:03.000Z"
+    },
+    {
+      "title": "Taboola - add support to deferred billing",
+      "number": 14243,
+      "author": {
+        "login": "talavital7",
+        "id": 48999246
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-07T13:51:32.000Z",
+      "dateUpdated": "2025-12-08T18:08:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-08T18:08:26.000Z",
+      "dateClosed": "2025-12-08T18:08:26.000Z"
+    },
+    {
+      "title": "Rubicon Bid Adapter: Remove Topics support",
+      "number": 14242,
+      "author": {
+        "login": "apukh-magnite",
+        "id": 152202940
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-05T16:09:45.000Z",
+      "dateUpdated": "2025-12-08T18:07:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-08T18:07:55.000Z",
+      "dateClosed": "2025-12-08T18:07:55.000Z"
+    },
+    {
+      "title": "PubMatic RTD Provider: Dynamic timeout plugin & code refactoring",
+      "number": 14104,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-06T07:01:16.000Z",
+      "dateUpdated": "2025-12-08T05:56:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-05T02:41:01.000Z",
+      "dateClosed": "2025-12-05T02:41:01.000Z"
+    },
+    {
+      "title": "Core: Add timeToRespond in noBid responses",
+      "number": 14097,
+      "author": {
+        "login": "rogerDyl",
+        "id": 104763658
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-05T13:49:10.000Z",
+      "dateUpdated": "2025-12-05T02:39:55.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-05T02:39:55.000Z",
+      "dateClosed": "2025-12-05T02:39:55.000Z"
+    },
+    {
+      "title": "Optable RTD Module: Support multiple instances on page (backport)",
+      "number": 14236,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T15:14:11.000Z",
+      "dateUpdated": "2025-12-09T16:41:11.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-05T02:37:28.000Z",
+      "dateClosed": "2025-12-05T02:37:28.000Z"
+    },
+    {
+      "title": "Permutive ID Manager Identity System: support pairId",
+      "number": 14237,
+      "author": {
+        "login": "talbotja",
+        "id": 6088261
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T16:45:58.000Z",
+      "dateUpdated": "2025-12-04T18:15:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-04T18:15:08.000Z",
+      "dateClosed": "2025-12-04T18:15:08.000Z"
+    },
+    {
+      "title": "Documentation: fix tests path in CONTRIBUTING.md",
+      "number": 14235,
+      "author": {
+        "login": "alexandr-kim-vl",
+        "id": 47887567
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-04T12:40:37.000Z",
+      "dateUpdated": "2025-12-04T15:28:06.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-04T15:28:06.000Z",
+      "dateClosed": "2025-12-04T15:28:06.000Z"
+    },
+    {
+      "title": "OMS Bid Adapter: fix response for video (add vastXml), fix banner size in request (remove video size), update tests",
+      "number": 14201,
+      "author": {
+        "login": "siminkovladyslav",
+        "id": 85431371
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-24T12:46:27.000Z",
+      "dateUpdated": "2025-12-04T15:25:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-04T15:25:57.000Z",
+      "dateClosed": "2025-12-04T15:25:57.000Z"
+    },
+    {
+      "title": "Adquery Bid Adapter: added video outstreamsupport ",
+      "number": 14166,
+      "author": {
+        "login": "adquery",
+        "id": 89853721
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-19T08:43:30.000Z",
+      "dateUpdated": "2025-12-04T11:40:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-04T11:40:33.000Z",
+      "dateClosed": "2025-12-04T11:40:33.000Z"
+    },
+    {
+      "title": "Optable RTD Module: Support multiple instances on page",
+      "number": 14228,
+      "author": {
+        "login": "mosherBT",
+        "id": 115997271
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T14:50:50.000Z",
+      "dateUpdated": "2025-12-03T22:14:45.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-03T22:14:45.000Z",
+      "dateClosed": "2025-12-03T22:14:45.000Z"
+    },
+    {
+      "title": "Various adapters: Centralize timezone retrieval",
+      "number": 14193,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T22:19:53.000Z",
+      "dateUpdated": "2025-12-03T19:01:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-03T19:01:38.000Z",
+      "dateClosed": "2025-12-03T19:01:38.000Z"
+    },
+    {
+      "title": "LI Analytics: include ad size as a field that in the data collected by the client side analytics adapter",
+      "number": 14207,
+      "author": {
+        "login": "zeta-xiao",
+        "id": 234264143
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-25T15:50:39.000Z",
+      "dateUpdated": "2025-12-03T16:08:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-03T16:08:56.000Z",
+      "dateClosed": "2025-12-03T16:08:56.000Z"
+    },
+    {
+      "title": "Flipp: update endpoint to not use cdn",
+      "number": 14232,
+      "author": {
+        "login": "hasan-kanjee",
+        "id": 55110940
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-02T17:24:52.000Z",
+      "dateUpdated": "2025-12-02T19:27:00.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T19:26:59.000Z",
+      "dateClosed": "2025-12-02T19:26:59.000Z"
+    },
+    {
+      "title": "limelightDigital Bid Adapter: support get floor module",
+      "number": 14144,
+      "author": {
+        "login": "RuzannaAvetisyan",
+        "id": 44729750
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-18T12:39:52.000Z",
+      "dateUpdated": "2025-12-02T14:52:13.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:52:13.000Z",
+      "dateClosed": "2025-12-02T14:52:13.000Z"
+    },
+    {
+      "title": "WURFL RTD: Add low latency device detection",
+      "number": 14115,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-11T10:05:03.000Z",
+      "dateUpdated": "2025-12-02T14:47:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:47:18.000Z",
+      "dateClosed": "2025-12-02T14:47:18.000Z"
+    },
+    {
+      "title": "Various Adapters: nullify banned device metrics",
+      "number": 14188,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:37:37.000Z",
+      "dateUpdated": "2025-12-02T14:46:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:46:35.000Z",
+      "dateClosed": "2025-12-02T14:46:35.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: adapter fix keywords to be sent as array",
+      "number": 14226,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T13:54:24.000Z",
+      "dateUpdated": "2025-12-02T14:42:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:42:46.000Z",
+      "dateClosed": "2025-12-02T14:42:46.000Z"
+    },
+    {
+      "title": "sevioBidAdapter: keyword fixes in legacy branch 9.53.x-legacy",
+      "number": 14227,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T06:57:45.000Z",
+      "dateUpdated": "2025-12-02T14:42:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:42:33.000Z",
+      "dateClosed": "2025-12-02T14:42:33.000Z"
+    },
+    {
+      "title": "Ogury Bid Adapter: Update User Sync Pixel",
+      "number": 14229,
+      "author": {
+        "login": "RemyLespagnol",
+        "id": 2819925
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-02T08:28:40.000Z",
+      "dateUpdated": "2025-12-02T14:41:39.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-02T14:41:39.000Z",
+      "dateClosed": "2025-12-02T14:41:39.000Z"
+    },
+    {
+      "title": "Clickio Bid Adapter: add IAB GVL ID and TCFEU support",
+      "number": 14224,
+      "author": {
+        "login": "ClickioTech",
+        "id": 163025633
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T10:16:41.000Z",
+      "dateUpdated": "2025-12-01T20:19:15.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:19:15.000Z",
+      "dateClosed": "2025-12-01T20:19:15.000Z"
+    },
+    {
+      "title": "Attekmi: add RadiantFusion alias",
+      "number": 14223,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T08:04:24.000Z",
+      "dateUpdated": "2025-12-01T20:18:22.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:18:22.000Z",
+      "dateClosed": "2025-12-01T20:18:22.000Z"
+    },
+    {
+      "title": " datablocks and mediaforce bid adapters: Refactor native asset handling",
+      "number": 14186,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T21:14:42.000Z",
+      "dateUpdated": "2025-12-01T20:13:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:13:46.000Z",
+      "dateClosed": "2025-12-01T20:13:46.000Z"
+    },
+    {
+      "title": "ID5 Analytics module - support gzip compression of large events",
+      "number": 14129,
+      "author": {
+        "login": "abazylewicz-id5",
+        "id": 106807984
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-13T11:32:31.000Z",
+      "dateUpdated": "2025-12-01T20:13:30.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:13:29.000Z",
+      "dateClosed": "2025-12-01T20:13:29.000Z"
+    },
+    {
+      "title": "PubmaticAnalyticsAdapter: Safely handles getUserIds function",
+      "number": 14222,
+      "author": {
+        "login": "pm-nitin-shirsat",
+        "id": 107102698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-27T07:55:44.000Z",
+      "dateUpdated": "2025-12-01T20:12:58.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:12:57.000Z",
+      "dateClosed": "2025-12-01T20:12:58.000Z"
+    },
+    {
+      "title": "Sharethrough Bid Adapter: drop supporting cdep",
+      "number": 14199,
+      "author": {
+        "login": "krzysztofequativ",
+        "id": 88041828
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T14:53:51.000Z",
+      "dateUpdated": "2025-12-01T20:11:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-12-01T20:11:59.000Z",
+      "dateClosed": "2025-12-01T20:11:59.000Z"
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2026,
+    "month": 3,
+    "itemCount": 21,
+    "lastUpdated": "2026-08-03T20:01:34.202Z"
+  },
+  "items": [
+    {
+      "title": "GitHub: Bump Trivy Security Scanner",
+      "number": 4439,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-25T17:03:35.000Z",
+      "dateUpdated": "2026-03-25T17:17:14.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-25T17:17:12.000Z",
+      "dateClosed": "2026-03-25T17:17:12.000Z"
+    },
+    {
+      "title": "Revert \"ResetDigital: Switch to OpenRTB (#4385)\"",
+      "number": 4438,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-23T18:52:59.000Z",
+      "dateUpdated": "2026-03-24T10:23:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-24T10:23:29.000Z",
+      "dateClosed": "2026-03-24T10:23:29.000Z"
+    },
+    {
+      "title": "Housekeeping: Update localstack-s3 image for functional tests",
+      "number": 4437,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-23T15:53:04.000Z",
+      "dateUpdated": "2026-03-23T16:14:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T16:14:03.000Z",
+      "dateClosed": "2026-03-23T16:14:03.000Z"
+    },
+    {
+      "title": "New Adapter: TrustX",
+      "number": 4428,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-16T13:38:27.000Z",
+      "dateUpdated": "2026-03-23T10:31:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T10:31:03.000Z",
+      "dateClosed": "2026-03-23T10:31:03.000Z"
+    },
+    {
+      "title": "Mobkoi: Always set TagId with placementId",
+      "number": 4435,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-20T17:54:42.000Z",
+      "dateUpdated": "2026-03-23T10:30:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T10:30:28.000Z",
+      "dateClosed": "2026-03-23T10:30:28.000Z"
+    },
+    {
+      "title": "ResetDigital: Switch to OpenRTB",
+      "number": 4385,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T13:22:42.000Z",
+      "dateUpdated": "2026-03-23T09:14:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T09:14:41.000Z",
+      "dateClosed": "2026-03-23T09:14:41.000Z"
+    },
+    {
+      "title": "Kargo: update endpoint to krk2.kargo.com",
+      "number": 4431,
+      "author": {
+        "login": "andresmonc",
+        "id": 41450290
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-17T15:52:02.000Z",
+      "dateUpdated": "2026-03-23T09:14:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T09:14:18.000Z",
+      "dateClosed": "2026-03-23T09:14:18.000Z"
+    },
+    {
+      "title": "OMS: Update default publisher ID parameter",
+      "number": 4425,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-07T02:49:32.000Z",
+      "dateUpdated": "2026-03-23T09:13:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-23T09:13:55.000Z",
+      "dateClosed": "2026-03-23T09:13:55.000Z"
+    },
+    {
+      "title": "Test: Allow duplicate cookie family names",
+      "number": 4360,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-27T12:07:33.000Z",
+      "dateUpdated": "2026-03-19T11:17:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-19T11:17:04.000Z",
+      "dateClosed": "2026-03-19T11:17:04.000Z"
+    },
+    {
+      "title": "Test: Bidder removal fields",
+      "number": 4329,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-31T11:05:55.000Z",
+      "dateUpdated": "2026-03-10T10:04:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-10T10:03:59.000Z",
+      "dateClosed": "2026-03-10T10:03:59.000Z"
+    },
+    {
+      "title": "Test: Configuration for account logs warning",
+      "number": 4410,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T09:47:08.000Z",
+      "dateUpdated": "2026-03-06T14:05:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-06T14:05:26.000Z",
+      "dateClosed": "2026-03-06T14:05:26.000Z"
+    },
+    {
+      "title": "New Adapter: Bidfuse",
+      "number": 4370,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T08:38:46.000Z",
+      "dateUpdated": "2026-03-03T09:45:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-03T09:45:11.000Z",
+      "dateClosed": "2026-03-03T09:45:11.000Z"
+    },
+    {
+      "title": "OMS: Add `{{PublisherId}}` macro",
+      "number": 4409,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-26T12:57:07.000Z",
+      "dateUpdated": "2026-03-02T11:15:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:15:47.000Z",
+      "dateClosed": "2026-03-02T11:15:47.000Z"
+    },
+    {
+      "title": "Xapads: Fix misplaced GVL id",
+      "number": 4398,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T14:12:27.000Z",
+      "dateUpdated": "2026-03-02T11:15:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:15:27.000Z",
+      "dateClosed": "2026-03-02T11:15:27.000Z"
+    },
+    {
+      "title": "Teal: Add GPP params to usersync",
+      "number": 4379,
+      "author": {
+        "login": "ollyburns",
+        "id": 75783836
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T07:45:09.000Z",
+      "dateUpdated": "2026-03-02T11:15:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:15:10.000Z",
+      "dateClosed": "2026-03-02T11:15:10.000Z"
+    },
+    {
+      "title": "Missena Bid Adapter: add GPP params to cookie sync URL",
+      "number": 4383,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T14:21:59.000Z",
+      "dateUpdated": "2026-03-02T11:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:14:35.000Z",
+      "dateClosed": "2026-03-02T11:14:35.000Z"
+    },
+    {
+      "title": "Nexx360: Add usersync",
+      "number": 4396,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T09:23:55.000Z",
+      "dateUpdated": "2026-03-02T11:14:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:14:21.000Z",
+      "dateClosed": "2026-03-02T11:14:21.000Z"
+    },
+    {
+      "title": "Epsilon: pass prebid server version",
+      "number": 4392,
+      "author": {
+        "login": "johnwier",
+        "id": 49074029
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T23:18:50.000Z",
+      "dateUpdated": "2026-03-02T11:00:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T11:00:29.000Z",
+      "dateClosed": "2026-03-02T11:00:29.000Z"
+    },
+    {
+      "title": "Mobilefuse: Add site media types",
+      "number": 4369,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T07:46:10.000Z",
+      "dateUpdated": "2026-03-02T10:59:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T10:59:25.000Z",
+      "dateClosed": "2026-03-02T10:59:25.000Z"
+    },
+    {
+      "title": "Flipp: Update endpoint to not use cdn",
+      "number": 4368,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T07:43:25.000Z",
+      "dateUpdated": "2026-03-02T10:59:14.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T10:59:12.000Z",
+      "dateClosed": "2026-03-02T10:59:12.000Z"
+    },
+    {
+      "title": "AdsInteractive: Change to aliases",
+      "number": 4362,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-27T16:35:54.000Z",
+      "dateUpdated": "2026-03-02T10:58:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-03-02T10:58:52.000Z",
+      "dateClosed": "2026-03-02T10:58:52.000Z"
+    }
+  ]
+}

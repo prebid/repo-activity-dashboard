@@ -1,0 +1,372 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 2,
+    "itemCount": 19,
+    "lastUpdated": "2026-03-09T17:55:18.285Z"
+  },
+  "items": [
+    {
+      "title": "Intertech: Remove Adapter",
+      "number": 4680,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "karwaankit32",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T20:17:26.000Z",
+      "dateUpdated": "2026-02-25T14:07:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T14:07:06.000Z",
+      "dateClosed": "2026-02-25T14:07:06.000Z"
+    },
+    {
+      "title": "HTTP Fetcher: Enable RFC 3986 by Default",
+      "number": 4681,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "karwaankit32",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T20:23:42.000Z",
+      "dateUpdated": "2026-02-25T05:58:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T05:58:27.000Z",
+      "dateClosed": "2026-02-25T05:58:27.000Z"
+    },
+    {
+      "title": "Log nested structures from the configuration",
+      "number": 4519,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-05T09:53:08.000Z",
+      "dateUpdated": "2026-02-25T04:00:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T04:00:09.000Z",
+      "dateClosed": "2026-02-25T04:00:09.000Z"
+    },
+    {
+      "title": "ORTB Blocking Module: battr media type strictness",
+      "number": 4551,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [
+        "antoxas1986",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-29T11:50:04.000Z",
+      "dateUpdated": "2026-02-25T02:31:01.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T02:31:00.000Z",
+      "dateClosed": "2026-02-25T02:31:00.000Z"
+    },
+    {
+      "title": "New Adapter: Alliance Gravity",
+      "number": 4522,
+      "author": {
+        "login": "danielbaud",
+        "id": 52867769
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-06T19:04:34.000Z",
+      "dateUpdated": "2026-02-25T01:53:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T01:53:27.000Z",
+      "dateClosed": "2026-02-25T01:53:27.000Z"
+    },
+    {
+      "title": "Missena: Update parameters and add versioning support",
+      "number": 4557,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-01T14:09:31.000Z",
+      "dateUpdated": "2026-02-25T01:18:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-25T01:18:35.000Z",
+      "dateClosed": "2026-02-25T01:18:35.000Z"
+    },
+    {
+      "title": "New Adapter: Alchemyx - Adverxo Alias ",
+      "number": 4663,
+      "author": {
+        "login": "dev-adverxo",
+        "id": 186024688
+      },
+      "assignees": [
+        "ccorbo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-16T11:07:42.000Z",
+      "dateUpdated": "2026-02-24T23:37:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-24T23:37:49.000Z",
+      "dateClosed": "2026-02-24T23:37:49.000Z"
+    },
+    {
+      "title": "Kargo: update endpoint",
+      "number": 4667,
+      "author": {
+        "login": "andresmonc",
+        "id": 41450290
+      },
+      "assignees": [
+        "linux019",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-20T20:16:33.000Z",
+      "dateUpdated": "2026-02-24T15:17:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-24T15:17:26.000Z",
+      "dateClosed": "2026-02-24T15:17:26.000Z"
+    },
+    {
+      "title": "Add removed bidder warnings",
+      "number": 4692,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "guscarreon",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T04:49:34.000Z",
+      "dateUpdated": "2026-02-24T14:53:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-24T14:53:55.000Z",
+      "dateClosed": "2026-02-24T14:53:55.000Z"
+    },
+    {
+      "title": "Drop supportCors user sync YAML config option",
+      "number": 4682,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "hhhjort",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T03:51:21.000Z",
+      "dateUpdated": "2026-03-06T14:11:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-24T04:38:57.000Z",
+      "dateClosed": "2026-02-24T04:38:57.000Z"
+    },
+    {
+      "title": "Adjust white label only error messages",
+      "number": 4690,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T03:36:09.000Z",
+      "dateUpdated": "2026-02-20T17:03:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T17:03:25.000Z",
+      "dateClosed": "2026-02-20T17:03:25.000Z"
+    },
+    {
+      "title": "Mark video endpoint as deprecated",
+      "number": 4691,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T04:27:12.000Z",
+      "dateUpdated": "2026-02-20T16:28:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T16:28:20.000Z",
+      "dateClosed": "2026-02-20T16:28:20.000Z"
+    },
+    {
+      "title": "Fix: Prevent duplicate account IDs in HTTP account fetcher query params",
+      "number": 4648,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "sumits",
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-02T10:55:45.000Z",
+      "dateUpdated": "2026-02-09T18:40:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-09T18:40:30.000Z",
+      "dateClosed": "2026-02-09T18:40:30.000Z"
+    },
+    {
+      "title": "Scope3: Add rtd targeting in seatbid",
+      "number": 4606,
+      "author": {
+        "login": "gravelg",
+        "id": 105263
+      },
+      "assignees": [
+        "antoxas1986",
+        "scr-oath"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-14T21:49:34.000Z",
+      "dateUpdated": "2026-02-05T20:44:44.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T20:44:43.000Z",
+      "dateClosed": "2026-02-05T20:44:43.000Z"
+    },
+    {
+      "title": "Deprecate Embedded Certs",
+      "number": 4625,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-03T15:29:55.000Z",
+      "dateUpdated": "2026-02-03T22:16:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-03T22:16:05.000Z",
+      "dateClosed": "2026-02-03T22:16:05.000Z"
+    },
+    {
+      "title": "New Adapter: TRUSTX (remove Grid alias)",
+      "number": 4614,
+      "author": {
+        "login": "trustXops",
+        "id": 207739730
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-26T15:16:07.000Z",
+      "dateUpdated": "2026-02-03T15:30:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-03T15:30:53.000Z",
+      "dateClosed": "2026-02-03T15:30:54.000Z"
+    },
+    {
+      "title": "Screencore: Convert to Teqblaze alias",
+      "number": 4611,
+      "author": {
+        "login": "screencore-dev",
+        "id": 229771208
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T12:08:01.000Z",
+      "dateUpdated": "2026-02-03T14:45:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-03T14:45:43.000Z",
+      "dateClosed": "2026-02-03T14:45:43.000Z"
+    },
+    {
+      "title": "Gothamads: Rename to intenze",
+      "number": 4333,
+      "author": {
+        "login": "support-gotham-ads",
+        "id": 208789779
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-05-08T11:39:34.000Z",
+      "dateUpdated": "2026-02-03T14:39:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-03T14:39:38.000Z",
+      "dateClosed": "2026-02-03T14:39:38.000Z"
+    },
+    {
+      "title": "New Adapter: ProgrammaticX - Vidazoo Alias",
+      "number": 4456,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-07-29T07:46:14.000Z",
+      "dateUpdated": "2026-02-02T15:33:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-02T15:33:54.000Z",
+      "dateClosed": "2026-02-02T15:33:54.000Z"
+    }
+  ]
+}

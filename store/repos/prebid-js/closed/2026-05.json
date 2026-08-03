@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2026,
+    "month": 5,
+    "itemCount": 18,
+    "lastUpdated": "2026-08-03T19:52:57.117Z"
+  },
+  "items": [
+    {
+      "title": "Occasional incorrect hb_cache_host used for the hb_uuid sent in targeting",
+      "number": 14795,
+      "author": {
+        "login": "andyblackwell",
+        "id": 372590
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-04-24T15:42:15.000Z",
+      "dateUpdated": "2026-05-28T14:07:08.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-28T14:07:08.000Z"
+    },
+    {
+      "title": "GPP Control Module Limitation for transmitEids in Bidder Requests configured through setConfig or mergeConfig",
+      "number": 14942,
+      "author": {
+        "login": "shubham-si",
+        "id": 60253122
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-05-25T08:11:41.000Z",
+      "dateUpdated": "2026-05-27T19:18:44.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-26T21:14:32.000Z"
+    },
+    {
+      "title": "Feature: pass renderer into frames",
+      "number": 10780,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-11-30T19:25:45.000Z",
+      "dateUpdated": "2026-05-26T14:58:28.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-26T14:58:28.000Z"
+    },
+    {
+      "title": "Module type files: enforce naming",
+      "number": 14913,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-18T15:30:56.000Z",
+      "dateUpdated": "2026-05-20T17:29:55.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-20T17:29:54.000Z"
+    },
+    {
+      "title": "Core: Typescript: EventHandler doesn't recognize auctionDebug events",
+      "number": 14882,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-05-13T09:05:03.000Z",
+      "dateUpdated": "2026-05-19T20:50:03.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-19T20:50:03.000Z"
+    },
+    {
+      "title": "More polite syncs",
+      "number": 12992,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-04-11T13:51:32.000Z",
+      "dateUpdated": "2026-05-19T12:00:41.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-19T12:00:41.000Z"
+    },
+    {
+      "title": "Update Prebid.js to 11.12.0",
+      "number": 14919,
+      "author": {
+        "login": "r-miyamae",
+        "id": 17544389
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-19T05:01:39.000Z",
+      "dateUpdated": "2026-05-19T05:02:37.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-19T05:02:37.000Z"
+    },
+    {
+      "title": "Query regarding Supplying OpenRTB Content Data",
+      "number": 14883,
+      "author": {
+        "login": "hiUbaid",
+        "id": 238473456
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-13T10:14:00.000Z",
+      "dateUpdated": "2026-05-18T19:09:00.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-18T19:09:00.000Z"
+    },
+    {
+      "title": "Improve usersync exclusions",
+      "number": 14730,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-15T17:25:06.000Z",
+      "dateUpdated": "2026-05-18T19:07:48.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-18T19:07:48.000Z"
+    },
+    {
+      "title": "Feature Request: Dynamic Bidder Modules",
+      "number": 11862,
+      "author": {
+        "login": "ReinoutStevens",
+        "id": 518971
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2024-06-25T12:28:03.000Z",
+      "dateUpdated": "2026-05-15T01:39:05.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-15T01:39:05.000Z"
+    },
+    {
+      "title": "Core: Typescript: VideoMediaType type doesn't match with the docs",
+      "number": 14884,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-13T11:47:05.000Z",
+      "dateUpdated": "2026-05-14T15:06:54.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-14T15:06:54.000Z"
+    },
+    {
+      "title": "Core: Typescript types when accessing nested properties don't consider the undefined case",
+      "number": 14875,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-05-12T14:16:42.000Z",
+      "dateUpdated": "2026-05-14T00:51:32.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-14T00:51:32.000Z"
+    },
+    {
+      "title": "Publisher purpose restrictions",
+      "number": 14616,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-03-19T10:33:55.000Z",
+      "dateUpdated": "2026-05-13T19:54:13.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-13T19:54:13.000Z"
+    },
+    {
+      "title": "Currency: currencyRates always reset to defaultRates",
+      "number": 14877,
+      "author": {
+        "login": "EskelCz",
+        "id": 1198558
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-05-12T16:12:52.000Z",
+      "dateUpdated": "2026-05-13T11:55:35.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-13T11:55:35.000Z"
+    },
+    {
+      "title": "The adapter code has been merged into the main branch. How can I select my adapter on the official website",
+      "number": 14791,
+      "author": {
+        "login": "chinaAdministrator",
+        "id": 88066680
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-24T03:35:18.000Z",
+      "dateUpdated": "2026-05-05T13:06:31.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-05T13:06:31.000Z"
+    },
+    {
+      "title": "Additional node 20 actions",
+      "number": 14787,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-23T17:21:09.000Z",
+      "dateUpdated": "2026-05-05T02:36:10.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-05T02:36:10.000Z"
+    },
+    {
+      "title": "Publishers should be able to filter the bids entering the auction",
+      "number": 12399,
+      "author": {
+        "login": "pm-harshad-mane",
+        "id": 8835908
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2024-11-02T16:53:06.000Z",
+      "dateUpdated": "2026-05-04T15:13:50.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-04T15:13:50.000Z"
+    },
+    {
+      "title": "onEvent callback is never called if created with async keyword",
+      "number": 14826,
+      "author": {
+        "login": "Akiyamka",
+        "id": 6587585
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-30T11:33:23.000Z",
+      "dateUpdated": "2026-05-03T00:17:52.000Z",
+      "status": "closed",
+      "dateClosed": "2026-05-03T00:17:52.000Z"
+    }
+  ]
+}

@@ -1,0 +1,1029 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2025,
+    "month": 9,
+    "itemCount": 26,
+    "lastUpdated": "2025-10-16T11:54:48.698Z"
+  },
+  "items": [
+    {
+      "title": "CPMStar: imp.ext passthrough ",
+      "number": 4450,
+      "author": {
+        "login": "ogginger",
+        "id": 1821355
+      },
+      "assignees": [
+        "pm-isha-bharti",
+        "pm-jaydeep-mohite"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-isha-bharti",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ogginger",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "pm-jaydeep-mohite",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-07-23T22:12:28.000Z",
+      "dateUpdated": "2025-09-25T14:03:41.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-25T14:03:41.000Z",
+      "commitAuthors": {
+        "1821355": {
+          "identifier": "1821355",
+          "displayName": "ogginger",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Host Option To Use OS Certs",
+      "number": 4536,
+      "author": {
+        "login": "SyntaxNode",
+        "id": 1653437
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-17T22:55:15.000Z",
+      "dateUpdated": "2025-10-07T20:40:24.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T17:06:05.000Z",
+      "commitAuthors": {
+        "1653437": {
+          "identifier": "1653437",
+          "displayName": "SyntaxNode",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Fix: Preload Prometheus adapter connection dial metric labels when enabled",
+      "number": 4543,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "guscarreon",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-24T14:11:25.000Z",
+      "dateUpdated": "2025-09-24T16:56:49.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T16:38:56.000Z",
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Connatix: Copy entire imp[i].ext",
+      "number": 4521,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "karimMourra",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-05T22:22:39.000Z",
+      "dateUpdated": "2025-09-24T16:18:03.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T16:18:03.000Z",
+      "commitAuthors": {
+        "12138319": {
+          "identifier": "12138319",
+          "displayName": "karimMourra",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Consumable: Declare geoscope",
+      "number": 4496,
+      "author": {
+        "login": "richardngo-consumable",
+        "id": 184112982
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-20T21:17:00.000Z",
+      "dateUpdated": "2025-09-24T15:20:17.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T15:20:17.000Z",
+      "commitAuthors": {
+        "184112982": {
+          "identifier": "184112982",
+          "displayName": "richardngo-consumable",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modules: Exitpoint Hook typo fix",
+      "number": 4542,
+      "author": {
+        "login": "pm-nikhil-vaidya",
+        "id": 102963966
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-23T17:17:26.000Z",
+      "dateUpdated": "2025-09-24T15:11:53.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T15:11:52.000Z",
+      "commitAuthors": {
+        "102963966": {
+          "identifier": "102963966",
+          "displayName": "pm-nikhil-vaidya",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: Contxtful",
+      "number": 4443,
+      "author": {
+        "login": "sebhtml",
+        "id": 824460
+      },
+      "assignees": [
+        "ccorbo",
+        "pm-nikhil-vaidya"
+      ],
+      "reviewers": [
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sebastienrufiange",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sebhtml",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ccorbo",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-17T14:56:24.000Z",
+      "dateUpdated": "2025-09-24T12:54:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-24T12:54:08.000Z",
+      "commitAuthors": {
+        "824460": {
+          "identifier": "824460",
+          "displayName": "sebhtml",
+          "count": 60,
+          "isGitHubUser": true
+        },
+        "3171376": {
+          "identifier": "3171376",
+          "displayName": "rufiange",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Kargo: Add email to codepath notification workflow",
+      "number": 4484,
+      "author": {
+        "login": "shanel262",
+        "id": 10059043
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-13T08:10:12.000Z",
+      "dateUpdated": "2025-09-23T21:03:20.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T21:03:20.000Z",
+      "commitAuthors": {
+        "10059043": {
+          "identifier": "10059043",
+          "displayName": "shanel262",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "12804307": {
+          "identifier": "12804307",
+          "displayName": "nickllerandi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "KueezRTB: Remove additionalProperties from schema",
+      "number": 4490,
+      "author": {
+        "login": "amitbiton01",
+        "id": 56631148
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-19T12:57:18.000Z",
+      "dateUpdated": "2025-09-23T19:55:46.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T19:55:46.000Z",
+      "commitAuthors": {
+        "56631148": {
+          "identifier": "56631148",
+          "displayName": "amitbiton01",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics: Add connection dial metrics by adapter",
+      "number": 4528,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-11T15:55:46.000Z",
+      "dateUpdated": "2025-09-23T19:40:21.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T19:40:21.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Module: Scope3 Real-Time Data",
+      "number": 4397,
+      "author": {
+        "login": "bokelley",
+        "id": 134922
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bokelley",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gravelg",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "DISMISSED"
+        }
+      ],
+      "dateCreated": "2025-06-12T17:31:15.000Z",
+      "dateUpdated": "2025-09-23T15:46:52.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T15:46:51.000Z",
+      "commitAuthors": {
+        "105263": {
+          "identifier": "105263",
+          "displayName": "gravelg",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "134922": {
+          "identifier": "134922",
+          "displayName": "bokelley",
+          "count": 18,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "fwssp: Add iframe usersync",
+      "number": 4487,
+      "author": {
+        "login": "wenyuanzhang-freewheel",
+        "id": 226582536
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-18T15:21:59.000Z",
+      "dateUpdated": "2025-09-23T15:26:38.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T15:26:37.000Z",
+      "commitAuthors": {
+        "wenyuanzhang": {
+          "identifier": "wenyuanzhang",
+          "displayName": "wenyuanzhang",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "Adagio: Remove max length on params",
+      "number": 4524,
+      "author": {
+        "login": "GodefroiRoussel",
+        "id": 16046142
+      },
+      "assignees": [
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-08T10:17:28.000Z",
+      "dateUpdated": "2025-09-23T14:49:47.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T14:49:47.000Z",
+      "commitAuthors": {
+        "Godefroi Roussel": {
+          "identifier": "Godefroi Roussel",
+          "displayName": "Godefroi Roussel",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "New Adapter: RobustApps - Xeworks alias",
+      "number": 4434,
+      "author": {
+        "login": "rbstdev",
+        "id": 219820768
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rbstdev",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-07-11T14:25:55.000Z",
+      "dateUpdated": "2025-09-23T14:34:33.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T14:34:33.000Z",
+      "commitAuthors": {
+        "And-Rud": {
+          "identifier": "And-Rud",
+          "displayName": "And-Rud",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "rbstdev": {
+          "identifier": "rbstdev",
+          "displayName": "rbstdev",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      }
+    },
+    {
+      "title": "33across: Remove deprecated video.placement",
+      "number": 4530,
+      "author": {
+        "login": "carlosfelix",
+        "id": 136311
+      },
+      "assignees": [
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "carlosfelix",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-11T17:58:06.000Z",
+      "dateUpdated": "2025-09-23T14:11:26.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T14:11:25.000Z",
+      "commitAuthors": {
+        "136311": {
+          "identifier": "136311",
+          "displayName": "carlosfelix",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "33across: Make zoneId the preferred option",
+      "number": 4531,
+      "author": {
+        "login": "carlosfelix",
+        "id": 136311
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-11T18:04:30.000Z",
+      "dateUpdated": "2025-09-23T13:58:59.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T13:58:59.000Z",
+      "commitAuthors": {
+        "136311": {
+          "identifier": "136311",
+          "displayName": "carlosfelix",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: MediaYo",
+      "number": 4391,
+      "author": {
+        "login": "mediayo",
+        "id": 212916208
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mediayo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-10T22:43:49.000Z",
+      "dateUpdated": "2025-09-23T13:47:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T13:47:08.000Z",
+      "commitAuthors": {
+        "212916208": {
+          "identifier": "212916208",
+          "displayName": "mediayo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: 360playvid",
+      "number": 4395,
+      "author": {
+        "login": "pb360playvid",
+        "id": 211947707
+      },
+      "assignees": [
+        "bsardo",
+        "guscarreon"
+      ],
+      "reviewers": [
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pb360playvid",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-06-11T15:07:19.000Z",
+      "dateUpdated": "2025-09-23T13:22:02.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-23T13:21:53.000Z",
+      "commitAuthors": {
+        "211947707": {
+          "identifier": "211947707",
+          "displayName": "pb360playvid",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Metrics: Record HTTP connections wanted and obtained\"",
+      "number": 4538,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "SyntaxNode",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-18T16:48:29.000Z",
+      "dateUpdated": "2025-09-18T22:36:57.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-18T22:36:09.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Revert \"Modules: Execute mutations in the order they are listed\"",
+      "number": 4529,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-11T16:24:06.000Z",
+      "dateUpdated": "2025-09-11T18:07:31.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-11T18:07:27.000Z",
+      "commitAuthors": {
+        "1168933": {
+          "identifier": "1168933",
+          "displayName": "bsardo",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Modules: Execute mutations in the order they are listed",
+      "number": 4279,
+      "author": {
+        "login": "scr-oath",
+        "id": 41922797
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-03-24T21:58:30.000Z",
+      "dateUpdated": "2025-09-08T21:47:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-08T21:47:15.000Z",
+      "commitAuthors": {
+        "41922797": {
+          "identifier": "41922797",
+          "displayName": "scr-oath",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics: Record incoming request sizes",
+      "number": 4495,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        }
+      ],
+      "dateCreated": "2025-08-20T16:10:07.000Z",
+      "dateUpdated": "2025-09-05T06:21:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T21:01:22.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics: Record HTTP connections wanted and obtained",
+      "number": 4518,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "bsardo",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-09-04T17:11:42.000Z",
+      "dateUpdated": "2025-09-04T19:11:50.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T19:11:50.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "New Adapter: pinkLion",
+      "number": 4376,
+      "author": {
+        "login": "prebidPinkLion",
+        "id": 214807971
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "prebidPinkLion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-06-05T13:17:52.000Z",
+      "dateUpdated": "2025-09-04T17:06:08.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T17:06:08.000Z",
+      "commitAuthors": {
+        "214807971": {
+          "identifier": "214807971",
+          "displayName": "prebidPinkLion",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "TheTradeDesk: Resolve burl if not resolved",
+      "number": 4481,
+      "author": {
+        "login": "andre-gielow-ttd",
+        "id": 124626380
+      },
+      "assignees": [
+        "bsardo",
+        "VeronikaSolovei9"
+      ],
+      "reviewers": [
+        {
+          "login": "khang-vu-ttd",
+          "state": "APPROVED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-12T19:43:35.000Z",
+      "dateUpdated": "2025-09-04T15:09:19.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T15:09:19.000Z",
+      "commitAuthors": {
+        "124626380": {
+          "identifier": "124626380",
+          "displayName": "andre-gielow-ttd",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      }
+    },
+    {
+      "title": "Metrics: Record GVL fetch count",
+      "number": 4500,
+      "author": {
+        "login": "guscarreon",
+        "id": 15863840
+      },
+      "assignees": [
+        "VeronikaSolovei9",
+        "hhhjort"
+      ],
+      "reviewers": [
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "guscarreon",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "VeronikaSolovei9",
+          "state": "APPROVED"
+        }
+      ],
+      "dateCreated": "2025-08-22T00:57:25.000Z",
+      "dateUpdated": "2025-09-04T14:55:35.000Z",
+      "status": "merged",
+      "dateMerged": "2025-09-04T14:55:35.000Z",
+      "commitAuthors": {
+        "15863840": {
+          "identifier": "15863840",
+          "displayName": "guscarreon",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      }
+    }
+  ]
+}

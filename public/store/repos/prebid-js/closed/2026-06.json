@@ -1,0 +1,322 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2026,
+    "month": 6,
+    "itemCount": 23,
+    "lastUpdated": "2026-08-03T19:52:57.116Z"
+  },
+  "items": [
+    {
+      "title": "bidResponseFilter: allow client-side advertiser/category blocking without sending badv/bcat/battr in bid requests",
+      "number": 15113,
+      "author": {
+        "login": "anastasiiapankivFS",
+        "id": 153929408
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-06-16T09:59:58.000Z",
+      "dateUpdated": "2026-06-30T19:14:53.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-30T19:14:53.000Z"
+    },
+    {
+      "title": "adloox analytics adapter: eliminate preload",
+      "number": 15248,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-25T15:50:57.000Z",
+      "dateUpdated": "2026-06-30T01:00:22.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-30T01:00:22.000Z"
+    },
+    {
+      "title": "request.options.contentType returned by bidder adapters is ignored for POST requests",
+      "number": 15258,
+      "author": {
+        "login": "michael-stevens",
+        "id": 17146530
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-29T14:13:10.000Z",
+      "dateUpdated": "2026-06-29T16:36:29.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-29T16:36:29.000Z"
+    },
+    {
+      "title": "Suggestion: Yahoo bidder can avoid preflight requests",
+      "number": 12948,
+      "author": {
+        "login": "pm-harshad-mane",
+        "id": 8835908
+      },
+      "assignees": [],
+      "dateCreated": "2025-04-01T18:54:07.000Z",
+      "dateUpdated": "2026-06-29T14:49:57.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-29T14:49:57.000Z"
+    },
+    {
+      "title": "terser-webpack-plugin used in webpack.conf.js but not declared as a dependency",
+      "number": 15255,
+      "author": {
+        "login": "kevpark02",
+        "id": 109548315
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-26T16:49:58.000Z",
+      "dateUpdated": "2026-06-29T14:29:53.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-29T14:29:53.000Z"
+    },
+    {
+      "title": "Bidresponse module attr type mismatch",
+      "number": 15230,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-06-24T17:33:07.000Z",
+      "dateUpdated": "2026-06-24T20:36:37.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-24T20:36:37.000Z"
+    },
+    {
+      "title": "Build fails on Windows",
+      "number": 15052,
+      "author": {
+        "login": "kunjan2210",
+        "id": 153486246
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-10T13:27:59.000Z",
+      "dateUpdated": "2026-06-22T22:17:33.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-22T22:17:33.000Z"
+    },
+    {
+      "title": "Support for dynamic renderer in PBS adapter",
+      "number": 10434,
+      "author": {
+        "login": "ccorbo",
+        "id": 19716777
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2023-09-05T20:04:30.000Z",
+      "dateUpdated": "2026-06-17T23:22:47.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-17T23:22:47.000Z"
+    },
+    {
+      "title": "Pipeline failing in fork",
+      "number": 15118,
+      "author": {
+        "login": "rajsidhunovatiq",
+        "id": 79534312
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-16T16:58:31.000Z",
+      "dateUpdated": "2026-06-16T23:35:20.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-16T23:35:20.000Z"
+    },
+    {
+      "title": "Attekmi endpoint is incorrect?",
+      "number": 15083,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-12T13:03:36.000Z",
+      "dateUpdated": "2026-06-12T17:00:12.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-12T17:00:12.000Z"
+    },
+    {
+      "title": "Analytics adapter not re-enabled after delayed CMP consent when initially blocked with null consent and gdprApplies=true",
+      "number": 15004,
+      "author": {
+        "login": "shubham-si",
+        "id": 60253122
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-05T10:31:31.000Z",
+      "dateUpdated": "2026-06-12T10:49:27.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-12T10:49:27.000Z"
+    },
+    {
+      "title": "tests: failures due to hardcoded pbjs global name assumption",
+      "number": 15020,
+      "author": {
+        "login": "derdeka",
+        "id": 13640166
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-09T08:43:03.000Z",
+      "dateUpdated": "2026-06-11T22:57:38.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-11T22:57:38.000Z"
+    },
+    {
+      "title": "Prebid 12: retire topics",
+      "number": 14394,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-28T18:42:44.000Z",
+      "dateUpdated": "2026-06-11T15:10:51.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-11T15:10:51.000Z"
+    },
+    {
+      "title": "tests: test/build-logic/no_3384_spec.mjs fails when using prebid.js via npm or zip download",
+      "number": 15021,
+      "author": {
+        "login": "derdeka",
+        "id": 13640166
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-09T10:05:17.000Z",
+      "dateUpdated": "2026-06-11T12:47:43.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-11T12:47:43.000Z"
+    },
+    {
+      "title": "npm package 11.14+: missing types/summary/*.d.js files causes webpack ModuleNotFoundError",
+      "number": 15064,
+      "author": {
+        "login": "wissamabyad",
+        "id": 44979449
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-06-10T18:13:00.000Z",
+      "dateUpdated": "2026-06-10T21:18:28.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-10T21:18:28.000Z"
+    },
+    {
+      "title": "Query: Do bidders pick position for ad unit from wrong place",
+      "number": 14994,
+      "author": {
+        "login": "hiUbaid",
+        "id": 238473456
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-04T13:40:38.000Z",
+      "dateUpdated": "2026-06-05T07:01:10.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-05T07:01:10.000Z"
+    },
+    {
+      "title": "Replace coveralls?",
+      "number": 14951,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-27T10:08:36.000Z",
+      "dateUpdated": "2026-06-04T22:45:47.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-04T22:45:47.000Z"
+    },
+    {
+      "title": "Vendors relying on LI for purpose 7 are blocked by tcfcontrol",
+      "number": 14615,
+      "author": {
+        "login": "bjorn-lw",
+        "id": 32431346
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-19T07:45:01.000Z",
+      "dateUpdated": "2026-06-04T14:29:40.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-04T14:29:40.000Z"
+    },
+    {
+      "title": "v11.8.0 Build Error",
+      "number": 14993,
+      "author": {
+        "login": "Arntit-Zonia",
+        "id": 48775524
+      },
+      "assignees": [],
+      "dateCreated": "2026-06-04T10:02:24.000Z",
+      "dateUpdated": "2026-06-04T12:08:10.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-04T11:07:22.000Z"
+    },
+    {
+      "title": "feature request: Using video duration or other fields to score bid in addition to cpm",
+      "number": 4411,
+      "author": {
+        "login": "khatibda",
+        "id": 1466555
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2019-10-31T21:24:25.000Z",
+      "dateUpdated": "2026-06-02T20:53:06.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-02T20:53:06.000Z"
+    },
+    {
+      "title": "Ajax.ts: test payload size before allowing keepalive",
+      "number": 14912,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-18T14:24:40.000Z",
+      "dateUpdated": "2026-06-02T14:37:49.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-02T14:37:49.000Z"
+    },
+    {
+      "title": "Replace the usage of the deprecated googletag methods with the updated versions",
+      "number": 14068,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [
+        "monis0395"
+      ],
+      "dateCreated": "2025-10-24T16:06:16.000Z",
+      "dateUpdated": "2026-06-01T16:57:10.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-01T16:57:10.000Z"
+    },
+    {
+      "title": "Should gppControl restrict accessRequestCredentials?",
+      "number": 14955,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-27T15:24:11.000Z",
+      "dateUpdated": "2026-06-06T08:37:55.000Z",
+      "status": "closed",
+      "dateClosed": "2026-06-01T15:23:35.000Z"
+    }
+  ]
+}

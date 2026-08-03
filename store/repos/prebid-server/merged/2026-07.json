@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 7,
+    "itemCount": 11,
+    "lastUpdated": "2026-08-03T19:53:13.714Z"
+  },
+  "items": [
+    {
+      "title": "Add unit tests for extractNurlVideoCrid",
+      "number": 4886,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-28T18:55:53.000Z",
+      "dateUpdated": "2026-07-28T18:57:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-28T18:56:11.000Z",
+      "dateClosed": "2026-07-28T18:56:11.000Z"
+    },
+    {
+      "title": "New Adapter: MediaGo Technology - MediaGo Alias",
+      "number": 4842,
+      "author": {
+        "login": "BaronJHYu",
+        "id": 18692279
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-02T09:25:16.000Z",
+      "dateUpdated": "2026-07-25T19:35:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-25T19:35:07.000Z",
+      "dateClosed": "2026-07-25T19:35:07.000Z"
+    },
+    {
+      "title": "New Adapter: Nuclion - Limelight Alias",
+      "number": 4751,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "Taxel"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-23T12:41:13.000Z",
+      "dateUpdated": "2026-07-21T14:58:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-21T14:58:45.000Z",
+      "dateClosed": "2026-07-21T14:58:45.000Z"
+    },
+    {
+      "title": "New Adapter: Teal",
+      "number": 4765,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-05T20:38:19.000Z",
+      "dateUpdated": "2026-07-20T02:51:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-20T02:51:58.000Z",
+      "dateClosed": "2026-07-20T02:51:58.000Z"
+    },
+    {
+      "title": "audienceNetwork: Transform video interstitial shape and honor response currency",
+      "number": 4839,
+      "author": {
+        "login": "PBDMSFT",
+        "id": 89027546
+      },
+      "assignees": [
+        "bsardo",
+        "anishb-ms"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-30T19:51:30.000Z",
+      "dateUpdated": "2026-07-17T12:46:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-17T12:46:38.000Z",
+      "dateClosed": "2026-07-17T12:46:38.000Z"
+    },
+    {
+      "title": "Bump golang.org/x/crypto from 0.36.0 to 0.52.0",
+      "number": 4855,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-10T14:39:00.000Z",
+      "dateUpdated": "2026-07-16T13:55:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T13:55:37.000Z",
+      "dateClosed": "2026-07-16T13:55:37.000Z"
+    },
+    {
+      "title": "Bump golang.org/x/net from 0.38.0 to 0.55.0",
+      "number": 4844,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-02T23:08:00.000Z",
+      "dateUpdated": "2026-07-16T13:14:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T13:14:40.000Z",
+      "dateClosed": "2026-07-16T13:14:40.000Z"
+    },
+    {
+      "title": "Bump google.golang.org/grpc from 1.56.3 to 1.79.3",
+      "number": 4821,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-10T02:11:35.000Z",
+      "dateUpdated": "2026-07-16T12:47:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T12:47:10.000Z",
+      "dateClosed": "2026-07-16T12:47:10.000Z"
+    },
+    {
+      "title": "Disable iFrame-based syncing for specific bidders and accounts",
+      "number": 4752,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "bsardo",
+        "karwaankit32"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-27T09:33:41.000Z",
+      "dateUpdated": "2026-07-16T12:35:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T12:35:00.000Z",
+      "dateClosed": "2026-07-16T12:35:00.000Z"
+    },
+    {
+      "title": "Fix intermittent EID stripping for permitted bidders",
+      "number": 4838,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-30T05:51:10.000Z",
+      "dateUpdated": "2026-07-15T13:12:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-15T13:12:40.000Z",
+      "dateClosed": "2026-07-15T13:12:40.000Z"
+    },
+    {
+      "title": "Attekmi: Update root domain",
+      "number": 4608,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-17T18:21:19.000Z",
+      "dateUpdated": "2026-07-03T11:52:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-03T11:52:15.000Z",
+      "dateClosed": "2026-07-03T11:52:15.000Z"
+    }
+  ]
+}

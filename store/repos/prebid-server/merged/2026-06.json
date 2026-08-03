@@ -1,0 +1,277 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 6,
+    "itemCount": 14,
+    "lastUpdated": "2026-08-03T19:53:13.715Z"
+  },
+  "items": [
+    {
+      "title": "Upgrade Go version from 1.24 to 1.26",
+      "number": 4737,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-01T05:43:03.000Z",
+      "dateUpdated": "2026-06-23T21:08:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-23T21:08:44.000Z",
+      "dateClosed": "2026-06-23T21:08:45.000Z"
+    },
+    {
+      "title": "New Adapter: Synapse HX",
+      "number": 4795,
+      "author": {
+        "login": "prebid-compas",
+        "id": 265840804
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-26T13:34:38.000Z",
+      "dateUpdated": "2026-06-09T19:29:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T19:29:03.000Z",
+      "dateClosed": "2026-06-09T19:29:03.000Z"
+    },
+    {
+      "title": "Displayio: Add audio and native support",
+      "number": 4728,
+      "author": {
+        "login": "xdevel",
+        "id": 618192
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-24T23:42:54.000Z",
+      "dateUpdated": "2026-06-09T18:42:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T18:42:41.000Z",
+      "dateClosed": "2026-06-09T18:42:41.000Z"
+    },
+    {
+      "title": "Indicue: Set GVL vendor ID to 0",
+      "number": 4709,
+      "author": {
+        "login": "GeneGenie",
+        "id": 1539907
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-03T17:04:38.000Z",
+      "dateUpdated": "2026-06-09T15:34:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T15:34:36.000Z",
+      "dateClosed": "2026-06-09T15:34:36.000Z"
+    },
+    {
+      "title": "New Adapter: Anzu SSP",
+      "number": 4778,
+      "author": {
+        "login": "anzuprebid",
+        "id": 271521963
+      },
+      "assignees": [
+        "ccorbo",
+        "danylo-kazymyrov-teqblaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-15T09:06:15.000Z",
+      "dateUpdated": "2026-06-09T14:38:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T14:38:56.000Z",
+      "dateClosed": "2026-06-09T14:38:56.000Z"
+    },
+    {
+      "title": "New Adapter: Native Agents",
+      "number": 4745,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-21T10:13:52.000Z",
+      "dateUpdated": "2026-06-09T14:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T14:14:35.000Z",
+      "dateClosed": "2026-06-09T14:14:35.000Z"
+    },
+    {
+      "title": "New Adapter: Selectmedia",
+      "number": 4769,
+      "author": {
+        "login": "selectmediaPrebid",
+        "id": 282275663
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-11T08:36:26.000Z",
+      "dateUpdated": "2026-06-09T14:03:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T14:03:29.000Z",
+      "dateClosed": "2026-06-09T14:03:29.000Z"
+    },
+    {
+      "title": "New Adapter: Adklip - Aso alias",
+      "number": 4581,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-23T13:44:48.000Z",
+      "dateUpdated": "2026-06-09T13:31:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:31:41.000Z",
+      "dateClosed": "2026-06-09T13:31:41.000Z"
+    },
+    {
+      "title": "Adagio: Fix usersync URL",
+      "number": 4716,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "danylo-kazymyrov-teqblaze",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-11T07:45:26.000Z",
+      "dateUpdated": "2026-06-09T13:19:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:19:52.000Z",
+      "dateClosed": "2026-06-09T13:19:52.000Z"
+    },
+    {
+      "title": "Parameterize Dockerfile base image",
+      "number": 4817,
+      "author": {
+        "login": "anishb-ms",
+        "id": 122366082
+      },
+      "assignees": [
+        "sumits",
+        "bsardo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-08T16:34:12.000Z",
+      "dateUpdated": "2026-06-09T13:05:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-09T13:05:31.000Z",
+      "dateClosed": "2026-06-09T13:05:31.000Z"
+    },
+    {
+      "title": "New Adapter: pgamrtb - Limelight Alias",
+      "number": 4714,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-06T20:34:46.000Z",
+      "dateUpdated": "2026-06-08T20:39:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-08T20:39:20.000Z",
+      "dateClosed": "2026-06-08T20:39:20.000Z"
+    },
+    {
+      "title": "New Adapter: targetVideo",
+      "number": 4593,
+      "author": {
+        "login": "pedjoni8",
+        "id": 32640009
+      },
+      "assignees": [
+        "Taxel",
+        "linux019"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-31T08:37:26.000Z",
+      "dateUpdated": "2026-06-16T12:54:46.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-08T20:25:54.000Z",
+      "dateClosed": "2026-06-08T20:25:54.000Z"
+    },
+    {
+      "title": "Validate host & subdomain bidder params",
+      "number": 4802,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "bsardo",
+        "SyntaxNode"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-28T19:50:52.000Z",
+      "dateUpdated": "2026-06-08T14:21:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-05T21:15:08.000Z",
+      "dateClosed": "2026-06-05T21:15:09.000Z"
+    },
+    {
+      "title": "New Adapter: Scalibur",
+      "number": 4640,
+      "author": {
+        "login": "bTimor",
+        "id": 184917484
+      },
+      "assignees": [
+        "bsardo",
+        "ccorbo"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-21T14:31:25.000Z",
+      "dateUpdated": "2026-06-02T14:19:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-06-02T14:19:08.000Z",
+      "dateClosed": "2026-06-02T14:19:08.000Z"
+    }
+  ]
+}

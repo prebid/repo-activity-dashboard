@@ -1,0 +1,1775 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2026,
+    "month": 2,
+    "itemCount": 109,
+    "lastUpdated": "2026-08-03T19:52:57.114Z"
+  },
+  "items": [
+    {
+      "title": "pubstackBidAdapter: initial release",
+      "number": 14490,
+      "author": {
+        "login": "gpolaert",
+        "id": 1678246
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T21:12:02.000Z",
+      "dateUpdated": "2026-02-27T20:21:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T20:21:23.000Z",
+      "dateClosed": "2026-02-27T20:21:23.000Z"
+    },
+    {
+      "title": "Bump fast-xml-parser from 5.3.6 to 5.4.1",
+      "number": 14534,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T17:00:23.000Z",
+      "dateUpdated": "2026-02-27T17:59:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T17:58:57.000Z",
+      "dateClosed": "2026-02-27T17:58:57.000Z"
+    },
+    {
+      "title": "Bump browserstack-local from 1.5.5 to 1.5.11",
+      "number": 14533,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T16:54:08.000Z",
+      "dateUpdated": "2026-02-27T16:58:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T16:58:40.000Z",
+      "dateClosed": "2026-02-27T16:58:40.000Z"
+    },
+    {
+      "title": "Revert \"Performax adapter: Add user sync and reporting URLs\"",
+      "number": 14532,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T16:50:34.000Z",
+      "dateUpdated": "2026-02-27T16:53:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T16:50:42.000Z",
+      "dateClosed": "2026-02-27T16:50:43.000Z"
+    },
+    {
+      "title": "Performax adapter: Add user sync and reporting URLs",
+      "number": 14429,
+      "author": {
+        "login": "michalkvacek",
+        "id": 18511303
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T13:04:14.000Z",
+      "dateUpdated": "2026-02-27T19:57:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T15:47:11.000Z",
+      "dateClosed": "2026-02-27T15:47:11.000Z"
+    },
+    {
+      "title": "Revert \"mediafuseBidAdapter - Updates and Refactor\"",
+      "number": 14529,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T14:17:05.000Z",
+      "dateUpdated": "2026-02-27T15:01:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T15:01:05.000Z",
+      "dateClosed": "2026-02-27T15:01:06.000Z"
+    },
+    {
+      "title": " Prebid 11: gpt slots matching to ad units logic unification",
+      "number": 14480,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-17T15:07:07.000Z",
+      "dateUpdated": "2026-02-27T14:35:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T14:29:57.000Z",
+      "dateClosed": "2026-02-27T14:29:57.000Z"
+    },
+    {
+      "title": "mediafuseBidAdapter - Updates and Refactor",
+      "number": 14469,
+      "author": {
+        "login": "ibhattacharya-dev",
+        "id": 255350131
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T14:51:24.000Z",
+      "dateUpdated": "2026-02-28T14:57:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T09:15:30.000Z",
+      "dateClosed": "2026-02-27T09:15:30.000Z"
+    },
+    {
+      "title": "GumGum Adapter: migrate identity extraction to EIDs",
+      "number": 14511,
+      "author": {
+        "login": "ahzgg",
+        "id": 163184035
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T16:33:04.000Z",
+      "dateUpdated": "2026-02-27T09:07:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T09:07:26.000Z",
+      "dateClosed": "2026-02-27T09:07:26.000Z"
+    },
+    {
+      "title": "CI: comment when PRs add new JS files in TS migration paths",
+      "number": 14526,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-27T09:01:42.000Z",
+      "dateUpdated": "2026-02-27T09:04:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T09:02:17.000Z",
+      "dateClosed": "2026-02-27T09:02:17.000Z"
+    },
+    {
+      "title": "TeqBlaze Bidder Utils: fix uspConsent string handling in getUserSyncs",
+      "number": 14515,
+      "author": {
+        "login": "MaksymTeqBlaze",
+        "id": 172380870
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T09:53:53.000Z",
+      "dateUpdated": "2026-02-27T08:57:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-27T08:57:31.000Z",
+      "dateClosed": "2026-02-27T08:57:31.000Z"
+    },
+    {
+      "title": "New adapter - Adnimation",
+      "number": 14502,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T08:07:02.000Z",
+      "dateUpdated": "2026-02-26T19:07:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T19:07:58.000Z",
+      "dateClosed": "2026-02-26T19:07:58.000Z"
+    },
+    {
+      "title": "New adapter - Apester",
+      "number": 14516,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T14:00:22.000Z",
+      "dateUpdated": "2026-02-26T19:07:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T19:07:28.000Z",
+      "dateClosed": "2026-02-26T19:07:28.000Z"
+    },
+    {
+      "title": "bidResponseFilter: cattax handling",
+      "number": 14428,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T11:57:29.000Z",
+      "dateUpdated": "2026-02-26T16:52:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:52:17.000Z",
+      "dateClosed": "2026-02-26T16:52:17.000Z"
+    },
+    {
+      "title": "OMS Adapter: extract shared OMS/Onomagic helper utilities",
+      "number": 14508,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T15:30:30.000Z",
+      "dateUpdated": "2026-02-26T16:26:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:26:40.000Z",
+      "dateClosed": "2026-02-26T16:26:40.000Z"
+    },
+    {
+      "title": "Shaping rules: Make some TypeScript fields optional",
+      "number": 14514,
+      "author": {
+        "login": "rogerDyl",
+        "id": 104763658
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T09:35:28.000Z",
+      "dateUpdated": "2026-02-27T08:47:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:23:03.000Z",
+      "dateClosed": "2026-02-26T16:23:03.000Z"
+    },
+    {
+      "title": "ttdBidAdapter: pass imp.exp",
+      "number": 14517,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T15:39:00.000Z",
+      "dateUpdated": "2026-02-26T16:21:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:21:42.000Z",
+      "dateClosed": "2026-02-26T16:21:42.000Z"
+    },
+    {
+      "title": "Prebid 11: native event trackers handling",
+      "number": 14524,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-26T13:54:33.000Z",
+      "dateUpdated": "2026-02-26T16:19:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:19:25.000Z",
+      "dateClosed": "2026-02-26T16:19:25.000Z"
+    },
+    {
+      "title": "Conceptx bid adapter: Update request destination",
+      "number": 14420,
+      "author": {
+        "login": "cpcpn-emil",
+        "id": 115714010
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T12:43:23.000Z",
+      "dateUpdated": "2026-02-26T16:14:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:14:06.000Z",
+      "dateClosed": "2026-02-26T16:14:06.000Z"
+    },
+    {
+      "title": "Insticator Bid Adapter: Add support for 2.6rtb request/response",
+      "number": 14373,
+      "author": {
+        "login": "shubhamc-ins",
+        "id": 127132399
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-23T11:17:17.000Z",
+      "dateUpdated": "2026-02-26T16:12:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:12:27.000Z",
+      "dateClosed": "2026-02-26T16:12:27.000Z"
+    },
+    {
+      "title": "Mediasquare bid adapter: manage burl object",
+      "number": 14357,
+      "author": {
+        "login": "matthieularere-msq",
+        "id": 63732822
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-20T17:08:52.000Z",
+      "dateUpdated": "2026-02-26T16:10:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:10:39.000Z",
+      "dateClosed": "2026-02-26T16:10:39.000Z"
+    },
+    {
+      "title": "aceexBidAdapter: initial release",
+      "number": 14352,
+      "author": {
+        "login": "rishko00",
+        "id": 43280707
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-19T08:24:46.000Z",
+      "dateUpdated": "2026-02-26T16:09:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:09:12.000Z",
+      "dateClosed": "2026-02-26T16:09:12.000Z"
+    },
+    {
+      "title": "Neuwo Rtd Module: Version v2.0.0 and Quality of Life Improvements",
+      "number": 14323,
+      "author": {
+        "login": "gregneuwo",
+        "id": 226034698
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-09T13:03:46.000Z",
+      "dateUpdated": "2026-02-26T16:08:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:08:05.000Z",
+      "dateClosed": "2026-02-26T16:08:05.000Z"
+    },
+    {
+      "title": "Chrome AI RTD Provider: fix QuotaExceededError with large page content",
+      "number": 14295,
+      "author": {
+        "login": "drpaulfarrow",
+        "id": 21990123
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-23T10:11:39.000Z",
+      "dateUpdated": "2026-02-26T16:06:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:06:26.000Z",
+      "dateClosed": "2026-02-26T16:06:26.000Z"
+    },
+    {
+      "title": "Bump basic-ftp from 5.0.5 to 5.2.0",
+      "number": 14522,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-25T22:35:57.000Z",
+      "dateUpdated": "2026-02-26T16:02:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:02:03.000Z",
+      "dateClosed": "2026-02-26T16:02:03.000Z"
+    },
+    {
+      "title": "Bump minimatch",
+      "number": 14520,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-25T00:50:31.000Z",
+      "dateUpdated": "2026-02-26T16:01:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T16:01:39.000Z",
+      "dateClosed": "2026-02-26T16:01:39.000Z"
+    },
+    {
+      "title": "Documentation: adding documentation for mobianMpaaRating, mobianContentTaxonomy, mobianEsrbRating",
+      "number": 14513,
+      "author": {
+        "login": "briguy-mobian",
+        "id": 249018902
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-24T04:08:36.000Z",
+      "dateUpdated": "2026-02-26T16:58:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T15:44:02.000Z",
+      "dateClosed": "2026-02-26T15:44:02.000Z"
+    },
+    {
+      "title": "Prebid 11: add `adUnit.element` option",
+      "number": 14467,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T22:43:56.000Z",
+      "dateUpdated": "2026-02-26T15:41:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-26T15:41:41.000Z",
+      "dateClosed": "2026-02-26T15:41:41.000Z"
+    },
+    {
+      "title": "Docs: remove stale transformBidParams references",
+      "number": 14512,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T18:00:20.000Z",
+      "dateUpdated": "2026-02-23T23:19:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T23:19:34.000Z",
+      "dateClosed": "2026-02-23T23:19:35.000Z"
+    },
+    {
+      "title": "DPAI bid adapter: initial release",
+      "number": 14434,
+      "author": {
+        "login": "driftpixelai",
+        "id": 166716541
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T08:38:16.000Z",
+      "dateUpdated": "2026-02-26T16:28:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T17:13:32.000Z",
+      "dateClosed": "2026-02-23T17:13:32.000Z"
+    },
+    {
+      "title": "Revert \"Various modules: remove legacy GPT targeting fallbacks (#14450)\"",
+      "number": 14510,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T15:52:42.000Z",
+      "dateUpdated": "2026-02-23T16:08:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T16:08:27.000Z",
+      "dateClosed": "2026-02-23T16:08:27.000Z"
+    },
+    {
+      "title": "Zeta SSP Analytics Adapter: pass floors.",
+      "number": 14350,
+      "author": {
+        "login": "abermanov-zeta",
+        "id": 95416296
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-17T22:25:50.000Z",
+      "dateUpdated": "2026-02-23T15:34:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T15:34:27.000Z",
+      "dateClosed": "2026-02-23T15:34:27.000Z"
+    },
+    {
+      "title": "OMS Bid Adapter: add instl flag to imp in request",
+      "number": 14501,
+      "author": {
+        "login": "siminkovladyslav",
+        "id": 85431371
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T07:34:22.000Z",
+      "dateUpdated": "2026-02-23T15:32:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T15:32:35.000Z",
+      "dateClosed": "2026-02-23T15:32:35.000Z"
+    },
+    {
+      "title": "sevioBidAdapter - mapping by id in natives as fallback when there is …",
+      "number": 14391,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-28T12:28:31.000Z",
+      "dateUpdated": "2026-02-23T15:16:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T15:16:18.000Z",
+      "dateClosed": "2026-02-23T15:16:18.000Z"
+    },
+    {
+      "title": "AdMatic Bid Adapter : add adrubi alias",
+      "number": 14504,
+      "author": {
+        "login": "fatihkaya84",
+        "id": 10175507
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T10:43:09.000Z",
+      "dateUpdated": "2026-02-23T15:13:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T15:13:24.000Z",
+      "dateClosed": "2026-02-23T15:13:24.000Z"
+    },
+    {
+      "title": "ReVantage Bid Adapter: initial release",
+      "number": 14180,
+      "author": {
+        "login": "v0idxyz",
+        "id": 58184010
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-20T19:36:06.000Z",
+      "dateUpdated": "2026-02-23T14:59:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T14:59:10.000Z",
+      "dateClosed": "2026-02-23T14:59:10.000Z"
+    },
+    {
+      "title": "Adcluster Bid Adapter: Support Adcluster",
+      "number": 14050,
+      "author": {
+        "login": "adclusterdev",
+        "id": 236771058
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-22T00:48:49.000Z",
+      "dateUpdated": "2026-02-23T15:00:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T14:38:42.000Z",
+      "dateClosed": "2026-02-23T14:38:42.000Z"
+    },
+    {
+      "title": "PubmaticBidAdapter : Setting alwaysHasCapacity flag to true",
+      "number": 14500,
+      "author": {
+        "login": "pm-priyanka-deshmane",
+        "id": 107103300
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-23T06:53:05.000Z",
+      "dateUpdated": "2026-02-23T14:37:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T14:37:37.000Z",
+      "dateClosed": "2026-02-23T14:37:37.000Z"
+    },
+    {
+      "title": "Bump ajv from 6.12.6 to 6.14.0",
+      "number": 14499,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-21T17:18:18.000Z",
+      "dateUpdated": "2026-02-23T14:40:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-23T14:37:14.000Z",
+      "dateClosed": "2026-02-23T14:37:15.000Z"
+    },
+    {
+      "title": "Fix several typos in comments and tests",
+      "number": 14498,
+      "author": {
+        "login": "VedantMadane",
+        "id": 6527493
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-21T08:15:34.000Z",
+      "dateUpdated": "2026-02-21T10:59:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-21T10:59:07.000Z",
+      "dateClosed": "2026-02-21T10:59:07.000Z"
+    },
+    {
+      "title": "Core: disabling fingerprinting apis",
+      "number": 14404,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T11:20:11.000Z",
+      "dateUpdated": "2026-02-20T19:55:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:55:46.000Z",
+      "dateClosed": "2026-02-20T19:55:46.000Z"
+    },
+    {
+      "title": "New Adapter: Harion",
+      "number": 14398,
+      "author": {
+        "login": "markappmedia",
+        "id": 257992832
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-29T13:50:27.000Z",
+      "dateUpdated": "2026-04-22T10:44:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:39:21.000Z",
+      "dateClosed": "2026-02-20T19:39:21.000Z"
+    },
+    {
+      "title": "LeagueM BId Adapter: initial release",
+      "number": 14479,
+      "author": {
+        "login": "mo4rock",
+        "id": 98119227
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-16T14:53:14.000Z",
+      "dateUpdated": "2026-02-20T19:38:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:38:39.000Z",
+      "dateClosed": "2026-02-20T19:38:39.000Z"
+    },
+    {
+      "title": "InsurAds Bid Adapter: Initial Implementation",
+      "number": 14470,
+      "author": {
+        "login": "JoseClimaco",
+        "id": 1490338
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T15:24:35.000Z",
+      "dateUpdated": "2026-02-20T19:48:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:26:13.000Z",
+      "dateClosed": "2026-02-20T19:26:13.000Z"
+    },
+    {
+      "title": "Floxis Bid Adapter: initial release",
+      "number": 13934,
+      "author": {
+        "login": "floxis-tech",
+        "id": 234334311
+      },
+      "assignees": [
+        "osazos"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-09-25T14:09:09.000Z",
+      "dateUpdated": "2026-02-20T19:24:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:24:27.000Z",
+      "dateClosed": "2026-02-20T19:24:27.000Z"
+    },
+    {
+      "title": "Proxistore Bid Adapter: migration to OpenRTB",
+      "number": 14411,
+      "author": {
+        "login": "anthonyrichir",
+        "id": 5638857
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-03T20:02:46.000Z",
+      "dateUpdated": "2026-02-20T19:13:01.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:13:00.000Z",
+      "dateClosed": "2026-02-20T19:13:00.000Z"
+    },
+    {
+      "title": "Teal bid adapter: include native and video media types",
+      "number": 14493,
+      "author": {
+        "login": "johnclc",
+        "id": 12496731
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T16:58:56.000Z",
+      "dateUpdated": "2026-02-20T19:11:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:11:40.000Z",
+      "dateClosed": "2026-02-20T19:11:41.000Z"
+    },
+    {
+      "title": "New adapter: Verben",
+      "number": 14494,
+      "author": {
+        "login": "verben-gh",
+        "id": 258838817
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-19T19:44:35.000Z",
+      "dateUpdated": "2026-02-20T19:26:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T19:10:28.000Z",
+      "dateClosed": "2026-02-20T19:10:28.000Z"
+    },
+    {
+      "title": "TargetVideo bid adapter: send price floor param",
+      "number": 14406,
+      "author": {
+        "login": "danijel-ristic",
+        "id": 168181386
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-03T08:40:30.000Z",
+      "dateUpdated": "2026-02-20T18:43:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T18:43:28.000Z",
+      "dateClosed": "2026-02-20T18:43:28.000Z"
+    },
+    {
+      "title": "Various modules: remove legacy GPT targeting fallbacks",
+      "number": 14450,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T23:04:34.000Z",
+      "dateUpdated": "2026-02-20T18:23:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-20T18:23:24.000Z",
+      "dateClosed": "2026-02-20T18:23:24.000Z"
+    },
+    {
+      "title": "Prebid 11: remove deprecated DNT/DoNotTrack usage and force static dnt handling",
+      "number": 14448,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T22:00:17.000Z",
+      "dateUpdated": "2026-02-19T16:57:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-19T16:57:20.000Z",
+      "dateClosed": "2026-02-19T16:57:20.000Z"
+    },
+    {
+      "title": "Floor module: add enforcement allowlist config option",
+      "number": 14455,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T16:13:33.000Z",
+      "dateUpdated": "2026-02-18T17:00:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-18T17:00:35.000Z",
+      "dateClosed": "2026-02-18T17:00:36.000Z"
+    },
+    {
+      "title": "Prebid 11: remove superfluous addAdUnits and seat_non_bid event emission",
+      "number": 14466,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T21:18:38.000Z",
+      "dateUpdated": "2026-02-18T16:00:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-18T16:00:03.000Z",
+      "dateClosed": "2026-02-18T16:00:03.000Z"
+    },
+    {
+      "title": "Bump fast-xml-parser from 5.3.4 to 5.3.6",
+      "number": 14482,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T04:40:17.000Z",
+      "dateUpdated": "2026-02-18T14:08:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-18T14:08:49.000Z",
+      "dateClosed": "2026-02-18T14:08:49.000Z"
+    },
+    {
+      "title": "Bump qs from 6.14.1 to 6.14.2",
+      "number": 14478,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-14T12:43:42.000Z",
+      "dateUpdated": "2026-02-17T15:34:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-17T15:34:56.000Z",
+      "dateClosed": "2026-02-17T15:34:56.000Z"
+    },
+    {
+      "title": "Core: restore getDNT payload mapping across adapters",
+      "number": 14474,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T17:29:04.000Z",
+      "dateUpdated": "2026-02-12T17:51:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T17:29:14.000Z",
+      "dateClosed": "2026-02-12T17:29:14.000Z"
+    },
+    {
+      "title": "OpenX Adapter: restore getDNT usage for DNT compatibility",
+      "number": 14472,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T16:49:32.000Z",
+      "dateUpdated": "2026-02-12T17:26:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T16:49:49.000Z",
+      "dateClosed": "2026-02-12T16:49:49.000Z"
+    },
+    {
+      "title": "Codex-generated pull request",
+      "number": 14471,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-12T16:34:52.000Z",
+      "dateUpdated": "2026-02-12T17:11:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T16:36:00.000Z",
+      "dateClosed": "2026-02-12T16:36:00.000Z"
+    },
+    {
+      "title": "OMS Bid Adapter: add prebid js version to request payload",
+      "number": 14421,
+      "author": {
+        "login": "siminkovladyslav",
+        "id": 85431371
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T14:59:13.000Z",
+      "dateUpdated": "2026-02-12T16:31:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T16:31:44.000Z",
+      "dateClosed": "2026-02-12T16:31:44.000Z"
+    },
+    {
+      "title": "limelight: Send open rtb bid requests from our prebid js adapter",
+      "number": 14397,
+      "author": {
+        "login": "RuzannaAvetisyan",
+        "id": 44729750
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-29T13:43:52.000Z",
+      "dateUpdated": "2026-02-12T16:30:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T16:30:47.000Z",
+      "dateClosed": "2026-02-12T16:30:47.000Z"
+    },
+    {
+      "title": "Core: remove type declaration for `getStatusCode`",
+      "number": 14431,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T17:11:51.000Z",
+      "dateUpdated": "2026-02-12T12:28:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T12:28:47.000Z",
+      "dateClosed": "2026-02-12T12:28:48.000Z"
+    },
+    {
+      "title": "Panxo RTD Provider: initial release",
+      "number": 14419,
+      "author": {
+        "login": "css12s",
+        "id": 16015876
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T02:11:44.000Z",
+      "dateUpdated": "2026-02-12T10:59:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-12T10:59:37.000Z",
+      "dateClosed": "2026-02-12T10:59:37.000Z"
+    },
+    {
+      "title": "bidMatic bid adapter: update placement info logic",
+      "number": 14418,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-05T18:53:04.000Z",
+      "dateUpdated": "2026-02-11T21:47:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T21:47:18.000Z",
+      "dateClosed": "2026-02-11T21:47:18.000Z"
+    },
+    {
+      "title": "Revert \"storage control strict: remove null callback placeholders from storage manager reads/writes\"",
+      "number": 14465,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T20:22:52.000Z",
+      "dateUpdated": "2026-02-11T20:28:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T20:23:03.000Z",
+      "dateClosed": "2026-02-11T20:23:03.000Z"
+    },
+    {
+      "title": "Prebid 11: turn off storageControl during testing",
+      "number": 14464,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T19:14:47.000Z",
+      "dateUpdated": "2026-02-11T20:07:17.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T20:07:15.000Z",
+      "dateClosed": "2026-02-11T20:07:15.000Z"
+    },
+    {
+      "title": "Prebid 11: 33across id system: make compatible with storage control change",
+      "number": 14462,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T18:42:18.000Z",
+      "dateUpdated": "2026-02-11T19:02:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T19:02:24.000Z",
+      "dateClosed": "2026-02-11T19:02:24.000Z"
+    },
+    {
+      "title": "Prebid 11: remove adpod mediatype",
+      "number": 14451,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T23:05:36.000Z",
+      "dateUpdated": "2026-02-11T18:41:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T18:41:17.000Z",
+      "dateClosed": "2026-02-11T18:41:17.000Z"
+    },
+    {
+      "title": "Mile Bid Adapter: Initial release",
+      "number": 14388,
+      "author": {
+        "login": "shashankatd",
+        "id": 101392500
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-28T10:14:12.000Z",
+      "dateUpdated": "2026-02-11T18:33:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T18:33:28.000Z",
+      "dateClosed": "2026-02-11T18:33:28.000Z"
+    },
+    {
+      "title": "storage control strict: remove null callback placeholders from storage manager reads/writes",
+      "number": 14461,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T18:15:13.000Z",
+      "dateUpdated": "2026-02-11T18:18:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T18:16:02.000Z",
+      "dateClosed": "2026-02-11T18:16:02.000Z"
+    },
+    {
+      "title": "ShinezRtb Adapter: stabilize unique deal id spec timing",
+      "number": 14458,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T17:50:27.000Z",
+      "dateUpdated": "2026-02-11T18:05:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T18:04:57.000Z",
+      "dateClosed": "2026-02-11T18:04:58.000Z"
+    },
+    {
+      "title": "ShinexRTB: fix flaky test",
+      "number": 14446,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T20:57:02.000Z",
+      "dateUpdated": "2026-02-11T17:29:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T17:29:16.000Z",
+      "dateClosed": "2026-02-11T17:29:16.000Z"
+    },
+    {
+      "title": "Yaleo Bid Adapter: initial release",
+      "number": 14452,
+      "author": {
+        "login": "alexandr-kim-vl",
+        "id": 47887567
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T05:32:38.000Z",
+      "dateUpdated": "2026-02-11T17:21:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T17:21:05.000Z",
+      "dateClosed": "2026-02-11T17:21:05.000Z"
+    },
+    {
+      "title": "Sevio bid adapter fallback natives",
+      "number": 14390,
+      "author": {
+        "login": "petrican",
+        "id": 1708561
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-28T12:22:52.000Z",
+      "dateUpdated": "2026-02-11T17:14:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T17:14:36.000Z",
+      "dateClosed": "2026-02-11T17:14:36.000Z"
+    },
+    {
+      "title": "33across Adapter: stabilize getId storage cleanup tests",
+      "number": 14457,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T16:55:47.000Z",
+      "dateUpdated": "2026-02-11T17:00:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T16:55:59.000Z",
+      "dateClosed": "2026-02-11T16:55:59.000Z"
+    },
+    {
+      "title": "Adapters: remove adpod media type handling across bidders",
+      "number": 14456,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T16:51:04.000Z",
+      "dateUpdated": "2026-02-11T16:56:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T16:51:14.000Z",
+      "dateClosed": "2026-02-11T16:51:14.000Z"
+    },
+    {
+      "title": "Prebid 11: remove bidAccepted event emission",
+      "number": 14449,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T22:16:17.000Z",
+      "dateUpdated": "2026-04-16T00:25:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T16:06:20.000Z",
+      "dateClosed": "2026-02-11T16:06:20.000Z"
+    },
+    {
+      "title": "Sovrn Bid Adapter: set alwaysHasCapacity flag to true",
+      "number": 14454,
+      "author": {
+        "login": "dmitrybor",
+        "id": 36228400
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-11T13:27:32.000Z",
+      "dateUpdated": "2026-02-11T15:46:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T15:46:56.000Z",
+      "dateClosed": "2026-02-11T15:46:56.000Z"
+    },
+    {
+      "title": "Agent guidelines: Add context for repo history access",
+      "number": 14430,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T16:59:46.000Z",
+      "dateUpdated": "2026-02-11T15:30:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T15:30:25.000Z",
+      "dateClosed": "2026-02-11T15:30:25.000Z"
+    },
+    {
+      "title": "missenaBidAdapter - Add GPP consent support to user sync URL",
+      "number": 14436,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T14:01:43.000Z",
+      "dateUpdated": "2026-02-11T15:30:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T15:30:06.000Z",
+      "dateClosed": "2026-02-11T15:30:06.000Z"
+    },
+    {
+      "title": "Build process: Add .cache to gulp clean",
+      "number": 14438,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T14:57:05.000Z",
+      "dateUpdated": "2026-02-11T15:29:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-11T15:29:54.000Z",
+      "dateClosed": "2026-02-11T15:29:54.000Z"
+    },
+    {
+      "title": "Core: update storage disclosure for prebid.storage",
+      "number": 14442,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T17:06:52.000Z",
+      "dateUpdated": "2026-02-10T22:54:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T22:54:45.000Z",
+      "dateClosed": "2026-02-10T22:54:45.000Z"
+    },
+    {
+      "title": "Codex-generated pull request",
+      "number": 14445,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T20:49:04.000Z",
+      "dateUpdated": "2026-02-10T20:51:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T20:49:54.000Z",
+      "dateClosed": "2026-02-10T20:49:54.000Z"
+    },
+    {
+      "title": "Bump axios from 1.13.2 to 1.13.5",
+      "number": 14443,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T17:57:27.000Z",
+      "dateUpdated": "2026-02-10T20:35:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T20:35:55.000Z",
+      "dateClosed": "2026-02-10T20:35:55.000Z"
+    },
+    {
+      "title": "33acrossId System: stabilize missing supplemental ID storage tests",
+      "number": 14441,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T15:56:47.000Z",
+      "dateUpdated": "2026-02-10T17:56:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T17:56:33.000Z",
+      "dateClosed": "2026-02-10T17:56:33.000Z"
+    },
+    {
+      "title": "Github Actions: bump download artifact",
+      "number": 14440,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T15:51:29.000Z",
+      "dateUpdated": "2026-02-10T17:56:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T17:56:13.000Z",
+      "dateClosed": "2026-02-10T17:56:13.000Z"
+    },
+    {
+      "title": "Prebid 11: change storage control default to strict",
+      "number": 14439,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T15:36:10.000Z",
+      "dateUpdated": "2026-02-10T17:55:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T17:55:46.000Z",
+      "dateClosed": "2026-02-10T17:55:46.000Z"
+    },
+    {
+      "title": "LocID User ID Submodule: add locIdSystem",
+      "number": 14367,
+      "author": {
+        "login": "tpc-brian",
+        "id": 255932676
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T19:05:37.000Z",
+      "dateUpdated": "2026-02-10T15:07:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T15:07:35.000Z",
+      "dateClosed": "2026-02-10T15:07:35.000Z"
+    },
+    {
+      "title": "Optidigital Bid Adapter: Adding ortb2 device, keywords, addtlConsent, gpid",
+      "number": 14383,
+      "author": {
+        "login": "optidigital-prebid",
+        "id": 124287395
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-27T15:43:10.000Z",
+      "dateUpdated": "2026-02-10T14:53:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-10T14:53:35.000Z",
+      "dateClosed": "2026-02-10T14:53:35.000Z"
+    },
+    {
+      "title": "Prebid 11: remove PAAPI",
+      "number": 14432,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-09T19:36:53.000Z",
+      "dateUpdated": "2026-02-09T20:33:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-09T20:33:09.000Z",
+      "dateClosed": "2026-02-09T20:33:09.000Z"
+    },
+    {
+      "title": "gam video module: Include us_privacy based on gpp when downloading VAST for the IMA player",
+      "number": 14424,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T17:35:59.000Z",
+      "dateUpdated": "2026-02-09T13:00:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-09T12:59:49.000Z",
+      "dateClosed": "2026-02-09T12:59:49.000Z"
+    },
+    {
+      "title": "Yahoo Ads Bid Adapter: Add Transaction ID (TID) Support",
+      "number": 14403,
+      "author": {
+        "login": "DeepthiNeeladri",
+        "id": 12966265
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T08:22:15.000Z",
+      "dateUpdated": "2026-02-06T17:04:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-06T17:04:02.000Z",
+      "dateClosed": "2026-02-06T17:04:02.000Z"
+    },
+    {
+      "title": "Yahoo Ads Bid Adapter: Add Transaction ID (TID) Support legacy",
+      "number": 14423,
+      "author": {
+        "login": "DeepthiNeeladri",
+        "id": 12966265
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-06T16:14:42.000Z",
+      "dateUpdated": "2026-02-06T17:03:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-06T17:03:34.000Z",
+      "dateClosed": "2026-02-06T17:03:34.000Z"
+    },
+    {
+      "title": "TeqBlaze Sales Agent Bid Adapter: initial release",
+      "number": 14413,
+      "author": {
+        "login": "MaksymTeqBlaze",
+        "id": 172380870
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-04T15:23:05.000Z",
+      "dateUpdated": "2026-02-05T19:58:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T19:57:44.000Z",
+      "dateClosed": "2026-02-05T19:57:45.000Z"
+    },
+    {
+      "title": "Rubicon Bid Adapter: new rubicon apex url",
+      "number": 14417,
+      "author": {
+        "login": "robertrmartinez",
+        "id": 13972794
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-05T16:15:51.000Z",
+      "dateUpdated": "2026-02-05T19:56:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T19:56:29.000Z",
+      "dateClosed": "2026-02-05T19:56:29.000Z"
+    },
+    {
+      "title": "Update yandexBidAdapter.md",
+      "number": 14416,
+      "author": {
+        "login": "yndxcdn",
+        "id": 185477856
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-05T14:08:49.000Z",
+      "dateUpdated": "2026-02-05T19:53:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T19:53:53.000Z",
+      "dateClosed": "2026-02-05T19:53:53.000Z"
+    },
+    {
+      "title": "New module: Shaping rules",
+      "number": 14079,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-29T13:26:39.000Z",
+      "dateUpdated": "2026-02-05T19:48:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T19:47:37.000Z",
+      "dateClosed": "2026-02-05T19:47:37.000Z"
+    },
+    {
+      "title": "percentInView: fix bug where viewability calculation is inaccurate inside friendly iframes",
+      "number": 14414,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-04T20:13:31.000Z",
+      "dateUpdated": "2026-02-05T02:33:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:33:38.000Z",
+      "dateClosed": "2026-02-05T02:33:38.000Z"
+    },
+    {
+      "title": "Kobler bid adapter: pass adunitcode in bid request.",
+      "number": 14392,
+      "author": {
+        "login": "acsbendi",
+        "id": 30595431
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-28T15:38:07.000Z",
+      "dateUpdated": "2026-02-05T02:29:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:29:02.000Z",
+      "dateClosed": "2026-02-05T02:29:02.000Z"
+    },
+    {
+      "title": "WURFL RTD: update module documentation",
+      "number": 14364,
+      "author": {
+        "login": "lucor",
+        "id": 313577
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T16:12:24.000Z",
+      "dateUpdated": "2026-02-05T02:14:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:14:59.000Z",
+      "dateClosed": "2026-02-05T02:14:59.000Z"
+    },
+    {
+      "title": "Humansecurity RTD Provider: migrate to TypeScript and optimize token handling",
+      "number": 14362,
+      "author": {
+        "login": "florianerl",
+        "id": 46747754
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T11:17:31.000Z",
+      "dateUpdated": "2026-02-05T02:14:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:14:31.000Z",
+      "dateClosed": "2026-02-05T02:14:31.000Z"
+    },
+    {
+      "title": "New library: placement position & BidmaticBidAdapter: update viewability tracking logic",
+      "number": 14372,
+      "author": {
+        "login": "Gunnar97",
+        "id": 135347097
+      },
+      "assignees": [
+        "patmmccann",
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-23T08:33:19.000Z",
+      "dateUpdated": "2026-02-05T19:54:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:12:52.000Z",
+      "dateClosed": "2026-02-05T02:12:52.000Z"
+    },
+    {
+      "title": "Remove PAAPI-related functionality from Unruly adapter",
+      "number": 14358,
+      "author": {
+        "login": "mpimentel-nexxen",
+        "id": 212783945
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T01:56:08.000Z",
+      "dateUpdated": "2026-02-05T02:11:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:11:48.000Z",
+      "dateClosed": "2026-02-05T02:11:48.000Z"
+    },
+    {
+      "title": "Core: loading external scripts linting rule",
+      "number": 14354,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [
+        "patmmccann",
+        "dgirardi"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-20T11:51:59.000Z",
+      "dateUpdated": "2026-02-05T02:09:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:09:30.000Z",
+      "dateClosed": "2026-02-05T02:09:30.000Z"
+    },
+    {
+      "title": "ID5 ID module: add option to use custom external targeting ",
+      "number": 14324,
+      "author": {
+        "login": "pgomulka-id5",
+        "id": 253932022
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-09T15:52:07.000Z",
+      "dateUpdated": "2026-02-05T02:08:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-05T02:08:15.000Z",
+      "dateClosed": "2026-02-05T02:08:15.000Z"
+    },
+    {
+      "title": "Bump @isaacs/brace-expansion from 5.0.0 to 5.0.1",
+      "number": 14410,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-03T19:51:22.000Z",
+      "dateUpdated": "2026-02-04T20:49:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-04T20:49:52.000Z",
+      "dateClosed": "2026-02-04T20:49:52.000Z"
+    },
+    {
+      "title": "realTimeData: fix bug where setting circular references in FPD causes activity checks to get stuck in an infinite loop",
+      "number": 14366,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-21T17:52:38.000Z",
+      "dateUpdated": "2026-02-04T20:49:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-04T20:49:19.000Z",
+      "dateClosed": "2026-02-04T20:49:19.000Z"
+    },
+    {
+      "title": "BeOp Bid Adapter: Fix slot name detection to use best practices",
+      "number": 14399,
+      "author": {
+        "login": "sebrobert",
+        "id": 10391799
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-30T10:11:38.000Z",
+      "dateUpdated": "2026-02-04T08:56:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-04T08:56:07.000Z",
+      "dateClosed": "2026-02-04T08:56:07.000Z"
+    },
+    {
+      "title": "Rubicon bid adapter - Updated size id for 1920x1080 according to the api endpoint response",
+      "number": 14377,
+      "author": {
+        "login": "ptomasroos",
+        "id": 1064547
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-23T16:41:07.000Z",
+      "dateUpdated": "2026-02-02T20:41:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-02T20:41:10.000Z",
+      "dateClosed": "2026-02-02T20:41:10.000Z"
+    },
+    {
+      "title": "Bump actions/upload-artifact from 4 to 6",
+      "number": 14402,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-01T14:32:37.000Z",
+      "dateUpdated": "2026-02-02T15:31:46.000Z",
+      "status": "merged",
+      "dateMerged": "2026-02-02T15:31:44.000Z",
+      "dateClosed": "2026-02-02T15:31:44.000Z"
+    }
+  ]
+}

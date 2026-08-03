@@ -1,0 +1,771 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server-java",
+    "year": 2026,
+    "month": 7,
+    "itemCount": 46,
+    "lastUpdated": "2026-08-03T19:53:23.824Z"
+  },
+  "items": [
+    {
+      "title": "RFC 3986 enabled by default",
+      "number": 4581,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-30T14:09:29.000Z",
+      "dateUpdated": "2026-07-30T15:16:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T15:16:19.000Z",
+      "dateClosed": "2026-07-30T15:16:19.000Z"
+    },
+    {
+      "title": "ResetDigital: Switch to OpenRTB (#4385)",
+      "number": 4463,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T08:03:22.000Z",
+      "dateUpdated": "2026-07-30T13:48:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T13:48:34.000Z",
+      "dateClosed": "2026-07-30T13:48:34.000Z"
+    },
+    {
+      "title": "Gzip: Add decompression handler",
+      "number": 4498,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-13T13:10:49.000Z",
+      "dateUpdated": "2026-07-30T12:38:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T12:38:43.000Z",
+      "dateClosed": "2026-07-30T12:38:43.000Z"
+    },
+    {
+      "title": "Rename `radianfusion` to `radiantfusion`",
+      "number": 4579,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-28T12:23:12.000Z",
+      "dateUpdated": "2026-07-30T12:38:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T12:38:05.000Z",
+      "dateClosed": "2026-07-30T12:38:05.000Z"
+    },
+    {
+      "title": "Rename `rubicon` leftovers to `magnite`",
+      "number": 4580,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-29T14:00:55.000Z",
+      "dateUpdated": "2026-07-30T12:30:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T12:30:56.000Z",
+      "dateClosed": "2026-07-30T12:30:56.000Z"
+    },
+    {
+      "title": "Rename `bidagency` to `bidgency`",
+      "number": 4578,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-28T12:18:10.000Z",
+      "dateUpdated": "2026-07-30T12:25:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T12:25:26.000Z",
+      "dateClosed": "2026-07-30T12:25:26.000Z"
+    },
+    {
+      "title": "Require `vendor-id` for aliases",
+      "number": 4533,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-08T17:36:01.000Z",
+      "dateUpdated": "2026-07-30T12:10:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-30T12:10:34.000Z",
+      "dateClosed": "2026-07-30T12:10:34.000Z"
+    },
+    {
+      "title": "Magnite adapter: Rebrand Rubicon adapter into Magnite adapter",
+      "number": 4573,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-23T13:26:38.000Z",
+      "dateUpdated": "2026-07-27T17:14:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-27T17:14:08.000Z",
+      "dateClosed": "2026-07-27T17:14:08.000Z"
+    },
+    {
+      "title": "Tests: Add support for endpoints with same path but different method",
+      "number": 4382,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T12:21:28.000Z",
+      "dateUpdated": "2026-07-27T16:27:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-27T16:27:31.000Z",
+      "dateClosed": "2026-07-27T16:27:31.000Z"
+    },
+    {
+      "title": "Test: Replaceing mock server with wiremock",
+      "number": 4390,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-18T10:35:16.000Z",
+      "dateUpdated": "2026-07-27T16:25:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-27T16:25:55.000Z",
+      "dateClosed": "2026-07-27T16:25:55.000Z"
+    },
+    {
+      "title": "Fix VendorListFileStoreTest",
+      "number": 4575,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-23T18:51:19.000Z",
+      "dateUpdated": "2026-07-23T19:14:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T19:14:55.000Z",
+      "dateClosed": "2026-07-23T19:14:55.000Z"
+    },
+    {
+      "title": "Modules: Rename open-source modules and align hook suffixes",
+      "number": 4427,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-13T16:23:17.000Z",
+      "dateUpdated": "2026-07-23T15:07:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T15:07:17.000Z",
+      "dateClosed": "2026-07-23T15:07:17.000Z"
+    },
+    {
+      "title": "Tests: Support GET interface profiles",
+      "number": 4239,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-10-14T18:28:36.000Z",
+      "dateUpdated": "2026-07-23T14:50:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:50:01.000Z",
+      "dateClosed": "2026-07-23T14:50:01.000Z"
+    },
+    {
+      "title": "Add `http_method` field to `ExtRequestPrebidServer`",
+      "number": 4378,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-05T21:55:51.000Z",
+      "dateUpdated": "2026-07-23T14:47:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:47:30.000Z",
+      "dateClosed": "2026-07-23T14:47:30.000Z"
+    },
+    {
+      "title": "Tests: Add http_method field to ExtRequestPrebidServer",
+      "number": 4384,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-10T16:53:14.000Z",
+      "dateUpdated": "2026-07-23T14:42:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:42:38.000Z",
+      "dateClosed": "2026-07-23T14:42:38.000Z"
+    },
+    {
+      "title": "Update setuid metrics to use bidder name instead of cookie family name",
+      "number": 4571,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-23T12:54:47.000Z",
+      "dateUpdated": "2026-07-23T14:41:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:41:47.000Z",
+      "dateClosed": "2026-07-23T14:41:47.000Z"
+    },
+    {
+      "title": "Modularity: Add support for endpoints with same path but different method",
+      "number": 4372,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-02T22:07:48.000Z",
+      "dateUpdated": "2026-07-23T14:36:01.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:35:59.000Z",
+      "dateClosed": "2026-07-23T14:35:59.000Z"
+    },
+    {
+      "title": "Handle GVL deletions",
+      "number": 4519,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-28T12:18:16.000Z",
+      "dateUpdated": "2026-07-23T14:30:34.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:30:32.000Z",
+      "dateClosed": "2026-07-23T14:30:32.000Z"
+    },
+    {
+      "title": "Remove PAAPI related code",
+      "number": 4514,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-25T21:13:40.000Z",
+      "dateUpdated": "2026-07-23T14:10:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T14:10:02.000Z",
+      "dateClosed": "2026-07-23T14:10:02.000Z"
+    },
+    {
+      "title": "HttpClient: Rename `http-client.use-compression` to `http-client.use-decompression` ",
+      "number": 4574,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-23T13:40:20.000Z",
+      "dateUpdated": "2026-07-23T13:56:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:56:54.000Z",
+      "dateClosed": "2026-07-23T13:56:54.000Z"
+    },
+    {
+      "title": "Remove fields from requests to bidders",
+      "number": 4332,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T15:01:18.000Z",
+      "dateUpdated": "2026-07-23T13:55:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:55:34.000Z",
+      "dateClosed": "2026-07-23T13:55:35.000Z"
+    },
+    {
+      "title": "Remove `support-cors` config",
+      "number": 4429,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-16T15:20:27.000Z",
+      "dateUpdated": "2026-07-23T13:42:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:29:26.000Z",
+      "dateClosed": "2026-07-23T13:29:26.000Z"
+    },
+    {
+      "title": "Allowed duplicate cookie family names for priority sync",
+      "number": 4572,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-23T13:07:22.000Z",
+      "dateUpdated": "2026-07-23T13:23:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:23:12.000Z",
+      "dateClosed": "2026-07-23T13:23:12.000Z"
+    },
+    {
+      "title": "Video: Deprecate endpoint",
+      "number": 4555,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [
+        "And1sS"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-13T11:58:14.000Z",
+      "dateUpdated": "2026-07-23T13:21:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:21:37.000Z",
+      "dateClosed": "2026-07-23T13:21:38.000Z"
+    },
+    {
+      "title": "Housekeeping: Remove old unused PG classes",
+      "number": 4432,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-18T16:09:12.000Z",
+      "dateUpdated": "2026-07-23T13:15:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:15:56.000Z",
+      "dateClosed": "2026-07-23T13:15:56.000Z"
+    },
+    {
+      "title": "Logger: Replace static sampling with configurable",
+      "number": 4408,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-02-26T12:24:13.000Z",
+      "dateUpdated": "2026-07-23T13:14:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:14:44.000Z",
+      "dateClosed": "2026-07-23T13:14:44.000Z"
+    },
+    {
+      "title": "Intertech: Remove Adapter",
+      "number": 4433,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-20T11:51:32.000Z",
+      "dateUpdated": "2026-07-23T13:14:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:14:33.000Z",
+      "dateClosed": "2026-07-23T13:14:33.000Z"
+    },
+    {
+      "title": "DXKulture: Remove Adapter",
+      "number": 4434,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-20T12:00:13.000Z",
+      "dateUpdated": "2026-07-23T13:13:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:13:21.000Z",
+      "dateClosed": "2026-07-23T13:13:21.000Z"
+    },
+    {
+      "title": "Adsinteractive: Remove Adapter",
+      "number": 4567,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-21T09:56:21.000Z",
+      "dateUpdated": "2026-07-23T13:13:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:13:11.000Z",
+      "dateClosed": "2026-07-23T13:13:11.000Z"
+    },
+    {
+      "title": "Telaria: Remove Adapter",
+      "number": 4566,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-21T09:53:31.000Z",
+      "dateUpdated": "2026-07-23T13:13:02.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-23T13:13:01.000Z",
+      "dateClosed": "2026-07-23T13:13:01.000Z"
+    },
+    {
+      "title": "Use Vert.x Template for UserSync",
+      "number": 4569,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-21T14:17:40.000Z",
+      "dateUpdated": "2026-07-21T21:49:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-21T21:19:40.000Z",
+      "dateClosed": "2026-07-21T21:19:40.000Z"
+    },
+    {
+      "title": "Vert.x Template: Fix bugs",
+      "number": 4568,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-21T11:39:37.000Z",
+      "dateUpdated": "2026-07-21T12:19:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-21T12:19:20.000Z",
+      "dateClosed": "2026-07-21T12:19:20.000Z"
+    },
+    {
+      "title": "Add Vert.x `UriTemplate`",
+      "number": 4444,
+      "author": {
+        "login": "CTMBNara",
+        "id": 45672370
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-03-31T23:09:46.000Z",
+      "dateUpdated": "2026-07-21T11:24:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-20T13:58:10.000Z",
+      "dateClosed": "2026-07-20T13:58:10.000Z"
+    },
+    {
+      "title": "Test: Remove `PAAPI` feature",
+      "number": 4298,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-28T14:21:17.000Z",
+      "dateUpdated": "2026-07-20T08:40:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-20T08:40:13.000Z",
+      "dateClosed": "2026-07-20T08:40:13.000Z"
+    },
+    {
+      "title": "Update functional tests",
+      "number": 4559,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-16T09:21:23.000Z",
+      "dateUpdated": "2026-07-16T13:59:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T13:59:22.000Z",
+      "dateClosed": "2026-07-16T13:59:22.000Z"
+    },
+    {
+      "title": "Update invalid functional tests after vertx uri template update",
+      "number": 4556,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-14T12:53:17.000Z",
+      "dateUpdated": "2026-07-16T10:04:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-16T10:04:17.000Z",
+      "dateClosed": "2026-07-16T10:04:17.000Z"
+    },
+    {
+      "title": "New adapter: Microsoft",
+      "number": 4310,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-05T13:18:24.000Z",
+      "dateUpdated": "2026-07-15T16:04:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-15T16:04:33.000Z",
+      "dateClosed": "2026-07-15T16:04:33.000Z"
+    },
+    {
+      "title": "Allow duplicate cookie family names",
+      "number": 4316,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-10T14:41:30.000Z",
+      "dateUpdated": "2026-07-15T15:22:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-15T15:21:29.000Z",
+      "dateClosed": "2026-07-15T15:21:29.000Z"
+    },
+    {
+      "title": "Cookie sync: Make SetuidHandler bidder lookup case insensitive",
+      "number": 4557,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-15T11:31:43.000Z",
+      "dateUpdated": "2026-07-15T11:44:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-15T11:44:14.000Z",
+      "dateClosed": "2026-07-15T11:44:14.000Z"
+    },
+    {
+      "title": "Fix flaky tests",
+      "number": 4554,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-13T09:03:46.000Z",
+      "dateUpdated": "2026-07-13T12:21:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-13T12:21:20.000Z",
+      "dateClosed": "2026-07-13T12:21:20.000Z"
+    },
+    {
+      "title": "Update cookie sync to use bidder name instead of cookie family",
+      "number": 4464,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-16T12:37:28.000Z",
+      "dateUpdated": "2026-07-09T15:01:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-09T14:59:01.000Z",
+      "dateClosed": "2026-07-09T14:59:01.000Z"
+    },
+    {
+      "title": "Tests: Update cookie sync to use bidder name instead of cookie family",
+      "number": 4553,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-09T12:01:41.000Z",
+      "dateUpdated": "2026-07-09T14:05:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-09T14:04:57.000Z",
+      "dateClosed": "2026-07-09T14:04:57.000Z"
+    },
+    {
+      "title": "Secondary bidders",
+      "number": 4331,
+      "author": {
+        "login": "Lightwood13",
+        "id": 33136089
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-01-05T14:29:29.000Z",
+      "dateUpdated": "2026-07-08T15:03:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-08T15:03:48.000Z",
+      "dateClosed": "2026-07-08T15:03:48.000Z"
+    },
+    {
+      "title": "Test: Secondary bidder",
+      "number": 4328,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2025-12-24T22:15:11.000Z",
+      "dateUpdated": "2026-07-08T12:47:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-08T12:47:23.000Z",
+      "dateClosed": "2026-07-08T12:47:23.000Z"
+    },
+    {
+      "title": "Dependencies: Bump Vertx and Spring boot to next major version",
+      "number": 4520,
+      "author": {
+        "login": "And1sS",
+        "id": 28010702
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-28T12:33:07.000Z",
+      "dateUpdated": "2026-07-07T13:16:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-07T13:16:30.000Z",
+      "dateClosed": "2026-07-07T13:16:30.000Z"
+    },
+    {
+      "title": "Tests: Handle GVL deletions",
+      "number": 4470,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-23T08:44:49.000Z",
+      "dateUpdated": "2026-07-05T16:19:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-07-05T16:19:55.000Z",
+      "dateClosed": "2026-07-05T16:19:55.000Z"
+    }
+  ]
+}

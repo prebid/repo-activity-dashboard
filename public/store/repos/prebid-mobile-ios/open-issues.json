@@ -1,32 +1,214 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2026-04-22T18:40:30.109Z",
-    "itemCount": 38
+    "lastSync": "2026-08-03T19:53:36.689Z",
+    "itemCount": 48
   },
   "items": [
     {
-      "title": "[SKAdNetwork] itunesitem, sourceapp and fidelity.timestamp parsed as integers, violating IAB OpenRTB spec (expected strings)",
-      "number": 1255,
+      "title": "Support Native Video Rendering in Prebid Mobile",
+      "number": 1302,
       "author": {
-        "login": "berkbtasdemir",
-        "id": 69919328
+        "login": "jaysongkkim",
+        "id": 267283216
       },
       "assignees": [],
-      "dateCreated": "2026-04-20T22:10:19.000Z",
-      "dateUpdated": "2026-04-21T00:45:30.000Z",
+      "dateCreated": "2026-08-03T12:05:03.000Z",
+      "dateUpdated": "2026-08-03T12:05:03.000Z",
       "status": "open"
     },
     {
-      "title": "InternalTestApp Runtime Crash - Missing `OMSDK_Prebidorg`",
-      "number": 1254,
+      "title": "Bug: SKAdNetwork response fields decoded with wrong data types",
+      "number": 1300,
       "author": {
         "login": "OlenaPostindustria",
         "id": 92721590
       },
       "assignees": [],
-      "dateCreated": "2026-04-08T09:13:18.000Z",
-      "dateUpdated": "2026-04-08T10:07:25.000Z",
+      "dateCreated": "2026-07-31T10:40:01.000Z",
+      "dateUpdated": "2026-07-31T10:40:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Interstitial orientation lock never engages — calculateLayoutFromSize: left as FIXME, always returns aspectRatio (portrait creatives clip in landscape)",
+      "number": 1299,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-31T05:53:43.000Z",
+      "dateUpdated": "2026-07-31T05:53:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Feature request: remaining-time countdown / playback progress indicator for video interstitials (parity with rewarded)",
+      "number": 1298,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-31T05:49:40.000Z",
+      "dateUpdated": "2026-07-31T05:49:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rewarded end card locks the user for ~120 seconds when the bid omits the rewarded configuration (rwdd) — fallback is hardcoded and not configurable",
+      "number": 1297,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-31T05:48:15.000Z",
+      "dateUpdated": "2026-07-31T05:48:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Video interstitials without an end card auto-close after playback — no API to disable auto-close and require an explicit close",
+      "number": 1296,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-31T05:47:11.000Z",
+      "dateUpdated": "2026-07-31T05:47:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Some outputs on XCode console.",
+      "number": 1295,
+      "author": {
+        "login": "bulutoztemur",
+        "id": 15092443
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-30T10:06:09.000Z",
+      "dateUpdated": "2026-07-30T15:14:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Handle Prebid Server bid caching failures gracefully",
+      "number": 1258,
+      "author": {
+        "login": "Net-burst",
+        "id": 720803
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-23T14:08:52.000Z",
+      "dateUpdated": "2026-07-30T11:44:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add signature-regression tests for Plugin Renderer public API",
+      "number": 1291,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-29T08:34:08.000Z",
+      "dateUpdated": "2026-07-29T08:34:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Outstream video keeps playing when scrolled off-screen — visibility-based pause/resume is not implemented (Android parity)",
+      "number": 1290,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-28T01:44:53.000Z",
+      "dateUpdated": "2026-07-28T01:46:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Outstream video ads register a click on touch-down — scroll gestures fire click trackers and open the clickthrough",
+      "number": 1289,
+      "author": {
+        "login": "sangeun-yoon",
+        "id": 209993700
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-28T01:42:53.000Z",
+      "dateUpdated": "2026-07-28T01:46:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Unified BidRequest API",
+      "number": 1206,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2025-08-25T07:53:10.000Z",
+      "dateUpdated": "2026-07-21T07:57:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Multi-AdUnit Auction and Winner Selection Logic",
+      "number": 950,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2024-01-11T20:46:25.000Z",
+      "dateUpdated": "2026-07-21T07:56:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Support Display Rewarded Ads",
+      "number": 713,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2022-11-10T07:44:29.000Z",
+      "dateUpdated": "2026-07-21T06:43:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Expire ads respectively to the `seatbid.bid.exp`",
+      "number": 850,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2023-05-19T06:50:35.000Z",
+      "dateUpdated": "2026-07-02T10:53:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Flutter Plugin (Mobile PMC 05-21-26)",
+      "number": 1270,
+      "author": {
+        "login": "rBeefrz",
+        "id": 124368054
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-21T17:25:43.000Z",
+      "dateUpdated": "2026-05-21T17:25:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Migration to Swift",
+      "number": 396,
+      "author": {
+        "login": "YuriyVelichkoOpenX",
+        "id": 79920743
+      },
+      "assignees": [
+        "YuriyVelichkoPI"
+      ],
+      "dateCreated": "2021-07-09T13:53:58.000Z",
+      "dateUpdated": "2026-04-27T21:49:26.000Z",
       "status": "open"
     },
     {
@@ -51,18 +233,6 @@
       "assignees": [],
       "dateCreated": "2026-02-17T10:46:20.000Z",
       "dateUpdated": "2026-02-17T11:10:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[DRAFT] Support Display Rewarded Ads",
-      "number": 713,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2022-11-10T07:44:29.000Z",
-      "dateUpdated": "2026-02-17T10:59:41.000Z",
       "status": "open"
     },
     {
@@ -150,18 +320,6 @@
       "status": "open"
     },
     {
-      "title": "Multi-AdUnit Auction and Winner Selection Logic",
-      "number": 950,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-01-11T20:46:25.000Z",
-      "dateUpdated": "2025-10-27T07:40:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "[DRAFT] In-App Creatives Repository",
       "number": 1207,
       "author": {
@@ -173,18 +331,6 @@
       ],
       "dateCreated": "2025-08-25T08:29:41.000Z",
       "dateUpdated": "2025-08-25T08:29:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[DRAFT] Unified BidRequest API",
-      "number": 1206,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-25T07:53:10.000Z",
-      "dateUpdated": "2025-08-25T07:54:00.000Z",
       "status": "open"
     },
     {
@@ -209,18 +355,6 @@
       "assignees": [],
       "dateCreated": "2023-05-01T20:52:56.000Z",
       "dateUpdated": "2025-08-21T10:20:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Expire ads respectively to the `seatbid.bid.exp`",
-      "number": 850,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2023-05-19T06:50:35.000Z",
-      "dateUpdated": "2025-08-21T10:20:01.000Z",
       "status": "open"
     },
     {
@@ -297,18 +431,6 @@
       "assignees": [],
       "dateCreated": "2024-09-25T08:11:50.000Z",
       "dateUpdated": "2025-08-21T10:04:45.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Support passing parameters to GMA SDK in integration scenarios with rendering API. ",
-      "number": 1072,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-11T09:03:05.000Z",
-      "dateUpdated": "2025-08-21T09:28:46.000Z",
       "status": "open"
     },
     {

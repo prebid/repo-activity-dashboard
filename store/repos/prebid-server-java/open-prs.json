@@ -1,13 +1,113 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2026-04-22T18:40:20.096Z",
-    "itemCount": 49
+    "lastSync": "2026-08-03T19:53:23.819Z",
+    "itemCount": 36
   },
   "items": [
     {
-      "title": "Add Vert.x `UriTemplate`",
-      "number": 4444,
+      "title": "New adapter: HypeLab",
+      "number": 4488,
+      "author": {
+        "login": "Minebomber",
+        "id": 11065788
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-06T19:38:55.000Z",
+      "dateUpdated": "2026-08-03T18:50:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Bidder Adapter] Add AdPlayx adapter",
+      "number": 4582,
+      "author": {
+        "login": "anuraj700",
+        "id": 52905632
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-31T15:39:54.000Z",
+      "dateUpdated": "2026-07-31T15:39:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port Floxis: New Adapter",
+      "number": 4529,
+      "author": {
+        "login": "floxis-admin",
+        "id": 234334311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "floxis-admin",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-03T19:04:15.000Z",
+      "dateUpdated": "2026-07-31T14:15:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "  IntentIQ Identity module: server-side identity resolution",
+      "number": 4548,
+      "author": {
+        "login": "Bengo7918",
+        "id": 55088773
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-01T13:50:21.000Z",
+      "dateUpdated": "2026-07-30T20:44:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Test: Make functional test compilation optional",
+      "number": 4293,
+      "author": {
+        "login": "marki1an",
+        "id": 95693607
+      },
+      "assignees": [
+        "marki1an"
+      ],
+      "reviewers": [
+        {
+          "login": "osulzhenko",
+          "state": "DISMISSED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-11-21T15:16:01.000Z",
+      "dateUpdated": "2026-07-30T12:38:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Get Interface",
+      "number": 4295,
       "author": {
         "login": "CTMBNara",
         "id": 45672370
@@ -20,8 +120,391 @@
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-03-31T23:09:46.000Z",
-      "dateUpdated": "2026-04-22T12:43:36.000Z",
+      "dateCreated": "2025-11-24T16:55:27.000Z",
+      "dateUpdated": "2026-07-30T12:38:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Align Missena adapter request payload with PBS Go",
+      "number": 4509,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        },
+        {
+          "login": "ysfbsf",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-20T15:03:53.000Z",
+      "dateUpdated": "2026-07-29T16:58:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Yahoo Ads: Migrate to OpenRTB 2.6",
+      "number": 4521,
+      "author": {
+        "login": "MananRPatel",
+        "id": 67188104
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bukrain",
+          "state": "PENDING"
+        },
+        {
+          "login": "gmiedlar-ox",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fuska1",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "MananRPatel",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-29T09:11:28.000Z",
+      "dateUpdated": "2026-07-24T10:15:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Synapse HX",
+      "number": 4532,
+      "author": {
+        "login": "prebid-compas",
+        "id": 265840804
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        },
+        {
+          "login": "prebid-compas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Net-burst",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-08T11:46:35.000Z",
+      "dateUpdated": "2026-07-15T16:31:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Extend cookie syng case coverage",
+      "number": 4478,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-29T15:16:36.000Z",
+      "dateUpdated": "2026-07-15T15:21:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTBHouse: Fix unintended site object creation for app requests",
+      "number": 4531,
+      "author": {
+        "login": "pjaworski-rtbh",
+        "id": 109736938
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "PENDING"
+        },
+        {
+          "login": "And1sS",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-08T09:49:38.000Z",
+      "dateUpdated": "2026-07-13T17:12:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: Sevio",
+      "number": 4528,
+      "author": {
+        "login": "daniel-gheorghian-sevio",
+        "id": 99726191
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-03T15:48:41.000Z",
+      "dateUpdated": "2026-07-13T08:47:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RTBStack: New Adapter (Port from GO)",
+      "number": 4552,
+      "author": {
+        "login": "ChrisHuie",
+        "id": 3444727
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-06T21:47:31.000Z",
+      "dateUpdated": "2026-07-06T22:58:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Mobile: makes creative size transformation based on pxRatio.",
+      "number": 4510,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-21T09:11:23.000Z",
+      "dateUpdated": "2026-07-06T12:28:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: BidWave",
+      "number": 4523,
+      "author": {
+        "login": "eng-bidwave",
+        "id": 289430736
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bukrain",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "gmiedlar-ox",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fuska1",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-01T15:54:45.000Z",
+      "dateUpdated": "2026-07-02T13:03:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: Refactoring functional tests",
+      "number": 3657,
+      "author": {
+        "login": "osulzhenko",
+        "id": 125548596
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "reviewers": [
+        {
+          "login": "marki1an",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-01-06T08:07:20.000Z",
+      "dateUpdated": "2026-07-02T10:50:29.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Mobkoi: do not hardcode bid seat, to support aliases",
+      "number": 4549,
+      "author": {
+        "login": "gabrielmougard",
+        "id": 27967361
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-01T14:25:27.000Z",
+      "dateUpdated": "2026-07-01T14:28:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Teal: bid type update",
+      "number": 4545,
+      "author": {
+        "login": "johnclc",
+        "id": 12496731
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-23T15:12:19.000Z",
+      "dateUpdated": "2026-06-23T15:12:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "feat: support video, native, and audio media types in ConnectAd Adapter",
+      "number": 4506,
+      "author": {
+        "login": "rtuschkany",
+        "id": 35923908
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bukrain",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "gmiedlar-ox",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fuska1",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-19T20:46:16.000Z",
+      "dateUpdated": "2026-06-15T19:03:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: ReVantage",
+      "number": 4477,
+      "author": {
+        "login": "v0idxyz",
+        "id": 58184010
+      },
+      "assignees": [
+        "CTMBNara"
+      ],
+      "reviewers": [
+        {
+          "login": "gmiedlar-ox",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fuska1",
+          "state": "PENDING"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "bukrain",
+          "state": "APPROVED"
+        },
+        {
+          "login": "osulzhenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "v0idxyz",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-04-28T11:00:11.000Z",
+      "dateUpdated": "2026-06-15T13:48:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "New Adapter: AppMonstaMedia",
+      "number": 4508,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "bukrain",
+          "state": "PENDING"
+        },
+        {
+          "login": "gmiedlar-ox",
+          "state": "PENDING"
+        },
+        {
+          "login": "Fuska1",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-20T10:08:26.000Z",
+      "dateUpdated": "2026-06-15T13:28:28.000Z",
+      "status": "open"
+    },
+    {
+      "title": "medianet: add regional endpoint support",
+      "number": 4525,
+      "author": {
+        "login": "akshatgmnet",
+        "id": 189992357
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-03T08:03:06.000Z",
+      "dateUpdated": "2026-06-04T13:11:29.000Z",
       "status": "open"
     },
     {
@@ -56,171 +539,40 @@
       ],
       "commitAuthors": {},
       "dateCreated": "2025-12-11T11:12:21.000Z",
-      "dateUpdated": "2026-04-22T11:01:54.000Z",
+      "dateUpdated": "2026-06-03T12:08:09.000Z",
       "status": "open"
     },
     {
-      "title": "Update cookie sync to use bidder name instead of cookie family",
-      "number": 4464,
+      "title": "Insticator: Move DSP seat from TypedBid to Meta to prevent bid rejection",
+      "number": 4501,
       "author": {
-        "login": "Lightwood13",
-        "id": 33136089
+        "login": "przemkaczmarek",
+        "id": 167743744
       },
       "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-16T12:37:28.000Z",
-      "dateUpdated": "2026-04-20T12:57:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Secondary bidders",
-      "number": 4331,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-05T14:29:29.000Z",
-      "dateUpdated": "2026-04-17T13:45:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Ybidder: New Nexx360 alias",
-      "number": 4467,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-16T20:11:40.000Z",
-      "dateUpdated": "2026-04-16T20:11:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Seedtag: adds ron id support for seedtag adapter",
-      "number": 4466,
-      "author": {
-        "login": "sangarbe",
-        "id": 10627477
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-16T13:42:23.000Z",
-      "dateUpdated": "2026-04-16T13:42:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ResetDigital: Switch to OpenRTB (#4385)",
-      "number": 4463,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-16T08:03:22.000Z",
-      "dateUpdated": "2026-04-16T08:04:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Medianet: Update cookie sync url",
-      "number": 4443,
-      "author": {
-        "login": "akshatgmnet",
-        "id": 189992357
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-31T10:54:09.000Z",
-      "dateUpdated": "2026-04-13T13:42:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "IX adapter: Handle missing interstitial formats",
-      "number": 4459,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
       "reviewers": [
         {
           "login": "CTMBNara",
           "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-04-06T15:32:00.000Z",
-      "dateUpdated": "2026-04-09T07:10:34.000Z",
+      "dateCreated": "2026-05-15T11:08:14.000Z",
+      "dateUpdated": "2026-05-20T10:32:01.000Z",
       "status": "open"
     },
     {
-      "title": "Test: Secondary bidder",
-      "number": 4328,
+      "title": "Tests: Expand coverage for request Prebid events toggle",
+      "number": 4484,
       "author": {
-        "login": "marki1an",
-        "id": 95693607
+        "login": "osulzhenko",
+        "id": 125548596
       },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
+      "assignees": [],
+      "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-12-24T22:15:11.000Z",
-      "dateUpdated": "2026-04-08T17:05:49.000Z",
+      "dateCreated": "2026-05-05T15:42:32.000Z",
+      "dateUpdated": "2026-05-05T15:42:36.000Z",
       "status": "open"
     },
     {
@@ -235,127 +587,17 @@
       ],
       "reviewers": [
         {
+          "login": "Net-burst",
+          "state": "PENDING"
+        },
+        {
           "login": "CTMBNara",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
       "dateCreated": "2026-04-06T16:06:55.000Z",
-      "dateUpdated": "2026-04-08T10:22:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "51Degrees module: extend device detection module with new fields",
-      "number": 4458,
-      "author": {
-        "login": "zxPhoenix",
-        "id": 1951316
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-06T09:06:36.000Z",
-      "dateUpdated": "2026-04-08T10:12:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Update GPP library",
-      "number": 4441,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "PENDING"
-        },
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-26T22:42:10.000Z",
-      "dateUpdated": "2026-04-08T09:19:13.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Core: TCF 2.3 Disclosed Vendors Support",
-      "number": 4442,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-27T09:54:49.000Z",
-      "dateUpdated": "2026-04-02T13:51:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "WIP: Tests: TCF 2.3 support",
-      "number": 4445,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-02T11:26:42.000Z",
-      "dateUpdated": "2026-04-02T11:26:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Modules: Rename open-source modules and align hook suffixes",
-      "number": 4427,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "Net-burst"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-13T16:23:17.000Z",
-      "dateUpdated": "2026-03-26T10:07:06.000Z",
+      "dateUpdated": "2026-04-29T17:40:24.000Z",
       "status": "open"
     },
     {
@@ -377,286 +619,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-03-09T10:50:34.000Z",
       "dateUpdated": "2026-03-25T15:01:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Housekeeping: Remove old unused PG classes",
-      "number": 4432,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-18T16:09:12.000Z",
-      "dateUpdated": "2026-03-25T14:31:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Logger: Replace static sampling with configurable",
-      "number": 4408,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-26T12:24:13.000Z",
-      "dateUpdated": "2026-03-25T12:27:07.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Make functional test compilation optional",
-      "number": 4293,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-21T15:16:01.000Z",
-      "dateUpdated": "2026-03-20T15:35:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DXKulture: Remove Adapter",
-      "number": 4434,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-20T12:00:13.000Z",
-      "dateUpdated": "2026-03-20T15:03:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Intertech: Remove Adapter",
-      "number": 4433,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "CTMBNara"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-20T11:51:32.000Z",
-      "dateUpdated": "2026-03-20T15:02:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "New adapter: Microsoft",
-      "number": 4310,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-05T13:18:24.000Z",
-      "dateUpdated": "2026-03-19T14:31:03.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Allow duplicate cookie family names",
-      "number": 4316,
-      "author": {
-        "login": "Lightwood13",
-        "id": 33136089
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-12-10T14:41:30.000Z",
-      "dateUpdated": "2026-03-19T13:37:38.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove `support-cors` config",
-      "number": 4429,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-16T15:20:27.000Z",
-      "dateUpdated": "2026-03-17T22:10:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server 4.0",
-      "number": 4430,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-03-17T13:51:15.000Z",
-      "dateUpdated": "2026-03-17T13:59:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove fields from requests to bidders",
-      "number": 4332,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-01-05T15:01:18.000Z",
-      "dateUpdated": "2026-03-10T10:04:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Add support for endpoints with same path but different method",
-      "number": 4382,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-10T12:21:28.000Z",
-      "dateUpdated": "2026-03-04T17:33:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Replaceing mock server with wiremock",
-      "number": 4390,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        },
-        {
-          "login": "marki1an",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-18T10:35:16.000Z",
-      "dateUpdated": "2026-03-04T08:59:16.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Add http_method field to ExtRequestPrebidServer",
-      "number": 4384,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-10T16:53:14.000Z",
-      "dateUpdated": "2026-03-02T11:09:43.000Z",
       "status": "open"
     },
     {
@@ -762,108 +724,6 @@
       "status": "open"
     },
     {
-      "title": "New Alvads Adapter",
-      "number": 4194,
-      "author": {
-        "login": "SamuelAlejandroNT",
-        "id": 228544051
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "AntoxaAntoxic",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "SamuelAlejandroNT",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-18T13:29:49.000Z",
-      "dateUpdated": "2026-02-19T09:08:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bidder Configuration Fixes & URL Validation",
-      "number": 4126,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "AntoxaAntoxic"
-      ],
-      "reviewers": [
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        },
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-08T06:35:57.000Z",
-      "dateUpdated": "2026-02-17T11:11:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `PAAPI` feature",
-      "number": 4298,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T14:21:17.000Z",
-      "dateUpdated": "2026-02-17T09:35:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Test: Remove `Fledge` feature",
-      "number": 4297,
-      "author": {
-        "login": "marki1an",
-        "id": 95693607
-      },
-      "assignees": [
-        "marki1an"
-      ],
-      "reviewers": [
-        {
-          "login": "osulzhenko",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-28T13:58:01.000Z",
-      "dateUpdated": "2026-02-17T09:19:34.000Z",
-      "status": "open"
-    },
-    {
       "title": "Tests: Support bidderconfig array concat option",
       "number": 3816,
       "author": {
@@ -882,146 +742,6 @@
       "commitAuthors": {},
       "dateCreated": "2025-03-07T17:21:07.000Z",
       "dateUpdated": "2026-02-16T12:45:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Add `http_method` field to `ExtRequestPrebidServer`",
-      "number": 4378,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-05T21:55:51.000Z",
-      "dateUpdated": "2026-02-10T16:51:58.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Modularity: Add support for endpoints with same path but different method",
-      "number": 4372,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-02-02T22:07:48.000Z",
-      "dateUpdated": "2026-02-05T18:22:56.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Support GET interface profiles",
-      "number": 4239,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "APPROVED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-14T18:28:36.000Z",
-      "dateUpdated": "2026-01-23T09:45:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Get Interface",
-      "number": 4295,
-      "author": {
-        "login": "CTMBNara",
-        "id": 45672370
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-11-24T16:55:27.000Z",
-      "dateUpdated": "2026-01-23T09:44:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Dependencies: Update compatibility-breaking dependencies",
-      "number": 4235,
-      "author": {
-        "login": "AntoxaAntoxic",
-        "id": 76536883
-      },
-      "assignees": [
-        "Net-burst"
-      ],
-      "reviewers": [
-        {
-          "login": "Net-burst",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "And1sS",
-          "state": "PENDING"
-        },
-        {
-          "login": "CTMBNara",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-09T09:43:11.000Z",
-      "dateUpdated": "2026-01-16T08:28:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Tests: Refactoring functional tests",
-      "number": 3657,
-      "author": {
-        "login": "osulzhenko",
-        "id": 125548596
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "reviewers": [
-        {
-          "login": "marki1an",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "osulzhenko",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-01-06T08:07:20.000Z",
-      "dateUpdated": "2026-01-16T08:28:08.000Z",
       "status": "open"
     },
     {

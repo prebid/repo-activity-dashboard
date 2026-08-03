@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2026,
+    "month": 3,
+    "itemCount": 12,
+    "lastUpdated": "2026-08-03T20:01:26.083Z"
+  },
+  "items": [
+    {
+      "title": "Query: bids object for oftmedia, alias of appnexus for video bids",
+      "number": 14635,
+      "author": {
+        "login": "hiUbaid",
+        "id": 238473456
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-24T11:33:38.000Z",
+      "dateUpdated": "2026-03-25T06:29:42.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-25T06:29:42.000Z"
+    },
+    {
+      "title": "ortb2 object is now frozen in prebid events, causing some errors",
+      "number": 14632,
+      "author": {
+        "login": "andyblackwell",
+        "id": 372590
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-23T16:09:28.000Z",
+      "dateUpdated": "2026-03-24T00:19:21.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-24T00:19:21.000Z"
+    },
+    {
+      "title": "Remove obligation to use Cache for Video Bids containing Vast XML",
+      "number": 14509,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-02-23T15:31:44.000Z",
+      "dateUpdated": "2026-03-19T17:01:56.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-19T17:01:56.000Z"
+    },
+    {
+      "title": "Redact device.ifa when p4 is not consented",
+      "number": 14600,
+      "author": {
+        "login": "shekhar-mehta",
+        "id": 141727850
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-17T11:01:21.000Z",
+      "dateUpdated": "2026-03-19T10:38:57.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-19T10:38:57.000Z"
+    },
+    {
+      "title": "GPP Control Module Limitation for transmitUfpd in Bidder Requests configured through setConfig or mergeConfig",
+      "number": 14601,
+      "author": {
+        "login": "shubham-si",
+        "id": 60253122
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-17T12:55:39.000Z",
+      "dateUpdated": "2026-03-19T08:56:54.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-17T18:36:03.000Z"
+    },
+    {
+      "title": "Missing bidId on bidsReceived",
+      "number": 14602,
+      "author": {
+        "login": "EskelCz",
+        "id": 1198558
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-17T14:05:52.000Z",
+      "dateUpdated": "2026-03-17T15:23:16.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-17T15:23:15.000Z"
+    },
+    {
+      "title": "v11.0.0: includes is not a function in getDfpElementId -- fix not available via download API",
+      "number": 14594,
+      "author": {
+        "login": "skipthisstep",
+        "id": 38856575
+      },
+      "assignees": [],
+      "dateCreated": "2026-03-14T10:41:17.000Z",
+      "dateUpdated": "2026-03-15T11:41:42.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-15T11:41:42.000Z"
+    },
+    {
+      "title": "Customize and Download Prebid.js failing for any configuration",
+      "number": 14589,
+      "author": {
+        "login": "sorinspd",
+        "id": 127729020
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-03-13T15:18:18.000Z",
+      "dateUpdated": "2026-03-13T18:00:16.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-13T18:00:16.000Z"
+    },
+    {
+      "title": "intersection rtd module: still in use?",
+      "number": 13125,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-05-22T14:40:01.000Z",
+      "dateUpdated": "2026-03-12T01:28:22.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-12T01:28:22.000Z"
+    },
+    {
+      "title": "Prebid 11: review/consolidate `BID_VIEWABLE`, `bidViewability` and `bidViewabilityIO`",
+      "number": 14408,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2026-02-03T17:16:01.000Z",
+      "dateUpdated": "2026-03-17T15:08:08.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-12T01:27:55.000Z"
+    },
+    {
+      "title": "devicePixelRatio: remove or polyfill",
+      "number": 13920,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2025-09-23T13:57:56.000Z",
+      "dateUpdated": "2026-03-02T13:58:02.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-02T13:58:02.000Z"
+    },
+    {
+      "title": "disable fingerprinting borderline apis with config",
+      "number": 14283,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "mkomorski"
+      ],
+      "dateCreated": "2025-12-18T16:02:02.000Z",
+      "dateUpdated": "2026-03-02T13:57:46.000Z",
+      "status": "closed",
+      "dateClosed": "2026-03-02T13:57:46.000Z"
+    }
+  ]
+}

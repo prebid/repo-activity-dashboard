@@ -1,13 +1,13 @@
 {
   "metadata": {
     "repository": "prebid/prebid-universal-creative",
-    "lastSync": "2026-04-22T18:40:42.453Z",
-    "itemCount": 10
+    "lastSync": "2026-08-03T19:53:59.060Z",
+    "itemCount": 6
   },
   "items": [
     {
-      "title": "Bump qs and body-parser",
-      "number": 305,
+      "title": "Bump body-parser from 1.20.5 to 1.20.6",
+      "number": 365,
       "author": {
         "login": "dependabot[bot]",
         "id": 49699333
@@ -15,13 +15,13 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-02-14T03:50:27.000Z",
-      "dateUpdated": "2026-02-14T03:50:27.000Z",
+      "dateCreated": "2026-07-29T14:34:10.000Z",
+      "dateUpdated": "2026-07-29T14:34:11.000Z",
       "status": "open"
     },
     {
-      "title": "Bump lodash from 4.17.21 to 4.17.23",
-      "number": 304,
+      "title": "Bump fast-uri from 3.1.2 to 3.1.4",
+      "number": 364,
       "author": {
         "login": "dependabot[bot]",
         "id": 49699333
@@ -29,13 +29,13 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2026-01-21T23:44:39.000Z",
-      "dateUpdated": "2026-01-21T23:44:39.000Z",
+      "dateCreated": "2026-07-25T14:08:35.000Z",
+      "dateUpdated": "2026-07-25T14:08:35.000Z",
       "status": "open"
     },
     {
-      "title": "Bump js-yaml",
-      "number": 300,
+      "title": "Bump websocket-driver from 0.7.3 to 0.7.5",
+      "number": 363,
       "author": {
         "login": "dependabot[bot]",
         "id": 49699333
@@ -43,83 +43,46 @@
       "assignees": [],
       "reviewers": [],
       "commitAuthors": {},
-      "dateCreated": "2025-11-18T11:58:50.000Z",
-      "dateUpdated": "2025-11-18T11:58:50.000Z",
+      "dateCreated": "2026-07-17T00:26:21.000Z",
+      "dateUpdated": "2026-07-17T00:26:22.000Z",
       "status": "open"
     },
     {
-      "title": "Dispatching Google App rendering events to the native layer",
-      "number": 299,
+      "title": "Mobile/amp tests: Potential fixes for 4 code quality findings",
+      "number": 359,
       "author": {
-        "login": "ValentinPostindustria",
-        "id": 72038591
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-29T08:09:43.000Z",
-      "dateUpdated": "2025-10-29T08:54:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump playwright and @playwright/test",
-      "number": 297,
-      "author": {
-        "login": "dependabot[bot]",
-        "id": 49699333
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-10-20T18:57:02.000Z",
-      "dateUpdated": "2025-10-20T18:57:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump tar-fs from 3.0.9 to 3.1.1",
-      "number": 295,
-      "author": {
-        "login": "dependabot[bot]",
-        "id": 49699333
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-09-24T21:07:30.000Z",
-      "dateUpdated": "2025-09-24T21:07:30.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump webpack-dev-middleware and karma-webpack",
-      "number": 228,
-      "author": {
-        "login": "dependabot[bot]",
-        "id": 49699333
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2024-03-22T00:01:06.000Z",
-      "dateUpdated": "2025-09-09T18:08:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bump sha.js from 2.4.11 to 2.4.12",
-      "number": 294,
-      "author": {
-        "login": "dependabot[bot]",
-        "id": 49699333
+        "login": "patmmccann",
+        "id": 1683175
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "patmmccann",
-          "state": "APPROVED"
+          "login": "chatgpt-codex-connector[bot]",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-09-09T18:07:11.000Z",
-      "dateUpdated": "2025-09-09T18:08:35.000Z",
+      "dateCreated": "2026-07-01T13:37:05.000Z",
+      "dateUpdated": "2026-07-01T13:42:30.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Tests: fix file name match",
+      "number": 356,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-18T08:46:05.000Z",
+      "dateUpdated": "2026-07-01T11:03:26.000Z",
       "status": "open"
     },
     {
@@ -134,20 +97,6 @@
       "commitAuthors": {},
       "dateCreated": "2024-12-20T04:24:55.000Z",
       "dateUpdated": "2025-08-13T16:37:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Introduce mobile impression tracking with Open Measurement",
-      "number": 258,
-      "author": {
-        "login": "ValentinPostindustria",
-        "id": 72038591
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2025-02-20T08:48:46.000Z",
-      "dateUpdated": "2025-08-12T13:34:29.000Z",
       "status": "open"
     }
   ]
