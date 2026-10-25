@@ -15,8 +15,7 @@ const config = defineConfig({
       provider: 'v8',
       enabled: true,
       include: [
-        'src/lib/auth/users.ts',
-        'src/lib/auth/whitelist.ts',
+        'src/lib/auth/account-store.ts',
         'src/lib/auth/session-policy.ts',
         'scripts/auth-operator.ts',
       ],
@@ -24,7 +23,7 @@ const config = defineConfig({
       reporter: ['text', 'json-summary'],
       thresholds: {
         perFile: true,
-        'src/lib/auth/users.ts': { lines: 85, branches: 70, functions: 100 },
+        'src/lib/auth/account-store.ts': { lines: 85, branches: 70, functions: 100 },
       },
     },
   },

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { adminCreateUser } from '@/lib/auth/users';
 import { accountErrorResponse } from '@/lib/auth/account-response';
 import { getAllWhitelistedEmails } from '@/lib/auth/whitelist';
-import { requireAccountAccess } from '@/lib/auth/api-access';
+import { requireAccountAccess, requireAccountMutationAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
 import { createAccountSchema } from '@/models/accounts';
 export async function GET() {
@@ -16,7 +16,7 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   try {
-    const access = await requireAccountAccess({ admin: true });
+    const access = await requireAccountMutationAccess(request, { admin: true });
     if (!access.ok) return access.response;
     const body = await readRequestBody(request, createAccountSchema);
     if (!body.ok) return body.response;

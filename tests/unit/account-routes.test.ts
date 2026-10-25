@@ -11,6 +11,9 @@ const mocks = vi.hoisted(() => ({
   verify: vi.fn(),
   hash: vi.fn(),
 }));
+vi.mock('@/lib/auth/runtime-settings', () => ({
+  getRuntimeSettings: () => ({ authUrl: 'http://localhost' }),
+}));
 vi.mock('@/lib/auth/auth', () => ({ auth: mocks.auth }));
 vi.mock('@/lib/auth/users', () => ({
   getUserByEmail: mocks.find,
@@ -33,7 +36,11 @@ const admin = {
   authVersion: 0,
 };
 const request = (body: unknown) =>
-  new Request('http://localhost/api/admin/users', { method: 'POST', body: JSON.stringify(body) });
+  new Request('http://localhost/api/admin/users', {
+    method: 'POST',
+    headers: { origin: 'http://localhost', 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
 beforeEach(() => {
   vi.resetAllMocks();
   vi.resetModules();
@@ -69,9 +76,17 @@ it('blocks preview before evaluating real auth or storage', async () => {
 });
 it('validates input before mutation and returns a normalized creation result', async () => {
   const { POST } = await import('@/app/api/admin/users/route');
-  expect((await POST(new Request('http://localhost', { method: 'POST', body: '{' }))).status).toBe(
-    400,
-  );
+  expect(
+    (
+      await POST(
+        new Request('http://localhost', {
+          method: 'POST',
+          headers: { origin: 'http://localhost', 'content-type': 'application/json' },
+          body: '{',
+        }),
+      )
+    ).status,
+  ).toBe(400);
   expect((await POST(request({ email: 1 }))).status).toBe(400);
   expect(mocks.create).not.toHaveBeenCalled();
   const response = await POST(
@@ -182,3 +197,32 @@ it('rejects malformed, weak, missing-account and failed password changes', async
   expect((await POST(request(body))).status).toBe(500);
   expect(mocks.update).not.toHaveBeenCalled();
 });
+it.each(['create', 'reset', 'change'] as const)(
+  'rejects a cross-origin simple request to the %s account mutation',
+  async (action) => {
+    mocks.reset.mockResolvedValue({ tempPassword: 'temporary' });
+    mocks.getById.mockResolvedValue({ ...admin, password: 'hash' });
+    mocks.verify.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+    mocks.hash.mockResolvedValue('new-hash');
+    const route =
+      action === 'create'
+        ? await import('@/app/api/admin/users/route')
+        : action === 'reset'
+          ? await import('@/app/api/admin/users/reset-password/route')
+          : await import('@/app/api/auth/change-password/route');
+    const response = await route.POST(
+      new Request('http://localhost/api/account', {
+        method: 'POST',
+        headers: { origin: 'https://untrusted.example.test', 'content-type': 'text/plain' },
+        body: JSON.stringify({
+          email: 'new@example.test',
+          currentPassword: 'old',
+          newPassword: 'StrongNewPassword2!',
+        }),
+      }),
+    );
+    expect(response.status).toBe(403);
+    for (const mutation of [mocks.create, mocks.reset, mocks.update])
+      expect(mutation).not.toHaveBeenCalled();
+  },
+);

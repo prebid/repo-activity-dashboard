@@ -192,7 +192,11 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
     expect(secretReads).toBeGreaterThan(0);
     const created = await fetch(origin + '/api/admin/users', {
       method: 'POST',
-      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      headers: {
+        cookie: cookie(),
+        'content-type': 'application/json',
+        origin: 'https://dashboard.example.test',
+      },
       body: JSON.stringify({ email: 'new@example.test', role: 'user' }),
     });
     expect(created.status, output).toBe(200);
@@ -210,9 +214,42 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
       })
       .parse(stored.Item);
     expect(await verifyPassword(result.tempPassword, hash.password)).toBe(true);
+    const crossOrigin = await fetch(origin + '/api/admin/users/reset-password', {
+      method: 'POST',
+      headers: {
+        cookie: cookie(),
+        origin: 'https://untrusted.example.test',
+        'content-type': 'text/plain',
+      },
+      body: JSON.stringify({ email: 'new@example.test' }),
+    });
+    expect(crossOrigin.status).toBe(403);
+    for (const [source, type, status] of [
+      [undefined, 'application/json', 403],
+      ['null', 'application/json', 403],
+      ['https://dashboard.example.test', 'text/plain', 415],
+      ['https://dashboard.example.test.attacker.test', 'application/json', 403],
+    ] as const) {
+      const headers = new Headers({ cookie: cookie(), 'content-type': type });
+      if (source) headers.set('origin', source);
+      const denied = await fetch(origin + '/api/admin/users/reset-password', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ email: 'new@example.test' }),
+      });
+      expect(denied.status).toBe(status);
+    }
+    expect(
+      (await client.send(new GetCommand({ TableName: users, Key: { id: result.userId } }))).Item
+        ?.authVersion,
+    ).toBe(1);
     const reset = await fetch(origin + '/api/admin/users/reset-password', {
       method: 'POST',
-      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      headers: {
+        cookie: cookie(),
+        'content-type': 'application/json',
+        origin: 'https://dashboard.example.test',
+      },
       body: JSON.stringify({ email: 'admin@example.test' }),
     });
     expect(reset.status, output).toBe(200);
@@ -243,7 +280,11 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
     ).toBe(403);
     const changed = await fetch(origin + '/api/auth/change-password', {
       method: 'POST',
-      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      headers: {
+        cookie: cookie(),
+        'content-type': 'application/json',
+        origin: 'https://dashboard.example.test',
+      },
       body: JSON.stringify({
         currentPassword: resetValue.tempPassword,
         newPassword: 'DifferentSecurePassword2!',

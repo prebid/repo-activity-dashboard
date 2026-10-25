@@ -18,6 +18,12 @@ const features = existsSync('src/features')
 /** @type {import('dependency-cruiser').IConfiguration} */
 const configuration = {
   forbidden: [
+    {
+      name: 'application-no-operator-scripts',
+      severity: 'error',
+      from: { path: '^src/' },
+      to: { path: '^scripts/', reachable: true },
+    },
     { name: 'no-cycles', severity: 'error', from: { path: '^src/' }, to: { circular: true } },
     {
       name: 'no-unresolved',

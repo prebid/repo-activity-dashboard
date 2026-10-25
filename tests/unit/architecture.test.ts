@@ -82,3 +82,14 @@ it('enforces transitive server isolation for client route entry points too', () 
     ),
   ).toBe(true);
 });
+it('keeps operator command entry points outside application imports', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/app/api/route.ts': "import '../../../scripts/operator';",
+      'scripts/operator.ts': 'export const operator = true;',
+    }),
+  );
+  expect(
+    result.failures.some((failure) => failure.startsWith('application-no-operator-scripts:')),
+  ).toBe(true);
+});

@@ -4,12 +4,19 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 import { accountRoleSchema, emailSchema } from '../src/models/accounts';
+import {
+  accountTargetSchema,
+  accountRegionSchema,
+  accountTableNameSchema,
+  type AccountTarget,
+} from '../src/models/account-target';
+import type { AccountStore } from '../src/lib/auth/account-store';
 import { AccountError } from '../src/lib/auth/account-errors';
 
 const common = {
-  region: z.string().min(1),
-  'users-table': z.string().min(3),
-  'whitelist-table': z.string().min(3),
+  region: accountRegionSchema,
+  'users-table': accountTableNameSchema,
+  'whitelist-table': accountTableNameSchema,
 };
 const credentials = {
   ...common,
@@ -70,18 +77,30 @@ export async function writeCredentialFile(path: string, data: unknown): Promise<
 }
 export async function runOperator(args: string[]) {
   const command = parseOperatorCommand(args);
-  process.env.DYNAMODB_REGION = command.region;
-  process.env.DYNAMODB_USERS_TABLE = command['users-table'];
-  process.env.DYNAMODB_WHITELIST_TABLE = command['whitelist-table'];
-  const { getRuntimeSettings } = await import('../src/lib/auth/runtime-settings');
-  getRuntimeSettings();
-  const store = await import('../src/lib/auth/users');
+  const target = accountTargetSchema.parse({
+    region: command.region,
+    usersTable: command['users-table'],
+    whitelistTable: command['whitelist-table'],
+  });
+  const { createAccountClient } = await import('../src/lib/aws/clients');
+  const { createAccountStore } = await import('../src/lib/auth/account-store');
+  const client = createAccountClient({ region: target.region });
+  try {
+    return await executeOperator(command, createAccountStore(client, target), target);
+  } finally {
+    client.destroy();
+  }
+}
+async function executeOperator(
+  command: z.infer<typeof commandSchema>,
+  store: AccountStore,
+  target: AccountTarget,
+) {
   if (command.command === 'migrate') return store.migrateAccountLinks(command.apply);
   if (command.command === 'inspect') {
     const user = await store.getUserByEmail(command.email);
     if (!user) throw new AccountError('not-found');
-    const { getWhitelistEntry } = await import('../src/lib/auth/whitelist');
-    const access = await getWhitelistEntry(user.email);
+    const access = await store.getWhitelistEntry(user.email);
     return {
       accountId: user.id,
       email: user.email,
@@ -97,11 +116,6 @@ export async function runOperator(args: string[]) {
     await store.setAccountAccess(user, command.role, command.active === 'true');
     return { updated: true, accountId: user.id };
   }
-  const target = {
-    region: command.region,
-    usersTable: command['users-table'],
-    whitelistTable: command['whitelist-table'],
-  };
   if (command.command === 'reset-password') {
     const user = await store.getUserByEmail(command.email);
     if (!user) throw new AccountError('not-found');

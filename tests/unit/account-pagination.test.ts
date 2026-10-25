@@ -3,7 +3,8 @@ vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings')
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
 import { ScanCommand, GetCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb';
 const send = vi.hoisted(() => vi.fn<(command: unknown) => Promise<Record<string, unknown>>>());
-vi.mock('@/lib/aws/clients', () => ({ getDocClient: () => ({ send }) }));
+vi.mock('server-only', () => ({}));
+vi.mock('@/lib/aws/clients', () => ({ createAccountClient: () => ({ send }) }));
 import {
   getUserByEmail,
   getUserById,
@@ -92,7 +93,7 @@ it('stores a hash, requires a password change, and records the provisioning acto
   expect(user.password).not.toBe(tempPassword);
   expect(await verifyPassword(tempPassword, user.password)).toBe(true);
   expect(await verifyPassword('wrong-password', user.password)).toBe(false);
-  const write = send.mock.calls[2][0];
+  const write = send.mock.calls[3][0];
   if (!(write instanceof TransactWriteCommand))
     throw new Error('Expected atomic account provisioning');
   expect(write.input.TransactItems?.[0].Put?.Item).toMatchObject({
@@ -106,7 +107,7 @@ it('stores a hash, requires a password change, and records the provisioning acto
     Key: { email: 'new@example.test' },
     ConditionExpression: 'attribute_not_exists(userId)',
   });
-  expect(write.input.TransactItems).toHaveLength(4); // User + claim + two current-admin conditions.
+  expect(write.input.TransactItems).toHaveLength(5); // User + claim + two current-admin conditions + initialization latch.
 });
 
 it('does not overwrite an existing account or continue after a failed account write', async () => {
@@ -119,11 +120,12 @@ it('does not overwrite an existing account or continue after a failed account wr
   send
     .mockResolvedValueOnce({})
     .mockResolvedValueOnce({})
+    .mockResolvedValueOnce({})
     .mockRejectedValueOnce(new Error('write failed'));
   await expect(
     adminCreateUser('new@example.test', undefined, 'viewer', undefined, { kind: 'operator' }),
   ).rejects.toThrow('write failed');
-  expect(send).toHaveBeenCalledTimes(3);
+  expect(send).toHaveBeenCalledTimes(4);
 });
 it('sets and clears mandatory password-change state in the correct operations', async () => {
   send
@@ -166,6 +168,8 @@ it('rejects missing table configuration and resets of absent users', async () =>
   );
   send.mockClear();
   vi.stubEnv('DYNAMODB_USERS_TABLE', '');
-  await expect(getUserById('u1')).rejects.toThrow('Missing account-store configuration');
+  vi.resetModules();
+  const fresh = await import('@/lib/auth/users');
+  await expect(fresh.getUserById('u1')).rejects.toThrow('account-store configuration');
   expect(send).not.toHaveBeenCalled();
 });

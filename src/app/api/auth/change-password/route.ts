@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireAccountAccess } from '@/lib/auth/api-access';
+import { requireAccountMutationAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
 import { changePasswordSchema } from '@/models/accounts';
 import { getUserById, updateUserPassword } from '@/lib/auth/users';
@@ -7,7 +7,7 @@ import { verifyPassword, hashPassword, validatePasswordStrength } from '@/lib/au
 import { accountErrorResponse } from '@/lib/auth/account-response';
 export async function POST(request: Request) {
   try {
-    const access = await requireAccountAccess({ allowPasswordChange: true });
+    const access = await requireAccountMutationAccess(request, { allowPasswordChange: true });
     if (!access.ok) return access.response;
     const body = await readRequestBody(request, changePasswordSchema);
     if (!body.ok) return body.response;

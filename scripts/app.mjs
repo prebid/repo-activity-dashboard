@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, rm } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { writeRuntimeSettings } from './runtime-settings.mjs';
 const [command, mode] = process.argv.slice(2);
@@ -14,6 +14,7 @@ if (command === 'start') {
 /** @type {NodeJS.ProcessEnv} */
 const environment = { ...process.env, DASHBOARD_BUILD_MODE: mode, NEXT_TELEMETRY_DISABLED: '1' };
 if (command === 'build') {
+  await rm('.next/dashboard-mode', { force: true });
   await writeRuntimeSettings(mode === 'production' ? process.env : {}, '.dashboard-runtime.json');
 }
 if (mode === 'preview') {

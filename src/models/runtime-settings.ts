@@ -1,17 +1,12 @@
 import { z } from 'zod';
+import { accountRegionSchema, accountTableNameSchema } from './account-target.ts';
 export const runtimeSettingsSchema = z
   .object({
     version: z.literal(1),
     managed: z.boolean(),
-    region: z.string().regex(/^[a-z]{2}(?:-gov)?-[a-z]+-\d$/),
-    usersTable: z
-      .string()
-      .regex(/^[A-Za-z0-9_.-]{3,255}$/)
-      .optional(),
-    whitelistTable: z
-      .string()
-      .regex(/^[A-Za-z0-9_.-]{3,255}$/)
-      .optional(),
+    region: accountRegionSchema,
+    usersTable: accountTableNameSchema.optional(),
+    whitelistTable: accountTableNameSchema.optional(),
     authUrl: z.string().url().optional(),
     secretArn: z
       .string()

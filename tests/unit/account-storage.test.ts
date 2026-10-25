@@ -5,15 +5,21 @@ const mocks = vi.hoisted(() => ({
   from: vi.fn((_client: unknown, _options: unknown) => ({ send: vi.fn() })),
 }));
 vi.mock('server-only', () => ({}));
-vi.mock('@aws-sdk/client-dynamodb', () => ({
+vi.mock('@aws-sdk/client-dynamodb', async (original) => ({
+  ...(await original<typeof import('@aws-sdk/client-dynamodb')>()),
   DynamoDBClient: class {
     constructor(config: unknown) {
       mocks.construct(config);
     }
   },
 }));
-vi.mock('@aws-sdk/lib-dynamodb', () => ({ DynamoDBDocumentClient: { from: mocks.from } }));
+vi.mock('@aws-sdk/lib-dynamodb', async (original) => ({
+  ...(await original<typeof import('@aws-sdk/lib-dynamodb')>()),
+  DynamoDBDocumentClient: { from: mocks.from },
+}));
 beforeEach(() => {
+  vi.stubEnv('DYNAMODB_USERS_TABLE', 'users');
+  vi.stubEnv('DYNAMODB_WHITELIST_TABLE', 'whitelist');
   vi.stubEnv('S3_ACCESS_KEY_ID', '');
   vi.stubEnv('S3_SECRET_ACCESS_KEY', '');
   vi.stubEnv('S3_SESSION_TOKEN', '');
@@ -30,18 +36,18 @@ describe('retained account-store boundary', () => {
   it('refuses account storage in preview before constructing a client', async () => {
     vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'preview');
     vi.resetModules();
-    const { getDocClient } = await import('@/lib/aws/clients');
-    expect(() => getDocClient()).toThrow('unavailable in preview');
+    const { getServerAccountStore } = await import('@/lib/auth/server-account-store');
+    expect(() => getServerAccountStore()).toThrow('unavailable in preview');
     expect(mocks.construct).not.toHaveBeenCalled();
     expect(mocks.from).not.toHaveBeenCalled();
   });
   it('creates the retained production client lazily and reuses it', async () => {
     vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'production');
     vi.resetModules();
-    const { getDocClient } = await import('@/lib/aws/clients');
+    const { getServerAccountStore } = await import('@/lib/auth/server-account-store');
     expect(mocks.construct).not.toHaveBeenCalled();
-    const client = getDocClient();
-    expect(getDocClient()).toBe(client);
+    const client = getServerAccountStore();
+    expect(getServerAccountStore()).toBe(client);
     expect(mocks.construct).toHaveBeenCalledOnce();
     expect(mocks.construct.mock.calls[0][0]).not.toHaveProperty('credentials');
     expect(mocks.from).toHaveBeenCalledOnce();

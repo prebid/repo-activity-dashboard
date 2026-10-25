@@ -13,16 +13,27 @@ import { mkdtemp, readFile, stat, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { z } from 'zod';
-const holder = vi.hoisted(() => ({ client: undefined as DynamoDBDocumentClient | undefined }));
+const holder = vi.hoisted(() => ({
+  client: undefined as DynamoDBDocumentClient | undefined,
+  endpoint: '',
+}));
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/aws/clients', () => ({
-  getDocClient: () => {
-    if (!holder.client) throw new Error('Local account test client is not initialized');
-    return holder.client;
-  },
+  createAccountClient: ({ region }: { region: string }) =>
+    instrument(
+      DynamoDBDocumentClient.from(
+        new DynamoDBClient({
+          endpoint: holder.endpoint,
+          region,
+          credentials: { accessKeyId: 'local', secretAccessKey: 'local' },
+        }),
+        { marshallOptions: { removeUndefinedValues: true } },
+      ),
+    ),
 }));
-import * as store from '@/lib/auth/users';
-import { getWhitelistEntry } from '@/lib/auth/whitelist';
+import { createAccountStore, bootstrapId, type AccountStore } from '@/lib/auth/account-store';
+let store: AccountStore;
+const getWhitelistEntry = (email: string) => store.getWhitelistEntry(email);
 import { currentIdentity } from '@/lib/auth/session-policy';
 import { verifyPassword } from '@/lib/auth/passwords';
 import { runOperator } from '../../scripts/auth-operator';
@@ -34,6 +45,7 @@ let afterWrite: (() => void) | undefined;
 const directories: string[] = [];
 beforeAll(() => {
   const endpoint = inject('accountEndpoint');
+  holder.endpoint = endpoint;
   if (new URL(endpoint).hostname !== '127.0.0.1')
     throw new Error('Account tests require the isolated loopback emulator');
   client = new DynamoDBClient({
@@ -44,7 +56,10 @@ beforeAll(() => {
   holder.client = DynamoDBDocumentClient.from(client, {
     marshallOptions: { removeUndefinedValues: true },
   });
-  holder.client.middlewareStack.add(
+  instrument(holder.client);
+});
+function instrument(target: DynamoDBDocumentClient) {
+  target.middlewareStack.add(
     (next, context) => async (args) => {
       const writing = context.commandName?.includes('TransactWrite') ?? false;
       if (writing) await beforeWrite?.();
@@ -54,15 +69,18 @@ beforeAll(() => {
     },
     { name: 'adversarialInterleavings', step: 'initialize' },
   );
-});
+  return target;
+}
 beforeEach(async () => {
   beforeWrite = undefined;
   afterWrite = undefined;
   users = 'users-' + randomUUID();
   whitelist = 'whitelist-' + randomUUID();
-  vi.stubEnv('DYNAMODB_REGION', 'us-east-2');
-  vi.stubEnv('DYNAMODB_USERS_TABLE', users);
-  vi.stubEnv('DYNAMODB_WHITELIST_TABLE', whitelist);
+  store = createAccountStore(db(), {
+    region: 'us-east-2',
+    usersTable: users,
+    whitelistTable: whitelist,
+  });
   for (const [TableName, key] of [
     [users, 'id'],
     [whitelist, 'email'],
@@ -167,14 +185,51 @@ it('allows only one first administrator even when concurrent operators choose di
   expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
   const records = await store.listAccounts();
   expect(records).toHaveLength(1);
-  const marker = await db().send(
-    new GetCommand({ TableName: users, Key: { id: store.bootstrapId } }),
-  );
+  const marker = await db().send(new GetCommand({ TableName: users, Key: { id: bootstrapId } }));
   expect(marker.Item?.userId).toBe(records[0].id);
   expect(records[0].mustChangePassword).toBe(true);
   await expect(store.createPreparedAccount(one, operator, true)).rejects.toMatchObject({
     code: 'bootstrap-complete',
   });
+});
+it('does not bootstrap after ordinary provisioning commits during its preflight window', async () => {
+  const prepared = await store.prepareAccount(
+    { email: 'bootstrap@example.test', role: 'admin' },
+    'operator',
+  );
+  let intercepted = false;
+  beforeWrite = async () => {
+    beforeWrite = undefined;
+    intercepted = true;
+    await seed('ordinary@example.test');
+  };
+  await expect(store.createPreparedAccount(prepared, operator, true)).rejects.toMatchObject({
+    code: 'conflict',
+  });
+  expect(intercepted).toBe(true);
+  expect(await store.listAccounts()).toHaveLength(1);
+  expect(await store.getUserByEmail(prepared.user.email)).toBeNull();
+});
+it('binds a self-reset to the authenticated email as well as the account ID and version', async () => {
+  const { user } = await seed('before@example.test', 'admin');
+  await db().send(
+    new UpdateCommand({
+      TableName: users,
+      Key: { id: user.id },
+      UpdateExpression: 'SET email = :email',
+      ExpressionAttributeValues: { ':email': 'after@example.test' },
+    }),
+  );
+  await db().send(
+    new PutCommand({
+      TableName: whitelist,
+      Item: { email: 'after@example.test', userId: user.id, role: 'admin', isActive: true },
+    }),
+  );
+  await expect(
+    store.adminResetPassword('after@example.test', { kind: 'session', ...user }),
+  ).rejects.toMatchObject({ code: 'conflict' });
+  expect((await store.getUserById(user.id))?.authVersion).toBe(user.authVersion);
 });
 it('migrates legacy UUID accounts repeatably without activating disabled or unlisted accounts', async () => {
   const legacy = {
@@ -426,4 +481,80 @@ it('executes operator creation, access changes, reset, inspection and repeat-saf
   expect(await runOperator(['migrate', ...target])).toEqual({ accounts: 1, linked: 0 });
   expect(await runOperator(['migrate', ...target, '--apply'])).toEqual({ accounts: 1, linked: 1 });
   expect((await getWhitelistEntry(user.email))?.isActive).toBe(false);
+});
+it('keeps independent stores bound to their own table pair without process-global targets', async () => {
+  const target = { region: 'us-east-2', usersTable: users, whitelistTable: whitelist };
+  const first = createAccountStore(db(), target);
+  const other = {
+    region: 'us-east-2',
+    usersTable: 'other-users-' + randomUUID(),
+    whitelistTable: 'other-whitelist-' + randomUUID(),
+  };
+  for (const [TableName, key] of [
+    [other.usersTable, 'id'],
+    [other.whitelistTable, 'email'],
+  ])
+    await client.send(
+      new CreateTableCommand({
+        TableName,
+        KeySchema: [{ AttributeName: key, KeyType: 'HASH' }],
+        AttributeDefinitions: [{ AttributeName: key, AttributeType: 'S' }],
+        BillingMode: 'PAY_PER_REQUEST',
+      }),
+    );
+  const second = createAccountStore(db(), other);
+  target.usersTable = other.usersTable;
+  target.whitelistTable = other.whitelistTable;
+  const a = await first.prepareAccount({ email: 'same@example.test' }, 'first');
+  const b = await second.prepareAccount({ email: 'same@example.test' }, 'second');
+  await Promise.all([
+    first.createPreparedAccount(a, operator),
+    second.createPreparedAccount(b, operator),
+  ]);
+  expect((await first.getUserByEmail('same@example.test'))?.id).toBe(a.user.id);
+  expect((await second.getUserByEmail('same@example.test'))?.id).toBe(b.user.id);
+  expect(await first.listAccounts()).toHaveLength(1);
+  expect(await second.listAccounts()).toHaveLength(1);
+});
+it('reads a complete whitelist across real service pages while preserving disabled state and excluding extra fields', async () => {
+  const active = await seed('active@example.test');
+  const disabled = await seed('disabled@example.test');
+  await store.setAccountAccess(disabled.user, 'viewer', false);
+  expect(await store.isEmailWhitelisted(active.user.email)).toBe(true);
+  expect(await store.isEmailWhitelisted(disabled.user.email)).toBe(false);
+  expect(await store.isEmailWhitelisted('missing@example.test')).toBe(false);
+  await Promise.all(
+    Array.from({ length: 16 }, (_, i) =>
+      db().send(
+        new PutCommand({
+          TableName: whitelist,
+          Item: {
+            email: `page-${i}@example.test`,
+            role: 'viewer',
+            isActive: true,
+            padding: 'x'.repeat(80_000),
+            password: 'must-not-be-exported',
+          },
+        }),
+      ),
+    ),
+  );
+  let pages = 0;
+  db().middlewareStack.add(
+    (next, context) => (args) => {
+      if (context.commandName?.includes('Scan')) pages++;
+      return next(args);
+    },
+    { name: 'countWhitelistPages', step: 'initialize' },
+  );
+  try {
+    const rows = await store.getAllWhitelistedEmails();
+    expect(rows).toHaveLength(18);
+    expect(pages).toBeGreaterThan(1);
+    expect(rows.find((row) => row.email === disabled.user.email)?.isActive).toBe(false);
+    expect(JSON.stringify(rows)).not.toContain('must-not-be-exported');
+    expect(JSON.stringify(rows)).not.toContain('padding');
+  } finally {
+    db().middlewareStack.remove('countWhitelistPages');
+  }
 });

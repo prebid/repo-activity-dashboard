@@ -86,7 +86,18 @@ async function login(password = 'correct', csrf = true, email = 'real@example.te
     const value: unknown = await response.json();
     return value;
   };
-  return { response, body, refresh };
+  const update = async (data: unknown) => {
+    const response = await handlers.POST(
+      new NextRequest('http://localhost:3100/api/auth/session', {
+        method: 'POST',
+        headers: { cookie: header(), 'content-type': 'application/json' },
+        body: JSON.stringify({ csrfToken: token.csrfToken, data }),
+      }),
+    );
+    const value: unknown = await response.json();
+    return value;
+  };
+  return { response, body, refresh, update };
 }
 it('uses production credentials, issues a session cookie, and exposes safe session fields', async () => {
   const { response, body } = await login();
@@ -170,4 +181,22 @@ it('fails closed when session revalidation cannot read account storage', async (
   const session = await login();
   mocks.snapshot.mockRejectedValue(new Error('controlled account outage'));
   expect(await session.refresh()).toBeNull();
+});
+it('does not let client session updates elevate privileges or revive a revoked session', async () => {
+  mocks.user.mockResolvedValue({
+    id: 'real-user',
+    email: 'real@example.test',
+    password: 'private-hash',
+    role: 'viewer',
+    authVersion: 0,
+    createdAt: '',
+    updatedAt: '',
+  });
+  const session = await login();
+  expect(session.body).toMatchObject({ user: { role: 'viewer', authVersion: 0 } });
+  expect(await session.update({ user: { role: 'admin', authVersion: 99 } })).toMatchObject({
+    user: { role: 'viewer', authVersion: 0 },
+  });
+  mocks.snapshot.mockResolvedValue({ user: undefined, access: undefined });
+  expect(await session.update({ user: { role: 'admin', authVersion: 0 } })).toBeNull();
 });

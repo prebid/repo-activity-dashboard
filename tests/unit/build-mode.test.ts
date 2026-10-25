@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { describe, it, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -35,6 +35,21 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
 });
 describe('application launcher boundaries', () => {
+  it('invalidates the old build marker when a replacement build fails', () => {
+    const root = mkdtempSync(join(tmpdir(), 'dashboard-failed-build-'));
+    roots.push(root);
+    mkdirSync(join(root, '.next'));
+    writeFileSync(join(root, '.next/dashboard-mode'), 'production');
+    mkdirSync(join(root, 'node_modules/next/dist/bin'), { recursive: true });
+    writeFileSync(join(root, 'node_modules/next/dist/bin/next'), 'process.exit(2);');
+    const result = spawnSync(
+      process.execPath,
+      [resolve('scripts/app.mjs'), 'build', 'production'],
+      { cwd: root, encoding: 'utf8', env: { PATH: process.env.PATH, NODE_ENV: 'test' } },
+    );
+    expect(result.status).toBe(2);
+    expect(existsSync(join(root, '.next/dashboard-mode'))).toBe(false);
+  });
   it('keeps preview authentication on its local origin even with production URL settings', () => {
     const result = run(
       ['start', 'preview', '--hostname', '127.0.0.1', '--port', '3100'],
