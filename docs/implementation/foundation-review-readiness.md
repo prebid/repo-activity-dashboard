@@ -1,4 +1,6 @@
-# Foundation hardening and review readiness
+# Pre-hardening assessment (historical checkpoint)
+
+**Superseded for current status by the [hardening review packet](foundation-hardening-review.md).** This document records findings against `6d7efb4`, before remediation. Preserve its evidence and original findings; the versions, test counts, audit findings, and pending-work statements below describe that earlier checkpoint.
 
 Assessment date: **2026-10-25**. Code checkpoint: **6d7efb44725d0f1f6802765c05467b1143ee3377** on `codex/quality-foundation`; comparison base: **fba4d04b588a01149df2c8b5bd8a02f55a709cc2**.
 

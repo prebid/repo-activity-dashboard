@@ -5,13 +5,17 @@ Layouts remain on hold. This work implements the open FND findings in small veri
 | Stage | Scope | Exit evidence | State |
 | --- | --- | --- | --- |
 | H1 | Dependency decisions, patched Vitest, supported test DOM/icons, remove unnecessary UUID dependency | Fresh lock/install; full runtime + development audit; compatibility checks; every direct dependency disposition | Passed locally |
-| H2 | Type-aware lint and runtime account/API boundary validation | Unsafe-value/promise checks enabled; no broad suppressions; invalid input and failure tests | Pending |
-| H3 | Query/history/paging contracts and resolved dependency graph | Regression tests for state transitions, storage denial, callbacks, stale pages; graph/cycle/layer enforcement with negative fixtures | Pending |
-| H4 | Offline production-auth/access tests, meaningful coverage scope, browser contracts | Actual policy/wiring tests with controlled account storage; critical-module coverage gates; browser assertions match claimed behavior | Pending |
-| H5 | CI parity, clean verification, review packet | Both build modes, coverage and full audit in CI commands; refreshed source/change ledger and evidence | Pending |
+| H2 | Type-aware lint and runtime account/API boundary validation | Unsafe-value/promise checks enabled; no broad suppressions; invalid input and failure tests | Passed locally |
+| H3 | Query/history/paging contracts and resolved dependency graph | Regression tests for state transitions, storage denial, callbacks, stale pages; graph/cycle/layer enforcement with negative fixtures | Passed locally |
+| H4 | Offline production-auth/access tests, meaningful coverage scope, browser contracts | Actual policy/wiring tests with controlled account storage; critical-module coverage gates; browser assertions match claimed behavior | Passed locally |
+| H5 | CI parity, clean verification, review packet | Both build modes, coverage and full audit in CI commands; refreshed source/change ledger and evidence | Passed locally; hosted execution pending |
 | H6 | Independent review and hosted verification | Review-team findings dispositioned and exact-head hosted CI result | Requires the later review/publication step |
 
 Retain Amplify, Next.js, TypeScript, React, Tailwind, and the existing production account integration. Do not add a reporting database, ingestion simulator, new product layouts, or agent execution. The old reporting layer stays removed.
+
+The local hardening checkpoint is `81e68b4033fa00ffa810a10be959ac5749099423`. A clean install passed the complete command: 103 unit/component tests, 12 Chromium/WebKit browser cases, both build modes, Storybook, coverage gates, static checks, and a full zero-advisory audit. [Evidence](evidence/hardening/verification.json) · [Contracts](foundation-contracts.md) · [Review packet](foundation-hardening-review.md).
+
+The first-admin bootstrap policy needs a user decision before production deployment. The [decision brief](account-bootstrap-decision.md) explains the account lifecycle, recommendation, and alternatives. It is separate from mock frontend work; no unsafe setup behavior has been silently reclassified as approved.
 
 Dependency policy: use compatible maintained releases where available, record justified holds and their revisit conditions, and never use force or legacy-peer-deps to manufacture a successful installation. A successful dependency resolution is not a passing application test.
 

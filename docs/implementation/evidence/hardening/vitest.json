@@ -1,0 +1,1427 @@
+{
+  "numTotalTestSuites": 27,
+  "numPassedTestSuites": 27,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 103,
+  "numPassedTests": 103,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1792943961248,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table paginates 250 rows and searches across the full set",
+          "status": "passed",
+          "title": "paginates 250 rows and searches across the full set",
+          "duration": 390.09375,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table sorts with missing values last and exposes sort state",
+          "status": "passed",
+          "title": "sorts with missing values last and exposes sort state",
+          "duration": 43.40070800000012,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table exports every matching row, not only the visible page",
+          "status": "passed",
+          "title": "exports every matching row, not only the visible page",
+          "duration": 55.46941600000014,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table renders a meaningful empty state",
+          "status": "passed",
+          "title": "renders a meaningful empty state",
+          "duration": 5.124458999999888,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table renders known zero and unavailable separately",
+          "status": "passed",
+          "title": "renders known zero and unavailable separately",
+          "duration": 2.375957999999855,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table allows retry from the error state",
+          "status": "passed",
+          "title": "allows retry from the error state",
+          "duration": 9.432334000000083,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "column controls"
+          ],
+          "fullName": "column controls hides presentation columns without changing the matching population",
+          "status": "passed",
+          "title": "hides presentation columns without changing the matching population",
+          "duration": 31.817583000000013,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "paged data input for a future adapter"
+          ],
+          "fullName": "paged data input for a future adapter uses the supplied total and does not filter, re-sort, or page the supplied records again",
+          "status": "passed",
+          "title": "uses the supplied total and does not filter, re-sort, or page the supplied records again",
+          "duration": 54.38970799999993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "paged data input for a future adapter"
+          ],
+          "fullName": "paged data input for a future adapter delegates export for the full scope without passing the page number",
+          "status": "passed",
+          "title": "delegates export for the full scope without passing the page number",
+          "duration": 29.286333999999897,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962088,
+      "endTime": 1792943962710.2864,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/components/data-table.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "notifies adapters on initial query and history changes without looping on new callback identity",
+          "status": "passed",
+          "title": "notifies adapters on initial query and history changes without looping on new callback identity",
+          "duration": 19.90787499999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "restores only valid account preferences and gives explicit URL state precedence",
+          "status": "passed",
+          "title": "restores only valid account preferences and gives explicit URL state precedence",
+          "duration": 4.747875000000022,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {",
+          "duration": 0.818540999999982,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {\"sort\":\"retired\",\"descending\":true}",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {\"sort\":\"retired\",\"descending\":true}",
+          "duration": 0.6482080000000678,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences null",
+          "status": "passed",
+          "title": "ignores malformed saved preferences null",
+          "duration": 0.5914170000000922,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {\"sort\":\"name\"}",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {\"sort\":\"name\"}",
+          "duration": 0.6126669999999876,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "keeps URL interaction usable when storage is denied",
+          "status": "passed",
+          "title": "keeps URL interaction usable when storage is denied",
+          "duration": 1.3434169999999312,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "hides stale pages until results for the requested query arrive",
+          "status": "passed",
+          "title": "hides stale pages until results for the requested query arrive",
+          "duration": 124.60400000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "requests a valid page when the result count shrinks instead of relabeling stale rows",
+          "status": "passed",
+          "title": "requests a valid page when the result count shrinks instead of relabeling stale rows",
+          "duration": 6.1357909999999265,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "shows retryable failures and catches asynchronous export errors",
+          "status": "passed",
+          "title": "shows retryable failures and catches asynchronous export errors",
+          "duration": 39.91549999999995,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "corrects local pagination after the supplied data shrinks",
+          "status": "passed",
+          "title": "corrects local pagination after the supplied data shrinks",
+          "duration": 6.629333000000088,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962064,
+      "endTime": 1792943962270.6294,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/components/table-state.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "continues past empty filtered scan pages to find the account",
+          "status": "passed",
+          "title": "continues past empty filtered scan pages to find the account",
+          "duration": 5.221042000000011,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "collects all whitelist pages without silently truncating",
+          "status": "passed",
+          "title": "collects all whitelist pages without silently truncating",
+          "duration": 1.2277919999999654,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "distinguishes absent data, invalid records, and backend failures",
+          "status": "passed",
+          "title": "distinguishes absent data, invalid records, and backend failures",
+          "duration": 2.6010410000000093,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-advancing cursors rather than looping indefinitely",
+          "status": "passed",
+          "title": "rejects non-advancing cursors rather than looping indefinitely",
+          "duration": 0.2885830000000169,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "stores a hash, requires a password change, and records the provisioning actor",
+          "status": "passed",
+          "title": "stores a hash, requires a password change, and records the provisioning actor",
+          "duration": 238.37487500000003,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not overwrite an existing account or continue after a failed account write",
+          "status": "passed",
+          "title": "does not overwrite an existing account or continue after a failed account write",
+          "duration": 74.78037499999994,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "sets and clears mandatory password-change state in the correct operations",
+          "status": "passed",
+          "title": "sets and clears mandatory password-change state in the correct operations",
+          "duration": 151.726541,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing table configuration and resets of absent users",
+          "status": "passed",
+          "title": "rejects missing table configuration and resets of absent users",
+          "duration": 0.4158750000000282,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961653,
+      "endTime": 1792943962128.4158,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/account-pagination.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy normalizes email and returns identity without the password hash",
+          "status": "passed",
+          "title": "normalizes email and returns identity without the password hash",
+          "duration": 4.00854099999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials null before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials null before storage",
+          "duration": 0.3847499999999968,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {} before storage",
+          "duration": 0.12483299999996689,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {\"email\":\"invalid\",\"password\":\"x\"} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {\"email\":\"invalid\",\"password\":\"x\"} before storage",
+          "duration": 0.211166999999989,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {\"email\":\"a@example.test\",\"password\":1} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {\"email\":\"a@example.test\",\"password\":1} before storage",
+          "duration": 0.1004169999999931,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses disallowed accounts before reading users",
+          "status": "passed",
+          "title": "refuses disallowed accounts before reading users",
+          "duration": 0.13016700000002857,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses missing accounts and incorrect passwords",
+          "status": "passed",
+          "title": "refuses missing accounts and incorrect passwords",
+          "duration": 0.15008299999999508,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy propagates store failure instead of pretending the account is absent",
+          "status": "passed",
+          "title": "propagates store failure instead of pretending the account is absent",
+          "duration": 0.9195839999999862,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "account access"
+          ],
+          "fullName": "account access denies preview, anonymous, non-admin, and password-change restricted sessions",
+          "status": "passed",
+          "title": "denies preview, anonymous, non-admin, and password-change restricted sessions",
+          "duration": 0.2178339999999821,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "account access"
+          ],
+          "fullName": "account access allows changing the required password and authorized admin operations",
+          "status": "passed",
+          "title": "allows changing the required password and authorized admin operations",
+          "duration": 0.13274999999998727,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests { with 400",
+          "status": "passed",
+          "title": "rejects invalid requests { with 400",
+          "duration": 3.1455830000000446,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests null with 400",
+          "status": "passed",
+          "title": "rejects invalid requests null with 400",
+          "duration": 0.3215829999999755,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests {\"email\":7} with 400",
+          "status": "passed",
+          "title": "rejects invalid requests {\"email\":7} with 400",
+          "duration": 0.6482919999999694,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests {\"email\":\"a@example.test\",\"role\":\"owner\"} with 400",
+          "status": "passed",
+          "title": "rejects invalid requests {\"email\":\"a@example.test\",\"role\":\"owner\"} with 400",
+          "duration": 0.20445899999998574,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries normalizes valid create requests, supplies defaults, and drops unknown properties",
+          "status": "passed",
+          "title": "normalizes valid create requests, supplies defaults, and drops unknown properties",
+          "duration": 0.26658300000002555,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries checks successful response shape and handles malformed/error responses",
+          "status": "passed",
+          "title": "checks successful response shape and handles malformed/error responses",
+          "duration": 0.7917500000000359,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961639,
+      "endTime": 1792943961650.7917,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/account-policies.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 132.27854100000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 1.8857919999999808,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 1.4182500000000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "blocks preview before evaluating real auth or storage",
+          "status": "passed",
+          "title": "blocks preview before evaluating real auth or storage",
+          "duration": 1.0587089999999648,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "validates input before mutation and returns a normalized creation result",
+          "status": "passed",
+          "title": "validates input before mutation and returns a normalized creation result",
+          "duration": 7.867707999999993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "returns conflict for duplicate accounts and fails closed on storage errors",
+          "status": "passed",
+          "title": "returns conflict for duplicate accounts and fails closed on storage errors",
+          "duration": 1.8948330000000055,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows forced-password sessions to change only their own verified password",
+          "status": "passed",
+          "title": "allows forced-password sessions to change only their own verified password",
+          "duration": 23.537916999999993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "handles reset validation, missing users, successful resets, and storage failure",
+          "status": "passed",
+          "title": "handles reset validation, missing users, successful resets, and storage failure",
+          "duration": 1.7618750000000318,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects malformed, weak, missing-account and failed password changes",
+          "status": "passed",
+          "title": "rejects malformed, weak, missing-account and failed password changes",
+          "duration": 1.9543750000000273,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961512,
+      "endTime": 1792943961684.9543,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/account-routes.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "retained account-store boundary"
+          ],
+          "fullName": "retained account-store boundary refuses account storage in preview before constructing a client",
+          "status": "passed",
+          "title": "refuses account storage in preview before constructing a client",
+          "duration": 14.872666000000095,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "retained account-store boundary"
+          ],
+          "fullName": "retained account-store boundary creates the retained production client lazily and reuses it",
+          "status": "passed",
+          "title": "creates the retained production client lazily and reuses it",
+          "duration": 1.854791999999975,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962335,
+      "endTime": 1792943962351.8547,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/account-storage.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "resolves alias, relative, and re-export chains without forbidding normal composition",
+          "status": "passed",
+          "title": "resolves alias, relative, and re-export chains without forbidding normal composition",
+          "duration": 458.070458,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects transitive server imports, bare Node imports, reversed layers, cross-feature imports, unresolved imports, and cycles",
+          "status": "passed",
+          "title": "rejects transitive server imports, bare Node imports, reversed layers, cross-feature imports, unresolved imports, and cycles",
+          "duration": 419.0457500000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "never treats an empty scan as a successful architectural check",
+          "status": "passed",
+          "title": "never treats an empty scan as a successful architectural check",
+          "duration": 355.522958,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961547,
+      "endTime": 1792943962779.523,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/architecture.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration supplies an explicit preview secret without live configuration",
+          "status": "passed",
+          "title": "supplies an explicit preview secret without live configuration",
+          "duration": 16.90208300000006,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration does not silently fall back to preview in production",
+          "status": "passed",
+          "title": "does not silently fall back to preview in production",
+          "duration": 1.193125000000009,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration uses the configured production secret",
+          "status": "passed",
+          "title": "uses the configured production secret",
+          "duration": 0.40495799999996507,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962485,
+      "endTime": 1792943962503.405,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/auth-boundary.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "uses production credentials, issues a session cookie, and exposes safe session fields",
+          "status": "passed",
+          "title": "uses production credentials, issues a session cookie, and exposes safe session fields",
+          "duration": 209.64358300000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not issue a session for incorrect passwords or preview credentials in production",
+          "status": "passed",
+          "title": "does not issue a session for incorrect passwords or preview credentials in production",
+          "duration": 7.915333999999973,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects invalid CSRF before authorizing credentials",
+          "status": "passed",
+          "title": "rejects invalid CSRF before authorizing credentials",
+          "duration": 4.028707999999938,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "fails closed when the account store is unavailable",
+          "status": "passed",
+          "title": "fails closed when the account store is unavailable",
+          "duration": 6.7915420000000495,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "uses only the explicit preview accounts in preview and never reads real storage",
+          "status": "passed",
+          "title": "uses only the explicit preview accounts in preview and never reads real storage",
+          "duration": 36.661249999999995,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961585,
+      "endTime": 1792943961850.6611,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/auth-handlers.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check selects real input and allows presentation dependencies",
+          "status": "passed",
+          "title": "selects real input and allows presentation dependencies",
+          "duration": 27.544624999999996,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: import '@/lib/auth/auth';",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: import '@/lib/auth/auth';",
+          "duration": 3.016707999999994,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: export { auth } from '../../lib/auth/auth';",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: export { auth } from '../../lib/auth/auth';",
+          "duration": 2.189625000000035,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: import('@/mocks/reporting');",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: import('@/mocks/reporting');",
+          "duration": 2.662417000000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects computed imports rather than treating them as checked",
+          "status": "passed",
+          "title": "rejects computed imports rather than treating them as checked",
+          "duration": 2.0954169999999976,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check does not confuse prose comments with imports",
+          "status": "passed",
+          "title": "does not confuse prose comments with imports",
+          "duration": 2.423750000000041,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962169,
+      "endTime": 1792943962208.4238,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/boundaries.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries keeps preview authentication on its local origin even with production URL settings",
+          "status": "passed",
+          "title": "keeps preview authentication on its local origin even with production URL settings",
+          "duration": 123.24462500000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects starting a production artifact as a preview",
+          "status": "passed",
+          "title": "rejects starting a production artifact as a preview",
+          "duration": 43.716875000000016,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects an Amplify preview before launching the app",
+          "status": "passed",
+          "title": "rejects an Amplify preview before launching the app",
+          "duration": 40.385875,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects unknown modes",
+          "status": "passed",
+          "title": "rejects unknown modes",
+          "duration": 45.33829099999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961510,
+      "endTime": 1792943961762.3384,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/build-mode.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples contains the complete 18-repository catalog without duplicate identifiers",
+          "status": "passed",
+          "title": "contains the complete 18-repository catalog without duplicate identifiers",
+          "duration": 7.6662919999999986,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples reconciles summary and detail counts for every repository",
+          "status": "passed",
+          "title": "reconciles summary and detail counts for every repository",
+          "duration": 2.8069580000000087,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples has a large deterministic backlog and oldest searchable item",
+          "status": "passed",
+          "title": "has a large deterministic backlog and oldest searchable item",
+          "duration": 6.163708000000042,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples does not invent an unknown repository",
+          "status": "passed",
+          "title": "does not invent an unknown repository",
+          "duration": 0.5727500000000418,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962451,
+      "endTime": 1792943962468.5728,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/catalog-and-samples.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "preserves the destination for anonymous navigation and enforces forced password changes",
+          "status": "passed",
+          "title": "preserves the destination for anonymous navigation and enforces forced password changes",
+          "duration": 41.95124999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows the admin layout only for real administrator sessions",
+          "status": "passed",
+          "title": "allows the admin layout only for real administrator sessions",
+          "duration": 9.907125000000008,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961868,
+      "endTime": 1792943961919.9072,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/layout-access.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "preserves the temporary-password format without using Math.random",
+          "status": "passed",
+          "title": "preserves the temporary-password format without using Math.random",
+          "duration": 2.652499999999975,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943962329,
+      "endTime": 1792943962331.6526,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/password-generation.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves repeated URL parameters across the server/client boundary",
+          "status": "passed",
+          "title": "preserves repeated URL parameters across the server/client boundary",
+          "duration": 7.630750000000035,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 0",
+          "status": "passed",
+          "title": "rejects invalid page 0",
+          "duration": 0.4172919999999749,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page -1",
+          "status": "passed",
+          "title": "rejects invalid page -1",
+          "duration": 0.12554099999999835,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 1.5",
+          "status": "passed",
+          "title": "rejects invalid page 1.5",
+          "duration": 0.11487500000009732,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page Infinity",
+          "status": "passed",
+          "title": "rejects invalid page Infinity",
+          "duration": 0.10791699999992943,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page nope",
+          "status": "passed",
+          "title": "rejects invalid page nope",
+          "duration": 0.10333399999990434,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 9007199254740992",
+          "status": "passed",
+          "title": "rejects invalid page 9007199254740992",
+          "duration": 0.09487500000000182,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts distinguishes zero from missing",
+          "status": "passed",
+          "title": "distinguishes zero from missing",
+          "duration": 11.850959000000103,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts formats provenance in UTC independently of the machine timezone",
+          "status": "passed",
+          "title": "formats provenance in UTC independently of the machine timezone",
+          "duration": 2.849375000000009,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts keeps missing values last in both directions",
+          "status": "passed",
+          "title": "keeps missing values last in both directions",
+          "duration": 0.7056249999999409,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path https://evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path https://evil.test",
+          "duration": 0.14645899999993617,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path //evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path //evil.test",
+          "duration": 0.07883300000003146,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path /\\\\evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path /\\\\evil.test",
+          "duration": 0.10216600000001108,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path /auth/login",
+          "status": "passed",
+          "title": "rejects unsafe return path /auth/login",
+          "duration": 0.14966600000002472,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path javascript:alert(1)",
+          "status": "passed",
+          "title": "rejects unsafe return path javascript:alert(1)",
+          "duration": 0.07137499999998909,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves valid filtered destinations",
+          "status": "passed",
+          "title": "preserves valid filtered destinations",
+          "duration": 0.09991700000000492,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts validates query state",
+          "status": "passed",
+          "title": "validates query state",
+          "duration": 0.5062920000000304,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves unrelated filters and resets the page",
+          "status": "passed",
+          "title": "preserves unrelated filters and resets the page",
+          "duration": 0.21454199999993762,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts namespaces preferences by account",
+          "status": "passed",
+          "title": "namespaces preferences by account",
+          "duration": 0.20662500000003092,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts exports safe CSV values and preserves missing data",
+          "status": "passed",
+          "title": "exports safe CSV values and preserves missing data",
+          "duration": 0.16504199999997127,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792943961931,
+      "endTime": 1792943961957.2146,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-hardened-g_is5nd1/tests/unit/presentation.test.ts"
+    }
+  ]
+}

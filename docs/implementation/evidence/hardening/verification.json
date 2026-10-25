@@ -1,0 +1,78 @@
+{
+  "verifiedAt": "2026-10-25T16:01:55.294299+00:00",
+  "codeCommit": "81e68b4033fa00ffa810a10be959ac5749099423",
+  "branch": "codex/quality-foundation",
+  "base": "fba4d04b588a01149df2c8b5bd8a02f55a709cc2",
+  "sourceCopy": "/private/tmp/dashboard-hardened-g_is5nd1",
+  "sourceFileCount": 122,
+  "sourceManifestSha256": "2506718efd0794b7a2864ce7277dbfffd54e8515e1f99931ab7910e08a4bcc79",
+  "sourceMatchesWorkingTree": true,
+  "node": "24.22.1",
+  "npm": "11.19.1",
+  "platform": "darwin-arm64",
+  "commands": [
+    {
+      "name": "install",
+      "exitCode": 0,
+      "seconds": 5.98
+    },
+    {
+      "name": "complete-check",
+      "exitCode": 0,
+      "seconds": 56.68
+    }
+  ],
+  "unitComponent": {
+    "numTotalTests": 103,
+    "numPassedTests": 103,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "browser": {
+    "startTime": "2026-10-25T15:59:55.431Z",
+    "duration": 10868.399000000001,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "coverage": {
+    "files": 74,
+    "allApplicationLinesPercent": 41.99,
+    "scope": "all src TS/TSX except declarations; critical per-file gates in vitest.config.ts; browser coverage is separate"
+  },
+  "results": {
+    "lockedCleanInstall": "passed",
+    "format": "passed",
+    "typeAwareLint": "passed",
+    "typecheck": "passed",
+    "retirementChecks": "passed",
+    "dependencyGraph": "passed",
+    "unitComponentCoverage": "passed",
+    "fullDependencyAudit": "passed",
+    "productionAuthBuild": "passed",
+    "previewBuild": "passed",
+    "storybookBuild": "passed",
+    "chromium": "passed",
+    "webkit": "passed"
+  },
+  "limits": [
+    "Same-author local verification, not independent approval",
+    "Hosted Linux CI and real AWS/Amplify auth/deployment have not run",
+    "Public first-admin setup remains pending a user decision; preview denies account mutations",
+    "JWT claim freshness, account uniqueness/concurrent writes, and partial user/whitelist writes remain production-auth review items",
+    "Final layouts and historical reporting/database semantics are outside this checkpoint"
+  ],
+  "evidenceSerialization": {
+    "vitest": "All runner counts and test cases retained; raw coverageMap omitted because coverage-summary.json is stored separately."
+  }
+}
