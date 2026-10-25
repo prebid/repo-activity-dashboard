@@ -1,5 +1,7 @@
 # Foundation implementation completion
 
+**Current verification:** the [second self-review](foundation-second-review.md) records additional fixes and the newer `203efc5` checkpoint. The completion evidence below remains the preceding checkpoint, not a substituted claim about the new code.
+
 The four implementation findings from the self-audit are resolved in the repository. The handoff describes implemented behavior and executable evidence; it does not assign repairs to the reviewer. Final layouts and the future reporting database remain outside this milestone.
 
 Code checkpoint: `c4d11b51c3d78c7e48ae5de78a1c0911397ef0af`. Branch: `codex/quality-foundation`. This is implementation-author verification, not independent approval or a deployed-environment result.

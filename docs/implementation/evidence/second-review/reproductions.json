@@ -1,0 +1,37 @@
+{
+  "baselineCommit": "ff557a6c5e4946b9c3f5be6cad325b6c1dc943f6",
+  "observations": [
+    {
+      "case": "Cross-origin text/plain account mutation",
+      "before": "3 actual route cases returned 200 instead of 403; the built-server reset also returned 200",
+      "after": "Canonical-origin and JSON checks deny untrusted/missing/null/prefix-spoofed origins and simple content types before account mutation"
+    },
+    {
+      "case": "Bootstrap vs ordinary create",
+      "before": "Bootstrap resolved after an ordinary account committed inside its preflight window",
+      "after": "All first-account paths share a transactional initialization latch"
+    },
+    {
+      "case": "Self-reset identity binding",
+      "before": "A same-ID/version actor with a stale email could reset the renamed record",
+      "scope": "Requires an identity-change interleaving; no public email-change endpoint is present",
+      "after": "Authenticated email joins ID/version/role checks"
+    },
+    {
+      "case": "Operator target isolation",
+      "before": "Two invocations constructed only the first regional client and changed process-global target variables; invalid web-auth settings blocked explicit-target commands",
+      "after": "Owned client and immutable target per invocation; application store isolated"
+    },
+    {
+      "case": "Failed build marker",
+      "before": "A controlled failed build left the previous success/mode marker present",
+      "after": "Marker invalidated before starting a replacement build"
+    }
+  ],
+  "additionalControls": [
+    "Real multi-page whitelist scan strips extra fields",
+    "Independent store instances retain their original target after caller-object mutation",
+    "Client session-update payloads cannot promote or revive sessions",
+    "Application imports cannot reach operator command entry points"
+  ]
+}

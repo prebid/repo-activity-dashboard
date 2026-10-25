@@ -1,0 +1,2582 @@
+{
+  "numTotalTestSuites": 35,
+  "numPassedTestSuites": 35,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 200,
+  "numPassedTests": 200,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1792957257409,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table paginates 250 rows and searches across the full set",
+          "status": "passed",
+          "title": "paginates 250 rows and searches across the full set",
+          "duration": 479.9734169999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table sorts with missing values last and exposes sort state",
+          "status": "passed",
+          "title": "sorts with missing values last and exposes sort state",
+          "duration": 64.06495900000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table exports every matching row, not only the visible page",
+          "status": "passed",
+          "title": "exports every matching row, not only the visible page",
+          "duration": 89.15108299999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table renders a meaningful empty state",
+          "status": "passed",
+          "title": "renders a meaningful empty state",
+          "duration": 8.911458000000039,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table renders known zero and unavailable separately",
+          "status": "passed",
+          "title": "renders known zero and unavailable separately",
+          "duration": 2.398916999999983,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "shared table"
+          ],
+          "fullName": "shared table allows retry from the error state",
+          "status": "passed",
+          "title": "allows retry from the error state",
+          "duration": 24.363165999999865,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "column controls"
+          ],
+          "fullName": "column controls hides presentation columns without changing the matching population",
+          "status": "passed",
+          "title": "hides presentation columns without changing the matching population",
+          "duration": 56.63808300000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "paged data input for a future adapter"
+          ],
+          "fullName": "paged data input for a future adapter keeps the rendered row budget bounded independently of a large remote total",
+          "status": "passed",
+          "title": "keeps the rendered row budget bounded independently of a large remote total",
+          "duration": 94.83970799999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "paged data input for a future adapter"
+          ],
+          "fullName": "paged data input for a future adapter uses the supplied total and does not filter, re-sort, or page the supplied records again",
+          "status": "passed",
+          "title": "uses the supplied total and does not filter, re-sort, or page the supplied records again",
+          "duration": 63.58533299999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "paged data input for a future adapter"
+          ],
+          "fullName": "paged data input for a future adapter delegates export for the full scope without passing the page number",
+          "status": "passed",
+          "title": "delegates export for the full scope without passing the page number",
+          "duration": 29.134624999999915,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258185,
+      "endTime": 1792957259099.1345,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/components/data-table.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "notifies adapters on initial query and history changes without looping on new callback identity",
+          "status": "passed",
+          "title": "notifies adapters on initial query and history changes without looping on new callback identity",
+          "duration": 24.537416000000007,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "restores only valid account preferences and gives explicit URL state precedence",
+          "status": "passed",
+          "title": "restores only valid account preferences and gives explicit URL state precedence",
+          "duration": 2.0021670000000995,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {",
+          "duration": 0.6941250000000991,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {\"sort\":\"retired\",\"descending\":true}",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {\"sort\":\"retired\",\"descending\":true}",
+          "duration": 0.6437089999999444,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences null",
+          "status": "passed",
+          "title": "ignores malformed saved preferences null",
+          "duration": 0.5815830000000233,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "ignores malformed saved preferences {\"sort\":\"name\"}",
+          "status": "passed",
+          "title": "ignores malformed saved preferences {\"sort\":\"name\"}",
+          "duration": 0.5699589999999262,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "keeps URL interaction usable when storage is denied",
+          "status": "passed",
+          "title": "keeps URL interaction usable when storage is denied",
+          "duration": 1.2845000000000937,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "hides stale pages until results for the requested query arrive",
+          "status": "passed",
+          "title": "hides stale pages until results for the requested query arrive",
+          "duration": 127.19816700000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "requests a valid page when the result count shrinks instead of relabeling stale rows",
+          "status": "passed",
+          "title": "requests a valid page when the result count shrinks instead of relabeling stale rows",
+          "duration": 6.148374999999987,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "shows retryable failures and catches asynchronous export errors",
+          "status": "passed",
+          "title": "shows retryable failures and catches asynchronous export errors",
+          "duration": 35.61258299999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "corrects local pagination after the supplied data shrinks",
+          "status": "passed",
+          "title": "corrects local pagination after the supplied data shrinks",
+          "duration": 15.602583999999979,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "notifies a new table namespace even if its initial query has identical values",
+          "status": "passed",
+          "title": "notifies a new table namespace even if its initial query has identical values",
+          "duration": 1.20962499999996,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not submit a containing form when sorting or paging",
+          "status": "passed",
+          "title": "does not submit a containing form when sorting or paging",
+          "duration": 73.97333400000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258180,
+      "endTime": 1792957258469.9734,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/components/table-state.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "continues past empty filtered scan pages to find the account",
+          "status": "passed",
+          "title": "continues past empty filtered scan pages to find the account",
+          "duration": 7.600582999999972,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "collects all whitelist pages without silently truncating",
+          "status": "passed",
+          "title": "collects all whitelist pages without silently truncating",
+          "duration": 0.8168329999999742,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "distinguishes absent data, invalid records, and backend failures",
+          "status": "passed",
+          "title": "distinguishes absent data, invalid records, and backend failures",
+          "duration": 1.8826660000000288,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-advancing cursors rather than looping indefinitely",
+          "status": "passed",
+          "title": "rejects non-advancing cursors rather than looping indefinitely",
+          "duration": 0.3204579999999737,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "stores a hash, requires a password change, and records the provisioning actor",
+          "status": "passed",
+          "title": "stores a hash, requires a password change, and records the provisioning actor",
+          "duration": 242.89825000000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not overwrite an existing account or continue after a failed account write",
+          "status": "passed",
+          "title": "does not overwrite an existing account or continue after a failed account write",
+          "duration": 161.12691699999993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "sets and clears mandatory password-change state in the correct operations",
+          "status": "passed",
+          "title": "sets and clears mandatory password-change state in the correct operations",
+          "duration": 166.01324999999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing table configuration and resets of absent users",
+          "status": "passed",
+          "title": "rejects missing table configuration and resets of absent users",
+          "duration": 2.310041999999953,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257782,
+      "endTime": 1792957258365.31,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/account-pagination.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy normalizes email and returns identity without the password hash",
+          "status": "passed",
+          "title": "normalizes email and returns identity without the password hash",
+          "duration": 3.855166000000054,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials null before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials null before storage",
+          "duration": 0.32841700000000174,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {} before storage",
+          "duration": 0.1267090000000053,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {\"email\":\"invalid\",\"password\":\"x\"} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {\"email\":\"invalid\",\"password\":\"x\"} before storage",
+          "duration": 0.206957999999986,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses malformed credentials {\"email\":\"a@example.test\",\"password\":1} before storage",
+          "status": "passed",
+          "title": "refuses malformed credentials {\"email\":\"a@example.test\",\"password\":1} before storage",
+          "duration": 0.10024999999995998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses disallowed accounts before reading users",
+          "status": "passed",
+          "title": "refuses disallowed accounts before reading users",
+          "duration": 0.13654200000001993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy refuses missing accounts and incorrect passwords",
+          "status": "passed",
+          "title": "refuses missing accounts and incorrect passwords",
+          "duration": 0.14883400000002212,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "production credential policy"
+          ],
+          "fullName": "production credential policy propagates store failure instead of pretending the account is absent",
+          "status": "passed",
+          "title": "propagates store failure instead of pretending the account is absent",
+          "duration": 2.022291999999993,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "account access"
+          ],
+          "fullName": "account access denies preview, anonymous, non-admin, and password-change restricted sessions",
+          "status": "passed",
+          "title": "denies preview, anonymous, non-admin, and password-change restricted sessions",
+          "duration": 0.7651669999999626,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "account access"
+          ],
+          "fullName": "account access allows changing the required password and authorized admin operations",
+          "status": "passed",
+          "title": "allows changing the required password and authorized admin operations",
+          "duration": 0.4276249999999777,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests { with 400",
+          "status": "passed",
+          "title": "rejects invalid requests { with 400",
+          "duration": 3.099833999999987,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests null with 400",
+          "status": "passed",
+          "title": "rejects invalid requests null with 400",
+          "duration": 0.428875000000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests {\"email\":7} with 400",
+          "status": "passed",
+          "title": "rejects invalid requests {\"email\":7} with 400",
+          "duration": 0.678291999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries rejects invalid requests {\"email\":\"a@example.test\",\"role\":\"owner\"} with 400",
+          "status": "passed",
+          "title": "rejects invalid requests {\"email\":\"a@example.test\",\"role\":\"owner\"} with 400",
+          "duration": 0.21674999999999045,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries normalizes valid create requests, supplies defaults, and drops unknown properties",
+          "status": "passed",
+          "title": "normalizes valid create requests, supplies defaults, and drops unknown properties",
+          "duration": 0.2552919999999972,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "JSON boundaries"
+          ],
+          "fullName": "JSON boundaries checks successful response shape and handles malformed/error responses",
+          "status": "passed",
+          "title": "checks successful response shape and handles malformed/error responses",
+          "duration": 0.8357500000000186,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258949,
+      "endTime": 1792957258962.8357,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/account-policies.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 152.08362499999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 2.470916999999986,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "denies unauthorized admin reads and writes before storage",
+          "status": "passed",
+          "title": "denies unauthorized admin reads and writes before storage",
+          "duration": 1.890375000000006,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "blocks preview before evaluating real auth or storage",
+          "status": "passed",
+          "title": "blocks preview before evaluating real auth or storage",
+          "duration": 1.4327920000000063,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "validates input before mutation and returns a normalized creation result",
+          "status": "passed",
+          "title": "validates input before mutation and returns a normalized creation result",
+          "duration": 6.087666000000013,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "returns conflict for duplicate accounts and fails closed on storage errors",
+          "status": "passed",
+          "title": "returns conflict for duplicate accounts and fails closed on storage errors",
+          "duration": 2.0889589999999885,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "reports concurrent-account conflicts and integrity failures without exposing backend details",
+          "status": "passed",
+          "title": "reports concurrent-account conflicts and integrity failures without exposing backend details",
+          "duration": 1.5485830000000078,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows forced-password sessions to change only their own verified password",
+          "status": "passed",
+          "title": "allows forced-password sessions to change only their own verified password",
+          "duration": 10.667957999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not clear the password-change requirement by reusing the existing password",
+          "status": "passed",
+          "title": "does not clear the password-change requirement by reusing the existing password",
+          "duration": 2.873917000000006,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "handles reset validation, missing users, successful resets, and storage failure",
+          "status": "passed",
+          "title": "handles reset validation, missing users, successful resets, and storage failure",
+          "duration": 2.011332999999979,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "accepts the viewer role offered by account administration",
+          "status": "passed",
+          "title": "accepts the viewer role offered by account administration",
+          "duration": 1.25404199999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "accepts the user role offered by account administration",
+          "status": "passed",
+          "title": "accepts the user role offered by account administration",
+          "duration": 2.827374999999961,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "accepts the admin role offered by account administration",
+          "status": "passed",
+          "title": "accepts the admin role offered by account administration",
+          "duration": 1.4596250000000168,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects malformed, weak, missing-account and failed password changes",
+          "status": "passed",
+          "title": "rejects malformed, weak, missing-account and failed password changes",
+          "duration": 1.8932500000000232,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects a cross-origin simple request to the create account mutation",
+          "status": "passed",
+          "title": "rejects a cross-origin simple request to the create account mutation",
+          "duration": 1.2716669999999795,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects a cross-origin simple request to the reset account mutation",
+          "status": "passed",
+          "title": "rejects a cross-origin simple request to the reset account mutation",
+          "duration": 1.9934999999999832,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects a cross-origin simple request to the change account mutation",
+          "status": "passed",
+          "title": "rejects a cross-origin simple request to the change account mutation",
+          "duration": 1.1202499999999986,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257630,
+      "endTime": 1792957257825.1204,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/account-routes.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "retained account-store boundary"
+          ],
+          "fullName": "retained account-store boundary refuses account storage in preview before constructing a client",
+          "status": "passed",
+          "title": "refuses account storage in preview before constructing a client",
+          "duration": 170.50266699999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "retained account-store boundary"
+          ],
+          "fullName": "retained account-store boundary creates the retained production client lazily and reuses it",
+          "status": "passed",
+          "title": "creates the retained production client lazily and reuses it",
+          "duration": 4.4587080000000014,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258519,
+      "endTime": 1792957258694.4587,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/account-storage.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "resolves alias, relative, and re-export chains without forbidding normal composition",
+          "status": "passed",
+          "title": "resolves alias, relative, and re-export chains without forbidding normal composition",
+          "duration": 473.780917,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects transitive server imports, bare Node imports, reversed layers, cross-feature imports, unresolved imports, and cycles",
+          "status": "passed",
+          "title": "rejects transitive server imports, bare Node imports, reversed layers, cross-feature imports, unresolved imports, and cycles",
+          "duration": 492.32833400000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "never treats an empty scan as a successful architectural check",
+          "status": "passed",
+          "title": "never treats an empty scan as a successful architectural check",
+          "duration": 455.41270800000007,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "enforces transitive server isolation for client route entry points too",
+          "status": "passed",
+          "title": "enforces transitive server isolation for client route entry points too",
+          "duration": 361.35516699999994,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "keeps operator command entry points outside application imports",
+          "status": "passed",
+          "title": "keeps operator command entry points outside application imports",
+          "duration": 338.8720840000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257687,
+      "endTime": 1792957259808.872,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/architecture.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration supplies an explicit preview secret without live configuration",
+          "status": "passed",
+          "title": "supplies an explicit preview secret without live configuration",
+          "duration": 129.94345900000008,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration does not silently fall back to preview in production",
+          "status": "passed",
+          "title": "does not silently fall back to preview in production",
+          "duration": 2.2509580000000824,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "authentication configuration"
+          ],
+          "fullName": "authentication configuration uses the configured production secret",
+          "status": "passed",
+          "title": "uses the configured production secret",
+          "duration": 0.6942920000000186,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258670,
+      "endTime": 1792957258802.6943,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/auth-boundary.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "uses production credentials, issues a session cookie, and exposes safe session fields",
+          "status": "passed",
+          "title": "uses production credentials, issues a session cookie, and exposes safe session fields",
+          "duration": 118.73258299999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not issue a session for incorrect passwords or preview credentials in production",
+          "status": "passed",
+          "title": "does not issue a session for incorrect passwords or preview credentials in production",
+          "duration": 12.985332999999969,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects invalid CSRF before authorizing credentials",
+          "status": "passed",
+          "title": "rejects invalid CSRF before authorizing credentials",
+          "duration": 6.086375000000032,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "fails closed when the account store is unavailable",
+          "status": "passed",
+          "title": "fails closed when the account store is unavailable",
+          "duration": 3.441249999999968,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "uses only the explicit preview accounts in preview and never reads real storage",
+          "status": "passed",
+          "title": "uses only the explicit preview accounts in preview and never reads real storage",
+          "duration": 37.32404100000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "invalidates a real signed session after its account version changes or access is removed",
+          "status": "passed",
+          "title": "invalidates a real signed session after its account version changes or access is removed",
+          "duration": 25.73833300000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rechecks permissions and mandatory password changes on the session endpoint",
+          "status": "passed",
+          "title": "rechecks permissions and mandatory password changes on the session endpoint",
+          "duration": 19.092832999999985,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "fails closed when session revalidation cannot read account storage",
+          "status": "passed",
+          "title": "fails closed when session revalidation cannot read account storage",
+          "duration": 13.000916000000075,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not let client session updates elevate privileges or revive a revoked session",
+          "status": "passed",
+          "title": "does not let client session updates elevate privileges or revive a revoked session",
+          "duration": 35.208291999999915,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257730,
+      "endTime": 1792957258001.2083,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/auth-handlers.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check selects real input and allows presentation dependencies",
+          "status": "passed",
+          "title": "selects real input and allows presentation dependencies",
+          "duration": 7.774000000000001,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: import '@/lib/auth/auth';",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: import '@/lib/auth/auth';",
+          "duration": 5.536833999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: export { auth } from '../../lib/auth/auth';",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: export { auth } from '../../lib/auth/auth';",
+          "duration": 1.8863329999999792,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects server or mock imports in views: import('@/mocks/reporting');",
+          "status": "passed",
+          "title": "rejects server or mock imports in views: import('@/mocks/reporting');",
+          "duration": 2.8180000000000405,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check rejects computed imports rather than treating them as checked",
+          "status": "passed",
+          "title": "rejects computed imports rather than treating them as checked",
+          "duration": 1.5252500000000282,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "module boundary check"
+          ],
+          "fullName": "module boundary check does not confuse prose comments with imports",
+          "status": "passed",
+          "title": "does not confuse prose comments with imports",
+          "duration": 2.293165999999985,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258823,
+      "endTime": 1792957258844.2932,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/boundaries.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries invalidates the old build marker when a replacement build fails",
+          "status": "passed",
+          "title": "invalidates the old build marker when a replacement build fails",
+          "duration": 176.49879199999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries keeps preview authentication on its local origin even with production URL settings",
+          "status": "passed",
+          "title": "keeps preview authentication on its local origin even with production URL settings",
+          "duration": 162.694708,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects starting a production artifact as a preview",
+          "status": "passed",
+          "title": "rejects starting a production artifact as a preview",
+          "duration": 121.95462499999996,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects an Amplify preview before launching the app",
+          "status": "passed",
+          "title": "rejects an Amplify preview before launching the app",
+          "duration": 129.59341600000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "application launcher boundaries"
+          ],
+          "fullName": "application launcher boundaries rejects unknown modes",
+          "status": "passed",
+          "title": "rejects unknown modes",
+          "duration": 118.76520799999992,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257645,
+      "endTime": 1792957258354.7651,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/build-mode.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples contains the complete 18-repository catalog without duplicate identifiers",
+          "status": "passed",
+          "title": "contains the complete 18-repository catalog without duplicate identifiers",
+          "duration": 7.767291999999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples reconciles summary and detail counts for every repository",
+          "status": "passed",
+          "title": "reconciles summary and detail counts for every repository",
+          "duration": 2.758291999999983,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples has a large deterministic backlog and oldest searchable item",
+          "status": "passed",
+          "title": "has a large deterministic backlog and oldest searchable item",
+          "duration": 6.126458999999954,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "catalog and prepared samples"
+          ],
+          "fullName": "catalog and prepared samples does not invent an unknown repository",
+          "status": "passed",
+          "title": "does not invent an unknown repository",
+          "duration": 0.6069589999999607,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259170,
+      "endTime": 1792957259187.607,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/catalog-and-samples.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "uses the current identity and the intersection of account and whitelist roles",
+          "status": "passed",
+          "title": "uses the current identity and the intersection of account and whitelist roles",
+          "duration": 10.275749999999903,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 0",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 0",
+          "duration": 0.44087500000000546,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 1",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 1",
+          "duration": 0.15283400000009806,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 2",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 2",
+          "duration": 0.12745800000004692,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 3",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 3",
+          "duration": 0.12333300000000236,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 4",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 4",
+          "duration": 0.11212499999999181,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 5",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 5",
+          "duration": 0.10729200000002947,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 6",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 6",
+          "duration": 0.10337499999991451,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 7",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 7",
+          "duration": 0.12916699999993853,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 8",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 8",
+          "duration": 0.11362499999995634,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects revoked, pre-upgrade, mismatched and malformed identities 9",
+          "status": "passed",
+          "title": "rejects revoked, pre-upgrade, mismatched and malformed identities 9",
+          "duration": 0.11804200000005949,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows fresh logins for legacy records with no version or email link",
+          "status": "passed",
+          "title": "allows fresh logins for legacy records with no version or email link",
+          "duration": 0.21641699999997854,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259310,
+      "endTime": 1792957259322.2163,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/current-sessions.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "preserves the destination for anonymous navigation and enforces forced password changes",
+          "status": "passed",
+          "title": "preserves the destination for anonymous navigation and enforces forced password changes",
+          "duration": 62.61099999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows the admin layout only for real administrator sessions",
+          "status": "passed",
+          "title": "allows the admin layout only for real administrator sessions",
+          "duration": 7.892875000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258289,
+      "endTime": 1792957258359.8928,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/layout-access.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "retrieves the managed key with IAM defaults and reuses its client after cache expiry",
+          "status": "passed",
+          "title": "retrieves the managed key with IAM defaults and reuses its client after cache expiry",
+          "duration": 13.504542000000015,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not contact Secrets Manager in preview",
+          "status": "passed",
+          "title": "does not contact Secrets Manager in preview",
+          "duration": 0.8034169999999676,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "coalesces concurrent loads, expires the cache, and never falls back to stale keys after failure",
+          "status": "passed",
+          "title": "coalesces concurrent loads, expires the cache, and never falls back to stale keys after failure",
+          "duration": 1.1545830000000024,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 0",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 0",
+          "duration": 1.4297920000000204,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 1",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 1",
+          "duration": 0.22629100000000335,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 2",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 2",
+          "duration": 0.178291999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 3",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 3",
+          "duration": 0.13933299999996507,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 4",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 4",
+          "duration": 0.12379199999998036,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 5",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 5",
+          "duration": 0.24925000000001774,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects missing, malformed or inappropriate managed secrets 6",
+          "status": "passed",
+          "title": "rejects missing, malformed or inappropriate managed secrets 6",
+          "duration": 0.5922919999999863,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "validates direct runtime keys without exposing rejected values",
+          "status": "passed",
+          "title": "validates direct runtime keys without exposing rejected values",
+          "duration": 0.15866700000003675,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258584,
+      "endTime": 1792957258602.5923,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/managed-secret.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "accepts the configured origin and JSON, including a charset parameter",
+          "status": "passed",
+          "title": "accepts the configured origin and JSON, including a charset parameter",
+          "duration": 8.016457999999943,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin undefined",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin undefined",
+          "duration": 0.6618339999999989,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin null",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin null",
+          "duration": 0.21745799999996507,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin https://untrusted.example.test",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin https://untrusted.example.test",
+          "duration": 0.13999999999998636,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin https://dashboard.example.test.attacker.test",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin https://dashboard.example.test.attacker.test",
+          "duration": 0.24362500000006548,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin http://dashboard.example.test",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin http://dashboard.example.test",
+          "duration": 0.24474999999995362,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an absent or untrusted origin https://dashboard.example.test:444",
+          "status": "passed",
+          "title": "rejects an absent or untrusted origin https://dashboard.example.test:444",
+          "duration": 0.15075000000001637,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-JSON request type undefined",
+          "status": "passed",
+          "title": "rejects non-JSON request type undefined",
+          "duration": 0.17229199999997036,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-JSON request type text/plain",
+          "status": "passed",
+          "title": "rejects non-JSON request type text/plain",
+          "duration": 0.15550000000007458,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-JSON request type application/x-www-form-urlencoded",
+          "status": "passed",
+          "title": "rejects non-JSON request type application/x-www-form-urlencoded",
+          "duration": 0.1332079999999678,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-JSON request type multipart/form-data",
+          "status": "passed",
+          "title": "rejects non-JSON request type multipart/form-data",
+          "duration": 0.10191599999996015,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects non-JSON request type application/json, text/plain",
+          "status": "passed",
+          "title": "rejects non-JSON request type application/json, text/plain",
+          "duration": 0.110416999999984,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "fails closed when the canonical origin is missing",
+          "status": "passed",
+          "title": "fails closed when the canonical origin is missing",
+          "duration": 0.12216699999999037,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259293,
+      "endTime": 1792957259303.1555,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/mutation-policy.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "honors each explicit target independently and leaves application configuration unchanged",
+          "status": "passed",
+          "title": "honors each explicit target independently and leaves application configuration unchanged",
+          "duration": 139.578209,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not require unrelated web-auth settings for an explicit operator account target",
+          "status": "passed",
+          "title": "does not require unrelated web-auth settings for an explicit operator account target",
+          "duration": 2.5012500000000273,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "closes its owned client after an operation fails",
+          "status": "passed",
+          "title": "closes its owned client after an operation fails",
+          "duration": 2.393374999999992,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258119,
+      "endTime": 1792957258263.3933,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/operator-targets.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "requires explicit targets and separates bootstrap, recovery, access, and dry-run migration",
+          "status": "passed",
+          "title": "requires explicit targets and separates bootstrap, recovery, access, and dry-run migration",
+          "duration": 11.209459000000038,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "writes credentials privately and never overwrites or follows an existing file",
+          "status": "passed",
+          "title": "writes credentials privately and never overwrites or follows an existing file",
+          "duration": 29.15033299999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "keeps public setup endpoints closed without account reads",
+          "status": "passed",
+          "title": "keeps public setup endpoints closed without account reads",
+          "duration": 32.36087500000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "runs the documented CLI and does not print rejected secret-like arguments",
+          "status": "passed",
+          "title": "runs the documented CLI and does not print rejected secret-like arguments",
+          "duration": 270.83675,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257718,
+      "endTime": 1792957258061.8367,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/operator.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "preserves the temporary-password format without using Math.random",
+          "status": "passed",
+          "title": "preserves the temporary-password format without using Math.random",
+          "duration": 2.390625,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259176,
+      "endTime": 1792957259178.3906,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/password-generation.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects a new password that bcrypt would silently truncate 0",
+          "status": "passed",
+          "title": "rejects a new password that bcrypt would silently truncate 0",
+          "duration": 2.2010830000000112,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects a new password that bcrypt would silently truncate 1",
+          "status": "passed",
+          "title": "rejects a new password that bcrypt would silently truncate 1",
+          "duration": 0.2275419999999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "accepts the 72-byte boundary and verifies the complete password",
+          "status": "passed",
+          "title": "accepts the 72-byte boundary and verifies the complete password",
+          "duration": 237.640167,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "retains the existing minimum length and character requirements",
+          "status": "passed",
+          "title": "retains the existing minimum length and character requirements",
+          "duration": 0.5651250000000232,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957257649,
+      "endTime": 1792957257889.5652,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/password-policy.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves repeated URL parameters across the server/client boundary",
+          "status": "passed",
+          "title": "preserves repeated URL parameters across the server/client boundary",
+          "duration": 7.601832999999942,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 0",
+          "status": "passed",
+          "title": "rejects invalid page 0",
+          "duration": 0.4255000000000564,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page -1",
+          "status": "passed",
+          "title": "rejects invalid page -1",
+          "duration": 0.12516600000003564,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 1.5",
+          "status": "passed",
+          "title": "rejects invalid page 1.5",
+          "duration": 0.11637500000006185,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page Infinity",
+          "status": "passed",
+          "title": "rejects invalid page Infinity",
+          "duration": 0.10283300000003237,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page nope",
+          "status": "passed",
+          "title": "rejects invalid page nope",
+          "duration": 0.10024999999995998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects invalid page 9007199254740992",
+          "status": "passed",
+          "title": "rejects invalid page 9007199254740992",
+          "duration": 0.09366700000009587,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts distinguishes zero from missing",
+          "status": "passed",
+          "title": "distinguishes zero from missing",
+          "duration": 16.86991599999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts formats provenance in UTC independently of the machine timezone",
+          "status": "passed",
+          "title": "formats provenance in UTC independently of the machine timezone",
+          "duration": 2.9279169999999795,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts keeps missing values last in both directions",
+          "status": "passed",
+          "title": "keeps missing values last in both directions",
+          "duration": 0.7936249999999063,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path https://evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path https://evil.test",
+          "duration": 0.16108299999996234,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path //evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path //evil.test",
+          "duration": 0.12162499999999454,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path /\\\\evil.test",
+          "status": "passed",
+          "title": "rejects unsafe return path /\\\\evil.test",
+          "duration": 0.10229200000003402,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path /auth/login",
+          "status": "passed",
+          "title": "rejects unsafe return path /auth/login",
+          "duration": 0.16466700000000856,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts rejects unsafe return path javascript:alert(1)",
+          "status": "passed",
+          "title": "rejects unsafe return path javascript:alert(1)",
+          "duration": 0.0771670000000313,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves valid filtered destinations",
+          "status": "passed",
+          "title": "preserves valid filtered destinations",
+          "duration": 0.0935420000000704,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts validates query state",
+          "status": "passed",
+          "title": "validates query state",
+          "duration": 0.5397500000000264,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts preserves unrelated filters and resets the page",
+          "status": "passed",
+          "title": "preserves unrelated filters and resets the page",
+          "duration": 0.1944580000000542,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts namespaces preferences by account",
+          "status": "passed",
+          "title": "namespaces preferences by account",
+          "duration": 0.2121669999999085,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts exports safe CSV values and preserves missing data",
+          "status": "passed",
+          "title": "exports safe CSV values and preserves missing data",
+          "duration": 0.17837499999995998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"\\n=1+1\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"\\n=1+1\"",
+          "duration": 0.07816700000000765,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"\uff1d1+1\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"\uff1d1+1\"",
+          "duration": 0.09670799999992141,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"\uff0b1+1\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"\uff0b1+1\"",
+          "duration": 0.07287499999995362,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"\uff0d1+1\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"\uff0d1+1\"",
+          "duration": 0.06370800000001964,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"\uff20SUM(1)\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"\uff20SUM(1)\"",
+          "duration": 0.05750000000000455,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [
+            "presentation contracts"
+          ],
+          "fullName": "presentation contracts escapes spreadsheet formula prefixes in \"   =1+1\"",
+          "status": "passed",
+          "title": "escapes spreadsheet formula prefixes in \"   =1+1\"",
+          "duration": 0.06170800000006693,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259022,
+      "endTime": 1792957259053.1785,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/presentation.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "loads managed server configuration without build-time environment variables",
+          "status": "passed",
+          "title": "loads managed server configuration without build-time environment variables",
+          "duration": 3.9672919999999863,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "falls back to the configuration packaged inside the server artifact",
+          "status": "passed",
+          "title": "falls back to the configuration packaged inside the server artifact",
+          "duration": 0.3602499999999793,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "honors explicit runtime overrides and refuses malformed configuration files",
+          "status": "passed",
+          "title": "honors explicit runtime overrides and refuses malformed configuration files",
+          "duration": 0.7508339999999976,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "supports unconfigured local builds but refuses incomplete managed deployments",
+          "status": "passed",
+          "title": "supports unconfigured local builds but refuses incomplete managed deployments",
+          "duration": 0.5799999999999841,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 0",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 0",
+          "duration": 0.1653750000000116,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 1",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 1",
+          "duration": 0.13008300000001327,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 2",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 2",
+          "duration": 0.11179200000000833,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 3",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 3",
+          "duration": 0.11412500000000136,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 4",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 4",
+          "duration": 0.5885419999999897,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects unsafe or ambiguous runtime settings 5",
+          "status": "passed",
+          "title": "rejects unsafe or ambiguous runtime settings 5",
+          "duration": 0.204291000000012,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "persists only non-secret allowlisted configuration",
+          "status": "passed",
+          "title": "persists only non-secret allowlisted configuration",
+          "duration": 14.257916999999992,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957258680,
+      "endTime": 1792957258701.2578,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/runtime-settings.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "requires individually passing nonempty unit and nested browser results",
+          "status": "passed",
+          "title": "requires individually passing nonempty unit and nested browser results",
+          "duration": 5.286083000000019,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 0",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 0",
+          "duration": 1.1415839999999946,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 1",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 1",
+          "duration": 0.2707499999999925,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 2",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 2",
+          "duration": 0.14954099999999926,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 3",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 3",
+          "duration": 0.11770799999999326,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 4",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 4",
+          "duration": 0.12725000000000364,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 5",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 5",
+          "duration": 0.10916599999998766,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or inconsistent unit verdict 6",
+          "status": "passed",
+          "title": "rejects an incomplete or inconsistent unit verdict 6",
+          "duration": 0.14341699999999946,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 0",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 0",
+          "duration": 0.21091699999999491,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 1",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 1",
+          "duration": 0.14725000000001387,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 2",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 2",
+          "duration": 0.12433400000000461,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 3",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 3",
+          "duration": 0.12158400000001279,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 4",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 4",
+          "duration": 0.13170800000000327,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 5",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 5",
+          "duration": 0.1654590000000269,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an incomplete or falsely green browser verdict 6",
+          "status": "passed",
+          "title": "rejects an incomplete or falsely green browser verdict 6",
+          "duration": 0.1595829999999978,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792957259065,
+      "endTime": 1792957259073.1655,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/quantum/Documents/ChatGPT/repo-activity-dashboard/tests/unit/test-results.test.ts"
+    }
+  ]
+}

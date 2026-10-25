@@ -8,6 +8,8 @@ Routes compose account context, prepared sample values, and feature views. Featu
 
 `dependency-cruiser.config.mjs` resolves TypeScript aliases, relative imports, re-exports, and statically resolvable dependencies. It rejects source cycles, unresolved imports, shared-component dependencies on features, cross-feature imports, reversed pure-layer dependencies, and presentation paths (including AST-discovered `use client` entry points under routes) that reach server/auth/AWS/sample modules or Node builtins. Package internals under node_modules are not traversed; this is a source architecture check, not a dependency security audit.
 
+Application imports cannot reach operator command scripts. Account store instances bind one client and immutable target; the server adapter owns its default instance, while operator invocations own separate clients without changing process-wide table settings.
+
 The separate retirement checker rejects known retired reporting paths, packages in either dependency section, obsolete scripts, raw-store strings, and computed module imports. Its AST scan covers application JS/TS source extensions, including JSX/TSX and CJS/ESM variants. Runtime-generated code, arbitrary HTTP destinations, and third-party package internals are outside that check. Both checkers reject empty input. Positive and negative fixtures exercise the actual checkers.
 
 ## Table state ownership
@@ -26,6 +28,8 @@ A future adapter owns request cancellation/order, response-schema validation, au
 ## Runtime account boundaries
 
 Account request bodies, consumed API responses, and loaded account/whitelist records are validated with Zod. Invalid user input returns 400; malformed store responses and store failures remain failures. Production credential validation checks whitelist membership, account existence, and password verification and returns only safe identity fields.
+
+Custom cookie-authenticated account mutations require the canonical configured origin and JSON content type. Their policy is shared by the create/reset/change-password routes. Auth.js endpoints keep their existing CSRF protocol.
 
 Account mutations reject preview builds before invoking real authentication/storage. Admin mutations also require an administrator and completion of mandatory password changes. Password change acts on the authenticated identity, never a user ID supplied in the body. API checks are independent of page-layout checks.
 

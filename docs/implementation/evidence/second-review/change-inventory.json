@@ -1,0 +1,141 @@
+{
+  "baselineCommit": "ff557a6c5e4946b9c3f5be6cad325b6c1dc943f6",
+  "codeCommit": "203efc5e9366963994fae337539700f6e260779f",
+  "entries": [
+    {
+      "status": "M",
+      "path": "dependency-cruiser.config.mjs",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "scripts/app.mjs",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "scripts/auth-operator.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/app/api/admin/users/reset-password/route.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/app/api/admin/users/route.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/app/api/auth/change-password/route.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "src/lib/auth/account-store.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/lib/auth/api-access.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "src/lib/auth/mutation-policy.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "src/lib/auth/server-account-store.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "D",
+      "path": "src/lib/auth/tables.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/lib/auth/users.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/lib/auth/whitelist.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/lib/aws/clients.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "src/models/account-target.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "src/models/runtime-settings.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/integration/accounts.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/production/auth.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/account-pagination.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/account-routes.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/account-storage.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/architecture.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/auth-handlers.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "tests/unit/build-mode.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "tests/unit/mutation-policy.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "A",
+      "path": "tests/unit/operator-targets.test.ts",
+      "independentReview": "pending"
+    },
+    {
+      "status": "M",
+      "path": "vitest.accounts.config.ts",
+      "independentReview": "pending"
+    }
+  ]
+}
