@@ -43,7 +43,7 @@ export function useTableQuery({
       descending: query.descending,
       page: query.page,
     });
-  }, [query.search, query.sort, query.descending, query.page]);
+  }, [queryKey, viewerId, query.search, query.sort, query.descending, query.page]);
   const update = useCallback(
     (patch: Partial<TableQuery>) => {
       const url = new URL(window.location.href);

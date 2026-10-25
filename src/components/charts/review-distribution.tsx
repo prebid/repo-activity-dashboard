@@ -10,7 +10,7 @@ export function ReviewDistribution({ data }: { data: DistributionPoint[] }) {
       <figcaption className="mb-3 font-semibold">Human review distribution</figcaption>
       <div className="h-48" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
+          <BarChart data={data} accessibilityLayer={false}>
             <XAxis dataKey="label" />
             <YAxis allowDecimals={false} />
             <Tooltip

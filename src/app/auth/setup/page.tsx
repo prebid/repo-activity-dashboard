@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { passwordRequirements } from '@/models/password-policy';
 import { readJsonResponse } from '@/lib/presentation/http';
 import { setupStatusSchema, messageResponseSchema } from '@/models/accounts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,13 +28,6 @@ export default function SetupPage() {
       .then((data) => setHasUsers(data.hasUsers))
       .catch(() => setHasUsers(true)); // Assume has users on error for safety
   }, []);
-
-  const passwordRequirements = [
-    { test: (p: string) => p.length >= 8, text: 'At least 8 characters' },
-    { test: (p: string) => /[A-Z]/.test(p), text: 'One uppercase letter' },
-    { test: (p: string) => /[a-z]/.test(p), text: 'One lowercase letter' },
-    { test: (p: string) => /[0-9]/.test(p), text: 'One number' },
-  ];
 
   const isPasswordValid = passwordRequirements.every((req) => req.test(password));
 

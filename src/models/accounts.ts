@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 export const emailSchema = z.string().trim().email().toLowerCase();
+export const accountRoles = ['viewer', 'user', 'admin'] as const;
+export const accountRoleSchema = z.enum(accountRoles);
 const optionalText = z.preprocess(
-  (value) => (value === '' ? undefined : value),
+  (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
   z.string().trim().min(1).optional(),
 );
 export const credentialSchema = z.object({ email: emailSchema, password: z.string().min(1) });
@@ -10,7 +12,7 @@ export const createAccountSchema = z.object({
   email: emailSchema,
   name: optionalText,
   company: optionalText,
-  role: z.enum(['viewer', 'admin']).default('viewer'),
+  role: accountRoleSchema.default('viewer'),
 });
 export const resetAccountSchema = z.object({ email: emailSchema });
 export const changePasswordSchema = z.object({

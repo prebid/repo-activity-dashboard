@@ -1,5 +1,10 @@
 import { builtinModules } from 'node:module';
 import { readdirSync, existsSync } from 'node:fs';
+import { applicationSources } from './scripts/application-sources.mjs';
+const clientPaths = applicationSources(process.cwd())
+  .filter((file) => file.client)
+  .map((file) => '^' + file.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$');
+const presentationRoots = ['^src/(components|features)/', ...clientPaths].join('|');
 const builtins = [...new Set(builtinModules.map((name) => name.replace(/^node:/, '')))];
 const corePath =
   '^(?:node:)?(?:' +
@@ -23,7 +28,7 @@ const configuration = {
     {
       name: 'presentation-no-server-or-samples',
       severity: 'error',
-      from: { path: '^src/(components|features)/' },
+      from: { path: presentationRoots },
       to: {
         path: '^src/(app|mocks|server|lib/(auth|aws))/|^node_modules/(@aws-sdk/|server-only/)',
         reachable: true,
@@ -32,7 +37,7 @@ const configuration = {
     {
       name: 'presentation-no-node',
       severity: 'error',
-      from: { path: '^src/(components|features)/' },
+      from: { path: presentationRoots },
       to: { path: corePath, reachable: true },
     },
     {

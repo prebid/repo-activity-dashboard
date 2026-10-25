@@ -142,3 +142,36 @@ it('corrects local pagination after the supplied data shrinks', () => {
   expect(screen.getByText('Page 1 of 1')).toBeVisible();
   expect(window.location.search).toBe('');
 });
+it('notifies a new table namespace even if its initial query has identical values', () => {
+  const first = vi.fn();
+  const second = vi.fn();
+  const { rerender } = renderHook(
+    ({ key, onChange }) => useTableQuery({ queryKey: key, columnIds, initialSearch: '', onChange }),
+    { initialProps: { key: 'prs', onChange: first } },
+  );
+  expect(first).toHaveBeenCalledOnce();
+  rerender({ key: 'issues', onChange: second });
+  expect(second).toHaveBeenCalledExactlyOnceWith(initial);
+});
+it('does not submit a containing form when sorting or paging', () => {
+  const submitted = vi.fn();
+  render(
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        submitted();
+      }}
+    >
+      <DataTable
+        title="Nested"
+        queryKey="nested"
+        columns={columns}
+        rows={Array.from({ length: 101 }, (_, i) => ({ id: String(i), name: 'Item ' + i }))}
+      />
+    </form>,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Name' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+  expect(screen.getByText('Page 2 of 2')).toBeVisible();
+  expect(submitted).not.toHaveBeenCalled();
+});

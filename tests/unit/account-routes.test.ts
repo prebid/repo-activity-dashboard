@@ -132,6 +132,20 @@ it('handles reset validation, missing users, successful resets, and storage fail
   expect(await result.json()).toMatchObject({ tempPassword: 'temporary' });
   expect(mocks.reset).toHaveBeenLastCalledWith('a@example.test');
 });
+it.each(['viewer', 'user', 'admin'])(
+  'accepts the %s role offered by account administration',
+  async (role) => {
+    const { POST } = await import('@/app/api/admin/users/route');
+    expect((await POST(request({ email: 'new@example.test', role }))).status).toBe(200);
+    expect(mocks.create).toHaveBeenCalledWith(
+      'new@example.test',
+      undefined,
+      role,
+      undefined,
+      admin.email,
+    );
+  },
+);
 it('rejects malformed, weak, missing-account and failed password changes', async () => {
   const { POST } = await import('@/app/api/auth/change-password/route');
   expect((await POST(request(null))).status).toBe(400);

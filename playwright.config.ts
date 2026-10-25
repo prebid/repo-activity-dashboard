@@ -3,6 +3,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   outputDir: 'test-results/browser-artifacts',
   fullyParallel: false,
+  forbidOnly: true,
   workers: 1,
   retries: 0,
   reporter: [['list'], ['json', { outputFile: 'test-results/playwright.json' }]],

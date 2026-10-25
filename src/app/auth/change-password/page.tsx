@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut, signIn } from 'next-auth/react';
+import { passwordRequirements } from '@/models/password-policy';
 import { readJsonResponse } from '@/lib/presentation/http';
 import { messageResponseSchema } from '@/models/accounts';
 import { Card } from '@/components/ui/card';
@@ -21,13 +22,6 @@ export default function ChangePasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const passwordRequirements = [
-    { test: (p: string) => p.length >= 8, text: 'At least 8 characters' },
-    { test: (p: string) => /[A-Z]/.test(p), text: 'One uppercase letter' },
-    { test: (p: string) => /[a-z]/.test(p), text: 'One lowercase letter' },
-    { test: (p: string) => /[0-9]/.test(p), text: 'One number' },
-  ];
 
   const isPasswordValid = passwordRequirements.every((req) => req.test(newPassword));
 

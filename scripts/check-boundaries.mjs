@@ -3,6 +3,7 @@ import { resolve, dirname, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 import { isBuiltin } from 'node:module';
+import { applicationSources } from './application-sources.mjs';
 const retired = [
   'src/services',
   'src/scripts',
@@ -28,71 +29,63 @@ export function inspectBoundaries(root) {
       if (!name.includes('.') && readdirSync(p).length === 0) continue;
       failures.push('Retired reporting path remains: ' + name);
     }
-  /** @param {string} directory */
-  function scan(directory) {
-    for (const entry of readdirSync(directory, { withFileTypes: true })) {
-      const path = resolve(directory, entry.name);
-      if (entry.isDirectory()) {
-        scan(path);
-        continue;
+  const files = applicationSources(root);
+  for (const { name, source, client } of files) {
+    count++;
+    const path = resolve(root, name);
+    const presentation = client || /^src\/(components|features)\//.test(name);
+    /** @param {string} specifier */
+    const validate = (specifier) => {
+      const target = specifier.startsWith('@/')
+        ? 'src/' + specifier.slice(2)
+        : specifier.startsWith('.')
+          ? relative(root, resolve(dirname(path), specifier))
+              .split(sep)
+              .join('/')
+          : specifier;
+      if (
+        /(^|\/)(store|services|validation)\//.test(target) ||
+        target.includes('contributor-repo-timeline') ||
+        target.includes('lib/repoData')
+      )
+        failures.push(name + ': retired import ' + specifier);
+      if (
+        presentation &&
+        (/^(src\/(mocks|server|lib\/(auth|aws))\/|node:|@aws-sdk\/)/.test(target) ||
+          isBuiltin(specifier))
+      )
+        failures.push(name + ': presentation imports ' + specifier);
+    };
+    /** @param {ts.Node} node */
+    function visit(node) {
+      if (
+        (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+        node.moduleSpecifier &&
+        ts.isStringLiteral(node.moduleSpecifier)
+      )
+        validate(node.moduleSpecifier.text);
+      if (
+        ts.isCallExpression(node) &&
+        (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
+          (ts.isIdentifier(node.expression) && node.expression.text === 'require'))
+      ) {
+        if (
+          node.arguments[0] &&
+          (ts.isStringLiteral(node.arguments[0]) ||
+            ts.isNoSubstitutionTemplateLiteral(node.arguments[0]))
+        )
+          validate(node.arguments[0].text);
+        else failures.push(name + ': computed module import requires explicit review');
       }
-      if (!/\.(ts|tsx)$/.test(path)) continue;
-      count++;
-      const name = relative(root, path).split(sep).join('/');
-      const source = ts.createSourceFile(
-        path,
-        readFileSync(path, 'utf8'),
-        ts.ScriptTarget.Latest,
-        true,
-      );
-      const presentation = /^src\/(components|features)\//.test(name);
-      /** @param {string} specifier */
-      const validate = (specifier) => {
-        const target = specifier.startsWith('@/')
-          ? 'src/' + specifier.slice(2)
-          : specifier.startsWith('.')
-            ? relative(root, resolve(dirname(path), specifier))
-                .split(sep)
-                .join('/')
-            : specifier;
-        if (
-          /(^|\/)(store|services|validation)\//.test(target) ||
-          target.includes('contributor-repo-timeline') ||
-          target.includes('lib/repoData')
-        )
-          failures.push(name + ': retired import ' + specifier);
-        if (
-          presentation &&
-          (/^(src\/(mocks|server|lib\/(auth|aws))\/|node:|@aws-sdk\/)/.test(target) ||
-            isBuiltin(specifier))
-        )
-          failures.push(name + ': presentation imports ' + specifier);
-      };
-      /** @param {ts.Node} node */
-      function visit(node) {
-        if (
-          (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
-          node.moduleSpecifier &&
-          ts.isStringLiteral(node.moduleSpecifier)
-        )
-          validate(node.moduleSpecifier.text);
-        if (
-          ts.isCallExpression(node) &&
-          (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
-            (ts.isIdentifier(node.expression) && node.expression.text === 'require'))
-        ) {
-          if (node.arguments[0] && ts.isStringLiteral(node.arguments[0]))
-            validate(node.arguments[0].text);
-          else failures.push(name + ': computed module import requires explicit review');
-        }
-        if (ts.isStringLiteral(node) && node.text.startsWith('/store/'))
-          failures.push(name + ': raw store request');
-        ts.forEachChild(node, visit);
-      }
-      visit(source);
+      if (
+        (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) &&
+        (node.text === '/store' || node.text.startsWith('/store/'))
+      )
+        failures.push(name + ': raw store request');
+      ts.forEachChild(node, visit);
     }
+    visit(source);
   }
-  scan(resolve(root, 'src'));
   if (count === 0) failures.push('No source files selected');
   /** @type {unknown} */
   const decoded = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));

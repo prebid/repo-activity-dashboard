@@ -4,6 +4,7 @@ export default defineConfig({
   oxc: { jsx: { runtime: 'automatic' } },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: {
+    allowOnly: false,
     environment: 'jsdom',
     server: { deps: { inline: ['next-auth'] } },
     include: ['tests/unit/**/*.test.ts', 'tests/components/**/*.test.tsx'],

@@ -33,26 +33,6 @@ export async function getUserById(id: string): Promise<User | null> {
   );
   return result.Item ? accountRecordSchema.parse(result.Item) : null;
 }
-export async function createUser(userData: {
-  email: string;
-  password: string;
-  name?: string;
-  role?: string;
-  company?: string;
-}): Promise<User> {
-  const user: User = {
-    id: randomUUID(),
-    email: userData.email.toLowerCase(),
-    password: userData.password,
-    name: userData.name || userData.email.split('@')[0],
-    role: userData.role || 'viewer',
-    company: userData.company,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  await getDocClient().send(new PutCommand({ TableName: accountTable('users'), Item: user }));
-  return user;
-}
 export function generateTempPassword(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$';
   let password = '';

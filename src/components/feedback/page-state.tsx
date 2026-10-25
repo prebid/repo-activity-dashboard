@@ -16,7 +16,7 @@ export function PageState({
       <h2 className="text-lg font-semibold">{title}</h2>
       {children && <div className="mt-2 text-muted-foreground">{children}</div>}
       {onRetry && (
-        <Button className="mt-4" onClick={onRetry}>
+        <Button type="button" className="mt-4" onClick={onRetry}>
           Try again
         </Button>
       )}

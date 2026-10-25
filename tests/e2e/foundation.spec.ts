@@ -19,7 +19,60 @@ test('component catalog renders independently from authentication and reporting'
   await expect(page.getByRole('heading', { name: 'Sample table' })).toBeVisible();
   await expect(page.getByText('Known zero', { exact: true })).toBeVisible();
   await expect(page.getByRole('figure', { name: 'Human review distribution' })).toBeVisible();
+  expect((await new AxeBuilder({ page }).include('figure').analyze()).violations).toEqual([]);
   await page.screenshot({ path: testInfo.outputPath('component-catalog.png'), fullPage: true });
+});
+test('repeated callback parameters retain a usable login destination', async ({ page }) => {
+  await page.goto('/auth/login?callbackUrl=%2Fcontributors&callbackUrl=%2Fcompanies');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL(/\/contributors$/);
+});
+test('select bounds, dialog focus, menu keyboard actions and switch behavior', async ({ page }) => {
+  await page.setViewportSize({ width: 700, height: 500 });
+  await page.goto(
+    'http://127.0.0.1:6007/iframe.html?id=foundation-interactive-primitives--keyboard&viewMode=story',
+  );
+  const select = page.getByRole('combobox', { name: 'Repository selection' });
+  await select.focus();
+  await page.keyboard.press('Enter');
+  const list = page.getByRole('listbox');
+  await expect(list).toBeVisible();
+  const bounds = await list.evaluate((el) => ({
+    maximum: getComputedStyle(el).maxHeight,
+    available: getComputedStyle(el).getPropertyValue('--radix-select-content-available-height'),
+  }));
+  expect(Number.parseFloat(bounds.available)).toBeGreaterThan(0);
+  expect(Number.parseFloat(bounds.maximum)).toBeCloseTo(Number.parseFloat(bounds.available));
+  expect(Number.parseFloat(bounds.maximum)).toBeLessThanOrEqual(500);
+  await expect(page.getByRole('option', { name: 'Repository 1', exact: true })).toBeFocused();
+  await page.keyboard.press('End');
+  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(select).toHaveText('Repository 50');
+  await expect(select).toBeFocused();
+  const dialogTrigger = page.getByRole('button', { name: 'Open dialog' });
+  await dialogTrigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
+  await expect(dialog).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Close' })).toBeFocused();
+  await expect(dialog).toHaveCSS('opacity', '1');
+  expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
+    [],
+  );
+  await page.keyboard.press('Escape');
+  await expect(dialogTrigger).toBeFocused();
+  const menu = page.getByRole('button', { name: 'Open menu' });
+  await menu.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('menuitem', { name: 'First action' })).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('menuitem', { name: 'Second action' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeFocused();
+  const toggle = page.getByRole('switch', { name: 'Sample preference' });
+  await toggle.focus();
+  await page.keyboard.press('Space');
+  await expect(toggle).toBeChecked();
 });
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/auth/login');

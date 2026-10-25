@@ -2,11 +2,11 @@ import { auth } from '@/lib/auth/auth';
 import { repositoryCatalog } from '@/config/repositories';
 import { repositorySummaries, sampleAsOf } from '@/mocks/reporting';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
-import { encodeSearchParams } from '@/lib/presentation/search-params';
+import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 export default async function AllReposPage({
   searchParams,
 }: {
-  searchParams: Promise<Record<string, string | undefined>>;
+  searchParams: Promise<PageSearchParams>;
 }) {
   const viewer = await auth();
   const rows = repositorySummaries.map((summary) => {

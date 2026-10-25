@@ -17,7 +17,9 @@ export function compareValues(
 export function csvCell(value: string | number | null): string {
   if (value === null) return '';
   const text = String(value);
-  const safe = /^[=+@\-\t\r]/.test(text) && typeof value === 'string' ? "'" + text : text;
+  // CSV quoting alone does not make spreadsheet formula prefixes inert.
+  const formulaPrefix = /^[\s]*[=+@\-＝＋－＠]|^[\t\r\n]/u;
+  const safe = typeof value === 'string' && formulaPrefix.test(text) ? "'" + text : text;
   return '"' + safe.replaceAll('"', '""') + '"';
 }
 

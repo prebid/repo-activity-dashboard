@@ -65,3 +65,20 @@ it('never treats an empty scan as a successful architectural check', () => {
     inspectArchitecture(fixture({ 'outside.ts': 'export const ignored = true;' })).failures,
   ).toContain('No source files selected');
 });
+it('enforces transitive server isolation for client route entry points too', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/app/client/page.tsx':
+        "'use client'; import { secret } from '@/helpers'; export default function Page(){ return secret; }",
+      'src/helpers.ts': "export { secret } from './lib/auth/secret';",
+      'src/lib/auth/secret.ts': "export const secret = 'server';",
+    }),
+  );
+  expect(result.sourceFiles).toBe(3);
+  expect(
+    result.failures.some(
+      (failure) =>
+        failure.includes('src/app/client/page.tsx') && failure.includes('src/lib/auth/secret.ts'),
+    ),
+  ).toBe(true);
+});

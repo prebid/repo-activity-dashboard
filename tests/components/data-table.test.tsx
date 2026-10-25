@@ -139,6 +139,24 @@ describe('column controls', () => {
 });
 
 describe('paged data input for a future adapter', () => {
+  it('keeps the rendered row budget bounded independently of a large remote total', () => {
+    render(
+      <DataTable
+        title="Large remote scope"
+        queryKey="remote"
+        rows={rows.slice(0, 100)}
+        columns={columns}
+        paging={{
+          totalCount: 1_000_000,
+          query: { search: '', sort: '', descending: false, page: 1 },
+          onQueryChange: () => {},
+        }}
+      />,
+    );
+    expect(screen.getByText('1,000,000 matching items')).toBeVisible();
+    expect(screen.getByText('Page 1 of 10000')).toBeVisible();
+    expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(101);
+  });
   it('uses the supplied total and does not filter, re-sort, or page the supplied records again', () => {
     window.history.replaceState(
       null,

@@ -34,6 +34,7 @@ import { Loader2, UserPlus, Copy, CheckCircle } from 'lucide-react';
 import {
   whitelistResponseSchema,
   createdAccountResponseSchema,
+  accountRoles,
   type WhitelistRecord,
 } from '@/models/accounts';
 import { readJsonResponse } from '@/lib/presentation/http';
@@ -211,13 +212,15 @@ You will be required to change this password on your first login.`;
               <div className="space-y-2">
                 <Label htmlFor="role">Role *</Label>
                 <Select value={role} onValueChange={setRole} disabled={isCreating}>
-                  <SelectTrigger>
+                  <SelectTrigger id="role">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="viewer">Viewer</SelectItem>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
+                    {accountRoles.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role[0].toUpperCase() + role.slice(1)}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -306,13 +309,19 @@ You will be required to change this password on your first login.`;
 
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label>Temporary Password</Label>
+              <Label htmlFor="temporary-password">Temporary Password</Label>
               <div className="flex gap-2">
-                <Input value={tempPassword} readOnly className="font-mono" />
+                <Input
+                  id="temporary-password"
+                  value={tempPassword}
+                  readOnly
+                  className="font-mono"
+                />
                 <Button
                   type="button"
                   variant="outline"
                   size="icon"
+                  aria-label="Copy temporary password"
                   onClick={() => void copyToClipboard()}
                 >
                   {copiedPassword ? (

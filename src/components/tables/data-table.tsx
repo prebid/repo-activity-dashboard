@@ -186,6 +186,7 @@ export function DataTable<T extends { id: string }>({
           </details>
           {(paging ? paging.onExport : exportName) && (
             <Button
+              type="button"
               variant="outline"
               onClick={() => void download()}
               disabled={exporting || waiting || Boolean(paging?.error)}
@@ -234,6 +235,7 @@ export function DataTable<T extends { id: string }>({
                       className="whitespace-nowrap p-3"
                     >
                       <button
+                        type="button"
                         className="rounded text-left font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-ring"
                         onClick={() =>
                           update({
@@ -266,6 +268,7 @@ export function DataTable<T extends { id: string }>({
       )}
       <div className="flex items-center justify-end gap-3">
         <Button
+          type="button"
           variant="outline"
           disabled={waiting || Boolean(paging?.error) || page <= 1}
           onClick={() => update({ page: page - 1 })}
@@ -276,6 +279,7 @@ export function DataTable<T extends { id: string }>({
           {waiting || paging?.error ? `Page ${page}` : `Page ${page} of ${pageCount}`}
         </span>
         <Button
+          type="button"
           variant="outline"
           disabled={waiting || Boolean(paging?.error) || page >= pageCount}
           onClick={() => update({ page: page + 1 })}

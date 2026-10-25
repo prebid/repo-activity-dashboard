@@ -1,10 +1,11 @@
 import { LoginView } from '@/features/authentication/login-view';
 import { isPreviewBuild } from '@/lib/presentation/preview';
+import { firstSearchParam, type PageSearchParams } from '@/lib/presentation/search-params';
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ callbackUrl?: string }>;
+  searchParams: Promise<PageSearchParams>;
 }) {
   const params = await searchParams;
-  return <LoginView preview={isPreviewBuild} callbackUrl={params.callbackUrl} />;
+  return <LoginView preview={isPreviewBuild} callbackUrl={firstSearchParam(params.callbackUrl)} />;
 }

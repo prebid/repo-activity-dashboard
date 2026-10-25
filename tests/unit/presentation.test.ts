@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { formatCount, formatAsOf, compareValues, csvCell } from '@/lib/presentation/format';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 import { readTableQuery, writeTableQuery, preferenceKey } from '@/lib/presentation/table-query';
-import { encodeSearchParams } from '@/lib/presentation/search-params';
+import { encodeSearchParams, firstSearchParam } from '@/lib/presentation/search-params';
 describe('presentation contracts', () => {
   it('preserves repeated URL parameters across the server/client boundary', () => {
     expect(encodeSearchParams({ repo: ['one', 'two'], view: 'issues', unused: undefined })).toBe(
@@ -10,6 +10,10 @@ describe('presentation contracts', () => {
     );
     // Scalar table fields use the first value consistently on server and browser.
     expect(readTableQuery('?prs.page=2&prs.page=9', 'prs', []).page).toBe(2);
+    expect(firstSearchParam(['issues', 'prs'])).toBe('issues');
+    expect(firstSearchParam('issues')).toBe('issues');
+    expect(firstSearchParam(undefined)).toBeUndefined();
+    expect(firstSearchParam([])).toBeUndefined();
   });
   it.each(['0', '-1', '1.5', 'Infinity', 'nope', '9007199254740992'])(
     'rejects invalid page %s',
@@ -74,4 +78,10 @@ describe('presentation contracts', () => {
     expect(csvCell(null)).toBe('');
     expect(csvCell(0)).toBe('"0"');
   });
+  it.each(['\n=1+1', '＝1+1', '＋1+1', '－1+1', '＠SUM(1)', '   =1+1'])(
+    'escapes spreadsheet formula prefixes in %j',
+    (value) => {
+      expect(csvCell(value)).toBe('"\'' + value + '"');
+    },
+  );
 });
