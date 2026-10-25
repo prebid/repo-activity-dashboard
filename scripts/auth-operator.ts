@@ -1,0 +1,155 @@
+import { parseArgs } from 'node:util';
+import { open, constants } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { z } from 'zod';
+import { accountRoleSchema, emailSchema } from '../src/models/accounts';
+import { AccountError } from '../src/lib/auth/account-errors';
+
+const common = {
+  region: z.string().min(1),
+  'users-table': z.string().min(3),
+  'whitelist-table': z.string().min(3),
+};
+const credentials = {
+  ...common,
+  email: emailSchema,
+  output: z.string().endsWith('.credentials.json'),
+};
+const commandSchema = z.discriminatedUnion('command', [
+  z.object({ command: z.literal('inspect'), ...common, email: emailSchema }).strict(),
+  z.object({ command: z.literal('bootstrap'), ...credentials }).strict(),
+  z.object({ command: z.literal('create'), ...credentials, role: accountRoleSchema }).strict(),
+  z.object({ command: z.literal('reset-password'), ...credentials }).strict(),
+  z
+    .object({
+      command: z.literal('set-access'),
+      ...common,
+      email: emailSchema,
+      role: accountRoleSchema,
+      active: z.enum(['true', 'false']),
+    })
+    .strict(),
+  z
+    .object({ command: z.literal('migrate'), ...common, apply: z.boolean().default(false) })
+    .strict(),
+]);
+export function parseOperatorCommand(args: string[]) {
+  const parsed = parseArgs({
+    args,
+    allowPositionals: true,
+    options: {
+      email: { type: 'string' },
+      output: { type: 'string' },
+      role: { type: 'string' },
+      active: { type: 'string' },
+      region: { type: 'string' },
+      'users-table': { type: 'string' },
+      'whitelist-table': { type: 'string' },
+      apply: { type: 'boolean' },
+    },
+  });
+  if (parsed.positionals.length !== 1) throw new Error('Specify exactly one operator command.');
+  return commandSchema.parse({ command: parsed.positionals[0], ...parsed.values });
+}
+export async function writeCredentialFile(path: string, data: unknown): Promise<void> {
+  // Reserve and sync the private file before any account mutation. An ambiguous
+  // network outcome must not lose the only copy of the generated credential.
+  const handle = await open(
+    resolve(path),
+    constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW,
+    0o600,
+  );
+  try {
+    await handle.chmod(0o600);
+    await handle.writeFile(JSON.stringify(data, null, 2) + '\n');
+    await handle.sync();
+  } finally {
+    await handle.close();
+  }
+}
+export async function runOperator(args: string[]) {
+  const command = parseOperatorCommand(args);
+  process.env.DYNAMODB_REGION = command.region;
+  process.env.DYNAMODB_USERS_TABLE = command['users-table'];
+  process.env.DYNAMODB_WHITELIST_TABLE = command['whitelist-table'];
+  const { getRuntimeSettings } = await import('../src/lib/auth/runtime-settings');
+  getRuntimeSettings();
+  const store = await import('../src/lib/auth/users');
+  if (command.command === 'migrate') return store.migrateAccountLinks(command.apply);
+  if (command.command === 'inspect') {
+    const user = await store.getUserByEmail(command.email);
+    if (!user) throw new AccountError('not-found');
+    const { getWhitelistEntry } = await import('../src/lib/auth/whitelist');
+    const access = await getWhitelistEntry(user.email);
+    return {
+      accountId: user.id,
+      email: user.email,
+      role: user.role,
+      active: access?.isActive === true,
+      authVersion: user.authVersion,
+      mustChangePassword: user.mustChangePassword === true,
+    };
+  }
+  if (command.command === 'set-access') {
+    const user = await store.getUserByEmail(command.email);
+    if (!user) throw new AccountError('not-found');
+    await store.setAccountAccess(user, command.role, command.active === 'true');
+    return { updated: true, accountId: user.id };
+  }
+  const target = {
+    region: command.region,
+    usersTable: command['users-table'],
+    whitelistTable: command['whitelist-table'],
+  };
+  if (command.command === 'reset-password') {
+    const user = await store.getUserByEmail(command.email);
+    if (!user) throw new AccountError('not-found');
+    const password = store.generateTempPassword();
+    await writeCredentialFile(command.output, {
+      operation: command.command,
+      accountId: user.id,
+      email: user.email,
+      temporaryPassword: password,
+      target,
+    });
+    const { hashPassword } = await import('../src/lib/auth/passwords');
+    await store.updateUserPassword(user, await hashPassword(password), { kind: 'operator' }, true);
+    return { updated: true, accountId: user.id, credentialFile: resolve(command.output) };
+  }
+  const prepared = await store.prepareAccount(
+    { email: command.email, role: command.command === 'bootstrap' ? 'admin' : command.role },
+    'operator',
+  );
+  await writeCredentialFile(command.output, {
+    operation: command.command,
+    accountId: prepared.user.id,
+    email: prepared.user.email,
+    temporaryPassword: prepared.tempPassword,
+    target,
+  });
+  await store.createPreparedAccount(
+    prepared,
+    { kind: 'operator' },
+    command.command === 'bootstrap',
+  );
+  return { created: true, accountId: prepared.user.id, credentialFile: resolve(command.output) };
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  if (process.argv.includes('--help')) {
+    console.log(
+      'Commands: bootstrap, create, reset-password, set-access, inspect, migrate. All require --region, --users-table, --whitelist-table. Account commands require --email. Credential commands require --output FILE.credentials.json (new private file). create/set-access require --role; set-access also requires --active true|false. inspect is read-only; migrate is read-only unless --apply is supplied.',
+    );
+  } else {
+    try {
+      console.log(JSON.stringify(await runOperator(process.argv.slice(2))));
+    } catch (error) {
+      console.error(
+        error instanceof AccountError
+          ? error.message
+          : 'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file; no secret values are logged.',
+      );
+      process.exitCode = 1;
+    }
+  }
+}

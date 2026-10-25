@@ -1,3 +1,4 @@
+vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings'));
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 const mocks = vi.hoisted(() => ({
   construct: vi.fn(),

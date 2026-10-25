@@ -4,6 +4,7 @@ import { readRequestBody } from '@/lib/auth/request-body';
 import { changePasswordSchema } from '@/models/accounts';
 import { getUserById, updateUserPassword } from '@/lib/auth/users';
 import { verifyPassword, hashPassword, validatePasswordStrength } from '@/lib/auth/passwords';
+import { accountErrorResponse } from '@/lib/auth/account-response';
 export async function POST(request: Request) {
   try {
     const access = await requireAccountAccess({ allowPasswordChange: true });
@@ -18,9 +19,16 @@ export async function POST(request: Request) {
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
     if (!(await verifyPassword(currentPassword, user.password)))
       return NextResponse.json({ error: 'Current password is incorrect' }, { status: 400 });
-    await updateUserPassword(user.id, await hashPassword(newPassword));
+    if (await verifyPassword(newPassword, user.password))
+      return NextResponse.json({ error: 'Choose a different password.' }, { status: 400 });
+    await updateUserPassword(
+      user,
+      await hashPassword(newPassword),
+      { kind: 'session', ...access.user },
+      false,
+    );
     return NextResponse.json({ message: 'Password changed successfully', redirect: '/' });
-  } catch {
-    return NextResponse.json({ error: 'Failed to change password' }, { status: 500 });
+  } catch (error) {
+    return accountErrorResponse(error, 'Failed to change password');
   }
 }

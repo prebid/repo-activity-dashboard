@@ -6,8 +6,8 @@ import { authorizeCredentials } from './credential-policy';
 import { credentialSchema } from '@/models/accounts';
 import { isPreviewBuild, previewAccounts } from '@/lib/presentation/preview';
 
-export const { handlers, auth, signIn, signOut } = NextAuth(() => ({
-  ...getBaseAuthConfig(),
+export const { handlers, auth, signIn, signOut } = NextAuth(async () => ({
+  ...(await getBaseAuthConfig()),
   providers: [
     Credentials({
       credentials: {

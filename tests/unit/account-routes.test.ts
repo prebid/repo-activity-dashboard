@@ -30,6 +30,7 @@ const admin = {
   email: 'admin@example.test',
   role: 'admin',
   mustChangePassword: false,
+  authVersion: 0,
 };
 const request = (body: unknown) =>
   new Request('http://localhost/api/admin/users', { method: 'POST', body: JSON.stringify(body) });
@@ -77,13 +78,10 @@ it('validates input before mutation and returns a normalized creation result', a
     request({ email: ' New@example.test ', name: ' New ', company: '', role: 'viewer' }),
   );
   expect(response.status).toBe(200);
-  expect(mocks.create).toHaveBeenCalledWith(
-    'new@example.test',
-    'New',
-    'viewer',
-    undefined,
-    admin.email,
-  );
+  expect(mocks.create).toHaveBeenCalledWith('new@example.test', 'New', 'viewer', undefined, {
+    kind: 'session',
+    ...admin,
+  });
   expect(await response.json()).toMatchObject({
     userId: 'new',
     email: 'new@example.test',
@@ -91,18 +89,29 @@ it('validates input before mutation and returns a normalized creation result', a
   });
 });
 it('returns conflict for duplicate accounts and fails closed on storage errors', async () => {
+  const { AccountError } = await import('@/lib/auth/account-errors');
   const { GET, POST } = await import('@/app/api/admin/users/route');
-  mocks.find.mockResolvedValue({ id: 'existing' });
+  mocks.create.mockRejectedValue(new AccountError('exists'));
   expect((await POST(request({ email: 'new@example.test' }))).status).toBe(409);
-  mocks.find.mockRejectedValue(new Error('offline'));
+  mocks.create.mockRejectedValue(new Error('offline'));
   expect((await POST(request({ email: 'new@example.test' }))).status).toBe(500);
-  expect(mocks.create).not.toHaveBeenCalled();
+  expect(mocks.create).toHaveBeenCalledTimes(2);
   mocks.list.mockRejectedValue(new Error('offline'));
   expect((await GET()).status).toBe(500);
 });
+it('reports concurrent-account conflicts and integrity failures without exposing backend details', async () => {
+  const { AccountError } = await import('@/lib/auth/account-errors');
+  const { POST } = await import('@/app/api/admin/users/route');
+  mocks.create.mockRejectedValue(new AccountError('conflict'));
+  expect((await POST(request({ email: 'new@example.test' }))).status).toBe(409);
+  mocks.create.mockRejectedValue(new AccountError('integrity'));
+  const result = await POST(request({ email: 'new@example.test' }));
+  expect(result.status).toBe(500);
+  expect(await result.json()).toEqual({ error: 'Account state requires operator attention.' });
+});
 it('allows forced-password sessions to change only their own verified password', async () => {
   mocks.auth.mockResolvedValue({ user: { ...admin, mustChangePassword: true } });
-  mocks.getById.mockResolvedValue({ id: admin.id, password: 'old-hash' });
+  mocks.getById.mockResolvedValue({ ...admin, password: 'old-hash' });
   mocks.hash.mockResolvedValue('new-hash');
   mocks.verify.mockResolvedValue(false);
   const { POST } = await import('@/app/api/auth/change-password/route');
@@ -113,16 +122,35 @@ it('allows forced-password sessions to change only their own verified password',
   };
   expect((await POST(request(body))).status).toBe(400);
   expect(mocks.update).not.toHaveBeenCalled();
-  mocks.verify.mockResolvedValue(true);
+  mocks.verify.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
   expect((await POST(request(body))).status).toBe(200);
   expect(mocks.getById).toHaveBeenCalledWith(admin.id);
-  expect(mocks.update).toHaveBeenCalledWith(admin.id, 'new-hash');
+  expect(mocks.update).toHaveBeenCalledWith(
+    { ...admin, password: 'old-hash' },
+    'new-hash',
+    { kind: 'session', ...admin, mustChangePassword: true },
+    false,
+  );
+});
+it('does not clear the password-change requirement by reusing the existing password', async () => {
+  mocks.auth.mockResolvedValue({ user: { ...admin, mustChangePassword: true } });
+  mocks.getById.mockResolvedValue({ ...admin, password: 'old-hash', mustChangePassword: true });
+  mocks.verify.mockResolvedValue(true);
+  const { POST } = await import('@/app/api/auth/change-password/route');
+  const response = await POST(
+    request({ currentPassword: 'StrongPassword1!', newPassword: 'StrongPassword1!' }),
+  );
+  expect(response.status).toBe(400);
+  expect(await response.json()).toEqual({ error: 'Choose a different password.' });
+  expect(mocks.update).not.toHaveBeenCalled();
+  expect(mocks.hash).not.toHaveBeenCalled();
 });
 it('handles reset validation, missing users, successful resets, and storage failure', async () => {
+  const { AccountError } = await import('@/lib/auth/account-errors');
   const { POST } = await import('@/app/api/admin/users/reset-password/route');
   expect((await POST(request({ email: 'invalid' }))).status).toBe(400);
   expect(mocks.reset).not.toHaveBeenCalled();
-  mocks.reset.mockRejectedValue(new Error('User not found'));
+  mocks.reset.mockRejectedValue(new AccountError('not-found'));
   expect((await POST(request({ email: 'a@example.test' }))).status).toBe(404);
   mocks.reset.mockRejectedValue(new Error('offline'));
   expect((await POST(request({ email: 'a@example.test' }))).status).toBe(500);
@@ -130,20 +158,17 @@ it('handles reset validation, missing users, successful resets, and storage fail
   const result = await POST(request({ email: ' A@example.test ' }));
   expect(result.status).toBe(200);
   expect(await result.json()).toMatchObject({ tempPassword: 'temporary' });
-  expect(mocks.reset).toHaveBeenLastCalledWith('a@example.test');
+  expect(mocks.reset).toHaveBeenLastCalledWith('a@example.test', { kind: 'session', ...admin });
 });
 it.each(['viewer', 'user', 'admin'])(
   'accepts the %s role offered by account administration',
   async (role) => {
     const { POST } = await import('@/app/api/admin/users/route');
     expect((await POST(request({ email: 'new@example.test', role }))).status).toBe(200);
-    expect(mocks.create).toHaveBeenCalledWith(
-      'new@example.test',
-      undefined,
-      role,
-      undefined,
-      admin.email,
-    );
+    expect(mocks.create).toHaveBeenCalledWith('new@example.test', undefined, role, undefined, {
+      kind: 'session',
+      ...admin,
+    });
   },
 );
 it('rejects malformed, weak, missing-account and failed password changes', async () => {

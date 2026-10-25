@@ -7,6 +7,7 @@
     "jsx": "preserve",
     "strict": true,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -34,6 +35,7 @@
     "*.ts",
     ".next/types/**/*.ts",
     "scripts/**/*.mjs",
+    "scripts/**/*.ts",
     "*.mjs",
     "*.cjs"
   ],

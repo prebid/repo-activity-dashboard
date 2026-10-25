@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
+import { writeRuntimeSettings } from './runtime-settings.mjs';
 const [command, mode] = process.argv.slice(2);
 if (!['dev', 'build', 'start'].includes(command) || !['preview', 'production'].includes(mode))
   throw new Error('Expected dev|build|start preview|production');
@@ -12,6 +13,9 @@ if (command === 'start') {
 }
 /** @type {NodeJS.ProcessEnv} */
 const environment = { ...process.env, DASHBOARD_BUILD_MODE: mode, NEXT_TELEMETRY_DISABLED: '1' };
+if (command === 'build') {
+  await writeRuntimeSettings(mode === 'production' ? process.env : {}, '.dashboard-runtime.json');
+}
 if (mode === 'preview') {
   const { values } = parseArgs({
     args: process.argv.slice(4),
@@ -42,7 +46,14 @@ child.on('exit', (code) => {
     return;
   }
   if (command === 'build') {
-    void writeFile('.next/dashboard-mode', mode).catch((error) => {
+    void (async () => {
+      await writeFile(
+        '.next/server/dashboard-runtime.json',
+        await readFile('.dashboard-runtime.json'),
+        { mode: 0o600 },
+      );
+      await writeFile('.next/dashboard-mode', mode);
+    })().catch((error) => {
       console.error('Unable to record build mode:', error);
       process.exitCode = 1;
     });

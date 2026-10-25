@@ -1,7 +1,9 @@
+import type { AccountRole } from '@/models/accounts';
 export interface AccessUser {
   id: string;
   email: string;
-  role?: string;
+  role?: AccountRole;
+  authVersion: number;
   mustChangePassword?: boolean;
 }
 export type AccessDecision =

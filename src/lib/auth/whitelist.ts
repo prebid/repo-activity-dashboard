@@ -1,30 +1,19 @@
-import { GetCommand, PutCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
+import { GetCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 import { whitelistRecordSchema, type WhitelistRecord } from '@/models/accounts';
 import { getDocClient } from '@/lib/aws/clients';
 import { accountTable } from './tables';
-export async function isEmailWhitelisted(email: string): Promise<boolean> {
+export async function getWhitelistEntry(email: string): Promise<WhitelistRecord | null> {
   const result = await getDocClient().send(
-    new GetCommand({ TableName: accountTable('whitelist'), Key: { email: email.toLowerCase() } }),
-  );
-  return result.Item ? whitelistRecordSchema.parse(result.Item).isActive : false;
-}
-export async function addToWhitelist(
-  email: string,
-  role = 'viewer',
-  addedBy = 'system',
-): Promise<void> {
-  await getDocClient().send(
-    new PutCommand({
+    new GetCommand({
       TableName: accountTable('whitelist'),
-      Item: {
-        email: email.toLowerCase(),
-        isActive: true,
-        role,
-        addedBy,
-        addedAt: new Date().toISOString(),
-      },
+      Key: { email: email.trim().toLowerCase() },
+      ConsistentRead: true,
     }),
   );
+  return result.Item ? whitelistRecordSchema.parse(result.Item) : null;
+}
+export async function isEmailWhitelisted(email: string): Promise<boolean> {
+  return (await getWhitelistEntry(email))?.isActive === true;
 }
 export async function getAllWhitelistedEmails(): Promise<WhitelistRecord[]> {
   const users: WhitelistRecord[] = [];
@@ -32,7 +21,11 @@ export async function getAllWhitelistedEmails(): Promise<WhitelistRecord[]> {
   const seen = new Set<string>();
   do {
     const result = await getDocClient().send(
-      new ScanCommand({ TableName: accountTable('whitelist'), ExclusiveStartKey: cursor }),
+      new ScanCommand({
+        TableName: accountTable('whitelist'),
+        ExclusiveStartKey: cursor,
+        ConsistentRead: true,
+      }),
     );
     users.push(...(result.Items ?? []).map((item) => whitelistRecordSchema.parse(item)));
     cursor = result.LastEvaluatedKey;

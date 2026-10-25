@@ -1,4 +1,5 @@
 // @vitest-environment node
+vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings'));
 import { it, expect, vi } from 'vitest';
 vi.mock('server-only', () => ({}));
 import { generateTempPassword } from '@/lib/auth/users';

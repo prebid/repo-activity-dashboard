@@ -21,6 +21,7 @@ const config = [
       'tests/**/*.{ts,tsx}',
       '.storybook/**/*.{ts,tsx}',
       'scripts/**/*.mjs',
+      'scripts/**/*.ts',
       '*.ts',
       '*.mjs',
       '*.cjs',

@@ -21,5 +21,6 @@ export async function authorizeCredentials(
     role: user.role,
     company: user.company,
     mustChangePassword: user.mustChangePassword,
+    authVersion: user.authVersion,
   };
 }

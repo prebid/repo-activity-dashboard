@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { adminCreateUser, getUserByEmail } from '@/lib/auth/users';
+import { adminCreateUser } from '@/lib/auth/users';
+import { accountErrorResponse } from '@/lib/auth/account-response';
 import { getAllWhitelistedEmails } from '@/lib/auth/whitelist';
 import { requireAccountAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
@@ -20,22 +21,17 @@ export async function POST(request: Request) {
     const body = await readRequestBody(request, createAccountSchema);
     if (!body.ok) return body.response;
     const { email, name, role, company } = body.data;
-    if (await getUserByEmail(email))
-      return NextResponse.json({ error: 'User already exists' }, { status: 409 });
-    const { user, tempPassword } = await adminCreateUser(
-      email,
-      name,
-      role,
-      company,
-      access.user.email,
-    );
+    const { user, tempPassword } = await adminCreateUser(email, name, role, company, {
+      kind: 'session',
+      ...access.user,
+    });
     return NextResponse.json({
       message: 'User created successfully',
       userId: user.id,
       email: user.email,
       tempPassword,
     });
-  } catch {
-    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+  } catch (error) {
+    return accountErrorResponse(error, 'Failed to create user');
   }
 }

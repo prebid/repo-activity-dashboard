@@ -1,6 +1,9 @@
 import type {} from 'next-auth/jwt';
 import type { NextAuthConfig } from 'next-auth';
 import { getSecret } from './get-secret';
+import { currentIdentity, sessionClaimsSchema } from './session-policy';
+import { isPreviewBuild } from '@/lib/presentation/preview';
+import type { AccountRole } from '@/models/accounts';
 
 declare module 'next-auth' {
   interface Session {
@@ -8,33 +11,36 @@ declare module 'next-auth' {
       id: string;
       email: string;
       name?: string | null;
-      role?: string;
+      role?: AccountRole;
       company?: string;
       mustChangePassword?: boolean;
+      authVersion: number;
     };
   }
   interface User {
-    role?: string;
+    role?: AccountRole;
     company?: string;
     mustChangePassword?: boolean;
+    authVersion?: number;
   }
 }
 declare module 'next-auth/jwt' {
   interface JWT {
     id: string;
-    role?: string;
+    role?: AccountRole;
     company?: string;
     mustChangePassword?: boolean;
+    authVersion?: number;
   }
 }
-export function getBaseAuthConfig(): Omit<NextAuthConfig, 'providers'> {
+export async function getBaseAuthConfig(): Promise<Omit<NextAuthConfig, 'providers'>> {
   return {
     trustHost: true,
-    secret: getSecret(),
+    secret: await getSecret(),
     session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
     pages: { signIn: '/auth/login', error: '/auth/error' },
     callbacks: {
-      jwt({ token, user }) {
+      async jwt({ token, user }) {
         if (user) {
           token.id = user.id!;
           token.email = user.email;
@@ -42,6 +48,18 @@ export function getBaseAuthConfig(): Omit<NextAuthConfig, 'providers'> {
           token.role = user.role;
           token.company = user.company;
           token.mustChangePassword = user.mustChangePassword;
+          token.authVersion = user.authVersion ?? (isPreviewBuild ? 0 : undefined);
+        }
+        if (!isPreviewBuild) {
+          const claims = sessionClaimsSchema.safeParse(token);
+          if (!claims.success) return null;
+          const { getAccountSnapshot } = await import('./users');
+          const identity = currentIdentity(
+            claims.data,
+            await getAccountSnapshot(claims.data.id, claims.data.email),
+          );
+          if (!identity) return null;
+          Object.assign(token, identity);
         }
         return token;
       },
@@ -53,6 +71,7 @@ export function getBaseAuthConfig(): Omit<NextAuthConfig, 'providers'> {
           role: token.role,
           company: token.company,
           mustChangePassword: token.mustChangePassword,
+          authVersion: token.authVersion ?? 0,
           emailVerified: null,
         };
         return session;

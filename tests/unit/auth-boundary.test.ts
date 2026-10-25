@@ -1,4 +1,11 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings'));
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+vi.mock('server-only', () => ({}));
+beforeEach(() => {
+  vi.stubEnv('DASHBOARD_AUTH_SECRET_ARN', '');
+  vi.stubEnv('AUTH_URL', '');
+  vi.stubEnv('NEXTAUTH_URL', '');
+});
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.resetModules();
@@ -11,7 +18,7 @@ describe('authentication configuration', () => {
     vi.stubEnv('AMPLIFY_NEXTAUTH_SECRET', '');
     vi.resetModules();
     const { getSecret } = await import('@/lib/auth/get-secret');
-    expect(getSecret()).toContain('local-preview-only');
+    expect(await getSecret()).toContain('local-preview-only');
   });
   it('does not silently fall back to preview in production', async () => {
     vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'production');
@@ -20,13 +27,13 @@ describe('authentication configuration', () => {
     vi.stubEnv('AMPLIFY_NEXTAUTH_SECRET', '');
     vi.resetModules();
     const { getSecret } = await import('@/lib/auth/get-secret');
-    expect(() => getSecret()).toThrow('requires its own secret');
+    await expect(getSecret()).rejects.toThrow('requires its own secret');
   });
   it('uses the configured production secret', async () => {
     vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'production');
-    vi.stubEnv('NEXTAUTH_SECRET', 'unit-test-production-secret');
+    vi.stubEnv('NEXTAUTH_SECRET', 'unit-test-production-secret-at-least-32-characters');
     vi.resetModules();
     const { getSecret } = await import('@/lib/auth/get-secret');
-    expect(getSecret()).toBe('unit-test-production-secret');
+    expect(await getSecret()).toBe('unit-test-production-secret-at-least-32-characters');
   });
 });

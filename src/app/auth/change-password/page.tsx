@@ -62,7 +62,7 @@ export default function ChangePasswordPage() {
         redirect: false,
       });
 
-      if (signInResult?.ok) {
+      if (signInResult?.ok && !signInResult.error) {
         // Successfully logged in with new password, redirect to dashboard
         router.push('/');
       } else {

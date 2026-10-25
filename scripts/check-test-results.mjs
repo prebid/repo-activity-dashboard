@@ -67,12 +67,18 @@ export function validateTestResults(input, kind) {
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const [kind, mode] = process.argv.slice(2);
-  if ((kind !== 'vitest' && kind !== 'playwright') || (mode !== undefined && mode !== '--clear'))
+  if (
+    (kind !== 'vitest' && kind !== 'playwright' && kind !== 'accounts' && kind !== 'production') ||
+    (mode !== undefined && mode !== '--clear')
+  )
     throw new Error('Expected vitest|playwright [--clear]');
   const path = resolve('test-results', kind + '.json');
   if (mode === '--clear') rmSync(path, { force: true });
   else {
-    const count = validateTestResults(JSON.parse(readFileSync(path, 'utf8')), kind);
+    const count = validateTestResults(
+      JSON.parse(readFileSync(path, 'utf8')),
+      kind === 'playwright' ? 'playwright' : 'vitest',
+    );
     console.log(
       `${kind}: verified ${count} individually passing results; no skipped, pending, expected-failure, or flaky cases.`,
     );
