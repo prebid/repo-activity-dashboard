@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-24",
+  "repository": "prebid/repo-activity-dashboard",
+  "ref": "main",
+  "commit": "fba4d04b588a01149df2c8b5bd8a02f55a709cc2",
+  "sourceVerification": {
+    "gitBlobHashesChecked": 994,
+    "mismatchesBefore": 0,
+    "mismatchesAfter": 0
+  },
+  "environment": {
+    "os": "macOS",
+    "node": "20.17.0",
+    "npm": "10.8.2",
+    "credentials": "Removed from verification subprocess environment"
+  },
+  "checks": [
+    {
+      "command": "npm ci --ignore-scripts --no-audit --no-fund",
+      "result": "passed",
+      "limit": "Lifecycle scripts disabled; no upgrade targets installed."
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false --pretty false",
+      "result": "passed",
+      "limit": "Repository tsconfig includes src and Next generated types, not tests or root tool configuration."
+    },
+    {
+      "command": "node node_modules/vitest/vitest.mjs run --maxWorkers=1 --no-file-parallelism --reporter=json --outputFile=../vitest-results.json",
+      "result": "failed",
+      "total": 46,
+      "passed": 41,
+      "failed": 5,
+      "skipped": 0,
+      "limit": "Serialized run of three existing data/storage suites, not frontend coverage."
+    },
+    {
+      "command": "npm run build",
+      "result": "failed",
+      "reason": "Missing NEXTAUTH_SECRET during page-data collection; compilation completed with Edge-runtime warnings. Prebuild also reported missing mapping/credentials.",
+      "limit": "First sandbox attempt stopped at tsx IPC EPERM; recorded result is the subsequent permitted run with credentials removed."
+    },
+    {
+      "command": "Compile original stylesheet and inspect emitted selectors; separately compile import-corrected input in fresh process",
+      "result": "confirmed missing standard utilities and restoration with corrected import",
+      "limit": "Diagnostic only; no source file changed. Same-process comparison was discarded because Tailwind cached by source path. No browser rendering assertion."
+    }
+  ],
+  "notRun": [
+    "New frontend tests",
+    "Full browser or visual review",
+    "Hosted CI",
+    "Deployment",
+    "Upgraded dependency build",
+    "Database integration",
+    "Production authentication"
+  ],
+  "sourceFilesChanged": []
+}

@@ -1,0 +1,241 @@
+/**
+ * Seed catalog for the planned frontend. Not yet wired into application routes.
+ * The user supplied this complete 18-repository list on 2026-10-24.
+ * GitHub identities/branches verified 2026-10-24. Activity values remain mocks.
+ * Keep IDs stable when moving this catalog to a database.
+ * primaryBranch starts with GitHub's default branch and can be overridden later.
+ */
+export interface RepositoryDefinition {
+  readonly id: string;
+  readonly githubId: string;
+  readonly slug: string;
+  readonly owner: string;
+  readonly name: string;
+  readonly displayName: string;
+  readonly url: string;
+  readonly primaryBranch: string;
+  readonly category: string;
+  readonly enabled: boolean;
+}
+
+// Runtime-loaded entries will use this same broad type; repository IDs are not
+// a compile-time union derived from the initial set of rows.
+export const repositoryCatalog: readonly RepositoryDefinition[] = [
+  {
+    "id": "repo-prebidjs",
+    "githubId": "39321023",
+    "slug": "prebidjs",
+    "owner": "prebid",
+    "name": "Prebid.js",
+    "displayName": "Prebid.js",
+    "url": "https://github.com/prebid/Prebid.js",
+    "primaryBranch": "master",
+    "category": "Client",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebidserver",
+    "githubId": "88511474",
+    "slug": "prebidserver",
+    "owner": "prebid",
+    "name": "prebid-server",
+    "displayName": "Prebid Server (Go)",
+    "url": "https://github.com/prebid/prebid-server",
+    "primaryBranch": "master",
+    "category": "Server",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebidserverjava",
+    "githubId": "124555222",
+    "slug": "prebidserverjava",
+    "owner": "prebid",
+    "name": "prebid-server-java",
+    "displayName": "Prebid Server (Java)",
+    "url": "https://github.com/prebid/prebid-server-java",
+    "primaryBranch": "master",
+    "category": "Server",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebiddocs",
+    "githubId": "39480402",
+    "slug": "prebiddocs",
+    "owner": "prebid",
+    "name": "prebid.github.io",
+    "displayName": "Prebid Documentation",
+    "url": "https://github.com/prebid/prebid.github.io",
+    "primaryBranch": "master",
+    "category": "Docs",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebidmobileandroid",
+    "githubId": "96361227",
+    "slug": "prebidmobileandroid",
+    "owner": "prebid",
+    "name": "prebid-mobile-android",
+    "displayName": "Prebid Mobile (Android)",
+    "url": "https://github.com/prebid/prebid-mobile-android",
+    "primaryBranch": "master",
+    "category": "Mobile",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebidmobileios",
+    "githubId": "96349829",
+    "slug": "prebidmobileios",
+    "owner": "prebid",
+    "name": "prebid-mobile-ios",
+    "displayName": "Prebid Mobile (iOS)",
+    "url": "https://github.com/prebid/prebid-mobile-ios",
+    "primaryBranch": "master",
+    "category": "Mobile",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebid-mobile-ios-sdk",
+    "githubId": "1140758989",
+    "slug": "prebid-mobile-ios-sdk",
+    "owner": "prebid",
+    "name": "prebid-mobile-ios-sdk",
+    "displayName": "Prebid Mobile iOS SDK",
+    "url": "https://github.com/prebid/prebid-mobile-ios-sdk",
+    "primaryBranch": "main",
+    "category": "Mobile",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebid-universal-creative",
+    "githubId": "119910963",
+    "slug": "prebid-universal-creative",
+    "owner": "prebid",
+    "name": "prebid-universal-creative",
+    "displayName": "Prebid Universal Creative",
+    "url": "https://github.com/prebid/prebid-universal-creative",
+    "primaryBranch": "master",
+    "category": "Client",
+    "enabled": true
+  },
+  {
+    "id": "repo-professor-prebid",
+    "githubId": "269110003",
+    "slug": "professor-prebid",
+    "owner": "prebid",
+    "name": "professor-prebid",
+    "displayName": "Professor Prebid",
+    "url": "https://github.com/prebid/professor-prebid",
+    "primaryBranch": "master",
+    "category": "Tools",
+    "enabled": true
+  },
+  {
+    "id": "repo-salesagent",
+    "githubId": "1025117899",
+    "slug": "salesagent",
+    "owner": "prebid",
+    "name": "salesagent",
+    "displayName": "SalesAgent",
+    "url": "https://github.com/prebid/salesagent",
+    "primaryBranch": "main",
+    "category": "Automation",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebid-agent-skills",
+    "githubId": "1221756437",
+    "slug": "prebid-agent-skills",
+    "owner": "prebid",
+    "name": "prebid-agent-skills",
+    "displayName": "Prebid Agent Skills",
+    "url": "https://github.com/prebid/prebid-agent-skills",
+    "primaryBranch": "main",
+    "category": "Automation",
+    "enabled": true
+  },
+  {
+    "id": "repo-line-item-manager",
+    "githubId": "301790913",
+    "slug": "line-item-manager",
+    "owner": "prebid",
+    "name": "line-item-manager",
+    "displayName": "Line Item Manager",
+    "url": "https://github.com/prebid/line-item-manager",
+    "primaryBranch": "master",
+    "category": "Tools",
+    "enabled": true
+  },
+  {
+    "id": "repo-go-gdpr",
+    "githubId": "132915235",
+    "slug": "go-gdpr",
+    "owner": "prebid",
+    "name": "go-gdpr",
+    "displayName": "Go GDPR",
+    "url": "https://github.com/prebid/go-gdpr",
+    "primaryBranch": "master",
+    "category": "Library",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebid-cache-java",
+    "githubId": "126012969",
+    "slug": "prebid-cache-java",
+    "owner": "prebid",
+    "name": "prebid-cache-java",
+    "displayName": "Prebid Cache (Java)",
+    "url": "https://github.com/prebid/prebid-cache-java",
+    "primaryBranch": "master",
+    "category": "Server",
+    "enabled": true
+  },
+  {
+    "id": "repo-repo-activity-dashboard",
+    "githubId": "1046574848",
+    "slug": "repo-activity-dashboard",
+    "owner": "prebid",
+    "name": "repo-activity-dashboard",
+    "displayName": "Repository Activity Dashboard",
+    "url": "https://github.com/prebid/repo-activity-dashboard",
+    "primaryBranch": "main",
+    "category": "Tools",
+    "enabled": true
+  },
+  {
+    "id": "repo-openrtb",
+    "githubId": "89165980",
+    "slug": "openrtb",
+    "owner": "prebid",
+    "name": "openrtb",
+    "displayName": "OpenRTB",
+    "url": "https://github.com/prebid/openrtb",
+    "primaryBranch": "main",
+    "category": "Library",
+    "enabled": true
+  },
+  {
+    "id": "repo-github-activity-db",
+    "githubId": "1134822503",
+    "slug": "github-activity-db",
+    "owner": "prebid",
+    "name": "github-activity-db",
+    "displayName": "GitHub Activity DB",
+    "url": "https://github.com/prebid/github-activity-db",
+    "primaryBranch": "main",
+    "category": "Tools",
+    "enabled": true
+  },
+  {
+    "id": "repo-prebid-integration-monitor",
+    "githubId": "792476545",
+    "slug": "prebid-integration-monitor",
+    "owner": "prebid",
+    "name": "prebid-integration-monitor",
+    "displayName": "Prebid Integration Monitor",
+    "url": "https://github.com/prebid/prebid-integration-monitor",
+    "primaryBranch": "main",
+    "category": "Tools",
+    "enabled": true
+  }
+];
+

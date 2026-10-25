@@ -1,0 +1,1289 @@
+{
+  "scenarioId": "VISUAL-ALL-REPOS-01",
+  "purpose": "Invented display values for frontend design. Not real GitHub measurements or historical calculation output.",
+  "asOf": "2026-10-24T12:00:00Z",
+  "reportingTimezone": "UTC",
+  "period": {
+    "label": "This month",
+    "start": "2026-10-01T00:00:00Z",
+    "end": "2026-10-24T12:00:00Z",
+    "endInclusive": true
+  },
+  "comparison": {
+    "label": "Same elapsed portion of last month",
+    "start": "2026-09-01T00:00:00Z",
+    "end": "2026-09-24T12:00:00Z",
+    "endInclusive": true
+  },
+  "agingThresholdDays": 60,
+  "rows": [
+    {
+      "repository": {
+        "id": "visual-repo-1",
+        "name": "Example JS",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 137,
+        "draftPrs": 17,
+        "openNonDraftPrs": 120,
+        "openIssues": 834,
+        "agedOpenNonDraftPrs": 60,
+        "humanReviewers": {
+          "zero": 54,
+          "one": 42,
+          "two": 24,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 72,
+          "one": 36,
+          "two": 12,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 48,
+        "botFeedbackPrs": 30,
+        "latestActivityPrs": {
+          "contributor": 54,
+          "prebidReviewer": 36,
+          "agent": 18,
+          "bot": 12,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 47,
+        "prsMerged": 38,
+        "issuesCreated": 58,
+        "issuesClosed": 46,
+        "uniquePrAuthors": 24,
+        "uniqueIssueAuthors": 39,
+        "agentFeedbackCredits": 18,
+        "agentApprovalCredits": 9,
+        "botFeedbackCredits": 11,
+        "botApprovalCredits": 4,
+        "medianMergeDays": 5.5
+      },
+      "comparisonPeriod": {
+        "prsCreated": 44,
+        "prsMerged": 35,
+        "issuesCreated": 55,
+        "issuesClosed": 43,
+        "uniquePrAuthors": 21,
+        "uniqueIssueAuthors": 36,
+        "agentFeedbackCredits": 15,
+        "agentApprovalCredits": 6,
+        "botFeedbackCredits": 8,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 7
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-2",
+        "name": "Example Server",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 37,
+        "draftPrs": 5,
+        "openNonDraftPrs": 32,
+        "openIssues": 86,
+        "agedOpenNonDraftPrs": 8,
+        "humanReviewers": {
+          "zero": 14,
+          "one": 11,
+          "two": 7,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 20,
+          "one": 9,
+          "two": 3,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 12,
+        "botFeedbackPrs": 8,
+        "latestActivityPrs": {
+          "contributor": 14,
+          "prebidReviewer": 9,
+          "agent": 4,
+          "bot": 5,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 28,
+        "prsMerged": 21,
+        "issuesCreated": 23,
+        "issuesClosed": 31,
+        "uniquePrAuthors": 16,
+        "uniqueIssueAuthors": 18,
+        "agentFeedbackCredits": 11,
+        "agentApprovalCredits": 5,
+        "botFeedbackCredits": 7,
+        "botApprovalCredits": 2,
+        "medianMergeDays": 3.2
+      },
+      "comparisonPeriod": {
+        "prsCreated": 32,
+        "prsMerged": 25,
+        "issuesCreated": 27,
+        "issuesClosed": 35,
+        "uniquePrAuthors": 20,
+        "uniqueIssueAuthors": 22,
+        "agentFeedbackCredits": 15,
+        "agentApprovalCredits": 9,
+        "botFeedbackCredits": 11,
+        "botApprovalCredits": 6,
+        "medianMergeDays": 2.7
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-3",
+        "name": "Example Mobile",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 16,
+        "draftPrs": 2,
+        "openNonDraftPrs": 14,
+        "openIssues": 31,
+        "agedOpenNonDraftPrs": 4,
+        "humanReviewers": {
+          "zero": 6,
+          "one": 4,
+          "two": 4,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 9,
+          "one": 4,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 5,
+        "botFeedbackPrs": 3,
+        "latestActivityPrs": {
+          "contributor": 6,
+          "prebidReviewer": 4,
+          "agent": 2,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 16,
+        "prsMerged": 10,
+        "issuesCreated": 12,
+        "issuesClosed": 8,
+        "uniquePrAuthors": 9,
+        "uniqueIssueAuthors": 8,
+        "agentFeedbackCredits": 6,
+        "agentApprovalCredits": 3,
+        "botFeedbackCredits": 4,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 4
+      },
+      "comparisonPeriod": {
+        "prsCreated": 16,
+        "prsMerged": 10,
+        "issuesCreated": 12,
+        "issuesClosed": 8,
+        "uniquePrAuthors": 9,
+        "uniqueIssueAuthors": 8,
+        "agentFeedbackCredits": 6,
+        "agentApprovalCredits": 3,
+        "botFeedbackCredits": 4,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 5.5
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-4",
+        "name": "Example Android",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 24,
+        "draftPrs": 3,
+        "openNonDraftPrs": 21,
+        "openIssues": 64,
+        "agedOpenNonDraftPrs": 6,
+        "humanReviewers": {
+          "zero": 9,
+          "one": 7,
+          "two": 5,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 13,
+          "one": 6,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 8,
+        "botFeedbackPrs": 5,
+        "latestActivityPrs": {
+          "contributor": 9,
+          "prebidReviewer": 6,
+          "agent": 3,
+          "bot": 3,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 23,
+        "prsMerged": 18,
+        "issuesCreated": 19,
+        "issuesClosed": 25,
+        "uniquePrAuthors": 13,
+        "uniqueIssueAuthors": 12,
+        "agentFeedbackCredits": 9,
+        "agentApprovalCredits": 4,
+        "botFeedbackCredits": 5,
+        "botApprovalCredits": 2,
+        "medianMergeDays": 2.7
+      },
+      "comparisonPeriod": {
+        "prsCreated": 20,
+        "prsMerged": 15,
+        "issuesCreated": 16,
+        "issuesClosed": 22,
+        "uniquePrAuthors": 10,
+        "uniqueIssueAuthors": 9,
+        "agentFeedbackCredits": 6,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 2,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 2.2
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-5",
+        "name": "Example iOS",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 12,
+        "draftPrs": 1,
+        "openNonDraftPrs": 11,
+        "openIssues": 27,
+        "agedOpenNonDraftPrs": 2,
+        "humanReviewers": {
+          "zero": 4,
+          "one": 3,
+          "two": 4,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 7,
+          "one": 3,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 4,
+        "botFeedbackPrs": 2,
+        "latestActivityPrs": {
+          "contributor": 4,
+          "prebidReviewer": 3,
+          "agent": 1,
+          "bot": 3,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 14,
+        "prsMerged": 12,
+        "issuesCreated": 9,
+        "issuesClosed": 13,
+        "uniquePrAuthors": 8,
+        "uniqueIssueAuthors": 7,
+        "agentFeedbackCredits": 5,
+        "agentApprovalCredits": 2,
+        "botFeedbackCredits": 3,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 3.8
+      },
+      "comparisonPeriod": {
+        "prsCreated": 18,
+        "prsMerged": 16,
+        "issuesCreated": 13,
+        "issuesClosed": 17,
+        "uniquePrAuthors": 12,
+        "uniqueIssueAuthors": 11,
+        "agentFeedbackCredits": 9,
+        "agentApprovalCredits": 6,
+        "botFeedbackCredits": 7,
+        "botApprovalCredits": 5,
+        "medianMergeDays": 5.3
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-6",
+        "name": "Example Analytics",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 8,
+        "draftPrs": 0,
+        "openNonDraftPrs": 8,
+        "openIssues": 15,
+        "agedOpenNonDraftPrs": 1,
+        "humanReviewers": {
+          "zero": 3,
+          "one": 2,
+          "two": 3,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 5,
+          "one": 2,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 3,
+        "botFeedbackPrs": 2,
+        "latestActivityPrs": {
+          "contributor": 3,
+          "prebidReviewer": 2,
+          "agent": 1,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 12,
+        "prsMerged": 9,
+        "issuesCreated": 8,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 7,
+        "uniqueIssueAuthors": 6,
+        "agentFeedbackCredits": 4,
+        "agentApprovalCredits": 2,
+        "botFeedbackCredits": 3,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 6.4
+      },
+      "comparisonPeriod": {
+        "prsCreated": 12,
+        "prsMerged": 9,
+        "issuesCreated": 8,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 7,
+        "uniqueIssueAuthors": 6,
+        "agentFeedbackCredits": 4,
+        "agentApprovalCredits": 2,
+        "botFeedbackCredits": 3,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 5.9
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-7",
+        "name": "Example Identity",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 8,
+        "draftPrs": 2,
+        "openNonDraftPrs": 6,
+        "openIssues": 12,
+        "agedOpenNonDraftPrs": 2,
+        "humanReviewers": {
+          "zero": 2,
+          "one": 2,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 4,
+          "one": 1,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 2,
+        "botFeedbackPrs": 1,
+        "latestActivityPrs": {
+          "contributor": 2,
+          "prebidReviewer": 1,
+          "agent": 0,
+          "bot": 3,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 8,
+        "prsMerged": 5,
+        "issuesCreated": 5,
+        "issuesClosed": 4,
+        "uniquePrAuthors": 6,
+        "uniqueIssueAuthors": 4,
+        "agentFeedbackCredits": 3,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 2,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 4.8
+      },
+      "comparisonPeriod": {
+        "prsCreated": null,
+        "prsMerged": null,
+        "issuesCreated": null,
+        "issuesClosed": null,
+        "uniquePrAuthors": null,
+        "uniqueIssueAuthors": null,
+        "agentFeedbackCredits": null,
+        "agentApprovalCredits": null,
+        "botFeedbackCredits": null,
+        "botApprovalCredits": null,
+        "medianMergeDays": null
+      },
+      "availabilityNotes": {
+        "comparisonPeriod": "Comparison history is unavailable."
+      }
+    },
+    {
+      "repository": {
+        "id": "visual-repo-8",
+        "name": "Example Documentation",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 23,
+        "draftPrs": 4,
+        "openNonDraftPrs": 19,
+        "openIssues": 12345,
+        "agedOpenNonDraftPrs": 5,
+        "humanReviewers": {
+          "zero": 8,
+          "one": 6,
+          "two": 5,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 12,
+          "one": 5,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 7,
+        "botFeedbackPrs": 4,
+        "latestActivityPrs": {
+          "contributor": 8,
+          "prebidReviewer": 5,
+          "agent": 2,
+          "bot": 4,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 32,
+        "prsMerged": 26,
+        "issuesCreated": 72,
+        "issuesClosed": 91,
+        "uniquePrAuthors": 21,
+        "uniqueIssueAuthors": 48,
+        "agentFeedbackCredits": 12,
+        "agentApprovalCredits": 6,
+        "botFeedbackCredits": 8,
+        "botApprovalCredits": 3,
+        "medianMergeDays": 1.5
+      },
+      "comparisonPeriod": {
+        "prsCreated": 36,
+        "prsMerged": 30,
+        "issuesCreated": 76,
+        "issuesClosed": 95,
+        "uniquePrAuthors": 25,
+        "uniqueIssueAuthors": 52,
+        "agentFeedbackCredits": 16,
+        "agentApprovalCredits": 10,
+        "botFeedbackCredits": 12,
+        "botApprovalCredits": 7,
+        "medianMergeDays": 1
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-9",
+        "name": "Example Agent Skills",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 13,
+        "draftPrs": 1,
+        "openNonDraftPrs": 12,
+        "openIssues": 18,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 5,
+          "one": 4,
+          "two": 3,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 8,
+          "one": 3,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 4,
+        "botFeedbackPrs": 3,
+        "latestActivityPrs": {
+          "contributor": 5,
+          "prebidReviewer": 3,
+          "agent": 1,
+          "bot": 3,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 19,
+        "prsMerged": 16,
+        "issuesCreated": 11,
+        "issuesClosed": 9,
+        "uniquePrAuthors": 10,
+        "uniqueIssueAuthors": 9,
+        "agentFeedbackCredits": 7,
+        "agentApprovalCredits": 3,
+        "botFeedbackCredits": 4,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 2.1
+      },
+      "comparisonPeriod": {
+        "prsCreated": 19,
+        "prsMerged": 16,
+        "issuesCreated": 11,
+        "issuesClosed": 9,
+        "uniquePrAuthors": 10,
+        "uniqueIssueAuthors": 9,
+        "agentFeedbackCredits": 7,
+        "agentApprovalCredits": 3,
+        "botFeedbackCredits": 4,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 3.6
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-10",
+        "name": "Example SDK",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 4,
+        "draftPrs": 0,
+        "openNonDraftPrs": 4,
+        "openIssues": 9,
+        "agedOpenNonDraftPrs": 1,
+        "humanReviewers": {
+          "zero": 1,
+          "one": 1,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 3,
+          "one": 1,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 1,
+        "botFeedbackPrs": 1,
+        "latestActivityPrs": {
+          "contributor": 1,
+          "prebidReviewer": 1,
+          "agent": 0,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 7,
+        "prsMerged": 4,
+        "issuesCreated": 3,
+        "issuesClosed": 5,
+        "uniquePrAuthors": 4,
+        "uniqueIssueAuthors": 3,
+        "agentFeedbackCredits": 2,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 7.2
+      },
+      "comparisonPeriod": {
+        "prsCreated": 4,
+        "prsMerged": 1,
+        "issuesCreated": 0,
+        "issuesClosed": 2,
+        "uniquePrAuthors": 1,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 6.7
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-11",
+        "name": "Example Configuration",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 4,
+        "draftPrs": 1,
+        "openNonDraftPrs": 3,
+        "openIssues": 4,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 1,
+          "one": 1,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 2,
+          "one": 0,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 1,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 1,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 6,
+        "prsMerged": 5,
+        "issuesCreated": 2,
+        "issuesClosed": 1,
+        "uniquePrAuthors": 3,
+        "uniqueIssueAuthors": 2,
+        "agentFeedbackCredits": 2,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 1.8
+      },
+      "comparisonPeriod": {
+        "prsCreated": 10,
+        "prsMerged": 9,
+        "issuesCreated": 6,
+        "issuesClosed": 5,
+        "uniquePrAuthors": 7,
+        "uniqueIssueAuthors": 6,
+        "agentFeedbackCredits": 6,
+        "agentApprovalCredits": 5,
+        "botFeedbackCredits": 5,
+        "botApprovalCredits": 4,
+        "medianMergeDays": 3.3
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-12",
+        "name": "Example Adapter Tools",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 6,
+        "draftPrs": 0,
+        "openNonDraftPrs": 6,
+        "openIssues": 11,
+        "agedOpenNonDraftPrs": 2,
+        "humanReviewers": {
+          "zero": 2,
+          "one": 2,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": null,
+          "one": null,
+          "two": null,
+          "moreThanTwo": null
+        },
+        "agentFeedbackPrs": 2,
+        "botFeedbackPrs": 1,
+        "latestActivityPrs": {
+          "contributor": 2,
+          "prebidReviewer": 1,
+          "agent": 0,
+          "bot": 3,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 9,
+        "prsMerged": 8,
+        "issuesCreated": 7,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 5,
+        "uniqueIssueAuthors": 5,
+        "agentFeedbackCredits": 3,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 2,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 4.3
+      },
+      "comparisonPeriod": {
+        "prsCreated": 9,
+        "prsMerged": 8,
+        "issuesCreated": 7,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 5,
+        "uniqueIssueAuthors": 5,
+        "agentFeedbackCredits": 3,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 2,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 3.8
+      },
+      "availabilityNotes": {
+        "backlog.humanApprovals": "Current approval state is unavailable."
+      }
+    },
+    {
+      "repository": {
+        "id": "visual-repo-13",
+        "name": "Example Event Gateway",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 9,
+        "draftPrs": 2,
+        "openNonDraftPrs": 7,
+        "openIssues": 22,
+        "agedOpenNonDraftPrs": 3,
+        "humanReviewers": {
+          "zero": 3,
+          "one": 2,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 5,
+          "one": 2,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 2,
+        "botFeedbackPrs": 1,
+        "latestActivityPrs": {
+          "contributor": 3,
+          "prebidReviewer": 2,
+          "agent": 1,
+          "bot": 1,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 11,
+        "prsMerged": 7,
+        "issuesCreated": 9,
+        "issuesClosed": 12,
+        "uniquePrAuthors": 6,
+        "uniqueIssueAuthors": 7,
+        "agentFeedbackCredits": 4,
+        "agentApprovalCredits": 2,
+        "botFeedbackCredits": 2,
+        "botApprovalCredits": 1,
+        "medianMergeDays": 9.6
+      },
+      "comparisonPeriod": {
+        "prsCreated": 8,
+        "prsMerged": 4,
+        "issuesCreated": 6,
+        "issuesClosed": 9,
+        "uniquePrAuthors": 3,
+        "uniqueIssueAuthors": 4,
+        "agentFeedbackCredits": 1,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 11.1
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-14",
+        "name": "Example Schema",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 2,
+        "draftPrs": 0,
+        "openNonDraftPrs": 2,
+        "openIssues": 3,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 2,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 4,
+        "prsMerged": 3,
+        "issuesCreated": 1,
+        "issuesClosed": 2,
+        "uniquePrAuthors": 2,
+        "uniqueIssueAuthors": 1,
+        "agentFeedbackCredits": 1,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 2.5
+      },
+      "comparisonPeriod": {
+        "prsCreated": 8,
+        "prsMerged": 7,
+        "issuesCreated": 5,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 6,
+        "uniqueIssueAuthors": 5,
+        "agentFeedbackCredits": 5,
+        "agentApprovalCredits": 4,
+        "botFeedbackCredits": 5,
+        "botApprovalCredits": 4,
+        "medianMergeDays": 2
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-15",
+        "name": "Example Release Tools",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 4,
+        "draftPrs": 1,
+        "openNonDraftPrs": 3,
+        "openIssues": 5,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 1,
+          "one": 1,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 2,
+          "one": 0,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 1,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 1,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 5,
+        "prsMerged": 4,
+        "issuesCreated": 3,
+        "issuesClosed": 4,
+        "uniquePrAuthors": 3,
+        "uniqueIssueAuthors": 2,
+        "agentFeedbackCredits": 2,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 1.2
+      },
+      "comparisonPeriod": {
+        "prsCreated": 5,
+        "prsMerged": 4,
+        "issuesCreated": 3,
+        "issuesClosed": 4,
+        "uniquePrAuthors": 3,
+        "uniqueIssueAuthors": 2,
+        "agentFeedbackCredits": 2,
+        "agentApprovalCredits": 1,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 2.7
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-16",
+        "name": "Example Test Harness",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 1,
+        "draftPrs": 0,
+        "openNonDraftPrs": 1,
+        "openIssues": 2,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 1,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 1,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 3,
+        "prsMerged": 2,
+        "issuesCreated": 2,
+        "issuesClosed": 1,
+        "uniquePrAuthors": 2,
+        "uniqueIssueAuthors": 2,
+        "agentFeedbackCredits": 1,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 3
+      },
+      "comparisonPeriod": {
+        "prsCreated": 0,
+        "prsMerged": 0,
+        "issuesCreated": 0,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 0,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 2.5
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-17",
+        "name": "Example Developer Portal",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 2,
+        "draftPrs": 0,
+        "openNonDraftPrs": 2,
+        "openIssues": 7,
+        "agedOpenNonDraftPrs": 1,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 2,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 2,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 2,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 4,
+        "prsMerged": 1,
+        "issuesCreated": 4,
+        "issuesClosed": 2,
+        "uniquePrAuthors": 3,
+        "uniqueIssueAuthors": 3,
+        "agentFeedbackCredits": 1,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 1,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 12
+      },
+      "comparisonPeriod": {
+        "prsCreated": 8,
+        "prsMerged": 5,
+        "issuesCreated": 8,
+        "issuesClosed": 6,
+        "uniquePrAuthors": 7,
+        "uniqueIssueAuthors": 7,
+        "agentFeedbackCredits": 5,
+        "agentApprovalCredits": 4,
+        "botFeedbackCredits": 5,
+        "botApprovalCredits": 4,
+        "medianMergeDays": 13.5
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-18",
+        "name": "Example Compatibility and Integration Reference Fixtures",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 2,
+        "draftPrs": 1,
+        "openNonDraftPrs": 1,
+        "openIssues": 1,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 1,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 1,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 2,
+        "prsMerged": 1,
+        "issuesCreated": 1,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 2,
+        "uniqueIssueAuthors": 1,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 31
+      },
+      "comparisonPeriod": {
+        "prsCreated": 2,
+        "prsMerged": 1,
+        "issuesCreated": 1,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 2,
+        "uniqueIssueAuthors": 1,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": 30.5
+      },
+      "availabilityNotes": {}
+    },
+    {
+      "repository": {
+        "id": "visual-repo-19",
+        "name": "Example Legacy",
+        "primaryBranch": "main"
+      },
+      "backlog": {
+        "totalOpenPrs": 1,
+        "draftPrs": 0,
+        "openNonDraftPrs": 1,
+        "openIssues": 0,
+        "agedOpenNonDraftPrs": 1,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 1,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 1,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 1,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 0,
+        "prsMerged": 0,
+        "issuesCreated": 0,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 0,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": null
+      },
+      "comparisonPeriod": {
+        "prsCreated": 0,
+        "prsMerged": 0,
+        "issuesCreated": 0,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 0,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": null
+      },
+      "availabilityNotes": {
+        "currentPeriod.medianMergeDays": "No merged PRs in this period."
+      }
+    },
+    {
+      "repository": {
+        "id": "visual-repo-20",
+        "name": "Example Sandbox",
+        "primaryBranch": "master"
+      },
+      "backlog": {
+        "totalOpenPrs": 0,
+        "draftPrs": 0,
+        "openNonDraftPrs": 0,
+        "openIssues": 0,
+        "agedOpenNonDraftPrs": 0,
+        "humanReviewers": {
+          "zero": 0,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "humanApprovals": {
+          "zero": 0,
+          "one": 0,
+          "two": 0,
+          "moreThanTwo": 0
+        },
+        "agentFeedbackPrs": 0,
+        "botFeedbackPrs": 0,
+        "latestActivityPrs": {
+          "contributor": 0,
+          "prebidReviewer": 0,
+          "agent": 0,
+          "bot": 0,
+          "otherHuman": 0,
+          "unknown": 0
+        }
+      },
+      "currentPeriod": {
+        "prsCreated": 0,
+        "prsMerged": 0,
+        "issuesCreated": 0,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 0,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": null
+      },
+      "comparisonPeriod": {
+        "prsCreated": 0,
+        "prsMerged": 0,
+        "issuesCreated": 0,
+        "issuesClosed": 0,
+        "uniquePrAuthors": 0,
+        "uniqueIssueAuthors": 0,
+        "agentFeedbackCredits": 0,
+        "agentApprovalCredits": 0,
+        "botFeedbackCredits": 0,
+        "botApprovalCredits": 0,
+        "medianMergeDays": null
+      },
+      "availabilityNotes": {
+        "currentPeriod.medianMergeDays": "No merged PRs in this period."
+      }
+    }
+  ]
+}
