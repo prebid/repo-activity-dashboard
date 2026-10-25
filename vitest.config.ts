@@ -1,54 +1,23 @@
 import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
-
+import { fileURLToPath } from 'node:url';
 export default defineConfig({
+  oxc: { jsx: { runtime: 'automatic' } },
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: {
-    globals: true,
-    environment: 'node',
-    includeSource: ['src/**/*.{js,ts}'],
+    environment: 'jsdom',
+    include: ['tests/unit/**/*.test.ts', 'tests/components/**/*.test.tsx'],
+    setupFiles: ['./tests/setup.ts'],
+    restoreMocks: true,
+    reporters: ['default', 'json'],
+    outputFile: { json: 'test-results/vitest.json' },
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        '*.config.*',
-        '**/*.d.ts',
-        '**/*.test.ts',
-        '**/*.spec.ts',
-        '**/types/**'
+      include: [
+        'src/lib/presentation/**/*.ts',
+        'src/components/tables/**/*.tsx',
+        'src/components/metrics/**/*.tsx',
       ],
-      lines: 80,
-      functions: 80,
-      branches: 80,
-      statements: 80
+      reporter: ['text', 'json-summary', 'html'],
     },
-    testTimeout: 30000,
-    hookTimeout: 30000,
-    teardownTimeout: 10000,
-    isolate: true,
-    mockReset: true,
-    restoreMocks: true,
-    clearMocks: true,
-    setupFiles: ['./tests/setup.ts'],
-    reporters: ['verbose'],
-    watch: false,
-    alias: {
-      '@': resolve(__dirname, './src'),
-      '@types': resolve(__dirname, './src/types'),
-      '@services': resolve(__dirname, './src/services'),
-      '@utils': resolve(__dirname, './src/utils')
-    }
   },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      '@types': resolve(__dirname, './src/types'),
-      '@services': resolve(__dirname, './src/services'),
-      '@utils': resolve(__dirname, './src/utils')
-    }
-  },
-  esbuild: {
-    target: 'node18'
-  }
 });

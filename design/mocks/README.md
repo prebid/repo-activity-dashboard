@@ -2,7 +2,7 @@
 
 These are invented, ready-to-display values. They allow the frontend to be designed before the new reporting layer and database are built. They are not real repository measurements, an API implementation, or a proposed database schema.
 
-The exception is [repository-catalog.ts](repository-catalog.ts): it contains real metadata for the complete **18-repository list supplied by the user**, verified against GitHub on 2026-10-24. It is a typed seed for the future shared catalog, not yet wired into the application. Existing IDs and route slugs are preserved. The [verification snapshot](../../docs/implementation/evidence/2026-10-24/repository-catalog-metadata.json) records the identities and branches. Activity counts in the other files are still synthetic, and their fictional repository IDs must not be silently joined to these real entries.
+The exception is [repository-catalog.ts](repository-catalog.ts): it contains real metadata for the complete **18-repository list supplied by the user**, verified against GitHub on 2026-10-24. This path now re-exports the application-owned catalog from src/config/repositories.ts, which drives mock navigation and reporting views. Existing IDs and route slugs are preserved. The [verification snapshot](../../docs/implementation/evidence/2026-10-24/repository-catalog-metadata.json) records the identities and branches. Activity counts in the other files are still synthetic, and their fictional repository IDs must not be silently joined to these real entries.
 
 ## First sample: All Repos
 

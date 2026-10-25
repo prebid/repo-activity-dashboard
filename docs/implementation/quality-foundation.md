@@ -1,6 +1,6 @@
 # Quality foundation — before feature implementation
 
-Status: foundation implementation specification, updated 2026-10-24 after the [source audit](source-audit-2026-10-24.md). The user explicitly prioritized this foundation before page implementation. Existing-source baseline checks ran in an isolated audit copy; the new quality setup and proposed upgrades are not implemented. Reading or writing this document is not a passing quality result.
+Status: local foundation implemented and verified on 2026-10-25. See [implementation status and evidence](quality-foundation-status.md) for exact scope, dependency decisions, and results. Hosted CI, live authentication/deployment, and final product-page acceptance remain separate.
 
 ## Purpose
 
@@ -18,7 +18,7 @@ The [frontend-only cutover plan](frontend-only-cutover.md) makes removal of the 
 
 The quality scope and architecture are defined in the [frontend blueprint](frontend-architecture.md). The source audit establishes concrete issues and candidate upgrade versions. Keep Amplify hosting as the user confirmed. Do not restart product/page discovery or implement the historical reporting engine for this milestone.
 
-Current progress: source inspection and baseline recording are complete in the audit copy. Locked installation with lifecycle scripts disabled and the existing source typecheck passed; existing tests were 41 passed / 5 failed; the credential-free build failed during page-data collection. Tailwind utility generation defects were reproduced. On 2026-10-25 the actual source was checked out on `codex/quality-foundation`, with all 28 pre-existing planning/mock/evidence files preserved. Upgrades, new tooling, browser checks, and foundation completion remain pending.
+Current progress: the working checkout, compatible upgrades, mock reporting cutover, retired data-layer removal, quality tooling, and local verification are complete. The clean-copy run passed 41 unit/component tests, 6 browser tests, both app build modes, and Storybook. The original ingestion baseline is preserved as historical evidence; its retired tests do not count as passing new frontend coverage.
 
 | Step | Work | Reviewable result |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Use the existing Vitest and MSW foundation and add compatible UI/browser tooling
 
 ## Registered commands and scope
 
-Proposed local commands are `format:check`, `lint`, `typecheck`, `test:unit`, `test:contracts`, `test:components`, `test:e2e`, and a fixture-mode build. A single `check` entry point may compose the applicable checks, but its documented scope must match what it actually runs. Final names can follow the source checkout's conventions.
+Registered commands are `format:check`, `lint`, `typecheck`, `check:boundaries`, `test:unit`, `test:components`, `test:e2e`, `build`, and `build:storybook`. `check` combines static/unit/component checks; `check:all` additionally builds the preview and Storybook and runs browser tests. Historical reporting-contract tests remain future work; no empty contracts suite is advertised as passing.
 
 For each command, record its input scope, required environment, expected suite selection, failure behavior, and result artifact. CI should call these commands rather than maintaining separate copies of their logic.
 

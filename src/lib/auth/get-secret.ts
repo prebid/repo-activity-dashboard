@@ -1,20 +1,10 @@
-// This file handles getting the NextAuth secret in Amplify SSR environment
-// Amplify doesn't pass all env vars to Lambda, so we need to handle this specially
-
-function getSecret(): string {
-  // Try multiple sources for the secret
+import { isPreviewBuild } from '@/lib/presentation/preview';
+const previewSecret = 'local-preview-only-not-a-production-credential-2026';
+export function getSecret(): string {
+  if (isPreviewBuild) return previewSecret;
   const secret =
-    process.env.NEXTAUTH_SECRET ||
-    process.env.AUTH_SECRET ||
-    // Fallback to a build-time injected value
-    process.env.AMPLIFY_NEXTAUTH_SECRET;
-
-  if (!secret) {
-    console.error('NEXTAUTH_SECRET is not available in any form');
-    throw new Error('NEXTAUTH_SECRET is required but not found in environment variables');
-  }
-
+    process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || process.env.AMPLIFY_NEXTAUTH_SECRET;
+  if (!secret || secret === previewSecret)
+    throw new Error('Production authentication requires its own secret.');
   return secret;
 }
-
-export const nextAuthSecret = getSecret();

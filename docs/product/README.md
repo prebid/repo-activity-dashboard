@@ -30,8 +30,10 @@ The functional vision is ready for visual frontend work using mock numbers and r
 
 ## Delivery planning
 
+- [Implemented foundation and verification](../implementation/quality-foundation-status.md): completed local scope, test results, dependency choices, and remaining product work.
+
 - [Foundation and frontend-only cutover](../implementation/frontend-only-cutover.md): concrete next changes, reporting/data removal map, authentication boundary, and completion criteria.
-- [Tracked repository catalog](../../design/mocks/repository-catalog.ts): the complete user-supplied list of 18 repositories, with verified identities and branches; application wiring is pending.
+- [Tracked repository catalog](../../design/mocks/repository-catalog.ts): the complete user-supplied list of 18 repositories, with verified identities and branches; now used by the mock frontend.
 - [Source audit and upgrade assessment](../implementation/source-audit-2026-10-24.md): confirmed Tailwind/configuration issues, baseline results, compatibility candidates, and limits; Amplify retained.
 - [Frontend architecture blueprint](../implementation/frontend-architecture.md): component ownership, typed display inputs, shared tables, extensibility, testing, and implementation slices.
 - [Quality foundation](../implementation/quality-foundation.md): the first engineering deliverable, required checks, and what passing each check establishes.
@@ -40,4 +42,4 @@ The functional vision is ready for visual frontend work using mock numbers and r
 - [Acceptance matrix](../implementation/acceptance-matrix.md): product rules linked to scenarios and planned verification.
 - [Frontend implementation plan](../implementation/frontend-plan.md): source baseline, preservation decisions, preparation stages, and subsequent feature delivery.
 
-The existing source was checked in an isolated audit copy; its results are linked above. New frontend implementation and its planned acceptance cases remain pending.
+The existing source was checked in an isolated audit copy; its results are linked above. The local foundation and representative mock flows are now verified; complete page designs and remaining product acceptance cases are still pending.

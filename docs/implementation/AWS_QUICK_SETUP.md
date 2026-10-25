@@ -1,3 +1,5 @@
+> Historical pre-foundation reference. Current commands and mode boundaries are documented in the root README and docs/implementation/quality-foundation-status.md.
+
 # AWS Authentication Quick Setup Guide
 
 ## 🚀 Quick Start Commands

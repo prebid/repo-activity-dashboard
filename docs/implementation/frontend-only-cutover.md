@@ -1,6 +1,6 @@
 # Execution plan: quality foundation and reporting-data removal
 
-Prepared 2026-10-25 from the checked-out source at `fba4d04b588a01149df2c8b5bd8a02f55a709cc2`, the [audit](source-audit-2026-10-24.md), and the [frontend architecture](frontend-architecture.md). Working branch: `codex/quality-foundation`. This is an execution specification; implementation is pending.
+Prepared 2026-10-25 from the checked-out source at `fba4d04b588a01149df2c8b5bd8a02f55a709cc2`, the [audit](source-audit-2026-10-24.md), and the [frontend architecture](frontend-architecture.md). Working branch: `codex/quality-foundation`. This is the execution specification. The local milestone is implemented and verified; see [status and evidence](quality-foundation-status.md). Hosted CI and live integrations remain unexecuted.
 
 ## Outcome of this milestone
 

@@ -27,7 +27,7 @@ export default function ChangePasswordPage() {
     { test: (p: string) => /[0-9]/.test(p), text: 'One number' },
   ];
 
-  const isPasswordValid = passwordRequirements.every(req => req.test(newPassword));
+  const isPasswordValid = passwordRequirements.every((req) => req.test(newPassword));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +79,7 @@ export default function ChangePasswordPage() {
           router.push('/auth/login?passwordChanged=true');
         }
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -104,7 +104,7 @@ export default function ChangePasswordPage() {
                 />
               </div>
             </div>
-            
+
             {/* Title and Description */}
             <div className="text-center mb-4">
               <h2 className="text-2xl font-semibold tracking-tight">
@@ -124,7 +124,8 @@ export default function ChangePasswordPage() {
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>First Time Login</AlertTitle>
                   <AlertDescription>
-                    For security reasons, you must change your temporary password before accessing the dashboard.
+                    For security reasons, you must change your temporary password before accessing
+                    the dashboard.
                   </AlertDescription>
                 </Alert>
               )}
@@ -137,13 +138,18 @@ export default function ChangePasswordPage() {
                 )}
 
                 <div style={{ marginBottom: '20px' }}>
-                  <Label htmlFor="currentPassword" style={{ display: 'block', marginBottom: '8px' }}>
+                  <Label
+                    htmlFor="currentPassword"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
                     {isFirstLogin ? 'Temporary Password' : 'Current Password'}
                   </Label>
                   <Input
                     id="currentPassword"
                     type="password"
-                    placeholder={isFirstLogin ? 'Enter temporary password' : 'Enter current password'}
+                    placeholder={
+                      isFirstLogin ? 'Enter temporary password' : 'Enter current password'
+                    }
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
@@ -174,7 +180,10 @@ export default function ChangePasswordPage() {
                 </div>
 
                 <div style={{ marginBottom: '20px' }}>
-                  <Label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '8px' }}>
+                  <Label
+                    htmlFor="confirmPassword"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
                     Confirm New Password
                   </Label>
                   <Input
@@ -246,7 +255,9 @@ export default function ChangePasswordPage() {
             <div className="text-center text-sm text-muted-foreground mt-6">
               <p>Password changes take effect immediately.</p>
               {isFirstLogin && (
-                <p className="mt-1">You'll be redirected after successfully changing your password.</p>
+                <p className="mt-1">
+                  You&apos;ll be redirected after successfully changing your password.
+                </p>
               )}
             </div>
           </div>

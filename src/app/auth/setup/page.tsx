@@ -21,8 +21,8 @@ export default function SetupPage() {
   useEffect(() => {
     // Check if any users exist
     fetch('/api/auth/setup/check')
-      .then(res => res.json())
-      .then(data => setHasUsers(data.hasUsers))
+      .then((res) => res.json())
+      .then((data) => setHasUsers(data.hasUsers))
       .catch(() => setHasUsers(true)); // Assume has users on error for safety
   }, []);
 
@@ -33,7 +33,7 @@ export default function SetupPage() {
     { test: (p: string) => /[0-9]/.test(p), text: 'One number' },
   ];
 
-  const isPasswordValid = passwordRequirements.every(req => req.test(password));
+  const isPasswordValid = passwordRequirements.every((req) => req.test(password));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ export default function SetupPage() {
         // Success! Redirect to login
         router.push('/auth/login?setup=complete');
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setIsLoading(false);
@@ -95,9 +95,11 @@ export default function SetupPage() {
   }
 
   if (hasUsers === null) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin" />
-    </div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -118,7 +120,8 @@ export default function SetupPage() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>One-time Setup</AlertTitle>
               <AlertDescription>
-                This page is only available when no users exist. Enter the email you added to the whitelist.
+                This page is only available when no users exist. Enter the email you added to the
+                whitelist.
               </AlertDescription>
             </Alert>
 

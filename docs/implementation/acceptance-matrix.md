@@ -1,6 +1,6 @@
 # Product acceptance matrix
 
-Status: planned cases, 2026-10-24. No application case below has been implemented or run by writing this matrix. A case becomes passed only when its actual check executes successfully against an identified source snapshot. Future/unimplemented cases are not silently counted as covered.
+Status: planned cases, 2026-10-24. Foundation checks and representative frontend cases now have executable coverage; see [implementation status](quality-foundation-status.md). This matrix also includes future product/data-integration cases and is not a claim that every row has passed. A case becomes passed only when its actual check executes successfully against an identified source snapshot. Future/unimplemented cases are not silently counted as covered.
 
 Scenario definitions and numerical answers are in the [test-data plan](test-data-plan.md). Gate/evidence rules are in the [quality foundation](quality-foundation.md).
 

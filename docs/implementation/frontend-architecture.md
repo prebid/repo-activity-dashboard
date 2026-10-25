@@ -1,6 +1,6 @@
 # Frontend architecture and foundation implementation plan
 
-Status: proposed implementation architecture, 2026-10-24. Based on the [source audit](source-audit-2026-10-24.md), the [agreed pages](../product/README.md), and the user's priorities: **composability, testability, future expansion, and visual completion before real data integration**. Keep Amplify hosting. No application implementation in this document is complete.
+Status: proposed implementation architecture, 2026-10-24. Based on the [source audit](source-audit-2026-10-24.md), the [agreed pages](../product/README.md), and the user's priorities: **composability, testability, future expansion, and visual completion before real data integration**. Keep Amplify hosting. The local foundation is implemented; see [verified scope and limits](quality-foundation-status.md). This blueprint also covers later product/design work.
 
 ## Recommendation and scope
 
@@ -173,7 +173,7 @@ Do not introduce Redux, a global query/cache system, or a generic workflow engin
 
 Add one catalog entry and its sample rows. Navigation and repository selectors consume that catalog. Metric table columns and shared components stay unchanged; there is no new property named after the repository. No frontend rebuild should be needed solely because a later service returns a new repository entry.
 
-The user supplied the complete list of **18 tracked repositories** on 2026-10-24. The [typed seed catalog](../../design/mocks/repository-catalog.ts) contains all 18 in the supplied order, with verified GitHub identities and default branches; it preserves the IDs and slugs of the original 9 entries. The prior source check found 9 entries in repos.json versus 6 in the frontend config/navigation. Consolidating those consumers remains implementation work. The [metadata snapshot](evidence/2026-10-24/repository-catalog-metadata.json) records verification; the larger fictional mock scenarios remain separate for layout/scale testing.
+The user supplied the complete list of **18 tracked repositories** on 2026-10-24. The [typed seed catalog](../../design/mocks/repository-catalog.ts) contains all 18 in the supplied order, with verified GitHub identities and default branches; it preserves the IDs and slugs of the original 9 entries. The prior source check found 9 entries in repos.json versus 6 in the frontend config/navigation. Navigation and the mock routes now use the single application catalog in src/config/repositories.ts; the design-path catalog re-exports it. The [metadata snapshot](evidence/2026-10-24/repository-catalog-metadata.json) records verification; the larger fictional mock scenarios remain separate for layout/scale testing.
 
 Use this file as the initial catalog source during frontend implementation. Later, store catalog entries in the database and return them through the same display interface. Database design does not block adding entries now. Keep IDs stable across that move, preserve the existing route slugs, and avoid deriving a closed TypeScript union of repository IDs from today's file. Navigation, filters, tables, preferences, and exports must all refer to the same catalog. Enabled catalog membership and each account's selected repositories are separate concepts. Adding a catalog entry must not silently change an account's explicitly saved subset.
 

@@ -1,6 +1,6 @@
 # Frontend implementation plan
 
-Prepared on 2026-10-24 from the [product definitions](../product/README.md). This is a preparation and delivery plan, not a record of completed implementation. The quality foundation remains the first engineering deliverable. The user then wants to settle the frontend visually and interactively with mock numbers and records before building the new data layer or connecting a database. Ready-to-display sample values are sufficient; a simulated reporting backend is not a prerequisite.
+Prepared on 2026-10-24 from the [product definitions](../product/README.md). This is the delivery plan; the completed local foundation and its limits are recorded in [implementation status](quality-foundation-status.md). The quality foundation remains the first engineering deliverable. The user then wants to settle the frontend visually and interactively with mock numbers and records before building the new data layer or connecting a database. Ready-to-display sample values are sufficient; a simulated reporting backend is not a prerequisite.
 
 ## Verified starting point
 
@@ -166,6 +166,6 @@ User review establishes the visual baseline; screenshots do not approve themselv
 
 ## Immediate next work
 
-The source audit, baseline, and working checkout are established. Implement the compatible toolchain and repaired Tailwind/component foundation from the [architecture blueprint](frontend-architecture.md#delivery-slices), separating mock frontend development from reporting dependencies early. Verify candidate versions as a set. The next feature/design focus remains All Repos using prepared mock values; the new data layer/database comes after the visual baseline.
+The local foundation and mock cutover are verified. The next focus is the All Repos design and full metric/interaction scope using the prepared mock frontend and component catalog. Continue toward the reviewed visual baseline before adding the real reporting/database layer. See [foundation status](quality-foundation-status.md) for completed work and remaining product features.
 
-The source checkout, audit-copy dependency checks, and planning/evidence updates are complete. No upgrades, data-layer deletion, or frontend feature implementation have been applied to the working project yet.
+The local foundation is implemented: compatible dependencies, a corrected style system, typed mock-backed routes, reporting-data removal, and executable checks. Hosted CI and deployment are not yet run. Full product-page design/acceptance remains pending; see the implementation status for exact verified scope.

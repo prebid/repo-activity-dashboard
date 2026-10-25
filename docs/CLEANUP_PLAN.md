@@ -1,3 +1,5 @@
+> Historical pre-foundation reference. Current commands and mode boundaries are documented in the root README and docs/implementation/quality-foundation-status.md.
+
 # Post-Deployment Cleanup Plan
 *Created: 2025-09-23*
 *Purpose: Track and execute cleanup of debugging artifacts after AWS Amplify deployment*

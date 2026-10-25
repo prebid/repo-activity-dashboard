@@ -1,3 +1,5 @@
+> Historical pre-foundation reference. Current commands and mode boundaries are documented in the root README and docs/implementation/quality-foundation-status.md.
+
 # NextAuth JWT Implementation Code
 
 This file contains all the actual implementation code for our authentication system using NextAuth with JWT sessions and DynamoDB.

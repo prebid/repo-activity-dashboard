@@ -1,0 +1,277 @@
+{
+  "date": "2026-10-25",
+  "branch": "codex/quality-foundation",
+  "planningBaselineCommit": "82595cb",
+  "verificationScope": "Isolated source copy with fresh npm ci; final runtime/config/test files match the working tree. Documentation is outside the source digest.",
+  "verifiedSourceDigest": "9ad782372e37841da72d726f81e5040a7cee5b0f444fc01833beb0ee00b01e0a",
+  "verifiedSourceFiles": 98,
+  "environment": {
+    "os": "macOS",
+    "node": "24.22.1",
+    "npm": "11.19.1",
+    "liveCredentialsProvided": false
+  },
+  "versions": {
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "6.0.3",
+    "tailwindcss": "4.3.3",
+    "postcss": "8.5.31",
+    "@tanstack/react-table": "9.3.1",
+    "recharts": "3.10.1",
+    "vitest": "4.1.10",
+    "@playwright/test": "1.64.1",
+    "storybook": "10.6.3",
+    "eslint": "9.39.5"
+  },
+  "checks": {
+    "cleanInstall": "passed",
+    "format": "passed",
+    "lint": "passed",
+    "types": "passed",
+    "moduleAndRetirementBoundaries": "passed",
+    "unitComponent": {
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0
+    },
+    "previewBuild": "passed",
+    "storybookBuild": "passed",
+    "browser": {
+      "startTime": "2026-10-25T13:41:06.794Z",
+      "duration": 5067.719,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "productionAuthBuild": "passed",
+    "runtimeAdvisories": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "unitCases": [
+    {
+      "suite": "data-table.test.tsx",
+      "cases": [
+        {
+          "name": "shared table paginates 250 rows and searches across the full set",
+          "status": "passed"
+        },
+        {
+          "name": "shared table sorts with missing values last and exposes sort state",
+          "status": "passed"
+        },
+        {
+          "name": "shared table exports every matching row, not only the visible page",
+          "status": "passed"
+        },
+        {
+          "name": "shared table renders a meaningful empty state",
+          "status": "passed"
+        },
+        {
+          "name": "shared table renders known zero and unavailable separately",
+          "status": "passed"
+        },
+        {
+          "name": "shared table allows retry from the error state",
+          "status": "passed"
+        },
+        {
+          "name": "column controls hides presentation columns without changing the matching population",
+          "status": "passed"
+        },
+        {
+          "name": "paged data input for a future adapter uses the supplied total and does not filter, re-sort, or page the supplied records again",
+          "status": "passed"
+        },
+        {
+          "name": "paged data input for a future adapter delegates export for the full scope without passing the page number",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "account-storage.test.ts",
+      "cases": [
+        {
+          "name": "retained account-store boundary refuses account storage in preview before constructing a client",
+          "status": "passed"
+        },
+        {
+          "name": "retained account-store boundary creates the retained production client lazily and reuses it",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "auth-boundary.test.ts",
+      "cases": [
+        {
+          "name": "authentication configuration supplies an explicit preview secret without live configuration",
+          "status": "passed"
+        },
+        {
+          "name": "authentication configuration does not silently fall back to preview in production",
+          "status": "passed"
+        },
+        {
+          "name": "authentication configuration uses the configured production secret",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "boundaries.test.ts",
+      "cases": [
+        {
+          "name": "module boundary check selects real input and allows presentation dependencies",
+          "status": "passed"
+        },
+        {
+          "name": "module boundary check rejects server or mock imports in views: import '@/lib/auth/auth';",
+          "status": "passed"
+        },
+        {
+          "name": "module boundary check rejects server or mock imports in views: export { auth } from '../../lib/auth/auth';",
+          "status": "passed"
+        },
+        {
+          "name": "module boundary check rejects server or mock imports in views: import('@/mocks/reporting');",
+          "status": "passed"
+        },
+        {
+          "name": "module boundary check rejects computed imports rather than treating them as checked",
+          "status": "passed"
+        },
+        {
+          "name": "module boundary check does not confuse prose comments with imports",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "build-mode.test.ts",
+      "cases": [
+        {
+          "name": "application launcher boundaries keeps preview authentication on its local origin even with production URL settings",
+          "status": "passed"
+        },
+        {
+          "name": "application launcher boundaries rejects starting a production artifact as a preview",
+          "status": "passed"
+        },
+        {
+          "name": "application launcher boundaries rejects an Amplify preview before launching the app",
+          "status": "passed"
+        },
+        {
+          "name": "application launcher boundaries rejects unknown modes",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "catalog-and-samples.test.ts",
+      "cases": [
+        {
+          "name": "catalog and prepared samples contains the complete 18-repository catalog without duplicate identifiers",
+          "status": "passed"
+        },
+        {
+          "name": "catalog and prepared samples reconciles summary and detail counts for every repository",
+          "status": "passed"
+        },
+        {
+          "name": "catalog and prepared samples has a large deterministic backlog and oldest searchable item",
+          "status": "passed"
+        },
+        {
+          "name": "catalog and prepared samples does not invent an unknown repository",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "password-generation.test.ts",
+      "cases": [
+        {
+          "name": "preserves the temporary-password format without using Math.random",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "suite": "presentation.test.ts",
+      "cases": [
+        {
+          "name": "presentation contracts distinguishes zero from missing",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts keeps missing values last in both directions",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts rejects unsafe return path https://evil.test",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts rejects unsafe return path //evil.test",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts rejects unsafe return path /\\\\evil.test",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts rejects unsafe return path /auth/login",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts rejects unsafe return path javascript:alert(1)",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts preserves valid filtered destinations",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts validates query state",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts preserves unrelated filters and resets the page",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts namespaces preferences by account",
+          "status": "passed"
+        },
+        {
+          "name": "presentation contracts exports safe CSV values and preserves missing data",
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "notExecuted": [
+    "Hosted GitHub Actions",
+    "Amplify deployment",
+    "Real account-store sign-in",
+    "Database/reporting integration"
+  ],
+  "limits": [
+    "Page layouts and product metrics remain foundation previews, not final product acceptance.",
+    "Storybook emits client-directive bundling notices; the built catalog was browser-tested.",
+    "ESLint 9 is retained for Next 15/plugin peer compatibility and is marked deprecated by npm.",
+    "npm reports install-hook approval notices; required builds and checks succeeded without additional hook approval."
+  ]
+}

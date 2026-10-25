@@ -1,3 +1,5 @@
+> Historical pre-foundation reference. Current commands and mode boundaries are documented in the root README and docs/implementation/quality-foundation-status.md.
+
 # Implementation Status
 
 Last Updated: September 22, 2025

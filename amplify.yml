@@ -3,71 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Check Node version
-        - node --version
-        - npm --version
-
-        # Install dependencies with better error handling
-        - echo "Installing dependencies..."
-        - npm install --legacy-peer-deps --verbose || npm install --force
-        - echo "Dependencies installed"
-
-        # Check environment
-        - echo "Environment check..."
-        - 'echo "S3_BUCKET_NAME: $S3_BUCKET_NAME"'
-        - 'echo "Current directory:"'
-        - pwd
-        - ls -la
-
-        # Sync GitHub mapping from S3 (optional - continue if fails)
-        - echo "Syncing from S3..."
-        - npm run sync:mapping || echo "S3 sync skipped"
-
-        # Verify critical files exist
-        - echo "Verifying files..."
-        - test -f contributor-repo-timeline.json || echo "Warning - contributor timeline missing"
-        - test -f package.json || exit 1
-        - echo "Files in store/sheets:"
-        - ls -la store/sheets/ || echo "store/sheets not found"
-        - echo "Checking github-mapping.json:"
-        - test -f store/sheets/github-mapping.json && echo "github-mapping.json exists" || echo "github-mapping.json missing"
-
+        - nvm install
+        - nvm use
+        - npm ci
+        - npm run check
     build:
       commands:
-        # Increase Node memory for build
-        - export NODE_OPTIONS=--max-old-space-size=4096
-
-        # Debug environment variables
-        - echo "NEXTAUTH_URL=$NEXTAUTH_URL"
-        - echo "NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL"
-        - 'echo "NEXTAUTH_SECRET is set"'
-        - export AUTH_URL=$NEXTAUTH_URL
-        - export AUTH_SECRET=$NEXTAUTH_SECRET
-
-        # Copy store files to public directory for static serving
-        - echo "Copying store files to public..."
-        - mkdir -p public/store
-        - cp -r store/* public/store/ || echo "Store copy warning"
-
-        # Build Next.js
-        - echo "Building Next.js app..."
-        - npm run build || exit 1
-        - echo "Build successful"
-
-    postBuild:
-      commands:
-        # Verify build output
-        - echo "Post-build verification:"
-        - ls -la .next/
-        - echo "Checking for critical files:"
-        - test -f store/sheets/github-mapping.json && echo "✓ github-mapping.json exists" || echo "✗ github-mapping.json missing"
-        - test -f contributor-repo-timeline.json && echo "✓ contributor-repo-timeline.json exists" || echo "✗ contributor-repo-timeline.json missing"
-
+        - npm run build:production
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
-
   cache:
     paths:
-      - node_modules/**/*
+      - .npm/**/*
