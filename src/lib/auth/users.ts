@@ -1,6 +1,5 @@
 import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
-import { randomInt } from 'node:crypto';
-import { v4 as uuidv4 } from 'uuid';
+import { randomInt, randomUUID } from 'node:crypto';
 
 const USERS_TABLE = process.env.DYNAMODB_USERS_TABLE!;
 
@@ -68,7 +67,7 @@ export async function createUser(userData: {
   company?: string;
 }): Promise<User> {
   const user: User = {
-    id: uuidv4(),
+    id: randomUUID(),
     email: userData.email.toLowerCase(),
     password: userData.password,
     name: userData.name || userData.email.split('@')[0],
@@ -117,7 +116,7 @@ export async function adminCreateUser(
   const hashedPassword = await hashPassword(tempPassword);
 
   const user: User = {
-    id: uuidv4(),
+    id: randomUUID(),
     email: email.toLowerCase(),
     password: hashedPassword,
     name: name || email.split('@')[0],

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { getDocClient } from '@/lib/aws/clients';
 import { ScanCommand, PutCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { hashPassword, validatePasswordStrength } from '@/lib/auth/passwords';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'node:crypto';
 
 // POST /api/auth/setup - One-time admin setup
 export async function POST(req: Request) {
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
     // Create the first admin user
     const hashedPassword = await hashPassword(password);
-    const userId = uuidv4();
+    const userId = randomUUID();
 
     await getDocClient().send(
       new PutCommand({
