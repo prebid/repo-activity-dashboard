@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-25T16:41:22.996757+00:00",
+  "baselineCommit": "672860670ca91d8f5cf515332f208bafc9daf368",
+  "codeCommit": "ef41880f722d56e7719cee3a3a6d40e610582c03",
+  "upstream": "fba4d04b588a01149df2c8b5bd8a02f55a709cc2",
+  "upstreamCommitsMissing": 0,
+  "sourceManifestSha256": "637e20b757cd3a55cf2a72915c7e3a9eb14c2e54c56ebf6391aa179365a8da9b",
+  "sourceFiles": 124,
+  "node": "24.22.1",
+  "npm": "11.19.1",
+  "platform": "darwin-arm64",
+  "verification": [
+    {
+      "command": "npm run check:all",
+      "codeCommit": "0bc73dad282b3cdeb225c19d2850e2646266791f",
+      "result": "passed",
+      "unitComponentCases": 135,
+      "browserCases": 16
+    },
+    {
+      "command": "npm run check; npm run build:storybook; npm run test:e2e (separate successful commands)",
+      "codeCommit": "ef41880f722d56e7719cee3a3a6d40e610582c03",
+      "result": "passed",
+      "unitComponentCases": 135,
+      "browserCases": 18,
+      "reason": "Final delta changes only Storybook preview and browser test; application source and build configuration remain identical to the full-pipeline checkpoint."
+    }
+  ],
+  "fullAuditAdvisories": 0,
+  "unitComponentCases": 135,
+  "browserCases": 18,
+  "failed": 0,
+  "skipped": 0,
+  "flaky": 0,
+  "applicationCoverage": {
+    "files": 75,
+    "linesPercent": 43.06
+  },
+  "independentReview": "pending",
+  "hostedCI": "not run",
+  "liveAWSAmplify": "not run",
+  "packageLockChanged": false,
+  "retainedProductionIssues": [
+    "public bootstrap does not establish email ownership; prior user decision remains pending",
+    "JWT claims are snapshots; existing sessions are not promptly invalidated by account changes",
+    "user creation and whitelist writes are non-transactional; email uniqueness not atomic",
+    "Amplify build variables are not automatically SSR runtime variables; source buildspec has no secure runtime configuration handoff"
+  ]
+}

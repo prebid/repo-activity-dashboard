@@ -1,8 +1,8 @@
 # Quality foundation — implementation status
 
-Updated 2026-10-25. **Local hardening is complete and ready for independent review. Layout work remains on hold.** Branch: `codex/quality-foundation`; verified code checkpoint: `81e68b4033fa00ffa810a10be959ac5749099423`. Hosted CI, Amplify deployment, and real account-store sign-in have not run. First-admin setup remains an unresolved deployment decision.
+Updated 2026-10-25. **Local hardening and adversarial self-review are complete; production-auth blockers and independent review remain open. Layout work is on hold.** Branch: `codex/quality-foundation`; verified code checkpoint: `ef41880f722d56e7719cee3a3a6d40e610582c03`. Hosted CI, Amplify deployment, and real account-store sign-in have not run. First-admin setup remains an unresolved deployment decision.
 
-[Execution plan](foundation-hardening-plan.md) · [Review packet](foundation-hardening-review.md) · [Contracts](foundation-contracts.md) · [Machine-readable evidence](evidence/hardening/verification.json)
+[Self-audit findings](foundation-self-audit.md) · [Execution plan](foundation-hardening-plan.md) · [Review packet](foundation-hardening-review.md) · [Contracts](foundation-contracts.md) · [Latest evidence](evidence/self-audit/verification.json)
 
 ## Delivered foundation
 
@@ -25,28 +25,30 @@ The original ingestion tests were retired with that implementation. Their histor
 
 ## Verification at the hardening checkpoint
 
-A separate source copy contained no node_modules, generated build output, or copied environment files. Live-service environment settings were removed. It ran `npm ci` followed by `npm run check:all`. All 122 copied source/config/test/support files matched the working checkout afterward.
+The initial hardening checkpoint passed a clean install and full verification in an isolated source copy; that historical receipt remains under `evidence/hardening/`. The self-audit then reproduced and fixed additional failures. The full pipeline passed at `0bc73da`; the final Storybook-only delta passed static/coverage checks, a rebuilt catalog, and the full browser suite at `ef41880`. Application build source was unchanged by that final delta. The package lock did not change. The latest receipt explicitly records both verification scopes.
 
 | Check | Result |
 | --- | --- |
-| Clean locked install | Passed |
+| Clean locked install | Passed at the preceding hardening checkpoint; lockfile unchanged in self-audit |
 | Formatting, type-aware lint, strict types | Passed |
-| Resolved graph and retired-reporting checks | Passed; 75 application source files selected |
-| Unit/component tests and coverage gates | **103 passed; 0 failed/skipped** |
+| Resolved graph and retired-reporting checks | Passed; 76 application source files selected |
+| Unit/component tests and coverage gates | **135 passed; 0 failed/skipped** |
 | Production-auth build | Passed; no live service contacted by the checks |
 | Preview and Storybook builds | Passed |
-| Browser tests | **12 passed across Chromium/WebKit; 0 failed/skipped/flaky** |
+| Browser tests | **18 passed across Chromium/WebKit; 0 failed/skipped/flaky** |
 | Full npm audit, including development dependencies | **0 advisories** |
 | Hosted Linux CI, independent review, live AWS integration | Not run |
 
-Unit coverage now reports all 74 application TS/TSX files rather than seven selected modules. Overall line coverage is **41.99%**, with uncovered UI scaffolds and retained account screens visible. This is intentionally not presented as comprehensive application coverage. Critical table/query files exceed 95% lines; registered credential/access/request policies and auth wiring have 100% lines/branches in the measured cases. Browser coverage is separate and is not added to those percentages.
+Unit coverage now reports all 75 application TS/TSX files rather than seven selected modules. Overall line coverage is **43.06%**, with uncovered UI scaffolds and retained account screens visible. This is intentionally not presented as comprehensive application coverage. Critical table/query files exceed 95% lines; registered credential/access/request policies and auth wiring have 100% lines/branches in the measured cases. Browser coverage is separate and is not added to those percentages.
 
 Screenshots are inspection artifacts, not approved layouts or visual-regression baselines. Automated accessibility checks apply to the exercised foundation specimen.
 
 ## Remaining limits and gates
 
+- **Self-audit fixed 11 defects/enforcement gaps.** See the current report for role validation, repeated URLs, table composition, client entry-point enforcement, Tailwind variables, chart accessibility, CSV handling, password byte limits, result-verdict checks, and catalog portal themes.
 - **Independent review and hosted verification are pending.** Local checks do not substitute for them. The review ledger and reproducible commands are in the review packet.
 - **Public first-admin setup still lacks proof of email ownership.** No bootstrap-policy change has been approved. [The decision brief](account-bootstrap-decision.md) recommends operator provisioning and explains alternatives. Resolve before exposing production setup; preview account mutations are blocked.
+- **Amplify runtime configuration remains an explicit deployment gap:** console build variables are not automatically server-runtime variables, and the source buildspec does not provide a secure handoff. See HOST-01 in the self-audit.
 - Production authentication retains sign-in-time JWT claims, separate user/whitelist writes, and scan-based email lookup. Immediate session revocation, concurrent account uniqueness, and partial-write recovery need explicit production-auth disposition. The hardening does not certify the entire retained identity system.
 - Next 15 is held for the selected Amplify target. ESLint 9 is deprecated but retained for the current React/accessibility/Next plugin peers; TypeScript 6 matches the current parser; next-auth remains on the existing v5 beta line. These are documented compatibility tradeoffs, not a claim that every package is on its newest major. See [dependency decisions](evidence/hardening/dependency-decisions.json).
 - npm reports transitive install-script approval notices, and Storybook reports client-directive notices. Clean installation and required builds passed without broad install-hook approval or forced peer resolution.

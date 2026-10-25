@@ -1,5 +1,7 @@
 # Foundation hardening review packet
 
+**Current handoff supplement:** read the [adversarial self-audit](foundation-self-audit.md) first. Its code checkpoint is `ef41880`, with 135 unit/component and 18 browser cases and explicit open production findings. The packet below preserves the preceding `81e68b4` checkpoint and its evidence. Use the [latest source/review inventory](evidence/self-audit/review-scope.json) for the subsequent changes.
+
 Code checkpoint: **81e68b4033fa00ffa810a10be959ac5749099423**. Branch: `codex/quality-foundation`. Original source baseline: **fba4d04b588a01149df2c8b5bd8a02f55a709cc2**. This is an implementation-author packet; independent review and hosted CI are pending.
 
 The application previously mixed reporting aggregation/storage with rendering and lacked dependable quality enforcement. The branch retires that reporting layer, supplies deterministic typed samples, preserves the chosen stack and account integration, and adds executable foundation checks. The latest hardening adds type-aware lint, runtime schemas, tested account boundaries, reliable table state/paging contracts, resolved architecture checks, and CI parity. Final page layouts and the future reporting database are outside this review.

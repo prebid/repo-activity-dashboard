@@ -21,3 +21,7 @@ Dependency policy: use compatible maintained releases where available, record ju
 
 Verification policy: test observable contracts and failure paths; preserve fixed clocks and deterministic samples; use explicit coverage scope and meaningful module gates rather than an arbitrary whole-project percentage. No empty/skipped required check is a pass. Independent review remains separate from the implementation author's verification.
 
+
+## Adversarial self-review follow-up
+
+The user requested a full self-audit before external handoff. That review is complete at `ef41880`: 11 confirmed defects/enforcement gaps were addressed, with 135 unit/component and 18 cross-browser cases passing. [The report](foundation-self-audit.md) records reproductions, architecture conclusions, dependency checks, scope, and the open production-auth/Amplify findings. This does not complete H6 or resolve the pending bootstrap decision.
