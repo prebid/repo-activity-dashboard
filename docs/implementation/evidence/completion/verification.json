@@ -1,0 +1,86 @@
+{
+  "verifiedAt": "2026-10-25T18:38:01.497056+00:00",
+  "codeCommit": "c4d11b51c3d78c7e48ae5de78a1c0911397ef0af",
+  "implementationBaseline": "cfae98c",
+  "originalComparisonBase": "fba4d04b588a01149df2c8b5bd8a02f55a709cc2",
+  "branch": "codex/quality-foundation",
+  "sourceFileCount": 147,
+  "sourceManifestSha256": "ba295d793a1d57437f69b2b920e99f49549c7fd53ca2fd434a031f29987fdbfb",
+  "sourceMatchedWorkingTree": true,
+  "cleanSourceCopy": "/private/tmp/dashboard-final-foundation-oer99_e1",
+  "runtime": {
+    "node": "24.22.1",
+    "npm": "11.19.1",
+    "java": "OpenJDK 21.0.11",
+    "platform": "darwin-arm64",
+    "dynamodbLocal": "3.3.2",
+    "dynamodbArchiveSha256": "7a94eb65f81aee270738751a4e5e3e6a7ad02a5d25194f55b83e08ec2ba6342b"
+  },
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 6.11
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:all"
+      ],
+      "exitCode": 0,
+      "seconds": 81.53
+    }
+  ],
+  "unitComponent": {
+    "total": 178,
+    "passed": 178,
+    "failed": 0,
+    "pending": 0
+  },
+  "accountIntegration": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "pending": 0
+  },
+  "productionArtifactHTTP": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "pending": 0
+  },
+  "browser": {
+    "startTime": "2026-10-25T18:31:16.572Z",
+    "duration": 17328.736999999997,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "fullNpmAdvisories": 0,
+  "applicationUnitCoverage": {
+    "files": 81,
+    "lines": 51.73
+  },
+  "accountIntegrationCoverage": {
+    "files": 4,
+    "lines": 83.7
+  },
+  "closedFindings": [
+    "AUTH-01",
+    "AUTH-02",
+    "AUTH-03",
+    "HOST-01"
+  ],
+  "evidenceSerialization": "All individual test outcomes retained. Raw coverage maps omitted; summaries are separate.",
+  "limits": [
+    "Same-author verification; independent review pending",
+    "Hosted Linux CI and actual Amplify/IAM environment acceptance have not run",
+    "No live accounts or cloud resources were modified",
+    "No reporting database integration or finalized page layouts were added"
+  ]
+}

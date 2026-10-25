@@ -1,0 +1,205 @@
+{
+  "numTotalTestSuites": 1,
+  "numPassedTestSuites": 1,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 15,
+  "numPassedTests": 15,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1792953027732,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "fullName": "atomically creates exactly one account for simultaneous normalized-email requests",
+          "status": "passed",
+          "title": "atomically creates exactly one account for simultaneous normalized-email requests",
+          "duration": 363.19216600000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rolls back the user write if the email claim changes after preflight",
+          "status": "passed",
+          "title": "rolls back the user write if the email claim changes after preflight",
+          "duration": 98.52724999999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "allows only one first administrator even when concurrent operators choose different emails",
+          "status": "passed",
+          "title": "allows only one first administrator even when concurrent operators choose different emails",
+          "duration": 173.66837499999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "migrates legacy UUID accounts repeatably without activating disabled or unlisted accounts",
+          "status": "passed",
+          "title": "migrates legacy UUID accounts repeatably without activating disabled or unlisted accounts",
+          "duration": 62.073083,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "refuses ambiguous legacy duplicates before migration changes any mapping",
+          "status": "passed",
+          "title": "refuses ambiguous legacy duplicates before migration changes any mapping",
+          "duration": 23.12424999999996,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "invalidates prior claims on reset and prevents an older password change from undoing it",
+          "status": "passed",
+          "title": "invalidates prior claims on reset and prevents an older password change from undoing it",
+          "duration": 322.913375,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "rejects an admin write revoked while the request is in flight",
+          "status": "passed",
+          "title": "rejects an admin write revoked while the request is in flight",
+          "duration": 175.9710829999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "checks the current admin active independently at the write boundary",
+          "status": "passed",
+          "title": "checks the current admin active independently at the write boundary",
+          "duration": 172.82025,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "checks the current admin role independently at the write boundary",
+          "status": "passed",
+          "title": "checks the current admin role independently at the write boundary",
+          "duration": 167.9399159999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "checks the current admin identity independently at the write boundary",
+          "status": "passed",
+          "title": "checks the current admin identity independently at the write boundary",
+          "duration": 168.49183300000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "checks the current admin version independently at the write boundary",
+          "status": "passed",
+          "title": "checks the current admin version independently at the write boundary",
+          "duration": 168.06937500000026,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "supports an administrator resetting their own account without duplicate transaction targets",
+          "status": "passed",
+          "title": "supports an administrator resetting their own account without duplicate transaction targets",
+          "duration": 160.7540829999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "does not resurrect old sessions when an account is disabled and re-enabled",
+          "status": "passed",
+          "title": "does not resurrect old sessions when an account is disabled and re-enabled",
+          "duration": 93.25466599999982,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "retains the operator credential privately even if a committed transaction loses its response",
+          "status": "passed",
+          "title": "retains the operator credential privately even if a committed transaction loses its response",
+          "duration": 248.76712499999985,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "executes operator creation, access changes, reset, inspection and repeat-safe migration end to end",
+          "status": "passed",
+          "title": "executes operator creation, access changes, reset, inspection and repeat-safe migration end to end",
+          "duration": 269.01191700000027,
+          "failureMessages": [],
+          "meta": {},
+          "tags": [],
+          "benchmarks": []
+        }
+      ],
+      "startTime": 1792953030844,
+      "endTime": 1792953033513.012,
+      "status": "passed",
+      "message": "",
+      "name": "/private/tmp/dashboard-final-foundation-oer99_e1/tests/integration/accounts.test.ts"
+    }
+  ]
+}

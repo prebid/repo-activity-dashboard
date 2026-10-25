@@ -1,5 +1,7 @@
 # Foundation self-audit and adversarial review
 
+**Historical audit checkpoint.** The four open implementation findings below have been addressed. Read [foundation implementation completion](foundation-completion.md) for the current code, behavior and evidence. The original findings/reproductions are preserved here rather than rewritten as if the earlier code passed.
+
 Date: 2026-10-25. Reviewed baseline: `672860670ca91d8f5cf515332f208bafc9daf368`. Remediated code: **ef41880f722d56e7719cee3a3a6d40e610582c03**. This is a self-review by the implementation author, not independent approval. No push, pull request, deployment, or review-team message was performed.
 
 **Verdict:** the frontend foundation is materially stronger and its confirmed local defects are fixed. It is ready for an independent **frontend-foundation review with explicit production-authentication blockers**. It is not approved for production deployment, and page layouts remain on hold pending review acceptance.

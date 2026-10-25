@@ -29,13 +29,15 @@ Account request bodies, consumed API responses, and loaded account/whitelist rec
 
 Account mutations reject preview builds before invoking real authentication/storage. Admin mutations also require an administrator and completion of mandatory password changes. Password change acts on the authenticated identity, never a user ID supplied in the body. API checks are independent of page-layout checks.
 
-Production Auth.js handler tests use real CSRF/session-cookie processing with controlled account dependencies. They do not contact AWS or prove the deployed Amplify configuration. JWT role/password-change claims are still captured at sign-in; immediate session revocation and existing-session behavior after administrative resets are retained limitations requiring a production-auth review. User creation and whitelist updates remain separate writes; account uniqueness/concurrency is not redesigned here.
+Production Auth.js handler tests use real CSRF/session-cookie processing with controlled dependencies. Every production session use revalidates a transactional account/whitelist snapshot and its revision. Effective privilege is bounded by both current roles. Password/access changes increment the revision; admin mutations also verify current actor conditions in the write transaction. Secret values remain server-only and are loaded through the configured runtime provider.
 
-Public first-admin setup remains an explicit unresolved production gate. See [the decision brief](account-bootstrap-decision.md); do not treat a passing preview or production build as permission to expose that setup route.
+User creation reserves the normalized email and writes the user in one conditional transaction. A separate bootstrap marker prevents concurrent first administrators across different email addresses. Legacy links are added by a repeat-safe operator migration; existing UUIDs/password hashes and explicit active/role states are preserved. Public setup is closed. Operator-created temporary credentials are synced to a new private file before mutation, and the first password must be different.
+
+The [account operations guide](account-operations.md) records the implemented commands, configuration, migration, recovery and deployment assumptions. A built-production HTTP test exercises the packaged server with a real local DynamoDB service and a controlled Secrets Manager HTTP fixture. It does not certify a live AWS IAM policy or Amplify environment.
 
 ## Verification policy
 
-`npm run check` runs formatting, type-aware lint, strict app/test/tool typechecking, both architecture/removal checks, and unit/component tests with coverage. `npm run check:all` additionally runs a full dependency audit, a production-auth build, a preview build, Storybook, and Chromium/WebKit browser tests. CI invokes that same command.
+`npm run check` runs formatting, type-aware lint, strict app/test/tool typechecking, both architecture/removal checks, and unit/component tests with coverage. `npm run check:all` additionally runs a full dependency audit, real local account transactions, a production-auth build and packaged-server HTTP test, a preview build, Storybook, and Chromium/WebKit browser tests. CI invokes that same command.
 
 Coverage includes all application TS/TSX, excluding declarations. Thresholds are per file within explicitly listed critical groups: presentation helpers, table/query state, credential/access/request policies and auth wiring, and admin/password API handlers. The report also exposes uncovered scaffolds, retained admin screens, UI primitives, and store mutations. There is no claim of whole-application coverage or a blanket percentage that conceals those gaps. Browser execution is reported separately from unit coverage.
 

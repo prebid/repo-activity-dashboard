@@ -15,7 +15,7 @@ Retain Amplify, Next.js, TypeScript, React, Tailwind, and the existing productio
 
 The local hardening checkpoint is `81e68b4033fa00ffa810a10be959ac5749099423`. A clean install passed the complete command: 103 unit/component tests, 12 Chromium/WebKit browser cases, both build modes, Storybook, coverage gates, static checks, and a full zero-advisory audit. [Evidence](evidence/hardening/verification.json) · [Contracts](foundation-contracts.md) · [Review packet](foundation-hardening-review.md).
 
-The first-admin bootstrap policy needs a user decision before production deployment. The [decision brief](account-bootstrap-decision.md) explains the account lifecycle, recommendation, and alternatives. It is separate from mock frontend work; no unsafe setup behavior has been silently reclassified as approved.
+Operator-controlled bootstrap is now implemented, along with current-session authority, atomic account writes, and runtime configuration. See [implementation completion](foundation-completion.md) and the [implemented bootstrap decision](account-bootstrap-decision.md).
 
 Dependency policy: use compatible maintained releases where available, record justified holds and their revisit conditions, and never use force or legacy-peer-deps to manufacture a successful installation. A successful dependency resolution is not a passing application test.
 
@@ -25,3 +25,7 @@ Verification policy: test observable contracts and failure paths; preserve fixed
 ## Adversarial self-review follow-up
 
 The user requested a full self-audit before external handoff. That review is complete at `ef41880`: 11 confirmed defects/enforcement gaps were addressed, with 135 unit/component and 18 cross-browser cases passing. [The report](foundation-self-audit.md) records reproductions, architecture conclusions, dependency checks, scope, and the open production-auth/Amplify findings. This does not complete H6 or resolve the pending bootstrap decision.
+
+## Final implementation pass
+
+The user authorized finishing the implementation before handoff. AUTH-01, AUTH-02, AUTH-03 and HOST-01 are implemented and locally verified; the current completion record supersedes their earlier open dispositions. H6 remains independent review/hosted verification, not a request for reviewers to implement the fixes.
