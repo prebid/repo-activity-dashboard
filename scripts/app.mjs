@@ -36,7 +36,15 @@ const child = spawn(
 );
 process.on('SIGTERM', () => child.kill('SIGTERM'));
 process.on('SIGINT', () => child.kill('SIGINT'));
-child.on('exit', async (code) => {
-  if (code === 0 && command === 'build') await writeFile('.next/dashboard-mode', mode);
-  process.exitCode = code ?? 1;
+child.on('exit', (code) => {
+  if (code !== 0) {
+    process.exitCode = code ?? 1;
+    return;
+  }
+  if (command === 'build') {
+    void writeFile('.next/dashboard-mode', mode).catch((error) => {
+      console.error('Unable to record build mode:', error);
+      process.exitCode = 1;
+    });
+  }
 });

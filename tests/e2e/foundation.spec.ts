@@ -12,14 +12,14 @@ test.beforeEach(async ({ context }) => {
 
 test('component catalog renders independently from authentication and reporting', async ({
   page,
-}) => {
+}, testInfo) => {
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=foundation-shared-components--normal&viewMode=story',
   );
   await expect(page.getByRole('heading', { name: 'Sample table' })).toBeVisible();
   await expect(page.getByText('Known zero', { exact: true })).toBeVisible();
   await expect(page.getByRole('figure', { name: 'Human review distribution' })).toBeVisible();
-  await page.screenshot({ path: 'test-results/screenshots/component-catalog.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('component-catalog.png'), fullPage: true });
 });
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/auth/login');
@@ -41,19 +41,28 @@ test('login return preserves issue context, pagination and full-result search', 
     page.getByRole('link', { name: 'Oldest sample issue: keyboard navigation' }),
   ).toHaveAttribute('href', /example-fixtures.*issues\/1$/);
 });
-test('catalog, summary drill-down and independent feedback/approval values', async ({ page }) => {
+test('catalog, summary drill-down and independent feedback/approval values', async ({
+  page,
+}, testInfo) => {
   await login(page);
   await expect(page.getByRole('table').getByRole('row')).toHaveCount(19);
-  await page.screenshot({ path: 'test-results/screenshots/all-repos.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('all-repos.png'), fullPage: true });
   const row = page
     .getByRole('row')
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
   await row.getByRole('link', { name: '137', exact: true }).click();
   await expect(page.getByText('137 matching items')).toBeVisible();
+  const reviewed = page
+    .getByRole('row')
+    .filter({ has: page.getByRole('cell', { name: '1058', exact: true }) });
+  await expect(reviewed.getByRole('cell').nth(3)).toHaveText('1');
+  await expect(reviewed.getByRole('cell').nth(4)).toHaveText('0');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').getByRole('row')).toHaveCount(38);
 });
-test('style tokens, keyboard focus, themes and accessible foundation', async ({ page }) => {
+test('style tokens, keyboard focus, themes and accessible foundation', async ({
+  page,
+}, testInfo) => {
   await login(page);
   await page.goto('/foundation');
   const specimen = page.getByTestId('style-specimen');
@@ -67,16 +76,24 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({ 
     .not.toBe(before);
   const button = page.getByRole('button', { name: 'Example action' });
   const unfocusedShadow = await button.evaluate((el) => getComputedStyle(el).boxShadow);
-  await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
+  // macOS WebKit uses Option+Tab to include buttons in keyboard traversal.
+  // Begin at the input and verify the actual reverse order, not mouse focus.
+  const previousKey =
+    testInfo.project.name === 'webkit' && process.platform === 'darwin'
+      ? 'Alt+Shift+Tab'
+      : 'Shift+Tab';
+  await page.getByRole('textbox', { name: 'Example input' }).focus();
+  await page.keyboard.press(previousKey);
+  await expect(page.getByRole('button', { name: 'Destructive action' })).toBeFocused();
+  await page.keyboard.press(previousKey);
   await expect(button).toBeFocused();
   await expect(button).not.toHaveCSS('box-shadow', unfocusedShadow);
   const findings = await new AxeBuilder({ page }).analyze();
   expect(findings.violations).toEqual([]);
-  await page.screenshot({ path: 'test-results/screenshots/foundation-theme.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('foundation-theme.png'), fullPage: true });
   await page.setViewportSize({ width: 768, height: 900 });
   await expect(specimen).toBeVisible();
-  await page.screenshot({ path: 'test-results/screenshots/foundation-narrow.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('foundation-narrow.png'), fullPage: true });
 });
 test('CSV download and blocked account changes in preview', async ({ page }) => {
   await login(page);
@@ -86,7 +103,11 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
   const download = await downloadPromise;
   const stream = await download.createReadStream();
   let csv = '';
-  if (stream) for await (const chunk of stream) csv += chunk.toString();
+  if (stream)
+    for await (const chunk of stream) {
+      if (!Buffer.isBuffer(chunk)) throw new Error('Expected CSV bytes');
+      csv += chunk.toString('utf8');
+    }
   expect(csv.split('\r\n')).toHaveLength(4);
   expect(csv).toContain('"Alice"');
   expect(csv).toContain('"Approval contributions"');

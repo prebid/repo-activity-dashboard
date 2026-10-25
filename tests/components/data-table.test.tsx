@@ -63,13 +63,13 @@ describe('shared table', () => {
     const blobs: Blob[] = [];
     vi.stubGlobal(
       'URL',
-      Object.assign(URL, {
-        createObjectURL: (blob: Blob) => {
+      class extends URL {
+        static createObjectURL(blob: Blob) {
           blobs.push(blob);
           return 'blob:test';
-        },
-        revokeObjectURL: () => {},
-      }),
+        }
+        static revokeObjectURL() {}
+      },
     );
     vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
     render(
@@ -85,7 +85,10 @@ describe('shared table', () => {
     expect(blobs).toHaveLength(1);
     const csv = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result));
+      reader.onload = () =>
+        typeof reader.result === 'string'
+          ? resolve(reader.result)
+          : reject(new Error('Expected CSV text'));
       reader.onerror = reject;
       reader.readAsText(blobs[0]);
     });
@@ -136,7 +139,7 @@ describe('column controls', () => {
 });
 
 describe('paged data input for a future adapter', () => {
-  it('uses the supplied total and does not filter, re-sort, or page the supplied records again', async () => {
+  it('uses the supplied total and does not filter, re-sort, or page the supplied records again', () => {
     window.history.replaceState(
       null,
       '',
@@ -149,7 +152,11 @@ describe('paged data input for a future adapter', () => {
         rows={rows.slice(200)}
         columns={columns}
         queryKey="remote"
-        paging={{ totalCount: 250, onQueryChange }}
+        paging={{
+          query: { page: 3, search: 'server-filter', sort: 'count', descending: true },
+          totalCount: 250,
+          onQueryChange,
+        }}
       />,
     );
     expect(screen.getByText('250 matching items')).toBeVisible();
@@ -176,7 +183,12 @@ describe('paged data input for a future adapter', () => {
         rows={rows.slice(200)}
         columns={columns}
         queryKey="remote"
-        paging={{ totalCount: 250, onQueryChange: () => {}, onExport }}
+        paging={{
+          query: { page: 3, search: 'scope', sort: '', descending: false },
+          totalCount: 250,
+          onQueryChange: () => {},
+          onExport,
+        }}
       />,
     );
     fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));

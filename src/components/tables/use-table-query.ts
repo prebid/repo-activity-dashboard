@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react';
 import {
   preferenceKey,
   readTableQuery,
@@ -26,14 +26,30 @@ export function useTableQuery({
   onChange?: (query: TableQuery) => void;
 }) {
   const search = useSyncExternalStore(subscribe, snapshot, () => initialSearch);
-  const query = readTableQuery(search, queryKey, columnIds);
+  const query = useMemo(
+    () => readTableQuery(search, queryKey, columnIds),
+    [search, queryKey, columnIds],
+  );
+  const change = useRef(onChange);
+  useEffect(() => {
+    change.current = onChange;
+  }, [onChange]);
+  // Notify adapters for initial state, UI changes, and browser back/forward alike.
+  // Callback identity changes alone must not create a request/render loop.
+  useEffect(() => {
+    change.current?.({
+      search: query.search,
+      sort: query.sort,
+      descending: query.descending,
+      page: query.page,
+    });
+  }, [query.search, query.sort, query.descending, query.page]);
   const update = useCallback(
     (patch: Partial<TableQuery>) => {
       const url = new URL(window.location.href);
       url.search = writeTableQuery(url.search, queryKey, patch);
-      window.history.replaceState(null, '', url);
+      window.history.replaceState(window.history.state, '', url);
       window.dispatchEvent(new PopStateEvent('popstate'));
-      onChange?.(readTableQuery(url.search, queryKey, columnIds));
       if (viewerId && patch.sort !== undefined) {
         try {
           localStorage.setItem(
@@ -45,26 +61,29 @@ export function useTableQuery({
         }
       }
     },
-    [queryKey, columnIds, viewerId, onChange],
+    [queryKey, viewerId],
   );
+  const restored = useRef('');
   useEffect(() => {
+    const scope = JSON.stringify([viewerId, queryKey]);
+    if (restored.current === scope) return;
+    restored.current = scope;
     if (!viewerId || new URLSearchParams(window.location.search).has(queryKey + '.sort')) return;
+    let stored: unknown;
     try {
-      const stored: unknown = JSON.parse(
-        localStorage.getItem(preferenceKey(viewerId, queryKey)) ?? 'null',
-      );
-      if (!stored || typeof stored !== 'object' || !('sort' in stored) || !('descending' in stored))
-        return;
-      if (
-        typeof stored.sort !== 'string' ||
-        typeof stored.descending !== 'boolean' ||
-        !columnIds.includes(stored.sort)
-      )
-        return;
-      update({ sort: stored.sort, descending: stored.descending });
+      stored = JSON.parse(localStorage.getItem(preferenceKey(viewerId, queryKey)) ?? 'null');
     } catch {
-      /* Invalid saved preferences do not block rendering. */
+      return; // Storage denial or invalid saved JSON must not block URL interaction.
     }
+    if (!stored || typeof stored !== 'object' || !('sort' in stored) || !('descending' in stored))
+      return;
+    if (
+      typeof stored.sort !== 'string' ||
+      typeof stored.descending !== 'boolean' ||
+      !columnIds.includes(stored.sort)
+    )
+      return;
+    update({ sort: stored.sort, descending: stored.descending });
   }, [queryKey, columnIds, viewerId, update]);
   return { query, update };
 }

@@ -31,11 +31,15 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Loader2, UserPlus, Copy, CheckCircle } from 'lucide-react';
+import {
+  whitelistResponseSchema,
+  createdAccountResponseSchema,
+  type WhitelistRecord,
+} from '@/models/accounts';
+import { readJsonResponse } from '@/lib/presentation/http';
 
 export default function AdminUsersPage() {
-  const [users, setUsers] = useState<
-    { email: string; role: string; isActive: boolean; addedAt?: string }[]
-  >([]);
+  const [users, setUsers] = useState<WhitelistRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState('');
@@ -50,18 +54,22 @@ export default function AdminUsersPage() {
   // Temp password dialog
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [tempPassword, setTempPassword] = useState('');
+  const [createdEmail, setCreatedEmail] = useState('');
   const [copiedPassword, setCopiedPassword] = useState(false);
 
   useEffect(() => {
-    fetchUsers();
+    void fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
       const response = await fetch('/api/admin/users');
-      if (!response.ok) throw new Error('Failed to fetch users');
-      const data = await response.json();
-      setUsers(data.users || []);
+      const data = await readJsonResponse(
+        response,
+        whitelistResponseSchema,
+        'Failed to fetch users',
+      );
+      setUsers(data.users);
     } catch {
       setError('Failed to load users');
     } finally {
@@ -82,11 +90,12 @@ export default function AdminUsersPage() {
         body: JSON.stringify({ email, name, role, company }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create user');
-      }
+      const data = await readJsonResponse(
+        response,
+        createdAccountResponseSchema,
+        'Failed to create user',
+      );
+      setCreatedEmail(data.email);
 
       // Show temp password dialog
       setTempPassword(data.tempPassword);
@@ -100,7 +109,7 @@ export default function AdminUsersPage() {
       setCompany('');
 
       // Refresh user list
-      fetchUsers();
+      void fetchUsers();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to create user');
     } finally {
@@ -108,24 +117,28 @@ export default function AdminUsersPage() {
     }
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(tempPassword);
-    setCopiedPassword(true);
-    setTimeout(() => setCopiedPassword(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(tempPassword);
+      setCopiedPassword(true);
+      setTimeout(() => setCopiedPassword(false), 2000);
+    } catch {
+      setError('Unable to copy the password.');
+    }
   };
 
   const sendPasswordEmail = () => {
     const subject = 'Your Repository Activity Dashboard Account';
     const body = `Your account has been created for the Repository Activity Dashboard.
 
-Email: ${email}
+Email: ${createdEmail}
 Temporary Password: ${tempPassword}
 
 Please login at: ${window.location.origin}/auth/login
 
 You will be required to change this password on your first login.`;
 
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${createdEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   if (isLoading) {
@@ -156,7 +169,7 @@ You will be required to change this password on your first login.`;
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleCreateUser} className="space-y-4">
+            <form onSubmit={(event) => void handleCreateUser(event)} className="space-y-4">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
@@ -296,7 +309,12 @@ You will be required to change this password on your first login.`;
               <Label>Temporary Password</Label>
               <div className="flex gap-2">
                 <Input value={tempPassword} readOnly className="font-mono" />
-                <Button type="button" variant="outline" size="icon" onClick={copyToClipboard}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => void copyToClipboard()}
+                >
                   {copiedPassword ? (
                     <CheckCircle className="h-4 w-4 text-green-600" />
                   ) : (

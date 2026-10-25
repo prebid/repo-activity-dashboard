@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { it, expect, vi } from 'vitest';
+vi.mock('server-only', () => ({}));
 import { generateTempPassword } from '@/lib/auth/users';
 it('preserves the temporary-password format without using Math.random', () => {
   const random = vi.spyOn(Math, 'random').mockImplementation(() => {

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut, signIn } from 'next-auth/react';
+import { readJsonResponse } from '@/lib/presentation/http';
+import { messageResponseSchema } from '@/models/accounts';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -57,30 +59,27 @@ export default function ChangePasswordPage() {
         }),
       });
 
-      const data = await response.json();
+      await readJsonResponse(response, messageResponseSchema, 'Failed to change password');
 
-      if (!response.ok) {
-        setError(data.error || 'Failed to change password');
+      // Refresh the session claims after changing the password.
+      const signInResult = await signIn('credentials', {
+        email: session?.user?.email,
+        password: newPassword,
+        redirect: false,
+      });
+
+      if (signInResult?.ok) {
+        // Successfully logged in with new password, redirect to dashboard
+        router.push('/');
       } else {
-        // Password changed successfully
-        // Automatically sign in with the new password
-        const signInResult = await signIn('credentials', {
-          email: session?.user?.email,
-          password: newPassword,
-          redirect: false,
-        });
-
-        if (signInResult?.ok) {
-          // Successfully logged in with new password, redirect to dashboard
-          router.push('/');
-        } else {
-          // If auto-login fails for some reason, sign out and redirect to login
-          await signOut({ redirect: false });
-          router.push('/auth/login?passwordChanged=true');
-        }
+        // If auto-login fails for some reason, sign out and redirect to login
+        await signOut({ redirect: false });
+        router.push('/auth/login?passwordChanged=true');
       }
-    } catch {
-      setError('An unexpected error occurred. Please try again.');
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.',
+      );
     } finally {
       setIsLoading(false);
     }
@@ -130,7 +129,7 @@ export default function ChangePasswordPage() {
                 </Alert>
               )}
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={(event) => void handleSubmit(event)}>
                 {error && (
                   <Alert variant="destructive" style={{ marginBottom: '20px' }}>
                     <AlertDescription>{error}</AlertDescription>

@@ -27,6 +27,7 @@ export function getDocClient(): DynamoDBDocumentClient {
             }
           : {}),
       }),
+      { marshallOptions: { removeUndefinedValues: true } },
     );
   }
   return client;

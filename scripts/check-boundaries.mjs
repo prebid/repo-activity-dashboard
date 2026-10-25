@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
+import { isBuiltin } from 'node:module';
 const retired = [
   'src/services',
   'src/scripts',
@@ -62,7 +63,8 @@ export function inspectBoundaries(root) {
           failures.push(name + ': retired import ' + specifier);
         if (
           presentation &&
-          /^(src\/(mocks|server|lib\/(auth|aws))\/|node:|@aws-sdk\/)/.test(target)
+          (/^(src\/(mocks|server|lib\/(auth|aws))\/|node:|@aws-sdk\/)/.test(target) ||
+            isBuiltin(specifier))
         )
           failures.push(name + ': presentation imports ' + specifier);
       };
@@ -92,17 +94,32 @@ export function inspectBoundaries(root) {
   }
   scan(resolve(root, 'src'));
   if (count === 0) failures.push('No source files selected');
-  /** @type {{dependencies?: Record<string,string>, scripts?: Record<string,string>}} */
-  const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
+  /** @type {unknown} */
+  const decoded = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
+  if (!decoded || typeof decoded !== 'object' || Array.isArray(decoded))
+    throw new Error('Invalid package manifest');
+  const pkg = /** @type {Record<string, unknown>} */ (decoded);
+  const dependencies =
+    pkg.dependencies && typeof pkg.dependencies === 'object' ? pkg.dependencies : {};
+  const devDependencies =
+    pkg.devDependencies && typeof pkg.devDependencies === 'object' ? pkg.devDependencies : {};
+  const scripts =
+    pkg.scripts && typeof pkg.scripts === 'object'
+      ? /** @type {Record<string,unknown>} */ (pkg.scripts)
+      : {};
   for (const dependency of [
     '@octokit/rest',
     '@aws-sdk/client-s3',
     '@aws-sdk/s3-request-presigner',
     'csv-parse',
   ])
-    if (pkg.dependencies?.[dependency]) failures.push('Retired dependency: ' + dependency);
-  for (const [name, command] of Object.entries(pkg.scripts ?? {}))
-    if (/sync:mapping|syncMappingFromS3|generateContributor|src\/index\.ts/.test(command))
+    if (Object.hasOwn(dependencies, dependency) || Object.hasOwn(devDependencies, dependency))
+      failures.push('Retired dependency: ' + dependency);
+  for (const [name, command] of Object.entries(scripts))
+    if (
+      typeof command === 'string' &&
+      /sync:mapping|syncMappingFromS3|generateContributor|src\/index\.ts/.test(command)
+    )
       failures.push('Retired script: ' + name);
   return { sourceFiles: count, failures };
 }

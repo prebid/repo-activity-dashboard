@@ -1,40 +1,21 @@
 import { GetCommand, PutCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
-
-const WHITELIST_TABLE = process.env.DYNAMODB_WHITELIST_TABLE!;
-
+import { whitelistRecordSchema, type WhitelistRecord } from '@/models/accounts';
+import { getDocClient } from '@/lib/aws/clients';
+import { accountTable } from './tables';
 export async function isEmailWhitelisted(email: string): Promise<boolean> {
-  try {
-    console.log('[Whitelist] About to import AWS clients');
-    console.log('[Whitelist] Current env vars:');
-    console.log('  S3_ACCESS_KEY_ID:', !!process.env.S3_ACCESS_KEY_ID);
-    console.log('  S3_SECRET_ACCESS_KEY:', !!process.env.S3_SECRET_ACCESS_KEY);
-
-    const { getDocClient } = await import('@/lib/aws/clients');
-
-    console.log('[Whitelist] docClient imported, sending command');
-    const result = await getDocClient().send(
-      new GetCommand({
-        TableName: WHITELIST_TABLE,
-        Key: { email: email.toLowerCase() },
-      }),
-    );
-
-    return result.Item?.isActive === true;
-  } catch (error) {
-    console.error('Whitelist check error:', error);
-    return false;
-  }
+  const result = await getDocClient().send(
+    new GetCommand({ TableName: accountTable('whitelist'), Key: { email: email.toLowerCase() } }),
+  );
+  return result.Item ? whitelistRecordSchema.parse(result.Item).isActive : false;
 }
-
 export async function addToWhitelist(
   email: string,
-  role: string = 'viewer',
-  addedBy: string = 'system',
-) {
-  const { getDocClient } = await import('@/lib/aws/clients');
+  role = 'viewer',
+  addedBy = 'system',
+): Promise<void> {
   await getDocClient().send(
     new PutCommand({
-      TableName: WHITELIST_TABLE,
+      TableName: accountTable('whitelist'),
       Item: {
         email: email.toLowerCase(),
         isActive: true,
@@ -45,14 +26,21 @@ export async function addToWhitelist(
     }),
   );
 }
-
-export async function getAllWhitelistedEmails() {
-  const { getDocClient } = await import('@/lib/aws/clients');
-  const result = await getDocClient().send(
-    new ScanCommand({
-      TableName: WHITELIST_TABLE,
-    }),
-  );
-
-  return result.Items || [];
+export async function getAllWhitelistedEmails(): Promise<WhitelistRecord[]> {
+  const users: WhitelistRecord[] = [];
+  let cursor: Record<string, unknown> | undefined;
+  const seen = new Set<string>();
+  do {
+    const result = await getDocClient().send(
+      new ScanCommand({ TableName: accountTable('whitelist'), ExclusiveStartKey: cursor }),
+    );
+    users.push(...(result.Items ?? []).map((item) => whitelistRecordSchema.parse(item)));
+    cursor = result.LastEvaluatedKey;
+    if (cursor && Object.keys(cursor).length) {
+      const key = JSON.stringify(cursor);
+      if (seen.has(key)) throw new Error('Whitelist pagination did not advance');
+      seen.add(key);
+    }
+  } while (cursor && Object.keys(cursor).length);
+  return users;
 }

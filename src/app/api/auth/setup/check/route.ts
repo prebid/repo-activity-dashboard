@@ -1,6 +1,7 @@
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import { NextResponse } from 'next/server';
 import { getDocClient } from '@/lib/aws/clients';
+import { accountTable } from '@/lib/auth/tables';
 import { ScanCommand } from '@aws-sdk/lib-dynamodb';
 
 // GET /api/auth/setup/check - Check if any users exist
@@ -11,7 +12,7 @@ export async function GET() {
       { status: 403 },
     );
   try {
-    const USERS_TABLE = process.env.DYNAMODB_USERS_TABLE!;
+    const USERS_TABLE = accountTable('users');
 
     const result = await getDocClient().send(
       new ScanCommand({

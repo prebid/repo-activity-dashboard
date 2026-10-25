@@ -4,6 +4,11 @@ export interface TableQuery {
   descending: boolean;
   page: number;
 }
+export function sameTableQuery(a: TableQuery, b: TableQuery): boolean {
+  return (
+    a.search === b.search && a.sort === b.sort && a.descending === b.descending && a.page === b.page
+  );
+}
 export function readTableQuery(
   search: string,
   key: string,

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { readJsonResponse } from '@/lib/presentation/http';
+import { setupStatusSchema, messageResponseSchema } from '@/models/accounts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,7 +23,7 @@ export default function SetupPage() {
   useEffect(() => {
     // Check if any users exist
     fetch('/api/auth/setup/check')
-      .then((res) => res.json())
+      .then((res) => readJsonResponse(res, setupStatusSchema, 'Unable to check setup status'))
       .then((data) => setHasUsers(data.hasUsers))
       .catch(() => setHasUsers(true)); // Assume has users on error for safety
   }, []);
@@ -58,16 +60,10 @@ export default function SetupPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || 'Setup failed');
-      } else {
-        // Success! Redirect to login
-        router.push('/auth/login?setup=complete');
-      }
-    } catch {
-      setError('An unexpected error occurred');
+      await readJsonResponse(response, messageResponseSchema, 'Setup failed');
+      router.push('/auth/login?setup=complete');
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -125,7 +121,7 @@ export default function SetupPage() {
               </AlertDescription>
             </Alert>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={(event) => void handleSubmit(event)} className="space-y-4">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>

@@ -1,38 +1,25 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth/auth';
 import { adminResetPassword } from '@/lib/auth/users';
-
-// POST /api/admin/users/reset-password - Reset a user's password
-export async function POST(req: Request) {
+import { requireAccountAccess } from '@/lib/auth/api-access';
+import { readRequestBody } from '@/lib/auth/request-body';
+import { resetAccountSchema } from '@/models/accounts';
+export async function POST(request: Request) {
   try {
-    const session = await auth();
-
-    if (!session || session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { email } = await req.json();
-
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
-    }
-
-    const { tempPassword } = await adminResetPassword(email);
-
-    return NextResponse.json({
-      message: 'Password reset successfully',
-      tempPassword,
-      instructions: `Share this new temporary password with the user: ${tempPassword}. They will be required to change it on next login.`,
-    });
+    const access = await requireAccountAccess({ admin: true });
+    if (!access.ok) return access.response;
+    const body = await readRequestBody(request, resetAccountSchema);
+    if (!body.ok) return body.response;
+    const { tempPassword } = await adminResetPassword(body.data.email);
+    return NextResponse.json({ message: 'Password reset successfully', tempPassword });
   } catch (error) {
-    console.error('Error resetting password:', error);
-
-    if (
-      (error instanceof Error ? error.message : 'Unable to reset password') === 'User not found'
-    ) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    return NextResponse.json({ error: 'Failed to reset password' }, { status: 500 });
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error && error.message === 'User not found'
+            ? 'User not found'
+            : 'Failed to reset password',
+      },
+      { status: error instanceof Error && error.message === 'User not found' ? 404 : 500 },
+    );
   }
 }

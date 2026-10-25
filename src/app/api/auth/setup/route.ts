@@ -4,6 +4,9 @@ import { getDocClient } from '@/lib/aws/clients';
 import { ScanCommand, PutCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { hashPassword, validatePasswordStrength } from '@/lib/auth/passwords';
 import { randomUUID } from 'node:crypto';
+import { readRequestBody } from '@/lib/auth/request-body';
+import { credentialSchema, whitelistRecordSchema } from '@/models/accounts';
+import { accountTable } from '@/lib/auth/tables';
 
 // POST /api/auth/setup - One-time admin setup
 export async function POST(req: Request) {
@@ -13,14 +16,11 @@ export async function POST(req: Request) {
       { status: 403 },
     );
   try {
-    const { email, password } = await req.json();
-
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
-    }
-
-    const USERS_TABLE = process.env.DYNAMODB_USERS_TABLE!;
-    const WHITELIST_TABLE = process.env.DYNAMODB_WHITELIST_TABLE!;
+    const body = await readRequestBody(req, credentialSchema);
+    if (!body.ok) return body.response;
+    const { email, password } = body.data;
+    const USERS_TABLE = accountTable('users');
+    const WHITELIST_TABLE = accountTable('whitelist');
 
     // Check if any users exist (this should only work when no users exist)
     const existingUsers = await getDocClient().send(
@@ -42,11 +42,12 @@ export async function POST(req: Request) {
       }),
     );
 
-    if (!whitelistEntry.Item || !whitelistEntry.Item.isActive) {
+    const entry = whitelistEntry.Item ? whitelistRecordSchema.parse(whitelistEntry.Item) : null;
+    if (!entry?.isActive) {
       return NextResponse.json({ error: 'Email is not in the whitelist' }, { status: 403 });
     }
 
-    if (whitelistEntry.Item.role !== 'admin') {
+    if (entry.role !== 'admin') {
       return NextResponse.json(
         { error: 'Email must have admin role in whitelist' },
         { status: 403 },

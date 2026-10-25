@@ -2,7 +2,7 @@
 
 A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
 
-Foundation hardening and independent review are the current phase; layout work is on hold. See [review readiness](docs/implementation/foundation-review-readiness.md).
+Foundation hardening and independent review are the current phase; layout work is on hold. See [the execution plan](docs/implementation/foundation-hardening-plan.md) and [tested contracts and limits](docs/implementation/foundation-contracts.md).
 
 ## Run locally
 
@@ -20,14 +20,11 @@ No GitHub, S3, DynamoDB, or production-auth credentials are needed for preview d
 ## Verify
 
 ```sh
-npm run check
-npm run build
-npx playwright install chromium
-npm run build:storybook
-npm run test:e2e
+npx playwright install chromium webkit
+npm run check:all
 ```
 
-`npm run check:all` combines those checks except browser installation. Browser tests start the built preview on port **3100** and the built component catalog on **6007**; keep both ports available. `npm run check` covers formatting, lint, app/test/tool types, architecture/removal boundaries, and unit/component tests. Machine-readable test reports are written under `test-results/`.
+`npm run check:all` runs formatting, type-aware lint, app/test/tool types, architecture/removal boundaries, unit/component tests with coverage gates, a full dependency audit, both production-auth and preview builds, Storybook, and Chromium/WebKit browser tests. CI runs the same command. Browser tests start the built preview on port **3100** and the built component catalog on **6007**; keep both ports available. `npm run check` runs the static/boundary/coverage checks without builds or browsers. Machine-readable test reports are under `test-results/`; coverage reports are under `coverage/`.
 
 Use `npm run format` for maintained source/config formatting. Historical plans/audit artifacts in docs/design are deliberately outside automatic formatting.
 
@@ -42,6 +39,8 @@ For interactive component development, use `npm run storybook` on port 6006.
 - Both modes currently render synthetic reports. Production mode changes authentication, not the reporting source.
 
 Production auth uses the server environment documented in `.env.example` and the hosting runtime's AWS access. Secrets are not embedded through Next's env map. The authentication store is separate from reporting; its real deployment is not exercised by preview tests.
+
+The retained public first-admin setup has an unresolved identity-verification issue. Its replacement is a pending deployment decision, not a prerequisite for mock frontend development. See [the account setup decision brief](docs/implementation/account-bootstrap-decision.md). Do not treat production build success as deployment approval.
 
 ## Project structure
 

@@ -1,5 +1,8 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-const mocks = vi.hoisted(() => ({ construct: vi.fn(), from: vi.fn(() => ({ send: vi.fn() })) }));
+const mocks = vi.hoisted(() => ({
+  construct: vi.fn(),
+  from: vi.fn((_client: unknown, _options: unknown) => ({ send: vi.fn() })),
+}));
 vi.mock('server-only', () => ({}));
 vi.mock('@aws-sdk/client-dynamodb', () => ({
   DynamoDBClient: class {
@@ -41,5 +44,8 @@ describe('retained account-store boundary', () => {
     expect(mocks.construct).toHaveBeenCalledOnce();
     expect(mocks.construct.mock.calls[0][0]).not.toHaveProperty('credentials');
     expect(mocks.from).toHaveBeenCalledOnce();
+    expect(mocks.from.mock.calls[0]?.[1]).toEqual({
+      marshallOptions: { removeUndefinedValues: true },
+    });
   });
 });

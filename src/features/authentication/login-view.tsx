@@ -39,7 +39,7 @@ export function LoginView({ callbackUrl, preview }: { callbackUrl?: string; prev
           Preview accounts: alice@example.test or bob@example.test. Password: preview.
         </p>
       )}
-      <form onSubmit={submit} className="mt-6 space-y-5">
+      <form onSubmit={(event) => void submit(event)} className="mt-6 space-y-5">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input

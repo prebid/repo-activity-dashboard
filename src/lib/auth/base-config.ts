@@ -34,7 +34,7 @@ export function getBaseAuthConfig(): Omit<NextAuthConfig, 'providers'> {
     session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
     pages: { signIn: '/auth/login', error: '/auth/error' },
     callbacks: {
-      async jwt({ token, user }) {
+      jwt({ token, user }) {
         if (user) {
           token.id = user.id!;
           token.email = user.email;
@@ -45,7 +45,7 @@ export function getBaseAuthConfig(): Omit<NextAuthConfig, 'providers'> {
         }
         return token;
       },
-      async session({ session, token }) {
+      session({ session, token }) {
         session.user = {
           id: token.id,
           email: token.email ?? '',

@@ -1,5 +1,5 @@
 'use client';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   tableFeatures,
   useTable,
@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PageState } from '@/components/feedback/page-state';
 import { compareValues, csvCell } from '@/lib/presentation/format';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { sameTableQuery, type TableQuery } from '@/lib/presentation/table-query';
 import { useTableQuery } from './use-table-query';
 
 const features = tableFeatures({
@@ -39,9 +39,14 @@ interface Props<T> {
   exportName?: string;
   viewerId?: string;
   paging?: {
+    /** Query that produced rows and totalCount. Stale results are never relabeled. */
+    query: TableQuery;
     totalCount: number;
     onQueryChange: (query: TableQuery) => void;
-    onExport?: (query: Omit<TableQuery, 'page'>) => void;
+    onExport?: (query: Omit<TableQuery, 'page'>) => void | Promise<void>;
+    pending?: boolean;
+    error?: string;
+    onRetry?: () => void;
   };
 }
 export function DataTable<T extends { id: string }>({
@@ -54,6 +59,8 @@ export function DataTable<T extends { id: string }>({
   viewerId,
   paging,
 }: Props<T>) {
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState('');
   const columnIds = useMemo(() => columns.map((column) => column.id), [columns]);
   const { query, update } = useTableQuery({
     queryKey,
@@ -97,7 +104,13 @@ export function DataTable<T extends { id: string }>({
   );
   const resultCount = paging?.totalCount ?? matching.length;
   const pageCount = Math.max(1, Math.ceil(resultCount / 100));
-  const page = Math.min(query.page, pageCount);
+  const current = !paging || sameTableQuery(query, paging.query);
+  const correcting = current && query.page > pageCount;
+  const waiting = Boolean(paging && (paging.pending || !current || correcting));
+  const page = paging ? query.page : Math.min(query.page, pageCount);
+  useEffect(() => {
+    if (correcting && !paging?.pending && !paging?.error) update({ page: pageCount });
+  }, [correcting, pageCount, paging?.pending, paging?.error, update]);
   const sorting = query.sort ? [{ id: query.sort, desc: query.descending }] : [];
   const pagination = { pageIndex: page - 1, pageSize: 100 };
   const table = useTable({
@@ -113,23 +126,31 @@ export function DataTable<T extends { id: string }>({
     manualSorting: Boolean(paging),
     rowCount: resultCount,
   });
-  function download() {
-    if (paging) {
-      const { page: _page, ...scope } = query;
-      paging.onExport?.(scope);
-      return;
+  async function download() {
+    setExporting(true);
+    setExportError('');
+    try {
+      if (paging) {
+        const { page: _page, ...scope } = query;
+        await paging.onExport?.(scope);
+        return;
+      }
+      const fullRows = table.getPrePaginatedRowModel().rows;
+      const text = [
+        columns.map((c) => csvCell(c.label)).join(','),
+        ...fullRows.map((row) => columns.map((c) => csvCell(c.value(row.original))).join(',')),
+      ].join('\r\n');
+      const url = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8;' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = exportName ?? 'report.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      setExportError('Export failed. Please try again.');
+    } finally {
+      setExporting(false);
     }
-    const fullRows = table.getPrePaginatedRowModel().rows;
-    const text = [
-      columns.map((c) => csvCell(c.label)).join(','),
-      ...fullRows.map((row) => columns.map((c) => csvCell(c.value(row.original))).join(',')),
-    ].join('\r\n');
-    const url = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8;' }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = exportName ?? 'report.csv';
-    a.click();
-    URL.revokeObjectURL(url);
   }
   return (
     <section className="space-y-3" aria-label={title}>
@@ -166,18 +187,28 @@ export function DataTable<T extends { id: string }>({
           {(paging ? paging.onExport : exportName) && (
             <Button
               variant="outline"
-              onClick={download}
+              onClick={() => void download()}
+              disabled={exporting || waiting || Boolean(paging?.error)}
               title="Export all columns and all matching rows"
             >
-              Export CSV
+              {exporting ? 'Exporting…' : 'Export CSV'}
             </Button>
           )}
         </div>
       </div>
+      {exportError && <p role="alert">{exportError}</p>}
       <p className="text-sm text-muted-foreground" aria-live="polite">
-        {resultCount.toLocaleString('en-US')} matching items
+        {waiting || paging?.error
+          ? 'Waiting for matching items'
+          : `${resultCount.toLocaleString('en-US')} matching items`}
       </p>
-      {matching.length === 0 ? (
+      {paging?.error ? (
+        <PageState title="Unable to load items" onRetry={paging.onRetry}>
+          {paging.error}
+        </PageState>
+      ) : waiting ? (
+        <PageState title="Loading items" />
+      ) : matching.length === 0 ? (
         <PageState title={rows.length ? 'No matching items' : 'No items'}>
           Adjust the selected scope or search.
         </PageState>
@@ -234,15 +265,19 @@ export function DataTable<T extends { id: string }>({
         </div>
       )}
       <div className="flex items-center justify-end gap-3">
-        <Button variant="outline" disabled={page <= 1} onClick={() => update({ page: page - 1 })}>
+        <Button
+          variant="outline"
+          disabled={waiting || Boolean(paging?.error) || page <= 1}
+          onClick={() => update({ page: page - 1 })}
+        >
           Previous
         </Button>
         <span className="text-sm" aria-live="polite">
-          Page {page} of {pageCount}
+          {waiting || paging?.error ? `Page ${page}` : `Page ${page} of ${pageCount}`}
         </span>
         <Button
           variant="outline"
-          disabled={page >= pageCount}
+          disabled={waiting || Boolean(paging?.error) || page >= pageCount}
           onClick={() => update({ page: page + 1 })}
         >
           Next
