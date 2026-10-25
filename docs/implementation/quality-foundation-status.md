@@ -1,6 +1,8 @@
 # Quality foundation — implementation status
 
-Updated 2026-10-25. **The local foundation milestone is implemented and verified.** Work is on `codex/quality-foundation`. GitHub-hosted CI, Amplify deployment, and real account-store sign-in have not been executed.
+Updated 2026-10-25. **A first foundation implementation is locally verified; hardening and independent review are still required. Layout work is on hold.** Work is on `codex/quality-foundation`. GitHub-hosted CI, Amplify deployment, and real account-store sign-in have not been executed.
+
+See the [review-readiness assessment](foundation-review-readiness.md) for the fresh dependency audit, coverage limits, and open hardening work. The earlier local results below remain valid for their stated scope; they are not foundation approval.
 
 ## Delivered
 
@@ -50,7 +52,7 @@ Representative light-theme table and dark/narrow component renders were visually
 
 ## Compatibility decisions and limits
 
-- Vitest **4.1.10** replaces the proposed 5.x candidate because the selected Storybook toolchain has a peer constraint. Installation uses normal peer resolution, not force or legacy-peer-deps.
+- Vitest **4.1.10** was selected after an initial resolution failure. A later clean resolution with 5.0.5 succeeded, so the earlier claim of a permanent Storybook compatibility block is not established. The full dependency audit also reports moderate advisories in the current 4.1.10 toolchain; remediation and application testing are pending.
 - ESLint **9.39.5** is retained for Next 15 and React/accessibility-plugin peer compatibility. npm marks this major deprecated; revisit it when the retained stack's compatible lint options change.
 - Next 15's nested PostCSS required a scoped override to the directly pinned **8.5.31**. A fresh lock resolution was necessary; an in-place install initially left the old nested copy. Clean installation and the runtime audit confirmed the patched tree. Revisit the override when the upstream dependency is fixed. [Relevant advisory](https://github.com/advisories/GHSA-fxqj-rqcc-2cmp)
 - Storybook emits notices about client directives in its client-only bundle. Its built catalog was exercised in Chromium.
@@ -61,4 +63,4 @@ Representative light-theme table and dark/narrow component renders were visually
 
 ## Next work
 
-Use the working mock frontend and component catalog to settle the All Repos layout and full set of visible/optional metrics. Continue page by page while extending the same tests and typed models. Add the real reporting/database integration after the visual and interaction baseline is reviewed.
+Complete the hardening work and independent review gate in [foundation review readiness](foundation-review-readiness.md). Do not advance to layout work on the strength of the first-pass test results. Final page design and real reporting/database integration remain later phases.

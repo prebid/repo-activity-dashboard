@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-25",
+  "codeHead": "6d7efb44725d0f1f6802765c05467b1143ee3377",
+  "base": "fba4d04b588a01149df2c8b5bd8a02f55a709cc2",
+  "directDependencies": 47,
+  "latestTagDifferences": 12,
+  "coverageFiles": 7,
+  "coverageLines": {
+    "total": 91,
+    "covered": 81,
+    "skipped": 0,
+    "pct": 89.01
+  },
+  "allDependencyAdvisories": {
+    "info": 0,
+    "low": 0,
+    "moderate": 3,
+    "high": 0,
+    "critical": 0,
+    "total": 3
+  },
+  "vitest5CleanResolution": "passed; application tests on candidate not run",
+  "independentReview": "not performed",
+  "readiness": "hardening required; layouts on hold",
+  "changeGroups": {
+    "toolchain, CI, and operational documentation": 25,
+    "reporting-data artifacts": 881,
+    "planning and evidence": 39,
+    "retired reporting implementation": 31,
+    "dependency lock": 1,
+    "authentication and access boundaries": 17,
+    "frontend architecture and state": 47,
+    "primitives and styling": 13,
+    "tests and harness": 15
+  }
+}

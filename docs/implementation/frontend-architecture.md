@@ -1,6 +1,6 @@
 # Frontend architecture and foundation implementation plan
 
-Status: proposed implementation architecture, 2026-10-24. Based on the [source audit](source-audit-2026-10-24.md), the [agreed pages](../product/README.md), and the user's priorities: **composability, testability, future expansion, and visual completion before real data integration**. Keep Amplify hosting. The local foundation is implemented; see [verified scope and limits](quality-foundation-status.md). This blueprint also covers later product/design work.
+Status: proposed implementation architecture, 2026-10-24. Based on the [source audit](source-audit-2026-10-24.md), the [agreed pages](../product/README.md), and the user's priorities: **composability, testability, future expansion, and visual completion before real data integration**. Keep Amplify hosting. The first foundation implementation exists and is awaiting hardening/review; see [verified scope and limits](quality-foundation-status.md). This blueprint also covers later product/design work.
 
 ## Recommendation and scope
 
@@ -223,6 +223,7 @@ The quality foundation must include tests and root configuration in typechecking
 | A. Source baseline and preservation | The audit is recorded. Establish the actual working checkout and preserve docs/mocks. Classify legacy test failures and source to retain/replace. | Pinned source, protected planning files, baseline manifest. |
 | B. Compatible toolchain | Pin Node 24 and the candidate Next 15/React 19/types/compiler/lint/test set; resolve/install without force; migrate config incrementally. | Install, app/test/tool typechecks, meaningful bootstrap checks, explicit remaining legacy results. |
 | C. Mock cutover, styling, and component foundation | Replace current reporting consumers with minimal typed mock views and retire the old reporting layer. Finish Tailwind v4, tokens, adopted primitives, theme/shell, and component catalog. Add table behavior behind application-owned parts. | Removal/isolation checks, browser style checks, keyboard checks, shared component stories, mock build, CI. Final page design remains pending. |
+| C2. Foundation hardening and review | Close the [readiness findings](foundation-review-readiness.md) and complete independent review before advancing layouts. | Final-head evidence, resolved findings, and explicit review acceptance. |
 | D. First feature flow | All Repos and repository detail, including count links, bounded lists, and repository graphs. | Reviewed layouts and passing relevant mock interaction checks. |
 | E. Remaining pages | Login presentation, contributions/company/group reports, exports, agent/bot tracking; reuse the established patterns. | Each page and its important states reviewed and tested. Login routing needed for D can be added earlier. |
 | F. Visual baseline | Review all pages with the user and retain representative screenshots/interaction tests. | Approved appearance/behavior across agreed viewports and states. |

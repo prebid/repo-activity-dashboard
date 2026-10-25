@@ -2,6 +2,8 @@
 
 A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
 
+Foundation hardening and independent review are the current phase; layout work is on hold. See [review readiness](docs/implementation/foundation-review-readiness.md).
+
 ## Run locally
 
 ```sh

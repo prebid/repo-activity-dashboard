@@ -1,6 +1,8 @@
 # Quality foundation — before feature implementation
 
-Status: local foundation implemented and verified on 2026-10-25. See [implementation status and evidence](quality-foundation-status.md) for exact scope, dependency decisions, and results. Hosted CI, live authentication/deployment, and final product-page acceptance remain separate.
+Status: first foundation implementation locally verified on 2026-10-25; hardening and independent review pending. See [implementation status and evidence](quality-foundation-status.md) for exact scope, dependency decisions, and results. Hosted CI, live authentication/deployment, and final product-page acceptance remain separate.
+
+The [readiness assessment](foundation-review-readiness.md) supersedes any implication that local passing checks alone complete this foundation. Layout work is on hold until the hardening/review gate is satisfied.
 
 ## Purpose
 

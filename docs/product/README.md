@@ -1,6 +1,6 @@
 # Product planning index
 
-The functional vision is ready for visual frontend work using mock numbers and records, with the quality foundation first. Settle layouts and interactions across the pages before building the new reporting/data layer or connecting a database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
+The functional vision is defined. The current phase is foundation hardening and independent review; visual layout work is on hold. Settle layouts and interactions across the pages before building the new reporting/data layer or connecting a database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
 
 ## Page definitions
 
@@ -29,6 +29,8 @@ The functional vision is ready for visual frontend work using mock numbers and r
 - Tracking comes before launching. Execution controls and detailed deployment policy do not block frontend design.
 
 ## Delivery planning
+
+- [Foundation hardening and review gate](../implementation/foundation-review-readiness.md): current dependency/quality gaps and the required review before layouts.
 
 - [Implemented foundation and verification](../implementation/quality-foundation-status.md): completed local scope, test results, dependency choices, and remaining product work.
 
