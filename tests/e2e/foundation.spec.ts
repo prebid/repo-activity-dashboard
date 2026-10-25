@@ -74,6 +74,23 @@ test('select bounds, dialog focus, menu keyboard actions and switch behavior', a
   await page.keyboard.press('Space');
   await expect(toggle).toBeChecked();
 });
+test('component catalog themes also reach portaled dialogs', async ({ page }) => {
+  await page.goto(
+    'http://127.0.0.1:6007/iframe.html?id=foundation-interactive-primitives--keyboard&viewMode=story&globals=theme:dark',
+  );
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  await page.getByRole('button', { name: 'Open dialog' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toHaveCSS('opacity', '1');
+  const background = await page
+    .locator('body')
+    .evaluate((el) => getComputedStyle(el).backgroundColor);
+  await expect(dialog).toHaveCSS('background-color', background);
+  expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
+    [],
+  );
+});
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
