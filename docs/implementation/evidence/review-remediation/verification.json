@@ -1,0 +1,63 @@
+{
+  "codeCheckpoint": "1fa73d5e21214af60a65670b5a62fe15c05c8519",
+  "reviewedBaseline": "7a567cd50a4fc75568c425fcd2bf2d44c7cee112",
+  "date": "2026-10-26",
+  "command": "npm run check:all",
+  "localExitCode": 0,
+  "runtime": {
+    "node": "24.22.1",
+    "npm": "11.19.1",
+    "platform": "Darwin",
+    "architecture": "arm64",
+    "java": "21.0.11"
+  },
+  "results": {
+    "vitest": {
+      "passed": 241,
+      "failed": 0,
+      "skipped": 0
+    },
+    "accounts": {
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0
+    },
+    "production": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "playwright": {
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "totalPassed": 297,
+  "sourceFiles": 171,
+  "sourceManifestSha256": "b6bb6fdea462cc3e0a2529f61e42cad8ce587c87f489bd00a5bd509f8f1838c7",
+  "pipelineLogSha256": "ed90d442e877d375bd77a2bac753d0d2cf9b0a9643886d0bc4d74839360eb6ce",
+  "npmAdvisories": 0,
+  "passedChecks": [
+    "format",
+    "type-aware lint",
+    "TypeScript",
+    "import/removal boundaries",
+    "per-file coverage gates",
+    "DynamoDB Local transactions",
+    "dependency audit",
+    "production build",
+    "packaged production HTTP and browser flows",
+    "preview build",
+    "Storybook build",
+    "Chromium/WebKit preview/catalog flows"
+  ],
+  "notClaimed": [
+    "live Amplify/IAM acceptance",
+    "production account migration/provisioning",
+    "deployed shared login throttling",
+    "independent approval of this revision",
+    "merge or deployment"
+  ]
+}

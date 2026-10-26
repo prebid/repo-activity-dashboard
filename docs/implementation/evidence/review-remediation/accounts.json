@@ -1,0 +1,142 @@
+{
+  "cases": [
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "atomically creates exactly one account for simultaneous normalized-email requests",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "rolls back the user write if the email claim changes after preflight",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "allows only one first administrator even when concurrent operators choose different emails",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "does not bootstrap after ordinary provisioning commits during its preflight window",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "binds a self-reset to the authenticated email as well as the account ID and version",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "migrates legacy UUID accounts repeatably without activating disabled or unlisted accounts",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "refuses ambiguous legacy duplicates before migration changes any mapping",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "invalidates prior claims on reset and prevents an older password change from undoing it",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "rejects an admin write revoked while the request is in flight",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "checks the current admin active independently at the write boundary",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "checks the current admin role independently at the write boundary",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "checks the current admin identity independently at the write boundary",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "checks the current admin version independently at the write boundary",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "supports an administrator resetting their own account without duplicate transaction targets",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "does not resurrect old sessions when an account is disabled and re-enabled",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "retains the operator credential privately even if a committed transaction loses its response",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "executes operator creation, access changes, reset, inspection and repeat-safe migration end to end",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "keeps independent stores bound to their own table pair without process-global targets",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "reads a complete whitelist across real service pages while preserving disabled state and excluding extra fields",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "accepts documented numeric whitelist metadata and checks account-less entries before migration writes",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "reports partial migration progress and safely resumes after interruption",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "reports malformed user fields without serializing the stored hash or password value",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "uses one configured expiry and refuses expired issuance or password changes",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "allows only one reset prepared against the same account revision",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "rejects an expiry changed after authorization before committing a password change",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "writes the exact configured expiry to operator files before committing it",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/integration/accounts.test.ts",
+      "name": "identifies malformed initialization metadata instead of failing during implicit string conversion",
+      "status": "passed"
+    }
+  ],
+  "passed": 27,
+  "failed": 0,
+  "skipped": 0
+}

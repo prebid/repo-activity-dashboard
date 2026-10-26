@@ -31,6 +31,8 @@ The functional vision is defined. The current phase is foundation hardening and 
 
 ## Delivery planning
 
+- [Review remediation verification](../implementation/review-remediation-verification.md): current code checkpoint, individual finding dispositions, verified results, and open release prerequisites.
+
 - [Foundation review remediation plan](../implementation/foundation-review-remediation.md): investigated review findings, settled access/onboarding decisions, implementation packages, regression criteria, and deferred deployment checks.
 - [Foundation hardening and review gate](../implementation/foundation-review-readiness.md): current dependency/quality gaps and the required review before layouts.
 

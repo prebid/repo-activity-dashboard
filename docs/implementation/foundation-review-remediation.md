@@ -1,6 +1,6 @@
 # Foundation review remediation plan
 
-Status: architecture-reviewed implementation proposal, 2026-10-26. Investigation is complete for the code findings; application remediation has not started. This plan addresses [PR 2](https://github.com/prebid/repo-activity-dashboard/pull/2) at `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`. Recheck the head and feedback before implementation. The review of this plan tightened session transport, browser-cache guarantees, migration recovery, credential issuance, table transitions, and package dependencies.
+Status: implemented and locally verified at code checkpoint `1fa73d5e21214af60a65670b5a62fe15c05c8519`, 2026-10-26. See [verification and finding dispositions](review-remediation-verification.md) for completion evidence and open deployment prerequisites. The design below records the agreed approach to [PR 2](https://github.com/prebid/repo-activity-dashboard/pull/2) feedback at baseline `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`.
 
 The foundation needs corrections to authorization, account compatibility, runtime packaging, browser state, and verification. Keep the chosen Next.js, TypeScript, Tailwind, Radix, Recharts, and Amplify stack. Complete this work before page-layout development or real reporting integration.
 
@@ -182,7 +182,7 @@ Run focused tests and relevant type/boundary/build checks per package. Run the f
 
 ## Finding ledger
 
-All rows start open. "Accept" identifies the required outcome, not automatic acceptance of the reviewer's exact patch. Compound comments retain separate rows.
+The rows below record intended outcomes; current completion status is in the verification report. "Accept" does not imply that a GitHub thread is resolved. Compound comments retain separate rows.
 
 | ID | Disposition and owner | Required regression or acceptance evidence |
 | --- | --- | --- |

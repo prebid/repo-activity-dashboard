@@ -1,5 +1,7 @@
 # Foundation review handoff
 
+This is the historical pre-review handoff. The [review remediation verification](review-remediation-verification.md) supersedes its readiness statement for the updated PR.
+
 The implementation is complete for this foundation milestone. Start with the [second self-review](foundation-second-review.md) at code checkpoint `203efc5`, which records the current changes and verification. [The current completion record](foundation-completion.md) identifies the verified code, closed findings, executable evidence, and environment limits.
 
 The branch replaces the previous reporting ingestion/storage-dependent pages with typed prepared data and shared frontend contracts while retaining the chosen stack and Amplify target. It includes strict quality gates, repaired Tailwind v4 primitives, tested table/query behavior, and completed account/security/configuration fixes from the self-audit. Full product layouts and the new reporting database are later work.
