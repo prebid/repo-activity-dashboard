@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "originalReviewHead": "a39009c7f66bbd1d7307e1c6c23f1dae3b5a9f21",
+  "baseCommit": "6daf178de6c0c0da76aaa9dc5abf3fbcbe32db86",
+  "codeCheckpoint": "b2bf9ae0e6077003d8080505b9471eb55c95c678",
+  "command": "npm run check:all",
+  "exitCode": 0,
+  "runtime": {
+    "node": "24.22.1",
+    "npm": "11.19.1",
+    "java": "21.0.11",
+    "platform": "darwin",
+    "architecture": "arm64"
+  },
+  "results": {
+    "vitest": 287,
+    "accounts": 27,
+    "production": 5,
+    "playwright": 40,
+    "totalPassed": 359,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "coverage": {
+    "src/components/ui/password-input.tsx": {
+      "lines": 100,
+      "statements": 100,
+      "functions": 100,
+      "branches": 100
+    },
+    "src/components/layout/theme-menu.tsx": {
+      "lines": 100,
+      "statements": 100,
+      "functions": 100,
+      "branches": 100
+    },
+    "src/features/authentication/login-view.tsx": {
+      "lines": 100,
+      "statements": 100,
+      "functions": 100,
+      "branches": 100
+    },
+    "src/features/authentication/change-password-view.tsx": {
+      "lines": 100,
+      "statements": 100,
+      "functions": 100,
+      "branches": 100
+    },
+    "src/models/password-policy.ts": {
+      "lines": 100,
+      "statements": 100,
+      "functions": 100,
+      "branches": 100
+    }
+  },
+  "npmAdvisories": 0,
+  "architectureSourceFiles": 104,
+  "inputFileCount": 197,
+  "inputScope": "All tracked root files and files under src, tests, scripts, public, .storybook, .github, design. Generated outputs and documentation are excluded.",
+  "sourceManifestSha256": "8ecf9fad50751a1b154603986d17588559f74e3c4a4057431503cdc5a20b6c91",
+  "pipelineLogSha256": "c3cb0473056092dd59ca205242314d7a4a914f2710afd473bf3969251e2451da",
+  "notRun": [
+    "Physical iPad/iPhone/Android testing and native password-manager matrix",
+    "Live Amplify/IAM acceptance, shared hosted login throttling, production account migration or deployment",
+    "Independent reviewer approval"
+  ]
+}
