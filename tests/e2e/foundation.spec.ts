@@ -156,6 +156,7 @@ test('catalog, summary drill-down and independent feedback/approval values', asy
 test('style tokens, keyboard focus, themes and accessible foundation', async ({
   page,
 }, testInfo) => {
+  await page.emulateMedia({ colorScheme: 'light' });
   await login(page);
   await page.goto('/foundation');
   const specimen = page.getByTestId('style-specimen');
@@ -163,7 +164,9 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await expect(specimen).toHaveCSS('gap', '8px');
   await expect(page.getByTestId('text-specimen')).toHaveCSS('font-size', '14px');
   const before = await page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor);
-  await page.getByRole('button', { name: 'Toggle theme' }).click();
+  await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+  await page.getByRole('menuitemradio', { name: 'Dark', exact: true }).click();
+  await expect(page.getByRole('menu')).toHaveCount(0);
   await expect
     .poll(() => page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor))
     .not.toBe(before);

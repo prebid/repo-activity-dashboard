@@ -8,13 +8,22 @@ test('centered sign-in supports small screens, keyboard controls and onboarding 
     'http://127.0.0.1:6007/iframe.html?id=authentication-pages--sign-in&viewMode=story',
   );
   await expect(page.getByRole('heading', { name: 'Sign in', exact: true })).toBeVisible();
-  for (const width of [1280, 320]) {
-    await page.setViewportSize({ width, height: 900 });
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
-      width,
+  for (const theme of ['light', 'dark']) {
+    await page.goto(
+      `http://127.0.0.1:6007/iframe.html?id=authentication-pages--sign-in&viewMode=story&globals=theme:${theme}`,
     );
-    expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
-    await page.screenshot({ path: testInfo.outputPath(`sign-in-${width}.png`), fullPage: true });
+    await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+    for (const width of [1280, 768, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+        width,
+      );
+      expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+      await page.screenshot({
+        path: testInfo.outputPath(`sign-in-${theme}-${width}.png`),
+        fullPage: true,
+      });
+    }
   }
   const password = page.getByLabel('Password', { exact: true });
   await password.fill('my workspace password');
@@ -38,16 +47,22 @@ test('password setup is responsive with a simple length hint and distinct update
   );
   await expect(page.getByRole('heading', { name: 'Set Your Password' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Cancel', exact: true })).toHaveCount(0);
-  for (const width of [1280, 320]) {
-    await page.setViewportSize({ width, height: 1000 });
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
-      width,
+  for (const theme of ['light', 'dark']) {
+    await page.goto(
+      `http://127.0.0.1:6007/iframe.html?id=authentication-pages--temporary-password&viewMode=story&globals=theme:${theme}`,
     );
-    expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
-    await page.screenshot({
-      path: testInfo.outputPath(`set-password-${width}.png`),
-      fullPage: true,
-    });
+    await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+    for (const width of [1280, 768, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+        width,
+      );
+      expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+      await page.screenshot({
+        path: testInfo.outputPath(`set-password-${theme}-${width}.png`),
+        fullPage: true,
+      });
+    }
   }
   const password = page.getByLabel('New Password', { exact: true });
   await password.fill('ExamplePassword1!');

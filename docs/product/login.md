@@ -34,3 +34,13 @@ The login and password forms share the logo, card, typography, field styling, an
 Password setup shows the temporary password, new password, and confirmation without a visible account/email line. Following the 2026-10-26 direction to avoid password complexity for internal users, the shared client/server policy requires at least 6 characters without uppercase, lowercase, number, or symbol rules. The form shows one short length hint instead of a checklist. The existing 72-byte hashing limit remains enforced without truncation. The form preserves the foundation's confirmed-write recovery: if automatic sign-in fails after the password is saved, login explains that the new password is ready to use. Production has empty login fields; synthetic credentials remain confined to explicit preview mode.
 
 Storybook's Authentication / Pages group provides sign-in, password-change confirmation, temporary-password setup, and ordinary password-change views. This work simplifies the shared new-password policy but does not change the authentication store, temporary-credential lifecycle, or deployment acceptance requirements.
+
+## Appearance
+
+The 2026-10-26 follow-up includes light and dark authentication designs and one shared System / Light / Dark menu. Keep this work with the login follow-up rather than changing PR #2 during review.
+
+- The existing root `ThemeProvider` owns theme detection and persistence. System is the default and follows the browser's reported color preference, including changes while the page is open. Explicit Light or Dark choices override that preference until System is selected again.
+- `ThemeMenu` is a shared layout component, used by the authentication layout and dashboard toolbar. Forms do not manage theme state. The preference is browser-local and remains consistent across navigation, reloads, and same-origin tabs; it is not an account setting synchronized across devices.
+- Authentication colors are semantic variables scoped to its surface, with light and dark values selected by the provider's root class. Dashboard components retain their existing theme tokens. Storybook uses the same provider and offers all three choices.
+- The menu waits for client mounting before exposing the saved selection, preserving a stable server render. The provider retains responsibility for applying the initial theme before hydration.
+- Verify automatic changes, saved overrides, returning to System, keyboard selection, cross-page/tab consistency, and contrast in normal, success, and error states. Check both forms at desktop, tablet, and narrow-phone widths in Chromium and WebKit.

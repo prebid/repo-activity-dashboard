@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useTheme } from 'next-themes';
+import { ThemeMenu } from './theme-menu';
 import { signOut } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import type { AuthenticatedUser } from '@/models/accounts';
@@ -15,7 +15,6 @@ export function Toolbar({
   repositories: readonly RepositoryDefinition[];
   viewer: AuthenticatedUser;
 }) {
-  const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
   const [signOutError, setSignOutError] = useState('');
   const [signingOut, setSigningOut] = useState(false);
@@ -81,12 +80,7 @@ export function Toolbar({
           </Link>
         )}
         <div className="ml-auto flex items-center gap-3">
-          <Button
-            variant="outline"
-            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-          >
-            Toggle theme
-          </Button>
+          <ThemeMenu />
           {
             <>
               <span className="text-sm">{viewer.name || viewer.email}</span>
