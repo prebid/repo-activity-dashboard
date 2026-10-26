@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from './auth';
+import { getViewer } from './viewer';
 import { accountAccess } from './access-policy';
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import { getRuntimeSettings } from './runtime-settings';
@@ -8,7 +8,21 @@ export async function requireAccountAccess(
   options: { admin?: boolean; allowPasswordChange?: boolean } = {},
 ) {
   // Deny preview before even evaluating the real session/account configuration.
-  const user = isPreviewBuild ? null : (await auth())?.user;
+  const viewer = isPreviewBuild ? { kind: 'anonymous' as const } : await getViewer();
+  if (viewer.kind !== 'authenticated' && viewer.kind !== 'anonymous')
+    return {
+      ok: false as const,
+      response: NextResponse.json(
+        {
+          error:
+            viewer.kind === 'unavailable'
+              ? 'Authentication is temporarily unavailable. Please try again.'
+              : 'Account configuration requires operator attention.',
+        },
+        { status: viewer.kind === 'unavailable' ? 503 : 500 },
+      ),
+    };
+  const user = viewer.kind === 'authenticated' ? viewer.user : null;
   const decision = accountAccess(user, { ...options, preview: isPreviewBuild });
   return decision.allowed
     ? { ok: true as const, user: decision.user }

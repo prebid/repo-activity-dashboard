@@ -1,10 +1,12 @@
 import { z } from 'zod';
+import { temporaryPasswordHoursSchema } from './temporary-credentials.ts';
 import { accountRegionSchema, accountTableNameSchema } from './account-target.ts';
 export const runtimeSettingsSchema = z
   .object({
     version: z.literal(1),
     managed: z.boolean(),
-    region: accountRegionSchema,
+    temporaryPasswordHours: temporaryPasswordHoursSchema.optional(),
+    region: accountRegionSchema.optional(),
     usersTable: accountTableNameSchema.optional(),
     whitelistTable: accountTableNameSchema.optional(),
     authUrl: z.string().url().optional(),
@@ -37,7 +39,11 @@ export function validateRuntimeSettings(input: unknown): RuntimeSettings {
   }
   if (
     settings.managed &&
-    (!settings.usersTable || !settings.whitelistTable || !settings.authUrl || !settings.secretArn)
+    (!settings.region ||
+      !settings.usersTable ||
+      !settings.whitelistTable ||
+      !settings.authUrl ||
+      !settings.secretArn)
   )
     throw new Error(
       'Managed authentication requires tables, HTTPS origin, region, and a Secrets Manager ARN.',

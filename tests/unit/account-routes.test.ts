@@ -2,6 +2,7 @@
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   auth: vi.fn(),
+  failure: vi.fn(),
   find: vi.fn(),
   create: vi.fn(),
   list: vi.fn(),
@@ -14,7 +15,22 @@ const mocks = vi.hoisted(() => ({
 vi.mock('@/lib/auth/runtime-settings', () => ({
   getRuntimeSettings: () => ({ authUrl: 'http://localhost' }),
 }));
-vi.mock('@/lib/auth/auth', () => ({ auth: mocks.auth }));
+vi.mock('@/lib/auth/viewer', () => ({
+  getViewer: async () => {
+    const failure = mocks.failure() as 'unavailable' | 'configuration' | 'integrity' | undefined;
+    if (failure) return { kind: failure };
+    const session = (await mocks.auth()) as {
+      user: {
+        id: string;
+        email: string;
+        role?: string;
+        authVersion: number;
+        mustChangePassword?: boolean;
+      };
+    } | null;
+    return session ? { kind: 'authenticated', user: session.user } : { kind: 'anonymous' };
+  },
+}));
 vi.mock('@/lib/auth/users', () => ({
   getUserByEmail: mocks.find,
   adminCreateUser: mocks.create,
@@ -50,6 +66,7 @@ beforeEach(() => {
   mocks.create.mockResolvedValue({
     user: { id: 'new', email: 'new@example.test' },
     tempPassword: 'one-time',
+    expiresAt: '2099-01-01T00:00:00.000Z',
   });
 });
 afterEach(() => vi.unstubAllEnvs());
@@ -101,6 +118,7 @@ it('validates input before mutation and returns a normalized creation result', a
     userId: 'new',
     email: 'new@example.test',
     tempPassword: 'one-time',
+    expiresAt: '2099-01-01T00:00:00.000Z',
   });
 });
 it('returns conflict for duplicate accounts and fails closed on storage errors', async () => {
@@ -226,3 +244,16 @@ it.each(['create', 'reset', 'change'] as const)(
       expect(mutation).not.toHaveBeenCalled();
   },
 );
+
+it.each([
+  ['unavailable', 503],
+  ['configuration', 500],
+  ['integrity', 500],
+] as const)('denies account operations when viewer resolution reports %s', async (kind, status) => {
+  mocks.failure.mockReturnValue(kind);
+  const { GET, POST } = await import('@/app/api/admin/users/route');
+  expect((await GET()).status).toBe(status);
+  expect((await POST(request({ email: 'new@example.test' }))).status).toBe(status);
+  expect(mocks.create).not.toHaveBeenCalled();
+  expect(mocks.list).not.toHaveBeenCalled();
+});

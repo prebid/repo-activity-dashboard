@@ -1,9 +1,13 @@
 // @vitest-environment node
 import { it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, stat, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { buildRuntimeSettings, writeRuntimeSettings } from '../../scripts/runtime-settings.mjs';
+import {
+  buildRuntimeSettings,
+  writeRuntimeSettings,
+  writeRuntimeFile,
+} from '../../scripts/runtime-settings.mjs';
 import { validateRuntimeSettings } from '@/models/runtime-settings';
 const read = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
@@ -15,6 +19,7 @@ import { getRuntimeSettings } from '@/lib/auth/runtime-settings';
 const fields = {
   version: 1,
   managed: true,
+  temporaryPasswordHours: 24,
   region: 'us-east-2',
   usersTable: 'users',
   whitelistTable: 'whitelist',
@@ -23,6 +28,7 @@ const fields = {
 };
 beforeEach(() => {
   read.mockReset();
+  vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', undefined);
   for (const key of [
     'AWS_APP_ID',
     'AWS_REGION',
@@ -66,7 +72,7 @@ it('supports unconfigured local builds but refuses incomplete managed deployment
   read.mockImplementation(() => {
     throw Object.assign(new Error('missing'), { code: 'ENOENT' });
   });
-  expect(getRuntimeSettings()).toMatchObject({ managed: false, region: 'us-east-2' });
+  expect(getRuntimeSettings()).toMatchObject({ managed: false, region: undefined });
   expect(() => buildRuntimeSettings({ AWS_APP_ID: 'test-app' })).toThrow(
     'Managed authentication requires',
   );
@@ -88,7 +94,7 @@ it('persists only non-secret allowlisted configuration', async () => {
     await writeRuntimeSettings(
       {
         AWS_APP_ID: 'app',
-        AWS_REGION: fields.region,
+        DYNAMODB_REGION: fields.region,
         DYNAMODB_USERS_TABLE: fields.usersTable,
         DYNAMODB_WHITELIST_TABLE: fields.whitelistTable,
         AUTH_URL: fields.authUrl,
@@ -105,4 +111,54 @@ it('persists only non-secret allowlisted configuration', async () => {
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+it('requires an explicit managed table region and never packages a hosting default', () => {
+  expect(
+    buildRuntimeSettings({ AWS_REGION: 'eu-west-1', S3_REGION: 'us-east-2' }).region,
+  ).toBeUndefined();
+  expect(() => buildRuntimeSettings({ AWS_APP_ID: 'app', AWS_REGION: 'us-east-2' })).toThrow(
+    'explicit account-store region',
+  );
+  read.mockReturnValue(JSON.stringify({ version: 1, managed: false }));
+  vi.stubEnv('AWS_REGION', 'eu-west-1');
+  expect(getRuntimeSettings().region).toBe('eu-west-1');
+  vi.stubEnv('DYNAMODB_REGION', 'us-west-2');
+  expect(getRuntimeSettings().region).toBe('us-west-2');
+  read.mockImplementation(() => {
+    throw Object.assign(new Error('denied'), { code: 'EACCES' });
+  });
+  let caught: unknown;
+  try {
+    getRuntimeSettings();
+  } catch (error) {
+    caught = error;
+  }
+  expect(caught).toBeInstanceOf(Error);
+  if (!(caught instanceof Error)) throw new Error('Expected configuration failure');
+  expect(caught.cause).toMatchObject({ code: 'EACCES' });
+});
+it('makes non-secret packaged files readable even with restrictive umask or existing modes', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'runtime-mode-'));
+  const previous = process.umask(0o077);
+  try {
+    const path = join(root, 'settings.json');
+    await writeRuntimeSettings({}, path);
+    expect((await stat(path)).mode & 0o777).toBe(0o644);
+    await chmod(path, 0o600);
+    await writeRuntimeFile(path, await readFile(path));
+    expect((await stat(path)).mode & 0o777).toBe(0o644);
+  } finally {
+    process.umask(previous);
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+it('validates the lifetime consistently for build and runtime overrides', () => {
+  expect(() => buildRuntimeSettings({ DASHBOARD_TEMP_PASSWORD_HOURS: '' })).toThrow();
+  read.mockReturnValue(JSON.stringify(fields));
+  vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', '48');
+  expect(getRuntimeSettings().temporaryPasswordHours).toBe(48);
+  vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', '169');
+  expect(() => getRuntimeSettings()).toThrow('configuration');
 });

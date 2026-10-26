@@ -3,12 +3,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTheme } from 'next-themes';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { notifyAuthTransition } from '@/components/providers/auth-transitions';
+import type { AuthenticatedUser } from '@/models/accounts';
 import { Button } from '@/components/ui/button';
 import type { RepositoryDefinition } from '@/config/repositories';
-export function Toolbar({ repositories }: { repositories: readonly RepositoryDefinition[] }) {
+export function Toolbar({
+  repositories,
+  viewer,
+}: {
+  repositories: readonly RepositoryDefinition[];
+  viewer: AuthenticatedUser;
+}) {
   const { resolvedTheme, setTheme } = useTheme();
-  const { data: session } = useSession();
   const router = useRouter();
   const [signOutError, setSignOutError] = useState('');
   const [signingOut, setSigningOut] = useState(false);
@@ -18,6 +25,7 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
     try {
       const result = await signOut({ redirect: false });
       if (!result.url) throw new Error('Sign out failed');
+      notifyAuthTransition();
       router.replace('/auth/login');
       router.refresh();
     } catch {
@@ -32,7 +40,7 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
         aria-label="Main navigation"
         className="mx-auto flex max-w-screen-2xl flex-wrap items-center gap-4 p-4"
       >
-        <Link href="/repos" className="font-semibold">
+        <Link prefetch={false} href="/repos" className="font-semibold">
           Repository activity
         </Link>
         <details className="relative">
@@ -40,13 +48,18 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
             Repos
           </summary>
           <div className="absolute left-0 z-20 mt-2 max-h-96 w-80 overflow-auto rounded-lg border bg-popover p-2 shadow-md">
-            <Link className="block rounded px-3 py-2 hover:bg-accent" href="/repos">
+            <Link
+              prefetch={false}
+              className="block rounded px-3 py-2 hover:bg-accent"
+              href="/repos"
+            >
               All repositories
             </Link>
             {repositories
               .filter((r) => r.enabled)
               .map((r) => (
                 <Link
+                  prefetch={false}
                   key={r.id}
                   className="block rounded px-3 py-2 hover:bg-accent"
                   href={'/repos/' + r.slug}
@@ -56,12 +69,17 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
               ))}
           </div>
         </details>
-        <Link href="/contributors" className="hover:underline">
+        <Link prefetch={false} href="/contributors" className="hover:underline">
           Contributors
         </Link>
-        <Link href="/companies" className="hover:underline">
+        <Link prefetch={false} href="/companies" className="hover:underline">
           Companies
         </Link>
+        {viewer.role === 'admin' && (
+          <Link prefetch={false} href="/admin/users" className="hover:underline">
+            Accounts
+          </Link>
+        )}
         <div className="ml-auto flex items-center gap-3">
           <Button
             variant="outline"
@@ -69,9 +87,9 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
           >
             Toggle theme
           </Button>
-          {session ? (
+          {
             <>
-              <span className="text-sm">{session.user.name}</span>
+              <span className="text-sm">{viewer.name || viewer.email}</span>
               <Button variant="ghost" disabled={signingOut} onClick={() => void handleSignOut()}>
                 {signingOut ? 'Signing out…' : 'Sign out'}
               </Button>
@@ -81,9 +99,7 @@ export function Toolbar({ repositories }: { repositories: readonly RepositoryDef
                 </p>
               )}
             </>
-          ) : (
-            <Link href="/auth/login">Sign in</Link>
-          )}
+          }
         </div>
       </nav>
     </header>

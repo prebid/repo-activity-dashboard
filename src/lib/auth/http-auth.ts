@@ -1,0 +1,61 @@
+import 'server-only';
+import { NextRequest, NextResponse } from 'next/server';
+import { rawHandlers } from './auth';
+import { parseVerifiedSession } from './session-transport';
+import { resolveViewer, failedViewer } from './viewer';
+import { readBoundedBody, RequestBodyError } from './bounded-request';
+
+async function handle(request: NextRequest) {
+  try {
+    let bounded = request;
+    if (request.method === 'POST') {
+      const body = await readBoundedBody(request);
+      const headers = new Headers(request.headers);
+      headers.delete('transfer-encoding');
+      headers.set('content-length', String(body.byteLength));
+      bounded = new NextRequest(request.url, {
+        method: 'POST',
+        headers,
+        body,
+        signal: request.signal,
+      });
+    }
+    const response = await rawHandlers[request.method === 'POST' ? 'POST' : 'GET'](bounded);
+    if (new URL(request.url).pathname !== '/api/auth/session' || !response.ok) return response;
+    const session = await parseVerifiedSession(response);
+    if (!session) return response; // Auth.js owns absent/malformed/expired-token cleanup.
+    const viewer = await resolveViewer(session);
+    const headers = new Headers(response.headers);
+    headers.delete('content-length');
+    headers.set('cache-control', 'private, no-store');
+    if (viewer.kind === 'authenticated')
+      return NextResponse.json(
+        { ...session, user: { ...viewer.user, emailVerified: null } },
+        { headers },
+      );
+    // Withhold the library's prepared renewal on denial/outage. The incoming cookie is unchanged.
+    headers.delete('set-cookie');
+    if (viewer.kind === 'anonymous') return NextResponse.json(null, { headers });
+    return NextResponse.json(
+      {
+        error:
+          viewer.kind === 'unavailable'
+            ? 'Authentication is temporarily unavailable. Please try again.'
+            : 'Authentication requires operator attention.',
+      },
+      { status: viewer.kind === 'unavailable' ? 503 : 500, headers },
+    );
+  } catch (error) {
+    if (error instanceof RequestBodyError)
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    const decision = failedViewer(error);
+    return NextResponse.json(
+      { error: 'Authentication is temporarily unavailable. Please try again.' },
+      {
+        status: decision.kind === 'unavailable' ? 503 : 500,
+        headers: { 'cache-control': 'private, no-store' },
+      },
+    );
+  }
+}
+export const handlers = { GET: handle, POST: handle };

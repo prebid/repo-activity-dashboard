@@ -1,7 +1,7 @@
 import type {} from 'next-auth/jwt';
 import type { NextAuthConfig } from 'next-auth';
 import { getSecret } from './get-secret';
-import { currentIdentity, sessionClaimsSchema } from './session-policy';
+import { sessionClaimsSchema } from './session-policy';
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import type { AccountRole } from '@/models/accounts';
 
@@ -39,39 +39,33 @@ export async function getBaseAuthConfig(): Promise<Omit<NextAuthConfig, 'provide
     secret: await getSecret(),
     session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
     pages: { signIn: '/auth/login', error: '/auth/error' },
+    logger: {
+      error(error) {
+        console.error('Authentication request failed', {
+          type: error.name,
+          requestId: crypto.randomUUID(),
+        });
+      },
+    },
     callbacks: {
-      async jwt({ token, user }) {
+      jwt({ token, user }) {
         if (user) {
           token.id = user.id!;
           token.email = user.email;
-          token.name = user.name;
-          token.role = user.role;
-          token.company = user.company;
-          token.mustChangePassword = user.mustChangePassword;
           token.authVersion = user.authVersion ?? (isPreviewBuild ? 0 : undefined);
         }
-        if (!isPreviewBuild) {
-          const claims = sessionClaimsSchema.safeParse(token);
-          if (!claims.success) return null;
-          const { getAccountSnapshot } = await import('./users');
-          const identity = currentIdentity(
-            claims.data,
-            await getAccountSnapshot(claims.data.id, claims.data.email),
-          );
-          if (!identity) return null;
-          Object.assign(token, identity);
-        }
+        // Identity/revision are the token contract; profile and permissions come from current storage.
+        for (const field of ['name', 'picture', 'role', 'company', 'mustChangePassword'] as const)
+          delete token[field];
+        if (!sessionClaimsSchema.safeParse(token).success) return null;
         return token;
       },
       session({ session, token }) {
+        const claims = sessionClaimsSchema.parse(token);
         session.user = {
-          id: token.id,
-          email: token.email ?? '',
-          name: token.name,
-          role: token.role,
-          company: token.company,
-          mustChangePassword: token.mustChangePassword,
-          authVersion: token.authVersion ?? 0,
+          id: claims.id,
+          email: claims.email,
+          authVersion: claims.authVersion,
           emailVerified: null,
         };
         return session;

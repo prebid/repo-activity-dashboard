@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Button } from '../src/components/ui/button';
 import { MetricValue } from '../src/components/metrics/metric-value';
 import { PageState } from '../src/components/feedback/page-state';
-import { DataTable, type DataColumn } from '../src/components/tables/data-table';
+import type { DataColumn } from '../src/components/tables/data-table';
+import { LocalDataTable as DataTable } from '../src/components/tables/local-data-table';
 import { ReviewDistribution } from '../src/components/charts/review-distribution';
 interface Row {
   id: string;
@@ -35,7 +36,6 @@ function Specimen({ state = 'normal' }: { state?: 'normal' | 'empty' | 'loading'
       </div>
       <DataTable
         title="Sample table"
-        queryKey="story"
         columns={columns}
         rows={
           state === 'empty'

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/app.mjs dev preview",
-    "build": "node scripts/app.mjs build preview",
-    "start": "node scripts/app.mjs start preview",
+    "build": "node scripts/app.mjs build production",
+    "start": "node scripts/app.mjs start production",
     "build:production": "node scripts/app.mjs build production",
     "start:production": "node scripts/app.mjs start production",
     "lint": "eslint src tests scripts .storybook *.mjs *.cjs *.ts --max-warnings=0 --no-warn-ignored",
@@ -25,10 +25,12 @@
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run check:boundaries && npm run test:coverage",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
-    "check:all": "npm run check && npm run test:accounts && npm run audit:dependencies && npm run build:production && npm run test:production && npm run build && npm run build:storybook && npm run test:e2e",
+    "check:all": "npm run check && npm run test:accounts && npm run audit:dependencies && npm run build:production && npm run test:production && npm run build:preview && npm run build:storybook && npm run test:e2e",
     "audit:dependencies": "npm audit --audit-level=low",
     "auth:operator": "node --conditions=react-server --import tsx scripts/auth-operator.ts",
-    "preview:storybook": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6007 --strictPort"
+    "preview:storybook": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6007 --strictPort",
+    "build:preview": "node scripts/app.mjs build preview",
+    "start:preview": "node scripts/app.mjs start preview"
   },
   "keywords": [],
   "author": "",

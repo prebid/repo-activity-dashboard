@@ -48,8 +48,16 @@ const command = (region: string, prefix: string) => [
 ];
 it('honors each explicit target independently and leaves application configuration unchanged', async () => {
   const { runOperator } = await import('../../scripts/auth-operator');
-  expect(await runOperator(command('us-east-2', 'first'))).toEqual({ accounts: 0, linked: 0 });
-  expect(await runOperator(command('us-west-2', 'second'))).toEqual({ accounts: 0, linked: 0 });
+  expect(await runOperator(command('us-east-2', 'first'))).toEqual({
+    accounts: 0,
+    linked: 0,
+    requiresCredentialReissue: [],
+  });
+  expect(await runOperator(command('us-west-2', 'second'))).toEqual({
+    accounts: 0,
+    linked: 0,
+    requiresCredentialReissue: [],
+  });
   expect(mocks.construct.mock.calls.map(([config]: [unknown]) => config)).toEqual([
     expect.objectContaining({ region: 'us-east-2' }),
     expect.objectContaining({ region: 'us-west-2' }),
@@ -62,8 +70,12 @@ it('does not require unrelated web-auth settings for an explicit operator accoun
   vi.stubEnv('AUTH_URL', 'not-a-web-origin');
   vi.stubEnv('DASHBOARD_AUTH_SECRET_ARN', 'not-a-web-secret');
   const { runOperator } = await import('../../scripts/auth-operator');
-  expect(await runOperator(command('us-east-2', 'recovery'))).toEqual({ accounts: 0, linked: 0 });
-  expect(mocks.send).toHaveBeenCalledOnce();
+  expect(await runOperator(command('us-east-2', 'recovery'))).toEqual({
+    accounts: 0,
+    linked: 0,
+    requiresCredentialReissue: [],
+  });
+  expect(mocks.send).toHaveBeenCalledTimes(2);
 });
 it('closes its owned client after an operation fails', async () => {
   mocks.send.mockRejectedValue(new Error('controlled backend failure'));

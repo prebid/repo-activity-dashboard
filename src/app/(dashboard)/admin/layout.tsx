@@ -1,8 +1,5 @@
-import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth/auth';
-import { isPreviewBuild } from '@/lib/presentation/preview';
+import { requireViewer } from '@/lib/auth/viewer';
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
-  if (isPreviewBuild || session?.user.role !== 'admin') redirect('/repos');
+  await requireViewer({ admin: true });
   return children;
 }

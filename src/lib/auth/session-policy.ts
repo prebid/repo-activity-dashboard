@@ -1,4 +1,6 @@
+import { temporaryCredentialCurrent } from '@/models/temporary-credentials';
 import { z } from 'zod';
+import { AccountDataError } from './account-errors';
 import {
   accountRecordSchema,
   whitelistRecordSchema,
@@ -21,7 +23,28 @@ export function currentIdentity(
   const token = sessionClaimsSchema.safeParse(claims);
   const userResult = accountRecordSchema.safeParse(snapshot.user);
   const accessResult = whitelistRecordSchema.safeParse(snapshot.access);
-  if (!token.success || !userResult.success || !accessResult.success) return null;
+  if (!token.success || snapshot.user == null || snapshot.access == null) return null;
+  if (!userResult.success || !accessResult.success)
+    throw new AccountDataError([
+      ...(!userResult.success
+        ? [
+            {
+              table: 'users' as const,
+              key: token.data.id,
+              fields: userResult.error.issues.map((i) => i.path.join('.')),
+            },
+          ]
+        : []),
+      ...(!accessResult.success
+        ? [
+            {
+              table: 'whitelist' as const,
+              key: token.data.email,
+              fields: accessResult.error.issues.map((i) => i.path.join('.')),
+            },
+          ]
+        : []),
+    ]);
   const user = userResult.data;
   const access = accessResult.data;
   if (
@@ -30,6 +53,7 @@ export function currentIdentity(
     user.authVersion !== token.data.authVersion ||
     access.email !== user.email ||
     !access.isActive ||
+    !temporaryCredentialCurrent(user) ||
     (access.userId && access.userId !== user.id)
   )
     return null;

@@ -1,9 +1,10 @@
 'use client';
 import Link from 'next/link';
+import type { TableController } from '@/lib/presentation/table-controller';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
 import type { PullRequestRow, IssueRow } from '@/models/reporting';
-const prColumns: DataColumn<PullRequestRow>[] = [
+export const prColumns: DataColumn<PullRequestRow>[] = [
   { id: 'number', label: 'PR', value: (r) => r.number },
   {
     id: 'title',
@@ -11,6 +12,7 @@ const prColumns: DataColumn<PullRequestRow>[] = [
     value: (r) => r.title,
     cell: (r) => (
       <Link
+        prefetch={false}
         className="underline underline-offset-4"
         href={r.url}
         target="_blank"
@@ -31,7 +33,7 @@ const prColumns: DataColumn<PullRequestRow>[] = [
   },
   { id: 'ageDays', label: 'Age in days', value: (r) => r.ageDays },
 ];
-const issueColumns: DataColumn<IssueRow>[] = [
+export const issueColumns: DataColumn<IssueRow>[] = [
   { id: 'number', label: 'Issue', value: (r) => r.number },
   {
     id: 'title',
@@ -39,6 +41,7 @@ const issueColumns: DataColumn<IssueRow>[] = [
     value: (r) => r.title,
     cell: (r) => (
       <Link
+        prefetch={false}
         className="underline underline-offset-4"
         href={r.url}
         target="_blank"
@@ -57,7 +60,7 @@ export function RepositoryView({
   prs,
   issues,
   view,
-  initialSearch,
+  controller,
   age,
 }: {
   name: string;
@@ -65,13 +68,13 @@ export function RepositoryView({
   prs: PullRequestRow[];
   issues: IssueRow[];
   view: 'prs' | 'issues';
-  initialSearch: string;
+  controller: TableController;
   age: number | null;
 }) {
   const visiblePrs = age === null ? prs : prs.filter((r) => !r.draft && r.ageDays > age);
   return (
     <>
-      <Link href="/repos" className="text-sm underline underline-offset-4">
+      <Link prefetch={false} href="/repos" className="text-sm underline underline-offset-4">
         All repositories
       </Link>
       <div>
@@ -82,6 +85,7 @@ export function RepositoryView({
       </div>
       <nav aria-label="Repository lists" className="flex gap-4">
         <Link
+          prefetch={false}
           aria-current={view === 'prs' ? 'page' : undefined}
           className="underline underline-offset-4"
           href={'/repos/' + slug + '?view=prs'}
@@ -89,6 +93,7 @@ export function RepositoryView({
           Pull requests ({prs.length})
         </Link>
         <Link
+          prefetch={false}
           aria-current={view === 'issues' ? 'page' : undefined}
           className="underline underline-offset-4"
           href={'/repos/' + slug + '?view=issues'}
@@ -99,7 +104,7 @@ export function RepositoryView({
       {age !== null && view === 'prs' && (
         <p>
           Non-draft PRs older than {age} days ·{' '}
-          <Link className="underline" href={'/repos/' + slug + '?view=prs'}>
+          <Link prefetch={false} className="underline" href={'/repos/' + slug + '?view=prs'}>
             Clear age filter
           </Link>
         </p>
@@ -109,16 +114,14 @@ export function RepositoryView({
           title="Open issues"
           rows={issues}
           columns={issueColumns}
-          queryKey="issues"
-          initialSearch={initialSearch}
+          controller={controller}
         />
       ) : (
         <DataTable
           title="Open pull requests"
           rows={visiblePrs}
           columns={prColumns}
-          queryKey="prs"
-          initialSearch={initialSearch}
+          controller={controller}
         />
       )}
     </>

@@ -19,6 +19,18 @@ const features = existsSync('src/features')
 const configuration = {
   forbidden: [
     {
+      name: 'current-viewer-boundary',
+      severity: 'error',
+      from: { path: '^src/', pathNot: '^src/lib/auth/(?:http-auth|session-transport)\\.ts$' },
+      to: { path: '^src/lib/auth/auth\\.ts$' },
+    },
+    {
+      name: 'table-no-router',
+      severity: 'error',
+      from: { path: '^src/components/tables/' },
+      to: { path: '^node_modules/next/(?:navigation|router)', reachable: true },
+    },
+    {
       name: 'application-no-operator-scripts',
       severity: 'error',
       from: { path: '^src/' },

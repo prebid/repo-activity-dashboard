@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { temporaryExpirySchema } from './temporary-credentials';
 
 export const emailSchema = z.string().trim().email().toLowerCase();
 export const accountRoles = ['viewer', 'user', 'admin'] as const;
@@ -8,7 +9,17 @@ const optionalText = z.preprocess(
   (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
   z.string().trim().min(1).optional(),
 );
-export const credentialSchema = z.object({ email: emailSchema, password: z.string().min(1) });
+export const verificationPasswordSchema = z
+  .string()
+  .min(1)
+  .refine(
+    (value) => new TextEncoder().encode(value).byteLength <= 1024,
+    'Password input is too long.',
+  );
+export const credentialSchema = z.object({
+  email: emailSchema,
+  password: verificationPasswordSchema,
+});
 export const createAccountSchema = z.object({
   email: emailSchema,
   name: optionalText,
@@ -17,7 +28,7 @@ export const createAccountSchema = z.object({
 });
 export const resetAccountSchema = z.object({ email: emailSchema });
 export const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1),
+  currentPassword: verificationPasswordSchema,
   newPassword: z.string().min(1),
 });
 export const accountRecordSchema = z.object({
@@ -31,6 +42,7 @@ export const accountRecordSchema = z.object({
   updatedAt: z.string(),
   createdBy: z.string().optional(),
   mustChangePassword: z.boolean().optional(),
+  temporaryPasswordExpiresAt: temporaryExpirySchema.optional(),
   lastPasswordChange: z.string().optional(),
   lastLogin: z.string().optional(),
   authVersion: z.number().int().nonnegative().safe().default(0),
@@ -44,7 +56,7 @@ export const whitelistRecordSchema = z.object({
   email: emailSchema,
   role: accountRoleSchema.default('viewer'),
   isActive: z.boolean(),
-  addedAt: z.string().optional(),
+  addedAt: z.union([z.string(), z.number().finite()]).optional(),
   addedBy: z.string().optional(),
   userId: z.string().min(1).optional(),
 });
@@ -55,6 +67,18 @@ export const createdAccountResponseSchema = z.object({
   userId: z.string(),
   email: emailSchema,
   tempPassword: z.string().min(1),
+  expiresAt: temporaryExpirySchema,
 });
 export const messageResponseSchema = z.object({ message: z.string() });
 export const errorResponseSchema = z.object({ error: z.string() });
+
+export const resetCredentialResponseSchema = createdAccountResponseSchema.pick({
+  message: true,
+  email: true,
+  tempPassword: true,
+  expiresAt: true,
+});
+export type IssuedCredential = Pick<
+  z.infer<typeof createdAccountResponseSchema>,
+  'email' | 'tempPassword' | 'expiresAt'
+>;

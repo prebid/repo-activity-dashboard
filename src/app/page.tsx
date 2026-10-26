@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth/auth';
+import { requireViewer } from '@/lib/auth/viewer';
 export default async function Home() {
-  redirect((await auth()) ? '/repos' : '/auth/login');
+  await requireViewer();
+  redirect('/repos');
 }
-
 export const dynamic = 'force-dynamic';

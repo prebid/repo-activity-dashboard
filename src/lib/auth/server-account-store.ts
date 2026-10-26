@@ -1,4 +1,5 @@
 import 'server-only';
+import { AuthStateError } from './auth-errors';
 import { createAccountClient } from '@/lib/aws/clients';
 import { accountTargetSchema } from '@/models/account-target';
 import { isPreviewBuild } from '@/lib/presentation/preview';
@@ -14,7 +15,12 @@ export function getServerAccountStore(): AccountStore {
       usersTable: settings.usersTable,
       whitelistTable: settings.whitelistTable,
     });
-    if (!parsed.success) throw new Error('Missing or invalid account-store configuration.');
+    if (!parsed.success)
+      throw new AuthStateError(
+        'configuration',
+        undefined,
+        'Missing or invalid account-store configuration.',
+      );
     const target = parsed.data;
     const accessKeyId = process.env.S3_ACCESS_KEY_ID,
       secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
@@ -30,7 +36,9 @@ export function getServerAccountStore(): AccountStore {
           }
         : {}),
     });
-    store = createAccountStore(client, target);
+    store = createAccountStore(client, target, {
+      temporaryPasswordHours: settings.temporaryPasswordHours,
+    });
   }
   return store;
 }

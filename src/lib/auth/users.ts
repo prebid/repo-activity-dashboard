@@ -9,8 +9,8 @@ export async function getUserByEmail(email: string) {
 export async function getUserById(id: string) {
   return getServerAccountStore().getUserById(id);
 }
-export async function getAccountSnapshot(id: string, email: string) {
-  return getServerAccountStore().getAccountSnapshot(id, email);
+export async function getAccountSnapshot(id: string, email: string, signal?: AbortSignal) {
+  return getServerAccountStore().getAccountSnapshot(id, email, signal);
 }
 export async function adminCreateUser(
   email: string,

@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DataTable, type DataColumn } from '@/components/tables/data-table';
+import type { DataColumn } from '@/components/tables/data-table';
+import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
 import { PageState } from '@/components/feedback/page-state';
 interface Row {
@@ -26,11 +27,13 @@ const rows: Row[] = Array.from({ length: 250 }, (_, i) => ({
 describe('shared table', () => {
   it('paginates 250 rows and searches across the full set', async () => {
     const user = userEvent.setup();
-    render(<DataTable title="Records" rows={rows} columns={columns} queryKey="records" />);
+    render(<DataTable title="Records" rows={rows} columns={columns} />);
     expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(101);
     await user.click(screen.getByRole('button', { name: 'Next' }));
     await user.click(screen.getByRole('button', { name: 'Next' }));
     expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(51);
+    await user.click(screen.getByRole('button', { name: 'Previous' }));
+    expect(screen.getByText('Page 2 of 3')).toBeVisible();
     await user.type(screen.getByRole('textbox', { name: 'Search Records' }), 'keyboard');
     expect(screen.getByText('Oldest keyboard issue')).toBeVisible();
     expect(screen.getByText('Page 1 of 1')).toBeVisible();
@@ -46,7 +49,6 @@ describe('shared table', () => {
           { id: 'c', title: 'C', count: 9 },
         ]}
         columns={columns}
-        queryKey="numbers"
       />,
     );
     await user.click(screen.getByRole('button', { name: 'Count' }));
@@ -72,15 +74,7 @@ describe('shared table', () => {
       },
     );
     vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
-    render(
-      <DataTable
-        title="Export"
-        rows={rows}
-        columns={columns}
-        queryKey="export"
-        exportName="sample.csv"
-      />,
-    );
+    render(<DataTable title="Export" rows={rows} columns={columns} exportName="sample.csv" />);
     fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
     expect(blobs).toHaveLength(1);
     const csv = await new Promise<string>((resolve, reject) => {
@@ -96,7 +90,7 @@ describe('shared table', () => {
     expect(csv).toContain('Oldest keyboard issue');
   });
   it('renders a meaningful empty state', () => {
-    render(<DataTable title="Empty" rows={[]} columns={columns} queryKey="empty" />);
+    render(<DataTable title="Empty" rows={[]} columns={columns} />);
     expect(screen.getByText('No items')).toBeVisible();
   });
   it('renders known zero and unavailable separately', () => {
@@ -120,14 +114,7 @@ describe('shared table', () => {
 describe('column controls', () => {
   it('hides presentation columns without changing the matching population', async () => {
     const user = userEvent.setup();
-    render(
-      <DataTable
-        title="Columns sample"
-        rows={rows.slice(0, 3)}
-        columns={columns}
-        queryKey="columns"
-      />,
-    );
+    render(<DataTable title="Columns sample" rows={rows.slice(0, 3)} columns={columns} />);
     await user.click(screen.getByText('Columns'));
     await user.click(screen.getByRole('checkbox', { name: 'Count' }));
     expect(
@@ -143,13 +130,11 @@ describe('paged data input for a future adapter', () => {
     render(
       <DataTable
         title="Large remote scope"
-        queryKey="remote"
         rows={rows.slice(0, 100)}
         columns={columns}
         paging={{
           totalCount: 1_000_000,
           query: { search: '', sort: '', descending: false, page: 1 },
-          onQueryChange: () => {},
         }}
       />,
     );
@@ -158,22 +143,17 @@ describe('paged data input for a future adapter', () => {
     expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(101);
   });
   it('uses the supplied total and does not filter, re-sort, or page the supplied records again', () => {
-    window.history.replaceState(
-      null,
-      '',
-      '/?remote.page=3&remote.q=server-filter&remote.sort=count&remote.dir=desc',
-    );
     const onQueryChange = vi.fn();
     render(
       <DataTable
         title="Remote page"
+        initialQuery={{ page: 3, search: 'server-filter', sort: 'count', descending: true }}
+        onQueryChange={onQueryChange}
         rows={rows.slice(200)}
         columns={columns}
-        queryKey="remote"
         paging={{
           query: { page: 3, search: 'server-filter', sort: 'count', descending: true },
           totalCount: 250,
-          onQueryChange,
         }}
       />,
     );
@@ -193,18 +173,16 @@ describe('paged data input for a future adapter', () => {
     });
   });
   it('delegates export for the full scope without passing the page number', () => {
-    window.history.replaceState(null, '', '/?remote.page=3&remote.q=scope');
     const onExport = vi.fn();
     render(
       <DataTable
         title="Remote export"
+        initialQuery={{ page: 3, search: 'scope', sort: '', descending: false }}
         rows={rows.slice(200)}
         columns={columns}
-        queryKey="remote"
         paging={{
           query: { page: 3, search: 'scope', sort: '', descending: false },
           totalCount: 250,
-          onQueryChange: () => {},
           onExport,
         }}
       />,
@@ -212,4 +190,55 @@ describe('paged data input for a future adapter', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
     expect(onExport).toHaveBeenCalledWith({ search: 'scope', sort: '', descending: false });
   });
+});
+
+it('exports the full filtered sort order and handles explicit search submission', async () => {
+  const blobs: Blob[] = [];
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:sorted';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  const submitted = vi.fn();
+  render(
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        submitted();
+      }}
+    >
+      <DataTable
+        title="Sorted export"
+        rows={rows}
+        columns={columns}
+        exportName="sorted.csv"
+        initialQuery={{ search: 'Item', sort: 'count', descending: true, page: 2 }}
+      />
+    </form>,
+  );
+  const input = screen.getByRole('textbox', { name: 'Search Sorted export' });
+  fireEvent.keyDown(input, { key: 'Enter' });
+  fireEvent.blur(input);
+  expect(submitted).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string'
+        ? resolve(reader.result)
+        : reject(new Error('Expected text'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
+  });
+  const lines = csv.split('\r\n');
+  expect(lines).toHaveLength(250);
+  expect(lines[1]).toBe('"Item 249","248"');
+  expect(lines.at(-1)).toBe('"Item 002",');
+  expect(rows[0].id).toBe('1');
 });

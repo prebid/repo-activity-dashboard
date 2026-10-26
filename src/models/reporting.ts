@@ -36,3 +36,9 @@ export interface ContributionRow {
   merges: number;
   issues: number;
 }
+
+export interface RepositorySummaryRow extends RepositorySummary {
+  id: string;
+  name: string;
+  slug: string;
+}

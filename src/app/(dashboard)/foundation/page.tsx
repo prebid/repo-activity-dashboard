@@ -1,8 +1,10 @@
+import { requireViewer } from '@/lib/auth/viewer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { MetricValue } from '@/components/metrics/metric-value';
-export default function FoundationPage() {
+export default async function FoundationPage() {
+  await requireViewer();
   return (
     <>
       <h1 className="text-3xl font-semibold">Component foundation</h1>

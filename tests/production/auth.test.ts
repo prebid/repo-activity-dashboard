@@ -1,161 +1,25 @@
 // @vitest-environment node
 import { it, expect, inject } from 'vitest';
-import { mkdtemp, cp, symlink, writeFile, readFile, rm } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
-import { createServer } from 'node:http';
-import { createServer as createPortServer } from 'node:net';
-import { spawn } from 'node:child_process';
-import { setTimeout } from 'node:timers/promises';
-import { DynamoDBClient, CreateTableCommand } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, PutCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { GetCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { z } from 'zod';
-import { hashPassword, verifyPassword } from '@/lib/auth/passwords';
-import { writeRuntimeSettings } from '../../scripts/runtime-settings.mjs';
+import { verifyPassword } from '@/lib/auth/passwords';
+import { startProductionApp } from '../support/production-app';
 
-it('runs the production artifact with packaged non-secret configuration, IAM SDK boundaries, current sessions, and protected account APIs', async () => {
-  expect((await readFile('.next/dashboard-mode', 'utf8')).trim()).toBe('production');
-  const endpoint = inject('accountEndpoint');
-  const client = DynamoDBDocumentClient.from(
-    new DynamoDBClient({
-      endpoint,
-      region: 'us-east-2',
-      credentials: { accessKeyId: 'local', secretAccessKey: 'local' },
-    }),
-  );
-  const users = 'production-users',
-    whitelist = 'production-whitelist';
-  for (const [TableName, key] of [
-    [users, 'id'],
-    [whitelist, 'email'],
-  ])
+it('runs the packaged production artifact with current sessions and protected account APIs', async () => {
+  const fixture = await startProductionApp(inject('accountEndpoint'));
+  const { origin, client, users, whitelist, secret } = fixture;
+  const password = 'StrongTestPassword1!';
+  try {
+    await fixture.seedUser({ id: 'admin', email: 'admin@example.test', password, role: 'admin' });
+    // Match the DynamoDB Number timestamp prescribed by the original setup documentation.
     await client.send(
-      new CreateTableCommand({
-        TableName,
-        KeySchema: [{ AttributeName: key, KeyType: 'HASH' }],
-        AttributeDefinitions: [{ AttributeName: key, AttributeType: 'S' }],
-        BillingMode: 'PAY_PER_REQUEST',
+      new UpdateCommand({
+        TableName: whitelist,
+        Key: { email: 'admin@example.test' },
+        UpdateExpression: 'SET addedAt = :at',
+        ExpressionAttributeValues: { ':at': 1754006400000 },
       }),
     );
-  const password = 'StrongTestPassword1!';
-  await client.send(
-    new PutCommand({
-      TableName: users,
-      Item: {
-        id: 'admin',
-        email: 'admin@example.test',
-        password: await hashPassword(password),
-        role: 'admin',
-        authVersion: 1,
-        mustChangePassword: false,
-        createdAt: 'test',
-        updatedAt: 'test',
-      },
-    }),
-  );
-  await client.send(
-    new PutCommand({
-      TableName: whitelist,
-      Item: { email: 'admin@example.test', userId: 'admin', role: 'admin', isActive: true },
-    }),
-  );
-  const secret = 'production-smoke-secret-from-managed-service-only';
-  const arn = 'arn:aws:secretsmanager:us-east-2:123456789012:secret:smoke-auth';
-  let secretReads = 0;
-  const secretServer = createServer((request, response) => {
-    if (
-      request.headers['x-amz-target'] !== 'secretsmanager.GetSecretValue' ||
-      !request.headers.authorization?.includes('Credential=local/')
-    ) {
-      response.writeHead(400);
-      response.end('{}');
-      return;
-    }
-    secretReads++;
-    response.writeHead(200, { 'content-type': 'application/x-amz-json-1.1' });
-    response.end(
-      JSON.stringify({ ARN: arn, SecretString: JSON.stringify({ authSecret: secret }) }),
-    );
-  });
-  await new Promise<void>((resolve) => secretServer.listen(0, '127.0.0.1', resolve));
-  const secretAddress = secretServer.address();
-  if (!secretAddress || typeof secretAddress === 'string')
-    throw new Error('No secret fixture port');
-  const portServer = createPortServer();
-  await new Promise<void>((resolve) => portServer.listen(0, '127.0.0.1', resolve));
-  const address = portServer.address();
-  if (!address || typeof address === 'string') throw new Error('No application port');
-  const port = address.port;
-  await new Promise<void>((resolve, reject) =>
-    portServer.close((error) => (error ? reject(error) : resolve())),
-  );
-  const root = await mkdtemp(join(tmpdir(), 'dashboard-production-'));
-  let child: ReturnType<typeof spawn> | undefined;
-  let output = '';
-  try {
-    await cp('.next', join(root, '.next'), {
-      recursive: true,
-      filter: (path) => !path.includes('/.next/cache'),
-    });
-    await symlink(resolve('node_modules'), join(root, 'node_modules'), 'dir');
-    await writeFile(join(root, 'package.json'), '{"type":"module"}\n');
-    // No source tree, root manifest, or .env is copied. Configuration is read
-    // from the packaged server path using the same allowlisted writer.
-    await writeRuntimeSettings(
-      {
-        AWS_APP_ID: 'smoke',
-        AWS_REGION: 'us-east-2',
-        DYNAMODB_USERS_TABLE: users,
-        DYNAMODB_WHITELIST_TABLE: whitelist,
-        AUTH_URL: 'https://dashboard.example.test',
-        DASHBOARD_AUTH_SECRET_ARN: arn,
-      },
-      join(root, '.next/server/dashboard-runtime.json'),
-    );
-    const environment: NodeJS.ProcessEnv = { ...process.env };
-    for (const key of Object.keys(environment))
-      if (/^(AWS_|S3_|DYNAMODB_|AUTH_|NEXTAUTH_|AMPLIFY_|NEXT_PUBLIC_|DASHBOARD_)/.test(key))
-        delete environment[key];
-    Object.assign(environment, {
-      NODE_ENV: 'production',
-      NEXT_TELEMETRY_DISABLED: '1',
-      AWS_ACCESS_KEY_ID: 'local',
-      AWS_SECRET_ACCESS_KEY: 'local',
-      AWS_EC2_METADATA_DISABLED: 'true',
-      AWS_ENDPOINT_URL_DYNAMODB: endpoint,
-      AWS_ENDPOINT_URL_SECRETS_MANAGER: 'http://127.0.0.1:' + secretAddress.port,
-    });
-    child = spawn(
-      process.execPath,
-      [
-        resolve('node_modules/next/dist/bin/next'),
-        'start',
-        '--hostname',
-        '127.0.0.1',
-        '--port',
-        String(port),
-      ],
-      { cwd: root, env: environment, stdio: ['ignore', 'pipe', 'pipe'] },
-    );
-    child.stdout?.on('data', (chunk: Buffer) => {
-      output += chunk.toString();
-    });
-    child.stderr?.on('data', (chunk: Buffer) => {
-      output += chunk.toString();
-    });
-    const origin = 'http://127.0.0.1:' + port;
-    let ready = false;
-    for (let i = 0; i < 120; i++) {
-      if (child.exitCode !== null) throw new Error('Production server failed: ' + output);
-      try {
-        if ((await fetch(origin + '/api/health')).ok) {
-          ready = true;
-          break;
-        }
-      } catch {}
-      await setTimeout(250);
-    }
-    expect(ready, output).toBe(true);
     expect((await fetch(origin + '/api/auth/setup', { method: 'POST', body: '{}' })).status).toBe(
       403,
     );
@@ -189,7 +53,46 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
     const identity: unknown = await session.json();
     expect(identity).toMatchObject({ user: { id: 'admin', role: 'admin', authVersion: 1 } });
     expect(JSON.stringify(identity)).not.toContain(secret);
-    expect(secretReads).toBeGreaterThan(0);
+    expect(fixture.secretReads()).toBeGreaterThan(0);
+    fixture.setAccountUnavailable(true);
+    const unavailable = await fetch(origin + '/api/auth/session', {
+      headers: { cookie: cookie() },
+    });
+    expect(unavailable.status).toBe(503);
+    expect(unavailable.headers.getSetCookie()).toEqual([]);
+    expect(await unavailable.json()).toEqual({
+      error: 'Authentication is temporarily unavailable. Please try again.',
+    });
+    expect(
+      (await fetch(origin + '/api/admin/users', { headers: { cookie: cookie() } })).status,
+    ).toBe(503);
+    fixture.setAccountUnavailable(false);
+    expect(
+      await (await fetch(origin + '/api/auth/session', { headers: { cookie: cookie() } })).json(),
+    ).toMatchObject({ user: { id: 'admin' } });
+    for (const [route, canary] of [
+      ['/repos', 'Prebid.js'],
+      ['/contributors', 'Alice'],
+      ['/companies', 'Example Company A'],
+      ['/repos/prebidjs', 'Sample PR 137: Update integration behavior'],
+      ['/repos/prebidjs?view=issues', 'Sample issue 834: Improve documentation'],
+    ]) {
+      const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
+      expect(permitted.status).toBe(200);
+      expect(await permitted.text()).toContain(canary);
+      const anonymous = await fetch(origin + route, { redirect: 'manual' });
+      expect(anonymous.status).toBe(307);
+      expect(anonymous.headers.get('location')).toContain('/auth/login');
+      expect(await anonymous.text()).not.toContain(canary);
+      const flight = await fetch(origin + route, { headers: { RSC: '1' }, redirect: 'manual' });
+      expect([200, 307]).toContain(flight.status);
+      const payload = await flight.text();
+      expect(payload).not.toContain(canary);
+      expect(
+        payload.includes('/auth/login') ||
+          Boolean(flight.headers.get('location')?.includes('/auth/login')),
+      ).toBe(true);
+    }
     const created = await fetch(origin + '/api/admin/users', {
       method: 'POST',
       headers: {
@@ -199,7 +102,7 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
       },
       body: JSON.stringify({ email: 'new@example.test', role: 'user' }),
     });
-    expect(created.status, output).toBe(200);
+    expect(created.status, fixture.logs()).toBe(200);
     const result = z
       .object({ userId: z.string(), tempPassword: z.string() })
       .parse(await created.json());
@@ -252,7 +155,7 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
       },
       body: JSON.stringify({ email: 'admin@example.test' }),
     });
-    expect(reset.status, output).toBe(200);
+    expect(reset.status, fixture.logs()).toBe(200);
     const resetValue = z.object({ tempPassword: z.string() }).parse(await reset.json());
     const oldSession = await fetch(origin + '/api/auth/session', { headers: { cookie: cookie() } });
     expect(await oldSession.json()).toBeNull();
@@ -290,7 +193,7 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
         newPassword: 'DifferentSecurePassword2!',
       }),
     });
-    expect(changed.status, output).toBe(200);
+    expect(changed.status, fixture.logs()).toBe(200);
     expect(
       await (await fetch(origin + '/api/auth/session', { headers: { cookie: cookie() } })).json(),
     ).toBeNull();
@@ -299,19 +202,6 @@ it('runs the production artifact with packaged non-secret configuration, IAM SDK
       (await fetch(origin + '/api/admin/users', { headers: { cookie: cookie() } })).status,
     ).toBe(200);
   } finally {
-    if (child) {
-      child.kill('SIGTERM');
-      await Promise.race([
-        new Promise<void>((resolve) => child!.once('exit', () => resolve())),
-        setTimeout(3000),
-      ]);
-      if (child.exitCode === null) child.kill('SIGKILL');
-    }
-    secretServer.closeAllConnections();
-    await new Promise<void>((resolve, reject) =>
-      secretServer.close((error) => (error ? reject(error) : resolve())),
-    );
-    client.destroy();
-    await rm(root, { recursive: true, force: true });
+    await fixture.dispose();
   }
 });

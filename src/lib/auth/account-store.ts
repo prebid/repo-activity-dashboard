@@ -1,4 +1,8 @@
 import {
+  temporaryPasswordHoursSchema,
+  temporaryCredentialCurrent,
+} from '@/models/temporary-credentials';
+import {
   GetCommand,
   ScanCommand,
   TransactGetCommand,
@@ -17,7 +21,12 @@ import {
   type AccountRole,
 } from '@/models/accounts';
 import { accountTargetSchema, type AccountTarget } from '@/models/account-target';
-import { AccountError } from './account-errors';
+import {
+  AccountError,
+  AccountDataError,
+  MigrationInterruptedError,
+  type RecordProblem,
+} from './account-errors';
 import type { AccountSnapshot } from './session-policy';
 import type { AccessUser } from './access-policy';
 export type User = AccountRecord;
@@ -25,6 +34,14 @@ export type AccountAuthority = { kind: 'operator' } | ({ kind: 'session' } & Acc
 export interface PreparedAccount {
   user: User;
   tempPassword: string;
+  expiresAt: string;
+}
+export interface PreparedPasswordReset {
+  user: User;
+  tempPassword: string;
+  passwordHash: string;
+  expiresAt: string;
+  issuedAt: string;
 }
 type Write = NonNullable<TransactWriteCommandInput['TransactItems']>[number];
 export const bootstrapId = '__dashboard_bootstrap_v1__';
@@ -35,31 +52,63 @@ export function generateTempPassword(): string {
   for (let i = 0; i < 12; i++) password += chars.charAt(randomInt(chars.length));
   return password;
 }
-export async function prepareAccount(input: unknown, createdBy: string): Promise<PreparedAccount> {
-  const fields = createAccountSchema.parse(input);
-  const tempPassword = generateTempPassword();
-  const { hashPassword } = await import('./passwords');
-  const now = new Date().toISOString();
-  return {
-    tempPassword,
-    user: {
-      ...fields,
-      id: randomUUID(),
-      name: fields.name || fields.email.split('@')[0],
-      password: await hashPassword(tempPassword),
-      createdAt: now,
-      updatedAt: now,
-      createdBy,
-      mustChangePassword: true,
-      authVersion: 1,
-    },
-  };
-}
-export function createAccountStore(client: DynamoDBDocumentClient, input: AccountTarget) {
+export function createAccountStore(
+  client: DynamoDBDocumentClient,
+  input: AccountTarget,
+  options: { now?: () => number; temporaryPasswordHours?: number } = {},
+) {
+  const now = options.now ?? Date.now;
+  const lifetime =
+    temporaryPasswordHoursSchema.parse(options.temporaryPasswordHours) * 60 * 60 * 1000;
   const target = Object.freeze(accountTargetSchema.parse(input));
   const getDocClient = () => client;
   const accountTable = (kind: 'users' | 'whitelist') =>
     kind === 'users' ? target.usersTable : target.whitelistTable;
+  async function issueTemporaryCredential() {
+    const tempPassword = generateTempPassword();
+    const { hashPassword } = await import('./passwords');
+    const passwordHash = await hashPassword(tempPassword);
+    const issued = now();
+    return {
+      tempPassword,
+      passwordHash,
+      issuedAt: new Date(issued).toISOString(),
+      expiresAt: new Date(issued + lifetime).toISOString(),
+    };
+  }
+  async function prepareAccount(input: unknown, createdBy: string): Promise<PreparedAccount> {
+    const fields = createAccountSchema.parse(input);
+    const credential = await issueTemporaryCredential();
+    return {
+      tempPassword: credential.tempPassword,
+      expiresAt: credential.expiresAt,
+      user: {
+        ...fields,
+        id: randomUUID(),
+        name: fields.name || fields.email.split('@')[0],
+        password: credential.passwordHash,
+        createdAt: credential.issuedAt,
+        updatedAt: credential.issuedAt,
+        createdBy,
+        mustChangePassword: true,
+        temporaryPasswordExpiresAt: credential.expiresAt,
+        authVersion: 1,
+      },
+    };
+  }
+  async function preparePasswordReset(user: User): Promise<PreparedPasswordReset> {
+    return { user, ...(await issueTemporaryCredential()) };
+  }
+  async function commitPasswordReset(prepared: PreparedPasswordReset, authority: AccountAuthority) {
+    if (Date.parse(prepared.expiresAt) <= now()) throw new AccountError('expired');
+    await updateUserPassword(
+      prepared.user,
+      prepared.passwordHash,
+      authority,
+      true,
+      prepared.expiresAt,
+    );
+  }
   function nextVersion(version: number): number {
     if (!Number.isSafeInteger(version + 1)) throw new AccountError('integrity');
     return version + 1;
@@ -171,7 +220,11 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
     );
     return result.Item ? accountRecordSchema.parse(result.Item) : null;
   }
-  async function getAccountSnapshot(id: string, email: string): Promise<AccountSnapshot> {
+  async function getAccountSnapshot(
+    id: string,
+    email: string,
+    signal?: AbortSignal,
+  ): Promise<AccountSnapshot> {
     const result = await getDocClient().send(
       new TransactGetCommand({
         TransactItems: [
@@ -179,6 +232,7 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
           { Get: { TableName: accountTable('whitelist'), Key: { email } } },
         ],
       }),
+      { abortSignal: signal },
     );
     return { user: result.Responses?.[0]?.Item, access: result.Responses?.[1]?.Item };
   }
@@ -188,6 +242,8 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
     bootstrap = false,
   ): Promise<void> {
     const user = accountRecordSchema.parse(prepared.user);
+    if (user.temporaryPasswordExpiresAt !== prepared.expiresAt) throw new AccountError('integrity');
+    if (!temporaryCredentialCurrent(user, now())) throw new AccountError('expired');
     if (bootstrap && (authority.kind !== 'operator' || user.role !== 'admin'))
       throw new AccountError('conflict');
     if (bootstrap && (await listAccounts()).length) throw new AccountError('bootstrap-complete');
@@ -277,8 +333,12 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
     newHashedPassword: string,
     authority: AccountAuthority,
     mustChange: boolean,
+    temporaryExpiry?: string,
   ): Promise<void> {
-    const now = new Date().toISOString();
+    const writtenAt = new Date(now()).toISOString();
+    if (mustChange && (!temporaryExpiry || Date.parse(temporaryExpiry) <= now()))
+      throw new AccountError('expired');
+    if (!mustChange && !temporaryCredentialCurrent(user, now())) throw new AccountError('expired');
     const admin = mustChange || authority.kind === 'operator';
     if (
       !admin &&
@@ -308,10 +368,16 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
           TableName: accountTable('users'),
           Key: { id: user.id },
           UpdateExpression:
-            'SET password = :password, mustChangePassword = :mustChange, lastPasswordChange = :now, updatedAt = :now, authVersion = :next',
+            'SET password = :password, mustChangePassword = :mustChange, lastPasswordChange = :now, updatedAt = :now, authVersion = :next' +
+            (mustChange
+              ? ', temporaryPasswordExpiresAt = :expires'
+              : ' REMOVE temporaryPasswordExpiresAt'),
           ConditionExpression:
             'attribute_exists(id) AND email = :email AND password = :oldPassword AND ' +
             revisionCondition(user.authVersion) +
+            (!mustChange && user.mustChangePassword
+              ? ' AND temporaryPasswordExpiresAt = :expectedExpiry AND temporaryPasswordExpiresAt > :now'
+              : '') +
             (selfAdmin
               ? ' AND #role = :admin AND (attribute_not_exists(mustChangePassword) OR mustChangePassword = :notRequired)'
               : ''),
@@ -319,7 +385,11 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
           ExpressionAttributeValues: {
             ':password': newHashedPassword,
             ':mustChange': mustChange,
-            ':now': now,
+            ':now': writtenAt,
+            ...(mustChange ? { ':expires': temporaryExpiry } : {}),
+            ...(!mustChange && user.mustChangePassword
+              ? { ':expectedExpiry': user.temporaryPasswordExpiresAt }
+              : {}),
             ':next': nextVersion(user.authVersion),
             ':version': user.authVersion,
             ':email': user.email,
@@ -334,13 +404,16 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
   async function adminResetPassword(
     email: string,
     authority: AccountAuthority,
-  ): Promise<{ tempPassword: string }> {
+  ): Promise<{ email: string; tempPassword: string; expiresAt: string }> {
     const user = await getUserByEmail(email);
     if (!user) throw new AccountError('not-found');
-    const tempPassword = generateTempPassword();
-    const { hashPassword } = await import('./passwords');
-    await updateUserPassword(user, await hashPassword(tempPassword), authority, true);
-    return { tempPassword };
+    const prepared = await preparePasswordReset(user);
+    await commitPasswordReset(prepared, authority);
+    return {
+      email: user.email,
+      tempPassword: prepared.tempPassword,
+      expiresAt: prepared.expiresAt,
+    };
   }
   async function listAccounts(): Promise<User[]> {
     const users: User[] = [];
@@ -369,41 +442,127 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
     } while (cursor && Object.keys(cursor).length);
     return users;
   }
-  async function migrateAccountLinks(
-    apply: boolean,
-  ): Promise<{ accounts: number; linked: number }> {
-    const users = await listAccounts();
+  async function migrateAccountLinks(apply: boolean): Promise<{
+    accounts: number;
+    linked: number;
+    requiresCredentialReissue: { id: string; email: string }[];
+  }> {
+    // A whitelist entry without an account can still break listing and provisioning.
+    // Validate both populations before the first migration write.
+    const rawUsers = await scanPopulation('users');
+    const rawAccess = await scanPopulation('whitelist');
+    const problems: RecordProblem[] = [];
+    const users: User[] = [];
+    const accessByEmail = new Map<string, WhitelistRecord>();
+    for (const item of rawUsers) {
+      if (
+        item.id === bootstrapId &&
+        typeof item.kind === 'string' &&
+        ['bootstrap', 'initialization'].includes(item.kind)
+      )
+        continue;
+      const parsed = accountRecordSchema.safeParse(item);
+      if (!parsed.success || item.email !== parsed.data.email) {
+        problems.push({
+          table: 'users',
+          key: typeof item.id === 'string' ? item.id : '<invalid id>',
+          fields: parsed.success ? ['email'] : parsed.error.issues.map((i) => i.path.join('.')),
+        });
+      } else users.push(parsed.data);
+    }
+    for (const item of rawAccess) {
+      const parsed = whitelistRecordSchema.safeParse(item);
+      if (!parsed.success || item.email !== parsed.data.email) {
+        problems.push({
+          table: 'whitelist',
+          key: typeof item.email === 'string' ? item.email : '<invalid email>',
+          fields: parsed.success ? ['email'] : parsed.error.issues.map((i) => i.path.join('.')),
+        });
+      } else accessByEmail.set(parsed.data.email, parsed.data);
+    }
     const emails = new Set<string>();
     for (const user of users) {
-      if (emails.has(user.email)) throw new AccountError('integrity');
+      if (emails.has(user.email))
+        problems.push({ table: 'users', key: user.id, fields: ['email: duplicate identity'] });
       emails.add(user.email);
-      const access = await getWhitelistEntry(user.email);
-      if (access?.userId && access.userId !== user.id) throw new AccountError('integrity');
+      const access = accessByEmail.get(user.email);
+      if (access?.userId && access.userId !== user.id)
+        problems.push({
+          table: 'whitelist',
+          key: user.email,
+          fields: ['userId: conflicting link'],
+        });
     }
-    if (apply)
-      for (const user of users)
-        await transaction([
-          {
-            ConditionCheck: {
-              TableName: accountTable('users'),
-              Key: { id: user.id },
-              ConditionExpression: 'email = :email',
-              ExpressionAttributeValues: { ':email': user.email },
+    if (problems.length) throw new AccountDataError(problems);
+    users.sort((a, b) => a.id.localeCompare(b.id));
+    const completed: string[] = [];
+    if (apply) {
+      for (const user of users) {
+        try {
+          await transaction([
+            {
+              ConditionCheck: {
+                TableName: accountTable('users'),
+                Key: { id: user.id },
+                ConditionExpression: 'email = :email AND ' + revisionCondition(user.authVersion),
+                ExpressionAttributeValues: { ':email': user.email, ':version': user.authVersion },
+              },
             },
-          },
-          {
-            Update: {
-              TableName: accountTable('whitelist'),
-              Key: { email: user.email },
-              UpdateExpression:
-                'SET userId = :id, #role = if_not_exists(#role, :role), isActive = if_not_exists(isActive, :inactive)',
-              ConditionExpression: 'attribute_not_exists(userId) OR userId = :id',
-              ExpressionAttributeNames: { '#role': 'role' },
-              ExpressionAttributeValues: { ':id': user.id, ':role': user.role, ':inactive': false },
+            {
+              Update: {
+                TableName: accountTable('whitelist'),
+                Key: { email: user.email },
+                UpdateExpression:
+                  'SET userId = :id, #role = if_not_exists(#role, :role), isActive = if_not_exists(isActive, :inactive)',
+                ConditionExpression: 'attribute_not_exists(userId) OR userId = :id',
+                ExpressionAttributeNames: { '#role': 'role' },
+                ExpressionAttributeValues: {
+                  ':id': user.id,
+                  ':role': user.role,
+                  ':inactive': false,
+                },
+              },
             },
-          },
-        ]);
-    return { accounts: users.length, linked: apply ? users.length : 0 };
+          ]);
+        } catch (error) {
+          throw new MigrationInterruptedError(
+            [...completed],
+            users.slice(completed.length).map((u) => u.id),
+            error,
+          );
+        }
+        completed.push(user.id);
+      }
+    }
+    return {
+      accounts: users.length,
+      linked: apply ? users.length : 0,
+      requiresCredentialReissue: users
+        .filter((user) => !temporaryCredentialCurrent(user, now()))
+        .map((user) => ({ id: user.id, email: user.email })),
+    };
+  }
+  async function scanPopulation(kind: 'users' | 'whitelist'): Promise<Record<string, unknown>[]> {
+    const records: Record<string, unknown>[] = [];
+    let cursor: Record<string, unknown> | undefined;
+    const seen = new Set<string>();
+    do {
+      const result = await getDocClient().send(
+        new ScanCommand({
+          TableName: accountTable(kind),
+          ConsistentRead: true,
+          ExclusiveStartKey: cursor,
+        }),
+      );
+      records.push(...(result.Items ?? []));
+      cursor = result.LastEvaluatedKey;
+      if (cursor && Object.keys(cursor).length) {
+        const key = JSON.stringify(cursor);
+        if (seen.has(key)) throw new AccountError('integrity');
+        seen.add(key);
+      }
+    } while (cursor && Object.keys(cursor).length);
+    return records;
   }
   async function setAccountAccess(user: User, role: AccountRole, active: boolean): Promise<void> {
     // Operator-only IAM command. Changing access also prevents old cookies reviving after re-enable.
@@ -482,6 +641,8 @@ export function createAccountStore(client: DynamoDBDocumentClient, input: Accoun
     isEmailWhitelisted,
     getAllWhitelistedEmails,
     prepareAccount,
+    preparePasswordReset,
+    commitPasswordReset,
     generateTempPassword,
     createPreparedAccount,
     adminCreateUser,

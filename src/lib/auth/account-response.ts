@@ -5,7 +5,14 @@ export function accountErrorResponse(error: unknown, fallback: string) {
     return NextResponse.json(
       { error: error.message },
       {
-        status: error.code === 'not-found' ? 404 : error.code === 'integrity' ? 500 : 409,
+        status:
+          error.code === 'expired'
+            ? 401
+            : error.code === 'not-found'
+              ? 404
+              : error.code === 'integrity'
+                ? 500
+                : 409,
       },
     );
   return NextResponse.json({ error: fallback }, { status: 500 });

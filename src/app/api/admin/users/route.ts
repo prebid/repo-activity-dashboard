@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const body = await readRequestBody(request, createAccountSchema);
     if (!body.ok) return body.response;
     const { email, name, role, company } = body.data;
-    const { user, tempPassword } = await adminCreateUser(email, name, role, company, {
+    const { user, tempPassword, expiresAt } = await adminCreateUser(email, name, role, company, {
       kind: 'session',
       ...access.user,
     });
@@ -30,6 +30,7 @@ export async function POST(request: Request) {
       userId: user.id,
       email: user.email,
       tempPassword,
+      expiresAt,
     });
   } catch (error) {
     return accountErrorResponse(error, 'Failed to create user');

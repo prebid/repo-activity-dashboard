@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 export function LoginView({ callbackUrl, preview }: { callbackUrl?: string; preview: boolean }) {
   const router = useRouter();
@@ -19,9 +20,14 @@ export function LoginView({ callbackUrl, preview }: { callbackUrl?: string; prev
     try {
       const result = await signIn('credentials', { email, password, redirect: false });
       if (result?.error || !result?.ok)
-        setError('Unable to sign in. Check your details and try again.');
+        setError(
+          result?.error === 'Configuration'
+            ? 'Sign-in is temporarily unavailable. Try again or contact an administrator.'
+            : 'Unable to sign in. Check your details and try again.',
+        );
       else {
-        router.push(safeReturnPath(callbackUrl));
+        notifyAuthTransition();
+        router.replace(safeReturnPath(callbackUrl));
         router.refresh();
       }
     } catch {

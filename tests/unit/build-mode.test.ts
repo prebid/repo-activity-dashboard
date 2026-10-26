@@ -22,7 +22,7 @@ function run(
     mkdirSync(directory, { recursive: true });
     writeFileSync(
       join(directory, 'next'),
-      'console.log(JSON.stringify({url:process.env.AUTH_URL,nextUrl:process.env.NEXTAUTH_URL}));',
+      'console.log(JSON.stringify({url:process.env.AUTH_URL,nextUrl:process.env.NEXTAUTH_URL,args:process.argv.slice(2)}));',
     );
   }
   return spawnSync(process.execPath, [resolve('scripts/app.mjs'), ...args], {
@@ -61,6 +61,7 @@ describe('application launcher boundaries', () => {
     expect(JSON.parse(result.stdout)).toEqual({
       url: 'http://127.0.0.1:3100',
       nextUrl: 'http://127.0.0.1:3100',
+      args: ['start', '--hostname', '127.0.0.1', '--port', '3100'],
     });
   });
   it('rejects starting a production artifact as a preview', () => {
@@ -77,5 +78,14 @@ describe('application launcher boundaries', () => {
     const result = run(['build', 'unknown']);
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain('Expected dev|build|start');
+  });
+});
+
+it('binds an unspecified preview hostname to loopback', () => {
+  const result = run(['start', 'preview'], 'preview', {}, true);
+  expect(result.status).toBe(0);
+  expect(JSON.parse(result.stdout)).toMatchObject({
+    url: 'http://127.0.0.1:3000',
+    args: ['start', '--hostname', '127.0.0.1'],
   });
 });

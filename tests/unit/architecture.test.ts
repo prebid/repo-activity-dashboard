@@ -93,3 +93,23 @@ it('keeps operator command entry points outside application imports', () => {
     result.failures.some((failure) => failure.startsWith('application-no-operator-scripts:')),
   ).toBe(true);
 });
+it('requires protected code to use the current-viewer boundary instead of raw token identity', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/app/page.ts':
+        "import { rawHandlers } from '@/lib/auth/auth'; export const page=rawHandlers;",
+      'src/lib/auth/auth.ts': 'export const rawHandlers = {};',
+    }),
+  );
+  expect(result.failures.some((failure) => failure.startsWith('current-viewer-boundary:'))).toBe(
+    true,
+  );
+  const allowed = inspectArchitecture(
+    fixture({
+      'src/lib/auth/session-transport.ts':
+        "import { rawHandlers } from './auth'; export const read=rawHandlers;",
+      'src/lib/auth/auth.ts': 'export const rawHandlers = {};',
+    }),
+  );
+  expect(allowed.failures).toEqual([]);
+});

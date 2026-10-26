@@ -10,11 +10,11 @@ export async function POST(request: Request) {
     if (!access.ok) return access.response;
     const body = await readRequestBody(request, resetAccountSchema);
     if (!body.ok) return body.response;
-    const { tempPassword } = await adminResetPassword(body.data.email, {
+    const credential = await adminResetPassword(body.data.email, {
       kind: 'session',
       ...access.user,
     });
-    return NextResponse.json({ message: 'Password reset successfully', tempPassword });
+    return NextResponse.json({ message: 'Password reset successfully', ...credential });
   } catch (error) {
     return accountErrorResponse(error, 'Failed to reset password');
   }

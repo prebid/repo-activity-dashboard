@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile, rm } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { writeRuntimeSettings } from './runtime-settings.mjs';
+import { writeRuntimeSettings, writeRuntimeFile } from './runtime-settings.mjs';
 const [command, mode] = process.argv.slice(2);
 if (!['dev', 'build', 'start'].includes(command) || !['preview', 'production'].includes(mode))
   throw new Error('Expected dev|build|start preview|production');
@@ -17,13 +17,16 @@ if (command === 'build') {
   await rm('.next/dashboard-mode', { force: true });
   await writeRuntimeSettings(mode === 'production' ? process.env : {}, '.dashboard-runtime.json');
 }
+const argumentsForNext = process.argv.slice(4);
 if (mode === 'preview') {
   const { values } = parseArgs({
     args: process.argv.slice(4),
     strict: false,
     options: { port: { type: 'string', short: 'p' }, hostname: { type: 'string', short: 'H' } },
   });
-  const host = typeof values.hostname === 'string' ? values.hostname : 'localhost';
+  const host = typeof values.hostname === 'string' ? values.hostname : '127.0.0.1';
+  if (values.hostname === undefined && command !== 'build')
+    argumentsForNext.push('--hostname', host);
   const port = typeof values.port === 'string' ? values.port : process.env.PORT || '3000';
   const origin = new URL('http://' + (host.includes(':') ? '[' + host + ']' : host) + ':' + port)
     .origin;
@@ -33,7 +36,7 @@ if (mode === 'preview') {
 }
 const child = spawn(
   process.execPath,
-  ['node_modules/next/dist/bin/next', command, ...process.argv.slice(4)],
+  ['node_modules/next/dist/bin/next', command, ...argumentsForNext],
   {
     stdio: 'inherit',
     env: environment,
@@ -48,10 +51,9 @@ child.on('exit', (code) => {
   }
   if (command === 'build') {
     void (async () => {
-      await writeFile(
+      await writeRuntimeFile(
         '.next/server/dashboard-runtime.json',
         await readFile('.dashboard-runtime.json'),
-        { mode: 0o600 },
       );
       await writeFile('.next/dashboard-mode', mode);
     })().catch((error) => {

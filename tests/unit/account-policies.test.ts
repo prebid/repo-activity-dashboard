@@ -13,6 +13,7 @@ const account = {
   role: 'admin' as const,
   authVersion: 0,
   mustChangePassword: true,
+  temporaryPasswordExpiresAt: '2099-01-01T00:00:00.000Z',
   createdAt: '',
   updatedAt: '',
 };
@@ -51,12 +52,14 @@ describe('production credential policy', () => {
     deps.isAllowed.mockResolvedValue(false);
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
     expect(deps.findByEmail).not.toHaveBeenCalled();
+    expect(deps.verify).toHaveBeenCalledTimes(1);
   });
   it('refuses missing accounts and incorrect passwords', async () => {
     const deps = dependencies();
     deps.findByEmail.mockResolvedValue(null);
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
-    expect(deps.verify).not.toHaveBeenCalled();
+    expect(deps.verify).toHaveBeenCalledTimes(1);
+    expect(deps.verify.mock.calls[0][1]).not.toBe(account.password);
     deps.findByEmail.mockResolvedValue(account);
     deps.verify.mockResolvedValue(false);
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
@@ -143,4 +146,14 @@ describe('JSON boundaries', () => {
       readJsonResponse(Response.json({}, { status: 500 }), messageResponseSchema, 'failed'),
     ).rejects.toThrow('failed');
   });
+});
+
+it('returns a body-size error before parsing an account mutation', async () => {
+  const result = await readRequestBody(
+    new Request('http://localhost', { method: 'POST', body: 'x'.repeat(17000) }),
+    createAccountSchema,
+  );
+  expect(result.ok).toBe(false);
+  if (result.ok) throw new Error('Expected oversized rejection');
+  expect(result.response.status).toBe(413);
 });

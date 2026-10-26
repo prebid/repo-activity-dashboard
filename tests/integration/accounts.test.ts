@@ -253,10 +253,10 @@ it('migrates legacy UUID accounts repeatably without activating disabled or unli
       Item: { ...legacy, id: 'unlisted', email: 'unlisted@example.test' },
     }),
   );
-  expect(await store.migrateAccountLinks(false)).toEqual({ accounts: 2, linked: 0 });
+  expect(await store.migrateAccountLinks(false)).toMatchObject({ accounts: 2, linked: 0 });
   expect((await getWhitelistEntry(legacy.email))?.userId).toBeUndefined();
-  expect(await store.migrateAccountLinks(true)).toEqual({ accounts: 2, linked: 2 });
-  expect(await store.migrateAccountLinks(true)).toEqual({ accounts: 2, linked: 2 });
+  expect(await store.migrateAccountLinks(true)).toMatchObject({ accounts: 2, linked: 2 });
+  expect(await store.migrateAccountLinks(true)).toMatchObject({ accounts: 2, linked: 2 });
   expect(await getWhitelistEntry(legacy.email)).toMatchObject({
     userId: 'legacy',
     role: 'viewer',
@@ -478,8 +478,11 @@ it('executes operator creation, access changes, reset, inspection and repeat-saf
   const user = (await store.getUserByEmail('managed@example.test'))!;
   expect(user.authVersion).toBe(3);
   expect(await verifyPassword(saved.temporaryPassword, user.password)).toBe(true);
-  expect(await runOperator(['migrate', ...target])).toEqual({ accounts: 1, linked: 0 });
-  expect(await runOperator(['migrate', ...target, '--apply'])).toEqual({ accounts: 1, linked: 1 });
+  expect(await runOperator(['migrate', ...target])).toMatchObject({ accounts: 1, linked: 0 });
+  expect(await runOperator(['migrate', ...target, '--apply'])).toMatchObject({
+    accounts: 1,
+    linked: 1,
+  });
   expect((await getWhitelistEntry(user.email))?.isActive).toBe(false);
 });
 it('keeps independent stores bound to their own table pair without process-global targets', async () => {
@@ -557,4 +560,238 @@ it('reads a complete whitelist across real service pages while preserving disabl
   } finally {
     db().middlewareStack.remove('countWhitelistPages');
   }
+});
+
+it('accepts documented numeric whitelist metadata and checks account-less entries before migration writes', async () => {
+  const { user } = await seed('numeric@example.test');
+  await db().send(
+    new UpdateCommand({
+      TableName: whitelist,
+      Key: { email: user.email },
+      UpdateExpression: 'SET addedAt = :at',
+      ExpressionAttributeValues: { ':at': 1754006400000 },
+    }),
+  );
+  expect((await store.getWhitelistEntry(user.email))?.addedAt).toBe(1754006400000);
+  expect(await store.isEmailWhitelisted(user.email)).toBe(true);
+  expect(await store.getUserByEmail(user.email)).toMatchObject({ id: user.id });
+  await db().send(
+    new PutCommand({
+      TableName: whitelist,
+      Item: {
+        email: 'pending@example.test',
+        isActive: true,
+        addedAt: { invalid: 'secret-value-canary' },
+      },
+    }),
+  );
+  await expect(store.migrateAccountLinks(false)).rejects.toMatchObject({
+    records: [{ table: 'whitelist', key: 'pending@example.test', fields: ['addedAt'] }],
+  });
+  let writes = 0;
+  beforeWrite = () => {
+    writes++;
+    return Promise.resolve();
+  };
+  await expect(store.migrateAccountLinks(true)).rejects.toMatchObject({ code: 'integrity' });
+  expect(writes).toBe(0);
+  await db().send(
+    new UpdateCommand({
+      TableName: whitelist,
+      Key: { email: 'pending@example.test' },
+      UpdateExpression: 'SET addedAt = :at',
+      ExpressionAttributeValues: { ':at': 1754006400000 },
+    }),
+  );
+  expect(await store.migrateAccountLinks(true)).toMatchObject({ accounts: 1, linked: 1 });
+  expect(await store.getAllWhitelistedEmails()).toHaveLength(2);
+});
+it('reports partial migration progress and safely resumes after interruption', async () => {
+  for (const id of ['legacy-a', 'legacy-b'])
+    await db().send(
+      new PutCommand({
+        TableName: users,
+        Item: {
+          id,
+          email: id + '@example.test',
+          password: 'hash',
+          createdAt: 'old',
+          updatedAt: 'old',
+        },
+      }),
+    );
+  let calls = 0;
+  beforeWrite = () => {
+    if (++calls === 2) throw new Error('transport interrupted');
+    return Promise.resolve();
+  };
+  await expect(store.migrateAccountLinks(true)).rejects.toMatchObject({
+    completed: ['legacy-a'],
+    pending: ['legacy-b'],
+  });
+  expect((await getWhitelistEntry('legacy-a@example.test'))?.userId).toBe('legacy-a');
+  expect(await getWhitelistEntry('legacy-b@example.test')).toBeNull();
+  beforeWrite = undefined;
+  expect(await store.migrateAccountLinks(true)).toMatchObject({ accounts: 2, linked: 2 });
+  expect((await getWhitelistEntry('legacy-b@example.test'))?.isActive).toBe(false);
+});
+
+it('reports malformed user fields without serializing the stored hash or password value', async () => {
+  await db().send(
+    new PutCommand({
+      TableName: users,
+      Item: {
+        id: 'bad',
+        email: 'bad@example.test',
+        password: { secret: 'must-not-be-reported' },
+        createdAt: 'old',
+        updatedAt: 'old',
+      },
+    }),
+  );
+  await expect(store.migrateAccountLinks(true)).rejects.toMatchObject({
+    records: [{ table: 'users', key: 'bad', fields: ['password'] }],
+  });
+});
+it('uses one configured expiry and refuses expired issuance or password changes', async () => {
+  let clock = Date.now();
+  const timed = createAccountStore(
+    db(),
+    { region: 'us-east-2', usersTable: users, whitelistTable: whitelist },
+    { now: () => clock, temporaryPasswordHours: 48 },
+  );
+  const prepared = await timed.prepareAccount({ email: 'timed@example.test' }, 'operator');
+  expect(Date.parse(prepared.expiresAt) - Date.parse(prepared.user.createdAt)).toBe(
+    48 * 60 * 60 * 1000,
+  );
+  expect(prepared.user.temporaryPasswordExpiresAt).toBe(prepared.expiresAt);
+  await timed.createPreparedAccount(prepared, operator);
+  clock = Date.parse(prepared.expiresAt);
+  await expect(
+    timed.updateUserPassword(
+      prepared.user,
+      'newhash',
+      { kind: 'session', ...prepared.user },
+      false,
+    ),
+  ).rejects.toMatchObject({ code: 'expired' });
+  expect((await timed.migrateAccountLinks(false)).requiresCredentialReissue).toEqual([
+    { id: prepared.user.id, email: prepared.user.email },
+  ]);
+  const stale = await timed.prepareAccount({ email: 'stale@example.test' }, 'operator');
+  clock = Date.parse(stale.expiresAt);
+  await expect(timed.createPreparedAccount(stale, operator)).rejects.toMatchObject({
+    code: 'expired',
+  });
+  expect(await timed.getUserByEmail(stale.user.email)).toBeNull();
+  const replacement = await timed.preparePasswordReset(prepared.user);
+  await timed.commitPasswordReset(replacement, operator);
+  expect((await timed.getUserById(prepared.user.id))?.temporaryPasswordExpiresAt).toBe(
+    replacement.expiresAt,
+  );
+  const updated = await timed.getUserById(prepared.user.id);
+  if (!updated) throw new Error('Missing account');
+  await timed.updateUserPassword(updated, 'permanenthash', { kind: 'session', ...updated }, false);
+  expect(await timed.getUserById(updated.id)).toMatchObject({
+    mustChangePassword: false,
+    authVersion: 3,
+    password: 'permanenthash',
+  });
+  expect((await timed.getUserById(updated.id))?.temporaryPasswordExpiresAt).toBeUndefined();
+  clock = Date.parse(replacement.expiresAt);
+  await expect(timed.commitPasswordReset(replacement, operator)).rejects.toMatchObject({
+    code: 'expired',
+  });
+});
+it('allows only one reset prepared against the same account revision', async () => {
+  const { user } = await seed('reset-race@example.test');
+  const first = await store.preparePasswordReset(user),
+    second = await store.preparePasswordReset(user);
+  const observed = twoWriters();
+  const results = await Promise.allSettled([
+    store.commitPasswordReset(first, operator),
+    store.commitPasswordReset(second, operator),
+  ]);
+  observed();
+  expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
+  const saved = await store.getUserById(user.id);
+  if (!saved) throw new Error('Missing account');
+  expect(saved.authVersion).toBe(user.authVersion + 1);
+  expect(
+    [
+      await verifyPassword(first.tempPassword, saved.password),
+      await verifyPassword(second.tempPassword, saved.password),
+    ].filter(Boolean),
+  ).toHaveLength(1);
+});
+it('rejects an expiry changed after authorization before committing a password change', async () => {
+  const prepared = await store.prepareAccount({ email: 'expiry-race@example.test' }, 'operator');
+  await store.createPreparedAccount(prepared, operator);
+  beforeWrite = async () => {
+    beforeWrite = undefined;
+    await db().send(
+      new UpdateCommand({
+        TableName: users,
+        Key: { id: prepared.user.id },
+        UpdateExpression: 'SET temporaryPasswordExpiresAt = :at',
+        ExpressionAttributeValues: { ':at': '2020-01-01T00:00:00.000Z' },
+      }),
+    );
+  };
+  await expect(
+    store.updateUserPassword(
+      prepared.user,
+      'newhash',
+      { kind: 'session', ...prepared.user },
+      false,
+    ),
+  ).rejects.toMatchObject({ code: 'conflict' });
+  expect((await store.getUserById(prepared.user.id))?.password).toBe(prepared.user.password);
+});
+it('writes the exact configured expiry to operator files before committing it', async () => {
+  vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', '48');
+  const dir = await mkdtemp(join(tmpdir(), 'operator-expiry-'));
+  directories.push(dir);
+  const target = ['--region', 'us-east-2', '--users-table', users, '--whitelist-table', whitelist];
+  const output = join(dir, 'created.credentials.json');
+  await runOperator([
+    'create',
+    ...target,
+    '--email',
+    'file-expiry@example.test',
+    '--role',
+    'viewer',
+    '--output',
+    output,
+  ]);
+  const issued = z
+    .object({ expiresAt: z.string(), temporaryPassword: z.string() })
+    .parse(JSON.parse(await readFile(output, 'utf8')));
+  const user = await store.getUserByEmail('file-expiry@example.test');
+  if (!user) throw new Error('Missing account');
+  expect(user.temporaryPasswordExpiresAt).toBe(issued.expiresAt);
+  expect(Date.parse(issued.expiresAt) - Date.parse(user.createdAt)).toBe(48 * 60 * 60 * 1000);
+  const reset = join(dir, 'reset.credentials.json');
+  await runOperator(['reset-password', ...target, '--email', user.email, '--output', reset]);
+  const replaced = z
+    .object({ expiresAt: z.string(), temporaryPassword: z.string() })
+    .parse(JSON.parse(await readFile(reset, 'utf8')));
+  const current = await store.getUserById(user.id);
+  expect(current?.temporaryPasswordExpiresAt).toBe(replaced.expiresAt);
+  expect(await verifyPassword(issued.temporaryPassword, current!.password)).toBe(false);
+  expect(await verifyPassword(replaced.temporaryPassword, current!.password)).toBe(true);
+});
+
+it('identifies malformed initialization metadata instead of failing during implicit string conversion', async () => {
+  await db().send(
+    new PutCommand({
+      TableName: users,
+      Item: { id: bootstrapId, kind: { toString: 'private-canary' } },
+    }),
+  );
+  await expect(store.migrateAccountLinks(true)).rejects.toMatchObject({
+    code: 'integrity',
+    records: [{ table: 'users', key: bootstrapId }],
+  });
+  expect((await db().send(new ScanCommand({ TableName: whitelist }))).Items).toEqual([]);
 });

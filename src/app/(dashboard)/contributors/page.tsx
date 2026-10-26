@@ -1,16 +1,6 @@
-import { ContributionView } from '@/features/contributions/contribution-view';
-import { contributionRows } from '@/mocks/reporting';
-import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
-export default async function ContributorsPage({
-  searchParams,
-}: {
-  searchParams: Promise<PageSearchParams>;
-}) {
-  return (
-    <ContributionView
-      title="Contributors"
-      rows={contributionRows}
-      initialSearch={encodeSearchParams(await searchParams)}
-    />
-  );
+import { contributions } from '@/server/reporting';
+import { ContributionsScreen } from '@/app/_screens/contributions-screen';
+export default async function Page() {
+  const { viewer, rows } = await contributions('contributors');
+  return <ContributionsScreen title="Contributors" rows={rows} viewerId={viewer.id} />;
 }

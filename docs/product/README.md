@@ -16,6 +16,7 @@ The functional vision is defined. The current phase is foundation hardening and 
 
 ## Rules shared across pages
 
+- The dashboard is internal-only: all reporting pages require sign-in, including Contributors and Companies. The database repository's public visibility does not make dashboard reports public.
 - Each repository retains its own activity and attribution. A person is not assigned to a single home repository.
 - PR authorship, feedback, approvals, and merge execution remain separate metrics.
 - Contribution credit is once per account/PR/metric over the PR's lifetime, dated to the first qualifying action. Current approval state and state at merge are separate measures.
@@ -30,6 +31,7 @@ The functional vision is defined. The current phase is foundation hardening and 
 
 ## Delivery planning
 
+- [Foundation review remediation plan](../implementation/foundation-review-remediation.md): investigated review findings, settled access/onboarding decisions, implementation packages, regression criteria, and deferred deployment checks.
 - [Foundation hardening and review gate](../implementation/foundation-review-readiness.md): current dependency/quality gaps and the required review before layouts.
 
 - [Implemented foundation and verification](../implementation/quality-foundation-status.md): completed local scope, test results, dependency choices, and remaining product work.

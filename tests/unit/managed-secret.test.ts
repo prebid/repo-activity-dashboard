@@ -74,12 +74,23 @@ it.each([
   ' ' + key,
   '{invalid',
   JSON.stringify({ authSecret: 'short' }),
-  JSON.stringify({ other: key }),
 ])('rejects missing, malformed or inappropriate managed secrets %#', async (value) => {
   const load = makeSecretLoader(() => Promise.resolve(value));
-  await expect(load(arn)).rejects.toThrow('Authentication secret is unavailable');
+  await expect(load(arn)).rejects.toMatchObject({ kind: 'configuration' });
 });
 it('validates direct runtime keys without exposing rejected values', () => {
   expect(validateAuthSecret(key)).toBe(key);
   expect(() => validateAuthSecret('too-short-canary')).toThrow('at least 32');
+});
+
+it('distinguishes a JSON envelope from valid raw text without using a prefix guess', async () => {
+  for (const value of ['{' + key, JSON.stringify({ other: key }), key]) {
+    expect(await makeSecretLoader(() => Promise.resolve(value))(arn)).toBe(value);
+  }
+  await expect(
+    makeSecretLoader(() => Promise.resolve(JSON.stringify({ authSecret: null })))(arn),
+  ).rejects.toMatchObject({ kind: 'configuration' });
+  expect(
+    await makeSecretLoader(() => Promise.resolve(JSON.stringify({ authSecret: '{' + key })))(arn),
+  ).toBe('{' + key);
 });

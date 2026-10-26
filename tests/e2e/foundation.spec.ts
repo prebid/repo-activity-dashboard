@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
+import { observeBrowserErrors } from '../support/browser-errors';
 import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async ({ context }) => {
   await context.route('**/*', (route) => {
@@ -192,7 +193,7 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
   await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
   await page.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
   await page.goto('/repos');
-  await expect(page).toHaveURL(/repos.sort=openPrs/);
+  await expect(page).toHaveURL(/\/repos$/); // Restored defaults stay in memory until an action writes the URL.
   await expect(page.getByRole('columnheader', { name: 'Total open PRs ↓' })).toHaveAttribute(
     'aria-sort',
     'descending',
@@ -210,4 +211,65 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
   await expect(
     page.getByRole('columnheader', { name: 'Total open PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'none');
+});
+
+test('rapid search and same-route navigation keep the URL and rows synchronized', async ({
+  page,
+}) => {
+  await login(page);
+  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  await input.pressSequentially('z'.repeat(130), { delay: 5 });
+  await expect(page).toHaveURL(/repos.q=z{130}/);
+  await expect(input).toHaveValue('z'.repeat(130));
+  await input.fill('server');
+  await expect(page.getByRole('table').getByRole('row')).toHaveCount(3);
+  await page.getByRole('link', { name: 'Repository activity', exact: true }).click();
+  await expect(page).toHaveURL(/\/repos$/);
+  await expect(input).toHaveValue('');
+  await expect(page.getByRole('table').getByRole('row')).toHaveCount(19);
+});
+test('sort survives a real router refresh caused by another tab signing in', async ({
+  page,
+  context,
+}) => {
+  await login(page);
+  await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
+  await expect(page).toHaveURL(/repos.sort=openPrs/);
+  const refreshed = page.waitForResponse(
+    (response) =>
+      new URL(response.url()).pathname === '/repos' && response.request().headers()['rsc'] === '1',
+  );
+  const peer = await context.newPage(),
+    observed = observeBrowserErrors(peer);
+  try {
+    await login(peer);
+    await page.bringToFront();
+    await refreshed;
+    await expect(page).toHaveURL(/repos.sort=openPrs/);
+    await expect(page.getByRole('columnheader', { name: 'Total open PRs ↑' })).toHaveAttribute(
+      'aria-sort',
+      'ascending',
+    );
+    observed.assertClean();
+  } finally {
+    observed.dispose();
+    await peer.close();
+  }
+});
+test('export captures a draft search before its debounce completes', async ({ page }) => {
+  await login(page);
+  await page.getByRole('link', { name: 'Contributors', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Search Contributors' }).fill('Alice');
+  const pending = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export CSV' }).click();
+  const stream = await (await pending).createReadStream();
+  if (!stream) throw new Error('Missing export bytes');
+  let csv = '';
+  for await (const chunk of stream) {
+    if (!Buffer.isBuffer(chunk)) throw new Error('Expected bytes');
+    csv += chunk.toString('utf8');
+  }
+  expect(csv.split('\r\n')).toHaveLength(2);
+  expect(csv).toContain('"Alice"');
+  expect(csv).not.toContain('"Bob"');
 });

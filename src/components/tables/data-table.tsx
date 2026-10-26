@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { PageState } from '@/components/feedback/page-state';
 import { compareValues, csvCell } from '@/lib/presentation/format';
 import { sameTableQuery, type TableQuery } from '@/lib/presentation/table-query';
-import { useTableQuery } from './use-table-query';
+import type { TableController } from '@/lib/presentation/table-controller';
 
 const features = tableFeatures({
   rowSortingFeature,
@@ -30,56 +30,44 @@ export interface DataColumn<T> {
   value: (row: T) => string | number | null;
   cell?: (row: T) => React.ReactNode;
 }
-interface Props<T> {
+export interface DataTableProps<T> {
   title: string;
   rows: T[];
   columns: DataColumn<T>[];
-  queryKey: string;
-  initialSearch?: string;
+  controller: TableController;
   exportName?: string;
-  viewerId?: string;
   paging?: {
     /** Query that produced rows and totalCount. Stale results are never relabeled. */
     query: TableQuery;
     totalCount: number;
-    onQueryChange: (query: TableQuery) => void;
     onExport?: (query: Omit<TableQuery, 'page'>) => void | Promise<void>;
     pending?: boolean;
     error?: string;
     onRetry?: () => void;
   };
 }
+function filterRows<T>(rows: T[], columns: DataColumn<T>[], search: string): T[] {
+  return rows.filter((row) =>
+    columns.some((column) =>
+      String(column.value(row) ?? '')
+        .toLocaleLowerCase('en')
+        .includes(search.toLocaleLowerCase('en')),
+    ),
+  );
+}
 export function DataTable<T extends { id: string }>({
   title,
   rows,
   columns,
-  queryKey,
-  initialSearch = '',
+  controller,
   exportName,
-  viewerId,
   paging,
-}: Props<T>) {
+}: DataTableProps<T>) {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState('');
-  const columnIds = useMemo(() => columns.map((column) => column.id), [columns]);
-  const { query, update } = useTableQuery({
-    queryKey,
-    columnIds,
-    initialSearch,
-    viewerId,
-    onChange: paging?.onQueryChange,
-  });
+  const { query, update, reconcilePage } = controller;
   const matching = useMemo(
-    () =>
-      paging
-        ? rows
-        : rows.filter((row) =>
-            columns.some((column) =>
-              String(column.value(row) ?? '')
-                .toLocaleLowerCase('en')
-                .includes(query.search.toLocaleLowerCase('en')),
-            ),
-          ),
+    () => (paging ? rows : filterRows(rows, columns, query.search)),
     [paging, rows, columns, query.search],
   );
   if (
@@ -109,8 +97,8 @@ export function DataTable<T extends { id: string }>({
   const waiting = Boolean(paging && (paging.pending || !current || correcting));
   const page = paging ? query.page : Math.min(query.page, pageCount);
   useEffect(() => {
-    if (correcting && !paging?.pending && !paging?.error) update({ page: pageCount });
-  }, [correcting, pageCount, paging?.pending, paging?.error, update]);
+    if (correcting && !paging?.pending && !paging?.error) reconcilePage(pageCount);
+  }, [correcting, pageCount, paging?.pending, paging?.error, reconcilePage]);
   const sorting = query.sort ? [{ id: query.sort, desc: query.descending }] : [];
   const pagination = { pageIndex: page - 1, pageSize: 100 };
   const table = useTable({
@@ -130,15 +118,25 @@ export function DataTable<T extends { id: string }>({
     setExporting(true);
     setExportError('');
     try {
+      const captured = controller.flushSearch();
       if (paging) {
-        const { page: _page, ...scope } = query;
+        const { page: _page, ...scope } = captured;
         await paging.onExport?.(scope);
         return;
       }
-      const fullRows = table.getPrePaginatedRowModel().rows;
+      const sortedBy = columns.find((column) => column.id === captured.sort);
+      const fullRows = filterRows(rows, columns, captured.search).sort((a, b) =>
+        sortedBy
+          ? compareValues(
+              sortedBy.value(a),
+              sortedBy.value(b),
+              captured.descending ? 'desc' : 'asc',
+            )
+          : 0,
+      );
       const text = [
         columns.map((c) => csvCell(c.label)).join(','),
-        ...fullRows.map((row) => columns.map((c) => csvCell(c.value(row.original))).join(',')),
+        ...fullRows.map((row) => columns.map((c) => csvCell(c.value(row))).join(',')),
       ].join('\r\n');
       const url = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8;' }));
       const a = document.createElement('a');
@@ -161,8 +159,15 @@ export function DataTable<T extends { id: string }>({
             aria-label={'Search ' + title}
             placeholder="Search…"
             className="w-64"
-            value={query.search}
-            onChange={(e) => update({ search: e.target.value, page: 1 })}
+            value={controller.draftSearch}
+            onChange={(e) => controller.setSearch(e.target.value)}
+            onBlur={() => controller.flushSearch()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                controller.flushSearch();
+              }
+            }}
           />
           <details className="relative">
             <summary className="cursor-pointer rounded-md border px-3 py-2">Columns</summary>

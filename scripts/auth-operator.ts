@@ -1,3 +1,4 @@
+import { temporaryPasswordHoursSchema } from '../src/models/temporary-credentials';
 import { parseArgs } from 'node:util';
 import { open, constants } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -11,7 +12,11 @@ import {
   type AccountTarget,
 } from '../src/models/account-target';
 import type { AccountStore } from '../src/lib/auth/account-store';
-import { AccountError } from '../src/lib/auth/account-errors';
+import {
+  AccountError,
+  AccountDataError,
+  MigrationInterruptedError,
+} from '../src/lib/auth/account-errors';
 
 const common = {
   region: accountRegionSchema,
@@ -86,7 +91,15 @@ export async function runOperator(args: string[]) {
   const { createAccountStore } = await import('../src/lib/auth/account-store');
   const client = createAccountClient({ region: target.region });
   try {
-    return await executeOperator(command, createAccountStore(client, target), target);
+    return await executeOperator(
+      command,
+      createAccountStore(client, target, {
+        temporaryPasswordHours: temporaryPasswordHoursSchema.parse(
+          process.env.DASHBOARD_TEMP_PASSWORD_HOURS,
+        ),
+      }),
+      target,
+    );
   } finally {
     client.destroy();
   }
@@ -108,6 +121,7 @@ async function executeOperator(
       active: access?.isActive === true,
       authVersion: user.authVersion,
       mustChangePassword: user.mustChangePassword === true,
+      temporaryPasswordExpiresAt: user.temporaryPasswordExpiresAt,
     };
   }
   if (command.command === 'set-access') {
@@ -119,16 +133,16 @@ async function executeOperator(
   if (command.command === 'reset-password') {
     const user = await store.getUserByEmail(command.email);
     if (!user) throw new AccountError('not-found');
-    const password = store.generateTempPassword();
+    const prepared = await store.preparePasswordReset(user);
     await writeCredentialFile(command.output, {
       operation: command.command,
       accountId: user.id,
       email: user.email,
-      temporaryPassword: password,
+      temporaryPassword: prepared.tempPassword,
+      expiresAt: prepared.expiresAt,
       target,
     });
-    const { hashPassword } = await import('../src/lib/auth/passwords');
-    await store.updateUserPassword(user, await hashPassword(password), { kind: 'operator' }, true);
+    await store.commitPasswordReset(prepared, { kind: 'operator' });
     return { updated: true, accountId: user.id, credentialFile: resolve(command.output) };
   }
   const prepared = await store.prepareAccount(
@@ -140,6 +154,7 @@ async function executeOperator(
     accountId: prepared.user.id,
     email: prepared.user.email,
     temporaryPassword: prepared.tempPassword,
+    expiresAt: prepared.expiresAt,
     target,
   });
   await store.createPreparedAccount(
@@ -159,9 +174,17 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
       console.log(JSON.stringify(await runOperator(process.argv.slice(2))));
     } catch (error) {
       console.error(
-        error instanceof AccountError
-          ? error.message
-          : 'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file; no secret values are logged.',
+        error instanceof AccountDataError
+          ? JSON.stringify({ error: error.message, records: error.records })
+          : error instanceof MigrationInterruptedError
+            ? JSON.stringify({
+                error: 'Migration interrupted; rerun after resolving the failure.',
+                completed: error.completed,
+                pending: error.pending,
+              })
+            : error instanceof AccountError
+              ? error.message
+              : 'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file; no secret values are logged.',
       );
       process.exitCode = 1;
     }

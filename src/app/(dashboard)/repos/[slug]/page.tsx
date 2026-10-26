@@ -1,12 +1,6 @@
-import { notFound } from 'next/navigation';
-import { repositoryCatalog } from '@/config/repositories';
-import { repositorySample } from '@/mocks/reporting';
-import { RepositoryView } from '@/features/repositories/repository-view';
-import {
-  encodeSearchParams,
-  firstSearchParam,
-  type PageSearchParams,
-} from '@/lib/presentation/search-params';
+import { repositoryDetail } from '@/server/reporting';
+import { RepositoryScreen } from '@/app/_screens/repository-screen';
+import { firstSearchParam, type PageSearchParams } from '@/lib/presentation/search-params';
 export default async function RepositoryPage({
   params,
   searchParams,
@@ -16,19 +10,17 @@ export default async function RepositoryPage({
 }) {
   const { slug } = await params;
   const query = await searchParams;
-  const repo = repositoryCatalog.find((r) => r.slug === slug && r.enabled);
-  if (!repo) notFound();
-  const sample = repositorySample(repo.id);
+  const { viewer, repo, sample } = await repositoryDetail(slug);
   const threshold = Number(firstSearchParam(query.age));
   const age = [30, 60, 90, 120, 180, 360].includes(threshold) ? threshold : null;
   return (
-    <RepositoryView
+    <RepositoryScreen
       name={repo.displayName}
       slug={slug}
       {...sample}
       view={firstSearchParam(query.view) === 'issues' ? 'issues' : 'prs'}
       age={age}
-      initialSearch={encodeSearchParams(query)}
+      viewerId={viewer.id}
     />
   );
 }

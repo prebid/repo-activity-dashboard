@@ -22,8 +22,7 @@ const config = defineConfig({
       reportsDirectory: 'coverage/accounts',
       reporter: ['text', 'json-summary'],
       thresholds: {
-        perFile: true,
-        'src/lib/auth/account-store.ts': { lines: 85, branches: 70, functions: 100 },
+        'src/lib/auth/account-store.ts': { perFile: true, lines: 85, branches: 70, functions: 100 },
       },
     },
   },
