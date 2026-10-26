@@ -54,6 +54,9 @@ it('runs the packaged production artifact with current sessions and protected ac
     expect(identity).toMatchObject({ user: { id: 'admin', role: 'admin', authVersion: 1 } });
     expect(JSON.stringify(identity)).not.toContain(secret);
     expect(fixture.secretReads()).toBeGreaterThan(0);
+    const listing = await fetch(origin + '/api/admin/users', { headers: { cookie: cookie() } });
+    expect(listing.status).toBe(200);
+    expect(listing.headers.get('cache-control')).toContain('no-store');
     fixture.setAccountUnavailable(true);
     const unavailable = await fetch(origin + '/api/auth/session', {
       headers: { cookie: cookie() },
@@ -103,6 +106,7 @@ it('runs the packaged production artifact with current sessions and protected ac
       body: JSON.stringify({ email: 'new@example.test', role: 'user' }),
     });
     expect(created.status, fixture.logs()).toBe(200);
+    expect(created.headers.get('cache-control')).toContain('no-store');
     const result = z
       .object({ userId: z.string(), tempPassword: z.string() })
       .parse(await created.json());

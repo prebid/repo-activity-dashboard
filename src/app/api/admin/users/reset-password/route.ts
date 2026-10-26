@@ -1,9 +1,8 @@
-import { NextResponse } from 'next/server';
 import { adminResetPassword } from '@/lib/auth/users';
 import { requireAccountMutationAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
 import { resetAccountSchema } from '@/models/accounts';
-import { accountErrorResponse } from '@/lib/auth/account-response';
+import { accountJson, accountErrorResponse } from '@/lib/auth/account-response';
 export async function POST(request: Request) {
   try {
     const access = await requireAccountMutationAccess(request, { admin: true });
@@ -14,7 +13,7 @@ export async function POST(request: Request) {
       kind: 'session',
       ...access.user,
     });
-    return NextResponse.json({ message: 'Password reset successfully', ...credential });
+    return accountJson({ message: 'Password reset successfully', ...credential });
   } catch (error) {
     return accountErrorResponse(error, 'Failed to reset password');
   }

@@ -3,6 +3,7 @@ import { it, expect, inject } from 'vitest';
 import { chromium, webkit, type Page } from '@playwright/test';
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { startProductionApp } from '../support/production-app';
+import { observeBrowserErrors } from '../support/browser-errors';
 async function signIn(page: Page, origin: string, email: string, password: string) {
   await page.goto(origin + '/auth/login');
   await page.getByLabel('Email', { exact: true }).fill(email);
@@ -134,4 +135,62 @@ it.each(['chromium', 'webkit'] as const)(
     }
   },
   120000,
+);
+
+it.each(['chromium', 'webkit'] as const)(
+  'recovers from automatic sign-in transport failure after a committed password change in %s',
+  async (engine) => {
+    const fixture = await startProductionApp(inject('accountEndpoint'), { browser: true });
+    const browser = await (engine === 'chromium' ? chromium : webkit).launch();
+    try {
+      const email = 'recovery@example.test';
+      await fixture.seedUser({
+        email,
+        password: 'TemporaryRecoveryPassword1!',
+        mustChangePassword: true,
+        temporaryPasswordExpiresAt: '2099-01-01T00:00:00.000Z',
+      });
+      const page = await browser.newPage();
+      const errors = observeBrowserErrors(page);
+      await signIn(page, fixture.origin, email, 'TemporaryRecoveryPassword1!');
+      await page.waitForURL('**/auth/change-password');
+      await page
+        .getByLabel('Temporary Password', { exact: true })
+        .fill('TemporaryRecoveryPassword1!');
+      await page.getByLabel('New Password', { exact: true }).fill('PermanentRecoveryPassword2!');
+      await page
+        .getByLabel('Confirm New Password', { exact: true })
+        .fill('PermanentRecoveryPassword2!');
+      // Let the actual write commit, then fail only the subsequent automatic sign-in transport.
+      const callback = (url: URL) => url.pathname === '/api/auth/callback/credentials';
+      let blocked = 0;
+      await page.route(callback, (route) => {
+        blocked++;
+        return route.abort('failed');
+      });
+      const failedRequest = page.waitForEvent('requestfailed', {
+        predicate: (request) => callback(new URL(request.url())),
+      });
+      await page.getByRole('button', { name: 'Change Password', exact: true }).click();
+      await failedRequest;
+      expect(blocked).toBe(1);
+      await page.waitForURL('**/auth/login?passwordChanged=true');
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Password changed. Sign in with your new password.' })
+        .waitFor();
+      await page.unroute(callback);
+      await page.getByLabel('Email', { exact: true }).fill(email);
+      await page.getByLabel('Password', { exact: true }).fill('PermanentRecoveryPassword2!');
+      await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+      await page.waitForURL('**/repos');
+      await page.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
+      errors.assertClean();
+      errors.dispose();
+    } finally {
+      await browser.close();
+      await fixture.dispose();
+    }
+  },
+  60000,
 );

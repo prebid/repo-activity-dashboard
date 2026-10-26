@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { accountJson } from './account-response';
+import type { NextResponse } from 'next/server';
 import { readBoundedBody, RequestBodyError } from './bounded-request';
 import type { z } from 'zod';
 export async function readRequestBody<T>(
@@ -12,11 +13,11 @@ export async function readRequestBody<T>(
     if (error instanceof RequestBodyError)
       return {
         ok: false,
-        response: NextResponse.json({ error: error.message }, { status: error.status }),
+        response: accountJson({ error: error.message }, { status: error.status }),
       };
     return {
       ok: false,
-      response: NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 }),
+      response: accountJson({ error: 'Invalid JSON body' }, { status: 400 }),
     };
   }
   const result = schema.safeParse(input);
@@ -24,6 +25,6 @@ export async function readRequestBody<T>(
     ? { ok: true, data: result.data }
     : {
         ok: false,
-        response: NextResponse.json({ error: 'Invalid request fields' }, { status: 400 }),
+        response: accountJson({ error: 'Invalid request fields' }, { status: 400 }),
       };
 }

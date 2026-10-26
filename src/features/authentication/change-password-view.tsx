@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signOut, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { passwordRequirements } from '@/models/password-policy';
 import { readJsonResponse } from '@/lib/presentation/http';
@@ -29,11 +29,14 @@ export function ChangePasswordView({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const operation = useRef<AbortController | null>(null);
+  useEffect(() => () => operation.current?.abort(), []);
 
   const isPasswordValid = passwordRequirements.every((req) => req.test(newPassword));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (operation.current && !operation.current.signal.aborted) return;
     setError('');
 
     // Validate passwords match
@@ -49,9 +52,12 @@ export function ChangePasswordView({
     }
 
     setIsLoading(true);
+    const current = new AbortController();
+    operation.current = current;
 
     try {
       const response = await fetch('/api/auth/change-password', {
+        signal: current.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -61,33 +67,31 @@ export function ChangePasswordView({
       });
 
       await readJsonResponse(response, messageResponseSchema, 'Failed to change password');
-
-      // Refresh the session claims after changing the password.
-      const signInResult = await signIn('credentials', {
-        email,
-        password: newPassword,
-        redirect: false,
-      });
-
-      if (signInResult?.ok && !signInResult.error) {
-        // Successfully logged in with new password, redirect to dashboard
-        notifyAuthTransition();
-        router.replace('/repos');
-        router.refresh();
-      } else {
-        // If auto-login fails for some reason, sign out and redirect to login
-        await signOut({ redirect: false });
-        notifyAuthTransition();
-        router.replace('/auth/login?passwordChanged=true');
-        router.refresh();
-      }
     } catch (error) {
+      if (current.signal.aborted) return;
       setError(
         error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.',
       );
-    } finally {
       setIsLoading(false);
+      operation.current = null;
+      return;
     }
+    if (current.signal.aborted) return;
+    // The write is confirmed. A sign-in transport failure must not report a failed password change.
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    let destination = '/auth/login?passwordChanged=true';
+    try {
+      const result = await signIn('credentials', { email, password: newPassword, redirect: false });
+      if (result?.ok && !result.error) destination = '/repos';
+    } catch {
+      // The previous revision is already invalid; manual sign-in can establish a new session.
+    }
+    if (current.signal.aborted) return;
+    notifyAuthTransition();
+    router.replace(destination);
+    router.refresh();
   };
 
   const isFirstLogin = mustChangePassword;

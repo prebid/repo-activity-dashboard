@@ -54,7 +54,10 @@ export default function AdminUsersView() {
     setLoading(true);
     setLoadError('');
     try {
-      const response = await fetch('/api/admin/users', { signal: controller.signal });
+      const response = await fetch('/api/admin/users', {
+        signal: controller.signal,
+        cache: 'no-store',
+      });
       const result = await readJsonResponse(
         response,
         whitelistResponseSchema,

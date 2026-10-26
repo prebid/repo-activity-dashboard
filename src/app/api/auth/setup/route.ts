@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { accountJson } from '@/lib/auth/account-response';
 export function POST() {
-  return NextResponse.json({ error: 'Account provisioning is operator-only.' }, { status: 403 });
+  return accountJson({ error: 'Account provisioning is operator-only.' }, { status: 403 });
 }

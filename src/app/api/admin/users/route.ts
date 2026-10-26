@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
 import { adminCreateUser } from '@/lib/auth/users';
-import { accountErrorResponse } from '@/lib/auth/account-response';
+import { accountJson, accountErrorResponse } from '@/lib/auth/account-response';
 import { getAllWhitelistedEmails } from '@/lib/auth/whitelist';
 import { requireAccountAccess, requireAccountMutationAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
@@ -9,9 +8,9 @@ export async function GET() {
   try {
     const access = await requireAccountAccess({ admin: true });
     if (!access.ok) return access.response;
-    return NextResponse.json({ users: await getAllWhitelistedEmails() });
+    return accountJson({ users: await getAllWhitelistedEmails() });
   } catch {
-    return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
+    return accountJson({ error: 'Failed to fetch users' }, { status: 500 });
   }
 }
 export async function POST(request: Request) {
@@ -25,7 +24,7 @@ export async function POST(request: Request) {
       kind: 'session',
       ...access.user,
     });
-    return NextResponse.json({
+    return accountJson({
       message: 'User created successfully',
       userId: user.id,
       email: user.email,

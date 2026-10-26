@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 import { AccountError } from './account-errors';
+export function accountJson<T>(body: T, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set('cache-control', 'private, no-store');
+  return NextResponse.json(body, { ...init, headers });
+}
 export function accountErrorResponse(error: unknown, fallback: string) {
   if (error instanceof AccountError)
-    return NextResponse.json(
+    return accountJson(
       { error: error.message },
       {
         status:
@@ -15,5 +20,5 @@ export function accountErrorResponse(error: unknown, fallback: string) {
                 : 409,
       },
     );
-  return NextResponse.json({ error: fallback }, { status: 500 });
+  return accountJson({ error: fallback }, { status: 500 });
 }

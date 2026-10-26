@@ -7,7 +7,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { safeReturnPath } from '@/lib/presentation/navigation';
-export function LoginView({ callbackUrl, preview }: { callbackUrl?: string; preview: boolean }) {
+export function LoginView({
+  callbackUrl,
+  preview,
+  passwordChanged = false,
+}: {
+  callbackUrl?: string;
+  preview: boolean;
+  passwordChanged?: boolean;
+}) {
   const router = useRouter();
   const [email, setEmail] = useState(preview ? 'alice@example.test' : '');
   const [password, setPassword] = useState(preview ? 'preview' : '');
@@ -40,6 +48,11 @@ export function LoginView({ callbackUrl, preview }: { callbackUrl?: string; prev
     <section className="mx-auto max-w-md rounded-xl border bg-card p-8 shadow-sm">
       <h1 className="text-2xl font-semibold">Sign in</h1>
       <p className="mt-2 text-muted-foreground">Repository activity dashboard</p>
+      {passwordChanged && (
+        <p role="status" className="mt-4">
+          Password changed. Sign in with your new password.
+        </p>
+      )}
       {preview && (
         <p className="mt-4 rounded-md bg-muted p-3 text-sm">
           Preview accounts: alice@example.test or bob@example.test. Password: preview.

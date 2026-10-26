@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { accountJson } from './account-response';
 import { getViewer } from './viewer';
 import { accountAccess } from './access-policy';
 import { isPreviewBuild } from '@/lib/presentation/preview';
@@ -12,7 +12,7 @@ export async function requireAccountAccess(
   if (viewer.kind !== 'authenticated' && viewer.kind !== 'anonymous')
     return {
       ok: false as const,
-      response: NextResponse.json(
+      response: accountJson(
         {
           error:
             viewer.kind === 'unavailable'
@@ -28,7 +28,7 @@ export async function requireAccountAccess(
     ? { ok: true as const, user: decision.user }
     : {
         ok: false as const,
-        response: NextResponse.json({ error: decision.error }, { status: decision.status }),
+        response: accountJson({ error: decision.error }, { status: decision.status }),
       };
 }
 export async function requireAccountMutationAccess(
@@ -40,7 +40,7 @@ export async function requireAccountMutationAccess(
     if (!decision.allowed)
       return {
         ok: false as const,
-        response: NextResponse.json({ error: decision.error }, { status: decision.status }),
+        response: accountJson({ error: decision.error }, { status: decision.status }),
       };
   }
   return requireAccountAccess(options);

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { accountJson } from '@/lib/auth/account-response';
 export function GET() {
-  return NextResponse.json({ error: 'Public account setup is disabled.' }, { status: 403 });
+  return accountJson({ error: 'Public account setup is disabled.' }, { status: 403 });
 }

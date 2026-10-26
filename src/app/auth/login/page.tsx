@@ -7,5 +7,11 @@ export default async function LoginPage({
   searchParams: Promise<PageSearchParams>;
 }) {
   const params = await searchParams;
-  return <LoginView preview={isPreviewBuild} callbackUrl={firstSearchParam(params.callbackUrl)} />;
+  return (
+    <LoginView
+      preview={isPreviewBuild}
+      callbackUrl={firstSearchParam(params.callbackUrl)}
+      passwordChanged={firstSearchParam(params.passwordChanged) === 'true'}
+    />
+  );
 }

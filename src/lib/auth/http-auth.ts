@@ -1,5 +1,6 @@
 import 'server-only';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { accountJson } from './account-response';
 import { rawHandlers } from './auth';
 import { parseVerifiedSession } from './session-transport';
 import { resolveViewer, failedViewer } from './viewer';
@@ -27,16 +28,15 @@ async function handle(request: NextRequest) {
     const viewer = await resolveViewer(session);
     const headers = new Headers(response.headers);
     headers.delete('content-length');
-    headers.set('cache-control', 'private, no-store');
     if (viewer.kind === 'authenticated')
-      return NextResponse.json(
+      return accountJson(
         { ...session, user: { ...viewer.user, emailVerified: null } },
         { headers },
       );
     // Withhold the library's prepared renewal on denial/outage. The incoming cookie is unchanged.
     headers.delete('set-cookie');
-    if (viewer.kind === 'anonymous') return NextResponse.json(null, { headers });
-    return NextResponse.json(
+    if (viewer.kind === 'anonymous') return accountJson(null, { headers });
+    return accountJson(
       {
         error:
           viewer.kind === 'unavailable'
@@ -47,13 +47,12 @@ async function handle(request: NextRequest) {
     );
   } catch (error) {
     if (error instanceof RequestBodyError)
-      return NextResponse.json({ error: error.message }, { status: error.status });
+      return accountJson({ error: error.message }, { status: error.status });
     const decision = failedViewer(error);
-    return NextResponse.json(
+    return accountJson(
       { error: 'Authentication is temporarily unavailable. Please try again.' },
       {
         status: decision.kind === 'unavailable' ? 503 : 500,
-        headers: { 'cache-control': 'private, no-store' },
       },
     );
   }
