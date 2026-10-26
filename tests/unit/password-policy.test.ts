@@ -27,3 +27,13 @@ it.each(['', 'abcde'])('requires only the minimum length for short passwords %#'
     errors: ['Password must be at least 6 characters'],
   });
 });
+
+it.each(['🔑🔑🔑', '🔑🔑🔑🔑🔑'])(
+  'counts Unicode characters instead of UTF-16 units %#',
+  (password) => {
+    expect(validatePasswordStrength(password).valid).toBe(false);
+  },
+);
+it('accepts six Unicode characters within the hashing byte limit', () => {
+  expect(validatePasswordStrength('🔑🔑🔑🔑🔑🔑')).toEqual({ valid: true, errors: [] });
+});

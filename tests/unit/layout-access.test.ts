@@ -52,7 +52,9 @@ it('preserves a safe login destination and revalidates role/password-change rest
     user: { ...user, mustChangePassword: true },
     access: { email: user.email, isActive: true, role: 'admin' },
   });
-  await expect(requireViewer()).rejects.toThrow('redirect:/auth/change-password');
+  await expect(requireViewer()).rejects.toThrow(
+    'redirect:/auth/change-password?callbackUrl=%2Frepos%2Fprebidjs%3Fview%3Dissues',
+  );
   expect(await requireViewer({ allowPasswordChange: true })).toMatchObject({
     mustChangePassword: true,
   });

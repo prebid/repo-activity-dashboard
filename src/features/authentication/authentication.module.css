@@ -150,36 +150,28 @@
   outline-offset: 3px;
   box-shadow: none;
 }
-.passwordField {
-  position: relative;
-}
-.passwordInput {
-  padding-right: 48px;
-}
-.visibilityButton {
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  display: grid;
-  place-items: center;
-  width: 43px;
-  height: 43px;
-  border-radius: 5px;
+.field :global([data-slot='password-toggle']) {
   color: var(--auth-muted);
-  cursor: pointer;
 }
-.visibilityButton:hover {
+.field :global([data-slot='password-toggle']):hover {
   background: var(--auth-hover);
 }
-.visibilityButton:focus-visible,
+.field :global([data-slot='password-toggle']):focus-visible,
 .help summary:focus-visible,
 .backLink:focus-visible {
   outline: 2px solid var(--auth-ring);
   outline-offset: 2px;
 }
-.visibilityButton:disabled {
-  cursor: default;
-  opacity: 0.5;
+.noScriptNotice {
+  max-width: 448px;
+  margin: 0 auto 16px;
+  border: 1px solid var(--auth-info-border);
+  border-radius: 7px;
+  padding: 12px 14px;
+  color: var(--auth-link);
+  background: var(--auth-info-bg);
+  font-size: 14px;
+  line-height: 1.5;
 }
 .submit {
   width: 100%;

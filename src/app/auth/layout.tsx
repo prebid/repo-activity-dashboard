@@ -7,6 +7,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className={styles.appearance}>
         <ThemeMenu className={styles.themeControl} />
       </div>
+      <noscript>
+        <p className={styles.noScriptNotice}>
+          Enable JavaScript to sign in or change your password.
+        </p>
+      </noscript>
       {children}
     </main>
   );

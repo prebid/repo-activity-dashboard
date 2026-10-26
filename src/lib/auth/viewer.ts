@@ -90,8 +90,10 @@ export async function requireViewer(
     redirect('/auth/login?callbackUrl=' + encodeURIComponent(destination));
   }
   if (decision.kind !== 'authenticated') throw new AuthStateError(decision.kind);
-  if (decision.user.mustChangePassword && !options.allowPasswordChange)
-    redirect('/auth/change-password');
+  if (decision.user.mustChangePassword && !options.allowPasswordChange) {
+    const destination = safeReturnPath((await headers()).get('x-dashboard-return-path'));
+    redirect('/auth/change-password?callbackUrl=' + encodeURIComponent(destination));
+  }
   if (options.admin && (isPreviewBuild || decision.user.role !== 'admin')) redirect('/repos');
   return decision.user;
 }

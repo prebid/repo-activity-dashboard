@@ -7,22 +7,26 @@ import { signIn } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { minimumPasswordLength, validatePasswordStrength } from '@/models/password-policy';
 import { readJsonResponse } from '@/lib/presentation/http';
+import { safeReturnPath } from '@/lib/presentation/navigation';
 import { messageResponseSchema } from '@/models/accounts';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { AuthFrame } from './auth-frame';
-import { PasswordInput } from './password-input';
+import { PasswordInput } from '@/components/ui/password-input';
 import styles from './authentication.module.css';
 
 export function ChangePasswordView({
   email,
   mustChangePassword,
+  callbackUrl,
 }: {
   email: string;
   mustChangePassword: boolean;
+  callbackUrl?: string;
 }) {
   const router = useRouter();
+  const returnPath = safeReturnPath(callbackUrl);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -78,10 +82,12 @@ export function ChangePasswordView({
     setCurrentPassword('');
     setNewPassword('');
     setConfirmPassword('');
-    let destination = '/auth/login?passwordChanged=true';
+    let destination =
+      '/auth/login?passwordChanged=true' +
+      (returnPath === '/repos' ? '' : '&callbackUrl=' + encodeURIComponent(returnPath));
     try {
       const result = await signIn('credentials', { email, password: newPassword, redirect: false });
-      if (result?.ok && !result.error) destination = '/repos';
+      if (result?.ok && !result.error) destination = returnPath;
     } catch {
       // The previous revision is already invalid; manual sign-in can establish a new session.
     }
@@ -113,6 +119,7 @@ export function ChangePasswordView({
           : 'Choose a new password for your Prebid workspace.'}
       </p>
       <form
+        method="post"
         onSubmit={(event) => void handleSubmit(event)}
         className={styles.form}
         aria-busy={isLoading}
@@ -207,7 +214,15 @@ export function ChangePasswordView({
             ? 'Your new password replaces the temporary one immediately.'
             : 'Password changes take effect immediately.'}
         </p>
-        <Link prefetch={false} href="/auth/login" className={styles.backLink}>
+        <Link
+          prefetch={false}
+          href={
+            returnPath === '/repos'
+              ? '/auth/login'
+              : '/auth/login?callbackUrl=' + encodeURIComponent(returnPath)
+          }
+          className={styles.backLink}
+        >
           Back to sign in
         </Link>
       </div>

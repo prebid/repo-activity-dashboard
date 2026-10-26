@@ -8,11 +8,12 @@ const mocks = vi.hoisted(() => ({
   signOut: vi.fn(),
   replace: vi.fn(),
   refresh: vi.fn(),
+  back: vi.fn(),
   notify: vi.fn(),
 }));
 vi.mock('next-auth/react', () => ({ signIn: mocks.signIn, signOut: mocks.signOut }));
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ replace: mocks.replace, refresh: mocks.refresh }),
+  useRouter: () => ({ replace: mocks.replace, refresh: mocks.refresh, back: mocks.back }),
 }));
 vi.mock('@/components/providers/auth-transitions', () => ({
   notifyAuthTransition: mocks.notify,
@@ -23,8 +24,10 @@ beforeEach(() => {
   mocks.signOut.mockResolvedValue({ url: '/auth/login' });
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ message: 'Password changed' })));
 });
-function form() {
-  const view = render(<ChangePasswordView email="person@example.test" mustChangePassword />);
+function form(callbackUrl?: string) {
+  const view = render(
+    <ChangePasswordView email="person@example.test" mustChangePassword callbackUrl={callbackUrl} />,
+  );
   for (const [label, value] of [
     ['Temporary Password', 'TemporaryPassword1!'],
     ['New Password', 'simple'],
@@ -46,6 +49,91 @@ it('recovers at login when automatic sign-in throws after the password was commi
   expect(mocks.notify).toHaveBeenCalledOnce();
   expect(screen.getByLabelText('Temporary Password', { exact: true })).toHaveValue('');
   expect(screen.getByLabelText('New Password', { exact: true })).toHaveValue('');
+});
+
+it.each([
+  [
+    '/contributors?search=Alice',
+    '/contributors?search=Alice',
+    '/auth/login?callbackUrl=%2Fcontributors%3Fsearch%3DAlice',
+  ],
+  ['https://example.test/elsewhere', '/repos', '/auth/login'],
+])(
+  'preserves only safe destinations after password change %#',
+  async (callbackUrl, destination, loginUrl) => {
+    form(callbackUrl);
+    expect(screen.getByRole('link', { name: 'Back to sign in' })).toHaveAttribute('href', loginUrl);
+    await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith(destination));
+  },
+);
+
+it('preserves context when a confirmed password change needs manual sign-in', async () => {
+  mocks.signIn.mockResolvedValue({ ok: false });
+  form('/contributors?search=Alice');
+  await waitFor(() =>
+    expect(mocks.replace).toHaveBeenCalledWith(
+      '/auth/login?passwordChanged=true&callbackUrl=%2Fcontributors%3Fsearch%3DAlice',
+    ),
+  );
+});
+
+it('does not issue another write while a password change is pending', async () => {
+  let complete!: (response: Response) => void;
+  vi.mocked(fetch).mockReturnValue(
+    new Promise((resolve) => {
+      complete = resolve;
+    }),
+  );
+  form();
+  fireEvent.submit(screen.getByLabelText('New Password', { exact: true }).closest('form')!);
+  expect(fetch).toHaveBeenCalledOnce();
+  complete(Response.json({ message: 'Password changed' }));
+  await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith('/repos'));
+});
+
+it('rejects mismatched confirmation without calling the server', () => {
+  render(<ChangePasswordView email="person@example.test" mustChangePassword />);
+  fireEvent.change(screen.getByLabelText('New Password', { exact: true }), {
+    target: { value: 'simple' },
+  });
+  fireEvent.change(screen.getByLabelText('Confirm New Password', { exact: true }), {
+    target: { value: 'different' },
+  });
+  fireEvent.submit(screen.getByLabelText('New Password', { exact: true }).closest('form')!);
+  expect(screen.getByRole('alert')).toHaveTextContent('New passwords do not match');
+  expect(fetch).not.toHaveBeenCalled();
+});
+
+it('allows ordinary password changes to be cancelled without a write', () => {
+  render(<ChangePasswordView email="person@example.test" mustChangePassword={false} />);
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+  expect(mocks.back).toHaveBeenCalledOnce();
+  expect(fetch).not.toHaveBeenCalled();
+});
+
+it('reports unexpected transport errors without claiming a password change', async () => {
+  vi.mocked(fetch).mockRejectedValue('Network unavailable');
+  form();
+  expect(await screen.findByRole('alert')).toHaveTextContent(
+    'An unexpected error occurred. Please try again.',
+  );
+  expect(mocks.signIn).not.toHaveBeenCalled();
+});
+
+it('ignores a request rejection after the password form was disposed', async () => {
+  let reject!: (error: Error) => void;
+  const pending = new Promise<Response>((_resolve, fail) => {
+    reject = fail;
+  });
+  vi.mocked(fetch).mockReturnValue(pending);
+  const view = form();
+  view.unmount();
+  await act(async () => {
+    reject(new Error('Aborted'));
+    await pending.catch(() => {});
+  });
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(mocks.replace).not.toHaveBeenCalled();
 });
 it('does not sign in from a replaced form when an earlier password write completes', async () => {
   let complete!: (response: Response) => void;

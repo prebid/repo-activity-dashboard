@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { AuthFrame } from './auth-frame';
-import { PasswordInput } from './password-input';
+import { PasswordInput } from '@/components/ui/password-input';
 import styles from './authentication.module.css';
 export function LoginView({
   callbackUrl,
@@ -25,12 +25,23 @@ export function LoginView({
   const [password, setPassword] = useState(preview ? 'preview' : '');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const pending = useRef<symbol | null>(null);
+  useEffect(
+    () => () => {
+      pending.current = null;
+    },
+    [],
+  );
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pending.current) return;
+    const operation = Symbol();
+    pending.current = operation;
     setError('');
     setBusy(true);
     try {
       const result = await signIn('credentials', { email, password, redirect: false });
+      if (pending.current !== operation) return;
       if (result?.error || !result?.ok)
         setError(
           result?.error === 'Configuration'
@@ -43,9 +54,12 @@ export function LoginView({
         router.refresh();
       }
     } catch {
-      setError('Unable to sign in. Please try again.');
+      if (pending.current === operation) setError('Unable to sign in. Please try again.');
     } finally {
-      setBusy(false);
+      if (pending.current === operation) {
+        pending.current = null;
+        setBusy(false);
+      }
     }
   }
   return (
@@ -62,7 +76,12 @@ export function LoginView({
           Preview accounts: alice@example.test or bob@example.test. Password: preview.
         </p>
       )}
-      <form onSubmit={(event) => void submit(event)} className={styles.form} aria-busy={busy}>
+      <form
+        method="post"
+        onSubmit={(event) => void submit(event)}
+        className={styles.form}
+        aria-busy={busy}
+      >
         <div className={styles.field}>
           <Label htmlFor="email">Email</Label>
           <Input

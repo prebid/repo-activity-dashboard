@@ -19,6 +19,34 @@ export default defineConfig({
       exclude: ['src/**/*.d.ts'],
       reporter: ['text', 'json-summary', 'html'],
       thresholds: {
+        'src/components/ui/password-input.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/components/layout/theme-menu.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/features/authentication/{login-view,change-password-view}.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/models/password-policy.ts': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
         'src/lib/presentation/**': {
           perFile: true,
           lines: 90,
