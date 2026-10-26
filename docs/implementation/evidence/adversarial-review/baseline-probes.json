@@ -1,0 +1,37 @@
+{
+  "baselineHead": "aeebc98a8333a706677e475acee95d9a3ded248b",
+  "method": "New adversarial tests were run against unchanged baseline application source before correction. Baseline failures are diagnostic evidence, not passing-case counts.",
+  "probes": [
+    {
+      "id": "FA-20261026-01",
+      "priority": "P2",
+      "baselineObserved": "Confirmed password write followed by rejected signIn did not navigate to recovery login.",
+      "baselineTest": "recovers at login when automatic sign-in throws after the password was committed",
+      "file": "src/features/authentication/change-password-view.tsx",
+      "line": 69,
+      "disposition": "fixed"
+    },
+    {
+      "id": "FA-20261026-02",
+      "priority": "P2",
+      "baselineObserved": "Resolving the password response after unmount still invoked signIn for the old form identity.",
+      "baselineTest": "does not sign in from a replaced form when an earlier password write completes",
+      "file": "src/features/authentication/change-password-view.tsx",
+      "line": 32,
+      "disposition": "fixed"
+    },
+    {
+      "id": "FA-20261026-03",
+      "priority": "P2",
+      "baselineObserved": "Authenticated GET /api/admin/users returned 200 with no Cache-Control header in the packaged production artifact.",
+      "baselineTest": "runs the packaged production artifact with current sessions and protected account APIs",
+      "file": "src/lib/auth/account-response.ts",
+      "line": 3,
+      "disposition": "fixed"
+    }
+  ],
+  "diagnosticLogSha256": {
+    "dashboard-audit-password-baseline.log": "c28757ff21bff19d6c60566af9a8bd6635857da8f978d1bdeb5ae621df9d4aab",
+    "dashboard-audit-http-baseline.log": "0c0678583178f27326a67405c9dd4bf0caefc8c3aefda17523bddba6af5f4240"
+  }
+}

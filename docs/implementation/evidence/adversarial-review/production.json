@@ -1,0 +1,32 @@
+{
+  "cases": [
+    {
+      "suite": "tests/production/auth.test.ts",
+      "name": "runs the packaged production artifact with current sessions and protected account APIs",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/production/browser.test.ts",
+      "name": "production account lifecycle, protected navigation and credential recovery in chromium",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/production/browser.test.ts",
+      "name": "production account lifecycle, protected navigation and credential recovery in webkit",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/production/browser.test.ts",
+      "name": "recovers from automatic sign-in transport failure after a committed password change in chromium",
+      "status": "passed"
+    },
+    {
+      "suite": "tests/production/browser.test.ts",
+      "name": "recovers from automatic sign-in transport failure after a committed password change in webkit",
+      "status": "passed"
+    }
+  ],
+  "passed": 5,
+  "failed": 0,
+  "skipped": 0
+}

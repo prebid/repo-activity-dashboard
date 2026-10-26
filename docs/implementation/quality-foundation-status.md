@@ -1,8 +1,8 @@
 # Quality foundation current implementation status
 
-Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally verified at `b5397928e435e68c1f818acdc1467b74563f5821` on `codex/quality-foundation`. The updated draft PR needs independent re-review. Final page layouts and real reporting integration remain later milestones.
+Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally verified at `e3763220d39d37763a50ca02eec0487312a32281` on `codex/quality-foundation`. The updated draft PR needs independent re-review. Final page layouts and real reporting integration remain later milestones.
 
-[Current verification and finding ledger](review-remediation-verification.md) · [Contracts](foundation-contracts.md) · [Account operations](account-operations.md) · [Local receipt](evidence/review-remediation/verification.json) · [PR checks](https://github.com/prebid/repo-activity-dashboard/pull/2/checks)
+[Latest adversarial self-review](foundation-adversarial-review.md) · [Original finding ledger](review-remediation-verification.md) · [Contracts](foundation-contracts.md) · [Account operations](account-operations.md) · [Local receipt](evidence/adversarial-review/verification.json) · [PR checks](https://github.com/prebid/repo-activity-dashboard/pull/2/checks)
 
 ## Delivered foundation
 
@@ -13,6 +13,7 @@ Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally ver
 - Legacy numeric/string whitelist timestamps are compatible. Preflight validates both complete populations, and interrupted migration apply reports progress for safe rerun.
 - Production build/start are the default. Explicit preview remains convenient for design without cloud credentials. Runtime configuration is non-secret, packaged with readable permissions, and does not invent an account region.
 - Shared tables consume controlled state; application controllers own Next URL synchronization, scoped preferences, debounced searches and query transitions. Date labels are deterministic and unknown repositories return proper 404 responses.
+- Password-write success remains distinct from automatic sign-in recovery. Obsolete password forms cancel pending work. Account JSON responses use a shared private/no-store policy.
 - Effective per-file coverage gates, browser error detection, import boundaries, and individual test-result checks accompany the implementation.
 
 ## Verified locally
@@ -20,15 +21,15 @@ Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally ver
 | Check | Result |
 | --- | --- |
 | Formatting, lint, types and architecture/removal checks | Passed |
-| Unit/component cases and coverage gates | 241 passed |
+| Unit/component cases and coverage gates | 254 passed |
 | DynamoDB Local account cases | 27 passed |
-| Packaged production HTTP and browser scenarios | 3 passed |
+| Packaged production HTTP and browser scenarios | 5 passed |
 | Preview/Storybook Chromium and WebKit cases | 26 passed |
 | Production, preview and Storybook builds | Passed |
 | Full dependency audit | Zero advisories |
 | Required failed, skipped, pending or flaky cases | Zero |
 
-Total: 297 cases. Unit line coverage is 64.17%; account-integration line coverage is 90.00% in its separate population. These are not summed and do not establish exhaustive product/UI coverage. Production child-process and browser behavior are asserted separately.
+Total: 312 cases. Unit line coverage is 68.75%; account-integration line coverage is 90.00% in its separate population. These are not summed and do not establish exhaustive product/UI coverage. Production child-process and browser behavior are asserted separately.
 
 The local receipt identifies the tested source manifest. Hosted results must be read from checks on the published PR head; independent approval is a separate decision.
 

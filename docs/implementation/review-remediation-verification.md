@@ -1,5 +1,7 @@
 # Foundation review remediation verification
 
+This is the first remediation checkpoint. See the [later adversarial self-review](foundation-adversarial-review.md) for the current corrections and verification; the receipts below remain historical evidence.
+
 The code corrections for the PR 2 review are implemented and locally verified at `b5397928e435e68c1f818acdc1467b74563f5821`. The review baseline was `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`. Subsequent handoff documentation does not change the executable inputs recorded in the [source manifest](evidence/review-remediation/source-manifest.json).
 
 All reporting pages now require a current authenticated viewer before returning data. Auth.js retains protocol and cryptographic responsibilities; current account authorization is separate. Account creation/reset share expiring-credential policy, legacy record preflight covers both populations, and table rendering is controlled independently of Next routing. The [accepted plan](foundation-review-remediation.md), [implemented contracts](foundation-contracts.md), and [operations guide](account-operations.md) describe the boundaries.
