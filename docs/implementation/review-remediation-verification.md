@@ -1,6 +1,6 @@
 # Foundation review remediation verification
 
-The code corrections for the PR 2 review are implemented and locally verified at `1fa73d5e21214af60a65670b5a62fe15c05c8519`. The review baseline was `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`. Subsequent handoff documentation does not change the executable inputs recorded in the [source manifest](evidence/review-remediation/source-manifest.json).
+The code corrections for the PR 2 review are implemented and locally verified at `b5397928e435e68c1f818acdc1467b74563f5821`. The review baseline was `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`. Subsequent handoff documentation does not change the executable inputs recorded in the [source manifest](evidence/review-remediation/source-manifest.json).
 
 All reporting pages now require a current authenticated viewer before returning data. Auth.js retains protocol and cryptographic responsibilities; current account authorization is separate. Account creation/reset share expiring-credential policy, legacy record preflight covers both populations, and table rendering is controlled independently of Next routing. The [accepted plan](foundation-review-remediation.md), [implemented contracts](foundation-contracts.md), and [operations guide](account-operations.md) describe the boundaries.
 
@@ -56,6 +56,8 @@ These are implementation/evidence dispositions, not GitHub thread resolutions or
 ## Final self review
 
 The composition pass checked transport plus policy, not only isolated helpers. It found and corrected a read-deadline dependency assumption, stale password-form state across an identity change, and privacy assertions that needed route-specific canaries. It also checked current actor conditions at writes, invalid metadata diagnostics, input bounds before parsing, scoped query defaults, and pending-search/export interactions.
+
+The first hosted runs exposed a Linux WebKit `ResizeObserver` error during the long select's exit animation. The select now closes immediately, and browser tests additionally cover reopening, viewport-resize closure/focus restoration, and bounds at the new size. The strict page-error detector remains unchanged. During subsequent local validation, one account-suite runner startup failed before test selection with Vite `code.charCodeAt is not a function`; an unchanged isolated rerun and the final complete pipeline passed. The cause of that startup failure was not established, and the failed attempt is not counted as passing evidence.
 
 No new dependencies, reporting database, historical aggregation, agent execution, or final product layouts were introduced by this remediation. Tests explicitly isolate AWS credentials/configuration and use local services; a missing mock must not discover the developer's real cloud identity.
 

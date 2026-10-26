@@ -1007,22 +1007,22 @@
     },
     {
       "suite": "tests/unit/presentation.test.ts",
-      "name": "presentation contracts escapes spreadsheet formula prefixes in \"\uff1d1+1\"",
+      "name": "presentation contracts escapes spreadsheet formula prefixes in \"＝1+1\"",
       "status": "passed"
     },
     {
       "suite": "tests/unit/presentation.test.ts",
-      "name": "presentation contracts escapes spreadsheet formula prefixes in \"\uff0b1+1\"",
+      "name": "presentation contracts escapes spreadsheet formula prefixes in \"＋1+1\"",
       "status": "passed"
     },
     {
       "suite": "tests/unit/presentation.test.ts",
-      "name": "presentation contracts escapes spreadsheet formula prefixes in \"\uff0d1+1\"",
+      "name": "presentation contracts escapes spreadsheet formula prefixes in \"－1+1\"",
       "status": "passed"
     },
     {
       "suite": "tests/unit/presentation.test.ts",
-      "name": "presentation contracts escapes spreadsheet formula prefixes in \"\uff20SUM(1)\"",
+      "name": "presentation contracts escapes spreadsheet formula prefixes in \"＠SUM(1)\"",
       "status": "passed"
     },
     {

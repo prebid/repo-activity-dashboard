@@ -1,6 +1,6 @@
 # Quality foundation current implementation status
 
-Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally verified at `1fa73d5e21214af60a65670b5a62fe15c05c8519` on `codex/quality-foundation`. The updated draft PR needs independent re-review. Final page layouts and real reporting integration remain later milestones.
+Updated 2026-10-26. Reviewer-feedback remediation is implemented and locally verified at `b5397928e435e68c1f818acdc1467b74563f5821` on `codex/quality-foundation`. The updated draft PR needs independent re-review. Final page layouts and real reporting integration remain later milestones.
 
 [Current verification and finding ledger](review-remediation-verification.md) · [Contracts](foundation-contracts.md) · [Account operations](account-operations.md) · [Local receipt](evidence/review-remediation/verification.json) · [PR checks](https://github.com/prebid/repo-activity-dashboard/pull/2/checks)
 

@@ -1,6 +1,6 @@
 # Foundation review remediation plan
 
-Status: implemented and locally verified at code checkpoint `1fa73d5e21214af60a65670b5a62fe15c05c8519`, 2026-10-26. See [verification and finding dispositions](review-remediation-verification.md) for completion evidence and open deployment prerequisites. The design below records the agreed approach to [PR 2](https://github.com/prebid/repo-activity-dashboard/pull/2) feedback at baseline `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`.
+Status: implemented and locally verified at code checkpoint `b5397928e435e68c1f818acdc1467b74563f5821`, 2026-10-26. See [verification and finding dispositions](review-remediation-verification.md) for completion evidence and open deployment prerequisites. The design below records the agreed approach to [PR 2](https://github.com/prebid/repo-activity-dashboard/pull/2) feedback at baseline `7a567cd50a4fc75568c425fcd2bf2d44c7cee112`.
 
 The foundation needs corrections to authorization, account compatibility, runtime packaging, browser state, and verification. Keep the chosen Next.js, TypeScript, Tailwind, Radix, Recharts, and Amplify stack. Complete this work before page-layout development or real reporting integration.
 
