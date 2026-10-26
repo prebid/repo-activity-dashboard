@@ -51,6 +51,28 @@ test('select bounds, dialog focus, menu keyboard actions and switch behavior', a
   await page.keyboard.press('Enter');
   await expect(select).toHaveText('Repository 50');
   await expect(select).toBeFocused();
+  await expect(list).toHaveCount(0);
+  // Radix closes on viewport resize and restores focus. Reopen at the new size.
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
+  await page.setViewportSize({ width: 700, height: 400 });
+  await expect(list).toHaveCount(0);
+  await expect(select).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
+  await expect
+    .poll(async () => {
+      const box = await list.boundingBox();
+      return box !== null && box.y >= 0 && box.y + box.height <= 400;
+    })
+    .toBe(true);
+  await page.keyboard.press('Home');
+  await expect(page.getByRole('option', { name: 'Repository 1', exact: true })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(select).toHaveText('Repository 1');
+  await expect(list).toHaveCount(0);
+  await expect(select).toBeFocused();
+  await page.setViewportSize({ width: 700, height: 500 });
   const dialogTrigger = page.getByRole('button', { name: 'Open dialog' });
   await dialogTrigger.click();
   const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
