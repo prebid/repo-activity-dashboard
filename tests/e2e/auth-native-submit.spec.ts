@@ -6,9 +6,13 @@ test('native sign-in never puts credentials in the URL when JavaScript is unavai
   page,
 }) => {
   await page.goto('/auth/login');
-  await expect(
-    page.getByText('Enable JavaScript to sign in or change your password.'),
-  ).toBeVisible();
+  // Text locators omit noscript content: microsoft/playwright#32542.
+  const notice = page.locator('noscript p');
+  await expect(notice).toBeVisible();
+  await expect(notice).toHaveJSProperty(
+    'textContent',
+    'Enable JavaScript to sign in or change your password.',
+  );
   await page.getByLabel('Email', { exact: true }).fill('native@example.test');
   await page.getByLabel('Password', { exact: true }).fill('url-leak-guard');
   const request = page.waitForRequest(
