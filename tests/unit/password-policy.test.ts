@@ -15,12 +15,15 @@ it('accepts the 72-byte boundary and verifies the complete password', async () =
   expect(await verifyPassword(password, hash)).toBe(true);
   expect(await verifyPassword('Aa1!' + 'x'.repeat(67) + 'y', hash)).toBe(false);
 });
-it('retains the existing minimum length and character requirements', () => {
-  expect(validatePasswordStrength('abcdefgh').errors).toEqual([
-    'Password must contain at least one uppercase letter',
-    'Password must contain at least one number',
-  ]);
-  expect(validatePasswordStrength('Ab1').errors).toEqual([
-    'Password must be at least 8 characters',
-  ]);
+it.each(['abcdef', 'ABCDEF', '123456', 'a calm workspace'])(
+  'accepts passwords without character-mix requirements: %s',
+  (password) => {
+    expect(validatePasswordStrength(password)).toEqual({ valid: true, errors: [] });
+  },
+);
+it.each(['', 'abcde'])('requires only the minimum length for short passwords %#', (password) => {
+  expect(validatePasswordStrength(password)).toEqual({
+    valid: false,
+    errors: ['Password must be at least 6 characters'],
+  });
 });

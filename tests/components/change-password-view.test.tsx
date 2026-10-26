@@ -27,11 +27,13 @@ function form() {
   const view = render(<ChangePasswordView email="person@example.test" mustChangePassword />);
   for (const [label, value] of [
     ['Temporary Password', 'TemporaryPassword1!'],
-    ['New Password', 'ChangedPassword2!'],
-    ['Confirm New Password', 'ChangedPassword2!'],
+    ['New Password', 'simple'],
+    ['Confirm New Password', 'simple'],
   ])
     fireEvent.change(screen.getByLabelText(label, { exact: true }), { target: { value } });
-  fireEvent.submit(screen.getByRole('button', { name: 'Change Password' }).closest('form')!);
+  fireEvent.submit(
+    screen.getByRole('button', { name: 'Set password and continue' }).closest('form')!,
+  );
   return view;
 }
 it('recovers at login when automatic sign-in throws after the password was committed', async () => {
@@ -69,7 +71,7 @@ it('navigates after successful automatic sign-in and does not send a second pass
   expect(fetch).toHaveBeenCalledOnce();
   expect(mocks.signIn).toHaveBeenCalledExactlyOnceWith('credentials', {
     email: 'person@example.test',
-    password: 'ChangedPassword2!',
+    password: 'simple',
     redirect: false,
   });
   expect(mocks.refresh).toHaveBeenCalledOnce();
@@ -85,7 +87,7 @@ it('keeps a rejected password write correctable without claiming that it succeed
   expect(screen.getByLabelText('Temporary Password', { exact: true })).toHaveValue(
     'TemporaryPassword1!',
   );
-  expect(screen.getByRole('button', { name: 'Change Password' })).toBeEnabled();
+  expect(screen.getByRole('button', { name: 'Set password and continue' })).toBeEnabled();
 });
 it('recovers after a rejected automatic sign-in without requiring another sign-out request', async () => {
   mocks.signIn.mockResolvedValue({ ok: false, error: 'Configuration' });
@@ -118,3 +120,27 @@ it('explains the committed password change on the recovery login screen', () => 
     'Password changed. Sign in with your new password.',
   );
 });
+
+it.each([
+  ['short', 'Password must be at least 6 characters'],
+  ['x'.repeat(73), 'Password must be at most 72 UTF-8 bytes'],
+])(
+  'shows a specific length error without sending an invalid password',
+  async (password, message) => {
+    render(<ChangePasswordView email="person@example.test" mustChangePassword />);
+    fireEvent.change(screen.getByLabelText('Temporary Password', { exact: true }), {
+      target: { value: 'TemporaryPassword1!' },
+    });
+    fireEvent.change(screen.getByLabelText('New Password', { exact: true }), {
+      target: { value: password },
+    });
+    fireEvent.change(screen.getByLabelText('Confirm New Password', { exact: true }), {
+      target: { value: password },
+    });
+    fireEvent.submit(
+      screen.getByRole('button', { name: 'Set password and continue' }).closest('form')!,
+    );
+    expect(await screen.findByRole('alert')).toHaveTextContent(message);
+    expect(fetch).not.toHaveBeenCalled();
+  },
+);

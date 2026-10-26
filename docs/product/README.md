@@ -1,6 +1,6 @@
 # Product planning index
 
-The functional vision is defined. The current phase is foundation hardening and independent review; visual layout work is on hold. Settle layouts and interactions across the pages before building the new reporting/data layer or connecting a database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
+The functional vision is defined. The foundation remains in independent review. On 2026-10-26, login and password-setup design was authorized in parallel on a separate branch based on PR #2; other page layouts remain pending. Settle layouts and interactions across the pages before building the new reporting/data layer or connecting a database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
 
 ## Page definitions
 
