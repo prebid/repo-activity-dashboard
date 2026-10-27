@@ -69,6 +69,14 @@ test("existing admin creates a user, temporary password is changed, and original
   const report = await page.request.get("/store/repos/prebid-js/open-prs.json");
   expect(report.status()).toBe(200);
   expect(await report.text()).toBe(baseline);
+  const repositories = await page.request.get("/api/repos");
+  expect(repositories.status()).toBe(200);
+  expect((await repositories.json()).repositories).toEqual(
+    (await readdir("report-data/repos", { withFileTypes: true }))
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort(),
+  );
   const first = await (await page.request.get("/api/report-data")).json();
   const entries = Object.entries(first.data);
   for (let part = 1; part < first.pages; part++) {
@@ -97,6 +105,7 @@ test("existing admin creates a user, temporary password is changed, and original
     await expect(
       page.getByText("Loading reports…", { exact: true }),
     ).toHaveCount(0);
+    await expect(page.getByText("Unable to load reports. Refresh this page to try again.", { exact: true })).toHaveCount(0);
   }
   const created = await page.request.post("/api/admin/users", {
     data: { email: browserName + "-invite@example.test", role: "viewer" },

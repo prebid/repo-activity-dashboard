@@ -1,13 +1,12 @@
 import { createHash } from "node:crypto";
-import { readFile, realpath } from "node:fs/promises";
-import { resolve, relative, sep } from "node:path";
+import "server-only";
+import { reportFiles, timelineText } from "@/generated/private-report-data";
 import {
   splitTimeline,
   type MappingData,
   type TimelineData,
 } from "@/models/report-data";
 
-const reportRoot = resolve(process.cwd(), "report-data");
 export async function readReportFile(segments: string[]): Promise<Buffer> {
   if (
     !segments.length ||
@@ -18,11 +17,19 @@ export async function readReportFile(segments: string[]): Promise<Buffer> {
     !/\.(json|csv)$/.test(segments.at(-1)!)
   )
     throw new Error("Invalid report path");
-  const path = await realpath(resolve(reportRoot, ...segments));
-  const inside = relative(reportRoot, path);
-  if (!inside || inside.startsWith(".." + sep) || inside === "..")
-    throw new Error("Invalid report path");
-  return readFile(path);
+  const key = segments.join("/");
+  if (!Object.hasOwn(reportFiles, key)) throw new Error("Report not found");
+  return Buffer.from(reportFiles[key], "utf8");
+}
+
+export function reportRepositories() {
+  return [
+    ...new Set(
+      Object.keys(reportFiles)
+        .filter((path) => path.startsWith("repos/"))
+        .map((path) => path.split("/")[1]),
+    ),
+  ].sort();
 }
 
 let reports:
@@ -34,9 +41,7 @@ let reports:
   | undefined;
 export function loadReports() {
   return (reports ??= (async () => {
-    const timeline: TimelineData = JSON.parse(
-      await readFile(resolve("contributor-repo-timeline.json"), "utf8"),
-    );
+    const timeline: TimelineData = JSON.parse(timelineText);
     const mapping: MappingData = JSON.parse(
       (await readReportFile(["sheets", "github-mapping.json"])).toString(
         "utf8",

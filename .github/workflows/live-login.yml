@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [codex/live-login-gate]
+    branches: [codex/live-login-gate, codex/live-report-bundle]
 permissions:
   contents: read
 jobs:
