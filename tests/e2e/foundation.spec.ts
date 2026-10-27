@@ -163,12 +163,37 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await expect(specimen).toHaveCSS('gap', '8px');
   await expect(page.getByTestId('text-specimen')).toHaveCSS('font-size', '14px');
   const before = await page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor);
+  async function focusContrast() {
+    return page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('Missing color conversion context');
+      const luminance = (color: string) => {
+        context.clearRect(0, 0, 1, 1);
+        context.fillStyle = 'transparent';
+        context.fillStyle = color;
+        context.fillRect(0, 0, 1, 1);
+        const pixel = context.getImageData(0, 0, 1, 1).data;
+        if (pixel[3] !== 255) throw new Error('Expected a resolved opaque focus/background color');
+        const values = [...pixel].slice(0, 3).map((n) => {
+          const value = n / 255;
+          return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+        });
+        return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
+      };
+      const ring = luminance(getComputedStyle(document.documentElement).getPropertyValue('--ring'));
+      const background = luminance(getComputedStyle(document.body).backgroundColor);
+      return (Math.max(ring, background) + 0.05) / (Math.min(ring, background) + 0.05);
+    });
+  }
+  expect(await focusContrast()).toBeGreaterThanOrEqual(3);
   await page.getByRole('button', { name: 'Toggle theme' }).click();
   await expect
     .poll(() => page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor))
     .not.toBe(before);
   const button = page.getByRole('button', { name: 'Example action' });
-  const unfocusedShadow = await button.evaluate((el) => getComputedStyle(el).boxShadow);
+  expect(await focusContrast()).toBeGreaterThanOrEqual(3);
   // macOS WebKit uses Option+Tab to include buttons in keyboard traversal.
   // Begin at the input and verify the actual reverse order, not mouse focus.
   const previousKey =
@@ -180,13 +205,58 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await expect(page.getByRole('button', { name: 'Destructive action' })).toBeFocused();
   await page.keyboard.press(previousKey);
   await expect(button).toBeFocused();
-  await expect(button).not.toHaveCSS('box-shadow', unfocusedShadow);
+  await expect(button).toHaveCSS('outline-style', 'solid');
+  await expect(button).toHaveCSS('outline-width', '2px');
+  if (testInfo.project.name === 'chromium') {
+    await page.emulateMedia({ forcedColors: 'active' });
+    expect(await page.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true);
+    await expect(button).toHaveCSS('box-shadow', 'none');
+    await expect(button).toHaveCSS('outline-style', 'solid');
+    await expect(button).toHaveCSS('outline-width', '2px');
+    await page.screenshot({ path: testInfo.outputPath('forced-colors-focus.png') });
+    await page.emulateMedia({ forcedColors: 'none' });
+  }
   const findings = await new AxeBuilder({ page }).analyze();
   expect(findings.violations).toEqual([]);
   await page.screenshot({ path: testInfo.outputPath('foundation-theme.png'), fullPage: true });
   await page.setViewportSize({ width: 768, height: 900 });
   await expect(specimen).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath('foundation-narrow.png'), fullPage: true });
+});
+
+test('repository and column menus close and restore keyboard focus appropriately', async ({
+  page,
+}) => {
+  await login(page);
+  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  await input.focus();
+  const original = page.url();
+  const columns = page.getByRole('button', { name: 'Columns', exact: true });
+  await columns.click();
+  expect(page.url()).toBe(original);
+  const draft = page.getByRole('menuitemcheckbox', { name: 'Draft PRs', exact: true });
+  await draft.click();
+  await expect(draft).toHaveAttribute('aria-checked', 'false');
+  await expect(page.getByRole('menu')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(columns).toBeFocused();
+  await expect(page.getByRole('columnheader', { name: 'Draft PRs', exact: true })).toHaveCount(0);
+  const repos = page.getByRole('button', { name: 'Repos', exact: true });
+  await repos.click();
+  await page.getByRole('menuitem', { name: 'Prebid.js', exact: true }).click();
+  await expect(page).toHaveURL(/\/repos\/prebidjs$/);
+  await expect(page.getByRole('menu')).toHaveCount(0);
+  await repos.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('menu')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(repos).toBeFocused();
+  const outside = await page.getByRole('heading', { name: 'Prebid.js', exact: true }).boundingBox();
+  if (!outside) throw new Error('Missing outside-click target');
+  await repos.click();
+  await expect(page.getByRole('menu')).toHaveCSS('opacity', '1');
+  await page.mouse.click(outside.x + 8, outside.y + outside.height / 2);
+  await expect(page.getByRole('menu')).toHaveCount(0);
 });
 test('CSV download and blocked account changes in preview', async ({ page }) => {
   await login(page);

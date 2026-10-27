@@ -48,21 +48,12 @@ afterEach(() => {
 });
 it('observes router changes, uses null external state, and preserves unrelated query values', () => {
   window.history.replaceState({ __NA: true }, '', '/?items.page=2&view=issues&repo=a&repo=b');
-  const changes = vi.fn();
-  const { result, rerender } = renderHook(() =>
-    useTableController({
-      ...options,
-      columnIds: [...columnIds],
-      onChange: (q) => {
-        changes(q);
-      },
-    }),
+  const { result } = renderHook(() =>
+    useTableController({ ...options, columnIds: [...columnIds] }),
   );
-  expect(changes).toHaveBeenCalledExactlyOnceWith({ ...initial, page: 2 });
-  rerender();
-  expect(changes).toHaveBeenCalledTimes(1);
+  expect(result.current.query).toEqual({ ...initial, page: 2 });
   act(() => result.current.update({ search: 'needle', page: 1 }));
-  expect(changes).toHaveBeenLastCalledWith({ ...initial, search: 'needle' });
+  expect(result.current.query).toEqual({ ...initial, search: 'needle' });
   expect(historySpy).toHaveBeenLastCalledWith(null, '', expect.any(URL));
   expect(new URLSearchParams(window.location.search).getAll('repo')).toEqual(['a', 'b']);
   act(() => window.history.replaceState(null, '', '/'));
@@ -139,24 +130,12 @@ it('debounces typing and captures the latest draft when sorting or exporting imm
   });
   expect(result.current.query.search).toBe('export now');
 });
-it('cancels a pending draft on same-URL link intent, browser history, and scope changes', () => {
+it('cancels a pending draft on browser history and scope changes', () => {
   vi.useFakeTimers();
   const { result, rerender } = renderHook(
     ({ scope }) => useTableController({ ...options, scopeKey: scope }),
     { initialProps: { scope: 'one' } },
   );
-  act(() => result.current.setSearch('discard'));
-  const link = document.createElement('a');
-  link.href = '/';
-  document.body.append(link);
-  act(() => {
-    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-  });
-  act(() => {
-    vi.runAllTimers();
-  });
-  expect(result.current.draftSearch).toBe('');
-  link.remove();
   act(() => result.current.setSearch('old scope'));
   rerender({ scope: 'two' });
   act(() => {
@@ -173,19 +152,26 @@ it('cancels a pending draft on same-URL link intent, browser history, and scope 
   });
   expect(result.current.draftSearch).toBe('destination');
 });
-it('notifies changed namespaces and normalizes pages in memory until the next action', () => {
+it('normalizes pages in memory and changes namespaces without callback state', () => {
   window.history.replaceState(null, '', '/?items.page=9');
-  const first = vi.fn(),
-    second = vi.fn();
   const { result, rerender } = renderHook(
-    ({ key, notify }) => useTableController({ ...options, queryKey: key, onChange: notify }),
-    { initialProps: { key: 'items', notify: first } },
+    ({ key }) => useTableController({ ...options, queryKey: key }),
+    { initialProps: { key: 'items' } },
   );
   act(() => result.current.reconcilePage(2));
   expect(result.current.query.page).toBe(2);
   expect(window.location.search).toBe('?items.page=9');
   act(() => result.current.update({ descending: true }));
   expect(new URLSearchParams(window.location.search).get('items.page')).toBe('2');
-  rerender({ key: 'issues', notify: second });
-  expect(second).toHaveBeenCalledExactlyOnceWith(initial);
+  rerender({ key: 'issues' });
+  expect(result.current.query).toEqual(initial);
+});
+it('does not write history when flushing an untouched default query', () => {
+  const { result } = renderHook(() => useTableController(options));
+  historySpy.mockClear();
+  act(() => {
+    result.current.flushSearch();
+  });
+  expect(window.location.search).toBe('');
+  expect(historySpy).not.toHaveBeenCalled();
 });

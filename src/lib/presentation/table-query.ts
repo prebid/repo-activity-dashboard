@@ -4,11 +4,6 @@ export interface TableQuery {
   descending: boolean;
   page: number;
 }
-export function sameTableQuery(a: TableQuery, b: TableQuery): boolean {
-  return (
-    a.search === b.search && a.sort === b.sort && a.descending === b.descending && a.page === b.page
-  );
-}
 export function readTableQuery(
   search: string,
   key: string,
@@ -24,6 +19,21 @@ export function readTableQuery(
     page: Number.isSafeInteger(page) && page > 0 ? page : 1,
   };
 }
+export function effectiveTableQuery(
+  search: string,
+  key: string,
+  allowed: readonly string[],
+  saved?: Pick<TableQuery, 'sort' | 'descending'>,
+  correctedPage?: number,
+): TableQuery {
+  const query = readTableQuery(search, key, allowed);
+  if (!new URLSearchParams(search).has(key + '.sort') && saved && allowed.includes(saved.sort)) {
+    query.sort = saved.sort;
+    query.descending = saved.descending;
+  }
+  if (correctedPage !== undefined) query.page = correctedPage;
+  return query;
+}
 export function writeTableQuery(search: string, key: string, patch: Partial<TableQuery>): string {
   const p = new URLSearchParams(search);
   for (const [field, name] of [
@@ -34,7 +44,11 @@ export function writeTableQuery(search: string, key: string, patch: Partial<Tabl
   ] as const) {
     const value = patch[field];
     if (value === undefined) continue;
-    const rendered = field === 'descending' ? (value ? 'desc' : 'asc') : String(value);
+    if (field === 'descending' && value === false) {
+      p.delete(key + '.' + name);
+      continue;
+    }
+    const rendered = field === 'descending' ? 'desc' : String(value);
     if (rendered === '' || (field === 'page' && value === 1)) p.delete(key + '.' + name);
     else p.set(key + '.' + name, rendered);
   }

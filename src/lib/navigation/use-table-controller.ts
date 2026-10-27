@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
   preferenceKey,
-  readTableQuery,
+  effectiveTableQuery,
   writeTableQuery,
   type TableQuery,
 } from '@/lib/presentation/table-query';
@@ -13,13 +13,11 @@ export function useTableController({
   columnIds,
   scopeKey,
   viewerId,
-  onChange,
 }: {
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
   viewerId?: string;
-  onChange?: (query: TableQuery) => void;
 }): TableController {
   const pathname = usePathname(),
     search = useSearchParams().toString();
@@ -35,19 +33,17 @@ export function useTableController({
     page: number;
   } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const query = useMemo(() => {
-    const value = readTableQuery(search, queryKey, columnIds);
-    if (
-      !new URLSearchParams(search).has(queryKey + '.sort') &&
-      saved?.scope === scope &&
-      columnIds.includes(saved.sort)
-    ) {
-      value.sort = saved.sort;
-      value.descending = saved.descending;
-    }
-    if (correction?.scope === scope && correction.stamp === stamp) value.page = correction.page;
-    return value;
-  }, [search, queryKey, columnIds, saved, correction, scope, stamp]);
+  const query = useMemo(
+    () =>
+      effectiveTableQuery(
+        search,
+        queryKey,
+        columnIds,
+        saved?.scope === scope ? saved : undefined,
+        correction?.scope === scope && correction.stamp === stamp ? correction.page : undefined,
+      ),
+    [search, queryKey, columnIds, saved, correction, scope, stamp],
+  );
   const draftSearch = draft?.scope === scope && draft.stamp === stamp ? draft.value : query.search;
   const cancel = useCallback(() => {
     clearTimeout(timer.current);
@@ -58,17 +54,15 @@ export function useTableController({
       clearTimeout(timer.current);
       const url = new URL(window.location.href);
       const currentStamp = url.pathname + '?' + url.searchParams.toString();
-      const current = readTableQuery(url.search, queryKey, columnIds);
-      if (
-        !url.searchParams.has(queryKey + '.sort') &&
-        saved?.scope === scope &&
-        columnIds.includes(saved.sort)
-      ) {
-        current.sort = saved.sort;
-        current.descending = saved.descending;
-      }
-      if (correction?.scope === scope && correction.stamp === currentStamp)
-        current.page = correction.page;
+      const current = effectiveTableQuery(
+        url.search,
+        queryKey,
+        columnIds,
+        saved?.scope === scope ? saved : undefined,
+        correction?.scope === scope && correction.stamp === currentStamp
+          ? correction.page
+          : undefined,
+      );
       const pending =
         explicitSearch ??
         (draft?.scope === scope && draft.stamp === currentStamp ? draft.value : current.search);
@@ -132,34 +126,12 @@ export function useTableController({
     return () => clearTimeout(timer.current);
   }, [draftSearch, query.search, stamp, scope, commit]);
   useEffect(() => {
-    const click = (event: MouseEvent) => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-        return;
-      const link =
-        event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
-      if (link && link.target !== '_blank' && new URL(link.href).origin === window.location.origin)
-        cancel();
-    };
-    document.addEventListener('click', click, true);
     window.addEventListener('popstate', cancel);
     return () => {
       clearTimeout(timer.current);
-      document.removeEventListener('click', click, true);
       window.removeEventListener('popstate', cancel);
     };
   }, [cancel, scope]);
-  const notify = useRef(onChange);
-  useEffect(() => {
-    notify.current = onChange;
-  }, [onChange]);
-  useEffect(() => {
-    notify.current?.({
-      search: query.search,
-      sort: query.sort,
-      descending: query.descending,
-      page: query.page,
-    });
-  }, [scope, query.search, query.sort, query.descending, query.page]);
   const reconcilePage = useCallback(
     (page: number) => setCorrection({ scope, stamp, page }),
     [scope, stamp],
