@@ -24,6 +24,9 @@ describe('catalog and prepared samples', () => {
     const { prs, issues } = repositorySample('repo-prebidjs');
     expect(prs).toHaveLength(137);
     expect(issues).toHaveLength(834);
+    expect(new Set([...prs, ...issues].map((row) => new URL(row.url).hostname))).toEqual(
+      new Set(['github.example']),
+    );
     expect(issues[0].number).toBe(834);
     expect(issues.at(-1)?.title).toContain('Oldest sample issue');
     expect(prs.filter((r) => !r.draft && r.humanReviewers === 0)).toHaveLength(40);

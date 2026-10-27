@@ -1,7 +1,6 @@
 {
   "name": "repo-activity-dashboard",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "scripts": {
     "dev": "node scripts/app.mjs dev preview",
@@ -32,9 +31,7 @@
     "build:preview": "node scripts/app.mjs build preview",
     "start:preview": "node scripts/app.mjs start preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
     "@eslint/eslintrc": "3.3.7",

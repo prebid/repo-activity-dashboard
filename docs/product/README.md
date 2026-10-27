@@ -1,6 +1,6 @@
 # Product planning index
 
-The functional vision is defined. The current phase is foundation hardening and independent review; visual layout work is on hold. Settle layouts and interactions across the pages before building the new reporting/data layer or connecting a database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
+Settle layouts and interactions across the pages with prepared sample data before building the replacement reporting layer or connecting its database. Lightweight typed display inputs are enough for this phase; full historical calculation fixtures remain later verification work. The linked definitions capture agreed behavior; fields explicitly marked as recommendations remain design choices to resolve during design.
 
 ## Page definitions
 
@@ -29,23 +29,11 @@ The functional vision is defined. The current phase is foundation hardening and 
 - Unknown/incomplete values are distinct from known zero. Historical GitHub activity is not automatically a fully recorded agent run.
 - Tracking comes before launching. Execution controls and detailed deployment policy do not block frontend design.
 
-## Delivery planning
+## Maintained implementation references
 
-- [Review remediation verification](../implementation/review-remediation-verification.md): current code checkpoint, individual finding dispositions, verified results, and open release prerequisites.
-
-- [Foundation review remediation plan](../implementation/foundation-review-remediation.md): investigated review findings, settled access/onboarding decisions, implementation packages, regression criteria, and deferred deployment checks.
-- [Foundation hardening and review gate](../implementation/foundation-review-readiness.md): current dependency/quality gaps and the required review before layouts.
-
-- [Implemented foundation and verification](../implementation/quality-foundation-status.md): completed local scope, test results, dependency choices, and remaining product work.
-
-- [Foundation and frontend-only cutover](../implementation/frontend-only-cutover.md): concrete next changes, reporting/data removal map, authentication boundary, and completion criteria.
-- [Tracked repository catalog](../../design/mocks/repository-catalog.ts): the complete user-supplied list of 18 repositories, with verified identities and branches; now used by the mock frontend.
-- [Source audit and upgrade assessment](../implementation/source-audit-2026-10-24.md): confirmed Tailwind/configuration issues, baseline results, compatibility candidates, and limits; Amplify retained.
-- [Frontend architecture blueprint](../implementation/frontend-architecture.md): component ownership, typed display inputs, shared tables, extensibility, testing, and implementation slices.
-- [Quality foundation](../implementation/quality-foundation.md): the first engineering deliverable, required checks, and what passing each check establishes.
-- [Starter All Repos display data](../../design/mocks/all-repositories.json): invented ready-to-display values for layout work, separate from real reporting logic.
-- [Example-data and fixture plan](../implementation/test-data-plan.md): concrete reference records, large datasets, expected answers, and missing/error states.
-- [Acceptance matrix](../implementation/acceptance-matrix.md): product rules linked to scenarios and planned verification.
-- [Frontend implementation plan](../implementation/frontend-plan.md): source baseline, preservation decisions, preparation stages, and subsequent feature delivery.
-
-The existing source was checked in an isolated audit copy; its results are linked above. The local foundation and representative mock flows are now verified; complete page designs and remaining product acceptance cases are still pending.
+- [Foundation contracts](../implementation/foundation-contracts.md): component ownership, typed display inputs, table state, authentication boundaries, quality checks and visual-design readiness.
+- [Account operations](../implementation/account-operations.md): configuration, provisioning, migration, recovery and release prerequisites for the retained account system.
+- [Tracked repository catalog](../../design/mocks/repository-catalog.ts): the user-supplied list of 18 repositories and its metadata provenance.
+- [Starter All Repos display data](../../design/mocks/all-repositories.json): invented values for layout work.
+- [Test-data specification](../implementation/test-data-plan.md): display scenarios and future reference records for metric verification.
+- [Acceptance matrix](../implementation/acceptance-matrix.md): product rules and their planned verification.

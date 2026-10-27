@@ -1,10 +1,10 @@
 # Example data and fixtures — design specification
 
-Status: proposed test-data specification, 2026-10-24. All accounts, records, counts, and scenarios below are invented for development and testing. They are not measurements of real repositories. The reference arithmetic has been checked during planning; runtime fixtures, adapters, and application tests have not been implemented.
+All accounts, records, counts and scenarios below are invented for development and testing. They are not measurements of real repositories. Display samples and representative frontend tests exist; the detailed reference-event scenarios below define later reporting/data-integration verification and are not a claim that those calculations are implemented.
 
 ## What a fixture means here
 
-**Delivery scope update:** start with ready-to-display mock numbers and records to lock the frontend visually. The starter [All Repos mock](../../design/mocks/all-repositories.json) is for that purpose. The detailed reference events and expected answers below are retained for later reporting/data-layer verification. They do not require building an event simulator, a mock database, or a reporting engine before designing pages.
+**Display-first scope:** start with ready-to-display mock numbers and records to lock the frontend visually. The starter [All Repos mock](../../design/mocks/all-repositories.json) is for that purpose. The detailed reference events and expected answers below are retained for later reporting/data-layer verification. They do not require building an event simulator, a mock database, or a reporting engine before designing pages.
 
 A fixture is a named, repeatable set of example data with known expected answers. It gives designers realistic content and gives tests an independent answer to compare against.
 

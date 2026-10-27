@@ -5,7 +5,7 @@ frontend:
       commands:
         - nvm install
         - nvm use
-        - npm ci
+        - npm ci --cache .npm --prefer-offline
         - npm run check
     build:
       commands:
@@ -17,3 +17,4 @@ frontend:
   cache:
     paths:
       - .npm/**/*
+      - .next/cache/**/*

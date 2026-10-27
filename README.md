@@ -2,7 +2,7 @@
 
 A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
 
-The reviewed foundation has been remediated and locally verified; the updated PR needs independent re-review. Layout work remains on hold. See [the latest adversarial self-review](docs/implementation/foundation-adversarial-review.md) and [the reviewer finding ledger](docs/implementation/review-remediation-verification.md). See [the review remediation plan](docs/implementation/foundation-review-remediation.md), [the self-audit history](docs/implementation/foundation-self-audit.md), [the execution plan](docs/implementation/foundation-hardening-plan.md) and [tested contracts and limits](docs/implementation/foundation-contracts.md).
+Define and review the frontend with prepared data before adding a replacement reporting database. The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
 
 ## Run locally
 
@@ -28,7 +28,7 @@ npm run check:all
 
 The account/production integration suites require Java 17+ and download a checksum-pinned DynamoDB Local archive into the ignored development cache. CI installs Java 21. They use synthetic accounts and local service fixtures; no live AWS account configuration is required.
 
-Use `npm run format` for maintained source/config formatting. Historical plans/audit artifacts in docs/design are deliberately outside automatic formatting.
+Use `npm run format` for maintained source/config formatting. Product and operating documentation are maintained separately from source formatting.
 
 For interactive component development, use `npm run storybook` on port 6006.
 
@@ -42,7 +42,7 @@ For interactive component development, use `npm run storybook` on port 6006.
 
 Production auth uses the server environment documented in `.env.example` and the hosting runtime's AWS access. Secrets are not embedded through Next's env map. The authentication store is separate from reporting; its real deployment is not exercised by preview tests.
 
-Public first-admin registration is closed. Account provisioning/recovery uses `npm run auth:operator` with explicit targets and private credential files. Existing IDs and hashes are preserved; pre-upgrade sessions sign in again. Legacy temporary credentials without an expiry require reissue. The admin screen supports private delivery and reissue; `DASHBOARD_TEMP_PASSWORD_HOURS` configures future temporary credentials (default 24 hours, range 1–168). Production uses current account/whitelist state and revision checks, transactional account writes, and a runtime Secrets Manager key. See [account operations](docs/implementation/account-operations.md).
+Public first-admin registration is closed. Account provisioning/recovery uses `npm run auth:operator` with explicit targets and private credential files. Existing IDs and hashes are preserved; legacy cookies without an account-revision claim require sign-in again. Legacy temporary credentials without an expiry require reissue. The admin screen supports private delivery and reissue; `DASHBOARD_TEMP_PASSWORD_HOURS` configures future temporary credentials (default 24 hours, range 1–168). Production uses current account/whitelist state and revision checks, transactional account writes, and a runtime Secrets Manager key. See [account operations](docs/implementation/account-operations.md).
 
 ## Project structure
 
@@ -57,11 +57,11 @@ Public first-admin registration is closed. Account provisioning/recovery uses `n
 - `src/lib/auth/` and `src/lib/aws/`: retained server account integration.
 - `.storybook/`: isolated component states.
 
-The shared table uses TanStack Table v9. The table is controlled and router-independent. Application controllers synchronize query state with Next navigation and keep sort defaults scoped by account and report/repository. Search operates on the entire supplied sample set before pagination. CSV exports all columns and all matching rows. A separate paged-input contract accepts a provider total and delegates query/export actions without reprocessing a single page. Final saved-view behavior, detailed product metrics, groups, agent tracking, and polished layouts remain in the page-design work.
+The shared table uses TanStack Table v9. The table is controlled and router-independent. Application controllers synchronize query state with Next navigation and keep sort defaults scoped by account and report/repository. Search operates on the entire supplied sample set before pagination. CSV exports all columns and all matching rows. The table currently consumes a complete sample population. A remote adapter contract will be introduced with its first real consumer. Final saved-view behavior, detailed product metrics, groups, agent tracking, and polished layouts remain in the page-design work.
 
 ## Scope and plans
 
-[Product definitions](docs/product/README.md) · [Architecture](docs/implementation/frontend-architecture.md) · [Foundation status](docs/implementation/quality-foundation-status.md) · [Original audit](docs/implementation/source-audit-2026-10-24.md)
+[Product definitions](docs/product/README.md) · [Current contracts](docs/implementation/foundation-contracts.md) · [Test-data strategy](docs/implementation/test-data-plan.md) · [Product acceptance matrix](docs/implementation/acceptance-matrix.md)
 
 All dashboard reporting is internal-only and requires sign-in. Live Amplify/IAM, deployed login throttling, and deployment acceptance remain release prerequisites; local/CI checks do not certify them.
 

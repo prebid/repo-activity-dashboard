@@ -80,7 +80,7 @@ export function RepositoryView({
       <div>
         <h1 className="text-3xl font-semibold tracking-tight">{name}</h1>
         <p className="mt-2 text-muted-foreground">
-          Current open items · Sample records link to fictional GitHub fixtures
+          Current open items · Sample links are placeholders
         </p>
       </div>
       <nav aria-label="Repository lists" className="flex gap-4">

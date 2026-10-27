@@ -113,3 +113,34 @@ it('requires protected code to use the current-viewer boundary instead of raw to
   );
   expect(allowed.failures).toEqual([]);
 });
+
+it.each([
+  "import '@/lib/auth/secret';",
+  "export {value} from '../../lib/auth/secret';",
+  "export const load = () => import('@/mocks/reporting');",
+])('owns direct, re-exported and dynamic-literal presentation boundaries: %s', (source) => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/components/widgets/example.tsx': source,
+      'src/lib/auth/secret.ts': 'export const value=1;',
+      'src/mocks/reporting.ts': 'export const value=1;',
+    }),
+  );
+  expect(result.sourceFiles).toBe(3);
+  expect(
+    result.failures.some((failure) => failure.startsWith('presentation-no-server-or-samples:')),
+  ).toBe(true);
+});
+it('allows pure helper directories named services, store and validation', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/components/view.ts':
+        "import '@/lib/services/value'; import '@/lib/store/value'; import '@/lib/validation/value';",
+      'src/lib/services/value.ts': 'export const value=1;',
+      'src/lib/store/value.ts': 'export const value=1;',
+      'src/lib/validation/value.ts': 'export const value=1;',
+    }),
+  );
+  expect(result.sourceFiles).toBe(4);
+  expect(result.failures).toEqual([]);
+});

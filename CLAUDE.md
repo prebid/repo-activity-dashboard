@@ -7,7 +7,7 @@
 - Reporting inputs are prepared samples. Preserve their known-zero/missing distinction and stable repository IDs. The canonical catalog is `src/config/repositories.ts`.
 - New feature views receive typed models; route composition supplies samples or future adapters. `npm run check:boundaries` enforces the presentation/server separation and retirement of reporting ingestion/storage.
 - Use TanStack Table v9 APIs from the installed package; v8 snippets are not interchangeable.
-- Product scope is in `docs/product/README.md`. Foundation evidence/limits are in `docs/implementation/quality-foundation-status.md`; current state/adapter contracts are in `docs/implementation/foundation-contracts.md`.
-- The old ingestion baseline is historical evidence. Its retired tests are documented separately; do not reintroduce the removed pipeline to make them run.
+- Product scope is in `docs/product/README.md`. Current contracts, limits and design-readiness criteria are in `docs/implementation/foundation-contracts.md`.
+- Reporting ingestion/storage is retired; do not restore it to satisfy old tests.
 
-- Account tests use isolated DynamoDB Local, not live AWS tables. Operator commands target real account tables; their configuration/recovery contract is in `docs/implementation/account-operations.md`.
+- Account tests use isolated DynamoDB Local, not live AWS tables. Production sign-in requires migrated email links. Operator commands target real account tables; their configuration/recovery contract is in `docs/implementation/account-operations.md`.

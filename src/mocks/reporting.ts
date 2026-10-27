@@ -175,7 +175,7 @@ export function repositorySample(repositoryId: string): {
           : number % 3,
       approvals: repo.id === 'repo-prebid-agent-skills' ? null : 0,
       ageDays: summary.openPrs - i,
-      url: 'https://github.com/example-fixtures/' + repo.slug + '/pull/' + (1000 + number),
+      url: 'https://github.example/example-fixtures/' + repo.slug + '/pull/' + (1000 + number),
     };
   });
   const issues = Array.from({ length: summary.openIssues }, (_, i): IssueRow => ({
@@ -187,7 +187,7 @@ export function repositorySample(repositoryId: string): {
         : 'Sample issue ' + (i + 1) + ': Improve documentation',
     author: i % 2 === 0 ? 'sample-alice' : 'sample-bob',
     ageDays: summary.openIssues - i,
-    url: 'https://github.com/example-fixtures/' + repo.slug + '/issues/' + (i + 1),
+    url: 'https://github.example/example-fixtures/' + repo.slug + '/issues/' + (i + 1),
   }));
   return { prs: prs.reverse(), issues: issues.reverse() };
 }

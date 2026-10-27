@@ -92,7 +92,7 @@ Create/reset operations use the same prepared credential in the file and transac
 
 ## Ordered deployment and rollback
 
-Live AWS inspection was deferred on 2026-10-26. The following is the deployment administrator's release procedure, not a record of completed cloud actions. An active repository webhook is not proof of the production branch's current auto-build settings.
+For the transition from the legacy dashboard, use this controlled cutover procedure. Confirm the actual production branch settings; a repository webhook alone does not establish its auto-build behavior.
 
 1. Identify the actual Amplify app, production branch, auto-build/preview settings and last deployed revision. Pause automatic production builds before merging if a merge would start deployment. Do not grant public PR previews the production compute role.
 2. Prepare recovery: confirm an authorized operator can target the account tables, preserve a recoverable table backup and the prior deployable artifact/configuration, and record the existing key/role dependencies. Do not retire old credentials yet.

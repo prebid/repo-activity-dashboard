@@ -10,14 +10,14 @@ Protected pages call the current-viewer guard directly or through guarded sample
 
 Application imports cannot reach operator command scripts. Only the HTTP auth adapter and internal session transport may import raw Auth.js handlers; shared tables cannot reach Next routing. Account store instances bind one client and immutable target; the server adapter owns its default instance, while operator invocations own separate clients without changing process-wide table settings.
 
-The separate retirement checker rejects known retired reporting paths, packages in either dependency section, obsolete scripts, raw-store strings, and computed module imports. Its AST scan covers application JS/TS source extensions, including JSX/TSX and CJS/ESM variants. Runtime-generated code, arbitrary HTTP destinations, and third-party package internals are outside that check. Both checkers reject empty input. Positive and negative fixtures exercise the actual checkers.
+The separate retirement checker rejects exact known retired reporting paths, packages in either dependency section, obsolete scripts, raw-store strings, and computed module imports. Dependency-cruiser is the single owner of source import-layer rules; ordinary nested directories named services, store or validation are allowed. Its AST scan covers application JS/TS source extensions, including JSX/TSX and CJS/ESM variants. Runtime-generated code, arbitrary HTTP destinations, and third-party package internals are outside that check. Both checkers reject empty input. Positive and negative fixtures exercise the actual checkers.
 
 ## Table state ownership
 
 - The URL owns search, sort direction, sort key, and page. Unknown sort keys and invalid page numbers normalize to safe defaults; repeated scalar fields consistently use the first value. Unrelated and repeated filter parameters survive serialization.
 - Saved local preferences supply an account-specific initial sort only when the URL does not explicitly supply one. Invalid or denied storage must not block interaction. Local preferences are not server-synchronized account settings.
-- Column visibility and export progress are temporary component state. Search/sort changes reset the page. Pages contain at most 100 rows.
-- The shared table consumes a controlled query and callbacks. Application controllers observe Next search parameters and use native history replacement with null external state, allowing Next to maintain its own router metadata. Search has a local draft and a 250 ms debounce. Enter/blur, sorting, and export capture the latest intended query; navigation and scope changes cancel pending writes. Browser back/forward and same-route links update the table. Ascending direction is the default and is omitted from URL writes; flushing an untouched query leaves history unchanged.
+- Column visibility and export errors are temporary component state. Search/sort changes reset the page. Pages contain at most 100 rows.
+- The shared table consumes a controlled query and callbacks. Application controllers observe Next search parameters and use native history replacement with null external state, allowing Next to maintain its own router metadata. Search has a local draft and a 250 ms debounce. Enter/blur, sorting, and export capture the latest intended query; query/history and scope changes cancel pending writes. Browser back/forward and same-route links update the table. Ascending direction is the default and is omitted from URL writes; flushing an untouched query leaves history unchanged.
 - Saved sort defaults are restored after hydration in controller memory; interactive actions materialize the effective query in the URL. Invalid pages are reconciled against matching totals without history writes during hydration. Preference identity includes the account and report/repository scope. Storybook and local component tests use a router-independent memory controller.
 
 For local samples, `rows` is the complete supplied population; search/sort precede pagination and export includes every matching row and all columns.
@@ -56,4 +56,22 @@ New-password rules are shared between forms and server validation, including the
 
 ## Deployment acceptance
 
-Live Amplify file handling, branch deployment triggers, IAM and account configuration, and shared login throttling are deployment prerequisites. They were not verified locally, and the user deferred AWS access. The agreed maintenance window and ordered cutover are documented in account-operations.md. Code/CI verification does not mark these external obligations complete.
+Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the maintenance window and ordered cutover in [account operations](account-operations.md). Local and CI verification do not certify environment acceptance.
+
+## What visually locked means
+
+Before the new reporting/data layer begins, review and record the following for each page:
+
+- Navigation, content hierarchy, component placement, spacing, typography, and supported theme behavior.
+- Default and optional columns, widths, numeric formatting, sorting, filters, table density, and narrow-screen/overflow behavior.
+- Click destinations, URL/filter context, paging, saved preference behavior, and export interactions where applicable.
+- Normal, busy, empty, loading, error, partial-data, known-zero, and missing-value states, including long names/titles and large numbers.
+- Repository graph types, labels, scope, and textual alternatives; table-only contribution and tracking reports.
+- Representative screenshots at agreed viewport sizes and interaction checks that establish the reviewed baseline.
+
+User review establishes the visual baseline; screenshots do not approve themselves. Repeat those checks during integration. The goal is to preserve the agreed frontend while replacing its data source. Mocks cannot prove real-data completeness or performance, so any integration-discovered mismatch must be identified and resolved explicitly rather than silently changing a screen's meaning.
+
+
+## Dependency maintenance
+
+The selected stack remains Next.js, React, TypeScript, Tailwind v4, Radix and Recharts with Amplify hosting. Next.js 15 remains the selected Amplify-compatible major. ESLint 9 and Auth.js v5 beta are deliberate compatibility holds; upgrade those lines only with compatible integration evidence. Pins and normal dependency auditing remain part of the quality checks.
