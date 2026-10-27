@@ -103,8 +103,8 @@ async function syncMappingFromS3() {
     console.log(`   ├─ Member companies: ${mappingData.metadata?.memberCount || 0}`);
     console.log(`   └─ Non-member companies: ${mappingData.metadata?.nonMemberCount || 0}`);
 
-    // Also copy to public directory for client-side access if needed
-    const publicPath = join(process.cwd(), 'public/store/sheets');
+    // Update the private report snapshot used by authenticated routes.
+    const publicPath = join(process.cwd(), 'report-data/sheets');
     if (!existsSync(publicPath)) {
       mkdirSync(publicPath, { recursive: true });
     }

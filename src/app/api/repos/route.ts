@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readdirSync } from 'fs';
 import { join } from 'path';
+import { requireDataAccess, privateHeaders } from '@/lib/auth/site-access';
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
+    const denied = await requireDataAccess();
+    if (denied) return denied;
     // Path to your store directory
     const storeDir = join(process.cwd(), 'store', 'repos');
     
@@ -16,7 +20,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       repositories: repoDirs,
       count: repoDirs.length,
-    });
+    }, { headers: privateHeaders });
   } catch (error) {
     console.error('Error reading repositories:', error);
     return NextResponse.json(
