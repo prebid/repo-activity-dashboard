@@ -1,13 +1,32 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2026-08-03T19:53:30.915Z",
-    "itemCount": 19
+    "lastSync": "2026-10-27T00:21:01.752Z",
+    "itemCount": 22
   },
   "items": [
     {
-      "title": "Exclude device.geo.country from the request.",
-      "number": 947,
+      "title": "Record the GAM manual impression when the ad server wins a banner",
+      "number": 1037,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-22T16:35:47.000Z",
+      "dateUpdated": "2026-10-22T18:36:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Surface winning-bid economics on the original (GAM) API",
+      "number": 1035,
       "author": {
         "login": "mdanylov-sigma",
         "id": 146753616
@@ -15,26 +34,210 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "ValentinPostindustria",
+          "login": "YuriyVelichkoPI",
           "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-21T20:36:32.000Z",
+      "dateUpdated": "2026-10-22T08:25:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Render the first playable Linear creative of a VAST response",
+      "number": 1034,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-20T21:50:51.000Z",
+      "dateUpdated": "2026-10-20T22:02:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Request the Error URIs of a VAST no-ad response, with [ERRORCODE] set to 303",
+      "number": 1033,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-20T21:43:33.000Z",
+      "dateUpdated": "2026-10-20T22:02:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pluggable User ID Providers  #936",
+      "number": 1024,
+      "author": {
+        "login": "pkowalski-id5",
+        "id": 112544015
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-25T15:57:26.000Z",
+      "dateUpdated": "2026-10-15T08:08:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix(geo): emit ISO alpha-3 for device.geo.country",
+      "number": 1022,
+      "author": {
+        "login": "nsp37",
+        "id": 3819533
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nsp37",
+          "state": "COMMENTED"
         },
         {
           "login": "YuriyVelichkoPI",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "postindustria-code",
           "state": "APPROVED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-05-19T21:19:26.000Z",
-      "dateUpdated": "2026-07-31T07:33:56.000Z",
+      "dateCreated": "2026-09-19T21:12:00.000Z",
+      "dateUpdated": "2026-10-07T10:52:09.000Z",
       "status": "open"
     },
     {
-      "title": "Fix banner load callbacks firing before creative attachment",
-      "number": 948,
+      "title": "feat(rendering): expose winning creative size on BannerView",
+      "number": 1007,
+      "author": {
+        "login": "nsp37",
+        "id": 3819533
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "nsp37",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-08T04:39:17.000Z",
+      "dateUpdated": "2026-09-29T18:52:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "feat(rendering): allow multiformat (banner + video) on BannerView",
+      "number": 1000,
+      "author": {
+        "login": "nsp37",
+        "id": 3819533
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-29T19:59:44.000Z",
+      "dateUpdated": "2026-09-24T04:30:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Keep auto refresh stopped until resumed, and keep the PrebidAdUnit refresh interval",
+      "number": 1023,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-21T12:24:32.000Z",
+      "dateUpdated": "2026-09-21T16:29:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Skip mediation banner refresh while a Prebid video is playing",
+      "number": 1020,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-19T15:20:13.000Z",
+      "dateUpdated": "2026-09-19T16:39:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Apply VideoParameters over the rendering API video defaults",
+      "number": 1021,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-19T15:25:39.000Z",
+      "dateUpdated": "2026-09-19T16:39:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add guards and review tooling",
+      "number": 1014,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-15T08:41:18.000Z",
+      "dateUpdated": "2026-09-15T09:38:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Deprecated API usage updates",
+      "number": 958,
       "author": {
         "login": "mdanylov-sigma",
         "id": 146753616
@@ -44,100 +247,43 @@
         {
           "login": "ValentinPostindustria",
           "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-02T20:59:55.000Z",
+      "dateUpdated": "2026-09-10T21:11:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bound click URL resolution and keep the click on network failure",
+      "number": 991,
+      "author": {
+        "login": "Madroid2",
+        "id": 16256422
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
         },
         {
-          "login": "postindustria-code",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-19T22:53:57.000Z",
-      "dateUpdated": "2026-07-30T12:17:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Mute/unmute audio flow for video creative",
-      "number": 977,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "postindustria-code",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-29T22:53:40.000Z",
-      "dateUpdated": "2026-07-30T11:12:43.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Enables video player click",
-      "number": 978,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "postindustria-code",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-29T22:56:56.000Z",
-      "dateUpdated": "2026-07-30T11:04:34.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Auto interstitial dismissal",
-      "number": 979,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "postindustria-code",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-29T22:59:03.000Z",
-      "dateUpdated": "2026-07-30T10:19:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Move away from old Javadoc configuration",
-      "number": 980,
-      "author": {
-        "login": "pablobaxter",
-        "id": 12305694
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "pablobaxter",
+          "login": "mdanylov-sigma",
           "state": "COMMENTED"
         },
         {
-          "login": "ValentinPostindustria",
-          "state": "APPROVED"
+          "login": "Madroid2",
+          "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-07-30T05:45:59.000Z",
-      "dateUpdated": "2026-07-30T06:50:35.000Z",
+      "dateCreated": "2026-08-08T20:18:45.000Z",
+      "dateUpdated": "2026-09-10T13:15:40.000Z",
       "status": "open"
     },
     {
-      "title": "Exoplayer examples ",
-      "number": 862,
+      "title": "Protect global ORTB consent fields at the level where the SDK writes them",
+      "number": 1009,
       "author": {
         "login": "mdanylov-sigma",
         "id": 146753616
@@ -145,13 +291,65 @@
       "assignees": [],
       "reviewers": [
         {
-          "login": "ValentinPostindustria",
-          "state": "APPROVED"
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2025-05-12T21:23:11.000Z",
-      "dateUpdated": "2026-07-30T06:50:27.000Z",
+      "dateCreated": "2026-09-08T23:18:42.000Z",
+      "dateUpdated": "2026-09-10T06:54:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix rewarded end card close button staying hidden when reward already granted",
+      "number": 1005,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-03T13:41:00.000Z",
+      "dateUpdated": "2026-09-03T13:50:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Read location providers according to the permission actually granted",
+      "number": 990,
+      "author": {
+        "login": "Madroid2",
+        "id": 16256422
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-08T20:17:13.000Z",
+      "dateUpdated": "2026-08-23T23:57:02.000Z",
+      "status": "open"
+    },
+    {
+      "title": "`usepxratio` flag in bid request for interstitial DIP conversion",
+      "number": 949,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-05-21T09:18:30.000Z",
+      "dateUpdated": "2026-08-19T22:21:37.000Z",
       "status": "open"
     },
     {
@@ -171,56 +369,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-04-27T19:53:24.000Z",
       "dateUpdated": "2026-07-30T06:28:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Checks nullable bids for next gen custom targeting",
-      "number": 940,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "YuriyVelichkoPI",
-          "state": "PENDING"
-        },
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "APPROVED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-04-21T17:47:49.000Z",
-      "dateUpdated": "2026-07-29T09:25:25.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Custom targeting for GAM rendering API",
-      "number": 944,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-15T21:32:07.000Z",
-      "dateUpdated": "2026-07-23T14:50:23.000Z",
       "status": "open"
     },
     {
@@ -249,131 +397,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-07-04T20:42:04.000Z",
       "dateUpdated": "2026-07-16T14:03:02.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Third-party plugin renderers in adapters",
-      "number": 946,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-19T18:53:07.000Z",
-      "dateUpdated": "2026-07-16T07:56:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Expire ads respectively to the seatbid.bid.exp",
-      "number": 945,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "postindustria-code",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-19T13:31:32.000Z",
-      "dateUpdated": "2026-07-16T07:55:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "EID OpenRTB 2.6  support #935",
-      "number": 954,
-      "author": {
-        "login": "pkowalski-id5",
-        "id": 112544015
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        },
-        {
-          "login": "mdanylov-sigma",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-06-26T13:43:08.000Z",
-      "dateUpdated": "2026-07-04T16:22:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "PS bid caching failures",
-      "number": 943,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "CHANGES_REQUESTED"
-        },
-        {
-          "login": "mdanylov-sigma",
-          "state": "COMMENTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-15T21:04:52.000Z",
-      "dateUpdated": "2026-07-03T12:34:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Deprecated API usage updates",
-      "number": 958,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "ValentinPostindustria",
-          "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-02T20:59:55.000Z",
-      "dateUpdated": "2026-07-03T06:28:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "`usepxratio` flag in bid request for interstitial DIP conversion",
-      "number": 949,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
-      "dateCreated": "2026-05-21T09:18:30.000Z",
-      "dateUpdated": "2026-05-21T09:40:38.000Z",
       "status": "open"
     },
     {

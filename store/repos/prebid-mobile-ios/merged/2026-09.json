@@ -1,0 +1,823 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2026,
+    "month": 9,
+    "itemCount": 27,
+    "lastUpdated": "2026-10-27T00:21:09.154Z"
+  },
+  "items": [
+    {
+      "title": "Fix 3.4.0 release jobs, verify SPM before publishing, move CI to Xcode 26, support GMA 13.11.0",
+      "number": 1368,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T07:00:52.000Z",
+      "dateUpdated": "2026-09-30T18:45:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T18:45:55.000Z",
+      "dateClosed": "2026-09-30T18:45:55.000Z"
+    },
+    {
+      "title": "Fix tracker retry timer lifecycle",
+      "number": 1363,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vietta",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "4277343": {
+          "identifier": "4277343",
+          "displayName": "vietta",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T16:55:18.000Z",
+      "dateUpdated": "2026-09-30T16:06:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T16:06:00.000Z",
+      "dateClosed": "2026-09-30T16:06:00.000Z"
+    },
+    {
+      "title": "Fix ImageHelper async downloads and completion handling",
+      "number": 1367,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "vietta",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "4277343": {
+          "identifier": "4277343",
+          "displayName": "vietta",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T02:36:01.000Z",
+      "dateUpdated": "2026-09-30T16:05:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T16:05:42.000Z",
+      "dateClosed": "2026-09-30T16:05:42.000Z"
+    },
+    {
+      "title": "fix: crash when a VAST response lists CompanionAds before the Linear creative",
+      "number": 1369,
+      "author": {
+        "login": "AhmedRagabIssa",
+        "id": 6969466
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "6969466": {
+          "identifier": "6969466",
+          "displayName": "AhmedRagabIssa",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T08:59:04.000Z",
+      "dateUpdated": "2026-09-30T10:19:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T10:19:14.000Z",
+      "dateClosed": "2026-09-30T10:19:15.000Z"
+    },
+    {
+      "title": "test: stub WKWebView in AdViewUtilsTests instead of loading real pages",
+      "number": 1366,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T21:12:43.000Z",
+      "dateUpdated": "2026-09-29T22:02:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T22:02:31.000Z",
+      "dateClosed": "2026-09-29T22:02:31.000Z"
+    },
+    {
+      "title": "Bumps to 3.4.0",
+      "number": 1364,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T13:44:18.000Z",
+      "dateUpdated": "2026-09-29T21:17:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T21:17:26.000Z",
+      "dateClosed": "2026-09-29T21:17:26.000Z"
+    },
+    {
+      "title": "fix: move mraid.js download and timing-sensitive work off .background QoS",
+      "number": 1365,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichko",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T19:09:47.000Z",
+      "dateUpdated": "2026-09-29T21:06:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T21:06:14.000Z",
+      "dateClosed": "2026-09-29T21:06:14.000Z"
+    },
+    {
+      "title": "Support Xcode 27",
+      "number": 1360,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T12:31:51.000Z",
+      "dateUpdated": "2026-09-29T09:08:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T09:08:54.000Z",
+      "dateClosed": "2026-09-29T09:08:54.000Z"
+    },
+    {
+      "title": "Support GMA SDK 13.10.0",
+      "number": 1358,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T09:40:56.000Z",
+      "dateUpdated": "2026-09-28T11:41:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T11:41:53.000Z",
+      "dateClosed": "2026-09-28T11:41:53.000Z"
+    },
+    {
+      "title": "fix: disable refresh with a negative interval in the expiration test",
+      "number": 1356,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-21T16:40:26.000Z",
+      "dateUpdated": "2026-09-28T11:21:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T11:21:41.000Z",
+      "dateClosed": "2026-09-28T11:21:41.000Z"
+    },
+    {
+      "title": "feat: support OpenRTB 2.6 EIDs in user.eids",
+      "number": 1350,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-13T16:25:23.000Z",
+      "dateUpdated": "2026-09-18T09:16:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-18T09:16:07.000Z",
+      "dateClosed": "2026-09-18T09:16:07.000Z"
+    },
+    {
+      "title": "Ad expiration based on `bid.exp`",
+      "number": 1267,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "thanhhaidev",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-19T13:34:11.000Z",
+      "dateUpdated": "2026-09-17T11:34:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T11:34:44.000Z",
+      "dateClosed": "2026-09-17T11:34:44.000Z"
+    },
+    {
+      "title": "fix: classify Prebid Server errors only for non-JSON bodies, match any imp index (#1344)",
+      "number": 1348,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T22:08:28.000Z",
+      "dateUpdated": "2026-09-17T08:25:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T08:25:52.000Z",
+      "dateClosed": "2026-09-17T08:25:52.000Z"
+    },
+    {
+      "title": "fix: report ORTB deserialization failure instead of a hollow no-bid (#1343)",
+      "number": 1346,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T21:40:36.000Z",
+      "dateUpdated": "2026-09-17T08:25:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T08:25:36.000Z",
+      "dateClosed": "2026-09-17T08:25:36.000Z"
+    },
+    {
+      "title": "Multiformat Banner Ad Unit in the Rendering and Mediation APIs",
+      "number": 1341,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T09:13:08.000Z",
+      "dateUpdated": "2026-09-17T08:25:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T08:25:20.000Z",
+      "dateClosed": "2026-09-17T08:25:20.000Z"
+    },
+    {
+      "title": "PS bid caching failures v2: align with reviewed design doc",
+      "number": 1327,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-27T14:33:22.000Z",
+      "dateUpdated": "2026-09-17T08:25:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T08:25:04.000Z",
+      "dateClosed": "2026-09-17T08:25:04.000Z"
+    },
+    {
+      "title": "Swift Migration phase 4, step S4.4: Native click tracking",
+      "number": 1353,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-16T13:40:07.000Z",
+      "dateUpdated": "2026-09-16T20:09:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-16T20:09:54.000Z",
+      "dateClosed": "2026-09-16T20:09:54.000Z"
+    },
+    {
+      "title": "chore: deprecate unused Targeting.contentUrl (#1345)",
+      "number": 1347,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T22:02:08.000Z",
+      "dateUpdated": "2026-09-14T15:17:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-14T15:17:17.000Z",
+      "dateClosed": "2026-09-14T15:17:17.000Z"
+    },
+    {
+      "title": "Swift Migration phase 4, steps S4.3 + S4.3b: PBMPrebidParameterBuilder + PBMWinNotifier",
+      "number": 1349,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-12T08:57:57.000Z",
+      "dateUpdated": "2026-09-14T09:06:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-14T09:06:46.000Z",
+      "dateClosed": "2026-09-14T09:06:46.000Z"
+    },
+    {
+      "title": "Fix #1015: write the log file when the SDK is built without DEBUG",
+      "number": 1351,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-13T21:23:04.000Z",
+      "dateUpdated": "2026-09-14T09:02:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-14T09:00:04.000Z",
+      "dateClosed": "2026-09-14T09:00:04.000Z"
+    },
+    {
+      "title": "Fix #1318: dedupe merged ORTB number arrays by value",
+      "number": 1352,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-13T21:58:51.000Z",
+      "dateUpdated": "2026-09-14T08:59:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-14T08:59:34.000Z",
+      "dateClosed": "2026-09-14T08:59:34.000Z"
+    },
+    {
+      "title": "Swift Migration phase 4, step S4.1: PBMBidResponseTransformer",
+      "number": 1337,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-07T08:55:57.000Z",
+      "dateUpdated": "2026-09-10T20:20:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T20:20:28.000Z",
+      "dateClosed": "2026-09-10T20:20:28.000Z"
+    },
+    {
+      "title": "fix: map BidInfo imp event to ext.prebid.events.imp",
+      "number": 1342,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T23:16:39.000Z",
+      "dateUpdated": "2026-09-10T12:26:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T12:26:19.000Z",
+      "dateClosed": "2026-09-10T12:26:19.000Z"
+    },
+    {
+      "title": "Ignore malformed IABTCF_gdprApplies values instead of coercing them",
+      "number": 1335,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T12:39:05.000Z",
+      "dateUpdated": "2026-09-08T14:36:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T14:36:36.000Z",
+      "dateClosed": "2026-09-08T14:36:36.000Z"
+    },
+    {
+      "title": "Fix #1329: avoid AVAudioSession setActive when only observing volume",
+      "number": 1334,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        },
+        {
+          "login": "nsp37",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T08:54:49.000Z",
+      "dateUpdated": "2026-09-04T09:46:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T09:46:50.000Z",
+      "dateClosed": "2026-09-04T09:46:50.000Z"
+    },
+    {
+      "title": "Swift Migration phase 3.3: PBMTrackingRecord and PBMURLComponents",
+      "number": 1336,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T15:45:03.000Z",
+      "dateUpdated": "2026-09-03T13:30:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-03T13:30:29.000Z",
+      "dateClosed": "2026-09-03T13:30:29.000Z"
+    },
+    {
+      "title": "Swift Migration phase 3: networking parameter builders",
+      "number": 1328,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-27T14:56:16.000Z",
+      "dateUpdated": "2026-10-22T09:46:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T09:35:12.000Z",
+      "dateClosed": "2026-09-02T09:35:12.000Z"
+    }
+  ]
+}

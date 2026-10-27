@@ -4,7 +4,7 @@
     "year": 2026,
     "month": 2,
     "itemCount": 19,
-    "lastUpdated": "2026-03-09T17:55:18.285Z"
+    "lastUpdated": "2026-10-27T00:20:46.911Z"
   },
   "items": [
     {
@@ -360,10 +360,34 @@
         "bsardo",
         "przemkaczmarek"
       ],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "stranske",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "211479965": {
+          "identifier": "211479965",
+          "displayName": "anna-y-perion",
+          "count": 16,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2025-07-29T07:46:14.000Z",
-      "dateUpdated": "2026-02-02T15:33:54.000Z",
+      "dateUpdated": "2026-08-15T11:36:48.000Z",
       "status": "merged",
       "dateMerged": "2026-02-02T15:33:54.000Z",
       "dateClosed": "2026-02-02T15:33:54.000Z"

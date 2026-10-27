@@ -4,7 +4,7 @@
     "year": 2026,
     "month": 5,
     "itemCount": 103,
-    "lastUpdated": "2026-08-03T19:52:57.098Z"
+    "lastUpdated": "2026-10-27T00:20:28.976Z"
   },
   "items": [
     {
@@ -879,10 +879,38 @@
         "id": 191837040
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "robin-crazygames",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "karimMourra",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "191837040": {
+          "identifier": "191837040",
+          "displayName": "robin-crazygames",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2026-05-14T06:53:17.000Z",
-      "dateUpdated": "2026-05-15T07:24:37.000Z",
+      "dateUpdated": "2026-09-28T13:40:50.000Z",
       "status": "merged",
       "dateMerged": "2026-05-14T15:22:50.000Z",
       "dateClosed": "2026-05-14T15:22:50.000Z"

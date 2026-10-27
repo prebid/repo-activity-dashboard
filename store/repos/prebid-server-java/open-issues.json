@@ -1,20 +1,586 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server-java",
-    "lastSync": "2026-08-03T19:53:23.821Z",
-    "itemCount": 97
+    "lastSync": "2026-10-27T00:20:55.228Z",
+    "itemCount": 123
   },
   "items": [
     {
-      "title": "Port PR from PBS-Go: New Adapter: MediaGo Technology - MediaGo Alias",
-      "number": 4576,
+      "title": "Secondary bidder: NPE while merging bid rejection trackers",
+      "number": 4686,
+      "author": {
+        "login": "zxPhoenix",
+        "id": 1951316
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-26T14:26:00.000Z",
+      "dateUpdated": "2026-10-26T18:08:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: SuperEdge",
+      "number": 4685,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2026-07-25T19:35:16.000Z",
-      "dateUpdated": "2026-07-25T19:35:16.000Z",
+      "dateCreated": "2026-10-26T13:47:11.000Z",
+      "dateUpdated": "2026-10-26T13:47:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Fix: Valid CCPA consent was dropped when gdpr_applies=true",
+      "number": 4636,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-09-20T13:12:38.000Z",
+      "dateUpdated": "2026-10-23T10:41:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Floxis",
+      "number": 4681,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T18:33:59.000Z",
+      "dateUpdated": "2026-10-22T18:33:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Keep versions in sync across POM files",
+      "number": 4679,
+      "author": {
+        "login": "johnclc",
+        "id": 12496731
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T10:00:03.000Z",
+      "dateUpdated": "2026-10-22T10:00:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: MCodeMedia",
+      "number": 4674,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-16T20:12:35.000Z",
+      "dateUpdated": "2026-10-16T20:12:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Odeeo",
+      "number": 4673,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-16T18:49:44.000Z",
+      "dateUpdated": "2026-10-16T18:49:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Tunnl",
+      "number": 4672,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-16T15:51:59.000Z",
+      "dateUpdated": "2026-10-16T15:51:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Slikk - Xeworks alias",
+      "number": 4670,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-15T19:07:42.000Z",
+      "dateUpdated": "2026-10-15T19:07:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Viant",
+      "number": 4668,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-14T20:28:08.000Z",
+      "dateUpdated": "2026-10-15T12:55:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Vungle: Fix nil pointer panic when user is absent",
+      "number": 4667,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-10-14T15:13:45.000Z",
+      "dateUpdated": "2026-10-15T12:54:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Peak226",
+      "number": 4659,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T20:59:42.000Z",
+      "dateUpdated": "2026-10-15T12:50:39.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Matterfull RTB",
+      "number": 4647,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-10-02T14:08:40.000Z",
+      "dateUpdated": "2026-10-15T12:42:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: targetVideo",
+      "number": 4534,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2026-06-08T20:26:04.000Z",
+      "dateUpdated": "2026-10-15T07:42:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Reklamup: Add regional endpoint support",
+      "number": 4666,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-14T03:26:50.000Z",
+      "dateUpdated": "2026-10-14T03:26:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Teal: Prefer bid.ext.prebid.type to get bid type",
+      "number": 4665,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-14T02:56:49.000Z",
+      "dateUpdated": "2026-10-14T02:56:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: BWX: Regional endpoints",
+      "number": 4664,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T22:29:07.000Z",
+      "dateUpdated": "2026-10-13T22:29:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Ezoic: Add user sync",
+      "number": 4663,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T22:19:38.000Z",
+      "dateUpdated": "2026-10-13T22:19:38.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: BalanceX - Limelight Alias ",
+      "number": 4662,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T22:01:20.000Z",
+      "dateUpdated": "2026-10-13T22:01:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Trafficgate: Add TFC-EU Support",
+      "number": 4661,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T21:50:13.000Z",
+      "dateUpdated": "2026-10-13T21:50:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Motorik: Add GVL Vendor ID",
+      "number": 4660,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T21:11:25.000Z",
+      "dateUpdated": "2026-10-13T21:11:25.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: OpenX: Single bid request for all valid imps",
+      "number": 4657,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T20:34:45.000Z",
+      "dateUpdated": "2026-10-13T20:34:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Adform: Add DOOH Support",
+      "number": 4656,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T20:23:52.000Z",
+      "dateUpdated": "2026-10-13T20:23:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Missena: Propagate creative size and metadata from bid response",
+      "number": 4654,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-13T19:19:45.000Z",
+      "dateUpdated": "2026-10-13T19:19:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Triplelift: Add new optional bid parameters",
+      "number": 4633,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-17T13:38:41.000Z",
+      "dateUpdated": "2026-09-17T13:38:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Ferio",
+      "number": 4632,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-17T02:54:24.000Z",
+      "dateUpdated": "2026-09-17T02:54:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Smaato & Pubnative: Add currency conversion",
+      "number": 4631,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-17T02:34:05.000Z",
+      "dateUpdated": "2026-09-17T02:34:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: OMS: Add user sync",
+      "number": 4629,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-09T18:19:49.000Z",
+      "dateUpdated": "2026-09-09T18:19:49.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Fix: Stop ticker tasks on server shutdown",
+      "number": 4625,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-09-01T14:30:08.000Z",
+      "dateUpdated": "2026-09-03T14:23:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: AMX: Add currency normalization",
+      "number": 4607,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-08-18T14:52:00.000Z",
+      "dateUpdated": "2026-08-20T08:03:44.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Taboola: Update burl macro resolving",
+      "number": 4605,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "osulzhenko"
+      ],
+      "dateCreated": "2026-08-18T14:32:07.000Z",
+      "dateUpdated": "2026-08-20T08:03:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Reklamup: Add GVL vendor ID",
+      "number": 4616,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T18:08:04.000Z",
+      "dateUpdated": "2026-08-18T18:08:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Matterfull - Xeworks alias",
+      "number": 4615,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T17:28:53.000Z",
+      "dateUpdated": "2026-08-18T17:28:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Cortex: Add regional endpoint support",
+      "number": 4614,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T17:17:35.000Z",
+      "dateUpdated": "2026-08-18T17:17:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: CWire: Support video media format",
+      "number": 4613,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T17:07:26.000Z",
+      "dateUpdated": "2026-08-18T17:07:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: m152",
+      "number": 4610,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T16:26:04.000Z",
+      "dateUpdated": "2026-08-18T16:26:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: anzuDSP - xeworks alias",
+      "number": 4609,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T16:16:47.000Z",
+      "dateUpdated": "2026-08-18T16:16:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Pixfuture",
+      "number": 4606,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T14:41:19.000Z",
+      "dateUpdated": "2026-08-18T14:41:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: StackAdapt",
+      "number": 4604,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T14:21:52.000Z",
+      "dateUpdated": "2026-08-18T14:21:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Proxistore",
+      "number": 4603,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T14:11:52.000Z",
+      "dateUpdated": "2026-08-18T14:11:52.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Medianet: Update cookie sync url",
+      "number": 4602,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T02:35:31.000Z",
+      "dateUpdated": "2026-08-18T02:35:31.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Disable iFrame-based syncing for specific bidders and account IDs",
+      "number": 4560,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-07-16T12:35:10.000Z",
+      "dateUpdated": "2026-08-14T08:26:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Kargo: Add app capabilites in YAML",
+      "number": 4595,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-11T03:37:55.000Z",
+      "dateUpdated": "2026-08-11T03:37:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: Ezoic",
+      "number": 4594,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-11T03:15:34.000Z",
+      "dateUpdated": "2026-08-11T03:15:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: SMB",
+      "number": 4593,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-11T03:01:58.000Z",
+      "dateUpdated": "2026-08-11T03:01:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: Triplelift: Add Currency Conversion Support",
+      "number": 4592,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-11T02:42:04.000Z",
+      "dateUpdated": "2026-08-11T02:42:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Go: New Adapter: AdRubi - Admatic alias",
+      "number": 4584,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-04T14:34:43.000Z",
+      "dateUpdated": "2026-08-04T14:34:43.000Z",
       "status": "open"
     },
     {
@@ -44,18 +610,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: New Adapter: Teal",
-      "number": 4565,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-20T02:52:06.000Z",
-      "dateUpdated": "2026-07-20T02:52:06.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: audienceNetwork: Transform video interstitial shape and honor response currency",
       "number": 4564,
       "author": {
@@ -65,32 +619,6 @@
       "assignees": [],
       "dateCreated": "2026-07-17T12:46:47.000Z",
       "dateUpdated": "2026-07-17T12:46:47.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Disable iFrame-based syncing for specific bidders and account IDs",
-      "number": 4560,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-16T12:35:10.000Z",
-      "dateUpdated": "2026-07-16T12:35:10.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Attekmi: Update root domain",
-      "number": 4551,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "dateCreated": "2026-07-03T11:52:25.000Z",
-      "dateUpdated": "2026-07-09T15:11:59.000Z",
       "status": "open"
     },
     {
@@ -105,18 +633,6 @@
       ],
       "dateCreated": "2026-06-09T13:05:46.000Z",
       "dateUpdated": "2026-07-09T15:06:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Synapse HX",
-      "number": 4544,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-09T19:29:20.000Z",
-      "dateUpdated": "2026-06-09T19:29:20.000Z",
       "status": "open"
     },
     {
@@ -189,54 +705,6 @@
       "assignees": [],
       "dateCreated": "2026-06-09T13:31:52.000Z",
       "dateUpdated": "2026-06-09T13:31:52.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Adagio: Fix usersync URL",
-      "number": 4537,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-09T13:20:06.000Z",
-      "dateUpdated": "2026-06-09T13:20:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: pgamrtb - Limelight Alias",
-      "number": 4535,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-08T20:39:29.000Z",
-      "dateUpdated": "2026-06-08T20:39:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: targetVideo",
-      "number": 4534,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-08T20:26:04.000Z",
-      "dateUpdated": "2026-06-08T20:26:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Scalibur",
-      "number": 4524,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-02T14:19:25.000Z",
-      "dateUpdated": "2026-06-02T14:19:25.000Z",
       "status": "open"
     },
     {
@@ -328,18 +796,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Nativo: Add optional placementId param & Prebid Renderer in response",
-      "number": 4495,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-05-13T03:33:27.000Z",
-      "dateUpdated": "2026-05-13T03:33:27.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: New Adapter: Waardex - Adkernel alias",
       "number": 4494,
       "author": {
@@ -364,18 +820,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Adipolo: Add GVL Vendor ID",
-      "number": 4492,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-05-12T20:10:41.000Z",
-      "dateUpdated": "2026-05-12T20:10:41.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: New Adapter: T Advertising Blis",
       "number": 4491,
       "author": {
@@ -385,18 +829,6 @@
       "assignees": [],
       "dateCreated": "2026-05-12T16:52:15.000Z",
       "dateUpdated": "2026-05-12T16:52:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Sparteo: Add required query params to adapter endpoint",
-      "number": 4486,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-05-06T03:23:30.000Z",
-      "dateUpdated": "2026-05-06T06:56:15.000Z",
       "status": "open"
     },
     {
@@ -440,34 +872,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: RTBHouse: Extract tagid from Imp fields",
-      "number": 4456,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "osulzhenko"
-      ],
-      "dateCreated": "2026-04-04T16:14:03.000Z",
-      "dateUpdated": "2026-05-05T15:48:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: AppMonstaMedia",
-      "number": 4465,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2026-04-16T13:05:50.000Z",
-      "dateUpdated": "2026-05-05T15:47:49.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: New Adapter: Adsmovil",
       "number": 4461,
       "author": {
@@ -482,34 +886,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: New Adapter: Alliance Gravity",
-      "number": 4403,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2026-02-25T01:53:36.000Z",
-      "dateUpdated": "2026-05-05T15:47:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Insticator: Move DSP seat from TypedBid to Meta to prevent bid rejection",
-      "number": 4481,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2026-05-01T15:40:25.000Z",
-      "dateUpdated": "2026-05-05T15:44:55.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: New Adapter: ReklamUp",
       "number": 4483,
       "author": {
@@ -519,20 +895,6 @@
       "assignees": [],
       "dateCreated": "2026-05-01T18:27:32.000Z",
       "dateUpdated": "2026-05-01T18:27:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New adapter: BeOp",
-      "number": 4416,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "przemkaczmarek"
-      ],
-      "dateCreated": "2026-03-03T20:19:18.000Z",
-      "dateUpdated": "2026-04-23T10:57:15.000Z",
       "status": "open"
     },
     {
@@ -557,18 +919,6 @@
       "assignees": [],
       "dateCreated": "2026-04-04T15:19:09.000Z",
       "dateUpdated": "2026-04-04T15:19:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: Conversant: Fix version package reference",
-      "number": 4451,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-03T19:19:30.000Z",
-      "dateUpdated": "2026-04-03T19:19:30.000Z",
       "status": "open"
     },
     {
@@ -629,21 +979,6 @@
       "assignees": [],
       "dateCreated": "2026-04-03T17:18:57.000Z",
       "dateUpdated": "2026-04-03T17:18:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Incorrect enforcement of request.imp.metric",
-      "number": 3971,
-      "author": {
-        "login": "naegelin",
-        "id": 1544569
-      },
-      "assignees": [
-        "Net-burst",
-        "osulzhenko"
-      ],
-      "dateCreated": "2025-05-21T17:59:01.000Z",
-      "dateUpdated": "2026-03-26T21:10:20.000Z",
       "status": "open"
     },
     {
@@ -951,18 +1286,6 @@
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Go: Ogury: Allow inventory mapping for in-app traffic.",
-      "number": 4366,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-28T16:14:08.000Z",
-      "dateUpdated": "2026-01-28T16:14:08.000Z",
-      "status": "open"
-    },
-    {
       "title": "Port PR from PBS-Go: Seedtag: Adds GPP macros on user sync url",
       "number": 4358,
       "author": {
@@ -1043,20 +1366,6 @@
       ],
       "dateCreated": "2025-03-10T16:51:38.000Z",
       "dateUpdated": "2025-12-11T15:05:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Port PR from PBS-Go: New Adapter: Microsoft (msft)",
-      "number": 4294,
-      "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
-      },
-      "assignees": [
-        "Lightwood13"
-      ],
-      "dateCreated": "2025-11-21T16:24:24.000Z",
-      "dateUpdated": "2025-12-01T11:47:48.000Z",
       "status": "open"
     },
     {

@@ -1,51 +1,36 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2026-08-03T19:53:36.688Z",
-    "itemCount": 9
+    "lastSync": "2026-10-27T00:21:09.152Z",
+    "itemCount": 22
   },
   "items": [
     {
-      "title": "Swift Migration phases:  0, 1, 2",
-      "number": 1280,
+      "title": "Move development dependencies from CocoaPods to Swift Package Manager",
+      "number": 1421,
       "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
+        "login": "mdanylov-sigma",
+        "id": 146753616
       },
       "assignees": [],
       "reviewers": [
         {
-          "login": "mdanylov-sigma",
+          "login": "YuriyVelichkoPI",
           "state": "PENDING"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-21T08:06:10.000Z",
-      "dateUpdated": "2026-08-02T21:49:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Fix: SKAdN response fields according to IAB spec",
-      "number": 1301,
-      "author": {
-        "login": "OlenaPostindustria",
-        "id": 92721590
-      },
-      "assignees": [],
-      "reviewers": [
+        },
         {
-          "login": "mdanylov-sigma",
-          "state": "PENDING"
+          "login": "OlenaPostindustria",
+          "state": "CHANGES_REQUESTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-07-31T11:00:58.000Z",
-      "dateUpdated": "2026-07-31T11:02:21.000Z",
+      "dateCreated": "2026-10-25T22:59:21.000Z",
+      "dateUpdated": "2026-10-26T19:24:42.000Z",
       "status": "open"
     },
     {
-      "title": "Ad expiration based on `bid.exp`",
-      "number": 1267,
+      "title": "Bid selector for winner override",
+      "number": 1276,
       "author": {
         "login": "mdanylov-sigma",
         "id": 146753616
@@ -54,20 +39,346 @@
       "reviewers": [
         {
           "login": "OlenaPostindustria",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-07-07T10:57:46.000Z",
+      "dateUpdated": "2026-10-22T19:37:11.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: reuse a single URLSession so connections are pooled (#1339)",
+      "number": 1354,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-18T18:53:05.000Z",
+      "dateUpdated": "2026-10-22T19:37:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "feat: pluggable extended ID providers",
+      "number": 1361,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-28T16:08:12.000Z",
+      "dateUpdated": "2026-10-22T19:37:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Restore AdLoadFlowControllerTest and remove dead skippedTests entries",
+      "number": 1391,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-10T10:07:50.000Z",
+      "dateUpdated": "2026-10-22T19:37:00.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Complete a VAST load once, after every wrapper request has finished",
+      "number": 1397,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-12T19:03:03.000Z",
+      "dateUpdated": "2026-10-22T19:36:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Record the GAM manual impression when the ad server wins a banner",
+      "number": 1418,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
           "state": "APPROVED"
         },
         {
-          "login": "YuriyVelichkoPI",
-          "state": "COMMENTED"
-        },
-        {
-          "login": "thanhhaidev",
+          "login": "justadreamer",
           "state": "COMMENTED"
         }
       ],
       "commitAuthors": {},
-      "dateCreated": "2026-05-19T13:34:11.000Z",
-      "dateUpdated": "2026-07-30T07:28:34.000Z",
+      "dateCreated": "2026-10-22T16:35:49.000Z",
+      "dateUpdated": "2026-10-22T18:36:22.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: scope BannerView's stored auction response to the banner (#1407, 3 of 3)",
+      "number": 1413,
+      "author": {
+        "login": "CB-HaoxinLi",
+        "id": 122156786
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-21T15:28:56.000Z",
+      "dateUpdated": "2026-10-21T15:28:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: clear only the stored auction response a BannerView set itself (#1407, 2 of 3)",
+      "number": 1412,
+      "author": {
+        "login": "CB-HaoxinLi",
+        "id": 122156786
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-21T15:28:26.000Z",
+      "dateUpdated": "2026-10-21T15:28:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: stop BannerView deinit from clearing the SDK-wide stored auction response (#1407, 1 of 3)",
+      "number": 1411,
+      "author": {
+        "login": "CB-HaoxinLi",
+        "id": 122156786
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-21T15:27:34.000Z",
+      "dateUpdated": "2026-10-21T15:27:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Surface winning-bid economics on the original (GAM) API",
+      "number": 1321,
+      "author": {
+        "login": "yevhenii-audienzz",
+        "id": 263384106
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "yevhenii-audienzz",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-20T07:25:18.000Z",
+      "dateUpdated": "2026-10-21T12:20:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Replace [ERRORCODE] in VAST no-ad Error URIs before requesting them",
+      "number": 1396,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-10-12T19:02:49.000Z",
+      "dateUpdated": "2026-10-20T21:51:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix #1298: interstitial/rewarded video countdown indicator",
+      "number": 1307,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "CHANGES_REQUESTED"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "DISMISSED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-04T19:11:36.000Z",
+      "dateUpdated": "2026-10-19T20:37:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Improve smoke UI test reliability and diagnostics",
+      "number": 1317,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-14T18:23:11.000Z",
+      "dateUpdated": "2026-10-02T14:06:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix: BannerView.stopRefresh() and mediation fetchDemand callbacks",
+      "number": 1355,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "PENDING"
+        },
+        {
+          "login": "OlenaPostindustria",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-21T12:10:01.000Z",
+      "dateUpdated": "2026-09-30T10:40:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "fix(networking): cache URLSession per PrebidServerConnection for HTTP connection reuse",
+      "number": 1357,
+      "author": {
+        "login": "shubhransh-gupta",
+        "id": 54713516
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {},
+      "dateCreated": "2026-09-25T17:35:13.000Z",
+      "dateUpdated": "2026-09-25T17:35:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Fix clickthrough handling in PBMWebView to ensure iframes are able to load content",
+      "number": 1272,
+      "author": {
+        "login": "MattMur",
+        "id": 1305984
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-06-01T20:44:13.000Z",
+      "dateUpdated": "2026-09-11T22:54:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Device screen size in pixels in a request",
+      "number": 1204,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "CHANGES_REQUESTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2025-08-19T18:32:35.000Z",
+      "dateUpdated": "2026-09-10T20:50:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Add guards and review tooling",
+      "number": 1313,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {},
+      "dateCreated": "2026-08-13T09:13:19.000Z",
+      "dateUpdated": "2026-09-04T10:33:23.000Z",
       "status": "open"
     },
     {
@@ -87,44 +398,6 @@
       "commitAuthors": {},
       "dateCreated": "2026-07-29T16:17:06.000Z",
       "dateUpdated": "2026-07-29T16:17:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Fix clickthrough handling in PBMWebView to ensure iframes are able to load content",
-      "number": 1272,
-      "author": {
-        "login": "MattMur",
-        "id": 1305984
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "mdanylov-sigma",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-06-01T20:44:13.000Z",
-      "dateUpdated": "2026-07-27T07:10:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Bid selector for winner override",
-      "number": 1276,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "OlenaPostindustria",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2026-07-07T10:57:46.000Z",
-      "dateUpdated": "2026-07-21T07:55:55.000Z",
       "status": "open"
     },
     {
@@ -162,25 +435,6 @@
       "commitAuthors": {},
       "dateCreated": "2024-01-04T02:06:32.000Z",
       "dateUpdated": "2026-05-26T06:59:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Device screen size in pixels in a request",
-      "number": 1204,
-      "author": {
-        "login": "mdanylov-sigma",
-        "id": 146753616
-      },
-      "assignees": [],
-      "reviewers": [
-        {
-          "login": "OlenaPostindustria",
-          "state": "CHANGES_REQUESTED"
-        }
-      ],
-      "commitAuthors": {},
-      "dateCreated": "2025-08-19T18:32:35.000Z",
-      "dateUpdated": "2026-05-21T09:37:52.000Z",
       "status": "open"
     }
   ]

@@ -1,0 +1,1239 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 10,
+    "itemCount": 28,
+    "lastUpdated": "2026-10-27T00:20:46.909Z"
+  },
+  "items": [
+    {
+      "title": "New Adapter: SuperEdge",
+      "number": 4846,
+      "author": {
+        "login": "LeeZXin",
+        "id": 48628959
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "LeeZXin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "floxis-admin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bmanth60",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "48628959": {
+          "identifier": "48628959",
+          "displayName": "LeeZXin",
+          "count": 14,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-03T06:54:04.000Z",
+      "dateUpdated": "2026-10-27T00:15:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-26T13:45:03.000Z",
+      "dateClosed": "2026-10-26T13:45:03.000Z"
+    },
+    {
+      "title": "New Adapter: Floxis",
+      "number": 4811,
+      "author": {
+        "login": "floxis-admin",
+        "id": 234334311
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "floxis-admin",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "234334311": {
+          "identifier": "234334311",
+          "displayName": "floxis-admin",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "floxis-admin": {
+          "identifier": "floxis-admin",
+          "displayName": "floxis-admin",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-06-03T18:29:40.000Z",
+      "dateUpdated": "2026-10-22T18:33:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-22T18:33:39.000Z",
+      "dateClosed": "2026-10-22T18:33:39.000Z"
+    },
+    {
+      "title": "Fetchers 2.0: Account fetchers",
+      "number": 4895,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "SyntaxNode",
+        "anishb-ms"
+      ],
+      "reviewers": [
+        {
+          "login": "karwaankit32",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "anishb-ms",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "242161653": {
+          "identifier": "242161653",
+          "displayName": "karwaank",
+          "count": 15,
+          "isGitHubUser": true
+        },
+        "37686606": {
+          "identifier": "37686606",
+          "displayName": "karwaankit32",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-03T04:12:18.000Z",
+      "dateUpdated": "2026-10-19T14:50:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-19T14:50:58.000Z",
+      "dateClosed": "2026-10-19T14:50:58.000Z"
+    },
+    {
+      "title": "Bump google.golang.org/grpc from 1.79.3 to 1.83.1",
+      "number": 4969,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [
+        "karwaankit32",
+        "anishb-ms"
+      ],
+      "reviewers": [
+        {
+          "login": "karwaankit32",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anishb-ms",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "37686606": {
+          "identifier": "37686606",
+          "displayName": "karwaankit32",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T06:13:04.000Z",
+      "dateUpdated": "2026-10-19T14:21:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-19T14:20:41.000Z",
+      "dateClosed": "2026-10-19T14:20:41.000Z"
+    },
+    {
+      "title": "New Adapter: MCodeMedia",
+      "number": 4988,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "MaksymTeqBlaze"
+      ],
+      "reviewers": [
+        {
+          "login": "MaksymTeqBlaze",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "MyCodeMedia": {
+          "identifier": "MyCodeMedia",
+          "displayName": "MyCodeMedia",
+          "count": 3,
+          "isGitHubUser": false
+        },
+        "119521439": {
+          "identifier": "119521439",
+          "displayName": "mc-pacobernal",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "162988436": {
+          "identifier": "162988436",
+          "displayName": "teqblaze",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "Vitalii Sumlennyi": {
+          "identifier": "Vitalii Sumlennyi",
+          "displayName": "Vitalii Sumlennyi",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-15T09:50:32.000Z",
+      "dateUpdated": "2026-10-16T20:12:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-16T20:12:26.000Z",
+      "dateClosed": "2026-10-16T20:12:26.000Z"
+    },
+    {
+      "title": "New Adapter: Odeeo",
+      "number": 4967,
+      "author": {
+        "login": "dmytro-odeeo",
+        "id": 321454862
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dmytro-odeeo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "321454862": {
+          "identifier": "321454862",
+          "displayName": "dmytro-odeeo",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T12:08:45.000Z",
+      "dateUpdated": "2026-10-16T18:49:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-16T18:49:35.000Z",
+      "dateClosed": "2026-10-16T18:49:35.000Z"
+    },
+    {
+      "title": "New Adapter: Tunnl",
+      "number": 4897,
+      "author": {
+        "login": "BahadirIren",
+        "id": 64319816
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "postindustria-code",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "BahadirIren",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "64319816": {
+          "identifier": "64319816",
+          "displayName": "BahadirIren",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-04T10:33:57.000Z",
+      "dateUpdated": "2026-10-16T15:51:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-16T15:51:49.000Z",
+      "dateClosed": "2026-10-16T15:51:49.000Z"
+    },
+    {
+      "title": "New Adapter: Slikk - Xeworks alias",
+      "number": 4873,
+      "author": {
+        "login": "And-Rud",
+        "id": 96918101
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "And-Rud": {
+          "identifier": "And-Rud",
+          "displayName": "And-Rud",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "96918101": {
+          "identifier": "96918101",
+          "displayName": "And-Rud",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-23T11:07:49.000Z",
+      "dateUpdated": "2026-10-15T19:07:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-15T19:07:32.000Z",
+      "dateClosed": "2026-10-15T19:07:33.000Z"
+    },
+    {
+      "title": "Mobkoi: Support aliased requests",
+      "number": 4840,
+      "author": {
+        "login": "gabrielmougard",
+        "id": 27967361
+      },
+      "assignees": [
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "27967361": {
+          "identifier": "27967361",
+          "displayName": "gabrielmougard",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-01T12:43:23.000Z",
+      "dateUpdated": "2026-10-15T18:39:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-15T18:39:21.000Z",
+      "dateClosed": "2026-10-15T18:39:21.000Z"
+    },
+    {
+      "title": "New Adapter: Viant",
+      "number": 4854,
+      "author": {
+        "login": "KEPlockr",
+        "id": 74626343
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        },
+        {
+          "login": "KEPlockr",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "74626343": {
+          "identifier": "74626343",
+          "displayName": "KEPlockr",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-10T11:43:16.000Z",
+      "dateUpdated": "2026-10-14T20:27:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-14T20:27:56.000Z",
+      "dateClosed": "2026-10-14T20:27:57.000Z"
+    },
+    {
+      "title": "Vungle: Fix nil pointer panic when user is absent",
+      "number": 5029,
+      "author": {
+        "login": "Vungle-GordonTian",
+        "id": 115982294
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "115982294": {
+          "identifier": "115982294",
+          "displayName": "Vungle-GordonTian",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-13T02:44:16.000Z",
+      "dateUpdated": "2026-10-14T15:13:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-14T15:13:33.000Z",
+      "dateClosed": "2026-10-14T15:13:33.000Z"
+    },
+    {
+      "title": "Reklamup: Add regional endpoint support",
+      "number": 4987,
+      "author": {
+        "login": "prebid-reklamup",
+        "id": 265310176
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Reklamup": {
+          "identifier": "Reklamup",
+          "displayName": "Reklamup",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "Vitalii Sumlennyi": {
+          "identifier": "Vitalii Sumlennyi",
+          "displayName": "Vitalii Sumlennyi",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "265310176": {
+          "identifier": "265310176",
+          "displayName": "prebid-reklamup",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T20:57:30.000Z",
+      "dateUpdated": "2026-10-14T03:26:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-14T03:26:40.000Z",
+      "dateClosed": "2026-10-14T03:26:40.000Z"
+    },
+    {
+      "title": "Teal: Prefer bid.ext.prebid.type to get bid type",
+      "number": 4985,
+      "author": {
+        "login": "johnclc",
+        "id": 12496731
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "johnclc",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-actions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "12496731": {
+          "identifier": "12496731",
+          "displayName": "johnclc",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T15:44:12.000Z",
+      "dateUpdated": "2026-10-14T02:56:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-14T02:56:39.000Z",
+      "dateClosed": "2026-10-14T02:56:39.000Z"
+    },
+    {
+      "title": "BWX: Regional endpoints",
+      "number": 4887,
+      "author": {
+        "login": "And-Rud",
+        "id": 96918101
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "And-Rud": {
+          "identifier": "And-Rud",
+          "displayName": "And-Rud",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "96918101": {
+          "identifier": "96918101",
+          "displayName": "And-Rud",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-29T08:39:28.000Z",
+      "dateUpdated": "2026-10-13T22:28:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T22:28:59.000Z",
+      "dateClosed": "2026-10-13T22:28:59.000Z"
+    },
+    {
+      "title": "Ezoic: Add user sync",
+      "number": 4909,
+      "author": {
+        "login": "austinbyron",
+        "id": 59710247
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "59710247": {
+          "identifier": "59710247",
+          "displayName": "austinbyron",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-13T17:42:25.000Z",
+      "dateUpdated": "2026-10-13T22:19:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T22:19:29.000Z",
+      "dateClosed": "2026-10-13T22:19:29.000Z"
+    },
+    {
+      "title": "New Adapter: BalanceX - Limelight Alias ",
+      "number": 4902,
+      "author": {
+        "login": "quietPusher",
+        "id": 129727954
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ChrisHuie",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "mderevyanko": {
+          "identifier": "mderevyanko",
+          "displayName": "mderevyanko",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "129727954": {
+          "identifier": "129727954",
+          "displayName": "quietPusher",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-10T18:49:33.000Z",
+      "dateUpdated": "2026-10-13T22:01:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T22:01:11.000Z",
+      "dateClosed": "2026-10-13T22:01:11.000Z"
+    },
+    {
+      "title": "Trafficgate: Add TFC-EU Support",
+      "number": 4912,
+      "author": {
+        "login": "MikhailZamoyskyi",
+        "id": 111496292
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "mikhailzamoyskiy": {
+          "identifier": "mikhailzamoyskiy",
+          "displayName": "mikhailzamoyskiy",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "111496292": {
+          "identifier": "111496292",
+          "displayName": "MikhailZamoyskyi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-14T09:22:29.000Z",
+      "dateUpdated": "2026-10-13T21:50:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T21:50:03.000Z",
+      "dateClosed": "2026-10-13T21:50:03.000Z"
+    },
+    {
+      "title": "Motorik: Add GVL Vendor ID",
+      "number": 4917,
+      "author": {
+        "login": "eremamotorik",
+        "id": 319442129
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "319442129": {
+          "identifier": "319442129",
+          "displayName": "eremamotorik",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-21T11:33:11.000Z",
+      "dateUpdated": "2026-10-13T21:11:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T21:11:15.000Z",
+      "dateClosed": "2026-10-13T21:11:15.000Z"
+    },
+    {
+      "title": "New Adapter: Peak226",
+      "number": 4919,
+      "author": {
+        "login": "chanand",
+        "id": 1317789
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "chanand",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Chanan Diamant": {
+          "identifier": "Chanan Diamant",
+          "displayName": "Chanan Diamant",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "1317789": {
+          "identifier": "1317789",
+          "displayName": "chanand",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-24T10:02:19.000Z",
+      "dateUpdated": "2026-10-13T20:59:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T20:59:31.000Z",
+      "dateClosed": "2026-10-13T20:59:32.000Z"
+    },
+    {
+      "title": "Seedtag: Add app banner and video media types",
+      "number": 4931,
+      "author": {
+        "login": "ybootin",
+        "id": 1788867
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1788867": {
+          "identifier": "1788867",
+          "displayName": "ybootin",
+          "count": 11,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-27T10:21:33.000Z",
+      "dateUpdated": "2026-10-13T20:47:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T20:47:47.000Z",
+      "dateClosed": "2026-10-13T20:47:47.000Z"
+    },
+    {
+      "title": "OpenX: Single bid request for all valid imps",
+      "number": 4945,
+      "author": {
+        "login": "Fuska1",
+        "id": 174440987
+      },
+      "assignees": [
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "19549178": {
+          "identifier": "19549178",
+          "displayName": "bukrain",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-28T07:31:45.000Z",
+      "dateUpdated": "2026-10-13T20:34:35.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T20:34:34.000Z",
+      "dateClosed": "2026-10-13T20:34:35.000Z"
+    },
+    {
+      "title": "Adform: Add DOOH Support",
+      "number": 4781,
+      "author": {
+        "login": "braizhas",
+        "id": 4699750
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "braizhas",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "4699750": {
+          "identifier": "4699750",
+          "displayName": "braizhas",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-19T12:57:28.000Z",
+      "dateUpdated": "2026-10-13T20:23:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T20:23:40.000Z",
+      "dateClosed": "2026-10-13T20:23:40.000Z"
+    },
+    {
+      "title": "ConnectAd: Add video, native and audio support",
+      "number": 4785,
+      "author": {
+        "login": "rtuschkany",
+        "id": 35923908
+      },
+      "assignees": [
+        "przemkaczmarek",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "rtuschkany",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "35923908": {
+          "identifier": "35923908",
+          "displayName": "rtuschkany",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "199161495": {
+          "identifier": "199161495",
+          "displayName": "cursoragent",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-19T20:47:58.000Z",
+      "dateUpdated": "2026-10-13T20:13:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T20:13:47.000Z",
+      "dateClosed": "2026-10-13T20:13:47.000Z"
+    },
+    {
+      "title": "Missena: Propagate creative size and metadata from bid response",
+      "number": 4791,
+      "author": {
+        "login": "ysfbsf",
+        "id": 9834101
+      },
+      "assignees": [
+        "linux019",
+        "postindustria-code"
+      ],
+      "reviewers": [
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "9834101": {
+          "identifier": "9834101",
+          "displayName": "ysfbsf",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-21T14:27:23.000Z",
+      "dateUpdated": "2026-10-13T19:19:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T19:19:36.000Z",
+      "dateClosed": "2026-10-13T19:19:36.000Z"
+    },
+    {
+      "title": "Alkimi: Update user sync query params",
+      "number": 4768,
+      "author": {
+        "login": "VelRaj21",
+        "id": 132557157
+      },
+      "assignees": [
+        "bsardo",
+        "danylo-kazymyrov-teqblaze"
+      ],
+      "reviewers": [
+        {
+          "login": "pushpalatha75",
+          "state": "APPROVED"
+        },
+        {
+          "login": "danylo-kazymyrov-teqblaze",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "132557157": {
+          "identifier": "132557157",
+          "displayName": "VelRaj21",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-08T13:37:12.000Z",
+      "dateUpdated": "2026-10-13T15:23:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T15:23:41.000Z",
+      "dateClosed": "2026-10-13T15:23:41.000Z"
+    },
+    {
+      "title": "New Adapter: APS",
+      "number": 4999,
+      "author": {
+        "login": "sreddyba-amzn",
+        "id": 316729585
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "Net-burst",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "linux019",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sreddyba-amzn",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "316729585": {
+          "identifier": "316729585",
+          "displayName": "sreddyba-amzn",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-21T21:47:55.000Z",
+      "dateUpdated": "2026-10-12T17:32:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-12T17:32:16.000Z",
+      "dateClosed": "2026-10-12T17:32:16.000Z"
+    },
+    {
+      "title": "New Adapter: Matterfull RTB",
+      "number": 4343,
+      "author": {
+        "login": "Matterfull",
+        "id": 204218625
+      },
+      "assignees": [
+        "scr-oath",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "scr-oath",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "github-actions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Matterfull",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "foxart",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "Ivan": {
+          "identifier": "Ivan",
+          "displayName": "Ivan",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "204218625": {
+          "identifier": "204218625",
+          "displayName": "Matterfull",
+          "count": 19,
+          "isGitHubUser": true
+        },
+        "5030553": {
+          "identifier": "5030553",
+          "displayName": "foxart",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2025-05-19T09:22:21.000Z",
+      "dateUpdated": "2026-10-02T14:07:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-02T14:07:24.000Z",
+      "dateClosed": "2026-10-02T14:07:24.000Z"
+    },
+    {
+      "title": "Adapter Semgrep Workflow: Split into two stages",
+      "number": 4894,
+      "author": {
+        "login": "przemkaczmarek",
+        "id": 167743744
+      },
+      "assignees": [
+        "bsardo",
+        "anishb-ms"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "167743744": {
+          "identifier": "167743744",
+          "displayName": "przemkaczmarek",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-31T19:21:06.000Z",
+      "dateUpdated": "2026-10-02T12:21:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-02T12:21:40.000Z",
+      "dateClosed": "2026-10-02T12:21:40.000Z"
+    }
+  ]
+}

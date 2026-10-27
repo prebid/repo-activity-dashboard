@@ -1,68 +1,330 @@
 {
   "metadata": {
     "repository": "prebid/prebid-server",
-    "lastSync": "2026-08-03T19:53:13.710Z",
-    "itemCount": 238
+    "lastSync": "2026-10-27T00:20:46.908Z",
+    "itemCount": 253
   },
   "items": [
     {
-      "title": "Port PR from PBS-Java: Rename `radianfusion` to `radiantfusion`",
-      "number": 4892,
+      "title": "New Module proposal: in-process VAST validation for video bids (vastlint.validation)",
+      "number": 5048,
       "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
+        "login": "aleksUIX",
+        "id": 5405855
       },
       "assignees": [],
-      "dateCreated": "2026-07-30T12:38:14.000Z",
-      "dateUpdated": "2026-07-30T12:38:14.000Z",
+      "dateCreated": "2026-10-26T06:02:28.000Z",
+      "dateUpdated": "2026-10-26T06:03:24.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Rename `rubicon` leftovers to `magnite`",
-      "number": 4891,
+      "title": "Connect Ad Server / Direct Campaign Server into Prebid Server to make it a complete ad stack",
+      "number": 4676,
       "author": {
-        "login": "cross-repo-issue-creation[bot]",
-        "id": 122121745
+        "login": "postindustria-code",
+        "id": 217833752
       },
       "assignees": [],
-      "dateCreated": "2026-07-30T12:31:08.000Z",
-      "dateUpdated": "2026-07-30T12:31:08.000Z",
+      "dateCreated": "2026-02-04T14:41:20.000Z",
+      "dateUpdated": "2026-10-19T11:50:04.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Rename `bidagency` to `bidgency`",
-      "number": 4890,
+      "title": "Port PR from PBS-Java: Smartadserver: forward placementuuid as plcmtuuid",
+      "number": 5022,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2026-07-30T12:25:34.000Z",
-      "dateUpdated": "2026-07-30T12:25:34.000Z",
+      "dateCreated": "2026-10-06T12:12:09.000Z",
+      "dateUpdated": "2026-10-06T12:12:09.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Magnite adapter: Rebrand Rubicon adapter into Magnite adapter",
-      "number": 4884,
+      "title": "Port PR from PBS-Java: OpenRTB: Fix request model types and preserve missing fields",
+      "number": 5004,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2026-07-27T17:14:17.000Z",
-      "dateUpdated": "2026-07-27T17:14:17.000Z",
+      "dateCreated": "2026-09-23T11:46:39.000Z",
+      "dateUpdated": "2026-10-01T15:24:05.000Z",
       "status": "open"
     },
     {
-      "title": "Port PR from PBS-Java: Fix VendorListFileStoreTest",
-      "number": 4881,
+      "title": "Panic in Pubmatic adapter",
+      "number": 5002,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-23T07:44:10.000Z",
+      "dateUpdated": "2026-09-30T17:36:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Beachfront: panic when the bid response contains more bids than the request had imps",
+      "number": 4907,
+      "author": {
+        "login": "postindustria-code",
+        "id": 217833752
+      },
+      "assignees": [
+        "karwaankit32"
+      ],
+      "dateCreated": "2026-08-12T11:50:47.000Z",
+      "dateUpdated": "2026-09-29T06:48:34.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Preserve ORTB seat",
+      "number": 2424,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
+      },
+      "assignees": [],
+      "dateCreated": "2022-10-14T19:43:20.000Z",
+      "dateUpdated": "2026-09-28T15:51:55.000Z",
+      "status": "open"
+    },
+    {
+      "title": "update openrtb dependency",
+      "number": 4978,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-09-08T10:47:29.000Z",
+      "dateUpdated": "2026-09-17T15:31:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "US states outright prohibition of sale of precise user geo data",
+      "number": 4986,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "lcorrigall"
+      ],
+      "dateCreated": "2026-09-09T17:54:28.000Z",
+      "dateUpdated": "2026-09-17T15:28:53.000Z",
+      "status": "open"
+    },
+    {
+      "title": "artf support",
+      "number": 4754,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2026-04-27T18:15:20.000Z",
+      "dateUpdated": "2026-09-17T15:08:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Teal: bid type update",
+      "number": 4903,
       "author": {
         "login": "cross-repo-issue-creation[bot]",
         "id": 122121745
       },
       "assignees": [],
-      "dateCreated": "2026-07-23T19:18:17.000Z",
-      "dateUpdated": "2026-07-23T19:18:17.000Z",
+      "dateCreated": "2026-08-11T13:13:24.000Z",
+      "dateUpdated": "2026-09-09T15:46:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "stored_requests: FetchResponses has no cache hit/miss metrics, unlike FetchRequests/FetchAccount",
+      "number": 4960,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [
+        "karwaankit32"
+      ],
+      "dateCreated": "2026-08-30T07:13:08.000Z",
+      "dateUpdated": "2026-09-03T15:55:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "firstpartydata: resolveApp lacks the post-merge identity re-validation that resolveSite already has",
+      "number": 4959,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-08-30T07:12:43.000Z",
+      "dateUpdated": "2026-09-03T15:48:26.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Event tracking URL builder does not escape bid.id, allowing query-parameter injection (e.g. account ID override)",
+      "number": 4958,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2026-08-30T07:12:37.000Z",
+      "dateUpdated": "2026-09-03T15:46:51.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prometheus histogram bucket boundaries are hardcoded, unlike the Namespace/Subsystem in the same config struct",
+      "number": 4957,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T07:12:19.000Z",
+      "dateUpdated": "2026-09-03T15:44:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "FindIntermediateConversionRate returns a non-deterministic rate due to unordered map iteration",
+      "number": 4956,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T07:12:10.000Z",
+      "dateUpdated": "2026-09-03T15:38:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Unsynchronized map access in category-mapping fetchers (FetchCategories) can crash the server with a fatal concurrent map write",
+      "number": 4955,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [
+        "karwaankit32"
+      ],
+      "dateCreated": "2026-08-30T07:11:47.000Z",
+      "dateUpdated": "2026-09-03T15:35:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Added account.ACCOUNT_ID.requests.gotbids metric that will be increme…",
+      "number": 4932,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "przemkaczmarek"
+      ],
+      "dateCreated": "2026-08-27T10:52:01.000Z",
+      "dateUpdated": "2026-09-03T15:33:17.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: New Adapter: Sevio",
+      "number": 4928,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-26T21:56:36.000Z",
+      "dateUpdated": "2026-09-03T14:23:24.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: New Adapter: BidWave",
+      "number": 4925,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-26T21:44:45.000Z",
+      "dateUpdated": "2026-09-03T14:22:02.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rules Engine Module: Generate rules from YAML geoscope annotations",
+      "number": 4379,
+      "author": {
+        "login": "bsardo",
+        "id": 1168933
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-06-09T02:24:03.000Z",
+      "dateUpdated": "2026-09-01T14:23:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ortb.CloneUserAgent mutates the original UserAgent.Ext instead of the returned clone's, breaking the deep-clone contract for Device.SUA",
+      "number": 4963,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T07:19:35.000Z",
+      "dateUpdated": "2026-08-30T07:19:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "analytics/pubstack and analytics/agma: SIGTERM racing with in-flight events can permanently block a request-handler goroutine (unbuffered channel abandoned by its sole reader)",
+      "number": 4962,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T07:14:40.000Z",
+      "dateUpdated": "2026-08-30T07:14:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Price floor fetcher permanently stops retrying a URL after max_retries is exhausted (fetchInProgress never cleared)",
+      "number": 4961,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T07:14:05.000Z",
+      "dateUpdated": "2026-08-30T07:14:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
+      "number": 4501,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "bsardo"
+      ],
+      "dateCreated": "2025-08-27T08:01:38.000Z",
+      "dateUpdated": "2026-08-28T17:06:17.000Z",
       "status": "open"
     },
     {
@@ -77,21 +339,61 @@
         "anishb-ms"
       ],
       "dateCreated": "2026-03-18T20:58:16.000Z",
-      "dateUpdated": "2026-07-23T15:49:19.000Z",
+      "dateUpdated": "2026-08-27T11:15:47.000Z",
       "status": "open"
     },
     {
-      "title": "PrepareCookieForWrite swallows encoder.Encode error and reports success",
-      "number": 4843,
+      "title": "Can github.com/chasex/glog be removed or replaced? No licence detected for dependency",
+      "number": 4913,
       "author": {
-        "login": "alibazlamit",
-        "id": 5726532
+        "login": "spormeon",
+        "id": 8503167
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-18T10:49:39.000Z",
+      "dateUpdated": "2026-08-20T15:16:54.000Z",
+      "status": "open"
+    },
+    {
+      "title": "ORTB error responses",
+      "number": 3556,
+      "author": {
+        "login": "bretg",
+        "id": 4412838
       },
       "assignees": [
-        "karwaankit32"
+        "pm-nikhil-vaidya"
       ],
-      "dateCreated": "2026-07-02T10:21:53.000Z",
-      "dateUpdated": "2026-07-23T15:41:38.000Z",
+      "dateCreated": "2024-03-01T13:54:19.000Z",
+      "dateUpdated": "2026-08-18T15:35:45.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Port PR from PBS-Java: Magnite adapter: Rebrand Rubicon adapter into Magnite adapter",
+      "number": 4884,
+      "author": {
+        "login": "cross-repo-issue-creation[bot]",
+        "id": 122121745
+      },
+      "assignees": [
+        "Net-burst"
+      ],
+      "dateCreated": "2026-07-27T17:14:17.000Z",
+      "dateUpdated": "2026-08-06T15:13:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "RFC: First-class TMP support in Prebid Server",
+      "number": 4845,
+      "author": {
+        "login": "bokelley",
+        "id": 134922
+      },
+      "assignees": [
+        "ChrisHuie"
+      ],
+      "dateCreated": "2026-07-03T05:30:05.000Z",
+      "dateUpdated": "2026-08-05T21:21:03.000Z",
       "status": "open"
     },
     {
@@ -107,34 +409,6 @@
       ],
       "dateCreated": "2026-07-21T11:39:33.000Z",
       "dateUpdated": "2026-07-23T15:40:54.000Z",
-      "status": "open"
-    },
-    {
-      "title": "RFC: First-class TMP support in Prebid Server",
-      "number": 4845,
-      "author": {
-        "login": "bokelley",
-        "id": 134922
-      },
-      "assignees": [
-        "ChrisHuie"
-      ],
-      "dateCreated": "2026-07-03T05:30:05.000Z",
-      "dateUpdated": "2026-07-23T15:36:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "artf support",
-      "number": 4754,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "ChrisHuie"
-      ],
-      "dateCreated": "2026-04-27T18:15:20.000Z",
-      "dateUpdated": "2026-07-23T15:36:13.000Z",
       "status": "open"
     },
     {
@@ -177,20 +451,6 @@
       ],
       "dateCreated": "2026-05-22T09:46:22.000Z",
       "dateUpdated": "2026-07-13T20:13:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Request for status / timeline on PR #4803 (Yahoo Ads: Migrate to OpenRTB 2.6)",
-      "number": 4850,
-      "author": {
-        "login": "MananRPatel",
-        "id": 67188104
-      },
-      "assignees": [
-        "bsardo"
-      ],
-      "dateCreated": "2026-07-07T17:49:50.000Z",
-      "dateUpdated": "2026-07-09T15:12:32.000Z",
       "status": "open"
     },
     {
@@ -679,30 +939,6 @@
       "status": "open"
     },
     {
-      "title": "Connect Ad Server / Direct Campaign Server into Prebid Server to make it a complete ad stack",
-      "number": 4676,
-      "author": {
-        "login": "postindustria-code",
-        "id": 217833752
-      },
-      "assignees": [],
-      "dateCreated": "2026-02-04T14:41:20.000Z",
-      "dateUpdated": "2026-02-04T14:41:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid Server doesn't transform device size to DPIs on calculating the creative sizes for Interstitial ads",
-      "number": 4501,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-27T08:01:38.000Z",
-      "dateUpdated": "2026-01-26T12:03:56.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support Secondary Bidder feature",
       "number": 2620,
       "author": {
@@ -989,7 +1225,7 @@
       "title": "Error calling GET https://vendor-list.consensu.org/v3/vendor-list.json",
       "number": 3254,
       "author": {
-        "login": "matthieularere-msq",
+        "login": "matthieularere",
         "id": 63732822
       },
       "assignees": [
@@ -1164,18 +1400,6 @@
       "status": "open"
     },
     {
-      "title": "Preserve ORTB seat",
-      "number": 2424,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2022-10-14T19:43:20.000Z",
-      "dateUpdated": "2025-09-19T15:01:51.000Z",
-      "status": "open"
-    },
-    {
       "title": "Discuss Prebid Server alias behavior",
       "number": 2391,
       "author": {
@@ -1226,20 +1450,6 @@
       ],
       "dateCreated": "2025-08-13T07:03:29.000Z",
       "dateUpdated": "2025-09-13T01:25:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "ORTB error responses",
-      "number": 3556,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "pm-nikhil-vaidya"
-      ],
-      "dateCreated": "2024-03-01T13:54:19.000Z",
-      "dateUpdated": "2025-09-11T03:20:10.000Z",
       "status": "open"
     },
     {
@@ -1304,18 +1514,6 @@
       "assignees": [],
       "dateCreated": "2024-09-25T20:28:13.000Z",
       "dateUpdated": "2025-09-04T13:47:44.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Rules Engine Module: Generate rules from YAML geoscope annotations",
-      "number": 4379,
-      "author": {
-        "login": "bsardo",
-        "id": 1168933
-      },
-      "assignees": [],
-      "dateCreated": "2025-06-09T02:24:03.000Z",
-      "dateUpdated": "2025-08-27T13:57:56.000Z",
       "status": "open"
     },
     {
