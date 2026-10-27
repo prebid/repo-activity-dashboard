@@ -118,3 +118,11 @@ it('explains the committed password change on the recovery login screen', () => 
     'Password changed. Sign in with your new password.',
   );
 });
+
+it('does not claim a failed password write when its response is lost', async () => {
+  vi.mocked(fetch).mockRejectedValue(new TypeError('Failed to fetch'));
+  form();
+  await screen.findByText(/The password change could not be confirmed/);
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(screen.queryByText('Failed to fetch')).not.toBeInTheDocument();
+});

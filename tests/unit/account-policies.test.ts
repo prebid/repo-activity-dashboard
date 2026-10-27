@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { authorizeCredentials } from '@/lib/auth/credential-policy';
 import { accountAccess } from '@/lib/auth/access-policy';
 import { readRequestBody } from '@/lib/auth/request-body';
-import { readJsonResponse } from '@/lib/presentation/http';
+import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
 import { createAccountSchema, messageResponseSchema } from '@/models/accounts';
 
 const account = {
@@ -179,3 +179,22 @@ it('returns a body-size error before parsing an account mutation', async () => {
   if (result.ok) throw new Error('Expected oversized rejection');
   expect(result.response.status).toBe(413);
 });
+
+it.each([400, 500])(
+  'distinguishes a rejected mutation from an unknown %i outcome',
+  async (status) => {
+    let failure: unknown;
+    try {
+      await readJsonResponse(
+        Response.json({ error: 'server detail' }, { status }),
+        messageResponseSchema,
+        'could not confirm',
+      );
+    } catch (error) {
+      failure = error;
+    }
+    expect(mutationFailureMessage(failure, 'may have committed')).toBe(
+      status === 400 ? 'server detail' : 'may have committed',
+    );
+  },
+);

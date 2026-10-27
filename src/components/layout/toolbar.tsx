@@ -23,13 +23,16 @@ export function Toolbar({
     setSigningOut(true);
     setSignOutError('');
     try {
-      const result = await signOut({ redirect: false });
+      const result = await signOut({ redirect: false, redirectTo: '/auth/login' });
       if (!result.url) throw new Error('Sign out failed');
+      const destination = new URL(result.url, window.location.origin);
+      if (destination.searchParams.has('error') || destination.pathname !== '/auth/login')
+        throw new Error('Sign out could not be confirmed');
       notifyAuthTransition();
       router.replace('/auth/login');
       router.refresh();
     } catch {
-      setSignOutError('Unable to sign out. Please try again.');
+      setSignOutError('Sign-out could not be confirmed. Please try again.');
     } finally {
       setSigningOut(false);
     }

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { passwordRequirements } from '@/models/password-policy';
-import { readJsonResponse } from '@/lib/presentation/http';
+import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
 import { messageResponseSchema } from '@/models/accounts';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -70,7 +70,10 @@ export function ChangePasswordView({
     } catch (error) {
       if (current.signal.aborted) return;
       setError(
-        error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.',
+        mutationFailureMessage(
+          error,
+          'The password change could not be confirmed. Try signing in with your new password, or ask an administrator to reissue it.',
+        ),
       );
       setIsLoading(false);
       operation.current = null;

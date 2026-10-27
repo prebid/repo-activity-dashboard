@@ -30,6 +30,8 @@ A future adapter owns request cancellation/order, response-schema validation, au
 
 Account request bodies, consumed API responses, and loaded account/whitelist records are validated with Zod. The HTTP boundary limits actual body bytes to 16 KiB and body reads to five seconds before parsing; absent/misleading Content-Length does not bypass counting. Login/current-password verification accepts at most 1 KiB of UTF-8 input, without trimming or truncation. Oversize and timed-out bodies return 413 and 408 respectively. Invalid user input returns 400; malformed store responses and store failures remain failures. Production credential validation checks whitelist membership, account existence, and password verification and returns only safe identity fields.
 
+Client mutation handling distinguishes a parsed 4xx rejection from an uncertain network, malformed-response or server-error outcome. Uncertain outcomes receive operation-specific recovery guidance rather than raw transport messages or an automatic mutation retry. Server-page retry refreshes the router before clearing its error boundary.
+
 Account JSON responses, including errors and temporary credentials, use `accountJson` to enforce `Cache-Control: private, no-store`. Admin list fetches also request no-store. Auth.js protocol responses retain library handling; the current-session adapter preserves cookie semantics while applying the account response policy.
 
 Custom cookie-authenticated account mutations require the canonical configured origin and JSON content type. Their policy is shared by the create/reset/change-password routes. Auth.js endpoints keep their existing CSRF protocol.

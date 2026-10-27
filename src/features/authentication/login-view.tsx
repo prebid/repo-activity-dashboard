@@ -29,9 +29,11 @@ export function LoginView({
       const result = await signIn('credentials', { email, password, redirect: false });
       if (result?.error || !result?.ok)
         setError(
-          result?.error === 'Configuration'
-            ? 'Sign-in is temporarily unavailable. Try again or contact an administrator.'
-            : 'Unable to sign in. Check your details and try again.',
+          result?.code === 'temporary_expired'
+            ? 'Temporary password expired. Ask an administrator to reissue it.'
+            : result?.error === 'Configuration'
+              ? 'Sign-in is temporarily unavailable. Try again or contact an administrator.'
+              : 'Unable to sign in. Check your details and try again.',
         );
       else {
         notifyAuthTransition();
