@@ -1,5 +1,6 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
+import { observeBrowserErrors } from '../support/browser-errors';
 
 test('dark is the default and explicit system or light choices survive reloads', async ({
   page,
@@ -84,12 +85,18 @@ test('one preference carries across login, dashboard, other tabs and sign-out', 
   );
   await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
   const peer = await context.newPage();
-  await peer.goto('/auth/login');
-  await expect(peer.locator('html')).toHaveClass(/light/);
-  await peer.getByRole('button', { name: 'Theme settings', exact: true }).click();
-  await peer.getByRole('menuitemradio', { name: 'Dark', exact: true }).click();
-  await expect(page.locator('html')).toHaveClass(/dark/);
-  await peer.close();
+  const errors = observeBrowserErrors(peer);
+  try {
+    await peer.goto('/auth/login');
+    await expect(peer.locator('html')).toHaveClass(/light/);
+    await peer.getByRole('button', { name: 'Theme settings', exact: true }).click();
+    await peer.getByRole('menuitemradio', { name: 'Dark', exact: true }).click();
+    await expect(page.locator('html')).toHaveClass(/dark/);
+    errors.assertClean();
+  } finally {
+    errors.dispose();
+    await peer.close();
+  }
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await expect(page).toHaveURL(/\/auth\/login$/);
   await expect(page.locator('html')).toHaveClass(/dark/);
