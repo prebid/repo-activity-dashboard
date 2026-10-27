@@ -159,6 +159,24 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await login(page);
   await page.goto('/foundation');
   await expect(page.locator('html')).toHaveClass(/dark/);
+  if (process.env.CAPTURE_HYDRATION === '1') {
+    testInfo.setTimeout(120000);
+    for (let iteration = 0; iteration < 60; iteration++) {
+      const theme = await page.evaluate(() => localStorage.getItem('dashboard-theme'));
+      const background = await page
+        .locator('body')
+        .evaluate((el) => getComputedStyle(el).backgroundColor);
+      await page.getByRole('button', { name: 'Toggle theme' }).click();
+      await expect
+        .poll(() => page.evaluate(() => localStorage.getItem('dashboard-theme')))
+        .not.toBe(theme);
+      await expect
+        .poll(() => page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor))
+        .not.toBe(background);
+      await page.reload();
+      await expect(page.getByRole('button', { name: 'Example action' })).toBeVisible();
+    }
+  }
   const specimen = page.getByTestId('style-specimen');
   await expect(specimen).toHaveCSS('padding-top', '16px');
   await expect(specimen).toHaveCSS('gap', '8px');

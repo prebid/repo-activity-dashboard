@@ -35,7 +35,7 @@ jobs:
       - run: npm run check:all
       - name: Capture intermittent hydration failure
         if: always()
-        run: npx playwright test tests/e2e/foundation.spec.ts --project chromium --grep 'style tokens' --repeat-each 6 --reporter=list --output=test-results/hydration-repeats
+        run: CAPTURE_HYDRATION=1 npx playwright test tests/e2e/foundation.spec.ts --project chromium --grep 'style tokens' --reporter=list --output=test-results/hydration-repeats
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
