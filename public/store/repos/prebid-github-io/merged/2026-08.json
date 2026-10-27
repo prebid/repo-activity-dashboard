@@ -3,10 +3,740 @@
     "repository": "prebid/prebid.github.io",
     "year": 2026,
     "month": 8,
-    "itemCount": 2,
-    "lastUpdated": "2026-08-03T19:53:53.116Z"
+    "itemCount": 26,
+    "lastUpdated": "2026-10-27T00:21:25.386Z"
   },
   "items": [
+    {
+      "title": "Docs(ogury): update documentation for instream video support",
+      "number": 6713,
+      "author": {
+        "login": "ivan83",
+        "id": 673076
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mbouallagui",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "ivan83",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "31158143": {
+          "identifier": "31158143",
+          "displayName": "krdzo",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "673076": {
+          "identifier": "673076",
+          "displayName": "ivan83",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-19T10:05:42.000Z",
+      "dateUpdated": "2026-08-31T07:40:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-31T07:40:10.000Z",
+      "dateClosed": "2026-08-31T07:40:10.000Z"
+    },
+    {
+      "title": "HyperBrainz Bid Adapter: add bidder documentation",
+      "number": 6632,
+      "author": {
+        "login": "krishnarx",
+        "id": 170007349
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "krishnarx",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "170007349": {
+          "identifier": "170007349",
+          "displayName": "krishnarx",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-06-22T09:02:31.000Z",
+      "dateUpdated": "2026-08-25T11:00:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-25T11:00:25.000Z",
+      "dateClosed": "2026-08-25T11:00:25.000Z"
+    },
+    {
+      "title": "Native Agents adapter: adding Overview section in the docs with basic info.",
+      "number": 6710,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "prebid_maintainers": {
+          "identifier": "prebid_maintainers",
+          "displayName": "prebid_maintainers",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-08-18T10:38:22.000Z",
+      "dateUpdated": "2026-08-20T21:50:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-20T21:50:39.000Z",
+      "dateClosed": "2026-08-20T21:50:39.000Z"
+    },
+    {
+      "title": "Updates old aliased ocm bid adapter dev docs with the new, actual OCM bid adapter",
+      "number": 6655,
+      "author": {
+        "login": "ocm-peter",
+        "id": 64111309
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "64111309": {
+          "identifier": "64111309",
+          "displayName": "ocm-peter",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-08T10:44:59.000Z",
+      "dateUpdated": "2026-08-20T21:26:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-20T21:26:47.000Z",
+      "dateClosed": "2026-08-20T21:26:48.000Z"
+    },
+    {
+      "title": "Anonymised user ID module added",
+      "number": 6705,
+      "author": {
+        "login": "kyrylenko",
+        "id": 10921133
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Pavlo": {
+          "identifier": "Pavlo",
+          "displayName": "Pavlo",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "10921133": {
+          "identifier": "10921133",
+          "displayName": "kyrylenko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-14T10:31:19.000Z",
+      "dateUpdated": "2026-08-20T21:26:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-20T21:26:24.000Z",
+      "dateClosed": "2026-08-20T21:26:24.000Z"
+    },
+    {
+      "title": "Adapter copper6",
+      "number": 6709,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Anna Yablonsky": {
+          "identifier": "Anna Yablonsky",
+          "displayName": "Anna Yablonsky",
+          "count": 14,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-08-18T07:08:11.000Z",
+      "dateUpdated": "2026-08-20T13:25:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-20T13:25:30.000Z",
+      "dateClosed": "2026-08-20T13:25:30.000Z"
+    },
+    {
+      "title": "Reklamup Bid Adapter: update adapter",
+      "number": 6666,
+      "author": {
+        "login": "prebid-reklamup",
+        "id": 265310176
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Reklamup": {
+          "identifier": "Reklamup",
+          "displayName": "Reklamup",
+          "count": 5,
+          "isGitHubUser": false
+        },
+        "Vitalii Sumlennyi": {
+          "identifier": "Vitalii Sumlennyi",
+          "displayName": "Vitalii Sumlennyi",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-07-15T08:48:35.000Z",
+      "dateUpdated": "2026-08-19T05:11:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-19T05:10:56.000Z",
+      "dateClosed": "2026-08-19T05:10:56.000Z"
+    },
+    {
+      "title": "StackAdapt: enable PBS",
+      "number": 6496,
+      "author": {
+        "login": "franklong-sa",
+        "id": 204051893
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "204051893": {
+          "identifier": "204051893",
+          "displayName": "franklong-sa",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-03-20T15:16:08.000Z",
+      "dateUpdated": "2026-08-18T22:47:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-18T22:47:09.000Z",
+      "dateClosed": "2026-08-18T22:47:09.000Z"
+    },
+    {
+      "title": "New Bidder: Ezoic",
+      "number": 6614,
+      "author": {
+        "login": "austinbyron",
+        "id": 59710247
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "59710247": {
+          "identifier": "59710247",
+          "displayName": "austinbyron",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-06-11T16:20:38.000Z",
+      "dateUpdated": "2026-08-18T22:46:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-18T22:46:25.000Z",
+      "dateClosed": "2026-08-18T22:46:25.000Z"
+    },
+    {
+      "title": "Floxis: set gvl_id to 1609",
+      "number": 6698,
+      "author": {
+        "login": "floxis-admin",
+        "id": 234334311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "234334311": {
+          "identifier": "234334311",
+          "displayName": "floxis-admin",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-11T20:45:59.000Z",
+      "dateUpdated": "2026-08-18T11:19:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-18T11:19:56.000Z",
+      "dateClosed": "2026-08-18T11:19:56.000Z"
+    },
+    {
+      "title": "Copper6 Adapter - adding document",
+      "number": 6597,
+      "author": {
+        "login": "anna-y-perion",
+        "id": 211479965
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anna-y-perion",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "Anna Yablonsky": {
+          "identifier": "Anna Yablonsky",
+          "displayName": "Anna Yablonsky",
+          "count": 11,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-06-04T06:58:58.000Z",
+      "dateUpdated": "2026-08-17T16:43:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-17T16:43:29.000Z",
+      "dateClosed": "2026-08-17T16:43:29.000Z"
+    },
+    {
+      "title": "Unicorn bid adapter: document ad slot position signals",
+      "number": 6674,
+      "author": {
+        "login": "harufujimoto",
+        "id": 56620731
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "56620731": {
+          "identifier": "56620731",
+          "displayName": "harufujimoto",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-23T07:34:46.000Z",
+      "dateUpdated": "2026-08-14T06:13:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T06:13:32.000Z",
+      "dateClosed": "2026-08-14T06:13:32.000Z"
+    },
+    {
+      "title": "Synapse HX Bid Adapter: Prebid.js support update ",
+      "number": 6657,
+      "author": {
+        "login": "prebid-compas",
+        "id": 265840804
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lpagnypubstack",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "265840804": {
+          "identifier": "265840804",
+          "displayName": "prebid-compas",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-09T08:12:25.000Z",
+      "dateUpdated": "2026-08-11T10:32:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T10:32:43.000Z",
+      "dateClosed": "2026-08-11T10:32:43.000Z"
+    },
+    {
+      "title": "Update eightpod Bidder Adaptor doc and eightpod Analytics Adapter docs",
+      "number": 6644,
+      "author": {
+        "login": "ad8pod",
+        "id": 279944430
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "279944430": {
+          "identifier": "279944430",
+          "displayName": "ad8pod",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-06-26T11:43:10.000Z",
+      "dateUpdated": "2026-08-11T10:32:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T10:32:33.000Z",
+      "dateClosed": "2026-08-11T10:32:33.000Z"
+    },
+    {
+      "title": "New adapter: SMB",
+      "number": 6640,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "162988436": {
+          "identifier": "162988436",
+          "displayName": "teqblaze",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-06-25T07:14:33.000Z",
+      "dateUpdated": "2026-08-11T10:29:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T10:29:58.000Z",
+      "dateClosed": "2026-08-11T10:29:59.000Z"
+    },
+    {
+      "title": "Add advertronic bidder adapter docs",
+      "number": 6694,
+      "author": {
+        "login": "advertronic",
+        "id": 314730783
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "314730783": {
+          "identifier": "314730783",
+          "displayName": "advertronic",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-08T18:06:14.000Z",
+      "dateUpdated": "2026-08-11T10:22:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T10:22:24.000Z",
+      "dateClosed": "2026-08-11T10:22:24.000Z"
+    },
+    {
+      "title": "Native Agents adapter: update bidder doc for accuracy (video support, GDPR)",
+      "number": 6681,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "240182376": {
+          "identifier": "240182376",
+          "displayName": "pavlosamonin-a11y",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-27T13:36:29.000Z",
+      "dateUpdated": "2026-08-11T09:14:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T09:14:23.000Z",
+      "dateClosed": "2026-08-11T09:14:23.000Z"
+    },
+    {
+      "title": "Yaleo Bid Adapter: document endpoint override configuration",
+      "number": 6683,
+      "author": {
+        "login": "alexandr-kim-vl",
+        "id": 47887567
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "47887567": {
+          "identifier": "47887567",
+          "displayName": "alexandr-kim-vl",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-28T09:24:09.000Z",
+      "dateUpdated": "2026-08-11T09:13:44.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T09:13:44.000Z",
+      "dateClosed": "2026-08-11T09:13:44.000Z"
+    },
+    {
+      "title": "Richaudience Bid Adapter: remove supplyType param",
+      "number": 6692,
+      "author": {
+        "login": "jordicher-exte",
+        "id": 313326926
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "313326926": {
+          "identifier": "313326926",
+          "displayName": "jordicher-exte",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-05T10:42:59.000Z",
+      "dateUpdated": "2026-08-11T09:10:14.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T09:10:14.000Z",
+      "dateClosed": "2026-08-11T09:10:14.000Z"
+    },
+    {
+      "title": "New bidder: Bid Espresso",
+      "number": 6693,
+      "author": {
+        "login": "bidespresso143",
+        "id": 288132758
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "288132758": {
+          "identifier": "288132758",
+          "displayName": "bidespresso143",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-05T18:47:36.000Z",
+      "dateUpdated": "2026-08-11T07:56:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T07:56:26.000Z",
+      "dateClosed": "2026-08-11T07:56:26.000Z"
+    },
+    {
+      "title": "fix(docs): restore link validation and repoint migrated internal links",
+      "number": 6696,
+      "author": {
+        "login": "pmezzich",
+        "id": 211079290
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "211079290": {
+          "identifier": "211079290",
+          "displayName": "pmezzich",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-11T04:50:06.000Z",
+      "dateUpdated": "2026-08-11T07:28:00.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-11T07:28:00.000Z",
+      "dateClosed": "2026-08-11T07:28:00.000Z"
+    },
+    {
+      "title": "Updated documentation as per rebranding of Adsmartx Adapter",
+      "number": 6649,
+      "author": {
+        "login": "pritishmd-talentica",
+        "id": 159415077
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        },
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "159415077": {
+          "identifier": "159415077",
+          "displayName": "pritishmd-talentica",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "162720171": {
+          "identifier": "162720171",
+          "displayName": "sushant-dey-talentica",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-02T07:26:23.000Z",
+      "dateUpdated": "2026-08-07T10:39:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-07T10:39:28.000Z",
+      "dateClosed": "2026-08-07T10:39:28.000Z"
+    },
+    {
+      "title": "Aso Bid Adapter and aliases: Added GVL IDs and actualized supported features",
+      "number": 6668,
+      "author": {
+        "login": "adserver-online",
+        "id": 61009237
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "61009237": {
+          "identifier": "61009237",
+          "displayName": "adserver-online",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-18T17:24:52.000Z",
+      "dateUpdated": "2026-08-06T20:41:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-06T20:41:26.000Z",
+      "dateClosed": "2026-08-06T20:41:26.000Z"
+    },
+    {
+      "title": "Seedtag: updates docs to add pbs ron id support",
+      "number": 6528,
+      "author": {
+        "login": "sangarbe",
+        "id": 10627477
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sangarbe",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "10627477": {
+          "identifier": "10627477",
+          "displayName": "sangarbe",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-04-16T12:27:50.000Z",
+      "dateUpdated": "2026-08-06T14:11:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-06T14:11:25.000Z",
+      "dateClosed": "2026-08-06T14:11:25.000Z"
+    },
     {
       "title": "Mgid Bid Adapter: require storageAllowed together with enhancedBidData",
       "number": 6688,
@@ -15,8 +745,20 @@
         "id": 31760529
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Erik Poul": {
+          "identifier": "Erik Poul",
+          "displayName": "Erik Poul",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
       "dateCreated": "2026-08-03T08:58:55.000Z",
       "dateUpdated": "2026-08-03T09:13:19.000Z",
       "status": "merged",
@@ -31,8 +773,26 @@
         "id": 31760529
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "muuki88",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Erik Poul": {
+          "identifier": "Erik Poul",
+          "displayName": "Erik Poul",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "647727": {
+          "identifier": "647727",
+          "displayName": "muuki88",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2026-07-28T16:35:48.000Z",
       "dateUpdated": "2026-08-03T08:38:41.000Z",
       "status": "merged",

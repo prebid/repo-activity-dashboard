@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 7,
     "itemCount": 178,
-    "lastUpdated": "2026-08-03T19:52:57.094Z"
+    "lastUpdated": "2026-10-27T00:20:28.980Z"
   },
   "items": [
     {
@@ -1893,8 +1893,20 @@
       "assignees": [
         "ChrisHuie"
       ],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2025-07-18T11:16:56.000Z",
       "dateUpdated": "2026-08-03T00:02:21.000Z",
       "status": "merged",

@@ -1,10 +1,292 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-ios",
-    "lastSync": "2026-08-03T19:53:36.689Z",
-    "itemCount": 48
+    "lastSync": "2026-10-27T00:21:09.153Z",
+    "itemCount": 54
   },
   "items": [
+    {
+      "title": "Plugin System for Prebid",
+      "number": 461,
+      "author": {
+        "login": "CJxD",
+        "id": 1629692
+      },
+      "assignees": [],
+      "dateCreated": "2021-12-02T16:54:59.000Z",
+      "dateUpdated": "2026-10-26T21:18:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposal: Creative testing for demand partners in Prebid Mobile",
+      "number": 1415,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T11:16:31.000Z",
+      "dateUpdated": "2026-10-22T11:38:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposal: Professor Prebid: a built-in auction inspector for Prebid Mobile",
+      "number": 1416,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [
+        "OlenaPostindustria"
+      ],
+      "dateCreated": "2026-10-22T11:36:50.000Z",
+      "dateUpdated": "2026-10-22T11:38:06.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Swift migration follow-up: move internal dependencies from CocoaPods to SPM and remove the Podfile",
+      "number": 1410,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-21T13:35:16.000Z",
+      "dateUpdated": "2026-10-21T21:39:14.000Z",
+      "status": "open"
+    },
+    {
+      "title": "BannerView deinit clears the app-level Prebid.shared.storedAuctionResponse",
+      "number": 1407,
+      "author": {
+        "login": "CB-HaoxinLi",
+        "id": 122156786
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-20T22:57:42.000Z",
+      "dateUpdated": "2026-10-21T21:20:18.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Swift migration follow-up: drop NSObject from internal classes where it is safe",
+      "number": 1408,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-21T12:21:08.000Z",
+      "dateUpdated": "2026-10-21T12:21:08.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Additional step in the SDK test coverage",
+      "number": 948,
+      "author": {
+        "login": "alexsavelyev",
+        "id": 13422794
+      },
+      "assignees": [],
+      "dateCreated": "2024-01-11T16:22:23.000Z",
+      "dateUpdated": "2026-10-18T21:57:10.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Investigate dropped @try/@catch around UIKit presentation after the Phase 7 Swift migration",
+      "number": 1403,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-15T08:52:05.000Z",
+      "dateUpdated": "2026-10-15T08:52:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Flutter Plugin (Mobile PMC 05-21-26)",
+      "number": 1270,
+      "author": {
+        "login": "rBeefrz",
+        "id": 124368054
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2026-05-21T17:25:43.000Z",
+      "dateUpdated": "2026-10-12T09:47:36.000Z",
+      "status": "open"
+    },
+    {
+      "title": "VAST: wrapper load never completes when one wrapper resolves to two or more wrapper ads",
+      "number": 1389,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-10T09:56:50.000Z",
+      "dateUpdated": "2026-10-10T09:56:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "GAM event handlers: interstitial and rewarded ad units don't show or load again after the first ad (follow-up to #1386)",
+      "number": 1388,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-10T09:25:47.000Z",
+      "dateUpdated": "2026-10-10T09:25:47.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[DRAFT] Support SIMID Interactive Video Ads",
+      "number": 1384,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-08T21:43:02.000Z",
+      "dateUpdated": "2026-10-08T21:43:02.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Send the integration API (Original, Rendering or Mediation) in the bid request",
+      "number": 1380,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-07T09:09:04.000Z",
+      "dateUpdated": "2026-10-07T09:09:04.000Z",
+      "status": "open"
+    },
+    {
+      "title": "CocoaPods and Carthage sunset plan",
+      "number": 1379,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-06T21:00:19.000Z",
+      "dateUpdated": "2026-10-06T21:00:19.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Clarify the relationship between shareGeoLocation and locationUpdatesEnabled for MRAID creatives",
+      "number": 1372,
+      "author": {
+        "login": "vietta",
+        "id": 4277343
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-01T07:16:39.000Z",
+      "dateUpdated": "2026-10-03T03:11:03.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Performance] Lack of HTTP connection / request reuse adds ~270ms overhead per request",
+      "number": 1339,
+      "author": {
+        "login": "jaysongkkim",
+        "id": 267283216
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-08T06:09:06.000Z",
+      "dateUpdated": "2026-09-25T17:35:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Align auto refresh API and approach among integration scenarious",
+      "number": 1163,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [
+        "YuriyVelichkoPI"
+      ],
+      "dateCreated": "2025-06-16T10:09:17.000Z",
+      "dateUpdated": "2026-09-22T20:20:05.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Performance] High SDK request preparation latency (~450ms) reduces bidder response window",
+      "number": 1338,
+      "author": {
+        "login": "jaysongkkim",
+        "id": 267283216
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-08T06:08:04.000Z",
+      "dateUpdated": "2026-09-18T18:57:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "please support 'PrivacyInfo.xcprivacy' for developer",
+      "number": 1128,
+      "author": {
+        "login": "v5huang",
+        "id": 3320671
+      },
+      "assignees": [],
+      "dateCreated": "2025-04-02T02:30:28.000Z",
+      "dateUpdated": "2026-09-14T15:18:56.000Z",
+      "status": "open"
+    },
+    {
+      "title": "2.4.0 drops ExternalUserId values without an atype",
+      "number": 1118,
+      "author": {
+        "login": "dcaunt",
+        "id": 157314
+      },
+      "assignees": [],
+      "dateCreated": "2025-03-14T15:20:53.000Z",
+      "dateUpdated": "2026-09-13T21:24:46.000Z",
+      "status": "open"
+    },
+    {
+      "title": "How to Retrieve Bid Price and Currency for Native Ads",
+      "number": 1322,
+      "author": {
+        "login": "jaysongkkim",
+        "id": 267283216
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-14T08:17:17.000Z",
+      "dateUpdated": "2026-09-09T22:33:12.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Questions regarding multiformat MediationBannerAdUnit, TFUA, ORTB config, and GPID",
+      "number": 1324,
+      "author": {
+        "login": "jaysongkkim",
+        "id": 267283216
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-26T05:00:12.000Z",
+      "dateUpdated": "2026-09-08T22:21:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "IDFA is not populated for US traffic when CMP returns an all-zero TCF string",
+      "number": 1331,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-01T08:08:27.000Z",
+      "dateUpdated": "2026-09-02T07:17:04.000Z",
+      "status": "open"
+    },
     {
       "title": "Support Native Video Rendering in Prebid Mobile",
       "number": 1302,
@@ -14,31 +296,19 @@
       },
       "assignees": [],
       "dateCreated": "2026-08-03T12:05:03.000Z",
-      "dateUpdated": "2026-08-03T12:05:03.000Z",
+      "dateUpdated": "2026-08-26T15:29:05.000Z",
       "status": "open"
     },
     {
-      "title": "Bug: SKAdNetwork response fields decoded with wrong data types",
-      "number": 1300,
-      "author": {
-        "login": "OlenaPostindustria",
-        "id": 92721590
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T10:40:01.000Z",
-      "dateUpdated": "2026-07-31T10:40:01.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Interstitial orientation lock never engages — calculateLayoutFromSize: left as FIXME, always returns aspectRatio (portrait creatives clip in landscape)",
-      "number": 1299,
+      "title": "Rewarded end card locks the user for ~120 seconds when the bid omits the rewarded configuration (rwdd) — fallback is hardcoded and not configurable",
+      "number": 1297,
       "author": {
         "login": "sangeun-yoon",
         "id": 209993700
       },
       "assignees": [],
-      "dateCreated": "2026-07-31T05:53:43.000Z",
-      "dateUpdated": "2026-07-31T05:53:43.000Z",
+      "dateCreated": "2026-07-31T05:48:15.000Z",
+      "dateUpdated": "2026-08-11T18:07:58.000Z",
       "status": "open"
     },
     {
@@ -54,54 +324,6 @@
       "status": "open"
     },
     {
-      "title": "Rewarded end card locks the user for ~120 seconds when the bid omits the rewarded configuration (rwdd) — fallback is hardcoded and not configurable",
-      "number": 1297,
-      "author": {
-        "login": "sangeun-yoon",
-        "id": 209993700
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T05:48:15.000Z",
-      "dateUpdated": "2026-07-31T05:48:15.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Video interstitials without an end card auto-close after playback — no API to disable auto-close and require an explicit close",
-      "number": 1296,
-      "author": {
-        "login": "sangeun-yoon",
-        "id": 209993700
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T05:47:11.000Z",
-      "dateUpdated": "2026-07-31T05:47:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Some outputs on XCode console.",
-      "number": 1295,
-      "author": {
-        "login": "bulutoztemur",
-        "id": 15092443
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-30T10:06:09.000Z",
-      "dateUpdated": "2026-07-30T15:14:24.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Handle Prebid Server bid caching failures gracefully",
-      "number": 1258,
-      "author": {
-        "login": "Net-burst",
-        "id": 720803
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-23T14:08:52.000Z",
-      "dateUpdated": "2026-07-30T11:44:14.000Z",
-      "status": "open"
-    },
-    {
       "title": "Add signature-regression tests for Plugin Renderer public API",
       "number": 1291,
       "author": {
@@ -111,30 +333,6 @@
       "assignees": [],
       "dateCreated": "2026-07-29T08:34:08.000Z",
       "dateUpdated": "2026-07-29T08:34:08.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Outstream video keeps playing when scrolled off-screen — visibility-based pause/resume is not implemented (Android parity)",
-      "number": 1290,
-      "author": {
-        "login": "sangeun-yoon",
-        "id": 209993700
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-28T01:44:53.000Z",
-      "dateUpdated": "2026-07-28T01:46:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Outstream video ads register a click on touch-down — scroll gestures fire click trackers and open the clickthrough",
-      "number": 1289,
-      "author": {
-        "login": "sangeun-yoon",
-        "id": 209993700
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-28T01:42:53.000Z",
-      "dateUpdated": "2026-07-28T01:46:16.000Z",
       "status": "open"
     },
     {
@@ -171,30 +369,6 @@
       "assignees": [],
       "dateCreated": "2022-11-10T07:44:29.000Z",
       "dateUpdated": "2026-07-21T06:43:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Expire ads respectively to the `seatbid.bid.exp`",
-      "number": 850,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [],
-      "dateCreated": "2023-05-19T06:50:35.000Z",
-      "dateUpdated": "2026-07-02T10:53:49.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Flutter Plugin (Mobile PMC 05-21-26)",
-      "number": 1270,
-      "author": {
-        "login": "rBeefrz",
-        "id": 124368054
-      },
-      "assignees": [],
-      "dateCreated": "2026-05-21T17:25:43.000Z",
-      "dateUpdated": "2026-05-21T17:25:43.000Z",
       "status": "open"
     },
     {
@@ -272,18 +446,6 @@
       "status": "open"
     },
     {
-      "title": "Add Support for Third-party Plugin Renderers in Adapters",
-      "number": 1071,
-      "author": {
-        "login": "OlenaPostindustria",
-        "id": 92721590
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-11T08:28:03.000Z",
-      "dateUpdated": "2026-02-07T21:49:26.000Z",
-      "status": "open"
-    },
-    {
       "title": "[DRAFT] Support Remote SDK Config",
       "number": 1188,
       "author": {
@@ -305,18 +467,6 @@
       "assignees": [],
       "dateCreated": "2022-02-11T11:20:41.000Z",
       "dateUpdated": "2026-02-07T21:35:31.000Z",
-      "status": "open"
-    },
-    {
-      "title": "DisplayViewLoadingDelegate fires displayViewDidLoadAd with empty view",
-      "number": 1220,
-      "author": {
-        "login": "MattMur",
-        "id": 1305984
-      },
-      "assignees": [],
-      "dateCreated": "2025-11-03T21:51:19.000Z",
-      "dateUpdated": "2025-11-03T22:54:41.000Z",
       "status": "open"
     },
     {
@@ -384,30 +534,6 @@
       "status": "open"
     },
     {
-      "title": "Additional step in the SDK test coverage",
-      "number": 948,
-      "author": {
-        "login": "alexsavelyev",
-        "id": 13422794
-      },
-      "assignees": [],
-      "dateCreated": "2024-01-11T16:22:23.000Z",
-      "dateUpdated": "2025-08-21T10:15:12.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Problem with printing Logging and build dynamic Framework from source code",
-      "number": 1015,
-      "author": {
-        "login": "maiquannguyen",
-        "id": 4607287
-      },
-      "assignees": [],
-      "dateCreated": "2024-06-24T06:58:23.000Z",
-      "dateUpdated": "2025-08-21T10:09:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "Investigate how to find SDK Adoption Numbers",
       "number": 1030,
       "author": {
@@ -457,18 +583,6 @@
       ],
       "dateCreated": "2025-02-11T09:50:34.000Z",
       "dateUpdated": "2025-08-21T08:56:36.000Z",
-      "status": "open"
-    },
-    {
-      "title": "2.4.0 drops ExternalUserId values without an atype",
-      "number": 1118,
-      "author": {
-        "login": "dcaunt",
-        "id": 157314
-      },
-      "assignees": [],
-      "dateCreated": "2025-03-14T15:20:53.000Z",
-      "dateUpdated": "2025-08-21T08:52:43.000Z",
       "status": "open"
     },
     {
@@ -522,18 +636,6 @@
       "status": "open"
     },
     {
-      "title": "Plugin System for Prebid",
-      "number": 461,
-      "author": {
-        "login": "CJxD",
-        "id": 1629692
-      },
-      "assignees": [],
-      "dateCreated": "2021-12-02T16:54:59.000Z",
-      "dateUpdated": "2025-08-16T05:22:36.000Z",
-      "status": "open"
-    },
-    {
       "title": "Support HTML-based outstream video",
       "number": 979,
       "author": {
@@ -545,32 +647,6 @@
       ],
       "dateCreated": "2024-05-15T16:44:09.000Z",
       "dateUpdated": "2025-08-16T05:18:00.000Z",
-      "status": "open"
-    },
-    {
-      "title": "please support 'PrivacyInfo.xcprivacy' for developer",
-      "number": 1128,
-      "author": {
-        "login": "v5huang",
-        "id": 3320671
-      },
-      "assignees": [],
-      "dateCreated": "2025-04-02T02:30:28.000Z",
-      "dateUpdated": "2025-08-16T05:16:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Align auto refresh API and approach among integration scenarious",
-      "number": 1163,
-      "author": {
-        "login": "YuriyVelichkoPI",
-        "id": 21169695
-      },
-      "assignees": [
-        "YuriyVelichkoPI"
-      ],
-      "dateCreated": "2025-06-16T10:09:17.000Z",
-      "dateUpdated": "2025-08-16T05:14:30.000Z",
       "status": "open"
     },
     {

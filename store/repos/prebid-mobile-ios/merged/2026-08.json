@@ -1,0 +1,303 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2026,
+    "month": 8,
+    "itemCount": 10,
+    "lastUpdated": "2026-10-27T00:21:09.154Z"
+  },
+  "items": [
+    {
+      "title": "Fix: SKAdN response fields according to IAB spec",
+      "number": 1301,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 6,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-31T11:00:58.000Z",
+      "dateUpdated": "2026-08-27T11:08:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-27T11:08:29.000Z",
+      "dateClosed": "2026-08-27T11:08:29.000Z"
+    },
+    {
+      "title": "Fix #1296: configurable video interstitial auto-close",
+      "number": 1305,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-04T19:10:54.000Z",
+      "dateUpdated": "2026-09-17T21:54:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-27T11:08:03.000Z",
+      "dateClosed": "2026-08-27T11:08:03.000Z"
+    },
+    {
+      "title": "fix: timeoutMillisDynamic treated as seconds instead of milliseconds (#1323)",
+      "number": 1325,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T15:36:03.000Z",
+      "dateUpdated": "2026-08-27T11:07:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-27T11:07:22.000Z",
+      "dateClosed": "2026-08-27T11:07:22.000Z"
+    },
+    {
+      "title": "Swift Migration phases:  0, 1, 2",
+      "number": 1280,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-21T08:06:10.000Z",
+      "dateUpdated": "2026-10-22T09:46:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-27T11:06:46.000Z",
+      "dateClosed": "2026-08-27T11:06:46.000Z"
+    },
+    {
+      "title": "Remove dead Travis setup",
+      "number": 1319,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-19T15:24:13.000Z",
+      "dateUpdated": "2026-08-19T20:00:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-19T20:00:54.000Z",
+      "dateClosed": "2026-08-19T20:00:54.000Z"
+    },
+    {
+      "title": "Bumps to 3.3.4",
+      "number": 1315,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-14T14:16:55.000Z",
+      "dateUpdated": "2026-08-14T18:01:01.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T18:00:54.000Z",
+      "dateClosed": "2026-08-14T18:00:54.000Z"
+    },
+    {
+      "title": "Fix: black screen when reward fires during SKAdN clickthrough  ",
+      "number": 1304,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "92721590": {
+          "identifier": "92721590",
+          "displayName": "OlenaPostindustria",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-04T13:53:38.000Z",
+      "dateUpdated": "2026-08-14T14:15:44.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T14:15:42.000Z",
+      "dateClosed": "2026-08-14T14:15:42.000Z"
+    },
+    {
+      "title": "Expose VideoParameters skippable setter to Objective-C",
+      "number": 1310,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-07T15:50:41.000Z",
+      "dateUpdated": "2026-08-14T13:48:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T13:48:00.000Z",
+      "dateClosed": "2026-08-14T13:48:00.000Z"
+    },
+    {
+      "title": "Fix: memory leak in AdUnit.baseFetchDemand timeout DispatchWorkItem",
+      "number": 1312,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-12T20:16:41.000Z",
+      "dateUpdated": "2026-08-14T13:47:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T13:47:48.000Z",
+      "dateClosed": "2026-08-14T13:47:48.000Z"
+    },
+    {
+      "title": "Fix #1299: interstitial orientation lock by creative size",
+      "number": 1308,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-04T19:12:23.000Z",
+      "dateUpdated": "2026-08-14T12:39:30.000Z",
+      "status": "merged",
+      "dateMerged": "2026-08-14T12:39:12.000Z",
+      "dateClosed": "2026-08-14T12:39:13.000Z"
+    }
+  ]
+}

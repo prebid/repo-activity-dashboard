@@ -1,10 +1,242 @@
 {
   "metadata": {
     "repository": "prebid/Prebid.js",
-    "lastSync": "2026-08-03T19:52:57.089Z",
-    "itemCount": 94
+    "lastSync": "2026-10-27T00:20:28.968Z",
+    "itemCount": 89
   },
   "items": [
+    {
+      "title": "Secure Creative Rendering Module",
+      "number": 15847,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-23T10:49:33.000Z",
+      "dateUpdated": "2026-10-24T20:53:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Considering a \"consumer\" version of npm package",
+      "number": 5287,
+      "author": {
+        "login": "khatibda",
+        "id": 1466555
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2020-05-21T21:22:23.000Z",
+      "dateUpdated": "2026-10-23T16:23:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "GPT Request Hook API I2I",
+      "number": 15815,
+      "author": {
+        "login": "JacobGo",
+        "id": 8171838
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-20T13:56:54.000Z",
+      "dateUpdated": "2026-10-23T15:10:15.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Remove the Dependency on Babel: Allow Prebid to be used with any build system",
+      "number": 10086,
+      "author": {
+        "login": "cameron-brown-future",
+        "id": 50419400
+      },
+      "assignees": [],
+      "dateCreated": "2023-06-12T03:58:59.000Z",
+      "dateUpdated": "2026-10-23T15:02:27.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Prebid 12: dealPriotization flag - deprecate or remove?",
+      "number": 15837,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T14:17:16.000Z",
+      "dateUpdated": "2026-10-22T15:20:13.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Price floors: let trusted priority and house bids bypass floorDeals enforcement selectively",
+      "number": 15838,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T14:56:40.000Z",
+      "dateUpdated": "2026-10-22T14:56:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: break bid desirability ties on creative size, then deals",
+      "number": 15796,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-19T16:30:38.000Z",
+      "dateUpdated": "2026-10-19T16:54:42.000Z",
+      "status": "open"
+    },
+    {
+      "title": "bid adapters setting foreign user ids",
+      "number": 13465,
+      "author": {
+        "login": "jdwieland8282",
+        "id": 14223042
+      },
+      "assignees": [],
+      "dateCreated": "2025-06-30T21:12:57.000Z",
+      "dateUpdated": "2026-10-19T15:22:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: CMP race condition — Prebid calls __tcfapi/__gpp/__uspapi before CMP is ready for pubs failing to comply with tcf stubbing requirements",
+      "number": 14881,
+      "author": {
+        "login": "DimaIntentIQ",
+        "id": 139111483
+      },
+      "assignees": [
+        "dgirardi"
+      ],
+      "dateCreated": "2026-05-13T06:14:20.000Z",
+      "dateUpdated": "2026-10-16T13:22:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Es5 rendering followup",
+      "number": 15517,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-24T16:53:29.000Z",
+      "dateUpdated": "2026-10-05T15:17:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Whole page take over on deal response",
+      "number": 15719,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-05T14:14:25.000Z",
+      "dateUpdated": "2026-10-05T14:14:41.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Competitive exclusion on response",
+      "number": 15718,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-05T14:12:57.000Z",
+      "dateUpdated": "2026-10-05T14:12:57.000Z",
+      "status": "open"
+    },
+    {
+      "title": "51Degrees RTD module: every documented resource key link is missing properties the module reads",
+      "number": 15623,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-15T12:57:21.000Z",
+      "dateUpdated": "2026-09-16T17:54:16.000Z",
+      "status": "open"
+    },
+    {
+      "title": "preciseGeo not allowed in some states",
+      "number": 15604,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-09T17:11:37.000Z",
+      "dateUpdated": "2026-09-09T17:33:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Deprecated GPT Methods",
+      "number": 15556,
+      "author": {
+        "login": "umutkirgoz",
+        "id": 759094
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-30T21:06:12.000Z",
+      "dateUpdated": "2026-09-01T14:22:43.000Z",
+      "status": "open"
+    },
+    {
+      "title": "automatic bitrate caps",
+      "number": 15552,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-28T19:05:32.000Z",
+      "dateUpdated": "2026-08-28T19:05:32.000Z",
+      "status": "open"
+    },
+    {
+      "title": "allow firefox syncing for firefox tracking opt in users",
+      "number": 15484,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-12T16:45:59.000Z",
+      "dateUpdated": "2026-08-12T16:48:21.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Proposal: tmp as rtd peer",
+      "number": 15469,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-06T00:47:25.000Z",
+      "dateUpdated": "2026-08-10T17:59:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Core: Typescript typings still allow for invalid properties (for id providers)",
+      "number": 14895,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "dateCreated": "2026-05-15T12:02:35.000Z",
+      "dateUpdated": "2026-08-04T12:44:40.000Z",
+      "status": "open"
+    },
     {
       "title": "Feature: VAST Unwrapper module",
       "number": 12143,
@@ -15,20 +247,6 @@
       "assignees": [],
       "dateCreated": "2024-08-19T21:06:03.000Z",
       "dateUpdated": "2026-08-02T00:24:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "slowdowns in version 11",
-      "number": 15403,
-      "author": {
-        "login": "arossiIT",
-        "id": 310282033
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2026-07-28T17:54:39.000Z",
-      "dateUpdated": "2026-07-31T14:32:43.000Z",
       "status": "open"
     },
     {
@@ -68,20 +286,6 @@
       "status": "open"
     },
     {
-      "title": "Using Prebid with Typescript requires specific (undocumented) settings in tsconfig.json",
-      "number": 14412,
-      "author": {
-        "login": "a-lopatin-muse",
-        "id": 134909024
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2026-02-04T14:51:50.000Z",
-      "dateUpdated": "2026-07-27T15:47:12.000Z",
-      "status": "open"
-    },
-    {
       "title": "RTD  modules: reprocess config on config change",
       "number": 15381,
       "author": {
@@ -91,34 +295,6 @@
       "assignees": [],
       "dateCreated": "2026-07-23T14:45:26.000Z",
       "dateUpdated": "2026-07-23T14:46:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Clear targeting at render time or bidwon",
-      "number": 14943,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "mkomorski"
-      ],
-      "dateCreated": "2026-05-25T12:03:18.000Z",
-      "dateUpdated": "2026-07-23T13:20:23.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Expose metrics to chrome-devtools-mcp",
-      "number": 15355,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2026-07-14T15:04:37.000Z",
-      "dateUpdated": "2026-07-15T17:13:56.000Z",
       "status": "open"
     },
     {
@@ -134,18 +310,6 @@
       "status": "open"
     },
     {
-      "title": "KV mismatch in GAM: cust_param handling in gamAdServerVideo.js uses formatQS() which handles arrays explicitly with bracket notation",
-      "number": 15357,
-      "author": {
-        "login": "suchhanda-crazygames",
-        "id": 299282572
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-14T17:24:14.000Z",
-      "dateUpdated": "2026-07-14T18:42:17.000Z",
-      "status": "open"
-    },
-    {
       "title": "Evaluate Browserslist query policy for Prebid.js",
       "number": 15311,
       "author": {
@@ -155,18 +319,6 @@
       "assignees": [],
       "dateCreated": "2026-07-03T12:47:02.000Z",
       "dateUpdated": "2026-07-13T15:27:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "explore publishing a library to cross origin storage",
-      "number": 15256,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-29T02:39:20.000Z",
-      "dateUpdated": "2026-07-10T12:24:36.000Z",
       "status": "open"
     },
     {
@@ -194,30 +346,6 @@
       "status": "open"
     },
     {
-      "title": "Postbid integration example",
-      "number": 15244,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-25T09:57:26.000Z",
-      "dateUpdated": "2026-06-29T16:00:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "bump or delete macos version pin on github runner",
-      "number": 15157,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-22T17:43:42.000Z",
-      "dateUpdated": "2026-06-22T17:53:03.000Z",
-      "status": "open"
-    },
-    {
       "title": "sandboxed iframe syncs",
       "number": 15131,
       "author": {
@@ -227,18 +355,6 @@
       "assignees": [],
       "dateCreated": "2026-06-17T17:06:50.000Z",
       "dateUpdated": "2026-06-17T17:06:50.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Feature Request - add support video assets in Prebid Native",
-      "number": 10275,
-      "author": {
-        "login": "jsnellbaker",
-        "id": 31102355
-      },
-      "assignees": [],
-      "dateCreated": "2023-07-24T15:44:56.000Z",
-      "dateUpdated": "2026-06-16T11:55:48.000Z",
       "status": "open"
     },
     {
@@ -253,18 +369,6 @@
       ],
       "dateCreated": "2025-12-02T15:42:29.000Z",
       "dateUpdated": "2026-06-10T06:45:09.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: delete viewdeos",
-      "number": 15023,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-06-09T13:03:53.000Z",
-      "dateUpdated": "2026-06-09T13:04:09.000Z",
       "status": "open"
     },
     {
@@ -292,56 +396,6 @@
       "status": "open"
     },
     {
-      "title": "Core: Typescript typings still allow for invalid properties (for id providers)",
-      "number": 14895,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [],
-      "dateCreated": "2026-05-15T12:02:35.000Z",
-      "dateUpdated": "2026-05-22T20:03:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: delete old showheroes file",
-      "number": 14751,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-20T21:05:12.000Z",
-      "dateUpdated": "2026-05-18T21:15:20.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Generic analytics adapter: skinny events",
-      "number": 13980,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2025-10-07T01:27:21.000Z",
-      "dateUpdated": "2026-05-18T15:58:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "rtd modules: adjust timing of settargeting methods",
-      "number": 14706,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2026-04-13T17:11:40.000Z",
-      "dateUpdated": "2026-04-23T13:27:15.000Z",
-      "status": "open"
-    },
-    {
       "title": "Module takes a vector of gvlids",
       "number": 14713,
       "author": {
@@ -353,30 +407,6 @@
       ],
       "dateCreated": "2026-04-13T21:16:19.000Z",
       "dateUpdated": "2026-04-21T13:56:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: del risemediatech",
-      "number": 14717,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-14T11:43:29.000Z",
-      "dateUpdated": "2026-04-20T20:43:11.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Prebid 12: rhythmone adapter",
-      "number": 14750,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-20T20:01:36.000Z",
-      "dateUpdated": "2026-04-20T20:01:36.000Z",
       "status": "open"
     },
     {
@@ -485,18 +515,6 @@
       "assignees": [],
       "dateCreated": "2023-04-27T15:46:01.000Z",
       "dateUpdated": "2026-01-26T20:53:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "outstream VAST caching should depend on the renderer rather than the adunit",
-      "number": 11353,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [],
-      "dateCreated": "2024-04-17T20:22:08.000Z",
-      "dateUpdated": "2026-01-26T16:54:20.000Z",
       "status": "open"
     },
     {
@@ -644,20 +662,6 @@
       "status": "open"
     },
     {
-      "title": "Schain as first party data may not work well with bidder-specific schains",
-      "number": 13709,
-      "author": {
-        "login": "dgirardi",
-        "id": 10151381
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2025-07-31T16:39:04.000Z",
-      "dateUpdated": "2025-09-08T09:30:24.000Z",
-      "status": "open"
-    },
-    {
       "title": "Refreshing ads on single page applications causes excessive memory usage. ",
       "number": 10880,
       "author": {
@@ -784,18 +788,6 @@
       "status": "open"
     },
     {
-      "title": "bid adapters setting foreign user ids",
-      "number": 13465,
-      "author": {
-        "login": "jdwieland8282",
-        "id": 14223042
-      },
-      "assignees": [],
-      "dateCreated": "2025-06-30T21:12:57.000Z",
-      "dateUpdated": "2025-07-01T14:27:47.000Z",
-      "status": "open"
-    },
-    {
       "title": "storage disclosure for vast objects for local cache",
       "number": 13458,
       "author": {
@@ -805,18 +797,6 @@
       "assignees": [],
       "dateCreated": "2025-06-30T15:41:00.000Z",
       "dateUpdated": "2025-06-30T17:50:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Integration of  mobile web interstitial ad with prebid",
-      "number": 5917,
-      "author": {
-        "login": "tandalevaibhav",
-        "id": 27719356
-      },
-      "assignees": [],
-      "dateCreated": "2020-10-30T14:13:34.000Z",
-      "dateUpdated": "2025-06-30T15:52:30.000Z",
       "status": "open"
     },
     {
@@ -844,18 +824,6 @@
       "status": "open"
     },
     {
-      "title": "Use scheduler.postTask or analogue to assign tasks to background priority",
-      "number": 12584,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-16T16:52:53.000Z",
-      "dateUpdated": "2025-06-26T14:54:11.000Z",
-      "status": "open"
-    },
-    {
       "title": "wrap trackers - follow up to 12960",
       "number": 13352,
       "author": {
@@ -877,18 +845,6 @@
       "assignees": [],
       "dateCreated": "2025-06-11T19:24:27.000Z",
       "dateUpdated": "2025-06-11T19:24:27.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Remove the Dependency on Babel: Allow Prebid to be used with any build system",
-      "number": 10086,
-      "author": {
-        "login": "cameron-brown-future",
-        "id": 50419400
-      },
-      "assignees": [],
-      "dateCreated": "2023-06-12T03:58:59.000Z",
-      "dateUpdated": "2025-05-27T14:41:38.000Z",
       "status": "open"
     },
     {
@@ -939,18 +895,6 @@
       ],
       "dateCreated": "2020-12-14T20:04:51.000Z",
       "dateUpdated": "2025-03-24T13:35:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "TCF enforcement module: Support for ACL vendor ids",
-      "number": 12586,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [],
-      "dateCreated": "2024-12-16T22:01:11.000Z",
-      "dateUpdated": "2025-03-12T15:23:16.000Z",
       "status": "open"
     },
     {
@@ -1133,20 +1077,6 @@
       "assignees": [],
       "dateCreated": "2023-01-11T13:26:49.000Z",
       "dateUpdated": "2023-08-28T16:04:05.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Considering a \"consumer\" version of npm package",
-      "number": 5287,
-      "author": {
-        "login": "khatibda",
-        "id": 1466555
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2020-05-21T21:22:23.000Z",
-      "dateUpdated": "2022-12-13T18:53:03.000Z",
       "status": "open"
     },
     {

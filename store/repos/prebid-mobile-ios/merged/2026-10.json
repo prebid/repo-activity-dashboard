@@ -1,0 +1,563 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-mobile-ios",
+    "year": 2026,
+    "month": 10,
+    "itemCount": 19,
+    "lastUpdated": "2026-10-27T00:21:09.153Z"
+  },
+  "items": [
+    {
+      "title": "Fail a video creative whose player item fails, instead of reporting it ready",
+      "number": 1417,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-22T14:24:54.000Z",
+      "dateUpdated": "2026-10-24T21:39:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-24T21:39:40.000Z",
+      "dateClosed": "2026-10-24T21:39:40.000Z"
+    },
+    {
+      "title": "Request the VAST Error URIs of a video ad that fails to load",
+      "number": 1419,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-22T18:26:55.000Z",
+      "dateUpdated": "2026-10-24T21:22:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-24T21:22:26.000Z",
+      "dateClosed": "2026-10-24T21:22:26.000Z"
+    },
+    {
+      "title": "[swift-migration] Phase 9: consumer-defined public API, ObjC leftovers retired, empty SPM target removed",
+      "number": 1409,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 15,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-21T13:00:01.000Z",
+      "dateUpdated": "2026-10-22T08:47:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-22T08:47:17.000Z",
+      "dateClosed": "2026-10-22T08:47:17.000Z"
+    },
+    {
+      "title": "fix: render the first playable Linear creative of a VAST response",
+      "number": 1371,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T11:20:25.000Z",
+      "dateUpdated": "2026-10-20T21:51:17.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-20T21:38:14.000Z",
+      "dateClosed": "2026-10-20T21:38:14.000Z"
+    },
+    {
+      "title": "Call back with an error when PrebidServerConnection cannot create a request",
+      "number": 1399,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-12T19:41:13.000Z",
+      "dateUpdated": "2026-10-20T21:11:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-20T21:11:51.000Z",
+      "dateClosed": "2026-10-20T21:11:51.000Z"
+    },
+    {
+      "title": "Reject an MRAID resize taller than the screen when allowOffscreen is false",
+      "number": 1405,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-19T10:38:29.000Z",
+      "dateUpdated": "2026-10-20T21:09:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-20T21:08:42.000Z",
+      "dateClosed": "2026-10-20T21:08:42.000Z"
+    },
+    {
+      "title": "Report an interstitial end card's close after its modal dismisses",
+      "number": 1401,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-13T19:16:27.000Z",
+      "dateUpdated": "2026-10-20T21:08:22.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-20T21:08:17.000Z",
+      "dateClosed": "2026-10-20T21:08:17.000Z"
+    },
+    {
+      "title": "[swift-migration] Phase 8: OMSDK wrappers, viewability tracker, remaining ObjC leftovers",
+      "number": 1406,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 22,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-19T10:45:34.000Z",
+      "dateUpdated": "2026-10-20T10:17:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-20T10:17:41.000Z",
+      "dateClosed": "2026-10-20T10:17:41.000Z"
+    },
+    {
+      "title": "[swift-migration] Phase 7: HTML/MRAID creative cluster, factory chain",
+      "number": 1402,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-15T08:37:12.000Z",
+      "dateUpdated": "2026-10-22T09:44:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-18T19:53:09.000Z",
+      "dateClosed": "2026-10-18T19:53:09.000Z"
+    },
+    {
+      "title": "Reset currentAdBlock when a Prebid or plugin ad closes, so a reused ad unit can show again",
+      "number": 1387,
+      "author": {
+        "login": "chauduyphanvu",
+        "id": 25616035
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "25616035": {
+          "identifier": "25616035",
+          "displayName": "chauduyphanvu",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-09T22:22:18.000Z",
+      "dateUpdated": "2026-10-13T18:15:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-13T17:16:04.000Z",
+      "dateClosed": "2026-10-13T17:16:04.000Z"
+    },
+    {
+      "title": "fix: populate noAdsResponseURI for VAST-level Error elements",
+      "number": 1395,
+      "author": {
+        "login": "shubhransh-gupta",
+        "id": 54713516
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "54713516": {
+          "identifier": "54713516",
+          "displayName": "shubhransh-gupta",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-12T14:01:38.000Z",
+      "dateUpdated": "2026-10-20T21:51:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-12T18:28:04.000Z",
+      "dateClosed": "2026-10-12T18:28:04.000Z"
+    },
+    {
+      "title": "GAM event handlers: let interstitial and rewarded ad units show and load again after the first ad",
+      "number": 1392,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "PENDING"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-10T11:04:04.000Z",
+      "dateUpdated": "2026-10-12T12:57:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-12T12:57:53.000Z",
+      "dateClosed": "2026-10-12T12:57:53.000Z"
+    },
+    {
+      "title": "[swift-migration] Phase 6: VAST cluster, AdLoadManager, transaction factories, VideoView",
+      "number": 1385,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 25,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-09T14:02:43.000Z",
+      "dateUpdated": "2026-10-11T20:53:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-11T20:52:59.000Z",
+      "dateClosed": "2026-10-11T20:52:59.000Z"
+    },
+    {
+      "title": "Release the bid requester when the host URL lookup fails",
+      "number": 1382,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-07T17:10:35.000Z",
+      "dateUpdated": "2026-10-08T16:17:02.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-08T16:16:51.000Z",
+      "dateClosed": "2026-10-08T16:16:51.000Z"
+    },
+    {
+      "title": "[swift-migration] Phase 5 (reduced): InterstitialLayoutConfigurator, ModalState, AdViewManager",
+      "number": 1383,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        },
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-08T10:21:56.000Z",
+      "dateUpdated": "2026-10-08T13:17:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-08T13:16:59.000Z",
+      "dateClosed": "2026-10-08T13:16:59.000Z"
+    },
+    {
+      "title": "Swift Migration phase 4, steps S4.2 + S4.5: PBMBidRequester + PBMDisp…",
+      "number": 1373,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mdanylov-sigma",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "21169695": {
+          "identifier": "21169695",
+          "displayName": "YuriyVelichkoPI",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-02T12:11:10.000Z",
+      "dateUpdated": "2026-10-07T16:04:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-07T16:04:43.000Z",
+      "dateClosed": "2026-10-07T16:04:43.000Z"
+    },
+    {
+      "title": "Send the win notice when a plugin renderer creates the ad",
+      "number": 1378,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "YuriyVelichkoPI",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-06T18:42:39.000Z",
+      "dateUpdated": "2026-10-07T09:07:46.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-07T09:07:42.000Z",
+      "dateClosed": "2026-10-07T09:07:42.000Z"
+    },
+    {
+      "title": "Bumps to 3.4.1",
+      "number": 1376,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-06T15:15:35.000Z",
+      "dateUpdated": "2026-10-06T17:47:13.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-06T17:47:09.000Z",
+      "dateClosed": "2026-10-06T17:47:09.000Z"
+    },
+    {
+      "title": "Fix XCFramework import broken by PrebidMobileDisplayViewProtocol",
+      "number": 1375,
+      "author": {
+        "login": "mdanylov-sigma",
+        "id": 146753616
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "OlenaPostindustria",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "146753616": {
+          "identifier": "146753616",
+          "displayName": "mdanylov-sigma",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-10-06T11:43:11.000Z",
+      "dateUpdated": "2026-10-06T13:25:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-10-06T13:25:53.000Z",
+      "dateClosed": "2026-10-06T13:25:53.000Z"
+    }
+  ]
+}

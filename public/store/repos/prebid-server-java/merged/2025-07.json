@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 7,
     "itemCount": 44,
-    "lastUpdated": "2026-08-03T19:53:23.824Z"
+    "lastUpdated": "2026-10-27T00:20:55.232Z"
   },
   "items": [
     {
@@ -378,8 +378,30 @@
         "id": 174440987
       },
       "assignees": [],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "laurb9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "CTMBNara",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2025-07-18T12:43:10.000Z",
       "dateUpdated": "2026-08-03T00:02:21.000Z",
       "status": "merged",

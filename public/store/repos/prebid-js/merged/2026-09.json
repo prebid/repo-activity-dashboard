@@ -1,0 +1,4311 @@
+{
+  "metadata": {
+    "repository": "prebid/Prebid.js",
+    "year": 2026,
+    "month": 9,
+    "itemCount": 117,
+    "lastUpdated": "2026-10-27T00:20:28.975Z"
+  },
+  "items": [
+    {
+      "title": "Floxis Bid Adapter: enable endpoint compression",
+      "number": 15637,
+      "author": {
+        "login": "floxis-admin",
+        "id": 234334311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "234334311": {
+          "identifier": "234334311",
+          "displayName": "floxis-admin",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-21T13:52:27.000Z",
+      "dateUpdated": "2026-09-30T20:59:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T20:59:52.000Z",
+      "dateClosed": "2026-09-30T20:59:52.000Z"
+    },
+    {
+      "title": "Adswag bidder: Fix superfluous-trailing-arguments finding in adswagBidAdapter_spec.js",
+      "number": 15689,
+      "author": {
+        "login": "github-code-quality-agent[bot]",
+        "id": 300479038
+      },
+      "assignees": [
+        "patmmccann",
+        "github-code-quality-agent[bot]"
+      ],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "github-code-quality-agent[bot]": {
+          "identifier": "github-code-quality-agent[bot]",
+          "displayName": "github-code-quality-agent[bot]",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-30T18:41:57.000Z",
+      "dateUpdated": "2026-09-30T20:51:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T20:51:50.000Z",
+      "dateClosed": "2026-09-30T20:51:50.000Z"
+    },
+    {
+      "title": "Bump axios from 1.18.1 to 1.20.0",
+      "number": 15693,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T20:33:46.000Z",
+      "dateUpdated": "2026-09-30T20:58:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T20:49:47.000Z",
+      "dateClosed": "2026-09-30T20:49:47.000Z"
+    },
+    {
+      "title": "Bump @grpc/grpc-js from 1.13.5 to 1.13.6",
+      "number": 15692,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T20:32:41.000Z",
+      "dateUpdated": "2026-09-30T21:00:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T20:48:59.000Z",
+      "dateClosed": "2026-09-30T20:48:59.000Z"
+    },
+    {
+      "title": "fwsspBidAdapter: support tid",
+      "number": 15570,
+      "author": {
+        "login": "FreeWheelVIS",
+        "id": 4663682
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "FreeWheelVIS",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "4663682": {
+          "identifier": "4663682",
+          "displayName": "FreeWheelVIS",
+          "count": 16,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T16:23:48.000Z",
+      "dateUpdated": "2026-09-30T20:43:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T20:43:49.000Z",
+      "dateClosed": "2026-09-30T20:43:50.000Z"
+    },
+    {
+      "title": "Triplelift: oRTB Conversion Library and Native Support",
+      "number": 15658,
+      "author": {
+        "login": "patrickloughrey",
+        "id": 20526608
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patrickloughrey",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "20526608": {
+          "identifier": "20526608",
+          "displayName": "patrickloughrey",
+          "count": 26,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-25T16:53:25.000Z",
+      "dateUpdated": "2026-09-30T19:29:04.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T19:29:04.000Z",
+      "dateClosed": "2026-09-30T19:29:04.000Z"
+    },
+    {
+      "title": "LiveRamp adapters: ensure continuation in tests",
+      "number": 15688,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T17:27:41.000Z",
+      "dateUpdated": "2026-09-30T18:04:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T18:04:47.000Z",
+      "dateClosed": "2026-09-30T18:04:47.000Z"
+    },
+    {
+      "title": "Nodals AI RTD Provider: require TCF purposes 2, 3 and 4",
+      "number": 15629,
+      "author": {
+        "login": "slimkrazy",
+        "id": 1193440
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "slimkrazy": {
+          "identifier": "slimkrazy",
+          "displayName": "slimkrazy",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-17T14:04:27.000Z",
+      "dateUpdated": "2026-09-30T17:45:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:45:39.000Z",
+      "dateClosed": "2026-09-30T17:45:39.000Z"
+    },
+    {
+      "title": "Adagio Bid Adapter: add site query param to request url",
+      "number": 15663,
+      "author": {
+        "login": "osazos",
+        "id": 16453882
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "16453882": {
+          "identifier": "16453882",
+          "displayName": "osazos",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T13:32:10.000Z",
+      "dateUpdated": "2026-09-30T17:40:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:40:42.000Z",
+      "dateClosed": "2026-09-30T17:40:42.000Z"
+    },
+    {
+      "title": "Craft Bid Adapter: Support for the Price Floors module ",
+      "number": 15683,
+      "author": {
+        "login": "crumbjp",
+        "id": 170801
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "170801": {
+          "identifier": "170801",
+          "displayName": "crumbjp",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T07:52:51.000Z",
+      "dateUpdated": "2026-09-30T17:27:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:27:26.000Z",
+      "dateClosed": "2026-09-30T17:27:26.000Z"
+    },
+    {
+      "title": "PMC Xchange Bid Adapter: initial release",
+      "number": 15685,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "22325848": {
+          "identifier": "22325848",
+          "displayName": "gchicoye",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T09:21:12.000Z",
+      "dateUpdated": "2026-09-30T17:07:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:07:47.000Z",
+      "dateClosed": "2026-09-30T17:07:47.000Z"
+    },
+    {
+      "title": "BidDigi Bid Adapter: new adapter",
+      "number": 15493,
+      "author": {
+        "login": "Biddigi143",
+        "id": 317477350
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "317477350": {
+          "identifier": "317477350",
+          "displayName": "Biddigi143",
+          "count": 12,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-16T07:12:20.000Z",
+      "dateUpdated": "2026-09-30T18:04:33.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:07:04.000Z",
+      "dateClosed": "2026-09-30T17:07:04.000Z"
+    },
+    {
+      "title": "PubFuture Bid Adapter: new bidder adapter",
+      "number": 15435,
+      "author": {
+        "login": "AndrewHoang1995",
+        "id": 163831439
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "AndrewHoang1995",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "github-advanced-security",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "pubfuture-bot": {
+          "identifier": "pubfuture-bot",
+          "displayName": "pubfuture-bot",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-08-04T06:08:36.000Z",
+      "dateUpdated": "2026-09-30T17:06:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:06:52.000Z",
+      "dateClosed": "2026-09-30T17:06:52.000Z"
+    },
+    {
+      "title": "MyCodeMedia Bid Adapter: initial release",
+      "number": 15687,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "22325848": {
+          "identifier": "22325848",
+          "displayName": "gchicoye",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T13:38:24.000Z",
+      "dateUpdated": "2026-09-30T17:00:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T17:00:49.000Z",
+      "dateClosed": "2026-09-30T17:00:49.000Z"
+    },
+    {
+      "title": "Nexx360 Bid Adapter: add stmbidder alias",
+      "number": 15684,
+      "author": {
+        "login": "gchicoye",
+        "id": 22325848
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "22325848": {
+          "identifier": "22325848",
+          "displayName": "gchicoye",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T08:49:21.000Z",
+      "dateUpdated": "2026-09-30T15:56:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T15:56:25.000Z",
+      "dateClosed": "2026-09-30T15:56:25.000Z"
+    },
+    {
+      "title": "Bump engine.io from 6.6.9 to 6.6.11",
+      "number": 15686,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T13:19:12.000Z",
+      "dateUpdated": "2026-09-30T13:59:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T13:59:26.000Z",
+      "dateClosed": "2026-09-30T13:59:26.000Z"
+    },
+    {
+      "title": "Bump brace-expansion",
+      "number": 15681,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T01:20:57.000Z",
+      "dateUpdated": "2026-09-30T13:18:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T13:18:40.000Z",
+      "dateClosed": "2026-09-30T13:18:40.000Z"
+    },
+    {
+      "title": "Bump fast-uri from 3.1.7 to 3.1.8",
+      "number": 15682,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-30T01:21:07.000Z",
+      "dateUpdated": "2026-09-30T13:17:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T13:17:56.000Z",
+      "dateClosed": "2026-09-30T13:17:56.000Z"
+    },
+    {
+      "title": "Scalibur Bid Adapter: forward ortb2 block lists and map advertiser domains",
+      "number": 15653,
+      "author": {
+        "login": "bTimor",
+        "id": 184917484
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Timor Bibi": {
+          "identifier": "Timor Bibi",
+          "displayName": "Timor Bibi",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "184917484": {
+          "identifier": "184917484",
+          "displayName": "bTimor",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-24T10:06:20.000Z",
+      "dateUpdated": "2026-09-30T00:07:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T00:07:16.000Z",
+      "dateClosed": "2026-09-30T00:07:16.000Z"
+    },
+    {
+      "title": "Peak226 Bid Adapter: initial release",
+      "number": 15619,
+      "author": {
+        "login": "chanand",
+        "id": 1317789
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chanand",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1317789": {
+          "identifier": "1317789",
+          "displayName": "chanand",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "Chanan Diamant": {
+          "identifier": "Chanan Diamant",
+          "displayName": "Chanan Diamant",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-15T06:36:31.000Z",
+      "dateUpdated": "2026-10-07T11:49:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T00:05:40.000Z",
+      "dateClosed": "2026-09-30T00:05:40.000Z"
+    },
+    {
+      "title": "Richaudience Bid Adapter: fix floor currency and referer state, add ORTB signals",
+      "number": 15561,
+      "author": {
+        "login": "jordicher-exte",
+        "id": 313326926
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jordicher-exte",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "313326926": {
+          "identifier": "313326926",
+          "displayName": "jordicher-exte",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T11:32:07.000Z",
+      "dateUpdated": "2026-09-30T00:03:24.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T00:03:24.000Z",
+      "dateClosed": "2026-09-30T00:03:24.000Z"
+    },
+    {
+      "title": "Taboola Bid Adapter: forward interaction signals",
+      "number": 15507,
+      "author": {
+        "login": "talavital7",
+        "id": 48999246
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "talavital7",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "48999246": {
+          "identifier": "48999246",
+          "displayName": "talavital7",
+          "count": 21,
+          "isGitHubUser": true
+        },
+        "168074830": {
+          "identifier": "168074830",
+          "displayName": "ronishefi9",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-23T13:33:12.000Z",
+      "dateUpdated": "2026-09-30T00:01:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-30T00:01:07.000Z",
+      "dateClosed": "2026-09-30T00:01:07.000Z"
+    },
+    {
+      "title": "Pstudio Adapter: Fixing get User ID from Local Storage",
+      "number": 15498,
+      "author": {
+        "login": "afifmahdi95",
+        "id": 55173899
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "afifmahdi95",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Ahmad Afif Mahdi": {
+          "identifier": "Ahmad Afif Mahdi",
+          "displayName": "Ahmad Afif Mahdi",
+          "count": 20,
+          "isGitHubUser": false
+        },
+        "55173899": {
+          "identifier": "55173899",
+          "displayName": "afifmahdi95",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-18T04:14:13.000Z",
+      "dateUpdated": "2026-09-29T23:54:46.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T23:54:46.000Z",
+      "dateClosed": "2026-09-29T23:54:46.000Z"
+    },
+    {
+      "title": "New bidder adapter: NexBid",
+      "number": 15348,
+      "author": {
+        "login": "SatwantSingh13",
+        "id": 290055097
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "SatwantSingh13",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "290055097": {
+          "identifier": "290055097",
+          "displayName": "SatwantSingh13",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-12T09:01:43.000Z",
+      "dateUpdated": "2026-09-29T18:59:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T18:59:42.000Z",
+      "dateClosed": "2026-09-29T18:59:42.000Z"
+    },
+    {
+      "title": "JW Player Video Provider: Remove obsolete event mapping",
+      "number": 15679,
+      "author": {
+        "login": "karimMourra",
+        "id": 12138319
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ChrisHuie",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "12138319": {
+          "identifier": "12138319",
+          "displayName": "karimMourra",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T16:47:22.000Z",
+      "dateUpdated": "2026-09-29T17:35:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T17:35:37.000Z",
+      "dateClosed": "2026-09-29T17:35:38.000Z"
+    },
+    {
+      "title": "Core: target Safari 11 in ES5 builds",
+      "number": 15680,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T17:33:42.000Z",
+      "dateUpdated": "2026-09-29T17:59:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T17:33:55.000Z",
+      "dateClosed": "2026-09-29T17:33:55.000Z"
+    },
+    {
+      "title": "Bump morgan from 1.12.0 to 1.12.1",
+      "number": 15676,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T14:29:51.000Z",
+      "dateUpdated": "2026-09-29T16:05:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T16:05:04.000Z",
+      "dateClosed": "2026-09-29T16:05:05.000Z"
+    },
+    {
+      "title": "Core: allow viewability to be measured without yielding the main thread",
+      "number": 15421,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        },
+        {
+          "login": "marco-prontera",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "gwhigs",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-30T21:46:27.000Z",
+      "dateUpdated": "2026-09-30T16:48:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T14:53:30.000Z",
+      "dateClosed": "2026-09-29T14:53:30.000Z"
+    },
+    {
+      "title": "Shinez RTB Bid Adapter: stabilize resolution assertion",
+      "number": 15677,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T14:30:11.000Z",
+      "dateUpdated": "2026-09-29T15:06:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T14:30:28.000Z",
+      "dateClosed": "2026-09-29T14:30:28.000Z"
+    },
+    {
+      "title": "Bump undici",
+      "number": 15671,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T04:14:54.000Z",
+      "dateUpdated": "2026-09-29T14:29:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T14:29:36.000Z",
+      "dateClosed": "2026-09-29T14:29:36.000Z"
+    },
+    {
+      "title": "Bump ip-address from 10.4.0 to 10.7.2",
+      "number": 15673,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-29T06:19:28.000Z",
+      "dateUpdated": "2026-09-29T14:28:45.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T14:28:42.000Z",
+      "dateClosed": "2026-09-29T14:28:42.000Z"
+    },
+    {
+      "title": "TrafficGate Bid Adapter: declare TCF GVL ID.",
+      "number": 15652,
+      "author": {
+        "login": "MikhailZamoyskyi",
+        "id": 111496292
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "MikhailZamoyskyi",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "mikhailzamoyskiy": {
+          "identifier": "mikhailzamoyskiy",
+          "displayName": "mikhailzamoyskiy",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "111496292": {
+          "identifier": "111496292",
+          "displayName": "MikhailZamoyskyi",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-24T07:27:04.000Z",
+      "dateUpdated": "2026-09-29T00:34:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-29T00:15:50.000Z",
+      "dateClosed": "2026-09-29T00:15:50.000Z"
+    },
+    {
+      "title": "Core: preserve Babel 7 type-import elision",
+      "number": 15669,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T19:35:20.000Z",
+      "dateUpdated": "2026-09-28T20:01:31.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T19:36:16.000Z",
+      "dateClosed": "2026-09-28T19:36:16.000Z"
+    },
+    {
+      "title": "Core: preserve type-only import removal with Babel 8",
+      "number": 15668,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T19:31:37.000Z",
+      "dateUpdated": "2026-09-28T19:55:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T19:31:49.000Z",
+      "dateClosed": "2026-09-28T19:31:49.000Z"
+    },
+    {
+      "title": "Core: restore eager test module loading",
+      "number": 15665,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T18:52:20.000Z",
+      "dateUpdated": "2026-09-28T18:57:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T18:52:30.000Z",
+      "dateClosed": "2026-09-28T18:52:30.000Z"
+    },
+    {
+      "title": "Attekmi: add Pubsmart adapter",
+      "number": 15661,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Victor": {
+          "identifier": "Victor",
+          "displayName": "Victor",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T11:51:32.000Z",
+      "dateUpdated": "2026-09-28T14:53:25.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T14:53:25.000Z",
+      "dateClosed": "2026-09-28T14:53:25.000Z"
+    },
+    {
+      "title": "Bump qs, express and body-parser",
+      "number": 15662,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-28T13:04:44.000Z",
+      "dateUpdated": "2026-09-28T14:52:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T14:52:33.000Z",
+      "dateClosed": "2026-09-28T14:52:33.000Z"
+    },
+    {
+      "title": "Pubstack Bid Adapter: send the stackId bid param",
+      "number": 15633,
+      "author": {
+        "login": "gpolaert",
+        "id": 1678246
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1678246": {
+          "identifier": "1678246",
+          "displayName": "gpolaert",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-18T20:53:30.000Z",
+      "dateUpdated": "2026-09-28T11:51:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-28T11:51:11.000Z",
+      "dateClosed": "2026-09-28T11:51:11.000Z"
+    },
+    {
+      "title": "Core: sanitize untrusted ORTB responses",
+      "number": 15616,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T17:41:47.000Z",
+      "dateUpdated": "2026-09-24T21:58:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T21:58:35.000Z",
+      "dateClosed": "2026-09-24T21:58:35.000Z"
+    },
+    {
+      "title": "Ogury Bid Adapter: repair a site.page that is not an absolute URL",
+      "number": 15630,
+      "author": {
+        "login": "RemyLespagnol",
+        "id": 2819925
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "2819925": {
+          "identifier": "2819925",
+          "displayName": "RemyLespagnol",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-18T13:54:52.000Z",
+      "dateUpdated": "2026-09-24T21:55:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T21:55:58.000Z",
+      "dateClosed": "2026-09-24T21:55:58.000Z"
+    },
+    {
+      "title": "Various bidder adapters: refactor bidder COPPA config access",
+      "number": 15462,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 8,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-05T16:35:03.000Z",
+      "dateUpdated": "2026-09-24T21:53:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T21:53:08.000Z",
+      "dateClosed": "2026-09-24T21:53:08.000Z"
+    },
+    {
+      "title": "Core: Resetting gpt targeting on bid won",
+      "number": 15398,
+      "author": {
+        "login": "mkomorski",
+        "id": 25056697
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "github-code-quality",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "25056697": {
+          "identifier": "25056697",
+          "displayName": "mkomorski",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-28T10:39:28.000Z",
+      "dateUpdated": "2026-09-24T21:51:14.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T21:51:12.000Z",
+      "dateClosed": "2026-09-24T21:51:12.000Z"
+    },
+    {
+      "title": "IntentIq ID: documentation update",
+      "number": 15634,
+      "author": {
+        "login": "oleksandrhn-code",
+        "id": 260442045
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Alex": {
+          "identifier": "Alex",
+          "displayName": "Alex",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "260442045": {
+          "identifier": "260442045",
+          "displayName": "oleksandrhn-code",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-21T07:35:44.000Z",
+      "dateUpdated": "2026-09-24T21:49:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T21:49:56.000Z",
+      "dateClosed": "2026-09-24T21:49:56.000Z"
+    },
+    {
+      "title": "msft Bid Adapter - fix support for addtl_consent",
+      "number": 15644,
+      "author": {
+        "login": "jsnellbaker",
+        "id": 31102355
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "31102355": {
+          "identifier": "31102355",
+          "displayName": "jsnellbaker",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-22T13:57:43.000Z",
+      "dateUpdated": "2026-09-24T12:03:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-24T12:03:34.000Z",
+      "dateClosed": "2026-09-24T12:03:34.000Z"
+    },
+    {
+      "title": "AdSpirit Bid Adapter: declare TCF GVL IDs for adspirit and twiago alias",
+      "number": 15635,
+      "author": {
+        "login": "alexandr-kim-vl",
+        "id": 47887567
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Alexandr Kim": {
+          "identifier": "Alexandr Kim",
+          "displayName": "Alexandr Kim",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-21T07:49:15.000Z",
+      "dateUpdated": "2026-09-22T13:41:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-22T13:41:21.000Z",
+      "dateClosed": "2026-09-22T13:41:21.000Z"
+    },
+    {
+      "title": "Optimera rtd: add flag to call measurement script within the rtd module",
+      "number": 15605,
+      "author": {
+        "login": "SamiBeig",
+        "id": 31363470
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Sami": {
+          "identifier": "Sami",
+          "displayName": "Sami",
+          "count": 4,
+          "isGitHubUser": false
+        },
+        "31363470": {
+          "identifier": "31363470",
+          "displayName": "SamiBeig",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T18:45:25.000Z",
+      "dateUpdated": "2026-09-18T14:07:19.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-18T14:07:18.000Z",
+      "dateClosed": "2026-09-18T14:07:18.000Z"
+    },
+    {
+      "title": "MCodeMedia Bid Adapter: name change - #14254",
+      "number": 15621,
+      "author": {
+        "login": "teqblaze",
+        "id": 162988436
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "162988436": {
+          "identifier": "162988436",
+          "displayName": "teqblaze",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-15T09:57:04.000Z",
+      "dateUpdated": "2026-09-18T14:04:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-18T14:04:08.000Z",
+      "dateClosed": "2026-09-18T14:04:08.000Z"
+    },
+    {
+      "title": "SSP Geniee Bid Adapter: read imuid/id5 from ortb2 user.ext.eids (bid.userId removed in Prebid 10)",
+      "number": 15627,
+      "author": {
+        "login": "hieund-geniee",
+        "id": 127374021
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Murano Takamasa": {
+          "identifier": "Murano Takamasa",
+          "displayName": "Murano Takamasa",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "49385718": {
+          "identifier": "49385718",
+          "displayName": "gn-daikichi",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "130964535": {
+          "identifier": "130964535",
+          "displayName": "takm-furukawa",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45890154": {
+          "identifier": "45890154",
+          "displayName": "furukawaTakumi",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "167176940": {
+          "identifier": "167176940",
+          "displayName": "haruki-yamaguchi",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "100411113": {
+          "identifier": "100411113",
+          "displayName": "hrkhito",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "135969265": {
+          "identifier": "135969265",
+          "displayName": "thanhtran-geniee",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "127374021": {
+          "identifier": "127374021",
+          "displayName": "hieund-geniee",
+          "count": 12,
+          "isGitHubUser": true
+        },
+        "50446582": {
+          "identifier": "50446582",
+          "displayName": "FujiwaraNaoto",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-16T06:48:20.000Z",
+      "dateUpdated": "2026-09-16T11:19:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-16T11:19:06.000Z",
+      "dateClosed": "2026-09-16T11:19:06.000Z"
+    },
+    {
+      "title": "StackUp RTD Provider: support dual taxonomy enrichment",
+      "number": 15472,
+      "author": {
+        "login": "yurii-bli",
+        "id": 273108531
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "yurii-bli",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "273108531": {
+          "identifier": "273108531",
+          "displayName": "yurii-bli",
+          "count": 7,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-07T18:18:58.000Z",
+      "dateUpdated": "2026-09-15T17:18:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T17:07:03.000Z",
+      "dateClosed": "2026-09-15T17:07:03.000Z"
+    },
+    {
+      "title": "Mobian RTD Provider: use separate traffic quality endpoint",
+      "number": 15527,
+      "author": {
+        "login": "tr0gd0r",
+        "id": 3052431
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "tr0gd0r",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "7414121": {
+          "identifier": "7414121",
+          "displayName": "richardgetz",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "3052431": {
+          "identifier": "3052431",
+          "displayName": "tr0gd0r",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T04:44:39.000Z",
+      "dateUpdated": "2026-09-15T17:19:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T13:47:35.000Z",
+      "dateClosed": "2026-09-15T13:47:35.000Z"
+    },
+    {
+      "title": "JJTech Bid Adapter: point bid requests to JJTech RTB endpoint",
+      "number": 15624,
+      "author": {
+        "login": "bhavinjjt",
+        "id": 153257299
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Bhavin Patolia": {
+          "identifier": "Bhavin Patolia",
+          "displayName": "Bhavin Patolia",
+          "count": 1,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-09-15T13:12:29.000Z",
+      "dateUpdated": "2026-09-15T13:44:20.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T13:44:19.000Z",
+      "dateClosed": "2026-09-15T13:44:19.000Z"
+    },
+    {
+      "title": "Adagio Bid Adapter: honor COPPA zero override",
+      "number": 15622,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-15T11:49:40.000Z",
+      "dateUpdated": "2026-09-15T12:12:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T11:49:54.000Z",
+      "dateClosed": "2026-09-15T11:49:54.000Z"
+    },
+    {
+      "title": "New Bid Adapter: Adbix",
+      "number": 15374,
+      "author": {
+        "login": "adbix-net",
+        "id": 307773327
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "307773327": {
+          "identifier": "307773327",
+          "displayName": "adbix-net",
+          "count": 37,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-21T22:42:04.000Z",
+      "dateUpdated": "2026-09-15T17:07:10.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T11:27:24.000Z",
+      "dateClosed": "2026-09-15T11:27:24.000Z"
+    },
+    {
+      "title": "Nexx360 Bid Adapter: derive video.ext.playerSize from resolved imp so it honors size overrides",
+      "number": 15495,
+      "author": {
+        "login": "suchhanda-crazygames",
+        "id": 299282572
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "299282572": {
+          "identifier": "299282572",
+          "displayName": "suchhanda-crazygames",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-16T10:59:26.000Z",
+      "dateUpdated": "2026-09-15T11:03:53.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T11:03:53.000Z",
+      "dateClosed": "2026-09-15T11:03:53.000Z"
+    },
+    {
+      "title": "Ccx Bid Adapter: Add GVLID",
+      "number": 15620,
+      "author": {
+        "login": "mjaworskiccx",
+        "id": 50406214
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "76069238": {
+          "identifier": "76069238",
+          "displayName": "mkjsoft",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-15T09:16:03.000Z",
+      "dateUpdated": "2026-09-15T11:02:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T11:02:51.000Z",
+      "dateClosed": "2026-09-15T11:02:51.000Z"
+    },
+    {
+      "title": "Unicorn Bid Adapter: update bid endpoint",
+      "number": 15609,
+      "author": {
+        "login": "harufujimoto",
+        "id": 56620731
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "56620731": {
+          "identifier": "56620731",
+          "displayName": "harufujimoto",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-10T08:49:40.000Z",
+      "dateUpdated": "2026-09-15T03:42:44.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T03:42:44.000Z",
+      "dateClosed": "2026-09-15T03:42:44.000Z"
+    },
+    {
+      "title": "Criteo Bid Adapter: add parameter type declarations",
+      "number": 15537,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:54:31.000Z",
+      "dateUpdated": "2026-09-15T03:41:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T03:41:04.000Z",
+      "dateClosed": "2026-09-15T03:41:04.000Z"
+    },
+    {
+      "title": "Build system: disable Chrome sandbox for root tests",
+      "number": 15608,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-10T03:45:15.000Z",
+      "dateUpdated": "2026-09-15T03:40:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-15T03:40:49.000Z",
+      "dateClosed": "2026-09-15T03:40:49.000Z"
+    },
+    {
+      "title": "Adkernel Bid Adapter: DSA support",
+      "number": 15387,
+      "author": {
+        "login": "ckbo3hrk",
+        "id": 8065653
+      },
+      "assignees": [
+        "patmmccann"
+      ],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "8065653": {
+          "identifier": "8065653",
+          "displayName": "ckbo3hrk",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-24T14:50:28.000Z",
+      "dateUpdated": "2026-09-21T07:25:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-13T17:40:41.000Z",
+      "dateClosed": "2026-09-13T17:40:41.000Z"
+    },
+    {
+      "title": "Build system: reject failed CDN chunk loads",
+      "number": 15615,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T14:31:25.000Z",
+      "dateUpdated": "2026-09-11T19:56:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T19:56:05.000Z",
+      "dateClosed": "2026-09-11T19:56:05.000Z"
+    },
+    {
+      "title": "Sevio Bid Adapter: resolve page URL via refererInfo instead of window.location",
+      "number": 15574,
+      "author": {
+        "login": "msmolenschi",
+        "id": 104756392
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "msmolenschi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "104756392": {
+          "identifier": "104756392",
+          "displayName": "msmolenschi",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T14:25:52.000Z",
+      "dateUpdated": "2026-09-15T13:43:42.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T19:55:24.000Z",
+      "dateClosed": "2026-09-11T19:55:24.000Z"
+    },
+    {
+      "title": "Core: do not take the legacyRender write path for safeRenderer bids",
+      "number": 15546,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-27T18:23:58.000Z",
+      "dateUpdated": "2026-09-11T14:28:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T14:28:29.000Z",
+      "dateClosed": "2026-09-11T14:28:29.000Z"
+    },
+    {
+      "title": "Clarify requirements for hashed email in Acxiom Real ID",
+      "number": 15613,
+      "author": {
+        "login": "southern-growthcode",
+        "id": 79725079
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "79725079": {
+          "identifier": "79725079",
+          "displayName": "southern-growthcode",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-11T13:46:18.000Z",
+      "dateUpdated": "2026-09-11T14:27:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T14:27:47.000Z",
+      "dateClosed": "2026-09-11T14:27:47.000Z"
+    },
+    {
+      "title": "Reklamup Bid Adapter: support regional endpoints",
+      "number": 15606,
+      "author": {
+        "login": "prebid-reklamup",
+        "id": 265310176
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Reklamup": {
+          "identifier": "Reklamup",
+          "displayName": "Reklamup",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "Vitalii Sumlennyi": {
+          "identifier": "Vitalii Sumlennyi",
+          "displayName": "Vitalii Sumlennyi",
+          "count": 3,
+          "isGitHubUser": false
+        },
+        "265310176": {
+          "identifier": "265310176",
+          "displayName": "prebid-reklamup",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T20:54:40.000Z",
+      "dateUpdated": "2026-09-11T14:06:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T14:06:49.000Z",
+      "dateClosed": "2026-09-11T14:06:49.000Z"
+    },
+    {
+      "title": "Anonymised RTD Provider: add Seller-Defined Audiences segment and fix missing onDone callback",
+      "number": 15583,
+      "author": {
+        "login": "kyrylenko",
+        "id": 10921133
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "kyrylenko",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Pavlo": {
+          "identifier": "Pavlo",
+          "displayName": "Pavlo",
+          "count": 8,
+          "isGitHubUser": false
+        },
+        "10921133": {
+          "identifier": "10921133",
+          "displayName": "kyrylenko",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-03T12:28:13.000Z",
+      "dateUpdated": "2026-09-11T14:06:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-11T14:06:28.000Z",
+      "dateClosed": "2026-09-11T14:06:28.000Z"
+    },
+    {
+      "title": "Encypher RTD Provider: verified OpenRTB provenance carrier",
+      "number": 15354,
+      "author": {
+        "login": "erik-sv",
+        "id": 39309912
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "erik-sv",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "39309912": {
+          "identifier": "39309912",
+          "displayName": "erik-sv",
+          "count": 12,
+          "isGitHubUser": true
+        },
+        "Encypher Engineering": {
+          "identifier": "Encypher Engineering",
+          "displayName": "Encypher Engineering",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-07-13T21:07:57.000Z",
+      "dateUpdated": "2026-09-10T16:57:26.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T16:57:26.000Z",
+      "dateClosed": "2026-09-10T16:57:26.000Z"
+    },
+    {
+      "title": "Various Bid Adapters: explicitly inherit GVL IDs for short aliases",
+      "number": 15600,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T13:01:28.000Z",
+      "dateUpdated": "2026-09-10T16:53:36.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T16:53:33.000Z",
+      "dateClosed": "2026-09-10T16:53:33.000Z"
+    },
+    {
+      "title": "Build system: fix missing GVL ID in analytics module metadata; remove missing GVL ID from pubwise analytics",
+      "number": 15610,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-10T14:49:27.000Z",
+      "dateUpdated": "2026-09-10T16:46:37.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T16:46:35.000Z",
+      "dateClosed": "2026-09-10T16:46:36.000Z"
+    },
+    {
+      "title": "Bump morgan from 1.11.0 to 1.12.0",
+      "number": 15607,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-10T02:52:46.000Z",
+      "dateUpdated": "2026-09-10T03:39:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-10T03:39:54.000Z",
+      "dateClosed": "2026-09-10T03:39:54.000Z"
+    },
+    {
+      "title": "Attekmi: add Ppcbuzz adapter",
+      "number": 15601,
+      "author": {
+        "login": "SmartHubSolutions",
+        "id": 87376145
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "SmartHubSolutions",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "Victor": {
+          "identifier": "Victor",
+          "displayName": "Victor",
+          "count": 2,
+          "isGitHubUser": false
+        },
+        "87376145": {
+          "identifier": "87376145",
+          "displayName": "SmartHubSolutions",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-09T13:47:50.000Z",
+      "dateUpdated": "2026-09-09T19:11:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T19:11:07.000Z",
+      "dateClosed": "2026-09-09T19:11:07.000Z"
+    },
+    {
+      "title": "Teal Bid Adapter - added usersync gpp support",
+      "number": 15598,
+      "author": {
+        "login": "johnclc",
+        "id": 12496731
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jefftmahoney",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "12496731": {
+          "identifier": "12496731",
+          "displayName": "johnclc",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T15:53:44.000Z",
+      "dateUpdated": "2026-09-09T17:34:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T17:34:58.000Z",
+      "dateClosed": "2026-09-09T17:34:58.000Z"
+    },
+    {
+      "title": "New bid adapter: Adswag",
+      "number": 15487,
+      "author": {
+        "login": "westerschmal",
+        "id": 30859973
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "westerschmal",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "30859973": {
+          "identifier": "30859973",
+          "displayName": "westerschmal",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-13T11:34:21.000Z",
+      "dateUpdated": "2026-09-09T13:23:21.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T13:23:20.000Z",
+      "dateClosed": "2026-09-09T13:23:20.000Z"
+    },
+    {
+      "title": "Utiq ID module: Uprgade utiq modules to pass the category ('mobile' | 'fixed' ) in the `ext` response",
+      "number": 15590,
+      "author": {
+        "login": "ManuelAlfonsoUtiq",
+        "id": 212662750
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "ManuelAlfonsoUtiq",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "212662750": {
+          "identifier": "212662750",
+          "displayName": "ManuelAlfonsoUtiq",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-07T01:54:08.000Z",
+      "dateUpdated": "2026-09-09T13:17:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T13:17:49.000Z",
+      "dateClosed": "2026-09-09T13:17:49.000Z"
+    },
+    {
+      "title": "Core: remove three page-lifetime retainers of per-auction data",
+      "number": 15584,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-03T16:49:11.000Z",
+      "dateUpdated": "2026-09-09T13:16:52.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T13:16:52.000Z",
+      "dateClosed": "2026-09-09T13:16:52.000Z"
+    },
+    {
+      "title": "User ID: a filtered refreshUserIds must not release the auction early",
+      "number": 15562,
+      "author": {
+        "login": "MO-Thibault",
+        "id": 103271673
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "MO-Thibault",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "103271673": {
+          "identifier": "103271673",
+          "displayName": "MO-Thibault",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T18:49:08.000Z",
+      "dateUpdated": "2026-09-09T13:16:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T13:16:15.000Z",
+      "dateClosed": "2026-09-09T13:16:15.000Z"
+    },
+    {
+      "title": "PR: Geniee Exchange Bid Adapter: add new bidder adapter (ex_geniee)- #28",
+      "number": 15559,
+      "author": {
+        "login": "FujiwaraNaoto",
+        "id": 50446582
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "copilot-pull-request-reviewer",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "FujiwaraNaoto",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "Murano Takamasa": {
+          "identifier": "Murano Takamasa",
+          "displayName": "Murano Takamasa",
+          "count": 1,
+          "isGitHubUser": false
+        },
+        "49385718": {
+          "identifier": "49385718",
+          "displayName": "gn-daikichi",
+          "count": 17,
+          "isGitHubUser": true
+        },
+        "130964535": {
+          "identifier": "130964535",
+          "displayName": "takm-furukawa",
+          "count": 1,
+          "isGitHubUser": true
+        },
+        "45890154": {
+          "identifier": "45890154",
+          "displayName": "furukawaTakumi",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "167176940": {
+          "identifier": "167176940",
+          "displayName": "haruki-yamaguchi",
+          "count": 8,
+          "isGitHubUser": true
+        },
+        "100411113": {
+          "identifier": "100411113",
+          "displayName": "hrkhito",
+          "count": 4,
+          "isGitHubUser": true
+        },
+        "135969265": {
+          "identifier": "135969265",
+          "displayName": "thanhtran-geniee",
+          "count": 13,
+          "isGitHubUser": true
+        },
+        "127374021": {
+          "identifier": "127374021",
+          "displayName": "hieund-geniee",
+          "count": 9,
+          "isGitHubUser": true
+        },
+        "50446582": {
+          "identifier": "50446582",
+          "displayName": "FujiwaraNaoto",
+          "count": 17,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T09:15:36.000Z",
+      "dateUpdated": "2026-09-09T13:38:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T13:12:26.000Z",
+      "dateClosed": "2026-09-09T13:12:26.000Z"
+    },
+    {
+      "title": "Build system: update artifact downloads to v8",
+      "number": 15599,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T17:30:53.000Z",
+      "dateUpdated": "2026-09-08T17:55:15.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T17:49:01.000Z",
+      "dateClosed": "2026-09-08T17:49:01.000Z"
+    },
+    {
+      "title": "Readpeak Bid Adapter: migrate to ortbConverter and support deferred billing",
+      "number": 15591,
+      "author": {
+        "login": "readpeak-user",
+        "id": 63640438
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "readpeak-user",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "66239046": {
+          "identifier": "66239046",
+          "displayName": "readpeaktuomo",
+          "count": 23,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-07T06:27:25.000Z",
+      "dateUpdated": "2026-09-08T15:43:49.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:43:48.000Z",
+      "dateClosed": "2026-09-08T15:43:48.000Z"
+    },
+    {
+      "title": "Agent skill: Prebid Chrome DevTools",
+      "number": 15569,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 5,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T15:57:57.000Z",
+      "dateUpdated": "2026-09-08T15:38:40.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:38:38.000Z",
+      "dateClosed": "2026-09-08T15:38:38.000Z"
+    },
+    {
+      "title": "smartyadsBidAdapter/schain",
+      "number": 15585,
+      "author": {
+        "login": "rishko00",
+        "id": 43280707
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "141218108": {
+          "identifier": "141218108",
+          "displayName": "vrishko",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-04T12:28:14.000Z",
+      "dateUpdated": "2026-09-08T15:27:56.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:27:56.000Z",
+      "dateClosed": "2026-09-08T15:27:56.000Z"
+    },
+    {
+      "title": "Floxis Bid Adapter: set imp.tagid from adUnitCode when absent",
+      "number": 15587,
+      "author": {
+        "login": "floxis-admin",
+        "id": 234334311
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "234334311": {
+          "identifier": "234334311",
+          "displayName": "floxis-admin",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-06T08:27:03.000Z",
+      "dateUpdated": "2026-09-08T15:19:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:19:57.000Z",
+      "dateClosed": "2026-09-08T15:19:57.000Z"
+    },
+    {
+      "title": "Geoedge RTD Provider: display opt-out",
+      "number": 15589,
+      "author": {
+        "login": "erani-n",
+        "id": 209335275
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "erani-n",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "209335275": {
+          "identifier": "209335275",
+          "displayName": "erani-n",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-06T22:03:01.000Z",
+      "dateUpdated": "2026-09-08T15:19:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:19:03.000Z",
+      "dateClosed": "2026-09-08T15:19:03.000Z"
+    },
+    {
+      "title": "Blue/BMS Bid Adapters: guard optional bid.ext.<blue|bms>.adId access",
+      "number": 15588,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sujanchalla0510",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "13685385": {
+          "identifier": "13685385",
+          "displayName": "sujanchalla0510",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-06T20:23:10.000Z",
+      "dateUpdated": "2026-09-08T15:18:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:18:05.000Z",
+      "dateClosed": "2026-09-08T15:18:05.000Z"
+    },
+    {
+      "title": "Yieldmo Bid Adapter: add parameter type declarations",
+      "number": 15530,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:48:05.000Z",
+      "dateUpdated": "2026-09-08T15:16:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:16:05.000Z",
+      "dateClosed": "2026-09-08T15:16:05.000Z"
+    },
+    {
+      "title": "OpenX Bid Adapter: add parameter type declarations",
+      "number": 15528,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:46:30.000Z",
+      "dateUpdated": "2026-09-08T15:15:47.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:15:44.000Z",
+      "dateClosed": "2026-09-08T15:15:44.000Z"
+    },
+    {
+      "title": "Rubicon Bid Adapter: nitpicks from GitHub code quality robot",
+      "number": 15551,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robertrmartinez",
+          "state": "APPROVED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 6,
+          "isGitHubUser": true
+        },
+        "13972794": {
+          "identifier": "13972794",
+          "displayName": "robertrmartinez",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-28T17:15:54.000Z",
+      "dateUpdated": "2026-09-08T15:15:03.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:15:00.000Z",
+      "dateClosed": "2026-09-08T15:15:00.000Z"
+    },
+    {
+      "title": "51Degrees RTD Module: name the Model Terms for Marketing on every 51Did eids entry",
+      "number": 15594,
+      "author": {
+        "login": "jwrosewell",
+        "id": 1679482
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1679482": {
+          "identifier": "1679482",
+          "displayName": "jwrosewell",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-07T18:13:49.000Z",
+      "dateUpdated": "2026-09-08T15:14:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:14:09.000Z",
+      "dateClosed": "2026-09-08T15:14:09.000Z"
+    },
+    {
+      "title": "Gulp: Fix for Semicolon insertion",
+      "number": 15597,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T15:09:09.000Z",
+      "dateUpdated": "2026-09-08T15:25:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:12:23.000Z",
+      "dateClosed": "2026-09-08T15:12:23.000Z"
+    },
+    {
+      "title": "OneTag Bid Adapter: send the auction timeout as ortb2.tmax",
+      "number": 15593,
+      "author": {
+        "login": "fliccione",
+        "id": 165936219
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "165936219": {
+          "identifier": "165936219",
+          "displayName": "fliccione",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-07T10:40:20.000Z",
+      "dateUpdated": "2026-09-08T15:11:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:11:50.000Z",
+      "dateClosed": "2026-09-08T15:11:50.000Z"
+    },
+    {
+      "title": "Bump js-yaml",
+      "number": 15595,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T14:54:10.000Z",
+      "dateUpdated": "2026-09-08T15:45:05.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:10:37.000Z",
+      "dateClosed": "2026-09-08T15:10:37.000Z"
+    },
+    {
+      "title": "contentexchangeBidAdapter: Remove GVLID ",
+      "number": 15596,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "mkomorski",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-08T14:55:07.000Z",
+      "dateUpdated": "2026-09-08T16:14:23.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:05:32.000Z",
+      "dateClosed": "2026-09-08T15:05:32.000Z"
+    },
+    {
+      "title": "fix: the fireviewabilitypixels function directly int... in index.js",
+      "number": 15541,
+      "author": {
+        "login": "anupamme",
+        "id": 667857
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anupamme",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "667857": {
+          "identifier": "667857",
+          "displayName": "anupamme",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T19:55:43.000Z",
+      "dateUpdated": "2026-09-08T15:01:07.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T15:01:07.000Z",
+      "dateClosed": "2026-09-08T15:01:07.000Z"
+    },
+    {
+      "title": "Bump browserslist from 4.28.1 to 4.28.8",
+      "number": 15578,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-03T00:13:13.000Z",
+      "dateUpdated": "2026-09-08T14:52:55.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-08T14:52:52.000Z",
+      "dateClosed": "2026-09-08T14:52:52.000Z"
+    },
+    {
+      "title": "RTD: isolate submodules from each other's callbacks and exceptions",
+      "number": 15479,
+      "author": {
+        "login": "florianerl",
+        "id": 46747754
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "robertrmartinez",
+          "state": "PENDING"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "46747754": {
+          "identifier": "46747754",
+          "displayName": "florianerl",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-11T10:51:31.000Z",
+      "dateUpdated": "2026-09-04T14:45:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:45:50.000Z",
+      "dateClosed": "2026-09-04T14:45:50.000Z"
+    },
+    {
+      "title": "Build: replace yargs with node:util parseArgs (preserve --no-lint-warnings)",
+      "number": 15473,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        },
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 9,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-08T13:00:24.000Z",
+      "dateUpdated": "2026-09-04T14:45:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:45:09.000Z",
+      "dateClosed": "2026-09-04T14:45:09.000Z"
+    },
+    {
+      "title": "Unruly Bid Adapter: add parameter type declarations",
+      "number": 15531,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:48:26.000Z",
+      "dateUpdated": "2026-09-04T14:43:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:43:48.000Z",
+      "dateClosed": "2026-09-04T14:43:48.000Z"
+    },
+    {
+      "title": "Undertone Bid Adapter: add TypeScript parameter types",
+      "number": 15532,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:48:35.000Z",
+      "dateUpdated": "2026-09-04T14:43:28.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:43:26.000Z",
+      "dateClosed": "2026-09-04T14:43:26.000Z"
+    },
+    {
+      "title": "Ozone Bid Adapter: add parameter type declarations",
+      "number": 15535,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:49:40.000Z",
+      "dateUpdated": "2026-09-04T14:43:12.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:43:10.000Z",
+      "dateClosed": "2026-09-04T14:43:10.000Z"
+    },
+    {
+      "title": "PubMatic Bid Adapter: add parameter type declarations",
+      "number": 15536,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:50:25.000Z",
+      "dateUpdated": "2026-09-04T14:43:01.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:42:59.000Z",
+      "dateClosed": "2026-09-04T14:42:59.000Z"
+    },
+    {
+      "title": "Seedtag Bidder - add correct mediaType when calling bidRequest.getFloor",
+      "number": 15580,
+      "author": {
+        "login": "ybootin",
+        "id": 1788867
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1788867": {
+          "identifier": "1788867",
+          "displayName": "ybootin",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-03T09:21:48.000Z",
+      "dateUpdated": "2026-09-04T14:42:43.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:42:43.000Z",
+      "dateClosed": "2026-09-04T14:42:43.000Z"
+    },
+    {
+      "title": "Bump fast-uri from 3.1.5 to 3.1.7",
+      "number": 15576,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T23:31:40.000Z",
+      "dateUpdated": "2026-09-04T14:41:54.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-04T14:41:52.000Z",
+      "dateClosed": "2026-09-04T14:41:52.000Z"
+    },
+    {
+      "title": "Bump @humanfs/node from 0.16.6 to 0.16.8",
+      "number": 15575,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "lksharma",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-02T19:43:25.000Z",
+      "dateUpdated": "2026-09-03T14:03:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-03T14:03:15.000Z",
+      "dateClosed": "2026-09-03T14:03:15.000Z"
+    },
+    {
+      "title": "Bump @xmldom/xmldom from 0.8.13 to 0.8.15",
+      "number": 15577,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-03T00:13:01.000Z",
+      "dateUpdated": "2026-09-03T14:02:51.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-03T14:02:49.000Z",
+      "dateClosed": "2026-09-03T14:02:49.000Z"
+    },
+    {
+      "title": "Sharethrough Bid Adapter: add parameter types",
+      "number": 15533,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:49:00.000Z",
+      "dateUpdated": "2026-09-02T17:57:39.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T17:57:37.000Z",
+      "dateClosed": "2026-09-02T17:57:37.000Z"
+    },
+    {
+      "title": "Kargo Bid Adapter: add parameter type declarations",
+      "number": 15529,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T08:47:03.000Z",
+      "dateUpdated": "2026-09-02T17:57:27.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T17:57:25.000Z",
+      "dateClosed": "2026-09-02T17:57:25.000Z"
+    },
+    {
+      "title": "Adasta: Update gvlid for adasta in anUtils.js",
+      "number": 15540,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-26T19:01:36.000Z",
+      "dateUpdated": "2026-09-02T04:24:48.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T04:24:46.000Z",
+      "dateClosed": "2026-09-02T04:24:46.000Z"
+    },
+    {
+      "title": "Ampliffy Bid Adapter: parse response markup in an inert document",
+      "number": 15550,
+      "author": {
+        "login": "dgirardi",
+        "id": 10151381
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "dgirardi",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "10151381": {
+          "identifier": "10151381",
+          "displayName": "dgirardi",
+          "count": 7,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-28T05:14:14.000Z",
+      "dateUpdated": "2026-09-06T12:25:08.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T04:14:40.000Z",
+      "dateClosed": "2026-09-02T04:14:40.000Z"
+    },
+    {
+      "title": "Lasso Bid Adapter: fix meta.secondaryCatIds/advertiserDomains field mapping",
+      "number": 15565,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        },
+        {
+          "login": "sujanchalla0510",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "13685385": {
+          "identifier": "13685385",
+          "displayName": "sujanchalla0510",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T03:56:00.000Z",
+      "dateUpdated": "2026-09-02T04:11:11.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T04:11:10.000Z",
+      "dateClosed": "2026-09-02T04:11:11.000Z"
+    },
+    {
+      "title": "Consent Management: refine Gvlid types ",
+      "number": 15572,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T20:10:54.000Z",
+      "dateUpdated": "2026-09-02T04:08:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T04:08:27.000Z",
+      "dateClosed": "2026-09-02T04:08:27.000Z"
+    },
+    {
+      "title": "Price Floors: clean up comments",
+      "number": 15573,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        },
+        {
+          "login": "jlquaccia",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T20:12:54.000Z",
+      "dateUpdated": "2026-09-02T04:07:50.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-02T04:07:35.000Z",
+      "dateClosed": "2026-09-02T04:07:35.000Z"
+    },
+    {
+      "title": "51D Docs: Fix for Call to eval-like DOM function",
+      "number": 15571,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T16:56:30.000Z",
+      "dateUpdated": "2026-09-01T17:55:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T16:57:00.000Z",
+      "dateClosed": "2026-09-01T16:57:00.000Z"
+    },
+    {
+      "title": "UserId: Change the typings of the gvlid property to allow usage of VENDORLESS_GVLID",
+      "number": 15558,
+      "author": {
+        "login": "robin-crazygames",
+        "id": 191837040
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "osazos",
+          "state": "PENDING"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "robin-crazygames",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "191837040": {
+          "identifier": "191837040",
+          "displayName": "robin-crazygames",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T08:12:30.000Z",
+      "dateUpdated": "2026-09-01T15:26:57.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:26:57.000Z",
+      "dateClosed": "2026-09-01T15:26:57.000Z"
+    },
+    {
+      "title": "Core: fix userId refresh never triggering when no _last timestamp is stored",
+      "number": 15567,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "ncolletti",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "13685385": {
+          "identifier": "13685385",
+          "displayName": "sujanchalla0510",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T04:09:10.000Z",
+      "dateUpdated": "2026-09-01T15:11:06.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:11:06.000Z",
+      "dateClosed": "2026-09-01T15:11:06.000Z"
+    },
+    {
+      "title": "Core: honor null price-floor rule values against floorMin in bid response enforcement",
+      "number": 15566,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "jsnellbaker",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "13685385": {
+          "identifier": "13685385",
+          "displayName": "sujanchalla0510",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T04:01:17.000Z",
+      "dateUpdated": "2026-09-01T15:10:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:10:08.000Z",
+      "dateClosed": "2026-09-01T15:10:09.000Z"
+    },
+    {
+      "title": "Freedom Ad Network Bid Adapter: guard optional ext.libertas access",
+      "number": 15564,
+      "author": {
+        "login": "sujanchalla0510",
+        "id": 13685385
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "gwhigs",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "13685385": {
+          "identifier": "13685385",
+          "displayName": "sujanchalla0510",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T03:51:56.000Z",
+      "dateUpdated": "2026-09-01T15:08:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:08:58.000Z",
+      "dateClosed": "2026-09-01T15:08:58.000Z"
+    },
+    {
+      "title": "Nexx360 Adapters: use shared RequireAtLeastOne type",
+      "number": 15563,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "dgirardi",
+          "state": "PENDING"
+        }
+      ],
+      "commitAuthors": {
+        "1683175": {
+          "identifier": "1683175",
+          "displayName": "patmmccann",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T01:39:03.000Z",
+      "dateUpdated": "2026-09-01T15:07:18.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:07:14.000Z",
+      "dateClosed": "2026-09-01T15:07:14.000Z"
+    },
+    {
+      "title": "Bump github/codeql-action from 4.37.3 to 4.37.9",
+      "number": 15568,
+      "author": {
+        "login": "dependabot[bot]",
+        "id": 49699333
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "login": "monis0395",
+          "state": "PENDING"
+        },
+        {
+          "login": "patmmccann",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "49699333": {
+          "identifier": "49699333",
+          "displayName": "dependabot[bot]",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-09-01T14:35:24.000Z",
+      "dateUpdated": "2026-09-01T15:06:09.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T15:06:06.000Z",
+      "dateClosed": "2026-09-01T15:06:06.000Z"
+    }
+  ]
+}

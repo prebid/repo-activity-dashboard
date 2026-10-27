@@ -1,0 +1,348 @@
+{
+  "metadata": {
+    "repository": "prebid/prebid-server",
+    "year": 2026,
+    "month": 9,
+    "itemCount": 8,
+    "lastUpdated": "2026-10-27T00:20:46.911Z"
+  },
+  "items": [
+    {
+      "title": "Rules Engine Module: Add ruleset filter warnings in debug auction",
+      "number": 4896,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "bsardo",
+        "anishb-ms"
+      ],
+      "reviewers": [
+        {
+          "login": "anishb-ms",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "karwaankit32",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "242161653": {
+          "identifier": "242161653",
+          "displayName": "karwaank",
+          "count": 5,
+          "isGitHubUser": true
+        },
+        "37686606": {
+          "identifier": "37686606",
+          "displayName": "karwaankit32",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-03T13:48:54.000Z",
+      "dateUpdated": "2026-09-23T14:14:38.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-23T14:14:38.000Z",
+      "dateClosed": "2026-09-23T14:14:38.000Z"
+    },
+    {
+      "title": "Fix: Valid CCPA consent was dropped when gdpr_applies=true",
+      "number": 4900,
+      "author": {
+        "login": "karwaankit32",
+        "id": 37686606
+      },
+      "assignees": [
+        "bsardo",
+        "anishb-ms",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "anishb-ms",
+          "state": "DISMISSED"
+        },
+        {
+          "login": "karwaankit32",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "242161653": {
+          "identifier": "242161653",
+          "displayName": "karwaank",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "37686606": {
+          "identifier": "37686606",
+          "displayName": "karwaankit32",
+          "count": 2,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-07T04:28:45.000Z",
+      "dateUpdated": "2026-09-20T13:12:29.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-20T13:12:29.000Z",
+      "dateClosed": "2026-09-20T13:12:29.000Z"
+    },
+    {
+      "title": "Triplelift: Add new optional bid parameters",
+      "number": 4918,
+      "author": {
+        "login": "patrickloughrey",
+        "id": 20526608
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "20526608": {
+          "identifier": "20526608",
+          "displayName": "patrickloughrey",
+          "count": 10,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-21T15:43:28.000Z",
+      "dateUpdated": "2026-09-17T13:38:32.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T13:38:32.000Z",
+      "dateClosed": "2026-09-17T13:38:32.000Z"
+    },
+    {
+      "title": "New Adapter: Ferio",
+      "number": 4780,
+      "author": {
+        "login": "deferoper",
+        "id": 284307535
+      },
+      "assignees": [
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "github-actions",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "deferoper",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "chebakov",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "284307535": {
+          "identifier": "284307535",
+          "displayName": "deferoper",
+          "count": 4,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-05-15T17:17:58.000Z",
+      "dateUpdated": "2026-09-17T02:54:16.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T02:54:16.000Z",
+      "dateClosed": "2026-09-17T02:54:16.000Z"
+    },
+    {
+      "title": "Smaato & Pubnative: Add currency conversion",
+      "number": 4848,
+      "author": {
+        "login": "Enigo",
+        "id": 15067216
+      },
+      "assignees": [
+        "linux019",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "chatgpt-codex-connector",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "Enigo",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "15067216": {
+          "identifier": "15067216",
+          "displayName": "Enigo",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-07-07T12:43:46.000Z",
+      "dateUpdated": "2026-09-17T02:33:58.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-17T02:33:58.000Z",
+      "dateClosed": "2026-09-17T02:33:58.000Z"
+    },
+    {
+      "title": "OMS: Add user sync",
+      "number": 4965,
+      "author": {
+        "login": "mikhailoms",
+        "id": 229714093
+      },
+      "assignees": [
+        "bsardo",
+        "linux019"
+      ],
+      "reviewers": [
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "229714093": {
+          "identifier": "229714093",
+          "displayName": "mikhailoms",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
+      "dateCreated": "2026-08-31T07:47:20.000Z",
+      "dateUpdated": "2026-09-09T18:19:41.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-09T18:19:41.000Z",
+      "dateClosed": "2026-09-09T18:19:41.000Z"
+    },
+    {
+      "title": "Fix: Change account disabled error status code to 403",
+      "number": 4899,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "bsardo",
+        "przemkaczmarek"
+      ],
+      "reviewers": [
+        {
+          "login": "SyntaxNode",
+          "state": "PENDING"
+        },
+        {
+          "login": "przemkaczmarek",
+          "state": "APPROVED"
+        },
+        {
+          "login": "postindustria-code",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 2,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-08-06T08:23:47.000Z",
+      "dateUpdated": "2026-09-01T14:47:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T14:47:59.000Z",
+      "dateClosed": "2026-09-01T14:47:59.000Z"
+    },
+    {
+      "title": "Fix: Stop ticker tasks on server shutdown",
+      "number": 4771,
+      "author": {
+        "login": "linux019",
+        "id": 15028965
+      },
+      "assignees": [
+        "SyntaxNode",
+        "antoxas1986"
+      ],
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "PENDING"
+        },
+        {
+          "login": "SyntaxNode",
+          "state": "APPROVED"
+        },
+        {
+          "login": "antoxas1986",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "oleksandr": {
+          "identifier": "oleksandr",
+          "displayName": "oleksandr",
+          "count": 3,
+          "isGitHubUser": false
+        }
+      },
+      "dateCreated": "2026-05-12T16:16:13.000Z",
+      "dateUpdated": "2026-09-01T14:29:59.000Z",
+      "status": "merged",
+      "dateMerged": "2026-09-01T14:29:59.000Z",
+      "dateClosed": "2026-09-01T14:29:59.000Z"
+    }
+  ]
+}

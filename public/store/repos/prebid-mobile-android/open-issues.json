@@ -1,10 +1,156 @@
 {
   "metadata": {
     "repository": "prebid/prebid-mobile-android",
-    "lastSync": "2026-08-03T19:53:30.916Z",
-    "itemCount": 31
+    "lastSync": "2026-10-27T00:21:01.753Z",
+    "itemCount": 29
   },
   "items": [
+    {
+      "title": "Header bidding solution for Flutter/Reactnative apps",
+      "number": 728,
+      "author": {
+        "login": "maxacademind1",
+        "id": 136687446
+      },
+      "assignees": [
+        "postindustria-code"
+      ],
+      "dateCreated": "2023-12-20T12:11:55.000Z",
+      "dateUpdated": "2026-10-24T21:41:07.000Z",
+      "status": "open"
+    },
+    {
+      "title": "GAM Manual impression ISSUE",
+      "number": 1032,
+      "author": {
+        "login": "vivekyadav15",
+        "id": 185897626
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-16T12:42:18.000Z",
+      "dateUpdated": "2026-10-24T20:32:59.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rendering API (GMA Next-Gen): support Prebid-rendered banners in a single NativeAdLoader request (native + banner)",
+      "number": 1036,
+      "author": {
+        "login": "ankitChandora",
+        "id": 87649920
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-22T09:21:40.000Z",
+      "dateUpdated": "2026-10-22T09:21:40.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Pluggable External User ID Providers",
+      "number": 936,
+      "author": {
+        "login": "pkowalski-id5",
+        "id": 112544015
+      },
+      "assignees": [],
+      "dateCreated": "2026-04-09T09:28:04.000Z",
+      "dateUpdated": "2026-09-28T21:01:20.000Z",
+      "status": "open"
+    },
+    {
+      "title": "device.geo.country is being sent in iso alpha-2 format",
+      "number": 872,
+      "author": {
+        "login": "justadreamer",
+        "id": 341967
+      },
+      "assignees": [],
+      "dateCreated": "2025-07-23T10:25:12.000Z",
+      "dateUpdated": "2026-09-20T20:10:01.000Z",
+      "status": "open"
+    },
+    {
+      "title": "VideoParameters fields beyond ad size are dropped for rendering-API banner ad units",
+      "number": 1018,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-18T11:54:37.000Z",
+      "dateUpdated": "2026-09-18T11:54:37.000Z",
+      "status": "open"
+    },
+    {
+      "title": "MediationBannerAdUnit doesn't skip refresh while a Prebid video creative is playing",
+      "number": 1017,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-18T11:53:58.000Z",
+      "dateUpdated": "2026-09-18T11:53:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Android SDK] Inquiries on Regional Child Privacy (tfua) & Impression-Level ORTB Config",
+      "number": 997,
+      "author": {
+        "login": "jaysongkkim",
+        "id": 267283216
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-26T07:58:58.000Z",
+      "dateUpdated": "2026-09-08T23:07:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rendering BannerView does not expose the winning creative size (multi-size slots can't shrink to the rendered creative)",
+      "number": 1006,
+      "author": {
+        "login": "nsp37",
+        "id": 3819533
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-08T04:30:09.000Z",
+      "dateUpdated": "2026-09-08T04:30:09.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Rewarded end card close button can stay hidden forever if reward already granted before end card is shown",
+      "number": 1004,
+      "author": {
+        "login": "YuriyVelichkoPI",
+        "id": 21169695
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-03T06:49:35.000Z",
+      "dateUpdated": "2026-09-03T06:49:35.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Intent to implement: multiformat (banner + outstream video) on the rendering BannerView",
+      "number": 999,
+      "author": {
+        "login": "nsp37",
+        "id": 3819533
+      },
+      "assignees": [],
+      "dateCreated": "2026-08-29T19:58:01.000Z",
+      "dateUpdated": "2026-09-02T17:39:58.000Z",
+      "status": "open"
+    },
+    {
+      "title": "Bug: IDFA is not populated for US traffic when CMP returns an all-zero TCF string",
+      "number": 1001,
+      "author": {
+        "login": "OlenaPostindustria",
+        "id": 92721590
+      },
+      "assignees": [],
+      "dateCreated": "2026-09-01T08:22:18.000Z",
+      "dateUpdated": "2026-09-01T08:22:18.000Z",
+      "status": "open"
+    },
     {
       "title": "Support Native Video Rendering in Prebid Mobile",
       "number": 985,
@@ -27,102 +173,6 @@
       "assignees": [],
       "dateCreated": "2026-03-18T05:25:42.000Z",
       "dateUpdated": "2026-08-02T00:24:39.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] Close button is not displayed in rewarded ad",
-      "number": 983,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T09:58:55.000Z",
-      "dateUpdated": "2026-07-31T10:13:04.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] Controls are misplaced when switch screen orientation in interstitial ad",
-      "number": 984,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T10:09:20.000Z",
-      "dateUpdated": "2026-07-31T10:11:48.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] CTA button is missing in android rewarded ad",
-      "number": 982,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T09:49:46.000Z",
-      "dateUpdated": "2026-07-31T10:11:35.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] Controls are misplaced in reward ad",
-      "number": 981,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-31T09:39:56.000Z",
-      "dateUpdated": "2026-07-31T09:51:53.000Z",
-      "status": "open"
-    },
-    {
-      "title": "device.geo.country is being sent in iso alpha-2 format",
-      "number": 872,
-      "author": {
-        "login": "justadreamer",
-        "id": 341967
-      },
-      "assignees": [],
-      "dateCreated": "2025-07-23T10:25:12.000Z",
-      "dateUpdated": "2026-07-29T21:01:19.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] A mute button in Rewarded ad does not mute/unmute ad audio",
-      "number": 975,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-28T09:38:58.000Z",
-      "dateUpdated": "2026-07-28T09:49:29.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] Fullscreen(Reward/Interstitial) ad closes without user action",
-      "number": 972,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-28T08:52:25.000Z",
-      "dateUpdated": "2026-07-28T09:45:21.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Bug] Fullscreen(Reward/Interstitial) ads do not fire click event",
-      "number": 973,
-      "author": {
-        "login": "euisong-jung-navercorp",
-        "id": 147031819
-      },
-      "assignees": [],
-      "dateCreated": "2026-07-28T09:02:13.000Z",
-      "dateUpdated": "2026-07-28T09:44:40.000Z",
       "status": "open"
     },
     {
@@ -186,18 +236,6 @@
       "status": "open"
     },
     {
-      "title": "Bug: NPE on bid response error GMA-NextGen Integration",
-      "number": 939,
-      "author": {
-        "login": "gm-ci-mobile",
-        "id": 215827549
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-21T14:31:23.000Z",
-      "dateUpdated": "2026-04-21T14:36:53.000Z",
-      "status": "open"
-    },
-    {
       "title": "BannerView iframe clicks don't open full screen - Content loaded within iframe instead",
       "number": 937,
       "author": {
@@ -210,30 +248,6 @@
       "status": "open"
     },
     {
-      "title": "Pluggable External User ID Providers",
-      "number": 936,
-      "author": {
-        "login": "pkowalski-id5",
-        "id": 112544015
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-09T09:28:04.000Z",
-      "dateUpdated": "2026-04-09T10:31:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "EIDs OpenRTB 2.6 support",
-      "number": 935,
-      "author": {
-        "login": "pkowalski-id5",
-        "id": 112544015
-      },
-      "assignees": [],
-      "dateCreated": "2026-04-09T08:12:51.000Z",
-      "dateUpdated": "2026-04-09T08:12:51.000Z",
-      "status": "open"
-    },
-    {
       "title": "Question: What is com.google.android.gms.ads.APPLICATION_ID for Google Ad Manager?",
       "number": 918,
       "author": {
@@ -243,18 +257,6 @@
       "assignees": [],
       "dateCreated": "2026-01-08T04:54:01.000Z",
       "dateUpdated": "2026-01-15T10:13:06.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Header bidding solution for Flutter/Reactnative apps",
-      "number": 728,
-      "author": {
-        "login": "maxacademind1",
-        "id": 136687446
-      },
-      "assignees": [],
-      "dateCreated": "2023-12-20T12:11:55.000Z",
-      "dateUpdated": "2025-12-23T07:21:08.000Z",
       "status": "open"
     },
     {
@@ -355,32 +357,6 @@
       "assignees": [],
       "dateCreated": "2024-03-05T06:20:17.000Z",
       "dateUpdated": "2025-08-19T12:00:55.000Z",
-      "status": "open"
-    },
-    {
-      "title": "GAM Rendering API key values issue",
-      "number": 745,
-      "author": {
-        "login": "acampbellthescore",
-        "id": 7306257
-      },
-      "assignees": [],
-      "dateCreated": "2024-04-11T17:52:03.000Z",
-      "dateUpdated": "2025-08-18T13:01:40.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Wrap Managed WebView in background-thread-safe-invocation wrapper so JS Bridge doesn't throw Errors",
-      "number": 739,
-      "author": {
-        "login": "jsligh",
-        "id": 139150153
-      },
-      "assignees": [
-        "mdanylov-sigma"
-      ],
-      "dateCreated": "2024-02-29T20:43:37.000Z",
-      "dateUpdated": "2025-07-17T13:03:17.000Z",
       "status": "open"
     }
   ]

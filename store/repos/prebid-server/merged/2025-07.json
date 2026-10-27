@@ -4,7 +4,7 @@
     "year": 2025,
     "month": 7,
     "itemCount": 30,
-    "lastUpdated": "2026-08-03T19:53:13.713Z"
+    "lastUpdated": "2026-10-27T00:20:46.911Z"
   },
   "items": [
     {
@@ -151,8 +151,34 @@
         "bsardo",
         "hhhjort"
       ],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "laurb9",
+          "state": "APPROVED"
+        },
+        {
+          "login": "hhhjort",
+          "state": "APPROVED"
+        },
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        }
+      ],
+      "commitAuthors": {
+        "174440987": {
+          "identifier": "174440987",
+          "displayName": "Fuska1",
+          "count": 3,
+          "isGitHubUser": true
+        },
+        "155444733": {
+          "identifier": "155444733",
+          "displayName": "gmiedlar-ox",
+          "count": 1,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2025-07-18T12:44:55.000Z",
       "dateUpdated": "2026-08-03T00:02:21.000Z",
       "status": "merged",

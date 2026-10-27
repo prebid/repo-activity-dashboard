@@ -1,10 +1,34 @@
 {
   "metadata": {
     "repository": "prebid/prebid.github.io",
-    "lastSync": "2026-08-03T19:53:53.115Z",
-    "itemCount": 39
+    "lastSync": "2026-10-27T00:21:25.384Z",
+    "itemCount": 30
   },
   "items": [
+    {
+      "title": "Replace the search tool",
+      "number": 6867,
+      "author": {
+        "login": "patmmccann",
+        "id": 1683175
+      },
+      "assignees": [],
+      "dateCreated": "2026-10-24T21:33:07.000Z",
+      "dateUpdated": "2026-10-24T21:57:50.000Z",
+      "status": "open"
+    },
+    {
+      "title": "[Prebid Server] Add Mixpeek as External Server-Side Contextual Data Provider",
+      "number": 6386,
+      "author": {
+        "login": "esteininger",
+        "id": 15973166
+      },
+      "assignees": [],
+      "dateCreated": "2026-01-12T12:16:46.000Z",
+      "dateUpdated": "2026-10-22T18:25:58.000Z",
+      "status": "open"
+    },
     {
       "title": "Remaining problematic bidder docs: broken or stale module references",
       "number": 6679,
@@ -27,20 +51,6 @@
       "assignees": [],
       "dateCreated": "2024-08-22T14:19:23.000Z",
       "dateUpdated": "2026-05-14T17:21:51.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Pubmatic]The example value for the dctr bid param shows an unneeded \\",
-      "number": 6391,
-      "author": {
-        "login": "robin-crazygames",
-        "id": 191837040
-      },
-      "assignees": [
-        "muuki88"
-      ],
-      "dateCreated": "2026-01-13T11:41:29.000Z",
-      "dateUpdated": "2026-02-19T15:15:26.000Z",
       "status": "open"
     },
     {
@@ -67,42 +77,6 @@
       "assignees": [],
       "dateCreated": "2026-01-12T04:32:14.000Z",
       "dateUpdated": "2026-01-13T16:02:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "[Prebid Server] Add Mixpeek as External Server-Side Contextual Data Provider",
-      "number": 6386,
-      "author": {
-        "login": "esteininger",
-        "id": 15973166
-      },
-      "assignees": [],
-      "dateCreated": "2026-01-12T12:16:46.000Z",
-      "dateUpdated": "2026-01-12T12:16:46.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Revnew not downloading on download page",
-      "number": 6367,
-      "author": {
-        "login": "ChrisHuie",
-        "id": 3444727
-      },
-      "assignees": [],
-      "dateCreated": "2025-12-11T15:17:59.000Z",
-      "dateUpdated": "2025-12-15T06:42:41.000Z",
-      "status": "open"
-    },
-    {
-      "title": "programmaticX wrong documentation after change in adapter",
-      "number": 6233,
-      "author": {
-        "login": "bozghiyy",
-        "id": 15686691
-      },
-      "assignees": [],
-      "dateCreated": "2025-08-29T10:11:45.000Z",
-      "dateUpdated": "2025-08-31T06:42:16.000Z",
       "status": "open"
     },
     {
@@ -246,20 +220,6 @@
       "status": "open"
     },
     {
-      "title": "Check dead links listed by deadlink checker",
-      "number": 5451,
-      "author": {
-        "login": "muuki88",
-        "id": 647727
-      },
-      "assignees": [
-        "lpagnypubstack"
-      ],
-      "dateCreated": "2024-06-24T20:52:36.000Z",
-      "dateUpdated": "2025-01-23T15:14:52.000Z",
-      "status": "open"
-    },
-    {
       "title": "Break out analytics module documentation into various pages",
       "number": 5359,
       "author": {
@@ -355,60 +315,6 @@
       "status": "open"
     },
     {
-      "title": "Need to update prebid.js examples to use latest GPT",
-      "number": 4765,
-      "author": {
-        "login": "mkendall07",
-        "id": 1870166
-      },
-      "assignees": [
-        "muuki88"
-      ],
-      "dateCreated": "2023-07-26T16:34:16.000Z",
-      "dateUpdated": "2024-04-18T14:19:32.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Mobile doc dead link fix",
-      "number": 4387,
-      "author": {
-        "login": "bretg",
-        "id": 4412838
-      },
-      "assignees": [
-        "bretg"
-      ],
-      "dateCreated": "2023-02-23T20:19:38.000Z",
-      "dateUpdated": "2024-04-18T14:17:42.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Split PBS bidder page",
-      "number": 4352,
-      "author": {
-        "login": "ChrisHuie",
-        "id": 3444727
-      },
-      "assignees": [],
-      "dateCreated": "2023-02-10T12:13:11.000Z",
-      "dateUpdated": "2024-04-04T14:33:37.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Broken floors example",
-      "number": 4933,
-      "author": {
-        "login": "patmmccann",
-        "id": 1683175
-      },
-      "assignees": [
-        "dgirardi"
-      ],
-      "dateCreated": "2023-10-16T18:56:54.000Z",
-      "dateUpdated": "2024-02-22T15:31:35.000Z",
-      "status": "open"
-    },
-    {
       "title": "Document Analytics Events for various Prebid systems",
       "number": 5073,
       "author": {
@@ -432,18 +338,6 @@
       "assignees": [],
       "dateCreated": "2024-01-05T19:34:22.000Z",
       "dateUpdated": "2024-01-11T14:52:14.000Z",
-      "status": "open"
-    },
-    {
-      "title": "Should create an example page for Native ads",
-      "number": 5047,
-      "author": {
-        "login": "maxime-dupuis",
-        "id": 118775839
-      },
-      "assignees": [],
-      "dateCreated": "2023-12-21T16:03:12.000Z",
-      "dateUpdated": "2023-12-21T16:03:12.000Z",
       "status": "open"
     },
     {
@@ -494,18 +388,6 @@
       "assignees": [],
       "dateCreated": "2023-03-14T00:15:58.000Z",
       "dateUpdated": "2023-04-17T15:00:57.000Z",
-      "status": "open"
-    },
-    {
-      "title": "All Instream prebid-server examples are broken",
-      "number": 4311,
-      "author": {
-        "login": "ptomasroos",
-        "id": 1064547
-      },
-      "assignees": [],
-      "dateCreated": "2023-01-31T10:48:50.000Z",
-      "dateUpdated": "2023-02-07T20:09:49.000Z",
       "status": "open"
     }
   ]

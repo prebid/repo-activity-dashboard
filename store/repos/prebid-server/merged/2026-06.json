@@ -4,7 +4,7 @@
     "year": 2026,
     "month": 6,
     "itemCount": 14,
-    "lastUpdated": "2026-08-03T19:53:13.715Z"
+    "lastUpdated": "2026-10-27T00:20:46.910Z"
   },
   "items": [
     {
@@ -151,10 +151,38 @@
         "bsardo",
         "linux019"
       ],
-      "reviewers": [],
-      "commitAuthors": {},
+      "reviewers": [
+        {
+          "login": "bsardo",
+          "state": "APPROVED"
+        },
+        {
+          "login": "adserver-online",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "linux019",
+          "state": "APPROVED"
+        },
+        {
+          "login": "pm-nikhil-vaidya",
+          "state": "COMMENTED"
+        },
+        {
+          "login": "sleptor",
+          "state": "COMMENTED"
+        }
+      ],
+      "commitAuthors": {
+        "61009237": {
+          "identifier": "61009237",
+          "displayName": "adserver-online",
+          "count": 3,
+          "isGitHubUser": true
+        }
+      },
       "dateCreated": "2025-10-23T13:44:48.000Z",
-      "dateUpdated": "2026-06-09T13:31:41.000Z",
+      "dateUpdated": "2026-10-24T10:20:25.000Z",
       "status": "merged",
       "dateMerged": "2026-06-09T13:31:41.000Z",
       "dateClosed": "2026-06-09T13:31:41.000Z"
