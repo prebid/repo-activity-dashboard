@@ -4,6 +4,9 @@ import { getSecret } from './get-secret';
 import { sessionClaimsSchema } from './session-policy';
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import type { AccountRole } from '@/models/accounts';
+import { getRuntimeSettings } from './runtime-settings';
+import { AuthStateError } from './auth-errors';
+import { safeErrorCode } from './diagnostics';
 
 declare module 'next-auth' {
   interface Session {
@@ -34,16 +37,20 @@ declare module 'next-auth/jwt' {
   }
 }
 export async function getBaseAuthConfig(): Promise<Omit<NextAuthConfig, 'providers'>> {
+  if (!isPreviewBuild) {
+    const { authUrl } = getRuntimeSettings();
+    if (!authUrl) throw new AuthStateError('configuration');
+    // NextAuth reads AUTH_URL after this factory resolves to set origin and secure-cookie defaults.
+    process.env.AUTH_URL = authUrl;
+  }
   return {
-    trustHost: true,
     secret: await getSecret(),
     session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
     pages: { signIn: '/auth/login', error: '/auth/error' },
     logger: {
       error(error) {
         console.error('Authentication request failed', {
-          type: error.name,
-          requestId: crypto.randomUUID(),
+          code: safeErrorCode(error),
         });
       },
     },

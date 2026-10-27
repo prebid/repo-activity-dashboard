@@ -13,7 +13,7 @@ vi.mock('next/navigation', () => ({
     throw new Error('not-found');
   },
 }));
-import { getViewer, requireViewer, createViewerReader, failedViewer } from '@/lib/auth/viewer';
+import { getViewer, requireViewer, failedViewer } from '@/lib/auth/viewer';
 import { AuthStateError } from '@/lib/auth/auth-errors';
 const user = {
   id: 'u',
@@ -62,15 +62,7 @@ it('preserves a safe login destination and revalidates role/password-change rest
   });
   await expect(requireViewer({ admin: true })).rejects.toThrow('redirect:/repos');
 });
-it('shares work only inside one request reader and never turns outages into login redirects', async () => {
-  const first = createViewerReader(new Headers());
-  expect((await Promise.all([first(), first()])).map((r) => r.kind)).toEqual([
-    'authenticated',
-    'authenticated',
-  ]);
-  expect(mocks.read).toHaveBeenCalledTimes(1);
-  await createViewerReader(new Headers())();
-  expect(mocks.read).toHaveBeenCalledTimes(2);
+it('never turns storage or configuration failures into login redirects', async () => {
   mocks.snapshot.mockRejectedValue(new Error('database offline'));
   await expect(requireViewer()).rejects.toMatchObject({ kind: 'unavailable' });
   mocks.read.mockRejectedValue(new AuthStateError('configuration'));

@@ -20,8 +20,8 @@ vi.mock('@aws-sdk/lib-dynamodb', async (original) => ({
 beforeEach(() => {
   vi.stubEnv('DYNAMODB_USERS_TABLE', 'users');
   vi.stubEnv('DYNAMODB_WHITELIST_TABLE', 'whitelist');
-  vi.stubEnv('S3_ACCESS_KEY_ID', '');
-  vi.stubEnv('S3_SECRET_ACCESS_KEY', '');
+  vi.stubEnv('S3_ACCESS_KEY_ID', 'legacy-must-not-override');
+  vi.stubEnv('S3_SECRET_ACCESS_KEY', 'legacy-must-not-override');
   vi.stubEnv('S3_SESSION_TOKEN', '');
   vi.stubEnv('AWS_ACCESS_KEY_ID', 'test-access-key');
   vi.stubEnv('AWS_SECRET_ACCESS_KEY', 'test-secret-key');

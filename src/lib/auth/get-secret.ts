@@ -3,6 +3,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-sec
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import { getRuntimeSettings } from './runtime-settings';
 import { makeSecretLoader, validateAuthSecret, previewSecret } from './secret-policy';
+import { awsClientPolicy } from '@/lib/aws/client-policy';
 const clients = new Map<string, SecretsManagerClient>();
 const managedSecret = makeSecretLoader(async (arn) => {
   const region = arn.split(':')[3];
@@ -10,8 +11,7 @@ const managedSecret = makeSecretLoader(async (arn) => {
   if (!client) {
     client = new SecretsManagerClient({
       region,
-      maxAttempts: 2,
-      requestHandler: { connectionTimeout: 1000, requestTimeout: 3000 },
+      ...awsClientPolicy,
     });
     clients.set(region, client);
   }
@@ -21,9 +21,6 @@ const managedSecret = makeSecretLoader(async (arn) => {
 export async function getSecret(): Promise<string> {
   if (isPreviewBuild) return previewSecret;
   const settings = getRuntimeSettings();
-  if (settings.authUrl) process.env.AUTH_URL = settings.authUrl;
   if (settings.secretArn) return managedSecret(settings.secretArn);
-  return validateAuthSecret(
-    process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || process.env.AMPLIFY_NEXTAUTH_SECRET,
-  );
+  return validateAuthSecret(process.env.AUTH_SECRET);
 }

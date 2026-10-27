@@ -44,7 +44,11 @@ export function makeSecretLoader(
         return value;
       } catch (error) {
         if (error instanceof AuthStateError && error.kind === 'configuration') throw error;
-        throw new AuthStateError('unavailable', undefined, 'Authentication secret is unavailable.');
+        throw new AuthStateError(
+          'unavailable',
+          { cause: error },
+          'Authentication secret is unavailable.',
+        );
       }
     })();
     pending = { arn, promise };

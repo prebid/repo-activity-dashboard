@@ -22,20 +22,7 @@ export function getServerAccountStore(): AccountStore {
         'Missing or invalid account-store configuration.',
       );
     const target = parsed.data;
-    const accessKeyId = process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
-    const client = createAccountClient({
-      region: target.region,
-      ...(!settings.managed && accessKeyId && secretAccessKey
-        ? {
-            credentials: {
-              accessKeyId,
-              secretAccessKey,
-              sessionToken: process.env.S3_SESSION_TOKEN,
-            },
-          }
-        : {}),
-    });
+    const client = createAccountClient({ region: target.region });
     store = createAccountStore(client, target, {
       temporaryPasswordHours: settings.temporaryPasswordHours,
     });

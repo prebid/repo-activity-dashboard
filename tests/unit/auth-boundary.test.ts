@@ -31,7 +31,8 @@ describe('authentication configuration', () => {
   });
   it('uses the configured production secret', async () => {
     vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'production');
-    vi.stubEnv('NEXTAUTH_SECRET', 'unit-test-production-secret-at-least-32-characters');
+    vi.stubEnv('AUTH_SECRET', 'unit-test-production-secret-at-least-32-characters');
+    vi.stubEnv('NEXTAUTH_SECRET', 'legacy-key-must-not-override-canonical');
     vi.resetModules();
     const { getSecret } = await import('@/lib/auth/get-secret');
     expect(await getSecret()).toBe('unit-test-production-secret-at-least-32-characters');

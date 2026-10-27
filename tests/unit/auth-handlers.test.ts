@@ -323,3 +323,16 @@ it('does not mint a production session when a provider omits the account revisio
   expect(result.body).toBeNull();
   expect(mocks.snapshot).not.toHaveBeenCalled();
 });
+
+it('uses the normal error page when authentication configuration cannot load', async () => {
+  const { AuthStateError } = await import('@/lib/auth/auth-errors');
+  mocks.secret.mockRejectedValue(new AuthStateError('configuration'));
+  const { handlers } = await import('@/lib/auth/http-auth');
+  const response = await handlers.GET(new NextRequest('http://localhost:3100/api/auth/error'));
+  expect(response.status).toBe(303);
+  expect(response.headers.get('location')).toBe('/auth/error?error=Configuration');
+  expect(response.headers.getSetCookie()).toEqual([]);
+  const api = await handlers.GET(new NextRequest('http://localhost:3100/api/auth/providers'));
+  expect(api.status).toBe(500);
+  expect(await api.json()).toEqual({ error: 'Authentication requires operator attention.' });
+});

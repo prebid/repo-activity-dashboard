@@ -17,6 +17,7 @@ import {
   AccountDataError,
   MigrationInterruptedError,
 } from '../src/lib/auth/account-errors';
+import { safeErrorCode } from '../src/lib/auth/diagnostics';
 
 const common = {
   region: accountRegionSchema,
@@ -181,10 +182,15 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
                 error: 'Migration interrupted; rerun after resolving the failure.',
                 completed: error.completed,
                 pending: error.pending,
+                code: safeErrorCode(error),
               })
             : error instanceof AccountError
               ? error.message
-              : 'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file; no secret values are logged.',
+              : JSON.stringify({
+                  error:
+                    'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file.',
+                  code: safeErrorCode(error),
+                }),
       );
       process.exitCode = 1;
     }

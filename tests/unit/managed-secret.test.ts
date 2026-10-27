@@ -38,7 +38,7 @@ it('retrieves the managed key with IAM defaults and reuses its client after cach
   expect(mocks.construct).toHaveBeenCalledExactlyOnceWith({
     region: 'us-east-2',
     maxAttempts: 2,
-    requestHandler: { connectionTimeout: 1000, requestTimeout: 3000 },
+    requestHandler: { connectionTimeout: 1000, requestTimeout: 3000, throwOnRequestTimeout: true },
   });
   expect(mocks.send.mock.calls[0][0]).toMatchObject({ input: { SecretId: arn } });
   vi.advanceTimersByTime(60_001);
@@ -93,4 +93,14 @@ it('distinguishes a JSON envelope from valid raw text without using a prefix gue
   expect(
     await makeSecretLoader(() => Promise.resolve(JSON.stringify({ authSecret: '{' + key })))(arn),
   ).toBe('{' + key);
+});
+
+it('retains a provider cause for safe diagnostic classification', async () => {
+  const cause = Object.assign(new Error('private provider detail'), {
+    name: 'AccessDeniedException',
+  });
+  await expect(makeSecretLoader(() => Promise.reject(cause))(arn)).rejects.toMatchObject({
+    kind: 'unavailable',
+    cause,
+  });
 });
