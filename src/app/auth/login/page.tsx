@@ -1,19 +1,17 @@
-import { LoginView } from "@/features/authentication/login-view";
-export const dynamic = "force-dynamic";
-export default function LoginPage({
+import { LoginView } from '@/features/authentication/login-view';
+import { isPreviewBuild } from '@/lib/presentation/preview';
+import { firstSearchParam, type PageSearchParams } from '@/lib/presentation/search-params';
+export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<PageSearchParams>;
 }) {
-  const callbackUrl =
-    typeof searchParams.callbackUrl === "string"
-      ? searchParams.callbackUrl
-      : undefined;
+  const params = await searchParams;
   return (
     <LoginView
-      preview={false}
-      callbackUrl={callbackUrl}
-      passwordChanged={searchParams.passwordChanged === "true"}
+      preview={isPreviewBuild}
+      callbackUrl={firstSearchParam(params.callbackUrl)}
+      passwordChanged={firstSearchParam(params.passwordChanged) === 'true'}
     />
   );
 }

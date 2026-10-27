@@ -1,0 +1,58 @@
+vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings'));
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+const mocks = vi.hoisted(() => ({
+  construct: vi.fn(),
+  from: vi.fn((_client: unknown, _options: unknown) => ({ send: vi.fn() })),
+}));
+vi.mock('server-only', () => ({}));
+vi.mock('@aws-sdk/client-dynamodb', async (original) => ({
+  ...(await original<typeof import('@aws-sdk/client-dynamodb')>()),
+  DynamoDBClient: class {
+    constructor(config: unknown) {
+      mocks.construct(config);
+    }
+  },
+}));
+vi.mock('@aws-sdk/lib-dynamodb', async (original) => ({
+  ...(await original<typeof import('@aws-sdk/lib-dynamodb')>()),
+  DynamoDBDocumentClient: { from: mocks.from },
+}));
+beforeEach(() => {
+  vi.stubEnv('DYNAMODB_USERS_TABLE', 'users');
+  vi.stubEnv('DYNAMODB_WHITELIST_TABLE', 'whitelist');
+  vi.stubEnv('S3_ACCESS_KEY_ID', 'legacy-must-not-override');
+  vi.stubEnv('S3_SECRET_ACCESS_KEY', 'legacy-must-not-override');
+  vi.stubEnv('S3_SESSION_TOKEN', '');
+  vi.stubEnv('AWS_ACCESS_KEY_ID', 'test-access-key');
+  vi.stubEnv('AWS_SECRET_ACCESS_KEY', 'test-secret-key');
+  vi.stubEnv('AWS_SESSION_TOKEN', 'test-session-token');
+});
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.resetModules();
+  vi.clearAllMocks();
+});
+describe('retained account-store boundary', () => {
+  it('refuses account storage in preview before constructing a client', async () => {
+    vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'preview');
+    vi.resetModules();
+    const { getServerAccountStore } = await import('@/lib/auth/server-account-store');
+    expect(() => getServerAccountStore()).toThrow('unavailable in preview');
+    expect(mocks.construct).not.toHaveBeenCalled();
+    expect(mocks.from).not.toHaveBeenCalled();
+  });
+  it('creates the retained production client lazily and reuses it', async () => {
+    vi.stubEnv('NEXT_PUBLIC_APP_MODE', 'production');
+    vi.resetModules();
+    const { getServerAccountStore } = await import('@/lib/auth/server-account-store');
+    expect(mocks.construct).not.toHaveBeenCalled();
+    const client = getServerAccountStore();
+    expect(getServerAccountStore()).toBe(client);
+    expect(mocks.construct).toHaveBeenCalledOnce();
+    expect(mocks.construct.mock.calls[0][0]).not.toHaveProperty('credentials');
+    expect(mocks.from).toHaveBeenCalledOnce();
+    expect(mocks.from.mock.calls[0]?.[1]).toEqual({
+      marshallOptions: { removeUndefinedValues: true },
+    });
+  });
+});

@@ -1,56 +1,53 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
-import {
-  minimumPasswordLength,
-  validatePasswordStrength,
-} from "@/models/password-policy";
-import { readJsonResponse } from "@/lib/presentation/http";
-import { safeReturnPath } from "@/lib/presentation/navigation";
-import { messageResponseSchema } from "@/models/account-messages";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
-import { AuthFrame } from "./auth-frame";
-import { PasswordInput } from "@/components/ui/password-input";
-import styles from "./authentication.module.css";
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { notifyAuthTransition } from '@/components/providers/auth-transitions';
+import { passwordRequirements } from '@/models/password-policy';
+import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
+import { messageResponseSchema } from '@/models/accounts';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 export function ChangePasswordView({
   email,
   mustChangePassword,
-  callbackUrl,
 }: {
   email: string;
   mustChangePassword: boolean;
-  callbackUrl?: string;
 }) {
   const router = useRouter();
-  const returnPath = safeReturnPath(callbackUrl);
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const operation = useRef<AbortController | null>(null);
   useEffect(() => () => operation.current?.abort(), []);
 
+  const isPasswordValid = passwordRequirements.every((req) => req.test(newPassword));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (operation.current && !operation.current.signal.aborted) return;
-    setError("");
+    setError('');
 
     // Validate passwords match
     if (newPassword !== confirmPassword) {
-      setError("New passwords do not match");
+      setError('New passwords do not match');
       return;
     }
 
-    const validation = validatePasswordStrength(newPassword);
-    if (!validation.valid) {
-      setError(validation.errors.join(". "));
+    // Validate password strength
+    if (!isPasswordValid) {
+      setError('Please meet all password requirements');
       return;
     }
 
@@ -59,27 +56,24 @@ export function ChangePasswordView({
     operation.current = current;
 
     try {
-      const response = await fetch("/api/auth/change-password", {
+      const response = await fetch('/api/auth/change-password', {
         signal: current.signal,
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           currentPassword,
           newPassword,
         }),
       });
 
-      await readJsonResponse(
-        response,
-        messageResponseSchema,
-        "Failed to change password",
-      );
+      await readJsonResponse(response, messageResponseSchema, 'Failed to change password');
     } catch (error) {
       if (current.signal.aborted) return;
       setError(
-        error instanceof Error
-          ? error.message
-          : "An unexpected error occurred. Please try again.",
+        mutationFailureMessage(
+          error,
+          'The password change could not be confirmed. Try signing in with your new password, or ask an administrator to reissue it.',
+        ),
       );
       setIsLoading(false);
       operation.current = null;
@@ -87,25 +81,18 @@ export function ChangePasswordView({
     }
     if (current.signal.aborted) return;
     // The write is confirmed. A sign-in transport failure must not report a failed password change.
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-    let destination =
-      "/auth/login?passwordChanged=true" +
-      (returnPath === "/"
-        ? ""
-        : "&callbackUrl=" + encodeURIComponent(returnPath));
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    let destination = '/auth/login?passwordChanged=true';
     try {
-      const result = await signIn("credentials", {
-        email,
-        password: newPassword,
-        redirect: false,
-      });
-      if (result?.ok && !result.error) destination = returnPath;
+      const result = await signIn('credentials', { email, password: newPassword, redirect: false });
+      if (result?.ok && !result.error) destination = '/repos';
     } catch {
       // The previous revision is already invalid; manual sign-in can establish a new session.
     }
     if (current.signal.aborted) return;
+    notifyAuthTransition();
     router.replace(destination);
     router.refresh();
   };
@@ -113,149 +100,184 @@ export function ChangePasswordView({
   const isFirstLogin = mustChangePassword;
 
   return (
-    <AuthFrame settingPassword>
-      {isFirstLogin ? (
-        <div className={styles.steps} aria-label="Account setup: step 2 of 2">
-          <span>
-            <Check size={14} aria-hidden="true" /> Signed in
-          </span>
-          <span className={styles.stepDivider} aria-hidden="true" />
-          <span className={styles.currentStep}>
-            02 &nbsp; Set your password
-          </span>
-        </div>
-      ) : (
-        <p className={styles.formEyebrow}>YOUR ACCOUNT</p>
-      )}
-      <h1 className={styles.title}>
-        {isFirstLogin ? "Set Your Password" : "Change Password"}
-      </h1>
-      <p className={styles.subtitle}>
-        {isFirstLogin
-          ? "One more step. Replace your temporary password with one only you know."
-          : "Choose a new password for your Prebid workspace."}
-      </p>
-      <form
-        method="post"
-        onSubmit={(event) => void handleSubmit(event)}
-        className={styles.form}
-        aria-busy={isLoading}
-      >
-        <input
-          type="hidden"
-          name="username"
-          autoComplete="username"
-          value={email}
-          readOnly
-        />
-        {error && (
-          <p role="alert" className={styles.error}>
-            {error}
-          </p>
-        )}
-        <div className={styles.field}>
-          <Label htmlFor="currentPassword">
-            {isFirstLogin ? "Temporary Password" : "Current Password"}
-          </Label>
-          <PasswordInput
-            id="currentPassword"
-            name="currentPassword"
-            visibilityLabel={
-              isFirstLogin ? "temporary password" : "current password"
-            }
-            placeholder={
-              isFirstLogin
-                ? "Enter the password you received"
-                : "Enter current password"
-            }
-            value={currentPassword}
-            onChange={(event) => setCurrentPassword(event.target.value)}
-            required
-            disabled={isLoading}
-            autoComplete="current-password"
-          />
-        </div>
-        <div className={styles.field}>
-          <Label htmlFor="newPassword">New Password</Label>
-          <PasswordInput
-            id="newPassword"
-            name="newPassword"
-            visibilityLabel="new password"
-            placeholder="Create your password"
-            value={newPassword}
-            onChange={(event) => setNewPassword(event.target.value)}
-            required
-            disabled={isLoading}
-            autoComplete="new-password"
-            aria-describedby="password-hint"
-          />
-          <p id="password-hint" className={styles.fieldHint}>
-            Use at least {minimumPasswordLength} characters.
-          </p>
-        </div>
-        <div className={styles.field}>
-          <Label htmlFor="confirmPassword">Confirm New Password</Label>
-          <PasswordInput
-            id="confirmPassword"
-            name="confirmPassword"
-            visibilityLabel="confirmed password"
-            placeholder="Enter your new password again"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-            required
-            disabled={isLoading}
-            autoComplete="new-password"
-          />
-        </div>
-        <Button
-          type="submit"
-          className={styles.submit}
-          disabled={
-            isLoading || !currentPassword || !newPassword || !confirmPassword
-          }
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="animate-spin" aria-hidden="true" /> Changing
-              Password...
-            </>
-          ) : (
-            <>
-              {isFirstLogin ? "Set password and continue" : "Change Password"}
-              <ArrowRight aria-hidden="true" />
-            </>
-          )}
-        </Button>
-        {!isFirstLogin && (
-          <Button
-            variant="secondary"
-            className={styles.cancel}
-            onClick={() => router.back()}
-            type="button"
-            disabled={isLoading}
-          >
-            Cancel
-          </Button>
-        )}
-      </form>
-      <div className={styles.passwordFooter}>
-        <p>
-          {isFirstLogin
-            ? "Your new password replaces the temporary one immediately."
-            : "Password changes take effect immediately."}
-        </p>
-        <Link
-          prefetch={false}
-          href={
-            returnPath === "/"
-              ? "/auth/login"
-              : "/auth/login?callbackUrl=" + encodeURIComponent(returnPath)
-          }
-          className={styles.backLink}
-        >
-          Back to sign in
-        </Link>
+    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-1 lg:px-0">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
+        <Card style={{ padding: '32px 48px 48px 48px' }}>
+          <div>
+            {/* Logo */}
+            <div className="flex justify-center mb-4">
+              <div style={{ width: '150px', height: '150px', position: 'relative' }}>
+                <Image
+                  src="/prebid-logo.png"
+                  alt="Prebid Logo"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+
+            {/* Title and Description */}
+            <div className="text-center mb-4">
+              <h2 className="text-2xl font-semibold tracking-tight">
+                {isFirstLogin ? 'Set Your Password' : 'Change Password'}
+              </h2>
+              <p className="text-sm text-muted-foreground mt-2">
+                {isFirstLogin
+                  ? 'You must set a new password before continuing'
+                  : 'Update your account password'}
+              </p>
+            </div>
+
+            <p className="my-3 text-center text-sm text-muted-foreground">Account: {email}</p>
+            {/* Form container with additional padding */}
+            <div style={{ padding: '0 24px' }}>
+              {isFirstLogin && (
+                <Alert className="mb-5">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>First Time Login</AlertTitle>
+                  <AlertDescription>
+                    For security reasons, you must change your temporary password before accessing
+                    the dashboard.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              <form onSubmit={(event) => void handleSubmit(event)}>
+                {error && (
+                  <Alert variant="destructive" style={{ marginBottom: '20px' }}>
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                <div style={{ marginBottom: '20px' }}>
+                  <Label
+                    htmlFor="currentPassword"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
+                    {isFirstLogin ? 'Temporary Password' : 'Current Password'}
+                  </Label>
+                  <Input
+                    id="currentPassword"
+                    type="password"
+                    placeholder={
+                      isFirstLogin ? 'Enter temporary password' : 'Enter current password'
+                    }
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    required
+                    disabled={isLoading}
+                    autoComplete="current-password"
+                    autoFocus
+                    className="bg-background text-foreground"
+                    style={{ height: '48px' }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <Label htmlFor="newPassword" style={{ display: 'block', marginBottom: '8px' }}>
+                    New Password
+                  </Label>
+                  <Input
+                    id="newPassword"
+                    type="password"
+                    placeholder="Enter new password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                    disabled={isLoading}
+                    autoComplete="new-password"
+                    className="bg-background text-foreground"
+                    style={{ height: '48px' }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <Label
+                    htmlFor="confirmPassword"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
+                    Confirm New Password
+                  </Label>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Confirm new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    disabled={isLoading}
+                    autoComplete="new-password"
+                    className="bg-background text-foreground"
+                    style={{ height: '48px' }}
+                  />
+                </div>
+
+                {/* Password Requirements */}
+                <div style={{ marginBottom: '24px' }} className="space-y-1 text-sm">
+                  <p className="text-muted-foreground font-medium">Password must have:</p>
+                  {passwordRequirements.map((req, i) => (
+                    <div
+                      key={i}
+                      className={`flex items-center gap-2 ${
+                        newPassword && req.test(newPassword)
+                          ? 'text-green-600 dark:text-green-400'
+                          : 'text-muted-foreground'
+                      }`}
+                    >
+                      <span>{newPassword && req.test(newPassword) ? '✓' : '○'}</span>
+                      <span>{req.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div>
+                  <Button
+                    type="submit"
+                    className="w-full font-semibold text-base"
+                    style={{ height: '48px', marginBottom: '12px' }}
+                    disabled={isLoading || !currentPassword || !newPassword || !confirmPassword}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Changing Password...
+                      </>
+                    ) : (
+                      'Change Password'
+                    )}
+                  </Button>
+
+                  {!isFirstLogin && (
+                    <Button
+                      variant="secondary"
+                      className="w-full font-medium"
+                      style={{ height: '48px' }}
+                      onClick={() => router.back()}
+                      type="button"
+                      disabled={isLoading}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Footer text */}
+            <div className="text-center text-sm text-muted-foreground mt-6">
+              <p>Password changes take effect immediately.</p>
+              <Link prefetch={false} href="/auth/login" className="underline">
+                Back to sign in
+              </Link>
+              {isFirstLogin && (
+                <p className="mt-1">
+                  You&apos;ll be redirected after successfully changing your password.
+                </p>
+              )}
+            </div>
+          </div>
+        </Card>
       </div>
-    </AuthFrame>
+    </div>
   );
 }

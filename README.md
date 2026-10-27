@@ -1,257 +1,68 @@
-# Prebid Repository Activity Dashboard
+# Repository Activity Dashboard
 
-A comprehensive Next.js web application for visualizing GitHub repository activity across the Prebid ecosystem. Track contributors, companies, pull requests, issues, and development trends with interactive charts and real-time statistics.
+A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
 
-## 🚀 Features
+Define and review the frontend with prepared data before adding a replacement reporting database. The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
 
-### Dashboard Overview
-- **Real-time repository statistics** for 6 Prebid repositories
-- **Interactive time-series charts** with automatic granularity
-- **Dark/Light theme** support with system preference detection
-- **Responsive design** optimized for all screen sizes
+## Run locally
 
-### Three Main Views
-
-#### 1. Main Dashboard (`/`)
-- Repository cards showing Open PRs, Merged PRs, Opened Issues, and Contributors
-- Time-series bar charts with merged PRs, contributors, and issues
-- Automatic chart granularity based on time range selection
-- Smart date filtering (no future dates shown)
-- Dual Y-axes for better scale visualization
-
-#### 2. Contributors Page (`/contributors`)
-- Horizontal stacked bar charts showing top contributors
-- Filter by repository, metric, and time range
-- Adjustable result limit (5-1000 contributors)
-- Metrics: Open PRs, Merged PRs, Reviewed PRs, Commits, Issues
-- X-axis positioned at top for better visibility
-
-#### 3. Companies Page (`/companies`)
-- Company-level aggregation of contributor data
-- Member/Non-member filtering
-- Shows contributor count per company
-- Same powerful filtering as Contributors page
-- Automatic mapping from GitHub usernames to company affiliations
-
-## 📊 Data Sources
-
-The dashboard aggregates data from multiple sources:
-
-- **GitHub API Data**: Open PRs, merged PRs, issues stored in `store/repos/`
-- **Contributor Statistics**: Time-series data aggregated by week/month/year
-- **Company Mapping**: GitHub username to company affiliation mapping
-
-## 🛠️ Installation
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- GitHub personal access token (for data fetching)
-
-### Setup
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/repo-activity-dashboard.git
-cd repo-activity-dashboard
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-# Add your GitHub token and other configs
-```
-
-4. Generate initial data:
-```bash
-npm run generate:stats
-npm run process:mapping
-```
-
-5. Start the development server:
-```bash
+```sh
+nvm install
+nvm use
+npm ci
 npm run dev
 ```
 
-Visit `http://localhost:3000` to see the dashboard.
+Open http://127.0.0.1:3000. Preview accounts are `alice@example.test` and `bob@example.test`, both with password `preview`. They are synthetic identities accepted only by an explicitly built preview.
 
-## 📁 Project Structure
+No GitHub, S3, DynamoDB, or production-auth credentials are needed for preview development or tests. All report values are visibly labeled sample data; the repository catalog contains the 18 real repositories selected for the project.
 
-```
-src/
-├── app/                      # Next.js App Router pages
-│   ├── page.tsx             # Main dashboard
-│   ├── contributors/        # Contributors view
-│   └── companies/           # Companies view
-├── components/              # React components
-│   ├── HorizontalBarChart.tsx
-│   └── layout/toolbar.tsx
-├── scripts/                 # Data processing scripts
-│   ├── generateContributorStats.ts
-│   └── processGithubMapping.ts
-└── services/               # GitHub API services
-store/                      # Data storage
-├── repos/                  # Repository data
-└── sheets/                 # Company mappings
+## Verify
+
+```sh
+npx playwright install chromium webkit
+npm run check:all
 ```
 
-## 🎯 Key Features Explained
+`npm run check:all` runs formatting, type-aware lint, app/test/tool types, architecture/removal boundaries, unit/component tests with coverage gates, a full dependency audit, real local account transaction tests, a production-auth build with packaged-server HTTP and Chromium/WebKit account-flow tests, the preview build, Storybook, and Chromium/WebKit browser tests. CI runs the same command. Browser tests start the built preview on port **3100** and the built component catalog on **6007**; keep both ports available. `npm run check` runs the static/boundary/coverage checks without builds or browsers. Machine-readable test reports are under `test-results/`; coverage reports are under `coverage/`.
 
-### Time Range Filtering
-- **This Week/Last Week**: Daily granularity
-- **This Month/Last Month**: Weekly granularity  
-- **This Year/Last Year**: Monthly granularity
-- **All Time**: Yearly granularity
+The account/production integration suites require Java 17+ and download a checksum-pinned DynamoDB Local archive into the ignored development cache. CI installs Java 21. They use synthetic accounts and local service fixtures; no live AWS account configuration is required.
 
-### Metrics Tracked
-- **Open PRs**: Currently open pull requests
-- **Merged PRs**: Pull requests merged in the time period
-- **Opened Issues**: Issues created in the time period
-- **Contributors**: Unique contributors (PR authors + issue creators)
-- **Commits**: Total commits in merged PRs
-- **Reviewed PRs**: Pull requests reviewed by contributors
+Use `npm run format` for maintained source/config formatting. Product and operating documentation are maintained separately from source formatting.
 
-### Company Affiliation
-- Automatically maps GitHub usernames to companies
-- Distinguishes between member and non-member organizations
-- Aggregates statistics at the company level
+For interactive component development, use `npm run storybook` on port 6006.
 
-## 🔧 Development
+## Build modes and Amplify
 
-### Available Scripts
+- `npm run build` and `npm start` create/run **production authentication**. `build:production`/`start:production` remain explicit aliases.
+- `npm run build:preview` and `npm run start:preview` create/run fixed synthetic accounts, bound to loopback by default.
+- Start mode must match the recorded build mode.
+- Amplify uses `build:production`; the preview launcher refuses an Amplify environment.
+- Both modes currently render synthetic reports. Production mode changes authentication, not the reporting source.
 
-```bash
-npm run dev          # Start development server with Turbopack
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run typecheck    # TypeScript checking
+Production auth uses the server environment documented in `.env.example` and the hosting runtime's AWS access. Secrets are not embedded through Next's env map. The authentication store is separate from reporting; its real deployment is not exercised by preview tests.
 
-# Data generation
-npm run generate:stats     # Generate contributor statistics
-npm run process:mapping    # Process company mappings
-```
+Public first-admin registration is closed. Account provisioning/recovery uses `npm run auth:operator` with explicit targets and private credential files. Existing IDs and hashes are preserved; legacy cookies without an account-revision claim require sign-in again. Legacy temporary credentials without an expiry require reissue. The admin screen supports private delivery and reissue; `DASHBOARD_TEMP_PASSWORD_HOURS` configures future temporary credentials (default 24 hours, range 1–168). Production uses current account/whitelist state and revision checks, transactional account writes, and a runtime Secrets Manager key. See [account operations](docs/implementation/account-operations.md).
 
-### Technology Stack
+## Project structure
 
-- **Framework**: Next.js 14 with App Router and Turbopack
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui
-- **Charts**: Recharts with custom configurations
-- **State**: React hooks
-- **Theme**: next-themes
-- **Data Processing**: Node.js scripts with csv-parse
+- `src/app/`: thin server composition and client screens; protected pages/data reads validate the current viewer independently of layouts.
+- `src/features/`: typed feature views.
+- `src/components/`: UI primitives, shared table/metric/feedback/chart pieces.
+- `src/config/repositories.ts`: the single repository catalog.
+- `src/mocks/`: prepared display data, not an ingestion simulator.
+- `src/lib/presentation/`: pure formatting/query contracts and preview identity definitions.
+- `src/lib/navigation/`: application URL, preference, and debounced-search controllers.
+- `src/server/reporting.ts`: authorized sample reads; no real reporting database.
+- `src/lib/auth/` and `src/lib/aws/`: retained server account integration.
+- `.storybook/`: isolated component states.
 
-## 📈 Data Pipeline
+The shared table uses TanStack Table v9. The table is controlled and router-independent. Application controllers synchronize query state with Next navigation and keep sort defaults scoped by account and report/repository. Search operates on the entire supplied sample set before pagination. CSV exports all columns and all matching rows. The table currently consumes a complete sample population. A remote adapter contract will be introduced with its first real consumer. Final saved-view behavior, detailed product metrics, groups, agent tracking, and polished layouts remain in the page-design work.
 
-### Current Implementation
-1. GitHub API data fetched and stored in JSON files
-2. Contributor statistics generated from stored data (tracks PR authors, not mergers)
-3. Company mappings processed from CSV (Google Sheets export)
-4. Dashboard reads and visualizes the processed data
-5. Time-series aggregation at weekly/monthly/yearly levels
+## Scope and plans
 
-### Data Storage Structure
-```
-store/
-├── index.json                    # Master index
-└── repos/
-    ├── prebid-js/
-    │   ├── open-prs.json         # Currently open PRs
-    │   ├── open-issues.json      # Currently open issues
-    │   ├── merged/               # Merged PRs by month
-    │   │   └── YYYY-MM.json
-    │   └── closed/               # Closed issues by month
-    │       └── YYYY-MM.json
-    └── [other-repos]/
-```
+[Product definitions](docs/product/README.md) · [Current contracts](docs/implementation/foundation-contracts.md) · [Test-data strategy](docs/implementation/test-data-plan.md) · [Product acceptance matrix](docs/implementation/acceptance-matrix.md)
 
-### Future Improvements
-- [ ] Automated data refresh via GitHub Actions
-- [ ] Real-time updates via webhooks
-- [ ] Database integration for better performance
-- [ ] API endpoints for external consumption
+All dashboard reporting is internal-only and requires sign-in. Live Amplify/IAM, deployed login throttling, and deployment acceptance remain release prerequisites; local/CI checks do not certify them.
 
-## 🚦 Production Deployment
-
-### Prerequisites for Production
-1. Set up automated data refresh (GitHub Actions or cron)
-2. Implement authentication for sensitive data
-3. Configure environment variables
-4. Set up monitoring and analytics
-5. Optimize data loading for large datasets
-6. Add caching layer for improved performance
-
-### Deployment Options
-- **Vercel**: Optimized for Next.js (recommended)
-- **AWS**: Using Amplify or EC2
-- **Docker**: Containerized deployment
-
-### Environment Variables
-```env
-GITHUB_TOKEN=your_github_token
-NEXT_PUBLIC_API_URL=your_api_url
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 Known Issues
-
-1. **Real-time Updates**: Data requires manual regeneration
-2. **Daily Data**: Limited availability for recent periods
-3. **Large Datasets**: Performance optimization needed for repositories with 1000+ items
-
-## 🔮 Roadmap
-
-### Phase 1: Data Quality (Completed)
-- ✅ Fixed contributor tracking (now tracks PR authors)
-- ✅ Added company mapping integration
-- ✅ Improved date handling and filtering
-
-### Phase 2: Production Ready (Current)
-- Authentication system
-- Automated data pipeline
-- Performance optimizations
-- Deployment configuration
-- Caching implementation
-
-### Phase 3: Enhanced Features
-- Real-time updates
-- Advanced filtering
-- Export functionality
-- API for external access
-
-### Phase 4: Scale
-- Multi-organization support
-- Custom dashboards
-- Alerting system
-- Historical comparisons
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Prebid.org community for the ecosystem
-- Contributors and maintainers
-- Open source libraries used in this project
-
-## 📧 Contact
-
-For questions or support, please open an issue on GitHub.
-
----
-
-Built with ❤️ for the Prebid community
+The foundation replaces the old reporting routes with minimal sample-backed views. It does not finish the full product or prove historical metric calculations. Database integration and agent launching are later milestones.

@@ -1,22 +1,13 @@
-import { ChangePasswordView } from "@/features/authentication/change-password-view";
-import { requirePageAccess } from "@/lib/auth/site-access";
-export const dynamic = "force-dynamic";
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Record<string, string | string[] | undefined>;
-}) {
-  const user = await requirePageAccess({ allowPasswordChange: true });
+import { requireViewer } from '@/lib/auth/viewer';
+import { ChangePasswordView } from '@/features/authentication/change-password-view';
+export default async function ChangePasswordPage() {
+  const user = await requireViewer({ allowPasswordChange: true });
   return (
     <ChangePasswordView
-      key={user.id + ":" + user.mustChangePassword}
+      key={user.id + ':' + user.authVersion}
       email={user.email}
       mustChangePassword={user.mustChangePassword === true}
-      callbackUrl={
-        typeof searchParams.callbackUrl === "string"
-          ? searchParams.callbackUrl
-          : undefined
-      }
     />
   );
 }
+export const dynamic = 'force-dynamic';

@@ -1,0 +1,80 @@
+# Foundation contracts
+
+These contracts apply to the current sample-backed foundation. Page design and real reporting integration are later milestones.
+
+## Composition and imports
+
+Protected pages call the current-viewer guard directly or through guarded sample loaders before creating their views. Layouts provide the authenticated shell but are not the sole access gate. Routes compose current account context, prepared sample values, and feature views. Feature views receive typed display models. Shared components must not know which repository, account store, GitHub collector, or report calculation produced a value.
+
+`dependency-cruiser.config.mjs` resolves TypeScript aliases, relative imports, re-exports, and statically resolvable dependencies. It rejects source cycles, unresolved imports, shared-component dependencies on features, cross-feature imports, reversed pure-layer dependencies, and presentation paths (including AST-discovered `use client` entry points under routes) that reach server/auth/AWS/sample modules or Node builtins. Package internals under node_modules are not traversed; this is a source architecture check, not a dependency security audit.
+
+Application imports cannot reach operator command scripts. Only the HTTP auth adapter and internal session transport may import raw Auth.js handlers; shared tables cannot reach Next routing. Account store instances bind one client and immutable target; the server adapter owns its default instance, while operator invocations own separate clients without changing process-wide table settings.
+
+The separate retirement checker rejects exact known retired reporting paths, packages in either dependency section, obsolete scripts, raw-store strings, and computed module imports. Dependency-cruiser is the single owner of source import-layer rules; ordinary nested directories named services, store or validation are allowed. Its AST scan covers application JS/TS source extensions, including JSX/TSX and CJS/ESM variants. Runtime-generated code, arbitrary HTTP destinations, and third-party package internals are outside that check. Both checkers reject empty input. Positive and negative fixtures exercise the actual checkers.
+
+## Table state ownership
+
+- The URL owns search, sort direction, sort key, and page. Unknown sort keys and invalid page numbers normalize to safe defaults; repeated scalar fields consistently use the first value. Unrelated and repeated filter parameters survive serialization.
+- Saved local preferences supply an account-specific initial sort only when the URL does not explicitly supply one. Invalid or denied storage must not block interaction. Local preferences are not server-synchronized account settings.
+- Column visibility and export errors are temporary component state. Search/sort changes reset the page. Pages contain at most 100 rows.
+- The shared table consumes a controlled query and callbacks. Application controllers observe Next search parameters and use native history replacement with null external state, allowing Next to maintain its own router metadata. Search has a local draft and a 250 ms debounce. Enter/blur, sorting, and export capture the latest intended query; query/history and scope changes cancel pending writes. Browser back/forward and same-route links update the table. Ascending direction is the default and is omitted from URL writes; flushing an untouched query leaves history unchanged.
+- Saved sort defaults are restored after hydration in controller memory; interactive actions materialize the effective query in the URL. Invalid pages are reconciled against matching totals without history writes during hydration. Preference identity includes the account and report/repository scope. Storybook and local component tests use a router-independent memory controller.
+- The dashboard's structural `main` landmark remains stable. Its page contents are keyed by account ID and credential revision, preserving drafts across a same-identity refresh and clearing mounted page state when either identity value changes.
+
+For local samples, `rows` is the complete supplied population; search/sort precede pagination and export includes every matching row and all columns.
+
+The current table has one mode: a complete supplied sample population. Remote paging, request callbacks and backend export contracts are deliberately deferred until there is a real adapter. Loading/error visuals remain independent reusable components and catalog states.
+
+## Runtime account boundaries
+
+Account request bodies, consumed API responses, and loaded account/whitelist records are validated with Zod. The HTTP boundary limits actual body bytes to 16 KiB and body reads to five seconds before parsing; absent/misleading Content-Length does not bypass counting. Login/current-password verification accepts at most 1 KiB of UTF-8 input, without trimming or truncation. Oversize and timed-out bodies return 413 and 408 respectively. Invalid user input returns 400; malformed store responses and store failures remain failures. Production credential validation checks whitelist membership, account existence, and password verification and returns only safe identity fields.
+
+Client mutation handling distinguishes a parsed 4xx rejection from an uncertain network, malformed-response or server-error outcome. Uncertain outcomes receive operation-specific recovery guidance rather than raw transport messages or an automatic mutation retry. Server-page retry refreshes the router before clearing its error boundary.
+
+Account JSON responses, including errors and temporary credentials, use `accountJson` to enforce `Cache-Control: private, no-store`. Admin list fetches also request no-store. Auth.js protocol responses retain library handling; the current-session adapter preserves cookie semantics while applying the account response policy.
+
+Custom cookie-authenticated account mutations require the canonical configured origin and JSON content type. Their policy is shared by the create/reset/change-password routes. Auth.js endpoints keep their existing CSRF protocol.
+
+Account mutations reject preview builds before invoking real authentication/storage. Admin mutations also require an administrator and completion of mandatory password changes. Password change acts on the authenticated identity, never a user ID supplied in the body. API checks are independent of page-layout checks. Generic credential failures perform password-hash work even for unknown/disallowed accounts; this reduces one timing distinction but is not a constant-time or deployed throttling guarantee.
+
+Production Auth.js handler tests use real CSRF/session-cookie processing with controlled dependencies. Every protected server use resolves current account/whitelist state and its revision. Auth.js owns token verification, CSRF, cookie chunking, expiry and renewal. The configured session lifetime remains 30 days. Normal page reads do not deliver renewed cookies, and the UI does not poll for renewal; a successful explicit session-endpoint request can renew the cookie. This is not an enforced absolute 30-day cap. Tokens carry identity/revision and standard library claims; profiles and roles are projected from current storage. The public session response is withheld until current-account resolution succeeds. Revocation returns a null session without renewal; storage outages return 503 without deleting or renewing the incoming cookie. Corrupt account/configuration data returns a safe 500. Failed lookups log allowlisted diagnostic categories/codes, never raw records or exception messages. Known transient read conflicts have bounded retries and a shared five-second deadline. Effective privilege is bounded by both current roles. Password/access changes increment the revision; admin mutations also verify current actor conditions in the write transaction. Secret values remain server-only and are loaded through the configured runtime provider. Viewer memoization is request/render scoped. Already-delivered browser data is not remotely erased by revocation; new reads/writes revalidate. Explicit auth transitions refresh router state and notify other open tabs without a global SessionProvider or session polling.
+
+Password forms own an abortable operation for their mounted identity. Disposing the form prevents a delayed password response from starting automatic sign-in or navigation. Once a password write is confirmed, fields clear and subsequent sign-in failure goes to a refreshed recovery login with a new-password notice. Cancellation cannot undo committed server work or cancel an Auth.js request already sent.
+
+User creation reserves the normalized email and writes the user in one conditional transaction. A separate bootstrap marker prevents concurrent first administrators across different email addresses. Legacy numeric/string whitelist timestamps are accepted. Preflight scans both full populations, including whitelist-only records. Validation failures cause zero migration writes; interrupted apply reports completed/pending work and is safely repeatable. Legacy links are added by conditional operator migration; existing UUIDs/password hashes and explicit active/role states are preserved. Public setup is closed. Operator-created temporary credentials are synced to a new private file before mutation, and the first password must be different. One prepared operation supplies the password/hash, expiry and target revision to web and operator flows. Expiry is checked during sign-in, current-viewer resolution and password changes. Reissue invalidates the previous credential; a permanent-password change removes temporary expiry. Legacy temporary credentials without expiry require reissue. The admin dialog supports private copying, deliberate dismissal and reissue; no password-bearing mailto links remain.
+
+The [account operations guide](account-operations.md) records the implemented commands, configuration, migration, recovery and deployment assumptions. A built-production HTTP test exercises the packaged server with a real local DynamoDB service and a controlled Secrets Manager HTTP fixture. It does not certify a live AWS IAM policy or Amplify environment.
+
+## Verification policy
+
+`npm run check` runs formatting, type-aware lint, strict app/test/tool typechecking, both architecture/removal checks, and unit/component tests with coverage. `npm run check:all` additionally runs a full dependency audit, real local account transactions, a production-auth build and packaged-server HTTP test, a preview build, Storybook, and Chromium/WebKit browser tests. CI invokes that same command.
+
+Coverage includes all application TS/TSX, excluding declarations. Thresholds are per file within explicitly listed critical groups: presentation helpers, table/query state, credential/access/request policies and auth wiring, and admin/password API handlers. The report also exposes uncovered scaffolds, retained admin screens, UI primitives, and store mutations. There is no claim of whole-application coverage or a blanket percentage that conceals those gaps. Browser execution is reported separately from unit coverage.
+
+Required suites must select tests and report no failures/skips. Full test commands clear prior reports and enforce individual outcomes/counts with `scripts/check-test-results.mjs`; focused-only suites are prohibited by runner configuration. Browser assertions cover actual values, URL behavior, keyboard/theme/style behavior, export bytes, and preview restrictions; screenshots are inspection artifacts, not approved design baselines. Offline storage tests do not claim a live service integration. Same-author verification does not replace independent review.
+
+New-password rules are shared between forms and server validation: at least six Unicode code points, no character-class requirements, and the 72-byte bcrypt limit. This preserves the current login policy. Existing credential verification is retained; this does not migrate previously truncated passwords. CSV prefix escaping covers the recorded string cases but is not a guarantee across every spreadsheet importer or re-save operation.
+
+The root theme provider preserves the current site's Dark default and `dashboard-theme` saved preference. Branded authentication layouts are a separate design follow-up; the foundation keeps functional placeholders. The legacy live-report views, private report bundle, preparation scripts and verification workflow are retired along with the original reporting layer.
+
+## Deployment acceptance
+
+This sample-backed foundation alone is not the production reporting cutover. Keep the current dashboard serving until replacement reports and data are ready, and control Amplify automatic builds before merging into a production-tracked branch. Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the maintenance window and ordered cutover in [account operations](account-operations.md). Local and CI verification do not certify environment acceptance.
+
+## What visually locked means
+
+Before the new reporting/data layer begins, review and record the following for each page:
+
+- Navigation, content hierarchy, component placement, spacing, typography, and supported theme behavior.
+- Default and optional columns, widths, numeric formatting, sorting, filters, table density, and narrow-screen/overflow behavior.
+- Click destinations, URL/filter context, paging, saved preference behavior, and export interactions where applicable.
+- Normal, busy, empty, loading, error, partial-data, known-zero, and missing-value states, including long names/titles and large numbers.
+- Repository graph types, labels, scope, and textual alternatives; table-only contribution and tracking reports.
+- Representative screenshots at agreed viewport sizes and interaction checks that establish the reviewed baseline.
+
+User review establishes the visual baseline; screenshots do not approve themselves. Repeat those checks during integration. The goal is to preserve the agreed frontend while replacing its data source. Mocks cannot prove real-data completeness or performance, so any integration-discovered mismatch must be identified and resolved explicitly rather than silently changing a screen's meaning.
+
+
+## Dependency maintenance
+
+The selected stack remains Next.js, React, TypeScript, Tailwind v4, Radix and Recharts with Amplify hosting. Next.js 15 remains the selected Amplify-compatible major. ESLint 9 and Auth.js v5 beta are deliberate compatibility holds; upgrade those lines only with compatible integration evidence. Pins and normal dependency auditing remain part of the quality checks.

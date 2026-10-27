@@ -1,20 +1,28 @@
-// This file handles getting the NextAuth secret in Amplify SSR environment
-// Amplify doesn't pass all env vars to Lambda, so we need to handle this specially
-
-function getSecret(): string {
-  // Try multiple sources for the secret
-  const secret =
-    process.env.NEXTAUTH_SECRET ||
-    process.env.AUTH_SECRET ||
-    // Fallback to a build-time injected value
-    process.env.AMPLIFY_NEXTAUTH_SECRET;
-
-  if (!secret) {
-    console.error('NEXTAUTH_SECRET is not available in any form');
-    throw new Error('NEXTAUTH_SECRET is required but not found in environment variables');
+import 'server-only';
+import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+import { isPreviewBuild } from '@/lib/presentation/preview';
+import { getRuntimeSettings } from './runtime-settings';
+import { makeSecretLoader, validateAuthSecret, previewSecret } from './secret-policy';
+import { awsClientPolicy } from '@/lib/aws/client-policy';
+const clients = new Map<string, SecretsManagerClient>();
+const managedSecret = makeSecretLoader(async (arn, signal) => {
+  const region = arn.split(':')[3];
+  let client = clients.get(region);
+  if (!client) {
+    client = new SecretsManagerClient({
+      region,
+      ...awsClientPolicy,
+    });
+    clients.set(region, client);
   }
-
-  return secret;
+  const result = await client.send(new GetSecretValueCommand({ SecretId: arn }), {
+    abortSignal: signal,
+  });
+  return result.SecretString;
+});
+export async function getSecret(): Promise<string> {
+  if (isPreviewBuild) return previewSecret;
+  const settings = getRuntimeSettings();
+  if (settings.secretArn) return managedSecret(settings.secretArn);
+  return validateAuthSecret(process.env.AUTH_SECRET);
 }
-
-export const nextAuthSecret = getSecret();

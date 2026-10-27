@@ -1,219 +1,119 @@
 'use client';
-
-import { Menu, LogOut, User } from 'lucide-react';
-import { ThemeMenu } from './theme-menu';
-import { useSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { useState } from 'react';
+import { useTheme } from 'next-themes';
+import { signOut } from 'next-auth/react';
+import { notifyAuthTransition } from '@/components/providers/auth-transitions';
+import type { AuthenticatedUser } from '@/models/accounts';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-export function Toolbar() {
-  const { data: session, status } = useSession();
+import type { RepositoryDefinition } from '@/config/repositories';
+export function Toolbar({
+  repositories,
+  viewer,
+}: {
+  repositories: readonly RepositoryDefinition[];
+  viewer: AuthenticatedUser;
+}) {
+  const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
-
-  const handleProtectedNavigation = (href: string) => {
-    if (!session && href !== '/') {
-      // If not logged in and trying to access protected route, redirect to login
-      router.push(`/auth/login?callbackUrl=${encodeURIComponent(href)}`);
-    } else {
-      router.push(href);
+  const [signOutError, setSignOutError] = useState('');
+  const [signingOut, setSigningOut] = useState(false);
+  async function handleSignOut() {
+    setSigningOut(true);
+    setSignOutError('');
+    try {
+      const result = await signOut({ redirect: false, redirectTo: '/auth/login' });
+      if (!result.url) throw new Error('Sign out failed');
+      const destination = new URL(result.url, window.location.origin);
+      if (destination.searchParams.has('error') || destination.pathname !== '/auth/login')
+        throw new Error('Sign out could not be confirmed');
+      notifyAuthTransition();
+      router.replace('/auth/login');
+      router.refresh();
+    } catch {
+      setSignOutError('Sign-out could not be confirmed. Please try again.');
+    } finally {
+      setSigningOut(false);
     }
-  };
-
+  }
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex h-24 items-center justify-between">
-          {/* Left side: Menu and Logo */}
-          <div className="flex items-center" style={{ gap: '1rem' }}>
-            {/* Navigation Menu */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <button className="p-2 rounded-lg hover:bg-accent transition-colors">
-                  <Menu className="h-6 w-6" />
-                </button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px] border-r" style={{ top: 0, backgroundColor: 'var(--sidebar)', transition: 'none' }}>
-                <SheetHeader className="flex items-center">
-                  <SheetTitle className="flex justify-center">
-                    <div style={{ width: '150px', height: '150px', position: 'relative' }}>
-                      <Image
-                        src="/prebid-logo.png"
-                        alt="Prebid Logo"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  </SheetTitle>
-                </SheetHeader>
-                <nav className="mt-8" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <button
-                    onClick={() => handleProtectedNavigation('/')}
-                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Dashboard</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/contributors')}
-                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Contributors</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/companies')}
-                    className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '20px', fontWeight: 500 }}>Companies</span>
-                  </button>
-                  
-                  {/* Repos Section */}
-                  <div className="w-full flex items-center justify-center py-2">
-                    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--foreground)' }}>Repos</span>
-                  </div>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebidjs')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid.js</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebidserver')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Server (Go)</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebidserverjava')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Server (Java)</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebidmobileios')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Mobile (iOS)</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebidmobileandroid')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Mobile (Android)</span>
-                  </button>
-                  <button
-                    onClick={() => handleProtectedNavigation('/repos/prebiddocs')}
-                    className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                  >
-                    <span style={{ fontSize: '18px', fontWeight: 400 }}>Prebid Documentation</span>
-                  </button>
-                  
-                  {session?.user?.role === 'admin' && (
-                    <button
-                      onClick={() => handleProtectedNavigation('/admin/users')}
-                      className="w-full flex items-center justify-center py-3 text-muted-foreground hover:text-foreground transition-colors"
-                      style={{ backgroundColor: 'transparent', border: 'none' }}
-                    >
-                      <span style={{ fontSize: '20px', fontWeight: 500 }}>Users</span>
-                    </button>
-                  )}
-                </nav>
-              </SheetContent>
-            </Sheet>
-            
-            {/* Logo */}
-            <div style={{ width: '90px', height: '90px', position: 'relative', overflow: 'visible' }}>
-              <Image 
-                src="/prebid-logo.png" 
-                alt="Prebid Logo" 
-                fill
-                style={{ objectFit: 'contain', transform: 'scale(1.2)' }}
-              />
-            </div>
-          </div>
-
-          {/* Title, Auth, and Theme Toggle */}
-          <div className="flex items-center" style={{ gap: '1rem' }}>
-            <h1 className="hidden sm:block" style={{
-              fontSize: '1.125rem',
-              fontWeight: '500',
-              color: 'var(--foreground)',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif',
-              letterSpacing: '-0.025em'
-            }}>
-              Repo Activity Dashboard
-            </h1>
-
-            {/* Auth Section */}
-            {status === 'loading' ? (
-              <div className="h-10 w-10 rounded-lg bg-accent animate-pulse" />
-            ) : session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="h-10 w-10 rounded-lg border transition-all duration-300 flex items-center justify-center hover:bg-accent">
-                    <User className="h-5 w-5" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{session.user.name || session.user.email}</p>
-                      <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
-                      {session.user.role && (
-                        <p className="text-xs leading-none text-muted-foreground capitalize">Role: {session.user.role}</p>
-                      )}
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {session.user.role === 'admin' && (
-                    <>
-                      <DropdownMenuItem onClick={() => router.push('/admin')}>
-                        Admin Panel
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                    </>
-                  )}
-                  <DropdownMenuItem onClick={() => signOut()}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <button
-                onClick={() => router.push('/auth/login')}
-                className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
+    <header className="border-b bg-card">
+      <nav
+        aria-label="Main navigation"
+        className="mx-auto flex max-w-screen-2xl flex-wrap items-center gap-4 p-4"
+      >
+        <Link prefetch={false} href="/repos" className="font-semibold">
+          Repository activity
+        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">Repos</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-80">
+            <DropdownMenuItem asChild>
+              <Link
+                prefetch={false}
+                className="block rounded px-3 py-2 hover:bg-accent"
+                href="/repos"
               >
-                Sign In
-              </button>
-            )}
-
-            <ThemeMenu />
-          </div>
+                All repositories
+              </Link>
+            </DropdownMenuItem>
+            {repositories
+              .filter((r) => r.enabled)
+              .map((r) => (
+                <DropdownMenuItem asChild key={r.id}>
+                  <Link
+                    prefetch={false}
+                    className="block rounded px-3 py-2 hover:bg-accent"
+                    href={'/repos/' + r.slug}
+                  >
+                    {r.displayName}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Link prefetch={false} href="/contributors" className="hover:underline">
+          Contributors
+        </Link>
+        <Link prefetch={false} href="/companies" className="hover:underline">
+          Companies
+        </Link>
+        {viewer.role === 'admin' && (
+          <Link prefetch={false} href="/admin/users" className="hover:underline">
+            Accounts
+          </Link>
+        )}
+        <div className="ml-auto flex items-center gap-3">
+          <Button
+            variant="outline"
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+          >
+            Toggle theme
+          </Button>
+          {
+            <>
+              <span className="text-sm">{viewer.name || viewer.email}</span>
+              <Button variant="ghost" disabled={signingOut} onClick={() => void handleSignOut()}>
+                {signingOut ? 'Signing out…' : 'Sign out'}
+              </Button>
+              {signOutError && (
+                <p role="alert" className="text-sm text-destructive">
+                  {signOutError}
+                </p>
+              )}
+            </>
+          }
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

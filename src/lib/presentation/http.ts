@@ -1,5 +1,9 @@
-import type { z } from "zod";
-import { errorResponseSchema } from "@/models/account-messages";
+import type { z } from 'zod';
+import { errorResponseSchema } from '@/models/accounts';
+class RejectedRequest extends Error {}
+export function mutationFailureMessage(error: unknown, unknownOutcome: string): string {
+  return error instanceof RejectedRequest ? error.message : unknownOutcome;
+}
 export async function readJsonResponse<T>(
   response: Response,
   schema: z.ZodType<T>,
@@ -13,10 +17,11 @@ export async function readJsonResponse<T>(
   }
   if (!response.ok) {
     const error = errorResponseSchema.safeParse(input);
-    throw new Error(error.success ? error.data.error : fallback);
+    if (response.status >= 400 && response.status < 500 && error.success)
+      throw new RejectedRequest(error.data.error);
+    throw new Error(fallback);
   }
   const parsed = schema.safeParse(input);
-  if (!parsed.success)
-    throw new Error("The server returned an unexpected response.");
+  if (!parsed.success) throw new Error('The server returned an unexpected response.');
   return parsed.data;
 }

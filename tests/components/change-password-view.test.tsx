@@ -1,0 +1,128 @@
+import { beforeEach, it, expect, vi } from 'vitest';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { ChangePasswordView } from '@/features/authentication/change-password-view';
+import { LoginView } from '@/features/authentication/login-view';
+
+const mocks = vi.hoisted(() => ({
+  signIn: vi.fn(),
+  signOut: vi.fn(),
+  replace: vi.fn(),
+  refresh: vi.fn(),
+  notify: vi.fn(),
+}));
+vi.mock('next-auth/react', () => ({ signIn: mocks.signIn, signOut: mocks.signOut }));
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ replace: mocks.replace, refresh: mocks.refresh }),
+}));
+vi.mock('@/components/providers/auth-transitions', () => ({
+  notifyAuthTransition: mocks.notify,
+}));
+beforeEach(() => {
+  vi.resetAllMocks();
+  mocks.signIn.mockResolvedValue({ ok: true });
+  mocks.signOut.mockResolvedValue({ url: '/auth/login' });
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ message: 'Password changed' })));
+});
+function form() {
+  const view = render(<ChangePasswordView email="person@example.test" mustChangePassword />);
+  for (const [label, value] of [
+    ['Temporary Password', 'TemporaryPassword1!'],
+    ['New Password', 'ChangedPassword2!'],
+    ['Confirm New Password', 'ChangedPassword2!'],
+  ])
+    fireEvent.change(screen.getByLabelText(label, { exact: true }), { target: { value } });
+  fireEvent.submit(screen.getByRole('button', { name: 'Change Password' }).closest('form')!);
+  return view;
+}
+it('recovers at login when automatic sign-in throws after the password was committed', async () => {
+  mocks.signIn.mockRejectedValue(new Error('Controlled sign-in network failure'));
+  form();
+  await waitFor(() =>
+    expect(mocks.replace).toHaveBeenCalledWith('/auth/login?passwordChanged=true'),
+  );
+  expect(mocks.refresh).toHaveBeenCalledOnce();
+  expect(mocks.notify).toHaveBeenCalledOnce();
+  expect(screen.getByLabelText('Temporary Password', { exact: true })).toHaveValue('');
+  expect(screen.getByLabelText('New Password', { exact: true })).toHaveValue('');
+});
+it('does not sign in from a replaced form when an earlier password write completes', async () => {
+  let complete!: (response: Response) => void;
+  const pending = new Promise<Response>((resolve) => {
+    complete = resolve;
+  });
+  vi.mocked(fetch).mockReturnValue(pending);
+  const view = form();
+  const signal = vi.mocked(fetch).mock.calls[0][1]?.signal;
+  view.unmount();
+  expect(signal?.aborted).toBe(true);
+  await act(async () => {
+    complete(Response.json({ message: 'Password changed' }));
+    await pending;
+  });
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(mocks.replace).not.toHaveBeenCalled();
+  expect(mocks.notify).not.toHaveBeenCalled();
+});
+it('navigates after successful automatic sign-in and does not send a second password write', async () => {
+  form();
+  await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith('/repos'));
+  expect(fetch).toHaveBeenCalledOnce();
+  expect(mocks.signIn).toHaveBeenCalledExactlyOnceWith('credentials', {
+    email: 'person@example.test',
+    password: 'ChangedPassword2!',
+    redirect: false,
+  });
+  expect(mocks.refresh).toHaveBeenCalledOnce();
+});
+it('keeps a rejected password write correctable without claiming that it succeeded', async () => {
+  vi.mocked(fetch).mockResolvedValue(
+    Response.json({ error: 'Current password is incorrect' }, { status: 400 }),
+  );
+  form();
+  await screen.findByText('Current password is incorrect');
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(mocks.replace).not.toHaveBeenCalled();
+  expect(screen.getByLabelText('Temporary Password', { exact: true })).toHaveValue(
+    'TemporaryPassword1!',
+  );
+  expect(screen.getByRole('button', { name: 'Change Password' })).toBeEnabled();
+});
+it('recovers after a rejected automatic sign-in without requiring another sign-out request', async () => {
+  mocks.signIn.mockResolvedValue({ ok: false, error: 'Configuration' });
+  mocks.signOut.mockRejectedValue(new Error('Controlled sign-out failure'));
+  form();
+  await waitFor(() =>
+    expect(mocks.replace).toHaveBeenCalledWith('/auth/login?passwordChanged=true'),
+  );
+  expect(mocks.signOut).not.toHaveBeenCalled();
+});
+it('ignores a late automatic sign-in result after the form is replaced', async () => {
+  let complete!: (result: { ok: boolean }) => void;
+  const pending = new Promise<{ ok: boolean }>((resolve) => {
+    complete = resolve;
+  });
+  mocks.signIn.mockReturnValue(pending);
+  const view = form();
+  await waitFor(() => expect(mocks.signIn).toHaveBeenCalledOnce());
+  view.unmount();
+  await act(async () => {
+    complete({ ok: true });
+    await pending;
+  });
+  expect(mocks.replace).not.toHaveBeenCalled();
+  expect(mocks.notify).not.toHaveBeenCalled();
+});
+it('explains the committed password change on the recovery login screen', () => {
+  render(<LoginView preview={false} passwordChanged />);
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Password changed. Sign in with your new password.',
+  );
+});
+
+it('does not claim a failed password write when its response is lost', async () => {
+  vi.mocked(fetch).mockRejectedValue(new TypeError('Failed to fetch'));
+  form();
+  await screen.findByText(/The password change could not be confirmed/);
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(screen.queryByText('Failed to fetch')).not.toBeInTheDocument();
+});

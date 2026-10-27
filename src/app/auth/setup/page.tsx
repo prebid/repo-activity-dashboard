@@ -1,16 +1,12 @@
-import Link from "next/link";
-import { requirePageAccess } from "@/lib/auth/site-access";
-export const dynamic = "force-dynamic";
-export default async function SetupPage() {
-  await requirePageAccess({ admin: true });
+import Link from 'next/link';
+export default function SetupPage() {
   return (
-    <section className="mx-auto max-w-md space-y-4 p-8">
-      <h1>Account administration</h1>
-      <p>
-        Manage accounts and temporary passwords from the existing administrator
-        page.
-      </p>
-      <Link href="/admin/users">Manage users</Link>
+    <section className="mx-auto max-w-md space-y-4 rounded-lg border bg-card p-8">
+      <h1 className="text-2xl font-semibold">Accounts are managed by your administrator</h1>
+      <p>Contact your administrator for account access.</p>
+      <Link href="/auth/login" className="underline">
+        Return to sign in
+      </Link>
     </section>
   );
 }
