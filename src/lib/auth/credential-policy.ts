@@ -1,8 +1,16 @@
 import { temporaryCredentialCurrent } from '@/models/temporary-credentials';
-import { credentialSchema, type AccountRecord, type AuthenticatedUser } from '@/models/accounts';
+import {
+  credentialSchema,
+  effectiveAccountRole,
+  type AccountRecord,
+  type WhitelistRecord,
+  type AuthenticatedUser,
+} from '@/models/accounts';
+import { AccountError } from './account-errors';
 export interface CredentialDependencies {
-  isAllowed: (email: string) => Promise<boolean>;
-  findByEmail: (email: string) => Promise<AccountRecord | null>;
+  lookup: (
+    email: string,
+  ) => Promise<{ user: AccountRecord | null; access: WhitelistRecord | null }>;
   verify: (password: string, hash: string) => Promise<boolean>;
 }
 // Public dummy hash at the same work factor as real accounts; matching it never authorizes.
@@ -14,15 +22,16 @@ export async function authorizeCredentials(
   const parsed = credentialSchema.safeParse(input);
   if (!parsed.success) return null;
   const { email, password } = parsed.data;
-  const allowed = await dependencies.isAllowed(email);
-  const user = allowed ? await dependencies.findByEmail(email) : null;
+  const { user, access } = await dependencies.lookup(email);
   const verified = await dependencies.verify(password, user?.password ?? dummyHash);
-  if (!allowed || !user || !verified || !temporaryCredentialCurrent(user)) return null;
+  if (!user || !access?.isActive || access.userId !== user.id || user.email !== email || !verified)
+    return null;
+  if (!temporaryCredentialCurrent(user)) throw new AccountError('expired');
   return {
     id: user.id,
     email: user.email,
     name: user.name,
-    role: user.role,
+    role: effectiveAccountRole(user.role, access.role),
     company: user.company,
     mustChangePassword: user.mustChangePassword,
     authVersion: user.authVersion,

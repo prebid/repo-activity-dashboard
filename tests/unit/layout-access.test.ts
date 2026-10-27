@@ -3,7 +3,9 @@ import { beforeEach, it, expect, vi, afterEach } from 'vitest';
 const mocks = vi.hoisted(() => ({ read: vi.fn(), snapshot: vi.fn(), headers: vi.fn() }));
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/session-transport', () => ({ readVerifiedSession: mocks.read }));
-vi.mock('@/lib/auth/users', () => ({ getAccountSnapshot: mocks.snapshot }));
+vi.mock('@/lib/auth/server-account-store', () => ({
+  getServerAccountStore: () => ({ getAccountSnapshot: mocks.snapshot }),
+}));
 vi.mock('next/headers', () => ({ headers: mocks.headers }));
 vi.mock('next/navigation', () => ({
   redirect: (path: string) => {

@@ -13,10 +13,15 @@ vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/get-secret', () => ({
   getSecret: mocks.secret,
 }));
-vi.mock('@/lib/auth/whitelist', () => ({ isEmailWhitelisted: mocks.whitelist }));
-vi.mock('@/lib/auth/users', () => ({
-  getUserByEmail: mocks.user,
-  getAccountSnapshot: mocks.snapshot,
+vi.mock('@/lib/auth/server-account-store', () => ({
+  getServerAccountStore: () => ({
+    getAccountSnapshot: mocks.snapshot,
+    getCredentialSnapshot: async (email: string) => {
+      const user: unknown = await mocks.user(email);
+      const active: unknown = await mocks.whitelist(email);
+      return { user, access: { email, role: 'admin', isActive: active, userId: 'real-user' } };
+    },
+  }),
 }));
 vi.mock('@/lib/auth/passwords', () => ({ verifyPassword: mocks.verify }));
 beforeEach(() => {
@@ -335,4 +340,16 @@ it('uses the normal error page when authentication configuration cannot load', a
   const api = await handlers.GET(new NextRequest('http://localhost:3100/api/auth/providers'));
   expect(api.status).toBe(500);
   expect(await api.json()).toEqual({ error: 'Authentication requires operator attention.' });
+});
+
+it('returns a reissue code only when the expired temporary password verifies', async () => {
+  const user: unknown = await mocks.user();
+  if (!user || typeof user !== 'object') throw new Error('Expected account fixture');
+  mocks.user.mockResolvedValue({ ...user, temporaryPasswordExpiresAt: '2020-01-01T00:00:00.000Z' });
+  const expired = await login();
+  expect(expired.response.headers.get('location')).toContain('code=temporary_expired');
+  expect(expired.body).toBeNull();
+  mocks.verify.mockResolvedValue(false);
+  const wrong = await login('wrong');
+  expect(wrong.response.headers.get('location')).not.toContain('temporary_expired');
 });

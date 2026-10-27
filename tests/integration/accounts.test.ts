@@ -9,7 +9,7 @@ import {
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { randomUUID } from 'node:crypto';
-import { mkdtemp, readFile, stat, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, stat, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { z } from 'zod';
@@ -302,9 +302,9 @@ it('invalidates prior claims on reset and prevents an older password change from
   expect(changed?.mustChangePassword).toBe(true);
   expect(await verifyPassword(reset.tempPassword, changed!.password)).toBe(true);
   expect(await verifyPassword(tempPassword, changed!.password)).toBe(false);
-  await expect(
-    store.updateUserPassword(user, 'stale-hash', { kind: 'session', ...user }, false),
-  ).rejects.toMatchObject({ code: 'conflict' });
+  await expect(store.changeOwnPassword(user, 'stale-hash', user)).rejects.toMatchObject({
+    code: 'conflict',
+  });
   expect((await store.getUserById(user.id))?.password).toBe(changed?.password);
 });
 it('rejects an admin write revoked while the request is in flight', async () => {
@@ -432,7 +432,9 @@ it('retains the operator credential privately even if a committed transaction lo
   expect(inspected).toMatchObject({ accountId: saved.accountId, active: true });
   expect(inspected).not.toHaveProperty('password');
   expect(inspected).not.toHaveProperty('temporaryPassword');
-  await expect(runOperator(args)).rejects.toMatchObject({ code: 'EEXIST' });
+  const beforeRetry = await readFile(output, 'utf8');
+  await expect(runOperator(args)).rejects.toMatchObject({ code: 'bootstrap-complete' });
+  expect(await readFile(output, 'utf8')).toBe(beforeRetry);
   expect(await store.listAccounts()).toHaveLength(1);
 });
 it('executes operator creation, access changes, reset, inspection and repeat-safe migration end to end', async () => {
@@ -462,7 +464,13 @@ it('executes operator creation, access changes, reset, inspection and repeat-saf
   ]);
   expect(
     await runOperator(['inspect', ...target, '--email', 'managed@example.test']),
-  ).toMatchObject({ role: 'viewer', active: false, authVersion: 2 });
+  ).toMatchObject({
+    role: null,
+    accountRole: 'viewer',
+    whitelistRole: 'viewer',
+    active: false,
+    authVersion: 2,
+  });
   const output = join(directory, 'reset.credentials.json');
   await runOperator([
     'reset-password',
@@ -523,9 +531,9 @@ it('reads a complete whitelist across real service pages while preserving disabl
   const active = await seed('active@example.test');
   const disabled = await seed('disabled@example.test');
   await store.setAccountAccess(disabled.user, 'viewer', false);
-  expect(await store.isEmailWhitelisted(active.user.email)).toBe(true);
-  expect(await store.isEmailWhitelisted(disabled.user.email)).toBe(false);
-  expect(await store.isEmailWhitelisted('missing@example.test')).toBe(false);
+  expect((await store.getWhitelistEntry(active.user.email))?.isActive).toBe(true);
+  expect((await store.getWhitelistEntry(disabled.user.email))?.isActive).toBe(false);
+  expect(await store.getWhitelistEntry('missing@example.test')).toBeNull();
   await Promise.all(
     Array.from({ length: 16 }, (_, i) =>
       db().send(
@@ -573,7 +581,7 @@ it('accepts documented numeric whitelist metadata and checks account-less entrie
     }),
   );
   expect((await store.getWhitelistEntry(user.email))?.addedAt).toBe(1754006400000);
-  expect(await store.isEmailWhitelisted(user.email)).toBe(true);
+  expect((await store.getWhitelistEntry(user.email))?.isActive).toBe(true);
   expect(await store.getUserByEmail(user.email)).toMatchObject({ id: user.id });
   await db().send(
     new PutCommand({
@@ -668,12 +676,7 @@ it('uses one configured expiry and refuses expired issuance or password changes'
   await timed.createPreparedAccount(prepared, operator);
   clock = Date.parse(prepared.expiresAt);
   await expect(
-    timed.updateUserPassword(
-      prepared.user,
-      'newhash',
-      { kind: 'session', ...prepared.user },
-      false,
-    ),
+    timed.changeOwnPassword(prepared.user, 'newhash', prepared.user),
   ).rejects.toMatchObject({ code: 'expired' });
   expect((await timed.migrateAccountLinks(false)).requiresCredentialReissue).toEqual([
     { id: prepared.user.id, email: prepared.user.email },
@@ -691,7 +694,7 @@ it('uses one configured expiry and refuses expired issuance or password changes'
   );
   const updated = await timed.getUserById(prepared.user.id);
   if (!updated) throw new Error('Missing account');
-  await timed.updateUserPassword(updated, 'permanenthash', { kind: 'session', ...updated }, false);
+  await timed.changeOwnPassword(updated, 'permanenthash', updated);
   expect(await timed.getUserById(updated.id)).toMatchObject({
     mustChangePassword: false,
     authVersion: 3,
@@ -739,12 +742,7 @@ it('rejects an expiry changed after authorization before committing a password c
     );
   };
   await expect(
-    store.updateUserPassword(
-      prepared.user,
-      'newhash',
-      { kind: 'session', ...prepared.user },
-      false,
-    ),
+    store.changeOwnPassword(prepared.user, 'newhash', prepared.user),
   ).rejects.toMatchObject({ code: 'conflict' });
   expect((await store.getUserById(prepared.user.id))?.password).toBe(prepared.user.password);
 });
@@ -794,4 +792,136 @@ it('identifies malformed initialization metadata instead of failing during impli
     records: [{ table: 'users', key: bootstrapId }],
   });
   expect((await db().send(new ScanCommand({ TableName: whitelist }))).Items).toEqual([]);
+});
+
+it('shows effective access and unprovisioned entries consistently in the list and operator inspection', async () => {
+  const { user } = await seed('roles@example.test', 'admin');
+  await db().send(
+    new UpdateCommand({
+      TableName: whitelist,
+      Key: { email: user.email },
+      UpdateExpression: 'SET #role = :role',
+      ExpressionAttributeNames: { '#role': 'role' },
+      ExpressionAttributeValues: { ':role': 'viewer' },
+    }),
+  );
+  await db().send(
+    new PutCommand({
+      TableName: whitelist,
+      Item: { email: 'pending@example.test', role: 'admin', isActive: true },
+    }),
+  );
+  expect(await store.listAccountSummaries()).toEqual([
+    { email: 'pending@example.test', accountId: null, role: null, status: 'unprovisioned' },
+    { email: user.email, accountId: user.id, role: 'viewer', status: 'active' },
+  ]);
+  expect(
+    await runOperator([
+      'inspect',
+      '--region',
+      'us-east-2',
+      '--users-table',
+      users,
+      '--whitelist-table',
+      whitelist,
+      '--email',
+      user.email,
+    ]),
+  ).toMatchObject({
+    role: 'viewer',
+    accountRole: 'admin',
+    whitelistRole: 'viewer',
+    status: 'active',
+  });
+});
+
+it('rejects certain provisioning failures before creating a credential file', async () => {
+  const { user } = await seed('existing@example.test');
+  const directory = await mkdtemp(join(tmpdir(), 'operator-preflight-'));
+  directories.push(directory);
+  for (const command of ['create', 'bootstrap']) {
+    const output = join(directory, command + '.credentials.json');
+    const args = [
+      command,
+      '--region',
+      'us-east-2',
+      '--users-table',
+      users,
+      '--whitelist-table',
+      whitelist,
+      '--email',
+      user.email,
+      '--output',
+      output,
+    ];
+    if (command === 'create') args.push('--role', 'viewer');
+    await expect(runOperator(args)).rejects.toMatchObject({
+      code: command === 'create' ? 'exists' : 'bootstrap-complete',
+    });
+    await expect(stat(output)).rejects.toMatchObject({ code: 'ENOENT' });
+  }
+  expect(await store.listAccounts()).toHaveLength(1);
+  const protectedFile = join(directory, 'protected.credentials.json');
+  await writeFile(protectedFile, 'preserved', { mode: 0o600 });
+  await expect(
+    runOperator([
+      'create',
+      '--region',
+      'us-east-2',
+      '--users-table',
+      users,
+      '--whitelist-table',
+      whitelist,
+      '--email',
+      'new@example.test',
+      '--role',
+      'viewer',
+      '--output',
+      protectedFile,
+    ]),
+  ).rejects.toMatchObject({ code: 'EEXIST' });
+  expect(await readFile(protectedFile, 'utf8')).toBe('preserved');
+  expect(await store.getUserByEmail('new@example.test')).toBeNull();
+});
+
+it('enables legacy sign-in by migrating links without changing the existing password or ID', async () => {
+  const legacy = {
+    id: 'legacy-login',
+    email: 'legacy-login@example.test',
+    password: 'preserved-hash',
+    createdAt: '',
+    updatedAt: '',
+    role: 'viewer',
+  };
+  await db().send(new PutCommand({ TableName: users, Item: legacy }));
+  await db().send(
+    new PutCommand({
+      TableName: whitelist,
+      Item: { email: legacy.email, isActive: true, role: 'admin', addedAt: 1754006400000 },
+    }),
+  );
+  expect((await store.getCredentialSnapshot(legacy.email)).user).toBeNull();
+  expect(await store.listAccountSummaries()).toEqual([
+    { email: legacy.email, accountId: legacy.id, role: null, status: 'migration-required' },
+  ]);
+  await store.migrateAccountLinks(true);
+  expect((await store.getCredentialSnapshot(legacy.email)).user).toMatchObject(legacy);
+  expect((await store.listAccountSummaries())[0]).toMatchObject({
+    role: 'viewer',
+    status: 'active',
+  });
+});
+
+it('uses the store clock for access changes', async () => {
+  const { user } = await seed('clock@example.test');
+  const timed = createAccountStore(
+    db(),
+    { region: 'us-east-2', usersTable: users, whitelistTable: whitelist },
+    { now: () => Date.parse('2030-01-01T00:00:00.000Z') },
+  );
+  await timed.setAccountAccess(user, 'user', false);
+  expect(await timed.getUserById(user.id)).toMatchObject({
+    updatedAt: '2030-01-01T00:00:00.000Z',
+    authVersion: 2,
+  });
 });

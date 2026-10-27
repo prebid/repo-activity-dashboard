@@ -22,17 +22,17 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import {
-  whitelistResponseSchema,
+  accountListResponseSchema,
   createdAccountResponseSchema,
   resetCredentialResponseSchema,
   accountRoles,
-  type WhitelistRecord,
+  type AccountSummary,
   type IssuedCredential,
 } from '@/models/accounts';
 import { readJsonResponse } from '@/lib/presentation/http';
 import { TemporaryCredentialDialog } from './temporary-credential-dialog';
 export default function AdminUsersView() {
-  const [users, setUsers] = useState<WhitelistRecord[]>([]),
+  const [users, setUsers] = useState<AccountSummary[]>([]),
     [loading, setLoading] = useState(true),
     [loadError, setLoadError] = useState('');
   const [creating, setCreating] = useState(false),
@@ -60,7 +60,7 @@ export default function AdminUsersView() {
       });
       const result = await readJsonResponse(
         response,
-        whitelistResponseSchema,
+        accountListResponseSchema,
         'Failed to load accounts',
       );
       if (!controller.signal.aborted) setUsers(result.users);
@@ -224,7 +224,7 @@ export default function AdminUsersView() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
+                    <TableHead>Effective role</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Action</TableHead>
                   </TableRow>
@@ -233,17 +233,24 @@ export default function AdminUsersView() {
                   {users.map((user) => (
                     <TableRow key={user.email}>
                       <TableCell className="break-all">{user.email}</TableCell>
-                      <TableCell>{user.role}</TableCell>
+                      <TableCell>{user.role ?? '—'}</TableCell>
                       <TableCell>
-                        <Badge variant={user.isActive ? 'default' : 'secondary'}>
-                          {user.isActive ? 'Active' : 'Inactive'}
+                        <Badge variant={user.status === 'active' ? 'default' : 'secondary'}>
+                          {
+                            {
+                              active: 'Active',
+                              inactive: 'Inactive',
+                              unprovisioned: 'No account',
+                              'migration-required': 'Migration required',
+                            }[user.status]
+                          }
                         </Badge>
                       </TableCell>
                       <TableCell>
                         <Button
                           type="button"
                           variant="outline"
-                          disabled={creating || Boolean(resetting) || !user.isActive}
+                          disabled={creating || Boolean(resetting) || user.status !== 'active'}
                           aria-label={'Reissue password for ' + user.email}
                           onClick={(event) => void reissue(user.email, event.currentTarget)}
                         >

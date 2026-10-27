@@ -7,7 +7,7 @@ import { previewAccounts, isPreviewBuild } from '@/lib/presentation/preview';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 import { readVerifiedSession, type VerifiedSession } from './session-transport';
 import { currentIdentity } from './session-policy';
-import { getAccountSnapshot } from './users';
+import { getServerAccountStore } from './server-account-store';
 import { readWithConflictRetry } from './account-reader';
 import { AuthStateError } from './auth-errors';
 import { AccountDataError } from './account-errors';
@@ -40,7 +40,7 @@ export async function resolveViewer(session: VerifiedSession | null): Promise<Vi
   }
   try {
     const snapshot = await readWithConflictRetry((signal) =>
-      getAccountSnapshot(session.user.id, session.user.email, signal),
+      getServerAccountStore().getAccountSnapshot(session.user.id, session.user.email, signal),
     );
     const user = currentIdentity(session.user, snapshot);
     return user ? { kind: 'authenticated', user } : { kind: 'anonymous' };

@@ -31,14 +31,16 @@ vi.mock('@/lib/auth/viewer', () => ({
     return session ? { kind: 'authenticated', user: session.user } : { kind: 'anonymous' };
   },
 }));
-vi.mock('@/lib/auth/users', () => ({
-  getUserByEmail: mocks.find,
-  adminCreateUser: mocks.create,
-  adminResetPassword: mocks.reset,
-  getUserById: mocks.getById,
-  updateUserPassword: mocks.update,
+vi.mock('@/lib/auth/server-account-store', () => ({
+  getServerAccountStore: () => ({
+    getUserByEmail: mocks.find,
+    adminCreateUser: mocks.create,
+    listAccountSummaries: mocks.list,
+    adminResetPassword: mocks.reset,
+    getUserById: mocks.getById,
+    changeOwnPassword: mocks.update,
+  }),
 }));
-vi.mock('@/lib/auth/whitelist', () => ({ getAllWhitelistedEmails: mocks.list }));
 vi.mock('@/lib/auth/passwords', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/auth/passwords')>()),
   verifyPassword: mocks.verify,
@@ -158,12 +160,10 @@ it('allows forced-password sessions to change only their own verified password',
   mocks.verify.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
   expect((await POST(request(body))).status).toBe(200);
   expect(mocks.getById).toHaveBeenCalledWith(admin.id);
-  expect(mocks.update).toHaveBeenCalledWith(
-    { ...admin, password: 'old-hash' },
-    'new-hash',
-    { kind: 'session', ...admin, mustChangePassword: true },
-    false,
-  );
+  expect(mocks.update).toHaveBeenCalledWith({ ...admin, password: 'old-hash' }, 'new-hash', {
+    ...admin,
+    mustChangePassword: true,
+  });
 });
 it('does not clear the password-change requirement by reusing the existing password', async () => {
   mocks.auth.mockResolvedValue({ user: { ...admin, mustChangePassword: true } });
