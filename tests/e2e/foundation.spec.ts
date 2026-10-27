@@ -158,6 +158,7 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
 }, testInfo) => {
   await login(page);
   await page.goto('/foundation');
+  await expect(page.locator('html')).toHaveClass(/dark/);
   const specimen = page.getByTestId('style-specimen');
   await expect(specimen).toHaveCSS('padding-top', '16px');
   await expect(specimen).toHaveCSS('gap', '8px');
@@ -192,6 +193,9 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await expect
     .poll(() => page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor))
     .not.toBe(before);
+  expect(await page.evaluate(() => localStorage.getItem('dashboard-theme'))).toBe('light');
+  await page.reload();
+  await expect(page.locator('html')).toHaveClass(/light/);
   const button = page.getByRole('button', { name: 'Example action' });
   expect(await focusContrast()).toBeGreaterThanOrEqual(3);
   // macOS WebKit uses Option+Tab to include buttons in keyboard traversal.

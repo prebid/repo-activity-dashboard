@@ -52,11 +52,13 @@ Coverage includes all application TS/TSX, excluding declarations. Thresholds are
 
 Required suites must select tests and report no failures/skips. Full test commands clear prior reports and enforce individual outcomes/counts with `scripts/check-test-results.mjs`; focused-only suites are prohibited by runner configuration. Browser assertions cover actual values, URL behavior, keyboard/theme/style behavior, export bytes, and preview restrictions; screenshots are inspection artifacts, not approved design baselines. Offline storage tests do not claim a live service integration. Same-author verification does not replace independent review.
 
-New-password rules are shared between forms and server validation, including the 72-byte bcrypt limit. Existing credential verification is retained; this does not migrate previously truncated passwords. CSV prefix escaping covers the recorded string cases but is not a guarantee across every spreadsheet importer or re-save operation.
+New-password rules are shared between forms and server validation: at least six Unicode code points, no character-class requirements, and the 72-byte bcrypt limit. This preserves the current login policy. Existing credential verification is retained; this does not migrate previously truncated passwords. CSV prefix escaping covers the recorded string cases but is not a guarantee across every spreadsheet importer or re-save operation.
+
+The root theme provider preserves the current site's Dark default and `dashboard-theme` saved preference. Branded authentication layouts are a separate design follow-up; the foundation keeps functional placeholders. The legacy live-report views, private report bundle, preparation scripts and verification workflow are retired along with the original reporting layer.
 
 ## Deployment acceptance
 
-Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the maintenance window and ordered cutover in [account operations](account-operations.md). Local and CI verification do not certify environment acceptance.
+This sample-backed foundation alone is not the production reporting cutover. Keep the current dashboard serving until replacement reports and data are ready, and control Amplify automatic builds before merging into a production-tracked branch. Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the maintenance window and ordered cutover in [account operations](account-operations.md). Local and CI verification do not certify environment acceptance.
 
 ## What visually locked means
 

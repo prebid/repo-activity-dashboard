@@ -92,7 +92,7 @@ Create/reset operations use the same prepared credential in the file and transac
 
 ## Ordered deployment and rollback
 
-For the transition from the legacy dashboard, use this controlled cutover procedure. Confirm the actual production branch settings; a repository webhook alone does not establish its auto-build behavior.
+For the transition from the legacy dashboard, use this controlled cutover procedure. Keep the existing dashboard serving until replacement reports and data are ready; deploying the sample-backed foundation alone would replace live reports with samples. Confirm the actual production branch settings before any merge to a production-tracked branch; a repository webhook alone does not establish its auto-build behavior.
 
 1. Identify the actual Amplify app, production branch, auto-build/preview settings and last deployed revision. Pause automatic production builds before merging if a merge would start deployment. Do not grant public PR previews the production compute role.
 2. Prepare recovery: confirm an authorized operator can target the account tables, preserve a recoverable table backup and the prior deployable artifact/configuration, and record the existing key/role dependencies. Do not retire old credentials yet.

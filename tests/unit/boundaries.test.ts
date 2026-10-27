@@ -49,6 +49,15 @@ describe('module boundary check', () => {
     rmSync(join(root, 'src/components/widgets/example.tsx'));
     expect(inspectBoundaries(root).failures).toContain('No source files selected');
   });
+  it.each(['report-data', 'src/features/current-reports', 'src/app/api/report-data'])(
+    'rejects reintroducing the live-only reporting path %s',
+    (name) => {
+      const root = fixture('export const value = 1;');
+      mkdirSync(join(root, name), { recursive: true });
+      writeFileSync(join(root, name, 'data.json'), '{}');
+      expect(inspectBoundaries(root).failures).toEqual(['Retired reporting path remains: ' + name]);
+    },
+  );
   it('rejects the known retired raw-data endpoint', () => {
     expect(inspectBoundaries(fixture("fetch('/store/repos.json')")).failures).toEqual([
       'src/components/widgets/example.tsx: raw store request',

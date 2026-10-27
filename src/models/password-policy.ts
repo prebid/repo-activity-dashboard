@@ -1,27 +1,13 @@
 // Keep the same new-password policy in both forms and server validation.
+export const minimumPasswordLength = 6;
 export function fitsPasswordByteLimit(password: string): boolean {
   return new TextEncoder().encode(password).length <= 72;
 }
 export const passwordRequirements = [
   {
-    test: (password: string) => password.length >= 8,
-    text: 'At least 8 characters',
-    error: 'Password must be at least 8 characters',
-  },
-  {
-    test: (password: string) => /[A-Z]/.test(password),
-    text: 'One uppercase letter',
-    error: 'Password must contain at least one uppercase letter',
-  },
-  {
-    test: (password: string) => /[a-z]/.test(password),
-    text: 'One lowercase letter',
-    error: 'Password must contain at least one lowercase letter',
-  },
-  {
-    test: (password: string) => /[0-9]/.test(password),
-    text: 'One number',
-    error: 'Password must contain at least one number',
+    test: (password: string) => Array.from(password).length >= minimumPasswordLength,
+    text: `At least ${minimumPasswordLength} characters`,
+    error: `Password must be at least ${minimumPasswordLength} characters`,
   },
   {
     test: fitsPasswordByteLimit,
