@@ -23,7 +23,15 @@ jobs:
           distribution: temurin
           java-version: '21'
           overwrite-settings: false
-      - run: npx playwright install --with-deps chromium webkit
+      - name: Install browser dependencies
+        run: |
+          # The Azure mirror has repeatedly stalled these Ubuntu 24.04 runners.
+          for source in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
+            if [ -f "$source" ]; then
+              sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$source"
+            fi
+          done
+          npx playwright install --with-deps chromium webkit
       - run: npm run check:all
       - name: Capture intermittent hydration failure
         if: always()
