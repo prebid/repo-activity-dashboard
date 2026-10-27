@@ -50,6 +50,49 @@ export default async function setup() {
   const port = address.port;
   await new Promise<void>((resolve) => reservation.close(() => resolve()));
   let output = "";
+  const startupErrors = new Map<ReturnType<typeof spawn>, Error>();
+  async function waitUntilReady(
+    child: ReturnType<typeof spawn>,
+    name: string,
+    check: (signal: AbortSignal) => Promise<unknown>,
+  ) {
+    const deadline = Date.now() + 60_000;
+    let lastError: unknown;
+    while (Date.now() < deadline) {
+      if (
+        startupErrors.has(child) ||
+        child.exitCode !== null ||
+        child.signalCode !== null
+      )
+        throw new Error(
+          name +
+            " exited before readiness: " +
+            String(
+              startupErrors.get(child) ?? child.exitCode ?? child.signalCode,
+            ) +
+            "\n" +
+            output,
+        );
+      try {
+        await check(
+          AbortSignal.timeout(
+            Math.max(1, Math.min(1000, deadline - Date.now())),
+          ),
+        );
+        return;
+      } catch (error) {
+        lastError = error;
+      }
+      await delay(250);
+    }
+    throw new Error(
+      name +
+        " did not become ready within 60 seconds: " +
+        String(lastError) +
+        "\n" +
+        output,
+    );
+  }
   const db = spawn(
     "java",
     [
@@ -67,7 +110,11 @@ export default async function setup() {
   db.stderr.on("data", (chunk) => {
     output += String(chunk);
   });
+  db.stdout.on("data", (chunk) => {
+    output += String(chunk);
+  });
   db.on("error", (error) => {
+    startupErrors.set(db, error);
     output += String(error);
   });
   const client = new DynamoDBClient({
@@ -91,17 +138,9 @@ export default async function setup() {
     client.destroy();
   };
   try {
-    let ready = false;
-    for (let i = 0; i < 100; i++) {
-      try {
-        await client.send(new ListTablesCommand({}));
-        ready = true;
-        break;
-      } catch {
-        await delay(100);
-      }
-    }
-    if (!ready) throw new Error("Local database did not start: " + output);
+    await waitUntilReady(db, "DynamoDB Local", (signal) =>
+      client.send(new ListTablesCommand({}), { abortSignal: signal }),
+    );
     for (const [table, key] of [
       ["local-users", "id"],
       ["local-whitelist", "email"],
@@ -175,17 +214,15 @@ export default async function setup() {
     app.stderr?.on("data", (chunk) => {
       output += String(chunk);
     });
-    let served = false;
-    for (let i = 0; i < 100; i++) {
-      try {
-        if ((await fetch("http://localhost:3300/api/health")).ok) {
-          served = true;
-          break;
-        }
-      } catch {}
-      await delay(100);
-    }
-    if (!served) throw new Error("Local app did not start: " + output);
+    app.on("error", (error) => {
+      startupErrors.set(app!, error);
+    });
+    await waitUntilReady(app, "Local app", async (signal) => {
+      const response = await fetch("http://localhost:3300/api/health", {
+        signal,
+      });
+      if (!response.ok) throw new Error("Health response " + response.status);
+    });
     return cleanup;
   } catch (error) {
     await cleanup();
