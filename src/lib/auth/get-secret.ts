@@ -5,7 +5,7 @@ import { getRuntimeSettings } from './runtime-settings';
 import { makeSecretLoader, validateAuthSecret, previewSecret } from './secret-policy';
 import { awsClientPolicy } from '@/lib/aws/client-policy';
 const clients = new Map<string, SecretsManagerClient>();
-const managedSecret = makeSecretLoader(async (arn) => {
+const managedSecret = makeSecretLoader(async (arn, signal) => {
   const region = arn.split(':')[3];
   let client = clients.get(region);
   if (!client) {
@@ -15,7 +15,9 @@ const managedSecret = makeSecretLoader(async (arn) => {
     });
     clients.set(region, client);
   }
-  const result = await client.send(new GetSecretValueCommand({ SecretId: arn }));
+  const result = await client.send(new GetSecretValueCommand({ SecretId: arn }), {
+    abortSignal: signal,
+  });
   return result.SecretString;
 });
 export async function getSecret(): Promise<string> {
