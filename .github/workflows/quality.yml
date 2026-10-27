@@ -25,7 +25,7 @@ jobs:
           overwrite-settings: false
       - name: Install browser dependencies
         run: |
-          # The Azure mirror has repeatedly stalled these Ubuntu 24.04 runners.
+          # The Azure mirror has repeatedly delayed browser setup on these runners.
           for source in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
             if [ -f "$source" ]; then
               sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$source"
@@ -33,9 +33,6 @@ jobs:
           done
           npx playwright install --with-deps chromium webkit
       - run: npm run check:all
-      - name: Capture intermittent hydration failure
-        if: always()
-        run: CAPTURE_HYDRATION=1 npx playwright test tests/e2e/foundation.spec.ts --project chromium --grep 'style tokens' --reporter=list --output=test-results/hydration-repeats
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
