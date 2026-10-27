@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import AuthLayout from '../src/app/auth/layout';
+import AuthErrorPage from '../src/app/auth/error/page';
 import { LoginView } from '../src/features/authentication/login-view';
 import { ChangePasswordView } from '../src/features/authentication/change-password-view';
 
@@ -29,3 +30,5 @@ export const TemporaryPassword: Story = {
 export const ChangePassword: Story = {
   render: () => <ChangePasswordView email="person@example.test" mustChangePassword={false} />,
 };
+
+export const SignInError: Story = { render: () => <AuthErrorPage /> };

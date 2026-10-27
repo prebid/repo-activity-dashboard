@@ -130,6 +130,16 @@ test('authentication feedback remains readable in both themes', async ({ page })
     await expect(page.getByRole('status')).toContainText('Password changed.');
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
     await page.goto(
+      `http://127.0.0.1:6007/iframe.html?id=authentication-pages--sign-in-error&viewMode=story&globals=theme:${theme}`,
+    );
+    await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+    await expect(page.getByRole('heading', { name: 'Unable to sign in' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Return to sign in' })).toHaveAttribute(
+      'href',
+      '/auth/login',
+    );
+    expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+    await page.goto(
       `http://127.0.0.1:6007/iframe.html?id=authentication-pages--temporary-password&viewMode=story&globals=theme:${theme}`,
     );
     await expect(page.locator('html')).toHaveClass(new RegExp(theme));
