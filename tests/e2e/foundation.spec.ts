@@ -189,7 +189,9 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
     });
   }
   expect(await focusContrast()).toBeGreaterThanOrEqual(3);
-  await page.getByRole('button', { name: 'Toggle theme' }).click();
+  await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+  await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
+  await expect(page.getByRole('menu')).toHaveCount(0);
   await expect
     .poll(() => page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor))
     .not.toBe(before);

@@ -6,7 +6,7 @@ Settle layouts and interactions across the pages with prepared sample data befor
 
 | Area | Definition | First frontend scope |
 | --- | --- | --- |
-| Login | [Login](login.md) | Existing sign-in approach; normal login returns to All Repos, explicit links return to their original context. |
+| Login | [Login](login.md) | Centered Prebid sign-in and password setup, shared Light/Dark/System controls, and preserved return context. |
 | Repository summary | [All Repos](all-repositories.md) | Current backlog and period tables, repository selection, sorting, saved preferences, and filtered navigation. |
 | Individual repository | [Repository page](repository-detail.md) | Metadata-only PR/issue lists, 100-row pagination, repository graphs, and links to actual GitHub records. |
 | Contributors, companies, groups | [Contributions](contributors.md) | Tables, focused reports with repository rows, inclusion/exclusion, configured group membership, and full filtered exports. |

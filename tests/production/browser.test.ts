@@ -4,8 +4,16 @@ import { chromium, webkit, type Page } from '@playwright/test';
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { startProductionApp } from '../support/production-app';
 import { observeBrowserErrors } from '../support/browser-errors';
-async function signIn(page: Page, origin: string, email: string, password: string) {
-  await page.goto(origin + '/auth/login');
+async function signIn(
+  page: Page,
+  origin: string,
+  email: string,
+  password: string,
+  callbackUrl?: string,
+) {
+  await page.goto(
+    origin + '/auth/login' + (callbackUrl ? '?callbackUrl=' + encodeURIComponent(callbackUrl) : ''),
+  );
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -70,12 +78,13 @@ it.each(['chromium', 'webkit'] as const)(
       const person = await browser.newContext();
       const form = await person.newPage();
       form.on('pageerror', (error) => errors.push(error.message));
-      await signIn(form, fixture.origin, email, oldPassword);
+      await signIn(form, fixture.origin, email, oldPassword, '/repos?search=prebid');
       await form.locator('form [role=alert]').waitFor();
       expect(await form.locator('form [role=alert]').textContent()).toContain('Unable to sign in');
       await form.getByLabel('Password', { exact: true }).fill(password);
       await form.getByRole('button', { name: 'Sign in', exact: true }).click();
-      await form.waitForURL('**/auth/change-password');
+      await form.waitForURL((url) => url.pathname === '/auth/change-password');
+      expect(new URL(form.url()).searchParams.get('callbackUrl')).toBe('/repos?search=prebid');
       await form.getByRole('heading', { name: 'Set Your Password' }).waitFor();
       // Another tab changing identity must not preserve a password typed for the previous account.
       await form.getByLabel('Temporary Password', { exact: true }).fill(password);
@@ -84,11 +93,12 @@ it.each(['chromium', 'webkit'] as const)(
       await signIn(peer, fixture.origin, 'admin@example.test', 'FixtureAdminPassword1!');
       await peer.waitForURL('**/repos');
       await form.bringToFront();
-      await form.getByText('Account: admin@example.test', { exact: true }).waitFor();
+      await form.getByRole('heading', { name: 'Change Password', exact: true }).waitFor();
+      expect(await form.locator('input[name="username"]').inputValue()).toBe('admin@example.test');
       expect(await form.getByLabel('Current Password', { exact: true }).inputValue()).toBe('');
       await peer.close();
-      await signIn(form, fixture.origin, email, password);
-      await form.waitForURL('**/auth/change-password');
+      await signIn(form, fixture.origin, email, password, '/repos?search=prebid');
+      await form.waitForURL((url) => url.pathname === '/auth/change-password');
       await form.getByRole('heading', { name: 'Set Your Password' }).waitFor();
       // Human-paced input exercises navigation after the form has settled, not an immediate fill/submit shortcut.
       await form
@@ -96,12 +106,14 @@ it.each(['chromium', 'webkit'] as const)(
         .pressSequentially(password, { delay: 40 });
       await form
         .getByLabel('New Password', { exact: true })
-        .pressSequentially('ChangedBrowserPassword2!', { delay: 40 });
+        .pressSequentially('simple', { delay: 40 });
       await form
         .getByLabel('Confirm New Password', { exact: true })
-        .pressSequentially('ChangedBrowserPassword2!', { delay: 40 });
-      await form.getByRole('button', { name: 'Change Password', exact: true }).click();
-      await form.waitForURL('**/repos');
+        .pressSequentially('simple', { delay: 40 });
+      await form.getByRole('button', { name: 'Set password and continue', exact: true }).click();
+      await form.waitForURL(
+        (url) => url.pathname === '/repos' && url.searchParams.get('search') === 'prebid',
+      );
       await form.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
       await form.getByRole('link', { name: 'Contributors', exact: true }).click();
       await form.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
@@ -152,15 +164,19 @@ it.each(['chromium', 'webkit'] as const)(
       });
       const page = await browser.newPage();
       const errors = observeBrowserErrors(page);
-      await signIn(page, fixture.origin, email, 'TemporaryRecoveryPassword1!');
-      await page.waitForURL('**/auth/change-password');
+      await signIn(
+        page,
+        fixture.origin,
+        email,
+        'TemporaryRecoveryPassword1!',
+        '/contributors?search=Alice',
+      );
+      await page.waitForURL((url) => url.pathname === '/auth/change-password');
       await page
         .getByLabel('Temporary Password', { exact: true })
         .fill('TemporaryRecoveryPassword1!');
-      await page.getByLabel('New Password', { exact: true }).fill('PermanentRecoveryPassword2!');
-      await page
-        .getByLabel('Confirm New Password', { exact: true })
-        .fill('PermanentRecoveryPassword2!');
+      await page.getByLabel('New Password', { exact: true }).fill('return');
+      await page.getByLabel('Confirm New Password', { exact: true }).fill('return');
       // Let the actual write commit, then fail only the subsequent automatic sign-in transport.
       const callback = (url: URL) => url.pathname === '/api/auth/callback/credentials';
       let blocked = 0;
@@ -171,20 +187,28 @@ it.each(['chromium', 'webkit'] as const)(
       const failedRequest = page.waitForEvent('requestfailed', {
         predicate: (request) => callback(new URL(request.url())),
       });
-      await page.getByRole('button', { name: 'Change Password', exact: true }).click();
+      await page.getByRole('button', { name: 'Set password and continue', exact: true }).click();
       await failedRequest;
       expect(blocked).toBe(1);
-      await page.waitForURL('**/auth/login?passwordChanged=true');
+      await page.waitForURL(
+        (url) =>
+          url.pathname === '/auth/login' && url.searchParams.get('passwordChanged') === 'true',
+      );
+      expect(new URL(page.url()).searchParams.get('callbackUrl')).toBe(
+        '/contributors?search=Alice',
+      );
       await page
         .getByRole('status')
         .filter({ hasText: 'Password changed. Sign in with your new password.' })
         .waitFor();
       await page.unroute(callback);
       await page.getByLabel('Email', { exact: true }).fill(email);
-      await page.getByLabel('Password', { exact: true }).fill('PermanentRecoveryPassword2!');
+      await page.getByLabel('Password', { exact: true }).fill('return');
       await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-      await page.waitForURL('**/repos');
-      await page.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
+      await page.waitForURL(
+        (url) => url.pathname === '/contributors' && url.searchParams.get('search') === 'Alice',
+      );
+      await page.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
       errors.assertClean();
       errors.dispose();
     } finally {
