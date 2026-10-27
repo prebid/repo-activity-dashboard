@@ -116,7 +116,12 @@ describe('column controls', () => {
     const user = userEvent.setup();
     render(<DataTable title="Columns sample" rows={rows.slice(0, 3)} columns={columns} />);
     await user.click(screen.getByText('Columns'));
-    await user.click(screen.getByRole('checkbox', { name: 'Count' }));
+    await user.click(screen.getByRole('menuitemcheckbox', { name: 'Count' }));
+    expect(screen.getByRole('menuitemcheckbox', { name: 'Title' })).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    );
+    await user.keyboard('{Escape}');
     expect(
       within(screen.getByRole('table')).queryByRole('columnheader', { name: 'Count' }),
     ).not.toBeInTheDocument();
@@ -125,71 +130,52 @@ describe('column controls', () => {
   });
 });
 
-describe('paged data input for a future adapter', () => {
-  it('keeps the rendered row budget bounded independently of a large remote total', () => {
-    render(
-      <DataTable
-        title="Large remote scope"
-        rows={rows.slice(0, 100)}
-        columns={columns}
-        paging={{
-          totalCount: 1_000_000,
-          query: { search: '', sort: '', descending: false, page: 1 },
-        }}
-      />,
-    );
-    expect(screen.getByText('1,000,000 matching items')).toBeVisible();
-    expect(screen.getByText('Page 1 of 10000')).toBeVisible();
-    expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(101);
+it('renders missing default cells, exports ascending order, and distinguishes an empty search', async () => {
+  const blobs: Blob[] = [];
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:ascending';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  const plain: DataColumn<Row>[] = [
+    { id: 'title', label: 'Title', value: (r) => r.title },
+    { id: 'count', label: 'Count', value: (r) => r.count },
+  ];
+  render(
+    <DataTable
+      title="Defaults"
+      rows={[
+        { id: 'missing', title: 'Missing', count: null },
+        { id: 'two', title: 'Two', count: 2 },
+        { id: 'zero', title: 'Zero', count: 0 },
+      ]}
+      columns={plain}
+      exportName="ascending.csv"
+    />,
+  );
+  expect(screen.getByRole('cell', { name: '—' })).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Count' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string'
+        ? resolve(reader.result)
+        : reject(new Error('Expected text'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
   });
-  it('uses the supplied total and does not filter, re-sort, or page the supplied records again', () => {
-    const onQueryChange = vi.fn();
-    render(
-      <DataTable
-        title="Remote page"
-        initialQuery={{ page: 3, search: 'server-filter', sort: 'count', descending: true }}
-        onQueryChange={onQueryChange}
-        rows={rows.slice(200)}
-        columns={columns}
-        paging={{
-          query: { page: 3, search: 'server-filter', sort: 'count', descending: true },
-          totalCount: 250,
-        }}
-      />,
-    );
-    expect(screen.getByText('250 matching items')).toBeVisible();
-    expect(screen.getByText('Page 3 of 3')).toBeVisible();
-    const rendered = within(screen.getByRole('table')).getAllByRole('row');
-    expect(rendered).toHaveLength(51);
-    expect(rendered[1]).toHaveTextContent('Item 201');
-    fireEvent.change(screen.getByRole('textbox', { name: 'Search Remote page' }), {
-      target: { value: 'new scope' },
-    });
-    expect(onQueryChange).toHaveBeenLastCalledWith({
-      search: 'new scope',
-      sort: 'count',
-      descending: true,
-      page: 1,
-    });
+  expect(csv.split('\r\n')).toEqual(['"Title","Count"', '"Zero","0"', '"Two","2"', '"Missing",']);
+  fireEvent.change(screen.getByRole('textbox', { name: 'Search Defaults' }), {
+    target: { value: 'absent' },
   });
-  it('delegates export for the full scope without passing the page number', () => {
-    const onExport = vi.fn();
-    render(
-      <DataTable
-        title="Remote export"
-        initialQuery={{ page: 3, search: 'scope', sort: '', descending: false }}
-        rows={rows.slice(200)}
-        columns={columns}
-        paging={{
-          query: { page: 3, search: 'scope', sort: '', descending: false },
-          totalCount: 250,
-          onExport,
-        }}
-      />,
-    );
-    fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
-    expect(onExport).toHaveBeenCalledWith({ search: 'scope', sort: '', descending: false });
-  });
+  expect(screen.getByText('No matching items')).toBeVisible();
 });
 
 it('exports the full filtered sort order and handles explicit search submission', async () => {

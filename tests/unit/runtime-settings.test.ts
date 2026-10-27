@@ -8,14 +8,14 @@ import {
   writeRuntimeSettings,
   writeRuntimeFile,
 } from '../../scripts/runtime-settings.mjs';
-import { validateRuntimeSettings } from '@/models/runtime-settings';
+import { validateRuntimeSettings, resolveRuntimeSettings } from '@/models/runtime-settings';
 const read = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
 vi.mock('node:fs', async (original) => ({
   ...(await original<typeof import('node:fs')>()),
   readFileSync: read,
 }));
-import { getRuntimeSettings } from '@/lib/auth/runtime-settings';
+let getRuntimeSettings: (typeof import('@/lib/auth/runtime-settings'))['getRuntimeSettings'];
 const fields = {
   version: 1,
   managed: true,
@@ -26,7 +26,7 @@ const fields = {
   authUrl: 'https://dashboard.example.test',
   secretArn: 'arn:aws:secretsmanager:us-east-2:123456789012:secret:dashboard-key',
 };
-beforeEach(() => {
+beforeEach(async () => {
   read.mockReset();
   vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', undefined);
   for (const key of [
@@ -41,6 +41,8 @@ beforeEach(() => {
     'DASHBOARD_AUTH_SECRET_ARN',
   ])
     vi.stubEnv(key, '');
+  vi.resetModules();
+  ({ getRuntimeSettings } = await import('@/lib/auth/runtime-settings'));
 });
 afterEach(() => vi.unstubAllEnvs());
 it('loads managed server configuration without build-time environment variables', () => {
@@ -57,16 +59,33 @@ it('falls back to the configuration packaged inside the server artifact', () => 
   expect(getRuntimeSettings()).toEqual(fields);
   expect(read.mock.calls[1][0]).toContain('.next/server/dashboard-runtime.json');
 });
-it('honors explicit runtime overrides and refuses malformed configuration files', () => {
+it('captures runtime overrides once per process', () => {
   read.mockReturnValue(JSON.stringify(fields));
   vi.stubEnv('DYNAMODB_USERS_TABLE', 'replacement');
   expect(getRuntimeSettings().usersTable).toBe('replacement');
+  vi.stubEnv('DYNAMODB_USERS_TABLE', 'changed-after-start');
+  read.mockReturnValue('{');
+  expect(getRuntimeSettings().usersTable).toBe('replacement');
+  expect(read).toHaveBeenCalledOnce();
+});
+it('refuses malformed configuration and preserves file-error diagnostics', async () => {
   read.mockReturnValue('{');
   expect(() => getRuntimeSettings()).toThrow('Invalid server runtime configuration');
   read.mockImplementation(() => {
-    throw new Error('permission denied');
+    throw Object.assign(new Error('denied'), { code: 'EACCES' });
   });
   expect(() => getRuntimeSettings()).toThrow('Invalid server runtime configuration');
+  try {
+    getRuntimeSettings();
+  } catch (error) {
+    expect(error).toBeInstanceOf(Error);
+    if (!(error instanceof Error)) throw error;
+    expect(error.cause).toMatchObject({ code: 'EACCES' });
+  }
+  vi.resetModules();
+  const restarted = await import('@/lib/auth/runtime-settings');
+  read.mockReturnValue(JSON.stringify(fields));
+  expect(restarted.getRuntimeSettings()).toEqual(fields);
 });
 it('supports unconfigured local builds but refuses incomplete managed deployments', () => {
   read.mockImplementation(() => {
@@ -123,21 +142,11 @@ it('requires an explicit managed table region and never packages a hosting defau
   read.mockReturnValue(JSON.stringify({ version: 1, managed: false }));
   vi.stubEnv('AWS_REGION', 'eu-west-1');
   expect(getRuntimeSettings().region).toBe('eu-west-1');
-  vi.stubEnv('DYNAMODB_REGION', 'us-west-2');
-  expect(getRuntimeSettings().region).toBe('us-west-2');
-  read.mockImplementation(() => {
-    throw Object.assign(new Error('denied'), { code: 'EACCES' });
-  });
-  let caught: unknown;
-  try {
-    getRuntimeSettings();
-  } catch (error) {
-    caught = error;
-  }
-  expect(caught).toBeInstanceOf(Error);
-  if (!(caught instanceof Error)) throw new Error('Expected configuration failure');
-  expect(caught.cause).toMatchObject({ code: 'EACCES' });
+  expect(
+    resolveRuntimeSettings({ AWS_REGION: 'eu-west-1', DYNAMODB_REGION: 'us-west-2' }).region,
+  ).toBe('us-west-2');
 });
+
 it('makes non-secret packaged files readable even with restrictive umask or existing modes', async () => {
   const root = await mkdtemp(join(tmpdir(), 'runtime-mode-'));
   const previous = process.umask(0o077);
@@ -154,11 +163,14 @@ it('makes non-secret packaged files readable even with restrictive umask or exis
   }
 });
 
-it('validates the lifetime consistently for build and runtime overrides', () => {
+it('validates the lifetime consistently at build and process initialization', async () => {
   expect(() => buildRuntimeSettings({ DASHBOARD_TEMP_PASSWORD_HOURS: '' })).toThrow();
   read.mockReturnValue(JSON.stringify(fields));
   vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', '48');
   expect(getRuntimeSettings().temporaryPasswordHours).toBe(48);
   vi.stubEnv('DASHBOARD_TEMP_PASSWORD_HOURS', '169');
-  expect(() => getRuntimeSettings()).toThrow('configuration');
+  expect(getRuntimeSettings().temporaryPasswordHours).toBe(48);
+  vi.resetModules();
+  const restarted = await import('@/lib/auth/runtime-settings');
+  expect(() => restarted.getRuntimeSettings()).toThrow('configuration');
 });

@@ -1,10 +1,10 @@
 # Product acceptance matrix
 
-Status: planned cases, 2026-10-24. Foundation checks and representative frontend cases now have executable coverage; see [implementation status](quality-foundation-status.md). This matrix also includes future product/data-integration cases and is not a claim that every row has passed. A case becomes passed only when its actual check executes successfully against an identified source snapshot. Future/unimplemented cases are not silently counted as covered.
+This matrix describes product acceptance scenarios, not a record of passed test runs. The foundation has executable checks for representative presentation and interactions; historical calculation and real-data integration cases remain future work. See [current contracts](foundation-contracts.md) for implemented boundaries.
 
-Scenario definitions and numerical answers are in the [test-data plan](test-data-plan.md). Gate/evidence rules are in the [quality foundation](quality-foundation.md).
+Scenario definitions and numerical answers are in the [test-data plan](test-data-plan.md). Gate/evidence rules are in the [quality foundation](foundation-contracts.md).
 
-The [existing-source audit](source-audit-2026-10-24.md) recorded legacy test/build results. Those do not pass the new product cases below. The [architecture blueprint](frontend-architecture.md) adds the implementation responsibilities and visual/component foundation.
+Retired ingestion tests do not establish correctness for the product cases below. The [foundation contracts](foundation-contracts.md) describe current composition, state ownership and verification boundaries.
 
 ## Verification phases
 
@@ -12,7 +12,7 @@ The frontend is first designed and implemented with fixed display samples. At th
 
 Historical first-credit calculation, merge-time reconstruction, generic reporting queries, and real-source/database reconciliation remain planned for the later data layer. Cases below that span both layers need separate frontend and reporting results; showing the expected static number does not pass the calculation case. Mock request checks apply only where a request interface is actually implemented.
 
-Before data integration, complete a user-reviewed visual baseline for all pages and important states as described in the [delivery plan](frontend-plan.md#what-visually-locked-means). Run those visual/interaction checks again when replacing mocks with real adapters.
+Before data integration, complete a user-reviewed visual baseline for all pages and important states as described in the [delivery plan](foundation-contracts.md#what-visually-locked-means). Run those visual/interaction checks again when replacing mocks with real adapters.
 
 ## Foundation and data
 
@@ -40,7 +40,7 @@ Before data integration, complete a user-reviewed visual baseline for all pages 
 | PREF-01 | Preferences belong to the account | Two fixture users | Saved columns/sorting/selections for one account do not silently become the other account's preferences. | Contract/browser |
 | PREF-02 | Explicit links override defaults | Saved current/open defaults plus a historical filtered URL | The explicit URL's scope wins; returning to an unfiltered page restores the specified default behavior. | Browser |
 
-Fixture identity checks exercise application routing/state, not real provider authentication. Actual authentication integration remains separately verified when connected.
+Fixture identities exercise routing and state. The separate packaged-production suite exercises retained authentication against local synthetic account services; live AWS acceptance is a deployment check.
 
 ## Repository pages
 

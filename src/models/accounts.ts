@@ -5,6 +5,9 @@ export const emailSchema = z.string().trim().email().toLowerCase();
 export const accountRoles = ['viewer', 'user', 'admin'] as const;
 export const accountRoleSchema = z.enum(accountRoles);
 export type AccountRole = z.infer<typeof accountRoleSchema>;
+export function effectiveAccountRole(account: AccountRole, access: AccountRole): AccountRole {
+  return accountRoles[Math.min(accountRoles.indexOf(account), accountRoles.indexOf(access))];
+}
 const optionalText = z.preprocess(
   (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
   z.string().trim().min(1).optional(),
@@ -61,7 +64,35 @@ export const whitelistRecordSchema = z.object({
   userId: z.string().min(1).optional(),
 });
 export type WhitelistRecord = z.infer<typeof whitelistRecordSchema>;
-export const whitelistResponseSchema = z.object({ users: z.array(whitelistRecordSchema) });
+export const accountSummarySchema = z.object({
+  email: emailSchema,
+  accountId: z.string().nullable(),
+  role: accountRoleSchema.nullable(),
+  status: z.enum(['active', 'inactive', 'unprovisioned', 'migration-required']),
+});
+export type AccountSummary = z.infer<typeof accountSummarySchema>;
+export const accountListResponseSchema = z.object({ users: z.array(accountSummarySchema) });
+export function summarizeAccount(
+  email: string,
+  user: AccountRecord | null,
+  access: WhitelistRecord | null,
+): AccountSummary {
+  return {
+    email,
+    accountId: user?.id ?? null,
+    role:
+      user && access?.isActive && access.userId === user.id
+        ? effectiveAccountRole(user.role, access.role)
+        : null,
+    status: !user
+      ? 'unprovisioned'
+      : !access?.isActive
+        ? 'inactive'
+        : access.userId !== user.id
+          ? 'migration-required'
+          : 'active',
+  };
+}
 export const createdAccountResponseSchema = z.object({
   message: z.string(),
   userId: z.string(),

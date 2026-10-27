@@ -1,6 +1,6 @@
 import 'server-only';
 import { NextRequest } from 'next/server';
-import { accountJson } from './account-response';
+import { accountJson, authFailureResponse } from './account-response';
 import { rawHandlers } from './auth';
 import { parseVerifiedSession } from './session-transport';
 import { resolveViewer, failedViewer } from './viewer';
@@ -36,25 +36,21 @@ async function handle(request: NextRequest) {
     // Withhold the library's prepared renewal on denial/outage. The incoming cookie is unchanged.
     headers.delete('set-cookie');
     if (viewer.kind === 'anonymous') return accountJson(null, { headers });
-    return accountJson(
-      {
-        error:
-          viewer.kind === 'unavailable'
-            ? 'Authentication is temporarily unavailable. Please try again.'
-            : 'Authentication requires operator attention.',
-      },
-      { status: viewer.kind === 'unavailable' ? 503 : 500, headers },
-    );
+    return authFailureResponse(viewer.kind, { headers });
   } catch (error) {
     if (error instanceof RequestBodyError)
       return accountJson({ error: error.message }, { status: error.status });
     const decision = failedViewer(error);
-    return accountJson(
-      { error: 'Authentication is temporarily unavailable. Please try again.' },
-      {
-        status: decision.kind === 'unavailable' ? 503 : 500,
-      },
-    );
+    if (request.method === 'GET' && new URL(request.url).pathname === '/api/auth/error')
+      // A fixed relative destination also works when configuration cannot supply an origin.
+      return new Response(null, {
+        status: 303,
+        headers: {
+          location: '/auth/error?error=Configuration',
+          'cache-control': 'private, no-store',
+        },
+      });
+    return authFailureResponse(decision.kind);
   }
 }
 export const handlers = { GET: handle, POST: handle };

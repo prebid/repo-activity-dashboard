@@ -2,7 +2,7 @@ name: Frontend quality
 on:
   pull_request:
   push:
-    branches: [main, 'codex/**']
+    branches: [main]
 permissions:
   contents: read
 jobs:
@@ -23,7 +23,15 @@ jobs:
           distribution: temurin
           java-version: '21'
           overwrite-settings: false
-      - run: npx playwright install --with-deps chromium webkit
+      - name: Install browser dependencies
+        run: |
+          # The Azure mirror has repeatedly delayed browser setup on these runners.
+          for source in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
+            if [ -f "$source" ]; then
+              sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$source"
+            fi
+          done
+          npx playwright install --with-deps chromium webkit
       - run: npm run check:all
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()

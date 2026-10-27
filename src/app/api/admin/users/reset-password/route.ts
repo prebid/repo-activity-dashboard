@@ -1,4 +1,4 @@
-import { adminResetPassword } from '@/lib/auth/users';
+import { getServerAccountStore } from '@/lib/auth/server-account-store';
 import { requireAccountMutationAccess } from '@/lib/auth/api-access';
 import { readRequestBody } from '@/lib/auth/request-body';
 import { resetAccountSchema } from '@/models/accounts';
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     if (!access.ok) return access.response;
     const body = await readRequestBody(request, resetAccountSchema);
     if (!body.ok) return body.response;
-    const credential = await adminResetPassword(body.data.email, {
+    const credential = await getServerAccountStore().adminResetPassword(body.data.email, {
       kind: 'session',
       ...access.user,
     });

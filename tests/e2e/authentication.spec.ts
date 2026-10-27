@@ -1,5 +1,24 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
+import type { Page } from '@playwright/test';
+
+async function passwordGeometry(page: Page, label: string, visibilityLabel: string) {
+  const input = page.getByLabel(label, { exact: true });
+  const toggle = page.getByRole('button', { name: 'Show ' + visibilityLabel, exact: true });
+  const field = await input.boundingBox();
+  const button = await toggle.boundingBox();
+  if (!field || !button) throw new Error('Missing visible password control');
+  expect(button.x).toBeGreaterThan(field.x);
+  expect(button.x + button.width).toBeLessThanOrEqual(field.x + field.width);
+  expect(button.y).toBeGreaterThanOrEqual(field.y);
+  expect(button.y + button.height).toBeLessThanOrEqual(field.y + field.height);
+  const padding = await input.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { left: parseFloat(style.paddingLeft), right: parseFloat(style.paddingRight) };
+  });
+  expect(padding.left).toBeGreaterThanOrEqual(12);
+  expect(padding.right).toBeGreaterThanOrEqual(button.width + 4);
+}
 
 test('centered sign-in supports small screens, keyboard controls and onboarding help', async ({
   page,
@@ -19,6 +38,7 @@ test('centered sign-in supports small screens, keyboard controls and onboarding 
         width,
       );
       expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+      await passwordGeometry(page, 'Password', 'password');
       await page.screenshot({
         path: testInfo.outputPath(`sign-in-${theme}-${width}.png`),
         fullPage: true,
@@ -58,6 +78,9 @@ test('password setup is responsive with a simple length hint and distinct update
         width,
       );
       expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+      await passwordGeometry(page, 'Temporary Password', 'temporary password');
+      await passwordGeometry(page, 'New Password', 'new password');
+      await passwordGeometry(page, 'Confirm New Password', 'confirmed password');
       await page.screenshot({
         path: testInfo.outputPath(`set-password-${theme}-${width}.png`),
         fullPage: true,

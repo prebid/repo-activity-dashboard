@@ -1,6 +1,6 @@
 # Login landing page — product definition
 
-Status: page purpose, post-login navigation, and retention of the existing authentication approach agreed on 2026-10-24. This document defines behavior; it does not implement authentication.
+This document records the approved login design and behavior for the frontend rebuild.
 
 ## Purpose
 
@@ -27,7 +27,7 @@ A failed sign-in stays on the login page with an appropriate error and retains t
 
 ## Login and password-setup design
 
-On 2026-10-26, the selected direction was a polished, centered sign-in card with Prebid branding and an inviting, restrained layout. The implementation is isolated on `codex/login-landing`, based on PR #2's foundation at `6daf178de6c0c0da76aaa9dc5abf3fbcbe32db86`.
+The selected direction is a polished, centered sign-in card with Prebid branding and an inviting, restrained layout. The rebuild preserves the live login design on the upgraded foundation.
 
 The login and password forms share the logo, card, typography, field styling, and primary action. The logo has no subtitle, and the sign-in card starts directly with “Sign in,” without a separate product label. Password visibility controls support keyboard use. First-time guidance explains signing in with an administrator-issued temporary password and choosing a new one before entering the dashboard. Access and recovery remain administrator-managed; the page does not introduce self-registration or an email-reset service.
 
@@ -37,9 +37,9 @@ Storybook's Authentication / Pages group provides sign-in, password-change confi
 
 ## Appearance
 
-The 2026-10-26 follow-up includes light and dark authentication designs and one shared System / Light / Dark menu. Keep this work with the login follow-up rather than changing PR #2 during review.
+Authentication and dashboard layouts share one System / Light / Dark menu. Dark is the default, matching the live-site refinement.
 
-- The existing root `ThemeProvider` owns theme detection and persistence. System is the default and follows the browser's reported color preference, including changes while the page is open. Explicit Light or Dark choices override that preference until System is selected again.
+- The existing root `ThemeProvider` owns theme detection and persistence. The existing `dashboard-theme` preference is preserved. An explicit System choice follows the browser's reported color preference, including changes while the page is open. Explicit Light or Dark choices override that preference until System is selected again.
 - `ThemeMenu` is a shared layout component, used by the authentication layout and dashboard toolbar. Forms do not manage theme state. The preference is browser-local and remains consistent across navigation, reloads, and same-origin tabs; it is not an account setting synchronized across devices.
 - Authentication colors are semantic variables scoped to its surface, with light and dark values selected by the provider's root class. Dashboard components retain their existing theme tokens. Storybook uses the same provider and offers all three choices.
 - The menu waits for client mounting before exposing the saved selection, preserving a stable server render. The provider retains responsibility for applying the initial theme before hydration.
@@ -54,3 +54,7 @@ Carry forward the Prebid branding, restrained blue/slate surfaces, orange primar
 - `ThemeMenu` and the existing root provider remain the single theme-control path across layouts. New controls must not introduce their own storage or media-query listeners.
 - Required password setup and recovery after a confirmed password change preserve a sanitized return destination. Server authorization is still enforced at that destination.
 - Sign-in requires JavaScript. Native forms use POST so a missing script cannot serialize credentials into the URL; the no-script view explains how to continue. Disposed forms ignore late completions, but an already-sent Auth.js request cannot be cancelled or its cookie effects undone by the view.
+
+## Delivery boundary
+
+Login and subsequent page work integrate through `codex/frontend-rebuild`. Production `main` continues serving the existing dashboard until the replacement is ready for a separate cutover. Reporting remains synthetic during frontend development; retain the foundation account, recovery, and deployment contracts.

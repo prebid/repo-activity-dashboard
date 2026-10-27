@@ -4,7 +4,7 @@ import { AccountDataError } from './account-errors';
 import {
   accountRecordSchema,
   whitelistRecordSchema,
-  accountRoles,
+  effectiveAccountRole,
   type AuthenticatedUser,
 } from '@/models/accounts';
 export const sessionClaimsSchema = z.object({
@@ -57,13 +57,12 @@ export function currentIdentity(
     (access.userId && access.userId !== user.id)
   )
     return null;
-  const rank = Math.min(accountRoles.indexOf(user.role), accountRoles.indexOf(access.role));
   return {
     id: user.id,
     email: user.email,
     name: user.name,
     company: user.company,
-    role: accountRoles[rank],
+    role: effectiveAccountRole(user.role, access.role),
     mustChangePassword: user.mustChangePassword,
     authVersion: user.authVersion,
   };

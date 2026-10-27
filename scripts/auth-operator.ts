@@ -4,7 +4,7 @@ import { open, constants } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
-import { accountRoleSchema, emailSchema } from '../src/models/accounts';
+import { accountRoleSchema, emailSchema, summarizeAccount } from '../src/models/accounts';
 import {
   accountTargetSchema,
   accountRegionSchema,
@@ -17,6 +17,7 @@ import {
   AccountDataError,
   MigrationInterruptedError,
 } from '../src/lib/auth/account-errors';
+import { safeErrorCode } from '../src/lib/auth/diagnostics';
 
 const common = {
   region: accountRegionSchema,
@@ -114,11 +115,15 @@ async function executeOperator(
     const user = await store.getUserByEmail(command.email);
     if (!user) throw new AccountError('not-found');
     const access = await store.getWhitelistEntry(user.email);
+    const summary = summarizeAccount(user.email, user, access);
     return {
       accountId: user.id,
       email: user.email,
-      role: user.role,
-      active: access?.isActive === true,
+      role: summary.role,
+      accountRole: user.role,
+      whitelistRole: access?.role ?? null,
+      status: summary.status,
+      active: summary.status === 'active',
       authVersion: user.authVersion,
       mustChangePassword: user.mustChangePassword === true,
       temporaryPasswordExpiresAt: user.temporaryPasswordExpiresAt,
@@ -149,18 +154,19 @@ async function executeOperator(
     { email: command.email, role: command.command === 'bootstrap' ? 'admin' : command.role },
     'operator',
   );
-  await writeCredentialFile(command.output, {
-    operation: command.command,
-    accountId: prepared.user.id,
-    email: prepared.user.email,
-    temporaryPassword: prepared.tempPassword,
-    expiresAt: prepared.expiresAt,
-    target,
-  });
   await store.createPreparedAccount(
     prepared,
     { kind: 'operator' },
     command.command === 'bootstrap',
+    () =>
+      writeCredentialFile(command.output, {
+        operation: command.command,
+        accountId: prepared.user.id,
+        email: prepared.user.email,
+        temporaryPassword: prepared.tempPassword,
+        expiresAt: prepared.expiresAt,
+        target,
+      }),
   );
   return { created: true, accountId: prepared.user.id, credentialFile: resolve(command.output) };
 }
@@ -181,10 +187,15 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
                 error: 'Migration interrupted; rerun after resolving the failure.',
                 completed: error.completed,
                 pending: error.pending,
+                code: safeErrorCode(error),
               })
             : error instanceof AccountError
               ? error.message
-              : 'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file; no secret values are logged.',
+              : JSON.stringify({
+                  error:
+                    'Operator command failed. Check arguments, target configuration, permissions, and any retained credential file.',
+                  code: safeErrorCode(error),
+                }),
       );
       process.exitCode = 1;
     }

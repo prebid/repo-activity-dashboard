@@ -3,7 +3,9 @@ import { beforeEach, it, expect, vi, afterEach } from 'vitest';
 const mocks = vi.hoisted(() => ({ read: vi.fn(), snapshot: vi.fn(), headers: vi.fn() }));
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/session-transport', () => ({ readVerifiedSession: mocks.read }));
-vi.mock('@/lib/auth/users', () => ({ getAccountSnapshot: mocks.snapshot }));
+vi.mock('@/lib/auth/server-account-store', () => ({
+  getServerAccountStore: () => ({ getAccountSnapshot: mocks.snapshot }),
+}));
 vi.mock('next/headers', () => ({ headers: mocks.headers }));
 vi.mock('next/navigation', () => ({
   redirect: (path: string) => {
@@ -13,7 +15,7 @@ vi.mock('next/navigation', () => ({
     throw new Error('not-found');
   },
 }));
-import { getViewer, requireViewer, createViewerReader, failedViewer } from '@/lib/auth/viewer';
+import { getViewer, requireViewer, failedViewer } from '@/lib/auth/viewer';
 import { AuthStateError } from '@/lib/auth/auth-errors';
 const user = {
   id: 'u',
@@ -64,15 +66,7 @@ it('preserves a safe login destination and revalidates role/password-change rest
   });
   await expect(requireViewer({ admin: true })).rejects.toThrow('redirect:/repos');
 });
-it('shares work only inside one request reader and never turns outages into login redirects', async () => {
-  const first = createViewerReader(new Headers());
-  expect((await Promise.all([first(), first()])).map((r) => r.kind)).toEqual([
-    'authenticated',
-    'authenticated',
-  ]);
-  expect(mocks.read).toHaveBeenCalledTimes(1);
-  await createViewerReader(new Headers())();
-  expect(mocks.read).toHaveBeenCalledTimes(2);
+it('never turns storage or configuration failures into login redirects', async () => {
   mocks.snapshot.mockRejectedValue(new Error('database offline'));
   await expect(requireViewer()).rejects.toMatchObject({ kind: 'unavailable' });
   mocks.read.mockRejectedValue(new AuthStateError('configuration'));

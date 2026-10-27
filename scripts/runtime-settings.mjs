@@ -1,20 +1,8 @@
 import { writeFile, chmod } from 'node:fs/promises';
-import { validateRuntimeSettings } from '../src/models/runtime-settings.ts';
+import { resolveRuntimeSettings } from '../src/models/runtime-settings.ts';
 /** @param {Record<string, string | undefined>} environment */
 export function buildRuntimeSettings(environment) {
-  const region = environment.DYNAMODB_REGION;
-  if (environment.AWS_APP_ID && !region)
-    throw new Error('Managed authentication requires an explicit account-store region.');
-  return validateRuntimeSettings({
-    version: 1,
-    temporaryPasswordHours: environment.DASHBOARD_TEMP_PASSWORD_HOURS ?? undefined,
-    managed: Boolean(environment.AWS_APP_ID),
-    region: region || undefined,
-    usersTable: environment.DYNAMODB_USERS_TABLE || undefined,
-    whitelistTable: environment.DYNAMODB_WHITELIST_TABLE || undefined,
-    authUrl: environment.AUTH_URL || environment.NEXTAUTH_URL || undefined,
-    secretArn: environment.DASHBOARD_AUTH_SECRET_ARN || undefined,
-  });
+  return resolveRuntimeSettings(environment, {}, 'build');
 }
 /** @param {Record<string, string | undefined>} environment @param {string} path */
 export async function writeRuntimeSettings(environment, path) {

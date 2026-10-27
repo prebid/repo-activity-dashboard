@@ -22,17 +22,21 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import {
-  whitelistResponseSchema,
+  accountListResponseSchema,
   createdAccountResponseSchema,
   resetCredentialResponseSchema,
   accountRoles,
-  type WhitelistRecord,
+  type AccountSummary,
   type IssuedCredential,
 } from '@/models/accounts';
-import { readJsonResponse } from '@/lib/presentation/http';
+import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
 import { TemporaryCredentialDialog } from './temporary-credential-dialog';
+const creationUnknown =
+  'Account creation could not be confirmed. It may have succeeded. Refresh the list and reissue a password if the account exists.';
+const reissueUnknown =
+  'Password reissue could not be confirmed. A new password may have been issued. Reissue again to establish a known credential.';
 export default function AdminUsersView() {
-  const [users, setUsers] = useState<WhitelistRecord[]>([]),
+  const [users, setUsers] = useState<AccountSummary[]>([]),
     [loading, setLoading] = useState(true),
     [loadError, setLoadError] = useState('');
   const [creating, setCreating] = useState(false),
@@ -60,7 +64,7 @@ export default function AdminUsersView() {
       });
       const result = await readJsonResponse(
         response,
-        whitelistResponseSchema,
+        accountListResponseSchema,
         'Failed to load accounts',
       );
       if (!controller.signal.aborted) setUsers(result.users);
@@ -85,11 +89,7 @@ export default function AdminUsersView() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ email, name, role, company }),
       });
-      const data = await readJsonResponse(
-        response,
-        createdAccountResponseSchema,
-        'Unable to confirm account creation. Refresh the list before retrying.',
-      );
+      const data = await readJsonResponse(response, createdAccountResponseSchema, creationUnknown);
       setCredential(data);
       setEmail('');
       setName('');
@@ -97,11 +97,7 @@ export default function AdminUsersView() {
       setRole('viewer');
       void fetchUsers();
     } catch (error) {
-      setCreateError(
-        error instanceof Error
-          ? error.message
-          : 'Unable to confirm account creation. Refresh the list before retrying.',
-      );
+      setCreateError(mutationFailureMessage(error, creationUnknown));
     } finally {
       setCreating(false);
     }
@@ -117,18 +113,10 @@ export default function AdminUsersView() {
         body: JSON.stringify({ email: target }),
       });
       setCredential(
-        await readJsonResponse(
-          response,
-          resetCredentialResponseSchema,
-          'Unable to confirm password reissue. A password may have been issued; reissue again to establish a known credential.',
-        ),
+        await readJsonResponse(response, resetCredentialResponseSchema, reissueUnknown),
       );
     } catch (error) {
-      setResetError(
-        error instanceof Error
-          ? error.message
-          : 'Unable to confirm password reissue. Try reissuing again.',
-      );
+      setResetError(mutationFailureMessage(error, reissueUnknown));
     } finally {
       setResetting('');
     }
@@ -201,6 +189,14 @@ export default function AdminUsersView() {
           <CardHeader>
             <CardTitle>Account access list</CardTitle>
             <CardDescription>Reissuing replaces the previous password immediately.</CardDescription>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={loading || creating || Boolean(resetting)}
+              onClick={() => void fetchUsers()}
+            >
+              Refresh accounts
+            </Button>
           </CardHeader>
           <CardContent className="space-y-3">
             {resetError && (
@@ -224,7 +220,7 @@ export default function AdminUsersView() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
+                    <TableHead>Effective role</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Action</TableHead>
                   </TableRow>
@@ -233,17 +229,24 @@ export default function AdminUsersView() {
                   {users.map((user) => (
                     <TableRow key={user.email}>
                       <TableCell className="break-all">{user.email}</TableCell>
-                      <TableCell>{user.role}</TableCell>
+                      <TableCell>{user.role ?? '—'}</TableCell>
                       <TableCell>
-                        <Badge variant={user.isActive ? 'default' : 'secondary'}>
-                          {user.isActive ? 'Active' : 'Inactive'}
+                        <Badge variant={user.status === 'active' ? 'default' : 'secondary'}>
+                          {
+                            {
+                              active: 'Active',
+                              inactive: 'Inactive',
+                              unprovisioned: 'No account',
+                              'migration-required': 'Migration required',
+                            }[user.status]
+                          }
                         </Badge>
                       </TableCell>
                       <TableCell>
                         <Button
                           type="button"
                           variant="outline"
-                          disabled={creating || Boolean(resetting) || !user.isActive}
+                          disabled={creating || Boolean(resetting) || user.status !== 'active'}
                           aria-label={'Reissue password for ' + user.email}
                           onClick={(event) => void reissue(user.email, event.currentTarget)}
                         >

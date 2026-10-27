@@ -38,9 +38,15 @@ it('retrieves the managed key with IAM defaults and reuses its client after cach
   expect(mocks.construct).toHaveBeenCalledExactlyOnceWith({
     region: 'us-east-2',
     maxAttempts: 2,
-    requestHandler: { connectionTimeout: 1000, requestTimeout: 3000 },
+    requestHandler: {
+      connectionTimeout: 1000,
+      requestTimeout: 3000,
+      socketTimeout: 3000,
+      throwOnRequestTimeout: true,
+    },
   });
   expect(mocks.send.mock.calls[0][0]).toMatchObject({ input: { SecretId: arn } });
+  expect(mocks.send.mock.calls[0][1]).toHaveProperty('abortSignal', expect.any(AbortSignal));
   vi.advanceTimersByTime(60_001);
   expect(await getSecret()).toBe(key);
   expect(mocks.send).toHaveBeenCalledTimes(2);
@@ -93,4 +99,44 @@ it('distinguishes a JSON envelope from valid raw text without using a prefix gue
   expect(
     await makeSecretLoader(() => Promise.resolve(JSON.stringify({ authSecret: '{' + key })))(arn),
   ).toBe('{' + key);
+});
+
+it('retains a provider cause for safe diagnostic classification', async () => {
+  const cause = Object.assign(new Error('private provider detail'), {
+    name: 'AccessDeniedException',
+  });
+  await expect(makeSecretLoader(() => Promise.reject(cause))(arn)).rejects.toMatchObject({
+    kind: 'unavailable',
+    cause,
+  });
+});
+
+it('releases coalesced callers at the deadline and ignores a late provider result', async () => {
+  vi.useFakeTimers();
+  let finishLate!: (value: string) => void;
+  let signal: AbortSignal | undefined;
+  const read = vi
+    .fn<(arn: string, signal: AbortSignal) => Promise<unknown>>()
+    .mockImplementationOnce((_arn, suppliedSignal) => {
+      signal = suppliedSignal;
+      return new Promise<string>((resolve) => {
+        finishLate = resolve;
+      });
+    })
+    .mockResolvedValue(key);
+  const load = makeSecretLoader(read);
+  const failed = expect(Promise.all([load(arn), load(arn)])).rejects.toMatchObject({
+    kind: 'unavailable',
+    cause: { name: 'TimeoutError' },
+  });
+  await vi.advanceTimersByTimeAsync(5000);
+  await failed;
+  expect(read).toHaveBeenCalledTimes(1);
+  expect(signal?.aborted).toBe(true);
+  expect(await load(arn)).toBe(key);
+  finishLate('late-provider-value-that-must-not-replace-the-current-key');
+  await Promise.resolve();
+  expect(await load(arn)).toBe(key);
+  expect(read).toHaveBeenCalledTimes(2);
+  expect(vi.getTimerCount()).toBe(0);
 });

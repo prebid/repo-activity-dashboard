@@ -13,10 +13,15 @@ vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/get-secret', () => ({
   getSecret: mocks.secret,
 }));
-vi.mock('@/lib/auth/whitelist', () => ({ isEmailWhitelisted: mocks.whitelist }));
-vi.mock('@/lib/auth/users', () => ({
-  getUserByEmail: mocks.user,
-  getAccountSnapshot: mocks.snapshot,
+vi.mock('@/lib/auth/server-account-store', () => ({
+  getServerAccountStore: () => ({
+    getAccountSnapshot: mocks.snapshot,
+    getCredentialSnapshot: async (email: string) => {
+      const user: unknown = await mocks.user(email);
+      const active: unknown = await mocks.whitelist(email);
+      return { user, access: { email, role: 'admin', isActive: active, userId: 'real-user' } };
+    },
+  }),
 }));
 vi.mock('@/lib/auth/passwords', () => ({ verifyPassword: mocks.verify }));
 beforeEach(() => {
@@ -322,4 +327,29 @@ it('does not mint a production session when a provider omits the account revisio
   const result = await login();
   expect(result.body).toBeNull();
   expect(mocks.snapshot).not.toHaveBeenCalled();
+});
+
+it('uses the normal error page when authentication configuration cannot load', async () => {
+  const { AuthStateError } = await import('@/lib/auth/auth-errors');
+  mocks.secret.mockRejectedValue(new AuthStateError('configuration'));
+  const { handlers } = await import('@/lib/auth/http-auth');
+  const response = await handlers.GET(new NextRequest('http://localhost:3100/api/auth/error'));
+  expect(response.status).toBe(303);
+  expect(response.headers.get('location')).toBe('/auth/error?error=Configuration');
+  expect(response.headers.getSetCookie()).toEqual([]);
+  const api = await handlers.GET(new NextRequest('http://localhost:3100/api/auth/providers'));
+  expect(api.status).toBe(500);
+  expect(await api.json()).toEqual({ error: 'Authentication requires operator attention.' });
+});
+
+it('returns a reissue code only when the expired temporary password verifies', async () => {
+  const user: unknown = await mocks.user();
+  if (!user || typeof user !== 'object') throw new Error('Expected account fixture');
+  mocks.user.mockResolvedValue({ ...user, temporaryPasswordExpiresAt: '2020-01-01T00:00:00.000Z' });
+  const expired = await login();
+  expect(expired.response.headers.get('location')).toContain('code=temporary_expired');
+  expect(expired.body).toBeNull();
+  mocks.verify.mockResolvedValue(false);
+  const wrong = await login('wrong');
+  expect(wrong.response.headers.get('location')).not.toContain('temporary_expired');
 });

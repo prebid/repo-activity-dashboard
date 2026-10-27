@@ -22,11 +22,11 @@ Examples from the fixed sample:
 | Example Documentation | 23 | 4 | 19 | 12,345 | 32 | 26 |
 | Example Sandbox | 0 | 0 | 0 | 0 | 0 | 0 |
 
-All values are synthetic, including company/project-like names. Do not label this sample as live Prebid activity. The fixed reporting time is October 24, 2026 at 12:00 UTC. It is a separate visual scenario from REF-01 and LOAD-01 in the [historical test-data plan](../../docs/implementation/test-data-plan.md).
+All values are synthetic, including company/project-like names. Do not label this sample as live Prebid activity. The fixed reporting time is October 24, 2026 at 12:00 UTC. It is a separate visual scenario from REF-01 and LOAD-01 in the [test-data plan](../../docs/implementation/test-data-plan.md).
 
 ## How to use the data
 
-Load this file at the page/composition level and pass typed values to table components. Add the types in the application's established structure when the source is checked out. Keep numbers out of JSX. The sample file is allowed to evolve as the design becomes concrete; it does not freeze an HTTP API.
+Load this file at the page/composition level and pass typed values to table components. Application display types live in `src/models/reporting.ts`. Keep numbers out of JSX. The sample file is allowed to evolve as the design becomes concrete; it does not freeze an HTTP API.
 
 Display numeric zero as `0`. Display `null` as a dash, with the corresponding availability note when needed. Compute an absolute change only when both period values are known. Format durations from the supplied day values. Keep the current backlog independent of the selected activity period.
 
@@ -47,4 +47,4 @@ Direct values and small local helpers are sufficient. Historical event reconstru
 
 ## Visual completion
 
-Use the [visual baseline checklist](../../docs/implementation/frontend-plan.md#what-visually-locked-means) to review the actual rendered frontend. Creating this file does not complete or approve a page design. Preserve the reviewed screenshots and interaction behavior when the real data adapter is added later.
+Use the [visual baseline checklist](../../docs/implementation/foundation-contracts.md#what-visually-locked-means) to review the actual rendered frontend. Creating this file does not complete or approve a page design. Preserve the reviewed screenshots and interaction behavior when the real data adapter is added later.

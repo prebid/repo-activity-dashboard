@@ -20,7 +20,7 @@ const preview: Preview = {
       toolbar: { icon: 'circlehollow', items: ['system', 'light', 'dark'] },
     },
   },
-  initialGlobals: { theme: 'system' },
+  initialGlobals: { theme: 'dark' },
   decorators: [
     (Story, context) => (
       <ThemeProvider>
@@ -28,9 +28,9 @@ const preview: Preview = {
           theme={
             context.globals.theme === 'light'
               ? 'light'
-              : context.globals.theme === 'dark'
-                ? 'dark'
-                : 'system'
+              : context.globals.theme === 'system'
+                ? 'system'
+                : 'dark'
           }
         >
           <Story />

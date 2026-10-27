@@ -15,7 +15,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     const inputId = id ?? generatedId;
     const [visible, setVisible] = useState(false);
     return (
-      <div className="relative">
+      <div className="relative" data-slot="password-field">
         <Input
           {...props}
           id={inputId}
@@ -26,7 +26,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <button
           type="button"
           data-slot="password-toggle"
-          className="absolute inset-y-0.5 right-0.5 grid w-[43px] place-items-center rounded-[5px] text-muted-foreground hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50"
+          className="absolute inset-y-0.5 right-0.5 grid w-[43px] place-items-center rounded-[5px] text-muted-foreground hover:bg-accent focus-ring disabled:cursor-default disabled:opacity-50"
           aria-label={`${visible ? 'Hide' : 'Show'} ${visibilityLabel}`}
           aria-pressed={visible}
           aria-controls={inputId}

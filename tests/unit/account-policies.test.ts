@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { authorizeCredentials } from '@/lib/auth/credential-policy';
 import { accountAccess } from '@/lib/auth/access-policy';
 import { readRequestBody } from '@/lib/auth/request-body';
-import { readJsonResponse } from '@/lib/presentation/http';
+import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
 import { createAccountSchema, messageResponseSchema } from '@/models/accounts';
 
 const account = {
@@ -19,8 +19,10 @@ const account = {
 };
 function dependencies() {
   return {
-    isAllowed: vi.fn().mockResolvedValue(true),
-    findByEmail: vi.fn().mockResolvedValue(account),
+    lookup: vi.fn().mockResolvedValue({
+      user: account,
+      access: { email: account.email, userId: account.id, role: 'admin', isActive: true },
+    }),
     verify: vi.fn().mockResolvedValue(true),
   };
 }
@@ -31,8 +33,7 @@ describe('production credential policy', () => {
       { email: ' A@example.test ', password: 'secret' },
       deps,
     );
-    expect(deps.isAllowed).toHaveBeenCalledWith('a@example.test');
-    expect(deps.findByEmail).toHaveBeenCalledWith('a@example.test');
+    expect(deps.lookup).toHaveBeenCalledExactlyOnceWith('a@example.test');
     expect(deps.verify).toHaveBeenCalledWith('secret', 'private-hash');
     expect(user).toMatchObject({ id: 'person-1', role: 'admin', mustChangePassword: true });
     expect(user).not.toHaveProperty('password');
@@ -45,28 +46,34 @@ describe('production credential policy', () => {
   ])('refuses malformed credentials %j before storage', async (input) => {
     const deps = dependencies();
     expect(await authorizeCredentials(input, deps)).toBeNull();
-    expect(deps.isAllowed).not.toHaveBeenCalled();
+    expect(deps.lookup).not.toHaveBeenCalled();
   });
-  it('refuses disallowed accounts before reading users', async () => {
+  it('checks disallowed accounts with the same verification work', async () => {
     const deps = dependencies();
-    deps.isAllowed.mockResolvedValue(false);
+    deps.lookup.mockResolvedValue({
+      user: account,
+      access: { email: account.email, userId: account.id, role: 'admin', isActive: false },
+    });
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
-    expect(deps.findByEmail).not.toHaveBeenCalled();
+    expect(deps.lookup).toHaveBeenCalledOnce();
     expect(deps.verify).toHaveBeenCalledTimes(1);
   });
   it('refuses missing accounts and incorrect passwords', async () => {
     const deps = dependencies();
-    deps.findByEmail.mockResolvedValue(null);
+    deps.lookup.mockResolvedValue({ user: null, access: null });
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
     expect(deps.verify).toHaveBeenCalledTimes(1);
     expect(deps.verify.mock.calls[0][1]).not.toBe(account.password);
-    deps.findByEmail.mockResolvedValue(account);
+    deps.lookup.mockResolvedValue({
+      user: account,
+      access: { email: account.email, userId: account.id, role: 'admin', isActive: true },
+    });
     deps.verify.mockResolvedValue(false);
     expect(await authorizeCredentials({ email: account.email, password: 'x' }, deps)).toBeNull();
   });
   it('propagates store failure instead of pretending the account is absent', async () => {
     const deps = dependencies();
-    deps.isAllowed.mockRejectedValue(new Error('offline'));
+    deps.lookup.mockRejectedValue(new Error('offline'));
     await expect(
       authorizeCredentials({ email: account.email, password: 'x' }, deps),
     ).rejects.toThrow('offline');
@@ -99,6 +106,21 @@ describe('account access', () => {
         .allowed,
     ).toBe(true);
   });
+});
+
+it('reveals temporary expiry only after a valid credential for an active linked account', async () => {
+  const deps = dependencies();
+  const expired = { ...account, temporaryPasswordExpiresAt: '2020-01-01T00:00:00.000Z' };
+  const access = { email: account.email, userId: account.id, role: 'admin', isActive: true };
+  deps.lookup.mockResolvedValue({ user: expired, access });
+  await expect(
+    authorizeCredentials({ email: account.email, password: 'valid' }, deps),
+  ).rejects.toMatchObject({ code: 'expired' });
+  deps.verify.mockResolvedValue(false);
+  expect(await authorizeCredentials({ email: account.email, password: 'wrong' }, deps)).toBeNull();
+  deps.verify.mockResolvedValue(true);
+  deps.lookup.mockResolvedValue({ user: expired, access: { ...access, isActive: false } });
+  expect(await authorizeCredentials({ email: account.email, password: 'valid' }, deps)).toBeNull();
 });
 describe('JSON boundaries', () => {
   it.each(['{', 'null', '{"email":7}', '{"email":"a@example.test","role":"owner"}'])(
@@ -157,3 +179,22 @@ it('returns a body-size error before parsing an account mutation', async () => {
   if (result.ok) throw new Error('Expected oversized rejection');
   expect(result.response.status).toBe(413);
 });
+
+it.each([400, 500])(
+  'distinguishes a rejected mutation from an unknown %i outcome',
+  async (status) => {
+    let failure: unknown;
+    try {
+      await readJsonResponse(
+        Response.json({ error: 'server detail' }, { status }),
+        messageResponseSchema,
+        'could not confirm',
+      );
+    } catch (error) {
+      failure = error;
+    }
+    expect(mutationFailureMessage(failure, 'may have committed')).toBe(
+      status === 400 ? 'server detail' : 'may have committed',
+    );
+  },
+);

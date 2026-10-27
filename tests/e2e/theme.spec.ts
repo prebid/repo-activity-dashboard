@@ -1,10 +1,10 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 
-test('system preference updates automatically and explicit choices survive reloads', async ({
+test('dark is the default and explicit system or light choices survive reloads', async ({
   page,
 }) => {
-  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('/auth/login');
   const root = page.locator('html');
   await expect(root).toHaveClass(/dark/);
@@ -12,11 +12,17 @@ test('system preference updates automatically and explicit choices survive reloa
   const control = page.getByRole('button', { name: 'Theme settings', exact: true });
   await control.click();
   await expect(page.locator('main')).not.toHaveAttribute('aria-hidden', 'true');
-  await expect(page.getByRole('menuitemradio', { name: 'System', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('menuitemradio', { name: 'Dark', exact: true })).toHaveAttribute(
     'aria-checked',
     'true',
   );
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole('menuitemradio', { name: 'System', exact: true }).click();
+  await expect(root).toHaveClass(/light/);
+  expect(await page.evaluate(() => localStorage.getItem('dashboard-theme'))).toBe('system');
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect(root).toHaveClass(/dark/);
+  await control.click();
   await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
   await expect(page.getByRole('menu')).toHaveCount(0);
   await expect(root).toHaveClass(/light/);
@@ -47,6 +53,18 @@ test('system preference updates automatically and explicit choices survive reloa
   await page.keyboard.press('Enter');
   await expect(root).toHaveClass(/dark/);
   await expect(control).toBeFocused();
+});
+
+test('restores the existing dashboard-theme preference on the login page', async ({ page }) => {
+  await page.goto('/auth/login');
+  await page.evaluate(() => localStorage.setItem('dashboard-theme', 'light'));
+  await page.reload();
+  await expect(page.locator('html')).toHaveClass(/light/);
+  await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+  await expect(page.getByRole('menuitemradio', { name: 'Light', exact: true })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
 });
 
 test('one preference carries across login, dashboard, other tabs and sign-out', async ({

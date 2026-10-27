@@ -77,7 +77,7 @@ export default defineConfig({
           statements: 95,
           functions: 90,
         },
-        'src/lib/auth/{access-policy,api-access,account-response,credential-policy,request-body,get-secret,auth}.ts':
+        'src/lib/auth/{access-policy,api-access,account-response,diagnostics,credential-policy,request-body,get-secret,auth}.ts':
           { perFile: true, lines: 100, branches: 100, statements: 100, functions: 100 },
         'src/app/api/admin/users/**': {
           perFile: true,

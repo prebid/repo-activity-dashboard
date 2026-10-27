@@ -25,14 +25,43 @@ describe('module boundary check', () => {
       inspectBoundaries(fixture("import { formatCount } from '@/lib/presentation/format';")),
     ).toEqual({ sourceFiles: 1, failures: [] });
   });
-  it.each([
-    "import '@/lib/auth/auth';",
-    "export { auth } from '../../lib/auth/auth';",
-    "import('@/mocks/reporting');",
-  ])('rejects server or mock imports in views: %s', (source) => {
-    const result = inspectBoundaries(fixture(source));
-    expect(result.sourceFiles).toBe(1);
-    expect(result.failures).toHaveLength(1);
+  it.each(['services', 'store', 'validation'])('allows legitimate nested %s modules', (name) => {
+    const root = fixture(`import { value } from '@/lib/${name}/example';`);
+    mkdirSync(join(root, 'src/lib', name), { recursive: true });
+    writeFileSync(join(root, 'src/lib', name, 'example.ts'), 'export const value = 1;');
+    expect(inspectBoundaries(root)).toEqual({ sourceFiles: 2, failures: [] });
+  });
+  it('rejects actual retired paths and packages', () => {
+    const root = fixture('export const value = 1;');
+    mkdirSync(join(root, 'store'));
+    writeFileSync(join(root, 'store/data.json'), '{}');
+    writeFileSync(
+      join(root, 'package.json'),
+      JSON.stringify({ dependencies: { '@aws-sdk/client-s3': '1.0.0' } }),
+    );
+    expect(inspectBoundaries(root).failures).toEqual([
+      'Retired reporting path remains: store',
+      'Retired dependency: @aws-sdk/client-s3',
+    ]);
+  });
+  it('never accepts an empty source population', () => {
+    const root = fixture('');
+    rmSync(join(root, 'src/components/widgets/example.tsx'));
+    expect(inspectBoundaries(root).failures).toContain('No source files selected');
+  });
+  it.each(['report-data', 'src/features/current-reports', 'src/app/api/report-data'])(
+    'rejects reintroducing the live-only reporting path %s',
+    (name) => {
+      const root = fixture('export const value = 1;');
+      mkdirSync(join(root, name), { recursive: true });
+      writeFileSync(join(root, name, 'data.json'), '{}');
+      expect(inspectBoundaries(root).failures).toEqual(['Retired reporting path remains: ' + name]);
+    },
+  );
+  it('rejects the known retired raw-data endpoint', () => {
+    expect(inspectBoundaries(fixture("fetch('/store/repos.json')")).failures).toEqual([
+      'src/components/widgets/example.tsx: raw store request',
+    ]);
   });
   it('rejects computed imports rather than treating them as checked', () => {
     expect(inspectBoundaries(fixture('import(moduleName);')).failures[0]).toContain(

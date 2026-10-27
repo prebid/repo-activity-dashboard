@@ -19,6 +19,27 @@ export const runtimeSettingsSchema = z
   })
   .strict();
 export type RuntimeSettings = z.infer<typeof runtimeSettingsSchema>;
+export function resolveRuntimeSettings(
+  environment: Record<string, string | undefined>,
+  stored: Partial<RuntimeSettings> = {},
+  phase: 'build' | 'runtime' = 'runtime',
+): RuntimeSettings {
+  const managed = Boolean(stored.managed || environment.AWS_APP_ID);
+  return validateRuntimeSettings({
+    version: 1,
+    managed,
+    temporaryPasswordHours:
+      environment.DASHBOARD_TEMP_PASSWORD_HOURS ?? stored.temporaryPasswordHours,
+    region:
+      environment.DYNAMODB_REGION ||
+      stored.region ||
+      (!managed && phase === 'runtime' ? environment.AWS_REGION || undefined : undefined),
+    usersTable: environment.DYNAMODB_USERS_TABLE || stored.usersTable,
+    whitelistTable: environment.DYNAMODB_WHITELIST_TABLE || stored.whitelistTable,
+    authUrl: environment.AUTH_URL || environment.NEXTAUTH_URL || stored.authUrl,
+    secretArn: environment.DASHBOARD_AUTH_SECRET_ARN || stored.secretArn,
+  });
+}
 export function validateRuntimeSettings(input: unknown): RuntimeSettings {
   const settings = runtimeSettingsSchema.parse(input);
   if (settings.usersTable && settings.usersTable === settings.whitelistTable)
@@ -37,13 +58,11 @@ export function validateRuntimeSettings(input: unknown): RuntimeSettings {
     if (settings.managed && url.protocol !== 'https:')
       throw new Error('Managed authentication requires HTTPS.');
   }
+  if (settings.managed && !settings.region)
+    throw new Error('Managed authentication requires an explicit account-store region.');
   if (
     settings.managed &&
-    (!settings.region ||
-      !settings.usersTable ||
-      !settings.whitelistTable ||
-      !settings.authUrl ||
-      !settings.secretArn)
+    (!settings.usersTable || !settings.whitelistTable || !settings.authUrl || !settings.secretArn)
   )
     throw new Error(
       'Managed authentication requires tables, HTTPS origin, region, and a Secrets Manager ARN.',

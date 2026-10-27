@@ -15,25 +15,12 @@ it('accepts the 72-byte boundary and verifies the complete password', async () =
   expect(await verifyPassword(password, hash)).toBe(true);
   expect(await verifyPassword('Aa1!' + 'x'.repeat(67) + 'y', hash)).toBe(false);
 });
-it.each(['abcdef', 'ABCDEF', '123456', 'a calm workspace'])(
-  'accepts passwords without character-mix requirements: %s',
-  (password) => {
+it('preserves the current six-code-point policy without character-class rules', () => {
+  for (const password of ['abcdef', '123456', '😀😀😀😀😀😀'])
     expect(validatePasswordStrength(password)).toEqual({ valid: true, errors: [] });
-  },
-);
-it.each(['', 'abcde'])('requires only the minimum length for short passwords %#', (password) => {
-  expect(validatePasswordStrength(password)).toEqual({
-    valid: false,
-    errors: ['Password must be at least 6 characters'],
-  });
-});
-
-it.each(['🔑🔑🔑', '🔑🔑🔑🔑🔑'])(
-  'counts Unicode characters instead of UTF-16 units %#',
-  (password) => {
-    expect(validatePasswordStrength(password).valid).toBe(false);
-  },
-);
-it('accepts six Unicode characters within the hashing byte limit', () => {
-  expect(validatePasswordStrength('🔑🔑🔑🔑🔑🔑')).toEqual({ valid: true, errors: [] });
+  for (const password of ['', 'abcde', '😀😀😀😀😀'])
+    expect(validatePasswordStrength(password)).toEqual({
+      valid: false,
+      errors: ['Password must be at least 6 characters'],
+    });
 });

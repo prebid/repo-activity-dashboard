@@ -41,28 +41,6 @@ const config = [
       ],
     },
   },
-  {
-    files: ['src/components/**/*.{ts,tsx}', 'src/features/**/*.{ts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: [
-                '@/server/**',
-                '@/lib/auth/**',
-                '@/lib/aws/**',
-                '@/services/**',
-                '@/mocks/**',
-              ],
-              message: 'Pass typed presentation data from the route boundary.',
-            },
-          ],
-        },
-      ],
-    },
-  },
 ];
 
 export default config;

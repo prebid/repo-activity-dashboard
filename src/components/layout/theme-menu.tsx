@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+import styles from './theme-menu.module.css';
 
 const choices = [
   { value: 'system', label: 'System', icon: Monitor },
@@ -31,13 +32,13 @@ export function ThemeMenu({ className }: { className?: string }) {
   const Icon = choices.find((choice) => choice.value === selected)?.icon ?? Monitor;
 
   return (
-    <div ref={setContainer} className="inline-flex">
+    <div ref={setContainer} className={styles.frame}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
-            className={cn('size-10 rounded-full', className)}
+            className={cn(styles.trigger, className)}
             aria-label="Theme settings"
             title="Theme settings"
             disabled={!mounted}
@@ -45,15 +46,11 @@ export function ThemeMenu({ className }: { className?: string }) {
             <Icon aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          container={container}
-          className="data-[state=closed]:animate-none"
-        >
-          <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuContent align="end" container={container} className={styles.content}>
+          <DropdownMenuLabel className={styles.label}>Appearance</DropdownMenuLabel>
           <DropdownMenuRadioGroup value={selected} onValueChange={setTheme}>
             {choices.map(({ value, label, icon: OptionIcon }) => (
-              <DropdownMenuRadioItem key={value} value={value} className="gap-2 py-2.5">
+              <DropdownMenuRadioItem key={value} value={value} className={styles.option}>
                 <OptionIcon size={16} aria-hidden="true" />
                 {label}
               </DropdownMenuRadioItem>

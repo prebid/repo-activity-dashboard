@@ -7,6 +7,12 @@ import { signOut } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import type { AuthenticatedUser } from '@/models/accounts';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
 import type { RepositoryDefinition } from '@/config/repositories';
 export function Toolbar({
   repositories,
@@ -22,13 +28,16 @@ export function Toolbar({
     setSigningOut(true);
     setSignOutError('');
     try {
-      const result = await signOut({ redirect: false });
+      const result = await signOut({ redirect: false, redirectTo: '/auth/login' });
       if (!result.url) throw new Error('Sign out failed');
+      const destination = new URL(result.url, window.location.origin);
+      if (destination.searchParams.has('error') || destination.pathname !== '/auth/login')
+        throw new Error('Sign out could not be confirmed');
       notifyAuthTransition();
       router.replace('/auth/login');
       router.refresh();
     } catch {
-      setSignOutError('Unable to sign out. Please try again.');
+      setSignOutError('Sign-out could not be confirmed. Please try again.');
     } finally {
       setSigningOut(false);
     }
@@ -42,32 +51,35 @@ export function Toolbar({
         <Link prefetch={false} href="/repos" className="font-semibold">
           Repository activity
         </Link>
-        <details className="relative">
-          <summary className="cursor-pointer rounded-md px-3 py-2 focus-visible:outline-2">
-            Repos
-          </summary>
-          <div className="absolute left-0 z-20 mt-2 max-h-96 w-80 overflow-auto rounded-lg border bg-popover p-2 shadow-md">
-            <Link
-              prefetch={false}
-              className="block rounded px-3 py-2 hover:bg-accent"
-              href="/repos"
-            >
-              All repositories
-            </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">Repos</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-80">
+            <DropdownMenuItem asChild>
+              <Link
+                prefetch={false}
+                className="block rounded px-3 py-2 hover:bg-accent"
+                href="/repos"
+              >
+                All repositories
+              </Link>
+            </DropdownMenuItem>
             {repositories
               .filter((r) => r.enabled)
               .map((r) => (
-                <Link
-                  prefetch={false}
-                  key={r.id}
-                  className="block rounded px-3 py-2 hover:bg-accent"
-                  href={'/repos/' + r.slug}
-                >
-                  {r.displayName}
-                </Link>
+                <DropdownMenuItem asChild key={r.id}>
+                  <Link
+                    prefetch={false}
+                    className="block rounded px-3 py-2 hover:bg-accent"
+                    href={'/repos/' + r.slug}
+                  >
+                    {r.displayName}
+                  </Link>
+                </DropdownMenuItem>
               ))}
-          </div>
-        </details>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link prefetch={false} href="/contributors" className="hover:underline">
           Contributors
         </Link>

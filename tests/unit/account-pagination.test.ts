@@ -5,15 +5,8 @@ import { ScanCommand, GetCommand, TransactWriteCommand } from '@aws-sdk/lib-dyna
 const send = vi.hoisted(() => vi.fn<(command: unknown) => Promise<Record<string, unknown>>>());
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/aws/clients', () => ({ createAccountClient: () => ({ send }) }));
-import {
-  getUserByEmail,
-  getUserById,
-  adminCreateUser,
-  adminResetPassword,
-  updateUserPassword,
-} from '@/lib/auth/users';
+import { getServerAccountStore } from '@/lib/auth/server-account-store';
 import { verifyPassword } from '@/lib/auth/passwords';
-import { getAllWhitelistedEmails, isEmailWhitelisted } from '@/lib/auth/whitelist';
 const record = {
   id: 'u1',
   email: 'user@example.test',
@@ -34,7 +27,7 @@ it('continues past empty filtered scan pages to find the account', async () => {
     .mockResolvedValueOnce({})
     .mockResolvedValueOnce({ Items: [], LastEvaluatedKey: { id: 'cursor' } })
     .mockResolvedValueOnce({ Items: [record] });
-  expect(await getUserByEmail('USER@example.test')).toEqual(record);
+  expect(await getServerAccountStore().getUserByEmail('USER@example.test')).toEqual(record);
   expect(send).toHaveBeenNthCalledWith(2, expect.any(ScanCommand));
   const second = send.mock.calls[2][0];
   expect(second).toBeInstanceOf(ScanCommand);
@@ -51,7 +44,7 @@ it('collects all whitelist pages without silently truncating', async () => {
       LastEvaluatedKey: { email: 'a@example.test' },
     })
     .mockResolvedValueOnce({ Items: [{ email: 'b@example.test', isActive: false }] });
-  expect((await getAllWhitelistedEmails()).map((x) => x.email)).toEqual([
+  expect((await getServerAccountStore().getAllWhitelistedEmails()).map((x) => x.email)).toEqual([
     'a@example.test',
     'b@example.test',
   ]);
@@ -59,29 +52,33 @@ it('collects all whitelist pages without silently truncating', async () => {
 });
 it('distinguishes absent data, invalid records, and backend failures', async () => {
   send.mockResolvedValue({});
-  expect(await getUserByEmail(record.email)).toBeNull();
-  expect(await getUserById('u1')).toBeNull();
-  expect(await isEmailWhitelisted(record.email)).toBe(false);
+  expect(await getServerAccountStore().getUserByEmail(record.email)).toBeNull();
+  expect(await getServerAccountStore().getUserById('u1')).toBeNull();
+  expect(await getServerAccountStore().getWhitelistEntry(record.email)).toBeNull();
   send.mockResolvedValue({ Item: record });
-  expect(await getUserById('u1')).toEqual(record);
+  expect(await getServerAccountStore().getUserById('u1')).toEqual(record);
   expect(send).toHaveBeenLastCalledWith(expect.any(GetCommand));
   send.mockResolvedValue({ Item: { email: record.email, isActive: 'yes' } });
-  await expect(isEmailWhitelisted(record.email)).rejects.toThrow();
+  await expect(getServerAccountStore().getWhitelistEntry(record.email)).rejects.toThrow();
   send.mockRejectedValue(new Error('offline'));
-  await expect(getUserByEmail(record.email)).rejects.toThrow('offline');
-  await expect(getAllWhitelistedEmails()).rejects.toThrow('offline');
+  await expect(getServerAccountStore().getUserByEmail(record.email)).rejects.toThrow('offline');
+  await expect(getServerAccountStore().getAllWhitelistedEmails()).rejects.toThrow('offline');
 });
 it('rejects non-advancing cursors rather than looping indefinitely', async () => {
   send.mockResolvedValue({ Items: [], LastEvaluatedKey: { id: 'same' } });
-  await expect(getUserByEmail(record.email)).rejects.toThrow('operator attention');
+  await expect(getServerAccountStore().getUserByEmail(record.email)).rejects.toThrow(
+    'operator attention',
+  );
   expect(send).toHaveBeenCalledTimes(3);
   send.mockClear();
-  await expect(getAllWhitelistedEmails()).rejects.toThrow('did not advance');
+  await expect(getServerAccountStore().getAllWhitelistedEmails()).rejects.toMatchObject({
+    code: 'integrity',
+  });
   expect(send).toHaveBeenCalledTimes(2);
 });
 it('stores a hash, requires a password change, and records the provisioning actor', async () => {
   send.mockResolvedValue({});
-  const { user, tempPassword } = await adminCreateUser(
+  const { user, tempPassword } = await getServerAccountStore().adminCreateUser(
     'NEW@example.test',
     'New User',
     'viewer',
@@ -113,7 +110,9 @@ it('stores a hash, requires a password change, and records the provisioning acto
 it('does not overwrite an existing account or continue after a failed account write', async () => {
   send.mockResolvedValue({ Items: [record] });
   await expect(
-    adminCreateUser(record.email, undefined, 'viewer', undefined, { kind: 'operator' }),
+    getServerAccountStore().adminCreateUser(record.email, undefined, 'viewer', undefined, {
+      kind: 'operator',
+    }),
   ).rejects.toThrow('already exists');
   expect(send).toHaveBeenCalledTimes(2);
   send.mockReset();
@@ -123,7 +122,9 @@ it('does not overwrite an existing account or continue after a failed account wr
     .mockResolvedValueOnce({})
     .mockRejectedValueOnce(new Error('write failed'));
   await expect(
-    adminCreateUser('new@example.test', undefined, 'viewer', undefined, { kind: 'operator' }),
+    getServerAccountStore().adminCreateUser('new@example.test', undefined, 'viewer', undefined, {
+      kind: 'operator',
+    }),
   ).rejects.toThrow('write failed');
   expect(send).toHaveBeenCalledTimes(4);
 });
@@ -132,7 +133,9 @@ it('sets and clears mandatory password-change state in the correct operations', 
     .mockResolvedValueOnce({})
     .mockResolvedValueOnce({ Items: [record] })
     .mockResolvedValue({});
-  const reset = await adminResetPassword(record.email, { kind: 'operator' });
+  const reset = await getServerAccountStore().adminResetPassword(record.email, {
+    kind: 'operator',
+  });
   const command = send.mock.calls[2][0];
   if (!(command instanceof TransactWriteCommand))
     throw new Error('Expected atomic password update');
@@ -142,11 +145,10 @@ it('sets and clears mandatory password-change state in the correct operations', 
   expect(await verifyPassword(reset.tempPassword, password)).toBe(true);
   expect(update?.ExpressionAttributeValues?.[':mustChange']).toBe(true);
   expect(update?.ExpressionAttributeValues?.[':next']).toBe(1);
-  await updateUserPassword(
+  await getServerAccountStore().changeOwnPassword(
     { ...record, password, authVersion: 1 },
     'replacement-hash',
-    { kind: 'operator' },
-    false,
+    { ...record, authVersion: 1 },
   );
   const changed = send.mock.calls[3][0];
   if (!(changed instanceof TransactWriteCommand))
@@ -163,13 +165,51 @@ it('sets and clears mandatory password-change state in the correct operations', 
 });
 it('rejects missing table configuration and resets of absent users', async () => {
   send.mockResolvedValue({});
-  await expect(adminResetPassword(record.email, { kind: 'operator' })).rejects.toThrow(
-    'User not found',
-  );
+  await expect(
+    getServerAccountStore().adminResetPassword(record.email, { kind: 'operator' }),
+  ).rejects.toThrow('User not found');
   send.mockClear();
   vi.stubEnv('DYNAMODB_USERS_TABLE', '');
   vi.resetModules();
-  const fresh = await import('@/lib/auth/users');
-  await expect(fresh.getUserById('u1')).rejects.toThrow('account-store configuration');
+  const fresh = await import('@/lib/auth/server-account-store');
+  expect(() => fresh.getServerAccountStore()).toThrow('account-store configuration');
   expect(send).not.toHaveBeenCalled();
+});
+
+it.each(['active', 'disabled', 'missing', 'unlinked'] as const)(
+  'uses two point reads and no scan for %s sign-in lookup',
+  async (state) => {
+    const access = {
+      email: record.email,
+      role: 'admin',
+      isActive: state !== 'disabled',
+      ...(state !== 'unlinked' ? { userId: record.id } : {}),
+    };
+    send.mockImplementation((command) => {
+      if (!(command instanceof GetCommand)) throw new Error('Sign-in must not scan');
+      return Promise.resolve(
+        command.input.TableName === 'whitelist'
+          ? { Item: state === 'missing' ? undefined : access }
+          : {
+              Item:
+                command.input.Key?.id === record.id
+                  ? record
+                  : { id: '__dashboard_bootstrap_v1__', kind: 'initialization' },
+            },
+      );
+    });
+    const found = await getServerAccountStore().getCredentialSnapshot(record.email);
+    expect(send).toHaveBeenCalledTimes(2);
+    expect(found.user?.id ?? null).toBe(
+      state === 'active' || state === 'disabled' ? record.id : null,
+    );
+  },
+);
+
+it('reports malformed point reads with a record identity and fields', async () => {
+  send.mockResolvedValue({ Item: { ...record, password: null } });
+  await expect(getServerAccountStore().getUserById(record.id)).rejects.toMatchObject({
+    code: 'integrity',
+    records: [{ table: 'users', key: record.id, fields: ['password'] }],
+  });
 });

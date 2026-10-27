@@ -8,6 +8,7 @@ import {
   TransactGetCommand,
   TransactWriteCommand,
   type TransactWriteCommandInput,
+  type ScanCommandInput,
   type DynamoDBDocumentClient,
 } from '@aws-sdk/lib-dynamodb';
 import { TransactionCanceledException } from '@aws-sdk/client-dynamodb';
@@ -16,6 +17,8 @@ import {
   accountRecordSchema,
   createAccountSchema,
   whitelistRecordSchema,
+  summarizeAccount,
+  type AccountSummary,
   type WhitelistRecord,
   type AccountRecord,
   type AccountRole,
@@ -61,7 +64,6 @@ export function createAccountStore(
   const lifetime =
     temporaryPasswordHoursSchema.parse(options.temporaryPasswordHours) * 60 * 60 * 1000;
   const target = Object.freeze(accountTargetSchema.parse(input));
-  const getDocClient = () => client;
   const accountTable = (kind: 'users' | 'whitelist') =>
     kind === 'users' ? target.usersTable : target.whitelistTable;
   async function issueTemporaryCredential() {
@@ -120,7 +122,7 @@ export function createAccountStore(
   }
   async function transaction(items: Write[], token: string = randomUUID()): Promise<void> {
     try {
-      await getDocClient().send(
+      await client.send(
         new TransactWriteCommand({ TransactItems: items, ClientRequestToken: token }),
       );
     } catch (error) {
@@ -177,6 +179,79 @@ export function createAccountStore(
     return checks;
   }
 
+  function parseStored(kind: 'users', key: string, item: unknown): User;
+  function parseStored(kind: 'whitelist', key: string, item: unknown): WhitelistRecord;
+  function parseStored(
+    kind: 'users' | 'whitelist',
+    key: string,
+    item: unknown,
+  ): User | WhitelistRecord {
+    const result = (kind === 'users' ? accountRecordSchema : whitelistRecordSchema).safeParse(item);
+    if (!result.success)
+      throw new AccountDataError([
+        { table: kind, key, fields: result.error.issues.map((i) => i.path.join('.')) },
+      ]);
+    if ((item as { email: unknown }).email !== result.data.email)
+      throw new AccountDataError([{ table: kind, key, fields: ['email'] }]);
+    return result.data;
+  }
+  async function* scanPages(
+    kind: 'users' | 'whitelist',
+    options: Pick<
+      ScanCommandInput,
+      'FilterExpression' | 'ExpressionAttributeValues' | 'Limit'
+    > = {},
+  ) {
+    let cursor: Record<string, unknown> | undefined;
+    const seen = new Set<string>();
+    do {
+      const result = await client.send(
+        new ScanCommand({
+          ...options,
+          TableName: accountTable(kind),
+          ConsistentRead: true,
+          ExclusiveStartKey: cursor,
+        }),
+      );
+      yield result.Items ?? [];
+      cursor = result.LastEvaluatedKey;
+      if (cursor && Object.keys(cursor).length) {
+        const key = JSON.stringify(cursor);
+        if (seen.has(key)) throw new AccountError('integrity');
+        seen.add(key);
+      }
+    } while (cursor && Object.keys(cursor).length);
+  }
+  async function getCredentialSnapshot(rawEmail: string, signal?: AbortSignal) {
+    const email = rawEmail.trim().toLowerCase();
+    const accessResult = await client.send(
+      new GetCommand({
+        TableName: accountTable('whitelist'),
+        Key: { email },
+        ConsistentRead: true,
+      }),
+      { abortSignal: signal },
+    );
+    const access = accessResult.Item ? parseStored('whitelist', email, accessResult.Item) : null;
+    // Missing/unlinked identities still perform one bounded user read. Ignore the non-credential marker.
+    const userResult = await client.send(
+      new GetCommand({
+        TableName: accountTable('users'),
+        Key: { id: access?.userId ?? bootstrapId },
+        ConsistentRead: true,
+      }),
+      { abortSignal: signal },
+    );
+    const user =
+      access?.userId && userResult.Item
+        ? parseStored('users', access.userId, userResult.Item)
+        : null;
+    if (user && user.email !== email)
+      throw new AccountDataError([
+        { table: 'whitelist', key: email, fields: ['userId: conflicting link'] },
+      ]);
+    return { user, access };
+  }
   async function getUserByEmail(rawEmail: string): Promise<User | null> {
     const email = rawEmail.trim().toLowerCase();
     const access = await getWhitelistEntry(email);
@@ -185,47 +260,31 @@ export function createAccountStore(
       if (!user || user.email !== email) throw new AccountError('integrity');
       return user;
     }
-    // Compatibility until the operator migration has linked existing UUID accounts.
-    // Read every page so duplicates fail closed instead of choosing an arbitrary account.
+    // Legacy discovery is for account management/migration, never the sign-in path.
     let found: User | null = null;
-    let cursor: Record<string, unknown> | undefined;
-    const seen = new Set<string>();
-    do {
-      const result = await getDocClient().send(
-        new ScanCommand({
-          TableName: accountTable('users'),
-          FilterExpression: 'email = :email',
-          ExpressionAttributeValues: { ':email': email },
-          Limit: 100,
-          ConsistentRead: true,
-          ExclusiveStartKey: cursor,
-        }),
-      );
-      for (const item of result.Items ?? []) {
+    for await (const items of scanPages('users', {
+      FilterExpression: 'email = :email',
+      ExpressionAttributeValues: { ':email': email },
+      Limit: 100,
+    }))
+      for (const item of items) {
         if (found) throw new AccountError('integrity');
-        found = accountRecordSchema.parse(item);
+        found = parseStored('users', typeof item.id === 'string' ? item.id : '<invalid id>', item);
       }
-      cursor = result.LastEvaluatedKey;
-      if (cursor && Object.keys(cursor).length) {
-        const key = JSON.stringify(cursor);
-        if (seen.has(key)) throw new AccountError('integrity');
-        seen.add(key);
-      }
-    } while (cursor && Object.keys(cursor).length);
     return found;
   }
   async function getUserById(id: string): Promise<User | null> {
-    const result = await getDocClient().send(
+    const result = await client.send(
       new GetCommand({ TableName: accountTable('users'), Key: { id }, ConsistentRead: true }),
     );
-    return result.Item ? accountRecordSchema.parse(result.Item) : null;
+    return result.Item ? parseStored('users', id, result.Item) : null;
   }
   async function getAccountSnapshot(
     id: string,
     email: string,
     signal?: AbortSignal,
   ): Promise<AccountSnapshot> {
-    const result = await getDocClient().send(
+    const result = await client.send(
       new TransactGetCommand({
         TransactItems: [
           { Get: { TableName: accountTable('users'), Key: { id } } },
@@ -240,6 +299,7 @@ export function createAccountStore(
     prepared: PreparedAccount,
     authority: AccountAuthority,
     bootstrap = false,
+    beforeCommit?: () => Promise<void>,
   ): Promise<void> {
     const user = accountRecordSchema.parse(prepared.user);
     if (user.temporaryPasswordExpiresAt !== prepared.expiresAt) throw new AccountError('integrity');
@@ -289,7 +349,7 @@ export function createAccountStore(
         },
       });
     else {
-      const initialized = await getDocClient().send(
+      const initialized = await client.send(
         new GetCommand({
           TableName: accountTable('users'),
           Key: { id: bootstrapId },
@@ -312,6 +372,8 @@ export function createAccountStore(
           },
         });
     }
+    await beforeCommit?.();
+    if (!temporaryCredentialCurrent(user, now())) throw new AccountError('expired');
     await transaction(items, user.id);
   }
   async function adminCreateUser(
@@ -401,6 +463,9 @@ export function createAccountStore(
       ...checks,
     ]);
   }
+  async function changeOwnPassword(user: User, hash: string, session: AccessUser): Promise<void> {
+    await updateUserPassword(user, hash, { kind: 'session', ...session }, false);
+  }
   async function adminResetPassword(
     email: string,
     authority: AccountAuthority,
@@ -417,30 +482,26 @@ export function createAccountStore(
   }
   async function listAccounts(): Promise<User[]> {
     const users: User[] = [];
-    let cursor: Record<string, unknown> | undefined;
-    const seen = new Set<string>();
-    do {
-      const result = await getDocClient().send(
-        new ScanCommand({
-          TableName: accountTable('users'),
-          FilterExpression: 'attribute_exists(email)',
-          ConsistentRead: true,
-          ExclusiveStartKey: cursor,
-        }),
-      );
-      for (const item of result.Items ?? []) {
-        const user = accountRecordSchema.parse(item);
-        if (item.email !== user.email) throw new AccountError('integrity');
-        users.push(user);
-      }
-      cursor = result.LastEvaluatedKey;
-      if (cursor && Object.keys(cursor).length) {
-        const key = JSON.stringify(cursor);
-        if (seen.has(key)) throw new AccountError('integrity');
-        seen.add(key);
-      }
-    } while (cursor && Object.keys(cursor).length);
+    for await (const items of scanPages('users', { FilterExpression: 'attribute_exists(email)' }))
+      for (const item of items)
+        users.push(
+          parseStored('users', typeof item.id === 'string' ? item.id : '<invalid id>', item),
+        );
     return users;
+  }
+  async function listAccountSummaries(): Promise<AccountSummary[]> {
+    const [users, access] = await Promise.all([listAccounts(), getAllWhitelistedEmails()]);
+    const byEmail = new Map<string, User>();
+    for (const user of users) {
+      if (byEmail.has(user.email)) throw new AccountError('integrity');
+      byEmail.set(user.email, user);
+    }
+    const allowed = new Map(access.map((entry) => [entry.email, entry]));
+    return [...new Set([...byEmail.keys(), ...allowed.keys()])]
+      .sort()
+      .map((email) =>
+        summarizeAccount(email, byEmail.get(email) ?? null, allowed.get(email) ?? null),
+      );
   }
   async function migrateAccountLinks(apply: boolean): Promise<{
     accounts: number;
@@ -461,24 +522,27 @@ export function createAccountStore(
         ['bootstrap', 'initialization'].includes(item.kind)
       )
         continue;
-      const parsed = accountRecordSchema.safeParse(item);
-      if (!parsed.success || item.email !== parsed.data.email) {
-        problems.push({
-          table: 'users',
-          key: typeof item.id === 'string' ? item.id : '<invalid id>',
-          fields: parsed.success ? ['email'] : parsed.error.issues.map((i) => i.path.join('.')),
-        });
-      } else users.push(parsed.data);
+      try {
+        users.push(
+          parseStored('users', typeof item.id === 'string' ? item.id : '<invalid id>', item),
+        );
+      } catch (error) {
+        if (!(error instanceof AccountDataError)) throw error;
+        problems.push(...error.records);
+      }
     }
     for (const item of rawAccess) {
-      const parsed = whitelistRecordSchema.safeParse(item);
-      if (!parsed.success || item.email !== parsed.data.email) {
-        problems.push({
-          table: 'whitelist',
-          key: typeof item.email === 'string' ? item.email : '<invalid email>',
-          fields: parsed.success ? ['email'] : parsed.error.issues.map((i) => i.path.join('.')),
-        });
-      } else accessByEmail.set(parsed.data.email, parsed.data);
+      try {
+        const parsed = parseStored(
+          'whitelist',
+          typeof item.email === 'string' ? item.email : '<invalid email>',
+          item,
+        );
+        accessByEmail.set(parsed.email, parsed);
+      } catch (error) {
+        if (!(error instanceof AccountDataError)) throw error;
+        problems.push(...error.records);
+      }
     }
     const emails = new Set<string>();
     for (const user of users) {
@@ -544,24 +608,7 @@ export function createAccountStore(
   }
   async function scanPopulation(kind: 'users' | 'whitelist'): Promise<Record<string, unknown>[]> {
     const records: Record<string, unknown>[] = [];
-    let cursor: Record<string, unknown> | undefined;
-    const seen = new Set<string>();
-    do {
-      const result = await getDocClient().send(
-        new ScanCommand({
-          TableName: accountTable(kind),
-          ConsistentRead: true,
-          ExclusiveStartKey: cursor,
-        }),
-      );
-      records.push(...(result.Items ?? []));
-      cursor = result.LastEvaluatedKey;
-      if (cursor && Object.keys(cursor).length) {
-        const key = JSON.stringify(cursor);
-        if (seen.has(key)) throw new AccountError('integrity');
-        seen.add(key);
-      }
-    } while (cursor && Object.keys(cursor).length);
+    for await (const items of scanPages(kind)) records.push(...items);
     return records;
   }
   async function setAccountAccess(user: User, role: AccountRole, active: boolean): Promise<void> {
@@ -579,7 +626,7 @@ export function createAccountStore(
             ':role': role,
             ':next': nextVersion(user.authVersion),
             ':version': user.authVersion,
-            ':now': new Date().toISOString(),
+            ':now': new Date(now()).toISOString(),
             ':email': user.email,
           },
         },
@@ -598,55 +645,43 @@ export function createAccountStore(
   }
 
   async function getWhitelistEntry(email: string): Promise<WhitelistRecord | null> {
-    const result = await getDocClient().send(
+    const result = await client.send(
       new GetCommand({
         TableName: accountTable('whitelist'),
         Key: { email: email.trim().toLowerCase() },
         ConsistentRead: true,
       }),
     );
-    return result.Item ? whitelistRecordSchema.parse(result.Item) : null;
-  }
-  async function isEmailWhitelisted(email: string): Promise<boolean> {
-    return (await getWhitelistEntry(email))?.isActive === true;
+    return result.Item ? parseStored('whitelist', email, result.Item) : null;
   }
   async function getAllWhitelistedEmails(): Promise<WhitelistRecord[]> {
-    const users: WhitelistRecord[] = [];
-    let cursor: Record<string, unknown> | undefined;
-    const seen = new Set<string>();
-    do {
-      const result = await getDocClient().send(
-        new ScanCommand({
-          TableName: accountTable('whitelist'),
-          ExclusiveStartKey: cursor,
-          ConsistentRead: true,
-        }),
-      );
-      users.push(...(result.Items ?? []).map((item) => whitelistRecordSchema.parse(item)));
-      cursor = result.LastEvaluatedKey;
-      if (cursor && Object.keys(cursor).length) {
-        const key = JSON.stringify(cursor);
-        if (seen.has(key)) throw new Error('Whitelist pagination did not advance');
-        seen.add(key);
-      }
-    } while (cursor && Object.keys(cursor).length);
-    return users;
+    const entries: WhitelistRecord[] = [];
+    for await (const items of scanPages('whitelist'))
+      for (const item of items)
+        entries.push(
+          parseStored(
+            'whitelist',
+            typeof item.email === 'string' ? item.email : '<invalid email>',
+            item,
+          ),
+        );
+    return entries;
   }
 
   return {
     getUserByEmail,
     getUserById,
     getAccountSnapshot,
+    getCredentialSnapshot,
+    listAccountSummaries,
     getWhitelistEntry,
-    isEmailWhitelisted,
     getAllWhitelistedEmails,
     prepareAccount,
     preparePasswordReset,
     commitPasswordReset,
-    generateTempPassword,
     createPreparedAccount,
     adminCreateUser,
-    updateUserPassword,
+    changeOwnPassword,
     adminResetPassword,
     listAccounts,
     migrateAccountLinks,

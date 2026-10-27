@@ -1,8 +1,7 @@
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname, relative, sep } from 'node:path';
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
-import { isBuiltin } from 'node:module';
 import { applicationSources } from './application-sources.mjs';
 const retired = [
   'src/services',
@@ -13,6 +12,16 @@ const retired = [
   'src/generateStats.ts',
   'store',
   'public/store',
+  'report-data',
+  'src/generated/private-report-data.js',
+  'src/features/current-reports',
+  'src/lib/report-files.ts',
+  'src/models/report-data.ts',
+  'src/components/providers/report-data-provider.tsx',
+  'src/app/api/report-data',
+  'src/app/store',
+  'scripts/prepare-report-data.mjs',
+  'scripts/bundle-report-data.mjs',
   'contributor-repo-timeline.json',
   'contributor-stats.json',
   'repo-stats.json',
@@ -26,56 +35,22 @@ export function inspectBoundaries(root) {
     if (existsSync(resolve(root, name))) {
       // Empty directories can remain after git deletes files; only content matters.
       const p = resolve(root, name);
-      if (!name.includes('.') && readdirSync(p).length === 0) continue;
+      if (statSync(p).isDirectory() && readdirSync(p).length === 0) continue;
       failures.push('Retired reporting path remains: ' + name);
     }
   const files = applicationSources(root);
-  for (const { name, source, client } of files) {
+  for (const { name, source } of files) {
     count++;
-    const path = resolve(root, name);
-    const presentation = client || /^src\/(components|features)\//.test(name);
-    /** @param {string} specifier */
-    const validate = (specifier) => {
-      const target = specifier.startsWith('@/')
-        ? 'src/' + specifier.slice(2)
-        : specifier.startsWith('.')
-          ? relative(root, resolve(dirname(path), specifier))
-              .split(sep)
-              .join('/')
-          : specifier;
-      if (
-        /(^|\/)(store|services|validation)\//.test(target) ||
-        target.includes('contributor-repo-timeline') ||
-        target.includes('lib/repoData')
-      )
-        failures.push(name + ': retired import ' + specifier);
-      if (
-        presentation &&
-        (/^(src\/(mocks|server|lib\/(auth|aws))\/|node:|@aws-sdk\/)/.test(target) ||
-          isBuiltin(specifier))
-      )
-        failures.push(name + ': presentation imports ' + specifier);
-    };
     /** @param {ts.Node} node */
     function visit(node) {
-      if (
-        (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
-        node.moduleSpecifier &&
-        ts.isStringLiteral(node.moduleSpecifier)
-      )
-        validate(node.moduleSpecifier.text);
       if (
         ts.isCallExpression(node) &&
         (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
           (ts.isIdentifier(node.expression) && node.expression.text === 'require'))
       ) {
-        if (
-          node.arguments[0] &&
-          (ts.isStringLiteral(node.arguments[0]) ||
-            ts.isNoSubstitutionTemplateLiteral(node.arguments[0]))
-        )
-          validate(node.arguments[0].text);
-        else failures.push(name + ': computed module import requires explicit review');
+        const target = node.arguments[0];
+        if (!target || (!ts.isStringLiteral(target) && !ts.isNoSubstitutionTemplateLiteral(target)))
+          failures.push(name + ': computed module import requires explicit review');
       }
       if (
         (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) &&

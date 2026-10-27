@@ -115,7 +115,7 @@ it('reports unexpected transport errors without claiming a password change', asy
   vi.mocked(fetch).mockRejectedValue('Network unavailable');
   form();
   expect(await screen.findByRole('alert')).toHaveTextContent(
-    'An unexpected error occurred. Please try again.',
+    'The password change could not be confirmed. Try signing in with your new password, or ask an administrator to reissue it.',
   );
   expect(mocks.signIn).not.toHaveBeenCalled();
 });
@@ -209,6 +209,13 @@ it('explains the committed password change on the recovery login screen', () => 
   );
 });
 
+it('does not claim a failed password write when its response is lost', async () => {
+  vi.mocked(fetch).mockRejectedValue(new TypeError('Failed to fetch'));
+  form();
+  await screen.findByText(/The password change could not be confirmed/);
+  expect(mocks.signIn).not.toHaveBeenCalled();
+  expect(screen.queryByText('Failed to fetch')).not.toBeInTheDocument();
+});
 it.each([
   ['short', 'Password must be at least 6 characters'],
   ['x'.repeat(73), 'Password must be at most 72 UTF-8 bytes'],

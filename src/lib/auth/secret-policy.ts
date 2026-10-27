@@ -17,7 +17,7 @@ export function validateAuthSecret(input: unknown): string {
   return parsed.data;
 }
 export function makeSecretLoader(
-  read: (arn: string) => Promise<unknown>,
+  read: (arn: string, signal: AbortSignal) => Promise<unknown>,
   now: () => number = Date.now,
 ) {
   let cached: { arn: string; value: string; expires: number } | undefined;
@@ -25,9 +25,22 @@ export function makeSecretLoader(
   return async (arn: string): Promise<string> => {
     if (cached?.arn === arn && now() < cached.expires) return cached.value;
     if (pending?.arn === arn) return pending.promise;
+    const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const deadline = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => {
+        const error = new DOMException('Authentication secret read timed out.', 'TimeoutError');
+        reject(error);
+        controller.abort(error);
+      }, 5000);
+    });
     const promise = (async () => {
       try {
-        let input = await read(arn);
+        // SDK request timeouts end at response headers; bound the complete read as well.
+        let input = await Promise.race([
+          Promise.resolve().then(() => read(arn, controller.signal)),
+          deadline,
+        ]);
         if (typeof input === 'string') {
           let object: unknown;
           try {
@@ -44,7 +57,13 @@ export function makeSecretLoader(
         return value;
       } catch (error) {
         if (error instanceof AuthStateError && error.kind === 'configuration') throw error;
-        throw new AuthStateError('unavailable', undefined, 'Authentication secret is unavailable.');
+        throw new AuthStateError(
+          'unavailable',
+          { cause: error },
+          'Authentication secret is unavailable.',
+        );
+      } finally {
+        clearTimeout(timer);
       }
     })();
     pending = { arn, promise };
