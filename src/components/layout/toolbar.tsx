@@ -1,7 +1,7 @@
 'use client';
 
-import { Sun, Moon, Menu, LogOut, User } from 'lucide-react';
-import { useTheme } from '../providers/theme-provider';
+import { Menu, LogOut, User } from 'lucide-react';
+import { ThemeMenu } from './theme-menu';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -22,7 +22,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function Toolbar() {
-  const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -211,22 +210,7 @@ export function Toolbar() {
               </button>
             )}
 
-            {/* Theme Toggle Button */}
-            <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className={`h-10 w-10 rounded-lg border transition-all duration-300 flex items-center justify-center ${
-                theme === 'dark'
-                  ? 'bg-gray-900 border-gray-600 hover:bg-gray-800'
-                  : 'bg-white border-gray-200 hover:bg-gray-50'
-              }`}
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Moon className="h-5 w-5 text-blue-400" />
-              ) : (
-                <Sun className="h-5 w-5 text-yellow-500" />
-              )}
-            </button>
+            <ThemeMenu />
           </div>
         </div>
       </div>

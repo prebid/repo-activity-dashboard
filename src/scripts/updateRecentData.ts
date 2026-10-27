@@ -333,7 +333,7 @@ class RecentDataUpdater {
 
     // Copy to public and regenerate stats
     console.log('\n📂 Copying to public directory...');
-    execSync('cp -r store/repos public/store/', { stdio: 'inherit' });
+    execSync('cp -r store/repos report-data/', { stdio: 'inherit' });
 
     console.log('📊 Regenerating statistics...');
     await import('./generateContributorStats');

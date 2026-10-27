@@ -1,82 +1,66 @@
 import { auth } from "@/lib/auth/auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { safeReturnPath } from "@/lib/presentation/navigation";
 
-export async function middleware(req: NextRequest) {
-  const pathname = req.nextUrl.pathname;
-
-  // Allow health check and test endpoints to bypass auth
-  if (pathname === "/api/health" || pathname === "/test") {
+export const middleware = auth((request) => {
+  const path = request.nextUrl.pathname;
+  const origin = new URL(process.env.NEXTAUTH_URL || request.url).origin;
+  const protocol =
+    /^\/api\/auth\/(csrf|session|providers|signin|signout|callback|error)(\/|$)/.test(
+      path,
+    );
+  if (
+    path === "/api/health" ||
+    path === "/auth/login" ||
+    path === "/auth/error" ||
+    protocol
+  )
     return NextResponse.next();
-  }
-
-  // Define route types
-  const isPublicRoute = pathname === "/" || pathname === "" || pathname.startsWith("/store") || pathname.startsWith("/contributors") || pathname.startsWith("/companies");
-  const isAuthRoute = pathname.startsWith("/auth");
-  const isPasswordChangePage = pathname === "/auth/change-password";
-  const isAdminRoute = pathname.startsWith("/admin");
-  const isProtectedRoute = !isPublicRoute && !isAuthRoute;
-
-  // Skip auth check for auth routes to prevent circular redirects
-  if (isAuthRoute) {
-    return NextResponse.next();
-  }
-
-  // Try to get session with error handling
-  let session;
-  try {
-    session = await auth();
-  } catch (error) {
-    console.error("Middleware auth error:", error);
-    // If auth fails on public routes, allow access
-    if (isPublicRoute) {
-      return NextResponse.next();
-    }
-    // For protected routes, redirect to login
-    const redirectUrl = new URL("/auth/login", req.url);
-    redirectUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  // If user is authenticated
-  if (session && session.user) {
-    // Check if user must change password (except if already on password change page)
-    if (session.user.mustChangePassword && !isPasswordChangePage) {
-      return NextResponse.redirect(new URL("/auth/change-password", req.url));
-    }
-
-    // Redirect from auth pages (except password change) if already logged in and password is set
-    if (isAuthRoute && !isPasswordChangePage && !session.user.mustChangePassword) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-
-    // Check admin routes - must have admin role
-    if (isAdminRoute && session.user.role !== "admin") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-  }
-
-  // If user is NOT authenticated
-  if (!session) {
-    // Allow access to public routes and auth routes
-    if (isPublicRoute || isAuthRoute) {
-      return NextResponse.next();
-    }
-
-    // Redirect to login for protected routes
-    if (isProtectedRoute) {
-      // Store the attempted URL to redirect back after login
-      const redirectUrl = new URL("/auth/login", req.url);
-      redirectUrl.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(redirectUrl);
-    }
-  }
-
-  return NextResponse.next();
-}
+  const data =
+    path.startsWith("/api/") || path === "/store" || path.startsWith("/store/");
+  const user = request.auth?.user;
+  const destination = safeReturnPath(path + request.nextUrl.search);
+  const redirect = (target: string) => {
+    const url = new URL(target, origin);
+    url.searchParams.set("callbackUrl", destination);
+    const response = NextResponse.redirect(url);
+    response.headers.set("Cache-Control", "private, no-store");
+    return response;
+  };
+  const deny = (status: number, error: string) =>
+    NextResponse.json(
+      { error },
+      { status, headers: { "Cache-Control": "private, no-store" } },
+    );
+  if (!user?.id || !user.email)
+    return data ? deny(401, "Sign in required") : redirect("/auth/login");
+  if (
+    user.mustChangePassword &&
+    path !== "/auth/change-password" &&
+    path !== "/api/auth/change-password"
+  )
+    return data
+      ? deny(403, "Set your password before continuing")
+      : redirect("/auth/change-password");
+  const admin =
+    path.startsWith("/admin") ||
+    path.startsWith("/api/admin") ||
+    path === "/auth/setup" ||
+    path.startsWith("/api/auth/setup") ||
+    path === "/api/auth/test";
+  if (admin && user.role !== "admin")
+    return data
+      ? deny(403, "Administrator access required")
+      : NextResponse.redirect(new URL("/", origin));
+  const headers = new Headers(request.headers);
+  headers.set("x-dashboard-return-path", destination);
+  const response = NextResponse.next({ request: { headers } });
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+});
 
 export const config = {
   matcher: [
-    "/((?!api/auth|api/health|_next/static|_next/image|favicon.ico|store/.*\\.json).*)",
+    "/((?!_next/static|_next/image|favicon.ico|prebid-logo.png|images/).*)",
   ],
 };

@@ -44,10 +44,9 @@ frontend:
         - export AUTH_URL=$NEXTAUTH_URL
         - export AUTH_SECRET=$NEXTAUTH_SECRET
 
-        # Copy store files to public directory for static serving
-        - echo "Copying store files to public..."
-        - mkdir -p public/store
-        - cp -r store/* public/store/ || echo "Store copy warning"
+        # Prepare private report files for authenticated route handlers
+        - echo "Preparing private report files..."
+        - node scripts/prepare-report-data.mjs
 
         # Build Next.js
         - echo "Building Next.js app..."
