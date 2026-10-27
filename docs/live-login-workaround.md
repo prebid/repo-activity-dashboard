@@ -1,6 +1,6 @@
 # Live-site login workaround
 
-This branch targets the current Next.js 14 site at `main.d2x8rtiv281f4g.amplifyapp.com`, based on `fba4d04b588a01149df2c8b5bd8a02f55a709cc2`. It does not deploy the sample-backed reporting foundation in PR #2.
+This branch targets the current Next.js 14 site at `main.d2x8rtiv281f4g.amplifyapp.com`, based on current main at `f59e4dadecebe42bd2427f239e176afb9e2f84b6`. It does not deploy the sample-backed reporting foundation in PR #2.
 
 ## Behavior
 

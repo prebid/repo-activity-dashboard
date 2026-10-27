@@ -55,8 +55,12 @@ test("existing admin creates a user, temporary password is changed, and original
   await page.getByLabel("Password", { exact: true }).fill("admin-password");
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL("http://localhost:3300/");
+  const expectedOpen = JSON.parse(
+    await readFile("report-data/repos/prebid-js/open-prs.json", "utf8"),
+  ).metadata.itemCount;
+  expect(expectedOpen).toBeGreaterThan(0);
   await expect(
-    page.getByRole("button", { name: "Open PRs 45", exact: true }),
+    page.getByRole("button", { name: "Open PRs " + expectedOpen, exact: true }),
   ).toBeVisible();
   const baseline = await readFile(
     "report-data/repos/prebid-js/open-prs.json",
