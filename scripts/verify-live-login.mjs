@@ -22,6 +22,7 @@ function run(args) {
 }
 if ((await readdir("public")).includes("store"))
   throw new Error("Public reporting files must not ship.");
+run(['scripts/bundle-report-data.mjs']);
 run([
   "node_modules/vitest/vitest.mjs",
   "run",

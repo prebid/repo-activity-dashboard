@@ -1,4 +1,5 @@
 import { beforeEach, expect, it, vi } from "vitest";
+vi.mock('server-only', () => ({}));
 import { NextRequest, NextResponse } from "next/server";
 import { splitTimeline } from "@/models/report-data";
 import { safeReturnPath } from "@/lib/presentation/navigation";

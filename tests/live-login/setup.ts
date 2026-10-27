@@ -1,8 +1,9 @@
 import { spawn, spawnSync } from "node:child_process";
-import { mkdir, readFile } from "node:fs/promises";
+import { mkdir, readFile, mkdtemp, cp, symlink, rm, access } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { createServer } from "node:net";
-import { resolve } from "node:path";
+import { resolve, join } from "node:path";
+import { tmpdir } from "node:os";
 import { setTimeout as delay } from "node:timers/promises";
 import {
   DynamoDBClient,
@@ -124,6 +125,7 @@ export default async function setup() {
     maxAttempts: 1,
   });
   let app: ReturnType<typeof spawn> | undefined;
+  const artifact = await mkdtemp(join(tmpdir(), "live-login-artifact-"));
   const cleanup = async () => {
     for (const child of [app, db])
       if (child && child.exitCode === null) {
@@ -136,6 +138,7 @@ export default async function setup() {
           child.kill("SIGKILL");
       }
     client.destroy();
+    await rm(artifact, { recursive: true, force: true });
   };
   try {
     await waitUntilReady(db, "DynamoDB Local", (signal) =>
@@ -178,6 +181,23 @@ export default async function setup() {
         }),
       );
     }
+    // Run outside the checkout so source files cannot mask packaging failures.
+    await cp(".next", join(artifact, ".next"), {
+      recursive: true,
+      filter: (path) => !resolve(path).startsWith(resolve(".next/cache")),
+    });
+    await cp("public", join(artifact, "public"), { recursive: true });
+    await cp("package.json", join(artifact, "package.json"));
+    await cp("next.config.mjs", join(artifact, "next.config.mjs"));
+    await symlink(resolve("node_modules"), join(artifact, "node_modules"));
+    for (const missing of ["report-data", "store", "src", "contributor-repo-timeline.json"]) {
+      try {
+        await access(join(artifact, missing));
+        throw new Error("Raw source leaked into artifact: " + missing);
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      }
+    }
     app = spawn(
       process.execPath,
       [
@@ -189,6 +209,7 @@ export default async function setup() {
         "3300",
       ],
       {
+        cwd: artifact,
         env: {
           ...process.env,
           NEXTAUTH_SECRET: "local-verification-only-secret-0123456789",

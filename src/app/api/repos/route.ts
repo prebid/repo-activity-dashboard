@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readdirSync } from 'fs';
-import { join } from 'path';
+import { reportRepositories } from '@/lib/report-files';
 import { requireDataAccess, privateHeaders } from '@/lib/auth/site-access';
 export const dynamic = 'force-dynamic';
 
@@ -8,14 +7,8 @@ export async function GET(request: NextRequest) {
   try {
     const denied = await requireDataAccess();
     if (denied) return denied;
-    // Path to your store directory
-    const storeDir = join(process.cwd(), 'store', 'repos');
-    
-    // Read all repository directories
-    const repoDirs = readdirSync(storeDir, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
-    
+    const repoDirs = reportRepositories();
+
     // For now, just return the list of repositories
     return NextResponse.json({
       repositories: repoDirs,

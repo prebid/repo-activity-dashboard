@@ -6,7 +6,7 @@ This branch targets the current Next.js 14 site at `main.d2x8rtiv281f4g.amplifya
 
 - Signed-out visits to reports go to the approved Prebid sign-in design. Existing administrator-created accounts and temporary-password changes use the current Auth.js/DynamoDB account system.
 - Dark is the default. Existing `dashboard-theme` preferences are preserved; Light and System remain available.
-- Report views retain their existing calculations and controls. Public report-file copies move to `report-data`, with unchanged bytes; the existing `store` source remains the build input. Data is served by authenticated, noncached Node routes instead of static assets or public JavaScript bundles.
+- Report views retain their existing calculations and controls. The existing `store` source remains the build input. Build preparation copies it to `report-data` and generates an ignored, server-only module containing the report files and timeline with unchanged bytes. Authenticated, noncached Node routes read this bundle; they do not depend on source files being present in the deployed server's working directory.
 - Large timeline data is delivered in bounded parts with a common version, then reconstructed before rendering the unchanged report views.
 - Existing administrators can continue creating users. Public first-admin setup and diagnostic endpoints are retired; setup directs administrators to user management.
 
@@ -27,6 +27,8 @@ At the full cutover:
 ## Verification
 
 `npm run verify:live-login` builds with synthetic local settings, runs focused unit checks, and exercises Chromium/WebKit against isolated in-memory DynamoDB Local. It never uses live account tables or runs the live S3 sync. Its build artifact is for verification, not deployment.
+
+The browser server runs from a temporary directory containing only the built `.next` output, public assets, package/config files, and dependencies. It has no `src`, `store`, `report-data`, or source timeline. This reproduces the missing-source-file condition that broke report loading after the initial Amplify deployment. The server-only bundle is generated before development, normal builds, and the verification command; it must never be copied to public assets.
 
 Browser cases cover anonymous page/data denial, administrator sign-in and user creation, temporary-password replacement, existing reports, exact report-file equality, complete timeline/mapping reconstruction, absence of report data from public assets/client bundles, and input/icon geometry in both themes at phone/tablet/desktop widths.
 

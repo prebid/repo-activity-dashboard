@@ -23,7 +23,9 @@
     "validate": "tsx src/scripts/validate.ts",
     "generate:stats": "tsx src/scripts/generateContributorStats.ts",
     "process:mapping": "tsx src/scripts/processGithubMapping.ts",
-    "verify:live-login": "node scripts/verify-live-login.mjs"
+    "verify:live-login": "node scripts/verify-live-login.mjs",
+    "predev": "node scripts/prepare-report-data.mjs",
+    "pretest": "node scripts/bundle-report-data.mjs"
   },
   "keywords": [],
   "author": "",
@@ -75,6 +77,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.15.4",
+    "server-only": "0.0.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^13.0.0",
