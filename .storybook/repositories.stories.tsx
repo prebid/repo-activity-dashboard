@@ -12,6 +12,7 @@ import { defaultOverviewSettings } from '../src/lib/presentation/overview-settin
 import { selectOverviewSample } from '../src/lib/presentation/overview-samples';
 import { overviewSettingsColumns } from '../src/features/repositories/overview-columns';
 import { initialTableQuery } from '../src/lib/presentation/table-controller';
+import { withOverviewSort } from '../src/lib/presentation/overview-sort';
 import { repositoryCatalog } from '../src/config/repositories';
 
 const samples = repositoryOverviewSamples();
@@ -60,8 +61,8 @@ function OverviewPreview({
               ? selectOverviewSample(samples, settings.periods[1], settings.repositoryIds)
               : undefined
           }
-          backlogController={backlog}
-          activityController={activity}
+          backlogController={withOverviewSort(backlog, 'backlog', settings)}
+          activityController={withOverviewSort(activity, 'activity', settings)}
           repositories={repositories}
           settings={{
             value: settings,

@@ -294,13 +294,12 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
 
 test('sort defaults are per account and explicit URLs take precedence', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
-  await page.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
+  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await page.goto('/repos');
   await expect(page).toHaveURL(/\/repos$/); // Restored defaults stay in memory until an action writes the URL.
-  await expect(page.getByRole('columnheader', { name: 'Total open PRs ↓' })).toHaveAttribute(
+  await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
     'aria-sort',
-    'descending',
+    'ascending',
   );
   await page.goto('/repos?backlog.sort=name&backlog.dir=asc');
   await expect(
@@ -314,8 +313,8 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
   await expect(
-    page.getByRole('columnheader', { name: 'Total open PRs', exact: true }),
-  ).toHaveAttribute('aria-sort', 'none');
+    page.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
 });
 
 test('repository issue search and same-route navigation keep the URL and rows synchronized', async ({
@@ -339,7 +338,7 @@ test('sort survives a real router refresh caused by another tab signing in', asy
   context,
 }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
+  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
   const refreshed = page.waitForResponse(
     (response) =>
@@ -352,7 +351,7 @@ test('sort survives a real router refresh caused by another tab signing in', asy
     await page.bringToFront();
     await refreshed;
     await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
-    await expect(page.getByRole('columnheader', { name: 'Total open PRs ↑' })).toHaveAttribute(
+    await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
       'aria-sort',
       'ascending',
     );

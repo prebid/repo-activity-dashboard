@@ -9,6 +9,7 @@ import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import type { OverviewSettings } from '@/models/overview-settings';
 import { defaultOverviewSettings } from '@/lib/presentation/overview-settings';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
+import { withOverviewSort } from '@/lib/presentation/overview-sort';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import type { AgingThreshold } from '@/models/repository-overview';
 import type { DataColumn } from '@/components/tables/data-table';
@@ -84,8 +85,8 @@ function Preview({
           ? selectOverviewSample(samples, settings.periods[1], settings.repositoryIds)
           : undefined
       }
-      backlogController={backlog}
-      activityController={activity}
+      backlogController={withOverviewSort(backlog, 'backlog', settings)}
+      activityController={withOverviewSort(activity, 'activity', settings)}
       repositories={repositories}
       settings={{
         value: settings,
@@ -347,7 +348,7 @@ it('renders separate grouped tables with complete sample populations and pinned 
     .getAttribute('headers')!
     .split(' ')
     .map((id) => document.getElementById(id)?.textContent);
-  expect(headings).toEqual(['Pull requests', 'Total open PRs']);
+  expect(headings).toEqual(['Pull requests', 'Total PRs ↓']);
 });
 it('keeps column visibility and sorting independent without table search', async () => {
   const user = userEvent.setup();
@@ -377,9 +378,9 @@ it('keeps column visibility and sorting independent without table search', async
   expect(
     within(activity).queryByRole('columnheader', { name: 'Human feedback' }),
   ).not.toBeInTheDocument();
-  await user.click(within(backlog).getByRole('button', { name: 'Total open PRs' }));
-  await user.click(within(backlog).getByRole('button', { name: 'Total open PRs ↑' }));
-  expect(within(backlog).getByRole('columnheader', { name: 'Total open PRs ↓' })).toHaveAttribute(
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↓' }));
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↑' }));
+  expect(within(backlog).getByRole('columnheader', { name: 'Total PRs ↓' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );

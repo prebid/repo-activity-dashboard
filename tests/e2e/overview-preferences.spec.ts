@@ -47,6 +47,55 @@ async function expectAges(page: Page, selected: number[]) {
     ).toHaveCount(selected.includes(days) ? 1 : 0);
 }
 
+test('PR defaults follow visible columns while preserving chosen sorts', async ({ page }) => {
+  await login(page);
+  const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
+  const activity = page.getByRole('region', { name: 'Period activity', exact: true });
+  const opened = activity.locator('th[id$="-prsOpened"]');
+  const merged = activity.locator('th[id$="-prsMerged"]');
+  await expect(
+    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  await expect(opened).toHaveAttribute('aria-sort', 'descending');
+  await expect(backlog.locator('tbody tr').first()).toContainText('Prebid.js');
+  await expect(activity.locator('tbody tr').first()).toContainText('Prebid.js');
+  await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Total PRs', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(backlog.getByRole('columnheader', { name: 'Open ↓', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
+  await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Open', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(
+    backlog.getByRole('columnheader', { name: 'Repository ↑', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  await activity.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Opened', exact: true }).first().click();
+  await page.keyboard.press('Escape');
+  await expect(merged).toHaveAttribute('aria-sort', 'descending');
+  await page.goto('/repos');
+  await expect(merged).toHaveAttribute('aria-sort', 'descending');
+  await activity.getByRole('button', { name: 'PR authors', exact: true }).click();
+  await activity.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Opened', exact: true }).first().click();
+  await page.keyboard.press('Escape');
+  await expect(
+    activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  await page.goto('/repos');
+  await expect(
+    activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click();
+  await expect(opened).toHaveAttribute('aria-sort', 'descending');
+  await expect(
+    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+});
+
 test('two periods remain paired through sorting, swapping, persistence and removal', async ({
   page,
 }) => {
@@ -222,8 +271,8 @@ test('scope controls, separate table choices and account defaults survive a dire
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Human feedback', exact: true }).click();
   await page.keyboard.press('Escape');
-  await backlog.getByRole('button', { name: 'Total open PRs', exact: true }).click();
-  await backlog.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
+  await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+  await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
   await page.goto('/repos');
   await expectAges(page, [90]);
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
@@ -232,7 +281,7 @@ test('scope controls, separate table choices and account defaults survive a dire
     backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
   ).toBeVisible();
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total open PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await expect(
     page.getByRole('table', { name: 'Period activity' }).locator('tbody tr'),
@@ -254,7 +303,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await page.goBack();
   await expectAges(page, [90]);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total open PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await expect(
     page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),

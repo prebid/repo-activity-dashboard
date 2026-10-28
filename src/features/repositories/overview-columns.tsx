@@ -56,12 +56,12 @@ export function backlogColumns(): DataColumn<OverviewTableRow>[] {
     repositoryColumn,
     backlogColumn(
       'totalOpenPrs',
-      'Total open PRs',
+      'Total PRs',
       'Pull requests',
       'All currently open PRs, including drafts.',
     ),
     backlogColumn('draftPrs', 'Drafts', 'Pull requests'),
-    backlogColumn('nonDraftPrs', 'Non-drafts', 'Pull requests'),
+    backlogColumn('nonDraftPrs', 'Open', 'Pull requests', 'Currently open PRs, excluding drafts.'),
     backlogColumn('openIssues', 'Open issues', 'Issues'),
     ...agingThresholds.map((age): DataColumn<OverviewTableRow> => ({
       id: agingColumnId(age),

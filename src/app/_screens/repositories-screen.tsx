@@ -9,11 +9,11 @@ import {
   writeOverviewTableQueries,
 } from '@/lib/presentation/overview-settings';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
+import { withOverviewSort } from '@/lib/presentation/overview-sort';
 import type { OverviewSettings } from '@/models/overview-settings';
 import type { RepositoryOverviewSamples } from '@/models/repository-overview';
 const backlogPeers = ['activity'];
 const activityPeers = ['backlog'];
-const defaultSort = { sort: 'name', descending: false };
 export function RepositoriesScreen({
   viewerId,
   samples,
@@ -30,22 +30,22 @@ export function RepositoriesScreen({
     [repositories],
   );
   const settings = useOverviewSettings(viewerId, definition, samples.asOf);
-  const backlog = useTableController({
+  const backlogTable = useTableController({
     queryKey: 'backlog',
     scopeKey: 'all-repositories:backlog',
     viewerId,
     columnIds: overviewSettingsColumns.backlogColumns,
     peerQueryKeys: backlogPeers,
-    defaultSort,
   });
-  const activity = useTableController({
+  const activityTable = useTableController({
     queryKey: 'activity',
     scopeKey: 'all-repositories:activity',
     viewerId,
     columnIds: overviewSettingsColumns.activityColumns,
     peerQueryKeys: activityPeers,
-    defaultSort,
   });
+  const backlog = withOverviewSort(backlogTable, 'backlog', settings.value);
+  const activity = withOverviewSort(activityTable, 'activity', settings.value);
   const data = useMemo(
     () => selectOverviewSample(samples, settings.value.periods[0], settings.value.repositoryIds),
     [samples, settings.value.periods, settings.value.repositoryIds],

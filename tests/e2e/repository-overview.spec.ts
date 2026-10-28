@@ -10,8 +10,8 @@ test.describe('pinned row dividers', () => {
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
     await expect(page).toHaveURL(/\/repos$/);
     const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
-    await backlog.getByRole('button', { name: 'Total open PRs', exact: true }).click();
-    await backlog.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
+    await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+    await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
     for (const theme of ['dark', 'light']) {
       await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
       await page
@@ -193,12 +193,12 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   await expect(
     activity.getByRole('columnheader', { name: 'Human feedback', exact: true }),
   ).toHaveCount(0);
-  await backlog.getByRole('button', { name: 'Total open PRs', exact: true }).click();
+  await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
   await activity.getByRole('button', { name: 'PR authors', exact: true }).click();
   await expect(page).toHaveURL(/activity.sort=prAuthors/);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total open PRs ↑', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs ↑', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
   await expect(
     activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),

@@ -23,7 +23,7 @@ Group related columns so users can show the information they need and save their
 
 | Group | Columns | Definition |
 | --- | --- | --- |
-| PR backlog | Draft PRs; Open non-draft PRs; Total open PRs | Current open PRs. Total open PRs equals drafts plus non-drafts. |
+| PR backlog | Drafts; Open; Total PRs | Current backlog only. Open excludes drafts; Total PRs equals Drafts plus Open. |
 | Issue backlog | Open issues | Current open issues, excluding PRs. |
 | Aging | One Open >N days column per selected threshold | Open non-draft PRs whose time since creation exceeds that column’s threshold. |
 | Human review participation | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
@@ -170,6 +170,7 @@ The Difference row appears automatically when a second period is selected; there
 - Searchable repository multi-select with select-all and clear-selection actions.
 - The repository selection applies to both tables.
 - Every numeric column supports ascending and descending sorting.
+- Default backlog ordering is Total PRs, highest first; use Open when Total PRs is hidden. Default activity ordering is PRs Opened, highest first; use PRs Merged when Opened is hidden. If neither preferred metric is visible, use Repository A–Z. Preserve a chosen or saved sort while its column remains visible. Hidden sort columns use the same fallback rules. These are alternative default sort columns, not additional tie-break metrics.
 - Preserve separate sort settings for the two tables.
 - Save selected repositories, visible columns/groups, sorting, ordered activity periods/custom ranges and selected aging thresholds per account.
 - Save relative timeframe choices as relative choices: This month remains This month on a later visit.
