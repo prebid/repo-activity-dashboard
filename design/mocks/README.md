@@ -8,15 +8,15 @@ The exception is [repository-catalog.ts](repository-catalog.ts): it contains rea
 
 Step 1 now provides the typed sample entry point [repositoryOverviewSample](../../src/mocks/repository-overview.ts), backed by [backlog values](../../src/mocks/overview-backlog.ts) and [period values](../../src/mocks/overview-activity.ts). It uses the 18 real catalog identities with invented metrics and a fixed reporting clock of `2026-10-24T12:00:00.000Z`. It is a display sample, not a database adapter or activity-history calculator.
 
-The [display models](../../src/models/repository-overview.ts) separate current backlog, selected-period activity, comparison values, and complete/partial/missing/not-applicable measurements. Runtime schemas reject invalid counts and missing metric keys. [Period selection](../../src/lib/presentation/reporting-period.ts) resolves UTC dates; [drilldown helpers](../../src/lib/presentation/repository-drilldown.ts) validate and serialize destination context. These helpers do not import a table library, React, authentication, or sample data.
+The [display models](../../src/models/repository-overview.ts) separate current backlog, per-period activity, and complete/partial/missing/not-applicable measurements. Runtime schemas reject invalid counts and missing metric keys. [Period selection](../../src/lib/presentation/reporting-period.ts) resolves UTC dates; [drilldown helpers](../../src/lib/presentation/repository-drilldown.ts) validate and serialize destination context. These helpers do not import a table library, React, authentication, or sample data.
 
 | Control or display | Prepared coverage |
 | --- | --- |
 | Repository selection | All 18, an explicit empty selection, or a subset; duplicate IDs are collapsed; unknown URL IDs are ignored without selecting all, while direct sample queries reject unknown IDs. |
 | Aging | Independent 30/60/90/120/180/360-day columns; default selection 30. Selecting none hides the group. Prebid.js values are 90/60/30/0/0/0. |
-| Period presets | All seven agreed presets, exact UTC ranges, and separate comparison values. Current backlog stays identical. |
-| Custom range | October 6 through October 8, 2026 has prepared values. Other valid ranges return explicit missing-sample activity, preserving backlog. |
-| Show change | Positive, negative, zero-baseline, unchanged and missing-baseline examples. Partial or missing operands cannot establish an exact difference. |
+| Period presets | All seven agreed presets, exact UTC ranges, and independent selected-period values. Current backlog stays identical. |
+| Custom range | October 6–8 and October 13–15, 2026 have independent prepared values for a two-custom-range preview. Other valid ranges return explicit missing-sample activity, preserving backlog. |
+| Two periods | Select one or two presets/custom ranges. Repository pairs stay together and each row retains its own values. Numeric sorting uses Period 1; Swap periods changes that ranking choice. Show change is not exposed. |
 | Feedback and approvals | Independent 0/1/2 distributions, retained above-two exceptions, agent/bot coverage, and latest-actor categories including other/unknown. |
 | Durations | Median days plus sample size; no merged PRs means not applicable, not zero days. |
 | Missing and partial data | Agent Skills current approvals missing; Cache Java partial agent coverage and issue closures; GitHub Activity DB comparison missing. |
@@ -25,7 +25,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 
 Repeated calls return independent serializable values. Lightweight sizing of prepared activity examples supplies variation between repositories; those factors are not estimates of real activity. Tests pin handwritten examples and check consistency across scopes. Yearly author counts are prepared separately, not summed from monthly unique counts.
 
-The All Repositories preview now consumes this sample through the guarded loader. Its reusable tables provide sorting, grouped column selection, pinned repository identities, and overflow hints. Storybook includes the full page, comparison values, empty, loading, and error examples. The existing repository-detail sample remains a placeholder until step 4; numeric summary values are therefore not linked to incomplete destinations. Supporting metadata rows and receiving-route tests belong to step 4. Repository selection, period/aging selectors, custom ranges, Show change, Reset view, and account/browser preferences are implemented. The server packages all prepared periods with a single backlog using `repositoryOverviewSamples`; the client selects from those values through `selectOverviewSample`. No reporting request interface or database was added. The new table layout uses the approved Prebid palette without following the old reporting layout. Repository selection is the summary filter; search remains inside that picker, not in either summary table.
+The All Repositories preview now consumes this sample through the guarded loader. Its reusable tables provide sorting, grouped column selection, pinned repository identities, and overflow hints. Storybook includes the full page, two-period rows, empty, loading, and error examples. The existing repository-detail sample remains a placeholder until step 4; numeric summary values are therefore not linked to incomplete destinations. Supporting metadata rows and receiving-route tests belong to step 4. Repository selection, period/aging selectors, independent custom ranges, Reset view, and account/browser preferences are implemented. The server packages all prepared periods with a single backlog using `repositoryOverviewSamples`; the client selects from those values through `selectOverviewSample`. No reporting request interface or database was added. The new table layout uses the approved Prebid palette without following the old reporting layout. Repository selection is the summary filter; search remains inside that picker, not in either summary table.
 
 ## Earlier display reference
 
@@ -55,7 +55,7 @@ Display numeric zero as `0`. Display `null` as a dash, with the corresponding av
 
 The reviewer and approval buckets are independent; do not combine them. Coverage counts can overlap. Latest-actor counts are disjoint for this sample. A count greater than two is represented separately so the component does not assume the three visible buckets exhaust all possible data.
 
-Local sorting, repository selection, column selection, and Show change can use this complete set of rows. It supplies only one period and one aging threshold initially. Add prepared values for other presets when implementing their interactions; do not relabel unchanged numbers as a different period. Add supporting mock PR/issue records before claiming a summary-to-list drill-down works.
+This earlier file retains comparison values as a planning reference; the active interface does not expose Show change. Use the normalized runtime samples for current period selection and column controls. It supplies only one period and one aging threshold; it is not the active multi-period fixture. Add prepared values for other presets when implementing their interactions; do not relabel unchanged numbers as a different period. Add supporting mock PR/issue records before claiming a summary-to-list drill-down works.
 
 ## Next display samples
 

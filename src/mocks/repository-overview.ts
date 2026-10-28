@@ -11,7 +11,7 @@ import {
   type RepositoryOverviewSamples,
 } from '@/models/repository-overview';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
-import { busyPeriods, preparedCustomPeriod } from './overview-activity';
+import { busyPeriods, preparedCustomPeriod, secondPreparedCustomPeriod } from './overview-activity';
 import { overviewBacklogs } from './overview-backlog';
 import { activity, emptyActivity, missing, partial } from './overview-values';
 
@@ -20,6 +20,11 @@ export const customSampleSelection: PeriodSelection = {
   kind: 'custom',
   from: '2026-10-06',
   through: '2026-10-08',
+};
+export const secondCustomSampleSelection: PeriodSelection = {
+  kind: 'custom',
+  from: '2026-10-13',
+  through: '2026-10-15',
 };
 
 // These factors vary invented display examples. They are not estimates of real repository activity.
@@ -65,6 +70,7 @@ export function repositoryOverviewSamples(): RepositoryOverviewSamples {
   const reports = [
     ...periodPresets.map((preset) => repositoryOverviewSample({ kind: 'preset', preset })),
     repositoryOverviewSample(customSampleSelection),
+    repositoryOverviewSample(secondCustomSampleSelection),
   ];
   const first = reports[0];
   return {
@@ -109,7 +115,9 @@ export function repositoryOverviewSample(
       ? busyPeriods[input.preset]
       : input.from === '2026-10-06' && input.through === '2026-10-08'
         ? preparedCustomPeriod
-        : null;
+        : input.from === '2026-10-13' && input.through === '2026-10-15'
+          ? secondPreparedCustomPeriod
+          : null;
   const rows = catalog
     .filter((repo) => !selected || selected.has(repo.id))
     .map((repo) => {

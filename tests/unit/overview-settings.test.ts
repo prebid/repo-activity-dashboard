@@ -60,19 +60,19 @@ describe('overview settings contracts', () => {
     expect(agingThresholdForColumn('agedPrs')).toBeUndefined();
   });
   it('migrates visible and hidden v1 aging columns without losing other preferences', () => {
-    const { ageThresholds: _old, ...base } = defaults;
+    const { ageThresholds: _old, periods: previousPeriods, ...base } = defaults;
     const legacy = {
       ...base,
       repositoryIds: ['b'],
-      showChange: true,
       ageDays: 90,
+      period: previousPeriods[0],
+      showChange: true,
       backlogColumns: ['name', 'total', 'agedPrs'],
     };
     expect(
       readOverviewPreferences(JSON.stringify({ version: 1, settings: legacy }), definition, asOf),
     ).toMatchObject({
       repositoryIds: ['b'],
-      showChange: true,
       ageThresholds: [90],
       backlogColumns: ['name', 'total'],
     });
@@ -89,8 +89,7 @@ describe('overview settings contracts', () => {
       ...defaults,
       repositoryIds: ['b'],
       ageThresholds: [90 as const],
-      showChange: true,
-      period: { kind: 'preset' as const, preset: 'last-week' as const },
+      periods: [{ kind: 'preset' as const, preset: 'last-week' as const }],
     };
     expect(resolveOverviewSettings('', null, definition, asOf).value).toEqual(defaults);
     expect(resolveOverviewSettings('', saved, definition, asOf).value).toEqual(saved);
@@ -100,8 +99,7 @@ describe('overview settings contracts', () => {
     ).toMatchObject({
       repositoryIds: ['a'],
       ageThresholds: [60],
-      showChange: false,
-      period: { kind: 'preset', preset: 'this-year' },
+      periods: [{ kind: 'preset', preset: 'this-year' }],
     });
   });
   it('preserves empty selections and normalizes duplicates, retired identities and columns', () => {
@@ -136,11 +134,11 @@ describe('overview settings contracts', () => {
     expect(
       resolveOverviewSettings(
         'age=31&change=maybe',
-        { ...defaults, ageThresholds: [90], showChange: true },
+        { ...defaults, ageThresholds: [90] },
         definition,
         asOf,
       ).value,
-    ).toMatchObject({ ageThresholds: [30], showChange: false });
+    ).toMatchObject({ ageThresholds: [30] });
     expect(
       resolveOverviewSettings(
         'age=60&age=90&period=last-month&period=this-year',
@@ -148,7 +146,10 @@ describe('overview settings contracts', () => {
         definition,
         asOf,
       ).value,
-    ).toMatchObject({ ageThresholds: [60, 90], period: { kind: 'preset', preset: 'last-month' } });
+    ).toMatchObject({
+      ageThresholds: [60, 90],
+      periods: [{ kind: 'preset', preset: 'last-month' }],
+    });
   });
   it.each([
     'period=bad',
@@ -157,14 +158,14 @@ describe('overview settings contracts', () => {
     'period=custom&from=2027-01-01&through=2027-01-02',
   ])('shows an honest fallback for an invalid timeframe: %s', (search) => {
     const result = resolveOverviewSettings(search, null, definition, asOf);
-    expect(result.value.period).toEqual({ kind: 'preset', preset: 'this-month' });
+    expect(result.value.periods).toEqual([{ kind: 'preset', preset: 'this-month' }]);
     expect(result.notice).toContain('invalid');
   });
   it('round-trips custom and relative selections without freezing relative dates', () => {
     const custom = {
       ...defaults,
       repositoryIds: [],
-      period: { kind: 'custom' as const, from: '2026-10-06', through: '2026-10-08' },
+      periods: [{ kind: 'custom' as const, from: '2026-10-06', through: '2026-10-08' }],
     };
     const query = writeOverviewSettings('tag=a&tag=b&activity.sort=opened', custom);
     expect(resolveOverviewSettings(query, null, definition, asOf).value).toEqual(custom);
@@ -184,7 +185,7 @@ describe('overview settings contracts', () => {
   it('rejects saved custom ranges beyond the sample clock and scopes keys by account', () => {
     const future = {
       ...defaults,
-      period: { kind: 'custom' as const, from: '2027-01-01', through: '2027-01-02' },
+      periods: [{ kind: 'custom' as const, from: '2027-01-01', through: '2027-01-02' }],
     };
     expect(
       readOverviewPreferences(serializeOverviewPreferences(future), definition, asOf),
@@ -198,8 +199,8 @@ describe('overview settings contracts', () => {
     );
     expect(resetOverviewQuery(query)).toBe('tag=a&tag=b');
     expect(changesOverviewScope({ backlogColumns: ['name'] })).toBe(false);
-    expect(changesOverviewScope({ period: defaults.period })).toBe(true);
-    expect(changesOverviewScope({ showChange: true })).toBe(true);
+    expect(changesOverviewScope({ periods: defaults.periods })).toBe(true);
+    expect(changesOverviewScope({ ageThresholds: [30, 60] })).toBe(true);
   });
   it('ignores only peer table fields when tracking pending searches', () => {
     expect(
@@ -229,7 +230,7 @@ describe('prepared display selection', () => {
   it('keeps one backlog copy and selects the correct prepared periods and repository subset', () => {
     const samples = repositoryOverviewSamples();
     expect(samples.repositories).toHaveLength(18);
-    expect(samples.periods).toHaveLength(8);
+    expect(samples.periods).toHaveLength(9);
     const month = selectOverviewSample(samples, { kind: 'preset', preset: 'this-month' }, [
       'repo-prebidjs',
     ]);

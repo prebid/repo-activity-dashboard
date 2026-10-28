@@ -147,32 +147,23 @@ The median limits the effect of a few unusually old merged PRs. It excludes stil
 
 The activity table may expose optional counts of primary-branch PR merges by their human, Prebid-agent, and bot feedback/approval state at merge time. Direct pushes outside PR merges are counted separately. These historical states must not be inferred from current approvals or missing data. See [Merged PR review status and direct pushes](merge-review-status.md) for the proposed shared definitions and placement.
 
-## Timeframes and change display
+## Activity periods
 
-Presets:
+Choose one or two distinct periods. Each can use one of these presets:
 
 - This week; last week.
 - This month; last month.
 - This year to date.
 - Last year to the same date.
 - Last full year.
-- Custom date range.
 
-Defaults: Monday-start weeks and a shared UTC reporting timezone. Display the exact selected dates and reporting timezone. Current periods run through the reporting as-of time. Historical selections never change the current-backlog table.
+Custom ranges have their own action outside the preset dropdown. Either or both periods can be custom, and each range is edited independently. Exact duplicate effective ranges are rejected. Overlapping but different ranges are allowed. The default is one period, This month; a second period is added only after the user chooses it.
 
-Offer an optional, saved **Show change** setting within the activity table:
+Defaults remain Monday-start weeks and a shared UTC reporting timezone. Show each period's exact dates. Current selections stop at the reporting as-of time. Changing activity periods never changes current backlog.
 
-- Keep the selected-period value primary; show its absolute difference as secondary text.
-- Completed periods compare with the preceding equivalent period.
-- Incomplete week/month periods compare with an equivalent elapsed portion of the preceding period.
-- Year-to-date compares with the matching calendar range in the preceding year.
-- Custom ranges compare with the immediately preceding equal-duration range by default.
-- Show exact comparison dates and the prior value in supporting detail.
-- Use neutral directional indicators; increased activity is not inherently good or bad.
-- A zero baseline is valid for an absolute difference. Do not display an infinite percentage.
-- Missing comparison data displays a dash. Historical draft comparisons are out of scope.
+With two periods, show two adjacent rows for each repository. Identify each row with its period number and preset name or custom dates beside the repository name. Keep repository pairs together when sorting. Numeric sorts rank by Period 1; Swap periods changes which selected period supplies that rank. Values remain the actual values of each row's own period. Do not sum unique authors or other measures across the two rows.
 
-Optional PR/issue backlog-change columns may show the total open count at period end minus the total open count at period start when trustworthy history exists. Do not substitute opened-minus-closed, because reopenings and repeated transitions can differ from those distinct-item counts. This does not require historical draft breakdowns.
+Show change and automatic delta indicators are removed from this page. Missing sample values display dashes only for the affected period; a missing second range must not hide the first period or current backlog. A third period is outside the current scope.
 
 ## Filtering, sorting, preferences, and drill-down
 
@@ -180,7 +171,7 @@ Optional PR/issue backlog-change columns may show the total open count at period
 - The repository selection applies to both tables.
 - Every numeric column supports ascending and descending sorting.
 - Preserve separate sort settings for the two tables.
-- Save selected repositories, visible columns/groups, sorting, timeframe, selected aging thresholds, and Show change preference per account.
+- Save selected repositories, visible columns/groups, sorting, ordered activity periods/custom ranges and selected aging thresholds per account.
 - Save relative timeframe choices as relative choices: This month remains This month on a later visit.
 - Use a single top-level Repos navigation item with an expandable list containing All Repos and the individual repository links.
 - Selecting a repository name opens its repository page in the default Current open scope: the first page of open PRs including drafts and open issues, newest-created first by default, with at most 100 rows per list. Older matching records remain accessible through pagination. Selecting a metric count preserves that metric's specific filters with the same page-size limit; summary counts continue to cover the full matching set.

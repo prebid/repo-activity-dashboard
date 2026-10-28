@@ -13,39 +13,32 @@ import {
   type RepositoryOverview,
 } from '@/models/repository-overview';
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
-import type { DateRange } from '@/models/reporting-period';
-import { formatAsOf, formatUtcDate } from '@/lib/presentation/format';
+import { formatAsOf } from '@/lib/presentation/format';
 import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
 import { RepositorySelector } from './repository-selector';
-import { TimeframeControl, periodLabels } from './timeframe-control';
+import { ActivityPeriodControls } from './activity-period-controls';
+import { activityTableRows } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 import controls from './overview-controls.module.css';
 
-function rangeLabel(range: DateRange): string {
-  return (
-    formatUtcDate(range.start) +
-    ' – ' +
-    formatUtcDate(
-      new Date(new Date(range.end).getTime() - Number(!range.endInclusive)).toISOString(),
-    )
-  );
-}
 export function AllRepositoriesView({
   data,
+  secondaryData,
   repositories,
   settings,
   backlogController,
   activityController,
 }: {
   data: RepositoryOverview;
+  secondaryData?: RepositoryOverview;
   repositories: readonly OverviewRepository[];
   settings: OverviewSettingsControl;
   backlogController: TableController;
   activityController: TableController;
 }) {
-  const { ageThresholds, showChange } = settings.value;
+  const { ageThresholds } = settings.value;
   const backlog = useMemo(() => backlogColumns(), []);
-  const activity = useMemo(() => activityColumns(showChange), [showChange]);
+  const activity = useMemo(() => activityColumns(), []);
   const backlogVisibility = useMemo(
     () =>
       columnVisibilityFromIds(backlog, [
@@ -82,10 +75,7 @@ export function AllRepositoriesView({
         .sort((a, b) => a.repository.name.localeCompare(b.repository.name, 'en')),
     [data.rows],
   );
-  const periodLabel =
-    data.period.selection.kind === 'preset'
-      ? periodLabels[data.period.selection.preset]
-      : 'Custom range';
+  const activityRows = useMemo(() => activityTableRows(data, secondaryData), [data, secondaryData]);
   return (
     <>
       <div className={styles.pageHeader}>
@@ -157,44 +147,21 @@ export function AllRepositoriesView({
           <DataTable
             title="Period activity"
             searchable={false}
-            rows={rows}
+            rows={activityRows}
             columns={activity}
             controller={activityController}
-            itemLabel="repositories"
+            itemLabel={secondaryData ? 'period rows' : 'repositories'}
             showSinglePageControls={false}
-            controls={
-              <>
-                <TimeframeControl
-                  period={data.period}
-                  asOf={data.asOf}
-                  onChange={(period) => settings.update({ period })}
-                />
-                <label className={controls.toggle}>
-                  <input
-                    type="checkbox"
-                    checked={showChange}
-                    onChange={(event) => settings.update({ showChange: event.target.checked })}
-                  />
-                  Show change
-                </label>
-              </>
-            }
+            rowClassName={(row) => (row.periodIndex === 1 ? styles.secondaryPeriod : undefined)}
             description={
-              <div>
-                <span className={styles.scope}>
-                  <span className={styles.scopeLabel}>{periodLabel}</span>
-                  <span>· {rangeLabel(data.period.range)} · UTC</span>
-                </span>
-                {showChange && (
-                  <p>Compared with {rangeLabel(data.period.comparison)} · UTC · Absolute change</p>
-                )}
-                {data.activitySample === 'unprepared' && (
-                  <p role="status" className={controls.notice}>
-                    No prepared sample data for this date range. Activity values are shown as
-                    dashes; current backlog is unchanged.
-                  </p>
-                )}
-              </div>
+              data.rows.length + ' repositories · ' + (secondaryData ? '2 periods' : '1 period')
+            }
+            headerContent={
+              <ActivityPeriodControls
+                primary={data}
+                secondary={secondaryData}
+                onChange={(periods) => settings.update({ periods })}
+              />
             }
             visibility={{
               value: activityVisibility,
@@ -205,7 +172,11 @@ export function AllRepositoriesView({
                     .map((column) => column.id),
                 }),
             }}
-            footerNote="Merges and merge time use each repository’s primary branch."
+            footerNote={
+              secondaryData
+                ? 'Numeric columns sort by Period 1. Swap periods to rank by Period 2. Merges use each repository’s primary branch.'
+                : 'Merges and merge time use each repository’s primary branch.'
+            }
           />
           <p className={styles.legend}>
             <Info size={14} aria-hidden="true" />

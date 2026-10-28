@@ -47,6 +47,99 @@ async function expectAges(page: Page, selected: number[]) {
     ).toHaveCount(selected.includes(days) ? 1 : 0);
 }
 
+test('two periods remain paired through sorting, swapping, persistence and removal', async ({
+  page,
+}) => {
+  await login(page);
+  await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
+  await expect(
+    page
+      .getByRole('combobox', { name: 'Period 1 preset' })
+      .getByRole('option', { name: 'Custom range', exact: true }),
+  ).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add second period', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Period 2 preset' }).selectOption('last-month');
+  const activity = page.getByRole('table', { name: 'Period activity', exact: true });
+  await expect(activity.locator('tbody tr')).toHaveCount(36);
+  await selectRepositories(page, ['Prebid.js', 'SalesAgent']);
+  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  const sort = activity.locator('th[id$="-prsOpened"] button');
+  await sort.click();
+  await sort.click();
+  const pairs = activity.locator('tbody tr');
+  await expect(pairs.nth(0)).toContainText('Prebid.js');
+  await expect(pairs.nth(1)).toContainText('Prebid.js');
+  await expect(pairs.nth(0)).toContainText('This month');
+  await expect(pairs.nth(1)).toContainText('Last month');
+  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('47');
+  await expect(pairs.nth(1).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(page.getByRole('button', { name: 'Add second period', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Swap periods', exact: true }).click();
+  await expect(pairs.nth(0)).toContainText('Last month');
+  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await page.goto('/repos');
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('last-month');
+  await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('this-month');
+  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  await page.getByRole('button', { name: 'Remove period 2', exact: true }).click();
+  await expect(activity.locator('tbody tr')).toHaveCount(2);
+  await page.goBack();
+  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  await page.goto('/repos?period=this-week&period2=this-week&change=1');
+  await expect(
+    page.getByText('The second period is invalid or duplicates the first. Showing one period.'),
+  ).toBeVisible();
+  await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveCount(0);
+  await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
+});
+
+test('two custom ranges are independently editable and remain readable at narrow widths', async ({
+  page,
+}, testInfo) => {
+  await login(page);
+  async function dates(from: string, through: string) {
+    const dialog = page.getByRole('dialog', { name: 'Custom date range', exact: true });
+    await dialog.getByLabel('Start date', { exact: true }).fill(from);
+    await dialog.getByLabel('End date', { exact: true }).fill(through);
+    await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
+  }
+  await page.getByRole('button', { name: 'Custom range for Period 1', exact: true }).click();
+  await dates('2026-10-06', '2026-10-08');
+  await page.getByRole('button', { name: 'Add second period', exact: true }).click();
+  await page.getByRole('button', { name: 'Custom range for Period 2', exact: true }).click();
+  await dates('2026-10-06', '2026-10-08');
+  await expect(page.getByRole('dialog').getByRole('alert')).toHaveText(
+    'Choose two different periods.',
+  );
+  await dates('2026-10-13', '2026-10-15');
+  await page.goto('/repos');
+  const pair = row(page, 'Period activity');
+  await expect(pair).toHaveCount(2);
+  await expect(pair.nth(0)).toContainText('Oct 6, 2026 – Oct 8, 2026');
+  await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
+  await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
+  await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('5');
+  await chooseAges(page, []);
+  await expectAges(page, []);
+  for (const theme of ['dark', 'light']) {
+    await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+    await page
+      .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
+      .click();
+    for (const width of [1440, 768, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+        width,
+      );
+      expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+      await page.screenshot({
+        path: testInfo.outputPath('two-custom-periods-' + theme + '-' + width + '.png'),
+        fullPage: true,
+      });
+    }
+  }
+});
+
 test('aging columns can be combined, sorted, saved, or all hidden', async ({ page }, testInfo) => {
   await login(page);
   await expect(page.getByRole('combobox', { name: 'PR aging threshold' })).toHaveCount(0);
@@ -101,8 +194,8 @@ test('scope controls, separate table choices and account defaults survive a dire
   for (const title of ['Current backlog', 'Period activity'])
     await expect(page.getByRole('table', { name: title }).locator('tbody tr')).toHaveCount(2);
   await chooseAges(page, [90]);
-  await page.getByRole('combobox', { name: 'Activity timeframe' }).selectOption('this-week');
-  await page.getByRole('checkbox', { name: 'Show change' }).check();
+  await page.getByRole('combobox', { name: 'Period 1 preset' }).selectOption('this-week');
+  await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
   await expect(row(page, 'Current backlog').locator('[data-column="agedPrs90"]')).toHaveText('30');
   await expect(row(page, 'Current backlog').locator('[data-column="totalOpenPrs"]')).toHaveText(
     '137',
@@ -110,9 +203,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expect(row(page, 'Period activity').locator('[data-column="prsOpened"]')).toContainText(
     '12',
   );
-  await expect(row(page, 'Period activity').locator('[data-column="prsOpened"]')).toContainText(
-    '+2',
-  );
+
   const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Human feedback', exact: true }).click();
@@ -121,8 +212,8 @@ test('scope controls, separate table choices and account defaults survive a dire
   await backlog.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
   await page.goto('/repos');
   await expectAges(page, [90]);
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('this-week');
-  await expect(page.getByRole('checkbox', { name: 'Show change' })).toBeChecked();
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
+  await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
   await expect(
     backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
   ).toBeVisible();
@@ -138,9 +229,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
   await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expectAges(page, [30]);
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue(
-    'this-month',
-  );
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
   await expect(
     backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
   ).toHaveCount(0);
@@ -167,17 +256,15 @@ test('browser history, explicit URLs and empty selections keep their meaning wit
   page,
 }) => {
   await login(page);
-  await page.getByRole('combobox', { name: 'Activity timeframe' }).selectOption('this-week');
+  await page.getByRole('combobox', { name: 'Period 1 preset' }).selectOption('this-week');
   await chooseAges(page, [30, 60]);
   await page.goBack();
   await expectAges(page, [30]);
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('this-week');
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
   await page.goBack();
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue(
-    'this-month',
-  );
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
   await page.goForward();
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('this-week');
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
   await page.goto('/repos?backlog.q=missing&activity.q=missing');
   await expect(page.getByPlaceholder('Find in table…')).toHaveCount(0);
   for (const title of ['Current backlog', 'Period activity'])
@@ -188,9 +275,7 @@ test('browser history, explicit URLs and empty selections keep their meaning wit
   await page.goto(
     '/repos?repo=repo-prebidjs&repo=repo-prebidjs&period=last-month&age=180&change=0',
   );
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue(
-    'last-month',
-  );
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('last-month');
   await expectAges(page, [180]);
   await expect(
     page.getByRole('table', { name: 'Period activity' }).locator('tbody tr'),
@@ -242,7 +327,7 @@ test('custom dates validate and show prepared or missing values without changing
   page,
 }) => {
   await login(page);
-  await page.getByRole('combobox', { name: 'Activity timeframe' }).selectOption('custom');
+  await page.getByRole('button', { name: 'Custom range for Period 1', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Custom date range', exact: true });
   await dialog.getByLabel('Start date', { exact: true }).fill('2026-10-09');
   await dialog.getByLabel('End date', { exact: true }).fill('2026-10-06');
@@ -257,13 +342,13 @@ test('custom dates validate and show prepared or missing values without changing
     '137',
   );
   await page.goto('/repos');
-  await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('custom');
-  await page.getByRole('button', { name: 'Edit dates', exact: true }).click();
+  await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('');
+  await page.getByRole('button', { name: 'Edit custom range for Period 1', exact: true }).click();
   await expect(dialog.getByLabel('Start date', { exact: true })).toHaveValue('2026-10-06');
   await dialog.getByLabel('Start date', { exact: true }).fill('2026-10-01');
   await dialog.getByLabel('End date', { exact: true }).fill('2026-10-02');
   await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
-  await expect(page.getByText(/No prepared sample data for this date range/)).toBeVisible();
+  await expect(page.getByText(/No prepared sample data for Period 1/)).toBeVisible();
   await expect(row(page, 'Period activity').locator('[data-column="prsOpened"]')).toContainText(
     '—',
   );
@@ -323,8 +408,11 @@ test('repository and date dialogs preserve the design, keyboard focus and access
       await page.keyboard.press('Escape');
       await expect(dialog).toHaveCount(0);
       await expect(trigger).toBeFocused();
-      const timeframe = page.getByRole('combobox', { name: 'Activity timeframe' });
-      await timeframe.selectOption('custom');
+      const timeframe = page.getByRole('button', {
+        name: 'Custom range for Period 1',
+        exact: true,
+      });
+      await timeframe.click();
       const dates = page.getByRole('dialog', { name: 'Custom date range', exact: true });
       await expect(dates.getByLabel('Start date', { exact: true })).toBeFocused();
       await expect(dates).toHaveCSS('opacity', '1');

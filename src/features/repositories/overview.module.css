@@ -55,6 +55,29 @@
   text-decoration: none;
   border-radius: 2px;
 }
+.periodLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 2px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 16px;
+}
+.periodBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.secondaryPeriod {
+  --table-row-background: var(--background);
+}
 .repositoryLink:hover {
   text-decoration: underline;
   text-underline-offset: 3px;

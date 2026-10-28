@@ -121,6 +121,14 @@ export interface RepositoryOverview {
   rows: RepositoryOverviewRow[];
 }
 
+export interface RepositoryActivityRow extends RepositoryOverviewRow {
+  id: string;
+  period: ResolvedPeriod;
+  periodIndex: 0 | 1;
+  showPeriodLabel: boolean;
+  sortActivity: RepositoryActivity;
+}
+
 /** Small prepared display bundles, with current backlog stored only once. */
 export interface RepositoryOverviewSamples {
   source: 'sample';

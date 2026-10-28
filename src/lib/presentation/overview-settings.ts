@@ -12,25 +12,40 @@ import {
 } from '@/models/overview-settings';
 import { resolveReportingPeriod } from './reporting-period';
 import { preferenceKey, writeTableQuery, type TableQuery } from './table-query';
+import { validateActivityPeriods } from './overview-periods';
 import { initialTableQuery } from './table-controller';
 import { agingThresholdForColumn } from './overview-aging';
 
-const ownedParameters = ['repo', 'period', 'from', 'through', 'age', 'change'];
-const legacySettingsSchema = overviewSettingsSchema
+const ownedParameters = [
+  'repo',
+  'period',
+  'from',
+  'through',
+  'period2',
+  'from2',
+  'through2',
+  'age',
+  'change',
+];
+const previousSettingsSchema = overviewSettingsSchema
+  .omit({ periods: true })
+  .extend({ period: periodSelectionSchema, showChange: z.boolean() })
+  .strict();
+const legacySettingsSchema = previousSettingsSchema
   .omit({ ageThresholds: true })
   .extend({ ageDays: agingThresholdSchema })
   .strict();
 const storedSchema = z.discriminatedUnion('version', [
   z.object({ version: z.literal(1), settings: legacySettingsSchema }).strict(),
-  z.object({ version: z.literal(2), settings: overviewSettingsSchema }).strict(),
+  z.object({ version: z.literal(2), settings: previousSettingsSchema }).strict(),
+  z.object({ version: z.literal(3), settings: overviewSettingsSchema }).strict(),
 ]);
 
 export function defaultOverviewSettings(definition: OverviewSettingsDefinition): OverviewSettings {
   return {
     repositoryIds: [...definition.repositoryIds],
-    period: defaultPeriod,
+    periods: [defaultPeriod],
     ageThresholds: [defaultAgingThreshold],
-    showChange: false,
     backlogColumns: [...definition.defaultBacklogColumns],
     activityColumns: [...definition.defaultActivityColumns],
   };
@@ -42,7 +57,8 @@ export function normalizeOverviewSettings(
   asOf: string,
 ): OverviewSettings {
   const value = overviewSettingsSchema.parse(input);
-  resolveReportingPeriod(value.period, asOf);
+  const periodError = validateActivityPeriods(value.periods, asOf);
+  if (periodError) throw new Error(periodError);
   const columns = (selected: string[], allowed: readonly string[]) =>
     allowed.filter((id) => id === 'name' || selected.includes(id));
   return {
@@ -60,7 +76,7 @@ export function overviewPreferenceKey(viewerId: string): string {
   return preferenceKey(viewerId, 'all-repositories:preferences');
 }
 export function serializeOverviewPreferences(settings: OverviewSettings): string {
-  return JSON.stringify({ version: 2, settings });
+  return JSON.stringify({ version: 3, settings });
 }
 export function readOverviewPreferences(
   raw: string | null,
@@ -71,15 +87,20 @@ export function readOverviewPreferences(
     const parsed = storedSchema.safeParse(JSON.parse(raw ?? 'null'));
     if (!parsed.success) return null;
     if (parsed.data.version === 1) {
-      const { ageDays, ...previous } = parsed.data.settings;
+      const { ageDays, period, showChange: _removed, ...previous } = parsed.data.settings;
       return normalizeOverviewSettings(
         {
           ...previous,
+          periods: [period],
           ageThresholds: previous.backlogColumns.includes('agedPrs') ? [ageDays] : [],
         },
         definition,
         asOf,
       );
+    }
+    if (parsed.data.version === 2) {
+      const { period, showChange: _removed, ...previous } = parsed.data.settings;
+      return normalizeOverviewSettings({ ...previous, periods: [period] }, definition, asOf);
     }
     return normalizeOverviewSettings(parsed.data.settings, definition, asOf);
   } catch {
@@ -101,20 +122,38 @@ export function resolveOverviewSettings(
     const requested = new Set(params.getAll('repo'));
     result.repositoryIds = definition.repositoryIds.filter((id) => requested.has(id));
   }
-  if (params.has('period') || params.has('from') || params.has('through')) {
-    const preset = params.get('period');
-    const selected = periodSelectionSchema.safeParse(
-      preset === 'custom'
-        ? { kind: 'custom', from: params.get('from'), through: params.get('through') }
-        : { kind: 'preset', preset },
-    );
+  if (
+    ['period', 'from', 'through', 'period2', 'from2', 'through2'].some((key) => params.has(key))
+  ) {
+    const readPeriod = (suffix: string) => {
+      const preset = params.get('period' + suffix);
+      const selected = periodSelectionSchema.parse(
+        preset === 'custom'
+          ? {
+              kind: 'custom',
+              from: params.get('from' + suffix),
+              through: params.get('through' + suffix),
+            }
+          : { kind: 'preset', preset },
+      );
+      resolveReportingPeriod(selected, asOf);
+      return selected;
+    };
     try {
-      if (!selected.success) throw new Error('Invalid period');
-      resolveReportingPeriod(selected.data, asOf);
-      result.period = selected.data;
+      result.periods = [readPeriod('')];
     } catch {
-      result.period = defaults.period;
+      result.periods = defaults.periods;
       notice = 'The timeframe in this link is invalid. Showing This month.';
+    }
+    if (['period2', 'from2', 'through2'].some((key) => params.has(key))) {
+      try {
+        const pair = [result.periods[0], readPeriod('2')];
+        const error = validateActivityPeriods(pair, asOf);
+        if (error) throw new Error(error);
+        result.periods = pair;
+      } catch {
+        notice = 'The second period is invalid or duplicates the first. Showing one period.';
+      }
     }
   }
   if (params.has('age')) {
@@ -127,7 +166,6 @@ export function resolveOverviewSettings(
         ? selected
         : defaults.ageThresholds;
   }
-  if (params.has('change')) result.showChange = params.get('change') === '1';
   return { value: normalizeOverviewSettings(result, definition, asOf), notice };
 }
 
@@ -138,15 +176,17 @@ export function writeOverviewSettings(search: string, settings: OverviewSettings
   if (settings.repositoryIds.length)
     for (const id of settings.repositoryIds) params.append('repo', id);
   else params.set('repo', '');
-  params.set('period', settings.period.kind === 'preset' ? settings.period.preset : 'custom');
-  if (settings.period.kind === 'custom') {
-    params.set('from', settings.period.from);
-    params.set('through', settings.period.through);
-  }
+  settings.periods.forEach((period, index) => {
+    const suffix = index === 0 ? '' : '2';
+    params.set('period' + suffix, period.kind === 'preset' ? period.preset : 'custom');
+    if (period.kind === 'custom') {
+      params.set('from' + suffix, period.from);
+      params.set('through' + suffix, period.through);
+    }
+  });
   if (settings.ageThresholds.length)
     for (const days of settings.ageThresholds) params.append('age', String(days));
   else params.set('age', '');
-  params.set('change', settings.showChange ? '1' : '0');
   return params.toString();
 }
 
@@ -174,5 +214,5 @@ export function writeOverviewTableQueries(
 }
 
 export function changesOverviewScope(patch: Partial<OverviewSettings>): boolean {
-  return ['repositoryIds', 'period', 'ageThresholds', 'showChange'].some((key) => key in patch);
+  return ['repositoryIds', 'periods', 'ageThresholds'].some((key) => key in patch);
 }

@@ -205,18 +205,20 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   ).toHaveAttribute('aria-sort', 'ascending');
 });
 
-test('repository story renders independently with comparison values and empty states', async ({
+test('repository story renders independently with two periods and empty states', async ({
   page,
 }) => {
   await page.goto(
-    'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--with-changes&viewMode=story',
+    'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--two-periods&viewMode=story',
   );
   await expect(page.getByRole('table', { name: 'Period activity', exact: true })).toBeVisible();
   const js = page
     .getByRole('table', { name: 'Period activity', exact: true })
     .getByRole('row')
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
-  await expect(js.locator('[data-column="prsOpened"]')).toContainText('+3');
+  await expect(js).toHaveCount(2);
+  await expect(js.nth(0).locator('[data-column="prsOpened"]')).toHaveText('47');
+  await expect(js.nth(1).locator('[data-column="prsOpened"]')).toHaveText('61');
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--empty&viewMode=story',
   );

@@ -4,6 +4,7 @@ export interface DataColumn<T> {
   id: string;
   label: string;
   value: (row: T) => string | number | null;
+  sortValue?: (row: T) => string | number | null;
   cell?: (row: T) => ReactNode;
   group?: string;
   description?: string;
@@ -11,6 +12,9 @@ export interface DataColumn<T> {
   align?: 'left' | 'right';
   pinned?: boolean;
   hideable?: boolean;
+}
+export function columnSortValue<T>(column: DataColumn<T>, row: T): string | number | null {
+  return column.sortValue ? column.sortValue(row) : column.value(row);
 }
 export interface ColumnVisibility {
   value: Record<string, boolean>;

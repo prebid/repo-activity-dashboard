@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,26 +19,21 @@ import {
   type ResolvedPeriod,
 } from '@/models/reporting-period';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
+import { periodLabels } from '@/lib/presentation/overview-periods';
 import styles from './overview-controls.module.css';
-
-export const periodLabels = {
-  'this-week': 'This week',
-  'last-week': 'Last week',
-  'this-month': 'This month',
-  'last-month': 'Last month',
-  'this-year': 'This year to date',
-  'last-year-to-date': 'Last year to the same date',
-  'last-full-year': 'Last full year',
-};
 
 export function TimeframeControl({
   period,
+  other,
+  label,
   asOf,
   onChange,
 }: {
-  period: ResolvedPeriod;
+  period?: ResolvedPeriod;
+  other?: PeriodSelection;
+  label: string;
   asOf: string;
-  onChange: (selection: PeriodSelection) => void;
+  onChange: (selection: PeriodSelection) => string | undefined;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const select = useRef<HTMLSelectElement>(null);
@@ -46,61 +42,88 @@ export function TimeframeControl({
   const [from, setFrom] = useState('');
   const [through, setThrough] = useState('');
   const [error, setError] = useState('');
-  const periodKey = JSON.stringify(period.selection);
+  const periodKey = JSON.stringify(period?.selection ?? null);
   const previousPeriod = useRef(periodKey);
   useEffect(() => {
     if (previousPeriod.current !== periodKey) {
       setOpen(false);
+      setError('');
       previousPeriod.current = periodKey;
     }
   }, [periodKey]);
   function editDates(trigger: HTMLElement) {
     setFrom(
-      period.selection.kind === 'custom' ? period.selection.from : period.range.start.slice(0, 10),
+      period?.selection.kind === 'custom'
+        ? period.selection.from
+        : (period?.range.start.slice(0, 10) ?? ''),
     );
     setThrough(
-      period.selection.kind === 'custom'
-        ? period.selection.through
-        : new Date(new Date(period.range.end).getTime() - Number(!period.range.endInclusive))
-            .toISOString()
-            .slice(0, 10),
+      period
+        ? period.selection.kind === 'custom'
+          ? period.selection.through
+          : new Date(new Date(period.range.end).getTime() - Number(!period.range.endInclusive))
+              .toISOString()
+              .slice(0, 10)
+        : '',
     );
     setError('');
     returnFocus.current = trigger;
     setOpen(true);
   }
+  const custom = period?.selection.kind === 'custom';
   return (
-    <div ref={setContainer} className={styles.timeframe}>
-      <label className={styles.selectLabel}>
-        <span className="sr-only">Activity timeframe</span>
-        <select
-          ref={select}
-          className={styles.select}
-          value={period.selection.kind === 'preset' ? period.selection.preset : 'custom'}
-          onChange={(event) => {
-            if (event.target.value === 'custom') editDates(event.currentTarget);
-            else
-              onChange(periodSelectionSchema.parse({ kind: 'preset', preset: event.target.value }));
-          }}
-        >
-          {periodPresets.map((preset) => (
-            <option key={preset} value={preset}>
-              {periodLabels[preset]}
+    <div ref={setContainer}>
+      <div className={styles.timeframe}>
+        <label className={styles.selectLabel}>
+          <span className="sr-only">{label} preset</span>
+          <select
+            ref={select}
+            className={styles.select}
+            value={period?.selection.kind === 'preset' ? period.selection.preset : ''}
+            onChange={(event) =>
+              setError(
+                onChange(
+                  periodSelectionSchema.parse({ kind: 'preset', preset: event.target.value }),
+                ) ?? '',
+              )
+            }
+          >
+            <option value="" disabled>
+              {custom ? 'Switch to preset…' : 'Choose preset'}
             </option>
-          ))}
-          <option value="custom">Custom range</option>
-        </select>
-      </label>
-      {period.selection.kind === 'custom' && (
+            {periodPresets.map((preset) => (
+              <option
+                key={preset}
+                value={preset}
+                disabled={other?.kind === 'preset' && other.preset === preset}
+              >
+                {periodLabels[preset]}
+              </option>
+            ))}
+          </select>
+        </label>
         <Button
           variant="outline"
           className={styles.control}
+          aria-label={(custom ? 'Edit custom range for ' : 'Custom range for ') + label}
           onClick={(event) => editDates(event.currentTarget)}
         >
-          Edit dates
+          <CalendarDays size={14} aria-hidden="true" />
+          {custom ? 'Edit custom range' : 'Custom range'}
         </Button>
+      </div>
+      {error && !open && (
+        <p role="alert" className={styles.error}>
+          {error}
+        </p>
       )}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) setError('');
+        }}
+      >
         <DialogContent
           container={container}
           className={styles.dialog}
@@ -112,7 +135,7 @@ export function TimeframeControl({
           <DialogHeader className="text-left">
             <DialogTitle>Custom date range</DialogTitle>
             <DialogDescription>
-              Choose inclusive UTC dates. Activity stops at the reporting snapshot.
+              {label} · Choose inclusive UTC dates. Activity stops at the reporting snapshot.
             </DialogDescription>
           </DialogHeader>
           <form
@@ -130,8 +153,9 @@ export function TimeframeControl({
                 setError('The start date must not be after the reporting snapshot.');
                 return;
               }
-              onChange(parsed.data);
-              setOpen(false);
+              const message = onChange(parsed.data);
+              setError(message ?? '');
+              if (!message) setOpen(false);
             }}
           >
             <label className={styles.dateField}>

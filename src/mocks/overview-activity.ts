@@ -253,7 +253,30 @@ export const preparedCustomPeriod: ActivityPair = {
   comparison: emptyActivity,
 };
 
-for (const pair of [...Object.values(busyPeriods), preparedCustomPeriod]) {
+export const secondPreparedCustomPeriod: ActivityPair = {
+  current: activity(
+    {
+      prsOpened: 5,
+      prsMerged: 4,
+      issuesOpened: 6,
+      issuesClosed: 4,
+      prAuthors: 4,
+      issueAuthors: 5,
+      agentFeedbackCredits: 3,
+      agentApprovalCredits: 1,
+      botFeedbackCredits: 1,
+      botApprovalCredits: 0,
+    },
+    4,
+  ),
+  comparison: emptyActivity,
+};
+
+for (const pair of [
+  ...Object.values(busyPeriods),
+  preparedCustomPeriod,
+  secondPreparedCustomPeriod,
+]) {
   activitySchema.parse(pair.current);
   activitySchema.parse(pair.comparison);
 }

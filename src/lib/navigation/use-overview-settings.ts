@@ -64,7 +64,8 @@ export function useOverviewSettings(
         url.search = writeOverviewSettings(url.search, next);
         if ('repositoryIds' in patch || 'ageThresholds' in patch)
           url.searchParams.delete('backlog.page');
-        if ('repositoryIds' in patch || 'period' in patch) url.searchParams.delete('activity.page');
+        if ('repositoryIds' in patch || 'periods' in patch)
+          url.searchParams.delete('activity.page');
         if (url.href !== before) window.history.pushState(null, '', url);
       }
       const memory = { viewerId, value: next };

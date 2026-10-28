@@ -5,9 +5,11 @@ import type {
   ActivityMetric,
   BacklogMetric,
   RepositoryOverviewRow,
+  RepositoryActivityRow,
 } from '@/models/repository-overview';
 import { agingThresholds } from '@/models/repository-overview';
 import { agingColumnId } from '@/lib/presentation/overview-aging';
+import { activityPeriodLabel } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 
 export type OverviewTableRow = RepositoryOverviewRow & { id: string };
@@ -123,9 +125,8 @@ function activityColumn(
   id: ActivityMetric,
   label: string,
   group: string,
-  showChange: boolean,
   description?: string,
-): DataColumn<OverviewTableRow> {
+): DataColumn<RepositoryActivityRow> {
   return {
     id,
     label,
@@ -134,35 +135,58 @@ function activityColumn(
     width: 116,
     align: 'right',
     value: (row) => row.activity.counts[id].value,
-    cell: (row) => (
-      <MeasurementValue
-        measurement={row.activity.counts[id]}
-        comparison={showChange ? row.comparison.counts[id] : undefined}
-      />
-    ),
+    sortValue: (row) => row.sortActivity.counts[id].value,
+    cell: (row) => <MeasurementValue measurement={row.activity.counts[id]} />,
   };
 }
-export function activityColumns(showChange: boolean): DataColumn<OverviewTableRow>[] {
+export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
   return [
-    repositoryColumn,
+    {
+      ...repositoryColumn,
+      value: (row) =>
+        row.repository.name +
+        (row.showPeriodLabel ? ' (' + activityPeriodLabel(row.period) + ')' : ''),
+      sortValue: (row) => row.repository.name,
+      cell: (row) => (
+        <div>
+          <Link
+            prefetch={false}
+            href={'/repos/' + row.repository.slug}
+            className={styles.repositoryLink}
+            title={'Primary branch: ' + row.repository.primaryBranch}
+          >
+            {row.repository.name}
+          </Link>
+          {row.showPeriodLabel && (
+            <span className={styles.periodLabel}>
+              <span className={styles.periodBadge} aria-hidden="true">
+                {row.periodIndex + 1}
+              </span>
+              <span>
+                <span className="sr-only">Period {row.periodIndex + 1}: </span>
+                {activityPeriodLabel(row.period)}
+              </span>
+            </span>
+          )}
+        </div>
+      ),
+    },
     activityColumn(
       'prsOpened',
       'Opened',
       'Pull requests',
-      showChange,
       'PRs created during this period, including drafts.',
     ),
     activityColumn(
       'prsMerged',
       'Merged',
       'Pull requests',
-      showChange,
       'PRs merged into each repository’s primary branch during this period.',
     ),
-    activityColumn('issuesOpened', 'Opened', 'Issues', showChange),
-    activityColumn('issuesClosed', 'Closed', 'Issues', showChange),
-    activityColumn('prAuthors', 'PR authors', 'Unique authors', showChange),
-    activityColumn('issueAuthors', 'Issue authors', 'Unique authors', showChange),
+    activityColumn('issuesOpened', 'Opened', 'Issues'),
+    activityColumn('issuesClosed', 'Closed', 'Issues'),
+    activityColumn('prAuthors', 'PR authors', 'Unique authors'),
+    activityColumn('issueAuthors', 'Issue authors', 'Unique authors'),
     {
       id: 'medianMergeDays',
       label: 'Median merge time',
@@ -172,6 +196,7 @@ export function activityColumns(showChange: boolean): DataColumn<OverviewTableRo
       description:
         'Median time from PR creation to merge. Includes only primary-branch merges in the period.',
       value: (row) => row.activity.mergeDuration.days.value,
+      sortValue: (row) => row.sortActivity.mergeDuration.days.value,
       cell: (row) => (
         <MeasurementValue
           measurement={row.activity.mergeDuration.days}
@@ -183,14 +208,13 @@ export function activityColumns(showChange: boolean): DataColumn<OverviewTableRo
                 ' merged PRs · ' +
                 row.repository.primaryBranch
           }
-          comparison={showChange ? row.comparison.mergeDuration.days : undefined}
         />
       ),
     },
-    activityColumn('agentFeedbackCredits', 'Agent feedback', 'Prebid agents', showChange),
-    activityColumn('agentApprovalCredits', 'Agent approvals', 'Prebid agents', showChange),
-    activityColumn('botFeedbackCredits', 'Bot feedback', 'Other bots', showChange),
-    activityColumn('botApprovalCredits', 'Bot approvals', 'Other bots', showChange),
+    activityColumn('agentFeedbackCredits', 'Agent feedback', 'Prebid agents'),
+    activityColumn('agentApprovalCredits', 'Agent approvals', 'Prebid agents'),
+    activityColumn('botFeedbackCredits', 'Bot feedback', 'Other bots'),
+    activityColumn('botApprovalCredits', 'Bot approvals', 'Other bots'),
   ];
 }
 export const defaultActivityColumns = [
@@ -213,7 +237,7 @@ export function columnVisibilityFromIds<T>(
 
 export const overviewSettingsColumns = {
   backlogColumns: backlogColumns().map((column) => column.id),
-  activityColumns: activityColumns(false).map((column) => column.id),
+  activityColumns: activityColumns().map((column) => column.id),
   defaultBacklogColumns,
   defaultActivityColumns,
 };

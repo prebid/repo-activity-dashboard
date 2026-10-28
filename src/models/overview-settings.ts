@@ -5,9 +5,8 @@ import { agingThresholdSchema } from './repository-overview';
 export const overviewSettingsSchema = z
   .object({
     repositoryIds: z.array(z.string()).max(200),
-    period: periodSelectionSchema,
+    periods: z.array(periodSelectionSchema).min(1).max(2),
     ageThresholds: z.array(agingThresholdSchema).max(6),
-    showChange: z.boolean(),
     backlogColumns: z.array(z.string()).max(100),
     activityColumns: z.array(z.string()).max(100),
   })

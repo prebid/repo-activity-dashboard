@@ -24,7 +24,12 @@ const features = tableFeatures({
   paginatedRowModel: createPaginatedRowModel(),
 });
 export type { DataColumn } from './table-columns';
-import { columnSections, type ColumnVisibility, type DataColumn } from './table-columns';
+import {
+  columnSections,
+  columnSortValue,
+  type ColumnVisibility,
+  type DataColumn,
+} from './table-columns';
 import { ColumnMenu } from './column-menu';
 import { cn } from '@/lib/utils';
 import styles from './data-table.module.css';
@@ -36,6 +41,8 @@ export interface DataTableProps<T> {
   exportName?: string;
   description?: React.ReactNode;
   controls?: React.ReactNode;
+  headerContent?: React.ReactNode;
+  rowClassName?: (row: T) => string | undefined;
   footerNote?: React.ReactNode;
   visibility?: ColumnVisibility;
   itemLabel?: string;
@@ -59,6 +66,8 @@ export function DataTable<T extends { id: string }>({
   exportName,
   description,
   controls,
+  headerContent,
+  rowClassName,
   footerNote,
   visibility,
   itemLabel = 'items',
@@ -106,9 +115,14 @@ export function DataTable<T extends { id: string }>({
       columns.map((column) => ({
         id: column.id,
         header: column.label,
-        accessorFn: (row: T) => column.value(row) ?? undefined,
+        accessorFn: (row: T) => columnSortValue(column, row) ?? undefined,
         sortUndefined: 'last',
-        sortFn: (a, b) => compareValues(column.value(a.original), column.value(b.original), 'asc'),
+        sortFn: (a, b) =>
+          compareValues(
+            columnSortValue(column, a.original),
+            columnSortValue(column, b.original),
+            'asc',
+          ),
         cell: ({ row }) =>
           column.cell ? column.cell(row.original) : String(column.value(row.original) ?? '—'),
       })),
@@ -153,8 +167,8 @@ export function DataTable<T extends { id: string }>({
       const fullRows = filterRows(rows, columns, searchable ? captured.search : '').sort((a, b) =>
         sortedBy
           ? compareValues(
-              sortedBy.value(a),
-              sortedBy.value(b),
+              columnSortValue(sortedBy, a),
+              columnSortValue(sortedBy, b),
               captured.descending ? 'desc' : 'asc',
             )
           : 0,
@@ -256,6 +270,7 @@ export function DataTable<T extends { id: string }>({
           {exportError}
         </p>
       )}
+      {headerContent && <div className={styles.headerContent}>{headerContent}</div>}
       <div hidden>
         {columns
           .filter((column) => column.description)
@@ -341,7 +356,7 @@ export function DataTable<T extends { id: string }>({
             </thead>
             <tbody>
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.id} className={rowClassName?.(row.original)}>
                   {row.getVisibleCells().map((cell, index) => {
                     const column = visibleColumns[index];
                     const start =

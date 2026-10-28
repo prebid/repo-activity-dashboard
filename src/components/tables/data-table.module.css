@@ -78,8 +78,11 @@
 }
 .table td {
   border-bottom: 1px solid var(--border);
-  background: var(--card);
+  background: var(--table-row-background, var(--card));
   vertical-align: middle;
+}
+.headerContent {
+  padding: 0 24px 20px;
 }
 .table tbody {
   /* Whole-pixel line boxes keep sticky and scrolling row dividers aligned. */
@@ -178,6 +181,9 @@
   padding: 24px;
 }
 @media (max-width: 600px) {
+  .headerContent {
+    padding: 0 16px 16px;
+  }
   .heading {
     padding: 18px 16px 14px;
     gap: 12px;

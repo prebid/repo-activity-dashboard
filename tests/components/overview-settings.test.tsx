@@ -96,14 +96,14 @@ it('restores preferences without history writes and materializes the previous vi
 it('uses explicit URLs and keeps accounts isolated when returning directly to the page', () => {
   localStorage.setItem(
     overviewPreferenceKey('alice'),
-    serializeOverviewPreferences({ ...defaults, repositoryIds: ['a'], showChange: true }),
+    serializeOverviewPreferences({ ...defaults, repositoryIds: ['a'] }),
   );
   window.history.replaceState(null, '', '/repos?repo=b&change=0');
   const { result, rerender } = renderHook(
     ({ viewerId }) => useOverviewSettings(viewerId, definition, asOf),
     { initialProps: { viewerId: 'alice' } },
   );
-  expect(result.current.value).toMatchObject({ repositoryIds: ['b'], showChange: false });
+  expect(result.current.value).toMatchObject({ repositoryIds: ['b'] });
   act(() => window.history.replaceState(null, '', '/repos'));
   rerender({ viewerId: 'bob' });
   expect(result.current.value).toEqual(defaults);
@@ -112,7 +112,6 @@ it('uses explicit URLs and keeps accounts isolated when returning directly to th
   rerender({ viewerId: 'alice' });
   expect(result.current.value).toMatchObject({
     repositoryIds: ['a'],
-    showChange: true,
     ageThresholds: [30],
   });
 });
@@ -120,7 +119,7 @@ it('uses explicit URLs and keeps accounts isolated when returning directly to th
 it('keeps empty selections, relative periods and table pagination scopes distinct', () => {
   window.history.replaceState(null, '', '/repos?backlog.page=2&activity.page=3');
   const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
-  act(() => result.current.update({ period: { kind: 'preset', preset: 'last-week' } }));
+  act(() => result.current.update({ periods: [{ kind: 'preset', preset: 'last-week' }] }));
   expect(new URLSearchParams(window.location.search).get('backlog.page')).toBe('2');
   expect(new URLSearchParams(window.location.search).has('activity.page')).toBe(false);
   act(() => result.current.update({ repositoryIds: [] }));
@@ -129,8 +128,8 @@ it('keeps empty selections, relative periods and table pagination scopes distinc
   expect(new URLSearchParams(window.location.search).has('backlog.page')).toBe(false);
   const stored: unknown = JSON.parse(localStorage.getItem(overviewPreferenceKey('alice'))!);
   expect(stored).toMatchObject({
-    version: 2,
-    settings: { repositoryIds: [], period: { kind: 'preset', preset: 'last-week' } },
+    version: 3,
+    settings: { repositoryIds: [], periods: [{ kind: 'preset', preset: 'last-week' }] },
   });
   const writes = history.length;
   act(() => result.current.update({ repositoryIds: [] }));

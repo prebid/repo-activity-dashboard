@@ -6,6 +6,7 @@ import { AllRepositoriesView } from '@/features/repositories/all-repositories-vi
 import { useLocalTableController, LocalDataTable } from '@/components/tables/local-data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import type { OverviewSettings } from '@/models/overview-settings';
 import { defaultOverviewSettings } from '@/lib/presentation/overview-settings';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
@@ -18,23 +19,31 @@ const definition = {
   ...overviewSettingsColumns,
   repositoryIds: repositories.map((repo) => repo.id),
 };
+const defaultsForPreview = defaultOverviewSettings(definition);
 function Preview({
-  showChange = false,
+  twoPeriods = false,
   ageDays = 30,
 }: {
-  showChange?: boolean;
+  twoPeriods?: boolean;
   ageDays?: AgingThreshold;
 }) {
   const backlog = useLocalTableController();
   const activity = useLocalTableController();
-  const [settings, setSettings] = useState(() => ({
+  const [settings, setSettings] = useState<OverviewSettings>(() => ({
     ...defaultOverviewSettings(definition),
-    showChange,
+    periods: twoPeriods
+      ? [defaultsForPreview.periods[0], { kind: 'preset', preset: 'last-month' }]
+      : defaultsForPreview.periods,
     ageThresholds: [ageDays],
   }));
   return (
     <AllRepositoriesView
-      data={selectOverviewSample(samples, settings.period, settings.repositoryIds)}
+      data={selectOverviewSample(samples, settings.periods[0], settings.repositoryIds)}
+      secondaryData={
+        settings.periods.length === 2
+          ? selectOverviewSample(samples, settings.periods[1], settings.repositoryIds)
+          : undefined
+      }
       backlogController={backlog}
       activityController={activity}
       repositories={repositories}
@@ -47,6 +56,66 @@ function Preview({
     />
   );
 }
+it('stacks two labeled period rows per repository and lets the user swap or remove periods', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  expect(screen.queryByRole('checkbox', { name: 'Show change' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('option', { name: 'Custom range' })).not.toBeInTheDocument();
+  await user.click(screen.getByRole('button', { name: 'Add second period' }));
+  expect(screen.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('');
+  await user.click(screen.getByRole('button', { name: 'Cancel adding period' }));
+  await user.click(screen.getByRole('button', { name: 'Add second period' }));
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Period 2 preset' }), 'last-month');
+  const activity = screen.getByRole('table', { name: 'Period activity' });
+  expect(activity.querySelectorAll('tbody tr')).toHaveLength(36);
+  const pairs = within(activity)
+    .getAllByRole('link', { name: 'Prebid.js' })
+    .map((link) => link.closest('tr')!);
+  expect(pairs[0]).toHaveTextContent('This month');
+  expect(pairs[1]).toHaveTextContent('Last month');
+  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('47');
+  expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
+  expect(screen.queryByRole('button', { name: 'Add second period' })).not.toBeInTheDocument();
+  await user.click(screen.getByRole('button', { name: 'Swap periods' }));
+  expect(pairs[0]).toHaveTextContent('Last month');
+  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
+  await user.click(screen.getByRole('button', { name: 'Remove period 1' }));
+  expect(activity.querySelectorAll('tbody tr')).toHaveLength(18);
+  expect(screen.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
+});
+it('accepts two custom ranges, rejects duplicate dates, and keeps missing values specific to their period', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  async function enter(from: string, through: string) {
+    fireEvent.change(screen.getByLabelText('Start date'), { target: { value: from } });
+    fireEvent.change(screen.getByLabelText('End date'), { target: { value: through } });
+    await user.click(screen.getByRole('button', { name: 'Apply dates' }));
+  }
+  await user.click(screen.getByRole('button', { name: 'Custom range for Period 1' }));
+  await enter('2026-10-06', '2026-10-08');
+  await user.click(screen.getByRole('button', { name: 'Add second period' }));
+  await user.click(screen.getByRole('button', { name: 'Custom range for Period 2' }));
+  await enter('2026-10-06', '2026-10-08');
+  expect(screen.getByRole('dialog').querySelector('[role="alert"]')).toHaveTextContent(
+    'Choose two different periods',
+  );
+  await enter('2026-10-13', '2026-10-15');
+  const activity = screen.getByRole('table', { name: 'Period activity' });
+  const pair = within(activity)
+    .getAllByRole('link', { name: 'Prebid.js' })
+    .map((link) => link.closest('tr')!);
+  expect(pair[0]).toHaveTextContent('Oct 6, 2026 – Oct 8, 2026');
+  expect(pair[1]).toHaveTextContent('Oct 13, 2026 – Oct 15, 2026');
+  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
+  expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('5');
+  await user.click(screen.getByRole('button', { name: 'Edit custom range for Period 2' }));
+  await enter('2026-10-01', '2026-10-02');
+  expect(
+    screen.getByText('No prepared sample data for Period 2. Its values are shown as dashes.'),
+  ).toBeVisible();
+  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
+  expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
+});
 it('adds independent aging columns, synchronizes both menus, and removes the group when none are selected', async () => {
   const user = userEvent.setup();
   render(<Preview />);
@@ -125,7 +194,7 @@ it('searches repository options without changing selection and applies or cancel
   await user.click(screen.getByRole('button', { name: 'Reset view' }));
   expect(screen.getAllByRole('table')).toHaveLength(2);
 });
-it('changes timeframe and aging independently and exposes the comparison dates and prior value', async () => {
+it('changes the primary period and aging independently', async () => {
   const user = userEvent.setup();
   render(<Preview />);
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
@@ -137,21 +206,16 @@ it('changes timeframe and aging independently and exposes the comparison dates a
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' }));
   await user.keyboard('{Escape}');
   expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
-  await user.selectOptions(
-    screen.getByRole('combobox', { name: 'Activity timeframe' }),
-    'this-week',
-  );
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Period 1 preset' }), 'this-week');
   expect(activityRow.querySelector('[data-column="prsOpened"]')).toHaveTextContent('12');
   expect(backlogRow.querySelector('[data-column="totalOpenPrs"]')).toHaveTextContent('137');
   expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
-  await user.click(screen.getByRole('checkbox', { name: 'Show change' }));
-  expect(within(activity).getByText(/Compared with Oct 12, 2026/)).toBeVisible();
-  expect(within(activityRow).getByTitle('Previous period: 10')).toHaveTextContent('+2');
+  expect(screen.queryByRole('checkbox', { name: 'Show change' })).not.toBeInTheDocument();
 });
 it('validates custom dates and distinguishes unavailable samples from an empty result', async () => {
   const user = userEvent.setup();
   render(<Preview />);
-  await user.selectOptions(screen.getByRole('combobox', { name: 'Activity timeframe' }), 'custom');
+  await user.click(screen.getByRole('button', { name: 'Custom range for Period 1' }));
   const dialog = screen.getByRole('dialog', { name: 'Custom date range' });
   fireEvent.change(within(dialog).getByLabelText('Start date'), {
     target: { value: '2026-10-09' },
@@ -164,11 +228,11 @@ it('validates custom dates and distinguishes unavailable samples from an empty r
   });
   fireEvent.change(within(dialog).getByLabelText('End date'), { target: { value: '2026-10-08' } });
   await user.click(within(dialog).getByRole('button', { name: 'Apply dates' }));
-  expect(screen.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('custom');
+  expect(screen.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('');
   const activity = screen.getByRole('region', { name: 'Period activity' });
   const row = within(activity).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
   expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
-  await user.click(screen.getByRole('button', { name: 'Edit dates' }));
+  await user.click(screen.getByRole('button', { name: 'Edit custom range for Period 1' }));
   expect(screen.getByLabelText('Start date')).toHaveValue('2026-10-06');
   fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-10-01' } });
   fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-10-02' } });
@@ -277,7 +341,7 @@ it('keeps column visibility and sorting independent without table search', async
 });
 it('updates group spans and reveals automation partials through the controlled columns menu', async () => {
   const user = userEvent.setup();
-  render(<Preview showChange ageDays={60} />);
+  render(<Preview twoPeriods ageDays={60} />);
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
   await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Feedback coverage' }));
@@ -295,7 +359,7 @@ it('updates group spans and reveals automation partials through the controlled c
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Other bots' }));
   await user.keyboard('{Escape}');
   expect(within(activity).getByRole('columnheader', { name: 'Agent feedback' })).toBeVisible();
-  expect(within(activity).getAllByText('+3', { selector: 'span' })[0]).toBeVisible();
+  expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(36);
 });
 it('uses the caller as the only owner of controlled visibility, including non-pinned sized columns', async () => {
   interface Row {

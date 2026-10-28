@@ -47,8 +47,15 @@ export function RepositoriesScreen({
     defaultSort,
   });
   const data = useMemo(
-    () => selectOverviewSample(samples, settings.value.period, settings.value.repositoryIds),
-    [samples, settings.value.period, settings.value.repositoryIds],
+    () => selectOverviewSample(samples, settings.value.periods[0], settings.value.repositoryIds),
+    [samples, settings.value.periods, settings.value.repositoryIds],
+  );
+  const secondaryData = useMemo(
+    () =>
+      settings.value.periods.length === 2
+        ? selectOverviewSample(samples, settings.value.periods[1], settings.value.repositoryIds)
+        : undefined,
+    [samples, settings.value.periods, settings.value.repositoryIds],
   );
   function captureTableContext() {
     const backlogQuery = backlog.flushSearch();
@@ -70,6 +77,7 @@ export function RepositoriesScreen({
   return (
     <AllRepositoriesView
       data={data}
+      secondaryData={secondaryData}
       repositories={repositories}
       backlogController={backlog}
       activityController={activity}

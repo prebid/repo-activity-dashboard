@@ -7,6 +7,7 @@ import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { ThemeMenu } from '../src/components/layout/theme-menu';
 import { PageState } from '../src/components/feedback/page-state';
 import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
+import type { OverviewSettings } from '../src/models/overview-settings';
 import { defaultOverviewSettings } from '../src/lib/presentation/overview-settings';
 import { selectOverviewSample } from '../src/lib/presentation/overview-samples';
 import { overviewSettingsColumns } from '../src/features/repositories/overview-columns';
@@ -19,21 +20,24 @@ const definition = {
   ...overviewSettingsColumns,
   repositoryIds: repositories.map((repo) => repo.id),
 };
+const defaultsForPreview = defaultOverviewSettings(definition);
 function OverviewPreview({
-  showChange = false,
+  twoPeriods = false,
   state = 'normal',
 }: {
-  showChange?: boolean;
+  twoPeriods?: boolean;
   state?: 'normal' | 'empty' | 'loading' | 'error';
 }) {
   const backlog = useLocalTableController();
   const activity = useLocalTableController();
-  const [settings, setSettings] = useState(() => ({
+  const [settings, setSettings] = useState<OverviewSettings>(() => ({
     ...defaultOverviewSettings(definition),
-    showChange,
+    periods: twoPeriods
+      ? [defaultsForPreview.periods[0], { kind: 'preset', preset: 'last-month' }]
+      : defaultsForPreview.periods,
     repositoryIds: state === 'empty' ? [] : definition.repositoryIds,
   }));
-  const data = selectOverviewSample(samples, settings.period, settings.repositoryIds);
+  const data = selectOverviewSample(samples, settings.periods[0], settings.repositoryIds);
   return (
     <DashboardFrame
       navigation={
@@ -51,6 +55,11 @@ function OverviewPreview({
       ) : (
         <AllRepositoriesView
           data={data}
+          secondaryData={
+            settings.periods.length === 2
+              ? selectOverviewSample(samples, settings.periods[1], settings.repositoryIds)
+              : undefined
+          }
           backlogController={backlog}
           activityController={activity}
           repositories={repositories}
@@ -77,7 +86,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Overview: Story = {};
-export const WithChanges: Story = { args: { showChange: true } };
+export const TwoPeriods: Story = { args: { twoPeriods: true } };
 export const Empty: Story = { args: { state: 'empty' } };
 export const Loading: Story = { args: { state: 'loading' } };
 export const Error: Story = { args: { state: 'error' } };
