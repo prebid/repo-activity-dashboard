@@ -195,14 +195,15 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   ).toHaveCount(0);
   await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
-  await activity.getByRole('button', { name: 'PR authors', exact: true }).click();
+  await activity.getByRole('button', { name: 'PRs', exact: true }).click();
   await expect(page).toHaveURL(/activity.sort=prAuthors/);
   await expect(
     backlog.getByRole('columnheader', { name: 'Total PRs ↑', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
-  await expect(
-    activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),
-  ).toHaveAttribute('aria-sort', 'ascending');
+  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
 });
 
 test('repository story renders independently with two periods and empty states', async ({

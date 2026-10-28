@@ -67,7 +67,7 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
     'descending',
   );
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
-  await page.getByRole('menuitemcheckbox', { name: 'Open', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Open', exact: true }).first().click();
   await page.keyboard.press('Escape');
   await expect(
     backlog.getByRole('columnheader', { name: 'Repository ↑', exact: true }),
@@ -78,17 +78,19 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
   await expect(merged).toHaveAttribute('aria-sort', 'descending');
   await page.goto('/repos');
   await expect(merged).toHaveAttribute('aria-sort', 'descending');
-  await activity.getByRole('button', { name: 'PR authors', exact: true }).click();
+  await activity.getByRole('button', { name: 'PRs', exact: true }).click();
   await activity.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Opened', exact: true }).first().click();
   await page.keyboard.press('Escape');
-  await expect(
-    activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),
-  ).toHaveAttribute('aria-sort', 'ascending');
+  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
   await page.goto('/repos');
-  await expect(
-    activity.getByRole('columnheader', { name: 'PR authors ↑', exact: true }),
-  ).toHaveAttribute('aria-sort', 'ascending');
+  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
   await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(opened).toHaveAttribute('aria-sort', 'descending');
   await expect(

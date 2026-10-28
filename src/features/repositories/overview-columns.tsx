@@ -62,7 +62,12 @@ export function backlogColumns(): DataColumn<OverviewTableRow>[] {
     ),
     backlogColumn('draftPrs', 'Drafts', 'Pull requests'),
     backlogColumn('nonDraftPrs', 'Open', 'Pull requests', 'Currently open PRs, excluding drafts.'),
-    backlogColumn('openIssues', 'Open issues', 'Issues'),
+    backlogColumn(
+      'openIssues',
+      'Open',
+      'Issues',
+      'Currently open issues, excluding pull requests.',
+    ),
     ...agingThresholds.map((age): DataColumn<OverviewTableRow> => ({
       id: agingColumnId(age),
       label: 'Over ' + age + ' days',
@@ -75,23 +80,28 @@ export function backlogColumns(): DataColumn<OverviewTableRow>[] {
     })),
     backlogColumn(
       'humanApprovals0',
-      '0 approvals',
+      'Zero',
       'Human approvals',
       'Open non-draft PRs with zero current human approvals.',
     ),
     backlogColumn(
       'humanApprovals1',
-      '1 approval',
+      'One',
       'Human approvals',
       'Open non-draft PRs with one current human approver.',
     ),
     backlogColumn(
       'humanApprovals2',
-      '2 approvals',
+      'Two',
       'Human approvals',
       'Open non-draft PRs with two current human approvers.',
     ),
-    backlogColumn('humanApprovalsMoreThan2', 'More than 2 approvals', 'Human approvals'),
+    backlogColumn(
+      'humanApprovalsMoreThan2',
+      'More than two',
+      'Human approvals',
+      'Open non-draft PRs with more than two current human approvers.',
+    ),
     backlogColumn(
       'humanReviewers0',
       '0 reviewers',
@@ -203,8 +213,18 @@ export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
     ),
     activityColumn('issuesOpened', 'Opened', 'Issues'),
     activityColumn('issuesClosed', 'Closed', 'Issues'),
-    activityColumn('prAuthors', 'PR authors', 'Unique authors'),
-    activityColumn('issueAuthors', 'Issue authors', 'Unique authors'),
+    activityColumn(
+      'prAuthors',
+      'PRs',
+      'Unique authors',
+      'Distinct accounts that authored PRs in this repository during the period.',
+    ),
+    activityColumn(
+      'issueAuthors',
+      'Issues',
+      'Unique authors',
+      'Distinct accounts that authored issues in this repository during the period.',
+    ),
     {
       id: 'medianMergeDays',
       label: 'Median merge time',

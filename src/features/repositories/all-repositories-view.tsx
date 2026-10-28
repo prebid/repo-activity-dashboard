@@ -147,7 +147,7 @@ export function AllRepositoriesView({
               </span>
             }
             visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
-            footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
+            footerNote="Zero / One / Two are exact approval counts. Additional detail is available in Columns."
           />
           <DataTable
             title="Period activity"

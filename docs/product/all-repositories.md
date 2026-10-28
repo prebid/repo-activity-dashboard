@@ -24,10 +24,10 @@ Group related columns so users can show the information they need and save their
 | Group | Columns | Definition |
 | --- | --- | --- |
 | PR backlog | Drafts; Open; Total PRs | Current backlog only. Open excludes drafts; Total PRs equals Drafts plus Open. |
-| Issue backlog | Open issues | Current open issues, excluding PRs. |
+| Issue backlog | Open | Current open issues, excluding PRs. |
 | Aging | One Open >N days column per selected threshold | Open non-draft PRs whose time since creation exceeds that column’s threshold. |
 | Human review participation | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
-| Current human approvals | 0 approvals; 1 approval; 2 approvals | Number of open non-draft PRs with exactly that many distinct current human approvers. |
+| Current human approvals | Zero; One; Two | Number of open non-draft PRs with exactly that many distinct current human approvers. |
 | Agent coverage | PRs with Prebid agent feedback | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
 | Bot coverage | PRs with bot feedback | Open non-draft PRs with qualifying feedback from a GitHub-identified bot, excluding mapped Prebid agents. |
 | Latest activity | Last: Prebid agent; Last: bot; Last: Prebid reviewer; Last: contributor | Number of open non-draft PRs in each latest-activity category. |
@@ -115,8 +115,8 @@ Latest activity describes who acted most recently. It does not infer whose turn 
 | PR activity | PRs merged | PRs merged into the repository's configured primary branch (`main` or `master`) during the period, including PRs created earlier. |
 | Issue activity | Issues opened | Issues created during the period, excluding PRs. |
 | Issue activity | Issues closed | Issues with a closure during the period, regardless of closure reason. Count each issue once within the period; reopening does not erase the fact it was closed. |
-| Authorship | Unique PR authors | Distinct accounts that created PRs in this repository during the period. Includes human, bot, and agent authors. |
-| Authorship | Unique issue authors | Distinct accounts that created issues in this repository during the period. Includes human, bot, and agent authors. |
+| Unique authors | PRs | Distinct accounts that created PRs in this repository during the period. Includes human, bot, and agent authors. |
+| Unique authors | Issues | Distinct accounts that created issues in this repository during the period. Includes human, bot, and agent authors. |
 | Agent contributions | Prebid agent feedback contributions | One credit per mapped agent account and PR, assigned to its first qualifying feedback date. Repeated actions never create new credits in later periods. |
 | Agent contributions | Prebid agent approval contributions | One credit per mapped agent account and PR, assigned to its first approval date. |
 | Bot contributions | Bot feedback contributions | One credit per other GitHub-identified bot account and PR, assigned to its first qualifying feedback date. |

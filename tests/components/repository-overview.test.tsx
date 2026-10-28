@@ -395,7 +395,7 @@ it('updates group spans and reveals automation partials through the controlled c
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
   await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Feedback coverage' }));
-  await user.click(screen.getByRole('menuitemcheckbox', { name: '1 approval' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'One' }));
   await user.keyboard('{Escape}');
   expect(within(backlog).getByRole('columnheader', { name: 'Human approvals' })).toHaveAttribute(
     'colspan',
