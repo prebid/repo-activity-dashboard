@@ -1,6 +1,7 @@
 import { repositoryDetail } from '@/server/reporting';
 import { RepositoryScreen } from '@/app/_screens/repository-screen';
 import { RepositoryRecordsScreen } from '@/app/_screens/repository-records-screen';
+import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-screen';
 import { PageState } from '@/components/feedback/page-state';
 import Link from 'next/link';
 import {
@@ -20,6 +21,8 @@ export default async function RepositoryPage({
   const result = await repositoryDetail(slug, new URLSearchParams(encodeSearchParams(query)));
   if (result.status === 'list')
     return <RepositoryRecordsScreen viewerId={result.viewer.id} list={result.list} />;
+  if (result.status === 'insight')
+    return <RepositoryInsightsScreen viewerId={result.viewer.id} insight={result.insight} />;
   if (result.status === 'invalid' || result.status === 'unsupported')
     return (
       <>
@@ -39,7 +42,7 @@ export default async function RepositoryPage({
         >
           {result.status === 'invalid'
             ? 'The requested metric, dates, branch, or return path is invalid. Choose a count from All repositories.'
-            : 'PR and issue lists are available. Author and contribution lists are the next slice.'}
+            : 'Choose another metric from All repositories.'}
         </PageState>
       </>
     );

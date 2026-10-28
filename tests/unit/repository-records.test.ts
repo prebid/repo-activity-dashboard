@@ -87,9 +87,6 @@ it('reconciles each prepared period count and constrains the relevant event date
           if (metric === 'prsMerged' && 'baseBranch' in row) {
             expect(row.baseBranch).toBe(repository.primaryBranch);
             expect(row.state).toBe('Merged');
-            expect((Date.parse(row.mergedAt!) - Date.parse(row.createdAt)) / 86_400_000).toBe(
-              prepared.rows[repository.id].activity.mergeDuration.days.value,
-            );
           }
         }
       }

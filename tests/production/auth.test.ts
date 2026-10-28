@@ -87,6 +87,18 @@ it('runs the packaged production artifact with current sessions and protected ac
         '/repos/prebidjs?scope=current&metric=openIssues',
         'Sample issue 834: Improve documentation',
       ],
+      [
+        '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'sample-author-24',
+      ],
+      [
+        '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'sample-prebid-agent-b',
+      ],
+      [
+        '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'Merged PRs and durations',
+      ],
     ]) {
       const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
       expect(permitted.status).toBe(200);

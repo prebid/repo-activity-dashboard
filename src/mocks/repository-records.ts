@@ -11,10 +11,10 @@ import type {
 import { agingThresholds } from '@/models/repository-overview';
 import { matchesCurrentPr, recordListKind } from '@/lib/presentation/repository-records';
 import { overviewBacklogs } from './overview-backlog';
-import { overviewAsOf, repositoryOverviewSamples } from './repository-overview';
+import { overviewAsOf } from './repository-overview';
+import { preparedPeriodSample } from './overview-period-sample';
 
 const day = 86_400_000;
-const preparedPeriods = repositoryOverviewSamples().periods;
 const instant = (milliseconds: number) => new Date(milliseconds).toISOString();
 const ago = (days: number) => instant(Date.parse(overviewAsOf) - days * day);
 function known(count: Count): number {
@@ -171,20 +171,15 @@ export function repositoryRecordSample(
               : currentPrSample(repo.id).filter((row) => matchesCurrentPr(row, selection)),
         };
   }
-  const periods = preparedPeriods;
-  const periodIndex = periods.findIndex(
-    ({ period }) =>
-      period.range.start === selection.range.start &&
-      period.range.end === selection.range.end &&
-      period.range.endInclusive === selection.range.endInclusive,
-  );
-  const prepared = periods[periodIndex]?.rows[repo.id]?.activity;
+  const period = preparedPeriodSample(repo.id, selection.range);
+  const periodIndex = period?.index;
+  const prepared = period?.activity;
   const measurement: Count = prepared?.counts[selection.metric] ?? {
     status: 'missing',
     value: null,
     reason: 'No prepared sample records for this date range.',
   };
-  if (!prepared || measurement.value === null)
+  if (!prepared || periodIndex === undefined || measurement.value === null)
     return recordListKind(selection) === 'issues'
       ? { ...context, measurement, kind: 'issues', rows: [] }
       : { ...context, measurement, kind: 'prs', rows: [] };
@@ -199,8 +194,15 @@ export function repositoryRecordSample(
   if (recordListKind(selection) === 'prs') {
     const opened = known(prepared.counts.prsOpened),
       merged = known(prepared.counts.prsMerged);
-    const duration = (prepared.mergeDuration.days.value ?? 0) * day;
-    const overlap = duration <= end - start ? Math.min(opened, Math.floor(merged / 2)) : 0;
+    const medianDuration = (prepared.mergeDuration.days.value ?? 0) * day;
+    // Symmetric whole-millisecond offsets preserve the supplied median for odd and even counts.
+    const step = Math.floor(medianDuration / Math.max(2 * merged, 1));
+    const durationAt = (index: number) => medianDuration + (2 * index - (merged - 1)) * step;
+    const overlap =
+      durationAt(Math.max(merged - 1, 0)) <= end - start
+        ? Math.min(opened, Math.floor(merged / 2))
+        : 0;
+    const authorCount = Math.max(1, known(prepared.counts.prAuthors));
     function pr(index: number, createdAt: string, mergedAt: string | null): RepositoryPullRequest {
       const number = base + index + 1,
         isMerged = mergedAt !== null;
@@ -208,7 +210,7 @@ export function repositoryRecordSample(
         id: prefix + '-pr-' + number,
         number,
         title: 'Sample PR ' + number + ': Update integration behavior',
-        author: 'sample-author-' + ((index % Math.max(1, known(prepared.counts.prAuthors))) + 1),
+        author: 'sample-author-' + ((index % authorCount) + 1),
         state: isMerged ? 'Merged' : index % 5 === 0 ? 'Closed' : 'Open',
         draft: !isMerged && index % 5 !== 0 && index % 7 === 0,
         humanReviewers: null,
@@ -226,6 +228,7 @@ export function repositoryRecordSample(
     }
     const openedRows = Array.from({ length: opened }, (_, i) => {
       if (i >= overlap) return pr(i, eventTime(i, opened, 0), null);
+      const duration = durationAt(i);
       const created = start + Math.floor(((end - start - duration) * i) / Math.max(overlap, 1));
       return pr(i, instant(created), instant(created + duration));
     });
@@ -235,6 +238,7 @@ export function repositoryRecordSample(
         : [
             ...openedRows.slice(0, overlap),
             ...Array.from({ length: merged - overlap }, (_, i) => {
+              const duration = durationAt(i + overlap);
               const mergedAt =
                 start +
                 Math.floor(
@@ -254,13 +258,14 @@ export function repositoryRecordSample(
   const opened = known(prepared.counts.issuesOpened),
     closed = known(prepared.counts.issuesClosed);
   const overlap = Math.min(opened, Math.floor(closed / 2));
+  const authorCount = Math.max(1, known(prepared.counts.issueAuthors));
   function issue(index: number, createdAt: string, closedAt: string | null): RepositoryIssue {
     const number = base + 50_000 + index + 1;
     return {
       id: prefix + '-issue-' + number,
       number,
       title: 'Sample issue ' + number + ': Improve documentation',
-      author: 'sample-author-' + ((index % Math.max(1, known(prepared.counts.issueAuthors))) + 1),
+      author: 'sample-author-' + ((index % authorCount) + 1),
       state: closedAt === null ? 'Open' : 'Closed',
       labels: ['documentation'],
       createdAt,

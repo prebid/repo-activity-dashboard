@@ -50,7 +50,7 @@ test('summary PR and issue links reconcile, paginate, search the full list, and 
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('last-month');
 });
-test('each stacked period opens its own cohort, retains branch scope, and differences and authors stay informational', async ({
+test('each stacked period opens its own cohort, retains branch scope, and differences stay informational', async ({
   page,
 }, testInfo) => {
   await login(page);
@@ -61,7 +61,7 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
     .filter({ hasText: 'Prebid.js' });
   await expect(rows).toHaveCount(3);
   await expect(rows.nth(2).getByRole('link')).toHaveCount(0);
-  await expect(rows.nth(0).locator('[data-column="prAuthors"] a')).toHaveCount(0);
+  await expect(rows.nth(0).locator('[data-column="prAuthors"] a')).toHaveCount(1);
   await rows.nth(1).locator('[data-column="prsMerged"] a').click();
   await expect(page.getByText('48 matching records', { exact: true })).toBeVisible();
   await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
@@ -94,7 +94,7 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(46);
 });
-test('known zero, partial, missing, invalid, and unsupported scopes remain distinct', async ({
+test('known zero, partial, missing, invalid, and author scopes remain distinct', async ({
   page,
 }) => {
   await login(page);
@@ -131,7 +131,5 @@ test('known zero, partial, missing, invalid, and unsupported scopes remain disti
   await page.goto(
     '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
   );
-  await expect(
-    page.getByRole('heading', { name: 'This drilldown is not available yet', exact: true }),
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'PR authors', exact: true })).toBeVisible();
 });

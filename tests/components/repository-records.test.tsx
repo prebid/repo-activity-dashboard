@@ -66,7 +66,7 @@ it('labels partial and missing lists without turning unknown coverage into zero'
   expect(screen.getByRole('heading', { name: 'Sample records unavailable' })).toBeVisible();
   expect(screen.queryByRole('table')).not.toBeInTheDocument();
 });
-it('links known zero and partial PR counts, but never missing values or author-credit metrics', () => {
+it('links known zero and partial PR counts, including author metrics, but never missing values', () => {
   const props = {
     repository: repo,
     selection: { scope: 'current' as const, metric: 'totalOpenPrs' as const },
@@ -101,5 +101,8 @@ it('links known zero and partial PR counts, but never missing values or author-c
       measurement={{ status: 'complete', value: 8 }}
     />,
   );
-  expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  expect(screen.getByRole('link')).toHaveAttribute(
+    'href',
+    expect.stringContaining('metric=prAuthors'),
+  );
 });

@@ -8,6 +8,8 @@ import { repositoryRecordSample } from '@/mocks/repository-records';
 import { readRepositoryDrilldown } from '@/lib/presentation/repository-drilldown';
 import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { reportingBranchSchema } from '@/models/repository-overview';
+import { isInsightSelection } from '@/lib/presentation/repository-insights';
+import { repositoryInsightSample } from '@/mocks/repository-insights';
 export async function allRepositories() {
   const viewer = await requireViewer();
   return { viewer, samples: repositoryOverviewSamples() };
@@ -33,6 +35,12 @@ export async function repositoryDetail(slug: string, params = new URLSearchParam
       returnTo: params.get('returnTo') ?? '/repos',
     };
   const { selection, returnTo } = parsed.value;
+  if (isInsightSelection(selection))
+    return {
+      ...base,
+      status: 'insight' as const,
+      insight: repositoryInsightSample(identity, { selection, returnTo }),
+    };
   if (!isRecordSelection(selection)) return { ...base, status: 'unsupported' as const, returnTo };
   return {
     ...base,

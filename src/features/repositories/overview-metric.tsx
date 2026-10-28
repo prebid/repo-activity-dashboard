@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import type { Count, OverviewRepository } from '@/models/repository-overview';
+import type { Measurement, OverviewRepository } from '@/models/repository-overview';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
-import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import { formatCount } from '@/lib/presentation/format';
 import styles from './overview.module.css';
@@ -13,15 +12,19 @@ export function OverviewMetric({
   selection,
   label,
   returnTo,
+  unit = 'count',
+  detail,
 }: {
   repository: OverviewRepository;
-  measurement: Count;
+  measurement: Measurement;
   selection: DrilldownSelection;
   label: string;
   returnTo: string;
+  unit?: 'count' | 'days';
+  detail?: string;
 }) {
-  const value = <MeasurementValue measurement={measurement} />;
-  if (measurement.value === null || !isRecordSelection(selection)) return value;
+  const value = <MeasurementValue measurement={measurement} unit={unit} detail={detail} />;
+  if (measurement.value === null) return value;
   return (
     <Link
       prefetch={false}
@@ -33,6 +36,7 @@ export function OverviewMetric({
         label +
         ', ' +
         formatCount(measurement.value) +
+        (unit === 'days' ? ' d' : '') +
         (measurement.status === 'partial' ? ' (partial)' : '')
       }
     >

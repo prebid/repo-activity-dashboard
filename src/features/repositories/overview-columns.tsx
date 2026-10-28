@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { DataColumn } from '@/components/tables/data-table';
-import { MeasurementValue, MeasurementDifference } from '@/components/metrics/measurement-value';
+import { MeasurementDifference } from '@/components/metrics/measurement-value';
 import type {
   ActivityMetric,
   BacklogMetric,
@@ -294,9 +294,18 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
             unit="days"
           />
         ) : (
-          <MeasurementValue
+          <OverviewMetric
+            repository={row.repository}
             measurement={row.activity.mergeDuration.days}
             unit="days"
+            selection={{
+              scope: 'period',
+              metric: 'medianMergeDays',
+              range: row.period.range,
+              branch: row.repository.primaryBranch,
+            }}
+            label={'Median merge time — ' + activityPeriodLabel(row.period)}
+            returnTo={returnTo}
             detail={
               row.activity.mergeDuration.sampleSize.value === null
                 ? undefined
