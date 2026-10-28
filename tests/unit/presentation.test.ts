@@ -1,9 +1,22 @@
 import { describe, it, expect } from 'vitest';
-import { formatCount, formatAsOf, compareValues, csvCell } from '@/lib/presentation/format';
+import {
+  formatCount,
+  formatAsOf,
+  formatUtcDate,
+  compareValues,
+  csvCell,
+} from '@/lib/presentation/format';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 import { readTableQuery, writeTableQuery, preferenceKey } from '@/lib/presentation/table-query';
 import { encodeSearchParams, firstSearchParam } from '@/lib/presentation/search-params';
 describe('presentation contracts', () => {
+  it('renders identical UTC timestamp text without engine-specific locale connectors', () => {
+    expect(formatAsOf('2026-10-24T12:00:00.000Z')).toBe('Oct 24, 2026, 12:00 PM UTC');
+    expect(formatAsOf('2026-01-01T00:05:00.000Z')).toBe('Jan 1, 2026, 12:05 AM UTC');
+    expect(formatAsOf('2026-01-01T07:09:00.000Z')).toBe('Jan 1, 2026, 7:09 AM UTC');
+    expect(formatUtcDate('2026-10-24T23:00:00-04:00')).toBe('Oct 25, 2026');
+    expect(formatUtcDate('invalid')).toBe('—');
+  });
   it('preserves repeated URL parameters across the server/client boundary', () => {
     expect(encodeSearchParams({ repo: ['one', 'two'], view: 'issues', unused: undefined })).toBe(
       '?repo=one&repo=two&view=issues',

@@ -2,22 +2,11 @@ import 'server-only';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
-import {
-  repositorySummaries,
-  sampleAsOf,
-  repositorySample,
-  contributionRows,
-  companyRows,
-} from '@/mocks/reporting';
-import { formatAsOf } from '@/lib/presentation/format';
+import { repositorySample, contributionRows, companyRows } from '@/mocks/reporting';
+import { repositoryOverviewSample } from '@/mocks/repository-overview';
 export async function allRepositories() {
   const viewer = await requireViewer();
-  const rows = repositorySummaries.map((summary) => {
-    const repo = repositoryCatalog.find((r) => r.id === summary.repositoryId);
-    if (!repo) throw new Error('Sample references an unknown repository');
-    return { ...summary, id: repo.id, name: repo.displayName, slug: repo.slug };
-  });
-  return { viewer, rows, asOfLabel: formatAsOf(sampleAsOf) };
+  return { viewer, data: repositoryOverviewSample() };
 }
 export async function repositoryDetail(slug: string) {
   const viewer = await requireViewer();

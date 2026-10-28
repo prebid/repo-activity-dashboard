@@ -1,24 +1,35 @@
 'use client';
-import {
-  AllRepositoriesView,
-  repositorySummaryColumns,
-} from '@/features/repositories/all-repositories-view';
+import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
+import { backlogColumns, activityColumns } from '@/features/repositories/overview-columns';
 import { useTableController } from '@/lib/navigation/use-table-controller';
-import type { RepositorySummaryRow } from '@/models/reporting';
-const columnIds = repositorySummaryColumns.map((c) => c.id);
+import type { RepositoryOverview } from '@/models/repository-overview';
+const backlogIds = backlogColumns(30).map((column) => column.id);
+const activityIds = activityColumns(false).map((column) => column.id);
 export function RepositoriesScreen({
   viewerId,
-  ...data
+  data,
 }: {
   viewerId: string;
-  rows: RepositorySummaryRow[];
-  asOfLabel: string;
+  data: RepositoryOverview;
 }) {
-  const controller = useTableController({
-    queryKey: 'repos',
-    scopeKey: 'all-repositories',
+  const backlog = useTableController({
+    queryKey: 'backlog',
+    scopeKey: 'all-repositories:backlog',
     viewerId,
-    columnIds,
+    columnIds: backlogIds,
   });
-  return <AllRepositoriesView key={controller.scopeKey} {...data} controller={controller} />;
+  const activity = useTableController({
+    queryKey: 'activity',
+    scopeKey: 'all-repositories:activity',
+    viewerId,
+    columnIds: activityIds,
+  });
+  return (
+    <AllRepositoriesView
+      key={backlog.scopeKey}
+      data={data}
+      backlogController={backlog}
+      activityController={activity}
+    />
+  );
 }

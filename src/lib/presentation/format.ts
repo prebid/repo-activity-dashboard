@@ -23,14 +23,41 @@ export function csvCell(value: string | number | null): string {
   return '"' + safe.replaceAll('"', '""') + '"';
 }
 
+function utcDateLabel(date: Date): string {
+  const month = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ][date.getUTCMonth()];
+  return month + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
+}
+
+export function formatUtcDate(iso: string): string {
+  const date = new Date(iso);
+  return Number.isFinite(date.getTime()) ? utcDateLabel(date) : '—';
+}
+
 export function formatAsOf(iso: string): string {
   const date = new Date(iso);
   if (!Number.isFinite(date.getTime())) return '—';
+  // ICU date/time connectors differ between Node and WebKit ("," versus "at").
+  // Keep server and client text identical without suppressing hydration diagnostics.
+  const hours = date.getUTCHours();
   return (
-    new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-      timeZone: 'UTC',
-    }).format(date) + ' UTC'
+    utcDateLabel(date) +
+    ', ' +
+    (hours % 12 || 12) +
+    ':' +
+    String(date.getUTCMinutes()).padStart(2, '0') +
+    (hours < 12 ? ' AM UTC' : ' PM UTC')
   );
 }

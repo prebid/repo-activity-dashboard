@@ -25,7 +25,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 
 Repeated calls return independent serializable values. Lightweight sizing of prepared activity examples supplies variation between repositories; those factors are not estimates of real activity. Tests pin handwritten examples and check consistency across scopes. Yearly author counts are prepared separately, not summed from monthly unique counts.
 
-The existing starter screen and its older sample remain connected until the table-composition step. The new drilldown descriptors are not routed yet, and this step does not claim count-to-record reconciliation or browser interaction coverage. Supporting metadata rows and receiving-route tests belong to step 4. The old reporting layout is not a design reference for the new tables; retain only the approved Prebid authentication styling and shared behavior.
+The All Repositories preview now consumes this sample through the guarded loader. Its reusable tables provide sorting, table-local search, grouped column selection, pinned repository identities, and overflow hints. Storybook includes the full page, comparison values, empty, loading, and error examples. The existing repository-detail sample remains a placeholder until step 4; numeric summary values are therefore not linked to incomplete destinations. Supporting metadata rows and receiving-route tests belong to step 4. Repository selection, period/aging selectors, and saved page preferences belong to step 3. The new table layout uses the approved Prebid palette without following the old reporting layout.
 
 ## Earlier display reference
 

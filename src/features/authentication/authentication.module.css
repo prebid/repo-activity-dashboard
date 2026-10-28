@@ -1,57 +1,32 @@
 .surface {
-  --auth-background: #f6f8fa;
-  --auth-ink: #1c3445;
-  --auth-muted: #5e707f;
-  --auth-line: #e4eaee;
-  --auth-accent: #ffad32;
-  --auth-card: #fff;
-  --auth-input: #fff;
-  --auth-input-border: #cdd8df;
-  --auth-placeholder: #74818d;
-  --auth-ring: #3583b2;
-  --auth-hover: #eff4f7;
-  --auth-link: #385e77;
-  --auth-secondary: #f0f4f7;
-  --auth-secondary-hover: #e4ecf2;
-  --auth-info-bg: #edf5fa;
-  --auth-info-border: #d4e6f0;
-  --auth-error-ink: #9d252c;
-  --auth-error-bg: #fff1f0;
-  --auth-error-border: #f3c6c4;
-  --auth-success-ink: #236044;
-  --auth-success-bg: #edf8f1;
-  --auth-success-border: #c6e6d1;
-  --auth-card-shadow: 0 16px 40px -20px #25456026, 0 3px 8px #25456004;
+  --auth-background: var(--prebid-background);
+  --auth-ink: var(--prebid-ink);
+  --auth-muted: var(--prebid-muted);
+  --auth-line: var(--prebid-line);
+  --auth-accent: var(--prebid-accent);
+  --auth-card: var(--prebid-card);
+  --auth-input: var(--prebid-input);
+  --auth-input-border: var(--prebid-input-border);
+  --auth-placeholder: var(--prebid-placeholder);
+  --auth-ring: var(--prebid-ring);
+  --auth-hover: var(--prebid-hover);
+  --auth-link: var(--prebid-link);
+  --auth-secondary: var(--prebid-secondary);
+  --auth-secondary-hover: var(--prebid-secondary-hover);
+  --auth-info-bg: var(--prebid-info-bg);
+  --auth-info-border: var(--prebid-info-border);
+  --auth-error-ink: var(--prebid-error-ink);
+  --auth-error-bg: var(--prebid-error-bg);
+  --auth-error-border: var(--prebid-error-border);
+  --auth-success-ink: var(--prebid-success-ink);
+  --auth-success-bg: var(--prebid-success-bg);
+  --auth-success-border: var(--prebid-success-border);
+  --auth-card-shadow: var(--prebid-card-shadow);
   position: relative;
   min-height: 100svh;
   padding: 32px 16px;
   background: var(--auth-background);
   color: var(--auth-ink);
-}
-
-:global(.dark) .surface {
-  --auth-background: #0d161f;
-  --auth-ink: #e6eef4;
-  --auth-muted: #a1b2bf;
-  --auth-line: #304352;
-  --auth-card: #17232e;
-  --auth-input: #111d27;
-  --auth-input-border: #455b6b;
-  --auth-placeholder: #96a9b7;
-  --auth-ring: #73c3f3;
-  --auth-hover: #253947;
-  --auth-link: #9ed3f2;
-  --auth-secondary: #253947;
-  --auth-secondary-hover: #304b5d;
-  --auth-info-bg: #182f40;
-  --auth-info-border: #36596f;
-  --auth-error-ink: #ffb5b4;
-  --auth-error-bg: #3b2029;
-  --auth-error-border: #75404a;
-  --auth-success-ink: #a0dfbb;
-  --auth-success-bg: #17382d;
-  --auth-success-border: #396450;
-  --auth-card-shadow: 0 16px 40px -20px #0008, 0 3px 8px #0002;
 }
 
 .appearance {

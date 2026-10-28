@@ -2,7 +2,7 @@
 
 Build the All Repositories frontend with prepared sample data, preserving the approved Prebid authentication design and the merged foundation. Deliver an interactive page for visual review before connecting real reporting data. The product definitions remain authoritative; this plan specifies implementation order, ownership, and verification.
 
-Status: step 1 implemented and verified locally; steps 2–5 remain planned. Page layout and column defaults below are the starting proposal for the interactive preview, not an already approved reporting design. The existing reporting layout is not a design reference. Preserve the approved Prebid authentication styling while designing the tables around clarity and the agreed interactions.
+Status: steps 1 and 2 implemented and verified locally; the visual preview awaits user review. Steps 3–5 remain planned. Page layout and column defaults below are the starting proposal for the interactive preview, not an already approved reporting design. The existing reporting layout is not a design reference. Preserve the approved Prebid authentication styling while designing the tables around clarity and the agreed interactions.
 
 ## Scope and delivery boundary
 
@@ -132,7 +132,11 @@ At each step, run the smallest relevant registered checks and expand after share
 
 ## Readiness and remaining review
 
-No new user input is required to start step 2. Review the default column set, density, navigation treatment, and responsiveness in the first interactive preview; adjust them before establishing the visual baseline. Authentication design and metric definitions are preserved throughout.
+Review the default column set, density, navigation treatment, and responsiveness in the interactive preview before moving to page-wide controls. Authentication design and metric definitions are preserved throughout.
+
+Step 2 connects the protected overview route to the prepared samples and adds grouped tables, pinned repository names, independent table-local sorting/search/column visibility, measured overflow hints, and a reusable dashboard frame/header. Shared Prebid palette values preserve the authentication colors exactly. Storybook includes normal, comparison, empty, loading, and error examples. The timestamp formatter is deterministic across Node and WebKit; a browser reload regression checks hydration. Repository/date/aging selectors and saved page preferences remain step 3; numeric metric drilldowns remain step 4. Column choices are currently temporary, while the existing per-account sort behavior remains active for each table.
+
+Step 2 verification: `npm run check:all` passed 384 unit/component, 31 DynamoDB Local, 8 packaged-production, and 50 Chromium/WebKit cases, with no failures/skips/pending/flaky cases. Formatting, lint, types, architecture/retirement checks, coverage gates, production/preview/Storybook builds, and dependency auditing passed. Overview screenshots cover 320/768/1280/1440 px in both themes, with table accessibility, overflow and pinning checks. Authentication screens passed their existing responsive/theme checks. These are local implementation checks and an unapproved visual preview, not a production deployment or independent review.
 
 Step 1 supplies typed/validated display measurements, all 18 repository samples, seven period presets, all six aging thresholds, a prepared custom range, explicit unavailable-range behavior, and pure drilldown URL descriptors. The [sample inventory](../../design/mocks/README.md#runtime-sample-for-all-repositories) maps controls and states to these inputs. `npm run check` passed formatting, lint, typechecking, architecture checks, and coverage gates with 377 individually passing unit/component cases (67 added for this step), with no skipped/pending/expected-failure/flaky cases. Layouts, browser controls, and receiving drilldown routes are deliberately not implemented by step 1. No reporting service or dependency was added.
 

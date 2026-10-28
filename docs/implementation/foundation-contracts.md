@@ -25,6 +25,8 @@ For local samples, `rows` is the complete supplied population; search/sort prece
 
 The current table has one mode: a complete supplied sample population. Remote paging, request callbacks and backend export contracts are deliberately deferred until there is a real adapter. Loading/error visuals remain independent reusable components and catalog states.
 
+The table accepts optional grouped column metadata, widths/alignment, a pinned identity column, and controlled visibility. Its local visibility remains the fallback for existing callers; there is one visibility owner. Group and leaf headings are associated with cells, overflow is announced only when measured, and scroll containers are keyboard accessible. Feature views own metric meanings and default column sets. All Repositories uses separate backlog/activity query and preference scopes; page-wide controls and persisted column choices remain the next implementation step.
+
 ## Runtime account boundaries
 
 Account request bodies, consumed API responses, and loaded account/whitelist records are validated with Zod. The HTTP boundary limits actual body bytes to 16 KiB and body reads to five seconds before parsing; absent/misleading Content-Length does not bypass counting. Login/current-password verification accepts at most 1 KiB of UTF-8 input, without trimming or truncation. Oversize and timed-out bodies return 413 and 408 respectively. Invalid user input returns 400; malformed store responses and store failures remain failures. Production credential validation checks whitelist membership, account existence, and password verification and returns only safe identity fields.

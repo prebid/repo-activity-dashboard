@@ -1,98 +1,124 @@
 'use client';
-import Link from 'next/link';
-import { DataTable, type DataColumn } from '@/components/tables/data-table';
-import { MetricValue } from '@/components/metrics/metric-value';
-import type { RepositorySummaryRow as SummaryRow } from '@/models/reporting';
+import { useMemo, useState } from 'react';
+import { Info } from 'lucide-react';
+import { DataTable } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
-export const repositorySummaryColumns: DataColumn<SummaryRow>[] = [
-  {
-    id: 'name',
-    label: 'Repository',
-    value: (r) => r.name,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="font-medium text-primary underline underline-offset-4"
-        href={'/repos/' + r.slug}
-      >
-        {r.name}
-      </Link>
-    ),
-  },
-  {
-    id: 'openPrs',
-    label: 'Total open PRs',
-    value: (r) => r.openPrs,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=prs'}
-      >
-        <MetricValue value={r.openPrs} />
-      </Link>
-    ),
-  },
-  { id: 'draftPrs', label: 'Draft PRs', value: (r) => r.draftPrs },
-  { id: 'ready', label: 'Non-draft PRs', value: (r) => r.openPrs - r.draftPrs },
-  {
-    id: 'openIssues',
-    label: 'Open issues',
-    value: (r) => r.openIssues,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=issues'}
-      >
-        <MetricValue value={r.openIssues} />
-      </Link>
-    ),
-  },
-  {
-    id: 'agedPrs',
-    label: 'PRs older than 60 days',
-    value: (r) => r.agedPrs,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=prs&age=60'}
-      >
-        {r.agedPrs}
-      </Link>
-    ),
-  },
-  {
-    id: 'approvals',
-    label: 'PRs with human approval',
-    value: (r) => r.approvals,
-    cell: (r) => <MetricValue value={r.approvals} />,
-  },
-];
+import type { AgingThreshold, RepositoryOverview } from '@/models/repository-overview';
+import { formatAsOf, formatUtcDate } from '@/lib/presentation/format';
+import {
+  backlogColumns,
+  activityColumns,
+  defaultBacklogColumns,
+  defaultActivityColumns,
+  initialColumnVisibility,
+} from './overview-columns';
+import styles from './overview.module.css';
+
+const periodLabels = {
+  'this-week': 'This week',
+  'last-week': 'Last week',
+  'this-month': 'This month',
+  'last-month': 'Last month',
+  'this-year': 'This year to date',
+  'last-year-to-date': 'Last year to the same date',
+  'last-full-year': 'Last full year',
+};
+
 export function AllRepositoriesView({
-  rows,
-  controller,
-  asOfLabel,
+  data,
+  backlogController,
+  activityController,
+  ageDays = 30,
+  showChange = false,
 }: {
-  rows: SummaryRow[];
-  controller: TableController;
-  asOfLabel: string;
+  data: RepositoryOverview;
+  backlogController: TableController;
+  activityController: TableController;
+  ageDays?: AgingThreshold;
+  showChange?: boolean;
 }) {
+  const backlog = useMemo(() => backlogColumns(ageDays), [ageDays]);
+  const activity = useMemo(() => activityColumns(showChange), [showChange]);
+  const [backlogVisibility, setBacklogVisibility] = useState(() =>
+    initialColumnVisibility(backlog, defaultBacklogColumns),
+  );
+  const [activityVisibility, setActivityVisibility] = useState(() =>
+    initialColumnVisibility(activity, defaultActivityColumns),
+  );
+  const rows = useMemo(
+    () =>
+      data.rows
+        .map((row) => ({ ...row, id: row.repository.id }))
+        .sort((a, b) => a.repository.name.localeCompare(b.repository.name, 'en')),
+    [data.rows],
+  );
+  const range = data.period.range;
+  const periodLabel =
+    data.period.selection.kind === 'preset'
+      ? periodLabels[data.period.selection.preset]
+      : 'Custom range';
+  const periodDates =
+    formatUtcDate(range.start) +
+    ' – ' +
+    formatUtcDate(
+      new Date(new Date(range.end).getTime() - (range.endInclusive ? 0 : 1)).toISOString(),
+    );
   return (
     <>
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">All repositories</h1>
-        <p className="mt-2 text-muted-foreground">
-          Current backlog · Prepared sample as of {asOfLabel}
+      <div className={styles.pageHeader}>
+        <div>
+          <p className={styles.eyebrow}>Repository overview</p>
+          <h1 className={styles.title}>All repositories</h1>
+          <p className={styles.subtitle}>
+            Current work and recent activity, across {data.rows.length} repositories.
+          </p>
+        </div>
+        <p className={styles.asOf}>
+          <strong>Reporting snapshot</strong>
+          {formatAsOf(data.asOf)}
         </p>
       </div>
       <DataTable
         title="Current backlog"
         rows={rows}
-        columns={repositorySummaryColumns}
-        controller={controller}
+        columns={backlog}
+        controller={backlogController}
+        itemLabel="repositories"
+        showSinglePageControls={false}
+        description={
+          <span className={styles.scope}>
+            <span className={styles.scopeLabel}>Open now</span>
+            <span>· Aging over {ageDays} days · Reviews and approvals exclude drafts</span>
+          </span>
+        }
+        visibility={{ value: backlogVisibility, onChange: setBacklogVisibility }}
+        footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
       />
+      <DataTable
+        title="Period activity"
+        rows={rows}
+        columns={activity}
+        controller={activityController}
+        itemLabel="repositories"
+        showSinglePageControls={false}
+        description={
+          <span className={styles.scope}>
+            <span className={styles.scopeLabel}>{periodLabel}</span>
+            <span>
+              · {periodDates} · UTC{showChange ? ' · Change shown below each value' : ''}
+            </span>
+          </span>
+        }
+        visibility={{ value: activityVisibility, onChange: setActivityVisibility }}
+        footerNote="Merges and merge time use each repository’s primary branch."
+      />
+      <p className={styles.legend}>
+        <Info size={14} aria-hidden="true" />
+        <span>
+          — Not available or not applicable. * Partial data. Human feedback, current approvals, and
+          agent/bot activity are measured separately.
+        </span>
+      </p>
     </>
   );
 }
