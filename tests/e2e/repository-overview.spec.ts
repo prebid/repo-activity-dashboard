@@ -1,119 +1,186 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 
+import type { Page } from '@playwright/test';
+
+type DividerSample = {
+  index: number;
+  name: string;
+  x: number;
+  y: number;
+  height: number;
+  background: string;
+  divider: string;
+};
+
+async function paintedFrame(page: Page) {
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+    );
+  });
+}
+
+async function dividerContrasts(page: Page, png: Buffer, points: DividerSample[]) {
+  return page.evaluate(
+    async ({ base64, points }) => {
+      const image = new Image();
+      await new Promise<void>((resolve, reject) => {
+        image.onload = () => resolve();
+        image.onerror = () => reject(new Error('Could not decode divider screenshot'));
+        image.src = 'data:image/png;base64,' + base64;
+      });
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('Missing screenshot canvas');
+      context.drawImage(image, 0, 0);
+      const rgb = (color: string) => (color.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
+      return points.map((point) => {
+        const background = rgb(point.background),
+          divider = rgb(point.divider);
+        const direction = divider.map((value, index) => value - background[index]);
+        const magnitude = direction.reduce((sum, value) => sum + value * value, 0);
+        if (!magnitude) throw new Error('Divider and background are indistinguishable');
+        let contrast = 0;
+        // Permit pixel rounding at fractional row boundaries, but require an actual line.
+        for (let y = Math.floor(point.y) - 3; y <= Math.ceil(point.y) + 1; y++) {
+          const pixel = context.getImageData(Math.floor(point.x), y, 1, 1).data;
+          contrast = Math.max(
+            contrast,
+            direction.reduce(
+              (sum, value, index) => sum + (pixel[index] - background[index]) * value,
+              0,
+            ) / magnitude,
+          );
+        }
+        return { name: point.name, contrast };
+      });
+    },
+    { base64: png.toString('base64'), points },
+  );
+}
+
 test.describe('pinned row dividers', () => {
   test.use({ deviceScaleFactor: 1 });
-  test('remain visibly painted after sorting and horizontal scrolling', async ({
-    page,
-  }, testInfo) => {
-    await page.goto('/auth/login');
-    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-    await expect(page).toHaveURL(/\/repos$/);
-    const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
-    await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
-    await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
-    for (const theme of ['dark', 'light']) {
-      await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
-      await page
-        .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
-        .click();
-      for (const width of [856, 320]) {
+  for (const theme of ['dark', 'light']) {
+    for (const width of [856, 320]) {
+      test(`remain visibly painted after sorting and scrolling (${theme}, ${width}px)`, async ({
+        page,
+      }, testInfo) => {
+        await page.goto('/auth/login');
+        await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+        await expect(page).toHaveURL(/\/repos$/);
+        const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
+        await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+        await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
+        await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+        await page
+          .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
+          .click();
+        await expect(page.locator('html')).toHaveClass(new RegExp(theme));
         await page.setViewportSize({ width, height: 1100 });
+        let controlChecked = false;
         for (const scrollLeft of [0, 180]) {
           for (const title of ['Current backlog', 'Period activity']) {
-            await page
-              .getByRole('region', { name: title + ' table scroll area', exact: true })
-              .evaluate((element, left) => {
+            const area = page.getByRole('region', {
+              name: title + ' table scroll area',
+              exact: true,
+            });
+            const cells = area.locator('tbody tr:not(:last-child) [data-column="name"]');
+            await expect(cells).toHaveCount(17);
+            const checked = new Set<number>();
+            while (checked.size < 17) {
+              const next = Array.from({ length: 17 }, (_, index) => index).find(
+                (index) => !checked.has(index),
+              )!;
+              await cells
+                .nth(next)
+                .evaluate((cell) =>
+                  cell.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' }),
+                );
+              await area.evaluate((element, left) => {
                 element.scrollLeft = left;
               }, scrollLeft);
-          }
-          await page.mouse.move(0, 0);
-          const samples = await page
-            .locator('tbody tr:not(:last-child) [data-column="name"]')
-            .evaluateAll((cells) =>
-              cells.map((cell) => {
-                const box = cell.getBoundingClientRect();
-                const style = getComputedStyle(cell);
-                return {
-                  name: cell.textContent?.trim(),
-                  x: box.left + window.scrollX + 6,
-                  y: box.bottom + window.scrollY,
-                  height: box.height,
-                  background: style.backgroundColor,
-                  divider: style.borderRightColor,
-                };
-              }),
-            );
-          expect(samples).toHaveLength(34);
-          for (const sample of samples)
-            expect(sample.height, sample.name).toBeCloseTo(Math.round(sample.height), 5);
-          if (theme === 'dark' && width === 856 && scrollLeft === 0) {
-            const sales = await backlog
-              .getByRole('link', { name: 'SalesAgent', exact: true })
-              .locator('..')
-              .boundingBox();
-            if (!sales) throw new Error('Missing SalesAgent cell');
-            await page.screenshot({
-              path: testInfo.outputPath('salesagent-dividers.png'),
-              scale: 'css',
-              clip: {
-                x: sales.x,
-                y: sales.y - sales.height,
-                width: 520,
-                height: sales.height * 3,
-              },
-            });
-          }
-          // Computed borders alone missed this bug: inspect the pixels that were actually painted.
-          const png = await page.screenshot({ fullPage: true, scale: 'css' });
-          const contrasts = await page.evaluate(
-            async ({ base64, points }) => {
-              const image = new Image();
-              await new Promise<void>((resolve, reject) => {
-                image.onload = () => resolve();
-                image.onerror = () => reject(new Error('Could not decode divider screenshot'));
-                image.src = 'data:image/png;base64,' + base64;
+              await page.mouse.move(0, 0);
+              await paintedFrame(page);
+              const samples = await cells.evaluateAll((elements) => {
+                const top = Math.max(
+                  8,
+                  document.querySelector('header')?.getBoundingClientRect().bottom ?? 0,
+                );
+                return elements
+                  .map((cell, index) => {
+                    const box = cell.getBoundingClientRect(),
+                      style = getComputedStyle(cell);
+                    return {
+                      index,
+                      name: cell.textContent?.trim() ?? '',
+                      x: box.left + 6,
+                      y: box.bottom,
+                      top: box.top,
+                      height: box.height,
+                      background: style.backgroundColor,
+                      divider: style.borderRightColor,
+                    };
+                  })
+                  .filter((sample) => sample.top >= top && sample.y <= window.innerHeight - 8);
               });
-              const canvas = document.createElement('canvas');
-              canvas.width = image.width;
-              canvas.height = image.height;
-              const context = canvas.getContext('2d');
-              if (!context) throw new Error('Missing screenshot canvas');
-              context.drawImage(image, 0, 0);
-              const rgb = (color: string) => (color.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
-              return points.map((point) => {
-                const background = rgb(point.background),
-                  divider = rgb(point.divider);
-                const direction = divider.map((value, index) => value - background[index]);
-                const magnitude = direction.reduce((sum, value) => sum + value * value, 0);
-                if (!magnitude) throw new Error('Divider and background are indistinguishable');
-                let contrast = 0;
-                // Permit pixel rounding at fractional row boundaries, but require an actual line.
-                for (let y = Math.floor(point.y) - 3; y <= Math.ceil(point.y) + 1; y++) {
-                  const pixel = context.getImageData(Math.floor(point.x), y, 1, 1).data;
-                  contrast = Math.max(
-                    contrast,
-                    direction.reduce(
-                      (sum, value, index) => sum + (pixel[index] - background[index]) * value,
-                      0,
-                    ) / magnitude,
-                  );
+              expect(samples.map((sample) => sample.index)).toContain(next);
+              for (const sample of samples)
+                expect(sample.height, sample.name).toBeCloseTo(Math.round(sample.height), 5);
+              const name =
+                (title === 'Current backlog' ? 'backlog' : 'activity') +
+                '-' +
+                scrollLeft +
+                '-' +
+                next;
+              // Full-page capture can omit offscreen sticky layers. Check the pixels a user can see,
+              // without resizing the viewport, and visit every row before completing the case.
+              const png = await page.screenshot({
+                path: testInfo.outputPath('dividers-' + name + '.png'),
+                scale: 'css',
+              });
+              for (const result of await dividerContrasts(page, png, samples))
+                expect(result.contrast, result.name).toBeGreaterThan(0.4);
+              if (theme === 'dark' && width === 856 && !controlChecked) {
+                const hidden = await page.addStyleTag({
+                  content:
+                    'tbody [data-column="name"] { border-bottom-color: transparent !important; }',
+                });
+                try {
+                  await paintedFrame(page);
+                  const absent = await page.screenshot({
+                    path: testInfo.outputPath('negative-control-hidden-dividers.png'),
+                    scale: 'css',
+                  });
+                  for (const result of await dividerContrasts(page, absent, samples))
+                    expect(result.contrast, 'hidden ' + result.name).toBeLessThan(0.4);
+                } finally {
+                  await hidden.evaluate((element) => {
+                    element.parentNode?.removeChild(element);
+                  });
                 }
-                return { name: point.name, contrast };
-              });
-            },
-            { base64: png.toString('base64'), points: samples },
-          );
-          for (const result of contrasts)
-            expect(result.contrast, theme + ' ' + width + 'px ' + result.name).toBeGreaterThan(0.4);
+                await paintedFrame(page);
+                const restored = await page.screenshot({
+                  path: testInfo.outputPath('negative-control-restored-dividers.png'),
+                  scale: 'css',
+                });
+                for (const result of await dividerContrasts(page, restored, samples))
+                  expect(result.contrast, 'restored ' + result.name).toBeGreaterThan(0.4);
+                controlChecked = true;
+              }
+              for (const sample of samples) checked.add(sample.index);
+            }
+            expect(checked.size).toBe(17);
+            expect(await area.evaluate((element) => element.scrollLeft)).toBe(scrollLeft);
+          }
         }
-        await page.screenshot({
-          path: testInfo.outputPath('dividers-' + theme + '-' + width + '.png'),
-          fullPage: true,
-        });
-      }
+      });
     }
-  });
+  }
 });
 
 // Isolate each viewport so its full assertions and axe scan share only that scenario's budget.
