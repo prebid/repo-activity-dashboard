@@ -25,7 +25,7 @@ Group related columns so users can show the information they need and save their
 | --- | --- | --- |
 | PR backlog | Draft PRs; Open non-draft PRs; Total open PRs | Current open PRs. Total open PRs equals drafts plus non-drafts. |
 | Issue backlog | Open issues | Current open issues, excluding PRs. |
-| Aging | Open >N days | Open non-draft PRs whose time since creation exceeds the chosen threshold. |
+| Aging | One Open >N days column per selected threshold | Open non-draft PRs whose time since creation exceeds that column’s threshold. |
 | Human review participation | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
 | Current human approvals | 0 approvals; 1 approval; 2 approvals | Number of open non-draft PRs with exactly that many distinct current human approvers. |
 | Agent coverage | PRs with Prebid agent feedback | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
@@ -37,9 +37,11 @@ All values are observed counts. There are no configured reviewer targets, first/
 ### Aging
 
 - Threshold options: 30, 60, 90, 120, 180, and 360 days.
-- Default: 30 days.
-- Save the selected threshold per account.
-- Include the threshold in the column heading.
+- Default selection: 30 days.
+- Use a checkbox menu, like Columns, to add or remove any of the six age columns. Show selected thresholds in ascending order.
+- Selecting none removes the entire PR age group from the table. The menu remains available to add columns again.
+- Save the selected thresholds per account. The PR age and Columns menus edit the same selection.
+- Include each threshold in its column heading. These are cumulative counts, not disjoint age buckets.
 - This is age since creation, not time since last activity.
 
 ### Human review participation
@@ -178,7 +180,7 @@ Optional PR/issue backlog-change columns may show the total open count at period
 - The repository selection applies to both tables.
 - Every numeric column supports ascending and descending sorting.
 - Preserve separate sort settings for the two tables.
-- Save selected repositories, visible columns/groups, sorting, timeframe, aging threshold, and Show change preference per account.
+- Save selected repositories, visible columns/groups, sorting, timeframe, selected aging thresholds, and Show change preference per account.
 - Save relative timeframe choices as relative choices: This month remains This month on a later visit.
 - Use a single top-level Repos navigation item with an expandable list containing All Repos and the individual repository links.
 - Selecting a repository name opens its repository page in the default Current open scope: the first page of open PRs including drafts and open issues, newest-created first by default, with at most 100 rows per list. Older matching records remain accessible through pagination. Selecting a metric count preserves that metric's specific filters with the same page-size limit; summary counts continue to cover the full matching set.

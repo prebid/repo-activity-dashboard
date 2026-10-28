@@ -70,13 +70,13 @@ afterEach(() => {
 });
 
 it('restores preferences without history writes and materializes the previous view before a filter change', () => {
-  const saved = { ...defaults, repositoryIds: ['b'], ageDays: 90 as const };
+  const saved = { ...defaults, repositoryIds: ['b'], ageThresholds: [90 as const] };
   localStorage.setItem(overviewPreferenceKey('alice'), serializeOverviewPreferences(saved));
   const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
   expect(result.current.value).toEqual(saved);
   expect(history).toEqual([]);
-  act(() => result.current.update({ ageDays: 60 }));
-  expect(result.current.value.ageDays).toBe(60);
+  act(() => result.current.update({ ageThresholds: [60] }));
+  expect(result.current.value.ageThresholds).toEqual([60]);
   expect(history.map((item) => item.action)).toEqual(['replaceState', 'pushState']);
   expect(history.every((item) => item.state === null)).toBe(true);
   const before = history[0].href;
@@ -85,7 +85,7 @@ it('restores preferences without history writes and materializes the previous vi
     window.history.replaceState(null, '', before);
     window.dispatchEvent(new PopStateEvent('popstate'));
   });
-  expect(result.current.value.ageDays).toBe(90);
+  expect(result.current.value.ageThresholds).toEqual([90]);
   const location = window.location.href;
   act(() => result.current.update({ backlogColumns: ['name'] }));
   expect(window.location.href).toBe(location);
@@ -107,13 +107,13 @@ it('uses explicit URLs and keeps accounts isolated when returning directly to th
   act(() => window.history.replaceState(null, '', '/repos'));
   rerender({ viewerId: 'bob' });
   expect(result.current.value).toEqual(defaults);
-  act(() => result.current.update({ ageDays: 120 }));
+  act(() => result.current.update({ ageThresholds: [120] }));
   act(() => window.history.replaceState(null, '', '/repos'));
   rerender({ viewerId: 'alice' });
   expect(result.current.value).toMatchObject({
     repositoryIds: ['a'],
     showChange: true,
-    ageDays: 30,
+    ageThresholds: [30],
   });
 });
 
@@ -129,7 +129,7 @@ it('keeps empty selections, relative periods and table pagination scopes distinc
   expect(new URLSearchParams(window.location.search).has('backlog.page')).toBe(false);
   const stored: unknown = JSON.parse(localStorage.getItem(overviewPreferenceKey('alice'))!);
   expect(stored).toMatchObject({
-    version: 1,
+    version: 2,
     settings: { repositoryIds: [], period: { kind: 'preset', preset: 'last-week' } },
   });
   const writes = history.length;
@@ -154,8 +154,8 @@ it('survives denied storage without treating malformed JSON as an outage', () =>
   });
   const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
   expect(result.current.storageAvailable).toBe(false);
-  act(() => result.current.update({ ageDays: 180, repositoryIds: ['b'] }));
-  expect(result.current.value).toMatchObject({ ageDays: 180, repositoryIds: ['b'] });
+  act(() => result.current.update({ ageThresholds: [180], repositoryIds: ['b'] }));
+  expect(result.current.value).toMatchObject({ ageThresholds: [180], repositoryIds: ['b'] });
   act(() => result.current.reset());
   expect(result.current.value).toEqual(defaults);
   expect(result.current.storageAvailable).toBe(false);

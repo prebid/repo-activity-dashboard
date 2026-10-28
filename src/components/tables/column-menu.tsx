@@ -16,9 +16,15 @@ import styles from './data-table.module.css';
 export function ColumnMenu<T>({
   columns,
   visibility,
+  label = 'Columns',
+  title = 'Visible columns',
+  allowEmpty = false,
 }: {
   columns: DataColumn<T>[];
   visibility: ColumnVisibility;
+  label?: string;
+  title?: string;
+  allowEmpty?: boolean;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const visible = (column: DataColumn<T>) =>
@@ -35,11 +41,11 @@ export function ColumnMenu<T>({
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className={styles.control}>
             <Columns3 size={14} aria-hidden="true" />
-            Columns
+            {label}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent container={container} align="end" className={styles.columnMenu}>
-          <DropdownMenuLabel>Visible columns</DropdownMenuLabel>
+          <DropdownMenuLabel>{title}</DropdownMenuLabel>
           {columnSections(columns).map((section, index) => {
             const selected = section.columns.filter(visible).length;
             const hideable = section.columns.filter((column) => column.hideable !== false);
@@ -59,7 +65,7 @@ export function ColumnMenu<T>({
                       }
                       disabled={
                         !hideable.length ||
-                        (selected === count && selected === section.columns.length)
+                        (!allowEmpty && selected === count && selected === section.columns.length)
                       }
                       onSelect={(event) => event.preventDefault()}
                       onCheckedChange={(checked) => change(hideable, checked === true)}
@@ -72,7 +78,9 @@ export function ColumnMenu<T>({
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     checked={visible(column)}
-                    disabled={column.hideable === false || (visible(column) && count === 1)}
+                    disabled={
+                      column.hideable === false || (!allowEmpty && visible(column) && count === 1)
+                    }
                     onSelect={(event) => event.preventDefault()}
                     onCheckedChange={(checked) => change([column], checked === true)}
                   >

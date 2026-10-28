@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import { defaultPeriod, periodSelectionSchema } from '@/models/reporting-period';
-import { agingThresholdSchema, defaultAgingThreshold } from '@/models/repository-overview';
+import {
+  agingThresholds,
+  agingThresholdSchema,
+  defaultAgingThreshold,
+} from '@/models/repository-overview';
 import {
   overviewSettingsSchema,
   type OverviewSettings,
@@ -9,15 +13,23 @@ import {
 import { resolveReportingPeriod } from './reporting-period';
 import { preferenceKey, writeTableQuery, type TableQuery } from './table-query';
 import { initialTableQuery } from './table-controller';
+import { agingThresholdForColumn } from './overview-aging';
 
 const ownedParameters = ['repo', 'period', 'from', 'through', 'age', 'change'];
-const storedSchema = z.object({ version: z.literal(1), settings: overviewSettingsSchema }).strict();
+const legacySettingsSchema = overviewSettingsSchema
+  .omit({ ageThresholds: true })
+  .extend({ ageDays: agingThresholdSchema })
+  .strict();
+const storedSchema = z.discriminatedUnion('version', [
+  z.object({ version: z.literal(1), settings: legacySettingsSchema }).strict(),
+  z.object({ version: z.literal(2), settings: overviewSettingsSchema }).strict(),
+]);
 
 export function defaultOverviewSettings(definition: OverviewSettingsDefinition): OverviewSettings {
   return {
     repositoryIds: [...definition.repositoryIds],
     period: defaultPeriod,
-    ageDays: defaultAgingThreshold,
+    ageThresholds: [defaultAgingThreshold],
     showChange: false,
     backlogColumns: [...definition.defaultBacklogColumns],
     activityColumns: [...definition.defaultActivityColumns],
@@ -36,7 +48,10 @@ export function normalizeOverviewSettings(
   return {
     ...value,
     repositoryIds: definition.repositoryIds.filter((id) => value.repositoryIds.includes(id)),
-    backlogColumns: columns(value.backlogColumns, definition.backlogColumns),
+    ageThresholds: agingThresholds.filter((days) => value.ageThresholds.includes(days)),
+    backlogColumns: columns(value.backlogColumns, definition.backlogColumns).filter(
+      (id) => agingThresholdForColumn(id) === undefined,
+    ),
     activityColumns: columns(value.activityColumns, definition.activityColumns),
   };
 }
@@ -45,7 +60,7 @@ export function overviewPreferenceKey(viewerId: string): string {
   return preferenceKey(viewerId, 'all-repositories:preferences');
 }
 export function serializeOverviewPreferences(settings: OverviewSettings): string {
-  return JSON.stringify({ version: 1, settings });
+  return JSON.stringify({ version: 2, settings });
 }
 export function readOverviewPreferences(
   raw: string | null,
@@ -54,9 +69,19 @@ export function readOverviewPreferences(
 ): OverviewSettings | null {
   try {
     const parsed = storedSchema.safeParse(JSON.parse(raw ?? 'null'));
-    return parsed.success
-      ? normalizeOverviewSettings(parsed.data.settings, definition, asOf)
-      : null;
+    if (!parsed.success) return null;
+    if (parsed.data.version === 1) {
+      const { ageDays, ...previous } = parsed.data.settings;
+      return normalizeOverviewSettings(
+        {
+          ...previous,
+          ageThresholds: previous.backlogColumns.includes('agedPrs') ? [ageDays] : [],
+        },
+        definition,
+        asOf,
+      );
+    }
+    return normalizeOverviewSettings(parsed.data.settings, definition, asOf);
   } catch {
     return null;
   }
@@ -93,8 +118,14 @@ export function resolveOverviewSettings(
     }
   }
   if (params.has('age')) {
-    const age = agingThresholdSchema.safeParse(Number(params.get('age')));
-    result.ageDays = age.success ? age.data : defaults.ageDays;
+    const requested = params.getAll('age');
+    const selected = agingThresholds.filter((days) =>
+      requested.some((value) => value !== '' && Number(value) === days),
+    );
+    result.ageThresholds =
+      selected.length || requested.every((value) => value === '')
+        ? selected
+        : defaults.ageThresholds;
   }
   if (params.has('change')) result.showChange = params.get('change') === '1';
   return { value: normalizeOverviewSettings(result, definition, asOf), notice };
@@ -112,7 +143,9 @@ export function writeOverviewSettings(search: string, settings: OverviewSettings
     params.set('from', settings.period.from);
     params.set('through', settings.period.through);
   }
-  params.set('age', String(settings.ageDays));
+  if (settings.ageThresholds.length)
+    for (const days of settings.ageThresholds) params.append('age', String(days));
+  else params.set('age', '');
   params.set('change', settings.showChange ? '1' : '0');
   return params.toString();
 }
@@ -141,5 +174,5 @@ export function writeOverviewTableQueries(
 }
 
 export function changesOverviewScope(patch: Partial<OverviewSettings>): boolean {
-  return ['repositoryIds', 'period', 'ageDays', 'showChange'].some((key) => key in patch);
+  return ['repositoryIds', 'period', 'ageThresholds', 'showChange'].some((key) => key in patch);
 }

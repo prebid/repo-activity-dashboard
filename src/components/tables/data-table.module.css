@@ -47,6 +47,9 @@
   max-width: calc(100vw - 32px);
   padding: 6px;
 }
+.columnMenu[data-state='closed'] {
+  display: none;
+}
 .scroll {
   --pinned-width: 248px;
   overflow: auto;

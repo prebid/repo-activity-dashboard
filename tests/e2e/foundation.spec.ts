@@ -238,7 +238,7 @@ test('repository and column menus close and restore keyboard focus appropriately
   page,
 }) => {
   await login(page);
-  const input = page.getByRole('combobox', { name: 'PR aging threshold' });
+  const input = page.getByRole('button', { name: 'PR age', exact: true });
   await input.focus();
   const original = page.url();
   const columns = page

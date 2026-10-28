@@ -13,7 +13,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 | Control or display | Prepared coverage |
 | --- | --- |
 | Repository selection | All 18, an explicit empty selection, or a subset; duplicate IDs are collapsed; unknown URL IDs are ignored without selecting all, while direct sample queries reject unknown IDs. |
-| Aging | 30/60/90/120/180/360-day values; default 30. Prebid.js values are 90/60/30/0/0/0. |
+| Aging | Independent 30/60/90/120/180/360-day columns; default selection 30. Selecting none hides the group. Prebid.js values are 90/60/30/0/0/0. |
 | Period presets | All seven agreed presets, exact UTC ranges, and separate comparison values. Current backlog stays identical. |
 | Custom range | October 6 through October 8, 2026 has prepared values. Other valid ranges return explicit missing-sample activity, preserving backlog. |
 | Show change | Positive, negative, zero-baseline, unchanged and missing-baseline examples. Partial or missing operands cannot establish an exact difference. |

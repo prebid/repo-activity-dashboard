@@ -30,7 +30,7 @@ function Preview({
   const [settings, setSettings] = useState(() => ({
     ...defaultOverviewSettings(definition),
     showChange,
-    ageDays,
+    ageThresholds: [ageDays],
   }));
   return (
     <AllRepositoriesView
@@ -47,6 +47,50 @@ function Preview({
     />
   );
 }
+it('adds independent aging columns, synchronizes both menus, and removes the group when none are selected', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  const backlog = screen.getByRole('region', { name: 'Current backlog' });
+  expect(within(backlog).queryByRole('combobox')).not.toBeInTheDocument();
+  await user.click(within(backlog).getByRole('button', { name: 'PR age' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 90 days' }));
+  await user.keyboard('{Escape}');
+  expect(within(backlog).getByRole('columnheader', { name: 'PR age' })).toHaveAttribute(
+    'colspan',
+    '2',
+  );
+  const row = within(backlog).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
+  expect(row.querySelector('[data-column="agedPrs30"]')).toHaveTextContent('90');
+  expect(row.querySelector('[data-column="agedPrs90"]')).toHaveTextContent('30');
+  await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' }));
+  await user.keyboard('{Escape}');
+  await user.click(within(backlog).getByRole('button', { name: 'PR age' }));
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' })).toHaveAttribute(
+    'aria-checked',
+    'false',
+  );
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Over 90 days' })).not.toHaveAttribute(
+    'aria-disabled',
+    'true',
+  );
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 90 days' }));
+  await user.keyboard('{Escape}');
+  expect(within(backlog).queryByRole('columnheader', { name: 'PR age' })).not.toBeInTheDocument();
+  expect(row.querySelector('[data-column^="agedPrs"]')).toBeNull();
+  await user.click(within(backlog).getByRole('button', { name: 'PR age' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'PR age' }));
+  await user.keyboard('{Escape}');
+  expect(within(backlog).getByRole('columnheader', { name: 'PR age' })).toHaveAttribute(
+    'colspan',
+    '6',
+  );
+  await user.click(within(backlog).getByRole('button', { name: 'Over 90 days' }));
+  expect(within(backlog).getByRole('columnheader', { name: 'Over 90 days ↑' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+});
 it('searches repository options without changing selection and applies or cancels the draft explicitly', async () => {
   const user = userEvent.setup();
   render(<Preview />);
@@ -88,15 +132,18 @@ it('changes timeframe and aging independently and exposes the comparison dates a
   const activity = screen.getByRole('region', { name: 'Period activity' });
   const backlogRow = within(backlog).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
   const activityRow = within(activity).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
-  await user.selectOptions(screen.getByRole('combobox', { name: 'PR aging threshold' }), '60');
-  expect(backlogRow.querySelector('[data-column="agedPrs"]')).toHaveTextContent('60');
+  await user.click(screen.getByRole('button', { name: 'PR age' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 60 days' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' }));
+  await user.keyboard('{Escape}');
+  expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
   await user.selectOptions(
     screen.getByRole('combobox', { name: 'Activity timeframe' }),
     'this-week',
   );
   expect(activityRow.querySelector('[data-column="prsOpened"]')).toHaveTextContent('12');
   expect(backlogRow.querySelector('[data-column="totalOpenPrs"]')).toHaveTextContent('137');
-  expect(backlogRow.querySelector('[data-column="agedPrs"]')).toHaveTextContent('60');
+  expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
   await user.click(screen.getByRole('checkbox', { name: 'Show change' }));
   expect(within(activity).getByText(/Compared with Oct 12, 2026/)).toBeVisible();
   expect(within(activityRow).getByTitle('Previous period: 10')).toHaveTextContent('+2');

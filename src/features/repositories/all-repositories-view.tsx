@@ -2,16 +2,17 @@
 import { useMemo } from 'react';
 import { Info, RotateCcw } from 'lucide-react';
 import { DataTable } from '@/components/tables/data-table';
+import { ColumnMenu } from '@/components/tables/column-menu';
+import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
 import { PageState } from '@/components/feedback/page-state';
 import { Button } from '@/components/ui/button';
 import type { TableController } from '@/lib/presentation/table-controller';
 import {
   agingThresholds,
-  agingThresholdSchema,
   type OverviewRepository,
   type RepositoryOverview,
 } from '@/models/repository-overview';
-import type { OverviewSettingsControl } from '@/models/overview-settings';
+import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
 import type { DateRange } from '@/models/reporting-period';
 import { formatAsOf, formatUtcDate } from '@/lib/presentation/format';
 import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
@@ -42,17 +43,38 @@ export function AllRepositoriesView({
   backlogController: TableController;
   activityController: TableController;
 }) {
-  const { ageDays, showChange } = settings.value;
-  const backlog = useMemo(() => backlogColumns(ageDays), [ageDays]);
+  const { ageThresholds, showChange } = settings.value;
+  const backlog = useMemo(() => backlogColumns(), []);
   const activity = useMemo(() => activityColumns(showChange), [showChange]);
   const backlogVisibility = useMemo(
-    () => columnVisibilityFromIds(backlog, settings.value.backlogColumns),
-    [backlog, settings.value.backlogColumns],
+    () =>
+      columnVisibilityFromIds(backlog, [
+        ...settings.value.backlogColumns,
+        ...ageThresholds.map(agingColumnId),
+      ]),
+    [backlog, settings.value.backlogColumns, ageThresholds],
   );
   const activityVisibility = useMemo(
     () => columnVisibilityFromIds(activity, settings.value.activityColumns),
     [activity, settings.value.activityColumns],
   );
+  const ageColumns = useMemo(
+    () => backlog.filter((column) => agingThresholdForColumn(column.id) !== undefined),
+    [backlog],
+  );
+  function changeBacklogVisibility(value: Record<string, boolean>) {
+    const selected = agingThresholds.filter((days) => value[agingColumnId(days)] !== false);
+    const patch: Partial<OverviewSettings> = {
+      backlogColumns: backlog
+        .filter(
+          (column) =>
+            agingThresholdForColumn(column.id) === undefined && value[column.id] !== false,
+        )
+        .map((column) => column.id),
+    };
+    if (selected.join(',') !== ageThresholds.join(',')) patch.ageThresholds = selected;
+    settings.update(patch);
+  }
   const rows = useMemo(
     () =>
       data.rows
@@ -115,41 +137,21 @@ export function AllRepositoriesView({
             itemLabel="repositories"
             showSinglePageControls={false}
             controls={
-              <label className={controls.selectLabel}>
-                PR aging
-                <select
-                  aria-label="PR aging threshold"
-                  className={controls.select}
-                  value={ageDays}
-                  onChange={(event) =>
-                    settings.update({
-                      ageDays: agingThresholdSchema.parse(Number(event.target.value)),
-                    })
-                  }
-                >
-                  {agingThresholds.map((days) => (
-                    <option key={days} value={days}>
-                      Over {days} days
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <ColumnMenu
+                columns={ageColumns}
+                visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
+                label="PR age"
+                title="PR age thresholds"
+                allowEmpty
+              />
             }
             description={
               <span className={styles.scope}>
                 <span className={styles.scopeLabel}>Open now</span>
-                <span>· Aging over {ageDays} days · Reviews and approvals exclude drafts</span>
+                <span>· Age, reviews and approvals exclude drafts</span>
               </span>
             }
-            visibility={{
-              value: backlogVisibility,
-              onChange: (value) =>
-                settings.update({
-                  backlogColumns: backlog
-                    .filter((column) => value[column.id] !== false)
-                    .map((column) => column.id),
-                }),
-            }}
+            visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
             footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
           />
           <DataTable

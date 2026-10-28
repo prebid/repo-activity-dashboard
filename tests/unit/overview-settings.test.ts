@@ -13,6 +13,7 @@ import {
 import { readSavedTableSort, tableLocationStamp } from '@/lib/presentation/table-query';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
+import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
 
 const definition = {
   repositoryIds: ['a', 'b'],
@@ -24,11 +25,70 @@ const definition = {
 const asOf = '2026-10-24T12:00:00.000Z';
 const defaults = defaultOverviewSettings(definition);
 describe('overview settings contracts', () => {
+  it('stores aging choices once, supports none, and canonicalizes repeated age parameters', () => {
+    const configured = {
+      ...definition,
+      backlogColumns: [...definition.backlogColumns, 'agedPrs30', 'agedPrs90'],
+    };
+    const selected = normalizeOverviewSettings(
+      { ...defaults, ageThresholds: [90, 30, 90], backlogColumns: ['name', 'total', 'agedPrs30'] },
+      configured,
+      asOf,
+    );
+    expect(selected.ageThresholds).toEqual([30, 90]);
+    expect(selected.backlogColumns).toEqual(['name', 'total']);
+    const query = writeOverviewSettings('', selected);
+    expect(new URLSearchParams(query).getAll('age')).toEqual(['30', '90']);
+    expect(resolveOverviewSettings(query, null, configured, asOf).value).toEqual(selected);
+    expect(resolveOverviewSettings('age=', selected, configured, asOf).value.ageThresholds).toEqual(
+      [],
+    );
+    expect(
+      resolveOverviewSettings('age=60&age=60&age=unknown', null, configured, asOf).value
+        .ageThresholds,
+    ).toEqual([60]);
+    const empty = { ...defaults, ageThresholds: [] };
+    expect(
+      readOverviewPreferences(serializeOverviewPreferences(empty), configured, asOf)?.ageThresholds,
+    ).toEqual([]);
+    expect(
+      resolveOverviewSettings(writeOverviewSettings('', empty), selected, configured, asOf).value
+        .ageThresholds,
+    ).toEqual([]);
+    expect(agingColumnId(60)).toBe('agedPrs60');
+    expect(agingThresholdForColumn('agedPrs180')).toBe(180);
+    expect(agingThresholdForColumn('agedPrs')).toBeUndefined();
+  });
+  it('migrates visible and hidden v1 aging columns without losing other preferences', () => {
+    const { ageThresholds: _old, ...base } = defaults;
+    const legacy = {
+      ...base,
+      repositoryIds: ['b'],
+      showChange: true,
+      ageDays: 90,
+      backlogColumns: ['name', 'total', 'agedPrs'],
+    };
+    expect(
+      readOverviewPreferences(JSON.stringify({ version: 1, settings: legacy }), definition, asOf),
+    ).toMatchObject({
+      repositoryIds: ['b'],
+      showChange: true,
+      ageThresholds: [90],
+      backlogColumns: ['name', 'total'],
+    });
+    expect(
+      readOverviewPreferences(
+        JSON.stringify({ version: 1, settings: { ...legacy, backlogColumns: ['name', 'total'] } }),
+        definition,
+        asOf,
+      )?.ageThresholds,
+    ).toEqual([]);
+  });
   it('keeps explicit URL values above saved values and saved values above defaults', () => {
     const saved = {
       ...defaults,
       repositoryIds: ['b'],
-      ageDays: 90 as const,
+      ageThresholds: [90 as const],
       showChange: true,
       period: { kind: 'preset' as const, preset: 'last-week' as const },
     };
@@ -39,7 +99,7 @@ describe('overview settings contracts', () => {
         .value,
     ).toMatchObject({
       repositoryIds: ['a'],
-      ageDays: 60,
+      ageThresholds: [60],
       showChange: false,
       period: { kind: 'preset', preset: 'this-year' },
     });
@@ -72,15 +132,15 @@ describe('overview settings contracts', () => {
     });
     expect(defaults.repositoryIds).toEqual(['a', 'b']);
   });
-  it('normalizes invalid scalars and uses the first scalar occurrence', () => {
+  it('normalizes invalid ages, accepts multiple ages, and uses the first period', () => {
     expect(
       resolveOverviewSettings(
         'age=31&change=maybe',
-        { ...defaults, ageDays: 90, showChange: true },
+        { ...defaults, ageThresholds: [90], showChange: true },
         definition,
         asOf,
       ).value,
-    ).toMatchObject({ ageDays: 30, showChange: false });
+    ).toMatchObject({ ageThresholds: [30], showChange: false });
     expect(
       resolveOverviewSettings(
         'age=60&age=90&period=last-month&period=this-year',
@@ -88,7 +148,7 @@ describe('overview settings contracts', () => {
         definition,
         asOf,
       ).value,
-    ).toMatchObject({ ageDays: 60, period: { kind: 'preset', preset: 'last-month' } });
+    ).toMatchObject({ ageThresholds: [60, 90], period: { kind: 'preset', preset: 'last-month' } });
   });
   it.each([
     'period=bad',

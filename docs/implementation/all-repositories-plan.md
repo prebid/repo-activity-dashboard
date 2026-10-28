@@ -36,14 +36,14 @@ Use the existing top navigation with one Repos menu containing All repositories 
 Arrange the page vertically:
 
 1. Page title, clearly labeled sample-data/as-of information, and one searchable repository multi-select shared by both tables. Include select all and clear selection; searching the picker only filters its options and does not silently change the selected repositories.
-2. Current backlog table with its aging selector and column-group controls.
+2. Current backlog table with its multi-select PR age menu and column-group controls.
 3. Activity table with its period picker, exact UTC dates, Show change control, and its own column-group controls. Comparison dates and prior values remain accessible in supporting detail.
 
 | Setting | Preview starting value |
 | --- | --- |
 | Repositories | All 18 selected |
 | Activity period | This month, resolved against the sample's fixed reporting clock |
-| Aging | More than 30 days; options 30, 60, 90, 120, 180, 360 |
+| Aging | Over 30 days selected initially; independently add/remove 30/60/90/120/180/360-day columns. None selected hides the group. |
 | Change display | Off initially; available and remembered |
 | Sort | Repository name ascending in both tables; subsequent sorts are independent |
 | Backlog default columns | Repository; total open PRs; drafts; non-drafts; open issues; PRs older than the selected threshold; human approvals 0/1/2 |
@@ -77,11 +77,11 @@ The auth palette is currently feature-scoped while global dashboard tokens are n
 
 - Explicit URL state takes precedence over valid saved defaults, then page defaults. A present empty repository selection means no repositories; absence means restore/default. Unknown IDs must not silently turn a deliberate empty selection into all repositories.
 - Use separate table namespaces, such as `backlog` and `activity`, and separate preference scopes. Sorting or changing columns in one table must leave the other unchanged.
-- Page preferences own selected repositories, visible columns for both tables, period choice/custom dates, aging threshold, and Show change. Existing table controllers own their respective saved sorts. Do not store the same setting in both places. Store preferences per account in the current browser, with a version and validation; cross-device synchronization comes later.
+- Page preferences own selected repositories, visible columns for both tables, period choice/custom dates, selected aging thresholds, and Show change. Existing table controllers own their respective saved sorts. Do not store the same setting in both places. Store preferences per account in the current browser, with a version and validation; cross-device synchronization comes later.
 - Keep repository selection, period, threshold, table sort, and other meaningful drilldown context addressable in the URL. Preserve unrelated query parameters. Column visibility is a display preference, not a data filter.
 - Restore preferences after hydration without writing history. Invalid or denied browser storage must leave a working page. Account/revision changes continue to reset mounted page state through the foundation boundary. One account must never inherit another account's settings.
 - A relative preset stays relative when saved. Custom ranges store dates. Use UTC and Monday-start weeks; reject invalid/reversed dates. The sample reporting clock is fixed, independent of the real authentication clock.
-- Current backlog never changes when the period or Show change changes. The aging selector only changes the aging metric and its drilldown. Repository selection applies to both tables.
+- Current backlog never changes when the period or Show change changes. Aging choices only change which age columns are shown; the PR age group disappears when none are selected. Each age column retains its own metric and drilldown threshold. Repository selection applies to both tables.
 - Changing displayed columns or comparison visibility must not alter values, units, or sort by the current-period metric. Sorting uses underlying values, places missing values last in both directions, and has a stable repository-name/ID tie-break.
 - Add Reset view to restore this page's defaults and clear only its account-scoped preferences. Preserve the theme and other pages' settings. Changing a filter or scope resets affected list pages; Back/Forward and return navigation restore URL context using the foundation's history conventions.
 

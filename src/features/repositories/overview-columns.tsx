@@ -3,10 +3,11 @@ import type { DataColumn } from '@/components/tables/data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type {
   ActivityMetric,
-  AgingThreshold,
   BacklogMetric,
   RepositoryOverviewRow,
 } from '@/models/repository-overview';
+import { agingThresholds } from '@/models/repository-overview';
+import { agingColumnId } from '@/lib/presentation/overview-aging';
 import styles from './overview.module.css';
 
 export type OverviewTableRow = RepositoryOverviewRow & { id: string };
@@ -47,7 +48,7 @@ function backlogColumn(
   };
 }
 
-export function backlogColumns(age: AgingThreshold): DataColumn<OverviewTableRow>[] {
+export function backlogColumns(): DataColumn<OverviewTableRow>[] {
   return [
     repositoryColumn,
     backlogColumn(
@@ -59,8 +60,8 @@ export function backlogColumns(age: AgingThreshold): DataColumn<OverviewTableRow
     backlogColumn('draftPrs', 'Drafts', 'Pull requests'),
     backlogColumn('nonDraftPrs', 'Non-drafts', 'Pull requests'),
     backlogColumn('openIssues', 'Open issues', 'Issues'),
-    {
-      id: 'agedPrs',
+    ...agingThresholds.map((age): DataColumn<OverviewTableRow> => ({
+      id: agingColumnId(age),
       label: 'Over ' + age + ' days',
       group: 'PR age',
       width: 110,
@@ -68,7 +69,7 @@ export function backlogColumns(age: AgingThreshold): DataColumn<OverviewTableRow
       description: 'Non-draft PRs created more than ' + age + ' days ago.',
       value: (row) => row.backlog.agedPrs[age].value,
       cell: (row) => <MeasurementValue measurement={row.backlog.agedPrs[age]} />,
-    },
+    })),
     backlogColumn(
       'humanApprovals0',
       '0 approvals',
@@ -113,7 +114,6 @@ export const defaultBacklogColumns = [
   'draftPrs',
   'nonDraftPrs',
   'openIssues',
-  'agedPrs',
   'humanApprovals0',
   'humanApprovals1',
   'humanApprovals2',
@@ -212,7 +212,7 @@ export function columnVisibilityFromIds<T>(
 }
 
 export const overviewSettingsColumns = {
-  backlogColumns: backlogColumns(30).map((column) => column.id),
+  backlogColumns: backlogColumns().map((column) => column.id),
   activityColumns: activityColumns(false).map((column) => column.id),
   defaultBacklogColumns,
   defaultActivityColumns,
