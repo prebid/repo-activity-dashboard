@@ -116,21 +116,24 @@ test.describe('pinned row dividers', () => {
   });
 });
 
-test('overview preview preserves readable tables, themes and pinned identities at every viewport', async ({
-  page,
-}, testInfo) => {
-  await page.goto('/auth/login');
-  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-  await expect(page).toHaveURL(/\/repos$/);
-  await page.reload();
-  await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
-  for (const theme of ['dark', 'light']) {
-    await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
-    await page
-      .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
-      .click();
-    await expect(page.locator('html')).toHaveClass(new RegExp(theme));
-    for (const width of [1440, 1280, 768, 320]) {
+// Isolate each viewport so its full assertions and axe scan share only that scenario's budget.
+for (const theme of ['dark', 'light']) {
+  for (const width of [1440, 1280, 768, 320]) {
+    test(`overview preserves readable tables and pinned identities (${theme}, ${width}px)`, async ({
+      page,
+    }, testInfo) => {
+      await page.goto('/auth/login');
+      await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+      await expect(page).toHaveURL(/\/repos$/);
+      await page.reload();
+      await expect(
+        page.getByRole('heading', { name: 'All repositories', exact: true }),
+      ).toBeVisible();
+      await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+      await page
+        .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
+        .click();
+      await expect(page.locator('html')).toHaveClass(new RegExp(theme));
       await page.setViewportSize({ width, height: 960 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
         width,
@@ -165,9 +168,9 @@ test('overview preview preserves readable tables, themes and pinned identities a
         path: testInfo.outputPath('overview-' + theme + '-' + width + '.png'),
         fullPage: true,
       });
-    }
+    });
   }
-});
+}
 
 test('keyboard column groups and sorting stay scoped to their table', async ({ page }) => {
   await page.goto('/auth/login');

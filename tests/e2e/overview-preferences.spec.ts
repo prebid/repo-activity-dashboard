@@ -148,41 +148,43 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
 });
 
-test('two custom ranges are independently editable and remain readable at narrow widths', async ({
-  page,
-}, testInfo) => {
-  await login(page);
-  async function dates(from: string, through: string) {
-    const dialog = page.getByRole('dialog', { name: 'Custom date range', exact: true });
-    await dialog.getByLabel('Start date', { exact: true }).fill(from);
-    await dialog.getByLabel('End date', { exact: true }).fill(through);
-    await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
-  }
-  await page.getByRole('button', { name: 'Custom range for Period 1', exact: true }).click();
-  await dates('2026-10-06', '2026-10-08');
-  await page.getByRole('button', { name: 'Add second period', exact: true }).click();
-  await page.getByRole('button', { name: 'Custom range for Period 2', exact: true }).click();
-  await dates('2026-10-06', '2026-10-08');
-  await expect(page.getByRole('dialog').getByRole('alert')).toHaveText(
-    'Choose two different periods.',
-  );
-  await dates('2026-10-13', '2026-10-15');
-  await page.goto('/repos');
-  const pair = row(page, 'Period activity');
-  await expect(pair).toHaveCount(3);
-  await expect(pair.nth(0)).toContainText('Oct 6, 2026 – Oct 8, 2026');
-  await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
-  await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
-  await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('5');
-  await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+2');
-  await chooseAges(page, []);
-  await expectAges(page, []);
-  for (const theme of ['dark', 'light']) {
-    await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
-    await page
-      .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
-      .click();
-    for (const width of [1440, 768, 320]) {
+// Give each accessibility/rendering scenario its own test budget on slower hosted browsers.
+for (const theme of ['dark', 'light']) {
+  for (const width of [1440, 768, 320]) {
+    test(`two custom ranges remain independently editable and readable (${theme}, ${width}px)`, async ({
+      page,
+    }, testInfo) => {
+      await login(page);
+      async function dates(from: string, through: string) {
+        const dialog = page.getByRole('dialog', { name: 'Custom date range', exact: true });
+        await dialog.getByLabel('Start date', { exact: true }).fill(from);
+        await dialog.getByLabel('End date', { exact: true }).fill(through);
+        await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
+      }
+      await page.getByRole('button', { name: 'Custom range for Period 1', exact: true }).click();
+      await dates('2026-10-06', '2026-10-08');
+      await page.getByRole('button', { name: 'Add second period', exact: true }).click();
+      await page.getByRole('button', { name: 'Custom range for Period 2', exact: true }).click();
+      await dates('2026-10-06', '2026-10-08');
+      await expect(page.getByRole('dialog').getByRole('alert')).toHaveText(
+        'Choose two different periods.',
+      );
+      await dates('2026-10-13', '2026-10-15');
+      await page.goto('/repos');
+      const pair = row(page, 'Period activity');
+      await expect(pair).toHaveCount(3);
+      await expect(pair.nth(0)).toContainText('Oct 6, 2026 – Oct 8, 2026');
+      await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
+      await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
+      await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('5');
+      await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+2');
+      await chooseAges(page, []);
+      await expectAges(page, []);
+      await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+      await page
+        .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
+        .click();
+      await expect(page.locator('html')).toHaveClass(new RegExp(theme));
       await page.setViewportSize({ width, height: 1000 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
         width,
@@ -192,9 +194,9 @@ test('two custom ranges are independently editable and remain readable at narrow
         path: testInfo.outputPath('two-custom-periods-' + theme + '-' + width + '.png'),
         fullPage: true,
       });
-    }
+    });
   }
-});
+}
 
 test('aging columns can be combined, sorted, saved, or all hidden', async ({ page }, testInfo) => {
   await login(page);
