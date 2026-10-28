@@ -78,6 +78,19 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.metricLink {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.metricLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.metricLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
 .repositoryLink:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;

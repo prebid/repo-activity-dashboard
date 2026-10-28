@@ -1,5 +1,6 @@
 'use client';
 import { useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import { useTableController } from '@/lib/navigation/use-table-controller';
@@ -7,6 +8,7 @@ import { useOverviewSettings } from '@/lib/navigation/use-overview-settings';
 import {
   changesOverviewScope,
   writeOverviewTableQueries,
+  writeOverviewSettings,
 } from '@/lib/presentation/overview-settings';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { withOverviewSort } from '@/lib/presentation/overview-sort';
@@ -46,6 +48,14 @@ export function RepositoriesScreen({
   });
   const backlog = withOverviewSort(backlogTable, 'backlog', settings.value);
   const activity = withOverviewSort(activityTable, 'activity', settings.value);
+  const search = useSearchParams().toString();
+  const returnTo =
+    '/repos?' +
+    writeOverviewTableQueries(
+      writeOverviewSettings(search, settings.value),
+      backlog.query,
+      activity.query,
+    );
   const data = useMemo(
     () => selectOverviewSample(samples, settings.value.periods[0], settings.value.repositoryIds),
     [samples, settings.value.periods, settings.value.repositoryIds],
@@ -81,6 +91,7 @@ export function RepositoriesScreen({
       repositories={repositories}
       backlogController={backlog}
       activityController={activity}
+      returnTo={returnTo}
       settings={{
         ...settings,
         update,

@@ -57,6 +57,9 @@ it('keeps all approved metric and threshold descriptors round-trippable', () => 
   }
 });
 it('accepts main branch merges and ignores unrelated table parameters', () => {
+  expect(
+    readRepositoryDrilldown(new URLSearchParams('returnTo=%2Frepos%3Fperiod%3Dthis-week'), repo),
+  ).toEqual({ status: 'none' });
   expect(readRepositoryDrilldown(new URLSearchParams('view=issues&issues.page=2'), repo)).toEqual({
     status: 'none',
   });

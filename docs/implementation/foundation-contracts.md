@@ -88,3 +88,7 @@ User review establishes the visual baseline; screenshots do not approve themselv
 ## Dependency maintenance
 
 The selected stack remains Next.js, React, TypeScript, Tailwind v4, Radix and Recharts with Amplify hosting. Next.js 15 remains the selected Amplify-compatible major. ESLint 9 and Auth.js v5 beta are deliberate compatibility holds; upgrade those lines only with compatible integration evidence. Pins and normal dependency auditing remain part of the quality checks.
+
+### PR and issue drilldowns
+
+Summary links use the typed repository drilldown builder and the receiving route uses its matching parser after the current-viewer guard. Record lists preserve current/period scope, the selected row's UTC range, primary branch for merges, and age threshold. A validated `/repos` return URL captures both summary table queries and scope settings. Unknown repositories remain 404s; malformed filters never fall back to an unfiltered cohort. Missing/partial sample coverage is separate from known empty results. Shared table pagination/search/sort operates on the complete supplied sample list, while the overview receives only compact prepared summaries. The PR/issue list view has no sample, router, auth, or database imports. Author and contribution destinations are not enabled in this slice.

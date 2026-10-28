@@ -15,6 +15,7 @@ export function RepositoryScreen({
   issues: IssueRow[];
   view: 'prs' | 'issues';
   age: number | null;
+  returnTo?: string;
 }) {
   const controller = useTableController({
     queryKey: data.view,

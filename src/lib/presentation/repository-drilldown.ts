@@ -1,4 +1,8 @@
-import { repositoryDrilldownSchema, type RepositoryDrilldown } from '@/models/repository-drilldown';
+import {
+  overviewReturnPathSchema,
+  repositoryDrilldownSchema,
+  type RepositoryDrilldown,
+} from '@/models/repository-drilldown';
 import type { OverviewRepository } from '@/models/repository-overview';
 
 type ReadDrilldown =
@@ -9,8 +13,12 @@ export function readRepositoryDrilldown(
   params: URLSearchParams,
   repo: OverviewRepository,
 ): ReadDrilldown {
-  const fields = ['scope', 'metric', 'age', 'from', 'to', 'inclusive', 'branch', 'returnTo'];
-  if (!fields.some((key) => params.has(key))) return { status: 'none' };
+  const fields = ['scope', 'metric', 'age', 'from', 'to', 'inclusive', 'branch'];
+  if (!fields.some((key) => params.has(key)))
+    return params.has('returnTo') &&
+      !overviewReturnPathSchema.safeParse(params.get('returnTo')).success
+      ? { status: 'invalid' }
+      : { status: 'none' };
   const selection: Record<string, unknown> = {
     scope: params.get('scope'),
     metric: params.get('metric'),

@@ -13,7 +13,7 @@ export interface PullRequestRow {
   title: string;
   author: string;
   draft: boolean;
-  humanReviewers: number;
+  humanReviewers: number | null;
   approvals: number | null;
   ageDays: number;
   url: string;

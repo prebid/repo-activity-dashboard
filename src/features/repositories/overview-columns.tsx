@@ -12,48 +12,63 @@ import { agingColumnId } from '@/lib/presentation/overview-aging';
 import { absoluteChange } from '@/lib/presentation/measurement';
 import { activityPeriodLabel } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
+import { OverviewMetric } from './overview-metric';
 
 export type OverviewTableRow = RepositoryOverviewRow & { id: string };
-const repositoryColumn: DataColumn<OverviewTableRow> = {
-  id: 'name',
-  label: 'Repository',
-  width: 248,
-  pinned: true,
-  hideable: false,
-  value: (row) => row.repository.name,
-  cell: (row) => (
-    <Link
-      prefetch={false}
-      href={'/repos/' + row.repository.slug}
-      className={styles.repositoryLink}
-      title={'Primary branch: ' + row.repository.primaryBranch}
-    >
-      {row.repository.name}
-    </Link>
-  ),
-};
-
-function backlogColumn(
-  id: BacklogMetric,
-  label: string,
-  group: string,
-  description?: string,
-): DataColumn<OverviewTableRow> {
+function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
   return {
-    id,
-    label,
-    group,
-    description,
-    width: 106,
-    align: 'right',
-    value: (row) => row.backlog.counts[id].value,
-    cell: (row) => <MeasurementValue measurement={row.backlog.counts[id]} />,
+    id: 'name',
+    label: 'Repository',
+    width: 248,
+    pinned: true,
+    hideable: false,
+    value: (row) => row.repository.name,
+    cell: (row) => (
+      <Link
+        prefetch={false}
+        href={
+          '/repos/' +
+          row.repository.slug +
+          (returnTo === '/repos' ? '' : '?returnTo=' + encodeURIComponent(returnTo))
+        }
+        className={styles.repositoryLink}
+        title={'Primary branch: ' + row.repository.primaryBranch}
+      >
+        {row.repository.name}
+      </Link>
+    ),
   };
 }
 
-export function backlogColumns(): DataColumn<OverviewTableRow>[] {
+export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow>[] {
+  function backlogColumn(
+    id: BacklogMetric,
+    label: string,
+    group: string,
+    description?: string,
+  ): DataColumn<OverviewTableRow> {
+    return {
+      id,
+      label,
+      group,
+      description,
+      width: 106,
+      align: 'right',
+      value: (row) => row.backlog.counts[id].value,
+      cell: (row) => (
+        <OverviewMetric
+          repository={row.repository}
+          measurement={row.backlog.counts[id]}
+          selection={{ scope: 'current', metric: id }}
+          label={group + ' — ' + label}
+          returnTo={returnTo}
+        />
+      ),
+    };
+  }
+
   return [
-    repositoryColumn,
+    repositoryColumn(returnTo),
     backlogColumn(
       'totalOpenPrs',
       'Total PRs',
@@ -76,7 +91,15 @@ export function backlogColumns(): DataColumn<OverviewTableRow>[] {
       align: 'right',
       description: 'Non-draft PRs created more than ' + age + ' days ago.',
       value: (row) => row.backlog.agedPrs[age].value,
-      cell: (row) => <MeasurementValue measurement={row.backlog.agedPrs[age]} />,
+      cell: (row) => (
+        <OverviewMetric
+          repository={row.repository}
+          measurement={row.backlog.agedPrs[age]}
+          selection={{ scope: 'current', metric: 'agedPrs', ageDays: age }}
+          label={'PRs older than ' + age + ' days'}
+          returnTo={returnTo}
+        />
+      ),
     })),
     backlogColumn(
       'humanApprovals0',
@@ -142,36 +165,47 @@ export const defaultBacklogColumns = [
   'humanApprovals2',
 ];
 
-function activityColumn(
-  id: ActivityMetric,
-  label: string,
-  group: string,
-  description?: string,
-): DataColumn<RepositoryActivityRow> {
-  return {
-    id,
-    label,
-    group,
-    description,
-    width: 116,
-    align: 'right',
-    value: (row) =>
-      row.kind === 'difference'
-        ? absoluteChange(row.primary.counts[id], row.secondary.counts[id])
-        : row.activity.counts[id].value,
-    sortValue: (row) => row.sortActivity.counts[id].value,
-    cell: (row) =>
-      row.kind === 'difference' ? (
-        <MeasurementDifference first={row.primary.counts[id]} second={row.secondary.counts[id]} />
-      ) : (
-        <MeasurementValue measurement={row.activity.counts[id]} />
-      ),
-  };
-}
-export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
+export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActivityRow>[] {
+  function activityColumn(
+    id: ActivityMetric,
+    label: string,
+    group: string,
+    description?: string,
+  ): DataColumn<RepositoryActivityRow> {
+    return {
+      id,
+      label,
+      group,
+      description,
+      width: 116,
+      align: 'right',
+      value: (row) =>
+        row.kind === 'difference'
+          ? absoluteChange(row.primary.counts[id], row.secondary.counts[id])
+          : row.activity.counts[id].value,
+      sortValue: (row) => row.sortActivity.counts[id].value,
+      cell: (row) =>
+        row.kind === 'difference' ? (
+          <MeasurementDifference first={row.primary.counts[id]} second={row.secondary.counts[id]} />
+        ) : (
+          <OverviewMetric
+            repository={row.repository}
+            measurement={row.activity.counts[id]}
+            selection={{
+              scope: 'period',
+              metric: id,
+              range: row.period.range,
+              ...(id === 'prsMerged' ? { branch: row.repository.primaryBranch } : {}),
+            }}
+            label={group + ' — ' + label + ' — ' + activityPeriodLabel(row.period)}
+            returnTo={returnTo}
+          />
+        ),
+    };
+  }
   return [
     {
-      ...repositoryColumn,
+      ...repositoryColumn(returnTo),
       value: (row) =>
         row.repository.name +
         (row.kind === 'difference'
@@ -191,7 +225,11 @@ export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
             {row.periodIndex === 0 ? (
               <Link
                 prefetch={false}
-                href={'/repos/' + row.repository.slug}
+                href={
+                  '/repos/' +
+                  row.repository.slug +
+                  (returnTo === '/repos' ? '' : '?returnTo=' + encodeURIComponent(returnTo))
+                }
                 className={styles.repositoryLink}
                 title={'Primary branch: ' + row.repository.primaryBranch}
               >

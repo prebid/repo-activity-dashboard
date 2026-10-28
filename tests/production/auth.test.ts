@@ -79,6 +79,14 @@ it('runs the packaged production artifact with current sessions and protected ac
       ['/companies', 'Example Company A'],
       ['/repos/prebidjs', 'Sample PR 137: Update integration behavior'],
       ['/repos/prebidjs?view=issues', 'Sample issue 834: Improve documentation'],
+      [
+        '/repos/prebidjs?scope=current&metric=totalOpenPrs',
+        'Sample PR 137: Update integration behavior',
+      ],
+      [
+        '/repos/prebidjs?scope=current&metric=openIssues',
+        'Sample issue 834: Improve documentation',
+      ],
     ]) {
       const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
       expect(permitted.status).toBe(200);

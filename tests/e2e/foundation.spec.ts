@@ -146,7 +146,7 @@ test('catalog links retain current-list pagination and independent feedback/appr
     .getByRole('table', { name: 'Current backlog' })
     .getByRole('row')
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
-  await expect(row.getByRole('cell', { name: '137', exact: true })).toBeVisible();
+  await expect(row.locator('[data-column="totalOpenPrs"]')).toHaveText('137');
   await row.getByRole('link', { name: 'Prebid.js', exact: true }).click();
   await expect(page.getByText('137 matching items')).toBeVisible();
   const reviewed = page

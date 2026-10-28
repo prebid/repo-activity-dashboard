@@ -28,6 +28,7 @@ export function AllRepositoriesView({
   settings,
   backlogController,
   activityController,
+  returnTo = '/repos',
 }: {
   data: RepositoryOverview;
   secondaryData?: RepositoryOverview;
@@ -35,10 +36,11 @@ export function AllRepositoriesView({
   settings: OverviewSettingsControl;
   backlogController: TableController;
   activityController: TableController;
+  returnTo?: string;
 }) {
   const { ageThresholds } = settings.value;
-  const backlog = useMemo(() => backlogColumns(), []);
-  const activity = useMemo(() => activityColumns(), []);
+  const backlog = useMemo(() => backlogColumns(returnTo), [returnTo]);
+  const activity = useMemo(() => activityColumns(returnTo), [returnTo]);
   const backlogVisibility = useMemo(
     () =>
       columnVisibilityFromIds(backlog, [
