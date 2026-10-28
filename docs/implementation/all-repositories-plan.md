@@ -45,7 +45,7 @@ Arrange the page vertically:
 | Activity period | This month, resolved against the sample's fixed reporting clock |
 | Aging | Over 30 days selected initially; independently add/remove 30/60/90/120/180/360-day columns. None selected hides the group. |
 | Second period | Optional; at most two distinct preset/custom ranges. No Show change toggle. |
-| Sort | Repository name ascending in both tables; subsequent sorts are independent |
+| Sort | Backlog: Total PRs descending; activity: PRs Opened descending. Chosen sorts remain independent; visibility fallbacks follow the state rules below. |
 | Backlog default columns | Repository; total open PRs; drafts; non-drafts; open issues; PRs older than the selected threshold; human approvals 0/1/2 |
 | Activity default columns | Repository; PRs opened/merged; issues opened/closed; unique PR/issue authors; median time to merge |
 | Additional selectable groups | Human reviewers 0/1/2; agent coverage; bot coverage; latest actor; separate agent and bot reviewer/approval contribution credits |
