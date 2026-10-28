@@ -37,6 +37,7 @@ export const tablePageSize = 50;
 
 export interface DataTableProps<T> {
   title: string;
+  emptyTitle?: string;
   rows: T[];
   columns: DataColumn<T>[];
   columnMenuColumns?: DataColumn<T>[];
@@ -64,6 +65,7 @@ function filterRows<T>(rows: T[], columns: DataColumn<T>[], search: string): T[]
 }
 export function DataTable<T extends { id: string }>({
   title,
+  emptyTitle,
   rows,
   columns,
   columnMenuColumns,
@@ -295,7 +297,7 @@ export function DataTable<T extends { id: string }>({
       )}
       {matching.length === 0 ? (
         <div className={styles.empty}>
-          <PageState title={rows.length ? 'No matching items' : 'No items'}>
+          <PageState title={emptyTitle ?? (rows.length ? 'No matching items' : 'No items')}>
             {searchable ? 'Adjust the selected scope or search.' : 'Adjust the selected scope.'}
           </PageState>
         </div>

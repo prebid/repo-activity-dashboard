@@ -1,0 +1,37 @@
+.field {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  min-width: 0;
+}
+.field summary {
+  cursor: pointer;
+  padding: 10px 12px;
+}
+.field summary span {
+  float: right;
+  color: var(--muted-foreground);
+  font-size: 11px;
+}
+.content {
+  padding: 0 12px 12px;
+}
+.options {
+  max-height: 160px;
+  overflow-y: auto;
+  margin-top: 6px;
+}
+.options label {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 0;
+  overflow-wrap: anywhere;
+}
+.options input {
+  accent-color: var(--primary);
+}
+.field summary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}

@@ -18,7 +18,9 @@ export function useTableController({
   viewerId,
   peerQueryKeys = noPeers,
   defaultSort,
+  historyMode = 'replace',
 }: {
+  historyMode?: 'push' | 'replace';
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
@@ -81,8 +83,16 @@ export function useTableController({
       }
       const next = { ...current, ...patch, search: patch.search ?? pending };
       if (dirty || (patch.search !== undefined && patch.search !== current.search)) next.page = 1;
+      if (historyMode === 'push') {
+        // Freeze saved defaults in the previous entry before they can change.
+        url.search = writeTableQuery(url.search, queryKey, current);
+        if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+      }
       url.search = writeTableQuery(url.search, queryKey, next);
-      if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+      if (url.href !== window.location.href) {
+        if (historyMode === 'push') window.history.pushState(null, '', url);
+        else window.history.replaceState(null, '', url);
+      }
       setDraft(null);
       setCorrection(null);
       if (viewerId && patch.sort !== undefined) {
@@ -111,6 +121,7 @@ export function useTableController({
       pathname,
       peerQueryKeys,
       defaultSort,
+      historyMode,
     ],
   );
   useEffect(() => {

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { RepositoryPageModel, RepositoryPageNavigation } from '@/models/repository-page';
 import type { TableController } from '@/lib/presentation/table-controller';
+import type { ColumnVisibility } from '@/components/tables/table-columns';
+import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { DataTable } from '@/components/tables/data-table';
 import { PageState } from '@/components/feedback/page-state';
 import { recordListTitle } from '@/lib/presentation/repository-records';
@@ -13,40 +15,32 @@ import { RepositoryHeader } from './repository-header';
 import { repositoryPagePrColumns, repositoryPageIssueColumns } from './repository-page-columns';
 import styles from './repository-page.module.css';
 
+export interface RepositoryPageControls {
+  filters: React.ReactNode;
+  scope?: React.ReactNode;
+  preferences: React.ReactNode;
+  visibility: ColumnVisibility;
+}
+
 function RepositoryPageTable({
   page,
   controller,
+  controls,
 }: {
   page: RepositoryPageModel;
   controller: TableController;
+  controls?: RepositoryPageControls;
 }) {
-  const selection = page.drilldown.selection,
-    metric = selection.metric;
-  const current = selection.scope === 'current';
-  const generalPr = current && ['totalOpenPrs', 'nonDraftPrs'].includes(metric);
-  const [visible, setVisible] = useState<Record<string, boolean>>({
-    labels: false,
-    state: false,
-    authorType: false,
-    createdAt: !current,
-    ageDays: current,
-    humanReviewers: generalPr || metric.startsWith('humanReviewers'),
-    approvals: generalPr || metric.startsWith('humanApprovals'),
-    mergedAt: metric === 'prsMerged',
-    mergeDays: metric === 'prsMerged',
-    baseBranch: metric === 'prsMerged',
-    closedAt: metric === 'issuesClosed',
-    agentReviewer: metric === 'agentFeedbackPrs',
-    botReviewer: metric === 'botFeedbackPrs',
-    latestActor: false,
-    latestActivity: current,
-    assignees: false,
-  });
+  const selection = page.drilldown.selection;
+  const [visible, setVisible] = useState(() => repositoryColumnDefaults(page));
   const title = recordListTitle(selection, page.author?.account);
   const common = {
     title,
     controller,
-    visibility: { value: visible, onChange: setVisible },
+    visibility: controls?.visibility ?? { value: visible, onChange: setVisible },
+    searchable: !controls,
+    headerContent: controls?.filters,
+    emptyTitle: page.cohortMeasurement.value ? 'No matching items' : undefined,
     description:
       controller.query.sort === 'createdAt' && controller.query.descending
         ? 'Newest created first'
@@ -65,7 +59,7 @@ function RepositoryPageTable({
           rows={page.rows}
           columns={repositoryPagePrColumns}
           columnMenuColumns={repositoryPagePrColumns.filter((column) => !inline.has(column.id))}
-          itemLabel="PRs"
+          itemLabel={controls ? 'matching PRs' : 'PRs'}
         />
       ) : (
         <DataTable
@@ -73,7 +67,7 @@ function RepositoryPageTable({
           rows={page.rows}
           columns={repositoryPageIssueColumns}
           columnMenuColumns={repositoryPageIssueColumns.filter((column) => !inline.has(column.id))}
-          itemLabel="issues"
+          itemLabel={controls ? 'matching issues' : 'issues'}
         />
       )}
     </div>
@@ -83,10 +77,12 @@ export function RepositoryPageView({
   page,
   navigation,
   controller,
+  controls,
 }: {
   page: RepositoryPageModel;
   navigation: RepositoryPageNavigation;
   controller: TableController;
+  controls?: RepositoryPageControls;
 }) {
   const { selection, returnTo } = page.drilldown;
   const current = selection.scope === 'current';
@@ -110,6 +106,7 @@ export function RepositoryPageView({
             : undefined
         }
       />
+      {controls?.scope}
       <section aria-label="Selected repository scope" className={styles.scope}>
         <div className={styles.scopeMain}>
           <span className={styles.scopeTag}>{current ? 'Current open' : 'Period activity'}</span>
@@ -140,7 +137,9 @@ export function RepositoryPageView({
             {page.author && (
               <>
                 <span>Author: {page.author.account}</span>
-                <span>Created during this period · All statuses</span>
+                <span>
+                  Created during this period{page.filters.states.length ? '' : ' · All statuses'}
+                </span>
               </>
             )}
             {focused && (
@@ -164,14 +163,19 @@ export function RepositoryPageView({
         </p>
       )}
       {page.measurement.value === null ? (
-        <PageState title="Sample records unavailable">{page.measurement.reason}</PageState>
+        <>
+          {controls?.filters}
+          <PageState title="Sample records unavailable">{page.measurement.reason}</PageState>
+        </>
       ) : (
         <RepositoryPageTable
           key={JSON.stringify([page.repository.id, selection, page.author?.account])}
           page={page}
           controller={controller}
+          controls={controls}
         />
       )}
+      {controls?.preferences}
     </>
   );
 }

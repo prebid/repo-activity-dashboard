@@ -1,6 +1,6 @@
 # Repository page — initial requirements draft
 
-Status: Step 2 shared layout and tables are implemented for visual review. Advanced filter controls and saved column preferences remain Step 3; graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
+Status: Step 3 filters, navigation, and saved presentation preferences are implemented for visual review. Graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
 
 ## Confirmed purpose
 
@@ -223,3 +223,19 @@ The new layout has light/dark and narrow-screen browser cases, plus tab/back-pag
 Step 2 verification: `npm run check:all` passed 525 unit/component, 31 account, eight packaged-production, and 156 Chromium/WebKit cases (720 total), with no skipped, pending, expected-failure, or flaky cases. Formatting, lint, types, architecture/retirement checks, coverage gates, dependency audit, both app builds, and Storybook passed. Desktop light/dark and narrow layouts were visually inspected. Status and author assertions were migrated to the new inline presentation while retaining exact cohort counts and identity checks. The layout is awaiting the user's visual feedback before Step 3.
 
 Pagination refinement (2026-10-28): the shared default and maximum are now 50 visible rows. Three-row repository comparisons use 48 rows to keep each group together. The updated checks traverse successive 50-row pages without duplicates or omissions, preserve filtered/author return context, and retain full-set search and exports. `npm run check` passed 525 unit/component cases and all static/coverage gates; preview and Storybook builds passed; all 156 Chromium/WebKit cases passed without skips or flaky results.
+
+
+## Step 3 interactive checkpoint
+
+The shared repository page now has a compact filter dialog, removable filter chips, title/number search, and explicit Current open / Created during period / Merged or Closed scope controls. Historical scopes reuse the existing preset/custom UTC date control. These controls use the existing prepared fake cohorts; unsupported custom ranges remain unavailable and retain usable controls.
+
+- Repository page filters narrow the complete selected cohort before the shared 50-row table pagination. Counts and prepared chart inputs use the same filtered population. Review and approval filters remain independent and exclude drafts; unknown metadata remains partial rather than becoming zero.
+- PR filters include labels, authors and author category, draft/current state, target branch, age, human reviewers, current human approvals, separate Prebid-agent and bot coverage, and latest-activity category. Issues add assignment/assignee filters. Multiple choices within a field use OR; separate fields combine with AND.
+- URL query state owns data filters, search, page and explicit presentation choices. Incoming summary metrics, exact date bounds, primary branch, author scope and overview return paths retain their meanings. Filter/sort changes return to page one; paging replaces the visible rows. Back/Forward and reload restore the explicit view.
+- A deliberate activity-scope change retains compatible filters and presentation choices, clears current-only review/age filters when entering historical activity, and resets pagination. Current open clears historical state restrictions. Author-record lists retain their separate parent-author return path and scoped dates.
+- Column overrides and sorting are saved per account, repository and PR/issue list in this browser. URL choices take precedence. Data filters and historical scope are not saved as fresh-visit defaults. Reset view preferences restores contextual columns and newest-created-first sorting while preserving the selected data cohort and filters. Denied or corrupt browser storage does not block filtering.
+- Invalid explicit filters show a recoverable invalid-filter state rather than silently broadening the result. Empty matches, known-zero cohorts, partial metadata and unprepared sample ranges remain distinct.
+
+The interactive checkpoint is ready for visual review before Step 4 charts. Changes remain on `codex/repository-pages`; the eventual PR targets `codex/frontend-rebuild` after the final checkpoint.
+
+Step 3 verification (2026-10-28): `npm run check` passed formatting, lint, types, architecture/retirement boundaries, coverage gates and 549 individually passing unit/component cases. Preview and Storybook builds passed. All 170 Chromium/WebKit cases passed, with no skipped, pending, expected-failure or flaky cases. Browser scenarios include complete filtered populations across 50-row pages, exact record identity reconciliation, partial assignment metadata, separate reviewers/approvals, summary/author returns, reload/Back/Forward, saved columns/sorts, unsupported dates, invalid-filter recovery, both themes, narrow screens and accessibility scans after dialog transitions finish.
