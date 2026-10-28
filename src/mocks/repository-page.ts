@@ -1,3 +1,6 @@
+import { repositoryCatalog } from '@/config/repositories';
+import { overviewBacklogs } from './overview-backlog';
+import type { RepositoryPageNavigation } from '@/models/repository-page';
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import type { RecordSelection, RepositoryRecordList } from '@/models/repository-records';
@@ -64,5 +67,16 @@ export function repositoryPageRecordsSample(list: RepositoryRecordList): Reposit
         assignees: row.number % 5 === 0 ? null : row.number % 2 === 0 ? [] : ['sample-maintainer'],
       };
     }),
+  };
+}
+
+export function repositoryPageNavigationSample(repo: OverviewRepository): RepositoryPageNavigation {
+  const catalog = repositoryCatalog.find((entry) => entry.id === repo.id);
+  if (!catalog) throw new Error('Unknown sample repository');
+  const counts = overviewBacklogs[repo.id].counts;
+  return {
+    githubUrl: catalog.url,
+    openPrs: { ...counts.totalOpenPrs },
+    openIssues: { ...counts.openIssues },
   };
 }

@@ -1,4 +1,5 @@
 'use client';
+import type { RepositoryPageNavigation } from '@/models/repository-page';
 import Link from 'next/link';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { PageState } from '@/components/feedback/page-state';
@@ -110,8 +111,10 @@ export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
 export function RepositoryInsightsView({
   insight,
   controller,
+  navigation,
 }: {
   insight: RepositoryInsight;
+  navigation?: RepositoryPageNavigation;
   controller: TableController;
 }) {
   const title = insightTitles[insight.drilldown.selection.metric],
@@ -138,6 +141,7 @@ export function RepositoryInsightsView({
   return (
     <RepositoryDrilldownFrame
       context={insight}
+      navigation={navigation}
       title={title}
       measurement={measurement}
       summary={summary}

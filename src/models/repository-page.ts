@@ -106,3 +106,9 @@ export type RepositoryPageModel = RepositoryPageSource & {
   charts: RepositoryChart[];
   defaultSort: { sort: 'createdAt'; descending: true };
 };
+
+export interface RepositoryPageNavigation {
+  githubUrl: string;
+  openPrs: Count;
+  openIssues: Count;
+}

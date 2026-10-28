@@ -1,5 +1,10 @@
+import { selectRepositoryPage } from '../src/lib/presentation/repository-page';
+import {
+  repositoryPageRecordsSample,
+  repositoryPageNavigationSample,
+} from '../src/mocks/repository-page';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { RepositoryRecordsView } from '../src/features/repositories/repository-records-view';
+import { RepositoryPageView } from '../src/features/repositories/repository-page-view';
 import { useLocalTableController } from '../src/components/tables/local-data-table';
 import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { repositoryAuthorRecordSample } from '../src/mocks/repository-insights';
@@ -33,8 +38,13 @@ function Preview({ kind = 'prs' }: { kind?: 'prs' | 'issues' }) {
   });
   return (
     <DashboardFrame navigation={<span>Prebid · High-volume author sample</span>}>
-      <RepositoryRecordsView
-        list={repositoryAuthorRecordSample(repo, drilldown, 'sample-author-2', back)}
+      <RepositoryPageView
+        page={selectRepositoryPage(
+          repositoryPageRecordsSample(
+            repositoryAuthorRecordSample(repo, drilldown, 'sample-author-2', back),
+          ),
+        )}
+        navigation={repositoryPageNavigationSample(repo)}
         controller={controller}
       />
     </DashboardFrame>

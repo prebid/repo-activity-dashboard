@@ -1,6 +1,6 @@
 # Repository page — initial requirements draft
 
-Status: Step 1 display models and prepared samples are implemented; layouts and interactive controls remain the next steps. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, grouped Repos navigation, and a maximum of 100 visible PRs or issues per page confirmed on 2026-10-24. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
+Status: Step 2 shared layout and tables are implemented for visual review. Advanced filter controls and saved column preferences remain Step 3; graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, grouped Repos navigation, and a maximum of 100 visible PRs or issues per page confirmed on 2026-10-24. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
 
 ## Confirmed purpose
 
@@ -209,3 +209,15 @@ The scenario tests cover all 18 repositories, all current metrics/thresholds and
 5. Full integration checks, adversarial review and final visual sign-off before the next PR against `codex/frontend-rebuild`.
 
 Step 1 verification: `npm run check` passed formatting, lint, typechecking, architecture/retirement boundaries, coverage gates, and 522 individually passing unit/component cases (37 added for this step), with no skipped, pending, expected-failure, or flaky cases. The preview and Storybook builds passed. Route/layout wiring, browser interaction checks for the new page, and visual sign-off follow in the remaining steps.
+
+## Step 2 layout checkpoint
+
+Direct repository visits, summary record drilldowns, and author-record routes now use one guarded page composition and one record-table presentation. The legacy direct-entry renderer and its separate screen were removed. Existing supporting author/contribution/duration views share the repository header while retaining their distinct units and record tables.
+
+The header shows repository identity, configured primary branch, snapshot time, and the catalog GitHub link. PR/Issues navigation badges explicitly show current-open totals, separately from the selected cohort count. Choosing a list tab opens that current-open list; incoming period/metric/author scope remains visible until another list or the explicit current-open link is chosen. Parent author and All Repositories return contexts are preserved.
+
+Record numbers remain pinned; titles carry status and labels inline. Author/category and latest-activity metadata are compact, with unavailable values shown as dashes. Drafts do not display numeric human-reviewer or approval values. The existing table controller supplies search, sorting, columns, and 100-row pagination; scope totals describe the incoming cohort and the table footer reports search matches within it. State, labels, and author category remain export/search values without duplicate standalone columns in the menu. Known-unassigned issues remain distinguishable from unavailable assignment data.
+
+The new layout has light/dark and narrow-screen browser cases, plus tab/back-pagination, full-population search, primary-branch, bot/agent identity and incoming-filter regressions. Repository graphs and advanced controls will be added in their designated steps after this visual checkpoint.
+
+Step 2 verification: `npm run check:all` passed 525 unit/component, 31 account, eight packaged-production, and 156 Chromium/WebKit cases (720 total), with no skipped, pending, expected-failure, or flaky cases. Formatting, lint, types, architecture/retirement checks, coverage gates, dependency audit, both app builds, and Storybook passed. Desktop light/dark and narrow layouts were visually inspected. Status and author assertions were migrated to the new inline presentation while retaining exact cohort counts and identity checks. The layout is awaiting the user's visual feedback before Step 3.

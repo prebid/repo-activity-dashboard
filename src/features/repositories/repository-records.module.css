@@ -10,34 +10,6 @@
   outline: 2px solid var(--ring);
   outline-offset: 3px;
 }
-.header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-}
-.header h1 {
-  font-size: clamp(25px, 3vw, 32px);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-}
-.header p {
-  overflow-wrap: anywhere;
-  color: var(--muted-foreground);
-  font-size: 13px;
-  margin-top: 8px;
-}
-.header .eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  font-size: 10px;
-  font-weight: 600;
-}
-.header .snapshot {
-  font-size: 11px;
-  text-align: right;
-  line-height: 1.7;
-}
 .scope {
   display: flex;
   flex-wrap: wrap;
@@ -81,12 +53,7 @@
   border-radius: 4px;
   font-size: 11px;
 }
-@media (max-width: 600px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .header .snapshot {
-    text-align: left;
-  }
+.supportingTitle {
+  font-size: 16px;
+  font-weight: 500;
 }

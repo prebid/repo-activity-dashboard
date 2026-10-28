@@ -67,7 +67,7 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(48);
-  expect(await page.locator('tbody [data-column="state"]').allTextContents()).toEqual(
+  expect(await page.locator('tbody [data-column="title"] [data-state]').allTextContents()).toEqual(
     Array(48).fill('Merged'),
   );
   await page.getByRole('button', { name: 'Title', exact: true }).click();

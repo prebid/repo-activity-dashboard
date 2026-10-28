@@ -1,5 +1,10 @@
+import { selectRepositoryPage } from '../src/lib/presentation/repository-page';
+import {
+  repositoryPageRecordsSample,
+  repositoryPageNavigationSample,
+} from '../src/mocks/repository-page';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { RepositoryRecordsView } from '../src/features/repositories/repository-records-view';
+import { RepositoryPageView } from '../src/features/repositories/repository-page-view';
 import { useLocalTableController } from '../src/components/tables/local-data-table';
 import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { repositoryRecordSample } from '../src/mocks/repository-records';
@@ -47,8 +52,13 @@ function Preview({
   });
   return (
     <DashboardFrame navigation={<span>Prebid · Sample repository detail</span>}>
-      <RepositoryRecordsView
-        list={repositoryRecordSample(repo, { selection, returnTo: '/repos' })}
+      <RepositoryPageView
+        page={selectRepositoryPage(
+          repositoryPageRecordsSample(
+            repositoryRecordSample(repo, { selection, returnTo: '/repos' }),
+          ),
+        )}
+        navigation={repositoryPageNavigationSample(repo)}
         controller={controller}
       />
     </DashboardFrame>

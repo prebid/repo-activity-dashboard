@@ -84,10 +84,15 @@ for (const [metric, noun, authorLabel] of [
     await expect(heading).toBeVisible();
     await expect(page.getByText('2 matching records', { exact: true })).toBeVisible();
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
-    expect(await page.locator('tbody [data-column="author"]').allTextContents()).toEqual([
-      account,
-      account,
-    ]);
+    expect(
+      await page
+        .locator('tbody [data-column="author"]')
+        .getByText(account, { exact: true })
+        .allTextContents(),
+    ).toEqual([account, account]);
+    await expect(
+      page.locator('tbody [data-column="author"]').getByText('Bot', { exact: true }),
+    ).toHaveCount(2);
     const query = new URL(page.url()).search;
     expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
     expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
@@ -152,8 +157,14 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       await expect(
         page.getByText('Created during this period · All statuses', { exact: true }),
       ).toBeVisible();
-      const allAuthors = await page.locator('tbody [data-column="author"]').allTextContents();
+      const allAuthors = await page
+        .locator('tbody [data-column="author"]')
+        .getByText('sample-author-2', { exact: true })
+        .allTextContents();
       expect(allAuthors).toEqual(Array(100).fill('sample-author-2'));
+      await expect(
+        page.locator('tbody [data-column="author"]').getByText('Prebid agent', { exact: true }),
+      ).toHaveCount(100);
       for (let pageNumber = 2; pageNumber <= Math.ceil(count / 100); pageNumber++) {
         await page.getByRole('button', { name: 'Next', exact: true }).click();
         await expect(
@@ -174,8 +185,9 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
           .getByRole('textbox', { name: 'Search PRs by sample-author-2', exact: true })
           .fill('Draft');
         await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(14);
-        const titles = await page.locator('tbody [data-column="title"]').allTextContents();
-        expect(titles.every((title) => title.includes('(Draft)'))).toBe(true);
+        await expect(page.locator('tbody [data-column="title"] [data-state="Draft"]')).toHaveCount(
+          14,
+        );
       }
       await page
         .getByRole('link', {
