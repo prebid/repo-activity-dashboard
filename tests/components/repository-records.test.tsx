@@ -158,7 +158,7 @@ it('keeps record identity and labels together, uses separate reviewer/approval v
   const table = screen.getByRole('table');
   expect(within(table).queryByRole('columnheader', { name: 'Labels' })).not.toBeInTheDocument();
   expect(within(table).queryByRole('columnheader', { name: 'Status' })).not.toBeInTheDocument();
-  expect(table.querySelectorAll('tbody tr')).toHaveLength(100);
+  expect(table.querySelectorAll('tbody tr')).toHaveLength(50);
 });
 
 it('searches the full issue population by its visible Unassigned value', async () => {
@@ -174,6 +174,6 @@ it('searches the full issue population by its visible Unassigned value', async (
   await user.click(screen.getByRole('textbox', { name: 'Search Open issues' }));
   await user.paste('Unassigned');
   expect(screen.getByText('334 matching issues')).toBeVisible();
-  expect(screen.getByText('Page 1 of 4')).toBeVisible();
-  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(100);
+  expect(screen.getByText('Page 1 of 7')).toBeVisible();
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
 });

@@ -43,16 +43,16 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   await page.goto('/repos?repo=repo-prebidjs&period=this-year');
   await periodRows(page).nth(0).locator('[data-column="issueAuthors"] a').click();
   await expect(page.getByText('194 unique accounts', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(94);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   const recordLink = page.locator('tbody [data-column="records"] a').first();
   await recordLink.click();
   await expect(
     page.getByText('Created during this period · All statuses', { exact: true }),
   ).toBeVisible();
   await page.getByRole('link', { name: '← Issue authors', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(94);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   expect(new URL(page.url()).searchParams.get('authors.page')).toBe('2');
   await page
     .getByRole('textbox', { name: 'Search Issue authors', exact: true })
@@ -152,7 +152,7 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
         })
         .click();
       await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
-      await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+      await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
       expect(new URL(page.url()).pathname).toBe('/repos/prebidjs/authors/sample-author-2');
       await expect(
         page.getByText('Created during this period · All statuses', { exact: true }),
@@ -161,14 +161,14 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
         .locator('tbody [data-column="author"]')
         .getByText('sample-author-2', { exact: true })
         .allTextContents();
-      expect(allAuthors).toEqual(Array(100).fill('sample-author-2'));
+      expect(allAuthors).toEqual(Array(50).fill('sample-author-2'));
       await expect(
         page.locator('tbody [data-column="author"]').getByText('Prebid agent', { exact: true }),
-      ).toHaveCount(100);
-      for (let pageNumber = 2; pageNumber <= Math.ceil(count / 100); pageNumber++) {
+      ).toHaveCount(50);
+      for (let pageNumber = 2; pageNumber <= Math.ceil(count / 50); pageNumber++) {
         await page.getByRole('button', { name: 'Next', exact: true }).click();
         await expect(
-          page.getByText('Page ' + pageNumber + ' of ' + Math.ceil(count / 100), { exact: true }),
+          page.getByText('Page ' + pageNumber + ' of ' + Math.ceil(count / 50), { exact: true }),
         ).toBeVisible();
       }
       await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(finalPageCount);
@@ -256,15 +256,20 @@ test('all agent and bot contribution links reconcile credits, retain context, an
     '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
   );
   await expect(page.getByText('145 contribution credits', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(45);
   await page
     .getByRole('textbox', { name: 'Search Prebid agent reviewer contributions', exact: true })
     .fill('sample-prebid-agent-a');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(73);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.reload();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(73);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  await expect(page.getByText('73 matching contribution credits', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(23);
   expect(new URL(page.url()).searchParams.get('metric')).toBe('agentFeedbackCredits');
 });
 test('duration links show median and sample size separately with numeric sorting and valid branch scope', async ({

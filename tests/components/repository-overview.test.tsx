@@ -108,7 +108,7 @@ it('groups two labeled periods and an automatic difference under one repository 
   await user.click(screen.getByRole('button', { name: 'Add second period' }));
   await user.selectOptions(screen.getByRole('combobox', { name: 'Period 2 preset' }), 'last-month');
   const activity = screen.getByRole('table', { name: 'Period activity' });
-  expect(activity.querySelectorAll('tbody tr')).toHaveLength(54);
+  expect(activity.querySelectorAll('tbody tr')).toHaveLength(48);
   const pairs = [...activity.querySelectorAll('tbody tr')].filter((row) =>
     row.textContent?.includes('Prebid.js'),
   );
@@ -409,7 +409,7 @@ it('updates group spans and reveals automation partials through the controlled c
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Other bots' }));
   await user.keyboard('{Escape}');
   expect(within(activity).getByRole('columnheader', { name: 'Agent reviewers' })).toBeVisible();
-  expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(54);
+  expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
 });
 it('uses the caller as the only owner of controlled visibility, including non-pinned sized columns', async () => {
   interface Row {

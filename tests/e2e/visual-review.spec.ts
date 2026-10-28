@@ -98,7 +98,7 @@ test('large issue lists retain their server-rendered dashboard through hard navi
     // Check actual SSR table rows, not text that could exist only in a serialized payload.
     const html = await response.text();
     const tbody = html.match(/<tbody[^>]*>([\s\S]*?)<\/tbody>/)?.[1];
-    expect(tbody?.match(/<tr\b/g)).toHaveLength(100);
+    expect(tbody?.match(/<tr\b/g)).toHaveLength(50);
     await expect(page.getByText('12,345 matching records', { exact: true })).toBeVisible();
     const columns = page.getByRole('button', { name: 'Columns', exact: true });
     await columns.click();

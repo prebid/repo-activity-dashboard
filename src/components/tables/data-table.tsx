@@ -33,6 +33,8 @@ import {
 import { ColumnMenu } from './column-menu';
 import { cn } from '@/lib/utils';
 import styles from './data-table.module.css';
+export const tablePageSize = 50;
+
 export interface DataTableProps<T> {
   title: string;
   rows: T[];
@@ -76,7 +78,7 @@ export function DataTable<T extends { id: string }>({
   itemLabel = 'items',
   showSinglePageControls = true,
   searchable = true,
-  pageSize = 100,
+  pageSize = tablePageSize,
 }: DataTableProps<T>) {
   const [exportError, setExportError] = useState('');
   const [localVisibility, setLocalVisibility] = useState<Record<string, boolean>>({});
@@ -144,7 +146,9 @@ export function DataTable<T extends { id: string }>({
     };
   }, [columns, effectiveVisibility, resultCount]);
   const rowsPerPage =
-    Number.isSafeInteger(pageSize) && pageSize > 0 ? Math.min(pageSize, 100) : 100;
+    Number.isSafeInteger(pageSize) && pageSize > 0
+      ? Math.min(pageSize, tablePageSize)
+      : tablePageSize;
   const pageCount = Math.max(1, Math.ceil(resultCount / rowsPerPage));
   const page = Math.min(query.page, pageCount);
   useEffect(() => {

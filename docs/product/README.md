@@ -8,7 +8,7 @@ Settle layouts and interactions across the pages with prepared sample data befor
 | --- | --- | --- |
 | Login | [Login](login.md) | Centered Prebid sign-in and password setup, shared Light/Dark/System controls, and preserved return context. |
 | Repository summary | [All Repos](all-repositories.md) | Current backlog and period tables, repository selection, sorting, saved preferences, and filtered navigation. |
-| Individual repository | [Repository page](repository-detail.md) | Metadata-only PR/issue lists, 100-row pagination, repository graphs, and links to actual GitHub records. |
+| Individual repository | [Repository page](repository-detail.md) | Metadata-only PR/issue lists, 50-row pagination, repository graphs, and links to actual GitHub records. |
 | Contributors, companies, groups | [Contributions](contributors.md) | Tables, focused reports with repository rows, inclusion/exclusion, configured group membership, and full filtered exports. |
 | Agent/bot tracking | [Agents & bots](agents-and-bots.md) | Catalog, GitHub activity, recorded run history, model/harness metadata, results, and source links. |
 | Historical merge status | [Merge review status](merge-review-status.md) | Shared definitions for human/agent/bot state at merge and separate direct-push records; fixtures explicitly represent unknown historical coverage. |
@@ -23,7 +23,7 @@ Settle layouts and interactions across the pages with prepared sample data befor
 - Humans, mapped Prebid agents, and other bots remain distinguishable. Model, harness, agent definition, and GitHub account are separate identities.
 - Company reports use the current mapping, visibly labeled. Group definitions are maintained by designated editors; personal report exclusions do not alter them.
 - Metric columns remain fixed in width; repositories become rows on focused reports.
-- Pagination limits displayed records to 100 per page. Counts, repository graphs, sorting, search, and exports use the full matching set.
+- Pagination limits displayed records to 50 per page. Counts, repository graphs, sorting, search, and exports use the full matching set.
 - Charts belong on repository pages. Contributor/company/group reports use tables and exports.
 - PR/issue records open on GitHub. Their descriptions, comment bodies, review text, and diffs are not reproduced in reporting views.
 - Unknown/incomplete values are distinct from known zero. Historical GitHub activity is not automatically a fully recorded agent run.

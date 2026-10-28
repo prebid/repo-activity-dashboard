@@ -23,7 +23,7 @@ for (const [kind, theme, width] of [
         .getByRole('navigation', { name: 'Repository lists' })
         .getByRole('link', { name: kind === 'prs' ? /^Pull requests/ : /^Issues/ }),
     ).toHaveAttribute('aria-current', 'page');
-    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
     const numberCell = page.locator('tbody [data-column="number"]').first();
     expect((await numberCell.boundingBox())!.width).toBeLessThan(150);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
@@ -54,16 +54,16 @@ test('direct lists share the drilldown layout and retain pagination through tab 
   await page.goto('/repos/prebidjs');
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(37);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page
     .getByRole('navigation', { name: 'Repository lists' })
     .getByRole('link', { name: /^Issues/ })
     .click();
   await expect(page.getByText('834 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.goBack();
-  await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(37);
+  await expect(page.getByText('Page 2 of 3', { exact: true })).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.goto(
     '/repos/prebidjs?scope=current&metric=humanApprovals0&returnTo=%2Frepos%3Fage%3D60',
   );

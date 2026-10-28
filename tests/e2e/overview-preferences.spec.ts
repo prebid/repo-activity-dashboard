@@ -111,7 +111,12 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await page.getByRole('button', { name: 'Add second period', exact: true }).click();
   await page.getByRole('combobox', { name: 'Period 2 preset' }).selectOption('last-month');
   const activity = page.getByRole('table', { name: 'Period activity', exact: true });
-  await expect(activity.locator('tbody tr')).toHaveCount(54);
+  await expect(activity.locator('tbody tr')).toHaveCount(48);
+  await page
+    .getByRole('region', { name: 'Period activity', exact: true })
+    .getByRole('button', { name: 'Next', exact: true })
+    .click();
+  await expect(activity.locator('tbody tr')).toHaveCount(6);
   await selectRepositories(page, ['Prebid.js', 'SalesAgent']);
   await expect(activity.locator('tbody tr')).toHaveCount(6);
   const sort = activity.locator('th[id$="-prsOpened"] button');

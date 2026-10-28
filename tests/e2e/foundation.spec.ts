@@ -127,7 +127,7 @@ test('login return preserves issue context, pagination and full-result search', 
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/view=issues.*issues.page=2/);
   await expect(page.getByText('834 matching issues')).toBeVisible();
-  await expect(page.getByRole('table').getByRole('row')).toHaveCount(101);
+  await expect(page.getByRole('table').getByRole('row')).toHaveCount(51);
   await page.getByRole('textbox', { name: 'Search Open issues' }).fill('Oldest sample issue');
   await expect(page.getByText('Page 1 of 1')).toBeVisible();
   await expect(
@@ -149,6 +149,8 @@ test('catalog links retain current-list pagination and independent feedback/appr
   await expect(row.locator('[data-column="totalOpenPrs"]')).toHaveText('137');
   await row.getByRole('link', { name: 'Prebid.js', exact: true }).click();
   await expect(page.getByText('137 matching PRs')).toBeVisible();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   const reviewed = page
     .getByRole('row')
     .filter({ has: page.getByRole('cell', { name: '1058', exact: true }) });
@@ -334,7 +336,7 @@ test('repository issue search and same-route navigation keep the URL and rows sy
     .getByRole('link', { name: /^Issues/ })
     .click();
   await expect(input).toHaveValue('');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await expect(page.getByText('834 matching issues')).toBeVisible();
 });
 test('sort survives a real router refresh caused by another tab signing in', async ({

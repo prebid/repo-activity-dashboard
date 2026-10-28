@@ -1,6 +1,6 @@
 # Repository page — initial requirements draft
 
-Status: Step 2 shared layout and tables are implemented for visual review. Advanced filter controls and saved column preferences remain Step 3; graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, grouped Repos navigation, and a maximum of 100 visible PRs or issues per page confirmed on 2026-10-24. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
+Status: Step 2 shared layout and tables are implemented for visual review. Advanced filter controls and saved column preferences remain Step 3; graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
 
 ## Confirmed purpose
 
@@ -46,8 +46,8 @@ Tags/labels belong on these repository-level record lists. Their exclusion from 
 
 | Entry path | Initial scope |
 | --- | --- |
-| Unfiltered repository navigation, repository name link, or direct repository URL | The first page of current open PRs, including drafts, and current open issues: at most 100 rows per list, newest-created first by default. Older matching items remain accessible through pagination. |
-| A metric selected on All Repos | The first page of the specific record list and filters represented by that metric, limited to 100 rows per page. Historical activity selections retain their period and date basis. |
+| Unfiltered repository navigation, repository name link, or direct repository URL | The first page of current open PRs, including drafts, and current open issues: at most 50 rows per list, newest-created first by default. Older matching items remain accessible through pagination. |
+| A metric selected on All Repos | The first page of the specific record list and filters represented by that metric, limited to 50 rows per page. Historical activity selections retain their period and date basis. |
 | A bookmarked/shared URL with explicit filters | The view and filters encoded in the link. Do not reset them to the unfiltered default. |
 
 Explicit incoming scope takes precedence over defaults. Saved presentation preferences, such as visible columns, sorting, and graph visibility, can apply without changing that scope. A previously selected historical period must not silently replace current-open defaults on a new unfiltered repository visit.
@@ -114,7 +114,7 @@ When summary and detail use the same data snapshot, the filtered list total must
 
 ## Proposed pull-request list
 
-On a direct visit without drill-down filters, show currently open PRs including drafts, starting with up to 100 visible rows. Default to newest-created first unless the user has explicitly chosen another sort. Older open PRs remain accessible through pagination, sorting, or filtering.
+On a direct visit without drill-down filters, show currently open PRs including drafts, starting with up to 50 visible rows. Default to newest-created first unless the user has explicitly chosen another sort. Older open PRs remain accessible through pagination, sorting, or filtering.
 
 Candidate columns:
 
@@ -134,7 +134,7 @@ These are candidate top-level fields, not a finalized column list. The eventual 
 
 ## Proposed issue list
 
-On an unfiltered direct visit, load and show the first page of up to 100 currently open issues, newest-created first by default. Do not render the entire issue backlog. Older open issues remain accessible through pagination, sorting, or filtering. Arriving from All Repos preserves its exact filter scope while applying the same page-size limit.
+On an unfiltered direct visit, load and show the first page of up to 50 currently open issues, newest-created first by default. Do not render the entire issue backlog. Older open issues remain accessible through pagination, sorting, or filtering. Arriving from All Repos preserves its exact filter scope while applying the same page-size limit.
 
 Candidate top-level fields: number/title linking directly to GitHub, tags/labels, author and actor category, open/closed state, created date, closed date when applicable, age for open issues, last activity, and assignees.
 
@@ -144,7 +144,7 @@ Candidate filters: title/number search, tags/labels, author, state, assignee, ag
 
 Merged-PR lists may show and filter compact feedback/approval state at merge time, separately for humans, Prebid agents, and bots. These fields are historical and do not replace current approval state on open PRs. Actual PR records continue to open on GitHub.
 
-If a direct-push metric is selected, show a separate lightweight list of primary-branch push metadata with GitHub commit/comparison links; do not fabricate a PR record for a push without one. This is a filtered supporting list, not a new top-level workspace. See [Merged PR review status and direct pushes](merge-review-status.md). Both lists retain the existing 100-row pagination and metadata-only scope.
+If a direct-push metric is selected, show a separate lightweight list of primary-branch push metadata with GitHub commit/comparison links; do not fabricate a PR record for a push without one. This is a filtered supporting list, not a new top-level workspace. See [Merged PR review status and direct pushes](merge-review-status.md). Both lists retain the existing 50-row pagination and metadata-only scope.
 
 ## Supporting identity and contribution metadata
 
@@ -158,15 +158,15 @@ Keep measurement units explicit: people, PRs, and contribution credits are diffe
 
 ## Pagination and sorting
 
-Use paginated tables with **Previous** and **Next** controls for PRs and issues. Default to 100 visible rows per page. With a real reporting adapter, each record-page request must also be capped at 100 rows. The current fake-data phase uses the complete supplied population, as described below. Moving between pages replaces the visible rows instead of continually appending to the table.
+Use paginated tables with **Previous** and **Next** controls for PRs and issues. Default to 50 visible rows per page. With a real reporting adapter, each record-page request must also be capped at 50 rows. The current fake-data phase uses the complete supplied population, as described below. Moving between pages replaces the visible rows instead of continually appending to the table.
 
-- Show the visible range separately from the full matching count; for example, Showing 1–100 of 834 open issues. The example is illustrative, not a measured repository count.
-- Apply filtering, search, and sorting to the full matching dataset before selecting a page. Searching must not be limited to the first 100 loaded records.
+- Show the visible range separately from the full matching count; for example, Showing 1–50 of 834 open issues. The example is illustrative, not a measured repository count.
+- Apply filtering, search, and sorting to the full matching dataset before selecting a page. Searching must not be limited to the first 50 loaded records.
 - Newest-created first is the default. Allow other sorts, including latest activity and oldest first, and honor explicit or saved sort preferences.
 - Changing filters or sorting returns to the first page. Pagination preserves all active filters and sorting. Browser back restores the previous list context and page.
 - Keep a stable secondary ordering for ties so page boundaries do not arbitrarily duplicate or omit records. Account for refreshed data rather than silently treating different snapshots as identical.
-- The 100-row cap limits display and page retrieval, not the total result set or the summary statistics. Graphs and total counts cover all matching records and remain unchanged when moving between pages.
-- With the real data adapter, fetch a bounded record page and separate full-cohort aggregates. The current frontend phase retains the foundation’s complete supplied fake population: search/filter/chart selection precede the shared 100-row table pagination. Do not add an unused remote paging mode during this phase. The page model rejects a truncated population whose row count disagrees with its supplied measurement.
+- The 50-row cap limits display and page retrieval, not the total result set or the summary statistics. Graphs and total counts cover all matching records and remain unchanged when moving between pages.
+- With the real data adapter, fetch a bounded record page and separate full-cohort aggregates. The current frontend phase retains the foundation’s complete supplied fake population: search/filter/chart selection precede the shared 50-row table pagination. Do not add an unused remote paging mode during this phase. The page model rejects a truncated population whose row count disagrees with its supplied measurement.
 - Preserve distinct initial-loading, page-loading, no-match, and error states. A failed next-page request must not be mistaken for the end of the results.
 
 ## Shared behavior
@@ -174,7 +174,7 @@ Use paginated tables with **Previous** and **Next** controls for PRs and issues.
 - Numeric and date columns are sortable; active filters can be inspected and cleared.
 - Direct links should retain the selected view and filters.
 - Saved presentation preferences apply on an unfiltered direct visit while the data scope starts at Current open. Explicit incoming filters take precedence over defaults.
-- PR and issue lists use the 100-row pagination policy above; display the full matching count separately from the currently visible rows.
+- PR and issue lists use the 50-row pagination policy above; display the full matching count separately from the currently visible rows.
 - Loading, no matches, missing data, partial data, and errors are distinct states.
 - PR/issue number and title links open the actual GitHub record directly.
 - Descriptions, comment text, inline-comment bodies, review bodies, diffs, and full event timelines are outside this page's display scope.
@@ -216,8 +216,10 @@ Direct repository visits, summary record drilldowns, and author-record routes no
 
 The header shows repository identity, configured primary branch, snapshot time, and the catalog GitHub link. PR/Issues navigation badges explicitly show current-open totals, separately from the selected cohort count. Choosing a list tab opens that current-open list; incoming period/metric/author scope remains visible until another list or the explicit current-open link is chosen. Parent author and All Repositories return contexts are preserved.
 
-Record numbers remain pinned; titles carry status and labels inline. Author/category and latest-activity metadata are compact, with unavailable values shown as dashes. Drafts do not display numeric human-reviewer or approval values. The existing table controller supplies search, sorting, columns, and 100-row pagination; scope totals describe the incoming cohort and the table footer reports search matches within it. State, labels, and author category remain export/search values without duplicate standalone columns in the menu. Known-unassigned issues remain distinguishable from unavailable assignment data.
+Record numbers remain pinned; titles carry status and labels inline. Author/category and latest-activity metadata are compact, with unavailable values shown as dashes. Drafts do not display numeric human-reviewer or approval values. The existing table controller supplies search, sorting, columns, and 50-row pagination; scope totals describe the incoming cohort and the table footer reports search matches within it. State, labels, and author category remain export/search values without duplicate standalone columns in the menu. Known-unassigned issues remain distinguishable from unavailable assignment data.
 
 The new layout has light/dark and narrow-screen browser cases, plus tab/back-pagination, full-population search, primary-branch, bot/agent identity and incoming-filter regressions. Repository graphs and advanced controls will be added in their designated steps after this visual checkpoint.
 
 Step 2 verification: `npm run check:all` passed 525 unit/component, 31 account, eight packaged-production, and 156 Chromium/WebKit cases (720 total), with no skipped, pending, expected-failure, or flaky cases. Formatting, lint, types, architecture/retirement checks, coverage gates, dependency audit, both app builds, and Storybook passed. Desktop light/dark and narrow layouts were visually inspected. Status and author assertions were migrated to the new inline presentation while retaining exact cohort counts and identity checks. The layout is awaiting the user's visual feedback before Step 3.
+
+Pagination refinement (2026-10-28): the shared default and maximum are now 50 visible rows. Three-row repository comparisons use 48 rows to keep each group together. The updated checks traverse successive 50-row pages without duplicates or omissions, preserve filtered/author return context, and retain full-set search and exports. `npm run check` passed 525 unit/component cases and all static/coverage gates; preview and Storybook builds passed; all 156 Chromium/WebKit cases passed without skips or flaky results.

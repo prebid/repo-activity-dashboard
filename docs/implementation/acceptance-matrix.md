@@ -48,7 +48,7 @@ Fixture identities exercise routing and state. The separate packaged-production 
 | --- | --- | --- | --- | --- |
 | REPO-01 | Current backlog and period activity differ | REF-01, October | Open PRs R1/R2 = 2/1; PRs created = 3/3; merged = 2/2; current open issues = 2/3. Date selection does not erase older open I201. | Contract/browser |
 | REPO-02 | Count-to-record navigation reconciles | REF-01, R1 zero current approvals | Opens exactly P105 and P107; excludes drafts and unrelated records. | Browser |
-| REPO-03 | Bounded pages with older records reachable | LOAD-01 | Issues: 100 rows on page 1 and 34 on page 9. PRs: 100 then 37. Full counts remain 834 and 137. | Contract/browser |
+| REPO-03 | Bounded pages with older records reachable | LOAD-01 | Issues: 50 rows on page 1 and 34 on page 17. PRs: 50, 50, then 37. Full counts remain 834 and 137. | Contract/browser |
 | REPO-04 | Search/sort apply before pagination | LOAD-01, oldest issue title | Search finds ID 1 even from initial page 1; changing sort/query resets the page and returns correctly ordered identities. | Contract/browser |
 | REPO-05 | Graph totals are not page totals | LOAD-01 | Graph/current counts use the full matching set. Non-draft age >30 days yields 90 matching PRs, IDs 18–107. | Contract/browser |
 | REPO-06 | Feedback and approvals remain independent | LOAD-01 | Human-feedback buckets = 40/40/40; approvals = 60/40/20. Approval-only PRs do not become feedback participants. | Contract/component |

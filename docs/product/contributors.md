@@ -206,7 +206,7 @@ Show contributor/company/group identity, the separate metric columns, and a link
 
 Supported metric columns are PRs authored, Authored PRs merged, PR reviewer contributions, Approval contributions, Merges performed, and Issues authored. Keep the actor identity and any relevant company label compact; do not create repository columns or automatically expand a repository subtable underneath every overview row.
 
-Compute rankings across the full selected dataset before pagination. Reuse the 100-row Previous/Next pagination approach. Display zero distinctly from unavailable data. Do not turn incomplete historical coverage into a confident low ranking.
+Compute rankings across the full selected dataset before pagination. Reuse the 50-row Previous/Next pagination approach. Display zero distinctly from unavailable data. Do not turn incomplete historical coverage into a confident low ranking.
 
 ### Zero contributions and incomplete data
 
@@ -248,13 +248,13 @@ Support exports of:
 
 Use a flat export structure for repository breakdowns: entity type/identity, repository, and metric columns. Repeat the entity identity on each repository row. Do not force 17–20 repositories into separate CSV columns. A company/group member-table export uses one row per included contributor, preserving the enclosing report's filters.
 
-Export the **full filtered result**, not just the current 100-row page. Apply the same repository selection, timeframe, grouping, included/excluded accounts, actor filters, metric definitions, and sorting as the report. Explicit exclusions remain excluded from both summary and breakdown exports.
+Export the **full filtered result**, not just the current 50-row page. Apply the same repository selection, timeframe, grouping, included/excluded accounts, actor filters, metric definitions, and sorting as the report. Explicit exclusions remain excluded from both summary and breakdown exports.
 
 Include the metric columns selected for export and enough identity information to distinguish contributors, companies, groups, and repositories. Include report context such as resolved date boundaries, timezone, company-attribution mode, active filters/exclusions, first-credit counting basis, and data as-of time so a filtered company report cannot be mistaken for its full total. Exact metadata packaging is an implementation/design detail.
 
 Export numeric metrics as numbers. Keep known zero as zero and represent unavailable metrics as blank with availability information; do not convert missing data to zero. Use the same underlying data snapshot and company/group definitions for the exported rows and totals.
 
-The 100-row limit applies to the on-screen table, not the export. Large exports must use bounded data retrieval or server-generated output rather than loading all source activity into the browser. Export summaries and record metadata only; descriptions, comment text, review bodies, and diffs remain outside scope.
+The 50-row limit applies to the on-screen table, not the export. Large exports must use bounded data retrieval or server-generated output rather than loading all source activity into the browser. Export summaries and record metadata only; descriptions, comment text, review bodies, and diffs remain outside scope.
 
 ## Suggested initial defaults
 
@@ -262,7 +262,7 @@ The 100-row limit applies to the on-screen table, not the export. Large exports 
 - Use the saved repository selection for this report, or all repositories on first use.
 - Timeframe: This year to date, with the existing agreed timeframe presets available.
 - Rank by Authored PRs merged.
-- Table: 100 rows per page, with a sortable repository breakdown table.
+- Table: 50 rows per page, with a sortable repository breakdown table.
 - Export: full filtered results as CSV, with summary and repository-breakdown options.
 - Include all actor types with an explicit filter and saved preference.
 - Current company mapping, visibly labeled.

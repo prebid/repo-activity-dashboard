@@ -18,7 +18,9 @@ test('summary PR and issue links reconcile, paginate, search the full list, and 
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
   await js.locator('[data-column="totalOpenPrs"] a').click();
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(37);
   expect(new URL(page.url()).searchParams.get('metric')).toBe('totalOpenPrs');
@@ -28,13 +30,15 @@ test('summary PR and issue links reconcile, paginate, search the full list, and 
     expect(new URL(page.url()).searchParams.getAll(key)).toContain(value);
   await js.locator('[data-column="agedPrs60"] a').click();
   await expect(page.getByText('60 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(60);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   const ages = await page.locator('tbody [data-column="ageDays"]').allTextContents();
   expect(ages.every((value) => Number(value) > 60)).toBe(true);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(10);
   await page.getByRole('button', { name: 'Author', exact: true }).click();
   await page.reload();
   expect(new URL(page.url()).searchParams.get('age')).toBe('60');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(60);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await js.locator('[data-column="openIssues"] a').click();
   await expect(page.getByText('834 matching records', { exact: true })).toBeVisible();
