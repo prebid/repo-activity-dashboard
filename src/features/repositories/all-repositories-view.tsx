@@ -108,6 +108,7 @@ export function AllRepositoriesView({
         <>
           <DataTable
             title="Current backlog"
+            searchable={false}
             rows={rows}
             columns={backlog}
             controller={backlogController}
@@ -153,6 +154,7 @@ export function AllRepositoriesView({
           />
           <DataTable
             title="Period activity"
+            searchable={false}
             rows={rows}
             columns={activity}
             controller={activityController}

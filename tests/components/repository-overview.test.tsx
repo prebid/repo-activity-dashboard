@@ -189,7 +189,7 @@ it('renders separate grouped tables with complete sample populations and pinned 
     .map((id) => document.getElementById(id)?.textContent);
   expect(headings).toEqual(['Pull requests', 'Total open PRs']);
 });
-it('keeps column visibility, sorting and search independent between the tables', async () => {
+it('keeps column visibility and sorting independent without table search', async () => {
   const user = userEvent.setup();
   render(<Preview />);
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
@@ -223,8 +223,9 @@ it('keeps column visibility, sorting and search independent between the tables',
     'aria-sort',
     'descending',
   );
-  await user.type(within(backlog).getByRole('textbox'), 'Prebid.js');
-  expect(within(backlog).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(1);
+  expect(within(backlog).queryByRole('textbox')).not.toBeInTheDocument();
+  expect(within(activity).queryByRole('textbox')).not.toBeInTheDocument();
+  expect(within(backlog).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
   expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
 });
 it('updates group spans and reveals automation partials through the controlled columns menu', async () => {

@@ -94,7 +94,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   ).toHaveCount(18);
 });
 
-test('browser history, explicit URLs, empty selections and pending searches keep their meaning', async ({
+test('browser history, explicit URLs and empty selections keep their meaning without table search', async ({
   page,
 }) => {
   await login(page);
@@ -109,14 +109,13 @@ test('browser history, explicit URLs, empty selections and pending searches keep
   );
   await page.goForward();
   await expect(page.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('this-week');
-  const search = page.getByRole('textbox', { name: 'Search Current backlog' });
-  await search.fill('Prebid.js');
+  await page.goto('/repos?backlog.q=missing&activity.q=missing');
+  await expect(page.getByPlaceholder('Find in table…')).toHaveCount(0);
+  for (const title of ['Current backlog', 'Period activity'])
+    await expect(page.getByRole('table', { name: title }).locator('tbody tr')).toHaveCount(18);
   await page.getByRole('combobox', { name: 'PR aging threshold' }).selectOption('120');
-  await expect(search).toHaveValue('Prebid.js');
-  await expect(
-    page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
-  ).toHaveCount(1);
-  expect(new URL(page.url()).searchParams.get('backlog.q')).toBe('Prebid.js');
+  expect(new URL(page.url()).searchParams.has('backlog.q')).toBe(false);
+  expect(new URL(page.url()).searchParams.has('activity.q')).toBe(false);
   await page.goto(
     '/repos?repo=repo-prebidjs&repo=repo-prebidjs&period=last-month&age=180&change=0',
   );

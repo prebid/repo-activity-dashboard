@@ -132,7 +132,12 @@ export function writeOverviewTableQueries(
   backlog: TableQuery,
   activity: TableQuery,
 ): string {
-  return writeTableQuery(writeTableQuery(search, 'backlog', backlog), 'activity', activity);
+  // The overview uses repository selection, not table search. Retire old search URLs on updates.
+  return writeTableQuery(
+    writeTableQuery(search, 'backlog', { ...backlog, search: '' }),
+    'activity',
+    { ...activity, search: '' },
+  );
 }
 
 export function changesOverviewScope(patch: Partial<OverviewSettings>): boolean {

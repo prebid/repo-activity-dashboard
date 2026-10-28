@@ -238,7 +238,7 @@ test('repository and column menus close and restore keyboard focus appropriately
   page,
 }) => {
   await login(page);
-  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  const input = page.getByRole('combobox', { name: 'PR aging threshold' });
   await input.focus();
   const original = page.url();
   const columns = page
@@ -318,24 +318,21 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
   ).toHaveAttribute('aria-sort', 'none');
 });
 
-test('rapid search and same-route navigation keep the URL and rows synchronized', async ({
+test('repository issue search and same-route navigation keep the URL and rows synchronized', async ({
   page,
 }) => {
   await login(page);
-  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  await page.goto('/repos/prebidjs?view=issues');
+  const input = page.getByRole('textbox', { name: 'Search Open issues' });
   await input.pressSequentially('z'.repeat(130), { delay: 5 });
-  await expect(page).toHaveURL(/backlog.q=z{130}/);
+  await expect(page).toHaveURL(/issues.q=z{130}/);
   await expect(input).toHaveValue('z'.repeat(130));
-  await input.fill('server');
-  await expect(
-    page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
-  ).toHaveCount(2);
-  await page.getByRole('link', { name: 'Repository activity', exact: true }).click();
-  await expect(page).toHaveURL(/\/repos$/);
+  await input.fill('Oldest sample issue');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('link', { name: 'Issues (834)', exact: true }).click();
   await expect(input).toHaveValue('');
-  await expect(
-    page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
-  ).toHaveCount(18);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByText('834 matching items')).toBeVisible();
 });
 test('sort survives a real router refresh caused by another tab signing in', async ({
   page,

@@ -29,7 +29,7 @@ The table accepts optional grouped column metadata, widths/alignment, a pinned i
 
 ## All Repositories settings
 
-Repository selection applies to both tables; the timeframe changes activity only, and aging changes the aged-PR measure only. Show change uses the prepared comparison values and preserves current-value sorting. The guarded server loader supplies a compact sample collection with one current backlog and the prepared period values; pure presentation helpers select display values without requests, historical calculations, or a reporting database.
+All Repositories has no table-local search. The searchable repository picker controls the included rows; legacy `backlog.q`/`activity.q` values cannot filter them and are dropped on scope updates or Reset. Search remains available on other record/report tables. Repository selection applies to both tables; the timeframe changes activity only, and aging changes the aged-PR measure only. Show change uses the prepared comparison values and preserves current-value sorting. The guarded server loader supplies a compact sample collection with one current backlog and the prepared period values; pure presentation helpers select display values without requests, historical calculations, or a reporting database.
 
 Explicit URL scope wins over valid account preferences, then defaults. Repeated scalar parameters use their first value. Repositories use repeated `repo` fields; a present empty value means no selection. Unknown IDs are removed without substituting all repositories. Invalid timeframe links show an explicit fallback notice. Relative presets are saved as presets, not resolved dates. Unsupported custom ranges show missing sample values while retaining backlog.
 

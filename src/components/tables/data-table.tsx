@@ -40,6 +40,7 @@ export interface DataTableProps<T> {
   visibility?: ColumnVisibility;
   itemLabel?: string;
   showSinglePageControls?: boolean;
+  searchable?: boolean;
 }
 function filterRows<T>(rows: T[], columns: DataColumn<T>[], search: string): T[] {
   return rows.filter((row) =>
@@ -62,6 +63,7 @@ export function DataTable<T extends { id: string }>({
   visibility,
   itemLabel = 'items',
   showSinglePageControls = true,
+  searchable = true,
 }: DataTableProps<T>) {
   const [exportError, setExportError] = useState('');
   const [localVisibility, setLocalVisibility] = useState<Record<string, boolean>>({});
@@ -96,8 +98,8 @@ export function DataTable<T extends { id: string }>({
   };
   const { query, update, reconcilePage } = controller;
   const matching = useMemo(
-    () => filterRows(rows, columns, query.search),
-    [rows, columns, query.search],
+    () => filterRows(rows, columns, searchable ? query.search : ''),
+    [rows, columns, query.search, searchable],
   );
   const defs = useMemo<ColumnDef<typeof features, T>[]>(
     () =>
@@ -148,7 +150,7 @@ export function DataTable<T extends { id: string }>({
     try {
       const captured = controller.flushSearch();
       const sortedBy = columns.find((column) => column.id === captured.sort);
-      const fullRows = filterRows(rows, columns, captured.search).sort((a, b) =>
+      const fullRows = filterRows(rows, columns, searchable ? captured.search : '').sort((a, b) =>
         sortedBy
           ? compareValues(
               sortedBy.value(a),
@@ -217,20 +219,22 @@ export function DataTable<T extends { id: string }>({
         </div>
         <div className={styles.controls}>
           {controls}
-          <Input
-            aria-label={'Search ' + title}
-            placeholder="Find in table…"
-            className={styles.search}
-            value={controller.draftSearch}
-            onChange={(event) => controller.setSearch(event.target.value)}
-            onBlur={() => controller.flushSearch()}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                controller.flushSearch();
-              }
-            }}
-          />
+          {searchable && (
+            <Input
+              aria-label={'Search ' + title}
+              placeholder="Find in table…"
+              className={styles.search}
+              value={controller.draftSearch}
+              onChange={(event) => controller.setSearch(event.target.value)}
+              onBlur={() => controller.flushSearch()}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  controller.flushSearch();
+                }
+              }}
+            />
+          )}
           <ColumnMenu
             columns={columns}
             visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
@@ -269,7 +273,7 @@ export function DataTable<T extends { id: string }>({
       {matching.length === 0 ? (
         <div className={styles.empty}>
           <PageState title={rows.length ? 'No matching items' : 'No items'}>
-            Adjust the selected scope or search.
+            {searchable ? 'Adjust the selected scope or search.' : 'Adjust the selected scope.'}
           </PageState>
         </div>
       ) : (
@@ -370,7 +374,7 @@ export function DataTable<T extends { id: string }>({
       )}
       <div className={styles.footer}>
         <span aria-live="polite">
-          {resultCount.toLocaleString('en-US') + ' matching ' + itemLabel}
+          {resultCount.toLocaleString('en-US') + (searchable ? ' matching ' : ' ') + itemLabel}
         </span>
         {footerNote && <span>{footerNote}</span>}
         {(showSinglePageControls || pageCount > 1) && (

@@ -61,34 +61,51 @@ describe('shared table', () => {
       'descending',
     );
   });
-  it('exports every matching row, not only the visible page', async () => {
-    const blobs: Blob[] = [];
-    vi.stubGlobal(
-      'URL',
-      class extends URL {
-        static createObjectURL(blob: Blob) {
-          blobs.push(blob);
-          return 'blob:test';
-        }
-        static revokeObjectURL() {}
-      },
-    );
-    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
-    render(<DataTable title="Export" rows={rows} columns={columns} exportName="sample.csv" />);
-    fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
-    expect(blobs).toHaveLength(1);
-    const csv = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () =>
-        typeof reader.result === 'string'
-          ? resolve(reader.result)
-          : reject(new Error('Expected CSV text'));
-      reader.onerror = reject;
-      reader.readAsText(blobs[0]);
-    });
-    expect(csv.split('\r\n')).toHaveLength(251);
-    expect(csv).toContain('Oldest keyboard issue');
-  });
+  it.each([true, false])(
+    'exports every row in the applicable scope (searchable=%s)',
+    async (searchable) => {
+      const blobs: Blob[] = [];
+      vi.stubGlobal(
+        'URL',
+        class extends URL {
+          static createObjectURL(blob: Blob) {
+            blobs.push(blob);
+            return 'blob:test';
+          }
+          static revokeObjectURL() {}
+        },
+      );
+      vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+      render(
+        <DataTable
+          title="Export"
+          rows={rows}
+          columns={columns}
+          exportName="sample.csv"
+          searchable={searchable}
+          initialQuery={{
+            search: searchable ? '' : 'no match',
+            sort: '',
+            descending: false,
+            page: 1,
+          }}
+        />,
+      );
+      fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+      expect(blobs).toHaveLength(1);
+      const csv = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () =>
+          typeof reader.result === 'string'
+            ? resolve(reader.result)
+            : reject(new Error('Expected CSV text'));
+        reader.onerror = reject;
+        reader.readAsText(blobs[0]);
+      });
+      expect(csv.split('\r\n')).toHaveLength(251);
+      expect(csv).toContain('Oldest keyboard issue');
+    },
+  );
   it('renders a meaningful empty state', () => {
     render(<DataTable title="Empty" rows={[]} columns={columns} />);
     expect(screen.getByText('No items')).toBeVisible();

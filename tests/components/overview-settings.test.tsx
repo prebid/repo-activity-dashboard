@@ -254,7 +254,7 @@ it('reset clears only this page, including table sorts and drafts, and retains r
   expect(result.current.backlog.query).toMatchObject({
     sort: 'total',
     descending: true,
-    search: 'query',
+    search: '',
   });
 });
 it('does not write history merely for flushing an untouched default sort', () => {
