@@ -31,6 +31,7 @@ Settle layouts and interactions across the pages with prepared sample data befor
 
 ## Maintained implementation references
 
+- [All Repositories implementation plan](../implementation/all-repositories-plan.md): sequenced frontend work, component/state ownership, prepared samples, and acceptance checks.
 - [Foundation contracts](../implementation/foundation-contracts.md): component ownership, typed display inputs, table state, authentication boundaries, quality checks and visual-design readiness.
 - [Account operations](../implementation/account-operations.md): configuration, provisioning, migration, recovery and release prerequisites for the retained account system.
 - [Tracked repository catalog](../../design/mocks/repository-catalog.ts): the user-supplied list of 18 repositories and its metadata provenance.

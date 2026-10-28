@@ -4,7 +4,30 @@ These are invented, ready-to-display values. They allow the frontend to be desig
 
 The exception is [repository-catalog.ts](repository-catalog.ts): it contains real metadata for the complete **18-repository list supplied by the user**, verified against GitHub on 2026-10-24. This path now re-exports the application-owned catalog from src/config/repositories.ts, which drives mock navigation and reporting views. Existing IDs and route slugs are preserved. The [verification snapshot](../../docs/implementation/evidence/2026-10-24/repository-catalog-metadata.json) records the identities and branches. Activity counts in the other files are still synthetic, and their fictional repository IDs must not be silently joined to these real entries.
 
-## First sample: All Repos
+## Runtime sample for All Repositories
+
+Step 1 now provides the typed sample entry point [repositoryOverviewSample](../../src/mocks/repository-overview.ts), backed by [backlog values](../../src/mocks/overview-backlog.ts) and [period values](../../src/mocks/overview-activity.ts). It uses the 18 real catalog identities with invented metrics and a fixed reporting clock of `2026-10-24T12:00:00.000Z`. It is a display sample, not a database adapter or activity-history calculator.
+
+The [display models](../../src/models/repository-overview.ts) separate current backlog, selected-period activity, comparison values, and complete/partial/missing/not-applicable measurements. Runtime schemas reject invalid counts and missing metric keys. [Period selection](../../src/lib/presentation/reporting-period.ts) resolves UTC dates; [drilldown helpers](../../src/lib/presentation/repository-drilldown.ts) validate and serialize destination context. These helpers do not import a table library, React, authentication, or sample data.
+
+| Future control or display | Prepared coverage |
+| --- | --- |
+| Repository selection | All 18, an explicit empty selection, or a subset; duplicate IDs are collapsed, unknown IDs rejected. |
+| Aging | 30/60/90/120/180/360-day values; default 30. Prebid.js values are 90/60/30/0/0/0. |
+| Period presets | All seven agreed presets, exact UTC ranges, and separate comparison values. Current backlog stays identical. |
+| Custom range | October 6 through October 8, 2026 has prepared values. Other valid ranges return explicit missing-sample activity, preserving backlog. |
+| Show change | Positive, negative, zero-baseline, unchanged and missing-baseline examples. Partial or missing operands cannot establish an exact difference. |
+| Feedback and approvals | Independent 0/1/2 distributions, retained above-two exceptions, agent/bot coverage, and latest-actor categories including other/unknown. |
+| Durations | Median days plus sample size; no merged PRs means not applicable, not zero days. |
+| Missing and partial data | Agent Skills current approvals missing; Cache Java partial agent coverage and issue closures; GitHub Activity DB comparison missing. |
+| Table scale and text | 834 issues for Prebid.js, 12,345 for Documentation, quiet/empty rows, and the actual long catalog display names. |
+| Navigation contracts | Current/period metrics, age thresholds, primary-branch merges, and safe return context round-trip through typed descriptors. |
+
+Repeated calls return independent serializable values. Lightweight sizing of prepared activity examples supplies variation between repositories; those factors are not estimates of real activity. Tests pin handwritten examples and check consistency across scopes. Yearly author counts are prepared separately, not summed from monthly unique counts.
+
+The existing starter screen and its older sample remain connected until the table-composition step. The new drilldown descriptors are not routed yet, and this step does not claim count-to-record reconciliation or browser interaction coverage. Supporting metadata rows and receiving-route tests belong to step 4. The old reporting layout is not a design reference for the new tables; retain only the approved Prebid authentication styling and shared behavior.
+
+## Earlier display reference
 
 [all-repositories.json](all-repositories.json) supplies 20 repository rows with:
 
@@ -26,7 +49,7 @@ All values are synthetic, including company/project-like names. Do not label thi
 
 ## How to use the data
 
-Load this file at the page/composition level and pass typed values to table components. Application display types live in `src/models/reporting.ts`. Keep numbers out of JSX. The sample file is allowed to evolve as the design becomes concrete; it does not freeze an HTTP API.
+The JSON below remains an earlier display reference, separate from the current 18-repository runtime sample. New table work should use the runtime entry point above at the page/composition boundary and pass typed values to components. Keep numbers out of JSX. These display types do not freeze an HTTP API.
 
 Display numeric zero as `0`. Display `null` as a dash, with the corresponding availability note when needed. Compute an absolute change only when both period values are known. Format durations from the supplied day values. Keep the current backlog independent of the selected activity period.
 
