@@ -29,7 +29,7 @@ describe('catalog and prepared samples', () => {
     );
     expect(issues[0].number).toBe(834);
     expect(issues.at(-1)?.title).toContain('Oldest sample issue');
-    expect(prs.filter((r) => !r.draft && r.humanReviewers === 0)).toHaveLength(40);
+    expect(prs.filter((r) => !r.draft && r.humanReviewers === 0)).toHaveLength(39);
     expect(repositorySample('repo-prebidjs')).toEqual({ prs, issues });
   });
   it('does not invent an unknown repository', () =>

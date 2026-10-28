@@ -1,0 +1,92 @@
+.back,
+.navigation a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 13px;
+}
+.back:focus-visible,
+.navigation a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.header h1 {
+  font-size: clamp(25px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.header p {
+  overflow-wrap: anywhere;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  margin-top: 8px;
+}
+.header .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 10px;
+  font-weight: 600;
+}
+.header .snapshot {
+  font-size: 11px;
+  text-align: right;
+  line-height: 1.7;
+}
+.scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 8px;
+  font-size: 12px;
+}
+.scope > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.navigation {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.notice {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.recordLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.recordLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.labels span {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 11px;
+}
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header .snapshot {
+    text-align: left;
+  }
+}

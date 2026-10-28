@@ -1,0 +1,196 @@
+.surface {
+  --background: var(--prebid-background);
+  --foreground: var(--prebid-ink);
+  --card: var(--prebid-card);
+  --card-foreground: var(--prebid-ink);
+  --popover: var(--prebid-card);
+  --popover-foreground: var(--prebid-ink);
+  --primary: var(--prebid-ink);
+  --primary-foreground: var(--prebid-card);
+  --secondary: var(--prebid-secondary);
+  --secondary-foreground: var(--prebid-ink);
+  --muted: var(--prebid-secondary);
+  --muted-foreground: var(--prebid-muted);
+  --accent: var(--prebid-hover);
+  --accent-foreground: var(--prebid-ink);
+  --border: var(--prebid-line);
+  --input: var(--prebid-input-border);
+  --ring: var(--prebid-ring);
+  min-height: 100svh;
+  color: var(--foreground);
+  background: var(--background);
+}
+.header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+.headerInner {
+  max-width: 1480px;
+  margin: auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  min-height: 76px;
+}
+.brand {
+  flex-shrink: 0;
+  padding: 8px 0;
+  border-radius: 3px;
+}
+.navigation {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  align-self: stretch;
+}
+.navItem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: auto;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 0;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+.navItem:hover {
+  color: var(--foreground);
+  background: var(--accent);
+}
+.navItem[data-active='true'],
+.navItem[aria-current='page'] {
+  color: var(--foreground);
+}
+.navItem[data-active='true']::after,
+.navItem[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--prebid-accent);
+}
+.navItem:focus-visible,
+.brand:focus-visible,
+.skipLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.account {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.accountName {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.repoMenu {
+  width: min(320px, calc(100vw - 24px));
+  padding: 6px;
+}
+.source {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  max-width: 1480px;
+  margin: auto;
+  padding: 12px 32px 0;
+  color: var(--muted-foreground);
+  font-size: 11px;
+}
+.sampleDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--prebid-accent);
+}
+.main {
+  max-width: 1480px;
+  margin: auto;
+  padding: 24px 32px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.skipLink {
+  position: absolute;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 8px;
+  background: var(--card);
+  transform: translateY(-150%);
+}
+.skipLink:focus {
+  transform: none;
+}
+@media (max-width: 1000px) {
+  .headerInner {
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 16px 24px 0;
+  }
+  .navigation {
+    order: 3;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 8px;
+  }
+  .accountName {
+    max-width: 110px;
+  }
+  .main {
+    padding: 20px 24px 40px;
+  }
+  .source {
+    padding-right: 24px;
+  }
+}
+@media (max-width: 600px) {
+  .headerInner {
+    padding: 12px 16px 0;
+  }
+  .brand img {
+    width: 114px;
+    height: auto;
+  }
+  .account {
+    gap: 8px;
+  }
+  .accountName {
+    display: none;
+  }
+  .navigation {
+    gap: 0;
+    overflow-x: auto;
+  }
+  .navItem {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+  .main {
+    padding: 18px 16px 32px;
+    gap: 20px;
+  }
+  .source {
+    padding: 10px 16px 0;
+  }
+  .sourceDetail {
+    display: none;
+  }
+}

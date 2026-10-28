@@ -23,13 +23,13 @@ Group related columns so users can show the information they need and save their
 
 | Group | Columns | Definition |
 | --- | --- | --- |
-| PR backlog | Draft PRs; Open non-draft PRs; Total open PRs | Current open PRs. Total open PRs equals drafts plus non-drafts. |
-| Issue backlog | Open issues | Current open issues, excluding PRs. |
-| Aging | Open >N days | Open non-draft PRs whose time since creation exceeds the chosen threshold. |
-| Human review participation | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
+| PR backlog | Drafts; Open; Total PRs | Current backlog only. Open excludes drafts; Total PRs equals Drafts plus Open. |
+| Issue backlog | Open | Current open issues, excluding PRs. |
+| Aging | One Open >N days column per selected threshold | Open non-draft PRs whose time since creation exceeds that column’s threshold. |
+| Human reviewers | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
 | Current human approvals | 0 approvals; 1 approval; 2 approvals | Number of open non-draft PRs with exactly that many distinct current human approvers. |
-| Agent coverage | PRs with Prebid agent feedback | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
-| Bot coverage | PRs with bot feedback | Open non-draft PRs with qualifying feedback from a GitHub-identified bot, excluding mapped Prebid agents. |
+| Agent coverage | PRs with Prebid agent reviewers | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
+| Bot coverage | PRs with bot reviewers | Open non-draft PRs with qualifying feedback from a GitHub-identified bot, excluding mapped Prebid agents. |
 | Latest activity | Last: Prebid agent; Last: bot; Last: Prebid reviewer; Last: contributor | Number of open non-draft PRs in each latest-activity category. |
 
 All values are observed counts. There are no configured reviewer targets, first/second-review waiting columns, review-request counts, inferred approval deficits, or merge-readiness decisions.
@@ -37,12 +37,16 @@ All values are observed counts. There are no configured reviewer targets, first/
 ### Aging
 
 - Threshold options: 30, 60, 90, 120, 180, and 360 days.
-- Default: 30 days.
-- Save the selected threshold per account.
-- Include the threshold in the column heading.
+- Default selection: 30 days.
+- Use a checkbox menu, like Columns, to add or remove any of the six age columns. Show selected thresholds in ascending order.
+- Selecting none removes the entire PR age group from the table. The menu remains available to add columns again.
+- Save the selected thresholds per account. Only the dedicated PR age selector manages these columns; they are omitted from the general Columns menu.
+- Include each threshold in its column heading. These are cumulative counts, not disjoint age buckets.
 - This is age since creation, not time since last activity.
 
-### Human review participation
+### Human reviewers
+
+User-facing reporting terminology is reviewers, reviewer coverage, and reviewer contributions. Existing technical references to feedback describe the qualifying actions below; this wording change does not alter the metrics or their counting units.
 
 Qualifying feedback includes a PR conversation comment, an inline comment, a submitted comment review, or a submitted request for changes. Count each non-author human account once per PR across all these feedback types. Unsubmitted feedback does not qualify.
 
@@ -113,11 +117,11 @@ Latest activity describes who acted most recently. It does not infer whose turn 
 | PR activity | PRs merged | PRs merged into the repository's configured primary branch (`main` or `master`) during the period, including PRs created earlier. |
 | Issue activity | Issues opened | Issues created during the period, excluding PRs. |
 | Issue activity | Issues closed | Issues with a closure during the period, regardless of closure reason. Count each issue once within the period; reopening does not erase the fact it was closed. |
-| Authorship | Unique PR authors | Distinct accounts that created PRs in this repository during the period. Includes human, bot, and agent authors. |
-| Authorship | Unique issue authors | Distinct accounts that created issues in this repository during the period. Includes human, bot, and agent authors. |
-| Agent contributions | Prebid agent feedback contributions | One credit per mapped agent account and PR, assigned to its first qualifying feedback date. Repeated actions never create new credits in later periods. |
+| Unique authors | PRs | Distinct accounts that created PRs in this repository during the period. Includes human, bot, and agent authors. |
+| Unique authors | Issues | Distinct accounts that created issues in this repository during the period. Includes human, bot, and agent authors. |
+| Agent contributions | Prebid agent reviewer contributions | One credit per mapped agent account and PR, assigned to its first qualifying feedback date. Repeated actions never create new credits in later periods. |
 | Agent contributions | Prebid agent approval contributions | One credit per mapped agent account and PR, assigned to its first approval date. |
-| Bot contributions | Bot feedback contributions | One credit per other GitHub-identified bot account and PR, assigned to its first qualifying feedback date. |
+| Bot contributions | Bot reviewer contributions | One credit per other GitHub-identified bot account and PR, assigned to its first qualifying feedback date. |
 | Bot contributions | Bot approval contributions | One credit per other GitHub-identified bot account and PR, assigned to its first approval date. |
 | Duration | Median time to merge | Median creation-to-merge duration among PRs merged into the repository's configured primary branch (`main` or `master`) during the period. |
 
@@ -145,40 +149,32 @@ The median limits the effect of a few unusually old merged PRs. It excludes stil
 
 The activity table may expose optional counts of primary-branch PR merges by their human, Prebid-agent, and bot feedback/approval state at merge time. Direct pushes outside PR merges are counted separately. These historical states must not be inferred from current approvals or missing data. See [Merged PR review status and direct pushes](merge-review-status.md) for the proposed shared definitions and placement.
 
-## Timeframes and change display
+## Activity periods
 
-Presets:
+Choose one or two distinct periods. Each can use one of these presets:
 
 - This week; last week.
 - This month; last month.
 - This year to date.
-- Last year to the same date.
+- Last year to date (through the corresponding date last year).
 - Last full year.
-- Custom date range.
 
-Defaults: Monday-start weeks and a shared UTC reporting timezone. Display the exact selected dates and reporting timezone. Current periods run through the reporting as-of time. Historical selections never change the current-backlog table.
+Custom ranges have their own action outside the preset dropdown. Either or both periods can be custom, and each range is edited independently. Exact duplicate effective ranges are rejected. Overlapping but different ranges are allowed. The default is one period, This month; a second period is added only after the user chooses it.
 
-Offer an optional, saved **Show change** setting within the activity table:
+Defaults remain Monday-start weeks and a shared UTC reporting timezone. Show each period's exact dates. Current selections stop at the reporting as-of time. Changing activity periods never changes current backlog.
 
-- Keep the selected-period value primary; show its absolute difference as secondary text.
-- Completed periods compare with the preceding equivalent period.
-- Incomplete week/month periods compare with an equivalent elapsed portion of the preceding period.
-- Year-to-date compares with the matching calendar range in the preceding year.
-- Custom ranges compare with the immediately preceding equal-duration range by default.
-- Show exact comparison dates and the prior value in supporting detail.
-- Use neutral directional indicators; increased activity is not inherently good or bad.
-- A zero baseline is valid for an absolute difference. Do not display an infinite percentage.
-- Missing comparison data displays a dash. Historical draft comparisons are out of scope.
+With two periods, show a three-row group for each repository: the first period, the second period, then a compact Difference row with a stronger separator beneath it. Show the repository name once and identify the period rows by preset name or custom dates, without repeated numbered badges. Each row retains the repository identity for assistive technology and exports. Keep each group together when sorting and paging; comparison pages contain at most 99 rows (33 repositories). Numeric sorts rank by Period 1; Swap periods changes which selected period supplies that rank. Values remain the actual values of each period. Do not sum unique authors or other measures across periods.
 
-Optional PR/issue backlog-change columns may show the total open count at period end minus the total open count at period start when trustworthy history exists. Do not substitute opened-minus-closed, because reopenings and repeated transitions can differ from those distinct-item counts. This does not require historical draft breakdowns.
+The Difference row appears automatically when a second period is selected; there is no Show change control. Calculate Period 1 minus Period 2 for each metric, using neutral signed values (and days for merge duration), with no judgment that an increase is good or bad. Show a dash when either operand is missing or partial. Missing sample values display dashes only for the affected period and its difference; a missing second range must not hide the first period or current backlog. A third period is outside the current scope.
 
 ## Filtering, sorting, preferences, and drill-down
 
 - Searchable repository multi-select with select-all and clear-selection actions.
 - The repository selection applies to both tables.
 - Every numeric column supports ascending and descending sorting.
+- Default backlog ordering is Total PRs, highest first; use Open when Total PRs is hidden. Default activity ordering is PRs Opened, highest first; use PRs Merged when Opened is hidden. If neither preferred metric is visible, use Repository A–Z. Preserve a chosen or saved sort while its column remains visible. Hidden sort columns use the same fallback rules. These are alternative default sort columns, not additional tie-break metrics.
 - Preserve separate sort settings for the two tables.
-- Save selected repositories, visible columns/groups, sorting, timeframe, aging threshold, and Show change preference per account.
+- Save selected repositories, visible columns/groups, sorting, ordered activity periods/custom ranges and selected aging thresholds per account.
 - Save relative timeframe choices as relative choices: This month remains This month on a later visit.
 - Use a single top-level Repos navigation item with an expandable list containing All Repos and the individual repository links.
 - Selecting a repository name opens its repository page in the default Current open scope: the first page of open PRs including drafts and open issues, newest-created first by default, with at most 100 rows per list. Older matching records remain accessible through pagination. Selecting a metric count preserves that metric's specific filters with the same page-size limit; summary counts continue to cover the full matching set.

@@ -1,98 +1,200 @@
 'use client';
-import Link from 'next/link';
-import { DataTable, type DataColumn } from '@/components/tables/data-table';
-import { MetricValue } from '@/components/metrics/metric-value';
-import type { RepositorySummaryRow as SummaryRow } from '@/models/reporting';
+import { useMemo } from 'react';
+import { Info, RotateCcw } from 'lucide-react';
+import { DataTable } from '@/components/tables/data-table';
+import { ColumnMenu } from '@/components/tables/column-menu';
+import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
+import { PageState } from '@/components/feedback/page-state';
+import { Button } from '@/components/ui/button';
 import type { TableController } from '@/lib/presentation/table-controller';
-export const repositorySummaryColumns: DataColumn<SummaryRow>[] = [
-  {
-    id: 'name',
-    label: 'Repository',
-    value: (r) => r.name,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="font-medium text-primary underline underline-offset-4"
-        href={'/repos/' + r.slug}
-      >
-        {r.name}
-      </Link>
-    ),
-  },
-  {
-    id: 'openPrs',
-    label: 'Total open PRs',
-    value: (r) => r.openPrs,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=prs'}
-      >
-        <MetricValue value={r.openPrs} />
-      </Link>
-    ),
-  },
-  { id: 'draftPrs', label: 'Draft PRs', value: (r) => r.draftPrs },
-  { id: 'ready', label: 'Non-draft PRs', value: (r) => r.openPrs - r.draftPrs },
-  {
-    id: 'openIssues',
-    label: 'Open issues',
-    value: (r) => r.openIssues,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=issues'}
-      >
-        <MetricValue value={r.openIssues} />
-      </Link>
-    ),
-  },
-  {
-    id: 'agedPrs',
-    label: 'PRs older than 60 days',
-    value: (r) => r.agedPrs,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={'/repos/' + r.slug + '?view=prs&age=60'}
-      >
-        {r.agedPrs}
-      </Link>
-    ),
-  },
-  {
-    id: 'approvals',
-    label: 'PRs with human approval',
-    value: (r) => r.approvals,
-    cell: (r) => <MetricValue value={r.approvals} />,
-  },
-];
+import {
+  agingThresholds,
+  type OverviewRepository,
+  type RepositoryOverview,
+} from '@/models/repository-overview';
+import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
+import { formatAsOf } from '@/lib/presentation/format';
+import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
+import { RepositorySelector } from './repository-selector';
+import { ActivityPeriodControls } from './activity-period-controls';
+import { activityTableRows } from '@/lib/presentation/overview-periods';
+import styles from './overview.module.css';
+import controls from './overview-controls.module.css';
+
 export function AllRepositoriesView({
-  rows,
-  controller,
-  asOfLabel,
+  data,
+  secondaryData,
+  repositories,
+  settings,
+  backlogController,
+  activityController,
+  returnTo = '/repos',
 }: {
-  rows: SummaryRow[];
-  controller: TableController;
-  asOfLabel: string;
+  data: RepositoryOverview;
+  secondaryData?: RepositoryOverview;
+  repositories: readonly OverviewRepository[];
+  settings: OverviewSettingsControl;
+  backlogController: TableController;
+  activityController: TableController;
+  returnTo?: string;
 }) {
+  const { ageThresholds } = settings.value;
+  const backlog = useMemo(() => backlogColumns(returnTo), [returnTo]);
+  const activity = useMemo(() => activityColumns(returnTo), [returnTo]);
+  const backlogVisibility = useMemo(
+    () =>
+      columnVisibilityFromIds(backlog, [
+        ...settings.value.backlogColumns,
+        ...ageThresholds.map(agingColumnId),
+      ]),
+    [backlog, settings.value.backlogColumns, ageThresholds],
+  );
+  const activityVisibility = useMemo(
+    () => columnVisibilityFromIds(activity, settings.value.activityColumns),
+    [activity, settings.value.activityColumns],
+  );
+  const ageColumns = useMemo(
+    () => backlog.filter((column) => agingThresholdForColumn(column.id) !== undefined),
+    [backlog],
+  );
+  const otherBacklogColumns = useMemo(
+    () => backlog.filter((column) => agingThresholdForColumn(column.id) === undefined),
+    [backlog],
+  );
+  function changeBacklogVisibility(value: Record<string, boolean>) {
+    const selected = agingThresholds.filter((days) => value[agingColumnId(days)] !== false);
+    const patch: Partial<OverviewSettings> = {
+      backlogColumns: backlog
+        .filter(
+          (column) =>
+            agingThresholdForColumn(column.id) === undefined && value[column.id] !== false,
+        )
+        .map((column) => column.id),
+    };
+    if (selected.join(',') !== ageThresholds.join(',')) patch.ageThresholds = selected;
+    settings.update(patch);
+  }
+  const rows = useMemo(
+    () =>
+      data.rows
+        .map((row) => ({ ...row, id: row.repository.id }))
+        .sort((a, b) => a.repository.name.localeCompare(b.repository.name, 'en')),
+    [data.rows],
+  );
+  const activityRows = useMemo(() => activityTableRows(data, secondaryData), [data, secondaryData]);
   return (
     <>
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">All repositories</h1>
-        <p className="mt-2 text-muted-foreground">
-          Current backlog · Prepared sample as of {asOfLabel}
+      <div className={styles.pageHeader}>
+        <div>
+          <p className={styles.eyebrow}>Repository overview</p>
+          <h1 className={styles.title}>All repositories</h1>
+          <p className={styles.subtitle}>
+            Current work and recent activity, across {data.rows.length} repositories.
+          </p>
+        </div>
+        <p className={styles.asOf}>
+          <strong>Reporting snapshot</strong>
+          {formatAsOf(data.asOf)}
         </p>
       </div>
-      <DataTable
-        title="Current backlog"
-        rows={rows}
-        columns={repositorySummaryColumns}
-        controller={controller}
-      />
+      <div className={controls.bar} aria-label="Repository view settings" role="region">
+        <RepositorySelector
+          repositories={repositories}
+          selected={settings.value.repositoryIds}
+          onApply={(repositoryIds) => settings.update({ repositoryIds })}
+        />
+        <Button variant="ghost" className={controls.control} onClick={settings.reset}>
+          <RotateCcw size={14} aria-hidden="true" />
+          Reset view
+        </Button>
+        <p className={controls.preferenceNote} role="status">
+          {settings.storageAvailable
+            ? 'Settings are saved per account in this browser.'
+            : 'Settings apply for this visit only.'}
+        </p>
+      </div>
+      {settings.notice && (
+        <p role="status" className={controls.notice}>
+          {settings.notice}
+        </p>
+      )}
+      {!rows.length ? (
+        <PageState title="No repositories selected">
+          Choose repositories above to show their backlog and activity.
+        </PageState>
+      ) : (
+        <>
+          <DataTable
+            title="Current backlog"
+            searchable={false}
+            rows={rows}
+            columns={backlog}
+            columnMenuColumns={otherBacklogColumns}
+            controller={backlogController}
+            itemLabel="repositories"
+            showSinglePageControls={false}
+            controls={
+              <ColumnMenu
+                columns={ageColumns}
+                visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
+                label="PR age"
+                title="PR age thresholds"
+                allowEmpty
+              />
+            }
+            description={
+              <span className={styles.scope}>
+                <span className={styles.scopeLabel}>Open now</span>
+                <span>· Age, reviews and approvals exclude drafts</span>
+              </span>
+            }
+            visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
+            footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
+          />
+          <DataTable
+            title="Period activity"
+            searchable={false}
+            rows={activityRows}
+            columns={activity}
+            controller={activityController}
+            itemLabel={secondaryData ? 'comparison rows' : 'repositories'}
+            pageSize={secondaryData ? 99 : 100}
+            showSinglePageControls={false}
+            rowClassName={(row) => (row.kind === 'difference' ? styles.differenceRow : undefined)}
+            description={
+              data.rows.length + ' repositories · ' + (secondaryData ? '2 periods' : '1 period')
+            }
+            headerContent={
+              <ActivityPeriodControls
+                primary={data}
+                secondary={secondaryData}
+                onChange={(periods) => settings.update({ periods })}
+              />
+            }
+            visibility={{
+              value: activityVisibility,
+              onChange: (value) =>
+                settings.update({
+                  activityColumns: activity
+                    .filter((column) => value[column.id] !== false)
+                    .map((column) => column.id),
+                }),
+            }}
+            footerNote={
+              secondaryData
+                ? 'Difference = Period 1 − Period 2. Numeric columns sort by Period 1; swap periods to rank by Period 2.'
+                : 'Merges and merge time use each repository’s primary branch.'
+            }
+          />
+          <p className={styles.legend}>
+            <Info size={14} aria-hidden="true" />
+            <span>
+              — Not available or not applicable. * Partial data. Human reviewers, current approvals,
+              and agent/bot activity are measured separately.
+            </span>
+          </p>
+        </>
+      )}
     </>
   );
 }

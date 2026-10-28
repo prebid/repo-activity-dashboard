@@ -79,6 +79,42 @@ it('runs the packaged production artifact with current sessions and protected ac
       ['/companies', 'Example Company A'],
       ['/repos/prebidjs', 'Sample PR 137: Update integration behavior'],
       ['/repos/prebidjs?view=issues', 'Sample issue 834: Improve documentation'],
+      [
+        '/repos/prebidjs?scope=current&metric=totalOpenPrs',
+        'Sample PR 137: Update integration behavior',
+      ],
+      [
+        '/repos/prebidjs?scope=current&metric=openIssues',
+        'Sample issue 834: Improve documentation',
+      ],
+      [
+        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'PRs by sample-author-2',
+      ],
+      [
+        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'Issues by sample-author-2',
+      ],
+      [
+        '/repos/prebidjs/authors/sample-author-3%5Bbot%5D?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'PRs by sample-author-3[bot]',
+      ],
+      [
+        '/repos/prebidjs/authors/sample-author-3%5Bbot%5D?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'Issues by sample-author-3[bot]',
+      ],
+      [
+        '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'sample-author-24',
+      ],
+      [
+        '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'sample-prebid-agent-b',
+      ],
+      [
+        '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'Merged PRs and durations',
+      ],
     ]) {
       const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
       expect(permitted.status).toBe(200);

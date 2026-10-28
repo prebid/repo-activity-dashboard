@@ -9,7 +9,7 @@ export const prColumns: DataColumn<PullRequestRow>[] = [
   {
     id: 'title',
     label: 'Title',
-    value: (r) => r.title,
+    value: (r) => r.title + (r.draft ? ' (Draft)' : ''),
     cell: (r) => (
       <Link
         prefetch={false}
@@ -62,6 +62,7 @@ export function RepositoryView({
   view,
   controller,
   age,
+  returnTo = '/repos',
 }: {
   name: string;
   slug: string;
@@ -70,11 +71,12 @@ export function RepositoryView({
   view: 'prs' | 'issues';
   controller: TableController;
   age: number | null;
+  returnTo?: string;
 }) {
   const visiblePrs = age === null ? prs : prs.filter((r) => !r.draft && r.ageDays > age);
   return (
     <>
-      <Link prefetch={false} href="/repos" className="text-sm underline underline-offset-4">
+      <Link prefetch={false} href={returnTo} className="text-sm underline underline-offset-4">
         All repositories
       </Link>
       <div>
@@ -88,7 +90,12 @@ export function RepositoryView({
           prefetch={false}
           aria-current={view === 'prs' ? 'page' : undefined}
           className="underline underline-offset-4"
-          href={'/repos/' + slug + '?view=prs'}
+          href={
+            '/repos/' +
+            slug +
+            '?view=prs' +
+            (returnTo === '/repos' ? '' : '&returnTo=' + encodeURIComponent(returnTo))
+          }
         >
           Pull requests ({prs.length})
         </Link>
@@ -96,7 +103,12 @@ export function RepositoryView({
           prefetch={false}
           aria-current={view === 'issues' ? 'page' : undefined}
           className="underline underline-offset-4"
-          href={'/repos/' + slug + '?view=issues'}
+          href={
+            '/repos/' +
+            slug +
+            '?view=issues' +
+            (returnTo === '/repos' ? '' : '&returnTo=' + encodeURIComponent(returnTo))
+          }
         >
           Issues ({issues.length})
         </Link>

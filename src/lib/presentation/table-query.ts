@@ -57,3 +57,36 @@ export function writeTableQuery(search: string, key: string, patch: Partial<Tabl
 export function preferenceKey(viewerId: string, tableId: string): string {
   return 'dashboard:v1:' + encodeURIComponent(viewerId) + ':' + encodeURIComponent(tableId);
 }
+
+export function tableLocationStamp(
+  pathname: string,
+  search: string,
+  peerKeys: readonly string[],
+): string {
+  const params = new URLSearchParams(search);
+  for (const key of peerKeys)
+    for (const field of ['q', 'sort', 'dir', 'page']) params.delete(key + '.' + field);
+  return pathname + '?' + params.toString();
+}
+
+export function readSavedTableSort(
+  raw: string | null,
+  allowed: readonly string[],
+): Pick<TableQuery, 'sort' | 'descending'> | null {
+  try {
+    const value: unknown = JSON.parse(raw ?? 'null');
+    if (
+      value &&
+      typeof value === 'object' &&
+      'sort' in value &&
+      typeof value.sort === 'string' &&
+      allowed.includes(value.sort) &&
+      'descending' in value &&
+      typeof value.descending === 'boolean'
+    )
+      return { sort: value.sort, descending: value.descending };
+  } catch {
+    /* Corrupt preferences are not a storage outage. */
+  }
+  return null;
+}

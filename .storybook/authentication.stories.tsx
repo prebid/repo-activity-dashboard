@@ -9,11 +9,9 @@ const meta = {
   parameters: { layout: 'fullscreen', nextjs: { appDirectory: true } },
   decorators: [
     (Story) => (
-      <div className="-m-6">
-        <AuthLayout>
-          <Story />
-        </AuthLayout>
-      </div>
+      <AuthLayout>
+        <Story />
+      </AuthLayout>
     ),
   ],
 } satisfies Meta;

@@ -134,16 +134,20 @@ test('login return preserves issue context, pagination and full-result search', 
     page.getByRole('link', { name: 'Oldest sample issue: keyboard navigation' }),
   ).toHaveAttribute('href', /example-fixtures.*issues\/1$/);
 });
-test('catalog, summary drill-down and independent feedback/approval values', async ({
+test('catalog links retain current-list pagination and independent feedback/approval values', async ({
   page,
 }, testInfo) => {
   await login(page);
-  await expect(page.getByRole('table').getByRole('row')).toHaveCount(19);
+  await expect(
+    page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
+  ).toHaveCount(18);
   await page.screenshot({ path: testInfo.outputPath('all-repos.png'), fullPage: true });
   const row = page
+    .getByRole('table', { name: 'Current backlog' })
     .getByRole('row')
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
-  await row.getByRole('link', { name: '137', exact: true }).click();
+  await expect(row.locator('[data-column="totalOpenPrs"]')).toHaveText('137');
+  await row.getByRole('link', { name: 'Prebid.js', exact: true }).click();
   await expect(page.getByText('137 matching items')).toBeVisible();
   const reviewed = page
     .getByRole('row')
@@ -234,20 +238,22 @@ test('repository and column menus close and restore keyboard focus appropriately
   page,
 }) => {
   await login(page);
-  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  const input = page.getByRole('button', { name: 'PR age', exact: true });
   await input.focus();
   const original = page.url();
-  const columns = page.getByRole('button', { name: 'Columns', exact: true });
+  const columns = page
+    .getByRole('region', { name: 'Current backlog', exact: true })
+    .getByRole('button', { name: 'Columns', exact: true });
   await columns.click();
   expect(page.url()).toBe(original);
-  const draft = page.getByRole('menuitemcheckbox', { name: 'Draft PRs', exact: true });
+  const draft = page.getByRole('menuitemcheckbox', { name: 'Drafts', exact: true });
   await draft.click();
   await expect(draft).toHaveAttribute('aria-checked', 'false');
   await expect(page.getByRole('menu')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(columns).toBeFocused();
-  await expect(page.getByRole('columnheader', { name: 'Draft PRs', exact: true })).toHaveCount(0);
-  const repos = page.getByRole('button', { name: 'Repos', exact: true });
+  await expect(page.getByRole('columnheader', { name: 'Drafts', exact: true })).toHaveCount(0);
+  const repos = page.getByRole('button', { name: 'Repositories', exact: true });
   await repos.click();
   await page.getByRole('menuitem', { name: 'Prebid.js', exact: true }).click();
   await expect(page).toHaveURL(/\/repos\/prebidjs$/);
@@ -280,6 +286,7 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
   expect(csv.split('\r\n')).toHaveLength(4);
   expect(csv).toContain('"Alice"');
   expect(csv).toContain('"Approval contributions"');
+  expect(csv).toContain('"Reviewer contributions"');
   const response = await page.request.post('/api/auth/setup', {
     data: { email: 'unused@example.test', password: 'unused' },
   });
@@ -288,51 +295,52 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
 
 test('sort defaults are per account and explicit URLs take precedence', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
-  await page.getByRole('button', { name: 'Total open PRs ↑', exact: true }).click();
+  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await page.goto('/repos');
   await expect(page).toHaveURL(/\/repos$/); // Restored defaults stay in memory until an action writes the URL.
-  await expect(page.getByRole('columnheader', { name: 'Total open PRs ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
-  await page.goto('/repos?repos.sort=name&repos.dir=asc');
-  await expect(page.getByRole('columnheader', { name: 'Repository ↑' })).toHaveAttribute(
+  await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
+  await page.goto('/repos?backlog.sort=name&backlog.dir=asc');
+  await expect(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('columnheader', { name: 'Repository ↑' }),
+  ).toHaveAttribute('aria-sort', 'ascending');
   await page.getByRole('button', { name: 'Sign out' }).click();
   await expect(page).toHaveURL(/auth\/login/);
   await page.getByLabel('Email', { exact: true }).fill('bob@example.test');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
   await expect(
-    page.getByRole('columnheader', { name: 'Total open PRs', exact: true }),
-  ).toHaveAttribute('aria-sort', 'none');
+    page.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
 });
 
-test('rapid search and same-route navigation keep the URL and rows synchronized', async ({
+test('repository issue search and same-route navigation keep the URL and rows synchronized', async ({
   page,
 }) => {
   await login(page);
-  const input = page.getByRole('textbox', { name: 'Search Current backlog' });
+  await page.goto('/repos/prebidjs?view=issues');
+  const input = page.getByRole('textbox', { name: 'Search Open issues' });
   await input.pressSequentially('z'.repeat(130), { delay: 5 });
-  await expect(page).toHaveURL(/repos.q=z{130}/);
+  await expect(page).toHaveURL(/issues.q=z{130}/);
   await expect(input).toHaveValue('z'.repeat(130));
-  await input.fill('server');
-  await expect(page.getByRole('table').getByRole('row')).toHaveCount(3);
-  await page.getByRole('link', { name: 'Repository activity', exact: true }).click();
-  await expect(page).toHaveURL(/\/repos$/);
+  await input.fill('Oldest sample issue');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('link', { name: 'Issues (834)', exact: true }).click();
   await expect(input).toHaveValue('');
-  await expect(page.getByRole('table').getByRole('row')).toHaveCount(19);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(100);
+  await expect(page.getByText('834 matching items')).toBeVisible();
 });
 test('sort survives a real router refresh caused by another tab signing in', async ({
   page,
   context,
 }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total open PRs', exact: true }).click();
-  await expect(page).toHaveURL(/repos.sort=openPrs/);
+  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+  await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
   const refreshed = page.waitForResponse(
     (response) =>
       new URL(response.url()).pathname === '/repos' && response.request().headers()['rsc'] === '1',
@@ -343,8 +351,8 @@ test('sort survives a real router refresh caused by another tab signing in', asy
     await login(peer);
     await page.bringToFront();
     await refreshed;
-    await expect(page).toHaveURL(/repos.sort=openPrs/);
-    await expect(page.getByRole('columnheader', { name: 'Total open PRs ↑' })).toHaveAttribute(
+    await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
+    await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
       'aria-sort',
       'ascending',
     );

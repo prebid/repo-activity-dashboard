@@ -1,0 +1,123 @@
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 4px;
+}
+.eyebrow {
+  color: var(--muted-foreground);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.title {
+  font-size: clamp(25px, 3vw, 32px);
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.subtitle {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 9px;
+}
+.asOf {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: right;
+}
+.asOf strong {
+  display: block;
+  color: var(--foreground);
+  font-weight: 500;
+  font-size: 12px;
+}
+.scope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.scopeLabel {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.repositoryLink {
+  color: var(--foreground);
+  font-weight: 500;
+  line-height: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.periodLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 2px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 16px;
+}
+.differenceRow {
+  --table-row-background: var(--background);
+  --table-cell-padding-block: 6px;
+  --table-row-border-width: 2px;
+}
+.differenceLabel {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.repositoryLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.metricLink {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.metricLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.metricLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.repositoryLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.legend {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.legend svg {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .asOf {
+    text-align: left;
+  }
+  .asOf strong {
+    display: inline;
+    margin-right: 6px;
+  }
+}

@@ -3,26 +3,34 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
   preferenceKey,
+  tableLocationStamp,
+  readSavedTableSort,
   effectiveTableQuery,
   writeTableQuery,
   type TableQuery,
 } from '@/lib/presentation/table-query';
 import type { TableController } from '@/lib/presentation/table-controller';
+const noPeers: readonly string[] = [];
 export function useTableController({
   queryKey,
   columnIds,
   scopeKey,
   viewerId,
+  peerQueryKeys = noPeers,
+  defaultSort,
 }: {
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
   viewerId?: string;
-}): TableController {
+  peerQueryKeys?: readonly string[];
+  defaultSort?: Pick<TableQuery, 'sort' | 'descending'>;
+}): TableController & { clearSavedSort: () => void; storageAvailable: boolean } {
   const pathname = usePathname(),
     search = useSearchParams().toString();
   const scope = JSON.stringify([scopeKey ?? pathname, queryKey, viewerId]);
-  const stamp = pathname + '?' + search;
+  const stamp = tableLocationStamp(pathname, search, peerQueryKeys);
+  const [storageAvailable, setStorageAvailable] = useState(true);
   const [draft, setDraft] = useState<{ scope: string; stamp: string; value: string } | null>(null);
   const [saved, setSaved] = useState<{ scope: string; sort: string; descending: boolean } | null>(
     null,
@@ -39,10 +47,10 @@ export function useTableController({
         search,
         queryKey,
         columnIds,
-        saved?.scope === scope ? saved : undefined,
+        saved?.scope === scope ? saved : defaultSort,
         correction?.scope === scope && correction.stamp === stamp ? correction.page : undefined,
       ),
-    [search, queryKey, columnIds, saved, correction, scope, stamp],
+    [search, queryKey, columnIds, saved, correction, scope, stamp, defaultSort],
   );
   const draftSearch = draft?.scope === scope && draft.stamp === stamp ? draft.value : query.search;
   const cancel = useCallback(() => {
@@ -53,12 +61,12 @@ export function useTableController({
     (patch: Partial<TableQuery>, explicitSearch?: string): TableQuery => {
       clearTimeout(timer.current);
       const url = new URL(window.location.href);
-      const currentStamp = url.pathname + '?' + url.searchParams.toString();
+      const currentStamp = tableLocationStamp(url.pathname, url.search, peerQueryKeys);
       const current = effectiveTableQuery(
         url.search,
         queryKey,
         columnIds,
-        saved?.scope === scope ? saved : undefined,
+        saved?.scope === scope ? saved : defaultSort,
         correction?.scope === scope && correction.stamp === currentStamp
           ? correction.page
           : undefined,
@@ -67,6 +75,10 @@ export function useTableController({
         explicitSearch ??
         (draft?.scope === scope && draft.stamp === currentStamp ? draft.value : current.search);
       const dirty = pending !== current.search;
+      if (!dirty && Object.keys(patch).length === 0) {
+        setDraft(null);
+        return current;
+      }
       const next = { ...current, ...patch, search: patch.search ?? pending };
       if (dirty || (patch.search !== undefined && patch.search !== current.search)) next.page = 1;
       url.search = writeTableQuery(url.search, queryKey, next);
@@ -74,57 +86,78 @@ export function useTableController({
       setDraft(null);
       setCorrection(null);
       if (viewerId && patch.sort !== undefined) {
+        setSaved({ scope, sort: next.sort, descending: next.descending });
         try {
           localStorage.setItem(
             preferenceKey(viewerId, scopeKey ?? pathname),
             JSON.stringify({ sort: next.sort, descending: next.descending }),
           );
-          setSaved({ scope, sort: next.sort, descending: next.descending });
+          setStorageAvailable(true);
         } catch {
-          /* Storage is only a preference. */
+          setStorageAvailable(false);
         }
       }
       return next;
     },
-    [queryKey, columnIds, saved, scope, correction, draft, viewerId, scopeKey, pathname],
+    [
+      queryKey,
+      columnIds,
+      saved,
+      scope,
+      correction,
+      draft,
+      viewerId,
+      scopeKey,
+      pathname,
+      peerQueryKeys,
+      defaultSort,
+    ],
   );
   useEffect(() => {
     if (!viewerId) return;
     try {
-      const value: unknown = JSON.parse(
-        localStorage.getItem(preferenceKey(viewerId, scopeKey ?? pathname)) ?? 'null',
+      const value = readSavedTableSort(
+        localStorage.getItem(preferenceKey(viewerId, scopeKey ?? pathname)),
+        columnIds,
       );
-      if (
-        value &&
-        typeof value === 'object' &&
-        'sort' in value &&
-        typeof value.sort === 'string' &&
-        columnIds.includes(value.sort) &&
-        'descending' in value &&
-        typeof value.descending === 'boolean'
-      )
-        setSaved((previous) =>
-          previous?.scope === scope &&
-          previous.sort === value.sort &&
-          previous.descending === value.descending
+      setStorageAvailable(true);
+      setSaved((previous) =>
+        value
+          ? previous?.scope === scope &&
+            previous.sort === value.sort &&
+            previous.descending === value.descending
             ? previous
-            : { scope, sort: value.sort as string, descending: value.descending as boolean },
-        );
+            : { scope, ...value }
+          : null,
+      );
     } catch {
-      /* Invalid/disabled storage must not block navigation. */
+      setStorageAvailable(false);
     }
   }, [viewerId, scopeKey, pathname, scope, columnIds]);
+  const clearSavedSort = useCallback(() => {
+    cancel();
+    setSaved(null);
+    setCorrection(null);
+    if (!viewerId) return;
+    try {
+      localStorage.removeItem(preferenceKey(viewerId, scopeKey ?? pathname));
+      setStorageAvailable(true);
+    } catch {
+      setStorageAvailable(false);
+    }
+  }, [cancel, viewerId, scopeKey, pathname]);
+
   useEffect(() => {
     if (draftSearch === query.search) return;
     timer.current = setTimeout(() => {
       if (
-        window.location.pathname + '?' + new URLSearchParams(window.location.search).toString() ===
+        tableLocationStamp(window.location.pathname, window.location.search, peerQueryKeys) ===
         stamp
       )
         commit({ search: draftSearch, page: 1 }, draftSearch);
     }, 250);
     return () => clearTimeout(timer.current);
-  }, [draftSearch, query.search, stamp, scope, commit]);
+  }, [draftSearch, query.search, stamp, scope, commit, peerQueryKeys]);
   useEffect(() => {
     window.addEventListener('popstate', cancel);
     return () => {
@@ -137,6 +170,8 @@ export function useTableController({
     [scope, stamp],
   );
   return {
+    clearSavedSort,
+    storageAvailable,
     scopeKey: scope,
     query,
     draftSearch,

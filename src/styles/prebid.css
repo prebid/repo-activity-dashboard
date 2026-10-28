@@ -1,0 +1,51 @@
+/* Shared Prebid palette. Semantic tokens are applied by each surface. */
+:root {
+  --prebid-background: #f6f8fa;
+  --prebid-ink: #1c3445;
+  --prebid-muted: #5e707f;
+  --prebid-line: #e4eaee;
+  --prebid-accent: #ffad32;
+  --prebid-card: #fff;
+  --prebid-input: #fff;
+  --prebid-input-border: #cdd8df;
+  --prebid-placeholder: #74818d;
+  --prebid-ring: #3583b2;
+  --prebid-hover: #eff4f7;
+  --prebid-link: #385e77;
+  --prebid-secondary: #f0f4f7;
+  --prebid-secondary-hover: #e4ecf2;
+  --prebid-info-bg: #edf5fa;
+  --prebid-info-border: #d4e6f0;
+  --prebid-error-ink: #9d252c;
+  --prebid-error-bg: #fff1f0;
+  --prebid-error-border: #f3c6c4;
+  --prebid-success-ink: #236044;
+  --prebid-success-bg: #edf8f1;
+  --prebid-success-border: #c6e6d1;
+  --prebid-card-shadow: 0 16px 40px -20px #25456026, 0 3px 8px #25456004;
+}
+
+.dark {
+  --prebid-background: #0d161f;
+  --prebid-ink: #e6eef4;
+  --prebid-muted: #a1b2bf;
+  --prebid-line: #304352;
+  --prebid-card: #17232e;
+  --prebid-input: #111d27;
+  --prebid-input-border: #455b6b;
+  --prebid-placeholder: #96a9b7;
+  --prebid-ring: #73c3f3;
+  --prebid-hover: #253947;
+  --prebid-link: #9ed3f2;
+  --prebid-secondary: #253947;
+  --prebid-secondary-hover: #304b5d;
+  --prebid-info-bg: #182f40;
+  --prebid-info-border: #36596f;
+  --prebid-error-ink: #ffb5b4;
+  --prebid-error-bg: #3b2029;
+  --prebid-error-border: #75404a;
+  --prebid-success-ink: #a0dfbb;
+  --prebid-success-bg: #17382d;
+  --prebid-success-border: #396450;
+  --prebid-card-shadow: 0 16px 40px -20px #0008, 0 3px 8px #0002;
+}
