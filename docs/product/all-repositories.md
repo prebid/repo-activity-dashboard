@@ -154,7 +154,7 @@ Choose one or two distinct periods. Each can use one of these presets:
 - This week; last week.
 - This month; last month.
 - This year to date.
-- Last year to the same date.
+- Last year to date (through the corresponding date last year).
 - Last full year.
 
 Custom ranges have their own action outside the preset dropdown. Either or both periods can be custom, and each range is edited independently. Exact duplicate effective ranges are rejected. Overlapping but different ranges are allowed. The default is one period, This month; a second period is added only after the user chooses it.

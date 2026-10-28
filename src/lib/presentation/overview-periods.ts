@@ -9,7 +9,7 @@ export const periodLabels = {
   'this-month': 'This month',
   'last-month': 'Last month',
   'this-year': 'This year to date',
-  'last-year-to-date': 'Last year to the same date',
+  'last-year-to-date': 'Last year to date',
   'last-full-year': 'Last full year',
 };
 

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { CalendarDays } from 'lucide-react';
+import { CalendarDays, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -101,6 +101,7 @@ export function TimeframeControl({
               </option>
             ))}
           </select>
+          <ChevronDown size={14} className={styles.selectChevron} aria-hidden="true" />
         </label>
         <Button
           variant="outline"

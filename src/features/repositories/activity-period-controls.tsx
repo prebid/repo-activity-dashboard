@@ -47,7 +47,14 @@ export function ActivityPeriodControls({
         {slots.map((report, index) => (
           <section key={index} className={styles.periodCard} aria-label={'Period ' + (index + 1)}>
             <div className={styles.periodCardHeader}>
-              <strong>Period {index + 1}</strong>
+              <div className={styles.periodHeading}>
+                <strong>Period {index + 1}</strong>
+                {report && (
+                  <span className={styles.periodDate}>
+                    ({periodRangeLabel(report.period.range)} · UTC)
+                  </span>
+                )}
+              </div>
               {(secondary || index === 1) && (
                 <Button
                   variant="ghost"
@@ -70,11 +77,7 @@ export function ActivityPeriodControls({
               asOf={primary.asOf}
               onChange={(selection) => select(index, selection)}
             />
-            {report ? (
-              <p className={styles.help}>{periodRangeLabel(report.period.range)} · UTC</p>
-            ) : (
-              <p className={styles.help}>Choose a preset or enter a custom range.</p>
-            )}
+            {!report && <p className={styles.help}>Choose a preset or enter a custom range.</p>}
             {report?.activitySample === 'unprepared' && (
               <p role="status" className={styles.notice}>
                 No prepared sample data for Period {index + 1}. Its values are shown as dashes.

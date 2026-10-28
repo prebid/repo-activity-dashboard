@@ -22,8 +22,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   min-height: 24px;
   font-size: 12px;
+}
+.periodHeading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-width: 0;
+}
+.periodDate {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 16px;
 }
 .periodActions {
   display: flex;
@@ -38,6 +51,7 @@
 .removePeriod {
   height: 24px;
   width: 24px;
+  flex-shrink: 0;
 }
 .addPeriod {
   min-height: 110px;
@@ -75,22 +89,34 @@
   line-height: 1.6;
 }
 .selectLabel {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
   color: var(--muted-foreground);
   font-size: 11px;
 }
 .select {
+  appearance: none;
   height: 34px;
+  width: 100%;
+  min-width: 0;
   max-width: 220px;
-  padding: 0 28px 0 10px;
+  padding: 0 34px 0 10px;
   border: 1px solid var(--input);
   border-radius: 6px;
   background: var(--card);
   color: var(--foreground);
   font: inherit;
   font-size: 12px;
+}
+.selectChevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 .select:focus-visible,
 .repositoryOption input:focus-visible {
