@@ -42,7 +42,8 @@ const labels: Record<Exclude<RecordSelection['metric'], 'agedPrs'>, string> = {
   issuesOpened: 'Issues opened during the period',
   issuesClosed: 'Issues closed during the period',
 };
-export function recordListTitle(selection: RecordSelection): string {
+export function recordListTitle(selection: RecordSelection, author?: string): string {
+  if (author) return (recordListKind(selection) === 'prs' ? 'PRs' : 'Issues') + ' by ' + author;
   return selection.metric === 'agedPrs'
     ? 'PRs older than ' + selection.ageDays + ' days'
     : labels[selection.metric];

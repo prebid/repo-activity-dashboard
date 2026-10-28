@@ -5,6 +5,7 @@ export interface DataColumn<T> {
   label: string;
   value: (row: T) => string | number | null;
   sortValue?: (row: T) => string | number | null;
+  /** Pure render callback: return a component element for stateful UI; do not call hooks here. */
   cell?: (row: T) => ReactNode;
   group?: string;
   description?: string;

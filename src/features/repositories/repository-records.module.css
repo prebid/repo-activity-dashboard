@@ -22,6 +22,7 @@
   letter-spacing: -0.035em;
 }
 .header p {
+  overflow-wrap: anywhere;
   color: var(--muted-foreground);
   font-size: 13px;
   margin-top: 8px;
@@ -47,6 +48,10 @@
   border-radius: 8px;
   font-size: 12px;
 }
+.scope > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .navigation {
   display: flex;
   gap: 20px;
@@ -61,24 +66,9 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.recordLink:focus-visible,
-.supportingRecords summary:focus-visible {
+.recordLink:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
-}
-.supportingRecords summary {
-  cursor: pointer;
-  width: fit-content;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.supportingRecords ul {
-  list-style: disc;
-  padding-left: 18px;
-  margin-top: 8px;
-}
-.supportingRecords li + li {
-  margin-top: 8px;
 }
 .labels {
   display: flex;

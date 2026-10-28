@@ -11,5 +11,5 @@ export function preparedPeriodSample(repositoryId: string, range: DateRange) {
       period.range.endInclusive === range.endInclusive,
   );
   const activity = periods[index]?.rows[repositoryId]?.activity;
-  return activity ? { index, activity } : undefined;
+  return activity ? { index, activity, selection: periods[index].period.selection } : undefined;
 }

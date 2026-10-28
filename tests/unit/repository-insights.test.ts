@@ -84,7 +84,7 @@ it('reconciles every author, contribution and duration detail across all reposit
             expect(detail.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(
               source.counts[detail.recordKind === 'prs' ? 'prsOpened' : 'issuesOpened'].value,
             );
-            for (const row of detail.rows) expect(row.recordCount).toBe(row.records.length);
+            expect(detail.rows.every((row) => !('records' in row))).toBe(true);
           } else {
             for (const row of detail.rows) {
               expect(row.firstCreditAt >= period.period.range.start).toBe(true);
@@ -115,9 +115,10 @@ it('counts authors once per repository, includes all account types, and links th
     selection: { scope: 'period', metric: 'prsOpened', range: month.period.range },
     returnTo: '/repos',
   });
-  expect(new Set(pr.rows.flatMap((row) => row.records.map((record) => record.id)))).toEqual(
-    new Set(opened.rows.map((row) => row.id)),
-  );
+  const expectedCounts = new Map<string, number>();
+  for (const row of opened.rows)
+    expectedCounts.set(row.author, (expectedCounts.get(row.author) ?? 0) + 1);
+  expect(new Map(pr.rows.map((row) => [row.account, row.recordCount]))).toEqual(expectedCounts);
   expect(pr.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(47);
   expect(issues.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(58);
   const other = samples.repositories.find(

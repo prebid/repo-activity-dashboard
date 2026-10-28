@@ -127,8 +127,6 @@ export function DataTable<T extends { id: string }>({
             columnSortValue(column, b.original),
             'asc',
           ),
-        cell: ({ row }) =>
-          column.cell ? column.cell(row.original) : String(column.value(row.original) ?? '—'),
       })),
     [columns],
   );
@@ -383,7 +381,9 @@ export function DataTable<T extends { id: string }>({
                           start && styles.groupStart,
                         )}
                       >
-                        <table.FlexRender cell={cell} />
+                        {column.cell
+                          ? column.cell(row.original)
+                          : String(column.value(row.original) ?? '—')}
                       </td>
                     );
                   })}

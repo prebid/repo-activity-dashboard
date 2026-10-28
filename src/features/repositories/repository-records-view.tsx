@@ -124,7 +124,7 @@ export function RepositoryRecordTable({
     latestActor: selection.metric.startsWith('last'),
   });
   const visibility = { value: visible, onChange: setVisible };
-  const title = titleOverride ?? recordListTitle(selection);
+  const title = titleOverride ?? recordListTitle(selection, list.author?.account);
   return list.kind === 'prs' ? (
     <DataTable
       title={title}
@@ -156,13 +156,27 @@ export function RepositoryRecordsView({
   return (
     <RepositoryDrilldownFrame
       context={list}
-      title={recordListTitle(list.drilldown.selection)}
+      title={recordListTitle(list.drilldown.selection, list.author?.account)}
       measurement={measurement}
+      parentLink={
+        list.author
+          ? {
+              href: list.author.returnTo,
+              label: list.kind === 'prs' ? 'PR authors' : 'Issue authors',
+            }
+          : undefined
+      }
       summary={
-        <span>
-          {formatCount(measurement.value) +
-            (measurement.status === 'partial' ? ' available sample records' : ' matching records')}
-        </span>
+        <>
+          {list.author && <span>Author: {list.author.account}</span>}
+          {list.author && <span>Created during this period · All statuses</span>}
+          <span>
+            {formatCount(measurement.value) +
+              (measurement.status === 'partial'
+                ? ' available sample records'
+                : ' matching records')}
+          </span>
+        </>
       }
     >
       <RepositoryRecordTable

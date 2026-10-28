@@ -5,9 +5,14 @@ import type {
   RepositoryInsight,
   RepositoryAuthor,
   ReportingAccountType,
+  AuthorSelection,
   SupportingRecord,
 } from '@/models/repository-insights';
-import type { RepositoryPullRequest, RepositoryIssue } from '@/models/repository-records';
+import type {
+  RepositoryPullRequest,
+  RepositoryIssue,
+  RepositoryRecordList,
+} from '@/models/repository-records';
 import { repositoryRecordSample } from './repository-records';
 import { preparedPeriodSample } from './overview-period-sample';
 import { overviewAsOf } from './repository-overview';
@@ -79,9 +84,7 @@ export function repositoryInsightSample(
           account: row.author,
           accountType: authorTypes[row.author] ?? 'human',
           recordCount: 0,
-          records: [],
         };
-        author.records.push(reference(row));
         author.recordCount += 1;
         authors.set(row.author, author);
       }
@@ -148,4 +151,32 @@ export function repositoryInsightSample(
       (a, b) => b.firstCreditAt.localeCompare(a.firstCreditAt) || a.id.localeCompare(b.id, 'en'),
     ),
   };
+}
+
+/** Expand records only after selecting an author; the overview carries counts, not record arrays. */
+export function repositoryAuthorRecordSample(
+  repo: OverviewRepository,
+  drilldown: RepositoryDrilldown & { selection: AuthorSelection },
+  account: string,
+  returnToAuthors: string,
+): RepositoryRecordList {
+  const source = repositoryRecordSample(repo, {
+    selection: {
+      scope: 'period',
+      metric: drilldown.selection.metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
+      range: drilldown.selection.range,
+    },
+    returnTo: drilldown.returnTo,
+  });
+  const author = { account, returnTo: returnToAuthors };
+  const measurement = (count: number) =>
+    source.measurement.value === null
+      ? { ...source.measurement }
+      : { ...source.measurement, value: count };
+  if (source.kind === 'prs') {
+    const rows = source.rows.filter((row) => row.author.toLowerCase() === account);
+    return { ...source, rows, measurement: measurement(rows.length), author };
+  }
+  const rows = source.rows.filter((row) => row.author.toLowerCase() === account);
+  return { ...source, rows, measurement: measurement(rows.length), author };
 }

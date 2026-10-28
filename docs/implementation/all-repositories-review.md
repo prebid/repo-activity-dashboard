@@ -7,7 +7,7 @@ Review date: 2026-10-28. Scope: the All Repositories work on `codex/all-reposito
 | [V] The large issue sample could discard its server-rendered dashboard during hydration. | The production visual matrix reported React #418 on the 12,345-issue Documentation sample. An isolated copy of the shipped bundle captured a dashboard `div` being matched against its first skip-link child. The failure was reproduced without editing the repository or suppressing diagnostics. |
 | [V] The application and bundled renderer have different versions. | Installed manifests identify Next 15.5.28 and application React 19.3.1. The Next-vendored development renderer and the served production React chunk identify `19.2.0-canary-0bdb9206-20250818`. The known-present `replayBeginWork` implementation was read directly; its host replay path does not contain the later cursor restoration. |
 | [I] The observed mismatch belongs to the upstream host-replay hydration issue. | React's [upstream fix #35494](https://github.com/react/react/pull/35494), merged January 2026, describes a cursor offset when a suspended host component resumes. The local trace is consistent with that mechanism; this is not a claim about every React hydration error or later singleton/parser issues. |
-| [V] The final local checks pass. | `npm run check:all`: 459 unit/component, 31 account integration, eight packaged-production, and 94 Chromium/WebKit cases; 592 total. Individual-result validators report no skipped, pending, expected-failure, or flaky cases. Dependency audit reports zero vulnerabilities. Both application builds and Storybook pass. |
+| [V] The final local checks pass. | `npm run check:all`: 465 unit/component, 31 account integration, eight packaged-production, and 112 Chromium/WebKit cases; 616 total. Individual-result validators report no skipped, pending, expected-failure, or flaky cases. Dependency audit reports zero vulnerabilities. Both application builds and Storybook pass. |
 
 The renderer correlation would be contradicted by a restored cursor in the installed replay path or by a different failing node mechanism. The local fix would be falsified by the dashboard root being replaced, missing SSR rows, another hydration error, or failed account isolation in the regression scenarios. These checks remain enabled.
 
@@ -24,13 +24,13 @@ The enlarged-layout test initially used an instantaneous key tap and measured a 
 Visual coverage includes:
 
 - Overview at 320, 768, 1280, and 1440 CSS pixels in dark/light themes, including grouped headers, pinned identities, dividers, selected age columns, and two-period comparisons.
-- PR, issue, author, contribution, and duration details at desktop, laptop, tablet, and narrow widths; native author disclosures; full-list search/sort/pagination; and preserved return context.
+- PR, issue, author, contribution, and duration details at desktop, laptop, tablet, and narrow widths; compact author rows and paginated author-specific records; full-list search/sort/pagination; and preserved return context.
 - Empty selection, no merges, missing samples, partial coverage, invalid filters, and shared loading/retry examples.
 - 200%-equivalent reflow at 640×480 CSS pixels with device pixel ratio 2, including menu keyboard focus and horizontal table access. This models a 1280×960 physical canvas at 200%; it does not claim to drive a native browser zoom menu.
 
 The code audit retains the approved metric definitions and fake-data boundary. Current/period filters, exact merge branch, first-credit units, author uniqueness within each repository, and median/sample-size reconciliation are tested. Shared table mechanics remain independent of reporting models and navigation. No reporting database, ingestion service, dependency upgrade, authentication-policy change, or graph was added.
 
-The local review gallery contains 86 captures with browser/theme/viewport selectors and full-resolution images. The reproducible captures are in `test-results/browser-artifacts/visual-review-*`; the focused entry point is `tests/e2e/visual-review.spec.ts`. Existing browser cases supply the complementary 320/1440 detail captures. Screenshots are review evidence, not platform-independent pixel-diff goldens.
+The local review gallery contains 102 captures with browser/theme/viewport selectors and full-resolution images. The reproducible captures are in `test-results/browser-artifacts/visual-review-*`; the focused entry point is `tests/e2e/visual-review.spec.ts`. Existing browser cases supply the complementary 320/1440 detail captures. Screenshots are review evidence, not platform-independent pixel-diff goldens.
 
 ## Residuals
 
@@ -41,3 +41,9 @@ The local review gallery contains 86 captures with browser/theme/viewport select
 - The local hydration workaround should be revisited when the hosting-compatible Next renderer includes the upstream replay correction. The regression must remain; removing the workaround requires evidence, not merely a version label.
 
 No deployment or production merge is part of this review.
+
+The user's final visual review requested bounded handling for high-volume authors. Inline record expansion was replaced with the paginated author-record flow described in the implementation plan. The earlier 592-case verification above predates that refinement; its final verification is recorded below. Visual sign-off remains pending for the updated flow.
+
+The high-volume-author interaction test also exposed cell remounting when a column callback changed during search blur. Shared columns are render callbacks, not React component types; the table now invokes them inside the stable keyed cell, preserving the returned child component's state and DOM identity. A focused counter/focus regression failed before the change, and the standard suite verifies it afterward. Draft markers are included in the searchable PR title value. The visual matrix is parameterized by view so its bounded per-view work fits the ordinary test timeout.
+
+Final verification after the requested author refinement: `npm run check:all` passes 616 cases (465 unit/component, 31 account, eight production, 112 browser), all builds/coverage/architecture checks, and zero dependency advisories. All result validators are clean. The author overview carries counts only; selected records are filtered by account and creation period before reaching the client table. Browser checks verify paging/search for 240 PRs and 350 issues, preserved parent context, all current statuses, and invalid-scope rejection. The updated visual gallery supersedes the inline-expansion captures. User visual sign-off and draft-PR handoff remain pending.

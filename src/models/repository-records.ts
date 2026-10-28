@@ -30,6 +30,7 @@ interface RecordListContext {
   asOf: string;
   drilldown: RepositoryDrilldown & { selection: RecordSelection };
   measurement: Count;
+  author?: { account: string; returnTo: string };
 }
 export type RepositoryRecordList = RecordListContext &
   ({ kind: 'prs'; rows: RepositoryPullRequest[] } | { kind: 'issues'; rows: RepositoryIssue[] });

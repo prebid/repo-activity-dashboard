@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+import { useState } from 'react';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { DataColumn } from '@/components/tables/data-table';
@@ -24,6 +25,25 @@ const rows: Row[] = Array.from({ length: 250 }, (_, i) => ({
   title: i === 249 ? 'Oldest keyboard issue' : 'Item ' + String(i + 1).padStart(3, '0'),
   count: i === 1 ? null : i,
 }));
+it('keeps cell interaction state and focus when column render callbacks change', async () => {
+  const user = userEvent.setup();
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount((value) => value + 1)}>Count {count}</button>;
+  }
+  const makeColumns = (): DataColumn<Row>[] => [
+    { id: 'title', label: 'Action', value: (row) => row.title, cell: () => <Counter /> },
+  ];
+  const view = render(
+    <DataTable title="Stable cells" rows={rows.slice(0, 1)} columns={makeColumns()} />,
+  );
+  const button = screen.getByRole('button', { name: 'Count 0' });
+  await user.click(button);
+  expect(button).toHaveTextContent('Count 1');
+  view.rerender(<DataTable title="Stable cells" rows={rows.slice(0, 1)} columns={makeColumns()} />);
+  expect(screen.getByRole('button', { name: 'Count 1' })).toBe(button);
+  expect(button).toHaveFocus();
+});
 it('keeps grouped rows together when sorting and exports their actual values', async () => {
   const user = userEvent.setup();
   const blobs: Blob[] = [];

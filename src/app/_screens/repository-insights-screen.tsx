@@ -1,14 +1,12 @@
 'use client';
 import { useTableController } from '@/lib/navigation/use-table-controller';
-import type { RepositoryInsight } from '@/models/repository-insights';
+import { authorTableColumnIds, type RepositoryInsight } from '@/models/repository-insights';
 import {
   RepositoryInsightsView,
-  authorColumns,
   contributionDetailColumns,
 } from '@/features/repositories/repository-insights-view';
 import { recordPrColumns } from '@/features/repositories/repository-records-view';
-const authorIds = authorColumns('prs').map((column) => column.id),
-  creditIds = contributionDetailColumns.map((column) => column.id),
+const creditIds = contributionDetailColumns.map((column) => column.id),
   prIds = recordPrColumns.map((column) => column.id);
 const defaults = {
   authors: { sort: 'recordCount', descending: true },
@@ -29,7 +27,11 @@ export function RepositoryInsightsScreen({
     scopeKey: 'repository:' + insight.repository.slug + ':' + key,
     viewerId,
     columnIds:
-      insight.kind === 'duration' ? prIds : insight.kind === 'authors' ? authorIds : creditIds,
+      insight.kind === 'duration'
+        ? prIds
+        : insight.kind === 'authors'
+          ? authorTableColumnIds
+          : creditIds,
     defaultSort: defaults[insight.kind],
   });
   return <RepositoryInsightsView insight={insight} controller={controller} />;

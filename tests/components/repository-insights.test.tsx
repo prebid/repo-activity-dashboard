@@ -70,19 +70,18 @@ it('uses singular units for one account, record, credit, and merged PR', () => {
   );
   expect(screen.getByText('1 merged PR')).toBeVisible();
 });
-it('uses unique-account rows and expandable supporting record links', async () => {
-  const user = userEvent.setup();
+it('uses compact account rows and links to full filtered record lists', () => {
   render(<Preview insight={detail('prAuthors')} />);
   expect(screen.getByText('24 unique accounts')).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(24);
   expect(screen.getByText('Prebid agent')).toBeVisible();
   expect(screen.getByText('Other bot')).toBeVisible();
-  const disclosure = screen.getByLabelText('View 2 PRs by sample-author-1');
-  await user.click(disclosure);
-  expect(disclosure.closest('details')).toHaveAttribute('open');
-  expect(
-    screen.getByRole('link', { name: 'Sample PR 300001: Update integration behavior' }),
-  ).toHaveAttribute('href', 'https://github.example/example-fixtures/prebidjs/pull/300001');
+  const link = screen.getByRole('link', { name: 'View 2 PRs by sample-author-1' });
+  const target = new URL(link.getAttribute('href')!, 'https://dashboard.invalid');
+  expect(target.pathname).toBe('/repos/prebidjs/authors/sample-author-1');
+  expect(target.searchParams.get('metric')).toBe('prAuthors');
+  expect(target.searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
+  expect(screen.getByRole('table').querySelector('details')).toBeNull();
   expect(screen.getByRole('link', { name: '← All repositories' })).toHaveAttribute(
     'href',
     '/repos?period=this-month&period2=last-month&age=60',
@@ -96,6 +95,31 @@ it('shows credit units separately from distinct PR counts', () => {
   expect(screen.getByRole('button', { name: 'First credited' })).toHaveAccessibleDescription(
     /Repeated actions do not create additional credits/,
   );
+});
+it('captures pending author-search text in the record link return context', () => {
+  function PendingSearch() {
+    const controller = useLocalTableController({
+      search: '',
+      sort: 'account',
+      descending: true,
+      page: 1,
+    });
+    return (
+      <RepositoryInsightsView
+        insight={detail('prAuthors')}
+        controller={{ ...controller, draftSearch: 'sample-author-2' }}
+      />
+    );
+  }
+  render(<PendingSearch />);
+  const href = screen
+    .getByRole('link', { name: 'View 2 PRs by sample-author-2' })
+    .getAttribute('href')!;
+  const params = new URL(href, 'https://dashboard.invalid').searchParams;
+  expect(params.get('authors.q')).toBe('sample-author-2');
+  expect(params.get('authors.sort')).toBe('account');
+  expect(params.get('authors.dir')).toBe('desc');
+  expect(params.has('authors.page')).toBe(false);
 });
 it('shows the median separately from sample size and sorts numeric elapsed durations', async () => {
   const user = userEvent.setup();

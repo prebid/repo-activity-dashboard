@@ -15,6 +15,7 @@ import type {
 import { RepositoryDrilldownFrame } from './repository-drilldown-frame';
 import { RepositoryRecordTable } from './repository-records-view';
 import styles from './repository-records.module.css';
+import { repositoryAuthorRecordsHref } from '@/lib/presentation/repository-author-records';
 function quantity(value: number | null, unit: string) {
   return formatCount(value) + ' ' + unit + (value === 1 ? '' : 's');
 }
@@ -33,7 +34,10 @@ function RecordLink({ record }: { record: SupportingRecord }) {
     </Link>
   );
 }
-export function authorColumns(kind: 'prs' | 'issues'): DataColumn<RepositoryAuthor>[] {
+export function authorColumns(
+  kind: 'prs' | 'issues',
+  recordsHref: (account: string) => string,
+): DataColumn<RepositoryAuthor>[] {
   const label = kind === 'prs' ? 'PRs' : 'Issues';
   return [
     {
@@ -52,29 +56,23 @@ export function authorColumns(kind: 'prs' | 'issues'): DataColumn<RepositoryAuth
     { id: 'recordCount', label, width: 100, align: 'right', value: (row) => row.recordCount },
     {
       id: 'records',
-      label: 'Supporting records',
-      width: 420,
-      value: (row) => row.records.map((record) => record.number + ' ' + record.title).join('; '),
+      label: 'Records',
+      width: 180,
+      value: (row) => 'View ' + quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue'),
       cell: (row) => (
-        <details className={styles.supportingRecords}>
-          <summary
-            aria-label={
-              'View ' +
-              quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue') +
-              ' by ' +
-              row.account
-            }
-          >
-            View {quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue')}
-          </summary>
-          <ul>
-            {row.records.map((record) => (
-              <li key={record.id}>
-                <RecordLink record={record} />
-              </li>
-            ))}
-          </ul>
-        </details>
+        <Link
+          prefetch={false}
+          className={styles.recordLink}
+          href={recordsHref(row.account)}
+          aria-label={
+            'View ' +
+            quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue') +
+            ' by ' +
+            row.account
+          }
+        >
+          View {quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue')}
+        </Link>
       ),
     },
   ];
@@ -149,7 +147,13 @@ export function RepositoryInsightsView({
           key={JSON.stringify(insight.drilldown.selection)}
           title={title}
           rows={insight.rows}
-          columns={authorColumns(insight.recordKind)}
+          columns={authorColumns(insight.recordKind, (account) =>
+            repositoryAuthorRecordsHref(insight.repository, insight.drilldown, account, {
+              ...controller.query,
+              search: controller.draftSearch,
+              page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
+            }),
+          )}
           controller={controller}
           itemLabel="authors"
           footerNote="One row per account in this repository and period, including humans, Prebid agents, and other bots. Sample record links are placeholders."

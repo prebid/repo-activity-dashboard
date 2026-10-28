@@ -11,6 +11,14 @@ const views = [
   ['prs', '/repos/prebidjs?scope=current&metric=humanApprovals0'],
   ['issues', '/repos/prebiddocs?scope=current&metric=openIssues'],
   ['authors', '/repos/prebidjs?scope=period&metric=prAuthors&' + range],
+  [
+    'author-prs',
+    '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+  ],
+  [
+    'author-issues',
+    '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+  ],
   ['credits', '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&' + range],
   ['duration', '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&' + range],
 ] as const;
@@ -27,11 +35,9 @@ async function theme(page: Page, value: 'dark' | 'light') {
   await expect(page.locator('html')).toHaveClass(new RegExp(value));
 }
 
-test('review matrix covers tablet and laptop widths for every report detail', async ({
-  page,
-}, testInfo) => {
-  await login(page);
-  for (const [name, path] of views) {
+for (const [name, path] of views) {
+  test('review matrix at tablet and laptop widths: ' + name, async ({ page }, testInfo) => {
+    await login(page);
     await page.goto(path);
     await expect(page.getByRole('table').first()).toBeVisible();
     // SSR markup can appear before a large record payload has hydrated. Exercise a
@@ -41,7 +47,6 @@ test('review matrix covers tablet and laptop widths for every report detail', as
     await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(ready).toBeFocused();
-    if (name === 'authors') await page.locator('details summary').first().click();
     for (const mode of ['dark', 'light'] as const) {
       await theme(page, mode);
       for (const width of [768, 1280]) {
@@ -61,8 +66,8 @@ test('review matrix covers tablet and laptop widths for every report detail', as
             .screenshot({ path: testInfo.outputPath('activity-' + mode + '-' + width + '.png') });
       }
     }
-  }
-});
+  });
+}
 
 test('large issue lists retain their server-rendered dashboard through hard navigation and reload', async ({
   page,

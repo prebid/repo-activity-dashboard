@@ -55,6 +55,13 @@ const latest: LatestActor[] = [
   'other-human',
   'unknown',
 ];
+function sampleAuthor(index: number, count: number, heavyCount = 0): string {
+  if (!heavyCount) return 'sample-author-' + ((index % count) + 1);
+  if (index < heavyCount * 2 && index % 2 === 0) return 'sample-author-2';
+  const otherIndex = index < heavyCount * 2 ? Math.floor(index / 2) : index - heavyCount;
+  const ordinal = (otherIndex % (count - 1)) + 1;
+  return 'sample-author-' + (ordinal >= 2 ? ordinal + 1 : ordinal);
+}
 
 /** Expand only requested sample lists. Counts are prepared values, never fetched reporting history. */
 export function currentPrSample(repositoryId: string): RepositoryPullRequest[] {
@@ -190,6 +197,10 @@ export function repositoryRecordSample(
   const eventTime = (index: number, count: number, offset: number) =>
     instant(start + Math.floor((end - start) * (offset + (0.4 * index) / Math.max(count, 1))));
   const prefix = repo.id + '-period-' + periodIndex;
+  const largeAuthorSample =
+    repo.id === 'repo-prebidjs' &&
+    period?.selection.kind === 'preset' &&
+    period.selection.preset === 'this-year';
   const base = (periodIndex + 1) * 100_000;
   if (recordListKind(selection) === 'prs') {
     const opened = known(prepared.counts.prsOpened),
@@ -210,7 +221,7 @@ export function repositoryRecordSample(
         id: prefix + '-pr-' + number,
         number,
         title: 'Sample PR ' + number + ': Update integration behavior',
-        author: 'sample-author-' + ((index % authorCount) + 1),
+        author: sampleAuthor(index, authorCount, largeAuthorSample ? 240 : 0),
         state: isMerged ? 'Merged' : index % 5 === 0 ? 'Closed' : 'Open',
         draft: !isMerged && index % 5 !== 0 && index % 7 === 0,
         humanReviewers: null,
@@ -265,7 +276,7 @@ export function repositoryRecordSample(
       id: prefix + '-issue-' + number,
       number,
       title: 'Sample issue ' + number + ': Improve documentation',
-      author: 'sample-author-' + ((index % authorCount) + 1),
+      author: sampleAuthor(index, authorCount, largeAuthorSample ? 350 : 0),
       state: closedAt === null ? 'Open' : 'Closed',
       labels: ['documentation'],
       createdAt,

@@ -88,6 +88,14 @@ it('runs the packaged production artifact with current sessions and protected ac
         'Sample issue 834: Improve documentation',
       ],
       [
+        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'PRs by sample-author-2',
+      ],
+      [
+        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
+        'Issues by sample-author-2',
+      ],
+      [
         '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
         'sample-author-24',
       ],

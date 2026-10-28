@@ -14,21 +14,30 @@ export function RepositoryDrilldownFrame({
   measurement,
   summary,
   children,
+  parentLink,
 }: {
   context: { repository: OverviewRepository; asOf: string; drilldown: RepositoryDrilldown };
   title: string;
   measurement: Count;
   summary: ReactNode;
   children: ReactNode;
+  parentLink?: { href: string; label: string };
 }) {
   const { repository, asOf, drilldown } = context,
     selection = drilldown.selection;
   const period = selection.scope === 'period';
   return (
     <>
-      <Link prefetch={false} href={drilldown.returnTo} className={styles.back}>
-        ← All repositories
-      </Link>
+      <div className={styles.navigation}>
+        {parentLink && (
+          <Link prefetch={false} href={parentLink.href} className={styles.back}>
+            ← {parentLink.label}
+          </Link>
+        )}
+        <Link prefetch={false} href={drilldown.returnTo} className={styles.back}>
+          ← All repositories
+        </Link>
+      </div>
       <header className={styles.header}>
         <div>
           <p className={styles.eyebrow}>Repository detail</p>

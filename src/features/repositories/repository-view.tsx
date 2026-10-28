@@ -9,7 +9,7 @@ export const prColumns: DataColumn<PullRequestRow>[] = [
   {
     id: 'title',
     label: 'Title',
-    value: (r) => r.title,
+    value: (r) => r.title + (r.draft ? ' (Draft)' : ''),
     cell: (r) => (
       <Link
         prefetch={false}
