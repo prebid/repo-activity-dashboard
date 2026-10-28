@@ -204,9 +204,16 @@ export const defaultActivityColumns = [
   'medianMergeDays',
 ];
 
-export function initialColumnVisibility<T>(
+export function columnVisibilityFromIds<T>(
   columns: DataColumn<T>[],
   defaults: readonly string[],
 ): Record<string, boolean> {
   return Object.fromEntries(columns.map((column) => [column.id, defaults.includes(column.id)]));
 }
+
+export const overviewSettingsColumns = {
+  backlogColumns: backlogColumns(30).map((column) => column.id),
+  activityColumns: activityColumns(false).map((column) => column.id),
+  defaultBacklogColumns,
+  defaultActivityColumns,
+};

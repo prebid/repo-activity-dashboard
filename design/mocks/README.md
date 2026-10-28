@@ -10,9 +10,9 @@ Step 1 now provides the typed sample entry point [repositoryOverviewSample](../.
 
 The [display models](../../src/models/repository-overview.ts) separate current backlog, selected-period activity, comparison values, and complete/partial/missing/not-applicable measurements. Runtime schemas reject invalid counts and missing metric keys. [Period selection](../../src/lib/presentation/reporting-period.ts) resolves UTC dates; [drilldown helpers](../../src/lib/presentation/repository-drilldown.ts) validate and serialize destination context. These helpers do not import a table library, React, authentication, or sample data.
 
-| Future control or display | Prepared coverage |
+| Control or display | Prepared coverage |
 | --- | --- |
-| Repository selection | All 18, an explicit empty selection, or a subset; duplicate IDs are collapsed, unknown IDs rejected. |
+| Repository selection | All 18, an explicit empty selection, or a subset; duplicate IDs are collapsed; unknown URL IDs are ignored without selecting all, while direct sample queries reject unknown IDs. |
 | Aging | 30/60/90/120/180/360-day values; default 30. Prebid.js values are 90/60/30/0/0/0. |
 | Period presets | All seven agreed presets, exact UTC ranges, and separate comparison values. Current backlog stays identical. |
 | Custom range | October 6 through October 8, 2026 has prepared values. Other valid ranges return explicit missing-sample activity, preserving backlog. |
@@ -25,7 +25,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 
 Repeated calls return independent serializable values. Lightweight sizing of prepared activity examples supplies variation between repositories; those factors are not estimates of real activity. Tests pin handwritten examples and check consistency across scopes. Yearly author counts are prepared separately, not summed from monthly unique counts.
 
-The All Repositories preview now consumes this sample through the guarded loader. Its reusable tables provide sorting, table-local search, grouped column selection, pinned repository identities, and overflow hints. Storybook includes the full page, comparison values, empty, loading, and error examples. The existing repository-detail sample remains a placeholder until step 4; numeric summary values are therefore not linked to incomplete destinations. Supporting metadata rows and receiving-route tests belong to step 4. Repository selection, period/aging selectors, and saved page preferences belong to step 3. The new table layout uses the approved Prebid palette without following the old reporting layout.
+The All Repositories preview now consumes this sample through the guarded loader. Its reusable tables provide sorting, table-local search, grouped column selection, pinned repository identities, and overflow hints. Storybook includes the full page, comparison values, empty, loading, and error examples. The existing repository-detail sample remains a placeholder until step 4; numeric summary values are therefore not linked to incomplete destinations. Supporting metadata rows and receiving-route tests belong to step 4. Repository selection, period/aging selectors, custom ranges, Show change, Reset view, and account/browser preferences are implemented. The server packages all prepared periods with a single backlog using `repositoryOverviewSamples`; the client selects from those values through `selectOverviewSample`. No reporting request interface or database was added. The new table layout uses the approved Prebid palette without following the old reporting layout.
 
 ## Earlier display reference
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { AllRepositoriesView } from '../src/features/repositories/all-repositories-view';
 import { useLocalTableController } from '../src/components/tables/local-data-table';
@@ -5,9 +6,19 @@ import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { ThemeMenu } from '../src/components/layout/theme-menu';
 import { PageState } from '../src/components/feedback/page-state';
-import { repositoryOverviewSample } from '../src/mocks/repository-overview';
+import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
+import { defaultOverviewSettings } from '../src/lib/presentation/overview-settings';
+import { selectOverviewSample } from '../src/lib/presentation/overview-samples';
+import { overviewSettingsColumns } from '../src/features/repositories/overview-columns';
+import { initialTableQuery } from '../src/lib/presentation/table-controller';
 import { repositoryCatalog } from '../src/config/repositories';
 
+const samples = repositoryOverviewSamples();
+const repositories = samples.repositories.map((row) => row.repository);
+const definition = {
+  ...overviewSettingsColumns,
+  repositoryIds: repositories.map((repo) => repo.id),
+};
 function OverviewPreview({
   showChange = false,
   state = 'normal',
@@ -17,7 +28,12 @@ function OverviewPreview({
 }) {
   const backlog = useLocalTableController();
   const activity = useLocalTableController();
-  const data = repositoryOverviewSample(undefined, state === 'empty' ? [] : undefined);
+  const [settings, setSettings] = useState(() => ({
+    ...defaultOverviewSettings(definition),
+    showChange,
+    repositoryIds: state === 'empty' ? [] : definition.repositoryIds,
+  }));
+  const data = selectOverviewSample(samples, settings.period, settings.repositoryIds);
   return (
     <DashboardFrame
       navigation={
@@ -37,7 +53,17 @@ function OverviewPreview({
           data={data}
           backlogController={backlog}
           activityController={activity}
-          showChange={showChange}
+          repositories={repositories}
+          settings={{
+            value: settings,
+            update: (patch) => setSettings((previous) => ({ ...previous, ...patch })),
+            storageAvailable: false,
+            reset: () => {
+              setSettings(defaultOverviewSettings(definition));
+              backlog.update(initialTableQuery);
+              activity.update(initialTableQuery);
+            },
+          }}
         />
       )}
     </DashboardFrame>

@@ -120,3 +120,15 @@ export interface RepositoryOverview {
   activitySample: 'prepared' | 'unprepared';
   rows: RepositoryOverviewRow[];
 }
+
+/** Small prepared display bundles, with current backlog stored only once. */
+export interface RepositoryOverviewSamples {
+  source: 'sample';
+  scenarioId: string;
+  asOf: string;
+  repositories: Pick<RepositoryOverviewRow, 'repository' | 'backlog'>[];
+  periods: {
+    period: ResolvedPeriod;
+    rows: Record<string, Pick<RepositoryOverviewRow, 'activity' | 'comparison'>>;
+  }[];
+}

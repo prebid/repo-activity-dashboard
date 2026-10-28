@@ -1,14 +1,23 @@
 import { useState } from 'react';
 import { expect, it, vi } from 'vitest';
-import { act, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
 import { useLocalTableController, LocalDataTable } from '@/components/tables/local-data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import { repositoryOverviewSample } from '@/mocks/repository-overview';
+import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import { defaultOverviewSettings } from '@/lib/presentation/overview-settings';
+import { selectOverviewSample } from '@/lib/presentation/overview-samples';
+import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import type { AgingThreshold } from '@/models/repository-overview';
 import type { DataColumn } from '@/components/tables/data-table';
 
+const samples = repositoryOverviewSamples();
+const repositories = samples.repositories.map((row) => row.repository);
+const definition = {
+  ...overviewSettingsColumns,
+  repositoryIds: repositories.map((repo) => repo.id),
+};
 function Preview({
   showChange = false,
   ageDays = 30,
@@ -18,16 +27,108 @@ function Preview({
 }) {
   const backlog = useLocalTableController();
   const activity = useLocalTableController();
+  const [settings, setSettings] = useState(() => ({
+    ...defaultOverviewSettings(definition),
+    showChange,
+    ageDays,
+  }));
   return (
     <AllRepositoriesView
-      data={repositoryOverviewSample()}
+      data={selectOverviewSample(samples, settings.period, settings.repositoryIds)}
       backlogController={backlog}
       activityController={activity}
-      showChange={showChange}
-      ageDays={ageDays}
+      repositories={repositories}
+      settings={{
+        value: settings,
+        update: (patch) => setSettings((previous) => ({ ...previous, ...patch })),
+        reset: () => setSettings(defaultOverviewSettings(definition)),
+        storageAvailable: true,
+      }}
     />
   );
 }
+it('searches repository options without changing selection and applies or cancels the draft explicitly', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  await user.click(screen.getByRole('button', { name: /^Choose repositories/ }));
+  const dialog = screen.getByRole('dialog', { name: 'Choose repositories' });
+  await user.type(within(dialog).getByRole('textbox', { name: 'Search repositories' }), 'server');
+  expect(within(dialog).getAllByRole('checkbox')).toHaveLength(2);
+  expect(within(dialog).getByText('18 selected')).toBeVisible();
+  await user.click(within(dialog).getByRole('button', { name: 'Clear selection' }));
+  await user.click(within(dialog).getByRole('checkbox', { name: 'Prebid Server (Go)' }));
+  await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+  expect(
+    screen.getByRole('table', { name: 'Current backlog' }).querySelectorAll('tbody tr'),
+  ).toHaveLength(18);
+  await user.click(screen.getByRole('button', { name: /^Choose repositories/ }));
+  expect(screen.getByRole('textbox', { name: 'Search repositories' })).toHaveValue('');
+  await user.type(screen.getByRole('textbox', { name: 'Search repositories' }), 'does-not-exist');
+  expect(screen.getByText(/No repositories match/)).toBeVisible();
+  await user.clear(screen.getByRole('textbox', { name: 'Search repositories' }));
+  await user.click(screen.getByRole('button', { name: 'Clear selection' }));
+  await user.click(screen.getByRole('checkbox', { name: 'SalesAgent' }));
+  await user.click(screen.getByRole('button', { name: 'Apply selection' }));
+  for (const title of ['Current backlog', 'Period activity'])
+    expect(screen.getByRole('table', { name: title }).querySelectorAll('tbody tr')).toHaveLength(1);
+  await user.click(screen.getByRole('button', { name: /^Choose repositories/ }));
+  await user.click(screen.getByRole('button', { name: 'Select all 18' }));
+  expect(screen.getByText('18 selected')).toBeVisible();
+  await user.click(screen.getByRole('button', { name: 'Clear selection' }));
+  await user.click(screen.getByRole('button', { name: 'Apply selection' }));
+  expect(screen.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
+  expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  await user.click(screen.getByRole('button', { name: 'Reset view' }));
+  expect(screen.getAllByRole('table')).toHaveLength(2);
+});
+it('changes timeframe and aging independently and exposes the comparison dates and prior value', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  const backlog = screen.getByRole('region', { name: 'Current backlog' });
+  const activity = screen.getByRole('region', { name: 'Period activity' });
+  const backlogRow = within(backlog).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
+  const activityRow = within(activity).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
+  await user.selectOptions(screen.getByRole('combobox', { name: 'PR aging threshold' }), '60');
+  expect(backlogRow.querySelector('[data-column="agedPrs"]')).toHaveTextContent('60');
+  await user.selectOptions(
+    screen.getByRole('combobox', { name: 'Activity timeframe' }),
+    'this-week',
+  );
+  expect(activityRow.querySelector('[data-column="prsOpened"]')).toHaveTextContent('12');
+  expect(backlogRow.querySelector('[data-column="totalOpenPrs"]')).toHaveTextContent('137');
+  expect(backlogRow.querySelector('[data-column="agedPrs"]')).toHaveTextContent('60');
+  await user.click(screen.getByRole('checkbox', { name: 'Show change' }));
+  expect(within(activity).getByText(/Compared with Oct 12, 2026/)).toBeVisible();
+  expect(within(activityRow).getByTitle('Previous period: 10')).toHaveTextContent('+2');
+});
+it('validates custom dates and distinguishes unavailable samples from an empty result', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Activity timeframe' }), 'custom');
+  const dialog = screen.getByRole('dialog', { name: 'Custom date range' });
+  fireEvent.change(within(dialog).getByLabelText('Start date'), {
+    target: { value: '2026-10-09' },
+  });
+  fireEvent.change(within(dialog).getByLabelText('End date'), { target: { value: '2026-10-06' } });
+  await user.click(within(dialog).getByRole('button', { name: 'Apply dates' }));
+  expect(within(dialog).getByRole('alert')).toHaveTextContent('start on or before the end');
+  fireEvent.change(within(dialog).getByLabelText('Start date'), {
+    target: { value: '2026-10-06' },
+  });
+  fireEvent.change(within(dialog).getByLabelText('End date'), { target: { value: '2026-10-08' } });
+  await user.click(within(dialog).getByRole('button', { name: 'Apply dates' }));
+  expect(screen.getByRole('combobox', { name: 'Activity timeframe' })).toHaveValue('custom');
+  const activity = screen.getByRole('region', { name: 'Period activity' });
+  const row = within(activity).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
+  expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
+  await user.click(screen.getByRole('button', { name: 'Edit dates' }));
+  expect(screen.getByLabelText('Start date')).toHaveValue('2026-10-06');
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-10-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-10-02' } });
+  await user.click(screen.getByRole('button', { name: 'Apply dates' }));
+  expect(within(activity).getByText(/No prepared sample data/)).toBeVisible();
+  expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
+});
 it('shows a horizontal-scroll hint only while the table overflows its container', () => {
   const callbacks: (() => void)[] = [];
   const observe = vi.fn();

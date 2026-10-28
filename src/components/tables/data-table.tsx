@@ -35,6 +35,7 @@ export interface DataTableProps<T> {
   controller: TableController;
   exportName?: string;
   description?: React.ReactNode;
+  controls?: React.ReactNode;
   footerNote?: React.ReactNode;
   visibility?: ColumnVisibility;
   itemLabel?: string;
@@ -56,6 +57,7 @@ export function DataTable<T extends { id: string }>({
   controller,
   exportName,
   description,
+  controls,
   footerNote,
   visibility,
   itemLabel = 'items',
@@ -214,6 +216,7 @@ export function DataTable<T extends { id: string }>({
           {description && <div className={styles.description}>{description}</div>}
         </div>
         <div className={styles.controls}>
+          {controls}
           <Input
             aria-label={'Search ' + title}
             placeholder="Find in table…"

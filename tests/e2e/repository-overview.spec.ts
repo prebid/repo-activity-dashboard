@@ -220,5 +220,7 @@ test('repository story renders independently with comparison values and empty st
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--empty&viewMode=story',
   );
-  await expect(page.getByText('No items', { exact: true })).toHaveCount(2);
+  await expect(
+    page.getByRole('heading', { name: 'No repositories selected', exact: true }),
+  ).toBeVisible();
 });

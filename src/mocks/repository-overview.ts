@@ -1,5 +1,5 @@
 import { repositoryCatalog } from '@/config/repositories';
-import { defaultPeriod, type PeriodSelection } from '@/models/reporting-period';
+import { defaultPeriod, periodPresets, type PeriodSelection } from '@/models/reporting-period';
 import {
   activityMetricIds,
   activitySchema,
@@ -8,6 +8,7 @@ import {
   type ActivityMetric,
   type RepositoryActivity,
   type RepositoryOverview,
+  type RepositoryOverviewSamples,
 } from '@/models/repository-overview';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { busyPeriods, preparedCustomPeriod } from './overview-activity';
@@ -58,6 +59,29 @@ function sizedSample(source: RepositoryActivity, divisor: number): RepositoryAct
   if (counts.prsMerged > 0 && days.status !== 'complete')
     throw new Error('Sample template is missing merge duration');
   return activity(counts, counts.prsMerged > 0 ? days.value : null);
+}
+
+export function repositoryOverviewSamples(): RepositoryOverviewSamples {
+  const reports = [
+    ...periodPresets.map((preset) => repositoryOverviewSample({ kind: 'preset', preset })),
+    repositoryOverviewSample(customSampleSelection),
+  ];
+  const first = reports[0];
+  return {
+    source: 'sample',
+    scenarioId: first.scenarioId,
+    asOf: first.asOf,
+    repositories: first.rows.map(({ repository, backlog }) => ({ repository, backlog })),
+    periods: reports.map((report) => ({
+      period: report.period,
+      rows: Object.fromEntries(
+        report.rows.map((row) => [
+          row.repository.id,
+          { activity: row.activity, comparison: row.comparison },
+        ]),
+      ),
+    })),
+  };
 }
 
 function unavailableActivity(reason: string): RepositoryActivity {

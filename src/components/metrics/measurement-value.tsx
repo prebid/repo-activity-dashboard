@@ -39,11 +39,25 @@ export function MeasurementValue({
         {detail && <span className="sr-only"> {detail}</span>}
       </span>
       {comparison && (
-        <span className={styles.change}>
+        <span
+          className={styles.change}
+          title={
+            comparison.status === 'complete'
+              ? 'Previous period: ' + formatCount(comparison.value) + (unit === 'days' ? ' d' : '')
+              : comparison.reason
+          }
+        >
           <span className="sr-only">Change from comparison period: </span>
           {change === null
             ? '—'
             : (change > 0 ? '+' : '') + formatCount(change) + (unit === 'days' ? ' d' : '')}
+          <span className="sr-only">
+            {comparison.status === 'complete'
+              ? ' Previous period value: ' +
+                formatCount(comparison.value) +
+                (unit === 'days' ? ' days' : '')
+              : ' ' + comparison.reason}
+          </span>
         </span>
       )}
     </span>

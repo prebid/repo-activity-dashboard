@@ -303,10 +303,11 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
     'descending',
   );
   await page.goto('/repos?backlog.sort=name&backlog.dir=asc');
-  await expect(page.getByRole('columnheader', { name: 'Repository ↑' })).toHaveAttribute(
-    'aria-sort',
-    'ascending',
-  );
+  await expect(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('columnheader', { name: 'Repository ↑' }),
+  ).toHaveAttribute('aria-sort', 'ascending');
   await page.getByRole('button', { name: 'Sign out' }).click();
   await expect(page).toHaveURL(/auth\/login/);
   await page.getByLabel('Email', { exact: true }).fill('bob@example.test');

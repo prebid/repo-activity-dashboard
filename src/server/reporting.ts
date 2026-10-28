@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
 import { repositorySample, contributionRows, companyRows } from '@/mocks/reporting';
-import { repositoryOverviewSample } from '@/mocks/repository-overview';
+import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 export async function allRepositories() {
   const viewer = await requireViewer();
-  return { viewer, data: repositoryOverviewSample() };
+  return { viewer, samples: repositoryOverviewSamples() };
 }
 export async function repositoryDetail(slug: string) {
   const viewer = await requireViewer();
