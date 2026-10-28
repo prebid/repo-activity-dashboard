@@ -8,6 +8,18 @@ import {
 import { repositoryDrilldownHref } from './repository-drilldown';
 import { readTableQuery, writeTableQuery, type TableQuery } from './table-query';
 
+/** Decode the route segment once; keep logical account validation strict and shared. */
+export function readAuthorAccountSegment(segment: string): string | null {
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(segment);
+  } catch {
+    return null;
+  }
+  const account = authorAccountSchema.safeParse(decoded);
+  return account.success ? account.data : null;
+}
+
 export function isAuthorSelection(selection: DrilldownSelection): selection is AuthorSelection {
   return (
     selection.scope === 'period' &&

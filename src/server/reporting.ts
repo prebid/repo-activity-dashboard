@@ -10,9 +10,9 @@ import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { reportingBranchSchema } from '@/models/repository-overview';
 import { isInsightSelection } from '@/lib/presentation/repository-insights';
 import { repositoryInsightSample, repositoryAuthorRecordSample } from '@/mocks/repository-insights';
-import { authorAccountSchema } from '@/models/repository-insights';
 import {
   isAuthorSelection,
+  readAuthorAccountSegment,
   authorListQuery,
   repositoryAuthorsHref,
 } from '@/lib/presentation/repository-author-records';
@@ -60,20 +60,20 @@ export async function repositoryDetail(slug: string, params = new URLSearchParam
 }
 export async function repositoryAuthorDetail(
   slug: string,
-  account: string,
+  accountSegment: string,
   params: URLSearchParams,
 ) {
   const { viewer, identity } = await repositoryContext(slug);
-  const author = authorAccountSchema.safeParse(account);
+  const author = readAuthorAccountSegment(accountSegment);
   const parsed = readRepositoryDrilldown(params, identity);
-  if (!author.success || parsed.status !== 'valid' || !isAuthorSelection(parsed.value.selection))
+  if (author === null || parsed.status !== 'valid' || !isAuthorSelection(parsed.value.selection))
     return { status: 'invalid' as const };
   const drilldown = { selection: parsed.value.selection, returnTo: parsed.value.returnTo };
   const returnToAuthors = repositoryAuthorsHref(identity, drilldown, authorListQuery(params));
   return {
     status: 'list' as const,
     viewer,
-    list: repositoryAuthorRecordSample(identity, drilldown, author.data, returnToAuthors),
+    list: repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
   };
 }
 export async function contributions(kind: 'contributors' | 'companies') {

@@ -55,12 +55,17 @@ const latest: LatestActor[] = [
   'other-human',
   'unknown',
 ];
+export const sampleBotAuthor = 'sample-author-3[bot]';
 function sampleAuthor(index: number, count: number, heavyCount = 0): string {
-  if (!heavyCount) return 'sample-author-' + ((index % count) + 1);
-  if (index < heavyCount * 2 && index % 2 === 0) return 'sample-author-2';
-  const otherIndex = index < heavyCount * 2 ? Math.floor(index / 2) : index - heavyCount;
-  const ordinal = (otherIndex % (count - 1)) + 1;
-  return 'sample-author-' + (ordinal >= 2 ? ordinal + 1 : ordinal);
+  let ordinal: number;
+  if (!heavyCount) ordinal = (index % count) + 1;
+  else if (index < heavyCount * 2 && index % 2 === 0) ordinal = 2;
+  else {
+    const otherIndex = index < heavyCount * 2 ? Math.floor(index / 2) : index - heavyCount;
+    const otherOrdinal = (otherIndex % (count - 1)) + 1;
+    ordinal = otherOrdinal >= 2 ? otherOrdinal + 1 : otherOrdinal;
+  }
+  return ordinal === 3 ? sampleBotAuthor : 'sample-author-' + ordinal;
 }
 
 /** Expand only requested sample lists. Counts are prepared values, never fetched reporting history. */

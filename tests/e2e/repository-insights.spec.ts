@@ -61,6 +61,68 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   expect(new URL(page.url()).searchParams.get('metric')).toBe('issueAuthors');
 });
 
+for (const [metric, noun, authorLabel] of [
+  ['prAuthors', 'PRs', 'PR authors'],
+  ['issueAuthors', 'Issues', 'Issue authors'],
+] as const) {
+  test(`bot ${noun} authors open matching records and preserve their parent scope`, async ({
+    page,
+  }) => {
+    await login(page);
+    await page.goto(context);
+    await periodRows(page)
+      .nth(0)
+      .locator('[data-column="' + metric + '"] a')
+      .click();
+    const account = 'sample-author-3[bot]';
+    await page.getByRole('textbox', { name: 'Search ' + authorLabel, exact: true }).fill(account);
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+    const link = page.getByRole('link', { name: 'View 2 ' + noun + ' by ' + account, exact: true });
+    await expect(link).toHaveAttribute('href', /sample-author-3%5Bbot%5D/);
+    await link.click();
+    const heading = page.getByRole('heading', { name: noun + ' by ' + account, exact: true });
+    await expect(heading).toBeVisible();
+    await expect(page.getByText('2 matching records', { exact: true })).toBeVisible();
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+    expect(await page.locator('tbody [data-column="author"]').allTextContents()).toEqual([
+      account,
+      account,
+    ]);
+    const query = new URL(page.url()).search;
+    expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
+    expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
+    expect(new URL(page.url()).searchParams.get('to')).toBe('2026-10-24T12:00:00.000Z');
+    const returnTo = new URL(page.url()).searchParams.get('returnTo')!;
+    const overview = new URL(returnTo, 'http://127.0.0.1:3100');
+    const selected = new URL(context, 'http://127.0.0.1:3100');
+    expect(overview.pathname).toBe('/repos');
+    for (const key of ['repo', 'period', 'period2', 'age', 'activity.sort', 'activity.dir'])
+      expect(overview.searchParams.getAll(key)).toEqual(selected.searchParams.getAll(key));
+    expect(overview.searchParams.get('backlog.sort')).toBe('totalOpenPrs');
+    expect(overview.searchParams.get('backlog.dir')).toBe('desc');
+    await page.reload();
+    await expect(heading).toBeVisible();
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+    await page.getByRole('link', { name: '← ' + authorLabel, exact: true }).click();
+    await expect(
+      page.getByRole('textbox', { name: 'Search ' + authorLabel, exact: true }),
+    ).toHaveValue(account);
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+    await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+    await expect(page).toHaveURL(overview.href);
+    await page.goto('/repos/prebidjs/authors/not-in-this-sample%5Bbot%5D' + query);
+    await expect(
+      page.getByRole('heading', { name: noun + ' by not-in-this-sample[bot]', exact: true }),
+    ).toBeVisible();
+    await expect(page.getByText('0 matching records', { exact: true })).toBeVisible();
+    await page.goto('/repos/prebidjs/authors/sample-author-3%255Bbot%255D' + query);
+    await expect(
+      page.getByRole('heading', { name: 'Invalid author filter', exact: true }),
+    ).toBeVisible();
+    await expect(page.getByRole('table')).toHaveCount(0);
+  });
+}
+
 for (const [metric, noun, count, finalPageCount, oldestNumber] of [
   ['prAuthors', 'PRs', 240, 40, '500001'],
   ['issueAuthors', 'Issues', 350, 50, '550001'],

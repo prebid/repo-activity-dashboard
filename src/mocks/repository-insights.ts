@@ -13,14 +13,14 @@ import type {
   RepositoryIssue,
   RepositoryRecordList,
 } from '@/models/repository-records';
-import { repositoryRecordSample } from './repository-records';
+import { repositoryRecordSample, sampleBotAuthor } from './repository-records';
 import { preparedPeriodSample } from './overview-period-sample';
 import { overviewAsOf } from './repository-overview';
 
 // Explicit classifications for invented accounts, not inference about real GitHub identities.
 const authorTypes: Record<string, ReportingAccountType> = {
   'sample-author-2': 'agent',
-  'sample-author-3': 'bot',
+  [sampleBotAuthor]: 'bot',
 };
 const creditedAccounts = {
   agent: ['sample-prebid-agent-a', 'sample-prebid-agent-b'],

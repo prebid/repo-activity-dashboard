@@ -4,6 +4,7 @@ import {
   repositoryAuthorsHref,
   authorListQuery,
   isAuthorSelection,
+  readAuthorAccountSegment,
 } from '@/lib/presentation/repository-author-records';
 import { authorAccountSchema, authorTableColumnIds } from '@/models/repository-insights';
 import { repositoryAuthorRecordSample, repositoryInsightSample } from '@/mocks/repository-insights';
@@ -127,4 +128,47 @@ it('distinguishes a valid empty author filter from an unavailable period', () =>
   );
   expect(missing.rows).toEqual([]);
   expect(missing.measurement.status).toBe('missing');
+});
+
+it.each([
+  ['sample-author-2', 'sample-author-2'],
+  ['SAMPLE-AUTHOR-2', 'sample-author-2'],
+  ['Sample-Author-3[bot]', 'sample-author-3[bot]'],
+  ['Sample-Author-3%5Bbot%5D', 'sample-author-3[bot]'],
+  ['sample-author-3%5bbot%5d', 'sample-author-3[bot]'],
+  ['a'.repeat(95) + '%5Bbot%5D', 'a'.repeat(95) + '[bot]'],
+])('reads an account route segment once: %s', (segment, expected) => {
+  expect(readAuthorAccountSegment(segment)).toBe(expected);
+});
+it.each([
+  '',
+  'bad%',
+  'bad%ZZ',
+  '%E0%A4%A',
+  '../other',
+  'https://evil.example',
+  'bad%2Factor',
+  'bad%20actor',
+  'sample-author-3%255Bbot%255D',
+  'sample-author-3[bot][bot]',
+  'a'.repeat(101),
+  'a'.repeat(96) + '%5Bbot%5D',
+])('rejects an invalid or repeatedly encoded account segment: %s', (segment) => {
+  expect(readAuthorAccountSegment(segment)).toBeNull();
+});
+it.each([
+  ['prAuthors', 3],
+  ['issueAuthors', 2],
+] as const)('keeps the fake bot author and its %s records consistent', (metric, count) => {
+  const drilldown = { ...parent, selection: { ...parent.selection, metric } };
+  const overview = repositoryInsightSample(repo, drilldown);
+  if (overview.kind !== 'authors') throw new Error('Expected authors');
+  expect(overview.rows.find((row) => row.account === 'sample-author-3[bot]')).toMatchObject({
+    accountType: 'bot',
+    recordCount: count,
+  });
+  const records = repositoryAuthorRecordSample(repo, drilldown, 'sample-author-3[bot]', '/repos');
+  expect(records.measurement).toEqual({ status: 'complete', value: count });
+  expect(records.rows).toHaveLength(count);
+  expect(records.rows.every((row) => row.author === 'sample-author-3[bot]')).toBe(true);
 });
