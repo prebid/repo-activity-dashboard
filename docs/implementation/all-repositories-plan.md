@@ -133,7 +133,7 @@ At each step, run the smallest relevant registered checks and expand after share
 
 ## Readiness and remaining review
 
-Step 5 technical verification and the final visual-review captures are complete. One intermittent large-list hydration issue was reproduced and fixed without changing the design or authentication policy. `npm run check:all` passes 616 cases, all builds, architecture checks, and a clean dependency audit. The [review record](all-repositories-review.md) documents evidence, the targeted rendering workaround, and limits. User visual sign-off and the draft review handoff to `codex/frontend-rebuild` remain pending.
+Step 5 technical verification and the final visual-review captures are complete. One intermittent large-list hydration issue was reproduced and fixed without changing the design or authentication policy. `npm run check:all` passes 616 cases, all builds, architecture checks, and a clean dependency audit. The [review record](all-repositories-review.md) documents evidence, the targeted rendering workaround, and limits. The user approved the final visual baseline on 2026-10-28 and requested a draft review PR against `codex/frontend-rebuild`. Hosted checks and independent review are tracked on that PR.
 
 Review the repository, timeframe, aging, comparison, and saved-preference controls in the updated preview. Step 4 connects all known summary metrics to guarded, sample-backed PR/issue lists, unique-author lists, contribution-credit lists, or merge-duration details. Difference rows remain informational. Step 5 is the final visual baseline, self-audit, and review handoff. Authentication design, metric definitions, and the approved base layout are preserved.
 

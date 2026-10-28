@@ -34,16 +34,16 @@ The local review gallery contains 102 captures with browser/theme/viewport selec
 
 ## Residuals
 
-- User approval of the final visual baseline is pending. Passing tests and this self-audit do not supply that approval.
-- A review PR, hosted checks for its exact head, and independent reviewer acceptance are pending. Handoff targets `codex/frontend-rebuild`.
+- The user approved the final visual baseline and requested the PR on 2026-10-28. Independent reviewer acceptance remains separate.
+- Hosted checks and independent reviewer acceptance are tracked on the review PR. Handoff targets `codex/frontend-rebuild`.
 - Reporting rows and record URLs remain invented samples. Prepared periods are independent display scenarios, not a global event-history simulation. Real GitHub metric correctness and future database performance are outside this review.
 - Native zoom-menu behavior, assistive-technology user testing, and live Amplify/IAM acceptance are not certified by the automated reflow/accessibility checks.
 - The local hydration workaround should be revisited when the hosting-compatible Next renderer includes the upstream replay correction. The regression must remain; removing the workaround requires evidence, not merely a version label.
 
 No deployment or production merge is part of this review.
 
-The user's final visual review requested bounded handling for high-volume authors. Inline record expansion was replaced with the paginated author-record flow described in the implementation plan. The earlier 592-case verification above predates that refinement; its final verification is recorded below. Visual sign-off remains pending for the updated flow.
+The user's final visual review requested bounded handling for high-volume authors. Inline record expansion was replaced with the paginated author-record flow described in the implementation plan. The earlier technical review predates that refinement; its final verification is recorded below. The user subsequently approved the updated flow for PR handoff.
 
 The high-volume-author interaction test also exposed cell remounting when a column callback changed during search blur. Shared columns are render callbacks, not React component types; the table now invokes them inside the stable keyed cell, preserving the returned child component's state and DOM identity. A focused counter/focus regression failed before the change, and the standard suite verifies it afterward. Draft markers are included in the searchable PR title value. The visual matrix is parameterized by view so its bounded per-view work fits the ordinary test timeout.
 
-Final verification after the requested author refinement: `npm run check:all` passes 616 cases (465 unit/component, 31 account, eight production, 112 browser), all builds/coverage/architecture checks, and zero dependency advisories. All result validators are clean. The author overview carries counts only; selected records are filtered by account and creation period before reaching the client table. Browser checks verify paging/search for 240 PRs and 350 issues, preserved parent context, all current statuses, and invalid-scope rejection. The updated visual gallery supersedes the inline-expansion captures. User visual sign-off and draft-PR handoff remain pending.
+Final verification after the requested author refinement: `npm run check:all` passes 616 cases (465 unit/component, 31 account, eight production, 112 browser), all builds/coverage/architecture checks, and zero dependency advisories. All result validators are clean. The author overview carries counts only; selected records are filtered by account and creation period before reaching the client table. Browser checks verify paging/search for 240 PRs and 350 issues, preserved parent context, all current statuses, and invalid-scope rejection. The updated visual gallery supersedes the inline-expansion captures. User visual sign-off is recorded; the draft review handoff targets `codex/frontend-rebuild`.
