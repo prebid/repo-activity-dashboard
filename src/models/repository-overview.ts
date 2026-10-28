@@ -121,13 +121,23 @@ export interface RepositoryOverview {
   rows: RepositoryOverviewRow[];
 }
 
-export interface RepositoryActivityRow extends RepositoryOverviewRow {
+export interface RepositoryPeriodRow extends RepositoryOverviewRow {
+  kind: 'period';
   id: string;
   period: ResolvedPeriod;
   periodIndex: 0 | 1;
   showPeriodLabel: boolean;
   sortActivity: RepositoryActivity;
 }
+export interface RepositoryDifferenceRow {
+  kind: 'difference';
+  id: string;
+  repository: OverviewRepository;
+  primary: RepositoryActivity;
+  secondary: RepositoryActivity;
+  sortActivity: RepositoryActivity;
+}
+export type RepositoryActivityRow = RepositoryPeriodRow | RepositoryDifferenceRow;
 
 /** Small prepared display bundles, with current backlog stored only once. */
 export interface RepositoryOverviewSamples {

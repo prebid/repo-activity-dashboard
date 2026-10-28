@@ -13,7 +13,7 @@ function row(page: Page, title: string, name = 'Prebid.js') {
   return page
     .getByRole('table', { name: title, exact: true })
     .getByRole('row')
-    .filter({ has: page.getByRole('link', { name, exact: true }) });
+    .filter({ hasText: name });
 }
 async function selectRepositories(page: Page, names: string[]) {
   await page.getByRole('button', { name: /^Choose repositories/ }).click();
@@ -60,9 +60,9 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await page.getByRole('button', { name: 'Add second period', exact: true }).click();
   await page.getByRole('combobox', { name: 'Period 2 preset' }).selectOption('last-month');
   const activity = page.getByRole('table', { name: 'Period activity', exact: true });
-  await expect(activity.locator('tbody tr')).toHaveCount(36);
+  await expect(activity.locator('tbody tr')).toHaveCount(54);
   await selectRepositories(page, ['Prebid.js', 'SalesAgent']);
-  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  await expect(activity.locator('tbody tr')).toHaveCount(6);
   const sort = activity.locator('th[id$="-prsOpened"] button');
   await sort.click();
   await sort.click();
@@ -73,18 +73,22 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await expect(pairs.nth(1)).toContainText('Last month');
   await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('47');
   await expect(pairs.nth(1).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(pairs.nth(2)).toContainText('Difference');
+  await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-14');
+  await expect(activity.getByRole('link', { name: 'Prebid.js', exact: true })).toHaveCount(1);
   await expect(page.getByRole('button', { name: 'Add second period', exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Swap periods', exact: true }).click();
   await expect(pairs.nth(0)).toContainText('Last month');
   await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+14');
   await page.goto('/repos');
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('last-month');
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('this-month');
-  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  await expect(activity.locator('tbody tr')).toHaveCount(6);
   await page.getByRole('button', { name: 'Remove period 2', exact: true }).click();
   await expect(activity.locator('tbody tr')).toHaveCount(2);
   await page.goBack();
-  await expect(activity.locator('tbody tr')).toHaveCount(4);
+  await expect(activity.locator('tbody tr')).toHaveCount(6);
   await page.goto('/repos?period=this-week&period2=this-week&change=1');
   await expect(
     page.getByText('The second period is invalid or duplicates the first. Showing one period.'),
@@ -114,11 +118,12 @@ test('two custom ranges are independently editable and remain readable at narrow
   await dates('2026-10-13', '2026-10-15');
   await page.goto('/repos');
   const pair = row(page, 'Period activity');
-  await expect(pair).toHaveCount(2);
+  await expect(pair).toHaveCount(3);
   await expect(pair.nth(0)).toContainText('Oct 6, 2026 – Oct 8, 2026');
   await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
   await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
   await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('5');
+  await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+2');
   await chooseAges(page, []);
   await expectAges(page, []);
   for (const theme of ['dark', 'light']) {
@@ -166,9 +171,18 @@ test('aging columns can be combined, sorted, saved, or all hidden', async ({ pag
   await expectAges(page, []);
   await expect(backlog.getByRole('columnheader', { name: 'PR age', exact: true })).toHaveCount(0);
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
-  await page.getByRole('menuitemcheckbox', { name: 'PR age', exact: true }).click();
+  const columnsMenu = page.getByRole('menu', { name: 'Columns', exact: true });
+  await expect(
+    columnsMenu.getByRole('menuitemcheckbox', { name: 'PR age', exact: true }),
+  ).toHaveCount(0);
+  await expect(columnsMenu.getByRole('menuitemcheckbox', { name: /Over \d+ days/ })).toHaveCount(0);
+  await columnsMenu.getByRole('menuitemcheckbox', { name: 'Drafts', exact: true }).click();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toHaveCount(0);
+  await expectAges(page, []);
+  await backlog.getByRole('button', { name: 'PR age', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'PR age', exact: true }).click();
+  await page.keyboard.press('Escape');
   await expectAges(page, [30, 60, 90, 120, 180, 360]);
   await backlog.getByRole('button', { name: 'PR age', exact: true }).click();
   for (const days of [30, 60, 90, 120, 180, 360])

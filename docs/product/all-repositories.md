@@ -40,7 +40,7 @@ All values are observed counts. There are no configured reviewer targets, first/
 - Default selection: 30 days.
 - Use a checkbox menu, like Columns, to add or remove any of the six age columns. Show selected thresholds in ascending order.
 - Selecting none removes the entire PR age group from the table. The menu remains available to add columns again.
-- Save the selected thresholds per account. The PR age and Columns menus edit the same selection.
+- Save the selected thresholds per account. Only the dedicated PR age selector manages these columns; they are omitted from the general Columns menu.
 - Include each threshold in its column heading. These are cumulative counts, not disjoint age buckets.
 - This is age since creation, not time since last activity.
 
@@ -161,9 +161,9 @@ Custom ranges have their own action outside the preset dropdown. Either or both 
 
 Defaults remain Monday-start weeks and a shared UTC reporting timezone. Show each period's exact dates. Current selections stop at the reporting as-of time. Changing activity periods never changes current backlog.
 
-With two periods, show two adjacent rows for each repository. Identify each row with its period number and preset name or custom dates beside the repository name. Keep repository pairs together when sorting. Numeric sorts rank by Period 1; Swap periods changes which selected period supplies that rank. Values remain the actual values of each row's own period. Do not sum unique authors or other measures across the two rows.
+With two periods, show a three-row group for each repository: the first period, the second period, then a compact Difference row with a stronger separator beneath it. Show the repository name once and identify the period rows by preset name or custom dates, without repeated numbered badges. Each row retains the repository identity for assistive technology and exports. Keep each group together when sorting and paging; comparison pages contain at most 99 rows (33 repositories). Numeric sorts rank by Period 1; Swap periods changes which selected period supplies that rank. Values remain the actual values of each period. Do not sum unique authors or other measures across periods.
 
-Show change and automatic delta indicators are removed from this page. Missing sample values display dashes only for the affected period; a missing second range must not hide the first period or current backlog. A third period is outside the current scope.
+The Difference row appears automatically when a second period is selected; there is no Show change control. Calculate Period 1 minus Period 2 for each metric, using neutral signed values (and days for merge duration), with no judgment that an increase is good or bad. Show a dash when either operand is missing or partial. Missing sample values display dashes only for the affected period and its difference; a missing second range must not hide the first period or current backlog. A third period is outside the current scope.
 
 ## Filtering, sorting, preferences, and drill-down
 

@@ -79,6 +79,27 @@ it('keeps grouped rows together when sorting and exports their actual values', a
   ]);
 });
 describe('shared table', () => {
+  it('keeps three-row comparison groups together with a bounded 99-row page', async () => {
+    const user = userEvent.setup();
+    const grouped = Array.from({ length: 102 }, (_, i) => ({
+      id: String(i),
+      title: 'Repository ' + Math.floor(i / 3) + ' row ' + (i % 3),
+      count: i,
+    }));
+    render(<DataTable title="Comparison groups" rows={grouped} columns={columns} pageSize={99} />);
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(99);
+    expect(screen.getByText('Repository 32 row 2')).toBeVisible();
+    await user.click(screen.getByRole('button', { name: 'Next' }));
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(3);
+    expect(screen.getByText('Repository 33 row 0')).toBeVisible();
+  });
+  it.each([0, NaN, 150])(
+    'retains the 100-row maximum for invalid or oversized page sizes: %s',
+    (pageSize) => {
+      render(<DataTable title="Bounded" rows={rows} columns={columns} pageSize={pageSize} />);
+      expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(100);
+    },
+  );
   it('paginates 250 rows and searches across the full set', async () => {
     const user = userEvent.setup();
     render(<DataTable title="Records" rows={rows} columns={columns} />);

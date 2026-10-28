@@ -55,6 +55,10 @@ export function AllRepositoriesView({
     () => backlog.filter((column) => agingThresholdForColumn(column.id) !== undefined),
     [backlog],
   );
+  const otherBacklogColumns = useMemo(
+    () => backlog.filter((column) => agingThresholdForColumn(column.id) === undefined),
+    [backlog],
+  );
   function changeBacklogVisibility(value: Record<string, boolean>) {
     const selected = agingThresholds.filter((days) => value[agingColumnId(days)] !== false);
     const patch: Partial<OverviewSettings> = {
@@ -123,6 +127,7 @@ export function AllRepositoriesView({
             searchable={false}
             rows={rows}
             columns={backlog}
+            columnMenuColumns={otherBacklogColumns}
             controller={backlogController}
             itemLabel="repositories"
             showSinglePageControls={false}
@@ -150,9 +155,10 @@ export function AllRepositoriesView({
             rows={activityRows}
             columns={activity}
             controller={activityController}
-            itemLabel={secondaryData ? 'period rows' : 'repositories'}
+            itemLabel={secondaryData ? 'comparison rows' : 'repositories'}
+            pageSize={secondaryData ? 99 : 100}
             showSinglePageControls={false}
-            rowClassName={(row) => (row.periodIndex === 1 ? styles.secondaryPeriod : undefined)}
+            rowClassName={(row) => (row.kind === 'difference' ? styles.differenceRow : undefined)}
             description={
               data.rows.length + ' repositories · ' + (secondaryData ? '2 periods' : '1 period')
             }
@@ -174,7 +180,7 @@ export function AllRepositoriesView({
             }}
             footerNote={
               secondaryData
-                ? 'Numeric columns sort by Period 1. Swap periods to rank by Period 2. Merges use each repository’s primary branch.'
+                ? 'Difference = Period 1 − Period 2. Numeric columns sort by Period 1; swap periods to rank by Period 2.'
                 : 'Merges and merge time use each repository’s primary branch.'
             }
           />

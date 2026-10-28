@@ -16,7 +16,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 | Aging | Independent 30/60/90/120/180/360-day columns; default selection 30. Selecting none hides the group. Prebid.js values are 90/60/30/0/0/0. |
 | Period presets | All seven agreed presets, exact UTC ranges, and independent selected-period values. Current backlog stays identical. |
 | Custom range | October 6–8 and October 13–15, 2026 have independent prepared values for a two-custom-range preview. Other valid ranges return explicit missing-sample activity, preserving backlog. |
-| Two periods | Select one or two presets/custom ranges. Repository pairs stay together and each row retains its own values. Numeric sorting uses Period 1; Swap periods changes that ranking choice. Show change is not exposed. |
+| Two periods | Select one or two presets/custom ranges. Each repository group contains its two period rows and a compact automatic Difference row (Period 1 minus Period 2). Show the repository name once, without numbered row badges. Each period retains its own values; differences require complete operands. Numeric sorting uses Period 1; Swap periods changes that ranking choice and difference direction. Show change is not exposed. |
 | Feedback and approvals | Independent 0/1/2 distributions, retained above-two exceptions, agent/bot coverage, and latest-actor categories including other/unknown. |
 | Durations | Median days plus sample size; no merged PRs means not applicable, not zero days. |
 | Missing and partial data | Agent Skills current approvals missing; Cache Java partial agent coverage and issue closures; GitHub Activity DB comparison missing. |

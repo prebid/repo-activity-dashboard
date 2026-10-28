@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { DataColumn } from '@/components/tables/data-table';
-import { MeasurementValue } from '@/components/metrics/measurement-value';
+import { MeasurementValue, MeasurementDifference } from '@/components/metrics/measurement-value';
 import type {
   ActivityMetric,
   BacklogMetric,
@@ -9,6 +9,7 @@ import type {
 } from '@/models/repository-overview';
 import { agingThresholds } from '@/models/repository-overview';
 import { agingColumnId } from '@/lib/presentation/overview-aging';
+import { absoluteChange } from '@/lib/presentation/measurement';
 import { activityPeriodLabel } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 
@@ -134,9 +135,17 @@ function activityColumn(
     description,
     width: 116,
     align: 'right',
-    value: (row) => row.activity.counts[id].value,
+    value: (row) =>
+      row.kind === 'difference'
+        ? absoluteChange(row.primary.counts[id], row.secondary.counts[id])
+        : row.activity.counts[id].value,
     sortValue: (row) => row.sortActivity.counts[id].value,
-    cell: (row) => <MeasurementValue measurement={row.activity.counts[id]} />,
+    cell: (row) =>
+      row.kind === 'difference' ? (
+        <MeasurementDifference first={row.primary.counts[id]} second={row.secondary.counts[id]} />
+      ) : (
+        <MeasurementValue measurement={row.activity.counts[id]} />
+      ),
   };
 }
 export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
@@ -145,31 +154,40 @@ export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
       ...repositoryColumn,
       value: (row) =>
         row.repository.name +
-        (row.showPeriodLabel ? ' (' + activityPeriodLabel(row.period) + ')' : ''),
+        (row.kind === 'difference'
+          ? ' (Difference: Period 1 minus Period 2)'
+          : row.showPeriodLabel
+            ? ' (' + activityPeriodLabel(row.period) + ')'
+            : ''),
       sortValue: (row) => row.repository.name,
-      cell: (row) => (
-        <div>
-          <Link
-            prefetch={false}
-            href={'/repos/' + row.repository.slug}
-            className={styles.repositoryLink}
-            title={'Primary branch: ' + row.repository.primaryBranch}
-          >
-            {row.repository.name}
-          </Link>
-          {row.showPeriodLabel && (
-            <span className={styles.periodLabel}>
-              <span className={styles.periodBadge} aria-hidden="true">
-                {row.periodIndex + 1}
-              </span>
-              <span>
+      cell: (row) =>
+        row.kind === 'difference' ? (
+          <span className={styles.differenceLabel}>
+            <span className="sr-only">{row.repository.name}: </span>Difference
+            <span className="sr-only">, Period 1 minus Period 2</span>
+          </span>
+        ) : (
+          <div>
+            {row.periodIndex === 0 ? (
+              <Link
+                prefetch={false}
+                href={'/repos/' + row.repository.slug}
+                className={styles.repositoryLink}
+                title={'Primary branch: ' + row.repository.primaryBranch}
+              >
+                {row.repository.name}
+              </Link>
+            ) : (
+              <span className="sr-only">{row.repository.name}: </span>
+            )}
+            {row.showPeriodLabel && (
+              <span className={styles.periodLabel}>
                 <span className="sr-only">Period {row.periodIndex + 1}: </span>
                 {activityPeriodLabel(row.period)}
               </span>
-            </span>
-          )}
-        </div>
-      ),
+            )}
+          </div>
+        ),
     },
     activityColumn(
       'prsOpened',
@@ -195,21 +213,31 @@ export function activityColumns(): DataColumn<RepositoryActivityRow>[] {
       align: 'right',
       description:
         'Median time from PR creation to merge. Includes only primary-branch merges in the period.',
-      value: (row) => row.activity.mergeDuration.days.value,
+      value: (row) =>
+        row.kind === 'difference'
+          ? absoluteChange(row.primary.mergeDuration.days, row.secondary.mergeDuration.days)
+          : row.activity.mergeDuration.days.value,
       sortValue: (row) => row.sortActivity.mergeDuration.days.value,
-      cell: (row) => (
-        <MeasurementValue
-          measurement={row.activity.mergeDuration.days}
-          unit="days"
-          detail={
-            row.activity.mergeDuration.sampleSize.value === null
-              ? undefined
-              : row.activity.mergeDuration.sampleSize.value +
-                ' merged PRs · ' +
-                row.repository.primaryBranch
-          }
-        />
-      ),
+      cell: (row) =>
+        row.kind === 'difference' ? (
+          <MeasurementDifference
+            first={row.primary.mergeDuration.days}
+            second={row.secondary.mergeDuration.days}
+            unit="days"
+          />
+        ) : (
+          <MeasurementValue
+            measurement={row.activity.mergeDuration.days}
+            unit="days"
+            detail={
+              row.activity.mergeDuration.sampleSize.value === null
+                ? undefined
+                : row.activity.mergeDuration.sampleSize.value +
+                  ' merged PRs · ' +
+                  row.repository.primaryBranch
+            }
+          />
+        ),
     },
     activityColumn('agentFeedbackCredits', 'Agent feedback', 'Prebid agents'),
     activityColumn('agentApprovalCredits', 'Agent approvals', 'Prebid agents'),

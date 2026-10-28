@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
 import { useLocalTableController, LocalDataTable } from '@/components/tables/local-data-table';
-import { MeasurementValue } from '@/components/metrics/measurement-value';
+import { MeasurementValue, MeasurementDifference } from '@/components/metrics/measurement-value';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import type { OverviewSettings } from '@/models/overview-settings';
 import { defaultOverviewSettings } from '@/lib/presentation/overview-settings';
@@ -20,6 +20,46 @@ const definition = {
   repositoryIds: repositories.map((repo) => repo.id),
 };
 const defaultsForPreview = defaultOverviewSettings(definition);
+it('renders signed differences only from complete values, including durations and known zero', () => {
+  const view = render(
+    <MeasurementDifference
+      first={{ status: 'complete', value: 10 }}
+      second={{ status: 'complete', value: 4 }}
+    />,
+  );
+  expect(screen.getByText('+6')).toBeVisible();
+  view.rerender(
+    <MeasurementDifference
+      first={{ status: 'complete', value: 4 }}
+      second={{ status: 'complete', value: 10 }}
+    />,
+  );
+  expect(screen.getByText('-6')).toBeVisible();
+  view.rerender(
+    <MeasurementDifference
+      first={{ status: 'complete', value: 0 }}
+      second={{ status: 'complete', value: 0 }}
+    />,
+  );
+  expect(screen.getByText('0')).toBeVisible();
+  view.rerender(
+    <MeasurementDifference
+      first={{ status: 'complete', value: 3.5 }}
+      second={{ status: 'complete', value: 4 }}
+      unit="days"
+    />,
+  );
+  expect(screen.getByText('-0.5 d')).toBeVisible();
+  view.rerender(
+    <MeasurementDifference
+      first={{ status: 'partial', value: 3, reason: 'Incomplete' }}
+      second={{ status: 'complete', value: 4 }}
+    />,
+  );
+  expect(
+    screen.getByTitle('A difference requires complete values in both periods.'),
+  ).toHaveTextContent('—');
+});
 function Preview({
   twoPeriods = false,
   ageDays = 30,
@@ -56,7 +96,7 @@ function Preview({
     />
   );
 }
-it('stacks two labeled period rows per repository and lets the user swap or remove periods', async () => {
+it('groups two labeled periods and an automatic difference under one repository name', async () => {
   const user = userEvent.setup();
   render(<Preview />);
   expect(screen.queryByRole('checkbox', { name: 'Show change' })).not.toBeInTheDocument();
@@ -67,18 +107,22 @@ it('stacks two labeled period rows per repository and lets the user swap or remo
   await user.click(screen.getByRole('button', { name: 'Add second period' }));
   await user.selectOptions(screen.getByRole('combobox', { name: 'Period 2 preset' }), 'last-month');
   const activity = screen.getByRole('table', { name: 'Period activity' });
-  expect(activity.querySelectorAll('tbody tr')).toHaveLength(36);
-  const pairs = within(activity)
-    .getAllByRole('link', { name: 'Prebid.js' })
-    .map((link) => link.closest('tr')!);
+  expect(activity.querySelectorAll('tbody tr')).toHaveLength(54);
+  const pairs = [...activity.querySelectorAll('tbody tr')].filter((row) =>
+    row.textContent?.includes('Prebid.js'),
+  );
+  expect(within(activity).getAllByRole('link', { name: 'Prebid.js' })).toHaveLength(1);
   expect(pairs[0]).toHaveTextContent('This month');
   expect(pairs[1]).toHaveTextContent('Last month');
   expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('47');
   expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
+  expect(pairs[2]).toHaveTextContent('Difference');
+  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('-14');
   expect(screen.queryByRole('button', { name: 'Add second period' })).not.toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: 'Swap periods' }));
   expect(pairs[0]).toHaveTextContent('Last month');
   expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
+  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('+14');
   await user.click(screen.getByRole('button', { name: 'Remove period 1' }));
   expect(activity.querySelectorAll('tbody tr')).toHaveLength(18);
   expect(screen.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
@@ -101,13 +145,14 @@ it('accepts two custom ranges, rejects duplicate dates, and keeps missing values
   );
   await enter('2026-10-13', '2026-10-15');
   const activity = screen.getByRole('table', { name: 'Period activity' });
-  const pair = within(activity)
-    .getAllByRole('link', { name: 'Prebid.js' })
-    .map((link) => link.closest('tr')!);
+  const pair = [...activity.querySelectorAll('tbody tr')].filter((row) =>
+    row.textContent?.includes('Prebid.js'),
+  );
   expect(pair[0]).toHaveTextContent('Oct 6, 2026 – Oct 8, 2026');
   expect(pair[1]).toHaveTextContent('Oct 13, 2026 – Oct 15, 2026');
   expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
   expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('5');
+  expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('+2');
   await user.click(screen.getByRole('button', { name: 'Edit custom range for Period 2' }));
   await enter('2026-10-01', '2026-10-02');
   expect(
@@ -115,8 +160,9 @@ it('accepts two custom ranges, rejects duplicate dates, and keeps missing values
   ).toBeVisible();
   expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
   expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
+  expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
 });
-it('adds independent aging columns, synchronizes both menus, and removes the group when none are selected', async () => {
+it('keeps aging exclusively in its own selector and removes the group when none are selected', async () => {
   const user = userEvent.setup();
   render(<Preview />);
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
@@ -132,17 +178,20 @@ it('adds independent aging columns, synchronizes both menus, and removes the gro
   expect(row.querySelector('[data-column="agedPrs30"]')).toHaveTextContent('90');
   expect(row.querySelector('[data-column="agedPrs90"]')).toHaveTextContent('30');
   await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
-  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' }));
+  expect(screen.queryByRole('menuitemcheckbox', { name: 'PR age' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('menuitemcheckbox', { name: /Over \d+ days/ })).not.toBeInTheDocument();
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Drafts' }));
   await user.keyboard('{Escape}');
   await user.click(within(backlog).getByRole('button', { name: 'PR age' }));
   expect(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' })).toHaveAttribute(
     'aria-checked',
-    'false',
+    'true',
   );
   expect(screen.getByRole('menuitemcheckbox', { name: 'Over 90 days' })).not.toHaveAttribute(
     'aria-disabled',
     'true',
   );
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 30 days' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Over 90 days' }));
   await user.keyboard('{Escape}');
   expect(within(backlog).queryByRole('columnheader', { name: 'PR age' })).not.toBeInTheDocument();
@@ -359,7 +408,7 @@ it('updates group spans and reveals automation partials through the controlled c
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Other bots' }));
   await user.keyboard('{Escape}');
   expect(within(activity).getByRole('columnheader', { name: 'Agent feedback' })).toBeVisible();
-  expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(36);
+  expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(54);
 });
 it('uses the caller as the only owner of controlled visibility, including non-pinned sized columns', async () => {
   interface Row {

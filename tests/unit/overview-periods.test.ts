@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+import { activityColumns } from '@/features/repositories/overview-columns';
 import { repositoryOverviewSample } from '@/mocks/repository-overview';
 import {
   activityPeriodLabel,
@@ -103,19 +104,29 @@ it('builds repository pairs with independent display values and primary-period r
   expect(
     rows.map((row) => [
       row.repository.name,
-      row.periodIndex,
-      row.activity.counts.prsOpened.value,
-      row.sortActivity.counts.prsOpened.value,
+      row.kind,
+      row.kind === 'period' ? row.periodIndex : null,
     ]),
   ).toEqual([
-    ['Prebid.js', 0, 47, 47],
-    ['Prebid.js', 1, 61, 47],
-    ['SalesAgent', 0, 15, 15],
-    ['SalesAgent', 1, 20, 15],
+    ['Prebid.js', 'period', 0],
+    ['Prebid.js', 'period', 1],
+    ['Prebid.js', 'difference', null],
+    ['SalesAgent', 'period', 0],
+    ['SalesAgent', 'period', 1],
+    ['SalesAgent', 'difference', null],
   ]);
-  expect(new Set(rows.map((row) => row.id)).size).toBe(4);
-  expect(rows.every((row) => row.showPeriodLabel)).toBe(true);
-  expect(activityTableRows(primary).every((row) => !row.showPeriodLabel)).toBe(true);
+  expect(new Set(rows.map((row) => row.id)).size).toBe(6);
+  const opened = activityColumns().find((column) => column.id === 'prsOpened')!;
+  const duration = activityColumns().find((column) => column.id === 'medianMergeDays')!;
+  expect(rows.map((row) => opened.value(row))).toEqual([47, 61, -14, 15, 20, -5]);
+  expect(rows.map((row) => opened.sortValue!(row))).toEqual([47, 47, 47, 15, 15, 15]);
+  expect(duration.value(rows[2])).toBe(-1);
+  expect(rows.filter((row) => row.kind === 'period').every((row) => row.showPeriodLabel)).toBe(
+    true,
+  );
+  expect(
+    activityTableRows(primary).every((row) => row.kind === 'period' && !row.showPeriodLabel),
+  ).toBe(true);
   expect(activityTableRows({ ...primary, rows: [] }).length).toBe(0);
   expect(() =>
     activityTableRows(primary, { ...secondary, asOf: '2025-01-01T00:00:00.000Z' }),

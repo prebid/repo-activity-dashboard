@@ -37,6 +37,7 @@ export interface DataTableProps<T> {
   title: string;
   rows: T[];
   columns: DataColumn<T>[];
+  columnMenuColumns?: DataColumn<T>[];
   controller: TableController;
   exportName?: string;
   description?: React.ReactNode;
@@ -48,6 +49,7 @@ export interface DataTableProps<T> {
   itemLabel?: string;
   showSinglePageControls?: boolean;
   searchable?: boolean;
+  pageSize?: number;
 }
 function filterRows<T>(rows: T[], columns: DataColumn<T>[], search: string): T[] {
   return rows.filter((row) =>
@@ -62,6 +64,7 @@ export function DataTable<T extends { id: string }>({
   title,
   rows,
   columns,
+  columnMenuColumns,
   controller,
   exportName,
   description,
@@ -73,6 +76,7 @@ export function DataTable<T extends { id: string }>({
   itemLabel = 'items',
   showSinglePageControls = true,
   searchable = true,
+  pageSize = 100,
 }: DataTableProps<T>) {
   const [exportError, setExportError] = useState('');
   const [localVisibility, setLocalVisibility] = useState<Record<string, boolean>>({});
@@ -141,13 +145,15 @@ export function DataTable<T extends { id: string }>({
       window.removeEventListener('resize', measure);
     };
   }, [columns, effectiveVisibility, resultCount]);
-  const pageCount = Math.max(1, Math.ceil(resultCount / 100));
+  const rowsPerPage =
+    Number.isSafeInteger(pageSize) && pageSize > 0 ? Math.min(pageSize, 100) : 100;
+  const pageCount = Math.max(1, Math.ceil(resultCount / rowsPerPage));
   const page = Math.min(query.page, pageCount);
   useEffect(() => {
     if (query.page > pageCount) reconcilePage(pageCount);
   }, [query.page, pageCount, reconcilePage]);
   const sorting = query.sort ? [{ id: query.sort, desc: query.descending }] : [];
-  const pagination = { pageIndex: page - 1, pageSize: 100 };
+  const pagination = { pageIndex: page - 1, pageSize: rowsPerPage };
   const table = useTable({
     features,
     columns: defs,
@@ -250,7 +256,7 @@ export function DataTable<T extends { id: string }>({
             />
           )}
           <ColumnMenu
-            columns={columns}
+            columns={columnMenuColumns ?? columns}
             visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
           />
           {exportName && (

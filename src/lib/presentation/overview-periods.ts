@@ -42,7 +42,7 @@ export function validateActivityPeriods(
   }
 }
 
-/** Repository pairs stay adjacent. Each row retains its own values and the first period's sort key. */
+/** Each repository stays together: first period, second period, then their derived difference. */
 export function activityTableRows(
   primary: RepositoryOverview,
   secondary?: RepositoryOverview,
@@ -52,9 +52,10 @@ export function activityTableRows(
     throw new Error('Activity periods must share a snapshot and repository scope');
   return [...primary.rows]
     .sort((a, b) => a.repository.name.localeCompare(b.repository.name, 'en'))
-    .flatMap((row) => {
+    .flatMap<RepositoryActivityRow>((row) => {
       const first: RepositoryActivityRow = {
         ...row,
+        kind: 'period',
         id: row.repository.id + ':period-1',
         period: primary.period,
         periodIndex: 0,
@@ -66,12 +67,24 @@ export function activityTableRows(
       if (!other) throw new Error('Missing repository in second period');
       const next: RepositoryActivityRow = {
         ...other,
+        kind: 'period',
         id: row.repository.id + ':period-2',
         period: secondary.period,
         periodIndex: 1,
         showPeriodLabel: true,
         sortActivity: row.activity,
       };
-      return [first, next];
+      return [
+        first,
+        next,
+        {
+          kind: 'difference',
+          id: row.repository.id + ':difference',
+          repository: row.repository,
+          primary: row.activity,
+          secondary: other.activity,
+          sortActivity: row.activity,
+        },
+      ];
     });
 }

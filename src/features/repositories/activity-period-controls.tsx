@@ -36,7 +36,7 @@ export function ActivityPeriodControls({
     <div>
       {secondary && (
         <div className={styles.periodActions}>
-          <span>One row per period, grouped by repository.</span>
+          <span>Two periods and their difference, grouped by repository.</span>
           <Button variant="ghost" size="sm" onClick={() => onChange([periods[1], periods[0]])}>
             <ArrowDownUp size={14} aria-hidden="true" />
             Swap periods

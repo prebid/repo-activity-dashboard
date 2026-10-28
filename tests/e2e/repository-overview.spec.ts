@@ -215,10 +215,11 @@ test('repository story renders independently with two periods and empty states',
   const js = page
     .getByRole('table', { name: 'Period activity', exact: true })
     .getByRole('row')
-    .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
-  await expect(js).toHaveCount(2);
+    .filter({ hasText: 'Prebid.js' });
+  await expect(js).toHaveCount(3);
   await expect(js.nth(0).locator('[data-column="prsOpened"]')).toHaveText('47');
   await expect(js.nth(1).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(js.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-14');
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--empty&viewMode=story',
   );
