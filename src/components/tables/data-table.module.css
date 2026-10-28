@@ -78,6 +78,10 @@
   background: var(--card);
   vertical-align: middle;
 }
+.table tbody {
+  /* Whole-pixel line boxes keep sticky and scrolling row dividers aligned. */
+  line-height: 20px;
+}
 .table tbody tr:last-child td {
   border-bottom: 0;
 }
