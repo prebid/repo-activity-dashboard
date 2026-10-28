@@ -17,7 +17,7 @@ The [display models](../../src/models/repository-overview.ts) separate current b
 | Period presets | All seven agreed presets, exact UTC ranges, and independent selected-period values. Current backlog stays identical. |
 | Custom range | October 6–8 and October 13–15, 2026 have independent prepared values for a two-custom-range preview. Other valid ranges return explicit missing-sample activity, preserving backlog. |
 | Two periods | Select one or two presets/custom ranges. Each repository group contains its two period rows and a compact automatic Difference row (Period 1 minus Period 2). Show the repository name once, without numbered row badges. Each period retains its own values; differences require complete operands. Numeric sorting uses Period 1; Swap periods changes that ranking choice and difference direction. Show change is not exposed. |
-| Feedback and approvals | Independent 0/1/2 distributions, retained above-two exceptions, agent/bot coverage, and latest-actor categories including other/unknown. |
+| Reviewers and approvals | Independent 0/1/2 distributions, retained above-two exceptions, agent/bot coverage, and latest-actor categories including other/unknown. |
 | Durations | Median days plus sample size; no merged PRs means not applicable, not zero days. |
 | Missing and partial data | Agent Skills current approvals missing; Cache Java partial agent coverage and issue closures; GitHub Activity DB comparison missing. |
 | Table scale and text | 834 issues for Prebid.js, 12,345 for Documentation, quiet/empty rows, and the actual long catalog display names. |
@@ -31,7 +31,7 @@ The All Repositories preview now consumes this sample through the guarded loader
 
 [all-repositories.json](all-repositories.json) supplies 20 repository rows with:
 
-- Current backlog: draft/non-draft totals, issues, age >60 days, separate human feedback/approval distributions, agent/bot coverage, and latest-actor categories.
+- Current backlog: draft/non-draft totals, issues, age >60 days, separate human reviewer/approval distributions, agent/bot coverage, and latest-actor categories.
 - Current-period activity and comparison values, including increases, decreases, unchanged values, and unavailable comparison history.
 - A repository with 834 open issues, one with a five-digit count, smaller repositories, a quiet repository, and a completely empty repository.
 - A long repository name, a missing current-approval state, and no-merge cases for the median.

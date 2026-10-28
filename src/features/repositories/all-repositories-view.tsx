@@ -147,7 +147,7 @@ export function AllRepositoriesView({
               </span>
             }
             visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
-            footerNote="Zero / One / Two are exact approval counts. Additional detail is available in Columns."
+            footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
           />
           <DataTable
             title="Period activity"
@@ -187,7 +187,7 @@ export function AllRepositoriesView({
           <p className={styles.legend}>
             <Info size={14} aria-hidden="true" />
             <span>
-              — Not available or not applicable. * Partial data. Human feedback, current approvals,
+              — Not available or not applicable. * Partial data. Human reviewers, current approvals,
               and agent/bot activity are measured separately.
             </span>
           </p>

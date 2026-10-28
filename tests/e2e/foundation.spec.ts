@@ -286,6 +286,7 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
   expect(csv.split('\r\n')).toHaveLength(4);
   expect(csv).toContain('"Alice"');
   expect(csv).toContain('"Approval contributions"');
+  expect(csv).toContain('"Reviewer contributions"');
   const response = await page.request.post('/api/auth/setup', {
     data: { email: 'unused@example.test', password: 'unused' },
   });

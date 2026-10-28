@@ -26,10 +26,10 @@ Group related columns so users can show the information they need and save their
 | PR backlog | Drafts; Open; Total PRs | Current backlog only. Open excludes drafts; Total PRs equals Drafts plus Open. |
 | Issue backlog | Open | Current open issues, excluding PRs. |
 | Aging | One Open >N days column per selected threshold | Open non-draft PRs whose time since creation exceeds that column’s threshold. |
-| Human review participation | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
-| Current human approvals | Zero; One; Two | Number of open non-draft PRs with exactly that many distinct current human approvers. |
-| Agent coverage | PRs with Prebid agent feedback | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
-| Bot coverage | PRs with bot feedback | Open non-draft PRs with qualifying feedback from a GitHub-identified bot, excluding mapped Prebid agents. |
+| Human reviewers | 0 reviewers; 1 reviewer; 2 reviewers | Number of open non-draft PRs with exactly that many distinct non-author humans who commented, left inline comments, or requested changes. An approval alone does not qualify. |
+| Current human approvals | 0 approvals; 1 approval; 2 approvals | Number of open non-draft PRs with exactly that many distinct current human approvers. |
+| Agent coverage | PRs with Prebid agent reviewers | Open non-draft PRs with qualifying feedback from a mapped Prebid agent account. |
+| Bot coverage | PRs with bot reviewers | Open non-draft PRs with qualifying feedback from a GitHub-identified bot, excluding mapped Prebid agents. |
 | Latest activity | Last: Prebid agent; Last: bot; Last: Prebid reviewer; Last: contributor | Number of open non-draft PRs in each latest-activity category. |
 
 All values are observed counts. There are no configured reviewer targets, first/second-review waiting columns, review-request counts, inferred approval deficits, or merge-readiness decisions.
@@ -44,7 +44,9 @@ All values are observed counts. There are no configured reviewer targets, first/
 - Include each threshold in its column heading. These are cumulative counts, not disjoint age buckets.
 - This is age since creation, not time since last activity.
 
-### Human review participation
+### Human reviewers
+
+User-facing reporting terminology is reviewers, reviewer coverage, and reviewer contributions. Existing technical references to feedback describe the qualifying actions below; this wording change does not alter the metrics or their counting units.
 
 Qualifying feedback includes a PR conversation comment, an inline comment, a submitted comment review, or a submitted request for changes. Count each non-author human account once per PR across all these feedback types. Unsubmitted feedback does not qualify.
 
@@ -117,9 +119,9 @@ Latest activity describes who acted most recently. It does not infer whose turn 
 | Issue activity | Issues closed | Issues with a closure during the period, regardless of closure reason. Count each issue once within the period; reopening does not erase the fact it was closed. |
 | Unique authors | PRs | Distinct accounts that created PRs in this repository during the period. Includes human, bot, and agent authors. |
 | Unique authors | Issues | Distinct accounts that created issues in this repository during the period. Includes human, bot, and agent authors. |
-| Agent contributions | Prebid agent feedback contributions | One credit per mapped agent account and PR, assigned to its first qualifying feedback date. Repeated actions never create new credits in later periods. |
+| Agent contributions | Prebid agent reviewer contributions | One credit per mapped agent account and PR, assigned to its first qualifying feedback date. Repeated actions never create new credits in later periods. |
 | Agent contributions | Prebid agent approval contributions | One credit per mapped agent account and PR, assigned to its first approval date. |
-| Bot contributions | Bot feedback contributions | One credit per other GitHub-identified bot account and PR, assigned to its first qualifying feedback date. |
+| Bot contributions | Bot reviewer contributions | One credit per other GitHub-identified bot account and PR, assigned to its first qualifying feedback date. |
 | Bot contributions | Bot approval contributions | One credit per other GitHub-identified bot account and PR, assigned to its first approval date. |
 | Duration | Median time to merge | Median creation-to-merge duration among PRs merged into the repository's configured primary branch (`main` or `master`) during the period. |
 

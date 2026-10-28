@@ -271,7 +271,7 @@ test('scope controls, separate table choices and account defaults survive a dire
 
   const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
-  await page.getByRole('menuitemcheckbox', { name: 'Human feedback', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Human reviewers', exact: true }).click();
   await page.keyboard.press('Escape');
   await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
@@ -280,7 +280,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
   await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toBeVisible();
   await expect(
     backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
@@ -296,7 +296,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expectAges(page, [30]);
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
   await expect(
-    backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toHaveCount(0);
   await expect(
     page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),

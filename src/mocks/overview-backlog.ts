@@ -195,6 +195,6 @@ agentSkills.humanApprovals2 = unavailableApproval;
 agentSkills.humanApprovalsMoreThan2 = unavailableApproval;
 const partialCoverage: Count = partial(
   2,
-  'Only part of the agent feedback history is available in this sample.',
+  'Only part of the agent reviewer history is available in this sample.',
 );
 overviewBacklogs['repo-prebid-cache-java'].counts.agentFeedbackPrs = partialCoverage;

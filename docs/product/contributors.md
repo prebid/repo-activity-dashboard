@@ -65,7 +65,7 @@ This report counts **contributions first credited during a period**. Each accoun
 | --- | --- | --- | --- |
 | PRs authored | PR author | PR creation time | One per PR created during the period, including draft PRs. |
 | Authored PRs merged | PR author | Merge time | One per authored PR merged into that repository's configured `main` or `master` branch during the period. |
-| PR feedback contributions | Account providing feedback | First qualifying feedback time on that PR | One per account and PR over the PR's lifetime. Credit appears only in the period containing that first qualifying action. |
+| PR reviewer contributions | Account providing feedback | First qualifying feedback time on that PR | One per account and PR over the PR's lifetime. Credit appears only in the period containing that first qualifying action. |
 | Approval contributions | Account giving approval | First approval time on that PR | One per account and PR over the PR's lifetime. Reapproval in a later month or year does not create another credit. |
 | Merges performed | GitHub-recorded merge actor | Merge time | One per PR that actor merged into the configured primary branch during the period. |
 | Issues authored | Issue author | Issue creation time | One per issue created during the period, excluding PRs. Reopening the issue does not create another authorship credit. |
@@ -204,7 +204,7 @@ If groups are instead combined into one selected population, include each member
 
 Show contributor/company/group identity, the separate metric columns, and a link to the focused report. Company information appears alongside individual accounts. Company/group views replace the identity columns as appropriate while retaining the same metric columns. Sorting a metric changes the ranking on that metric only.
 
-Supported metric columns are PRs authored, Authored PRs merged, PR feedback contributions, Approval contributions, Merges performed, and Issues authored. Keep the actor identity and any relevant company label compact; do not create repository columns or automatically expand a repository subtable underneath every overview row.
+Supported metric columns are PRs authored, Authored PRs merged, PR reviewer contributions, Approval contributions, Merges performed, and Issues authored. Keep the actor identity and any relevant company label compact; do not create repository columns or automatically expand a repository subtable underneath every overview row.
 
 Compute rankings across the full selected dataset before pagination. Reuse the 100-row Previous/Next pagination approach. Display zero distinctly from unavailable data. Do not turn incomplete historical coverage into a confident low ranking.
 

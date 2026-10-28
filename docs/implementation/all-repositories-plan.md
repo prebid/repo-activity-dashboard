@@ -48,7 +48,7 @@ Arrange the page vertically:
 | Sort | Repository name ascending in both tables; subsequent sorts are independent |
 | Backlog default columns | Repository; total open PRs; drafts; non-drafts; open issues; PRs older than the selected threshold; human approvals 0/1/2 |
 | Activity default columns | Repository; PRs opened/merged; issues opened/closed; unique PR/issue authors; median time to merge |
-| Additional selectable groups | Human feedback 0/1/2; agent coverage; bot coverage; latest actor; separate agent and bot feedback/approval contribution credits |
+| Additional selectable groups | Human reviewers 0/1/2; agent coverage; bot coverage; latest actor; separate agent and bot reviewer/approval contribution credits |
 
 All core product metrics remain available, even when initially hidden. Preserve exceptional counts above two and other/unknown latest actors in supporting detail; never force them into a visible bucket. Clear labels distinguish feedback participation from current approvals and contribution credits.
 

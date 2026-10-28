@@ -364,10 +364,10 @@ it('keeps column visibility and sorting independent without table search', async
     'aria-checked',
     'mixed',
   );
-  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Human feedback' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Human reviewers' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Human approvals' }));
   await user.keyboard('{Escape}');
-  expect(within(backlog).getByRole('columnheader', { name: 'Human feedback' })).toHaveAttribute(
+  expect(within(backlog).getByRole('columnheader', { name: 'Human reviewers' })).toHaveAttribute(
     'colspan',
     '4',
   );
@@ -376,7 +376,7 @@ it('keeps column visibility and sorting independent without table search', async
     '4',
   );
   expect(
-    within(activity).queryByRole('columnheader', { name: 'Human feedback' }),
+    within(activity).queryByRole('columnheader', { name: 'Human reviewers' }),
   ).not.toBeInTheDocument();
   await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↓' }));
   await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↑' }));
@@ -394,8 +394,8 @@ it('updates group spans and reveals automation partials through the controlled c
   render(<Preview twoPeriods ageDays={60} />);
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
   await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
-  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Feedback coverage' }));
-  await user.click(screen.getByRole('menuitemcheckbox', { name: 'One' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Reviewer coverage' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: '1 approval' }));
   await user.keyboard('{Escape}');
   expect(within(backlog).getByRole('columnheader', { name: 'Human approvals' })).toHaveAttribute(
     'colspan',
@@ -408,7 +408,7 @@ it('updates group spans and reveals automation partials through the controlled c
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Prebid agents' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Other bots' }));
   await user.keyboard('{Escape}');
-  expect(within(activity).getByRole('columnheader', { name: 'Agent feedback' })).toBeVisible();
+  expect(within(activity).getByRole('columnheader', { name: 'Agent reviewers' })).toBeVisible();
   expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(54);
 });
 it('uses the caller as the only owner of controlled visibility, including non-pinned sized columns', async () => {

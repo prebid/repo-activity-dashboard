@@ -181,17 +181,17 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   await expect(
     page.getByRole('menuitemcheckbox', { name: 'Repository', exact: true }),
   ).toHaveAttribute('aria-disabled', 'true');
-  const group = page.getByRole('menuitemcheckbox', { name: 'Human feedback', exact: true });
+  const group = page.getByRole('menuitemcheckbox', { name: 'Human reviewers', exact: true });
   await group.focus();
   await page.keyboard.press('Space');
   await expect(group).toHaveAttribute('aria-checked', 'true');
   await page.keyboard.press('Escape');
   await expect(trigger).toBeFocused();
   await expect(
-    backlog.getByRole('columnheader', { name: 'Human feedback', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toHaveAttribute('colspan', '4');
   await expect(
-    activity.getByRole('columnheader', { name: 'Human feedback', exact: true }),
+    activity.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toHaveCount(0);
   await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
