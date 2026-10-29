@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { RepositoryPageModel, RepositoryPageNavigation } from '@/models/repository-page';
 import type { TableController } from '@/lib/presentation/table-controller';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
+import { requiresNonDraftPr } from '@/lib/presentation/repository-page-rules';
 import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { DataTable } from '@/components/tables/data-table';
 import { PageState } from '@/components/feedback/page-state';
@@ -12,7 +13,11 @@ import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { formatCount } from '@/lib/presentation/format';
 import { RepositoryHeader } from './repository-header';
-import { repositoryPagePrColumns, repositoryPageIssueColumns } from './repository-page-columns';
+import {
+  repositoryPagePrColumns,
+  repositoryPageIssueColumns,
+  repositoryInlineColumnIds,
+} from './repository-page-columns';
 import styles from './repository-page.module.css';
 
 export interface RepositoryPageControls {
@@ -51,7 +56,6 @@ function RepositoryPageTable({
         ? 'Sample record links are placeholders. Reviewers and current approvals are separate measures.'
         : 'Sample record links are placeholders.',
   };
-  const inline = new Set(['labels', 'state', 'authorType']);
   return (
     <div className={styles.records}>
       {page.kind === 'prs' ? (
@@ -59,7 +63,9 @@ function RepositoryPageTable({
           {...common}
           rows={page.rows}
           columns={repositoryPagePrColumns}
-          columnMenuColumns={repositoryPagePrColumns.filter((column) => !inline.has(column.id))}
+          columnMenuColumns={repositoryPagePrColumns.filter(
+            (column) => !repositoryInlineColumnIds.has(column.id),
+          )}
           itemLabel={controls ? 'matching PRs' : 'PRs'}
         />
       ) : (
@@ -67,7 +73,9 @@ function RepositoryPageTable({
           {...common}
           rows={page.rows}
           columns={repositoryPageIssueColumns}
-          columnMenuColumns={repositoryPageIssueColumns.filter((column) => !inline.has(column.id))}
+          columnMenuColumns={repositoryPageIssueColumns.filter(
+            (column) => !repositoryInlineColumnIds.has(column.id),
+          )}
           itemLabel={controls ? 'matching issues' : 'issues'}
         />
       )}
@@ -89,11 +97,7 @@ export function RepositoryPageView({
   const current = selection.scope === 'current';
   const baseline = page.kind === 'prs' ? 'totalOpenPrs' : 'openIssues';
   const prFilters = page.filters.kind === 'prs' ? page.filters : undefined;
-  const reviewFiltered =
-    prFilters &&
-    [prFilters.reviewers, prFilters.approvals, prFilters.agentReviewer, prFilters.botReviewer].some(
-      (value) => value !== undefined,
-    );
+  const nonDraftFiltered = requiresNonDraftPr(page.filters, selection);
 
   const focused = selection.metric !== baseline || !!page.author;
   const title = recordListTitle(selection, page.author?.account);
@@ -136,7 +140,7 @@ export function RepositoryPageView({
                     ? 'Drafts only'
                     : selection.metric === 'totalOpenPrs' &&
                         prFilters?.draft !== 'non-drafts' &&
-                        !reviewFiltered
+                        !nonDraftFiltered
                       ? 'Includes drafts'
                       : 'Excludes drafts'}
               </span>

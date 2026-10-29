@@ -1,4 +1,5 @@
 import type { RepositoryPageFilters, RepositoryPageSource } from '@/models/repository-page';
+import { requiresNonDraftPr } from './repository-page-rules';
 import { ageBandFor, inDateRange, recordEventDate, reviewBucket } from './repository-page-values';
 
 type Verdict = boolean | 'unknown';
@@ -35,22 +36,17 @@ export function matchesRepositoryPageRow(
     filters.ageBand === undefined || ageBandFor(row.ageDays) === filters.ageBand,
     filters.eventRange === undefined ||
       inDateRange(recordEventDate(row, source), filters.eventRange),
-    category(
-      row.latestActivity?.category === 'unknown' ? null : (row.latestActivity?.category ?? null),
-      filters.latestActors,
-    ),
+    !filters.latestActors.length
+      ? true
+      : row.latestActivity === null
+        ? 'unknown'
+        : filters.latestActors.includes(row.latestActivity.category),
   ];
   if (filters.kind === 'prs' && 'draft' in row) {
-    const usesReview = [
-      filters.reviewers,
-      filters.approvals,
-      filters.agentReviewer,
-      filters.botReviewer,
-    ].some((v) => v !== undefined);
     checks.push(
       filters.draft === 'all' || row.draft === (filters.draft === 'drafts'),
       !filters.branches.length || filters.branches.includes(row.baseBranch),
-      !usesReview || !row.draft,
+      !requiresNonDraftPr(filters, source.drilldown.selection) || !row.draft,
       review(row.humanReviewers, filters.reviewers),
       review(row.approvals, filters.approvals),
       coverage(row.agentReviewer, filters.agentReviewer),

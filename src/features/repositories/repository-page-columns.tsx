@@ -10,6 +10,12 @@ import { recordPrColumns, recordIssueColumns, actorLabels } from './repository-r
 import { formatUtcDate } from '@/lib/presentation/format';
 import styles from './repository-page.module.css';
 
+export const repositoryInlineColumnIds: ReadonlySet<string> = new Set([
+  'labels',
+  'state',
+  'authorType',
+]);
+
 type Row = RepositoryPagePr | RepositoryPageIssue;
 const authorLabels = { human: 'Human', agent: 'Prebid agent', bot: 'Bot' };
 function RecordIdentity({ row }: { row: Row }) {

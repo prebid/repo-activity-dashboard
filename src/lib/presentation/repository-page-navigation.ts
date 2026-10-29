@@ -2,6 +2,7 @@ import type { RepositoryPageSource } from '@/models/repository-page';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 import { periodPresets, type DateRange, type ResolvedPeriod } from '@/models/reporting-period';
 import { resolveReportingPeriod } from './reporting-period';
+import { withoutCurrentReviewFilters } from './repository-page-rules';
 import { repositoryDrilldownHref } from './repository-drilldown';
 import { readRepositoryFilters, writeRepositoryFilters } from './repository-page-query';
 
@@ -71,19 +72,14 @@ export function repositoryScopeHref(
       params.append(source.kind + '.' + field, value);
   const filters = readRepositoryFilters(search, source);
   if (!filters) return path + '?' + params.toString();
-  const next = {
-    ...filters,
-    eventRange: undefined,
-    states: mode === 'current' ? [] : filters.states,
-    ageBand: mode === 'current' ? filters.ageBand : undefined,
-  };
-  if (next.kind === 'prs' && mode !== 'current') {
-    next.reviewers = undefined;
-    next.approvals = undefined;
-    next.agentReviewer = undefined;
-    next.botReviewer = undefined;
-  }
+  const compatible = mode === 'current' ? { ...filters } : withoutCurrentReviewFilters(filters);
+  compatible.eventRange = undefined;
+  if (mode === 'current') compatible.states = [];
+  else compatible.ageBand = undefined;
+
   return (
-    path + '?' + writeRepositoryFilters(params.toString(), repositoryPageFiltersSchema.parse(next))
+    path +
+    '?' +
+    writeRepositoryFilters(params.toString(), repositoryPageFiltersSchema.parse(compatible))
   );
 }

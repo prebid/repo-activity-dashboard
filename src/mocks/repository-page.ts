@@ -30,21 +30,23 @@ export function repositoryPageRecordsSample(list: RepositoryRecordList): Reposit
       rows: list.rows.map((row) => {
         const { authorType, at } = metadata(row.author, row.createdAt, row.number);
         const latestActivity: LatestRecordActivity | null =
-          row.latestActor === 'unknown'
+          row.latestActor === 'unknown' && list.drilldown.selection.scope === 'period'
             ? null
             : {
                 at,
                 category: row.latestActor,
                 account:
-                  row.latestActor === 'contributor'
-                    ? row.author
-                    : row.latestActor === 'agent'
-                      ? 'sample-prebid-agent-a'
-                      : row.latestActor === 'bot'
-                        ? 'sample-bot-a'
-                        : row.latestActor === 'prebid-reviewer'
-                          ? 'sample-reviewer'
-                          : 'sample-other-human',
+                  row.latestActor === 'unknown'
+                    ? null
+                    : row.latestActor === 'contributor'
+                      ? row.author
+                      : row.latestActor === 'agent'
+                        ? 'sample-prebid-agent-a'
+                        : row.latestActor === 'bot'
+                          ? 'sample-bot-a'
+                          : row.latestActor === 'prebid-reviewer'
+                            ? 'sample-reviewer'
+                            : 'sample-other-human',
               };
         return { ...row, authorType, latestActivity };
       }),

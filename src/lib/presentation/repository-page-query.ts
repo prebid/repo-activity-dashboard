@@ -3,6 +3,7 @@ import {
   type RepositoryPageFilters,
   type RepositoryPageSource,
 } from '@/models/repository-page';
+import { repositoryFilterError } from './repository-page-rules';
 import { dateRangeSchema } from '@/models/reporting-period';
 
 const arrayFields = [
@@ -68,27 +69,8 @@ export function readRepositoryFilters(
   }
   const parsed = repositoryPageFiltersSchema.safeParse(input);
   if (!parsed.success) return null;
-  const filters = parsed.data,
-    selection = source.drilldown.selection;
-  if (selection.scope === 'current') return filters.eventRange ? null : filters;
-  if (
-    filters.ageBand !== undefined ||
-    (filters.kind === 'prs' &&
-      [filters.reviewers, filters.approvals, filters.agentReviewer, filters.botReviewer].some(
-        (value) => value !== undefined,
-      ))
-  )
-    return null;
-  if (
-    filters.eventRange &&
-    (filters.eventRange.start < selection.range.start ||
-      filters.eventRange.end > selection.range.end ||
-      (filters.eventRange.end === selection.range.end &&
-        filters.eventRange.endInclusive &&
-        !selection.range.endInclusive))
-  )
-    return null;
-  return filters;
+  const filters = parsed.data;
+  return repositoryFilterError(filters, source.drilldown.selection) ? null : filters;
 }
 
 export function writeRepositoryFilters(search: string, filters: RepositoryPageFilters): string {

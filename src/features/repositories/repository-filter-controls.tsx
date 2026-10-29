@@ -170,8 +170,8 @@ export function RepositoryFilterControls({
               </div>
               {source.kind === 'prs' && source.drilldown.selection.scope === 'current' && (
                 <p className={styles.help}>
-                  Reviewer, approval, and agent/bot coverage filters exclude drafts. Human reviewers
-                  and current approvals are independent.
+                  Reviewer, approval, agent/bot coverage, and current latest-activity filters
+                  exclude drafts. Human reviewers and current approvals are independent.
                 </p>
               )}
               {error && (

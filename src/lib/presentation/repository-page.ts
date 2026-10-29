@@ -7,6 +7,7 @@ import {
 import { dateRangeSchema } from '@/models/reporting-period';
 import { matchesRepositoryPageRow } from './repository-page-filters';
 import { repositoryPageCharts } from './repository-page-charts';
+import { repositoryFilterError } from './repository-page-rules';
 import { subsetCount } from './repository-page-values';
 
 /** Select a presentation cohort without mutating the input, reconstructing history, or paging it. */
@@ -21,28 +22,9 @@ export function selectRepositoryPage(
   const filters = repositoryPageFiltersSchema.parse(input);
   if (filters.kind !== source.kind) throw new Error('Filters do not match the record kind');
   const selection = source.drilldown.selection;
-  if (selection.scope === 'current' && filters.eventRange)
-    throw new Error('An event range requires period activity');
-  if (selection.scope === 'period') {
-    dateRangeSchema.parse(selection.range);
-    if (
-      filters.ageBand !== undefined ||
-      (filters.kind === 'prs' &&
-        [filters.reviewers, filters.approvals, filters.agentReviewer, filters.botReviewer].some(
-          (v) => v !== undefined,
-        ))
-    )
-      throw new Error('Current age and review filters require current scope');
-    if (
-      filters.eventRange &&
-      (filters.eventRange.start < selection.range.start ||
-        filters.eventRange.end > selection.range.end ||
-        (filters.eventRange.end === selection.range.end &&
-          filters.eventRange.endInclusive &&
-          !selection.range.endInclusive))
-    )
-      throw new Error('Activity filter is outside the selected period');
-  }
+  if (selection.scope === 'period') dateRangeSchema.parse(selection.range);
+  const error = repositoryFilterError(filters, selection);
+  if (error) throw new Error(error);
   let unknown = 0;
   const keep = (row: RepositoryPageSource['rows'][number]) => {
     const result = matchesRepositoryPageRow(row, filters, source);

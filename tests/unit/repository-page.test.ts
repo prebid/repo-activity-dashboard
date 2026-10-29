@@ -95,6 +95,12 @@ it('separates reviewers and approvals, excludes drafts, and exposes unknown/over
     expect(() => reviewBucket(value)).toThrow('Invalid review count');
 });
 it('combines facets without counting unknown metadata as a proved zero', () => {
+  const knownUnknown = prs();
+  knownUnknown.rows[5].latestActivity = {
+    at: knownUnknown.asOf,
+    account: null,
+    category: 'unknown',
+  };
   expect(
     ids(
       selectRepositoryPage(prs(), {
@@ -132,7 +138,7 @@ it('combines facets without counting unknown metadata as a proved zero', () => {
   ).toEqual({ status: 'complete', value: 0 });
   expect(
     ids(
-      selectRepositoryPage(prs(), {
+      selectRepositoryPage(knownUnknown, {
         kind: 'prs',
         authorTypes: ['unknown'],
         latestActors: ['unknown'],

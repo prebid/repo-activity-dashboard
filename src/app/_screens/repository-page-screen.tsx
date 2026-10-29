@@ -13,6 +13,7 @@ import { RepositoryHeader } from '@/features/repositories/repository-header';
 import { RepositoryFilterControls } from '@/features/repositories/repository-filter-controls';
 import { RepositoryScopeControls } from '@/features/repositories/repository-scope-controls';
 import {
+  repositoryInlineColumnIds,
   repositoryPagePrColumns,
   repositoryPageIssueColumns,
 } from '@/features/repositories/repository-page-columns';
@@ -21,12 +22,11 @@ import { PageState } from '@/components/feedback/page-state';
 import styles from '@/features/repositories/repository-controls.module.css';
 const prIds = repositoryPagePrColumns.map((column) => column.id),
   issueIds = repositoryPageIssueColumns.map((column) => column.id);
-const inline = new Set(['labels', 'state', 'authorType']);
 const prColumnIds = repositoryPagePrColumns
-  .filter((column) => column.hideable !== false && !inline.has(column.id))
+  .filter((column) => column.hideable !== false && !repositoryInlineColumnIds.has(column.id))
   .map((column) => column.id);
 const issueColumnIds = repositoryPageIssueColumns
-  .filter((column) => column.hideable !== false && !inline.has(column.id))
+  .filter((column) => column.hideable !== false && !repositoryInlineColumnIds.has(column.id))
   .map((column) => column.id);
 export function RepositoryPageScreen({
   viewerId,
