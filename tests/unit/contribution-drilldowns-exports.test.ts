@@ -1,5 +1,5 @@
 import { isKnownZeroContribution } from '@/lib/presentation/contribution-table-values';
-import { expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
 import {
   defaultContributionSelection,
@@ -33,15 +33,16 @@ const base: ContributionExportRequest = {
   metrics: ['prsAuthored', 'reviewerContributions', 'approvalContributions', 'issuesAuthored'],
   query: { search: '', sort: 'authoredPrsMerged', descending: true, page: 2 },
 };
-for (const scenario of ['reference', 'large', 'partial', 'missing', 'empty'] as const)
-  it(`reconciles every supporting metric against ${scenario} filtered totals`, () => {
+describe.each(['reference', 'large', 'partial', 'missing', 'empty'] as const)(
+  '%s contribution reconciliation',
+  (scenario) => {
     const sample = contributionSample({ scenario });
     const selected = {
       ...defaultContributionSelection(sample),
       actorTypes: ['human', 'agent'] as ('human' | 'agent')[],
       repositoryIds: ['repo-prebidjs', 'repo-prebidserver'],
     };
-    for (const metric of reportMetricIds) {
+    it.each(reportMetricIds)('reconciles %s supporting rows with filtered totals', (metric) => {
       const { report, details } = selectContributionPresentation(
         sample,
         selected,
@@ -59,8 +60,9 @@ for (const scenario of ['reference', 'large', 'partial', 'missing', 'empty'] as 
           metric,
         ).toBe(total.value);
       else expect(rows.every((row) => row.value.value === null)).toBe(true);
-    }
-  });
+    });
+  },
+);
 it('keeps first-credit rows separate from PR counts and final merged volume', () => {
   const review = selectContributionPresentation(
     source,

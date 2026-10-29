@@ -500,3 +500,8 @@ Grouped-selection verification: 790 unit/component, 8 packaged-production and 27
 ## Review handoff — 2026-10-29
 
 The user accepted the final visual preview, including the shared grouped column and CSV controls, and authorized committing this increment and opening a draft PR against `codex/frontend-rebuild`. Steps 1–5 and the refinements above are ready for independent review; earlier pending-acceptance notes are historical checkpoints. This does not authorize a merge to `main` or a production deployment. Reporting remains fake, with custom groups, real-data integration and expanded export formats in their approved later milestones.
+
+
+### Hosted-CI reconciliation test adjustment
+
+The first PR #8 run timed out in the large-sample reconciliation test, which performed all 39 metric checks inside one five-second test. The five scenario loops now register one case per metric, preserving every sample, assertion and default timeout. This improves failure isolation without changing application code or relaxing coverage. The subsequent local `npm run check` passed with 980 individually validated unit/component cases (195 scenario/metric cases replacing five combined cases); coverage results are unchanged. Hosted verification for the updated commit is tracked on PR #8.
