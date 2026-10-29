@@ -1,3 +1,5 @@
+import { loadContributionData } from './contribution-data';
+import { isReportMetric } from '@/models/contribution-metrics';
 import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
 import {
   repositoryPageSample,
@@ -8,7 +10,13 @@ import 'server-only';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
-import { contributionRows, companyRows } from '@/mocks/reporting';
+import { selectContributionPresentation } from '@/lib/presentation/contributions';
+import {
+  contributionHref,
+  safeContributionReturn,
+} from '@/lib/presentation/contribution-navigation';
+import type { ContributionFocus } from '@/models/contributions';
+import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { readRepositoryDrilldown } from '@/lib/presentation/repository-drilldown';
 import { reportingBranchSchema } from '@/models/repository-overview';
@@ -81,7 +89,41 @@ export async function repositoryAuthorDetail(
     ),
   };
 }
-export async function contributions(kind: 'contributors' | 'companies') {
-  const viewer = await requireViewer();
-  return { viewer, rows: kind === 'contributors' ? contributionRows : companyRows };
+export async function contributions(
+  area: ContributionArea,
+  params = new URLSearchParams(),
+  focus: ContributionFocus = { kind: 'overview' },
+) {
+  const loaded = await loadContributionData(area, params, focus);
+  if (loaded.status === 'invalid') return loaded;
+  const { viewer, options, source, settings } = loaded;
+  const metric = params.get('metric');
+  if (metric !== null && !isReportMetric(metric))
+    return { status: 'invalid' as const, viewer, area };
+  const presentation = selectContributionPresentation(
+    source,
+    settings.selection,
+    focus,
+    metric ?? undefined,
+  );
+  const page: ContributionPage = {
+    area,
+    sample: options.sample,
+    breakdown: options.breakdown,
+    ...presentation,
+    returnTo: safeContributionReturn(
+      params.get('returnTo'),
+      contributionHref(area, options.sample, undefined, options.actorTypes, settings),
+    ),
+  };
+  return {
+    status: 'ready' as const,
+    viewer,
+    page,
+    directory: {
+      accounts: source.accounts,
+      companies: source.companies,
+      repositories: source.repositories,
+    },
+  };
 }

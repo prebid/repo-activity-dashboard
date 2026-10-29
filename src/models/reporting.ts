@@ -12,6 +12,7 @@ export interface PullRequestRow {
   number: number;
   title: string;
   author: string;
+  authorUrl?: string;
   draft: boolean;
   humanReviewers: number | null;
   approvals: number | null;
@@ -23,18 +24,9 @@ export interface IssueRow {
   number: number;
   title: string;
   author: string;
+  authorUrl?: string;
   ageDays: number;
   url: string;
-}
-export interface ContributionRow {
-  id: string;
-  name: string;
-  company: string;
-  authored: number;
-  feedback: number;
-  approvals: number;
-  merges: number;
-  issues: number;
 }
 
 export interface RepositorySummaryRow extends RepositorySummary {

@@ -13,6 +13,8 @@ Status: tracking is the primary frontend scope, as clarified on 2026-10-24. Laun
 
 ## Delivery priority
 
+Follow the [approved project sequence](README.md#approved-delivery-sequence) and the shared [five-step frontend process](README.md#five-step-frontend-delivery-process). The tracking frontend follows the contribution and merge-status frontend increments. It uses samples through visual review and may be hosted before its real sources are connected; custom groups are not a dependency.
+
 1. **Tracking frontend:** agent/bot tables, repository filters, historical GitHub activity, recorded runs, model/harness metadata, result/status information, and available output links. Use explicit fixture data first.
 2. **Tracking integration:** connect available activity/run sources and apply the existing login with configured user/repository access. Exact identities and storage/connection details can be supplied during integration.
 3. **Launching — last:** add starting existing agents and any supported execution controls. Earlier control proposals are retained in [deferred launching notes](agent-launching-deferred.md).

@@ -2,7 +2,7 @@
 
 Build the All Repositories frontend with prepared sample data, preserving the approved Prebid authentication design and the merged foundation. Deliver an interactive page for visual review before connecting real reporting data. The product definitions remain authoritative; this plan specifies implementation order, ownership, and verification.
 
-Status: steps 1–3 are implemented and verified locally. The user approved the base design and row-divider correction before step 3. The added controls are ready for review; steps 4–5 remain planned. The layout and column defaults below describe the current preview. The existing reporting layout is not a design reference. Preserve the approved Prebid authentication styling while designing the tables around clarity and the agreed interactions.
+Status: all five steps and the subsequent review fixes are complete and merged in PR #6. Individual repository pages followed in PR #7. The step notes and test counts below are historical implementation records, not an outstanding task list. Use the [approved project sequence](../product/README.md#approved-delivery-sequence) for current work; retain this plan as the summary-page behavior and architecture reference.
 
 ## Scope and delivery boundary
 

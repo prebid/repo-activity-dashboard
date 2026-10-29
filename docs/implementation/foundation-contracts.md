@@ -1,6 +1,6 @@
 # Foundation contracts
 
-These contracts apply to the current sample-backed foundation. Page design and real reporting integration are later milestones.
+These contracts apply to the current sample-backed frontend. The [approved delivery sequence](../product/README.md#approved-delivery-sequence) governs remaining frontend work, early hosted release, real reporting integration and deferred features.
 
 ## Composition and imports
 
@@ -69,11 +69,13 @@ The root theme provider preserves the current site's Dark default and `dashboard
 
 ## Deployment acceptance
 
-This sample-backed foundation alone is not the production reporting cutover. Keep the current dashboard serving until replacement reports and data are ready, and control Amplify automatic builds before merging into a production-tracked branch. Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the maintenance window and ordered cutover in [account operations](account-operations.md). Local and CI verification do not certify environment acceptance.
+The approved 2026-10-29 sequence deploys the reviewed frontend before real reporting integration: the current live site has no users, and temporary downtime or frontend defects during transition are acceptable. Real reporting integration is not a prerequisite for hosting the reviewed frontend; sample data must remain clearly identified. Production builds retain real account authentication, never the local preview identities. A separate staging site is optional; hosted validation can precede incremental database integration on the internal site.
+
+Control Amplify automatic builds before merging into a production-tracked branch. Verify live Amplify file handling, branch deployment triggers, IAM/account configuration and shared login throttling before deployment. Use the account migration/recovery sequence in [account operations](account-operations.md) as applicable to the actual deployed version; do not run incompatible account writers together. Local and CI verification do not certify environment acceptance. Early deployment does not certify real-data correctness or authorize deployment by itself. After hosted acceptance, follow the incremental reporting-integration checks in the [acceptance matrix](acceptance-matrix.md#delivery-milestone-acceptance). Introduce a real adapter and bounded retrieval/export behavior with their first consumer; retain the reviewed view contracts and deterministic sample mode.
 
 ## What visually locked means
 
-Before the new reporting/data layer begins, review and record the following for each page:
+Before the new reporting/data layer begins, review and record the following for each page in the initial frontend scope. Custom groups are deferred until after real database integration and receive their own visual review later:
 
 - Navigation, content hierarchy, component placement, spacing, typography, and supported theme behavior.
 - Default and optional columns, widths, numeric formatting, sorting, filters, table density, and narrow-screen/overflow behavior.
@@ -94,3 +96,19 @@ The selected stack remains Next.js, React, TypeScript, Tailwind v4, Radix and Re
 Summary links use the typed repository drilldown builder and the receiving route uses its matching parser after the current-viewer guard. Record lists preserve current/period scope, the selected row's UTC range, primary branch for merges, and age threshold. A validated `/repos` return URL captures both summary table queries and scope settings. Unknown repositories remain 404s; malformed filters never fall back to an unfiltered cohort. Missing/partial sample coverage is separate from known empty results. Shared table pagination/search/sort operates on the complete supplied sample list, while the overview receives only compact prepared summaries. The PR/issue list view has no sample, router, auth, or database imports. Author, contribution, and duration destinations use the same validated route and shared feature-level frame. Unique-author rows remain compact and link to guarded, author-filtered PR/issue lists with independent pagination/search/sort and parent author-list state; contribution rows retain their account/PR/type identity and first-credit time; duration details retain both the median measurement and merged-PR sample size. These units are never substituted for each other. The shared table remains unaware of reporting semantics.
 
 Author-specific record routes require the existing viewer guard, a catalog repository, a valid account handle, and a period-scoped PR/issue author metric. The parent author-list URL is rebuilt from those validated fields and its allowed `authors.*` table state; it is not an arbitrary redirect. Child PR/issue query fields do not overwrite the parent state. Author overview models carry identity and counts only, while the selected author's complete fake population is supplied to the shared 50-row table. Column `cell` values are pure render callbacks; stateful cell UI is returned as a component element so callback changes do not remount it.
+
+
+## Reporting column help and profile navigation
+
+Shared reporting tables obtain explanations from `DataColumn.description`: native header hover and accessible descriptions are backed by the same metadata as the visible-column help dialog. The help control lives beside the table title and does not sort. Individual feature pages do not add a separate competing definition disclosure. Explicit CSV column definitions do not enter the display/search index. All enabled table exports use one shared Export CSV dialog, default to visible columns and include all matching rows. Export-only coverage fields follow their selected metric; identity/context metadata remains automatic. Alternate layouts are provided by the owning feature through the same dialog. Other file formats are deferred until after custom groups and core milestones.
+
+Account profiles and dashboard reports have distinct destinations. Profile components validate HTTPS GitHub/sample URLs, expose the visible name/handle in their accessible name, and open externally. Sample accounts use reserved placeholder URLs. Contributor display names open internal reports with selection/return context; their @handles open GitHub profiles. Human, agent and bot icons remain beside identities, and Account type is its own default column/filter. Period, repository, population, zero-total visibility and export controls are implemented with prepared samples.
+
+Optional comments and final merged-diff volumes are separate from lifetime-once contribution credits. Their definitions and merge-period attribution are maintained in the [contribution contract](../product/contributors.md#optional-comment-and-merged-change-volume-columns). These are prepared facts/display projections, not a reinstated reporting collector or database API.
+
+
+## Composable column selection
+
+Column visibility and CSV choices share one selection model and renderer. `selectionGroup` and `selectionSection` organize pickers independently of the table's existing grouped headings and CSV labels. Both menu and form variants use the same required-field rules, selected counts, partial states, descriptions and group/section toggles. Table menus preserve at least one visible field unless their existing caller explicitly permits an empty selection. Export-only choices do not mutate table visibility.
+
+Contribution selections separate Identity, Pull requests, Reviews and approvals, Issues and Comment activity. Each authored/reviewed/approved volume group is split into Files and Lines. Repository summaries retain their existing domain groups; record and insight selectors use the same components with appropriate identity/status/date/activity groups. Borders separate groups, subsections and individual options; one bounded scroll surface avoids nested scrolling. This is selector organization only: metric definitions, row eligibility, table layouts, CSV headers and deferred-format scope are unchanged.

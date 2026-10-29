@@ -19,7 +19,7 @@ import { RepositorySelector } from './repository-selector';
 import { ActivityPeriodControls } from './activity-period-controls';
 import { activityTableRows } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
-import controls from './overview-controls.module.css';
+import controls from '@/components/reporting/overview-controls.module.css';
 
 export function AllRepositoriesView({
   data,

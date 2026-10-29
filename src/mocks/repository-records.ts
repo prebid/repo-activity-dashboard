@@ -1,3 +1,4 @@
+import { sampleProfileUrl } from './repository-accounts';
 import { sampleBotAuthor } from './repository-accounts';
 import { repositoryCatalog } from '@/config/repositories';
 import type { Count, OverviewRepository, RepositoryBacklog } from '@/models/repository-overview';
@@ -151,10 +152,19 @@ export function currentIssueSample(repositoryId: string): RepositoryIssue[] {
   })).reverse();
 }
 export function repositorySample(repositoryId: string) {
-  return { prs: currentPrSample(repositoryId), issues: currentIssueSample(repositoryId) };
+  return {
+    prs: currentPrSample(repositoryId).map((row) => ({
+      ...row,
+      authorUrl: sampleProfileUrl(row.author),
+    })),
+    issues: currentIssueSample(repositoryId).map((row) => ({
+      ...row,
+      authorUrl: sampleProfileUrl(row.author),
+    })),
+  };
 }
 
-export function repositoryRecordSample(
+function buildRepositoryRecordSample(
   repo: OverviewRepository,
   drilldown: RepositoryDrilldown & { selection: RecordSelection },
 ): RepositoryRecordList {
@@ -307,5 +317,20 @@ export function repositoryRecordSample(
     measurement,
     kind: 'issues',
     rows: rows.sort((a, b) => b.createdAt.localeCompare(a.createdAt) || b.number - a.number),
+  };
+}
+
+export function repositoryRecordSample(
+  ...args: Parameters<typeof buildRepositoryRecordSample>
+): RepositoryRecordList {
+  const result = buildRepositoryRecordSample(...args);
+  if (result.kind === 'prs')
+    return {
+      ...result,
+      rows: result.rows.map((row) => ({ ...row, authorUrl: sampleProfileUrl(row.author) })),
+    };
+  return {
+    ...result,
+    rows: result.rows.map((row) => ({ ...row, authorUrl: sampleProfileUrl(row.author) })),
   };
 }

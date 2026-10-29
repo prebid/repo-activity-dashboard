@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { expect, it, vi } from 'vitest';
-import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
 import { useLocalTableController, LocalDataTable } from '@/components/tables/local-data-table';
@@ -290,7 +290,7 @@ it('validates custom dates and distinguishes unavailable samples from an empty r
   expect(within(activity).getByText(/No prepared sample data/)).toBeVisible();
   expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
 });
-it('shows a horizontal-scroll hint only while the table overflows its container', () => {
+it('shows a horizontal-scroll hint only while the table overflows its container', async () => {
   const callbacks: (() => void)[] = [];
   const observe = vi.fn();
   const disconnect = vi.fn();
@@ -314,7 +314,7 @@ it('shows a horizontal-scroll hint only while the table overflows its container'
   ).toHaveAccessibleDescription('Scroll horizontally to see all columns');
   width.mockReturnValue(400);
   act(() => callbacks.forEach((callback) => callback()));
-  expect(screen.queryByText(/Scroll horizontally/)).not.toBeInTheDocument();
+  await waitFor(() => expect(screen.queryAllByText(/Scroll horizontally/)).toHaveLength(0));
   view.unmount();
   expect(disconnect).toHaveBeenCalledTimes(2);
 });
@@ -356,7 +356,7 @@ it('keeps column visibility and sorting independent without table search', async
   const backlog = screen.getByRole('region', { name: 'Current backlog' });
   const activity = screen.getByRole('region', { name: 'Period activity' });
   await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
-  expect(screen.getByRole('menuitemcheckbox', { name: 'Repository' })).toHaveAttribute(
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Repository (required)' })).toHaveAttribute(
     'aria-disabled',
     'true',
   );

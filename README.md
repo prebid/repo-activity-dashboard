@@ -2,7 +2,7 @@
 
 A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
 
-Define and review the frontend with prepared data before adding a replacement reporting database. The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
+Follow the [approved delivery sequence](docs/product/README.md#approved-delivery-sequence): review the frontend with prepared data, deploy the reviewed frontend with clearly labeled samples, integrate real reporting data incrementally, then add custom groups. Agent launching remains the last core feature; calendar heatmaps are a low-priority follow-up after the rest of the plan and validated real-data deployment. The Contributors and Companies increment follows the [five-step delivery process](docs/product/README.md#five-step-frontend-delivery-process); its implementation and review checkpoints are recorded in the [contribution contract](docs/product/contributors.md). The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
 
 ## Run locally
 
@@ -57,7 +57,7 @@ Public first-admin registration is closed. Account provisioning/recovery uses `n
 - `src/lib/auth/` and `src/lib/aws/`: retained server account integration.
 - `.storybook/`: isolated component states.
 
-The shared table uses TanStack Table v9. The table is controlled and router-independent. Application controllers synchronize query state with Next navigation and keep sort defaults scoped by account and report/repository. Search operates on the entire supplied sample set before pagination. CSV exports all columns and all matching rows. The table currently consumes a complete sample population. A remote adapter contract will be introduced with its first real consumer. Final saved-view behavior, detailed product metrics, groups, agent tracking, and polished layouts remain in the page-design work.
+The shared table uses TanStack Table v9. The table is controlled and router-independent. Application controllers synchronize query state with Next navigation and keep sort defaults scoped by account and report/repository. Search operates on the entire supplied sample set before pagination. The shared Export CSV dialog starts with visible columns, supports export-only column choices, and includes all matching rows in the current sort order with required identity/context metadata. The table currently consumes a complete sample population. A remote adapter contract will be introduced with its first real consumer. Remaining contribution and tracking views follow the product roadmap. Custom-group UI and membership behavior are deferred until after real database integration.
 
 ## Scope and plans
 
@@ -65,4 +65,4 @@ The shared table uses TanStack Table v9. The table is controlled and router-inde
 
 All dashboard reporting is internal-only and requires sign-in. Live Amplify/IAM, deployed login throttling, and deployment acceptance remain release prerequisites; local/CI checks do not certify them.
 
-The foundation replaces the old reporting routes with minimal sample-backed views. It does not finish the full product or prove historical metric calculations. Database integration and agent launching are later milestones.
+The foundation, login, All Repositories and individual repository pages are merged into the rebuild branch. Reporting remains sample-backed and does not establish historical calculation correctness. The current live site has no users; temporary downtime or frontend defects during transition are acceptable. The early hosted release still requires production authentication and clearly identified samples. Hosting the frontend does not require completed reporting integration.

@@ -76,7 +76,13 @@ it('runs the packaged production artifact with current sessions and protected ac
     for (const [route, canary] of [
       ['/repos', 'Prebid.js'],
       ['/contributors', 'Alice'],
-      ['/companies', 'Example Company A'],
+      ['/companies', 'Example Acme'],
+      ['/contributors/account-alice', 'sample-alice'],
+      ['/contributors/account-alice?metric=approvalContributions', 'sample-alice'],
+      ['/contributors/export?column=prsAuthored', 'GitHub account'],
+      ['/companies/export?column=reviewerContributions&layout=repositories', 'GitHub account'],
+      ['/companies/id/company-acme', 'Example Acme'],
+      ['/companies/unmapped', 'Unmapped company'],
       ['/repos/prebidjs', 'Sample PR 137: Update integration behavior'],
       ['/repos/prebidjs?view=issues', 'Sample issue 834: Improve documentation'],
       [
@@ -127,6 +133,25 @@ it('runs the packaged production artifact with current sessions and protected ac
       expect([200, 307]).toContain(flight.status);
       const payload = await flight.text();
       expect(payload).not.toContain(canary);
+      expect(
+        payload.includes('/auth/login') ||
+          Boolean(flight.headers.get('location')?.includes('/auth/login')),
+      ).toBe(true);
+    }
+    for (const route of [
+      '/contributors/no-such-account',
+      '/companies/id/no-such-company',
+      '/companies/invalid/path',
+    ]) {
+      const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
+      expect(permitted.status).toBe(404);
+      const anonymous = await fetch(origin + route, { redirect: 'manual' });
+      expect(anonymous.status).toBe(307);
+      expect(anonymous.headers.get('location')).toContain('/auth/login');
+      const flight = await fetch(origin + route, { headers: { RSC: '1' }, redirect: 'manual' });
+      expect([200, 307]).toContain(flight.status);
+      const payload = await flight.text();
+      expect(payload).not.toContain('Example Acme');
       expect(
         payload.includes('/auth/login') ||
           Boolean(flight.headers.get('location')?.includes('/auth/login')),

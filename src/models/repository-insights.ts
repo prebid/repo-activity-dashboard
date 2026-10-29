@@ -36,12 +36,14 @@ export interface SupportingRecord {
 export interface RepositoryAuthor {
   id: string;
   account: string;
+  profileUrl?: string;
   accountType: ReportingAccountType;
   recordCount: number;
 }
 export interface RepositoryContribution {
   id: string;
   account: string;
+  profileUrl?: string;
   accountType: 'agent' | 'bot';
   contribution: 'reviewer' | 'approval';
   firstCreditAt: string;

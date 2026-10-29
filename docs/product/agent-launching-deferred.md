@@ -6,6 +6,8 @@ Access will eventually use specific logged-in users, with allowed scope primaril
 
 The [Agents & bots specification](agents-and-bots.md) owns the tracking-first scope. No Run, Cancel, Retry, permission-management, or launch-policy controls are required in its first frontend version.
 
+Follow the [approved delivery sequence](README.md#approved-delivery-sequence). Early deployment of sample-backed reporting does not move agent launching into the frontend milestone.
+
 ## Run agent flow
 
 When the deferred launching feature is implemented, keep its first version focused:

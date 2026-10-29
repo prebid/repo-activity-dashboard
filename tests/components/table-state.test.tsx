@@ -56,7 +56,10 @@ it('shows a recoverable local export error without losing the table', async () =
     />,
   );
   fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Download CSV' }));
   await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Export failed'));
+  expect(screen.getByRole('button', { name: 'Download CSV' })).toBeEnabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
   expect(screen.getByRole('table')).toBeVisible();
   expect(screen.getByRole('button', { name: 'Export CSV' })).toBeEnabled();
 });

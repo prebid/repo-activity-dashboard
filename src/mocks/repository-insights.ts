@@ -13,7 +13,7 @@ import type {
   RepositoryRecordList,
 } from '@/models/repository-records';
 import { repositoryRecordSample } from './repository-records';
-import { sampleAuthorType } from './repository-accounts';
+import { sampleAuthorType, sampleProfileUrl } from './repository-accounts';
 import { preparedPeriodSample } from './overview-period-sample';
 import { overviewAsOf } from './repository-overview';
 
@@ -77,6 +77,7 @@ export function repositoryInsightSample(
         const author = authors.get(row.author) ?? {
           id: repo.id + ':' + row.author,
           account: row.author,
+          profileUrl: sampleProfileUrl(row.author),
           accountType: sampleAuthorType(row.author),
           recordCount: 0,
         };
@@ -131,6 +132,7 @@ export function repositoryInsightSample(
       rows.push({
         id: repo.id + ':' + account + ':' + pr.id + ':' + contribution,
         account,
+        profileUrl: sampleProfileUrl(account),
         accountType,
         contribution,
         firstCreditAt,

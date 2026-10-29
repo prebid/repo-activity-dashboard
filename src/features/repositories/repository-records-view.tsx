@@ -26,9 +26,10 @@ function commonColumns<
   T extends { state: string; labels: string[]; createdAt: string },
 >(): DataColumn<T>[] {
   return [
-    { id: 'state', label: 'Status', value: (row) => row.state },
+    { id: 'state', selectionGroup: 'Status', label: 'Status', value: (row) => row.state },
     {
       id: 'labels',
+      selectionGroup: 'Status',
       label: 'Labels',
       value: (row) => row.labels.join(', '),
       cell: (row) => (
@@ -41,6 +42,7 @@ function commonColumns<
     },
     {
       id: 'createdAt',
+      selectionGroup: 'Dates and age',
       label: 'Created',
       value: (row) => row.createdAt,
       cell: (row) => formatUtcDate(row.createdAt),
@@ -55,6 +57,7 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
   ...commonColumns<RepositoryPullRequest>(),
   {
     id: 'mergeDays',
+    selectionGroup: 'Dates and age',
     label: 'Merge time',
     width: 120,
     align: 'right',
@@ -65,24 +68,43 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
       return days === null ? '—' : formatCount(days) + ' d';
     },
   },
-  { id: 'baseBranch', label: 'Base branch', value: (row) => row.baseBranch },
+  {
+    id: 'baseBranch',
+    selectionGroup: 'Status',
+    label: 'Base branch',
+    value: (row) => row.baseBranch,
+  },
   {
     id: 'mergedAt',
+    selectionGroup: 'Dates and age',
     label: 'Merged',
     value: (row) => row.mergedAt,
     cell: (row) => (row.mergedAt ? formatUtcDate(row.mergedAt) : '—'),
   },
   {
     id: 'agentReviewer',
+    selectionGroup: 'Automation',
     label: 'Agent reviewer',
+    description:
+      'Whether a mapped Prebid agent has provided qualifying reviewer participation on this PR. Approvals are separate.',
     value: (row) => (row.agentReviewer === null ? null : row.agentReviewer ? 'Yes' : 'No'),
   },
   {
     id: 'botReviewer',
+    selectionGroup: 'Automation',
     label: 'Bot reviewer',
+    description:
+      'Whether another bot has provided qualifying reviewer participation on this PR, excluding mapped Prebid agents.',
     value: (row) => (row.botReviewer === null ? null : row.botReviewer ? 'Yes' : 'No'),
   },
-  { id: 'latestActor', label: 'Latest actor', value: (row) => actorLabels[row.latestActor] },
+  {
+    id: 'latestActor',
+    selectionGroup: 'Latest activity',
+    label: 'Latest actor',
+    description:
+      'The account category responsible for the latest qualifying activity at the reporting snapshot.',
+    value: (row) => actorLabels[row.latestActor],
+  },
 ];
 export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
   ...issueColumns.map((column) => ({
@@ -92,6 +114,7 @@ export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
   ...commonColumns<RepositoryIssue>(),
   {
     id: 'closedAt',
+    selectionGroup: 'Dates and age',
     label: 'Closed',
     value: (row) => row.closedAt,
     cell: (row) => (row.closedAt ? formatUtcDate(row.closedAt) : '—'),

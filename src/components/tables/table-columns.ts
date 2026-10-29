@@ -1,14 +1,13 @@
+import type { SelectableColumn } from '@/models/column-selection';
 import type { ReactNode } from 'react';
 
-export interface DataColumn<T> {
-  id: string;
-  label: string;
+export interface DataColumn<T> extends Omit<SelectableColumn, 'required'> {
   value: (row: T) => string | number | null;
   sortValue?: (row: T) => string | number | null;
   /** Pure render callback: return a component element for stateful UI; do not call hooks here. */
   cell?: (row: T) => ReactNode;
-  group?: string;
-  description?: string;
+  /** Export-only metadata follows this selected display column; omitted means always included. */
+  exportWith?: string;
   width?: number;
   align?: 'left' | 'right';
   pinned?: boolean;

@@ -57,4 +57,4 @@ Carry forward the Prebid branding, restrained blue/slate surfaces, orange primar
 
 ## Delivery boundary
 
-Login and subsequent page work integrate through `codex/frontend-rebuild`. Production `main` continues serving the existing dashboard until the replacement is ready for a separate cutover. Reporting remains synthetic during frontend development; retain the foundation account, recovery, and deployment contracts.
+Login and subsequent frontend work integrate through `codex/frontend-rebuild`. Follow the [approved delivery sequence](README.md#approved-delivery-sequence): a separately requested release may replace the current live site with the reviewed, clearly labeled sample-backed frontend before database integration. The current site has no users and temporary downtime is acceptable. Production authentication, account recovery and deployment acceptance still apply; sample reporting does not enable local preview identities on the hosted site.

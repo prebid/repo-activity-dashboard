@@ -18,6 +18,7 @@ export type OverviewTableRow = RepositoryOverviewRow & { id: string };
 function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
   return {
     id: 'name',
+    selectionGroup: 'Identity',
     label: 'Repository',
     width: 248,
     pinned: true,
@@ -75,7 +76,7 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
       'Pull requests',
       'All currently open PRs, including drafts.',
     ),
-    backlogColumn('draftPrs', 'Drafts', 'Pull requests'),
+    backlogColumn('draftPrs', 'Drafts', 'Pull requests', 'Currently open draft PRs.'),
     backlogColumn('nonDraftPrs', 'Open', 'Pull requests', 'Currently open PRs, excluding drafts.'),
     backlogColumn(
       'openIssues',
@@ -131,9 +132,24 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
       'Human reviewers',
       'Open non-draft PRs with no non-author human comments or requests for changes. An approval alone does not count as reviewer participation.',
     ),
-    backlogColumn('humanReviewers1', '1 reviewer', 'Human reviewers'),
-    backlogColumn('humanReviewers2', '2 reviewers', 'Human reviewers'),
-    backlogColumn('humanReviewersMoreThan2', 'More than 2 reviewers', 'Human reviewers'),
+    backlogColumn(
+      'humanReviewers1',
+      '1 reviewer',
+      'Human reviewers',
+      'Open non-draft PRs with exactly one distinct non-author human who has provided a qualifying comment or request for changes. Approvals are separate.',
+    ),
+    backlogColumn(
+      'humanReviewers2',
+      '2 reviewers',
+      'Human reviewers',
+      'Open non-draft PRs with exactly two distinct non-author human reviewers. Repeated comments by the same account do not add reviewers.',
+    ),
+    backlogColumn(
+      'humanReviewersMoreThan2',
+      'More than 2 reviewers',
+      'Human reviewers',
+      'Open non-draft PRs with more than two distinct non-author human reviewers; these values are not capped at two.',
+    ),
     backlogColumn(
       'agentFeedbackPrs',
       'Prebid agents',
@@ -146,12 +162,42 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
       'Reviewer coverage',
       'Open non-draft PRs with at least one qualifying bot reviewer, excluding Prebid agents.',
     ),
-    backlogColumn('lastAgent', 'Agent last', 'Latest activity'),
-    backlogColumn('lastBot', 'Bot last', 'Latest activity'),
-    backlogColumn('lastPrebidReviewer', 'Reviewer last', 'Latest activity'),
-    backlogColumn('lastContributor', 'Contributor last', 'Latest activity'),
-    backlogColumn('lastOtherHuman', 'Other human last', 'Latest activity'),
-    backlogColumn('lastUnknown', 'Unknown actor', 'Latest activity'),
+    backlogColumn(
+      'lastAgent',
+      'Agent last',
+      'Latest activity',
+      'Open non-draft PRs whose latest qualifying activity came from a mapped Prebid agent.',
+    ),
+    backlogColumn(
+      'lastBot',
+      'Bot last',
+      'Latest activity',
+      'Open non-draft PRs whose latest qualifying activity came from another bot, excluding mapped Prebid agents.',
+    ),
+    backlogColumn(
+      'lastPrebidReviewer',
+      'Reviewer last',
+      'Latest activity',
+      'Open non-draft PRs whose latest qualifying activity came from a mapped Prebid human reviewer.',
+    ),
+    backlogColumn(
+      'lastContributor',
+      'Contributor last',
+      'Latest activity',
+      'Open non-draft PRs whose latest qualifying activity came from the PR contributor.',
+    ),
+    backlogColumn(
+      'lastOtherHuman',
+      'Other human last',
+      'Latest activity',
+      'Open non-draft PRs whose latest qualifying activity came from another human account.',
+    ),
+    backlogColumn(
+      'lastUnknown',
+      'Unknown actor',
+      'Latest activity',
+      'Open non-draft PRs with a known latest activity whose actor is unclassified. Unavailable activity history is separate and may make counts partial.',
+    ),
   ];
 }
 export const defaultBacklogColumns = [
@@ -259,8 +305,18 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
       'Pull requests',
       'PRs merged into each repository’s primary branch during this period.',
     ),
-    activityColumn('issuesOpened', 'Opened', 'Issues'),
-    activityColumn('issuesClosed', 'Closed', 'Issues'),
+    activityColumn(
+      'issuesOpened',
+      'Opened',
+      'Issues',
+      'Issues created during the selected period, excluding pull requests.',
+    ),
+    activityColumn(
+      'issuesClosed',
+      'Closed',
+      'Issues',
+      'Issues closed during the selected period, including those subsequently reopened.',
+    ),
     activityColumn(
       'prAuthors',
       'PRs',
@@ -322,14 +378,24 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
       'Prebid agents',
       'Reviewer contributions from Prebid agents, counted once per agent and PR in the period of its first qualifying review.',
     ),
-    activityColumn('agentApprovalCredits', 'Agent approvals', 'Prebid agents'),
+    activityColumn(
+      'agentApprovalCredits',
+      'Agent approvals',
+      'Prebid agents',
+      'Approval contributions from Prebid agents, counted once per account and PR on its first approval date; reapprovals do not add credits.',
+    ),
     activityColumn(
       'botFeedbackCredits',
       'Bot reviewers',
       'Other bots',
       'Reviewer contributions from other bots, counted once per bot and PR in the period of its first qualifying review.',
     ),
-    activityColumn('botApprovalCredits', 'Bot approvals', 'Other bots'),
+    activityColumn(
+      'botApprovalCredits',
+      'Bot approvals',
+      'Other bots',
+      'Approval contributions from other bots, counted once per account and PR on its first approval date; these are separate from current approvals.',
+    ),
   ];
 }
 export const defaultActivityColumns = [

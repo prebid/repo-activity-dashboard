@@ -77,17 +77,12 @@ export function DashboardHeader({
             prefetch={false}
             href="/contributors"
             className={styles.navItem}
+            data-active={
+              activePath.startsWith('/contributors') || activePath.startsWith('/companies')
+            }
             aria-current={activePath === '/contributors' ? 'page' : undefined}
           >
-            Contributors
-          </Link>
-          <Link
-            prefetch={false}
-            href="/companies"
-            className={styles.navItem}
-            aria-current={activePath === '/companies' ? 'page' : undefined}
-          >
-            Companies
+            Contributions
           </Link>
           {administration && (
             <Link

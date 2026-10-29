@@ -249,7 +249,7 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   await page.keyboard.press('Enter');
   await expect(page.getByRole('menu')).toBeVisible();
   await expect(
-    page.getByRole('menuitemcheckbox', { name: 'Repository', exact: true }),
+    page.getByRole('menuitemcheckbox', { name: 'Repository (required)', exact: true }),
   ).toHaveAttribute('aria-disabled', 'true');
   const group = page.getByRole('menuitemcheckbox', { name: 'Human reviewers', exact: true });
   await group.focus();

@@ -115,7 +115,10 @@ it.each(['chromium', 'webkit'] as const)(
         (url) => url.pathname === '/repos' && url.searchParams.get('search') === 'prebid',
       );
       await form.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
-      await form.getByRole('link', { name: 'Contributors', exact: true }).click();
+      await form
+        .getByRole('navigation', { name: 'Main navigation' })
+        .getByRole('link', { name: 'Contributions', exact: true })
+        .click();
       await form.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
       const missing = await person.request.get(fixture.origin + '/repos/not-in-catalog');
       expect(missing.status()).toBe(404);
@@ -127,7 +130,10 @@ it.each(['chromium', 'webkit'] as const)(
           ExpressionAttributeValues: { ':active': false },
         }),
       );
-      await form.getByRole('link', { name: 'Companies', exact: true }).focus();
+      await form
+        .getByRole('navigation', { name: 'Contribution reports' })
+        .getByRole('link', { name: /^Companies/ })
+        .focus();
       await form.keyboard.press('Enter');
       await form.waitForURL('**/auth/login?**');
       expect(await form.getByRole('heading', { name: 'Sign in', exact: true }).isVisible()).toBe(

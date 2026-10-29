@@ -70,7 +70,7 @@ export default defineConfig({
         },
         'src/lib/auth/{viewer,base-config,session-transport,http-auth,account-reader,bounded-request,session-policy,secret-policy,runtime-settings}.ts':
           { perFile: true, lines: 90, branches: 80, statements: 90, functions: 100 },
-        'src/components/tables/**': {
+        'src/components/{tables,exports}/**': {
           perFile: true,
           lines: 95,
           branches: 90,

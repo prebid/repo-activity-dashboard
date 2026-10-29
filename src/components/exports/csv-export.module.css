@@ -1,0 +1,75 @@
+.dialog {
+  background: var(--card);
+  color: var(--foreground);
+  width: calc(100vw - 32px);
+  max-width: 620px;
+  max-height: calc(100svh - 32px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dialog > :not(.body) {
+  flex-shrink: 0;
+}
+.body {
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  gap: 16px;
+  padding: 2px;
+}
+.body:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+.layout {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.layout legend {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.layout label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+}
+.actions > span {
+  margin-left: auto;
+  color: var(--muted-foreground);
+}
+.layout input {
+  accent-color: var(--prebid-link);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.layout input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.error {
+  font-size: 13px;
+  color: var(--prebid-error-ink);
+}
+@media (max-width: 600px) {
+  .dialog {
+    padding: 20px;
+  }
+}
