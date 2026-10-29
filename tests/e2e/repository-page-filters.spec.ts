@@ -215,3 +215,20 @@ test('unprepared custom dates remain unavailable, with a clear return to current
   await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
 });
+
+test('opening filters captures pending search without dismissing the dialog', async ({ page }) => {
+  await login(page);
+  await page.goto('/repos/prebidjs');
+  await page
+    .getByRole('textbox', { name: 'Search Open pull requests', exact: true })
+    .fill('Sample PR 1:');
+  const dialog = await filters(page);
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('combobox', { name: 'Draft status', exact: true }).selectOption('drafts');
+  await dialog.getByRole('button', { name: 'Apply filters', exact: true }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(page.getByText('1 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+  expect(new URL(page.url()).searchParams.get('prs.q')).toBe('Sample PR 1:');
+  expect(new URL(page.url()).searchParams.get('prs.filter.draft')).toBe('drafts');
+});

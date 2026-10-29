@@ -31,9 +31,11 @@ function Preview({ activity = false }: { activity?: boolean }) {
     </DashboardFrame>
   );
 }
-const meta = { title: 'Reports/Repository charts', component: Preview } satisfies Meta<
-  typeof Preview
->;
+const meta = {
+  title: 'Reports/Repository charts',
+  component: Preview,
+  render: (args) => <Preview key={String(args.activity)} {...args} />,
+} satisfies Meta<typeof Preview>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Current: Story = {};

@@ -18,8 +18,24 @@
   color: var(--foreground);
   font-size: 12px;
 }
+.scopeSelect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
 .scopeSelect select {
+  appearance: none;
   min-height: 36px;
+  padding-right: 36px;
+}
+.scopeChevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--muted-foreground);
 }
 .selectField {
   display: flex;

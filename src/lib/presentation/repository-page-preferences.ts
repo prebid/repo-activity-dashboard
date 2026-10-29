@@ -61,21 +61,21 @@ export function readRepositoryColumns(
 export function readRepositoryCharts(raw: string | null): boolean {
   try {
     const value: unknown = JSON.parse(raw ?? 'null');
-    return !(
+    return !!(
       value &&
       typeof value === 'object' &&
       'version' in value &&
       value.version === 1 &&
       'chartsVisible' in value &&
-      value.chartsVisible === false
+      value.chartsVisible === true
     );
   } catch {
-    return true;
+    return false;
   }
 }
 export function serializeRepositoryColumns(
   columns: Record<string, boolean>,
-  chartsVisible = true,
+  chartsVisible = false,
 ): string {
   return JSON.stringify({ version: 1, columns, chartsVisible });
 }

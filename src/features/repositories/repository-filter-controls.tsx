@@ -46,7 +46,16 @@ export function RepositoryFilterControls({
   const fields = useMemo(() => repositoryFilterFields(source), [source]);
   const chips = repositoryFilterChips(filters, fields);
   const defaults = defaultRepositoryFilters(source.kind);
-  useEffect(() => setOpen(false), [source, filters]);
+  // Search is owned by the table controller and may settle during the trigger's blur.
+  // Close a draft for changed facets/cohorts, not for that pending search commit.
+  const filterScope = JSON.stringify([
+    source.repository.id,
+    source.asOf,
+    source.drilldown,
+    source.author?.account,
+    { ...filters, search: undefined },
+  ]);
+  useEffect(() => setOpen(false), [filterScope]);
   function remove(key: string, value: string) {
     const next: Record<string, unknown> = { ...filters };
     next[key] = Array.isArray(next[key])

@@ -45,7 +45,7 @@ export function useRepositoryPageControls(
   );
   const chartParam = new URLSearchParams(search).get(source.kind + '.charts');
   const chartsVisible =
-    chartParam === null ? (saved?.key === key ? saved.chartsVisible : true) : chartParam !== '0';
+    chartParam === null ? (saved?.key === key ? saved.chartsVisible : false) : chartParam !== '0';
   useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
@@ -120,7 +120,7 @@ export function useRepositoryPageControls(
       page: 1,
     });
     url.search = writeRepositoryColumns(url.search, source.kind, defaults, columnIds);
-    url.searchParams.set(source.kind + '.charts', '1');
+    url.searchParams.set(source.kind + '.charts', '0');
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     table.clearSavedSort();
     remember(null);

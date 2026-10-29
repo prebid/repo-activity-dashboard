@@ -1,4 +1,5 @@
 'use client';
+import { ChevronDown } from 'lucide-react';
 import type { RepositoryPageSource } from '@/models/repository-page';
 import type { DateRange } from '@/models/reporting-period';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
@@ -34,6 +35,7 @@ export function RepositoryScopeControls({
               : 'Closed during period'}
           </option>
         </select>
+        <ChevronDown size={14} className={styles.scopeChevron} aria-hidden="true" />
       </label>
       {mode !== 'current' && (
         <TimeframeControl

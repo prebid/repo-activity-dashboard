@@ -12,11 +12,17 @@ async function counts(chart: Locator) {
   );
 }
 const figure = (page: Page, name: string) => page.getByRole('figure', { name, exact: true });
+async function showCharts(page: Page) {
+  await page.getByRole('button', { name: 'Show charts', exact: true }).click();
+}
+
 test('PR charts use the full population and keyboard selections combine without mixing approvals and reviewers', async ({
   page,
 }) => {
   await login(page);
   await page.goto('/repos/prebidjs?returnTo=%2Frepos%3Fage%3D60');
+  await expect(page.getByRole('figure')).toHaveCount(0);
+  await showCharts(page);
   const age = figure(page, 'Age distribution'),
     reviews = figure(page, 'Human reviewers'),
     approvals = figure(page, 'Current human approvals');
@@ -60,6 +66,7 @@ test('issue age bars reconcile across fifty-row pages and chart visibility stays
 }) => {
   await login(page);
   await page.goto('/repos/prebidjs?view=issues');
+  await showCharts(page);
   const age = figure(page, 'Age distribution');
   expect(await counts(age)).toEqual([30, 30, 30, 30, 60, 180, 474]);
   await age.getByRole('button', { name: '>360 days 474', exact: true }).click();
@@ -77,7 +84,8 @@ test('issue age bars reconcile across fifty-row pages and chart visibility stays
   await expect(page.getByText('834 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Reset view preferences', exact: true }).click();
-  await expect(age).toBeVisible();
+  await expect(age).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
 });
 test('period bars filter the correct event dates and retain the base period and branch', async ({
   page,
@@ -86,6 +94,7 @@ test('period bars filter the correct event dates and retain the base period and 
   await page.goto(
     '/repos/prebidjs?scope=period&metric=prsMerged&branch=master&from=2026-01-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1',
   );
+  await showCharts(page);
   const chart = figure(page, 'PRs merged');
   expect((await counts(chart)).reduce((a, b) => a + b, 0)).toBe(481);
   const button = chart.getByRole('button').first(),
@@ -113,9 +122,11 @@ test('period bars filter the correct event dates and retain the base period and 
 test('known zero, partial and missing charts preserve their meanings', async ({ page }) => {
   await login(page);
   await page.goto('/repos/prebidjs?scope=current&metric=agedPrs&age=180');
+  await showCharts(page);
   expect(await counts(figure(page, 'Age distribution'))).toEqual([0, 0, 0, 0, 0, 0, 0]);
   await expect(figure(page, 'Age distribution').getByRole('button').first()).toBeDisabled();
   await page.goto('/repos/prebid-cache-java?scope=current&metric=agentFeedbackPrs');
+  await showCharts(page);
   await expect(page.getByText(/Partial sample coverage:/)).toBeVisible();
   const age = figure(page, 'Age distribution');
   const point = age.locator('button:enabled').first();
@@ -126,6 +137,7 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   await point.click();
   await expect(page.getByText(count + ' available sample records', { exact: true })).toBeVisible();
   await page.goto('/repos/prebid-agent-skills?scope=current&metric=humanApprovals0');
+  await showCharts(page);
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),
   ).toBeVisible();
@@ -151,6 +163,7 @@ for (const [kind, theme, width] of [
         ? '/repos/prebidjs'
         : '/repos/prebidjs?scope=period&metric=issuesOpened&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1',
     );
+    await showCharts(page);
     const chart = figure(page, kind === 'current' ? 'Age distribution' : 'Issues created');
     await expect(chart).toBeVisible();
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);

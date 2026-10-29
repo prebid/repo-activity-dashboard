@@ -1,6 +1,6 @@
-# Repository page — initial requirements draft
+# Repository page
 
-Status: Step 4 repository charts and chart-to-filter interactions are implemented for visual review. Final integration review and handoff remain Step 5. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
+Status: Models, shared layouts, filters, saved presentation preferences and charts are implemented. Step 5 technical verification is complete; the final visual sign-off precedes draft PR handoff. Charts start collapsed on fresh visits and after resetting view preferences; explicit saved or URL choices still apply. Reporting remains prepared fake data, and ordinary lists show 50 rows per page.
 
 ## Confirmed purpose
 
@@ -249,8 +249,28 @@ Current PR views display age, human-reviewer and current-human-approval distribu
 - Each bar is a native button with its printed label and count, an exact range description when applicable, visible keyboard focus and pressed state. One reusable bar component supports horizontal distributions and vertical timelines without separate mouse/keyboard selection implementations. Existing chart dependencies are retained.
 - Selecting a positive bar narrows the list through the existing URL filter controller and returns it to page one. Selections across different charts combine. Selecting an active bar again, or removing its filter chip, clears only that constraint. All charts recalculate for the resulting full filtered population. Unselected zero-value bars remain visible and cannot broaden an already narrowed cohort.
 - Activity selections preserve the base period and primary-branch scope, use the original UTC bin boundaries including exclusive endpoints, and display removable date chips. Missing samples retain dashes; partial coverage stays marked; known zero remains zero. A zero-activity timeline remains keyboard-scrollable on narrow screens.
-- Show/Hide charts is saved per account, repository and PR/issue tab with the presentation preferences. Explicit URL visibility takes precedence, older saved preferences default to visible charts, and Reset view preferences restores charts without clearing data filters.
+- Show/Hide charts is saved per account, repository and PR/issue tab with the presentation preferences. Explicit URL visibility takes precedence, older saved preferences without a chart choice default to collapsed charts, and Reset view preferences collapses charts without clearing data filters.
 
 The Step 4 preview is ready for the user's visual review before the final Step 5 integration/handoff checkpoint. Reporting remains entirely prepared fake data.
 
 Step 4 verification: `npm run check` passed formatting, lint, types, architecture/retirement boundaries, coverage gates and 557 individually passing unit/component cases. Reconciliation tests exercise over 1,000 chart-point selections against complete filtered cohorts. Preview and Storybook builds passed. All 186 Chromium/WebKit cases passed with no skipped, pending, expected-failure or flaky results, including chart keyboard selection, combined reviewer/approval filters, full-population counts across 50-row pages, exact UTC activity ranges, saved visibility, partial/missing/zero states, both themes and narrow layouts. Visual review also corrected the scope strip to disclose draft exclusion when a review filter is active.
+
+
+## Step 5 final integration review
+
+The reviewed branch is `codex/repository-pages`, based on the refreshed `origin/codex/frontend-rebuild` at `4e79f109de41c1d7860f51bd16a27137c3c1918f`. The base has no commits missing from this feature branch. The eventual review target is `codex/frontend-rebuild`.
+
+The source review followed guarded route composition through sample preparation, cohort selection, URL state, saved preferences, chart selection and table rendering. The page consumes typed display models; samples remain owned by route/server composition. Shared table behavior retains its full-population filtering/sorting followed by a 50-row display page. Chart controls consume that same filtered cohort and keep human reviewers separate from current human approvals. Unsupported dates, invalid scopes, missing values and partial metadata retain distinct states.
+
+Final refinements:
+
+- Charts start collapsed on a fresh visit, corrupt/legacy preferences without a visibility choice, and Reset view preferences. An explicit Show/Hide preference or shared URL remains authoritative. The open preview has been returned to the collapsed view.
+- The repository scope select uses an inset decorative chevron with native select appearance disabled. Browser assertions check its containment and vertical alignment in desktop/mobile layouts in both engines.
+- Opening Filters while a pending search committed on blur could dismiss the dialog. Draft closure now follows applied facets and cohort identity, leaving search ownership with the table controller. Component and browser regressions retain the open dialog, apply the facet and preserve the latest search; changed facets/cohorts still close stale edits.
+- The isolated chart story resets its local filter state when switching between current and activity examples. The planned export acceptance row now agrees with the approved 50-row policy.
+
+The local visual gallery includes the default collapsed pages, optional expanded charts, filters, supporting detail lists and representative states in both browser engines and themes. Captures come from the registered browser suites under `test-results/browser-artifacts`; they support manual design review rather than platform-independent pixel goldens. The preview/gallery retain the fake-data banner and invented record links.
+
+This review does not establish real GitHub calculation correctness, database query performance, live deployment acceptance, or independent review-team approval. Those are separate from the frontend checkpoint. Final user visual sign-off precedes the draft PR handoff.
+
+Final verification after the collapsed-default, selector and pending-search refinements: `npm run check:all` passed all 786 individually validated results (559 unit/component, 31 isolated account, eight packaged-production and 188 Chromium/WebKit), with no skipped, pending, expected-failure or flaky cases. Formatting, lint, types, architecture/retirement boundaries, coverage gates, both app builds and Storybook passed. The dependency audit reported zero vulnerabilities. The pending-search interaction was also reproduced and verified fixed in the user-facing preview. No other blocking issues were found in the reviewed repository-page changes. User visual sign-off and independent review-team acceptance remain separate.

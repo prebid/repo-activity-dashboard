@@ -117,7 +117,7 @@ it('gives URL columns precedence, including an explicit empty list, while retain
   ).toEqual({ ageDays: false, createdAt: false, labels: false });
 });
 
-it('migrates existing column preferences with charts visible, retaining an explicit hidden preference', async () => {
+it('defaults to hidden charts for fresh, legacy and corrupt preferences, honoring an explicit choice', async () => {
   const { readRepositoryCharts } = await import('@/lib/presentation/repository-page-preferences');
   for (const raw of [
     null,
@@ -126,8 +126,10 @@ it('migrates existing column preferences with charts visible, retaining an expli
     '{}',
     '{"version":1,"columns":{}}',
     '{"version":2,"chartsVisible":false}',
-    '{"version":1,"chartsVisible":true}',
+    '{"version":1,"chartsVisible":"true"}',
+    '{"version":1,"chartsVisible":false}',
   ])
-    expect(readRepositoryCharts(raw)).toBe(true);
+    expect(readRepositoryCharts(raw)).toBe(false);
   expect(readRepositoryCharts(serializeRepositoryColumns({ ageDays: false }, false))).toBe(false);
+  expect(readRepositoryCharts(serializeRepositoryColumns({}, true))).toBe(true);
 });

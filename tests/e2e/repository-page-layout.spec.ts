@@ -24,6 +24,16 @@ for (const [kind, theme, width] of [
         .getByRole('link', { name: kind === 'prs' ? /^Pull requests/ : /^Issues/ }),
     ).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+    await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
+    await expect(page.getByRole('figure')).toHaveCount(0);
+    const scope = page.getByRole('combobox', { name: 'Record scope', exact: true });
+    const selectBox = (await scope.boundingBox())!;
+    const arrowBox = (await scope.locator('..').locator('svg').boundingBox())!;
+    expect(arrowBox.x).toBeGreaterThan(selectBox.x);
+    expect(arrowBox.x + arrowBox.width).toBeLessThan(selectBox.x + selectBox.width - 4);
+    expect(
+      Math.abs(arrowBox.y + arrowBox.height / 2 - selectBox.y - selectBox.height / 2),
+    ).toBeLessThan(1);
     const numberCell = page.locator('tbody [data-column="number"]').first();
     expect((await numberCell.boundingBox())!.width).toBeLessThan(150);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
