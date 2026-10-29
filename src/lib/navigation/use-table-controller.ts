@@ -18,7 +18,9 @@ export function useTableController({
   viewerId,
   peerQueryKeys = noPeers,
   defaultSort,
+  historyMode = 'replace',
 }: {
+  historyMode?: 'push' | 'replace';
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
@@ -40,6 +42,7 @@ export function useTableController({
     stamp: string;
     page: number;
   } | null>(null);
+  const searchEntry = useRef<{ scope: string; href: string } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const query = useMemo(
     () =>
@@ -54,6 +57,7 @@ export function useTableController({
   );
   const draftSearch = draft?.scope === scope && draft.stamp === stamp ? draft.value : query.search;
   const cancel = useCallback(() => {
+    searchEntry.current = null;
     clearTimeout(timer.current);
     setDraft(null);
   }, []);
@@ -81,8 +85,26 @@ export function useTableController({
       }
       const next = { ...current, ...patch, search: patch.search ?? pending };
       if (dirty || (patch.search !== undefined && patch.search !== current.search)) next.page = 1;
+      const searchOnly =
+        (dirty || patch.search !== undefined) &&
+        Object.keys(patch).every((key) => key === 'search' || key === 'page') &&
+        (patch.page === undefined || patch.page === 1);
+      const replaceSearch =
+        historyMode === 'push' &&
+        searchOnly &&
+        searchEntry.current?.scope === scope &&
+        searchEntry.current.href === url.href;
+      if (historyMode === 'push' && !replaceSearch) {
+        // Freeze saved defaults in the previous entry before they can change.
+        url.search = writeTableQuery(url.search, queryKey, current);
+        if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+      }
       url.search = writeTableQuery(url.search, queryKey, next);
-      if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+      if (url.href !== window.location.href) {
+        if (historyMode === 'push' && !replaceSearch) window.history.pushState(null, '', url);
+        else window.history.replaceState(null, '', url);
+      }
+      searchEntry.current = historyMode === 'push' && searchOnly ? { scope, href: url.href } : null;
       setDraft(null);
       setCorrection(null);
       if (viewerId && patch.sort !== undefined) {
@@ -111,8 +133,12 @@ export function useTableController({
       pathname,
       peerQueryKeys,
       defaultSort,
+      historyMode,
     ],
   );
+  useEffect(() => {
+    searchEntry.current = null;
+  }, [scope]);
   useEffect(() => {
     if (!viewerId) return;
     try {

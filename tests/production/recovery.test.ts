@@ -113,7 +113,31 @@ it.each(['chromium', 'webkit'] as const)(
       await dialog.waitFor();
       await dialog.getByRole('button', { name: 'I have saved the password' }).click();
 
-      await page.goto(fixture.origin + '/auth/change-password');
+      // Hold application scripts so this also exercises the server-rendered form before hydration.
+      const applicationScript = /\/_next\/static\/.*\.js(?:\?|$)/;
+      let releaseScripts: () => void = () => undefined;
+      const scripts = new Promise<void>((resolve) => {
+        releaseScripts = resolve;
+      });
+      await page.route(applicationScript, async (route) => {
+        await scripts;
+        await route.continue();
+      });
+      try {
+        await page.goto(fixture.origin + '/auth/change-password', { waitUntil: 'commit' });
+        await page.getByLabel('Current Password', { exact: true }).waitFor();
+        for (const name of ['Current Password', 'New Password', 'Confirm New Password'])
+          expect(await page.getByLabel(name, { exact: true }).isDisabled()).toBe(true);
+        expect(
+          await page.getByRole('button', { name: 'Change Password', exact: true }).isDisabled(),
+        ).toBe(true);
+        expect(await page.getByRole('button', { name: 'Cancel', exact: true }).isDisabled()).toBe(
+          true,
+        );
+      } finally {
+        releaseScripts();
+        await page.unrouteAll({ behavior: 'wait' });
+      }
       await page.getByLabel('Current Password', { exact: true }).fill('AdminPassword1!');
       await page.getByLabel('New Password', { exact: true }).fill('ChangedAdminPassword2!');
       await page.getByLabel('Confirm New Password', { exact: true }).fill('ChangedAdminPassword2!');

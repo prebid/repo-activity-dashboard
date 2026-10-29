@@ -1,14 +1,9 @@
 import { repositoryDetail } from '@/server/reporting';
-import { RepositoryScreen } from '@/app/_screens/repository-screen';
-import { RepositoryRecordsScreen } from '@/app/_screens/repository-records-screen';
+import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-screen';
 import { PageState } from '@/components/feedback/page-state';
 import Link from 'next/link';
-import {
-  encodeSearchParams,
-  firstSearchParam,
-  type PageSearchParams,
-} from '@/lib/presentation/search-params';
+import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 export default async function RepositoryPage({
   params,
   searchParams,
@@ -19,10 +14,22 @@ export default async function RepositoryPage({
   const { slug } = await params;
   const query = await searchParams;
   const result = await repositoryDetail(slug, new URLSearchParams(encodeSearchParams(query)));
-  if (result.status === 'list')
-    return <RepositoryRecordsScreen viewerId={result.viewer.id} list={result.list} />;
+  if (result.status === 'page')
+    return (
+      <RepositoryPageScreen
+        viewerId={result.viewer.id}
+        source={result.source}
+        navigation={result.navigation}
+      />
+    );
   if (result.status === 'insight')
-    return <RepositoryInsightsScreen viewerId={result.viewer.id} insight={result.insight} />;
+    return (
+      <RepositoryInsightsScreen
+        viewerId={result.viewer.id}
+        insight={result.insight}
+        navigation={result.navigation}
+      />
+    );
   if (result.status === 'invalid' || result.status === 'unsupported')
     return (
       <>
@@ -46,16 +53,6 @@ export default async function RepositoryPage({
         </PageState>
       </>
     );
-  const { viewer, repo, sample, returnTo } = result;
-  return (
-    <RepositoryScreen
-      name={repo.displayName}
-      slug={slug}
-      {...sample}
-      view={firstSearchParam(query.view) === 'issues' ? 'issues' : 'prs'}
-      age={null}
-      returnTo={returnTo}
-      viewerId={viewer.id}
-    />
-  );
+  const unhandled: never = result;
+  return unhandled;
 }

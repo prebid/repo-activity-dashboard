@@ -35,7 +35,7 @@ it('does not submit a containing form when sorting or paging', () => {
   );
   fireEvent.click(screen.getByRole('button', { name: 'Name' }));
   fireEvent.click(screen.getByRole('button', { name: 'Next' }));
-  expect(screen.getByText('Page 2 of 2')).toBeVisible();
+  expect(screen.getByText('Page 2 of 3')).toBeVisible();
   expect(submitted).not.toHaveBeenCalled();
 });
 it('shows a recoverable local export error without losing the table', async () => {

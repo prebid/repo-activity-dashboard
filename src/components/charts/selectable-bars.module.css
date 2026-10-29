@@ -1,0 +1,121 @@
+.scroll {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 3px;
+}
+.horizontal,
+.vertical {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.horizontal {
+  display: grid;
+  gap: 4px;
+}
+.horizontal button {
+  display: grid;
+  grid-template-columns: minmax(100px, 1.2fr) minmax(35px, 1fr) 48px;
+  gap: 10px;
+  align-items: center;
+  min-height: 30px;
+  width: 100%;
+}
+.horizontal .track {
+  height: 7px;
+}
+.horizontal .bar {
+  height: 100%;
+}
+.label {
+  font-size: 11px;
+  text-align: left;
+  color: var(--muted-foreground);
+}
+.count {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.track {
+  display: flex;
+  border-radius: 2px;
+  background: var(--muted);
+}
+.bar {
+  display: block;
+  border-radius: 2px;
+  background: var(--chart-1);
+}
+.horizontal button,
+.vertical button {
+  border-radius: 4px;
+  padding: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.horizontal button:hover:enabled,
+.vertical button:hover:enabled {
+  background: var(--muted);
+}
+.horizontal button:focus-visible,
+.vertical button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 0;
+}
+.horizontal button[aria-pressed='true'],
+.vertical button[aria-pressed='true'] {
+  border-color: var(--primary);
+  background: var(--muted);
+}
+button[aria-pressed='true'] .label {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.horizontal button:disabled,
+.vertical button:disabled {
+  cursor: default;
+}
+.vertical {
+  display: flex;
+  gap: 4px;
+  min-width: max-content;
+}
+.vertical li {
+  flex: 1;
+  min-width: 42px;
+}
+.vertical button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.vertical .count {
+  order: 0;
+  text-align: center;
+}
+.vertical .track {
+  order: 1;
+  height: 120px;
+  width: 22px;
+  align-items: flex-end;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+.vertical .bar {
+  width: 100%;
+}
+.vertical .label {
+  order: 2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.scroll:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

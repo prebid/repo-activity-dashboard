@@ -8,7 +8,7 @@ All accounts, records, counts and scenarios below are invented for development a
 
 A fixture is a named, repeatable set of example data with known expected answers. It gives designers realistic content and gives tests an independent answer to compare against.
 
-For example, a repository with 834 open issues should show 834 in its summary, 100 rows on its first page, and 34 on its ninth page. Search must find an issue that was not in the first 100 rows. Those answers are defined before implementing the table.
+For example, a repository with 834 open issues should show 834 in its summary, 50 rows on its first page, and 34 on its seventeenth page. Search must find an issue that was not in the first 50 rows. Those answers are defined before implementing the table.
 
 The **fixture data** describes the example world or prepared display results. A local module can supply it directly to a page. A **mock API**, if needed later, delivers responses across a request interface. **Expected results** state what should be returned/displayed/exported. These are separate responsibilities; starting with a local file is sufficient.
 
@@ -170,9 +170,9 @@ For the designated large repository:
 
 Known answers:
 
-- Issue pagination: eight full pages of 100 plus a ninth page of **34**.
-- Newest-first issue page 1 contains IDs **834 down to 735**; page 9 contains **34 down to 1**.
-- PR pagination: one page of 100 plus a second page of **37**.
+- Issue pagination: sixteen full pages of 50 plus a seventeenth page of **34**.
+- Newest-first issue page 1 contains IDs **834 down to 785**; page 17 contains **34 down to 1**.
+- PR pagination: two pages of 50 plus a third page of **37**.
 - Draft PR count = **17**; non-draft count = **120**.
 - Non-draft PRs older than 30/60/90/120 days = **90 / 60 / 30 / 0**.
 - Feedback distribution among non-drafts = **40 / 40 / 40** for 0/1/2 reviewers.

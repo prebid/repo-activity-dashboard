@@ -1,12 +1,16 @@
+import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
+import {
+  repositoryPageSample,
+  repositoryPageRecordsSample,
+  repositoryPageNavigationSample,
+} from '@/mocks/repository-page';
 import 'server-only';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
-import { repositorySample, contributionRows, companyRows } from '@/mocks/reporting';
+import { contributionRows, companyRows } from '@/mocks/reporting';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
-import { repositoryRecordSample } from '@/mocks/repository-records';
 import { readRepositoryDrilldown } from '@/lib/presentation/repository-drilldown';
-import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { reportingBranchSchema } from '@/models/repository-overview';
 import { isInsightSelection } from '@/lib/presentation/repository-insights';
 import { repositoryInsightSample, repositoryAuthorRecordSample } from '@/mocks/repository-insights';
@@ -34,30 +38,28 @@ async function repositoryContext(slug: string) {
 }
 export async function repositoryDetail(slug: string, params = new URLSearchParams()) {
   const { viewer, repo, identity } = await repositoryContext(slug);
-  const parsed = readRepositoryDrilldown(params, identity);
-  const base = { viewer, repo };
-  if (parsed.status === 'invalid') return { ...base, status: 'invalid' as const };
-  if (parsed.status === 'none')
+  const entry = readRepositoryPageEntry(params, identity);
+  const navigation = repositoryPageNavigationSample(identity);
+  if (entry.status === 'invalid') return { status: 'invalid' as const };
+  if (entry.status === 'records')
     return {
-      ...base,
-      status: 'current' as const,
-      sample: repositorySample(repo.id),
-      returnTo: params.get('returnTo') ?? '/repos',
+      status: 'page' as const,
+      viewer,
+      navigation,
+      source: repositoryPageSample(identity, entry.drilldown),
     };
-  const { selection, returnTo } = parsed.value;
+  const { selection, returnTo } = entry.drilldown;
   if (isInsightSelection(selection))
     return {
-      ...base,
       status: 'insight' as const,
+      viewer,
+      repo,
+      navigation,
       insight: repositoryInsightSample(identity, { selection, returnTo }),
     };
-  if (!isRecordSelection(selection)) return { ...base, status: 'unsupported' as const, returnTo };
-  return {
-    ...base,
-    status: 'list' as const,
-    list: repositoryRecordSample(identity, { selection, returnTo }),
-  };
+  return { status: 'unsupported' as const, returnTo };
 }
+
 export async function repositoryAuthorDetail(
   slug: string,
   accountSegment: string,
@@ -73,7 +75,10 @@ export async function repositoryAuthorDetail(
   return {
     status: 'list' as const,
     viewer,
-    list: repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
+    navigation: repositoryPageNavigationSample(identity),
+    source: repositoryPageRecordsSample(
+      repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
+    ),
   };
 }
 export async function contributions(kind: 'contributors' | 'companies') {

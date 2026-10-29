@@ -86,7 +86,7 @@ Clicking an agent opens a focused tracking view with its read-only definition su
 
 One row per recorded logical run. Suggested fields are run ID, agent, recorded harness/model, repository/PR, known requester or trigger, execution status, result summary, publication status, start time, duration, and last update. Exact IDs, revisions, versions, settings, and multi-model details can appear in secondary run metadata when available; they do not require new control flows.
 
-Filter by agent, harness, model, repository, PR, status, requester, and date range. Default to recent runs with a clear active-run filter. Use the existing 100-row Previous/Next pagination pattern and query the full matching result set before pagination. Distinguish configured-model filtering from reported-model filtering when they differ.
+Filter by agent, harness, model, repository, PR, status, requester, and date range. Default to recent runs with a clear active-run filter. Use the existing 50-row Previous/Next pagination pattern and query the full matching result set before pagination. Distinguish configured-model filtering from reported-model filtering when they differ.
 
 ### Run detail
 

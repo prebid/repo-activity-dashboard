@@ -99,36 +99,47 @@ it('keeps grouped rows together when sorting and exports their actual values', a
   ]);
 });
 describe('shared table', () => {
-  it('keeps three-row comparison groups together with a bounded 99-row page', async () => {
+  it('keeps three-row comparison groups together with a bounded 48-row page', async () => {
     const user = userEvent.setup();
     const grouped = Array.from({ length: 102 }, (_, i) => ({
       id: String(i),
       title: 'Repository ' + Math.floor(i / 3) + ' row ' + (i % 3),
       count: i,
     }));
-    render(<DataTable title="Comparison groups" rows={grouped} columns={columns} pageSize={99} />);
-    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(99);
-    expect(screen.getByText('Repository 32 row 2')).toBeVisible();
+    render(<DataTable title="Comparison groups" rows={grouped} columns={columns} pageSize={48} />);
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
+    expect(screen.getByText('Repository 15 row 2')).toBeVisible();
     await user.click(screen.getByRole('button', { name: 'Next' }));
-    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(3);
-    expect(screen.getByText('Repository 33 row 0')).toBeVisible();
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
+    expect(screen.getByText('Repository 16 row 0')).toBeVisible();
+    await user.click(screen.getByRole('button', { name: 'Next' }));
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(6);
+    expect(screen.getByText('Repository 32 row 0')).toBeVisible();
+    expect(screen.getByText('Repository 33 row 2')).toBeVisible();
   });
   it.each([0, NaN, 150])(
-    'retains the 100-row maximum for invalid or oversized page sizes: %s',
+    'retains the 50-row maximum for invalid or oversized page sizes: %s',
     (pageSize) => {
       render(<DataTable title="Bounded" rows={rows} columns={columns} pageSize={pageSize} />);
-      expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(100);
+      expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
     },
   );
   it('paginates 250 rows and searches across the full set', async () => {
     const user = userEvent.setup();
     render(<DataTable title="Records" rows={rows} columns={columns} />);
-    expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(101);
-    await user.click(screen.getByRole('button', { name: 'Next' }));
-    await user.click(screen.getByRole('button', { name: 'Next' }));
-    expect(within(screen.getByRole('table')).getAllByRole('row')).toHaveLength(51);
+    const seen: string[] = [];
+    for (let page = 1; page <= 5; page++) {
+      const visible = within(screen.getByRole('table')).getAllByRole('row');
+      expect(visible).toHaveLength(51);
+      seen.push(...visible.slice(1).map((row) => row.firstElementChild?.textContent ?? ''));
+      expect(screen.getByText('Page ' + page + ' of 5')).toBeVisible();
+      if (page < 5) await user.click(screen.getByRole('button', { name: 'Next' }));
+    }
+    expect(seen).toEqual(rows.map((row) => row.title));
+    expect(new Set(seen).size).toBe(250);
+    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
     await user.click(screen.getByRole('button', { name: 'Previous' }));
-    expect(screen.getByText('Page 2 of 3')).toBeVisible();
+    expect(screen.getByText('Page 4 of 5')).toBeVisible();
     await user.type(screen.getByRole('textbox', { name: 'Search Records' }), 'keyboard');
     expect(screen.getByText('Oldest keyboard issue')).toBeVisible();
     expect(screen.getByText('Page 1 of 1')).toBeVisible();

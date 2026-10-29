@@ -4,7 +4,6 @@ import type {
   InsightSelection,
   RepositoryInsight,
   RepositoryAuthor,
-  ReportingAccountType,
   AuthorSelection,
   SupportingRecord,
 } from '@/models/repository-insights';
@@ -13,15 +12,11 @@ import type {
   RepositoryIssue,
   RepositoryRecordList,
 } from '@/models/repository-records';
-import { repositoryRecordSample, sampleBotAuthor } from './repository-records';
+import { repositoryRecordSample } from './repository-records';
+import { sampleAuthorType } from './repository-accounts';
 import { preparedPeriodSample } from './overview-period-sample';
 import { overviewAsOf } from './repository-overview';
 
-// Explicit classifications for invented accounts, not inference about real GitHub identities.
-const authorTypes: Record<string, ReportingAccountType> = {
-  'sample-author-2': 'agent',
-  [sampleBotAuthor]: 'bot',
-};
 const creditedAccounts = {
   agent: ['sample-prebid-agent-a', 'sample-prebid-agent-b'],
   bot: ['sample-bot-a', 'sample-bot-b'],
@@ -82,7 +77,7 @@ export function repositoryInsightSample(
         const author = authors.get(row.author) ?? {
           id: repo.id + ':' + row.author,
           account: row.author,
-          accountType: authorTypes[row.author] ?? 'human',
+          accountType: sampleAuthorType(row.author),
           recordCount: 0,
         };
         author.recordCount += 1;

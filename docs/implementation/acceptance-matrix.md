@@ -48,7 +48,7 @@ Fixture identities exercise routing and state. The separate packaged-production 
 | --- | --- | --- | --- | --- |
 | REPO-01 | Current backlog and period activity differ | REF-01, October | Open PRs R1/R2 = 2/1; PRs created = 3/3; merged = 2/2; current open issues = 2/3. Date selection does not erase older open I201. | Contract/browser |
 | REPO-02 | Count-to-record navigation reconciles | REF-01, R1 zero current approvals | Opens exactly P105 and P107; excludes drafts and unrelated records. | Browser |
-| REPO-03 | Bounded pages with older records reachable | LOAD-01 | Issues: 100 rows on page 1 and 34 on page 9. PRs: 100 then 37. Full counts remain 834 and 137. | Contract/browser |
+| REPO-03 | Bounded pages with older records reachable | LOAD-01 | Issues: 50 rows on page 1 and 34 on page 17. PRs: 50, 50, then 37. Full counts remain 834 and 137. | Contract/browser |
 | REPO-04 | Search/sort apply before pagination | LOAD-01, oldest issue title | Search finds ID 1 even from initial page 1; changing sort/query resets the page and returns correctly ordered identities. | Contract/browser |
 | REPO-05 | Graph totals are not page totals | LOAD-01 | Graph/current counts use the full matching set. Non-draft age >30 days yields 90 matching PRs, IDs 18–107. | Contract/browser |
 | REPO-06 | Feedback and approvals remain independent | LOAD-01 | Human-feedback buckets = 40/40/40; approvals = 60/40/20. Approval-only PRs do not become feedback participants. | Contract/component |
@@ -70,7 +70,7 @@ Browser checks validate link destinations without relying on real third-party pa
 | CONTRIB-07 | Current company mapping is explicit | MAP-01 | Alice's individual credits stay fixed; Acme October PR authorship changes 3->2, Beacon 1->2, and Core remains 3. | Contract/browser |
 | CONTRIB-08 | Issue-only and zero-contribution members | REF-01 Finn/Eve | Finn is eligible through Issues authored. Eve is visible in the member list with known zero; hiding a metric column does not change eligibility. | Contract/browser |
 | CONTRIB-09 | Missing early history is not a new first event | GAP-01 | The affected first-credit total shows incomplete availability, not an invented new credit or known zero. | Contract/component |
-| EXPORT-01 | Export is not capped to the visible page | LOAD-02 | 250 filtered contributors export as 250 rows; excluding one gives 249. UI remains capped at 100 per page. | Contract/browser download |
+| EXPORT-01 | Export is not capped to the visible page | LOAD-02 | 250 filtered contributors export as 250 rows; excluding one gives 249. UI remains capped at 50 per page. | Contract/browser download |
 | EXPORT-02 | Breakdown rows preserve dimensions | LOAD-02 | Flat rows identify entity and repository; all 20 repositories are represented without one column per repository. | Contract/download |
 | EXPORT-03 | Mapping, groups, and missing values survive export | REF-01, GAP-01, DISPLAY-01 | Filters/attribution context are retained; missing values are not numeric zero; labels with punctuation/Unicode are encoded correctly. | Contract/download |
 

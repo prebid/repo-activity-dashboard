@@ -1,0 +1,128 @@
+.scopeControls,
+.filterActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.scopeControls {
+  margin-bottom: 14px;
+}
+.scopeSelect select,
+.selectField select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 30px 9px 11px;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 12px;
+}
+.scopeSelect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+.scopeSelect select {
+  appearance: none;
+  min-height: 36px;
+  padding-right: 36px;
+}
+.scopeChevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--muted-foreground);
+}
+.selectField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  min-width: 0;
+}
+.selectField select:focus-visible,
+.scopeSelect select:focus-visible,
+.chips button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.filters {
+  min-width: 0;
+}
+.search {
+  max-width: 280px;
+  height: 36px;
+  font-size: 12px;
+}
+.dialog {
+  max-width: 640px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  background: var(--card);
+}
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+  margin: 10px 0 18px;
+}
+.help {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 12px 0;
+}
+.dialogFooter {
+  gap: 8px;
+  margin-top: 20px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--foreground);
+  background: var(--muted);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  text-align: left;
+}
+.preferences {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+@media (max-width: 600px) {
+  .fieldGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .search {
+    max-width: none;
+    width: 100%;
+  }
+  .scopeControls > * {
+    width: 100%;
+  }
+  .preferences {
+    justify-content: flex-start;
+  }
+}

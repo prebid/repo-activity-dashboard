@@ -1,4 +1,5 @@
 'use client';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { useEffect, useRef, useState } from 'react';
 import { CalendarDays, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,7 @@ export function TimeframeControl({
   asOf: string;
   onChange: (selection: PeriodSelection) => string | undefined;
 }) {
+  const ready = useClientReady();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const select = useRef<HTMLSelectElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -78,6 +80,7 @@ export function TimeframeControl({
           <span className="sr-only">{label} preset</span>
           <select
             ref={select}
+            disabled={!ready}
             className={styles.select}
             value={period?.selection.kind === 'preset' ? period.selection.preset : ''}
             onChange={(event) =>
@@ -105,6 +108,7 @@ export function TimeframeControl({
         </label>
         <Button
           variant="outline"
+          disabled={!ready}
           className={styles.control}
           aria-label={(custom ? 'Edit custom range for ' : 'Custom range for ') + label}
           onClick={(event) => editDates(event.currentTarget)}

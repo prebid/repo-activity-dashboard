@@ -1,3 +1,4 @@
+import { sampleBotAuthor } from './repository-accounts';
 import { repositoryCatalog } from '@/config/repositories';
 import type { Count, OverviewRepository, RepositoryBacklog } from '@/models/repository-overview';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
@@ -55,7 +56,6 @@ const latest: LatestActor[] = [
   'other-human',
   'unknown',
 ];
-export const sampleBotAuthor = 'sample-author-3[bot]';
 function sampleAuthor(index: number, count: number, heavyCount = 0): string {
   let ordinal: number;
   if (!heavyCount) ordinal = (index % count) + 1;

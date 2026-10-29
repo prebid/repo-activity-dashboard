@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { repositoryAuthorDetail } from '@/server/reporting';
-import { RepositoryRecordsScreen } from '@/app/_screens/repository-records-screen';
+import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { PageState } from '@/components/feedback/page-state';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 
@@ -25,5 +25,11 @@ export default async function AuthorRecordsPage({
         </PageState>
       </>
     );
-  return <RepositoryRecordsScreen viewerId={result.viewer.id} list={result.list} />;
+  return (
+    <RepositoryPageScreen
+      viewerId={result.viewer.id}
+      source={result.source}
+      navigation={result.navigation}
+    />
+  );
 }

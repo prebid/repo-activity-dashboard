@@ -76,7 +76,7 @@ Attribute the action to the recorded pusher/actor when established. Commit autho
 
 Do not count the branch update produced by a normal PR merge as a separate direct push. A commit with no returned PR association is only a candidate for investigation; an empty or incomplete association lookup does not prove a direct push. Correlate trustworthy push/ref-update history with PR merge history, accounting for merge methods and automation. Leave ambiguous cases unclassified.
 
-The proposed repository list contains only top-level metadata: repository/branch, timestamp, recorded actor and category, commit count, and a GitHub commit or comparison link. It follows the same 100-row pagination and metadata-only display boundary as the other lists. There is no fabricated PR title, PR number, approval count, or PR-review status for an event without a PR.
+The proposed repository list contains only top-level metadata: repository/branch, timestamp, recorded actor and category, commit count, and a GitHub commit or comparison link. It follows the same 50-row pagination and metadata-only display boundary as the other lists. There is no fabricated PR title, PR number, approval count, or PR-review status for an event without a PR.
 
 ## Data completeness and exports
 

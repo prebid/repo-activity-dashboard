@@ -1,4 +1,5 @@
 'use client';
+import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { authorTableColumnIds, type RepositoryInsight } from '@/models/repository-insights';
 import {
@@ -16,9 +17,11 @@ const defaults = {
 export function RepositoryInsightsScreen({
   insight,
   viewerId,
+  navigation,
 }: {
   insight: RepositoryInsight;
   viewerId: string;
+  navigation: RepositoryPageNavigation;
 }) {
   const key =
     insight.kind === 'duration' ? 'prs' : insight.kind === 'authors' ? 'authors' : 'credits';
@@ -34,5 +37,7 @@ export function RepositoryInsightsScreen({
           : creditIds,
     defaultSort: defaults[insight.kind],
   });
-  return <RepositoryInsightsView insight={insight} controller={controller} />;
+  return (
+    <RepositoryInsightsView insight={insight} navigation={navigation} controller={controller} />
+  );
 }

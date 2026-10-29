@@ -1,7 +1,7 @@
 'use client';
 import { useMemo } from 'react';
 import { Info, RotateCcw } from 'lucide-react';
-import { DataTable } from '@/components/tables/data-table';
+import { DataTable, tablePageSize } from '@/components/tables/data-table';
 import { ColumnMenu } from '@/components/tables/column-menu';
 import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
 import { PageState } from '@/components/feedback/page-state';
@@ -158,7 +158,7 @@ export function AllRepositoriesView({
             columns={activity}
             controller={activityController}
             itemLabel={secondaryData ? 'comparison rows' : 'repositories'}
-            pageSize={secondaryData ? 99 : 100}
+            pageSize={secondaryData ? tablePageSize - (tablePageSize % 3) : tablePageSize}
             showSinglePageControls={false}
             rowClassName={(row) => (row.kind === 'difference' ? styles.differenceRow : undefined)}
             description={

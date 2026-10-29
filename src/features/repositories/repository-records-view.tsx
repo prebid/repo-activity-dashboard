@@ -10,11 +10,10 @@ import type {
   RepositoryIssue,
   LatestActor,
 } from '@/models/repository-records';
-import { prColumns, issueColumns } from './repository-view';
+import { prColumns, issueColumns } from './record-base-columns';
 import styles from './repository-records.module.css';
-import { RepositoryDrilldownFrame } from './repository-drilldown-frame';
 import { mergeElapsedDays } from '@/lib/presentation/repository-insights';
-const actorLabels: Record<LatestActor, string> = {
+export const actorLabels: Record<LatestActor, string> = {
   agent: 'Prebid agent',
   bot: 'Other bot',
   'prebid-reviewer': 'Prebid reviewer',
@@ -143,47 +142,5 @@ export function RepositoryRecordTable({
       visibility={visibility}
       footerNote="Sample record links are placeholders. Titles, labels, and top-level metadata only."
     />
-  );
-}
-export function RepositoryRecordsView({
-  list,
-  controller,
-}: {
-  list: RepositoryRecordList;
-  controller: TableController;
-}) {
-  const measurement = list.measurement;
-  return (
-    <RepositoryDrilldownFrame
-      context={list}
-      title={recordListTitle(list.drilldown.selection, list.author?.account)}
-      measurement={measurement}
-      parentLink={
-        list.author
-          ? {
-              href: list.author.returnTo,
-              label: list.kind === 'prs' ? 'PR authors' : 'Issue authors',
-            }
-          : undefined
-      }
-      summary={
-        <>
-          {list.author && <span>Author: {list.author.account}</span>}
-          {list.author && <span>Created during this period · All statuses</span>}
-          <span>
-            {formatCount(measurement.value) +
-              (measurement.status === 'partial'
-                ? ' available sample records'
-                : ' matching records')}
-          </span>
-        </>
-      }
-    >
-      <RepositoryRecordTable
-        key={JSON.stringify(list.drilldown.selection)}
-        list={list}
-        controller={controller}
-      />
-    </RepositoryDrilldownFrame>
   );
 }
