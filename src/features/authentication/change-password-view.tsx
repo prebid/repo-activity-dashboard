@@ -8,6 +8,7 @@ import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { minimumPasswordLength, validatePasswordStrength } from '@/models/password-policy';
 import { readJsonResponse, mutationFailureMessage } from '@/lib/presentation/http';
 import { safeReturnPath } from '@/lib/presentation/navigation';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { messageResponseSchema } from '@/models/accounts';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ export function ChangePasswordView({
   callbackUrl?: string;
 }) {
   const router = useRouter();
+  const ready = useClientReady();
   const returnPath = safeReturnPath(callbackUrl);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -147,7 +149,7 @@ export function ChangePasswordView({
             value={currentPassword}
             onChange={(event) => setCurrentPassword(event.target.value)}
             required
-            disabled={isLoading}
+            disabled={!ready || isLoading}
             autoComplete="current-password"
           />
         </div>
@@ -161,7 +163,7 @@ export function ChangePasswordView({
             value={newPassword}
             onChange={(event) => setNewPassword(event.target.value)}
             required
-            disabled={isLoading}
+            disabled={!ready || isLoading}
             autoComplete="new-password"
             aria-describedby="password-hint"
           />
@@ -179,14 +181,14 @@ export function ChangePasswordView({
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
             required
-            disabled={isLoading}
+            disabled={!ready || isLoading}
             autoComplete="new-password"
           />
         </div>
         <Button
           type="submit"
           className={styles.submit}
-          disabled={isLoading || !currentPassword || !newPassword || !confirmPassword}
+          disabled={!ready || isLoading || !currentPassword || !newPassword || !confirmPassword}
         >
           {isLoading ? (
             <>
@@ -205,7 +207,7 @@ export function ChangePasswordView({
             className={styles.cancel}
             onClick={() => router.back()}
             type="button"
-            disabled={isLoading}
+            disabled={!ready || isLoading}
           >
             Cancel
           </Button>
