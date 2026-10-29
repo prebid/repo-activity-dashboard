@@ -1,10 +1,13 @@
 'use client';
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import type { RepositoryPageModel, RepositoryPageNavigation } from '@/models/repository-page';
+import type { RepositoryPageSource, RepositoryPageNavigation } from '@/models/repository-page';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-controls';
-import { selectRepositoryPage } from '@/lib/presentation/repository-page';
+import {
+  selectRepositoryPage,
+  repositoryPageDefaultSort,
+} from '@/lib/presentation/repository-page';
 import { repositoryScopeHref } from '@/lib/presentation/repository-page-navigation';
 import { RepositoryPageView } from '@/features/repositories/repository-page-view';
 import { RepositoryCharts } from '@/features/repositories/repository-charts';
@@ -30,11 +33,11 @@ const issueColumnIds = repositoryPageIssueColumns
   .map((column) => column.id);
 export function RepositoryPageScreen({
   viewerId,
-  page: source,
+  source,
   navigation,
 }: {
   viewerId: string;
-  page: RepositoryPageModel;
+  source: RepositoryPageSource;
   navigation: RepositoryPageNavigation;
 }) {
   const router = useRouter();
@@ -43,7 +46,7 @@ export function RepositoryPageScreen({
     scopeKey: 'repository:' + source.repository.slug + ':' + source.kind,
     viewerId,
     columnIds: source.kind === 'prs' ? prIds : issueIds,
-    defaultSort: source.defaultSort,
+    defaultSort: repositoryPageDefaultSort,
     historyMode: 'push',
   });
   const settings = useRepositoryPageControls(

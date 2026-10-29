@@ -18,7 +18,7 @@ export default async function RepositoryPage({
     return (
       <RepositoryPageScreen
         viewerId={result.viewer.id}
-        page={result.page}
+        source={result.source}
         navigation={result.navigation}
       />
     );

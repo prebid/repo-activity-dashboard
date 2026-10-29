@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { expect, it, vi } from 'vitest';
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { render, screen, within, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RepositoryFilterControls } from '@/features/repositories/repository-filter-controls';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
@@ -80,4 +80,54 @@ it('closes an editing draft when the cohort or applied facets change', async () 
     />,
   );
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+});
+
+it('identifies the author selection limit and allows correction without losing the editing draft', async () => {
+  const samples = repositoryOverviewSamples();
+  const range = samples.periods.find(
+    (value) =>
+      value.period.selection.kind === 'preset' && value.period.selection.preset === 'this-year',
+  )!.period.range;
+  const source = repositoryPageSample(repo, {
+    selection: { scope: 'period', metric: 'prsOpened', range },
+    returnTo: '/repos',
+  });
+  const filters = defaultRepositoryFilters('prs');
+  const change = vi.fn<(value: ReturnType<typeof defaultRepositoryFilters>) => void>();
+  const user = userEvent.setup();
+  const table: TableController = {
+    scopeKey: 'limits',
+    query: initialTableQuery,
+    draftSearch: '',
+    setSearch: vi.fn(),
+    update: vi.fn(),
+    reconcilePage: vi.fn(),
+    flushSearch: () => initialTableQuery,
+  };
+  render(
+    <RepositoryFilterControls
+      source={source}
+      filters={filters}
+      table={table}
+      onChange={change}
+      onClear={vi.fn()}
+    />,
+  );
+  await user.click(screen.getByRole('button', { name: 'Filters' }));
+  const dialog = screen.getByRole('dialog', { name: 'Filter pull requests' });
+  await user.click(within(dialog).getByText('Authors', { exact: true }));
+  const choices = within(within(dialog).getByRole('group', { name: 'Authors' })).getAllByRole(
+    'checkbox',
+  );
+  expect(choices).toHaveLength(103);
+  for (const checkbox of choices.slice(0, 101)) fireEvent.click(checkbox);
+  await user.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
+  expect(within(dialog).getByRole('alert')).toHaveTextContent(
+    'Authors: select at most 100 options.',
+  );
+  expect(change).not.toHaveBeenCalled();
+  fireEvent.click(choices[100]);
+  await user.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
+  expect(change).toHaveBeenCalledTimes(1);
+  expect(change.mock.calls[0][0].authors).toHaveLength(100);
 });

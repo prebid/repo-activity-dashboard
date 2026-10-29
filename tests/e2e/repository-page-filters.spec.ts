@@ -235,30 +235,99 @@ test('opening filters captures pending search without dismissing the dialog', as
   expect(new URL(page.url()).searchParams.get('prs.filter.draft')).toBe('drafts');
 });
 
-test('scope selection waits for hydration while server-rendered records remain readable', async ({
+for (const [scenario, path, count] of [
+  ['default', '/repos/prebidjs', 137],
+  ['filtered', '/repos/prebidjs?prs.filter.draft=non-drafts&prs.q=Sample+PR+18%3A', 1],
+] as const) {
+  test(
+    'scope selection waits for hydration with readable ' + scenario + ' server records',
+    async ({ page }) => {
+      await login(page);
+      let release: () => void = () => undefined;
+      const scripts = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      await page.route(/\/_next\/static\/.*\.js(?:\?|$)/, async (route) => {
+        await scripts;
+        await route.continue();
+      });
+      const scope = page.getByRole('combobox', { name: 'Record scope', exact: true });
+      try {
+        await page.goto(path, { waitUntil: 'commit' });
+        await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
+        await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(Math.min(50, count));
+        await expect(scope).toBeDisabled();
+      } finally {
+        release();
+        await page.unrouteAll({ behavior: 'wait' });
+      }
+      await expect(scope).toBeEnabled();
+      await scope.selectOption('completed');
+      await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
+      expect(new URL(page.url()).searchParams.get('metric')).toBe('prsMerged');
+    },
+  );
+}
+
+test('current latest-activity facets match their summary drilldown and exclude drafts', async ({
   page,
 }) => {
   await login(page);
-  let release: () => void = () => undefined;
-  const scripts = new Promise<void>((resolve) => {
-    release = resolve;
-  });
-  await page.route(/\/_next\/static\/.*\.js(?:\?|$)/, async (route) => {
-    await scripts;
-    await route.continue();
-  });
-  const scope = page.getByRole('combobox', { name: 'Record scope', exact: true });
-  try {
-    await page.goto('/repos/prebidjs', { waitUntil: 'commit' });
-    await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
-    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-    await expect(scope).toBeDisabled();
-  } finally {
-    release();
-    await page.unrouteAll({ behavior: 'wait' });
+  await page.goto('/repos/prebidjs?scope=current&metric=lastContributor');
+  await expect(page.getByText('52 matching records', { exact: true })).toBeVisible();
+  await page.goto('/repos/prebidjs?prs.filter.latestActors=contributor');
+  await expect(page.getByText('52 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('Excludes drafts', { exact: true })).toBeVisible();
+  await expect(page.locator('tbody [data-state="Draft"]')).toHaveCount(0);
+  await expect(page.getByText(/Partial sample coverage:/)).toHaveCount(0);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+});
+test('paused search bursts form one history entry with the pre-search page restored by Back', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto('/repos/prebidjs');
+  await expect(page.getByRole('combobox', { name: 'Record scope', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByText('Page 2 of 3', { exact: true })).toBeVisible();
+  const before = page.url();
+  const input = page.getByRole('textbox', { name: 'Search Open pull requests', exact: true });
+  for (const value of ['Sa', 'Samp', 'Sample']) {
+    await input.fill(value);
+    await expect.poll(() => new URL(page.url()).searchParams.get('prs.q')).toBe(value);
   }
-  await expect(scope).toBeEnabled();
-  await scope.selectOption('completed');
-  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('metric')).toBe('prsMerged');
+  await page.goBack();
+  await expect(page).toHaveURL(before);
+  await expect(input).toHaveValue('');
+  await expect(page.getByText('Page 2 of 3', { exact: true })).toBeVisible();
+  await page.goForward();
+  await expect(input).toHaveValue('Sample');
+  await expect(page.getByText('Page 1 of 3', { exact: true })).toBeVisible();
+});
+test('scope switching removes impossible merged-PR restrictions and preserves issue current-state restrictions', async ({
+  page,
+}) => {
+  await login(page);
+  const range = 'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
+  await page.goto(
+    '/repos/prebidjs?scope=period&metric=prsOpened&' +
+      range +
+      '&prs.filter.states=Open&prs.filter.branches=release%2Fv2&prs.filter.draft=drafts',
+  );
+  await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('completed');
+  await expect(page.getByText('38 matching records', { exact: true })).toBeVisible();
+  const p = new URL(page.url()).searchParams;
+  expect(p.get('branch')).toBe('master');
+  expect(p.has('prs.filter.states')).toBe(false);
+  expect(p.has('prs.filter.branches')).toBe(false);
+  expect(p.has('prs.filter.draft')).toBe(false);
+  await page.goto(
+    '/repos/prebidjs?scope=period&metric=issuesOpened&' + range + '&issues.filter.states=Open',
+  );
+  await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('completed');
+  await expect(
+    page.getByRole('button', { name: 'Remove Current state: Open', exact: true }),
+  ).toBeVisible();
+  await expect.poll(() => new URL(page.url()).searchParams.get('metric')).toBe('issuesClosed');
+  expect(new URL(page.url()).searchParams.getAll('issues.filter.states')).toEqual(['Open']);
 });

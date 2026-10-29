@@ -28,7 +28,7 @@ export default async function AuthorRecordsPage({
   return (
     <RepositoryPageScreen
       viewerId={result.viewer.id}
-      page={result.page}
+      source={result.source}
       navigation={result.navigation}
     />
   );

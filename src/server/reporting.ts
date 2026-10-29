@@ -1,5 +1,4 @@
 import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
-import { selectRepositoryPage } from '@/lib/presentation/repository-page';
 import {
   repositoryPageSample,
   repositoryPageRecordsSample,
@@ -47,7 +46,7 @@ export async function repositoryDetail(slug: string, params = new URLSearchParam
       status: 'page' as const,
       viewer,
       navigation,
-      page: selectRepositoryPage(repositoryPageSample(identity, entry.drilldown)),
+      source: repositoryPageSample(identity, entry.drilldown),
     };
   const { selection, returnTo } = entry.drilldown;
   if (isInsightSelection(selection))
@@ -77,10 +76,8 @@ export async function repositoryAuthorDetail(
     status: 'list' as const,
     viewer,
     navigation: repositoryPageNavigationSample(identity),
-    page: selectRepositoryPage(
-      repositoryPageRecordsSample(
-        repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
-      ),
+    source: repositoryPageRecordsSample(
+      repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
     ),
   };
 }

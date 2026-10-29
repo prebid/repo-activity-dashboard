@@ -10,6 +10,8 @@ import { repositoryPageCharts } from './repository-page-charts';
 import { repositoryFilterError } from './repository-page-rules';
 import { subsetCount } from './repository-page-values';
 
+export const repositoryPageDefaultSort = { sort: 'createdAt', descending: true } as const;
+
 /** Select a presentation cohort without mutating the input, reconstructing history, or paging it. */
 export function selectRepositoryPage(
   source: RepositoryPageSource,
@@ -42,6 +44,6 @@ export function selectRepositoryPage(
     filters,
     cohortMeasurement: { ...source.measurement },
     charts: repositoryPageCharts(filtered),
-    defaultSort: { sort: 'createdAt', descending: true },
+    defaultSort: repositoryPageDefaultSort,
   };
 }
