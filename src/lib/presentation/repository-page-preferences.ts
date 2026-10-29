@@ -58,8 +58,26 @@ export function readRepositoryColumns(
     return {};
   }
 }
-export function serializeRepositoryColumns(columns: Record<string, boolean>): string {
-  return JSON.stringify({ version: 1, columns });
+export function readRepositoryCharts(raw: string | null): boolean {
+  try {
+    const value: unknown = JSON.parse(raw ?? 'null');
+    return !(
+      value &&
+      typeof value === 'object' &&
+      'version' in value &&
+      value.version === 1 &&
+      'chartsVisible' in value &&
+      value.chartsVisible === false
+    );
+  } catch {
+    return true;
+  }
+}
+export function serializeRepositoryColumns(
+  columns: Record<string, boolean>,
+  chartsVisible = true,
+): string {
+  return JSON.stringify({ version: 1, columns, chartsVisible });
 }
 /** An explicit column list is authoritative; absent keys use the saved overrides and scope defaults. */
 export function resolveRepositoryColumns(

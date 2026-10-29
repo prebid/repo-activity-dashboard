@@ -7,6 +7,8 @@ import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-
 import { selectRepositoryPage } from '@/lib/presentation/repository-page';
 import { repositoryScopeHref } from '@/lib/presentation/repository-page-navigation';
 import { RepositoryPageView } from '@/features/repositories/repository-page-view';
+import { RepositoryCharts } from '@/features/repositories/repository-charts';
+import { toggleChartSelection } from '@/lib/presentation/repository-chart-selection';
 import { RepositoryHeader } from '@/features/repositories/repository-header';
 import { RepositoryFilterControls } from '@/features/repositories/repository-filter-controls';
 import { RepositoryScopeControls } from '@/features/repositories/repository-scope-controls';
@@ -78,6 +80,16 @@ export function RepositoryPageScreen({
       navigation={navigation}
       controller={controller}
       controls={{
+        charts: (
+          <RepositoryCharts
+            page={page}
+            visible={settings.chartsVisible}
+            onVisibilityChange={settings.changeCharts}
+            onSelect={(selection) =>
+              settings.updateFilters(toggleChartSelection(page.filters, selection))
+            }
+          />
+        ),
         scope: !source.author && (
           <RepositoryScopeControls
             source={source}
@@ -103,7 +115,7 @@ export function RepositoryPageScreen({
           <div className={styles.preferences}>
             <span>
               {settings.storageAvailable
-                ? 'Columns and sorting saved for this repository on this browser.'
+                ? 'Columns, sorting and chart visibility saved for this repository on this browser.'
                 : 'Browser storage is unavailable. Changes still work for this visit.'}
             </span>
             <Button variant="ghost" size="sm" onClick={settings.resetPresentation}>

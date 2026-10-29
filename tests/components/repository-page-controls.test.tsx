@@ -173,6 +173,7 @@ it('saves deliberate column overrides and resets presentation without clearing c
   expect(JSON.parse(localStorage.getItem(repositoryColumnsKey('alice', repo.id, 'prs'))!)).toEqual({
     version: 1,
     columns: { createdAt: true },
+    chartsVisible: true,
   });
   const columnsBefore = history.at(-2)!.href;
   expect(new URL(columnsBefore).searchParams.getAll('prs.columns')).toEqual(['ageDays']);
@@ -226,4 +227,37 @@ it('recovers invalid filters and survives denied storage for reading, saving and
   act(() => result.current.settings.resetPresentation());
   expect(result.current.settings.visibility.value.ageDays).toBe(true);
   expect(result.current.settings.storageAvailable).toBe(false);
+});
+
+it('saves chart visibility separately from filters and restores it through history, scope changes and reset', () => {
+  const { result, rerender } = renderHook(({ viewerId }) => useControls(viewerId), {
+    initialProps: { viewerId: 'alice' },
+  });
+  expect(result.current.settings.chartsVisible).toBe(true);
+  act(() => result.current.settings.changeCharts(false));
+  expect(result.current.settings.chartsVisible).toBe(false);
+  const hidden = window.location.href;
+  act(() =>
+    result.current.settings.visibility.onChange({
+      ...result.current.settings.visibility.value,
+      createdAt: true,
+    }),
+  );
+  act(() => window.history.replaceState(null, '', '/repos/prebidjs'));
+  expect(result.current.settings.chartsVisible).toBe(false);
+  rerender({ viewerId: 'bob' });
+  expect(result.current.settings.chartsVisible).toBe(true);
+  rerender({ viewerId: 'alice' });
+  expect(result.current.settings.chartsVisible).toBe(false);
+  act(() => result.current.settings.changeCharts(true));
+  expect(result.current.settings.chartsVisible).toBe(true);
+  act(() => {
+    window.history.replaceState(null, '', hidden);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+  expect(result.current.settings.chartsVisible).toBe(false);
+  act(() => result.current.settings.resetPresentation());
+  expect(result.current.settings.chartsVisible).toBe(true);
+  act(() => result.current.settings.changeCharts(true));
+  expect(result.current.settings.chartsVisible).toBe(true);
 });

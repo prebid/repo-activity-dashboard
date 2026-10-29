@@ -20,6 +20,7 @@ import {
   type RepositoryPageSource,
 } from '@/models/repository-page';
 import type { TableController } from '@/lib/presentation/table-controller';
+import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { repositoryFilterFields, repositoryFilterChips } from './repository-filter-fields';
@@ -204,7 +205,7 @@ export function RepositoryFilterControls({
           ))}
           {filters.eventRange && (
             <button type="button" onClick={() => onChange({ ...filters, eventRange: undefined })}>
-              Selected activity dates
+              Activity dates: {periodRangeLabel(filters.eventRange)} · UTC
               <X size={12} aria-hidden="true" />
             </button>
           )}

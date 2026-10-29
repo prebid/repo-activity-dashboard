@@ -66,7 +66,7 @@ export function repositoryScopeHref(
   const [path, query] = base.split('?'),
     params = new URLSearchParams(query),
     previous = new URLSearchParams(search);
-  for (const field of ['sort', 'dir', 'columns'])
+  for (const field of ['sort', 'dir', 'columns', 'charts'])
     for (const value of previous.getAll(source.kind + '.' + field))
       params.append(source.kind + '.' + field, value);
   const filters = readRepositoryFilters(search, source);

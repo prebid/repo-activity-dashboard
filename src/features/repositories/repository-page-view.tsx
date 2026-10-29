@@ -17,6 +17,7 @@ import styles from './repository-page.module.css';
 
 export interface RepositoryPageControls {
   filters: React.ReactNode;
+  charts?: React.ReactNode;
   scope?: React.ReactNode;
   preferences: React.ReactNode;
   visibility: ColumnVisibility;
@@ -87,6 +88,13 @@ export function RepositoryPageView({
   const { selection, returnTo } = page.drilldown;
   const current = selection.scope === 'current';
   const baseline = page.kind === 'prs' ? 'totalOpenPrs' : 'openIssues';
+  const prFilters = page.filters.kind === 'prs' ? page.filters : undefined;
+  const reviewFiltered =
+    prFilters &&
+    [prFilters.reviewers, prFilters.approvals, prFilters.agentReviewer, prFilters.botReviewer].some(
+      (value) => value !== undefined,
+    );
+
   const focused = selection.metric !== baseline || !!page.author;
   const title = recordListTitle(selection, page.author?.account);
   return (
@@ -124,9 +132,11 @@ export function RepositoryPageView({
               <span>
                 {page.kind === 'issues'
                   ? 'Open issues'
-                  : selection.metric === 'draftPrs'
+                  : selection.metric === 'draftPrs' || prFilters?.draft === 'drafts'
                     ? 'Drafts only'
-                    : selection.metric === 'totalOpenPrs'
+                    : selection.metric === 'totalOpenPrs' &&
+                        prFilters?.draft !== 'non-drafts' &&
+                        !reviewFiltered
                       ? 'Includes drafts'
                       : 'Excludes drafts'}
               </span>
@@ -162,6 +172,7 @@ export function RepositoryPageView({
           entries only.
         </p>
       )}
+      {controls?.charts}
       {page.measurement.value === null ? (
         <>
           {controls?.filters}

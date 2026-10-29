@@ -1,6 +1,6 @@
 # Repository page — initial requirements draft
 
-Status: Step 3 filters, navigation, and saved presentation preferences are implemented for visual review. Graph presentation remains Step 4. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
+Status: Step 4 repository charts and chart-to-filter interactions are implemented for visual review. Final integration review and handoff remain Step 5. Shared metric definitions, the lightweight record-list scope, graphs, current-open defaults, and grouped Repos navigation were confirmed on 2026-10-24. The shared page size was updated to 50 on 2026-10-28. Pagination behavior is specified below; chart selection, exact columns, and visual layout remain recommendations for discussion.
 
 ## Confirmed purpose
 
@@ -239,3 +239,18 @@ The shared repository page now has a compact filter dialog, removable filter chi
 The interactive checkpoint is ready for visual review before Step 4 charts. Changes remain on `codex/repository-pages`; the eventual PR targets `codex/frontend-rebuild` after the final checkpoint.
 
 Step 3 verification (2026-10-28): `npm run check` passed formatting, lint, types, architecture/retirement boundaries, coverage gates and 549 individually passing unit/component cases. Preview and Storybook builds passed. All 170 Chromium/WebKit cases passed, with no skipped, pending, expected-failure or flaky cases. Browser scenarios include complete filtered populations across 50-row pages, exact record identity reconciliation, partial assignment metadata, separate reviewers/approvals, summary/author returns, reload/Back/Forward, saved columns/sorts, unsupported dates, invalid-filter recovery, both themes, narrow screens and accessibility scans after dialog transitions finish.
+
+
+## Step 4 chart checkpoint
+
+Current PR views display age, human-reviewer and current-human-approval distributions as separate cards. Current issue views display age. Historical views display a daily or monthly activity timeline using the selected creation, merge or closure date basis. The scope header retains the reporting snapshot, exact selected period and configured primary branch.
+
+- Charts consume `RepositoryPageModel.charts`, derived from the same complete filtered fake population as the table. Pagination and sorting do not change chart values. Reviewer and approval charts label their non-draft population and excluded drafts; unexpected higher counts and unknown values stay separate.
+- Each bar is a native button with its printed label and count, an exact range description when applicable, visible keyboard focus and pressed state. One reusable bar component supports horizontal distributions and vertical timelines without separate mouse/keyboard selection implementations. Existing chart dependencies are retained.
+- Selecting a positive bar narrows the list through the existing URL filter controller and returns it to page one. Selections across different charts combine. Selecting an active bar again, or removing its filter chip, clears only that constraint. All charts recalculate for the resulting full filtered population. Unselected zero-value bars remain visible and cannot broaden an already narrowed cohort.
+- Activity selections preserve the base period and primary-branch scope, use the original UTC bin boundaries including exclusive endpoints, and display removable date chips. Missing samples retain dashes; partial coverage stays marked; known zero remains zero. A zero-activity timeline remains keyboard-scrollable on narrow screens.
+- Show/Hide charts is saved per account, repository and PR/issue tab with the presentation preferences. Explicit URL visibility takes precedence, older saved preferences default to visible charts, and Reset view preferences restores charts without clearing data filters.
+
+The Step 4 preview is ready for the user's visual review before the final Step 5 integration/handoff checkpoint. Reporting remains entirely prepared fake data.
+
+Step 4 verification: `npm run check` passed formatting, lint, types, architecture/retirement boundaries, coverage gates and 557 individually passing unit/component cases. Reconciliation tests exercise over 1,000 chart-point selections against complete filtered cohorts. Preview and Storybook builds passed. All 186 Chromium/WebKit cases passed with no skipped, pending, expected-failure or flaky results, including chart keyboard selection, combined reviewer/approval filters, full-population counts across 50-row pages, exact UTC activity ranges, saved visibility, partial/missing/zero states, both themes and narrow layouts. Visual review also corrected the scope strip to disclose draft exclusion when a review filter is active.

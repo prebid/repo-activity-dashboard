@@ -13,6 +13,7 @@ import {
   repositoryColumnDefaults,
   repositoryColumnsKey,
   readRepositoryColumns,
+  readRepositoryCharts,
   serializeRepositoryColumns,
   resolveRepositoryColumns,
   writeRepositoryColumns,
@@ -27,9 +28,11 @@ export function useRepositoryPageControls(
 ) {
   const search = useSearchParams().toString();
   const key = repositoryColumnsKey(viewerId, source.repository.id, source.kind);
-  const [saved, setSaved] = useState<{ key: string; columns: Record<string, boolean> } | null>(
-    null,
-  );
+  const [saved, setSaved] = useState<{
+    key: string;
+    columns: Record<string, boolean>;
+    chartsVisible: boolean;
+  } | null>(null);
   const [storageAvailable, setStorageAvailable] = useState(true);
   const defaults = useMemo(() => repositoryColumnDefaults(source), [source]);
   const filters = useMemo(() => readRepositoryFilters(search, source), [search, source]);
@@ -40,19 +43,27 @@ export function useRepositoryPageControls(
     saved?.key === key ? saved.columns : {},
     columnIds,
   );
+  const chartParam = new URLSearchParams(search).get(source.kind + '.charts');
+  const chartsVisible =
+    chartParam === null ? (saved?.key === key ? saved.chartsVisible : true) : chartParam !== '0';
   useEffect(() => {
     try {
-      setSaved({ key, columns: readRepositoryColumns(localStorage.getItem(key), columnIds) });
+      const raw = localStorage.getItem(key);
+      setSaved({
+        key,
+        columns: readRepositoryColumns(raw, columnIds),
+        chartsVisible: readRepositoryCharts(raw),
+      });
       setStorageAvailable(true);
     } catch {
       setSaved(null);
       setStorageAvailable(false);
     }
   }, [key, columnIds]);
-  function remember(value: Record<string, boolean> | null) {
-    setSaved(value ? { key, columns: value } : null);
+  function remember(value: Record<string, boolean> | null, showCharts = chartsVisible) {
+    setSaved(value ? { key, columns: value, chartsVisible: showCharts } : null);
     try {
-      if (value) localStorage.setItem(key, serializeRepositoryColumns(value));
+      if (value) localStorage.setItem(key, serializeRepositoryColumns(value, showCharts));
       else localStorage.removeItem(key);
       setStorageAvailable(true);
     } catch {
@@ -71,6 +82,15 @@ export function useRepositoryPageControls(
     for (const id of columnIds)
       if ((columns[id] !== false) !== (value[id] !== false)) overrides[id] = value[id] !== false;
     remember(overrides);
+  }
+  function changeCharts(show: boolean) {
+    table.flushSearch();
+    const url = new URL(window.location.href);
+    url.searchParams.set(source.kind + '.charts', chartsVisible ? '1' : '0');
+    if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+    url.searchParams.set(source.kind + '.charts', show ? '1' : '0');
+    if (url.href !== window.location.href) window.history.pushState(null, '', url);
+    remember(saved?.key === key ? saved.columns : {}, show);
   }
   const updateFilters = useCallback(
     (value: RepositoryPageFilters) => {
@@ -91,6 +111,7 @@ export function useRepositoryPageControls(
     const captured = table.flushSearch();
     const url = new URL(window.location.href);
     url.search = writeTableQuery(url.search, source.kind, captured);
+    url.searchParams.set(source.kind + '.charts', chartsVisible ? '1' : '0');
     url.search = writeRepositoryColumns(url.search, source.kind, columns, columnIds);
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
     url.search = writeTableQuery(url.search, source.kind, {
@@ -99,12 +120,15 @@ export function useRepositoryPageControls(
       page: 1,
     });
     url.search = writeRepositoryColumns(url.search, source.kind, defaults, columnIds);
+    url.searchParams.set(source.kind + '.charts', '1');
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     table.clearSavedSort();
     remember(null);
   }
   return {
     filters,
+    chartsVisible,
+    changeCharts,
     updateFilters,
     clearFilters,
     resetPresentation,
