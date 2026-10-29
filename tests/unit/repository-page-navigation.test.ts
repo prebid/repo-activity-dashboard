@@ -1,3 +1,5 @@
+import { selectRepositoryPage } from '@/lib/presentation/repository-page';
+import { readRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { expect, it } from 'vitest';
 import {
   repositoryActivityMode,
@@ -91,4 +93,68 @@ it('retains arbitrary exact incoming UTC ranges, including a future unprepared r
       through: endInclusive ? '2027-01-03' : '2027-01-02',
     });
   }
+});
+
+it('drops incompatible PR restrictions on entering merged activity, preserving compatible filters and context', () => {
+  const range = repositoryActivityPeriod(prs).range;
+  const created = repositoryPageSample(repo, {
+    selection: { scope: 'period', metric: 'prsOpened', range },
+    returnTo: '/repos?age=60',
+  });
+  const href = repositoryScopeHref(
+    created,
+    'completed',
+    range,
+    'prs.filter.states=Open&prs.filter.branches=release%2Fv2&prs.filter.draft=drafts&prs.filter.authors=sample-alice&prs.q=adapter&prs.page=4&prs.sort=number&prs.charts=0',
+  );
+  const p = new URL(href, 'http://local').searchParams;
+  expect(p.get('metric')).toBe('prsMerged');
+  expect(p.get('branch')).toBe(repo.primaryBranch);
+  expect(p.has('prs.filter.states')).toBe(false);
+  expect(p.has('prs.filter.branches')).toBe(false);
+  expect(p.has('prs.filter.draft')).toBe(false);
+  expect(p.get('prs.filter.authors')).toBe('sample-alice');
+  expect(p.get('prs.q')).toBe('adapter');
+  expect(p.get('prs.sort')).toBe('number');
+  expect(p.get('prs.charts')).toBe('0');
+  expect(p.has('prs.page')).toBe(false);
+  expect(p.get('returnTo')).toBe('/repos?age=60');
+  const another = { ...created, repository: { ...repo, primaryBranch: 'main' as const } };
+  expect(
+    new URL(repositoryScopeHref(another, 'completed', range, ''), 'http://local').searchParams.get(
+      'branch',
+    ),
+  ).toBe('main');
+});
+it('retains current-state restrictions for period issue closures, including a reopened issue', () => {
+  const range = repositoryActivityPeriod(issues).range;
+  const opened = repositoryPageSample(repo, {
+    selection: { scope: 'period', metric: 'issuesOpened', range },
+    returnTo: '/repos',
+  });
+  const p = new URL(
+    repositoryScopeHref(
+      opened,
+      'completed',
+      range,
+      'issues.filter.states=Open&issues.filter.assignment=unassigned',
+    ),
+    'http://local',
+  ).searchParams;
+  expect(p.get('metric')).toBe('issuesClosed');
+  expect(p.get('issues.filter.states')).toBe('Open');
+  expect(p.get('issues.filter.assignment')).toBe('unassigned');
+  const closed = repositoryPageSample(repo, {
+    selection: { scope: 'period', metric: 'issuesClosed', range },
+    returnTo: '/repos',
+  });
+  if (closed.kind !== 'issues') throw Error('Expected issues');
+  const reopened = {
+    ...closed,
+    measurement: { status: 'complete' as const, value: 1 },
+    rows: [{ ...closed.rows[0], state: 'Open' as const, assignees: [] }],
+  };
+  expect(
+    selectRepositoryPage(reopened, readRepositoryFilters(p.toString(), reopened)).rows,
+  ).toHaveLength(1);
 });

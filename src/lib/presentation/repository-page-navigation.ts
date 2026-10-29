@@ -76,6 +76,12 @@ export function repositoryScopeHref(
   compatible.eventRange = undefined;
   if (mode === 'current') compatible.states = [];
   else compatible.ageBand = undefined;
+  if (mode === 'completed' && compatible.kind === 'prs') {
+    // Merged PRs already imply non-draft, Merged state and the configured primary branch.
+    compatible.states = [];
+    compatible.branches = [];
+    compatible.draft = 'all';
+  }
 
   return (
     path +

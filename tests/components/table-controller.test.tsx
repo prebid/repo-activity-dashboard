@@ -33,7 +33,15 @@ const columnIds = ['name'],
   initial = { search: '', sort: '', descending: false, page: 1 };
 const options = { queryKey: 'items', scopeKey: 'items', columnIds };
 let historySpy: MockInstance<History['replaceState']>;
+let pushSpy: MockInstance<History['pushState']>;
 beforeEach(() => {
+  const push = window.history.pushState.bind(window.history);
+  pushSpy = vi
+    .spyOn(window.history, 'pushState')
+    .mockImplementation((data: unknown, unused: string, url?: string | URL | null) => {
+      push(data, unused, url);
+      window.dispatchEvent(new Event('test-navigation'));
+    });
   const native = window.history.replaceState.bind(window.history);
   historySpy = vi
     .spyOn(window.history, 'replaceState')
@@ -174,4 +182,68 @@ it('does not write history when flushing an untouched default query', () => {
   });
   expect(window.location.search).toBe('');
   expect(historySpy).not.toHaveBeenCalled();
+});
+
+it('coalesces paused search bursts into one history entry and preserves the pre-search page', () => {
+  vi.useFakeTimers();
+  const before = '/?items.page=2&items.sort=name&items.dir=desc&retained=yes';
+  window.history.replaceState(null, '', before);
+  const { result } = renderHook(() => useTableController({ ...options, historyMode: 'push' }));
+  for (const value of ['Sa', 'Samp', 'Sample']) {
+    act(() => result.current.setSearch(value));
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
+  }
+  expect(pushSpy).toHaveBeenCalledTimes(1);
+  expect(result.current.query).toEqual({
+    search: 'Sample',
+    sort: 'name',
+    descending: true,
+    page: 1,
+  });
+  expect(new URLSearchParams(window.location.search).get('retained')).toBe('yes');
+  const finished = window.location.href;
+  act(() => {
+    window.history.replaceState(null, '', before);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+  expect(result.current.query).toEqual({ search: '', sort: 'name', descending: true, page: 2 });
+  act(() => {
+    window.history.replaceState(null, '', finished);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+  expect(result.current.query.search).toBe('Sample');
+  act(() => result.current.setSearch('Next search'));
+  act(() => {
+    vi.advanceTimersByTime(250);
+  });
+  expect(pushSpy).toHaveBeenCalledTimes(2);
+});
+it('starts a separate search entry after table, filter and account/scope changes', () => {
+  vi.useFakeTimers();
+  const { result, rerender } = renderHook(
+    ({ scope }) => useTableController({ ...options, historyMode: 'push', scopeKey: scope }),
+    { initialProps: { scope: 'one' } },
+  );
+  const type = (value: string) => {
+    act(() => result.current.setSearch(value));
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
+  };
+  type('first');
+  act(() => result.current.update({ sort: 'name', page: 1 }));
+  type('second');
+  expect(pushSpy).toHaveBeenCalledTimes(3);
+  act(() => window.history.pushState(null, '', window.location.href + '&filter=changed'));
+  type('third');
+  expect(pushSpy).toHaveBeenCalledTimes(5);
+  rerender({ scope: 'two' });
+  type('fourth');
+  expect(pushSpy).toHaveBeenCalledTimes(6);
+  act(() => {
+    result.current.flushSearch();
+  });
+  expect(pushSpy).toHaveBeenCalledTimes(6);
 });
