@@ -42,6 +42,8 @@ test('filters the full PR population before fifty-row paging and restores page/f
   );
   await page.reload();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
+  // This text is SSR markup; wait for the client-owned control before exercising router history.
+  await expect(page.getByRole('combobox', { name: 'Record scope', exact: true })).toBeEnabled();
   await page.goBack();
   await expect(page.getByText('Page 1 of 2', { exact: true })).toBeVisible();
   await page.goBack();
@@ -231,4 +233,32 @@ test('opening filters captures pending search without dismissing the dialog', as
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   expect(new URL(page.url()).searchParams.get('prs.q')).toBe('Sample PR 1:');
   expect(new URL(page.url()).searchParams.get('prs.filter.draft')).toBe('drafts');
+});
+
+test('scope selection waits for hydration while server-rendered records remain readable', async ({
+  page,
+}) => {
+  await login(page);
+  let release: () => void = () => undefined;
+  const scripts = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route(/\/_next\/static\/.*\.js(?:\?|$)/, async (route) => {
+    await scripts;
+    await route.continue();
+  });
+  const scope = page.getByRole('combobox', { name: 'Record scope', exact: true });
+  try {
+    await page.goto('/repos/prebidjs', { waitUntil: 'commit' });
+    await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+    await expect(scope).toBeDisabled();
+  } finally {
+    release();
+    await page.unrouteAll({ behavior: 'wait' });
+  }
+  await expect(scope).toBeEnabled();
+  await scope.selectOption('completed');
+  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
+  expect(new URL(page.url()).searchParams.get('metric')).toBe('prsMerged');
 });

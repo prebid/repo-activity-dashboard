@@ -1,4 +1,5 @@
 'use client';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { ChevronDown } from 'lucide-react';
 import type { RepositoryPageSource } from '@/models/repository-page';
 import type { DateRange } from '@/models/reporting-period';
@@ -17,6 +18,7 @@ export function RepositoryScopeControls({
   source: RepositoryPageSource;
   onChange: (mode: RepositoryActivityMode, range: DateRange) => void;
 }) {
+  const ready = useClientReady();
   const mode = repositoryActivityMode(source),
     period = repositoryActivityPeriod(source);
   return (
@@ -24,6 +26,7 @@ export function RepositoryScopeControls({
       <label className={styles.scopeSelect}>
         <span className="sr-only">Record scope</span>
         <select
+          disabled={!ready}
           value={mode}
           onChange={(event) => onChange(event.target.value as RepositoryActivityMode, period.range)}
         >

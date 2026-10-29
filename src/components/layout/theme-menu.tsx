@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/components/providers/theme-provider';
 import { Button } from '@/components/ui/button';
@@ -23,11 +24,10 @@ const choices = [
 
 export function ThemeMenu({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useClientReady();
   // Keep the popup within its owning landmark for assistive navigation.
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   // The server cannot read this browser's saved preference. Keep its first render stable.
-  useEffect(() => setMounted(true), []);
   const selected = mounted ? theme : undefined;
   const Icon = choices.find((choice) => choice.value === selected)?.icon ?? Monitor;
 
