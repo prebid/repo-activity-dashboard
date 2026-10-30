@@ -1,7 +1,8 @@
 import { sampleProfileUrl } from './repository-accounts';
 import { sampleBotAuthor } from './repository-accounts';
 import { repositoryCatalog } from '@/config/repositories';
-import type { Count, OverviewRepository, RepositoryBacklog } from '@/models/repository-overview';
+import type { OverviewRepository, RepositoryBacklog } from '@/models/repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import type {
   RecordSelection,

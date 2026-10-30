@@ -11,10 +11,8 @@ import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
 import { selectContributionPresentation } from '@/lib/presentation/contributions';
-import {
-  contributionHref,
-  safeContributionReturn,
-} from '@/lib/presentation/contribution-navigation';
+import { contributionHref } from '@/lib/presentation/contribution-navigation';
+import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
@@ -105,15 +103,16 @@ export async function contributions(
     settings.selection,
     focus,
     metric ?? undefined,
+    { area, breakdown: options.breakdown },
   );
   const page: ContributionPage = {
     area,
     sample: options.sample,
     breakdown: options.breakdown,
     ...presentation,
-    returnTo: safeContributionReturn(
-      params.get('returnTo'),
-      contributionHref(area, options.sample, undefined, options.actorTypes, settings),
+    returnTo: contributionReturnHref(
+      params,
+      contributionHref(area, options.sample, undefined, settings) ?? '/' + area,
     ),
   };
   return {
@@ -121,8 +120,6 @@ export async function contributions(
     viewer,
     page,
     directory: {
-      accounts: source.accounts,
-      companies: source.companies,
       repositories: source.repositories,
     },
   };

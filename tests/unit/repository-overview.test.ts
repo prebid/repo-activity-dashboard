@@ -12,10 +12,9 @@ import {
   agingThresholds,
   agingThresholdSchema,
   backlogSchema,
-  countSchema,
-  durationSchema,
   defaultAgingThreshold,
 } from '@/models/repository-overview';
+import { countSchema, durationSchema } from '@/models/reporting-measurement';
 
 describe('overview display measurements', () => {
   it.each([-1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '0', null])(

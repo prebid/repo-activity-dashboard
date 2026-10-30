@@ -32,6 +32,76 @@ vi.mock('next/navigation', async () => {
 const columnIds = ['name'],
   initial = { search: '', sort: '', descending: false, page: 1 };
 const options = { queryKey: 'items', scopeKey: 'items', columnIds };
+it('migrates entity sorts into a shared table scope without overwriting current choices or other preferences', () => {
+  localStorage.clear();
+  window.history.replaceState(null, '', '/contributors/alice');
+  const old = preferenceKey('alice', 'old-alice'),
+    next = preferenceKey('alice', 'shared-table');
+  const untouched = preferenceKey('bob', 'old-alice');
+  localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
+  localStorage.setItem(untouched, 'keep');
+  localStorage.setItem('columns:alice', 'keep-columns');
+  const { result, rerender } = renderHook(
+    ({ legacy }) =>
+      useTableController({
+        ...options,
+        viewerId: 'alice',
+        scopeKey: 'shared-table',
+        legacyScopeKey: legacy,
+      }),
+    { initialProps: { legacy: 'old-alice' } },
+  );
+  expect(result.current.query).toMatchObject({ sort: 'name', descending: true });
+  expect(localStorage.getItem(old)).toBeNull();
+  expect(localStorage.getItem(next)).toBe(JSON.stringify({ sort: 'name', descending: true }));
+  act(() => result.current.update({ sort: 'name', descending: false }));
+  localStorage.setItem(
+    preferenceKey('alice', 'old-bob'),
+    JSON.stringify({ sort: 'name', descending: true }),
+  );
+  rerender({ legacy: 'old-bob' });
+  expect(result.current.query.descending).toBe(false);
+  expect(localStorage.getItem(preferenceKey('alice', 'old-bob'))).toBeNull();
+  expect(localStorage.getItem(untouched)).toBe('keep');
+  expect(localStorage.getItem('columns:alice')).toBe('keep-columns');
+});
+it('retains a readable legacy sort and its old copy when migration storage is unavailable', () => {
+  localStorage.clear();
+  window.history.replaceState(null, '', '/contributors/alice');
+  const old = preferenceKey('alice', 'legacy');
+  localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
+  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+    throw Error('full');
+  });
+  const { result } = renderHook(() =>
+    useTableController({
+      ...options,
+      viewerId: 'alice',
+      scopeKey: 'shared',
+      legacyScopeKey: 'legacy',
+    }),
+  );
+  expect(result.current.query).toMatchObject({ sort: 'name', descending: true });
+  expect(result.current.storageAvailable).toBe(false);
+  expect(localStorage.getItem(old)).not.toBeNull();
+});
+it('keeps the legacy copy when the shared sort is invalid instead of deleting both recovery paths', () => {
+  localStorage.clear();
+  window.history.replaceState(null, '', '/contributors/alice');
+  const old = preferenceKey('alice', 'legacy');
+  localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
+  localStorage.setItem(preferenceKey('alice', 'shared'), '{invalid');
+  const { result } = renderHook(() =>
+    useTableController({
+      ...options,
+      viewerId: 'alice',
+      scopeKey: 'shared',
+      legacyScopeKey: 'legacy',
+    }),
+  );
+  expect(result.current.query.sort).toBe('');
+  expect(localStorage.getItem(old)).toBe(JSON.stringify({ sort: 'name', descending: true }));
+});
 let historySpy: MockInstance<History['replaceState']>;
 let pushSpy: MockInstance<History['pushState']>;
 beforeEach(() => {

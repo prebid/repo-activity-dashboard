@@ -158,7 +158,7 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
     ),
     backlogColumn(
       'botFeedbackPrs',
-      'Other bots',
+      'Bots',
       'Reviewer coverage',
       'Open non-draft PRs with at least one qualifying bot reviewer, excluding Prebid agents.',
     ),
@@ -252,6 +252,7 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
   return [
     {
       ...repositoryColumn(returnTo),
+      sortGroup: undefined,
       value: (row) =>
         row.repository.name +
         (row.kind === 'difference'
@@ -387,13 +388,13 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
     activityColumn(
       'botFeedbackCredits',
       'Bot reviewers',
-      'Other bots',
+      'Bots',
       'Reviewer contributions from other bots, counted once per bot and PR in the period of its first qualifying review.',
     ),
     activityColumn(
       'botApprovalCredits',
       'Bot approvals',
-      'Other bots',
+      'Bots',
       'Approval contributions from other bots, counted once per account and PR on its first approval date; these are separate from current approvals.',
     ),
   ];

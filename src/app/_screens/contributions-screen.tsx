@@ -1,12 +1,12 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import type { MouseEvent, ComponentProps } from 'react';
+import { useMemo, type MouseEvent, type ComponentProps } from 'react';
+import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { ContributionControls } from '@/features/contributions/contribution-controls';
-import { PageState } from '@/components/feedback/page-state';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
-import type { ContributionDirectory } from '@/models/contribution-settings';
-import { contributionTitle } from '@/features/contributions/contribution-header';
+import type { ContributionControlDirectory } from '@/models/contribution-settings';
+import { contributionTableScope } from '@/lib/presentation/contribution-settings';
 import {
   ContributionDetailsView,
   contributionDetailColumnIds,
@@ -43,23 +43,19 @@ export function ContributionsScreen({
 }: {
   page: ContributionPage;
   viewerId: string;
-  directory: ContributionDirectory;
+  directory: ContributionControlDirectory;
 }) {
+  const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
   const pathname = usePathname(),
     search = useSearchParams().toString(),
     router = useRouter();
-  const table = page.details
-    ? 'details'
-    : page.report.kind === 'overview'
-      ? page.area
-      : page.report.kind === 'company'
-        ? page.breakdown
-        : 'repositories';
+  const table = page.details ? 'details' : page.report.table!.kind;
   const columnIds =
     page.details && page.details.basis !== 'comments' ? creditDetailColumnIds : ids[table];
   const controller = useTableController({
     queryKey: page.details ? 'details' : page.report.kind === 'overview' ? 'report' : table,
-    scopeKey:
+    scopeKey: contributionTableScope(page.sample, table),
+    legacyScopeKey:
       'contributions:' +
       page.area +
       ':' +
@@ -72,20 +68,22 @@ export function ContributionsScreen({
     defaultSort: page.details ? detailSort : contributionDefaultSort,
     historyMode: 'push',
   });
-  const controls = useContributionControls(viewerId, page, directory, controller, table, columnIds);
-  if (!controls.ready)
-    return (
-      <>
-        <h1>{contributionTitle(page)}</h1>
-        <PageState title="Loading report preferences">Restoring this report…</PageState>
-      </>
-    );
-  function navigate(event: MouseEvent<HTMLAnchorElement>, destination: () => string) {
+  const controls = useContributionControls(
+    viewerId,
+    page,
+    directory,
+    controller,
+    table,
+    columnIds,
+    options,
+  );
+  function navigate(event: MouseEvent<HTMLAnchorElement>, destination: () => string | null) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
       return;
     event.preventDefault();
     controls.freezeReturn();
-    router.push(destination());
+    const href = destination();
+    if (href) router.push(href);
   }
   return (
     <ContributionContent
@@ -95,12 +93,13 @@ export function ContributionsScreen({
       controls={
         <ContributionControls
           directory={directory}
+          options={options}
           value={controls.value}
           asOf={page.report.context.asOf}
           pending={controls.pending}
           notice={controls.notice}
           storageAvailable={controls.storageAvailable}
-          onChange={controls.update}
+          onChange={(value, field) => controls.update(value, field)}
           onReset={controls.reset}
         />
       }
@@ -119,25 +118,15 @@ export function ContributionsScreen({
               repositoryId,
             ),
           ),
-        actorTypes: page.report.context.selection.actorTypes,
         currentHref: controls.returnHref,
         onAreaFollow: (event, area) =>
-          navigate(event, () =>
-            contributionHref(
-              area,
-              page.sample,
-              undefined,
-              controls.value.selection.actorTypes,
-              controls.value,
-            ),
-          ),
+          navigate(event, () => contributionHref(area, page.sample, undefined, controls.value)),
         onFollow: (event, focus) =>
           navigate(event, () =>
             contributionHref(
               focus,
               page.sample,
               window.location.pathname + window.location.search,
-              page.report.context.selection.actorTypes,
               controls.value,
             ),
           ),

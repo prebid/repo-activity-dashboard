@@ -42,6 +42,7 @@ export function Toolbar({
     <DashboardHeader
       repositories={repositories}
       activePath={pathname}
+      viewerId={viewer.id}
       administration={viewer.role === 'admin'}
       accountControls={
         <>

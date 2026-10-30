@@ -1,9 +1,13 @@
+import { selectTableRows } from '@/lib/presentation/table-rows';
+import { reportRows } from '../support/contribution-reports';
+import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import { isKnownZeroContribution } from '@/lib/presentation/contribution-table-values';
 import { describe, expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
 import {
   defaultContributionSelection,
   selectContributionPresentation,
+  selectContributions,
   selectContributionExport,
 } from '@/lib/presentation/contributions';
 import { contributionDetailRows } from '@/lib/presentation/contribution-detail-rows';
@@ -18,7 +22,6 @@ import {
   contributorValues,
   companyValues,
   repositoryContributionValues,
-  contributionTableRows,
 } from '@/lib/presentation/contribution-table-values';
 import type { ContributionExportRequest } from '@/models/contribution-export';
 import type { ContributionPage } from '@/models/contribution-page';
@@ -30,6 +33,7 @@ const base: ContributionExportRequest = {
   focus: overview,
   breakdown: 'members',
   layout: 'summary',
+  identityColumns: ['actorType', 'company', 'members'],
   metrics: ['prsAuthored', 'reviewerContributions', 'approvalContributions', 'issuesAuthored'],
   query: { search: '', sort: 'authoredPrsMerged', descending: true, page: 2 },
 };
@@ -131,9 +135,9 @@ it('preserves missing diff details without inventing zero and rejects a non-PR v
       qualifiedAt: issue.createdAt,
     },
   ];
-  expect(() => contributionDetailRows(sample, details.context, 'authored.linesAdded')).toThrow(
-    'Expected merged PR',
-  );
+  expect(() =>
+    contributionDetailRows(sample, details.context, 'authored.linesAdded', sample.accounts),
+  ).toThrow('Expected merged PR');
 });
 it('retains historical closed and merged records, focused exclusions and exact period boundaries', () => {
   const sample = contributionSample({ scenario: 'large' });
@@ -239,25 +243,32 @@ it('searches and sorts on the same values as display, with missing values last',
   if (report.kind !== 'overview') throw Error('overview');
   const cols = contributorValues();
   expect(
-    contributionTableRows(report.contributors, cols, {
+    selectTableRows(reportRows(report, 'contributors'), cols, {
       search: 'human',
       sort: 'name',
       descending: false,
     }).map((row) => row.account.name),
   ).toEqual(['Alice', 'Bob', 'Carol', 'Drew', 'Finn']);
   expect(
-    contributionTableRows(report.contributors, cols, {
+    selectTableRows(reportRows(report, 'contributors'), cols, {
       search: '',
       sort: 'authoredPrsMerged',
       descending: true,
     })[0].account.name,
   ).toBe('Carol');
   expect(
-    contributionTableRows(report.companies, companyValues(), {
-      search: '',
-      sort: 'members',
-      descending: false,
-    })[0].memberCount,
+    selectTableRows(
+      reportRows(
+        selectContributions(source, selection, overview, { area: 'companies' }),
+        'companies',
+      ),
+      companyValues(),
+      {
+        search: '',
+        sort: 'members',
+        descending: false,
+      },
+    )[0].memberCount,
   ).toBe(1);
   const focused = selectContributionPresentation(source, selection, {
     kind: 'contributor',
@@ -265,24 +276,24 @@ it('searches and sorts on the same values as display, with missing values last',
   }).report;
   if (focused.kind === 'overview') throw Error('focus');
   expect(
-    contributionTableRows(
-      focused.repositories,
+    selectTableRows(
+      reportRows(focused, 'repositories'),
       repositoryContributionValues(),
       { search: 'impossible', sort: 'name', descending: false },
       false,
     ),
   ).toHaveLength(2);
   expect(
-    contributionTableRows(report.contributors, cols, {
+    selectTableRows(reportRows(report, 'contributors'), cols, {
       search: '',
       sort: 'unknown',
       descending: false,
     }),
-  ).toEqual(report.contributors);
-  const missing = structuredClone(report.contributors[0]);
+  ).toEqual(reportRows(report, 'contributors'));
+  const missing = structuredClone(reportRows(report, 'contributors')[0]);
   missing.metrics.prsAuthored = { status: 'missing', value: null, reason: 'test' };
   expect(
-    contributionTableRows([missing, report.contributors[1]], cols, {
+    selectTableRows([missing, reportRows(report, 'contributors')[1]], cols, {
       search: '',
       sort: 'prsAuthored',
       descending: true,
@@ -347,7 +358,9 @@ it('validates export options, preserves complete scope and selects only requeste
   }
   expect(
     readContributionExport(
-      new URLSearchParams('column=prsAuthored&entity=company&view=repositories&export.q=Alice'),
+      new URLSearchParams(
+        'column=prsAuthored&entity=company&entityId=&view=repositories&export.q=Alice',
+      ),
       'companies',
     )?.query.search,
   ).toBe('');
@@ -368,10 +381,10 @@ it('builds metric links with a narrower repository and an exact return path', ()
     '/companies?report.page=2',
     'repo-prebidjs',
   );
-  const params = new URL(href, 'https://example.test').searchParams;
+  const params = new URL(href!, 'https://example.test').searchParams;
   expect(params.getAll('repo')).toEqual(['repo-prebidjs']);
   expect(params.get('metric')).toBe('reviewerContributions');
-  expect(params.get('returnTo')).toBe('/companies?report.page=2');
+  expect(contributionReturnHref(params, '/contributors')).toBe('/companies?report.page=2');
 });
 
 it('retains ascending export order and labels the actual sort direction', () => {
@@ -431,7 +444,9 @@ it('hides only known-zero members in summary and flat exports, independent of vi
   expect(parsed?.hideZeroMembers).toBe(true);
   const report = page.report;
   if (report.kind !== 'company') throw Error('Expected company');
-  const eve = structuredClone(report.members.find((row) => row.account.id === 'account-eve')!);
+  const eve = structuredClone(
+    reportRows(report, 'members').find((row) => row.account.id === 'account-eve')!,
+  );
   expect(isKnownZeroContribution(eve)).toBe(true);
   for (const value of [
     { status: 'missing' as const, value: null, reason: 'unknown' },
@@ -449,7 +464,7 @@ it('omits empty repository rows without pruning the catalog, scope or aggregate 
     accountId: 'account-alice',
   }).report;
   if (report.kind !== 'contributor') throw Error('Expected contributor');
-  expect(report.repositories.map((row) => row.repository.id)).toEqual([
+  expect(reportRows(report, 'repositories').map((row) => row.repository.id)).toEqual([
     'repo-prebidjs',
     'repo-prebidserver',
   ]);
@@ -457,7 +472,7 @@ it('omits empty repository rows without pruning the catalog, scope or aggregate 
   expect(report.context.selection.repositoryIds).toHaveLength(18);
   for (const metric of reportMetricIds) {
     const expected = isCoreMetric(metric) ? report.totals[metric] : report.additionalTotals[metric];
-    const actual = report.repositories.reduce(
+    const actual = reportRows(report, 'repositories').reduce(
       (sum, row) =>
         sum +
         (isCoreMetric(metric) ? row.metrics[metric].value! : row.additionalMetrics[metric].value!),
@@ -477,7 +492,9 @@ it('retains a repository with only optional activity, even when exporting only z
   if (report.kind !== 'contributor') throw Error('Expected contributor');
   expect(Object.values(report.totals).map((value) => value.value)).toEqual([0, 0, 0, 0, 0, 0]);
   expect(report.additionalTotals.prComments.value).toBe(1);
-  expect(report.repositories.map((row) => row.repository.id)).toEqual(['repo-prebidjs']);
+  expect(reportRows(report, 'repositories').map((row) => row.repository.id)).toEqual([
+    'repo-prebidjs',
+  ]);
   const exported = selectContributionExport(comments, selection, {
     ...base,
     focus: { kind: 'contributor', accountId: 'account-alice' },
@@ -502,8 +519,10 @@ it.each(['partial', 'missing'] as const)(
       accountId: 'account-eve',
     }).report;
     if (report.kind !== 'contributor') throw Error('Expected contributor');
-    expect(report.repositories.map((row) => row.repository.id)).toEqual(['repo-openrtb']);
-    expect(report.repositories[0].metrics.issuesAuthored.status).toBe(status);
+    expect(reportRows(report, 'repositories').map((row) => row.repository.id)).toEqual([
+      'repo-openrtb',
+    ]);
+    expect(reportRows(report, 'repositories')[0].metrics.issuesAuthored.status).toBe(status);
     const exported = selectContributionExport(uncertain, selection, {
       ...base,
       focus: { kind: 'contributor', accountId: 'account-eve' },

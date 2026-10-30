@@ -1,5 +1,6 @@
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
-import type { Count, OverviewRepository } from '@/models/repository-overview';
+import type { OverviewRepository } from '@/models/repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 import type {
   InsightSelection,
   RepositoryInsight,

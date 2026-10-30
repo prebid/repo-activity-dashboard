@@ -91,7 +91,9 @@ test('column help is the same on summary, repository and contribution tables and
       name: 'Column definitions for ' + title,
       exact: true,
     });
+    await expect(button).toBeEnabled();
     await button.focus();
+    await expect(button).toBeFocused();
     await page.keyboard.press('Enter');
     const dialog = page.getByRole('dialog', { name: title + ' column definitions', exact: true });
     await expect(dialog).toBeVisible();

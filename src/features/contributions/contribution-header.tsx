@@ -1,3 +1,6 @@
+import { countLabel } from '@/lib/presentation/format';
+import { contributionActorTypes } from '@/models/contributions';
+import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { ArrowLeft, Users, Building2 } from 'lucide-react';
@@ -5,7 +8,12 @@ import type { ContributionPage } from '@/models/contribution-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import { actorLabels, EntityLink, type ContributionLinks } from './contribution-columns';
+import {
+  EntityLink,
+  ContributionNavigationLink,
+  type ContributionLinks,
+} from './contribution-columns';
+
 import styles from './contributions.module.css';
 
 export function contributionTitle(page: ContributionPage): string {
@@ -62,7 +70,7 @@ export function ContributionHeader({
                 url={report.account.profileUrl}
                 label={'@' + report.account.login}
               />
-              <span>{actorLabels[report.account.actorType]}</span>
+              <span>{accountTypeLabels[report.account.actorType]}</span>
               <EntityLink
                 links={links}
                 focus={{ kind: 'company', companyId: report.company?.id ?? null }}
@@ -72,8 +80,7 @@ export function ContributionHeader({
             </div>
           ) : (
             <p className={styles.subtitle}>
-              {report.members.length} included{' '}
-              {report.members.length === 1 ? 'account' : 'accounts'} ·{' '}
+              {report.memberCount} included {report.memberCount === 1 ? 'account' : 'accounts'} ·{' '}
               {report.company ? 'Current company mapping' : 'Accounts without a company mapping'}
             </p>
           )}
@@ -86,36 +93,24 @@ export function ContributionHeader({
       </header>
       {report.kind === 'overview' && (
         <nav className={styles.tabs} aria-label="Contribution reports">
-          <Link
+          <ContributionNavigationLink
             prefetch={false}
-            href={contributionHref(
-              'contributors',
-              page.sample,
-              undefined,
-              context.selection.actorTypes,
-              links.settings,
-            )}
+            href={contributionHref('contributors', page.sample, undefined, links.settings)}
             onClick={(event) => links.onAreaFollow?.(event, 'contributors')}
             aria-current={page.area === 'contributors' ? 'page' : undefined}
           >
             <Users size={16} aria-hidden="true" /> Contributors{' '}
-            <span className={styles.tabCount}>{report.contributors.length}</span>
-          </Link>
-          <Link
+            <span className={styles.tabCount}>{report.contributorCount}</span>
+          </ContributionNavigationLink>
+          <ContributionNavigationLink
             prefetch={false}
-            href={contributionHref(
-              'companies',
-              page.sample,
-              undefined,
-              context.selection.actorTypes,
-              links.settings,
-            )}
+            href={contributionHref('companies', page.sample, undefined, links.settings)}
             onClick={(event) => links.onAreaFollow?.(event, 'companies')}
             aria-current={page.area === 'companies' ? 'page' : undefined}
           >
             <Building2 size={16} aria-hidden="true" /> Companies{' '}
-            <span className={styles.tabCount}>{report.companies.length}</span>
-          </Link>
+            <span className={styles.tabCount}>{report.companyCount}</span>
+          </ContributionNavigationLink>
         </nav>
       )}
       <section className={styles.scope} aria-label="Contribution report scope">
@@ -128,14 +123,26 @@ export function ContributionHeader({
           <strong>{periodRangeLabel(context.range)}</strong>
         </div>
         <div className={styles.scopeDetails}>
-          <span>{new Set(context.selection.repositoryIds).size} repositories</span>
           <span>
-            {new Set(context.selection.actorTypes).size === 4
+            {new Set(context.selection.repositoryIds).size}{' '}
+            {countLabel(new Set(context.selection.repositoryIds).size, {
+              singular: 'repository',
+              plural: 'repositories',
+            })}
+          </span>
+          <span>
+            {new Set(context.selection.actorTypes).size === contributionActorTypes.length
               ? 'All account types'
-              : context.selection.actorTypes.map((type) => actorLabels[type]).join(', ') ||
+              : context.selection.actorTypes.map((type) => accountTypeLabels[type]).join(', ') ||
                 'No account types'}
           </span>
-          <span>{context.includedAccountIds.length} included accounts</span>
+          <span>
+            {context.includedAccountCount}{' '}
+            {countLabel(context.includedAccountCount, {
+              singular: 'included account',
+              plural: 'included accounts',
+            })}
+          </span>
           <span>
             {context.selection.population.kind === 'selected' ||
             context.selection.excludedAccountIds.length

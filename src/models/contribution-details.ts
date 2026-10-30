@@ -12,7 +12,9 @@ export interface ContributionSupportingRow {
   account: ContributionAccount;
   company: ContributionCompany | null;
   repository: ContributionRepository;
-  record: ContributionRecord;
+  record:
+    | Omit<Extract<ContributionRecord, { kind: 'pr' }>, 'mergedDiff'>
+    | Extract<ContributionRecord, { kind: 'issue' }>;
   value: Count;
   creditedAt: string;
   lastAt: string;

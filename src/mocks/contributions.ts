@@ -18,7 +18,10 @@ import {
 } from '@/models/contributions';
 import type { PeriodSelection } from '@/models/reporting-period';
 import { resolveReportingPeriod, inDateRange } from '@/lib/presentation/reporting-period';
-import { validateContributionSource } from '@/lib/presentation/contribution-source';
+import {
+  validateContributionSource,
+  validateContributionDirectory,
+} from '@/lib/presentation/contribution-source';
 import { overviewAsOf } from './repository-overview';
 
 export const contributionSampleAsOf = overviewAsOf;
@@ -111,8 +114,8 @@ function authorAndMergeCredits(records: ContributionRecord[]): ContributionCredi
     return credits;
   });
 }
-function reference() {
-  const accounts = [
+function referenceAccounts(): ContributionAccount[] {
+  return [
     account('account-alice', 'Alice', 'company-acme'),
     account('account-bob', 'Bob', 'company-acme'),
     account('account-carol', 'Carol', 'company-beacon'),
@@ -122,6 +125,9 @@ function reference() {
     account('account-agent', 'Prebid sample agent', 'company-prebid', 'agent'),
     account('account-bot', 'Sample bot', null, 'bot'),
   ];
+}
+function reference() {
+  const accounts = referenceAccounts();
   const [r1, r2] = repositories;
   const records = [
     record(r1, 101, 'account-alice', '2026-08-05', 'pr', {
@@ -175,18 +181,37 @@ function reference() {
     });
   return { accounts, records, credits };
 }
+function largeAccounts(): ContributionAccount[] {
+  return [
+    ...Array.from({ length: 250 }, (_, i) =>
+      account(
+        'account-person-' + String(i + 1).padStart(3, '0'),
+        'Sample contributor ' + (i + 1),
+        i < 100 ? 'company-acme' : i < 200 ? 'company-beacon' : null,
+      ),
+    ),
+    account(
+      'account-heavy-agent',
+      'Sample agent with hundreds of records and a deliberately long display name',
+      'company-prebid',
+      'agent',
+    ),
+  ];
+}
+export function contributionDirectorySample(scenario: ContributionScenario = 'reference') {
+  if (!contributionSampleScenarios.includes(scenario))
+    throw Error('Unknown contribution sample scenario');
+  return validateContributionDirectory({
+    accounts: scenario === 'large' ? largeAccounts() : referenceAccounts(),
+    companies: structuredClone(companies),
+    repositories: structuredClone(repositories),
+  });
+}
 function large() {
-  const accounts: ContributionAccount[] = [],
+  const accounts = largeAccounts(),
     records: ContributionRecord[] = [];
   for (let index = 1; index <= 250; index++) {
-    const id = 'account-person-' + String(index).padStart(3, '0');
-    accounts.push(
-      account(
-        id,
-        'Sample contributor ' + index,
-        index <= 100 ? 'company-acme' : index <= 200 ? 'company-beacon' : null,
-      ),
-    );
+    const id = accounts[index - 1].id;
     records.push(
       record(repositories[(index - 1) % repositories.length], index, id, '2026-10-01', 'pr', {
         date: '2026-10-02',
@@ -195,14 +220,6 @@ function large() {
     );
   }
   const id = 'account-heavy-agent';
-  accounts.push(
-    account(
-      id,
-      'Sample agent with hundreds of records and a deliberately long display name',
-      'company-prebid',
-      'agent',
-    ),
-  );
   for (let index = 0; index < 240; index++)
     records.push(record(repositories[0], 1001 + index, id, '2026-10-01', 'pr'));
   for (let index = 0; index < 350; index++)

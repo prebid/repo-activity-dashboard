@@ -144,3 +144,15 @@ it('allows pure helper directories named services, store and validation', () => 
   expect(result.sourceFiles).toBe(4);
   expect(result.failures).toEqual([]);
 });
+it('keeps model contracts independent of presentation, including type-only imports', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/models/report.ts':
+        "import type { Query } from '../lib/presentation/query'; export type Report = Query;",
+      'src/lib/presentation/query.ts': 'export interface Query { page: number }',
+    }),
+  );
+  expect(result.failures.some((failure) => failure.startsWith('models-no-presentation:'))).toBe(
+    true,
+  );
+});

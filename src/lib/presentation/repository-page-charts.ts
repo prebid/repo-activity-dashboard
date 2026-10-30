@@ -12,8 +12,8 @@ import {
   subsetCount,
   activityDateBasis,
   recordEventDate,
-  inDateRange,
 } from './repository-page-values';
+import { inDateRange } from '@/lib/presentation/reporting-period';
 
 function activityChart(source: RepositoryPageSource, range: DateRange): ActivityChart {
   const start = Date.parse(range.start),

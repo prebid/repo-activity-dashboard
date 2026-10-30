@@ -1,3 +1,4 @@
+import { reportRows } from '../support/contribution-reports';
 import { expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
 import {
@@ -7,7 +8,6 @@ import {
 import { validateContributionSource } from '@/lib/presentation/contribution-source';
 import {
   sumContributionCounts,
-  contributionActivitySelector,
   hasAdditionalActivity,
 } from '@/lib/presentation/contribution-activity';
 import {
@@ -55,7 +55,9 @@ it('matches independently prepared file and line totals for authors, reviewers a
   expect(report.additionalTotals.issueComments).toEqual({ status: 'complete', value: 3 });
 });
 it('uses merge dates for every volume role even when review/approval credits were earned earlier', () => {
-  const october = contributionSample({ period: { kind: 'preset', preset: 'this-month' } });
+  const october = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'this-month' } }),
+  );
   const bob = selectContributions(october, undefined, {
     kind: 'contributor',
     accountId: 'account-bob',
@@ -81,7 +83,9 @@ it('uses merge dates for every volume role even when review/approval credits wer
     ).toBe(combined.additionalTotals[metric].value);
 });
 it('credits both reviewers with the full final diff once, and preserves that unit in company totals', () => {
-  const source = contributionSample({ period: { kind: 'preset', preset: 'last-month' } });
+  const source = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'last-month' } }),
+  );
   const alice = selectContributions(source, undefined, {
     kind: 'contributor',
     accountId: 'account-alice',
@@ -101,14 +105,18 @@ it('credits both reviewers with the full final diff once, and preserves that uni
   expect(company.additionalTotals['approved.linesChanged'].value).toBe(240);
 });
 it('counts author replies and repeated comment activity without inventing more reviewer credits', () => {
-  const october = contributionSample({ period: { kind: 'preset', preset: 'this-month' } });
+  const october = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'this-month' } }),
+  );
   const alice = selectContributions(october, undefined, {
     kind: 'contributor',
     accountId: 'account-alice',
   });
   expect(alice.additionalTotals.prComments.value).toBe(2);
   expect(alice.totals.reviewerContributions.value).toBe(1);
-  const september = contributionSample({ period: { kind: 'preset', preset: 'last-month' } });
+  const september = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'last-month' } }),
+  );
   const bob = selectContributions(september, undefined, {
     kind: 'contributor',
     accountId: 'account-bob',
@@ -117,7 +125,7 @@ it('counts author replies and repeated comment activity without inventing more r
   expect(bob.totals.reviewerContributions.value).toBe(1);
 });
 it('includes comment-only accounts even when optional columns are hidden and keeps exclusions effective', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const issue = source.records.find((record) => record.kind === 'issue')!;
   source.activity.comments.push({
     id: 'eve-comment',
@@ -128,7 +136,7 @@ it('includes comment-only accounts even when optional columns are hidden and kee
   });
   const report = selectContributions(source);
   if (report.kind !== 'overview') throw Error('Expected overview');
-  const eve = report.contributors.find((row) => row.id === 'account-eve')!;
+  const eve = reportRows(report, 'contributors').find((row) => row.id === 'account-eve')!;
   expect(eve).toBeDefined();
   expect(eve.metrics.prsAuthored.value).toBe(0);
   expect(eve.additionalMetrics.issueComments.value).toBe(1);
@@ -142,7 +150,7 @@ it('includes comment-only accounts even when optional columns are hidden and kee
 });
 it('reconciles every complete role breakdown and keeps missing file classifications honest', () => {
   for (const scenario of ['reference', 'large'] as const) {
-    const source = contributionSample({ scenario });
+    const source = structuredClone(contributionSample({ scenario }));
     const report = selectContributions(source);
     for (const role of volumeRoles) {
       const totals = report.additionalTotals;
@@ -167,7 +175,7 @@ it('reconciles every complete role breakdown and keeps missing file classificati
     status: 'partial',
     value: 0,
   });
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const first = source.records.find((record) => record.kind === 'pr' && record.number === 101)!;
   if (first.kind !== 'pr') throw Error('Expected PR');
   delete first.mergedDiff;
@@ -183,7 +191,7 @@ it('reconciles every complete role breakdown and keeps missing file classificati
   expect(hasAdditionalActivity(missing.additionalTotals)).toBe(true);
 });
 it('propagates explicit partial collection while an empty account selection remains a known zero', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   source.activity.coverage.prComments = { status: 'partial', reason: 'Some comments unavailable' };
   expect(selectContributions(source).additionalTotals.prComments).toMatchObject({
     status: 'partial',
@@ -323,12 +331,12 @@ it.each([
     'Volume evidence predates',
   ],
 ] as const)('rejects %s', (_label, mutate, error) => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   mutate(source);
   expect(() => validateContributionSource(source)).toThrow(error);
 });
 it('rejects inconsistent file/line totals and final-diff values on an unmerged PR', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const record = source.records.find((r) => r.kind === 'pr' && r.state === 'Merged')!;
   if (record.kind !== 'pr' || !record.mergedDiff) throw Error('Expected diff');
   record.mergedDiff.filesChanged = { status: 'complete', value: 9 };
@@ -366,13 +374,13 @@ it('handles missing, not-applicable and overflow values without converting them 
       { status: 'complete', value: 1 },
     ]),
   ).toThrow('safe count range');
-  const invalid = contributionSample();
+  const invalid = structuredClone(contributionSample());
   invalid.activity.volumes[0].recordId = invalid.records.find((r) => r.kind === 'issue')!.id;
-  expect(() => contributionActivitySelector(invalid)).toThrow('Expected PR volume');
+  expect(() => validateContributionSource(invalid)).toThrow('Volume requires a primary-branch PR');
 });
 
 it('allows later qualifying evidence without changing the once-per-role final merged volume', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   source.activity.volumes.find((volume) => volume.role === 'reviewed')!.qualifiedAt =
     '2026-09-01T12:00:00.000Z';
   expect(selectContributions(source).additionalTotals['reviewed.linesChanged']).toEqual({
@@ -382,10 +390,10 @@ it('allows later qualifying evidence without changing the once-per-role final me
 });
 
 it('rejects unknown volume records and non-primary or out-of-period merged-volume input', () => {
-  const unknown = contributionSample();
+  const unknown = structuredClone(contributionSample());
   unknown.activity.volumes[0].recordId = 'unknown-record';
   expect(() => validateContributionSource(unknown)).toThrow('Unknown volume identity');
-  const branch = contributionSample();
+  const branch = structuredClone(contributionSample());
   const record = branch.records[0];
   if (record.kind !== 'pr') throw Error('Expected PR');
   record.baseBranch = 'release';
@@ -395,8 +403,10 @@ it('rejects unknown volume records and non-primary or out-of-period merged-volum
       !['authoredPrsMerged', 'mergesPerformed'].includes(credit.metric),
   );
   expect(() => validateContributionSource(branch)).toThrow('Volume requires a primary-branch PR');
-  const outside = contributionSample();
-  const current = contributionSample({ period: { kind: 'preset', preset: 'this-month' } });
+  const outside = structuredClone(contributionSample());
+  const current = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'this-month' } }),
+  );
   outside.period = current.period;
   outside.range = current.range;
   outside.credits = outside.credits.filter((credit) => credit.creditedAt >= current.range.start);

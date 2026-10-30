@@ -1,0 +1,40 @@
+.frame {
+  background: var(--card);
+  color: var(--foreground);
+  width: calc(100vw - 32px);
+  max-width: 620px;
+  max-height: calc(100svh - 32px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.frame > :not(.body) {
+  flex-shrink: 0;
+}
+.body {
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  gap: 16px;
+  padding: 2px;
+}
+.body:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.frame input[type='checkbox'],
+.frame input[type='radio'] {
+  accent-color: var(--prebid-link);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.frame input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .frame {
+    padding: 20px;
+  }
+}

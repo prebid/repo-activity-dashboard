@@ -1,6 +1,7 @@
 import type { RepositoryPageFilters, RepositoryPageSource } from '@/models/repository-page';
 import { requiresNonDraftPr } from './repository-page-rules';
-import { ageBandFor, inDateRange, recordEventDate, reviewBucket } from './repository-page-values';
+import { ageBandFor, recordEventDate, reviewBucket } from './repository-page-values';
+import { inDateRange } from '@/lib/presentation/reporting-period';
 
 type Verdict = boolean | 'unknown';
 function category(value: string | null, selected: string[]): Verdict {

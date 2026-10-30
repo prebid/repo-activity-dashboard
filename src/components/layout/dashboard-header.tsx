@@ -14,18 +14,22 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import styles from './dashboard.module.css';
+import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
 
 export function DashboardHeader({
   repositories,
   activePath,
   administration = false,
   accountControls,
+  viewerId,
 }: {
   repositories: readonly RepositoryDefinition[];
   activePath: string;
   administration?: boolean;
   accountControls: ReactNode;
+  viewerId?: string;
 }) {
+  const contributionEntry = useContributionEntry(viewerId);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const inRepos = activePath.startsWith('/repos');
   return (
@@ -75,7 +79,7 @@ export function DashboardHeader({
           </DropdownMenu>
           <Link
             prefetch={false}
-            href="/contributors"
+            href={contributionEntry}
             className={styles.navItem}
             data-active={
               activePath.startsWith('/contributors') || activePath.startsWith('/companies')

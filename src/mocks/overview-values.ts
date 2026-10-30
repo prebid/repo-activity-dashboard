@@ -1,4 +1,5 @@
-import type { ActivityMetric, Count, RepositoryActivity } from '@/models/repository-overview';
+import type { ActivityMetric, RepositoryActivity } from '@/models/repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 
 export const complete = (value: number): Count => ({ status: 'complete', value });
 export const missing = (reason: string): Count => ({ status: 'missing', value: null, reason });

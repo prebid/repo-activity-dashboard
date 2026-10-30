@@ -1,15 +1,10 @@
+import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import { expect, it, vi } from 'vitest';
 import type { MouseEvent } from 'react';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ContributionView } from '@/features/contributions/contribution-view';
-import {
-  contributionExportColumns,
-  contributorExportColumns,
-  contributorColumns,
-  companyColumns,
-  repositoryContributionColumns,
-} from '@/features/contributions/contribution-columns';
+
 import { contributionSample } from '@/mocks/contributions';
 import { selectContributions } from '@/lib/presentation/contributions';
 import { useLocalTableController } from '@/components/tables/local-data-table';
@@ -30,7 +25,12 @@ function page(
     area: options.area ?? 'contributors',
     breakdown: options.breakdown ?? 'members',
     returnTo: '/contributors?report.page=2',
-    report: selectContributions(contributionSample({ scenario: sample }), undefined, options.focus),
+    report: selectContributions(
+      contributionSample({ scenario: sample }),
+      undefined,
+      options.focus,
+      options,
+    ),
   };
 }
 function Preview({
@@ -68,9 +68,10 @@ it('renders the full overview with the approved default sort and independent met
   expect(profile).toHaveAttribute('href', 'https://github.example/sample-alice');
   expect(profile).toHaveAttribute('target', '_blank');
   const alice = within(table).getByRole('link', { name: 'Alice — view contribution report' });
-  expect(alice).toHaveAttribute(
-    'href',
-    '/contributors/account-alice?returnTo=%2Fcontributors%3Freport.page%3D2',
+  const aliceUrl = new URL(alice.getAttribute('href')!, 'https://dashboard.test');
+  expect(aliceUrl.pathname).toBe('/contributors/account-alice');
+  expect(contributionReturnHref(aliceUrl.searchParams, '/companies')).toBe(
+    '/contributors?report.page=2',
   );
   fireEvent.click(alice);
   expect(onFollow).toHaveBeenCalledOnce();
@@ -83,13 +84,21 @@ it('shows company totals rather than truncated member sums and links unmapped ac
   render(<Preview data={page({ area: 'companies' })} />);
   const table = screen.getByRole('table');
   expect(table.querySelectorAll('tbody tr')).toHaveLength(4);
-  expect(within(table).getByRole('link', { name: 'Example Acme' })).toHaveAttribute(
-    'href',
-    '/companies/id/company-acme?returnTo=%2Fcontributors%3Freport.page%3D2',
+  const companyUrl = new URL(
+    within(table).getByRole('link', { name: 'Example Acme' }).getAttribute('href')!,
+    'https://dashboard.test',
   );
-  expect(within(table).getByRole('link', { name: 'Unmapped company' })).toHaveAttribute(
-    'href',
-    '/companies/unmapped?returnTo=%2Fcontributors%3Freport.page%3D2',
+  expect(companyUrl.pathname).toBe('/companies/id/company-acme');
+  expect(contributionReturnHref(companyUrl.searchParams, '/companies')).toBe(
+    '/contributors?report.page=2',
+  );
+  const unmappedUrl = new URL(
+    within(table).getByRole('link', { name: 'Unmapped company' }).getAttribute('href')!,
+    'https://dashboard.test',
+  );
+  expect(unmappedUrl.pathname).toBe('/companies/unmapped');
+  expect(contributionReturnHref(unmappedUrl.searchParams, '/companies')).toBe(
+    '/contributors?report.page=2',
   );
 });
 it('renders a contributor’s independent totals and only relevant repository rows', () => {
@@ -119,7 +128,16 @@ it('keeps zero-contribution company members visible and supports its repository 
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(3);
   expect(screen.getByRole('link', { name: 'Eve — view contribution report' })).toBeVisible();
   expect(screen.getByRole('navigation', { name: 'Company breakdown' })).toBeVisible();
-  view.rerender(<Preview data={{ ...data, breakdown: 'repositories' }} />);
+  view.rerender(
+    <Preview
+      data={page({
+        area: 'companies',
+        sample: data.sample,
+        focus: data.report.context.focus,
+        breakdown: 'repositories',
+      })}
+    />,
+  );
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(2);
 });
 it('renders unmapped company context without claiming a company affiliation', () => {
@@ -163,53 +181,6 @@ it('paginates 251 accounts at 50 rows and searches by the displayed account iden
     screen.getByRole('table').querySelector('[data-column="issuesAuthored"]'),
   ).toHaveTextContent('350');
 });
-it('exports numeric values plus coverage and scope, independently of the compact identity display', () => {
-  const data = page({ sample: 'partial' });
-  if (data.report.kind !== 'overview') throw Error('Expected overview');
-  const links = { sample: data.sample, currentHref: '/contributors' };
-  const cols = contributorColumns(links);
-  const exported = contributorExportColumns(cols, data.report.context, {
-    search: 'Alice',
-    ...contributionDefaultSort,
-  });
-  const alice = data.report.contributors.find((row) => row.id === 'account-alice')!;
-  const values = Object.fromEntries(exported.map((col) => [col.id, col.value(alice)]));
-  expect(values).toMatchObject({
-    name: 'Alice',
-    tableSearch: 'Alice',
-    tableSort: 'authoredPrsMerged',
-    tableDirection: 'desc',
-    login: 'sample-alice',
-    actorType: 'human',
-    companyId: 'company-acme',
-    approvalContributions: 2,
-    'approvalContributions.coverage': 'partial',
-    source: 'sample',
-    attribution: 'current-mapping',
-  });
-  expect(values['approvalContributions.reason']).toContain('unestablished');
-  const memberExport = contributorExportColumns(
-    contributorColumns(links, false),
-    data.report.context,
-    { search: '', ...contributionDefaultSort },
-  );
-  expect(memberExport.find((col) => col.id === 'company')!.value(alice)).toBe('Example Acme');
-  const company = data.report.companies[0];
-  const companyExport = contributionExportColumns(companyColumns(links), data.report.context, {
-    search: '',
-    ...contributionDefaultSort,
-  });
-  expect(companyExport.find((col) => col.id === 'members')!.value(company)).toBe(3);
-  const repositoryReport = selectContributions(contributionSample(), undefined, {
-    kind: 'contributor',
-    accountId: 'account-alice',
-  });
-  if (repositoryReport.kind !== 'contributor') throw Error('Expected contributor');
-  expect(repositoryContributionColumns()[0].value(repositoryReport.repositories[0])).toBe(
-    'Prebid.js',
-  );
-});
-
 it('keeps account type visible and exposes the full optional volume groups through Columns', async () => {
   const user = userEvent.setup();
   render(<Preview data={page()} />);
@@ -265,4 +236,18 @@ it('shows an empty report state when every selected repository is confirmed zero
     6,
   );
   expect(screen.queryByText('Prebid Server (Go)')).not.toBeInTheDocument();
+});
+
+it('shows singular scope and result labels for one selected account and repository', () => {
+  const source = contributionSample();
+  const report = selectContributions(source, {
+    repositoryIds: ['repo-prebidjs'],
+    actorTypes: ['human'],
+    population: { kind: 'selected', accountIds: ['account-alice'], companyIds: [] },
+    excludedAccountIds: [],
+  });
+  render(<Preview data={{ ...page(), report }} />);
+  expect(screen.getByText('1 included account')).toBeVisible();
+  expect(screen.getByText('1 repository')).toBeVisible();
+  expect(screen.getByText('1 matching row')).toBeVisible();
 });

@@ -1,14 +1,16 @@
 import { readTableColumns } from './table-column-preferences';
+import { repositoryCatalog } from '@/config/repositories';
 import { contributionActorTypes, contributionDefaultPeriod } from '@/models/contributions';
 import {
   contributionSettingsSchema,
   type ContributionSettings,
   type ContributionDirectory,
+  type ContributionControlDirectory,
 } from '@/models/contribution-settings';
 import { periodSelectionSchema } from '@/models/reporting-period';
 import { resolveReportingPeriod } from './reporting-period';
 
-const scopeKeys = [
+export const contributionScopeKeys = [
   'scope',
   'period',
   'from',
@@ -21,10 +23,10 @@ const scopeKeys = [
   'exclude',
 ] as const;
 export function hasContributionScope(params: URLSearchParams): boolean {
-  return scopeKeys.some((key) => params.has(key));
+  return contributionScopeKeys.some((key) => params.has(key));
 }
 export function defaultContributionSettings(
-  directory: ContributionDirectory,
+  directory: ContributionControlDirectory,
 ): ContributionSettings {
   return {
     period: contributionDefaultPeriod,
@@ -55,9 +57,9 @@ export function readContributionPeriod(params: URLSearchParams, asOf: string) {
   }
 }
 /** Invalid identities are rejected rather than silently broadening a report. */
-export function validateContributionSettings(
+function normaliseSettings(
   input: unknown,
-  directory: ContributionDirectory,
+  directory: ContributionControlDirectory,
   asOf: string,
 ): ContributionSettings | null {
   const parsed = contributionSettingsSchema.safeParse(input);
@@ -68,23 +70,9 @@ export function validateContributionSettings(
   } catch {
     return null;
   }
-  const known = (ids: readonly string[], rows: readonly { id: string }[]) =>
-    ids.every((id) => rows.some((row) => row.id === id));
-  if (
-    !known(selection.repositoryIds, directory.repositories) ||
-    !known(selection.excludedAccountIds, directory.accounts)
-  )
-    return null;
+  const knownRepos = new Set(directory.repositories.map((row) => row.id));
+  if (selection.repositoryIds.some((id) => !knownRepos.has(id))) return null;
   const population = selection.population;
-  if (
-    population.kind === 'selected' &&
-    (!known(population.accountIds, directory.accounts) ||
-      !known(
-        population.companyIds.filter((id): id is string => id !== null),
-        directory.companies,
-      ))
-  )
-    return null;
   return {
     period,
     selection: {
@@ -101,6 +89,42 @@ export function validateContributionSettings(
       excludedAccountIds: [...new Set(selection.excludedAccountIds)].sort(),
     },
   };
+}
+export function validateContributionSettings(
+  input: unknown,
+  directory: ContributionDirectory,
+  asOf: string,
+): ContributionSettings | null {
+  const settings = normaliseSettings(input, directory, asOf);
+  if (!settings) return null;
+  const accounts = new Set(directory.accounts.map((row) => row.id));
+  const companies = new Set(directory.companies.map((row) => row.id));
+  const { selection } = settings,
+    population = selection.population;
+  if (
+    selection.excludedAccountIds.some((id) => !accounts.has(id)) ||
+    (population.kind === 'selected' &&
+      (population.accountIds.some((id) => !accounts.has(id)) ||
+        population.companyIds.some((id) => id !== null && !companies.has(id))))
+  )
+    return null;
+  return settings;
+}
+export function readContributionPreferenceCandidate(
+  raw: string | null,
+  directory: ContributionControlDirectory,
+  asOf: string,
+): ContributionSettings | null {
+  const stored = readStoredContributionPreferences(raw);
+  return stored ? normaliseSettings(stored, directory, asOf) : null;
+}
+export function contributionPreferenceNeedsLookup(settings: ContributionSettings): boolean {
+  return (
+    settings.selection.excludedAccountIds.length > 0 ||
+    (settings.selection.population.kind === 'selected' &&
+      (settings.selection.population.accountIds.length > 0 ||
+        settings.selection.population.companyIds.some((id) => id !== null)))
+  );
 }
 export function readContributionSettings(
   params: URLSearchParams,
@@ -146,7 +170,7 @@ export function writeContributionSettings(
   resetPages = false,
 ): string {
   const params = new URLSearchParams(search);
-  for (const key of scopeKeys) params.delete(key);
+  for (const key of contributionScopeKeys) params.delete(key);
   params.set('scope', '1');
   params.set('period', value.period.kind === 'preset' ? value.period.preset : 'custom');
   if (value.period.kind === 'custom') {
@@ -157,14 +181,33 @@ export function writeContributionSettings(
     if (!values.length) params.set(key, '');
     else for (const value of values) params.append(key, value);
   };
-  list('repo', value.selection.repositoryIds);
-  list('type', value.selection.actorTypes);
-  params.set('population', value.selection.population.kind);
+  const equalIds = (a: readonly string[], b: readonly string[]) => {
+    const left = new Set(a),
+      right = new Set(b);
+    return left.size === right.size && [...left].every((id) => right.has(id));
+  };
+  if (
+    !value.selection.repositoryIds.length ||
+    !equalIds(
+      value.selection.repositoryIds,
+      repositoryCatalog.filter((repo) => repo.enabled).map((repo) => repo.id),
+    )
+  )
+    list('repo', [...new Set(value.selection.repositoryIds)].sort());
+  if (!equalIds(value.selection.actorTypes, contributionActorTypes))
+    list(
+      'type',
+      contributionActorTypes.filter((type) => value.selection.actorTypes.includes(type)),
+    );
   if (value.selection.population.kind === 'selected') {
-    for (const id of value.selection.population.accountIds) params.append('account', id);
-    for (const id of value.selection.population.companyIds) params.append('company', id ?? '');
+    params.set('population', 'selected');
+    for (const id of [...new Set(value.selection.population.accountIds)].sort())
+      params.append('account', id);
+    for (const id of [...new Set(value.selection.population.companyIds)].sort())
+      params.append('company', id ?? '');
   }
-  for (const id of value.selection.excludedAccountIds) params.append('exclude', id);
+  for (const id of [...new Set(value.selection.excludedAccountIds)].sort())
+    params.append('exclude', id);
   if (resetPages)
     for (const key of ['report', 'members', 'repositories', 'details'])
       params.delete(key + '.page');
@@ -172,6 +215,30 @@ export function writeContributionSettings(
 }
 export function contributionPreferenceKey(viewerId: string, sample: string): string {
   return 'dashboard:contributions:v1:' + [viewerId, sample].map(encodeURIComponent).join(':');
+}
+export function contributionTableScope(sample: string, table: string): string {
+  return 'contributions:' + sample + ':' + table;
+}
+export type ContributionSettingField = 'period' | 'repositoryIds' | 'actorTypes' | 'population';
+/** Persist explicit user intent, never unrelated scope inherited from a drilldown. */
+export function mergeContributionPreferences(
+  saved: ContributionSettings,
+  next: ContributionSettings,
+  field: ContributionSettingField,
+): ContributionSettings {
+  return {
+    period: field === 'period' ? next.period : saved.period,
+    selection: {
+      repositoryIds:
+        field === 'repositoryIds' ? next.selection.repositoryIds : saved.selection.repositoryIds,
+      actorTypes: field === 'actorTypes' ? next.selection.actorTypes : saved.selection.actorTypes,
+      population: field === 'population' ? next.selection.population : saved.selection.population,
+      excludedAccountIds:
+        field === 'population'
+          ? next.selection.excludedAccountIds
+          : saved.selection.excludedAccountIds,
+    },
+  };
 }
 export function serializeContributionPreferences(value: ContributionSettings): string {
   return JSON.stringify({ version: 1, settings: value });
@@ -181,6 +248,11 @@ export function readContributionPreferences(
   directory: ContributionDirectory,
   asOf: string,
 ): ContributionSettings | null {
+  const settings = readStoredContributionPreferences(raw);
+  return settings ? validateContributionSettings(settings, directory, asOf) : null;
+}
+/** Shape validation for entry links; the authenticated loader owns identity/range validation. */
+export function readStoredContributionPreferences(raw: string | null): ContributionSettings | null {
   try {
     const parsed: unknown = JSON.parse(raw ?? 'null');
     if (
@@ -191,7 +263,8 @@ export function readContributionPreferences(
       !('settings' in parsed)
     )
       return null;
-    return validateContributionSettings(parsed.settings, directory, asOf);
+    const settings = contributionSettingsSchema.safeParse(parsed.settings);
+    return settings.success ? settings.data : null;
   } catch {
     return null;
   }

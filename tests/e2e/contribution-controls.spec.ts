@@ -1,3 +1,4 @@
+import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
@@ -52,7 +53,10 @@ test('company inclusion, duplicate individual inclusion and exclusions keep 50-r
     .first()
     .getAttribute('href');
   if (!parentLink) throw Error('Missing child report link');
-  const parent = new URL(parentLink, page.url()).searchParams.get('returnTo')!;
+  const parent = contributionReturnHref(
+    new URL(parentLink, page.url()).searchParams,
+    '/contributors',
+  );
   expect(new URL(parent, page.url()).pathname).toBe(originalParent.pathname);
   await page
     .getByRole('table')

@@ -1,3 +1,4 @@
+import { reportRows } from '../support/contribution-reports';
 import { selectContributionDetails } from '../support/contribution-details';
 import { unpreparedActivity } from '../support/contribution-activity';
 import { expect, it } from 'vitest';
@@ -34,11 +35,11 @@ it('uses the agreed defaults and all six independent metric columns', () => {
   ]);
 });
 it('matches independently specified October contributor and company answers', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const report = selectContributions(source);
   if (report.kind !== 'overview') throw Error('Expected overview');
   expect(values(report.totals)).toEqual([6, 4, 6, 4, 4, 4]);
-  expect(report.contributors.map((r) => [r.account.id, values(r.metrics)])).toEqual([
+  expect(reportRows(report, 'contributors').map((r) => [r.account.id, values(r.metrics)])).toEqual([
     ['account-alice', [1, 1, 1, 2, 0, 0]],
     ['account-bob', [2, 1, 0, 0, 1, 1]],
     ['account-carol', [1, 1, 1, 0, 1, 1]],
@@ -47,7 +48,14 @@ it('matches independently specified October contributor and company answers', ()
     ['account-agent', [0, 0, 2, 2, 1, 1]],
     ['account-bot', [0, 0, 2, 0, 0, 0]],
   ]);
-  expect(report.companies.map((r) => [r.company?.id ?? null, values(r.metrics)])).toEqual([
+  expect(
+    reportRows(
+      selectContributions(source, report.context.selection, report.context.focus, {
+        area: 'companies',
+      }),
+      'companies',
+    ).map((r) => [r.company?.id ?? null, values(r.metrics)]),
+  ).toEqual([
     ['company-acme', [3, 2, 1, 2, 1, 1]],
     ['company-beacon', [1, 1, 1, 0, 1, 2]],
     [null, [2, 1, 2, 0, 1, 0]],
@@ -62,33 +70,49 @@ it('matches independently specified October contributor and company answers', ()
   expect(source.accounts.find((a) => a.id === 'account-eve')).toBeDefined();
 });
 it('retains zero members while omitting confirmed-zero repository rows on focused reports', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const report = selectContributions(source, undefined, {
     kind: 'company',
     companyId: 'company-acme',
   });
   if (report.kind !== 'company') throw Error('Expected company');
-  expect(report.members.map((r) => r.id)).toEqual(['account-alice', 'account-bob', 'account-eve']);
-  expect(values(report.members[2].metrics)).toEqual([0, 0, 0, 0, 0, 0]);
-  expect(report.repositories.map((row) => row.repository.id)).toEqual([r1, r2]);
+  expect(reportRows(report, 'members').map((r) => r.id)).toEqual([
+    'account-alice',
+    'account-bob',
+    'account-eve',
+  ]);
+  expect(values(reportRows(report, 'members')[2].metrics)).toEqual([0, 0, 0, 0, 0, 0]);
+  expect(
+    reportRows(
+      selectContributions(source, report.context.selection, report.context.focus, {
+        breakdown: 'repositories',
+      }),
+      'repositories',
+    ).map((row) => row.repository.id),
+  ).toEqual([r1, r2]);
   for (const metric of contributionMetricIds)
-    expect(report.repositories.reduce((n, row) => n + row.metrics[metric].value!, 0)).toBe(
-      report.totals[metric].value,
-    );
+    expect(
+      reportRows(
+        selectContributions(source, report.context.selection, report.context.focus, {
+          breakdown: 'repositories',
+        }),
+        'repositories',
+      ).reduce((n, row) => n + row.metrics[metric].value!, 0),
+    ).toBe(report.totals[metric].value);
   const person = selectContributions(source, undefined, {
     kind: 'contributor',
     accountId: 'account-alice',
   });
   if (person.kind !== 'contributor') throw Error('Expected contributor');
-  expect(values(person.repositories.find((row) => row.id === r1)!.metrics)).toEqual([
+  expect(values(reportRows(person, 'repositories').find((row) => row.id === r1)!.metrics)).toEqual([
     0, 1, 1, 1, 0, 0,
   ]);
-  expect(values(person.repositories.find((row) => row.id === r2)!.metrics)).toEqual([
+  expect(values(reportRows(person, 'repositories').find((row) => row.id === r2)!.metrics)).toEqual([
     1, 0, 0, 1, 0, 0,
   ]);
 });
 it('unions individual/company selection once and lets exclusions win without remapping members', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const selection = defaultContributionSelection(source);
   selection.population = {
     kind: 'selected',
@@ -99,7 +123,7 @@ it('unions individual/company selection once and lets exclusions win without rem
   selection.excludedAccountIds = ['account-alice'];
   const result = selectContributions(source, selection);
   expect(values(result.totals)).toEqual([2, 1, 0, 0, 1, 1]);
-  expect(result.context.includedAccountIds).toEqual(['account-bob', 'account-eve']);
+  expect(result.context.includedAccountCount).toBe(2);
   expect(source.accounts.find((a) => a.id === 'account-alice')!.companyId).toBe('company-acme');
   for (const metric of contributionMetricIds)
     expect(
@@ -109,7 +133,7 @@ it('unions individual/company selection once and lets exclusions win without rem
     ).toBe(true);
 });
 it('focus narrows the current selection without reintroducing excluded accounts', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const selection = defaultContributionSelection(source);
   selection.excludedAccountIds = ['account-alice'];
   selection.repositoryIds = [r2];
@@ -118,7 +142,7 @@ it('focus narrows the current selection without reintroducing excluded accounts'
     accountId: 'account-alice',
   });
   expect(values(person.totals)).toEqual([0, 0, 0, 0, 0, 0]);
-  expect(person.context.includedAccountIds).toEqual([]);
+  expect(person.context.includedAccountCount).toBe(0);
   expect(
     selectContributionDetails(source, 'prsAuthored', selection, {
       kind: 'contributor',
@@ -131,13 +155,13 @@ it('focus narrows the current selection without reintroducing excluded accounts'
     companyId: 'company-acme',
   });
   if (company.kind !== 'company') throw Error('Expected company');
-  expect(company.members).toEqual([]);
+  expect(reportRows(company, 'members')).toEqual([]);
   expect(values(company.totals)).toEqual([0, 0, 0, 0, 0, 0]);
 });
 it.each(['population', 'repositories', 'actors'] as const)(
   'preserves an explicit empty %s selection',
   (kind) => {
-    const source = contributionSample();
+    const source = structuredClone(contributionSample());
     const selection = defaultContributionSelection(source);
     if (kind === 'population')
       selection.population = { kind: 'selected', accountIds: [], companyIds: [] };
@@ -149,7 +173,7 @@ it.each(['population', 'repositories', 'actors'] as const)(
   },
 );
 it('preserves per-repository contribution attribution and actor categories', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const selection = defaultContributionSelection(source);
   selection.actorTypes = ['human'];
   expect(values(selectContributions(source, selection).totals)).toEqual([6, 4, 2, 2, 3, 3]);
@@ -170,7 +194,7 @@ it('preserves per-repository contribution attribution and actor categories', () 
   ).toEqual([0, 1, 1, 1, 0, 0]);
 });
 it('regroups current company mapping without changing personal credits or identities', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const before = selectContributionDetails(source, 'approvalContributions');
   const alice = source.accounts.find((a) => a.id === 'account-alice')!;
   alice.companyId = 'company-beacon';
@@ -179,10 +203,24 @@ it('regroups current company mapping without changing personal credits or identi
   const report = selectContributions(source);
   if (report.kind !== 'overview') throw Error('Expected overview');
   expect(
-    values(report.companies.find((row) => row.company?.id === 'company-acme')!.metrics),
+    values(
+      reportRows(
+        selectContributions(source, report.context.selection, report.context.focus, {
+          area: 'companies',
+        }),
+        'companies',
+      ).find((row) => row.company?.id === 'company-acme')!.metrics,
+    ),
   ).toEqual([2, 1, 0, 0, 1, 1]);
   expect(
-    values(report.companies.find((row) => row.company?.id === 'company-beacon')!.metrics),
+    values(
+      reportRows(
+        selectContributions(source, report.context.selection, report.context.focus, {
+          area: 'companies',
+        }),
+        'companies',
+      ).find((row) => row.company?.id === 'company-beacon')!.metrics,
+    ),
   ).toEqual([2, 2, 2, 2, 1, 2]);
   expect(selectContributionDetails(source, 'approvalContributions').rows.map((r) => r.id)).toEqual(
     before.rows.map((r) => r.id),
@@ -195,7 +233,9 @@ it('regroups current company mapping without changing personal credits or identi
   ).toEqual([1, 1, 1, 2, 0, 0]);
 });
 it('keeps two approval contributions on one PR distinct from one covered PR', () => {
-  const source = contributionSample({ period: { kind: 'preset', preset: 'last-month' } });
+  const source = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'last-month' } }),
+  );
   const details = selectContributionDetails(source, 'approvalContributions', undefined, {
     kind: 'company',
     companyId: 'company-acme',
@@ -207,11 +247,15 @@ it('keeps two approval contributions on one PR distinct from one covered PR', ()
   expect(details.rows.map((row) => row.account.id)).toEqual(['account-alice', 'account-bob']);
 });
 it('reconciles disjoint months with combined credit totals without crediting later repeats', () => {
-  const august = contributionSample({
-    period: { kind: 'custom', from: '2026-08-01', through: '2026-08-31' },
-  });
-  const september = contributionSample({ period: { kind: 'preset', preset: 'last-month' } });
-  const october = contributionSample({ period: month });
+  const august = structuredClone(
+    contributionSample({
+      period: { kind: 'custom', from: '2026-08-01', through: '2026-08-31' },
+    }),
+  );
+  const september = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'last-month' } }),
+  );
+  const october = structuredClone(contributionSample({ period: month }));
   expect(values(selectContributions(august).totals)).toEqual([1, 0, 1, 1, 0, 1]);
   expect(values(selectContributions(september).totals)).toEqual([1, 1, 2, 2, 1, 1]);
   expect(values(selectContributions(contributionSample()).totals)).toEqual([8, 5, 9, 7, 5, 6]);
@@ -235,7 +279,7 @@ it('reconciles disjoint months with combined credit totals without crediting lat
   expect(alice.rows.map((r) => r.record.number)).toEqual([103, 107]);
 });
 it('keeps partial known subtotals, missing values, known zero and empty selections distinct', () => {
-  const source = contributionSample({ scenario: 'partial', period: month });
+  const source = structuredClone(contributionSample({ scenario: 'partial', period: month }));
   const person = selectContributions(source, undefined, {
     kind: 'contributor',
     accountId: 'account-alice',
@@ -263,13 +307,13 @@ it('keeps partial known subtotals, missing values, known zero and empty selectio
   const unavailable = selectContributions(contributionSample({ scenario: 'missing' }));
   expect(unavailable.totals.prsAuthored).toMatchObject({ status: 'missing', value: null });
   if (unavailable.kind !== 'overview') throw Error('Expected overview');
-  expect(unavailable.contributors).toHaveLength(8);
-  expect(unavailable.companies).toHaveLength(4);
+  expect(reportRows(unavailable, 'contributors')).toHaveLength(8);
+  expect(unavailable.companyCount).toBe(4);
   const empty = selectContributions(contributionSample({ scenario: 'empty' }));
   expect(empty.totals.prsAuthored).toEqual({ status: 'complete', value: 0 });
   if (empty.kind !== 'overview') throw Error('Expected overview');
-  expect(empty.contributors).toEqual([]);
-  expect(empty.companies).toEqual([]);
+  expect(reportRows(empty, 'contributors')).toEqual([]);
+  expect(empty.companyCount).toBe(0);
   expect(
     hasContributionActivity({
       ...empty.totals,
@@ -278,13 +322,16 @@ it('keeps partial known subtotals, missing values, known zero and empty selectio
   ).toBe(true);
 });
 it('supports unmapped company focus without assigning accounts to a guessed company', () => {
-  const source = contributionSample({ period: month });
+  const source = structuredClone(contributionSample({ period: month }));
   const selection = defaultContributionSelection(source);
   selection.population = { kind: 'selected', accountIds: [], companyIds: [null] };
   const report = selectContributions(source, selection, { kind: 'company', companyId: null });
   if (report.kind !== 'company') throw Error('Expected company');
   expect(report.company).toBeNull();
-  expect(report.members.map((row) => row.id)).toEqual(['account-drew', 'account-bot']);
+  expect(reportRows(report, 'members').map((row) => row.id)).toEqual([
+    'account-drew',
+    'account-bot',
+  ]);
   expect(values(report.totals)).toEqual([2, 1, 2, 0, 1, 0]);
 });
 it.each([
@@ -295,14 +342,14 @@ it.each([
 ] satisfies Partial<ContributionSelection>[])(
   'rejects unknown selection identities %#',
   (patch) => {
-    const source = contributionSample();
+    const source = structuredClone(contributionSample());
     expect(() =>
       selectContributions(source, { ...defaultContributionSelection(source), ...patch }),
     ).toThrow(/Unknown/);
   },
 );
 it('rejects unknown focused entities and metrics instead of broadening the report', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   expect(() =>
     selectContributions(source, undefined, { kind: 'contributor', accountId: 'missing' }),
   ).toThrow('Unknown contribution focus');
@@ -316,7 +363,7 @@ it('rejects unknown focused entities and metrics instead of broadening the repor
 });
 
 it('keeps explicit focused identity in details and all of one author’s repository contributions', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const focus = { kind: 'contributor', accountId: 'account-alice' } as const;
   const details = selectContributionDetails(source, 'prsAuthored', undefined, focus);
   expect(details.context.focus).toEqual(focus);
@@ -325,7 +372,7 @@ it('keeps explicit focused identity in details and all of one author’s reposit
 });
 
 it('keeps prior-year review/approval credits separate from this-year authorship and merge execution', () => {
-  const base = contributionSample();
+  const base = structuredClone(contributionSample());
   const record = { ...base.records[0], createdAt: '2025-12-20T12:00:00.000Z' };
   if (record.kind !== 'pr') throw Error('Expected PR');
   record.mergedAt = '2026-02-01T12:00:00.000Z';

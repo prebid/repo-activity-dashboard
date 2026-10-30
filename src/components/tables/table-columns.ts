@@ -1,9 +1,8 @@
+import type { TableValueColumn } from '@/models/table-values';
 import type { SelectableColumn } from '@/models/column-selection';
 import type { ReactNode } from 'react';
 
-export interface DataColumn<T> extends Omit<SelectableColumn, 'required'> {
-  value: (row: T) => string | number | null;
-  sortValue?: (row: T) => string | number | null;
+export interface DataColumn<T> extends Omit<SelectableColumn, 'required'>, TableValueColumn<T> {
   /** Pure render callback: return a component element for stateful UI; do not call hooks here. */
   cell?: (row: T) => ReactNode;
   /** Export-only metadata follows this selected display column; omitted means always included. */
@@ -12,9 +11,6 @@ export interface DataColumn<T> extends Omit<SelectableColumn, 'required'> {
   align?: 'left' | 'right';
   pinned?: boolean;
   hideable?: boolean;
-}
-export function columnSortValue<T>(column: DataColumn<T>, row: T): string | number | null {
-  return column.sortValue ? column.sortValue(row) : column.value(row);
 }
 export interface ColumnVisibility {
   value: Record<string, boolean>;

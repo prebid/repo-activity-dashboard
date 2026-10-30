@@ -1,8 +1,8 @@
+import { accountTypeLabels } from '@/models/github-account';
 import type { SelectableColumn } from '@/models/column-selection';
 import {
   reportMetricIds,
   isCoreMetric,
-  actorLabels,
   reportMetricDescription,
   contributionSelectionGroups,
 } from '@/models/contribution-metrics';
@@ -14,12 +14,9 @@ import {
   type RepositoryContributionRow,
 } from '@/models/contributions';
 import { additionalMetricDefinitions, type AdditionalValues } from '@/models/contribution-activity';
-import { compareValues } from './format';
-import type { TableQuery } from './table-query';
-export interface ValueColumn<T> extends Omit<SelectableColumn, 'required'> {
-  value: (row: T) => string | number | null;
-  sortValue?: (row: T) => string | number | null;
-}
+import type { TableValueColumn } from '@/models/table-values';
+import { measurementSortGroup, measurementSortNote } from './measurement-order';
+export interface ValueColumn<T> extends Omit<SelectableColumn, 'required'>, TableValueColumn<T> {}
 export function contributionMetricValues<
   T extends { metrics: ContributionValues; additionalMetrics: AdditionalValues },
 >(): ValueColumn<T>[] {
@@ -38,10 +35,11 @@ export function contributionMetricValues<
       : additionalMetricDefinitions[metric].selectionSection,
     value: (row) =>
       (isCoreMetric(metric) ? row.metrics[metric] : row.additionalMetrics[metric]).value,
-    sortValue: (row) => {
-      const value = isCoreMetric(metric) ? row.metrics[metric] : row.additionalMetrics[metric];
-      return value.status === 'complete' ? value.value : null;
-    },
+    sortGroup: (row) =>
+      measurementSortGroup(
+        isCoreMetric(metric) ? row.metrics[metric] : row.additionalMetrics[metric],
+      ),
+    sortNote: measurementSortNote,
   }));
 }
 export function contributorValues(showCompany = true): ValueColumn<ContributorMetricRow>[] {
@@ -59,7 +57,7 @@ export function contributorValues(showCompany = true): ValueColumn<ContributorMe
       label: 'Account type',
       description:
         'Human, mapped Prebid agent, other GitHub bot, or unclassified account. Hiding the column does not clear the account-type filter.',
-      value: (row) => actorLabels[row.account.actorType],
+      value: (row) => accountTypeLabels[row.account.actorType],
     },
     ...(showCompany
       ? [
@@ -105,35 +103,6 @@ export function repositoryContributionValues(): ValueColumn<RepositoryContributi
     ...contributionMetricValues<RepositoryContributionRow>(),
   ];
 }
-/** Same values and stable null-last ordering as the visible table, before pagination. */
-export function contributionTableRows<T>(
-  rows: T[],
-  columns: ValueColumn<T>[],
-  query: Pick<TableQuery, 'search' | 'sort' | 'descending'>,
-  searchable = true,
-): T[] {
-  const sort = columns.find((column) => column.id === query.sort);
-  return rows
-    .filter(
-      (row) =>
-        !searchable ||
-        columns.some((column) =>
-          String(column.value(row) ?? '')
-            .toLocaleLowerCase('en')
-            .includes(query.search.toLocaleLowerCase('en')),
-        ),
-    )
-    .sort((a, b) =>
-      sort
-        ? compareValues(
-            (sort.sortValue ?? sort.value)(a),
-            (sort.sortValue ?? sort.value)(b),
-            query.descending ? 'desc' : 'asc',
-          )
-        : 0,
-    );
-}
-
 /** Only complete zero values are hidden; unknown, partial and not-applicable values stay visible. */
 export function isKnownZeroContribution(
   row: Pick<ContributorMetricRow, 'metrics' | 'additionalMetrics'>,

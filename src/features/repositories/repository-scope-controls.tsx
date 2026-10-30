@@ -9,7 +9,7 @@ import {
   repositoryActivityPeriod,
   type RepositoryActivityMode,
 } from '@/lib/presentation/repository-page-navigation';
-import { TimeframeControl } from './timeframe-control';
+import { TimeframeControl } from '@/components/reporting/timeframe-control';
 import styles from './repository-controls.module.css';
 export function RepositoryScopeControls({
   source,

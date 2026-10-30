@@ -1,3 +1,4 @@
+import { reportRows } from '../support/contribution-reports';
 import { selectContributionDetails } from '../support/contribution-details';
 import { expect, it } from 'vitest';
 import { repositoryCatalog } from '@/config/repositories';
@@ -12,7 +13,7 @@ const values = (metrics: ContributionValues) =>
   contributionMetricIds.map((key) => metrics[key].value);
 
 it('uses all 18 catalog identities and a fixed reporting clock with isolated fresh results', () => {
-  const first = contributionSample(),
+  const first = structuredClone(contributionSample()),
     second = contributionSample();
   expect(first).toEqual(second);
   expect(first.asOf).toBe('2026-10-24T12:00:00.000Z');
@@ -63,10 +64,13 @@ it('retains full high-volume populations and totals before UI pagination or rank
   const source = contributionSample({ scenario: 'large' });
   const report = selectContributions(source);
   if (report.kind !== 'overview') throw Error('Expected overview');
-  expect(report.contributors).toHaveLength(251);
+  expect(reportRows(report, 'contributors')).toHaveLength(251);
   expect(values(report.totals)).toEqual([490, 250, 0, 0, 250, 350]);
   expect(
-    report.companies.map((row) => [row.company?.id ?? null, row.memberCount, values(row.metrics)]),
+    reportRows(
+      selectContributions(source, undefined, undefined, { area: 'companies' }),
+      'companies',
+    ).map((row) => [row.company?.id ?? null, row.memberCount, values(row.metrics)]),
   ).toEqual([
     ['company-acme', 100, [100, 100, 0, 0, 100, 0]],
     ['company-beacon', 100, [100, 100, 0, 0, 100, 0]],
@@ -83,16 +87,21 @@ it('retains full high-volume populations and totals before UI pagination or rank
   const filtered = selectContributions(source, selected);
   expect(values(filtered.totals)).toEqual([489, 249, 0, 0, 249, 350]);
   if (filtered.kind !== 'overview') throw Error('Expected overview');
-  expect(filtered.contributors).toHaveLength(250);
+  expect(reportRows(filtered, 'contributors')).toHaveLength(250);
   const company = selectContributions(source, undefined, {
     kind: 'company',
     companyId: 'company-acme',
   });
   if (company.kind !== 'company') throw Error('Expected company');
-  expect(company.members).toHaveLength(100);
-  expect(company.repositories.reduce((sum, row) => sum + row.metrics.prsAuthored.value!, 0)).toBe(
-    100,
-  );
+  expect(reportRows(company, 'members')).toHaveLength(100);
+  expect(
+    reportRows(
+      selectContributions(source, company.context.selection, company.context.focus, {
+        breakdown: 'repositories',
+      }),
+      'repositories',
+    ).reduce((sum, row) => sum + row.metrics.prsAuthored.value!, 0),
+  ).toBe(100);
 });
 it('keeps primary-branch merge details and role units consistent across every catalog repository', () => {
   const source = contributionSample({ scenario: 'large' });

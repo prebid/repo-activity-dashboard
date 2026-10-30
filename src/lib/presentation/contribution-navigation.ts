@@ -2,7 +2,6 @@ import type { ContributionContext } from '@/models/contributions';
 import type { ReportMetric } from '@/models/contribution-metrics';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import { writeContributionSettings } from './contribution-settings';
-import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
 import {
   contributionSampleScenarios,
   type ContributionArea,
@@ -10,7 +9,7 @@ import {
   type CompanyBreakdown,
 } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import { safeReturnPath } from './navigation';
+import { withContributionReturn } from './contribution-return';
 
 export function contributionPath(
   target: ContributionArea | Exclude<ContributionFocus, { kind: 'overview' }>,
@@ -34,34 +33,19 @@ export function contributionHref(
   target: Parameters<typeof contributionPath>[0],
   sample: ContributionSampleScenario,
   returnTo?: string,
-  actorTypes: readonly ContributionAccount['actorType'][] = contributionActorTypes,
   settings?: ContributionSettings,
-): string {
+): string | null {
   const params = new URLSearchParams();
   if (sample !== 'reference') params.set('sample', sample);
-  writeContributionActorTypes(params, actorTypes);
-  if (returnTo) params.set('returnTo', safeContributionReturn(returnTo, '/contributors'));
   const search = settings
     ? writeContributionSettings(params.toString(), settings)
     : params.toString();
-  return contributionPath(target) + (search ? '?' + search : '');
-}
-export function safeContributionReturn(value: string | null | undefined, fallback: string): string {
-  if (!value || value.length > 65536) return fallback;
-  const path = safeReturnPath(value);
-  return /^\/(contributors|companies)(?:[/?#]|$)/.test(path) ? path : fallback;
+  return withContributionReturn(contributionPath(target) + (search ? '?' + search : ''), returnTo);
 }
 export function readContributionLayoutQuery(params: URLSearchParams): {
   sample: ContributionSampleScenario;
   breakdown: CompanyBreakdown;
-  actorTypes: ContributionAccount['actorType'][];
 } | null {
-  const requestedTypes = params.has('type')
-    ? params.getAll('type').filter(Boolean)
-    : [...contributionActorTypes];
-  if (requestedTypes.some((type) => !contributionActorTypes.some((known) => known === type)))
-    return null;
-  const actorTypes = contributionActorTypes.filter((type) => requestedTypes.includes(type));
   const sample = params.get('sample') ?? 'reference',
     view = params.get('view') ?? 'members';
   if (
@@ -72,7 +56,6 @@ export function readContributionLayoutQuery(params: URLSearchParams): {
   return {
     sample: sample as ContributionSampleScenario,
     breakdown: view as CompanyBreakdown,
-    actorTypes,
   };
 }
 export function companyBreakdownHref(path: string, search: string, view: CompanyBreakdown): string {
@@ -82,16 +65,6 @@ export function companyBreakdownHref(path: string, search: string, view: Company
   return path + (params.size ? '?' + params.toString() : '');
 }
 
-export function writeContributionActorTypes(
-  params: URLSearchParams,
-  selected: readonly ContributionAccount['actorType'][],
-): void {
-  params.delete('type');
-  const types = contributionActorTypes.filter((type) => selected.includes(type));
-  if (types.length === contributionActorTypes.length) return;
-  if (!types.length) params.set('type', '');
-  else for (const type of types) params.append('type', type);
-}
 export function contributionMetricHref(
   target: Parameters<typeof contributionPath>[0],
   sample: ContributionSampleScenario,
@@ -99,15 +72,15 @@ export function contributionMetricHref(
   metric: ReportMetric,
   returnTo: string,
   repositoryId?: string,
-): string {
+): string | null {
   const settings = {
     period: context.period,
     selection: { ...context.selection, ...(repositoryId ? { repositoryIds: [repositoryId] } : {}) },
   };
-  const url = new URL(
-    contributionHref(target, sample, returnTo, settings.selection.actorTypes, settings),
-    'https://dashboard.invalid',
-  );
+  const search = new URLSearchParams(writeContributionSettings('', settings));
+  if (sample !== 'reference') search.set('sample', sample);
+  const url = new URL(contributionPath(target), 'https://dashboard.invalid');
+  url.search = search.toString();
   url.searchParams.set('metric', metric);
-  return url.pathname + url.search;
+  return withContributionReturn(url.pathname + url.search, returnTo);
 }

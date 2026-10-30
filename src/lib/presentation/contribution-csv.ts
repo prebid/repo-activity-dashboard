@@ -1,11 +1,13 @@
+import { measurementSortNote } from './measurement-order';
 import type { ContributionContext } from '@/models/contributions';
-import type { TableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 import type { ValueColumn } from './contribution-table-values';
 export function contributionContextColumns<T>(
   context: ContributionContext,
   query: Pick<TableQuery, 'search' | 'sort' | 'descending'>,
 ): ValueColumn<T>[] {
   return [
+    { id: 'sortPolicy', label: 'Metric ordering', value: () => measurementSortNote },
     { id: 'source', label: 'Data source', value: () => context.source },
     { id: 'scenario', label: 'Sample scenario', value: () => context.scenarioId },
     { id: 'periodStart', label: 'Period start (UTC)', value: () => context.range.start },

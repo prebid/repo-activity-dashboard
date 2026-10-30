@@ -1,5 +1,6 @@
 import type { IssueRow, PullRequestRow } from './reporting';
-import type { Count, OverviewRepository } from './repository-overview';
+import type { OverviewRepository } from './repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 import type { DrilldownSelection, RepositoryDrilldown } from './repository-drilldown';
 
 export type RecordSelection =

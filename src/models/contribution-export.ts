@@ -2,13 +2,14 @@ import type { ContributionFocus, ContributionValues } from './contributions';
 import type { AdditionalValues } from './contribution-activity';
 import type { ContributionArea, CompanyBreakdown } from './contribution-page';
 import type { ReportMetric } from './contribution-metrics';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 export interface ContributionExportRequest {
   area: ContributionArea;
   focus: ContributionFocus;
   breakdown: CompanyBreakdown;
   layout: 'summary' | 'repositories';
   hideZeroMembers?: boolean;
+  identityColumns: ('actorType' | 'company' | 'members')[];
   metrics: ReportMetric[];
   query: TableQuery;
 }
@@ -18,6 +19,7 @@ export interface ContributionExportRow {
   entityId: string;
   name: string;
   login: string | null;
+  memberCount: number | null;
   actorType: string | null;
   companyId: string | null;
   company: string;

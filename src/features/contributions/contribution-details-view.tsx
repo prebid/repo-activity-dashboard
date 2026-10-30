@@ -1,4 +1,6 @@
 'use client';
+import { accountTypeLabels } from '@/models/github-account';
+import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
 import { additionalMetricDefinitions } from '@/models/contribution-activity';
 import { ArrowUpRight } from 'lucide-react';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
@@ -16,7 +18,6 @@ import {
   isCoreMetric,
   reportMetricLabel,
   reportMetricDescription,
-  actorLabels,
 } from '@/models/contribution-metrics';
 import { contributionContextColumns } from '@/lib/presentation/contribution-csv';
 import { ContributionHeader } from './contribution-header';
@@ -79,7 +80,7 @@ export function contributionDetailColumns(
       selectionGroup: 'Identity',
       label: 'Account type',
       width: 110,
-      value: (row) => actorLabels[row.account.actorType],
+      value: (row) => accountTypeLabels[row.account.actorType],
     },
     {
       id: 'company',
@@ -147,7 +148,8 @@ export function contributionDetailColumns(
       width: 110,
       align: 'right',
       value: (row) => row.value.value,
-      sortValue: (row) => (row.value.status === 'complete' ? row.value.value : null),
+      sortGroup: (row) => measurementSortGroup(row.value),
+      sortNote: measurementSortNote,
       cell: (row) => <MeasurementValue measurement={row.value} />,
     },
   ];
@@ -253,7 +255,7 @@ export function ContributionDetailsView({
         exportContextKey={JSON.stringify([details.context, details.metric])}
         exportColumns={exportColumns}
         emptyTitle="No supporting records in this scope"
-        itemLabel="account / record rows"
+        itemLabel={{ singular: 'account / record row', plural: 'account / record rows' }}
         footerNote="Totals describe the full report scope. Table search narrows displayed and exported supporting rows."
       />
     </>

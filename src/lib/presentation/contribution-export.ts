@@ -21,7 +21,8 @@ import {
   repositoryContributionValues,
   type ValueColumn,
 } from './contribution-table-values';
-import { effectiveTableQuery, writeTableQuery, type TableQuery } from './table-query';
+import { effectiveTableQuery, writeTableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 import { writeContributionSettings } from './contribution-settings';
 import { contributionContextColumns } from './contribution-csv';
 import { serializeCsv } from './csv-export';
@@ -30,6 +31,8 @@ export function readContributionExport(
   area: ContributionArea,
 ): ContributionExportRequest | null {
   const kind = params.get('entity') ?? 'overview';
+  if (params.getAll('entityId').length > 1 || (kind === 'company' && !params.has('entityId')))
+    return null;
   const focus = contributionFocusSchema.safeParse(
     kind === 'contributor'
       ? { kind, accountId: params.get('entityId') }
@@ -45,7 +48,9 @@ export function readContributionExport(
     !['members', 'repositories'].includes(breakdown) ||
     !['summary', 'repositories'].includes(layout) ||
     !requested.length ||
-    requested.some((id) => !isReportMetric(id))
+    requested.some(
+      (id) => !isReportMetric(id) && !['name', 'actorType', 'company', 'members'].includes(id),
+    )
   )
     return null;
   const columns =
@@ -73,6 +78,9 @@ export function readContributionExport(
     breakdown: breakdown as ContributionExportRequest['breakdown'],
     layout: layout as ContributionExportRequest['layout'],
     hideZeroMembers: params.get('members.zero') === 'hide',
+    identityColumns: (['actorType', 'company', 'members'] as const).filter((id) =>
+      requested.includes(id),
+    ),
     metrics: reportMetricIds.filter((metric) => requested.includes(metric)),
     query,
   };
@@ -97,8 +105,8 @@ export function contributionExportHref(
   params.set('view', page.breakdown);
   params.set('layout', layout);
   if (page.hideZeroMembers) params.set('members.zero', 'hide');
-  for (const metric of reportMetricIds)
-    if (metrics.includes(metric)) params.append('column', metric);
+  for (const column of ['name', 'actorType', 'company', 'members', ...reportMetricIds])
+    if (metrics.includes(column)) params.append('column', column);
   return (
     '/' +
     page.area +
@@ -116,9 +124,34 @@ export function contributionCsv(
     { id: 'entityId', label: 'Entity ID', value: (row) => row.entityId },
     { id: 'name', label: 'Name', value: (row) => row.name },
     { id: 'login', label: 'GitHub account', value: (row) => row.login },
-    { id: 'actorType', label: 'Account type', value: (row) => row.actorType },
+    ...(request.identityColumns.includes('actorType')
+      ? [
+          {
+            id: 'actorType',
+            label: 'Account type',
+            value: (row: ContributionExportRow) => row.actorType,
+          },
+        ]
+      : []),
+    ...(request.identityColumns.includes('members')
+      ? [
+          {
+            id: 'members',
+            label: 'Included accounts',
+            value: (row: ContributionExportRow) => row.memberCount,
+          },
+        ]
+      : []),
     { id: 'companyId', label: 'Company ID', value: (row) => row.companyId },
-    { id: 'company', label: 'Current company', value: (row) => row.company },
+    ...(request.identityColumns.includes('company')
+      ? [
+          {
+            id: 'company',
+            label: 'Current company',
+            value: (row: ContributionExportRow) => row.company,
+          },
+        ]
+      : []),
     { id: 'repositoryId', label: 'Repository ID', value: (row) => row.repositoryId },
     { id: 'repository', label: 'Repository', value: (row) => row.repository },
     ...request.metrics.flatMap((metric) => {

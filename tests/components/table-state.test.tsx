@@ -1,7 +1,7 @@
 import { it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 const columns = [{ id: 'name', label: 'Name', value: (r: { id: string; name: string }) => r.name }];
 const initial: TableQuery = { search: '', sort: '', descending: false, page: 1 };
 it('corrects local pagination without touching browser history', () => {

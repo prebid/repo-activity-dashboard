@@ -1,4 +1,5 @@
-import { agingThresholds, type Count } from '@/models/repository-overview';
+import { agingThresholds } from '@/models/repository-overview';
+import { type Count } from '@/models/reporting-measurement';
 import type { AgeBand, RepositoryPageSource, ReviewBucket } from '@/models/repository-page';
 
 export function ageBandFor(days: number): AgeBand {
@@ -30,7 +31,6 @@ export function subsetCount(base: Count, count: number, uncertain = 0): Count {
       }
     : { status: 'complete', value: count };
 }
-export { inDateRange } from './reporting-period';
 export function activityDateBasis(
   source: RepositoryPageSource,
 ): 'createdAt' | 'mergedAt' | 'closedAt' {

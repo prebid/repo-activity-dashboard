@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import type { ResolvedPeriod } from './reporting-period';
 
-export { countSchema, durationSchema } from './reporting-measurement';
-export type { Count, Measurement } from './reporting-measurement';
 import { countSchema, durationSchema } from './reporting-measurement';
 
 export const reportingBranchSchema = z.enum(['main', 'master']);

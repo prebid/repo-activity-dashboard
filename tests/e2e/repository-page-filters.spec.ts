@@ -226,6 +226,7 @@ test('opening filters captures pending search without dismissing the dialog', as
     .fill('Sample PR 1:');
   const dialog = await filters(page);
   await expect(dialog).toBeVisible();
+
   await dialog.getByRole('combobox', { name: 'Draft status', exact: true }).selectOption('drafts');
   await dialog.getByRole('button', { name: 'Apply filters', exact: true }).click();
   await expect(dialog).toHaveCount(0);
@@ -257,11 +258,21 @@ for (const [scenario, path, count] of [
         await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
         await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(Math.min(50, count));
         await expect(scope).toBeDisabled();
+        await expect(
+          page.getByRole('textbox', { name: 'Search Open pull requests', exact: true }),
+        ).toBeDisabled();
+        await expect(page.getByRole('button', { name: /^Filters(?: \(|$)/ })).toBeDisabled();
       } finally {
         release();
         await page.unrouteAll({ behavior: 'wait' });
       }
       await expect(scope).toBeEnabled();
+      await expect(
+        page.getByRole('textbox', { name: 'Search Open pull requests', exact: true }),
+      ).toBeEnabled();
+      const dialog = await filters(page);
+      await expect(dialog).toBeVisible();
+      await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
       await scope.selectOption('completed');
       await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
       expect(new URL(page.url()).searchParams.get('metric')).toBe('prsMerged');

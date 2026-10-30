@@ -17,9 +17,11 @@ import styles from './data-table.module.css';
 export function ColumnDefinitions<T>({
   title,
   columns,
+  disabled = false,
 }: {
   title: string;
   columns: DataColumn<T>[];
+  disabled?: boolean;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const explained = columns.filter((column) => column.description);
@@ -30,6 +32,7 @@ export function ColumnDefinitions<T>({
         <DialogTrigger asChild>
           <Button
             type="button"
+            disabled={disabled}
             variant="ghost"
             size="icon"
             className={styles.helpTrigger}

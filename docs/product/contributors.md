@@ -1,12 +1,10 @@
 # Contributors and Companies
 
-Status: core contribution requirements were agreed during page planning; the delivery scope below was updated on 2026-10-29. Confirmed decisions include PR authorship, current company mapping, tables and exports, the overview/focused-report hierarchy, lifetime-once credit per account/record/metric, and Issues authored. Custom groups retain their future contract and designated-editor restrictions, but follow real database integration. The starting defaults below are used for the next visual review.
-
-Current implementation: Step 1 models/samples and Step 2 layouts are implemented and tested. Step 2 visual-feedback refinements now include shared column help, explicit profile/report links, the account-type column/filter and optional comment/change-volume metrics. Steps 3 and 4 were visually accepted. Step 5 audits the complete Contributors/Companies increment, applies the remaining fixes and records the final verification/visual checkpoint before handoff. The checkpoint notes below distinguish these implemented pieces from the remaining product requirements.
+Current product contract for the Contributors and Companies frontend. Reporting uses prepared fake data; authentication and account access retain the foundation's protections. Implementation and review history live in Git and PR #8, not in this specification.
 
 ## Delivery scope — updated 2026-10-29
 
-The next frontend milestone covers Contributors and Companies, their focused reports, individual/company inclusion and exclusions, saved report preferences, and full filtered exports. Custom groups are deferred until real reporting data from the database is integrated into the application. This includes group navigation, reports, group-based selection, membership, editing permissions and group-specific samples/tests; none is required for the current frontend milestone. Existing group requirements below remain the later contract. Personal report filters and saved views remain in scope and do not require a custom-group implementation.
+The current frontend milestone covers Contributors and Companies, their focused reports, individual/company inclusion and exclusions, saved report preferences, and full filtered exports. Custom groups are deferred until real reporting data from the database is integrated into the application. This includes group navigation, reports, group-based selection, membership, editing permissions and group-specific samples/tests; none is required for the current frontend milestone. Existing group requirements below remain the later contract. Personal report filters and saved views remain in scope and do not require a custom-group implementation.
 
 Follow the [approved project sequence](README.md#approved-delivery-sequence) and [five-step frontend process](README.md#five-step-frontend-delivery-process). This milestone contains the six core contribution metrics; merge-review status and direct pushes follow as a separate frontend increment.
 
@@ -26,7 +24,7 @@ Follow the [approved project sequence](README.md#approved-delivery-sequence) and
 - Use sortable tables and metric exports for contributors, companies, and custom groups. Repository breakdowns also use tables.
 - Keep charting on the repository pages. Contributor/company charts and a custom charting tool are outside the current scope; a possible future tool does not require implementation work now.
 
-## Recommended report model
+## Report structure
 
 Use one top-level **Contributions** area with two initial sibling overview views: **Contributors** and **Companies**. Add **Groups** after database integration. Each delivered view has its own linkable URL and presents the same reporting measures grouped by its entity type. These views share metric definitions, filters, table components, and export behavior.
 
@@ -67,9 +65,9 @@ From an overview, choosing one repository in the shared filter immediately compa
 
 ## Account links, type filtering and column explanations
 
-Updated during Step 4 on 2026-10-29: in Contributor and company-member tables, the display name opens the internal contributor report, while the `@handle` opens the source-provided GitHub profile in a new tab. There is no separate View report action. Human, Prebid-agent and bot icons accompany the identity; Account type remains its own filterable column. Invented accounts use visibly identified `github.example` profile placeholders, not potentially unrelated real accounts. Repository author/contributor lists use the same profile component. Company names continue to open internal company reports.
+In contributor and company-member tables, the display name opens the internal contributor report, while the `@handle` opens the source-provided GitHub profile in a new tab. There is no separate View report action. Human, Prebid-agent and bot icons accompany the identity; Account type remains its own filterable column. Invented accounts use visibly identified `github.example` profile placeholders, not potentially unrelated real accounts. Repository author/contributor lists use the same profile component. Company names continue to open internal company reports.
 
-**Account type** is a default contributor/member column. Redundant per-row human/agent/bot tags are removed. A multi-select filter can include Human, Prebid agent, Bot and unclassified accounts in any combination. Empty selection means none, not all. Filtering precedes company aggregation, resets table pages and carries through overview/focused navigation, reload and Back/Forward. This control was pulled forward on request; repository/timeframe/population controls and saved report preferences remain Step 3.
+**Account type** is a default contributor/member column. Redundant per-row human/agent/bot tags are removed. A multi-select filter can include Human, Prebid agent, Bot and Unknown in any combination. Empty selection means none, not all. Filtering precedes company aggregation, resets table pages and carries through overview/focused navigation, reload and Back/Forward. Repository, timeframe and population controls share the same scope and saved-preference behavior.
 
 Reporting tables use one column-help pattern: native header hover descriptions and accessible header descriptions come from the column definition; the help button beside each table title opens the same visible-column definitions for keyboard/touch. The contribution-only page dropdown is removed. Sorting and help remain separate actions.
 
@@ -191,9 +189,9 @@ Add selectable status-at-merge columns alongside Merges performed, keeping human
 
 ## Accounts, companies, and aggregation
 
-Treat a contributor as a GitHub account. Use account identity for attribution and display its current login/name. Do not merge separate accounts merely because display names match.
+Treat a contributor as a GitHub account. Use account identity for attribution and preserve the current display casing of its login/name. Validate login uniqueness case-insensitively. Do not merge separate accounts merely because display names match.
 
-Retain the existing actor categories: human, mapped Prebid agent, and other GitHub-identified bot. Offer an actor-type filter. Recommended initial scope is all account types, visibly labeled, with the ability to save a Humans-only or other selection.
+Retain the existing actor categories: human, mapped Prebid agent, and other GitHub-identified bot. Offer an actor-type filter. Initial scope is all account types, visibly labeled, with the ability to save a Humans-only or other selection.
 
 ### Repository attribution
 
@@ -277,7 +275,7 @@ Overview rankings normally show accounts with at least one counted contribution 
 
 Use language such as No counted contributions in this period rather than claiming a person was inactive: repeat work on an already-credited PR may produce no new contribution credit. Keep incomplete-history rows distinguishable from known zero; the Hide zero totals filter must not silently discard unknown values as zero.
 
-Show which metric or reporting period has incomplete coverage. In descending rankings, place unknown values separately or after known values with an availability indicator, without assigning a misleading numeric rank. Missing history is not a confirmed lack of contributions.
+Show which metric or reporting period has incomplete coverage. In either sort direction, place complete values first, then numerically ranked partial subtotals, then missing or not-applicable values. Show this policy beside a sorted metric and include it in export metadata. Missing history is not a confirmed lack of contributions.
 
 ### Repository breakdown table
 
@@ -365,143 +363,14 @@ This proposal defines the desired report, not proof that the existing ingestion 
 - An ordinary report user can filter a group without editing its membership; only designated group editors can modify the definition.
 
 
-## Step 1 — models and prepared samples
 
-Implemented on the `codex/contributions-pages` branch before layouts. The existing contribution routes/screens remain on their starter inputs; Step 2 will wire the new models into the visual layouts. No database, reporting requests, group features, timeline UI, or agent execution was added.
+## Shared interaction and data boundaries
 
-- [Display contracts](../../src/models/contributions.ts) define the six separate metric IDs/labels/date bases, stable account/company/repository identities, selected populations and exclusions, overview/focused-report shapes, and metadata-only supporting credits. Focus, selected scope, exact range, snapshot and current-mapping attribution remain explicit in report/detail context.
-- [Prepared-source validation](../../src/lib/presentation/contribution-source.ts) rejects duplicate identities/credits, unknown references, incompatible actors/record kinds, invalid dates, non-primary merge credits and known credits under unavailable coverage. A credit's identity does not include month, year, current company or login. These checks validate supplied display facts; they do not establish the real history behind a first-credit date.
-- [Pure selectors](../../src/lib/presentation/contributions.ts) use one account/repository selection for contributor rankings, company totals, member tables, repository breakdowns and supporting credits. Inclusion is a union; exclusions win. Company totals include every selected member before table paging/ranking. Known-zero members remain in focused reports; incomplete values remain distinct from zero and are retained in overview eligibility.
-- [Prepared scenarios](../../src/mocks/contributions.ts) use the canonical 18-repository catalog and a fixed `2026-10-24T12:00:00.000Z` snapshot. The reference scenario follows the handwritten REF-01 contribution answers without implementing raw-event reconstruction. Large, empty, partial and unavailable scenarios cover 251 accounts, a company with 100 members, and an agent with 240 authored PRs and 350 issues. The partial example omits the approval whose first-credit date is unestablished and exposes only the verified subtotal.
-- Count/availability definitions and date-range membership are shared with repository reporting. Existing imports remain compatible; shared table behavior and authentication are unchanged.
-
-These are complete supplied fake populations for frontend work, not a database schema or remote paging API. The contribution scenarios are independently named and do not overwrite the existing overview's prepared values. Supporting navigation in Step 4 must retain the contribution scenario/cohort rather than silently opening an unrelated default repository sample. Dates from 2026 can select prepared credits; earlier unsupported ranges show unavailable samples. The future real adapter will supply bounded pages and full-scope aggregates under the later integration contract.
-
-Verification: `npm run check` passed formatting, lint, TypeScript, architecture/retirement boundaries and coverage gates, plus 666 individually passing unit/component cases, including 75 new contribution cases. No skipped, pending, expected-failure or flaky results. Tests cover independent per-account/company/month answers, cross-year first-credit dates, current-mapping changes, overlapping inclusion/exclusion, exact date boundaries, primary-branch attribution, two approvals across one PR, full high-volume populations, and summary/detail reconciliation. Browser, packaged-production and account-integration suites were not rerun for this model-only step; the new page composition and visual checks belong to Step 2. Real GitHub/database calculation correctness remains unverified.
-
-
-## Step 2 — layout checkpoint
-
-The guarded `/contributors` and `/companies` overviews now use the Step 1 models. Contributor reports are at `/contributors/[accountId]`; mapped-company reports are at `/companies/id/[companyId]`, and unmapped accounts have `/companies/unmapped`. Stable IDs, rather than display names, identify focused reports. Invalid identities return 404 after authentication; invalid layout selections show a recovery view. Production tests verify anonymous HTML/RSC denial on the new routes as well as authenticated rendering.
-
-The main navigation has one Contributions entry. Overview tabs switch between Contributors and Companies. Focused reports show separate metric totals and repository rows; company reports switch between included members and repositories. Known-zero members remain visible. Repository identity rows and numeric values remain informational until the later metric-drilldown step; there are no unfinished group, timeline or execution controls.
-
-`src/server/reporting.ts` owns model selection for these pages. Screens receive the selected display model and connect the existing table controller to URL state; they do not select the source again or load samples. Reusable contribution header, identity/metric columns, focused totals and view components own rendering. The Storybook catalog composes those same views from samples and a local controller without authentication or server imports. The old contribution row type and disconnected three-row sample arrays are removed.
-
-The shared table retains 50-row pagination, whole-result search/sort, column selection and CSV export. Explicit optional CSV columns let this feature include coverage, stable IDs, period boundaries, current-mapping attribution, snapshot, report focus and the current table search/sort without putting export-only metadata in the visible table or search index. Partial subtotals remain labeled and missing values export blank. Column-width styling lets the contribution metrics share spare width while the pinned identity stays bounded; other table views retain their previous sizing defaults.
-
-Parent-report URLs retain table queries when opening accounts/companies, including a pending search. Company member/repository views keep separate table queries. These are the navigation needed to inspect the layouts; full repository/timeframe/account filters and saved report presentation remain Step 3. Metric-specific supporting-record drilldowns and remaining export choices remain Step 4. The period and attribution strip is descriptive at this checkpoint, not an unwired selector.
-
-All reporting remains fake. The validated `sample` query selects `reference`, `large`, `partial`, `missing` or `empty` layout examples during this phase, and those choices carry through identity links. It is not a future live-data fallback. Existing account policy, six-character passwords and the dark-default Prebid theme are unchanged.
-
-Verification: final `npm run check:all` passed 681 unit/component, 31 isolated account, eight packaged-production and 222 Chromium/WebKit results (942 total), individually validated with no skips, pending, expected-failure or flaky cases. Formatting, lint, TypeScript, architecture/retirement boundaries, coverage, production/preview builds and Storybook passed; dependency audit reported zero vulnerabilities. The 24 new browser cases cover both themes and desktop/mobile layouts, accessibility, fixed identity sizing, company/member/repository navigation, high-volume 50-row paging, pending-search returns, exceptional states and isolated catalog views. Existing navigation/export checks were retained against the new layout and sample identities. Desktop and mobile previews were visually inspected; final user visual acceptance is pending. No real-data integration, deployment or new PR is included in this checkpoint.
-
-
-## Step 2 visual-feedback refinements — 2026-10-29
-
-Implemented the approved refinements with prepared sample data only:
-
-- All reporting tables consume one shared column-help component using their existing column descriptions. Header hover and screen-reader descriptions use the same copy as the keyboard/touch help dialog. Additional repository metric descriptions fill prior gaps. The contribution-only disclosure is removed.
-- A shared profile link accepts validated source-provided GitHub URLs and marks sample destinations. Contributor names and handles form one profile link; View report is a separate internal action. Repository author/credit lists also link account identities to profiles. Fake identities continue to use reserved `github.example` URLs.
-- Account type is a visible, hideable column with no duplicate row tags. A draft/apply multi-select filter supports mixed types and none; explicit `type` URL values survive overview and focused navigation, reload and history. Filtering applies before company aggregation, and page changes reset appropriately. An excluded person/company gets an explicit no-matching-accounts state.
-- Comment identities and merged-volume role assignments are separate prepared facts from the six original contribution credits. All six core answers remain unchanged. Normal/reference samples, large populations, unavailable coverage and partial file classifications exercise all 33 additional metrics. Every optional group is selectable in Columns and represented in CSV with role, coverage and scope information.
-- Validation rejects duplicate comments/role assignments, invalid relationships or dates, post-merge-only qualification, non-primary merges and inconsistent complete totals. Source coverage must account for known eligible roles. Qualifying evidence may be later than a known first credit without multiplying volume; volume is always dated by merge. Unknown first-credit history and effective approval-at-merge state remain separate from these associated-volume metrics.
-- Names and visible control text are included in accessible labels. Overflow measurements are deferred outside ResizeObserver delivery and pending frames are cancelled on cleanup; closing the type menu releases its layout before the filtered view updates. The browser error observer remains strict. Dialog contrast is tested after its opening transition finishes, without disabling contrast checks.
-
-Final verification: `npm run check:all` passed 719 unit/component, 31 account, eight packaged-production and 230 Chromium/WebKit results (988 total), with individually checked reports and no skipped, pending, expected-failure or flaky cases. Formatting, lint, TypeScript, architecture/retirement checks, coverage, production/preview builds, Storybook and the zero-advisory dependency audit passed. Focused browser cases verify profile destinations, mixed/empty type filtering, parent context, all optional statuses/roles, exports, and consistent desktop/keyboard/mobile help. Real GitHub collection, database calculations, deployment and remaining Step 3 controls are outside this change.
-
-The shared-help browser scenario was additionally strengthened to wait for the fully opened mobile dialog before capturing it and checking contrast. Both engine cases passed; these overlap the full suite above and are not added to its total. No application code changed after the full verification.
-
-
-## Step 3 — filters, navigation and saved preferences
-
-Implemented with prepared samples only. One authenticated server composition validates the scope and selects the report; client controls receive picker identities and the resulting display model, not raw credits or records to aggregate again.
-
-- Shared timeframe and repository controls continue the repository-page design. Presets remain relative to the reporting snapshot; custom dates are inclusive UTC dates. Unsupported sample history retains missing/partial values rather than zero.
-- People and current company memberships combine as a union. Explicit exclusions win, including when an account is also included individually. Unmapped company remains selectable. No repositories, no account types or an empty selected population explicitly means none.
-- Account pickers search without changing selection, use draft/apply/cancel, and page at the same 50-row limit as tables. A selected-only view makes exclusions and larger selections inspectable. Known-zero members remain in focused company reports.
-- Scope changes reset all report page numbers and flush pending table search. Focused links, company/member/repository navigation, reload and Back/Forward retain scope; parent links retain the parent table query. The complete scope is carried in the URL, including empty selections. Return links are bounded at 64 KiB to accommodate larger account selections.
-- Browser preferences are isolated by signed-in account and prepared scenario, shared by the related Contributors/Companies report family. Direct visits restore the last deliberately chosen scope. Any explicit scope field in a URL makes that URL authoritative; omitted fields use documented defaults, avoiding invisible exclusions inherited from local storage. Merely opening someone else's link does not overwrite saved defaults. Invalid saved filters show a notice and use defaults; invalid URL identities/date ranges show a recovery state.
-- Column visibility is saved per table layout and can be overridden in the URL; sort preferences continue using the shared table controller. Company member/repository tabs retain independent table queries. Reset filters clears scope preferences and table searches/pages while keeping column/sort presentation. Browser storage failure leaves URL-based filtering usable with a notice. Preferences are local to this browser, not synchronized through a database.
-- Company totals and CSV exports use the full selected population before 50-row display pagination. A focused account/company narrows the selected population; it does not discard exclusions or repository/time constraints.
-
-Custom groups, timeline reporting, real database integration, supporting-record drilldowns and remaining export choices retain their agreed later steps. No deployment or PR publication is included in this checkpoint.
-
-Self-review corrections: report headings remain visible while browser preferences load; failed-save warnings survive a subsequent server render until a successful save/reset; shared 50-row sizing also bounds account pickers; the population dialog keeps Apply/Cancel visible while its choices scroll. Browser assertions explicitly recognize canonical report URLs and scope the preference status separately from empty-result announcements.
-
-Verification: format/lint, strict types, architecture/retirement boundaries and coverage gates pass. Individual machine reports confirm 733 unit/component, 31 isolated account, eight packaged-production and 238 Chromium/WebKit cases (1,010 total), with no skipped, pending, expected-failure or flaky cases. Production and preview builds, Storybook and the zero-advisory dependency audit passed. The final browser run includes the existing repository regressions plus new scope, history, 50-row pagination, full export and desktop/mobile accessibility cases. Both-engine screenshots were inspected; the local fake-data preview remains at port 3110 for the Step 3 visual checkpoint. Real database calculations, cross-device preference synchronization and deployment remain outside this verification.
-
-
-## Step 4 — supporting records and exports
-
-Implemented with prepared fake data, preserving the accepted layout and Step 3 scope/preferences.
-
-- Core metric cells, optional comment/volume cells and focused metric totals link to the matching supporting list. A repository-row metric narrows the repository scope; the return link keeps the exact parent filters, search, sort, visible columns and page. Reporting dates, actor types, selected people/companies and exclusions remain explicit. Historical cohorts retain merged/closed records and drafts where their metric definition includes them.
-- Supporting pages use 50-row tables and direct placeholder GitHub record links. Core credits use one account/record/metric row; comments group unique comment identities by account/record with their count and first/last timestamps; volume rows carry the qualifying account's final merged PR size on the merge date. No descriptions, comment/review text, file contents or diffs are displayed.
-- Full-scope metric totals, account/record row counts and distinct PR/issue counts are labeled separately. Multiple company reviewers on one PR remain distinct contribution rows. Partial/missing coverage is explicit. Supporting-table search narrows its rows and export; the labeled full-report total remains the report-scope total.
-- Quick Export CSV retains the current full-table export. Export options selects metric columns and either the current table or a flat entity/repository breakdown. It starts with visible metrics, always includes identity/scope/coverage metadata, and includes counting definitions for selected metrics. Filtering and sorting choose the full entity population before repository expansion; known-zero repository rows remain. Repository tables export their existing repository rows.
-- The protected `/contributors/export` and `/companies/export` routes lazily generate fake-data CSV downloads with private/no-store headers. They use the same pure table value definitions, report selection and sort semantics as the visible tables. No real reporting source, ingestion endpoint or database adapter was added; the later real adapter still owns bounded retrieval for large exports.
-- Details and exports share authenticated source composition and pure selectors. Display components receive typed models. The prior separate View report action is superseded by the display-name/internal and handle/GitHub link split, with account-type icons restored.
-
-Step 5 remains the final self/adversarial audit, visual sign-off and draft PR handoff against `codex/frontend-rebuild`. Timeline reporting, custom groups and database integration keep their approved later positions.
-
-Verification: format/lint, strict types, architecture/retirement boundaries and coverage gates pass. Individually validated reports confirm 762 unit/component, 31 isolated account, 8 packaged-production and 248 Chromium/WebKit cases (1,049 total), with no skipped, pending, expected-failure or flaky results. Production/preview and Storybook builds pass; the dependency audit reports zero advisories. Tests reconcile all 39 metric details, shared-PR credits versus distinct records, grouped comments, final merged volume, historical closed/draft PRs, 240-PR/350-issue pagination and full exports, selected-metric flat repository exports, exclusion precedence, protected download access and error recovery. Desktop/mobile screenshots in both engines were inspected. The fake-data preview remains at port 3110 for the Step 4 visual checkpoint; no deployment, PR publication or real-database verification is included.
-
-
-## Step 5 — self-audit, adversarial checks and final visual review
-
-Review scope: the full uncommitted Contributors/Companies increment on `codex/contributions-pages` over repository-page baseline `dbf4c08`, including the shared table/help/profile controls it changes. This is a fake-data frontend review, not validation of GitHub ingestion, real database calculations or live Amplify deployment. The approved account-type icons, internal display-name links, external @handles, dark default and existing account behavior remain in place.
-
-Audit dispositions:
-
-| Finding | Resolution and executable regression |
-| --- | --- |
-| A successful smaller column write could clear a failed report-scope save warning. | Track storage outcomes independently by preference key. `contribution-controls.test.tsx` reproduces the failed scope write plus successful column write and verifies the warning persists until that scope is saved. |
-| The agreed company-member Hide zero totals control was missing. | Added saved/URL-controlled member visibility, checking all 39 metrics rather than visible columns. Only complete zeros are hidden; missing, partial and not-applicable values remain. The table, quick CSV and flat CSV use the same predicate. Unit and browser cases retain full totals, 50-row page/history behavior and export agreement. Reset report filters preserves this presentation preference alongside columns/sorting. |
-| A stalled export could indefinitely block its modal; a late response could outlive the report. | Exports can be canceled, time out after 30 seconds, abort on context change/unmount and discard late responses. The component lifecycle tests cover cancellation, timeout, scope change, unmount and an old response arriving during a newer request. A browser case exercises a held request and verifies it cannot download after cancellation. |
-| Return links could depend on subsequently changed saved sort/column defaults. | Capture complete parent scope, table query and presentation into a canonical return URL for both normal and new-tab links. Browser regression changes preferences through nested reports and verifies the original page/columns return. |
-| Early credit regressions exercised an obsolete parallel detail selector. | Removed that selector and its unused model shapes; existing credit/date/company-mapping assertions now exercise the live page composition. Validation and supporting rows share stable record/account/metric identity. Removed unused URL/preference helpers rather than preserving tests of dead paths. |
-| Export groups had nested scrolling, and a controlled default-visible sort could be mislabeled hidden. | Export choices now use one scrolling region with actions kept visible. The visibility message follows the table's explicit-false rule; a component case verifies the controlled-default behavior. |
-
-The review also traced authorization before source composition/export, metadata-only detail projection, once-per-record credit identity, pre-merge volume qualification, current company attribution, numeric/coverage CSV encoding and formula protection, explicit empty selections, partial/missing counts, and architecture/retirement guards. No real reporting adapter, timeline, custom group or agent execution was added.
-
-Final visual coverage includes Contributors, Companies, company members, individual repository breakdowns and supporting volume records in both themes at 375, 768 and 1440 pixels, with additional missing/partial/empty/export/paging states in the existing suites. User acceptance of the final audit refinements remains the last visual checkpoint before opening a draft PR against `codex/frontend-rebuild`.
-
-Final verification: 772 unit/component, 31 isolated account, 8 packaged-production and 264 Chromium/WebKit cases passed (1,075 individually validated results). No skipped, pending, expected-failure or flaky results; browser retries remain disabled. Format/lint, strict types, architecture/retirement checks, coverage, both builds, Storybook and the zero-advisory dependency audit passed. The initially failing nested-navigation test was corrected to wait for each destination and strengthened to begin from inherited preferences; both targeted cases and the subsequent full browser run passed. The final gallery contains 60 captures across five page types, two themes, three widths and two engines, with additional exceptional/export states covered by the suites. No unresolved findings remain in this reviewed fake-data increment. The interactive app is at http://127.0.0.1:3110/contributors and the final visual gallery is at http://127.0.0.1:3122/. Final user visual acceptance precedes draft-PR handoff.
-
-
-## Repository-row refinement — 2026-10-29
-
-After final visual review, the user requested concise focused reports rather than all 18 repositories when most have no contributions. The shared pure report projection now omits repository rows confirmed zero across every core and optional metric, before sorting, paging and export. This applies to contributor and company repository breakdowns and flat entity/repository exports. The canonical catalog, selected repository scope, original prepared facts and aggregate totals remain intact; this is result construction, not CSS hiding or deletion of source records. Missing, partial, not-applicable and optional-metric-only rows remain visible. An entirely known-zero contributor report shows the existing empty state.
-
-Related surfaces: contributor/company overview rankings already omit fully zero entries; company member tables retain their existing saved Hide zero totals option. The All Repositories inventory and genuine PR/issue supporting records keep their existing behavior. This refinement supersedes earlier checkpoint notes that kept all known-zero repository rows.
-
-Refinement verification: 777 unit/component cases and 68 affected Chromium/WebKit contribution cases passed with individually checked results and no skipped, pending, expected-failure or flaky cases. Static checks, coverage, preview and Storybook builds passed. Cases verify unchanged catalog/scope/totals, optional-only activity, partial/missing zero-valued rows, concise contributor/company breakdowns, empty reports and matching quick/custom exports. The rebuilt contributor preview was opened and visually checked.
-
-
-## CSV controls consolidation — 2026-10-29
-
-The user deferred additional formats and prioritized consistent CSV controls now. A single Export CSV button opens the shared dialog wherever CSV export is enabled, including contribution supporting-record tables. Visible columns are selected initially; users can change that selection for the file without changing the table. Required identity fields and context remain automatic, while coverage metadata follows its selected value. All matching rows and sorting are retained, independent of 50-row display pagination.
-
-Contributor/company overviews and company-member reports may select By repository inside the same dialog. Individual and company repository tables already use that layout, so they do not show a redundant layout choice. The separate Export options component and parallel download lifecycle are retired. PDF/PNG/PowerPoint feasibility work and implementation belong after custom groups and the core roadmap, not this increment. This supersedes the earlier two-button export checkpoint notes.
-
-Future-format clarification: Excel/XLSX is not planned; CSV covers the spreadsheet-data use case. The deferred formats are PDF, PNG and PowerPoint.
-
-CSV consolidation verification: 780 unit/component, 8 packaged-production and 94 affected Chromium/WebKit cases passed, with individually validated results and no skipped, pending, expected-failure or flaky cases. Format/lint, types, architecture/retirement checks, both builds and Storybook passed. The shared export component inherits the shared-table coverage thresholds. Regressions cover visible-column defaults, export-only choices, automatic identity/context and dependent coverage metadata, full-result sorting/paging, repository alternatives, errors/cancellation and unchanged table preferences. The final contributor CSV dialog was opened and visually checked; all reporting data remains fake.
-
-
-## Column and CSV selection organization — 2026-10-29
-
-The user requested smaller, readable sections and reusable selection chunks before handoff. Column menus and the CSV dialog now share selection definitions, grouped checkbox rows, required markers, partial-selection counts and bulk group/section controls. Contribution choices are separated into Identity, Pull requests, Reviews and approvals, Issues, Comment activity and the three role-volume groups, each with Files and Lines subsections. Repository table selectors adopt the same component pattern. Selection-only metadata leaves the approved table headers/order, CSV naming, metrics, filters and source facts unchanged. CSV choices remain local to the export. PDF/PNG/PowerPoint are still deferred; Excel remains excluded.
-
-Grouped-selection verification: 790 unit/component, 8 packaged-production and 272 Chromium/WebKit cases passed, with individually validated results and no skips, pending, expected-failure or flaky cases. Static checks, strict types, architecture/retirement boundaries, coverage, production/preview and Storybook builds passed. Tests verify stable grouping independent of table/CSV headings, group/subsection changes, required fields, last-visible protection, partial state, descriptions, visible separators, narrow layouts, keyboard focus and export/table independence. A group and field sharing a label receive distinct accessible names; the existing repository preference regression passes. Desktop/mobile selector captures and the live preview were visually inspected. All reporting data remains fake and the deferred-format roadmap is unchanged.
-
-
-## Review handoff — 2026-10-29
-
-The user accepted the final visual preview, including the shared grouped column and CSV controls, and authorized committing this increment and opening a draft PR against `codex/frontend-rebuild`. Steps 1–5 and the refinements above are ready for independent review; earlier pending-acceptance notes are historical checkpoints. This does not authorize a merge to `main` or a production deployment. Reporting remains fake, with custom groups, real-data integration and expanded export formats in their approved later milestones.
-
-
-### Hosted-CI reconciliation test adjustment
-
-The first PR #8 run timed out in the large-sample reconciliation test, which performed all 39 metric checks inside one five-second test. The five scenario loops now register one case per metric, preserving every sample, assertion and default timeout. This improves failure isolation without changing application code or relaxing coverage. The subsequent local `npm run check` passed with 980 individually validated unit/component cases (195 scenario/metric cases replacing five combined cases); coverage results are unchanged. Hosted verification for the updated commit is tracked on PR #8.
+- Server-rendered reports include actual rows. Controls wait for hydration; navigation never substitutes a blank preference-loading screen.
+- Explicit URL scope wins over saved preferences. Only fields changed by the user update personal defaults. Sorting and columns are saved per viewer, scenario and table kind; exclusions remain part of population scope.
+- Nested links carry bounded, self-contained return history. Reloading or opening a link in a new tab retains its immediate parent and filters. If a link cannot represent its scope safely, show the limit instead of silently broadening the report.
+- Reports carry one active row collection. Supporting details and metadata-only account choices are separate; account/company pickers search and page at 50 choices. Sparse prepared metrics are aggregated before table pagination without materializing every account/repository combination.
+- Table rendering and exports share filtering and stable ordering. Both aggregate CSV layouts use one producer with selected value, coverage, reason and counting-basis columns. Stable entity/repository identities and scope metadata remain automatic. Optional identity display fields respect export choices.
+- One Export CSV dialog owns current-table and repository layouts. Its initial columns mirror the table; export changes never mutate table columns. Cancellation, timeout and errors are shared. Downloads include the full filtered population, regardless of the visible page.
+- Column menus and CSV choices share grouped sections: Identity, Pull requests, Reviews and approvals, Issues, Comment activity, and three role-volume groups with Files and Lines subsections. Required identities and partially selected groups are explicit.
+- Account and CSV dialogs share one scrollable frame: header/actions remain visible, choices scroll within a labelled keyboard-focusable region. Route errors use the shared page-error component; no contribution-specific loading screen is promised.

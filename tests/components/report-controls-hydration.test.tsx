@@ -3,7 +3,7 @@ import { act, waitFor } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { hydrateRoot, type Root } from 'react-dom/client';
 import { RepositoryScopeControls } from '@/features/repositories/repository-scope-controls';
-import { TimeframeControl } from '@/features/repositories/timeframe-control';
+import { TimeframeControl } from '@/components/reporting/timeframe-control';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 const samples = repositoryOverviewSamples();

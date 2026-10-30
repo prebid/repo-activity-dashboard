@@ -1,3 +1,12 @@
+import {
+  safeContributionReturn,
+  contributionReturnHref,
+} from '@/lib/presentation/contribution-return';
+import { contributionSample } from '@/mocks/contributions';
+import {
+  defaultContributionSettings,
+  readContributionSettings,
+} from '@/lib/presentation/contribution-settings';
 import { expect, it } from 'vitest';
 import {
   companyFocus,
@@ -5,7 +14,6 @@ import {
   contributionHref,
   contributionPath,
   readContributionLayoutQuery,
-  safeContributionReturn,
 } from '@/lib/presentation/contribution-navigation';
 it('keeps stable identity routes unambiguous for unmapped and mapped companies', () => {
   expect(contributionPath('companies')).toBe('/companies');
@@ -24,11 +32,17 @@ it('keeps stable identity routes unambiguous for unmapped and mapped companies',
 it('preserves sample and exact parent table state without accepting external return destinations', () => {
   const parent = '/companies/id/company-acme?view=repositories&repositories.page=2';
   const href = new URL(
-    contributionHref({ kind: 'contributor', accountId: 'account-alice' }, 'large', parent),
+    contributionHref({ kind: 'contributor', accountId: 'account-alice' }, 'large', parent)!,
     'https://example.test',
   );
   expect(href.searchParams.get('sample')).toBe('large');
-  expect(href.searchParams.get('returnTo')).toBe(parent);
+  const restored = new URL(
+    contributionReturnHref(href.searchParams, '/contributors'),
+    'https://example.test',
+  );
+  expect(restored.pathname).toBe('/companies/id/company-acme');
+  expect(restored.searchParams.get('view')).toBe('repositories');
+  expect(restored.searchParams.get('repositories.page')).toBe('2');
   expect(contributionHref('contributors', 'reference')).toBe('/contributors');
   for (const path of [
     null,
@@ -50,14 +64,12 @@ it('validates layout scenarios and retains independent table queries when switch
   expect(readContributionLayoutQuery(new URLSearchParams())).toEqual({
     sample: 'reference',
     breakdown: 'members',
-    actorTypes: ['human', 'agent', 'bot', 'unknown'],
   });
   expect(
     readContributionLayoutQuery(new URLSearchParams('sample=large&view=repositories')),
   ).toEqual({
     sample: 'large',
     breakdown: 'repositories',
-    actorTypes: ['human', 'agent', 'bot', 'unknown'],
   });
   for (const query of ['sample=unknown', 'sample=', 'view=other'])
     expect(readContributionLayoutQuery(new URLSearchParams(query))).toBeNull();
@@ -68,7 +80,6 @@ it('validates layout scenarios and retains independent table queries when switch
   ).toEqual({
     sample: 'partial',
     breakdown: 'members',
-    actorTypes: ['human', 'agent', 'bot', 'unknown'],
   });
   const changed = companyBreakdownHref(
     '/companies/id/company-acme',
@@ -82,19 +93,24 @@ it('validates layout scenarios and retains independent table queries when switch
   );
 });
 
-it('preserves explicit mixed/empty actor filters, rejects unknown values and keeps them on focused links', () => {
-  expect(
-    readContributionLayoutQuery(new URLSearchParams('type=agent&type=human&type=agent'))
-      ?.actorTypes,
-  ).toEqual(['human', 'agent']);
-  expect(readContributionLayoutQuery(new URLSearchParams('type='))?.actorTypes).toEqual([]);
-  expect(readContributionLayoutQuery(new URLSearchParams('type=robot'))).toBeNull();
+it('keeps account types solely in the validated report settings', () => {
+  const source = contributionSample();
+  const read = (query: string) =>
+    readContributionSettings(new URLSearchParams(query), source, source.asOf);
+  expect(read('type=agent&type=human&type=agent')?.selection.actorTypes).toEqual([
+    'human',
+    'agent',
+  ]);
+  expect(read('type=')?.selection.actorTypes).toEqual([]);
+  expect(read('type=robot')).toBeNull();
+  const settings = defaultContributionSettings(source);
+  settings.selection.actorTypes = ['human'];
   expect(
     contributionHref(
       { kind: 'contributor', accountId: 'account-alice' },
       'reference',
-      '/contributors?type=human',
-      ['human'],
+      undefined,
+      settings,
     ),
   ).toContain('type=human');
 });

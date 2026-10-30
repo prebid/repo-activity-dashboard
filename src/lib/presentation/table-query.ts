@@ -1,10 +1,4 @@
-export const tablePageSize = 50;
-export interface TableQuery {
-  search: string;
-  sort: string;
-  descending: boolean;
-  page: number;
-}
+import type { TableQuery } from '@/models/table-query';
 export function readTableQuery(
   search: string,
   key: string,

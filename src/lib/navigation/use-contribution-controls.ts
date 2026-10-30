@@ -1,33 +1,48 @@
 'use client';
-import { useEffect, useState, useTransition } from 'react';
+import type { ContributionOptions } from '@/models/contribution-options';
+import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ContributionPage } from '@/models/contribution-page';
-import type { ContributionDirectory, ContributionSettings } from '@/models/contribution-settings';
+import type {
+  ContributionControlDirectory,
+  ContributionSettings,
+} from '@/models/contribution-settings';
 import { additionalMetricIds } from '@/models/contribution-activity';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
   hasContributionScope,
-  readContributionPreferences,
+  readContributionPreferenceCandidate,
+  contributionPreferenceNeedsLookup,
   serializeContributionPreferences,
   writeContributionSettings,
   readContributionPresentation,
   serializeContributionPresentation,
+  mergeContributionPreferences,
+  type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
+import {
+  contributionUrlFits,
+  contributionLinkLimitMessage,
+} from '@/lib/presentation/contribution-return';
 import {
   resolveTableColumns,
   writeTableColumns,
 } from '@/lib/presentation/table-column-preferences';
-import { writeTableQuery, type TableQuery } from '@/lib/presentation/table-query';
+import { writeTableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 import type { useTableController } from './use-table-controller';
+import { contributionPreferencesChanged } from './use-contribution-entry';
+import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 export function useContributionControls(
   viewerId: string,
   page: ContributionPage,
-  directory: ContributionDirectory,
+  directory: ContributionControlDirectory,
   table: ReturnType<typeof useTableController>,
   tableKey: string,
   columnIds: readonly string[],
+  options: ContributionOptions,
 ) {
   const router = useRouter(),
     pathname = usePathname(),
@@ -35,7 +50,6 @@ export function useContributionControls(
   const preferenceKey = contributionPreferenceKey(viewerId, page.sample),
     columnKey = preferenceKey + ':columns:' + tableKey;
   const queryKey = tableKey === 'contributors' || tableKey === 'companies' ? 'report' : tableKey;
-  const [loaded, setLoaded] = useState('');
   const [saved, setSaved] = useState<{
     key: string;
     columns: Record<string, boolean>;
@@ -46,12 +60,17 @@ export function useContributionControls(
   function recordStorage(key: string, available: boolean) {
     setStorage((previous) => ({ ...previous, [key]: available }));
   }
+  const invalidStored = useRef<{ key: string; raw: string | null } | null>(null);
+  const [checking, setChecking] = useState(false);
   const [notice, setNotice] = useState<string>();
   const [pending, startTransition] = useTransition();
-  const value: ContributionSettings = {
-    period: page.report.context.period,
-    selection: page.report.context.selection,
-  };
+  const value: ContributionSettings = useMemo(
+    () => ({
+      period: page.report.context.period,
+      selection: page.report.context.selection,
+    }),
+    [page.report.context.period, page.report.context.selection],
+  );
   const explicit = hasContributionScope(new URLSearchParams(search));
   const defaults = Object.fromEntries(additionalMetricIds.map((id) => [id, false]));
   const columns = resolveTableColumns(
@@ -66,10 +85,12 @@ export function useContributionControls(
     tableKey === 'members' &&
     (zero !== null ? zero === 'hide' : saved?.key === columnKey && saved.hideZeroMembers);
   useEffect(() => {
+    const controller = new AbortController();
+    let raw: string | null = null;
     let scope: ContributionSettings | null = null;
     try {
-      const raw = localStorage.getItem(preferenceKey);
-      scope = readContributionPreferences(raw, directory, page.report.context.asOf);
+      raw = localStorage.getItem(preferenceKey);
+      scope = readContributionPreferenceCandidate(raw, directory, page.report.context.asOf);
       if (!explicit)
         setNotice(
           raw && !scope
@@ -94,17 +115,79 @@ export function useContributionControls(
       setSaved(null);
       setStorage((previous) => ({ ...previous, [columnKey]: false }));
     }
-    setLoaded(preferenceKey);
-    if (!explicit) {
-      const url = new URL(window.location.href);
-      if (url.pathname === pathname && !hasContributionScope(url.searchParams)) {
-        url.search = writeContributionSettings(
-          url.search,
-          scope ?? defaultContributionSettings(directory),
-        );
-        startTransition(() => router.replace(url.pathname + url.search, { scroll: false }));
+    if (
+      !explicit &&
+      scope &&
+      writeContributionSettings('', scope) !== writeContributionSettings('', value)
+    ) {
+      const candidate = scope;
+      const url = new URL(window.location.href),
+        before = url.pathname + url.search;
+      url.search = writeContributionSettings(url.search, candidate);
+      if (!contributionUrlFits(url.pathname + url.search)) {
+        setNotice('Saved filters are too large for this link. Default filters are shown.');
+      } else {
+        const currentLocation = () =>
+          !controller.signal.aborted &&
+          window.location.pathname + window.location.search === before;
+        const apply = (restored: ContributionSettings | null) => {
+          if (!currentLocation()) return;
+          try {
+            if (localStorage.getItem(preferenceKey) !== raw) {
+              setNotice(
+                'Saved filters changed before they could be restored. Reload to use the latest settings.',
+              );
+              return;
+            }
+          } catch {
+            recordStorage(preferenceKey, false);
+            return;
+          }
+          if (!restored) {
+            invalidStored.current = { key: preferenceKey, raw };
+            setNotice('Saved filters could not be restored. Default filters are shown.');
+            return;
+          }
+          invalidStored.current = null;
+          url.search = writeContributionSettings(url.search, restored);
+          startTransition(() => router.replace(url.pathname + url.search, { scroll: false }));
+        };
+        if (contributionPreferenceNeedsLookup(candidate)) {
+          setChecking(true);
+          const timeout = setTimeout(() => {
+            if (!currentLocation()) {
+              controller.abort();
+              return;
+            }
+            controller.abort();
+            setChecking(false);
+            setNotice(
+              'Saved filters could not be checked. Default filters are shown; reload to retry.',
+            );
+          }, 15000);
+          void options
+            .validate(candidate, controller.signal)
+            .then(apply)
+            .catch(() => {
+              if (currentLocation())
+                setNotice(
+                  'Saved filters could not be checked. Default filters are shown; reload to retry.',
+                );
+            })
+            .finally(() => {
+              clearTimeout(timeout);
+              if (!controller.signal.aborted) setChecking(false);
+            });
+          return () => {
+            clearTimeout(timeout);
+            controller.abort();
+          };
+        }
+        apply(candidate);
       }
     }
+    setChecking(false);
+    return () => controller.abort();
   }, [
     preferenceKey,
     columnKey,
@@ -114,6 +197,8 @@ export function useContributionControls(
     explicit,
     pathname,
     router,
+    value,
+    options,
   ]);
   function presentation(search: string, visible = columns, hideZero = hideZeroMembers) {
     const params = new URLSearchParams(writeTableColumns(search, tableKey, visible, columnIds));
@@ -131,32 +216,53 @@ export function useContributionControls(
     const query = table.flushSearch(),
       url = new URL(window.location.href);
     url.search = snapshot(url.search, query);
-    if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+    if (contributionUrlFits(url.pathname + url.search) && url.href !== window.location.href)
+      window.history.replaceState(null, '', url);
     return url;
   }
-  function remember(next: ContributionSettings | null) {
+  function remember(next: ContributionSettings, field: ContributionSettingField | 'reset') {
     try {
-      if (next) localStorage.setItem(preferenceKey, serializeContributionPreferences(next));
-      else localStorage.removeItem(preferenceKey);
+      if (field !== 'reset') {
+        const raw = localStorage.getItem(preferenceKey);
+        const prior =
+          (invalidStored.current?.key === preferenceKey && raw === invalidStored.current.raw
+            ? null
+            : readContributionPreferenceCandidate(raw, directory, page.report.context.asOf)) ??
+          defaultContributionSettings(directory);
+        localStorage.setItem(
+          preferenceKey,
+          serializeContributionPreferences(mergeContributionPreferences(prior, next, field)),
+        );
+      } else localStorage.removeItem(preferenceKey);
+      window.dispatchEvent(new Event(contributionPreferencesChanged));
       recordStorage(preferenceKey, true);
     } catch {
       recordStorage(preferenceKey, false);
     }
   }
-  function update(next: ContributionSettings, reset = false) {
+  function update(next: ContributionSettings, field: ContributionSettingField | 'reset') {
+    const reset = field === 'reset';
     setNotice(undefined);
     const url = freezeReturn();
     url.search = writeContributionSettings(url.search, next, true);
     if (reset)
       for (const key of ['report', 'members', 'repositories', 'details'])
         url.searchParams.delete(key + '.q');
-    remember(reset ? null : next);
+    if (!contributionUrlFits(url.pathname + url.search)) {
+      setNotice(contributionLinkLimitMessage);
+      return;
+    }
+    remember(next, field);
     startTransition(() => router.push(url.pathname + url.search, { scroll: false }));
   }
   function changePresentation(next: Record<string, boolean>, hideZero: boolean) {
     const url = freezeReturn();
     url.search = presentation(url.search, next, hideZero);
     if (hideZero !== hideZeroMembers) url.searchParams.delete('members.page');
+    if (!contributionUrlFits(url.pathname + url.search)) {
+      setNotice(contributionLinkLimitMessage);
+      return;
+    }
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     setSaved({ key: columnKey, columns: next, hideZeroMembers: hideZero });
     try {
@@ -171,13 +277,16 @@ export function useContributionControls(
     search: table.draftSearch,
     page: table.draftSearch === table.query.search ? table.query.page : 1,
   };
+  const returnHref = pathname + '?' + snapshot(search, renderedQuery);
+  const linkNotice = contributionHref('contributors', page.sample, returnHref, value)
+    ? undefined
+    : contributionLinkLimitMessage;
   return {
     value,
-    update,
-    reset: () => update(defaultContributionSettings(directory), true),
-    ready: loaded === preferenceKey && explicit,
-    pending,
-    notice,
+    update: (next: ContributionSettings, field: ContributionSettingField) => update(next, field),
+    reset: () => update(defaultContributionSettings(directory), 'reset'),
+    pending: pending || checking,
+    notice: notice ?? linkNotice,
     storageAvailable:
       storage[preferenceKey] !== false && storage[columnKey] !== false && table.storageAvailable,
     visibility: {
@@ -186,7 +295,7 @@ export function useContributionControls(
     },
     hideZeroMembers,
     changeHideZeroMembers: (hide: boolean) => changePresentation(columns, hide),
-    returnHref: pathname + '?' + snapshot(search, renderedQuery),
+    returnHref,
     freezeReturn,
   };
 }

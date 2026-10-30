@@ -19,6 +19,12 @@ const features = existsSync('src/features')
 const configuration = {
   forbidden: [
     {
+      name: 'models-no-presentation',
+      severity: 'error',
+      from: { path: '^src/models/' },
+      to: { path: '^src/lib/(presentation|navigation)/', reachable: true },
+    },
+    {
       name: 'current-viewer-boundary',
       severity: 'error',
       from: { path: '^src/', pathNot: '^src/lib/auth/(?:http-auth|session-transport)\\.ts$' },

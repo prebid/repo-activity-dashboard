@@ -137,11 +137,12 @@ it('selects export metrics/layout, sends pending search, and recovers from faile
   const dialog = screen.getByRole('dialog', { name: 'Contributors CSV export' });
   await user.click(within(dialog).getByRole('radio', { name: 'By repository' }));
   await user.click(within(dialog).getByRole('button', { name: 'All columns' }));
-  expect(within(dialog).getByText('39 selected')).toBeVisible();
+  expect(within(dialog).getByText('42 selected')).toBeVisible();
   await user.click(within(dialog).getByRole('button', { name: 'Clear selection' }));
-  expect(within(dialog).getByRole('button', { name: 'Download CSV' })).toBeDisabled();
+  expect(within(dialog).getByText('1 selected')).toBeVisible();
+  expect(within(dialog).getByRole('button', { name: 'Download CSV' })).toBeEnabled();
   await user.click(within(dialog).getByRole('button', { name: 'Visible columns' }));
-  expect(within(dialog).getByText('6 selected')).toBeVisible();
+  expect(within(dialog).getByText('9 selected')).toBeVisible();
   await user.click(within(dialog).getByRole('checkbox', { name: 'PRs authored' }));
   await user.click(within(dialog).getByRole('radio', { name: 'By repository' }));
   const fetchMock = vi
@@ -174,7 +175,12 @@ it('selects export metrics/layout, sends pending search, and recovers from faile
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
   const requested = fetchMock.mock.calls[2][0];
   if (typeof requested !== 'string') throw Error('Expected a relative export URL');
-  const url = new URL(requested, 'http://localhost');
+  expect(requested).toBe('/contributors/export');
+  expect(fetchMock.mock.calls[2][1]?.method).toBe('POST');
+  const encoded = fetchMock.mock.calls[2][1]?.body;
+  if (typeof encoded !== 'string') throw Error('Expected JSON request body');
+  const body = JSON.parse(encoded) as { query: string };
+  const url = new URL('/contributors/export?' + body.query, 'http://localhost');
   expect(url.searchParams.get('layout')).toBe('repositories');
   expect(url.searchParams.get('export.q')).toBe('Alice');
   expect(url.searchParams.getAll('column')).not.toContain('prsAuthored');

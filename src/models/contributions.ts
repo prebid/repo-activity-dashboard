@@ -5,7 +5,6 @@ import {
   type AdditionalValues,
 } from './contribution-activity';
 import { reportingCoverageSchema as contributionCoverageSchema } from './reporting-measurement';
-export { reportingCoverageSchema as contributionCoverageSchema } from './reporting-measurement';
 import { githubProfileUrlSchema } from './github-profile';
 import {
   dateRangeSchema,
@@ -13,7 +12,7 @@ import {
   utcInstantSchema,
   type PeriodSelection,
 } from './reporting-period';
-import { authorAccountSchema } from './repository-insights';
+import { githubLoginSchema } from './github-account';
 import { reportingBranchSchema } from './repository-overview';
 import type { Count } from './reporting-measurement';
 
@@ -77,7 +76,7 @@ const identity = z.string().trim().min(1).max(200);
 export const contributionAccountSchema = z
   .object({
     id: identity,
-    login: authorAccountSchema,
+    login: githubLoginSchema,
     profileUrl: githubProfileUrlSchema.optional(),
     name: z.string().trim().min(1).max(200),
     actorType: z.enum(contributionActorTypes),
@@ -235,8 +234,13 @@ export interface ContributionContext {
   companyAttribution: 'current-mapping';
   selection: ContributionSelection;
   focus: ContributionFocus;
-  includedAccountIds: string[];
+  includedAccountCount: number;
 }
+export type ContributionTable =
+  | { kind: 'contributors'; rows: ContributorMetricRow[] }
+  | { kind: 'members'; rows: ContributorMetricRow[] }
+  | { kind: 'companies'; rows: CompanyMetricRow[] }
+  | { kind: 'repositories'; rows: RepositoryContributionRow[] };
 interface ContributionReportBase {
   context: ContributionContext;
   totals: ContributionValues;
@@ -244,17 +248,22 @@ interface ContributionReportBase {
 }
 export type ContributionReport = ContributionReportBase &
   (
-    | { kind: 'overview'; contributors: ContributorMetricRow[]; companies: CompanyMetricRow[] }
+    | {
+        kind: 'overview';
+        contributorCount: number;
+        companyCount: number;
+        table: Extract<ContributionTable, { kind: 'contributors' | 'companies' }> | null;
+      }
     | {
         kind: 'contributor';
         account: ContributionAccount;
         company: ContributionCompany | null;
-        repositories: RepositoryContributionRow[];
+        table: Extract<ContributionTable, { kind: 'repositories' }> | null;
       }
     | {
         kind: 'company';
         company: ContributionCompany | null;
-        members: ContributorMetricRow[];
-        repositories: RepositoryContributionRow[];
+        memberCount: number;
+        table: Extract<ContributionTable, { kind: 'members' | 'repositories' }> | null;
       }
   );

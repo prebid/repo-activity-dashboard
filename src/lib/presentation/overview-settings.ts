@@ -11,7 +11,8 @@ import {
   type OverviewSettingsDefinition,
 } from '@/models/overview-settings';
 import { resolveReportingPeriod } from './reporting-period';
-import { preferenceKey, writeTableQuery, type TableQuery } from './table-query';
+import { preferenceKey, writeTableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 import { validateActivityPeriods } from './overview-periods';
 import { initialTableQuery } from './table-controller';
 import { agingThresholdForColumn } from './overview-aging';

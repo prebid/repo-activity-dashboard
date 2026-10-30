@@ -205,7 +205,9 @@ test.describe('200 percent equivalent reflow', () => {
         640,
       );
       const columns = page.getByRole('button', { name: 'Columns', exact: true }).first();
+      await expect(columns).toBeEnabled();
       await columns.focus();
+      await expect(columns).toBeFocused();
       await page.keyboard.press('Enter');
       await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
       await page.keyboard.press('End');

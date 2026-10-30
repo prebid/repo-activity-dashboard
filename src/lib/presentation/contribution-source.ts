@@ -1,3 +1,8 @@
+import { normalizeGithubLogin } from '@/models/github-account';
+import {
+  contributionDirectorySchema,
+  type ContributionDirectory,
+} from '@/models/contribution-settings';
 import { validateContributionActivity } from './contribution-activity';
 import {
   contributionSourceSchema,
@@ -6,26 +11,52 @@ import {
 } from '@/models/contributions';
 import { inDateRange, resolveReportingPeriod } from './reporting-period';
 
-export { contributionCellKey, contributionCreditKey } from './contribution-identity';
 import { contributionCellKey, contributionCreditKey } from './contribution-identity';
 
 function unique(values: string[], label: string) {
   if (new Set(values).size !== values.length) throw new Error('Duplicate ' + label);
 }
+const validated = new WeakSet<object>();
+function freezeSnapshot(value: object): void {
+  const children: unknown[] = Object.values(value);
+  for (const child of children) if (child && typeof child === 'object') freezeSnapshot(child);
+  Object.freeze(value);
+}
+function directoryIdentity(directory: ContributionDirectory) {
+  for (const [label, values] of [
+    ['account identities', directory.accounts.map((row) => row.id)],
+    ['account logins', directory.accounts.map((row) => normalizeGithubLogin(row.login))],
+    ['company identities', directory.companies.map((row) => row.id)],
+    ['repository identities', directory.repositories.map((row) => row.id)],
+    ['repository slugs', directory.repositories.map((row) => row.slug)],
+  ] as const)
+    unique(values, label);
+  const accounts = new Set(directory.accounts.map((row) => row.id));
+  const companies = new Set(directory.companies.map((row) => row.id));
+  const repositories = new Map(directory.repositories.map((row) => [row.id, row]));
+  for (const account of directory.accounts)
+    if (account.companyId !== null && !companies.has(account.companyId))
+      throw Error('Unknown account company');
+  return { accounts, repositories };
+}
+export function validateContributionDirectory(input: unknown): ContributionDirectory {
+  const directory = contributionDirectorySchema.parse(input);
+  directoryIdentity(directory);
+  freezeSnapshot(directory);
+  return directory;
+}
 /** Validate prepared display facts, not the GitHub history that would establish them. */
 export function validateContributionSource(input: unknown): ContributionSource {
+  if (input && typeof input === 'object' && validated.has(input))
+    return input as ContributionSource;
   const source = contributionSourceSchema.parse(input);
+  const { accounts, repositories } = directoryIdentity(source);
   if (
     JSON.stringify(source.range) !==
     JSON.stringify(resolveReportingPeriod(source.period, source.asOf).range)
   )
     throw new Error('Contribution range does not match its period and snapshot');
   for (const [label, values] of [
-    ['account identities', source.accounts.map((row) => row.id)],
-    ['account logins', source.accounts.map((row) => row.login)],
-    ['company identities', source.companies.map((row) => row.id)],
-    ['repository identities', source.repositories.map((row) => row.id)],
-    ['repository slugs', source.repositories.map((row) => row.slug)],
     ['record identities', source.records.map((row) => row.id)],
     [
       'repository record numbers',
@@ -40,9 +71,6 @@ export function validateContributionSource(input: unknown): ContributionSource {
     ],
   ] as const)
     unique(values, label);
-  const accounts = new Set(source.accounts.map((row) => row.id));
-  const companies = new Set(source.companies.map((row) => row.id));
-  const repositories = new Map(source.repositories.map((row) => [row.id, row]));
   const records = new Map(source.records.map((row) => [row.id, row]));
   const coverage = new Map(
     source.coverageOverrides.map((row) => [
@@ -50,9 +78,6 @@ export function validateContributionSource(input: unknown): ContributionSource {
       row.coverage,
     ]),
   );
-  for (const account of source.accounts)
-    if (account.companyId !== null && !companies.has(account.companyId))
-      throw new Error('Unknown account company');
   for (const row of source.coverageOverrides)
     if (!accounts.has(row.accountId) || !repositories.has(row.repositoryId))
       throw new Error('Unknown coverage identity');
@@ -109,5 +134,7 @@ export function validateContributionSource(input: unknown): ContributionSource {
       throw new Error('Unavailable coverage cannot contain known credits');
   }
   validateContributionActivity(source);
+  freezeSnapshot(source);
+  validated.add(source);
   return source;
 }

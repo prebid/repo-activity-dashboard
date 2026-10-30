@@ -4,6 +4,8 @@ import { GetCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { z } from 'zod';
 import { verifyPassword } from '@/lib/auth/passwords';
 import { startProductionApp } from '../support/production-app';
+import { renderedMain } from '../support/rendered-html';
+import { choicePageSchema } from '@/models/contribution-options';
 
 it('runs the packaged production artifact with current sessions and protected account APIs', async () => {
   const fixture = await startProductionApp(inject('accountEndpoint'));
@@ -124,7 +126,12 @@ it('runs the packaged production artifact with current sessions and protected ac
     ]) {
       const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
       expect(permitted.status).toBe(200);
-      expect(await permitted.text()).toContain(canary);
+      const body = await permitted.text();
+      const csv = permitted.headers.get('content-type')?.includes('text/csv');
+      const main = csv ? null : renderedMain(body);
+      expect(csv ? body : main?.textContent).toContain(canary);
+      if (/^\/(contributors|companies)(?:\?|$|\/(?!export))/.test(route))
+        expect(main?.querySelector('table tbody tr')).toBeTruthy();
       const anonymous = await fetch(origin + route, { redirect: 'manual' });
       expect(anonymous.status).toBe(307);
       expect(anonymous.headers.get('location')).toContain('/auth/login');
@@ -138,6 +145,28 @@ it('runs the packaged production artifact with current sessions and protected ac
           Boolean(flight.headers.get('location')?.includes('/auth/login')),
       ).toBe(true);
     }
+    const choiceBody = JSON.stringify({
+      action: 'choices',
+      sample: 'large',
+      query: { kind: 'accounts', search: '', page: 0, selectedIds: null },
+    });
+    const choices = await fetch(origin + '/api/reporting/contribution-options', {
+      method: 'POST',
+      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      body: choiceBody,
+    });
+    expect(choices.status).toBe(200);
+    expect(choicePageSchema.parse(await choices.json()).choices).toHaveLength(50);
+    expect(choices.headers.get('cache-control')).toBe('private, no-store');
+    const anonymousChoices = await fetch(origin + '/api/reporting/contribution-options', {
+      method: 'POST',
+      redirect: 'manual',
+      headers: { 'content-type': 'application/json' },
+      body: choiceBody,
+    });
+    expect(anonymousChoices.status).toBe(307);
+    expect(anonymousChoices.headers.get('location')).toContain('/auth/login');
+    expect(await anonymousChoices.text()).not.toContain('Sample contributor');
     for (const route of [
       '/contributors/no-such-account',
       '/companies/id/no-such-company',

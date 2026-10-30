@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import type { PeriodSelection } from '@/models/reporting-period';
 import type { RepositoryOverview } from '@/models/repository-overview';
 import { periodRangeLabel, validateActivityPeriods } from '@/lib/presentation/overview-periods';
-import { TimeframeControl } from './timeframe-control';
+import { TimeframeControl } from '@/components/reporting/timeframe-control';
 import styles from '@/components/reporting/overview-controls.module.css';
 
 export function ActivityPeriodControls({

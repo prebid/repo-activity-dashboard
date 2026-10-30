@@ -1,5 +1,5 @@
+import { accountTypeLabels } from '@/models/github-account';
 import { formatCount } from '@/lib/presentation/format';
-import { contributionContextColumns } from '@/lib/presentation/contribution-csv';
 import {
   contributorValues,
   companyValues,
@@ -12,21 +12,14 @@ import {
   type ReportMetric,
 } from '@/models/contribution-metrics';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import {
-  additionalMetricIds,
-  additionalMetricDefinitions,
-  type AdditionalValues,
-} from '@/models/contribution-activity';
+import { type AdditionalValues } from '@/models/contribution-activity';
 import Link from 'next/link';
-import type { MouseEvent } from 'react';
+import type { MouseEvent, ComponentProps } from 'react';
 import { Building2, UserRound, Bot, Cpu, CircleHelp } from 'lucide-react';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import type { TableQuery } from '@/lib/presentation/table-query';
 import type { DataColumn } from '@/components/tables/table-columns';
 import {
-  contributionMetricIds,
-  contributionMetrics,
   type ContributionValues,
   type ContributorMetricRow,
   type CompanyMetricRow,
@@ -40,6 +33,7 @@ import {
   contributionMetricHref,
 } from '@/lib/presentation/contribution-navigation';
 import styles from './contributions.module.css';
+import { contributionLinkLimitMessage } from '@/lib/presentation/contribution-return';
 
 export type EntityFocus = Exclude<ContributionFocus, { kind: 'overview' }>;
 export interface ContributionLinks {
@@ -53,12 +47,25 @@ export interface ContributionLinks {
     metric: ReportMetric,
     repositoryId?: string,
   ) => void;
-  actorTypes?: ContributionContext['selection']['actorTypes'];
   onAreaFollow?: (event: MouseEvent<HTMLAnchorElement>, area: ContributionArea) => void;
   onFollow?: (event: MouseEvent<HTMLAnchorElement>, focus: EntityFocus) => void;
 }
-export { actorLabels, metricDescriptions } from '@/models/contribution-metrics';
-import { actorLabels } from '@/models/contribution-metrics';
+
+export function ContributionNavigationLink({
+  href,
+  children,
+  ...props
+}: Omit<ComponentProps<typeof Link>, 'href'> & { href: string | null }) {
+  return href ? (
+    <Link prefetch={false} href={href} {...props}>
+      {children}
+    </Link>
+  ) : (
+    <span className={props.className} title={contributionLinkLimitMessage}>
+      {children}
+    </span>
+  );
+}
 export function EntityLink({
   focus,
   links,
@@ -72,22 +79,17 @@ export function EntityLink({
   className?: string;
   label?: string;
 }) {
+  const href = contributionHref(focus, links.sample, links.currentHref, links.settings);
   return (
-    <Link
+    <ContributionNavigationLink
       prefetch={false}
-      href={contributionHref(
-        focus,
-        links.sample,
-        links.currentHref,
-        links.actorTypes,
-        links.settings,
-      )}
+      href={href}
       className={className}
       onClick={(event) => links.onFollow?.(event, focus)}
       aria-label={label}
     >
       {children}
-    </Link>
+    </ContributionNavigationLink>
   );
 }
 export function ContributionMetricLink({
@@ -105,18 +107,19 @@ export function ContributionMetricLink({
 }) {
   const content = <MeasurementValue measurement={value} />;
   if (!links.context || value.value === null) return content;
+  const href = contributionMetricHref(
+    focus.kind === 'overview' ? 'contributors' : focus,
+    links.sample,
+    links.context,
+    metric,
+    links.currentHref,
+    repositoryId,
+  );
   return (
-    <Link
+    <ContributionNavigationLink
       prefetch={false}
       className={styles.metricLink}
-      href={contributionMetricHref(
-        focus.kind === 'overview' ? 'contributors' : focus,
-        links.sample,
-        links.context,
-        metric,
-        links.currentHref,
-        repositoryId,
-      )}
+      href={href}
       onClick={(event) => links.onMetric?.(event, focus, metric, repositoryId)}
       aria-label={
         reportMetricLabel(metric) +
@@ -127,7 +130,7 @@ export function ContributionMetricLink({
       }
     >
       {content}
-    </Link>
+    </ContributionNavigationLink>
   );
 }
 function metricCell<T extends { metrics: ContributionValues; additionalMetrics: AdditionalValues }>(
@@ -164,7 +167,7 @@ export function contributorColumns(
           const Icon = actorIcons[row.account.actorType];
           return (
             <div className={styles.identityCell}>
-              <span className={styles.avatar} title={actorLabels[row.account.actorType]}>
+              <span className={styles.avatar} title={accountTypeLabels[row.account.actorType]}>
                 <Icon size={17} aria-hidden="true" />
               </span>
               <div className={styles.identity}>
@@ -289,100 +292,5 @@ export function repositoryContributionColumns(
               row.repository.id,
             ),
         },
-  );
-}
-/** Keep the existing CSV action honest when display values are partial or unavailable. */
-export function contributionExportColumns<
-  T extends { id: string; metrics: ContributionValues; additionalMetrics: AdditionalValues },
->(
-  columns: DataColumn<T>[],
-  context: ContributionContext,
-  query: Pick<TableQuery, 'search' | 'sort' | 'descending'> & { hideZeroMembers?: boolean },
-): DataColumn<T>[] {
-  return [
-    { id: 'rowId', label: 'Row ID', value: (row) => row.id },
-    ...columns.map((column) => ({
-      ...column,
-      label: column.group ? column.group + ' — ' + column.label : column.label,
-    })),
-    ...additionalMetricIds.flatMap((metric) => [
-      {
-        id: metric + '.coverage',
-        exportWith: metric,
-        label:
-          additionalMetricDefinitions[metric].group +
-          ' — ' +
-          additionalMetricDefinitions[metric].label +
-          ' coverage',
-        value: (row: T) => row.additionalMetrics[metric].status,
-      },
-      {
-        id: metric + '.reason',
-        exportWith: metric,
-        label:
-          additionalMetricDefinitions[metric].group +
-          ' — ' +
-          additionalMetricDefinitions[metric].label +
-          ' coverage detail',
-        value: (row: T) => {
-          const value = row.additionalMetrics[metric];
-          return value.status === 'complete' ? '' : value.reason;
-        },
-      },
-    ]),
-    ...contributionMetricIds.flatMap((metric) => [
-      {
-        id: metric + '.coverage',
-        exportWith: metric,
-        label: contributionMetrics[metric].label + ' coverage',
-        value: (row: T) => row.metrics[metric].status,
-      },
-      {
-        id: metric + '.reason',
-        exportWith: metric,
-        label: contributionMetrics[metric].label + ' coverage detail',
-        value: (row: T) => {
-          const value = row.metrics[metric];
-          return value.status === 'complete' ? '' : value.reason;
-        },
-      },
-    ]),
-    {
-      id: 'hideZeroMembers',
-      label: 'Hide zero member totals',
-      value: () => String(query.hideZeroMembers ?? false),
-    },
-    ...contributionContextColumns<T>(context, query),
-  ];
-}
-
-export function contributorExportColumns(
-  columns: DataColumn<ContributorMetricRow>[],
-  context: ContributionContext,
-  query: Pick<TableQuery, 'search' | 'sort' | 'descending'> & { hideZeroMembers?: boolean },
-): DataColumn<ContributorMetricRow>[] {
-  const identity: DataColumn<ContributorMetricRow>[] = [
-    { id: 'login', label: 'GitHub account', value: (row) => row.account.login },
-    { id: 'companyId', label: 'Company ID', value: (row) => row.company?.id ?? null },
-  ];
-  if (!columns.some((column) => column.id === 'company'))
-    identity.push({
-      id: 'company',
-      label: 'Company',
-      value: (row) => row.company?.name ?? 'Unmapped company',
-    });
-  return contributionExportColumns(
-    [
-      ...columns.map((column) =>
-        column.id === 'name'
-          ? { ...column, value: (row: ContributorMetricRow) => row.account.name }
-          : column.id === 'actorType'
-            ? { ...column, value: (row: ContributorMetricRow) => row.account.actorType }
-            : column,
-      ),
-      ...identity,
-    ],
-    context,
-    query,
   );
 }

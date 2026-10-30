@@ -1,3 +1,4 @@
+import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
 import { test, expect } from './fixtures';
 import type { Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
@@ -46,7 +47,9 @@ test('names open internal reports, handles open GitHub and company credits retai
   ).toHaveText(['4', '4', '3']);
   expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
   expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['human']);
-  expect(new URL(page.url()).searchParams.get('returnTo')).toContain('report.q=Acme');
+  expect(contributionReturnHref(new URL(page.url()).searchParams, '/contributors')).toContain(
+    'report.q=Acme',
+  );
   const table = page.getByRole('table');
   await expect(table.locator('tbody tr')).toHaveCount(4);
   await expect(table.getByRole('link', { name: /#102 / })).toHaveCount(2);
@@ -156,9 +159,13 @@ test('selected-metric flat exports match filtered totals beyond the first page a
   expect(csv).not.toContain('"sample-person-001"');
   expect(csv).toContain('account-person-001');
   expect(csv).not.toContain('"Approval contributions"');
-  // Flat CSV has nine identity columns before the selected numeric metric.
+  // Locate the selected metric by header: optional identity columns can be omitted.
+  const metricIndex = lines[0].split(',').indexOf('"PRs authored"');
+  expect(metricIndex).toBeGreaterThan(0);
   expect(
-    lines.slice(1).reduce((sum, line) => sum + Number(line.split(',')[9].replaceAll('"', '')), 0),
+    lines
+      .slice(1)
+      .reduce((sum, line) => sum + Number(line.split(',')[metricIndex].replaceAll('"', '')), 0),
   ).toBe(5);
 });
 test('supporting lists and export controls remain accessible in both themes and on mobile', async ({
@@ -235,4 +242,66 @@ test('focused repository results and CSV column choices omit only confirmed-zero
   await page.goto('/contributors/account-alice?sample=missing&period=this-year');
   await expect(table.locator('tbody tr')).toHaveCount(18);
   await expect(page.getByLabel('Data coverage')).toBeVisible();
+});
+
+test('partial metric ordering matches both CSV layouts and remains numeric in each direction', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto(
+    '/contributors?sample=partial&period=this-year&report.sort=approvalContributions&report.dir=desc',
+  );
+  const table = page.getByRole('table');
+  for (const descending of [true, false]) {
+    if (!descending) await table.getByRole('button', { name: /Approval contributions/ }).click();
+    await expect(
+      table.getByRole('columnheader', { name: /Approval contributions/ }),
+    ).toHaveAttribute('aria-sort', descending ? 'descending' : 'ascending');
+    await expect(
+      page.getByText(
+        'Complete values first, then partial subtotals ranked by value; unavailable values last.',
+        { exact: true },
+      ),
+    ).toBeVisible();
+    const displayed = await table.locator('tbody tr').evaluateAll((rows) =>
+      rows.map((row) => {
+        const cell = row.querySelector('[data-column="approvalContributions"]');
+        // Read only the leading displayed number, not record numbers in the accessibility explanation.
+        const numeric = cell?.textContent?.match(/^[\d,]+/)?.[0];
+        return {
+          name: row.querySelector(
+            '[data-column="name"] a[aria-label$=" — view contribution report"]',
+          )?.textContent,
+          value: numeric === undefined ? null : Number(numeric.replaceAll(',', '')),
+          group: numeric === undefined ? 2 : cell?.querySelector('sup') ? 1 : 0,
+        };
+      }),
+    );
+    const groups = displayed.map((row) => row.group);
+    expect(groups).toContain(1);
+    expect(groups).toEqual([...groups].sort((a, b) => a - b));
+    for (const group of [0, 1]) {
+      const values = displayed.filter((row) => row.group === group).map((row) => row.value!);
+      expect(values).toEqual([...values].sort((a, b) => (descending ? b - a : a - b)));
+    }
+    const current = await csvDownload(page, 'Export CSV');
+    expect(current).toContain('counting basis');
+    const names = current
+      .split('\r\n')
+      .slice(1)
+      .map((line) => line.split(',')[2].replaceAll('"', ''));
+    expect(names).toEqual(displayed.map((row) => row.name));
+    await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+    await page.getByRole('radio', { name: 'By repository', exact: true }).check();
+    const byRepo = await csvDownload(page, 'Download CSV');
+    expect(byRepo.split('\r\n')[0]).toBe(current.split('\r\n')[0]);
+    expect([
+      ...new Set(
+        byRepo
+          .split('\r\n')
+          .slice(1)
+          .map((line) => line.split(',')[2].replaceAll('"', '')),
+      ),
+    ]).toEqual(names);
+  }
 });

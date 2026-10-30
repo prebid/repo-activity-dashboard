@@ -1,4 +1,5 @@
 'use client';
+import { accountTypeLabels } from '@/models/github-account';
 import { useState } from 'react';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
@@ -14,12 +15,12 @@ import { prColumns, issueColumns } from './record-base-columns';
 import styles from './repository-records.module.css';
 import { mergeElapsedDays } from '@/lib/presentation/repository-insights';
 export const actorLabels: Record<LatestActor, string> = {
-  agent: 'Prebid agent',
-  bot: 'Other bot',
+  agent: accountTypeLabels.agent,
+  bot: accountTypeLabels.bot,
   'prebid-reviewer': 'Prebid reviewer',
   contributor: 'Contributor',
   'other-human': 'Other human',
-  unknown: 'Unknown',
+  unknown: accountTypeLabels.unknown,
 };
 
 function commonColumns<

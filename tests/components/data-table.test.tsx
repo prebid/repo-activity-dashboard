@@ -1,5 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { useState } from 'react';
+import { renderToString } from 'react-dom/server';
+import { renderedMain } from '../support/rendered-html';
 import { render, screen, within, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { DataColumn } from '@/components/tables/data-table';
@@ -25,6 +27,23 @@ const rows: Row[] = Array.from({ length: 250 }, (_, i) => ({
   title: i === 249 ? 'Oldest keyboard issue' : 'Item ' + String(i + 1).padStart(3, '0'),
   count: i === 1 ? null : i,
 }));
+it('server-renders rows while keeping React-only table controls disabled until hydration', () => {
+  const main = renderedMain(
+    renderToString(
+      <main>
+        <DataTable title="Hydration" rows={rows} columns={columns} exportName="test.csv" />
+      </main>,
+    ),
+  )!;
+  expect(main.querySelectorAll('tbody tr')).toHaveLength(50);
+  expect(main.querySelector('fieldset[aria-label="Hydration table controls"]')).toHaveAttribute(
+    'disabled',
+  );
+  expect(main.querySelector('th button')).toHaveAttribute('disabled');
+  expect(
+    Array.from(main.querySelectorAll('button')).find((button) => button.textContent === 'Next'),
+  ).toHaveAttribute('disabled');
+});
 it('keeps cell interaction state and focus when column render callbacks change', async () => {
   const user = userEvent.setup();
   function Counter() {

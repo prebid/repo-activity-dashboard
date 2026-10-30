@@ -1,3 +1,4 @@
+import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
@@ -87,7 +88,10 @@ test('overview, company breakdown and contributor return links preserve their pa
     .first()
     .getAttribute('href');
   if (!parentLink) throw Error('Missing child report link');
-  const parent = new URL(parentLink, page.url()).searchParams.get('returnTo')!;
+  const parent = contributionReturnHref(
+    new URL(parentLink, page.url()).searchParams,
+    '/contributors',
+  );
   expect(new URL(parent, page.url()).pathname).toBe(originalParent.pathname);
   await page
     .getByRole('table')
@@ -116,7 +120,9 @@ test('high-volume identity search and focused totals remain bounded and readable
     .click();
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('240');
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('350');
-  expect(new URL(page.url()).searchParams.get('returnTo')).toContain('report.q=sample-heavy-agent');
+  expect(contributionReturnHref(new URL(page.url()).searchParams, '/contributors')).toContain(
+    'report.q=sample-heavy-agent',
+  );
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   await page.screenshot({
     path: testInfo.outputPath('busy-contributor-mobile.png'),
@@ -163,10 +169,7 @@ test('catalog contribution states render independently with functional company b
   await expect(page.getByRole('heading', { name: 'Example Acme', level: 1 })).toBeVisible();
   await page.getByRole('button', { name: 'By repository', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
-  for (const [story, title] of [
-    ['loading', 'Loading contributions'],
-    ['error', 'Contributions could not load'],
-  ] as const) {
+  for (const [story, title] of [['error', 'This page could not load']] as const) {
     await page.goto(
       'http://127.0.0.1:6007/iframe.html?id=contributions-pages--' + story + '&viewMode=story',
     );

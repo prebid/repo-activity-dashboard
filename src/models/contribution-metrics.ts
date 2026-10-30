@@ -8,12 +8,6 @@ import {
   additionalMetricDefinitions,
   type AdditionalMetric,
 } from './contribution-activity';
-export const actorLabels = {
-  human: 'Human',
-  agent: 'Prebid agent',
-  bot: 'Bot',
-  unknown: 'Unknown type',
-} as const;
 export const metricDescriptions: Record<ContributionMetric, string> = {
   prsAuthored: 'PRs created by the account during the period, including drafts and PRs now closed.',
   authoredPrsMerged:

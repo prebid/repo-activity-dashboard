@@ -1,3 +1,4 @@
+import { reportRows } from '../support/contribution-reports';
 import { afterEach, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -25,7 +26,7 @@ function Preview({ data = page }: { data?: ContributionPage }) {
   return (
     <DataTable
       title="Contributors"
-      rows={data.report.contributors}
+      rows={reportRows(data.report, 'contributors')}
       columns={[
         { id: 'name', label: 'Contributor', hideable: false, value: (row) => row.account.name },
         { id: 'prsAuthored', label: 'PRs authored', value: (row) => row.metrics.prsAuthored.value },

@@ -1,7 +1,7 @@
 'use client';
 import { useId } from 'react';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import type { Count } from '@/models/repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 import styles from './selectable-bars.module.css';
 export interface SelectableBar {
   id: string;

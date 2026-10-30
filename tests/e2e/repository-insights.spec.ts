@@ -231,7 +231,7 @@ test('all agent and bot contribution links reconcile credits, retain context, an
   const activity = page.getByRole('region', { name: 'Period activity', exact: true });
   await activity.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Prebid agents', exact: true }).click();
-  await page.getByRole('menuitemcheckbox', { name: 'Other bots', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Bots', exact: true }).click();
   await page.keyboard.press('Escape');
   for (const [metric, count, distinct] of [
     ['agentFeedbackCredits', 18, 9],

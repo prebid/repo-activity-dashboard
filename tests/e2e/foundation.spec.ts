@@ -26,12 +26,11 @@ test('component catalog renders independently from authentication and reporting'
 test('repeated callback parameters retain a usable login destination', async ({ page }) => {
   await page.goto('/auth/login?callbackUrl=%2Fcontributors&callbackUrl=%2Fcompanies');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-  await expect(page).toHaveURL(
-    (url) => url.pathname === '/contributors' && url.searchParams.get('scope') === '1',
-  );
+  await expect(page).toHaveURL(/\/contributors$/);
   await expect(
     page.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }),
   ).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
 });
 test('select bounds, dialog focus, menu keyboard actions and switch behavior', async ({ page }) => {
   await page.setViewportSize({ width: 700, height: 500 });

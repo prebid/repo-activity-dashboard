@@ -1,4 +1,10 @@
 import {
+  mergeContributionPreferences,
+  contributionTableScope,
+  contributionPreferenceNeedsLookup,
+} from '@/lib/presentation/contribution-settings';
+import { contributionReturnHref } from '@/lib/presentation/contribution-return';
+import {
   readContributionPresentation,
   serializeContributionPresentation,
 } from '@/lib/presentation/contribution-settings';
@@ -18,6 +24,38 @@ import {
 } from '@/lib/presentation/contribution-settings';
 const directory = contributionSample();
 const defaults = defaultContributionSettings(directory);
+it('checks mapped-company identities remotely while recognizing the unmapped sentinel locally', () => {
+  const settings = {
+    ...defaults,
+    selection: {
+      ...defaults.selection,
+      population: {
+        kind: 'selected' as const,
+        accountIds: [],
+        companyIds: ['company-acme'] as (string | null)[],
+      },
+    },
+  };
+  expect(contributionPreferenceNeedsLookup(settings)).toBe(true);
+  settings.selection.population.companyIds = [null];
+  expect(contributionPreferenceNeedsLookup(settings)).toBe(false);
+});
+it('does not mistake repeated selections for all repositories or all account types', () => {
+  const settings = {
+    ...defaults,
+    selection: {
+      ...defaults.selection,
+      repositoryIds: Array.from({ length: directory.repositories.length }, () => 'repo-prebidjs'),
+      actorTypes: ['human', 'human', 'human', 'human'] as const,
+    },
+  };
+  const query = writeContributionSettings('', {
+    ...settings,
+    selection: { ...settings.selection, actorTypes: [...settings.selection.actorTypes] },
+  });
+  expect(read(query)?.selection.repositoryIds).toEqual(['repo-prebidjs']);
+  expect(read(query)?.selection.actorTypes).toEqual(['human']);
+});
 function read(search: string) {
   return readContributionSettings(new URLSearchParams(search), directory, contributionSampleAsOf);
 }
@@ -83,13 +121,23 @@ it('preserves table context and complete scope in focused links, resetting only 
       { kind: 'contributor', accountId: 'account-bob' },
       'partial',
       parent,
-      selected.selection.actorTypes,
       selected,
-    ),
+    )!,
     'https://example.test',
   );
   expect(read(link.search)).toEqual(selected);
-  expect(link.searchParams.get('returnTo')).toBe(parent);
+  expect(
+    new URL(
+      contributionReturnHref(link.searchParams, '/contributors'),
+      'https://example.test',
+    ).searchParams.get('report.q'),
+  ).toBe('Bob');
+  expect(
+    read(
+      new URL(contributionReturnHref(link.searchParams, '/contributors'), 'https://example.test')
+        .search,
+    ),
+  ).toEqual(selected);
   expect(link.searchParams.has('report.q')).toBe(false);
 });
 it('isolates saved report identities, retains relative dates and rejects malformed/stale settings', () => {
@@ -155,4 +203,54 @@ it('reads legacy and current member presentation preferences without trusting ma
   expect(
     readContributionPresentation(serializeContributionPresentation({ name: true }, true), ['name']),
   ).toEqual({ columns: { name: true }, hideZeroMembers: true });
+});
+it('persists only explicit filter intent, including an unchanged repository chosen deliberately', () => {
+  const saved = defaultContributionSettings(directory);
+  const current = {
+    ...saved,
+    selection: {
+      ...saved.selection,
+      repositoryIds: ['repo-prebidjs'],
+      actorTypes: ['human'] as const,
+    },
+  };
+  const live = {
+    ...current,
+    selection: { ...current.selection, actorTypes: [...current.selection.actorTypes] },
+  };
+  expect(mergeContributionPreferences(saved, live, 'repositoryIds').selection).toEqual({
+    ...saved.selection,
+    repositoryIds: ['repo-prebidjs'],
+  });
+  expect(mergeContributionPreferences(saved, live, 'actorTypes').selection).toEqual({
+    ...saved.selection,
+    actorTypes: ['human'],
+  });
+  const next = {
+    ...live,
+    period: { kind: 'preset' as const, preset: 'last-month' as const },
+    selection: {
+      ...live.selection,
+      population: { kind: 'selected' as const, accountIds: ['account-bob'], companyIds: [] },
+      excludedAccountIds: ['account-alice'],
+    },
+  };
+  expect(mergeContributionPreferences(saved, next, 'period')).toEqual({
+    ...saved,
+    period: next.period,
+  });
+  expect(mergeContributionPreferences(saved, next, 'population')).toEqual({
+    ...saved,
+    selection: {
+      ...saved.selection,
+      population: next.selection.population,
+      excludedAccountIds: next.selection.excludedAccountIds,
+    },
+  });
+  expect(contributionTableScope('reference', 'repositories')).not.toBe(
+    contributionTableScope('large', 'repositories'),
+  );
+  expect(contributionTableScope('reference', 'repositories')).not.toBe(
+    contributionTableScope('reference', 'members'),
+  );
 });

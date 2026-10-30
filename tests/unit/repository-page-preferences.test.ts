@@ -2,11 +2,13 @@ import { expect, it } from 'vitest';
 import {
   repositoryColumnDefaults,
   repositoryColumnsKey,
-  readRepositoryColumns,
   serializeRepositoryColumns,
-  resolveRepositoryColumns,
-  writeRepositoryColumns,
 } from '@/lib/presentation/repository-page-preferences';
+import {
+  readTableColumns,
+  resolveTableColumns,
+  writeTableColumns,
+} from '@/lib/presentation/table-column-preferences';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 const repo = repositoryOverviewSamples().repositories[0].repository;
@@ -68,15 +70,11 @@ it('ignores corrupt or retired preferences and isolates account, repository and 
     '{"version":1,"columns":null}',
     '{"version":1,"columns":4}',
   ])
-    expect(readRepositoryColumns(raw, ['ageDays'])).toEqual({});
+    expect(readTableColumns(raw, ['ageDays'])).toEqual({});
   expect(
-    readRepositoryColumns(serializeRepositoryColumns({ ageDays: false, retired: true }), [
-      'ageDays',
-    ]),
+    readTableColumns(serializeRepositoryColumns({ ageDays: false, retired: true }), ['ageDays']),
   ).toEqual({ ageDays: false });
-  expect(readRepositoryColumns('{"version":1,"columns":{"ageDays":"yes"}}', ['ageDays'])).toEqual(
-    {},
-  );
+  expect(readTableColumns('{"version":1,"columns":{"ageDays":"yes"}}', ['ageDays'])).toEqual({});
   expect(
     new Set([
       repositoryColumnsKey('alice', 'one', 'prs'),
@@ -90,25 +88,25 @@ it('gives URL columns precedence, including an explicit empty list, while retain
   const defaults = { ageDays: true, labels: false },
     saved = { ageDays: false },
     ids = ['ageDays', 'createdAt'];
-  expect(resolveRepositoryColumns('', 'prs', defaults, saved, ids)).toEqual({
+  expect(resolveTableColumns('', 'prs', defaults, saved, ids)).toEqual({
     ...defaults,
     ...saved,
   });
-  const search = writeRepositoryColumns(
+  const search = writeTableColumns(
     'prs.page=2&prs.columns=retired',
     'prs',
     { ageDays: true, createdAt: false },
     ids,
   );
   expect(new URLSearchParams(search).get('prs.page')).toBe('2');
-  expect(resolveRepositoryColumns(search, 'prs', defaults, saved, ids)).toEqual({
+  expect(resolveTableColumns(search, 'prs', defaults, saved, ids)).toEqual({
     ageDays: true,
     createdAt: false,
     labels: false,
   });
   expect(
-    resolveRepositoryColumns(
-      writeRepositoryColumns('', 'prs', { ageDays: false, createdAt: false }, ids),
+    resolveTableColumns(
+      writeTableColumns('', 'prs', { ageDays: false, createdAt: false }, ids),
       'prs',
       defaults,
       {},

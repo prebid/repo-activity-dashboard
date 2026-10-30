@@ -1,4 +1,4 @@
-import type { Measurement } from '@/models/repository-overview';
+import type { Measurement } from '@/models/reporting-measurement';
 
 /** Partial or missing operands cannot establish an exact period-over-period change. */
 export function absoluteChange(current: Measurement, previous: Measurement): number | null {

@@ -1,20 +1,15 @@
-import type {
-  ContributionAccount,
-  ContributionRepository,
-  ContributionSource,
-} from '@/models/contributions';
+import type { ContributionSource } from '@/models/contributions';
 import {
   additionalMetricIds,
   changeStatIds,
   fileStatusStats,
   volumeMetricId,
-  type AdditionalMetric,
   type AdditionalValues,
   type ChangeStats,
 } from '@/models/contribution-activity';
 import type { Count } from '@/models/reporting-measurement';
 import { inDateRange } from './reporting-period';
-import { contributionCellKey as key } from './contribution-identity';
+import { contributionCreditKey } from './contribution-identity';
 
 function reconcile(
   stats: ChangeStats,
@@ -35,6 +30,15 @@ export function validateContributionActivity(source: ContributionSource): void {
   const repos = new Map(source.repositories.map((row) => [row.id, row]));
   const comments = new Set<string>(),
     volumes = new Set<string>();
+  const creditByIdentity = new Map(
+    source.credits.map((credit) => [contributionCreditKey(credit), credit]),
+  );
+  const creditsByRecord = new Map<string, typeof source.credits>();
+  for (const credit of source.credits) {
+    const group = creditsByRecord.get(credit.recordId) ?? [];
+    group.push(credit);
+    creditsByRecord.set(credit.recordId, group);
+  }
   for (const record of source.records)
     if (record.kind === 'pr' && record.mergedDiff) {
       if (record.state !== 'Merged')
@@ -76,16 +80,18 @@ export function validateContributionActivity(source: ContributionSource): void {
         : volume.accountId === record.authorId
     )
       throw new Error('Wrong volume role actor');
-    const knownCredit = source.credits.find(
-      (credit) =>
-        credit.recordId === volume.recordId &&
-        credit.accountId === volume.accountId &&
-        credit.metric ===
-          (volume.role === 'reviewed'
+    const knownCredit = creditByIdentity.get(
+      contributionCreditKey({
+        recordId: volume.recordId,
+        accountId: volume.accountId,
+        creditedAt: volume.qualifiedAt,
+        metric:
+          volume.role === 'reviewed'
             ? 'reviewerContributions'
             : volume.role === 'approved'
               ? 'approvalContributions'
-              : 'prsAuthored'),
+              : 'prsAuthored',
+      }),
     );
     if (knownCredit && volume.qualifiedAt < knownCredit.creditedAt)
       throw new Error('Volume evidence predates the established first credit');
@@ -108,10 +114,9 @@ export function validateContributionActivity(source: ContributionSource): void {
       continue;
     const expected = [
       ...(record.authorId ? [{ accountId: record.authorId, role: 'authored' as const }] : []),
-      ...source.credits
+      ...(creditsByRecord.get(record.id) ?? [])
         .filter(
           (credit) =>
-            credit.recordId === record.id &&
             credit.creditedAt <= record.mergedAt! &&
             ['reviewerContributions', 'approvalContributions'].includes(credit.metric),
         )
@@ -125,12 +130,7 @@ export function validateContributionActivity(source: ContributionSource): void {
         })),
     ];
     for (const item of expected) {
-      const assignment = source.activity.volumes.find(
-        (volume) =>
-          volume.recordId === record.id &&
-          volume.accountId === item.accountId &&
-          volume.role === item.role,
-      );
+      const assignment = volumes.has(JSON.stringify([item.accountId, record.id, item.role]));
       if (
         !assignment &&
         changeStatIds.some(
@@ -161,68 +161,6 @@ export function sumContributionCounts(counts: Count[]): Count {
   return reasons.length
     ? { status: 'partial', value, reason: reasons.join('; ') }
     : { status: 'complete', value };
-}
-/** Aggregate prepared comment identities and final-diff assignments; never reconstruct GitHub history here. */
-export function contributionActivitySelector(source: ContributionSource) {
-  const records = new Map(source.records.map((row) => [row.id, row]));
-  const cells = new Map<string, Count[]>();
-  function add(accountId: string, repositoryId: string, metric: AdditionalMetric, count: Count) {
-    const id = key(accountId, repositoryId, metric);
-    const values = cells.get(id) ?? [];
-    values.push(count);
-    cells.set(id, values);
-  }
-  for (const comment of source.activity.comments)
-    add(comment.accountId, records.get(comment.recordId)!.repositoryId, comment.kind, {
-      status: 'complete',
-      value: 1,
-    });
-  for (const volume of source.activity.volumes) {
-    const record = records.get(volume.recordId)!;
-    if (record.kind !== 'pr') throw new Error('Expected PR volume');
-    for (const stat of changeStatIds)
-      add(
-        volume.accountId,
-        record.repositoryId,
-        volumeMetricId(volume.role, stat),
-        record.mergedDiff?.[stat] ?? {
-          status: 'missing',
-          value: null,
-          reason: 'Final merged diff values are unavailable.',
-        },
-      );
-  }
-  return (
-    accounts: ContributionAccount[],
-    repositories: ContributionRepository[],
-  ): AdditionalValues =>
-    Object.fromEntries(
-      additionalMetricIds.map((metric) => {
-        const counts: Count[] = [];
-        for (const account of accounts)
-          for (const repository of repositories) {
-            const coverage = source.activity.coverage[metric];
-            const count = sumContributionCounts(
-              cells.get(key(account.id, repository.id, metric)) ?? [],
-            );
-            counts.push(
-              coverage.status === 'missing'
-                ? { status: 'missing', value: null, reason: coverage.reason }
-                : coverage.status === 'partial' && count.value !== null
-                  ? {
-                      status: 'partial',
-                      value: count.value,
-                      reason: [
-                        coverage.reason,
-                        ...(count.status === 'complete' ? [] : [count.reason]),
-                      ].join('; '),
-                    }
-                  : count,
-            );
-          }
-        return [metric, sumContributionCounts(counts)];
-      }),
-    ) as AdditionalValues;
 }
 export function hasAdditionalActivity(values: AdditionalValues): boolean {
   return additionalMetricIds.some(

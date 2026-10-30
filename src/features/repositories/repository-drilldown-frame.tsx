@@ -3,7 +3,8 @@ import { PageState } from '@/components/feedback/page-state';
 import { RepositoryHeader } from './repository-header';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
-import type { Count, OverviewRepository } from '@/models/repository-overview';
+import type { OverviewRepository } from '@/models/repository-overview';
+import type { Count } from '@/models/reporting-measurement';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import styles from './repository-records.module.css';
 

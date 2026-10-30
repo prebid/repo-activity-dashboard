@@ -120,6 +120,11 @@ it.each(['chromium', 'webkit'] as const)(
         .getByRole('link', { name: 'Contributions', exact: true })
         .click();
       await form.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
+      await form
+        .getByRole('table', { name: 'Contributors', exact: true })
+        .locator('tbody tr')
+        .first()
+        .waitFor();
       const missing = await person.request.get(fixture.origin + '/repos/not-in-catalog');
       expect(missing.status()).toBe(404);
       await fixture.client.send(

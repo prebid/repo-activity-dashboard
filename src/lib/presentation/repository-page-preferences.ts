@@ -47,11 +47,6 @@ export function readRepositoryCharts(raw: string | null): boolean {
     return false;
   }
 }
-export {
-  readTableColumns as readRepositoryColumns,
-  resolveTableColumns as resolveRepositoryColumns,
-  writeTableColumns as writeRepositoryColumns,
-} from './table-column-preferences';
 export function serializeRepositoryColumns(
   columns: Record<string, boolean>,
   chartsVisible = false,

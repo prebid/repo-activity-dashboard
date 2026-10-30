@@ -1,25 +1,33 @@
 import { contributionRecordKey } from './contribution-identity';
-import type { ContributionSource, ContributionContext } from '@/models/contributions';
+import type {
+  ContributionSource,
+  ContributionContext,
+  ContributionAccount,
+  ContributionRecord,
+} from '@/models/contributions';
 import type { ContributionSupportingRow } from '@/models/contribution-details';
 import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
 import { changeStatIds, volumeMetricId } from '@/models/contribution-activity';
+function recordMetadata(record: ContributionRecord): ContributionSupportingRow['record'] {
+  if (record.kind === 'issue') return record;
+  const { mergedDiff: _diff, ...metadata } = record;
+  return metadata;
+}
 /** Metadata only. One row per account/record: comments are grouped, credits and role volumes are not multiplied. */
 export function contributionDetailRows(
   source: ContributionSource,
   context: ContributionContext,
   metric: ReportMetric,
+  includedAccounts: readonly ContributionAccount[],
 ): ContributionSupportingRow[] {
-  const accounts = new Map(
-    source.accounts
-      .filter((row) => context.includedAccountIds.includes(row.id))
-      .map((row) => [row.id, row]),
-  );
+  const accounts = new Map(includedAccounts.map((row) => [row.id, row]));
   const repos = new Map(
     source.repositories
       .filter((row) => context.selection.repositoryIds.includes(row.id))
       .map((row) => [row.id, row]),
   );
   const records = new Map(source.records.map((row) => [row.id, row]));
+  const companies = new Map(source.companies.map((company) => [company.id, company]));
   const rows = new Map<string, ContributionSupportingRow>();
   function add(
     accountId: string,
@@ -41,9 +49,9 @@ export function contributionDetailRows(
       rows.set(id, {
         id,
         account,
-        company: source.companies.find((row) => row.id === account.companyId) ?? null,
+        company: account.companyId === null ? null : (companies.get(account.companyId) ?? null),
         repository,
-        record,
+        record: recordMetadata(record),
         value,
         creditedAt: at,
         lastAt: at,

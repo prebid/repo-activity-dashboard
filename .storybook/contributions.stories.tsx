@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { AccountTypeFilter } from '../src/features/contributions/account-type-filter';
 import { ContributionView } from '../src/features/contributions/contribution-view';
 import { DashboardFrame } from '../src/components/layout/dashboard-frame';
-import { PageState } from '../src/components/feedback/page-state';
+import { PageError } from '../src/components/feedback/page-error';
 import { useLocalTableController } from '../src/components/tables/local-data-table';
 import { contributionSample } from '../src/mocks/contributions';
 import {
@@ -22,7 +22,7 @@ function Preview({
   view = 'contributors',
 }: {
   sample?: ContributionSampleScenario;
-  view?: 'contributors' | 'companies' | 'person' | 'company' | 'unmapped' | 'loading' | 'error';
+  view?: 'contributors' | 'companies' | 'person' | 'company' | 'unmapped' | 'error';
 }) {
   const [actorTypes, setActorTypes] = useState<ContributionAccount['actorType'][]>([
     ...contributionActorTypes,
@@ -41,15 +41,8 @@ function Preview({
         : { kind: 'overview' as const };
   return (
     <DashboardFrame navigation={<span>Prebid · Contributions</span>}>
-      {view === 'loading' || view === 'error' ? (
-        <>
-          <h1>Contributors</h1>
-          <PageState
-            title={view === 'loading' ? 'Loading contributions' : 'Contributions could not load'}
-          >
-            {view === 'loading' ? 'Loading report…' : 'Try loading this report again.'}
-          </PageState>
-        </>
+      {view === 'error' ? (
+        <PageError reset={() => {}} />
       ) : (
         <ContributionView
           page={{
@@ -61,6 +54,7 @@ function Preview({
               source,
               { ...defaultContributionSelection(source), actorTypes },
               focus,
+              { area: view === 'companies' ? 'companies' : 'contributors', breakdown },
             ),
             sample,
             breakdown,
@@ -76,7 +70,14 @@ function Preview({
               }}
             />
           }
-          links={{ sample, currentHref: '/contributors' }}
+          links={{
+            sample,
+            currentHref: '/contributors',
+            settings: {
+              period: source.period,
+              selection: { ...defaultContributionSelection(source), actorTypes },
+            },
+          }}
           breakdownControls={
             <nav aria-label="Company breakdown" className={styles.breakdowns}>
               {(['members', 'repositories'] as const).map((value) => (
@@ -116,5 +117,4 @@ export const BusyContributor: Story = { args: { sample: 'large', view: 'person' 
 export const Partial: Story = { args: { sample: 'partial' } };
 export const Missing: Story = { args: { sample: 'missing' } };
 export const Empty: Story = { args: { sample: 'empty' } };
-export const Loading: Story = { args: { view: 'loading' } };
 export const Error: Story = { args: { view: 'error' } };

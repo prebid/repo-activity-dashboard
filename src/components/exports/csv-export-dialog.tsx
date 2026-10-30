@@ -1,10 +1,10 @@
 'use client';
+import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogTrigger,
-  DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { ColumnSelection } from '@/components/tables/column-selection';
 import type { SelectableColumn } from '@/models/column-selection';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 import styles from './csv-export.module.css';
 export interface CsvFile {
   blob: Blob;
@@ -162,7 +162,7 @@ export function CsvExportDialog({
             Export CSV
           </Button>
         </DialogTrigger>
-        <DialogContent container={container} className={styles.dialog}>
+        <ScrollableDialogContent container={container}>
           <DialogHeader className="text-left">
             <DialogTitle>{title} CSV export</DialogTitle>
             <DialogDescription>
@@ -171,7 +171,7 @@ export function CsvExportDialog({
               export.
             </DialogDescription>
           </DialogHeader>
-          <div className={styles.body} role="region" aria-label="CSV export choices" tabIndex={0}>
+          <ScrollableDialogBody label="CSV export choices">
             {layouts.length > 0 && (
               <fieldset className={styles.layout} disabled={pending}>
                 <legend>Layout</legend>
@@ -243,7 +243,7 @@ export function CsvExportDialog({
               disabled={pending}
               onChange={choose}
             />
-          </div>
+          </ScrollableDialogBody>
           {error && (
             <p role="alert" className={styles.error}>
               {error}
@@ -265,7 +265,7 @@ export function CsvExportDialog({
               {pending ? 'Preparing export…' : 'Download CSV'}
             </Button>
           </DialogFooter>
-        </DialogContent>
+        </ScrollableDialogContent>
       </Dialog>
     </div>
   );

@@ -12,12 +12,14 @@ import {
 import {
   repositoryColumnDefaults,
   repositoryColumnsKey,
-  readRepositoryColumns,
   readRepositoryCharts,
   serializeRepositoryColumns,
-  resolveRepositoryColumns,
-  writeRepositoryColumns,
 } from '@/lib/presentation/repository-page-preferences';
+import {
+  readTableColumns,
+  resolveTableColumns,
+  writeTableColumns,
+} from '@/lib/presentation/table-column-preferences';
 import type { useTableController } from './use-table-controller';
 
 export function useRepositoryPageControls(
@@ -36,7 +38,7 @@ export function useRepositoryPageControls(
   const [storageAvailable, setStorageAvailable] = useState(true);
   const defaults = useMemo(() => repositoryColumnDefaults(source), [source]);
   const filters = useMemo(() => readRepositoryFilters(search, source), [search, source]);
-  const columns = resolveRepositoryColumns(
+  const columns = resolveTableColumns(
     search,
     source.kind,
     defaults,
@@ -51,7 +53,7 @@ export function useRepositoryPageControls(
       const raw = localStorage.getItem(key);
       setSaved({
         key,
-        columns: readRepositoryColumns(raw, columnIds),
+        columns: readTableColumns(raw, columnIds),
         chartsVisible: readRepositoryCharts(raw),
       });
       setStorageAvailable(true);
@@ -73,9 +75,9 @@ export function useRepositoryPageControls(
   function changeColumns(value: Record<string, boolean>) {
     table.flushSearch();
     const url = new URL(window.location.href);
-    url.search = writeRepositoryColumns(url.search, source.kind, columns, columnIds);
+    url.search = writeTableColumns(url.search, source.kind, columns, columnIds);
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
-    url.search = writeRepositoryColumns(url.search, source.kind, value, columnIds);
+    url.search = writeTableColumns(url.search, source.kind, value, columnIds);
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     // Save deliberate overrides only, so context-sensitive defaults still work on another cohort.
     const overrides = { ...(saved?.key === key ? saved.columns : {}) };
@@ -112,14 +114,14 @@ export function useRepositoryPageControls(
     const url = new URL(window.location.href);
     url.search = writeTableQuery(url.search, source.kind, captured);
     url.searchParams.set(source.kind + '.charts', chartsVisible ? '1' : '0');
-    url.search = writeRepositoryColumns(url.search, source.kind, columns, columnIds);
+    url.search = writeTableColumns(url.search, source.kind, columns, columnIds);
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
     url.search = writeTableQuery(url.search, source.kind, {
       sort: 'createdAt',
       descending: true,
       page: 1,
     });
-    url.search = writeRepositoryColumns(url.search, source.kind, defaults, columnIds);
+    url.search = writeTableColumns(url.search, source.kind, defaults, columnIds);
     url.searchParams.set(source.kind + '.charts', '0');
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     table.clearSavedSort();

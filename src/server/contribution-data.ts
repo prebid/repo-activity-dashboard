@@ -2,7 +2,11 @@ import 'server-only';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
-import { readContributionLayoutQuery } from '@/lib/presentation/contribution-navigation';
+import {
+  readContributionLayoutQuery,
+  contributionPath,
+} from '@/lib/presentation/contribution-navigation';
+import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import {
   readContributionPeriod,
   readContributionSettings,
@@ -15,6 +19,12 @@ export async function loadContributionData(
   focus: ContributionFocus,
 ) {
   const viewer = await requireViewer();
+  if (
+    !contributionUrlFits(
+      contributionPath(focus.kind === 'overview' ? area : focus) + '?' + params.toString(),
+    )
+  )
+    return { status: 'invalid' as const, viewer, area };
   const options = readContributionLayoutQuery(params);
   if (!options) return { status: 'invalid' as const, viewer, area };
   const period = readContributionPeriod(params, contributionSampleAsOf);

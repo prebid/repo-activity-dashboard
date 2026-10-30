@@ -6,7 +6,8 @@ import {
   type AuthorSelection,
 } from '@/models/repository-insights';
 import { repositoryDrilldownHref } from './repository-drilldown';
-import { readTableQuery, writeTableQuery, type TableQuery } from './table-query';
+import { readTableQuery, writeTableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 
 /** Decode the route segment once; keep logical account validation strict and shared. */
 export function readAuthorAccountSegment(segment: string): string | null {

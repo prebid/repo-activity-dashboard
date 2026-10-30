@@ -406,7 +406,7 @@ it('updates group spans and reveals automation partials through the controlled c
   const activity = screen.getByRole('region', { name: 'Period activity' });
   await user.click(within(activity).getByRole('button', { name: 'Columns' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Prebid agents' }));
-  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Other bots' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Bots' }));
   await user.keyboard('{Escape}');
   expect(within(activity).getByRole('columnheader', { name: 'Agent reviewers' })).toBeVisible();
   expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);

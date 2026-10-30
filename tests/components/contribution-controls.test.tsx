@@ -1,5 +1,8 @@
+import type { ContributionOptions } from '@/models/contribution-options';
+import type { ContributionSettings } from '@/models/contribution-settings';
+import { localContributionOptions } from '../support/contribution-options';
 import { useMemo, useSyncExternalStore } from 'react';
-import { act, renderHook, render, screen, within } from '@testing-library/react';
+import { act, renderHook, render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
@@ -12,6 +15,7 @@ import {
   contributionPreferenceKey,
   defaultContributionSettings,
   readContributionSettings,
+  readContributionPreferences,
   serializeContributionPreferences,
 } from '@/lib/presentation/contribution-settings';
 import type { ContributionPage } from '@/models/contribution-page';
@@ -34,7 +38,26 @@ vi.mock('next/navigation', () => ({
 const directory = contributionSample();
 const ids = ['name', 'authoredPrsMerged', 'issuesAuthored', 'prComments'];
 const defaults = defaultContributionSettings(directory);
-function useControls(viewerId = 'alice', pickerDirectory = directory, tableKey = 'contributors') {
+const wideDirectory = {
+  ...directory,
+  accounts: Array.from({ length: 1000 }, (_, i) => ({
+    id: 'account-extra-' + i,
+    login: 'extra-' + i,
+    name: 'Extra ' + i,
+    actorType: 'human' as const,
+    companyId: null,
+  })),
+};
+function useControls(
+  viewerId = 'alice',
+  pickerDirectory = directory,
+  tableKey = 'contributors',
+  suppliedOptions?: ContributionOptions,
+) {
+  const options = useMemo(
+    () => localContributionOptions(pickerDirectory, contributionSampleAsOf),
+    [pickerDirectory],
+  );
   const search = useSyncExternalStore(subscribe, () => window.location.search);
   const page = useMemo((): ContributionPage => {
     const settings = readContributionSettings(
@@ -62,11 +85,107 @@ function useControls(viewerId = 'alice', pickerDirectory = directory, tableKey =
     historyMode: 'push',
   });
   return {
-    controls: useContributionControls(viewerId, page, pickerDirectory, table, tableKey, ids),
+    controls: useContributionControls(
+      viewerId,
+      page,
+      pickerDirectory,
+      table,
+      tableKey,
+      ids,
+      suppliedOptions ?? options,
+    ),
     table,
   };
 }
 const history: string[] = [];
+it('does not restore a delayed saved scope over an explicit navigation', async () => {
+  const saved = {
+    ...defaults,
+    selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
+  };
+  localStorage.setItem(
+    contributionPreferenceKey('alice', 'reference'),
+    serializeContributionPreferences(saved),
+  );
+  let resolve!: (value: ContributionSettings | null) => void;
+  let signal!: AbortSignal;
+  const options = {
+    ...localContributionOptions(directory, contributionSampleAsOf),
+    validate: vi.fn((_settings: ContributionSettings, active: AbortSignal) => {
+      signal = active;
+      return new Promise<ContributionSettings | null>((done) => {
+        resolve = done;
+      });
+    }),
+  };
+  const { result } = renderHook(() => useControls('alice', directory, 'contributors', options));
+  expect(result.current.controls.pending).toBe(true);
+  act(() => window.history.pushState(null, '', '/contributors?period=this-week'));
+  await act(async () => {
+    resolve(saved);
+    await Promise.resolve();
+  });
+  expect(signal.aborted).toBe(true);
+  expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-week' });
+  expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
+});
+it.each(['invalid', 'rejected', 'timeout', 'changed', 'storage'] as const)(
+  'handles %s saved-scope validation without overwriting the active report',
+  async (mode) => {
+    vi.useFakeTimers();
+    const key = contributionPreferenceKey('alice', 'reference');
+    const saved = {
+      ...defaults,
+      selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
+    };
+    const raw = serializeContributionPreferences(saved);
+    localStorage.setItem(key, raw);
+    let resolve!: (value: ContributionSettings | null) => void, reject!: (error: Error) => void;
+    const options = {
+      ...localContributionOptions(directory, contributionSampleAsOf),
+      validate: () =>
+        new Promise<ContributionSettings | null>((done, fail) => {
+          resolve = done;
+          reject = fail;
+        }),
+    };
+    const { result } = renderHook(() => useControls('alice', directory, 'contributors', options));
+    if (mode === 'changed') localStorage.setItem(key, serializeContributionPreferences(defaults));
+    const blocked =
+      mode === 'storage'
+        ? vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+            throw Error('blocked');
+          })
+        : undefined;
+    await act(async () => {
+      if (mode === 'timeout') await vi.advanceTimersByTimeAsync(15000);
+      else if (mode === 'rejected') reject(Error('offline'));
+      else resolve(mode === 'invalid' ? null : saved);
+      await Promise.resolve();
+    });
+    blocked?.mockRestore();
+    expect(navigation.replace).not.toHaveBeenCalled();
+    expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
+    expect(result.current.controls.pending).toBe(false);
+    if (mode === 'storage') expect(result.current.controls.storageAvailable).toBe(false);
+    else expect(result.current.controls.notice).toMatch(/Saved filters/);
+    expect(localStorage.getItem(key)).toBe(
+      mode === 'changed' ? serializeContributionPreferences(defaults) : raw,
+    );
+    if (mode === 'invalid') {
+      act(() =>
+        result.current.controls.update(
+          { ...defaults, period: { kind: 'preset', preset: 'last-month' } },
+          'period',
+        ),
+      );
+      expect(
+        readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
+          ?.selection.excludedAccountIds,
+      ).toEqual([]);
+    }
+  },
+);
 beforeEach(() => {
   localStorage.clear();
   window.history.replaceState(null, '', '/contributors');
@@ -91,7 +210,90 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.clearAllMocks();
 });
-it('restores a relative period and excluded accounts on direct entry, but never overwrites an explicit link', () => {
+it('renders defaults without an unnecessary server replacement', () => {
+  renderHook(() => useControls());
+  expect(navigation.replace).not.toHaveBeenCalled();
+});
+it('does not navigate to oversized saved filters or replace the saved value with defaults', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  const large = {
+    ...defaults,
+    selection: {
+      ...defaults.selection,
+      population: {
+        kind: 'selected' as const,
+        accountIds: wideDirectory.accounts.map((account) => account.id),
+        companyIds: [],
+      },
+    },
+  };
+  const raw = serializeContributionPreferences(large);
+  localStorage.setItem(key, raw);
+  const { result } = renderHook(() => useControls('alice', wideDirectory));
+  expect(result.current.controls.notice).toContain('Saved filters are too large');
+  expect(navigation.replace).not.toHaveBeenCalled();
+  expect(localStorage.getItem(key)).toBe(raw);
+  expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
+});
+it('rejects an oversized filter change before navigation or preference persistence', () => {
+  const { result } = renderHook(() => useControls('alice', wideDirectory));
+  act(() =>
+    result.current.controls.update(
+      {
+        ...defaults,
+        selection: {
+          ...defaults.selection,
+          population: {
+            kind: 'selected',
+            accountIds: wideDirectory.accounts.map((account) => account.id),
+            companyIds: [],
+          },
+        },
+      },
+      'population',
+    ),
+  );
+  expect(result.current.controls.notice).toContain('too large');
+  expect(navigation.push).not.toHaveBeenCalled();
+  expect(localStorage.getItem(contributionPreferenceKey('alice', 'reference'))).toBeNull();
+  expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
+});
+it('refuses presentation writes that would turn a bounded incoming URL into an oversized one', () => {
+  window.history.replaceState(null, '', '/contributors?scope=1&nav=' + 'a'.repeat(7400));
+  const { result } = renderHook(() => useControls());
+  const before = window.location.href;
+  act(() => result.current.controls.visibility.onChange({ prComments: true }));
+  expect(result.current.controls.notice).toContain('too large');
+  expect(window.location.href).toBe(before);
+  expect(
+    localStorage.getItem(contributionPreferenceKey('alice', 'reference') + ':columns:contributors'),
+  ).toBeNull();
+});
+it('does not save a repository drilldown when only the period changes', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  localStorage.setItem(key, serializeContributionPreferences(defaults));
+  window.history.replaceState(
+    null,
+    '',
+    '/contributors/account-alice?period=this-year&repo=repo-prebidjs',
+  );
+  const { result } = renderHook(() => useControls());
+  act(() =>
+    result.current.controls.update(
+      {
+        ...result.current.controls.value,
+        period: { kind: 'preset', preset: 'this-month' },
+      },
+      'period',
+    ),
+  );
+  expect(
+    readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
+      ?.selection.repositoryIds,
+  ).toEqual([...defaults.selection.repositoryIds].sort());
+  expect(result.current.controls.value.selection.repositoryIds).toEqual(['repo-prebidjs']);
+});
+it('restores a relative period and excluded accounts on direct entry, but never overwrites an explicit link', async () => {
   const saved = {
     ...defaults,
     period: { kind: 'preset' as const, preset: 'last-month' as const },
@@ -100,8 +302,7 @@ it('restores a relative period and excluded accounts on direct entry, but never 
   const key = contributionPreferenceKey('alice', 'reference');
   localStorage.setItem(key, serializeContributionPreferences(saved));
   const { result, unmount } = renderHook(() => useControls());
-  expect(result.current.controls.ready).toBe(true);
-  expect(result.current.controls.value.period).toEqual(saved.period);
+  await waitFor(() => expect(result.current.controls.value.period).toEqual(saved.period));
   expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
   expect(navigation.replace).toHaveBeenCalledOnce();
   unmount();
@@ -124,13 +325,16 @@ it('flushes pending search, resets every page and freezes the previous scope for
   const { result } = renderHook(() => useControls());
   act(() => result.current.table.setSearch('Bob'));
   act(() =>
-    result.current.controls.update({
-      ...result.current.controls.value,
-      selection: {
-        ...result.current.controls.value.selection,
-        excludedAccountIds: ['account-alice'],
+    result.current.controls.update(
+      {
+        ...result.current.controls.value,
+        selection: {
+          ...result.current.controls.value.selection,
+          excludedAccountIds: ['account-alice'],
+        },
       },
-    }),
+      'population',
+    ),
   );
   const params = new URLSearchParams(window.location.search);
   expect(params.get('report.q')).toBe('Bob');
@@ -165,10 +369,13 @@ it('saves columns independently, restores explicit column history and resets fil
   act(() => window.history.replaceState(null, '', columnHistory));
   expect(result.current.controls.visibility.value.prComments).toBe(false);
   act(() =>
-    result.current.controls.update({
-      ...defaults,
-      selection: { ...defaults.selection, repositoryIds: [] },
-    }),
+    result.current.controls.update(
+      {
+        ...defaults,
+        selection: { ...defaults.selection, repositoryIds: [] },
+      },
+      'repositoryIds',
+    ),
   );
   act(() => result.current.table.setSearch('Alice'));
   act(() => result.current.controls.reset());
@@ -212,10 +419,13 @@ it('isolates accounts and continues through read/write/remove storage failures',
     throw Error('full');
   });
   act(() =>
-    result.current.controls.update({
-      ...defaults,
-      selection: { ...defaults.selection, repositoryIds: [] },
-    }),
+    result.current.controls.update(
+      {
+        ...defaults,
+        selection: { ...defaults.selection, repositoryIds: [] },
+      },
+      'repositoryIds',
+    ),
   );
   expect(result.current.controls.value.selection.repositoryIds).toEqual([]);
   expect(result.current.controls.storageAvailable).toBe(false);
@@ -234,7 +444,7 @@ it('drafts population union and exclusions separately, preserves selections acro
   const large = contributionSample({ scenario: 'large' });
   render(
     <PopulationSelector
-      directory={large}
+      options={localContributionOptions(large, contributionSampleAsOf)}
       selected={{ population: { kind: 'all' }, excludedAccountIds: [] }}
       onApply={onApply}
     />,
@@ -243,18 +453,22 @@ it('drafts population union and exclusions separately, preserves selections acro
   const dialog = screen.getByRole('dialog');
   await user.click(within(dialog).getByRole('radio', { name: 'Selected accounts' }));
   const companies = within(dialog).getByRole('group', { name: /^Companies/ });
-  await user.click(within(companies).getByLabelText('Example Acme'));
+  await user.click(await within(companies).findByLabelText('Example Acme'));
   const people = within(dialog).getByRole('group', { name: /^Individuals/ });
-  expect(within(people).getAllByRole('checkbox')).toHaveLength(51);
+  await waitFor(() => expect(within(people).getAllByRole('checkbox')).toHaveLength(51));
   await user.click(within(people).getByRole('checkbox', { name: /sample-person-001/ }));
   await user.click(within(people).getByRole('button', { name: 'Next' }));
   await user.type(within(people).getByRole('textbox'), 'heavy');
-  await user.click(within(people).getByRole('checkbox', { name: /Sample agent with hundreds/ }));
+  await user.click(
+    await within(people).findByRole('checkbox', { name: /Sample agent with hundreds/ }),
+  );
   await user.click(within(people).getByLabelText('Show selected only'));
-  expect(within(people).getAllByRole('checkbox')).toHaveLength(2);
+  await waitFor(() => expect(within(people).getAllByRole('checkbox')).toHaveLength(2));
   const excluded = within(dialog).getByRole('group', { name: /^Exclusions/ });
   await user.type(within(excluded).getByRole('textbox'), 'heavy');
-  await user.click(within(excluded).getByRole('checkbox', { name: /Sample agent with hundreds/ }));
+  await user.click(
+    await within(excluded).findByRole('checkbox', { name: /Sample agent with hundreds/ }),
+  );
   await user.click(within(dialog).getByRole('button', { name: 'Apply accounts' }));
   expect(onApply).toHaveBeenCalledWith({
     population: {
@@ -271,6 +485,7 @@ it('connects period controls and presents browser-storage and pending states', a
     onReset = vi.fn();
   const { rerender } = render(
     <ContributionControls
+      options={localContributionOptions(directory, contributionSampleAsOf)}
       directory={directory}
       value={defaults}
       asOf={contributionSampleAsOf}
@@ -285,14 +500,18 @@ it('connects period controls and presents browser-storage and pending states', a
     screen.getByRole('combobox', { name: 'Reporting period preset' }),
     'this-month',
   );
-  expect(onChange).toHaveBeenCalledWith({
-    ...defaults,
-    period: { kind: 'preset', preset: 'this-month' },
-  });
+  expect(onChange).toHaveBeenCalledWith(
+    {
+      ...defaults,
+      period: { kind: 'preset', preset: 'this-month' },
+    },
+    'period',
+  );
   await user.click(screen.getByRole('button', { name: 'Reset filters' }));
   expect(onReset).toHaveBeenCalledOnce();
   rerender(
     <ContributionControls
+      options={localContributionOptions(directory, contributionSampleAsOf)}
       directory={directory}
       value={defaults}
       asOf={contributionSampleAsOf}
@@ -326,17 +545,20 @@ it('retains a failed-save warning when a server navigation supplies fresh picker
     throw Error('quota');
   });
   act(() =>
-    result.current.controls.update({
-      ...defaults,
-      selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-    }),
+    result.current.controls.update(
+      {
+        ...defaults,
+        selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
+      },
+      'population',
+    ),
   );
   expect(result.current.controls.storageAvailable).toBe(false);
   rerender({ pickerDirectory: { ...directory } });
   expect(result.current.controls.storageAvailable).toBe(false);
   expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
   failure.mockRestore();
-  act(() => result.current.controls.update(defaults));
+  act(() => result.current.controls.update(defaults, 'population'));
   expect(result.current.controls.storageAvailable).toBe(true);
 });
 
@@ -353,10 +575,13 @@ it('does not let a successful column save clear a failed report-scope save', () 
     original(item, value);
   });
   act(() =>
-    result.current.controls.update({
-      ...defaults,
-      selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-    }),
+    result.current.controls.update(
+      {
+        ...defaults,
+        selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
+      },
+      'population',
+    ),
   );
   expect(result.current.controls.storageAvailable).toBe(false);
   act(() => result.current.controls.visibility.onChange({ prComments: true }));
@@ -364,7 +589,7 @@ it('does not let a successful column save clear a failed report-scope save', () 
   expect(localStorage.getItem(key)).toBeNull();
   expect(result.current.controls.storageAvailable).toBe(false);
   failure.mockRestore();
-  act(() => result.current.controls.update(defaults));
+  act(() => result.current.controls.update(defaults, 'population'));
   expect(result.current.controls.storageAvailable).toBe(true);
 });
 

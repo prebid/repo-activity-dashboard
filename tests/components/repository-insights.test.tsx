@@ -75,7 +75,7 @@ it('uses compact account rows and links to full filtered record lists', () => {
   expect(screen.getByText('24 unique accounts')).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(24);
   expect(screen.getByText('Prebid agent')).toBeVisible();
-  expect(screen.getByText('Other bot')).toBeVisible();
+  expect(screen.getByText('Bot')).toBeVisible();
   const link = screen.getByRole('link', { name: 'View 2 PRs by sample-author-1' });
   const target = new URL(link.getAttribute('href')!, 'https://dashboard.invalid');
   expect(target.pathname).toBe('/repos/prebidjs/authors/sample-author-1');

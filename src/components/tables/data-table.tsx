@@ -1,35 +1,28 @@
 'use client';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import {
   tableFeatures,
   useTable,
-  rowSortingFeature,
   rowPaginationFeature,
   columnVisibilityFeature,
-  createSortedRowModel,
   createPaginatedRowModel,
   type ColumnDef,
 } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PageState } from '@/components/feedback/page-state';
-import { compareValues } from '@/lib/presentation/format';
+import { countLabel, type CountLabels } from '@/lib/presentation/format';
+import { selectTableRows } from '@/lib/presentation/table-rows';
 import type { TableController } from '@/lib/presentation/table-controller';
 
 const features = tableFeatures({
-  rowSortingFeature,
   rowPaginationFeature,
   columnVisibilityFeature,
-  sortedRowModel: createSortedRowModel(),
   paginatedRowModel: createPaginatedRowModel(),
 });
 export type { DataColumn } from './table-columns';
-import {
-  columnSections,
-  columnSortValue,
-  type ColumnVisibility,
-  type DataColumn,
-} from './table-columns';
+import { columnSections, type ColumnVisibility, type DataColumn } from './table-columns';
 import { ColumnMenu } from './column-menu';
 import { ColumnDefinitions } from './column-definitions';
 import {
@@ -40,8 +33,7 @@ import {
 import { tableCsv } from '@/lib/presentation/csv-export';
 import { cn } from '@/lib/utils';
 import styles from './data-table.module.css';
-import { tablePageSize } from '@/lib/presentation/table-query';
-export { tablePageSize } from '@/lib/presentation/table-query';
+import { tablePageSize } from '@/models/table-query';
 
 export interface DataTableProps<T> {
   title: string;
@@ -54,6 +46,7 @@ export interface DataTableProps<T> {
   /** Optional explicit CSV columns; never affects visible columns, search or sorting. */
   exportColumns?: DataColumn<T>[];
   csvAlternatives?: CsvExportAlternative[];
+  csvDownload?: CsvExportAlternative['download'];
   exportContextKey?: string;
   description?: React.ReactNode;
   controls?: React.ReactNode;
@@ -61,19 +54,10 @@ export interface DataTableProps<T> {
   rowClassName?: (row: T) => string | undefined;
   footerNote?: React.ReactNode;
   visibility?: ColumnVisibility;
-  itemLabel?: string;
+  itemLabel?: CountLabels;
   showSinglePageControls?: boolean;
   searchable?: boolean;
   pageSize?: number;
-}
-function filterRows<T>(rows: T[], columns: DataColumn<T>[], search: string): T[] {
-  return rows.filter((row) =>
-    columns.some((column) =>
-      String(column.value(row) ?? '')
-        .toLocaleLowerCase('en')
-        .includes(search.toLocaleLowerCase('en')),
-    ),
-  );
 }
 export function DataTable<T extends { id: string }>({
   title,
@@ -85,6 +69,7 @@ export function DataTable<T extends { id: string }>({
   exportName,
   exportColumns,
   csvAlternatives,
+  csvDownload,
   exportContextKey,
   description,
   controls,
@@ -92,11 +77,12 @@ export function DataTable<T extends { id: string }>({
   rowClassName,
   footerNote,
   visibility,
-  itemLabel = 'items',
+  itemLabel = { singular: 'item', plural: 'items' },
   showSinglePageControls = true,
   searchable = true,
   pageSize = tablePageSize,
 }: DataTableProps<T>) {
+  const interactive = useClientReady();
   const [localVisibility, setLocalVisibility] = useState<Record<string, boolean>>({});
   const id = useId();
   const scrollArea = useRef<HTMLDivElement>(null);
@@ -129,22 +115,15 @@ export function DataTable<T extends { id: string }>({
   };
   const { query, update, reconcilePage } = controller;
   const matching = useMemo(
-    () => filterRows(rows, columns, searchable ? query.search : ''),
-    [rows, columns, query.search, searchable],
+    () => selectTableRows(rows, columns, query, searchable),
+    [rows, columns, query, searchable],
   );
   const defs = useMemo<ColumnDef<typeof features, T>[]>(
     () =>
       columns.map((column) => ({
         id: column.id,
         header: column.label,
-        accessorFn: (row: T) => columnSortValue(column, row) ?? undefined,
-        sortUndefined: 'last',
-        sortFn: (a, b) =>
-          compareValues(
-            columnSortValue(column, a.original),
-            columnSortValue(column, b.original),
-            'asc',
-          ),
+        accessorFn: (row: T) => column.value(row) ?? undefined,
       })),
     [columns],
   );
@@ -180,15 +159,13 @@ export function DataTable<T extends { id: string }>({
   useEffect(() => {
     if (query.page > pageCount) reconcilePage(pageCount);
   }, [query.page, pageCount, reconcilePage]);
-  const sorting = query.sort ? [{ id: query.sort, desc: query.descending }] : [];
   const pagination = { pageIndex: page - 1, pageSize: rowsPerPage };
   const table = useTable({
     features,
     columns: defs,
     data: matching,
     getRowId: (row) => row.id,
-    state: { sorting, pagination, columnVisibility: effectiveVisibility },
-    onSortingChange: () => {},
+    state: { pagination, columnVisibility: effectiveVisibility },
     onPaginationChange: () => {},
     autoResetPageIndex: false,
     rowCount: resultCount,
@@ -208,16 +185,8 @@ export function DataTable<T extends { id: string }>({
       if (!alternative) throw Error('Unknown CSV layout');
       return alternative.download({ columnIds, query: captured, signal });
     }
-    const sortedBy = columns.find((column) => column.id === captured.sort);
-    const fullRows = filterRows(rows, columns, searchable ? captured.search : '').sort((a, b) =>
-      sortedBy
-        ? compareValues(
-            columnSortValue(sortedBy, a),
-            columnSortValue(sortedBy, b),
-            captured.descending ? 'desc' : 'asc',
-          )
-        : 0,
-    );
+    if (csvDownload) return csvDownload({ columnIds, query: captured, signal });
+    const fullRows = selectTableRows(rows, columns, captured, searchable);
     const text = tableCsv(
       fullRows,
       exportColumns ?? columns,
@@ -246,6 +215,7 @@ export function DataTable<T extends { id: string }>({
       >
         <button
           type="button"
+          disabled={!interactive}
           className={styles.sort}
           title={column.description}
           aria-describedby={column.description ? id + '-description-' + column.id : undefined}
@@ -269,11 +239,15 @@ export function DataTable<T extends { id: string }>({
         <div>
           <div className={styles.titleRow}>
             <h2 className={styles.title}>{title}</h2>
-            <ColumnDefinitions title={title} columns={visibleColumns} />
+            <ColumnDefinitions title={title} columns={visibleColumns} disabled={!interactive} />
           </div>
           {description && <div className={styles.description}>{description}</div>}
         </div>
-        <div className={styles.controls}>
+        <fieldset
+          className={styles.controls}
+          disabled={!interactive}
+          aria-label={title + ' table controls'}
+        >
           {controls}
           {searchable && (
             <Input
@@ -282,7 +256,6 @@ export function DataTable<T extends { id: string }>({
               className={styles.search}
               value={controller.draftSearch}
               onChange={(event) => controller.setSearch(event.target.value)}
-              onBlur={() => controller.flushSearch()}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                   event.preventDefault();
@@ -316,7 +289,7 @@ export function DataTable<T extends { id: string }>({
               onDownload={download}
             />
           )}
-        </div>
+        </fieldset>
       </div>
       {headerContent && <div className={styles.headerContent}>{headerContent}</div>}
       <div hidden>
@@ -445,15 +418,20 @@ export function DataTable<T extends { id: string }>({
       )}
       <div className={styles.footer}>
         <span aria-live="polite">
-          {resultCount.toLocaleString('en-US') + (searchable ? ' matching ' : ' ') + itemLabel}
+          {resultCount.toLocaleString('en-US') +
+            (searchable ? ' matching ' : ' ') +
+            countLabel(resultCount, itemLabel)}
         </span>
+        {columns.find((column) => column.id === query.sort)?.sortNote && (
+          <span>{columns.find((column) => column.id === query.sort)?.sortNote}</span>
+        )}
         {footerNote && <span>{footerNote}</span>}
         {(showSinglePageControls || pageCount > 1) && (
           <div className={styles.pages}>
             <Button
               type="button"
               variant="outline"
-              disabled={page <= 1}
+              disabled={!interactive || page <= 1}
               onClick={() => update({ page: page - 1 })}
             >
               Previous
@@ -462,7 +440,7 @@ export function DataTable<T extends { id: string }>({
             <Button
               type="button"
               variant="outline"
-              disabled={page >= pageCount}
+              disabled={!interactive || page >= pageCount}
               onClick={() => update({ page: page + 1 })}
             >
               Next

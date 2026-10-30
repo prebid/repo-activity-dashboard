@@ -1,3 +1,4 @@
+import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { GitPullRequest, GitMerge, CircleDot, CircleCheck } from 'lucide-react';
@@ -18,7 +19,7 @@ export const repositoryInlineColumnIds: ReadonlySet<string> = new Set([
 ]);
 
 type Row = RepositoryPagePr | RepositoryPageIssue;
-const authorLabels = { human: 'Human', agent: 'Prebid agent', bot: 'Bot' };
+const authorLabels = accountTypeLabels;
 function RecordIdentity({ row }: { row: Row }) {
   const state = 'draft' in row && row.draft ? 'Draft' : row.state;
   return (

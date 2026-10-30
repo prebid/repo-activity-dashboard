@@ -7,7 +7,8 @@ import { PageState } from '@/components/feedback/page-state';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatCount, formatUtcDate } from '@/lib/presentation/format';
-import { accountTypeLabels, insightTitles } from '@/lib/presentation/repository-insights';
+import { accountTypeLabels } from '@/models/github-account';
+import { insightTitles } from '@/lib/presentation/repository-insights';
 import type {
   RepositoryInsight,
   RepositoryAuthor,
@@ -175,7 +176,7 @@ export function RepositoryInsightsView({
             }),
           )}
           controller={controller}
-          itemLabel="authors"
+          itemLabel={{ singular: 'author', plural: 'authors' }}
           footerNote="One row per account in this repository and period, including humans, Prebid agents, and other bots. Sample record links are placeholders."
         />
       ) : insight.kind === 'contributions' ? (
@@ -185,7 +186,7 @@ export function RepositoryInsightsView({
           rows={insight.rows}
           columns={contributionDetailColumns}
           controller={controller}
-          itemLabel="contribution credits"
+          itemLabel={{ singular: 'contribution credit', plural: 'contribution credits' }}
           footerNote="One credit per account, PR, and contribution type, in the period of its first qualifying action. Multiple accounts can contribute to one PR. Sample links are placeholders."
         />
       ) : (

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import type { Measurement, OverviewRepository } from '@/models/repository-overview';
+import type { OverviewRepository } from '@/models/repository-overview';
+import type { Measurement } from '@/models/reporting-measurement';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import { formatCount } from '@/lib/presentation/format';

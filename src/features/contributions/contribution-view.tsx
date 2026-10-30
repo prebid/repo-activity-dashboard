@@ -13,11 +13,9 @@ import {
   contributorColumns,
   companyColumns,
   repositoryContributionColumns,
-  contributionExportColumns,
-  contributorExportColumns,
   type ContributionLinks,
 } from './contribution-columns';
-import { contributionCsvAlternatives } from './contribution-csv-export';
+import { contributionCsvAlternatives, contributionCsvDownload } from './contribution-csv-export';
 import { ContributionHeader } from './contribution-header';
 import styles from './contributions.module.css';
 
@@ -41,15 +39,10 @@ export function ContributionView({
   );
   const visible = visibility?.value ?? localVisible;
   const report = page.report;
-  const exportQuery = {
-    ...controller.query,
-    search: controller.draftSearch,
-    hideZeroMembers: page.hideZeroMembers ?? false,
-  };
   if (
     !report.context.selection.repositoryIds.length ||
     !report.context.selection.actorTypes.length ||
-    !report.context.includedAccountIds.length
+    !report.context.includedAccountCount
   )
     return (
       <>
@@ -67,6 +60,8 @@ export function ContributionView({
         </PageState>
       </>
     );
+  const table = report.table;
+  if (!table) throw Error('Expected a contribution table');
   const incomplete = Object.values({ ...report.totals, ...report.additionalTotals }).filter(
     (value) => value.status !== 'complete',
   );
@@ -78,6 +73,7 @@ export function ContributionView({
   const tableCommon = {
     controller,
     csvAlternatives: contributionCsvAlternatives(page),
+    csvDownload: contributionCsvDownload(page, 'summary'),
     exportContextKey: JSON.stringify([
       page.area,
       report.context,
@@ -85,7 +81,7 @@ export function ContributionView({
       page.hideZeroMembers,
     ]),
     visibility: visibility ?? { value: visible, onChange: setVisible },
-    itemLabel: 'rows',
+    itemLabel: { singular: 'row', plural: 'rows' },
     exportName: page.area + '-sample.csv',
     emptyTitle: controller.query.search
       ? 'No matching rows'
@@ -137,27 +133,25 @@ export function ContributionView({
       )}
       {report.kind === 'company' && breakdownControls}
       <div className={styles.table}>
-        {report.kind === 'overview' ? (
-          page.area === 'contributors' ? (
+        {table.kind === 'contributors' || table.kind === 'companies' ? (
+          table.kind === 'contributors' ? (
             <DataTable
               {...tableCommon}
               title="Contributors"
               description="Rank by any metric. Select a name for its repository breakdown or a metric for supporting records."
-              rows={report.contributors}
+              rows={table.rows}
               columns={people}
-              exportColumns={contributorExportColumns(people, report.context, exportQuery)}
             />
           ) : (
             <DataTable
               {...tableCommon}
               title="Companies"
               description="Totals include every selected member, across all selected repositories."
-              rows={report.companies}
+              rows={table.rows}
               columns={companies}
-              exportColumns={contributionExportColumns(companies, report.context, exportQuery)}
             />
           )
-        ) : report.kind === 'company' && page.breakdown === 'members' ? (
+        ) : table.kind === 'members' ? (
           <DataTable
             {...tableCommon}
             title="Company contributors"
@@ -175,11 +169,10 @@ export function ContributionView({
             }
             rows={
               page.hideZeroMembers
-                ? report.members.filter((row) => !isKnownZeroContribution(row))
-                : report.members
+                ? table.rows.filter((row) => !isKnownZeroContribution(row))
+                : table.rows
             }
             columns={people}
-            exportColumns={contributorExportColumns(people, report.context, exportQuery)}
           />
         ) : (
           <DataTable
@@ -187,9 +180,8 @@ export function ContributionView({
             title="By repository"
             description="Repositories with activity (including optional metrics) or incomplete data. Confirmed-zero repositories are omitted."
             searchable={false}
-            rows={report.repositories}
+            rows={table.rows}
             columns={repositories}
-            exportColumns={contributionExportColumns(repositories, report.context, exportQuery)}
           />
         )}
       </div>

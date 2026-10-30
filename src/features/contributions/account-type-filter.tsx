@@ -1,4 +1,5 @@
 'use client';
+import { accountTypeLabels } from '@/models/github-account';
 import { useEffect, useState } from 'react';
 import { Users, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
-import { actorLabels } from './contribution-columns';
+
 import styles from './contributions.module.css';
 type ActorType = ContributionAccount['actorType'];
 export function AccountTypeFilter({
@@ -33,7 +34,7 @@ export function AccountTypeFilter({
     selected.length === 4
       ? 'All'
       : selected.length === 1
-        ? actorLabels[selected[0]]
+        ? accountTypeLabels[selected[0]]
         : selected.length
           ? selected.length + ' types'
           : 'None';
@@ -69,7 +70,7 @@ export function AccountTypeFilter({
                 )
               }
             >
-              {actorLabels[type]}
+              {accountTypeLabels[type]}
             </DropdownMenuCheckboxItem>
           ))}
           <DropdownMenuSeparator />

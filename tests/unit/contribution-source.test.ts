@@ -1,10 +1,8 @@
 import { unpreparedActivity } from '../support/contribution-activity';
 import { expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
-import {
-  validateContributionSource,
-  contributionCreditKey,
-} from '@/lib/presentation/contribution-source';
+import { validateContributionSource } from '@/lib/presentation/contribution-source';
+import { contributionCreditKey } from '@/lib/presentation/contribution-identity';
 import {
   contributionAccountSchema,
   contributionRecordSchema,
@@ -13,7 +11,7 @@ import {
 } from '@/models/contributions';
 
 it('validates a source without mutating it and keeps credit identity independent of its date', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const before = structuredClone(source);
   expect(validateContributionSource(source)).toEqual(before);
   expect(source).toEqual(before);
@@ -238,13 +236,13 @@ it.each([
     'Contribution range does not match its period and snapshot',
   ],
 ] as const)('rejects %s rather than publishing misleading data', (_name, mutate, message) => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   mutate(source);
   expect(() => validateContributionSource(source)).toThrow(message);
 });
 
 it('checks coverage identities and rejects ambiguous repeated overrides', () => {
-  const source = contributionSample({ scenario: 'partial' });
+  const source = structuredClone(contributionSample({ scenario: 'partial' }));
   source.coverageOverrides.push(source.coverageOverrides[0]);
   expect(() => validateContributionSource(source)).toThrow('Duplicate coverage cells');
   source.coverageOverrides.pop();
@@ -255,7 +253,7 @@ it('checks coverage identities and rejects ambiguous repeated overrides', () => 
   expect(() => validateContributionSource(source)).toThrow('Unknown coverage identity');
 });
 it('requires explicit per-metric coverage and honest reasons', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   expect(() => validateContributionSource({ ...source, coverage: {} })).toThrow();
   expect(() =>
     validateContributionSource({
@@ -283,7 +281,7 @@ it('keeps unknown account classification and unmapped companies explicit, and ex
       actorType: 'unknown',
       companyId: null,
     }),
-  ).toMatchObject({ id: 'stable', login: 'mixed-case', actorType: 'unknown', companyId: null });
+  ).toMatchObject({ id: 'stable', login: 'Mixed-Case', actorType: 'unknown', companyId: null });
   expect(
     contributionAccountSchema.safeParse({
       id: 'stable',
@@ -304,7 +302,7 @@ it('keeps unknown account classification and unmapped companies explicit, and ex
 });
 
 it('includes the exact current as-of instant and excludes the next completed-period boundary', () => {
-  const source = contributionSample();
+  const source = structuredClone(contributionSample());
   const issue = {
     id: 'boundary-issue',
     repositoryId: source.repositories[0].id,
@@ -330,7 +328,9 @@ it('includes the exact current as-of instant and excludes the next completed-per
       activity: unpreparedActivity(),
     }).credits,
   ).toHaveLength(1);
-  const completed = contributionSample({ period: { kind: 'preset', preset: 'last-month' } });
+  const completed = structuredClone(
+    contributionSample({ period: { kind: 'preset', preset: 'last-month' } }),
+  );
   issue.createdAt = completed.range.end;
   credit.creditedAt = completed.range.end;
   expect(() =>
@@ -341,4 +341,14 @@ it('includes the exact current as-of instant and excludes the next completed-per
       activity: unpreparedActivity(),
     }),
   ).toThrow('Credit date is outside the record/report range');
+});
+
+it('preserves the supplied display casing while validating logins case-insensitively', () => {
+  const input = structuredClone(contributionSample());
+  input.accounts[0].login = 'Sample-Alice';
+  const validated = validateContributionSource(input);
+  expect(validated.accounts[0].login).toBe('Sample-Alice');
+  expect(input.accounts[0].login).toBe('Sample-Alice');
+  input.accounts[1].login = 'SAMPLE-ALICE';
+  expect(() => validateContributionSource(input)).toThrow('Duplicate account logins');
 });

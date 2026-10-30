@@ -1,3 +1,4 @@
+import { reportRows } from '../support/contribution-reports';
 import { beforeEach, expect, it, vi } from 'vitest';
 const viewer = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
@@ -11,12 +12,19 @@ import { contributions } from '@/server/reporting';
 beforeEach(() => {
   viewer.mockReset().mockResolvedValue({ id: 'sample-viewer' });
 });
+it('ships only the active report collection and no complete account directory', async () => {
+  const result = await contributions('companies', new URLSearchParams('sample=large'));
+  expect(JSON.stringify(result)).not.toContain('Sample contributor 250');
+  if (result.status !== 'ready') throw Error('Expected report');
+  expect(result.page.report.context).not.toHaveProperty('includedAccountIds');
+  expect(result.directory).not.toHaveProperty('accounts');
+});
 it('composes display models once on the guarded server boundary', async () => {
   const result = await contributions('contributors');
   if (result.status !== 'ready' || result.page.report.kind !== 'overview')
     throw Error('Expected overview');
   expect(viewer).toHaveBeenCalledOnce();
-  expect(result.page.report.contributors).toHaveLength(7);
+  expect(reportRows(result.page.report, 'contributors')).toHaveLength(7);
   expect(result.page.report.totals.authoredPrsMerged).toEqual({ status: 'complete', value: 5 });
   expect('credits' in result.page).toBe(false);
   expect('source' in result.page).toBe(false);
@@ -31,8 +39,8 @@ it('keeps focus, sample, breakdown and safe return context', async () => {
     throw Error('Expected company');
   expect(result.page.returnTo).toBe('/companies?report.page=2');
   expect(result.page.breakdown).toBe('repositories');
-  expect(result.page.report.members).toHaveLength(100);
-  expect(result.page.report.repositories).toHaveLength(18);
+  expect(result.page.report.kind === 'company' && result.page.report.memberCount).toBe(100);
+  expect(reportRows(result.page.report, 'repositories')).toHaveLength(18);
   const unmapped = await contributions('companies', undefined, {
     kind: 'company',
     companyId: null,
@@ -59,14 +67,14 @@ it('filters before company aggregation and keeps actor selection on focused repo
   const result = await contributions('companies', new URLSearchParams('type=human'));
   if (result.status !== 'ready' || result.page.report.kind !== 'overview')
     throw Error('Expected overview');
-  expect(result.page.report.companies).toHaveLength(3);
+  expect(reportRows(result.page.report, 'companies')).toHaveLength(3);
   expect(result.page.report.context.selection.actorTypes).toEqual(['human']);
   expect(result.page.report.totals.mergesPerformed).toEqual({ status: 'complete', value: 4 });
   expect('actorTypes' in result.page).toBe(false);
   const empty = await contributions('contributors', new URLSearchParams('type='));
   if (empty.status !== 'ready' || empty.page.report.kind !== 'overview')
     throw Error('Expected overview');
-  expect(empty.page.report.contributors).toEqual([]);
+  expect(reportRows(empty.page.report, 'contributors')).toEqual([]);
 });
 
 it('applies repository, period, inclusion union and exclusion once before all report projections', async () => {
@@ -79,22 +87,28 @@ it('applies repository, period, inclusion union and exclusion once before all re
   });
   if (result.status !== 'ready' || result.page.report.kind !== 'company')
     throw Error('Expected company');
-  expect(result.page.report.members.map((row) => row.account.id)).toEqual([
+  expect(reportRows(result.page.report, 'members').map((row) => row.account.id)).toEqual([
     'account-bob',
     'account-eve',
   ]);
-  expect(result.page.report.repositories.map((row) => row.repository.id)).toEqual([
-    'repo-prebidjs',
-  ]);
+  const byRepository = await contributions(
+    'companies',
+    new URLSearchParams(query.toString() + '&view=repositories'),
+    { kind: 'company', companyId: 'company-acme' },
+  );
+  if (byRepository.status !== 'ready') throw Error('Expected report');
+  expect(
+    reportRows(byRepository.page.report, 'repositories').map((row) => row.repository.id),
+  ).toEqual(['repo-prebidjs']);
   expect(result.page.report.context.range.start).toBe('2026-10-01T00:00:00.000Z');
-  expect(result.directory.accounts).toHaveLength(8);
+  expect(result.directory).not.toHaveProperty('accounts');
   expect(result.directory.repositories).toHaveLength(18);
   const excluded = await contributions('contributors', query, {
     kind: 'contributor',
     accountId: 'account-alice',
   });
   if (excluded.status !== 'ready') throw Error('Expected ready');
-  expect(excluded.page.report.context.includedAccountIds).toEqual([]);
+  expect(excluded.page.report.context.includedAccountCount).toBe(0);
   for (const invalid of [
     'repo=absent',
     'exclude=absent',
@@ -112,6 +126,6 @@ it('keeps 100 company members and full totals upstream of 50-row pagination', as
   );
   if (result.status !== 'ready' || result.page.report.kind !== 'company')
     throw Error('Expected company');
-  expect(result.page.report.members).toHaveLength(100);
+  expect(result.page.report.kind === 'company' && result.page.report.memberCount).toBe(100);
   expect(result.page.report.totals.prsAuthored).toEqual({ status: 'complete', value: 100 });
 });

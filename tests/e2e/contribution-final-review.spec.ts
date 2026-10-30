@@ -117,7 +117,7 @@ test('a canceled stalled export cannot download late, and the dialog remains reu
     release = resolve;
   });
   let requests = 0;
-  await page.route('**/contributors/export?**', async (route) => {
+  await page.route('**/contributors/export', async (route) => {
     requests++;
     await held;
     await route.fulfill({ status: 200, contentType: 'text/csv', body: 'stale response' });

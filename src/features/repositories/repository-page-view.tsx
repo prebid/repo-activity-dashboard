@@ -66,7 +66,10 @@ function RepositoryPageTable({
           columnMenuColumns={repositoryPagePrColumns.filter(
             (column) => !repositoryInlineColumnIds.has(column.id),
           )}
-          itemLabel={controls ? 'matching PRs' : 'PRs'}
+          itemLabel={{
+            singular: controls ? 'matching PR' : 'PR',
+            plural: controls ? 'matching PRs' : 'PRs',
+          }}
         />
       ) : (
         <DataTable
@@ -76,7 +79,10 @@ function RepositoryPageTable({
           columnMenuColumns={repositoryPageIssueColumns.filter(
             (column) => !repositoryInlineColumnIds.has(column.id),
           )}
-          itemLabel={controls ? 'matching issues' : 'issues'}
+          itemLabel={{
+            singular: controls ? 'matching issue' : 'issue',
+            plural: controls ? 'matching issues' : 'issues',
+          }}
         />
       )}
     </div>
