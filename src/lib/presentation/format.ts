@@ -61,3 +61,11 @@ export function formatAsOf(iso: string): string {
     (hours < 12 ? ' AM UTC' : ' PM UTC')
   );
 }
+
+export interface CountLabels {
+  singular: string;
+  plural: string;
+}
+export function countLabel(count: number, labels: CountLabels): string {
+  return count === 1 ? labels.singular : labels.plural;
+}

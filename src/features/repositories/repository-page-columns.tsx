@@ -1,4 +1,6 @@
+import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
+import { GitHubAccountLink } from '@/components/github/account-link';
 import { GitPullRequest, GitMerge, CircleDot, CircleCheck } from 'lucide-react';
 import type { DataColumn } from '@/components/tables/data-table';
 import type {
@@ -17,7 +19,7 @@ export const repositoryInlineColumnIds: ReadonlySet<string> = new Set([
 ]);
 
 type Row = RepositoryPagePr | RepositoryPageIssue;
-const authorLabels = { human: 'Human', agent: 'Prebid agent', bot: 'Bot' };
+const authorLabels = accountTypeLabels;
 function RecordIdentity({ row }: { row: Row }) {
   const state = 'draft' in row && row.draft ? 'Draft' : row.state;
   return (
@@ -100,7 +102,7 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
         width: 170,
         cell: (row: T) => (
           <div className={styles.author}>
-            <span>{row.author}</span>
+            <GitHubAccountLink login={row.author} url={row.authorUrl} />
             <span className={styles.secondary}>
               {row.authorType === null ? '—' : authorLabels[row.authorType]}
             </span>
@@ -134,12 +136,16 @@ function metadata<T extends Row>(): DataColumn<T>[] {
   return [
     {
       id: 'authorType',
+      selectionGroup: 'Identity',
       label: 'Author category',
       value: (row) => (row.authorType === null ? null : authorLabels[row.authorType]),
     },
     {
       id: 'latestActivity',
+      selectionGroup: 'Latest activity',
       label: 'Latest activity',
+      description:
+        'The latest qualifying activity at the reporting snapshot, with its actor category. This is separate from reviewer participation and approval state.',
       width: 164,
       sortValue: (row) => row.latestActivity?.at ?? null,
       value: (row) =>
@@ -163,7 +169,10 @@ export const repositoryPageIssueColumns: DataColumn<RepositoryPageIssue>[] = [
   ...metadata<RepositoryPageIssue>(),
   {
     id: 'assignees',
+    selectionGroup: 'Identity',
     label: 'Assignees',
+    description:
+      'Current assigned accounts. Unassigned is a known empty assignment list; a dash means the assignment information is unavailable.',
     width: 170,
     value: (row) =>
       row.assignees === null

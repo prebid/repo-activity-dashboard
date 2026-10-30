@@ -38,7 +38,7 @@ function PendingSearch() {
     />
   );
 }
-it('keeps the filter dialog open when blur commits a pending search, and still applies facet edits', async () => {
+it('captures pending search on filter activation and keeps the dialog open for facet edits', async () => {
   onChange.mockClear();
   const user = userEvent.setup();
   render(<PendingSearch />);
@@ -51,7 +51,9 @@ it('keeps the filter dialog open when blur commits a pending search, and still a
     'drafts',
   );
   await user.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
-  expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ kind: 'prs', draft: 'drafts' }));
+  expect(onChange).toHaveBeenCalledWith(
+    expect.objectContaining({ kind: 'prs', draft: 'drafts', search: 'Sample PR 1:' }),
+  );
 });
 it('closes an editing draft when the cohort or applied facets change', async () => {
   const user = userEvent.setup();

@@ -1,6 +1,6 @@
 import type { OverviewSettings } from '@/models/overview-settings';
 import type { TableController } from './table-controller';
-import type { TableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 import { agingColumnId } from './overview-aging';
 
 const priorities = {

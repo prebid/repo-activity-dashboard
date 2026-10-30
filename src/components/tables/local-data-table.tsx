@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 import { DataTable, type DataTableProps } from './data-table';
 import { initialTableQuery, type TableController } from '@/lib/presentation/table-controller';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 export function useLocalTableController(initial: TableQuery = initialTableQuery): TableController {
   const [query, setQuery] = useState(initial);
   const update = useCallback(

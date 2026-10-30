@@ -1,5 +1,5 @@
-import { agingThresholds, type Count } from '@/models/repository-overview';
-import type { DateRange } from '@/models/reporting-period';
+import { agingThresholds } from '@/models/repository-overview';
+import { type Count } from '@/models/reporting-measurement';
 import type { AgeBand, RepositoryPageSource, ReviewBucket } from '@/models/repository-page';
 
 export function ageBandFor(days: number): AgeBand {
@@ -30,9 +30,6 @@ export function subsetCount(base: Count, count: number, uncertain = 0): Count {
         reason: 'Some records have unknown values for this measure or filter.',
       }
     : { status: 'complete', value: count };
-}
-export function inDateRange(at: string, range: DateRange): boolean {
-  return at >= range.start && (range.endInclusive ? at <= range.end : at < range.end);
 }
 export function activityDateBasis(
   source: RepositoryPageSource,

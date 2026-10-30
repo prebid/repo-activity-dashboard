@@ -1,6 +1,12 @@
-# Contributors — exploration draft
+# Contributors and Companies
 
-Status: page requirements under discussion on 2026-10-24. Confirmed decisions include PR authorship, current company mapping, tables and exports, the overview/focused-report hierarchy, lifetime-once credit per account/record/metric, Issues authored, and custom groups maintained by designated editors. Presentation defaults remain recommendations where labeled. No application code is changed by this document.
+Current product contract for the Contributors and Companies frontend. Reporting uses prepared fake data; authentication and account access retain the foundation's protections. Implementation and review history live in Git and PR #8, not in this specification.
+
+## Delivery scope — updated 2026-10-29
+
+The current frontend milestone covers Contributors and Companies, their focused reports, individual/company inclusion and exclusions, saved report preferences, and full filtered exports. Custom groups are deferred until real reporting data from the database is integrated into the application. This includes group navigation, reports, group-based selection, membership, editing permissions and group-specific samples/tests; none is required for the current frontend milestone. Existing group requirements below remain the later contract. Personal report filters and saved views remain in scope and do not require a custom-group implementation.
+
+Follow the [approved project sequence](README.md#approved-delivery-sequence) and [five-step frontend process](README.md#five-step-frontend-delivery-process). This milestone contains the six core contribution metrics; merge-review status and direct pushes follow as a separate frontend increment.
 
 ## Confirmed goals and decisions
 
@@ -18,9 +24,9 @@ Status: page requirements under discussion on 2026-10-24. Confirmed decisions in
 - Use sortable tables and metric exports for contributors, companies, and custom groups. Repository breakdowns also use tables.
 - Keep charting on the repository pages. Contributor/company charts and a custom charting tool are outside the current scope; a possible future tool does not require implementation work now.
 
-## Recommended report model
+## Report structure
 
-Use one top-level **Contributions** area with three sibling overview views: **Contributors**, **Companies**, and **Groups**. Each view has its own linkable URL and presents the same reporting measures grouped by its entity type. These views share metric definitions, filters, table components, and export behavior.
+Use one top-level **Contributions** area with two initial sibling overview views: **Contributors** and **Companies**. Add **Groups** after database integration. Each delivered view has its own linkable URL and presents the same reporting measures grouped by its entity type. These views share metric definitions, filters, table components, and export behavior.
 
 Selecting a contributor, company, or group opens a focused report with its own URL and a clear route back to the overview. The shared reporting model does not require fitting overview rankings, repository breakdowns, and group membership onto one screen. This overview/focused-report hierarchy was accepted during the page-planning discussion.
 
@@ -31,7 +37,7 @@ Separate these concepts:
 | Repositories and timeframe | Which activity is in scope. |
 | Included/excluded accounts | Whose activity is in scope. |
 | Metric | Which metric orders the ranking; other metrics remain separate table columns. |
-| Group results by | Whether each result represents an account, company, or custom group. |
+| Group results by | Account or company in the initial scope; custom groups follow database integration. |
 | Pagination and visible columns | How much of the ranked table is displayed, without changing underlying totals or limiting the full filtered export. |
 
 Changing a grouping must not silently change the selected accounts, timeframe, or repository scope.
@@ -42,12 +48,12 @@ Changing a grouping must not silently change the selected accounts, timeframe, o
 | --- | --- | --- |
 | Contributors overview | One contributor account | Rank people/accounts by separate metrics across the selected repositories. |
 | Companies overview | One company | Rank companies using all selected members' contributions. |
-| Groups overview | One stored custom group | Compare groups using the same metrics; designated editors maintain membership separately from users' reporting filters. |
+| Groups overview (after database integration) | One stored custom group | Compare groups using the same metrics; designated editors maintain membership separately from users' reporting filters. |
 | Individual contributor report | One repository | Inspect that person's contributions to each selected repository. |
 | Company report — By contributor | One included contributor | Identify the people contributing to the selected company's totals. |
 | Company report — By repository | One repository | Inspect the selected company's contributions to each repository. |
-| Custom group report — By contributor | One included group member | Inspect members' contributions to the selected group's totals. |
-| Custom group report — By repository | One repository | Inspect the selected group's contributions to each repository. |
+| Custom group report — By contributor (after database integration) | One included group member | Inspect members' contributions to the selected group's totals. |
+| Custom group report — By repository (after database integration) | One repository | Inspect the selected group's contributions to each repository. |
 
 Use metric columns, not a column or block of columns for every repository. With 17–20 repositories, the overview should remain a fixed-width metric table. Repository breakdowns use vertical rows on the focused report. Display the selected repository scope in the filters rather than repeating a long repository-name list in every overview row.
 
@@ -56,6 +62,61 @@ Company and group reports share the same By contributor / By repository structur
 Keep totals and the current repository/timeframe/filter context visible on focused reports. Carry exclusions and actor filters into nested reports and clearly label them; clicking a group member must not silently replace the scoped report with that person's unfiltered lifetime activity. Offer an explicit reset if the user wants a broader scope. Back navigation restores the prior overview's filters, sorting, and page.
 
 From an overview, choosing one repository in the shared filter immediately compares all contributors, companies, or groups within that repository. Comparing repositories for one entity uses its focused report. This supports both questions without a 20-repository column layout.
+
+## Account links, type filtering and column explanations
+
+In contributor and company-member tables, the display name opens the internal contributor report, while the `@handle` opens the source-provided GitHub profile in a new tab. There is no separate View report action. Human, Prebid-agent and bot icons accompany the identity; Account type remains its own filterable column. Invented accounts use visibly identified `github.example` profile placeholders, not potentially unrelated real accounts. Repository author/contributor lists use the same profile component. Company names continue to open internal company reports.
+
+**Account type** is a default contributor/member column. Redundant per-row human/agent/bot tags are removed. A multi-select filter can include Human, Prebid agent, Bot and Unknown in any combination. Empty selection means none, not all. Filtering precedes company aggregation, resets table pages and carries through overview/focused navigation, reload and Back/Forward. Repository, timeframe and population controls share the same scope and saved-preference behavior.
+
+Reporting tables use one column-help pattern: native header hover descriptions and accessible header descriptions come from the column definition; the help button beside each table title opens the same visible-column definitions for keyboard/touch. The contribution-only page dropdown is removed. Sorting and help remain separate actions.
+
+## Optional comment and merged-change volume columns
+
+These additions were approved on 2026-10-29. Keep the six core contribution columns intact and expose the new measures through **Columns**, hidden by default. Hiding a metric does not remove an account with activity in it. These measures are separate from one another and from any evaluation of contribution quality.
+
+| Comment metric | Counting and date basis |
+| --- | --- |
+| PR comments | Posted conversation comments on PRs, including author replies; excludes diff comments and submitted review-summary bodies. One comment identity, dated by creation. |
+| Inline comments | Posted PR file/diff review comments and replies. One comment identity, dated by creation. |
+| Issue comments | Posted comments on issues, excluding PRs, including the issue author's replies. One comment identity, dated by creation. |
+
+Edits and repeated collection do not add comments. A later comment can count as new comment activity without creating another once-per-account/PR reviewer credit. Comment bodies are not displayed or stored in these frontend models.
+
+For change volume, the user selected **the final merged PR diff and merge date for every role**. Include only merges into each repository's configured primary branch. Provide separate optional groups:
+
+- **Authored merged PR volume:** attribute the final diff to the PR author.
+- **Reviewed merged PR volume:** attribute the same final diff once to each distinct non-author account with qualifying reviewer participation before merge.
+- **Approved merged PR volume:** attribute the same final diff once to each distinct account that gave an approval before merge. Effective approval state at merge remains a separate measure.
+
+A qualifying action may precede the selected period; the PR's merge date places its volume in the period. Repeated comments or approvals do not add volume for the same account/PR/role. These are associated PR sizes, not evidence that each person wrote or read every changed line. Merges performed stays an independent count; volume is not attributed to the person merely executing the merge.
+
+Each role group includes all ten fields:
+
+| Field | Meaning |
+| --- | --- |
+| Files changed | Total changed file entries in the final PR diff. |
+| Files added | GitHub `ADDED` status. |
+| Files removed | GitHub `DELETED` status. |
+| Files modified | GitHub `MODIFIED` status; content changed. |
+| Files renamed | GitHub `RENAMED` status. |
+| Files copied | GitHub `COPIED` status. |
+| File type changes | GitHub `CHANGED` status / Git status T. |
+| Lines changed | Final-diff additions plus deletions; not net growth or accumulated intermediate commit churn. |
+| Lines added | Final-diff line additions. |
+| Lines removed | Final-diff line deletions. |
+
+For complete data, files changed equals the six mutually exclusive file-status counts, and lines changed equals lines added plus lines removed. A file changed in several PRs is counted in each PR. In company reports, each person's role-associated volume remains: two company reviewers on one six-file PR produce twelve reviewer-associated file changes across one PR, not twelve distinct repository files. Do not add authored/reviewed/approved groups into an overall score or unique-code total.
+
+Incomplete categories remain partial or unavailable; never force reconciliation by guessing a missing category. The database integration will collect/prepare the actual counts, final-diff identity and pre-merge role evidence. GitHub's file-list coverage must be checked, including pagination/endpoint limits, before treating category counts as complete. Current samples test supplied facts and arithmetic, not real collection completeness. Source definitions: [GitHub PR diff fields and file statuses](https://docs.github.com/en/graphql/reference/pulls#patchstatus), [PR review comments](https://docs.github.com/en/rest/pulls/comments), [PR file listing](https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files).
+
+## Over time tables — planned timeline increment
+
+After the core contributor/company overview and focused reports, add the [shared timeline view](README.md#timeline-reporting). Keep contributor/company reporting table-based: one row per calendar interval, separate metric columns, and full filtered CSV exports. Use Daily, Weekly, Monthly, Every 2 months, Quarterly (3 months), Half-yearly or Yearly grouping independently of the overall selected date range.
+
+Retain the selected person/company/population, repository scope, actor filters and exclusions when changing grouping or opening supporting details. Reviewer and approval contributions use their first qualifying credit dates, preserving the once-per-account/PR/metric rule across months and years. This measures credited contributions, not raw comment/review-event volume or the number of currently approved PRs.
+
+Show exact interval boundaries, current/partial-period coverage, known zero and unavailable values. Additive credit totals reconcile with the same full-range report under identical filters, mapping and snapshot; missing coverage must not become a falsely complete total. Company aggregation includes all selected members before paging. Period tables and repository breakdowns offer different views of the same scoped metrics without creating a column per repository. Custom-group timelines follow the later group milestone.
 
 ## Contribution metric definitions
 
@@ -114,11 +175,11 @@ First observed is not necessarily first ever. If available history cannot establ
 
 If the first approval was in March, its one approval credit belongs to March even if the PR merges in April or the approval is later dismissed. Reapproval afterward creates no further credit. The separate current-approval metric follows the effective state now, and review-at-merge metrics follow the effective state immediately before merge.
 
-Historical credit requires evidence of an actual approval; do not assume every currently dismissed review was previously an approval. Raw event counts, comment totals, and counts of repeated review rounds are not contributor metrics. Event metadata may still be needed to establish first-credit dates and approval state.
+Historical credit requires evidence of an actual approval; do not assume every currently dismissed review was previously an approval. The six core contribution metrics do not count raw events or repeated review rounds. The optional comment-activity columns added on 2026-10-29 use separate posted-comment identities and creation dates; they do not change reviewer or approval credit. Event metadata may still be needed to establish first-credit dates and approval state.
 
 ### PR authorship scope
 
-Use the label Authored PRs merged for the landed-work metric. It measures PR authorship, not actual authorship of every changed line. Commit counts, co-author credit, and lines changed are outside this initial definition.
+Use the label Authored PRs merged for the landed-work metric. It measures PR authorship, not actual authorship of every changed line. Commit counts and co-author credit remain outside this definition. Optional final-merged-diff file/line volumes are separate measures with the merge-date basis below; they do not claim line-level authorship.
 
 PRs authored is repository-wide. Authored PRs merged and Merges performed use each repository's configured primary branch, as on the existing pages. Feedback and approval contributions use their first qualifying dates and are not silently restricted to PRs opened, still open, or merged in that period.
 
@@ -128,9 +189,9 @@ Add selectable status-at-merge columns alongside Merges performed, keeping human
 
 ## Accounts, companies, and aggregation
 
-Treat a contributor as a GitHub account. Use account identity for attribution and display its current login/name. Do not merge separate accounts merely because display names match.
+Treat a contributor as a GitHub account. Use account identity for attribution and preserve the current display casing of its login/name. Validate login uniqueness case-insensitively. Do not merge separate accounts merely because display names match.
 
-Retain the existing actor categories: human, mapped Prebid agent, and other GitHub-identified bot. Offer an actor-type filter. Recommended initial scope is all account types, visibly labeled, with the ability to save a Humans-only or other selection.
+Retain the existing actor categories: human, mapped Prebid agent, and other GitHub-identified bot. Offer an actor-type filter. Initial scope is all account types, visibly labeled, with the ability to save a Humans-only or other selection.
 
 ### Repository attribution
 
@@ -159,9 +220,9 @@ Calculate company totals from every selected member's in-scope activity before r
 Provide a clear account-selection mode:
 
 - **All accounts:** all accounts eligible under the other report filters.
-- **Selected accounts:** choose individuals, companies, and/or saved groups. Company/group selection expands to the relevant member accounts.
+- **Selected accounts:** choose individuals and/or companies. Company selection expands to its member accounts. Saved-group selection is added only in the post-database group milestone.
 
-Selected accounts form a union. A person selected directly and through two groups is still included once in that combined selection. An empty Selected accounts selection means no selected accounts, not all accounts.
+Selected accounts form a union. A person selected directly and through their company is still included once in that combined selection. The same union rule applies to overlapping groups when the later group milestone is implemented. An empty Selected accounts selection means no selected accounts, not all accounts.
 
 Allow explicit exclusions that take precedence over all inclusion paths. Scope remains constrained by the repository, timeframe, and actor-type filters. Display the effective selection and exclusions so the report is understandable.
 
@@ -177,7 +238,7 @@ Excluding an account changes the current report, not its company mapping or stor
 
 This selection deduplication only prevents including the same account twice in one selected population. All of that account's activity remains independently counted in each repository.
 
-## Custom groups and saved views
+## Custom groups after database integration; saved views in the initial scope
 
 Custom groups are named, explicit lists of GitHub accounts stored in a database, file, or other configured source. The storage choice is an implementation detail. Example names: Release maintainers, Mobile contributors, or Review rotation.
 
@@ -210,15 +271,17 @@ Compute rankings across the full selected dataset before pagination. Reuse the 5
 
 ### Zero contributions and incomplete data
 
+Overview row eligibility requires recorded positive activity or account-specific evidence of incomplete data in the selected repositories. A period-wide collection gap remains visible in report coverage and totals without creating a row for every directory account. Contributor/company counts and exports follow the same eligibility rule; company-member rosters and directly opened reports retain their existing purpose. Missing values remain unknown. A globally unavailable overview has no confirmed rows and says **No confirmed contributions to list** alongside its coverage notice; this is distinct from a known-zero period. Empty CSV results remain header-only, without invented account rows or numeric zeros.
+
 Overview rankings normally show accounts with at least one counted contribution across the supported metrics in the selected scope. Hiding a metric column does not change row eligibility. Company/group member tables show all included members by default, including known zero totals, with a **Hide zero totals** filter.
 
 Use language such as No counted contributions in this period rather than claiming a person was inactive: repeat work on an already-credited PR may produce no new contribution credit. Keep incomplete-history rows distinguishable from known zero; the Hide zero totals filter must not silently discard unknown values as zero.
 
-Show which metric or reporting period has incomplete coverage. In descending rankings, place unknown values separately or after known values with an availability indicator, without assigning a misleading numeric rank. Missing history is not a confirmed lack of contributions.
+Show which metric or reporting period has incomplete coverage. In either sort direction, place complete values first, then numerically ranked partial subtotals, then missing or not-applicable values. Show this policy beside a sorted metric and include it in export metadata. Missing history is not a confirmed lack of contributions.
 
 ### Repository breakdown table
 
-On the focused report, show a row for each selected repository within the contributor, company, or group, with the same separate metric columns. Make each column sortable and preserve the report's timeframe, actor filters, and exclusions. Keep known zero distinct from missing data; a repository with no activity must not look like unavailable reporting.
+On the focused report, show a row for each selected repository with activity or incomplete metrics within the contributor, company, or group. Omit repository rows that are confirmed zero across all 39 metrics, including optional columns. Make each column sortable and preserve the report's timeframe, actor filters, and exclusions. Keep known zero distinct from missing data; a repository with no activity must not look like unavailable reporting.
 
 Compute company/group totals from all selected members before sorting or pagination. Keep each metric in its own column; do not add different contribution roles into a single total. No chart display limit or chart-specific controls are needed.
 
@@ -239,7 +302,7 @@ For company feedback/approval totals, several credited people can relate to one 
 
 ### Metric exports
 
-Metric exports are required. Recommended first format: **CSV**, suitable for opening in a spreadsheet or another reporting tool. Additional formats are not required for the initial scope.
+Metric exports are required. The current format is **CSV**, suitable for spreadsheets and reporting tools. One **Export CSV** action opens shared export controls. PDF, PNG and PowerPoint are deferred until after custom groups and the established core milestones; see the [export roadmap](README.md#expanded-export-formats--deferred).
 
 Support exports of:
 
@@ -256,19 +319,19 @@ Export numeric metrics as numbers. Keep known zero as zero and represent unavail
 
 The 50-row limit applies to the on-screen table, not the export. Large exports must use bounded data retrieval or server-generated output rather than loading all source activity into the browser. Export summaries and record metadata only; descriptions, comment text, review bodies, and diffs remain outside scope.
 
-## Suggested initial defaults
+## Initial defaults
 
 - Group results by Contributor.
 - Use the saved repository selection for this report, or all repositories on first use.
 - Timeframe: This year to date, with the existing agreed timeframe presets available.
 - Rank by Authored PRs merged.
-- Table: 50 rows per page, with a sortable repository breakdown table.
+- Table: 50 rows per page, with a sortable repository breakdown table. Account type is a default identity column; the six core metrics remain visible and the 33 optional activity/volume metrics start hidden.
 - Export: full filtered results as CSV, with summary and repository-breakdown options.
 - Include all actor types with an explicit filter and saved preference.
 - Current company mapping, visibly labeled.
 - Shareable filter URLs take precedence over saved defaults.
 
-These defaults remain recommendations pending discussion.
+These are the agreed starting defaults for visual review. Refinements can be made at that checkpoint without reopening the contribution definitions or adding custom groups to the initial scope.
 
 ## Sources and limits
 
@@ -300,3 +363,20 @@ This proposal defines the desired report, not proof that the existing ingestion 
 - An issue-only author appears in reports through Issues authored; reopening the issue creates no new authorship credit.
 - A group member with zero counted contributions remains visible in the member list, while incomplete metrics are not silently hidden as zero.
 - An ordinary report user can filter a group without editing its membership; only designated group editors can modify the definition.
+
+
+
+## Shared interaction and data boundaries
+
+- Server-rendered reports include actual rows. Controls wait for hydration; navigation never substitutes a blank preference-loading screen.
+- Explicit URL scope wins over saved preferences. Only fields changed by the user update personal defaults. Sorting and columns are saved per viewer, scenario and table kind; exclusions remain part of population scope.
+- Nested links carry bounded, self-contained return history. Reloading or opening a link in a new tab retains its immediate parent and filters. If a link cannot represent its scope safely, show the limit instead of silently broadening the report.
+- Reports carry one active row collection. Supporting details and metadata-only account choices are separate; account/company pickers search and page at 50 choices. Sparse prepared metrics are aggregated before table pagination without materializing every account/repository combination.
+- Table rendering and exports share filtering and stable ordering. Both aggregate CSV layouts use one producer with selected value, coverage, reason and counting-basis columns. Stable entity/repository identities and scope metadata remain automatic. Optional identity display fields respect export choices.
+- One Export CSV dialog owns current-table and repository layouts. Its initial columns mirror the table; export changes never mutate table columns. Cancellation, timeout and errors are shared. Downloads include the full filtered population, regardless of the visible page.
+- Column menus and CSV choices share grouped sections: Identity, Pull requests, Reviews and approvals, Issues, Comment activity, and three role-volume groups with Files and Lines subsections. Required identities and partially selected groups are explicit.
+- Account and CSV dialogs share one scrollable frame: header/actions remain visible, choices scroll within a labelled keyboard-focusable region. Route errors use the shared page-error component; no contribution-specific loading screen is promised.
+
+Saved-view and editing safety: the main Contributions link only embeds cached scope that can be checked from the enabled repository catalog and preset definitions. Account/company references and custom ranges use validated restoration on entry. A definitively invalid saved view is discarded only if it still matches the checked value, with a visible recovery notice; transient validation failures retain it. Explicit incoming URLs remain authoritative.
+
+Selected-only pickers snapshot their membership until the filter or search changes; checkboxes and selected counts remain live so unchecking can be undone in place. Paging keeps the last same-source choices visible while loading and prevents repeated paging actions. Rejected report changes show inline feedback and keep the editable draft open; rejected settings do not change the report URL or saved preferences. Return links now compact repeated ID lists inside independent snapshots and remain compatible with older shared links. Parent accounts, exclusions, repositories, periods and presentation survive child edits, reloads and copied links. Overview eligibility now uses account-specific evidence independently of report-wide coverage.

@@ -1,6 +1,5 @@
-import { contributions } from '@/server/reporting';
-import { ContributionsScreen } from '@/app/_screens/contributions-screen';
-export default async function Page() {
-  const { viewer, rows } = await contributions('contributors');
-  return <ContributionsScreen title="Contributors" rows={rows} viewerId={viewer.id} />;
+import { ContributionRoute } from '@/app/_screens/contribution-route';
+import type { PageSearchParams } from '@/lib/presentation/search-params';
+export default function Page({ searchParams }: { searchParams: Promise<PageSearchParams> }) {
+  return <ContributionRoute area="contributors" searchParams={searchParams} />;
 }

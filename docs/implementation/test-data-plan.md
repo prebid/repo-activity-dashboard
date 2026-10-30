@@ -2,6 +2,8 @@
 
 All accounts, records, counts and scenarios below are invented for development and testing. They are not measurements of real repositories. Display samples and representative frontend tests exist; the detailed reference-event scenarios below define later reporting/data-integration verification and are not a claim that those calculations are implemented.
 
+Custom-group scenarios below are retained for the post-database milestone (scope decision 2026-10-29). They do not require group UI, membership storage or group-specific samples/tests during the initial Contributors/Companies frontend.
+
 ## What a fixture means here
 
 **Display-first scope:** start with ready-to-display mock numbers and records to lock the frontend visually. The starter [All Repos mock](../../design/mocks/all-repositories.json) is for that purpose. The detailed reference events and expected answers below are retained for later reporting/data-layer verification. They do not require building an event simulator, a mock database, or a reporting engine before designing pages.
@@ -198,7 +200,7 @@ Use 250 synthetic human accounts, each authoring one PR on Oct 1 and merging tha
 
 - Each account has one PR authored, one authored PR merged, and one merge performed.
 - The first 10 repositories have 13 PRs each; the remaining 10 have 12 each.
-- The 250-row contributor result paginates as **100 / 100 / 50** and exports **250** rows.
+- The 250-row contributor result paginates as **five pages of 50** and exports **250** rows.
 - Excluding one account produces and exports **249** rows.
 - Company membership: 100 Acme, 100 Beacon, 50 Unmapped. Company totals use all members, not only the currently visible contributor page.
 - Group A contains accounts 1–150; Group B contains 101–250. Each has 150 members; their union has 250 and their overlap has 50.
@@ -243,11 +245,25 @@ The actual code/file layout will follow the checked-out repository, but keep the
 
 The UI imports the reporting client, not the fixture entities. The mock provider may derive a query response from its scenario, but that implementation is checked against the independent expected answers. The future real adapter must satisfy the same frontend contracts; it will additionally need real-source integration evidence.
 
+## Timeline display scenarios
+
+Follow the [shared timeline contract](../product/README.md#timeline-reporting). Add prepared, coherent series and supporting records when implementing that frontend increment; these scenarios do not require raw-event reconstruction now.
+
+- One complete calendar year with daily, weekly, monthly, two-month, quarterly, half-yearly and yearly representations of the same additive activity totals. Unique-author and median summaries have their own independently prepared whole-range answers.
+- A range beginning and ending inside calendar intervals, an unfinished current interval at the fixed as-of instant, leap-day/year transitions and Monday-start weeks. Boundary records belong to one interval only.
+- First reviewer/approval credits with later repeated actions that do not create additional contribution credit; current approval state remains a separate supplied snapshot.
+- Known-zero periods, missing periods and partial historical coverage, including historical backlog values that cannot be inferred from today's open list.
+- More than 50 intervals for pagination, full-result exports and matching chart/table values; person/company exclusions and exact interval return navigation remain consistent.
+
+Custom-group timelines remain deferred with the other group scenarios. Real integration must independently verify the series and historical coverage; matching prepared frontend values alone does not prove those calculations.
+
 ## Readiness by phase
 
 For initial visual work, require stable ready-to-display values, realistic text/number lengths, useful empty/loading/error variants, coherent visible arithmetic, and explicit mock labeling. Supply enough supporting sample rows for the interactions under review. No full-history reconstruction or arbitrary-query engine is required.
 
-The stronger gate below applies when implementing reusable query fixtures and the reporting/data layer, after the visual frontend baseline:
+The [approved sequence](../product/README.md#approved-delivery-sequence) permits the reviewed sample-backed frontend to be deployed before real reporting integration. That deployment continues to use production authentication and explicit sample labels. Keep deterministic samples for visual and regression tests after real sources are connected; a failed real source must not silently substitute these invented values. Custom-group scenarios become active only in the post-database milestone.
+
+The stronger gate below applies when implementing reusable query fixtures and the reporting/data layer, after the visual frontend baseline and early hosted acceptance:
 
 Before claiming the reporting scenario is executable and verified:
 

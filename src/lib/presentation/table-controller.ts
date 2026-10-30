@@ -1,4 +1,4 @@
-import type { TableQuery } from './table-query';
+import { type TableQuery } from '@/models/table-query';
 export interface TableController {
   scopeKey: string;
   query: TableQuery;

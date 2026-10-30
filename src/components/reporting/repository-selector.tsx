@@ -1,4 +1,5 @@
 'use client';
+import { FieldError } from '@/components/feedback/field-error';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, FolderGit2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import type { OverviewRepository } from '@/models/repository-overview';
 import styles from './overview-controls.module.css';
 
 const searchable = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -21,15 +21,18 @@ export function RepositorySelector({
   repositories,
   selected,
   onApply,
+  description = 'This selection applies to both tables.',
 }: {
-  repositories: readonly OverviewRepository[];
+  repositories: readonly { id: string; name: string; slug: string }[];
+  description?: string;
   selected: readonly string[];
-  onApply: (ids: string[]) => void;
+  onApply: (ids: string[]) => string | void;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<string[]>([]);
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
   const selectionKey = selected.join('|');
   const previousSelection = useRef(selectionKey);
   useEffect(() => {
@@ -45,9 +48,14 @@ export function RepositorySelector({
     if (next) {
       setDraft([...selected]);
       setSearch('');
+      setError('');
     }
     setOpen(next);
   }
+  const changeDraft: typeof setDraft = (next) => {
+    setError('');
+    setDraft(next);
+  };
   return (
     <div ref={setContainer}>
       <Dialog open={open} onOpenChange={changeOpen}>
@@ -68,7 +76,7 @@ export function RepositorySelector({
         <DialogContent container={container} className={styles.dialog}>
           <DialogHeader className="text-left">
             <DialogTitle>Choose repositories</DialogTitle>
-            <DialogDescription>This selection applies to both tables.</DialogDescription>
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <Input
             aria-label="Search repositories"
@@ -80,11 +88,11 @@ export function RepositorySelector({
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setDraft(repositories.map((repo) => repo.id))}
+              onClick={() => changeDraft(repositories.map((repo) => repo.id))}
             >
               Select all {repositories.length}
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => setDraft([])}>
+            <Button variant="ghost" size="sm" onClick={() => changeDraft([])}>
               Clear selection
             </Button>
             <span aria-live="polite">{draft.length} selected</span>
@@ -97,7 +105,7 @@ export function RepositorySelector({
                   checked={draft.includes(repo.id)}
                   onChange={(event) => {
                     const checked = event.currentTarget.checked;
-                    setDraft((previous) =>
+                    changeDraft((previous) =>
                       checked ? [...previous, repo.id] : previous.filter((id) => id !== repo.id),
                     );
                   }}
@@ -111,6 +119,7 @@ export function RepositorySelector({
               </p>
             )}
           </div>
+          <FieldError message={error} />
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -118,8 +127,9 @@ export function RepositorySelector({
             <Button
               className={styles.apply}
               onClick={() => {
-                onApply(draft);
-                setOpen(false);
+                const message = onApply(draft);
+                setError(message || '');
+                if (!message) setOpen(false);
               }}
             >
               Apply selection

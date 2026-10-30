@@ -1,6 +1,8 @@
 # Repository page
 
-Status: Models, shared layouts, filters, saved presentation preferences and charts are implemented. Step 5 technical verification is complete; the final visual sign-off precedes draft PR handoff. Charts start collapsed on fresh visits and after resetting view preferences; explicit saved or URL choices still apply. Reporting remains prepared fake data, and ordinary lists show 50 rows per page.
+Status: all five steps, visual review and reviewer-feedback fixes are complete and merged in PR #7. The implementation/checkpoint notes below are historical records; use the [approved project sequence](README.md#approved-delivery-sequence) for current work. Charts start collapsed on fresh visits and after resetting view preferences; explicit saved or URL choices still apply. Reporting remains prepared fake data, and ordinary lists show 50 rows per page.
+
+The [planned timeline increment](README.md#timeline-reporting) extends activity views with selectable daily, weekly, monthly, two-month, quarterly, half-yearly and yearly grouping across one continuous date range. The existing daily/monthly activity charts remain the implemented baseline; the new selector and broader historical metrics are future work.
 
 ## Confirmed purpose
 
@@ -79,6 +81,8 @@ Choose a small relevant set for the active PR or issue view; the exact selection
 Review participation and approvals are independent measures; do not stack or add them as mutually exclusive parts of a total. Preserve the agreed exact 0/1/2 summary buckets without clamping unexpected higher values.
 
 Current-open graphs do not require a historical period. Historical trend graphs belong to an explicitly selected activity scope and must not silently replace current backlog graphs on a direct visit.
+
+The planned Timeline view follows the [shared range/grouping and metric-time contract](README.md#timeline-reporting). It keeps event activity separate from historical end-of-interval backlog/approval snapshots; the current record cohort cannot establish those past snapshots by itself.
 
 Graphs must use the complete matching dataset, not just the loaded table page. State their scope and as-of time. Apply the relevant active filters consistently; explicitly label any restriction such as non-draft PRs so a graph does not imply it includes all open PRs.
 
@@ -200,7 +204,7 @@ Implementation starts from the merged All Repositories work on `codex/frontend-r
 
 The scenario tests cover all 18 repositories, all current metrics/thresholds and nine prepared periods, quiet and large cohorts, partial/missing results, bot handles, unchanged summary totals, UTC/leap-day boundaries, overlapping review measures, unknown metadata, and matching author records. Unsupported ranges retain the existing sample-unavailable state. Prepared periods remain independent display scenarios, not historical event reconstruction.
 
-### Remaining implementation sequence
+### Original implementation sequence — completed
 
 1. Models and samples (this step): pure contract/scenario tests and required static/coverage checks.
 2. Shared repository layout and metadata tables: first visual checkpoint in both themes and narrow layouts; consolidate the legacy direct-entry view with the existing drilldown view.

@@ -1,7 +1,8 @@
 'use client';
 import { useMemo } from 'react';
 import { Info, RotateCcw } from 'lucide-react';
-import { DataTable, tablePageSize } from '@/components/tables/data-table';
+import { DataTable } from '@/components/tables/data-table';
+import { tablePageSize } from '@/models/table-query';
 import { ColumnMenu } from '@/components/tables/column-menu';
 import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
 import { PageState } from '@/components/feedback/page-state';
@@ -15,11 +16,11 @@ import {
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
 import { formatAsOf } from '@/lib/presentation/format';
 import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
-import { RepositorySelector } from './repository-selector';
+import { RepositorySelector } from '@/components/reporting/repository-selector';
 import { ActivityPeriodControls } from './activity-period-controls';
 import { activityTableRows } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
-import controls from './overview-controls.module.css';
+import controls from '@/components/reporting/overview-controls.module.css';
 
 export function AllRepositoriesView({
   data,
@@ -131,7 +132,7 @@ export function AllRepositoriesView({
             columns={backlog}
             columnMenuColumns={otherBacklogColumns}
             controller={backlogController}
-            itemLabel="repositories"
+            itemLabel={{ singular: 'repository', plural: 'repositories' }}
             showSinglePageControls={false}
             controls={
               <ColumnMenu
@@ -157,7 +158,10 @@ export function AllRepositoriesView({
             rows={activityRows}
             columns={activity}
             controller={activityController}
-            itemLabel={secondaryData ? 'comparison rows' : 'repositories'}
+            itemLabel={{
+              singular: secondaryData ? 'comparison row' : 'repository',
+              plural: secondaryData ? 'comparison rows' : 'repositories',
+            }}
             pageSize={secondaryData ? tablePageSize - (tablePageSize % 3) : tablePageSize}
             showSinglePageControls={false}
             rowClassName={(row) => (row.kind === 'difference' ? styles.differenceRow : undefined)}

@@ -2,6 +2,8 @@
 
 Status: tracking merges without feedback/approval and changes made directly to the primary branch was requested on 2026-10-24. Separate human, Prebid-agent, and bot categories were explicitly confirmed. Placement, column defaults, and the proposed direct-push counting unit below remain recommendations. No implementation or historical data coverage has been verified.
 
+Delivery position: this is a focused frontend increment after core Contributors/Companies under the [approved sequence](README.md#approved-delivery-sequence). Design with prepared data first; historical calculation and real-source reconciliation belong to database integration. Custom-group aggregation follows in the post-database group milestone and does not block this extension.
+
 ## Purpose and placement
 
 Expose the review and approval state of PRs when they entered the repository's configured primary branch (`main` or `master`), and separately report primary-branch updates made outside a PR merge.

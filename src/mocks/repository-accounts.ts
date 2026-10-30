@@ -9,3 +9,8 @@ const authorTypes: Record<string, ReportingAccountType> = {
 export function sampleAuthorType(account: string): ReportingAccountType {
   return authorTypes[account] ?? 'human';
 }
+
+/** Invented identities deliberately do not point at potentially unrelated real GitHub accounts. */
+export function sampleProfileUrl(login: string): string {
+  return 'https://github.example/' + encodeURIComponent(login);
+}

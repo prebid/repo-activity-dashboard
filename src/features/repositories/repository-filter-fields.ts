@@ -1,3 +1,4 @@
+import { accountTypeLabels } from '@/models/github-account';
 import {
   repositoryPageFiltersSchema,
   type RepositoryPageFilters,
@@ -53,7 +54,7 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
       key: 'authorTypes',
       label: 'Author type',
       multiple: true,
-      options: options({ human: 'Human', agent: 'Prebid agent', bot: 'Bot', unknown: 'Unknown' }),
+      options: options(accountTypeLabels),
     },
     {
       key: 'latestActors',

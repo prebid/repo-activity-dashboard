@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,15 +46,16 @@ export function RepositoryFilterControls({
   onChange: (filters: RepositoryPageFilters) => void;
   onClear: () => void;
 }) {
-  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const interactive = useClientReady();
+  const [container, setContainer] = useState<HTMLFieldSetElement | null>(null);
   const [open, setOpen] = useState(false),
     [error, setError] = useState('');
   const [draft, setDraft] = useState<RepositoryFilterDraft>({ ...filters });
   const fields = useMemo(() => repositoryFilterFields(source), [source]);
   const chips = repositoryFilterChips(filters, fields);
   const defaults = defaultRepositoryFilters(source.kind);
-  // Search is owned by the table controller and may settle during the trigger's blur.
-  // Close a draft for changed facets/cohorts, not for that pending search commit.
+  // Search may settle as the dialog opens. Close only for changed facets/cohorts.
+  // Commit on activation, not blur: page shrink during mouse-down can move the trigger.
   const filterScope = JSON.stringify([
     source.repository.id,
     source.asOf,
@@ -64,7 +66,12 @@ export function RepositoryFilterControls({
   useEffect(() => setOpen(false), [filterScope]);
 
   return (
-    <div ref={setContainer} className={styles.filters}>
+    <fieldset
+      ref={setContainer}
+      className={styles.filters}
+      disabled={!interactive}
+      aria-label="Repository record filters"
+    >
       <div className={styles.filterActions}>
         <Input
           aria-label={
@@ -75,7 +82,6 @@ export function RepositoryFilterControls({
           value={table.draftSearch}
           maxLength={200}
           onChange={(event) => table.setSearch(event.target.value)}
-          onBlur={() => table.flushSearch()}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
               event.preventDefault();
@@ -87,7 +93,8 @@ export function RepositoryFilterControls({
           open={open}
           onOpenChange={(value) => {
             if (value) {
-              setDraft({ ...filters });
+              const captured = table.flushSearch();
+              setDraft({ ...filters, search: captured.search });
               setError('');
             }
             setOpen(value);
@@ -216,6 +223,6 @@ export function RepositoryFilterControls({
           )}
         </div>
       )}
-    </div>
+    </fieldset>
   );
 }

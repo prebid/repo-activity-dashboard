@@ -6,13 +6,31 @@ Scenario definitions and numerical answers are in the [test-data plan](test-data
 
 Retired ingestion tests do not establish correctness for the product cases below. The [foundation contracts](foundation-contracts.md) describe current composition, state ownership and verification boundaries.
 
+Custom-group cases are deferred until after real database integration (scope decision 2026-10-29). Group reporting, group-based selection, membership and editor cases do not gate the initial Contributors/Companies frontend. Individual/company selection and exclusions, saved preferences, repository breakdowns and exports remain in scope.
+
 ## Verification phases
 
 The frontend is first designed and implemented with fixed display samples. At that stage, verify rendering, navigation, controls, paging of sample rows, export interactions, accessible states, and visual consistency. Expected metric values can be supplied directly. This proves presentation and interaction for those samples, not historical calculation correctness.
 
 Historical first-credit calculation, merge-time reconstruction, generic reporting queries, and real-source/database reconciliation remain planned for the later data layer. Cases below that span both layers need separate frontend and reporting results; showing the expected static number does not pass the calculation case. Mock request checks apply only where a request interface is actually implemented.
 
-Before data integration, complete a user-reviewed visual baseline for all pages and important states as described in the [delivery plan](foundation-contracts.md#what-visually-locked-means). Run those visual/interaction checks again when replacing mocks with real adapters.
+Before data integration, complete a user-reviewed visual baseline for all in-scope initial pages and important states as described in the [delivery plan](foundation-contracts.md#what-visually-locked-means). Run those visual/interaction checks again when replacing mocks with real adapters.
+
+## Delivery milestone acceptance
+
+Use the [approved project sequence](../product/README.md#approved-delivery-sequence). These checkpoints separate frontend evidence from hosted acceptance and real-data correctness; they do not claim any future milestone is complete.
+
+| Milestone | Required evidence |
+| --- | --- |
+| Frontend increment | Coherent typed samples, contract/interaction checks, user-reviewed layouts and flows, required quality checks, and review handoff against `codex/frontend-rebuild`. Custom-group cases remain deferred. |
+| Early hosted release | The reviewed build is deployed with production authentication and visibly labeled sample reports; actual hosting configuration, sign-in, protected access, account operations and recovery are verified. A separate staging site and uninterrupted old-site availability are not prerequisites. |
+| Real reporting integration, per area | Compare returned metrics and exact supporting records with independently checked database/source results for the same date range and filters. Verify summary/detail consistency, role and first-credit semantics where relevant, current company attribution, full-result sorting/filtering/chart totals, 50-row pages, complete filtered exports, unknown/partial/error states and account access. Recheck the visual baseline and realistic data volume. |
+| Custom groups | Begin after real database reporting is integrated and validated. Add membership, reporting, selection unions/exclusions, overlaps, designated-editor checks and their visual/export acceptance cases. |
+| Agent launching | Last core feature, after tracking and real-source integration. The deferred launching contract supplies the additional execution checks. |
+
+Calendar heatmaps are an optional, low-priority follow-up after all planned milestones and validated real-data deployment. They add no acceptance gate, implementation task or fixture requirement to the current frontend, timeline, integration or release milestones.
+
+Deterministic samples remain available for design and regression testing after integration. Real-source failures must remain visible and cannot silently substitute fake values or numeric zero. Prepared static values do not satisfy database reconciliation or historical-calculation acceptance.
 
 ## Foundation and data
 
@@ -65,14 +83,36 @@ Browser checks validate link destinations without relying on real third-party pa
 | CONTRIB-02 | No repeat credit across months | REF-01 P101 and monthly totals | Bob's repeated September actions on P101 add no new credit. Combined totals = 8/5/9/7/5/6 and equal the three monthly credit totals under the same scope. | Contract |
 | CONTRIB-03 | Current state does not erase first credit | REF-01 P107 | Alice retains one approval credit for P107; its current human-approval count is zero after dismissal. | Contract/browser |
 | CONTRIB-04 | Company units stay correct | REF-01 September P102 | Acme has 2 feedback contributions and 2 approval contributions across 1 PR. Supporting records preserve that unit distinction. | Contract/browser |
-| CONTRIB-05 | Groups overlap without duplicating a union | REF-01 October | Core union Review = 4/3/2/2/2/2; compared group rows can both include Bob and cannot be summed into a unique combined population. | Contract/browser |
-| CONTRIB-06 | Exclusion changes report, not membership | REF-01 Core excluding Alice | Result = 2/1/0/0/1/1; Core membership is still Alice/Bob/Eve. | Contract/browser |
+| CONTRIB-05 | Groups overlap without duplicating a union | REF-01 October | Core union Review = 4/3/2/2/2/2; compared group rows can both include Bob and cannot be summed into a unique combined population. | Post-database groups: contract/browser |
+| CONTRIB-06 | Exclusion changes report, not membership | REF-01 Core excluding Alice | Result = 2/1/0/0/1/1; Core membership is still Alice/Bob/Eve. | Post-database groups: contract/browser |
 | CONTRIB-07 | Current company mapping is explicit | MAP-01 | Alice's individual credits stay fixed; Acme October PR authorship changes 3->2, Beacon 1->2, and Core remains 3. | Contract/browser |
 | CONTRIB-08 | Issue-only and zero-contribution members | REF-01 Finn/Eve | Finn is eligible through Issues authored. Eve is visible in the member list with known zero; hiding a metric column does not change eligibility. | Contract/browser |
 | CONTRIB-09 | Missing early history is not a new first event | GAP-01 | The affected first-credit total shows incomplete availability, not an invented new credit or known zero. | Contract/component |
+| CONTRIB-10 | Individual/company exclusions remain in the initial scope | Account selected directly and through its company, then excluded | Inclusion is a union; exclusion removes the account from the report, details and exports without changing company mapping or requiring custom groups. | Contract/browser |
 | EXPORT-01 | Export is not capped to the visible page | LOAD-02 | 250 filtered contributors export as 250 rows; excluding one gives 249. UI remains capped at 50 per page. | Contract/browser download |
 | EXPORT-02 | Breakdown rows preserve dimensions | LOAD-02 | Flat rows identify entity and repository; all 20 repositories are represented without one column per repository. | Contract/download |
 | EXPORT-03 | Mapping, groups, and missing values survive export | REF-01, GAP-01, DISPLAY-01 | Filters/attribution context are retained; missing values are not numeric zero; labels with punctuation/Unicode are encoded correctly. | Contract/download |
+
+## Contribution visual-review refinements
+
+- One hover/keyboard/touch column-help pattern is shared by reporting tables; opening help never sorts and closing it restores focus.
+- Profile names/handles have external profile destinations; the separate View report action retains internal context. Fake profiles use reserved placeholder URLs. Invalid/missing profile URLs do not become unsafe anchors.
+- Account type is a default column with no duplicate row tags. Mixed/empty selections apply before aggregation and paging, and survive links, reload and history.
+- Each of the 33 optional comment/role-volume metrics has a definition, unit and tested sample. Core credit metrics retain their existing answers.
+- Independently specified file-status and line totals reconcile for every complete role group. Missing categories are not synthesized as zero. Both reviewers can receive one PR's final size once each, and company totals preserve that unit.
+- First-credit dates and merge dates remain separate. A review earned before the period can contribute volume when its PR merges during the period; post-merge-only participation does not qualify.
+- Exports retain role labels, each metric's coverage, report scope and table search/sort. Profile/actor/help changes must preserve the protected-page boundary and the existing visual baseline.
+
+## Timeline reporting — planned frontend increment
+
+These cases apply to the [shared timeline contract](../product/README.md#timeline-reporting). Frontend checks use prepared intervals and supporting records; real calculation/history coverage is verified separately during database integration.
+
+| ID | Requirement | Scenario/check | Expected result | Planned level |
+| --- | --- | --- | --- | --- |
+| TIMELINE-01 | Range and grouping are independent | One range switched through day/week/month/two-month/quarter/half-year/year | The overall dates and filters are preserved; interval boundaries follow the calendar contract and tile the selected range without overlap or gaps. | Contract/browser |
+| TIMELINE-02 | Partial intervals and coverage are visible | Mid-week start, unfinished current interval, leap day, zero and unavailable intervals | Actual covered dates and as-of cutoff are retained; boundary events appear once, zero stays zero and missing history is not filled with invented values. | Contract/component |
+| TIMELINE-03 | Temporal definitions remain separate | Repeated review/reapproval across intervals, unique authors, median duration, historical backlog | First-credit counts do not repeat; unique counts and medians are recomputed at full-range scope; historical state is supplied/verified for its own cutoff or marked unavailable. | Contract; database reconciliation later |
+| TIMELINE-04 | Details, tables and exports reconcile | Filtered person/company and repository timeline with more than 50 intervals | Values and supporting credit/record identities match the selected interval; filters and return context survive. Paging never truncates full-result chart values or CSV output. | Contract/browser download |
 
 ## Historical merge status and agent tracking
 

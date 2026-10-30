@@ -1,4 +1,4 @@
-import type { Measurement } from '@/models/repository-overview';
+import type { Measurement } from '@/models/reporting-measurement';
 import { absoluteChange } from '@/lib/presentation/measurement';
 import { formatCount } from '@/lib/presentation/format';
 import styles from './measurement-value.module.css';

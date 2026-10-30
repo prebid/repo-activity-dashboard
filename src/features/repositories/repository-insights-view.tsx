@@ -1,12 +1,14 @@
 'use client';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import Link from 'next/link';
+import { GitHubAccountLink } from '@/components/github/account-link';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { PageState } from '@/components/feedback/page-state';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatCount, formatUtcDate } from '@/lib/presentation/format';
-import { accountTypeLabels, insightTitles } from '@/lib/presentation/repository-insights';
+import { accountTypeLabels } from '@/models/github-account';
+import { insightTitles } from '@/lib/presentation/repository-insights';
 import type {
   RepositoryInsight,
   RepositoryAuthor,
@@ -43,20 +45,31 @@ export function authorColumns(
   return [
     {
       id: 'account',
+      selectionGroup: 'Identity',
       label: 'GitHub account',
       width: 220,
       hideable: false,
       value: (row) => row.account,
+      cell: (row) => <GitHubAccountLink login={row.account} url={row.profileUrl} />,
     },
     {
       id: 'accountType',
+      selectionGroup: 'Identity',
       label: 'Account type',
       width: 130,
       value: (row) => accountTypeLabels[row.accountType],
     },
-    { id: 'recordCount', label, width: 100, align: 'right', value: (row) => row.recordCount },
+    {
+      id: 'recordCount',
+      selectionGroup: 'Records',
+      label,
+      width: 100,
+      align: 'right',
+      value: (row) => row.recordCount,
+    },
     {
       id: 'records',
+      selectionGroup: 'Records',
       label: 'Records',
       width: 180,
       value: (row) => 'View ' + quantity(row.recordCount, kind === 'prs' ? 'PR' : 'Issue'),
@@ -81,14 +94,17 @@ export function authorColumns(
 export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
   {
     id: 'account',
+    selectionGroup: 'Identity',
     label: 'GitHub account',
     width: 210,
     hideable: false,
     value: (row) => row.account,
+    cell: (row) => <GitHubAccountLink login={row.account} url={row.profileUrl} />,
   },
-  { id: 'pr', label: 'PR', width: 100, value: (row) => row.pr.number },
+  { id: 'pr', selectionGroup: 'Records', label: 'PR', width: 100, value: (row) => row.pr.number },
   {
     id: 'title',
+    selectionGroup: 'Records',
     label: 'Title',
     width: 400,
     value: (row) => row.pr.title,
@@ -96,6 +112,7 @@ export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
   },
   {
     id: 'firstCreditAt',
+    selectionGroup: 'Activity',
     label: 'First credited',
     width: 160,
     description:
@@ -159,7 +176,7 @@ export function RepositoryInsightsView({
             }),
           )}
           controller={controller}
-          itemLabel="authors"
+          itemLabel={{ singular: 'author', plural: 'authors' }}
           footerNote="One row per account in this repository and period, including humans, Prebid agents, and other bots. Sample record links are placeholders."
         />
       ) : insight.kind === 'contributions' ? (
@@ -169,7 +186,7 @@ export function RepositoryInsightsView({
           rows={insight.rows}
           columns={contributionDetailColumns}
           controller={controller}
-          itemLabel="contribution credits"
+          itemLabel={{ singular: 'contribution credit', plural: 'contribution credits' }}
           footerNote="One credit per account, PR, and contribution type, in the period of its first qualifying action. Multiple accounts can contribute to one PR. Sample links are placeholders."
         />
       ) : (

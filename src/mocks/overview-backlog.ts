@@ -1,9 +1,9 @@
 import {
   agingThresholds,
   backlogSchema,
-  type Count,
   type RepositoryBacklog,
 } from '@/models/repository-overview';
+import { type Count } from '@/models/reporting-measurement';
 import { complete, missing, partial } from './overview-values';
 
 type Buckets = readonly [zero: number, one: number, two: number, moreThanTwo: number];

@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { useState } from 'react';
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
+import { renderedMain } from '../support/rendered-html';
+import { render, screen, within, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { DataColumn } from '@/components/tables/data-table';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
@@ -25,6 +27,23 @@ const rows: Row[] = Array.from({ length: 250 }, (_, i) => ({
   title: i === 249 ? 'Oldest keyboard issue' : 'Item ' + String(i + 1).padStart(3, '0'),
   count: i === 1 ? null : i,
 }));
+it('server-renders rows while keeping React-only table controls disabled until hydration', () => {
+  const main = renderedMain(
+    renderToString(
+      <main>
+        <DataTable title="Hydration" rows={rows} columns={columns} exportName="test.csv" />
+      </main>,
+    ),
+  )!;
+  expect(main.querySelectorAll('tbody tr')).toHaveLength(50);
+  expect(main.querySelector('fieldset[aria-label="Hydration table controls"]')).toHaveAttribute(
+    'disabled',
+  );
+  expect(main.querySelector('th button')).toHaveAttribute('disabled');
+  expect(
+    Array.from(main.querySelectorAll('button')).find((button) => button.textContent === 'Next'),
+  ).toHaveAttribute('disabled');
+});
 it('keeps cell interaction state and focus when column render callbacks change', async () => {
   const user = userEvent.setup();
   function Counter() {
@@ -81,6 +100,7 @@ it('keeps grouped rows together when sorting and exports their actual values', a
     ),
   ).toEqual(['B period 1', 'B period 2', 'A period 1', 'A period 2', 'C period 1', 'C period 2']);
   await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await user.click(screen.getByRole('button', { name: 'Download CSV' }));
   const csv = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () =>
@@ -198,6 +218,7 @@ describe('shared table', () => {
         />,
       );
       fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+      await userEvent.setup().click(screen.getByRole('button', { name: 'Download CSV' }));
       expect(blobs).toHaveLength(1);
       const csv = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -285,6 +306,7 @@ it('renders missing default cells, exports ascending order, and distinguishes an
   expect(screen.getByRole('cell', { name: '—' })).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Count' }));
   fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await userEvent.setup().click(screen.getByRole('button', { name: 'Download CSV' }));
   const csv = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () =>
@@ -336,6 +358,7 @@ it('exports the full filtered sort order and handles explicit search submission'
   fireEvent.blur(input);
   expect(submitted).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await userEvent.setup().click(screen.getByRole('button', { name: 'Download CSV' }));
   const csv = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () =>
@@ -350,4 +373,154 @@ it('exports the full filtered sort order and handles explicit search submission'
   expect(lines[1]).toBe('"Item 249","248"');
   expect(lines.at(-1)).toBe('"Item 002",');
   expect(rows[0].id).toBe('1');
+});
+
+it('uses explicit CSV columns without making export-only metadata searchable or visible', async () => {
+  const user = userEvent.setup();
+  const blobs: Blob[] = [];
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:explicit-columns';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  render(
+    <DataTable
+      title="Export contract"
+      rows={[{ id: 'one', title: 'Visible row', count: 2 }]}
+      columns={columns}
+      exportName="contract.csv"
+      exportColumns={[
+        ...columns,
+        { id: 'coverage', label: 'Coverage', value: () => 'export-only metadata' },
+      ]}
+    />,
+  );
+  expect(screen.queryByRole('columnheader', { name: 'Coverage' })).not.toBeInTheDocument();
+  await user.type(screen.getByRole('textbox', { name: 'Search Export contract' }), 'export-only');
+  expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  await user.clear(screen.getByRole('textbox', { name: 'Search Export contract' }));
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await user.click(screen.getByRole('button', { name: 'Download CSV' }));
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('Missing CSV'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
+  });
+  expect(csv).toBe('"Title","Count","Coverage"\r\n"Visible row","2","export-only metadata"');
+});
+
+it('defers resize-observer layout updates to a frame and cancels pending work on disposal', () => {
+  const frames = new Map<number, FrameRequestCallback>();
+  let next = 0;
+  let notify: () => void = () => {};
+  const disconnect = vi.fn();
+  vi.stubGlobal(
+    'requestAnimationFrame',
+    vi.fn((callback: FrameRequestCallback) => {
+      frames.set(++next, callback);
+      return next;
+    }),
+  );
+  vi.stubGlobal(
+    'cancelAnimationFrame',
+    vi.fn((id: number) => {
+      frames.delete(id);
+    }),
+  );
+  vi.stubGlobal(
+    'ResizeObserver',
+    class {
+      constructor(callback: () => void) {
+        notify = callback;
+      }
+      observe() {}
+      disconnect() {
+        disconnect();
+      }
+    },
+  );
+  const view = render(
+    <DataTable title="Resize contract" rows={rows.slice(0, 1)} columns={columns} />,
+  );
+  const region = screen.getByRole('region', { name: 'Resize contract table scroll area' });
+  Object.defineProperty(region, 'scrollWidth', { configurable: true, value: 1000 });
+  Object.defineProperty(region, 'clientWidth', { configurable: true, value: 200 });
+  act(() => {
+    notify();
+    notify();
+  });
+  expect(frames.size).toBe(1);
+  expect(screen.queryByText(/Scroll horizontally/)).not.toBeInTheDocument();
+  act(() => {
+    const callback = [...frames.values()][0];
+    frames.clear();
+    callback(0);
+  });
+  expect(screen.getByText(/Scroll horizontally/)).toBeVisible();
+  act(() => notify());
+  view.unmount();
+  expect(frames.size).toBe(0);
+  expect(disconnect).toHaveBeenCalled();
+  window.dispatchEvent(new Event('resize'));
+  expect(frames.size).toBe(0);
+});
+
+it('starts CSV choices from visible columns and keeps export-only choices out of table preferences', async () => {
+  const user = userEvent.setup(),
+    blobs: Blob[] = [],
+    onChange = vi.fn();
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:choices';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  render(
+    <DataTable
+      title="Selection"
+      rows={rows}
+      columns={columns.map((column) =>
+        column.id === 'title' ? { ...column, hideable: false } : column,
+      )}
+      exportName="selection.csv"
+      visibility={{ value: { count: false }, onChange }}
+      initialQuery={{ search: '', sort: 'count', descending: true, page: 2 }}
+    />,
+  );
+  expect(screen.queryByRole('button', { name: 'Export options' })).not.toBeInTheDocument();
+  expect(screen.getAllByRole('button', { name: 'Export CSV' })).toHaveLength(1);
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  const dialog = screen.getByRole('dialog', { name: 'Selection CSV export' });
+  expect(within(dialog).queryByRole('group', { name: 'Layout' })).not.toBeInTheDocument();
+  expect(within(dialog).getByRole('checkbox', { name: 'Title (required)' })).toBeChecked();
+  expect(within(dialog).getByRole('checkbox', { name: 'Title (required)' })).toBeDisabled();
+  expect(within(dialog).getByRole('checkbox', { name: 'Count' })).not.toBeChecked();
+  await user.click(within(dialog).getByRole('checkbox', { name: 'Count' }));
+  await user.click(within(dialog).getByRole('button', { name: 'Download CSV' }));
+  expect(onChange).not.toHaveBeenCalled();
+  expect(screen.queryByRole('columnheader', { name: /Count/ })).not.toBeInTheDocument();
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('No CSV'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
+  });
+  expect(csv.split('\r\n')).toHaveLength(rows.length + 1);
+  expect(csv.split('\r\n')[0]).toBe('"Title","Count"');
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  expect(screen.getByRole('checkbox', { name: 'Count' })).not.toBeChecked();
 });

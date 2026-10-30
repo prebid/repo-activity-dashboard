@@ -7,14 +7,15 @@ import {
   readSavedTableSort,
   effectiveTableQuery,
   writeTableQuery,
-  type TableQuery,
 } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 import type { TableController } from '@/lib/presentation/table-controller';
 const noPeers: readonly string[] = [];
 export function useTableController({
   queryKey,
   columnIds,
   scopeKey,
+  legacyScopeKey,
   viewerId,
   peerQueryKeys = noPeers,
   defaultSort,
@@ -24,6 +25,8 @@ export function useTableController({
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
+  /** One-time migration from a formerly narrower scope; other accounts/reports are untouched. */
+  legacyScopeKey?: string;
   viewerId?: string;
   peerQueryKeys?: readonly string[];
   defaultSort?: Pick<TableQuery, 'sort' | 'descending'>;
@@ -141,12 +144,23 @@ export function useTableController({
   }, [scope]);
   useEffect(() => {
     if (!viewerId) return;
+    let restored: ReturnType<typeof readSavedTableSort> | undefined;
     try {
-      const value = readSavedTableSort(
-        localStorage.getItem(preferenceKey(viewerId, scopeKey ?? pathname)),
-        columnIds,
-      );
+      const key = preferenceKey(viewerId, scopeKey ?? pathname);
+      const raw = localStorage.getItem(key);
+      restored = readSavedTableSort(raw, columnIds);
+      const legacyKey = legacyScopeKey ? preferenceKey(viewerId, legacyScopeKey) : undefined;
+      if (!raw && legacyKey && legacyKey !== key) {
+        restored = readSavedTableSort(localStorage.getItem(legacyKey), columnIds);
+        if (restored) localStorage.setItem(key, JSON.stringify(restored));
+      }
+      if (legacyKey && legacyKey !== key && restored) localStorage.removeItem(legacyKey);
       setStorageAvailable(true);
+    } catch {
+      setStorageAvailable(false);
+    }
+    if (restored !== undefined) {
+      const value = restored;
       setSaved((previous) =>
         value
           ? previous?.scope === scope &&
@@ -156,10 +170,8 @@ export function useTableController({
             : { scope, ...value }
           : null,
       );
-    } catch {
-      setStorageAvailable(false);
     }
-  }, [viewerId, scopeKey, pathname, scope, columnIds]);
+  }, [viewerId, scopeKey, legacyScopeKey, pathname, scope, columnIds]);
   const clearSavedSort = useCallback(() => {
     cancel();
     setSaved(null);
@@ -184,6 +196,39 @@ export function useTableController({
     }, 250);
     return () => clearTimeout(timer.current);
   }, [draftSearch, query.search, stamp, scope, commit, peerQueryKeys]);
+  useEffect(() => {
+    if (draftSearch === query.search) return;
+    // A later history write can cancel an in-flight Next navigation. Capture the
+    // search before the link's router handler runs, including links outside the table.
+    const beforeNavigation = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof Element)
+      )
+        return;
+      const link = event.target.closest('a[href]');
+      if (
+        !(link instanceof HTMLAnchorElement) ||
+        link.hasAttribute('download') ||
+        (link.target && link.target.toLowerCase() !== '_self')
+      )
+        return;
+      let destination: URL;
+      try {
+        destination = new URL(link.href);
+      } catch {
+        return;
+      }
+      if (destination.origin === window.location.origin) commit({});
+    };
+    document.addEventListener('click', beforeNavigation, true);
+    return () => document.removeEventListener('click', beforeNavigation, true);
+  }, [draftSearch, query.search, commit]);
   useEffect(() => {
     window.addEventListener('popstate', cancel);
     return () => {

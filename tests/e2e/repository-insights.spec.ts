@@ -231,7 +231,7 @@ test('all agent and bot contribution links reconcile credits, retain context, an
   const activity = page.getByRole('region', { name: 'Period activity', exact: true });
   await activity.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Prebid agents', exact: true }).click();
-  await page.getByRole('menuitemcheckbox', { name: 'Other bots', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Bots', exact: true }).click();
   await page.keyboard.press('Escape');
   for (const [metric, count, distinct] of [
     ['agentFeedbackCredits', 18, 9],
@@ -342,5 +342,45 @@ test('supporting detail tables stay accessible in both themes at desktop and nar
         });
       }
     }
+  }
+});
+
+test('pending author search cannot cancel navigation while the destination response is delayed', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto(
+    '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-01-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1',
+  );
+  let release!: () => void;
+  const held = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let requests = 0;
+  await page.route(
+    (url) => url.pathname.endsWith('/authors/sample-author-2') && url.searchParams.has('_rsc'),
+    async (route) => {
+      requests++;
+      await held;
+      await route.continue();
+    },
+  );
+  try {
+    await page
+      .getByRole('textbox', { name: 'Search PR authors', exact: true })
+      .fill('sample-author-2');
+    await page.getByRole('link', { name: 'View 240 PRs by sample-author-2', exact: true }).click();
+    await expect.poll(() => requests).toBe(1);
+    await expect(page).toHaveURL(/authors.q=sample-author-2/);
+    release();
+    await expect(page).toHaveURL(/\/authors\/sample-author-2\?/);
+    await expect(page.getByText('240 matching records', { exact: true })).toBeVisible();
+    await page.getByRole('link', { name: '← PR authors', exact: true }).click();
+    await expect(page.getByRole('textbox', { name: 'Search PR authors', exact: true })).toHaveValue(
+      'sample-author-2',
+    );
+  } finally {
+    release();
+    await page.unrouteAll({ behavior: 'wait' });
   }
 });

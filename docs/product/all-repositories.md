@@ -2,6 +2,8 @@
 
 Status: requirements baseline agreed in the page-planning conversation on 2026-10-24. Layout, visual design, implementation, and database integration follow separately.
 
+The [planned shared timeline](README.md#timeline-reporting) adds continuous multi-interval exploration on repository and contribution reports. The overview keeps its two-period comparison; that control is not the timeline grouping selector.
+
 ## Purpose and scope
 
 Give an account holder a sortable, table-based overview of each selected repository's current backlog, review activity, approvals, recent throughput, and authorship.

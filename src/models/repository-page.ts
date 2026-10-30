@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { authorAccountSchema, type ReportingAccountType } from './repository-insights';
-import { agingThresholdSchema, type Count } from './repository-overview';
+import { agingThresholdSchema } from './repository-overview';
+import { type Count } from '@/models/reporting-measurement';
 import { dateRangeSchema, type DateRange } from './reporting-period';
 import type {
   LatestActor,

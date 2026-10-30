@@ -245,11 +245,13 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
   const activity = page.getByRole('region', { name: 'Period activity', exact: true });
   const trigger = backlog.getByRole('button', { name: 'Columns', exact: true });
+  await expect(trigger).toBeEnabled();
   await trigger.focus();
+  await expect(trigger).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('menu')).toBeVisible();
   await expect(
-    page.getByRole('menuitemcheckbox', { name: 'Repository', exact: true }),
+    page.getByRole('menuitemcheckbox', { name: 'Repository (required)', exact: true }),
   ).toHaveAttribute('aria-disabled', 'true');
   const group = page.getByRole('menuitemcheckbox', { name: 'Human reviewers', exact: true });
   await group.focus();

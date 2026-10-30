@@ -1,7 +1,7 @@
 import { it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
-import type { TableQuery } from '@/lib/presentation/table-query';
+import { type TableQuery } from '@/models/table-query';
 const columns = [{ id: 'name', label: 'Name', value: (r: { id: string; name: string }) => r.name }];
 const initial: TableQuery = { search: '', sort: '', descending: false, page: 1 };
 it('corrects local pagination without touching browser history', () => {
@@ -56,7 +56,10 @@ it('shows a recoverable local export error without losing the table', async () =
     />,
   );
   fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Download CSV' }));
   await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Export failed'));
+  expect(screen.getByRole('button', { name: 'Download CSV' })).toBeEnabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
   expect(screen.getByRole('table')).toBeVisible();
   expect(screen.getByRole('button', { name: 'Export CSV' })).toBeEnabled();
 });

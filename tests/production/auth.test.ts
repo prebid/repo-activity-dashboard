@@ -4,6 +4,8 @@ import { GetCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { z } from 'zod';
 import { verifyPassword } from '@/lib/auth/passwords';
 import { startProductionApp } from '../support/production-app';
+import { renderedMain } from '../support/rendered-html';
+import { choicePageSchema } from '@/models/contribution-options';
 
 it('runs the packaged production artifact with current sessions and protected account APIs', async () => {
   const fixture = await startProductionApp(inject('accountEndpoint'));
@@ -76,7 +78,13 @@ it('runs the packaged production artifact with current sessions and protected ac
     for (const [route, canary] of [
       ['/repos', 'Prebid.js'],
       ['/contributors', 'Alice'],
-      ['/companies', 'Example Company A'],
+      ['/companies', 'Example Acme'],
+      ['/contributors/account-alice', 'sample-alice'],
+      ['/contributors/account-alice?metric=approvalContributions', 'sample-alice'],
+      ['/contributors/export?column=prsAuthored', 'GitHub account'],
+      ['/companies/export?column=reviewerContributions&layout=repositories', 'GitHub account'],
+      ['/companies/id/company-acme', 'Example Acme'],
+      ['/companies/unmapped', 'Unmapped company'],
       ['/repos/prebidjs', 'Sample PR 137: Update integration behavior'],
       ['/repos/prebidjs?view=issues', 'Sample issue 834: Improve documentation'],
       [
@@ -118,7 +126,12 @@ it('runs the packaged production artifact with current sessions and protected ac
     ]) {
       const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
       expect(permitted.status).toBe(200);
-      expect(await permitted.text()).toContain(canary);
+      const body = await permitted.text();
+      const csv = permitted.headers.get('content-type')?.includes('text/csv');
+      const main = csv ? null : renderedMain(body);
+      expect(csv ? body : main?.textContent).toContain(canary);
+      if (/^\/(contributors|companies)(?:\?|$|\/(?!export))/.test(route))
+        expect(main?.querySelector('table tbody tr')).toBeTruthy();
       const anonymous = await fetch(origin + route, { redirect: 'manual' });
       expect(anonymous.status).toBe(307);
       expect(anonymous.headers.get('location')).toContain('/auth/login');
@@ -127,6 +140,47 @@ it('runs the packaged production artifact with current sessions and protected ac
       expect([200, 307]).toContain(flight.status);
       const payload = await flight.text();
       expect(payload).not.toContain(canary);
+      expect(
+        payload.includes('/auth/login') ||
+          Boolean(flight.headers.get('location')?.includes('/auth/login')),
+      ).toBe(true);
+    }
+    const choiceBody = JSON.stringify({
+      action: 'choices',
+      sample: 'large',
+      query: { kind: 'accounts', search: '', page: 0, selectedIds: null },
+    });
+    const choices = await fetch(origin + '/api/reporting/contribution-options', {
+      method: 'POST',
+      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      body: choiceBody,
+    });
+    expect(choices.status).toBe(200);
+    expect(choicePageSchema.parse(await choices.json()).choices).toHaveLength(50);
+    expect(choices.headers.get('cache-control')).toBe('private, no-store');
+    const anonymousChoices = await fetch(origin + '/api/reporting/contribution-options', {
+      method: 'POST',
+      redirect: 'manual',
+      headers: { 'content-type': 'application/json' },
+      body: choiceBody,
+    });
+    expect(anonymousChoices.status).toBe(307);
+    expect(anonymousChoices.headers.get('location')).toContain('/auth/login');
+    expect(await anonymousChoices.text()).not.toContain('Sample contributor');
+    for (const route of [
+      '/contributors/no-such-account',
+      '/companies/id/no-such-company',
+      '/companies/invalid/path',
+    ]) {
+      const permitted = await fetch(origin + route, { headers: { cookie: cookie() } });
+      expect(permitted.status).toBe(404);
+      const anonymous = await fetch(origin + route, { redirect: 'manual' });
+      expect(anonymous.status).toBe(307);
+      expect(anonymous.headers.get('location')).toContain('/auth/login');
+      const flight = await fetch(origin + route, { headers: { RSC: '1' }, redirect: 'manual' });
+      expect([200, 307]).toContain(flight.status);
+      const payload = await flight.text();
+      expect(payload).not.toContain('Example Acme');
       expect(
         payload.includes('/auth/login') ||
           Boolean(flight.headers.get('location')?.includes('/auth/login')),

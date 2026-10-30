@@ -105,3 +105,8 @@ export function resolveReportingPeriod(
   }
   return { selection, range: selected, comparison, timezone: 'UTC' };
 }
+
+/** Inputs are normalized UTC instants; endpoints follow the reporting range contract. */
+export function inDateRange(at: string, range: DateRange): boolean {
+  return at >= range.start && (range.endInclusive ? at <= range.end : at < range.end);
+}

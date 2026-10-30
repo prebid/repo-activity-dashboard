@@ -27,6 +27,10 @@ test('repeated callback parameters retain a usable login destination', async ({ 
   await page.goto('/auth/login?callbackUrl=%2Fcontributors&callbackUrl=%2Fcompanies');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/contributors$/);
+  await expect(
+    page.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }),
+  ).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
 });
 test('select bounds, dialog focus, menu keyboard actions and switch behavior', async ({ page }) => {
   await page.setViewportSize({ width: 700, height: 500 });
@@ -277,6 +281,7 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
   await page.goto('/contributors');
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export CSV' }).click();
+  await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
   const download = await downloadPromise;
   const stream = await download.createReadStream();
   let csv = '';
@@ -285,7 +290,7 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
       if (!Buffer.isBuffer(chunk)) throw new Error('Expected CSV bytes');
       csv += chunk.toString('utf8');
     }
-  expect(csv.split('\r\n')).toHaveLength(4);
+  expect(csv.split('\r\n')).toHaveLength(8);
   expect(csv).toContain('"Alice"');
   expect(csv).toContain('"Approval contributions"');
   expect(csv).toContain('"Reviewer contributions"');
@@ -326,6 +331,9 @@ test('repository issue search and same-route navigation keep the URL and rows sy
   await login(page);
   await page.goto('/repos/prebidjs?view=issues');
   const input = page.getByRole('textbox', { name: 'Search Open issues' });
+  await expect(input).toBeEnabled();
+  await input.focus();
+  await expect(input).toBeFocused();
   await input.pressSequentially('z'.repeat(130), { delay: 5 });
   await expect(page).toHaveURL(/issues.q=z{130}/);
   await expect(input).toHaveValue('z'.repeat(130));
@@ -369,10 +377,14 @@ test('sort survives a real router refresh caused by another tab signing in', asy
 });
 test('export captures a draft search before its debounce completes', async ({ page }) => {
   await login(page);
-  await page.getByRole('link', { name: 'Contributors', exact: true }).click();
+  await page
+    .getByRole('navigation', { name: 'Main navigation' })
+    .getByRole('link', { name: 'Contributions', exact: true })
+    .click();
   await page.getByRole('textbox', { name: 'Search Contributors' }).fill('Alice');
   const pending = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export CSV' }).click();
+  await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
   const stream = await (await pending).createReadStream();
   if (!stream) throw new Error('Missing export bytes');
   let csv = '';
@@ -383,4 +395,6 @@ test('export captures a draft search before its debounce completes', async ({ pa
   expect(csv.split('\r\n')).toHaveLength(2);
   expect(csv).toContain('"Alice"');
   expect(csv).not.toContain('"Bob"');
+  expect(csv).toContain('"Table search"');
+  expect(csv.trimEnd().endsWith('"Alice","authoredPrsMerged","desc"')).toBe(true);
 });
