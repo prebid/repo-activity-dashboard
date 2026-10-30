@@ -197,6 +197,39 @@ export function useTableController({
     return () => clearTimeout(timer.current);
   }, [draftSearch, query.search, stamp, scope, commit, peerQueryKeys]);
   useEffect(() => {
+    if (draftSearch === query.search) return;
+    // A later history write can cancel an in-flight Next navigation. Capture the
+    // search before the link's router handler runs, including links outside the table.
+    const beforeNavigation = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof Element)
+      )
+        return;
+      const link = event.target.closest('a[href]');
+      if (
+        !(link instanceof HTMLAnchorElement) ||
+        link.hasAttribute('download') ||
+        (link.target && link.target.toLowerCase() !== '_self')
+      )
+        return;
+      let destination: URL;
+      try {
+        destination = new URL(link.href);
+      } catch {
+        return;
+      }
+      if (destination.origin === window.location.origin) commit({});
+    };
+    document.addEventListener('click', beforeNavigation, true);
+    return () => document.removeEventListener('click', beforeNavigation, true);
+  }, [draftSearch, query.search, commit]);
+  useEffect(() => {
     window.addEventListener('popstate', cancel);
     return () => {
       clearTimeout(timer.current);

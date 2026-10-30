@@ -317,3 +317,74 @@ it('starts a separate search entry after table, filter and account/scope changes
   });
   expect(pushSpy).toHaveBeenCalledTimes(6);
 });
+
+it('commits pending search before internal link navigation and cancels its delayed history write', () => {
+  vi.useFakeTimers();
+  window.history.replaceState(null, '', '/source');
+  const { result, unmount } = renderHook(() => useTableController(options));
+  act(() => result.current.setSearch('needle'));
+  const link = document.createElement('a');
+  link.href = '/destination?keep=1';
+  const label = document.createElement('span');
+  link.append(label);
+  document.body.append(link);
+  let captured: string | null = null;
+  link.addEventListener('click', (event) => {
+    captured = new URLSearchParams(window.location.search).get('items.q');
+    event.preventDefault();
+    window.history.replaceState(null, '', '/destination?keep=1');
+  });
+  try {
+    act(() => {
+      label.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    });
+    expect(captured).toBe('needle');
+    const writes = historySpy.mock.calls.length;
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(window.location.pathname + window.location.search).toBe('/destination?keep=1');
+    expect(historySpy).toHaveBeenCalledTimes(writes);
+  } finally {
+    link.remove();
+    unmount();
+  }
+});
+
+it.each([
+  { name: 'external', href: 'https://example.test/record' },
+  { name: 'new tab', target: '_blank' },
+  { name: 'download', download: true },
+  { name: 'Meta click', event: { metaKey: true } },
+  { name: 'Control click', event: { ctrlKey: true } },
+  { name: 'Shift click', event: { shiftKey: true } },
+  { name: 'Alt click', event: { altKey: true } },
+  { name: 'non-primary click', event: { button: 1 } },
+  { name: 'prevented navigation', prevented: true },
+])(
+  'does not flush a pending search for $name',
+  ({ href, target, download, event: init, prevented }) => {
+    vi.useFakeTimers();
+    window.history.replaceState(null, '', '/source');
+    const { result, unmount } = renderHook(() => useTableController(options));
+    act(() => result.current.setSearch('needle'));
+    const link = document.createElement('a');
+    link.href = href ?? '/destination';
+    if (target) link.target = target;
+    if (download) link.download = 'records.csv';
+    link.addEventListener('click', (event) => event.preventDefault());
+    document.body.append(link);
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true, ...init });
+    if (prevented) event.preventDefault();
+    try {
+      act(() => {
+        link.dispatchEvent(event);
+      });
+      expect(window.location.search).toBe('');
+      expect(result.current.draftSearch).toBe('needle');
+    } finally {
+      link.remove();
+      unmount();
+    }
+  },
+);

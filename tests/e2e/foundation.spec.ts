@@ -331,6 +331,9 @@ test('repository issue search and same-route navigation keep the URL and rows sy
   await login(page);
   await page.goto('/repos/prebidjs?view=issues');
   const input = page.getByRole('textbox', { name: 'Search Open issues' });
+  await expect(input).toBeEnabled();
+  await input.focus();
+  await expect(input).toBeFocused();
   await input.pressSequentially('z'.repeat(130), { delay: 5 });
   await expect(page).toHaveURL(/issues.q=z{130}/);
   await expect(input).toHaveValue('z'.repeat(130));
