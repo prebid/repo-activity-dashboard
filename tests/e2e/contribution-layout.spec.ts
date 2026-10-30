@@ -146,7 +146,12 @@ test('missing, partial, empty and invalid contribution views retain their meanin
       ).toBeVisible();
     else {
       await expect(page.getByLabel('Data coverage')).toBeVisible();
-      await expect(page.getByRole('table')).toBeVisible();
+      if (sample === 'missing') {
+        await expect(
+          page.getByRole('heading', { name: 'No confirmed contributions to list' }),
+        ).toBeVisible();
+        await expect(page.getByRole('table')).toHaveCount(0);
+      } else await expect(page.getByRole('table')).toBeVisible();
     }
     await page.screenshot({
       path: testInfo.outputPath('contributions-' + sample + '.png'),

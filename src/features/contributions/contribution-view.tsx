@@ -85,7 +85,9 @@ export function ContributionView({
     exportName: page.area + '-sample.csv',
     emptyTitle: controller.query.search
       ? 'No matching rows'
-      : 'No counted contributions in this period',
+      : report.kind === 'overview' && incomplete.length > 0
+        ? 'No confirmed contributions to list'
+        : 'No counted contributions in this period',
     footerNote: hiddenSort
       ? `Sorted by ${hiddenSort.group} — ${hiddenSort.label} (${controller.query.descending ? 'descending' : 'ascending'}); its column is hidden.`
       : 'Credits, comment activity and merged PR volumes are separate measures.',
@@ -108,6 +110,8 @@ export function ContributionView({
             {' '}
             Dashes mean unavailable; an asterisk marks a verified subtotal. Missing history is never
             counted as zero.
+            {report.kind === 'overview' &&
+              ' Only accounts with recorded activity or account-specific gaps are listed.'}
           </span>
         </aside>
       )}

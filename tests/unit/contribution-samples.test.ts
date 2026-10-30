@@ -2,7 +2,7 @@ import { reportRows } from '../support/contribution-reports';
 import { selectContributionDetails } from '../support/contribution-details';
 import { expect, it } from 'vitest';
 import { repositoryCatalog } from '@/config/repositories';
-import { contributionSample } from '@/mocks/contributions';
+import { contributionSample, contributionDirectorySample } from '@/mocks/contributions';
 import {
   selectContributions,
   defaultContributionSelection,
@@ -11,6 +11,26 @@ import { contributionMetricIds, type ContributionValues } from '@/models/contrib
 import { periodPresets } from '@/models/reporting-period';
 const values = (metrics: ContributionValues) =>
   contributionMetricIds.map((key) => metrics[key].value);
+
+it('keeps a large directory available to pickers without turning global gaps into overview rows', () => {
+  const source = contributionSample({ scenario: 'coverage-gap' });
+  expect(source.accounts).toHaveLength(3251);
+  expect(contributionDirectorySample('coverage-gap').accounts).toEqual(source.accounts);
+  const report = selectContributions(source);
+  expect(report).toMatchObject({ contributorCount: 251, companyCount: 4 });
+  expect(values(report.totals)).toEqual([490, 250, 0, 0, 250, 350]);
+  expect(report.totals.reviewerContributions).toMatchObject({ status: 'partial', value: 0 });
+  expect(
+    Object.values(report.additionalTotals).every(
+      (value) => value.status === 'missing' && value.value === null,
+    ),
+  ).toBe(true);
+  expect(JSON.stringify(report)).not.toContain('account-inactive-');
+  const companies = selectContributions(source, undefined, undefined, { area: 'companies' });
+  expect(reportRows(companies, 'companies').find((row) => row.company === null)?.memberCount).toBe(
+    3050,
+  );
+});
 
 it('uses all 18 catalog identities and a fixed reporting clock with isolated fresh results', () => {
   const first = structuredClone(contributionSample()),

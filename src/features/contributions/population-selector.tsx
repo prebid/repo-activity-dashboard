@@ -1,4 +1,5 @@
 'use client';
+import { FieldError } from '@/components/feedback/field-error';
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { useEffect, useState } from 'react';
 import { Users, ChevronDown } from 'lucide-react';
@@ -25,20 +26,27 @@ export function PopulationSelector({
 }: {
   options: ContributionOptions;
   selected: Population;
-  onApply: (value: Population) => void;
+  onApply: (value: Population) => string | void;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false),
     [draft, setDraft] = useState(selected);
+  const [error, setError] = useState('');
   const key = JSON.stringify(selected);
   useEffect(() => setOpen(false), [key]);
   const population = draft.population;
+  const changeDraft: typeof setDraft = (next) => {
+    setError('');
+    setDraft(next);
+  };
   return (
     <div ref={setContainer}>
       <Dialog
         open={open}
         onOpenChange={(next) => {
-          if (next) setDraft(selected);
+          if (next) {
+            changeDraft(selected);
+          }
           setOpen(next);
         }}
       >
@@ -72,7 +80,7 @@ export function PopulationSelector({
                       value={kind}
                       checked={population.kind === kind}
                       onChange={() =>
-                        setDraft({
+                        changeDraft({
                           ...draft,
                           population:
                             kind === 'all' ? { kind } : { kind, accountIds: [], companyIds: [] },
@@ -94,7 +102,7 @@ export function PopulationSelector({
                     options={options}
                     selected={population.companyIds.map((id) => id ?? '')}
                     onChange={(ids) =>
-                      setDraft({
+                      changeDraft({
                         ...draft,
                         population: { ...population, companyIds: ids.map((id) => id || null) },
                       })
@@ -106,7 +114,7 @@ export function PopulationSelector({
                     options={options}
                     selected={population.accountIds}
                     onChange={(ids) =>
-                      setDraft({ ...draft, population: { ...population, accountIds: ids } })
+                      changeDraft({ ...draft, population: { ...population, accountIds: ids } })
                     }
                   />
                 </>
@@ -116,18 +124,20 @@ export function PopulationSelector({
                 kind="accounts"
                 options={options}
                 selected={draft.excludedAccountIds}
-                onChange={(ids) => setDraft({ ...draft, excludedAccountIds: ids })}
+                onChange={(ids) => changeDraft({ ...draft, excludedAccountIds: ids })}
               />
             </ScrollableDialogBody>
           )}
+          <FieldError message={error} />
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             <Button
               onClick={() => {
-                onApply(draft);
-                setOpen(false);
+                const message = onApply(draft);
+                setError(message || '');
+                if (!message) setOpen(false);
               }}
             >
               Apply accounts

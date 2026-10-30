@@ -1,10 +1,8 @@
 import type { ContributionSource } from '@/models/contributions';
 import {
-  additionalMetricIds,
   changeStatIds,
   fileStatusStats,
   volumeMetricId,
-  type AdditionalValues,
   type ChangeStats,
 } from '@/models/contribution-activity';
 import type { Count } from '@/models/reporting-measurement';
@@ -161,10 +159,4 @@ export function sumContributionCounts(counts: Count[]): Count {
   return reasons.length
     ? { status: 'partial', value, reason: reasons.join('; ') }
     : { status: 'complete', value };
-}
-export function hasAdditionalActivity(values: AdditionalValues): boolean {
-  return additionalMetricIds.some(
-    (metric) =>
-      (values[metric].value ?? 0) > 0 || ['partial', 'missing'].includes(values[metric].status),
-  );
 }

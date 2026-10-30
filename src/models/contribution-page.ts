@@ -3,6 +3,7 @@ import type { ContributionReport } from './contributions';
 export const contributionSampleScenarios = [
   'reference',
   'large',
+  'coverage-gap',
   'partial',
   'missing',
   'empty',

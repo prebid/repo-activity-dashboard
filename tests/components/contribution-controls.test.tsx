@@ -129,7 +129,7 @@ it('does not restore a delayed saved scope over an explicit navigation', async (
   expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-week' });
   expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
 });
-it.each(['invalid', 'rejected', 'timeout', 'changed', 'storage'] as const)(
+it.each(['invalid', 'rejected', 'timeout', 'changed', 'changed-invalid', 'storage'] as const)(
   'handles %s saved-scope validation without overwriting the active report',
   async (mode) => {
     vi.useFakeTimers();
@@ -150,7 +150,8 @@ it.each(['invalid', 'rejected', 'timeout', 'changed', 'storage'] as const)(
         }),
     };
     const { result } = renderHook(() => useControls('alice', directory, 'contributors', options));
-    if (mode === 'changed') localStorage.setItem(key, serializeContributionPreferences(defaults));
+    if (mode === 'changed' || mode === 'changed-invalid')
+      localStorage.setItem(key, serializeContributionPreferences(defaults));
     const blocked =
       mode === 'storage'
         ? vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
@@ -160,7 +161,7 @@ it.each(['invalid', 'rejected', 'timeout', 'changed', 'storage'] as const)(
     await act(async () => {
       if (mode === 'timeout') await vi.advanceTimersByTimeAsync(15000);
       else if (mode === 'rejected') reject(Error('offline'));
-      else resolve(mode === 'invalid' ? null : saved);
+      else resolve(mode === 'invalid' || mode === 'changed-invalid' ? null : saved);
       await Promise.resolve();
     });
     blocked?.mockRestore();
@@ -170,15 +171,19 @@ it.each(['invalid', 'rejected', 'timeout', 'changed', 'storage'] as const)(
     if (mode === 'storage') expect(result.current.controls.storageAvailable).toBe(false);
     else expect(result.current.controls.notice).toMatch(/Saved filters/);
     expect(localStorage.getItem(key)).toBe(
-      mode === 'changed' ? serializeContributionPreferences(defaults) : raw,
+      mode === 'changed' || mode === 'changed-invalid'
+        ? serializeContributionPreferences(defaults)
+        : mode === 'invalid'
+          ? null
+          : raw,
     );
     if (mode === 'invalid') {
-      act(() =>
+      act(() => {
         result.current.controls.update(
           { ...defaults, period: { kind: 'preset', preset: 'last-month' } },
           'period',
-        ),
-      );
+        );
+      });
       expect(
         readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
           ?.selection.excludedAccountIds,
@@ -237,7 +242,7 @@ it('does not navigate to oversized saved filters or replace the saved value with
 });
 it('rejects an oversized filter change before navigation or preference persistence', () => {
   const { result } = renderHook(() => useControls('alice', wideDirectory));
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...defaults,
@@ -251,9 +256,10 @@ it('rejects an oversized filter change before navigation or preference persisten
         },
       },
       'population',
-    ),
-  );
+    );
+  });
   expect(result.current.controls.notice).toContain('too large');
+  expect(window.location.pathname + window.location.search).toBe('/contributors');
   expect(navigation.push).not.toHaveBeenCalled();
   expect(localStorage.getItem(contributionPreferenceKey('alice', 'reference'))).toBeNull();
   expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
@@ -262,7 +268,9 @@ it('refuses presentation writes that would turn a bounded incoming URL into an o
   window.history.replaceState(null, '', '/contributors?scope=1&nav=' + 'a'.repeat(7400));
   const { result } = renderHook(() => useControls());
   const before = window.location.href;
-  act(() => result.current.controls.visibility.onChange({ prComments: true }));
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: true });
+  });
   expect(result.current.controls.notice).toContain('too large');
   expect(window.location.href).toBe(before);
   expect(
@@ -278,15 +286,15 @@ it('does not save a repository drilldown when only the period changes', () => {
     '/contributors/account-alice?period=this-year&repo=repo-prebidjs',
   );
   const { result } = renderHook(() => useControls());
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...result.current.controls.value,
         period: { kind: 'preset', preset: 'this-month' },
       },
       'period',
-    ),
-  );
+    );
+  });
   expect(
     readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
       ?.selection.repositoryIds,
@@ -324,7 +332,7 @@ it('flushes pending search, resets every page and freezes the previous scope for
   );
   const { result } = renderHook(() => useControls());
   act(() => result.current.table.setSearch('Bob'));
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...result.current.controls.value,
@@ -334,8 +342,8 @@ it('flushes pending search, resets every page and freezes the previous scope for
         },
       },
       'population',
-    ),
-  );
+    );
+  });
   const params = new URLSearchParams(window.location.search);
   expect(params.get('report.q')).toBe('Bob');
   expect(params.get('exclude')).toBe('account-alice');
@@ -356,9 +364,9 @@ it('flushes pending search, resets every page and freezes the previous scope for
 });
 it('saves columns independently, restores explicit column history and resets filters without losing presentation', () => {
   const { result } = renderHook(() => useControls());
-  act(() =>
-    result.current.controls.visibility.onChange({ prComments: true, issuesAuthored: false }),
-  );
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: true, issuesAuthored: false });
+  });
   const columnHistory = history.at(-2)!;
   expect(result.current.controls.visibility.value.prComments).toBe(true);
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
@@ -368,17 +376,19 @@ it('saves columns independently, restores explicit column history and resets fil
   });
   act(() => window.history.replaceState(null, '', columnHistory));
   expect(result.current.controls.visibility.value.prComments).toBe(false);
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...defaults,
         selection: { ...defaults.selection, repositoryIds: [] },
       },
       'repositoryIds',
-    ),
-  );
+    );
+  });
   act(() => result.current.table.setSearch('Alice'));
-  act(() => result.current.controls.reset());
+  act(() => {
+    result.current.controls.reset();
+  });
   expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
   expect(result.current.table.draftSearch).toBe('');
   expect(localStorage.getItem(key)).toBeNull();
@@ -418,23 +428,27 @@ it('isolates accounts and continues through read/write/remove storage failures',
   vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
     throw Error('full');
   });
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...defaults,
         selection: { ...defaults.selection, repositoryIds: [] },
       },
       'repositoryIds',
-    ),
-  );
+    );
+  });
   expect(result.current.controls.value.selection.repositoryIds).toEqual([]);
   expect(result.current.controls.storageAvailable).toBe(false);
-  act(() => result.current.controls.visibility.onChange({ issuesAuthored: false }));
+  act(() => {
+    result.current.controls.visibility.onChange({ issuesAuthored: false });
+  });
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
   vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
     throw Error('blocked');
   });
-  act(() => result.current.controls.reset());
+  act(() => {
+    result.current.controls.reset();
+  });
   expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
   expect(result.current.controls.storageAvailable).toBe(false);
 });
@@ -532,7 +546,9 @@ it('discloses invalid saved filters instead of silently applying stale exclusion
   expect(result.current.controls.notice).toBe(
     'Saved filters could not be restored. Default filters are shown.',
   );
-  act(() => result.current.controls.reset());
+  act(() => {
+    result.current.controls.reset();
+  });
   expect(result.current.controls.notice).toBeUndefined();
 });
 
@@ -544,21 +560,23 @@ it('retains a failed-save warning when a server navigation supplies fresh picker
   const failure = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
     throw Error('quota');
   });
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...defaults,
         selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
       },
       'population',
-    ),
-  );
+    );
+  });
   expect(result.current.controls.storageAvailable).toBe(false);
   rerender({ pickerDirectory: { ...directory } });
   expect(result.current.controls.storageAvailable).toBe(false);
   expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
   failure.mockRestore();
-  act(() => result.current.controls.update(defaults, 'population'));
+  act(() => {
+    result.current.controls.update(defaults, 'population');
+  });
   expect(result.current.controls.storageAvailable).toBe(true);
 });
 
@@ -574,22 +592,26 @@ it('does not let a successful column save clear a failed report-scope save', () 
     if (item === key) throw Error('scope exceeds storage quota');
     original(item, value);
   });
-  act(() =>
+  act(() => {
     result.current.controls.update(
       {
         ...defaults,
         selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
       },
       'population',
-    ),
-  );
+    );
+  });
   expect(result.current.controls.storageAvailable).toBe(false);
-  act(() => result.current.controls.visibility.onChange({ prComments: true }));
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: true });
+  });
   expect(localStorage.getItem(key + ':columns:contributors')).not.toBeNull();
   expect(localStorage.getItem(key)).toBeNull();
   expect(result.current.controls.storageAvailable).toBe(false);
   failure.mockRestore();
-  act(() => result.current.controls.update(defaults, 'population'));
+  act(() => {
+    result.current.controls.update(defaults, 'population');
+  });
   expect(result.current.controls.storageAvailable).toBe(true);
 });
 
@@ -603,7 +625,9 @@ it('restores and toggles zero-member visibility without dropping column preferen
   const { result } = renderHook(() => useControls('alice', directory, 'members'));
   expect(result.current.controls.hideZeroMembers).toBe(true);
   expect(result.current.controls.visibility.value.prComments).toBe(true);
-  act(() => result.current.controls.changeHideZeroMembers(false));
+  act(() => {
+    result.current.controls.changeHideZeroMembers(false);
+  });
   expect(result.current.controls.hideZeroMembers).toBe(false);
   expect(new URLSearchParams(window.location.search).has('members.page')).toBe(false);
   const previous = history.at(-2)!;
@@ -611,7 +635,9 @@ it('restores and toggles zero-member visibility without dropping column preferen
   expect(new URL(previous).searchParams.get('members.page')).toBe('2');
   act(() => window.history.replaceState(null, '', previous));
   expect(result.current.controls.hideZeroMembers).toBe(true);
-  act(() => result.current.controls.visibility.onChange({ prComments: false }));
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: false });
+  });
   expect(JSON.parse(localStorage.getItem(key)!)).toMatchObject({ hideZeroMembers: true });
 });
 it('freezes inherited columns and sorting in return URLs, including a pending search', () => {
@@ -631,4 +657,102 @@ it('freezes inherited columns and sorting in return URLs, including a pending se
     result.current.controls.freezeReturn();
   });
   expect(window.location.pathname + window.location.search).toBe(href.pathname + href.search);
+});
+
+it('clears a definitively stale repository preference and notifies entry links', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  const saved = {
+    ...defaults,
+    selection: { ...defaults.selection, repositoryIds: ['repo-retired-example'] },
+  };
+  localStorage.setItem(key, serializeContributionPreferences(saved));
+  localStorage.setItem(key + ':columns:contributors', 'keep-columns');
+  localStorage.setItem('theme', 'light');
+  const changed = vi.fn();
+  window.addEventListener('dashboard:contribution-preferences-changed', changed);
+  try {
+    const { result } = renderHook(() => useControls());
+    expect(localStorage.getItem(key)).toBeNull();
+    expect(changed).toHaveBeenCalledOnce();
+    expect(localStorage.getItem(key + ':columns:contributors')).toBe('keep-columns');
+    expect(localStorage.getItem('theme')).toBe('light');
+    expect(result.current.controls.notice).toContain('Saved filters could not be restored');
+  } finally {
+    window.removeEventListener('dashboard:contribution-preferences-changed', changed);
+  }
+});
+it('retains a newer stored scope when a stale repository preference is rejected', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  const old = serializeContributionPreferences({
+    ...defaults,
+    selection: { ...defaults.selection, repositoryIds: ['retired'] },
+  });
+  const latest = serializeContributionPreferences(defaults);
+  localStorage.setItem(key, old);
+  const read = localStorage.getItem.bind(localStorage),
+    write = localStorage.setItem.bind(localStorage);
+  let changed = false;
+  vi.spyOn(Storage.prototype, 'getItem').mockImplementation((name) => {
+    if (name === key && !changed) {
+      changed = true;
+      write(key, latest);
+      return old;
+    }
+    return read(name);
+  });
+  renderHook(() => useControls());
+  expect(localStorage.getItem(key)).toBe(latest);
+});
+
+it('keeps explicit scope authoritative without deleting unused saved preferences', () => {
+  const key = contributionPreferenceKey('alice', 'reference'),
+    raw = serializeContributionPreferences({
+      ...defaults,
+      selection: { ...defaults.selection, repositoryIds: ['retired'] },
+    });
+  localStorage.setItem(key, raw);
+  window.history.replaceState(null, '', '/contributors?scope=1&period=this-month');
+  const { result } = renderHook(() => useControls());
+  expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-month' });
+  expect(localStorage.getItem(key)).toBe(raw);
+  expect(result.current.controls.notice).toBeUndefined();
+});
+it('keeps the default report usable and discloses a failed invalid-preference removal', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  localStorage.setItem(key, '{invalid');
+  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+    throw Error('blocked');
+  });
+  const { result } = renderHook(() => useControls());
+  expect(result.current.controls.storageAvailable).toBe(false);
+  expect(result.current.controls.notice).toContain('Saved filters could not be restored');
+  expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
+  expect(localStorage.getItem(key)).toBe('{invalid');
+});
+it('clears rejected-change feedback after a successful correction', () => {
+  const { result } = renderHook(() => useControls('alice', wideDirectory));
+  let rejection: string | undefined;
+  act(() => {
+    rejection = result.current.controls.update(
+      {
+        ...defaults,
+        selection: {
+          ...defaults.selection,
+          population: {
+            kind: 'selected',
+            companyIds: [],
+            accountIds: wideDirectory.accounts.map((account) => account.id),
+          },
+        },
+      },
+      'population',
+    );
+  });
+  expect(rejection).toContain('This change is too large');
+  expect(window.location.pathname + window.location.search).toBe('/contributors');
+  act(() => {
+    result.current.controls.update(defaults, 'population');
+  });
+  expect(result.current.controls.notice).toBeUndefined();
+  expect(navigation.push).toHaveBeenCalledOnce();
 });

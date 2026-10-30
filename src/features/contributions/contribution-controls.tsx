@@ -31,7 +31,7 @@ export function ContributionControls({
   pending: boolean;
   storageAvailable: boolean;
   notice?: string;
-  onChange: (value: ContributionSettings, field: ContributionSettingField) => void;
+  onChange: (value: ContributionSettings, field: ContributionSettingField) => string | void;
   onReset: () => void;
 }) {
   const interactive = useClientReady();
@@ -46,10 +46,7 @@ export function ContributionControls({
           label="Reporting period"
           period={resolveReportingPeriod(value.period, asOf)}
           asOf={asOf}
-          onChange={(period) => {
-            onChange({ ...value, period }, 'period');
-            return undefined;
-          }}
+          onChange={(period) => onChange({ ...value, period }, 'period') || undefined}
         />
         <RepositorySelector
           repositories={directory.repositories}

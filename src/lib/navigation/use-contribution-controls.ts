@@ -24,6 +24,7 @@ import {
 import {
   contributionUrlFits,
   contributionLinkLimitMessage,
+  contributionChangeLimitMessage,
 } from '@/lib/presentation/contribution-return';
 import {
   resolveTableColumns,
@@ -88,15 +89,31 @@ export function useContributionControls(
     const controller = new AbortController();
     let raw: string | null = null;
     let scope: ContributionSettings | null = null;
+    function rejectStored(checked: string | null) {
+      invalidStored.current = { key: preferenceKey, raw: checked };
+      setNotice('Saved filters could not be restored. Default filters are shown.');
+      try {
+        if (localStorage.getItem(preferenceKey) !== checked) {
+          setNotice(
+            'Saved filters changed before they could be restored. Reload to use the latest settings.',
+          );
+          return;
+        }
+        if (checked !== null) {
+          localStorage.removeItem(preferenceKey);
+          window.dispatchEvent(new Event(contributionPreferencesChanged));
+        }
+      } catch {
+        recordStorage(preferenceKey, false);
+      }
+    }
     try {
       raw = localStorage.getItem(preferenceKey);
       scope = readContributionPreferenceCandidate(raw, directory, page.report.context.asOf);
-      if (!explicit)
-        setNotice(
-          raw && !scope
-            ? 'Saved filters could not be restored. Default filters are shown.'
-            : undefined,
-        );
+      if (!explicit) {
+        if (raw !== null && !scope) rejectStored(raw);
+        else setNotice(undefined);
+      }
       setStorage((previous) =>
         preferenceKey in previous ? previous : { ...previous, [preferenceKey]: true },
       );
@@ -144,8 +161,7 @@ export function useContributionControls(
             return;
           }
           if (!restored) {
-            invalidStored.current = { key: preferenceKey, raw };
-            setNotice('Saved filters could not be restored. Default filters are shown.');
+            rejectStored(raw);
             return;
           }
           invalidStored.current = null;
@@ -240,29 +256,42 @@ export function useContributionControls(
       recordStorage(preferenceKey, false);
     }
   }
+  const renderedQuery = {
+    ...table.query,
+    search: table.draftSearch,
+    page: table.draftSearch === table.query.search ? table.query.page : 1,
+  };
+  function proposal() {
+    const url = new URL(window.location.href);
+    url.search = snapshot(url.search, renderedQuery);
+    return url;
+  }
   function update(next: ContributionSettings, field: ContributionSettingField | 'reset') {
     const reset = field === 'reset';
     setNotice(undefined);
-    const url = freezeReturn();
+    const url = proposal();
     url.search = writeContributionSettings(url.search, next, true);
     if (reset)
       for (const key of ['report', 'members', 'repositories', 'details'])
         url.searchParams.delete(key + '.q');
     if (!contributionUrlFits(url.pathname + url.search)) {
-      setNotice(contributionLinkLimitMessage);
-      return;
+      setNotice(contributionChangeLimitMessage);
+      return contributionChangeLimitMessage;
     }
+    freezeReturn();
     remember(next, field);
     startTransition(() => router.push(url.pathname + url.search, { scroll: false }));
   }
   function changePresentation(next: Record<string, boolean>, hideZero: boolean) {
-    const url = freezeReturn();
+    setNotice(undefined);
+    const url = proposal();
     url.search = presentation(url.search, next, hideZero);
     if (hideZero !== hideZeroMembers) url.searchParams.delete('members.page');
     if (!contributionUrlFits(url.pathname + url.search)) {
-      setNotice(contributionLinkLimitMessage);
-      return;
+      setNotice(contributionChangeLimitMessage);
+      return contributionChangeLimitMessage;
     }
+    freezeReturn();
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     setSaved({ key: columnKey, columns: next, hideZeroMembers: hideZero });
     try {
@@ -272,11 +301,6 @@ export function useContributionControls(
       recordStorage(columnKey, false);
     }
   }
-  const renderedQuery = {
-    ...table.query,
-    search: table.draftSearch,
-    page: table.draftSearch === table.query.search ? table.query.page : 1,
-  };
   const returnHref = pathname + '?' + snapshot(search, renderedQuery);
   const linkNotice = contributionHref('contributors', page.sample, returnHref, value)
     ? undefined

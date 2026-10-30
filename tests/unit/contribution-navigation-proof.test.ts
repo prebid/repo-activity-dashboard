@@ -139,7 +139,7 @@ it.each([
   '!',
   'a'.repeat(7501),
   Buffer.from('not json').toString('base64url'),
-  Buffer.from(JSON.stringify([2, [], []])).toString('base64url'),
+  Buffer.from(JSON.stringify([3, [], []])).toString('base64url'),
   Buffer.from(JSON.stringify([1, [], [['https://external.test', []]]])).toString('base64url'),
   Buffer.from(JSON.stringify([1, [], [['/contributors?period=this-year', []]]])).toString(
     'base64url',

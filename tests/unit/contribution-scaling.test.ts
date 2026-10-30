@@ -109,10 +109,12 @@ it('retains company coverage when not-applicable member values combine with know
     companyIds: [],
   };
   const companies = selectContributions(source, selection, undefined, { area: 'companies' });
-  expect(reportRows(companies, 'companies')).toHaveLength(1);
-  expect(
-    reportRows(companies, 'companies')[0].additionalMetrics['authored.filesChanged'],
-  ).toMatchObject({ status: 'partial', value: 0 });
+  expect(reportRows(companies, 'companies')).toHaveLength(0);
+  expect(companies).toMatchObject({ contributorCount: 0, companyCount: 0 });
+  expect(companies.additionalTotals['authored.filesChanged']).toMatchObject({
+    status: 'partial',
+    value: 0,
+  });
   expect(reportRows(selectContributions(source, selection), 'contributors')).toEqual([]);
 });
 it('sends no hidden table with supporting details and only the requested company breakdown', () => {

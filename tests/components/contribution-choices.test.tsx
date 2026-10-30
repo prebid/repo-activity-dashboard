@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import { ContributionChoices } from '@/features/contributions/contribution-choices';
@@ -141,4 +142,129 @@ it('validates the metadata transport and refuses redirects, failures and malform
   Object.defineProperty(redirected, 'redirected', { value: true });
   fetcher.mockResolvedValueOnce(redirected);
   await expect(client.choices(query, signal)).rejects.toThrow('unavailable');
+});
+
+it('keeps selected-only choices stable while changing live selections, until search or mode refreshes', async () => {
+  const all = [
+    { value: 'alice', label: 'Alice' },
+    { value: 'bob', label: 'Bob' },
+  ];
+  const choices = vi.fn<ContributionOptions['choices']>((query) => {
+    const matches = all.filter(
+      (c) =>
+        (!query.selectedIds || query.selectedIds.includes(c.value)) &&
+        c.label.toLowerCase().includes(query.search),
+    );
+    return Promise.resolve({ choices: matches, total: matches.length, page: 0 });
+  });
+  const options: ContributionOptions = { choices, validate: () => Promise.resolve(null) };
+  function Picker() {
+    const [selected, setSelected] = useState(['alice', 'bob']);
+    return (
+      <ContributionChoices
+        label="Individuals"
+        kind="accounts"
+        options={options}
+        selected={selected}
+        onChange={setSelected}
+      />
+    );
+  }
+  render(<Picker />);
+  await screen.findByRole('checkbox', { name: 'Alice' });
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Show selected only' }));
+  await screen.findByRole('checkbox', { name: 'Alice' });
+  expect(choices).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Alice' }));
+  expect(screen.queryByText('Loading choices…')).toBeNull();
+  expect(screen.getByRole('checkbox', { name: 'Alice' })).not.toBeChecked();
+  expect(screen.getByText('(1 selected)')).toBeVisible();
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Alice' }));
+  expect(screen.getByRole('checkbox', { name: 'Alice' })).toBeChecked();
+  expect(choices).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Alice' }));
+  fireEvent.change(screen.getByRole('textbox', { name: 'Find individuals' }), {
+    target: { value: 'alice' },
+  });
+  await screen.findByText('No matching choices');
+  expect(choices.mock.calls.at(-1)?.[0].selectedIds).toEqual(['bob']);
+});
+it('keeps the last page visible during paging and disables repeated paging until it settles', async () => {
+  vi.useFakeTimers();
+  const first = {
+    choices: Array.from({ length: 50 }, (_, i) => ({ value: String(i), label: 'Person ' + i })),
+    total: 51,
+    page: 0,
+  };
+  let finish!: (value: ContributionChoicePage) => void;
+  const choices = vi
+    .fn<ContributionOptions['choices']>()
+    .mockResolvedValueOnce(first)
+    .mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          finish = resolve;
+        }),
+    );
+  render(
+    <ContributionChoices
+      label="Individuals"
+      kind="accounts"
+      options={{ choices, validate: () => Promise.resolve(null) }}
+      selected={['0']}
+      onChange={vi.fn()}
+    />,
+  );
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(0);
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(0);
+  });
+  expect(screen.getByRole('checkbox', { name: 'Person 0' })).toBeChecked();
+  expect(screen.getByText('Updating choices…')).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+  await act(async () => {
+    finish({ choices: [{ value: '50', label: 'Person 50' }], total: 51, page: 1 });
+    await Promise.resolve();
+  });
+  expect(screen.getByRole('checkbox', { name: 'Person 50' })).toBeVisible();
+  expect(screen.queryByRole('checkbox', { name: 'Person 0' })).toBeNull();
+  expect(screen.getByText('Page 2 of 2')).toBeVisible();
+});
+
+it('resets the selected-only snapshot when its picker source changes', async () => {
+  const first: ContributionOptions = {
+    choices: () => Promise.resolve(choice('A')),
+    validate: () => Promise.resolve(null),
+  };
+  const second: ContributionOptions = {
+    choices: () => Promise.resolve(choice('B')),
+    validate: () => Promise.resolve(null),
+  };
+  const { rerender } = render(
+    <ContributionChoices
+      label="Individuals"
+      kind="accounts"
+      options={first}
+      selected={['A']}
+      onChange={vi.fn()}
+    />,
+  );
+  await screen.findByRole('checkbox', { name: 'A' });
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Show selected only' }));
+  await screen.findByRole('checkbox', { name: 'A' });
+  rerender(
+    <ContributionChoices
+      label="Individuals"
+      kind="accounts"
+      options={second}
+      selected={['B']}
+      onChange={vi.fn()}
+    />,
+  );
+  expect(screen.queryByRole('checkbox', { name: 'A' })).toBeNull();
+  expect(screen.getByRole('checkbox', { name: 'Show selected only' })).not.toBeChecked();
+  expect(await screen.findByRole('checkbox', { name: 'B' })).toBeChecked();
 });

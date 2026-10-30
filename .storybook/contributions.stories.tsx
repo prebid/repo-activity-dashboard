@@ -34,7 +34,10 @@ function Preview({
     view === 'person'
       ? {
           kind: 'contributor' as const,
-          accountId: sample === 'large' ? 'account-heavy-agent' : 'account-alice',
+          accountId:
+            sample === 'large' || sample === 'coverage-gap'
+              ? 'account-heavy-agent'
+              : 'account-alice',
         }
       : view === 'company' || view === 'unmapped'
         ? { kind: 'company' as const, companyId: view === 'unmapped' ? null : 'company-acme' }
@@ -113,6 +116,8 @@ export const Contributor: Story = { args: { view: 'person' } };
 export const Company: Story = { args: { view: 'company' } };
 export const Unmapped: Story = { args: { view: 'unmapped' } };
 export const Large: Story = { args: { sample: 'large' } };
+export const CoverageGap: Story = { args: { sample: 'coverage-gap' } };
+export const CompanyCoverageGap: Story = { args: { sample: 'coverage-gap', view: 'companies' } };
 export const BusyContributor: Story = { args: { sample: 'large', view: 'person' } };
 export const Partial: Story = { args: { sample: 'partial' } };
 export const Missing: Story = { args: { sample: 'missing' } };

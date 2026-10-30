@@ -13,10 +13,8 @@ import {
 import { contributionDetailRows } from './contribution-detail-rows';
 import { isCoreMetric, isReportMetric, type ReportMetric } from '@/models/contribution-metrics';
 import type { ContributionMetricDetails } from '@/models/contribution-details';
-import { hasAdditionalActivity } from './contribution-activity';
 import {
   contributionActorTypes,
-  contributionMetricIds,
   contributionSelectionSchema,
   contributionFocusSchema,
   type ContributionSource,
@@ -39,12 +37,6 @@ export function defaultContributionSelection(source: ContributionSource): Contri
     population: { kind: 'all' },
     excludedAccountIds: [],
   };
-}
-/** Include incomplete rows even when their known subtotal is zero. No metric is an overall score. */
-export function hasContributionActivity(metrics: ContributionValues): boolean {
-  return contributionMetricIds.some(
-    (metric) => metrics[metric].status !== 'complete' || metrics[metric].value > 0,
-  );
 }
 function prepare(
   input: ContributionSource,
@@ -108,19 +100,13 @@ function prepare(
     if (!values) aggregates.set(account.id, (values = index.aggregate([account], repositories)));
     return values;
   }
-  const candidates =
+  const eligibleAccounts =
     focus.kind === 'overview'
-      ? accounts.filter((account) => index.mayHaveActivity(account.id, chosenRepositories))
+      ? accounts.filter((account) => index.hasOverviewEvidence(account.id, chosenRepositories))
       : [];
-  const activeAccounts = candidates.filter((account) => {
-    const values = accountValues(account);
-    return (
-      hasContributionActivity(values.metrics) || hasAdditionalActivity(values.additionalMetrics)
-    );
-  });
   function contributors(includeZeros = false): ContributorMetricRow[] {
     if (!repositories.length) return [];
-    return (includeZeros ? accounts : activeAccounts).map((account) => ({
+    return (includeZeros ? accounts : eligibleAccounts).map((account) => ({
       id: account.id,
       account,
       company: companyFor(account.companyId),
@@ -128,16 +114,10 @@ function prepare(
     }));
   }
   const companyMeasures = new Map<string | null, ReturnType<typeof index.aggregate>>();
-  for (const id of new Set(candidates.map((account) => account.companyId)))
+  for (const id of new Set(eligibleAccounts.map((account) => account.companyId)))
     companyMeasures.set(id, index.aggregate(grouped.get(id)!, repositories));
-  const activeCompanies = [...companyMeasures.keys()].filter((id) => {
-    const values = companyMeasures.get(id)!;
-    return (
-      hasContributionActivity(values.metrics) || hasAdditionalActivity(values.additionalMetrics)
-    );
-  });
   function companies(): CompanyMetricRow[] {
-    return activeCompanies.map((id) => ({
+    return [...companyMeasures.keys()].map((id) => ({
       id: JSON.stringify(['company', id]),
       company: companyFor(id),
       memberCount: grouped.get(id)!.length,
@@ -164,8 +144,8 @@ function prepare(
     companyFor,
     contributors,
     companies,
-    contributorCount: activeAccounts.length,
-    companyCount: activeCompanies.length,
+    contributorCount: eligibleAccounts.length,
+    companyCount: companyMeasures.size,
     context,
     aggregate: index.aggregate,
   };

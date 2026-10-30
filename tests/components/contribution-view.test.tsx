@@ -157,6 +157,14 @@ it('keeps empty, partial and missing coverage distinct', () => {
   expect(screen.getByRole('table').querySelector('sup')).toBeInTheDocument();
   view.rerender(<Preview data={page({ sample: 'missing' })} />);
   expect(screen.getByLabelText('Data coverage')).toHaveTextContent('unavailable');
+  expect(screen.getByRole('heading', { name: 'No confirmed contributions to list' })).toBeVisible();
+  expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  view.rerender(
+    <Preview
+      data={page({ sample: 'missing', focus: { kind: 'contributor', accountId: 'account-alice' } })}
+    />,
+  );
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
   expect(screen.getByRole('table').querySelector('[data-column="prsAuthored"]')).toHaveTextContent(
     '—',
   );

@@ -17,7 +17,11 @@ import type { Count } from '@/models/reporting-measurement';
 import { validateContributionSource } from './contribution-source';
 import { sumContributionCounts } from './contribution-activity';
 
-type Cells = Map<string, Map<string, Map<ReportMetric, Count>>>;
+interface ContributionCell {
+  metrics: Map<ReportMetric, Count>;
+  overviewEvidence: boolean;
+}
+type Cells = Map<string, Map<string, ContributionCell>>;
 const indexes = new WeakMap<ContributionSource, ReturnType<typeof buildIndex>>();
 function baseline(coverage: ContributionCoverage): Count {
   if (coverage.status === 'complete') return { status: 'complete', value: 0 };
@@ -89,15 +93,24 @@ function buildIndex(source: ContributionSource) {
   }
   const cells: Cells = new Map();
   for (const [account, repositories] of raw) {
-    const selected = new Map<string, Map<ReportMetric, Count>>();
+    const selected = new Map<string, ContributionCell>();
     cells.set(account, selected);
     for (const [repository, metrics] of repositories) {
       const values = new Map<ReportMetric, Count>();
-      selected.set(repository, values);
+      const cell = { metrics: values, overviewEvidence: false };
+      selected.set(repository, cell);
       for (const [metric, counts] of metrics) {
         const count = sumContributionCounts(counts);
-        const coverage =
-          overrides.get(account)?.get(repository)?.get(metric) ?? defaults.get(metric)!;
+        const override = overrides.get(account)?.get(repository)?.get(metric);
+        // Eligibility comes from account-specific evidence before report-wide
+        // coverage is applied. A global gap cannot populate the whole directory.
+        cell.overviewEvidence ||=
+          (count.value ?? 0) > 0 ||
+          count.status === 'partial' ||
+          count.status === 'missing' ||
+          override?.status === 'partial' ||
+          override?.status === 'missing';
+        const coverage = override ?? defaults.get(metric)!;
         values.set(
           metric,
           coverage.status === 'missing'
@@ -116,7 +129,6 @@ function buildIndex(source: ContributionSource) {
       }
     }
   }
-  const incompleteDefault = [...defaults.values()].some((count) => count.status !== 'complete');
   function aggregate(
     accounts: readonly ContributionAccount[],
     repositories: readonly ContributionRepository[],
@@ -124,7 +136,7 @@ function buildIndex(source: ContributionSource) {
     const repoIds = new Set(repositories.map((repo) => repo.id));
     const counts = new Map<ReportMetric, Count[]>();
     for (const account of accounts) {
-      for (const [repository, metrics] of cells.get(account.id) ?? []) {
+      for (const [repository, { metrics }] of cells.get(account.id) ?? []) {
         if (!repoIds.has(repository)) continue;
         for (const [metric, count] of metrics) {
           const values = counts.get(metric) ?? [];
@@ -157,12 +169,10 @@ function buildIndex(source: ContributionSource) {
     company(id: string) {
       return companies.get(id);
     },
-    mayHaveActivity(accountId: string, repositories: ReadonlySet<string>) {
-      return (
-        repositories.size > 0 &&
-        (incompleteDefault ||
-          [...(cells.get(accountId)?.keys() ?? [])].some((id) => repositories.has(id)))
-      );
+    hasOverviewEvidence(accountId: string, repositories: ReadonlySet<string>) {
+      for (const [id, cell] of cells.get(accountId) ?? [])
+        if (cell.overviewEvidence && repositories.has(id)) return true;
+      return false;
     },
   });
 }

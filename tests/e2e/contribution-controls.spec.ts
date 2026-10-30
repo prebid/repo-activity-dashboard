@@ -169,7 +169,10 @@ test('explicit empty repository/population selections stay empty and incomplete 
     .getByRole('combobox', { name: 'Reporting period preset' })
     .selectOption('last-full-year');
   await expect(page.getByLabel('Data coverage')).toContainText('Reporting values are unavailable');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  await expect(
+    page.getByRole('heading', { name: 'No confirmed contributions to list' }),
+  ).toBeVisible();
+  await expect(page.getByRole('table')).toHaveCount(0);
   await page.goto('/contributors?exclude=removed-account');
   await expect(page.getByRole('heading', { name: 'Invalid contribution view' })).toBeVisible();
 });

@@ -1,4 +1,5 @@
 'use client';
+import { FieldError } from '@/components/feedback/field-error';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, FolderGit2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,12 +26,13 @@ export function RepositorySelector({
   repositories: readonly { id: string; name: string; slug: string }[];
   description?: string;
   selected: readonly string[];
-  onApply: (ids: string[]) => void;
+  onApply: (ids: string[]) => string | void;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<string[]>([]);
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
   const selectionKey = selected.join('|');
   const previousSelection = useRef(selectionKey);
   useEffect(() => {
@@ -46,9 +48,14 @@ export function RepositorySelector({
     if (next) {
       setDraft([...selected]);
       setSearch('');
+      setError('');
     }
     setOpen(next);
   }
+  const changeDraft: typeof setDraft = (next) => {
+    setError('');
+    setDraft(next);
+  };
   return (
     <div ref={setContainer}>
       <Dialog open={open} onOpenChange={changeOpen}>
@@ -81,11 +88,11 @@ export function RepositorySelector({
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setDraft(repositories.map((repo) => repo.id))}
+              onClick={() => changeDraft(repositories.map((repo) => repo.id))}
             >
               Select all {repositories.length}
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => setDraft([])}>
+            <Button variant="ghost" size="sm" onClick={() => changeDraft([])}>
               Clear selection
             </Button>
             <span aria-live="polite">{draft.length} selected</span>
@@ -98,7 +105,7 @@ export function RepositorySelector({
                   checked={draft.includes(repo.id)}
                   onChange={(event) => {
                     const checked = event.currentTarget.checked;
-                    setDraft((previous) =>
+                    changeDraft((previous) =>
                       checked ? [...previous, repo.id] : previous.filter((id) => id !== repo.id),
                     );
                   }}
@@ -112,6 +119,7 @@ export function RepositorySelector({
               </p>
             )}
           </div>
+          <FieldError message={error} />
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -119,8 +127,9 @@ export function RepositorySelector({
             <Button
               className={styles.apply}
               onClick={() => {
-                onApply(draft);
-                setOpen(false);
+                const message = onApply(draft);
+                setError(message || '');
+                if (!message) setOpen(false);
               }}
             >
               Apply selection

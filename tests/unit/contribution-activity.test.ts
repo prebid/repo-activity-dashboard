@@ -6,10 +6,7 @@ import {
   defaultContributionSelection,
 } from '@/lib/presentation/contributions';
 import { validateContributionSource } from '@/lib/presentation/contribution-source';
-import {
-  sumContributionCounts,
-  hasAdditionalActivity,
-} from '@/lib/presentation/contribution-activity';
+import { sumContributionCounts } from '@/lib/presentation/contribution-activity';
 import {
   additionalMetricIds,
   additionalMetricDefinitions,
@@ -187,8 +184,8 @@ it('reconciles every complete role breakdown and keeps missing file classificati
   expect(missing.additionalTotals.prComments).toMatchObject({ status: 'missing', value: null });
   const empty = selectContributions(contributionSample({ scenario: 'empty' }));
   expect(empty.additionalTotals.prComments).toEqual({ status: 'complete', value: 0 });
-  expect(hasAdditionalActivity(empty.additionalTotals)).toBe(false);
-  expect(hasAdditionalActivity(missing.additionalTotals)).toBe(true);
+  expect(reportRows(empty, 'contributors')).toEqual([]);
+  expect(reportRows(missing, 'contributors')).toEqual([]);
 });
 it('propagates explicit partial collection while an empty account selection remains a known zero', () => {
   const source = structuredClone(contributionSample());

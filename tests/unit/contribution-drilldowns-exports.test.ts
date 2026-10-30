@@ -37,7 +37,7 @@ const base: ContributionExportRequest = {
   metrics: ['prsAuthored', 'reviewerContributions', 'approvalContributions', 'issuesAuthored'],
   query: { search: '', sort: 'authoredPrsMerged', descending: true, page: 2 },
 };
-describe.each(['reference', 'large', 'partial', 'missing', 'empty'] as const)(
+describe.each(['reference', 'large', 'coverage-gap', 'partial', 'missing', 'empty'] as const)(
   '%s contribution reconciliation',
   (scenario) => {
     const sample = contributionSample({ scenario });
@@ -369,7 +369,19 @@ it('validates export options, preserves complete scope and selects only requeste
     selection,
     base,
   );
-  expect(contributionCsv(missing.rows, base, missing.context)).toContain('"missing"');
+  expect(missing.rows).toEqual([]);
+  expect(contributionCsv(missing.rows, base, missing.context).trim().split('\r\n')).toHaveLength(1);
+  const focusedRequest = {
+    ...base,
+    focus: { kind: 'contributor' as const, accountId: 'account-alice' },
+  };
+  const focused = selectContributionExport(
+    contributionSample({ scenario: 'missing' }),
+    selection,
+    focusedRequest,
+  );
+  expect(focused.rows).toHaveLength(18);
+  expect(contributionCsv(focused.rows, focusedRequest, focused.context)).toContain('"missing"');
 });
 it('builds metric links with a narrower repository and an exact return path', () => {
   const report = selectContributionPresentation(source, selection, overview).report;

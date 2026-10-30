@@ -29,7 +29,10 @@ export function DashboardHeader({
   accountControls: ReactNode;
   viewerId?: string;
 }) {
-  const contributionEntry = useContributionEntry(viewerId);
+  const contributionEntry = useContributionEntry(
+    viewerId,
+    repositories.filter((repo) => repo.enabled),
+  );
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const inRepos = activePath.startsWith('/repos');
   return (

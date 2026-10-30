@@ -13,7 +13,6 @@ import {
 import {
   selectContributions,
   defaultContributionSelection,
-  hasContributionActivity,
 } from '@/lib/presentation/contributions';
 
 const month = { kind: 'preset', preset: 'this-month' } as const;
@@ -307,19 +306,13 @@ it('keeps partial known subtotals, missing values, known zero and empty selectio
   const unavailable = selectContributions(contributionSample({ scenario: 'missing' }));
   expect(unavailable.totals.prsAuthored).toMatchObject({ status: 'missing', value: null });
   if (unavailable.kind !== 'overview') throw Error('Expected overview');
-  expect(reportRows(unavailable, 'contributors')).toHaveLength(8);
-  expect(unavailable.companyCount).toBe(4);
+  expect(reportRows(unavailable, 'contributors')).toHaveLength(0);
+  expect(unavailable.companyCount).toBe(0);
   const empty = selectContributions(contributionSample({ scenario: 'empty' }));
   expect(empty.totals.prsAuthored).toEqual({ status: 'complete', value: 0 });
   if (empty.kind !== 'overview') throw Error('Expected overview');
   expect(reportRows(empty, 'contributors')).toEqual([]);
   expect(empty.companyCount).toBe(0);
-  expect(
-    hasContributionActivity({
-      ...empty.totals,
-      prsAuthored: { status: 'partial', value: 0, reason: 'Unknown early history' },
-    }),
-  ).toBe(true);
 });
 it('supports unmapped company focus without assigning accounts to a guessed company', () => {
   const source = structuredClone(contributionSample({ period: month }));

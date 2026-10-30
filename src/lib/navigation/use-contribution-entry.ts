@@ -3,6 +3,7 @@ import { useCallback, useSyncExternalStore } from 'react';
 import {
   contributionPreferenceKey,
   readStoredContributionPreferences,
+  contributionPreferenceNeedsLookup,
   writeContributionSettings,
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
@@ -18,7 +19,10 @@ function subscribe(notify: () => void) {
 }
 const serverSnapshot = () => null;
 /** Resolve browser defaults before in-app navigation; the destination remains a real shareable URL. */
-export function useContributionEntry(viewerId?: string): string {
+export function useContributionEntry(
+  viewerId: string | undefined,
+  enabledRepositories: readonly { id: string }[],
+): string {
   const read = useCallback(() => {
     try {
       return viewerId
@@ -30,8 +34,13 @@ export function useContributionEntry(viewerId?: string): string {
   }, [viewerId]);
   const raw = useSyncExternalStore(subscribe, read, serverSnapshot);
   const settings = readStoredContributionPreferences(raw);
-  const href = settings
-    ? '/contributors?' + writeContributionSettings('', settings)
-    : '/contributors';
+  const knownRepositories = new Set(enabledRepositories.map((repo) => repo.id));
+  // Identity-dependent and custom-date views need the authenticated restore boundary.
+  const safe =
+    settings &&
+    settings.period.kind === 'preset' &&
+    !contributionPreferenceNeedsLookup(settings) &&
+    settings.selection.repositoryIds.every((id) => knownRepositories.has(id));
+  const href = safe ? '/contributors?' + writeContributionSettings('', settings) : '/contributors';
   return contributionUrlFits(href) ? href : '/contributors';
 }

@@ -181,7 +181,7 @@ function reference() {
     });
   return { accounts, records, credits };
 }
-function largeAccounts(): ContributionAccount[] {
+function largeAccounts(extra = 0): ContributionAccount[] {
   return [
     ...Array.from({ length: 250 }, (_, i) =>
       account(
@@ -196,19 +196,31 @@ function largeAccounts(): ContributionAccount[] {
       'company-prebid',
       'agent',
     ),
+    ...Array.from({ length: extra }, (_, i) =>
+      account(
+        'account-inactive-' + String(i + 1).padStart(4, '0'),
+        'Sample inactive account ' + (i + 1),
+        null,
+      ),
+    ),
   ];
 }
 export function contributionDirectorySample(scenario: ContributionScenario = 'reference') {
   if (!contributionSampleScenarios.includes(scenario))
     throw Error('Unknown contribution sample scenario');
   return validateContributionDirectory({
-    accounts: scenario === 'large' ? largeAccounts() : referenceAccounts(),
+    accounts:
+      scenario === 'coverage-gap'
+        ? largeAccounts(3000)
+        : scenario === 'large'
+          ? largeAccounts()
+          : referenceAccounts(),
     companies: structuredClone(companies),
     repositories: structuredClone(repositories),
   });
 }
-function large() {
-  const accounts = largeAccounts(),
+function large(extra = 0) {
+  const accounts = largeAccounts(extra),
     records: ContributionRecord[] = [];
   for (let index = 1; index <= 250; index++) {
     const id = accounts[index - 1].id;
@@ -241,7 +253,8 @@ export function contributionSample({
 } = {}): ContributionSource {
   if (!contributionSampleScenarios.includes(scenario))
     throw new Error('Unknown contribution sample scenario');
-  const data = scenario === 'large' ? large() : reference();
+  const data =
+    scenario === 'coverage-gap' ? large(3000) : scenario === 'large' ? large() : reference();
   const { range } = resolveReportingPeriod(period, contributionSampleAsOf);
   const unsupported = range.start < '2026-01-01T00:00:00.000Z';
   const unavailable = scenario === 'missing' || unsupported;
@@ -267,7 +280,12 @@ export function contributionSample({
               row.metric === 'approvalContributions'
             ),
         );
-  const activity = contributionActivitySample(data, range, scenario, unavailable);
+  const activity = contributionActivitySample(
+    data,
+    range,
+    scenario === 'coverage-gap' ? 'large' : scenario,
+    unavailable || scenario === 'coverage-gap',
+  );
   const ids = new Set(
     [...credits, ...activity.comments, ...activity.volumes].map((row) => row.recordId),
   );
@@ -284,7 +302,14 @@ export function contributionSample({
     records: data.records.filter((row) => ids.has(row.id)),
     credits,
     activity,
-    coverage: Object.fromEntries(contributionMetricIds.map((metric) => [metric, coverage])),
+    coverage: Object.fromEntries(
+      contributionMetricIds.map((metric) => [
+        metric,
+        scenario === 'coverage-gap' && !unavailable && metric === 'reviewerContributions'
+          ? { status: 'partial', reason: 'Early reviewer history is incomplete.' }
+          : coverage,
+      ]),
+    ),
     coverageOverrides:
       scenario === 'partial' && !unavailable
         ? [

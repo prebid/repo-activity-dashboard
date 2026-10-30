@@ -334,8 +334,19 @@
   box-shadow: none;
 }
 .typeMenu {
-  min-width: 240px;
+  width: 240px;
+  min-width: 0;
   max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.typeMenu > :not(.typeChoices) {
+  flex-shrink: 0;
+}
+.typeChoices {
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .typeMenu[data-state='closed'] {
