@@ -2,7 +2,6 @@ import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 
 // GHSA-g3hv-75wg-m249's amplification optimizer does not exist in minimatch 3.1.5.
@@ -59,8 +58,20 @@ export function inspectDependencyAudit(output, exitCode, lockfile, readInstalled
   if (exitCode !== 0 && exitCode !== 1) throw Error('npm audit did not complete successfully.');
   /** @type {unknown} */
   const raw = JSON.parse(output);
-  if (typeof raw === 'object' && raw !== null && 'error' in raw)
-    throw Error('npm audit returned an error.');
+  if (typeof raw === 'object' && raw !== null && 'error' in raw) {
+    const failure =
+      /** @type {{ statusCode?: unknown, error?: { code?: unknown, summary?: unknown } }} */ (raw);
+    throw Error(
+      [
+        'npm audit returned an error',
+        failure.statusCode,
+        failure.error?.code,
+        failure.error?.summary,
+      ]
+        .filter((part) => part !== undefined && part !== null && part !== '')
+        .join(': ') + '.',
+    );
+  }
   const report = reportSchema.parse(raw);
   const packages = z
     .object({ lockfileVersion: z.literal(3), packages: z.record(z.string(), z.unknown()) })
@@ -126,9 +137,14 @@ export function inspectDependencyAudit(output, exitCode, lockfile, readInstalled
   };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// import.meta.main also holds when the script is reached through a symlinked path.
+/** `info` keeps npm's exit status consistent with every reported entry, including info-only ones. */
+export const npmAuditArguments = ['audit', '--json', '--audit-level=info', '--include=dev'];
+if (import.meta.main) {
+  /** @type {import('node:child_process').SpawnSyncReturns<string> | undefined} */
+  let result;
   try {
-    const result = spawnSync('npm', ['audit', '--json', '--audit-level=low', '--include=dev'], {
+    result = spawnSync('npm', npmAuditArguments, {
       encoding: 'utf8',
       maxBuffer: 8 * 1024 * 1024,
     });
@@ -152,6 +168,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
     if (outcome.blocking.length) process.exitCode = 1;
   } catch (error) {
     console.error(error instanceof Error ? error.message : error);
+    if (result?.stderr) console.error(result.stderr.trim());
     process.exitCode = 1;
   }
 }

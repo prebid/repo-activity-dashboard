@@ -1,10 +1,11 @@
 // @vitest-environment node
 import { createRequire } from 'node:module';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { tmpdir } from 'node:os';
 import { expect, it } from 'vitest';
-import { inspectDependencyAudit } from '../../scripts/audit-dependencies.mjs';
+import { inspectDependencyAudit, npmAuditArguments } from '../../scripts/audit-dependencies.mjs';
 
 it('retains the docgen consumer globSync API and absolute include/exclude file selection', () => {
   const consumer = createRequire(
@@ -243,4 +244,61 @@ it('blocks unreviewed inherited severity and rejects inconsistent identities or 
       throw Error('unreadable install');
     }),
   ).toThrow('unreadable install');
+});
+it('keeps npm exit status consistent for info-only reports and names the info advisory', () => {
+  expect(npmAuditArguments).toContain('--audit-level=info');
+  const { report, lock } = fixture();
+  const info = {
+    ...report,
+    vulnerabilities: {
+      foo: {
+        name: 'foo',
+        severity: 'info',
+        via: [
+          { name: 'foo', dependency: 'foo', severity: 'info', range: '*', url: 'https://x.test/a' },
+        ],
+        nodes: ['node_modules/foo'],
+      },
+    },
+    metadata: { ...report.metadata, vulnerabilities: { total: 1 } },
+  };
+  expect(inspectDependencyAudit(JSON.stringify(info), 1, lock, () => installed).blocking).toEqual([
+    'foo: https://x.test/a',
+    'foo: unreviewed info severity',
+  ]);
+});
+it('reports npm audit failure details instead of a generic message', () => {
+  const { lock } = fixture();
+  expect(() =>
+    inspectDependencyAudit(
+      JSON.stringify({
+        statusCode: 503,
+        error: { code: 'ENOAUDIT', summary: 'Service unavailable' },
+      }),
+      1,
+      lock,
+      () => installed,
+    ),
+  ).toThrow('npm audit returned an error: 503: ENOAUDIT: Service unavailable.');
+});
+it('checks the glob ESM build the docgen plugin imports', async () => {
+  const plugin = import.meta.resolve('@joshwooding/vite-plugin-react-docgen-typescript');
+  const manifestPath = createRequire(plugin).resolve('glob/package.json');
+  const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
+    version: string;
+    exports: { '.': { import: string | { default: string } } };
+  };
+  const entry = manifest.exports['.'].import;
+  const glob = (await import(
+    pathToFileURL(join(dirname(manifestPath), typeof entry === 'string' ? entry : entry.default))
+      .href
+  )) as { globSync: (pattern: string, options: { cwd: string; nodir: boolean }) => string[] };
+  expect(manifest.version).toBe('14.0.3');
+  const root = mkdtempSync(join(tmpdir(), 'docgen-glob-esm-'));
+  try {
+    writeFileSync(join(root, 'one.tsx'), '');
+    expect(glob.globSync('*.tsx', { cwd: root, nodir: true })).toEqual(['one.tsx']);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });

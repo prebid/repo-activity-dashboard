@@ -1,6 +1,5 @@
 import { readFileSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 
 const assertion = z.object({ status: z.literal('passed') });
@@ -65,7 +64,8 @@ export function validateTestResults(input, kind) {
     throw new Error('Browser counts do not match individual results');
   return count;
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// import.meta.main also holds when the script is reached through a symlinked path.
+if (import.meta.main) {
   const [kind, mode] = process.argv.slice(2);
   if (
     (kind !== 'vitest' && kind !== 'playwright' && kind !== 'accounts' && kind !== 'production') ||
