@@ -1,9 +1,10 @@
 import type { RepositoryPageSource } from '@/models/repository-page';
 
+/** Record pages keep their reviewed default: Latest activity already names the actor category. */
 export function repositoryColumnDefaults(page: RepositoryPageSource): Record<string, boolean> {
-  return repositoryRecordColumnDefaults(page.drilldown.selection);
+  return { ...repositoryRecordColumnDefaults(page.drilldown.selection), latestActor: false };
 }
-/** Default record columns for a selection; record pages and Timeline supporting records share it. */
+/** Default record columns for a selection, for record pages and Timeline supporting records. */
 export function repositoryRecordColumnDefaults(selection: {
   scope: 'current' | 'period';
   metric: string;

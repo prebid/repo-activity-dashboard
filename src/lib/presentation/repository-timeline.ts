@@ -32,7 +32,7 @@ import {
 } from './reporting-timeline';
 import { matchesRepositoryPageRow } from './repository-page-filters';
 import { usesReviewFilters } from './repository-page-rules';
-import { matchesCurrentPr } from './repository-records';
+import { currentPrAttribute, matchesCurrentPr } from './repository-records';
 import { subsetCount } from './repository-page-values';
 import { mergeElapsedDays } from './repository-insights';
 import { agingThresholdForColumn } from './overview-aging';
@@ -170,18 +170,12 @@ function snapshotMetricMatch(
 ): boolean | 'unknown' {
   let match: boolean | 'unknown' = metric === 'openIssues';
   if ('draft' in row) {
-    match = matchesCurrentPr(
-      row,
-      repositoryTimelineSnapshotSelection(metric as RepositoryTimelineSnapshotMetric),
+    const selection = repositoryTimelineSnapshotSelection(
+      metric as RepositoryTimelineSnapshotMetric,
     );
-    if (
-      !row.draft &&
-      ((metric.startsWith('humanReviewers') && row.humanReviewers === null) ||
-        (metric.startsWith('humanApprovals') && row.approvals === null) ||
-        (metric === 'agentFeedbackPrs' && row.agentReviewer === null) ||
-        (metric === 'botFeedbackPrs' && row.botReviewer === null))
-    )
-      match = 'unknown';
+    match = matchesCurrentPr(row, selection);
+    const attribute = currentPrAttribute(selection);
+    if (!row.draft && attribute && row[attribute] === null) match = 'unknown';
   }
   return match;
 }

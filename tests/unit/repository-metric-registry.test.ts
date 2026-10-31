@@ -61,7 +61,7 @@ it('maps snapshot metrics to the current-state selection they apply at a cutoff'
     metric: 'totalOpenPrs',
   });
 });
-it('shares record column defaults between record pages and Timeline supporting records', () => {
+it('sets record column defaults per selection', () => {
   expect(repositoryRecordColumnDefaults({ scope: 'current', metric: 'lastBot' })).toMatchObject({
     latestActor: true,
     ageDays: true,

@@ -78,3 +78,61 @@ it('writes no history and follows nothing while another scope is arriving', asyn
     if (control.getAttribute('aria-label')?.endsWith('table controls'))
       expect(control).toBeDisabled();
 });
+it('opens supporting record lists with the shared record column defaults', () => {
+  const headers = () =>
+    screen.getAllByRole('columnheader').map((cell) => cell.textContent?.trim() ?? '');
+  const merged = report.rows.findIndex((row) => (row.values.prsMerged?.value ?? 0) > 0);
+  const event = selectRepositoryTimelineSupport(source, report, {
+    source: report.source,
+    interval: report.rows[merged].interval,
+    metric: 'prsMerged',
+    measurement: report.rows[merged].values.prsMerged!,
+    href: '/repos/prebidjs?timeline=1&timeline.detail=prsMerged',
+    parentHref: '/repos/prebidjs?timeline=1',
+    scope: '/repos/prebidjs?timeline=1',
+  });
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1&timeline.detail=prsMerged');
+  const first = render(<TimelineSupportScreen detail={event} viewerId="alice" />);
+  const activity = headers();
+  for (const visible of [/^Merged/, /^Base branch/, /^Created/])
+    expect(activity.some((name) => visible.test(name))).toBe(true);
+  for (const hidden of [/^Latest activity/, /^Age/, /^Latest actor/])
+    expect(activity.some((name) => hidden.test(name))).toBe(false);
+  first.unmount();
+  const cutoff = selectRepositoryTimeline(
+    source,
+    {
+      grouping: 'day',
+      range: {
+        start: '2026-10-21T00:00:00.000Z',
+        end: '2026-10-22T00:00:00.000Z',
+        endInclusive: false,
+      },
+    },
+    'snapshot',
+  );
+  const snapshot = selectRepositoryTimelineSupport(source, cutoff, {
+    source: cutoff.source,
+    interval: cutoff.rows[0].interval,
+    metric: 'humanApprovals1',
+    measurement: cutoff.rows[0].values.humanApprovals1!,
+    href: '/repos/prebidjs?timeline=1&timeline.detail=humanApprovals1',
+    parentHref: '/repos/prebidjs?timeline=1',
+    scope: '/repos/prebidjs?timeline=1',
+  });
+  window.history.replaceState(
+    null,
+    '',
+    '/repos/prebidjs?timeline=1&timeline.detail=humanApprovals1',
+  );
+  render(<TimelineSupportScreen detail={snapshot} viewerId="alice" />);
+  const atCutoff = headers();
+  for (const visible of [
+    /^Human approvals at cutoff/,
+    /^Age at cutoff \(days\)/,
+    /^Latest activity/,
+  ])
+    expect(atCutoff.some((name) => visible.test(name))).toBe(true);
+  for (const hidden of [/^Created/, /^Merged/, /^Latest actor/])
+    expect(atCutoff.some((name) => hidden.test(name))).toBe(false);
+});
