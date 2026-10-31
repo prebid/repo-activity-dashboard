@@ -90,7 +90,11 @@ export function AllRepositoriesView({
       <AllRepositoriesTabs
         active="summary"
         summaryHref={returnTo}
-        timelineHref={repositoryMatrixEntryHref(settings.value.repositoryIds, returnTo)}
+        timelineHref={repositoryMatrixEntryHref(
+          repositories.filter((row) => settings.value.repositoryIds.includes(row.id)),
+          returnTo,
+          data,
+        )}
       />
       <div className={controls.bar} aria-label="Repository view settings" role="region">
         <RepositorySelector

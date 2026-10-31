@@ -177,7 +177,7 @@ export function repositoryTimelineEntry(
   return contributionUrlFits(href) ? href : null;
 }
 export function matrixRepositoryTimelineHref(
-  context: TimelineControlContext,
+  context: Pick<TimelineControlContext, 'view'>,
   slug: string,
   currentHref: string,
   metric = context.view.metric,
