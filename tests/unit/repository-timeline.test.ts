@@ -4,6 +4,7 @@ import {
   selectRepositoryTimeline,
   repositoryTimelineDetail,
   repositoryTimelineValue,
+  repositoryTimelineSupportingRows,
   validateRepositoryTimelineFilters,
 } from '@/lib/presentation/repository-timeline';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
@@ -426,4 +427,138 @@ it('handles historical drafts, primary-branch exclusion and prepared zero/partia
   );
   const missing = repositoryTimelineSample('issues', 'repo-prebidjs', 'missing');
   expect(selectRepositoryTimeline(missing, actual).summary.issuesOpened!.value).toBeNull();
+});
+it('keeps draft PRs in activity counts and support when filtering by latest activity', () => {
+  const source = repositoryTimelineSample('prs', 'repo-prebidserver', 'reference');
+  const range = {
+    start: '2026-10-01T00:00:00.000Z',
+    end: '2026-10-24T12:00:00.000Z',
+    endInclusive: true,
+  };
+  const latest = repositoryPageFiltersSchema.parse({ kind: 'prs', latestActors: ['contributor'] });
+  const report = selectRepositoryTimeline(source, { range, grouping: 'week' }, 'activity', latest);
+  expect(report.summary.prsOpened).toEqual({ status: 'complete', value: 3 });
+  expect(report.summary.prAuthors).toEqual({ status: 'complete', value: 3 });
+  const detail = repositoryTimelineDetail(report, 'prsOpened')!;
+  expect(repositoryTimelineSupportingRows(source, detail).map((row) => row.number)).toEqual([
+    103, 104, 106,
+  ]);
+  const drafts = repositoryPageFiltersSchema.parse({
+    kind: 'prs',
+    draft: 'drafts',
+    latestActors: ['contributor'],
+  });
+  expect(
+    selectRepositoryTimeline(source, { range, grouping: 'week' }, 'activity', drafts).summary
+      .prsOpened,
+  ).toEqual({ status: 'complete', value: 1 });
+});
+it('keeps the non-draft population for latest-actor filters on backlog snapshots', () => {
+  const source = repositoryTimelineSample('prs', 'repo-prebidserver', 'reference');
+  const range = {
+    start: '2026-10-01T00:00:00.000Z',
+    end: '2026-10-22T00:00:00.000Z',
+    endInclusive: false,
+  };
+  const latest = repositoryPageFiltersSchema.parse({ kind: 'prs', latestActors: ['contributor'] });
+  const snapshot = selectRepositoryTimeline(source, { range, grouping: 'day' }, 'snapshot', latest);
+  const all = selectRepositoryTimeline(source, { range, grouping: 'day' }, 'snapshot');
+  expect(all.summary.draftPrs).toEqual({ status: 'complete', value: 1 });
+  expect(snapshot.summary.totalOpenPrs!.value).toBe(all.summary.totalOpenPrs!.value! - 1);
+});
+const cutoffRange = (day: string) => ({
+  start: '2026-10-01T00:00:00.000Z',
+  end: '2026-10-' + day + 'T00:00:00.000Z',
+  endInclusive: false,
+});
+it.each([
+  [
+    '12',
+    {
+      totalOpenPrs: 1,
+      nonDraftPrs: 1,
+      humanReviewers0: 1,
+      humanReviewers1: 0,
+      humanApprovals0: 1,
+      humanApprovals1: 0,
+      agentFeedbackPrs: 0,
+      botFeedbackPrs: 0,
+      lastContributor: 1,
+    },
+  ],
+  [
+    '22',
+    {
+      totalOpenPrs: 2,
+      nonDraftPrs: 2,
+      humanReviewers0: 0,
+      humanReviewers1: 2,
+      humanApprovals0: 1,
+      humanApprovals1: 1,
+      agentFeedbackPrs: 1,
+      botFeedbackPrs: 1,
+      lastContributor: 2,
+    },
+  ],
+] as const)('derives Prebid.js backlog at the 10-%s cutoff from dated credits', (day, expected) => {
+  const report = selectRepositoryTimeline(
+    repositoryTimelineSample('prs', 'repo-prebidjs', 'reference'),
+    { range: cutoffRange(day), grouping: 'day' },
+    'snapshot',
+  );
+  for (const [metric, value] of Object.entries(expected))
+    expect([metric, report.summary[metric as keyof typeof expected]]).toEqual([
+      metric,
+      { status: 'complete', value },
+    ]);
+});
+it('keeps open records in every snapshot and dismissed approvals out of today', () => {
+  const issues = repositoryTimelineSample('issues', 'repo-prebidserver', 'reference');
+  expect(issues.snapshots.map((row) => row.rows.map((issue) => issue.number))).toEqual([
+    [203, 204, 205],
+    [203, 204, 205],
+  ]);
+  const prs = repositoryTimelineSample('prs', 'repo-prebidjs', 'reference');
+  const cutoff = prs.snapshots[1].rows.find((row) => row.number === 107)!;
+  const today = prs.rows.find((row) => row.number === 107)!;
+  expect('approvals' in cutoff && cutoff.approvals).toBe(1);
+  expect('approvals' in today && today.approvals).toBe(0);
+  const draft = repositoryTimelineSample('prs', 'repo-prebidserver', 'reference').snapshots[1]
+    .rows[0];
+  expect([draft.number, 'humanReviewers' in draft && draft.humanReviewers]).toEqual([104, 0]);
+});
+it('dates issue closures by closedAt, separately from creation', () => {
+  const source = structuredClone(repositoryTimelineSample('issues', 'repo-prebidjs', 'reference'));
+  const closed = source.rows.find((row) => row.number === 202)!;
+  expect(closed.createdAt.slice(0, 10)).toBe('2026-09-09');
+  if ('closedAt' in closed) closed.closedAt = '2026-10-03T12:00:00.000Z';
+  const year = {
+    start: '2026-08-01T00:00:00.000Z',
+    end: source.asOf,
+    endInclusive: true,
+  };
+  const monthly = selectRepositoryTimeline(source, { range: year, grouping: 'month' });
+  expect(monthly.rows.map((row) => row.values.issuesOpened!.value)).toEqual([1, 1, 1]);
+  expect(monthly.rows.map((row) => row.values.issuesClosed!.value)).toEqual([0, 0, 1]);
+  const daily = selectRepositoryTimeline(source, { range: year, grouping: 'day' });
+  const value = (day: string) =>
+    daily.rows.find((row) => row.interval.calendar.start === day + 'T00:00:00.000Z')!.values
+      .issuesClosed!.value;
+  expect([value('2026-09-09'), value('2026-10-03')]).toEqual([0, 1]);
+  const detail = repositoryTimelineDetail(monthly, 'issuesClosed', monthly.rows[2].interval.id)!;
+  expect(repositoryTimelineSupportingRows(source, detail).map((row) => row.number)).toEqual([202]);
+});
+it('rejects record states a backlog snapshot cannot contain', () => {
+  expect(() =>
+    validateRepositoryTimelineFilters(
+      repositoryPageFiltersSchema.parse({ kind: 'issues', states: ['Closed'] }),
+      'snapshot',
+    ),
+  ).toThrow('open at the cutoff');
+  expect(
+    validateRepositoryTimelineFilters(
+      repositoryPageFiltersSchema.parse({ kind: 'issues', states: ['Open'] }),
+      'snapshot',
+    ).states,
+  ).toEqual(['Open']);
 });

@@ -56,6 +56,17 @@ export function timelineAuthorColumns(
     },
   ];
 }
+// Every column whose value a backlog snapshot supplies for its cutoff, not today's state.
+const snapshotColumnIds = new Set([
+  'approvals',
+  'ageDays',
+  'humanReviewers',
+  'latestActivity',
+  'latestActor',
+  'agentReviewer',
+  'botReviewer',
+  'assignees',
+]);
 export function repositoryTimelineSupportColumns(kind: 'prs' | 'issues', snapshot: boolean) {
   const columns: DataColumn<RepositoryPagePr | RepositoryPageIssue>[] = (
     kind === 'prs' ? repositoryPagePrColumns : repositoryPageIssueColumns
@@ -63,7 +74,7 @@ export function repositoryTimelineSupportColumns(kind: 'prs' | 'issues', snapsho
   return columns
     .filter((column) => !repositoryInlineColumnIds.has(column.id))
     .map((column) =>
-      snapshot && ['approvals', 'ageDays', 'humanReviewers', 'latestActivity'].includes(column.id)
+      snapshot && snapshotColumnIds.has(column.id)
         ? {
             ...column,
             label:

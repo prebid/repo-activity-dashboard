@@ -47,6 +47,9 @@ export function validateRepositoryTimelineFilters(
     throw Error('Use the exact timeline range instead of an eventRange predicate');
   if (family === 'activity' && (filters.ageBand !== undefined || usesReviewFilters(filters)))
     throw Error('Current age and review filters require snapshot scope');
+  // Every record in a backlog snapshot is open at its cutoff, so other states could only be zero.
+  if (family === 'snapshot' && filters.states.some((state) => state !== 'Open'))
+    throw Error('Backlog snapshots contain only records open at the cutoff');
   return filters;
 }
 export function repositoryTimelineValue(
@@ -116,16 +119,29 @@ function sourceOf(input: RepositoryTimelineSource) {
   }
   return { ...source, availableRanges: available };
 }
-function pageSource(source: RepositoryTimelineSource): RepositoryPageSource {
+/**
+ * Record filters keep their record-list meaning: activity matches like a period list, while
+ * snapshots keep the current-backlog rules such as the non-draft latest-actor population.
+ */
+function pageSource(
+  source: RepositoryTimelineSource,
+  activityRange?: DateRange,
+): RepositoryPageSource {
   const common = {
     repository: source.repository,
     asOf: source.asOf,
     measurement: { status: 'complete' as const, value: source.rows.length },
     drilldown: {
-      selection: {
-        scope: 'current' as const,
-        metric: source.kind === 'prs' ? ('totalOpenPrs' as const) : ('openIssues' as const),
-      },
+      selection: activityRange
+        ? {
+            scope: 'period' as const,
+            metric: source.kind === 'prs' ? ('prsOpened' as const) : ('issuesOpened' as const),
+            range: activityRange,
+          }
+        : {
+            scope: 'current' as const,
+            metric: source.kind === 'prs' ? ('totalOpenPrs' as const) : ('openIssues' as const),
+          },
       returnTo: '/repos',
     },
   };
@@ -261,7 +277,7 @@ function projectRepositoryTimeline(
       metrics,
     );
   } else {
-    const context = pageSource(source),
+    const context = pageSource(source, request.range),
       selected = source.rows
         .map((row) => ({ row, verdict: matchesRepositoryPageRow(row, filters, context) }))
         .filter((item) => item.verdict !== false);
@@ -451,7 +467,11 @@ export function repositoryTimelineSupportingRows(
   if (!rows) throw Error('Historical snapshot is unavailable.');
   return rows.filter(
     (row) =>
-      matchesRepositoryPageRow(row, filters, pageSource(source)) === true &&
+      matchesRepositoryPageRow(
+        row,
+        filters,
+        pageSource(source, detail.basis === 'snapshot' ? undefined : detail.range),
+      ) === true &&
       (detail.basis === 'snapshot'
         ? snapshotMetricMatch(row, detail.metric) === true
         : (() => {

@@ -15,6 +15,9 @@ function prepareRepositoryTimelineSamples(scenario: RepositoryTimelineScenario, 
     source = prepared.contributions;
   const repositories = new Map(source.repositories.map((row) => [row.id, row]));
   const accounts = new Map(source.accounts.map((row) => [row.id, row]));
+  const creditsByRecord = new Map<string, typeof source.credits>();
+  for (const credit of source.credits)
+    creditsByRecord.set(credit.recordId, [...(creditsByRecord.get(credit.recordId) ?? []), credit]);
   const byRepository = new Map<string, ContributionRecord[]>();
   for (const row of source.records) {
     const records = byRepository.get(row.repositoryId) ?? [];
@@ -31,6 +34,33 @@ function prepareRepositoryTimelineSamples(scenario: RepositoryTimelineScenario, 
     if (!repository) throw Error('Unknown sample repository');
     const year = source.range.start.slice(0, 4),
       at = (date: string) => year + '-' + date + 'T00:00:00.000Z';
+    // Alice's approval of PR 107 is dismissed after the 10-22 cutoff, so history and today differ.
+    const dismissedApprovals = new Map([[107, at('10-23')]]);
+    /** Review state at an instant, from the scenario's reviewer and approval credits before it. */
+    function reviewState(record: ContributionRecord, cutoff: string) {
+      const before = (creditsByRecord.get(record.id) ?? []).filter(
+        (credit) => credit.creditedAt < cutoff,
+      );
+      const by = (metric: string, actorType: string) =>
+        new Set(
+          before
+            .filter(
+              (credit) =>
+                credit.metric === metric && accounts.get(credit.accountId)!.actorType === actorType,
+            )
+            .map((credit) => credit.accountId),
+        );
+      const dismissed = dismissedApprovals.get(record.number);
+      return {
+        humanReviewers: by('reviewerContributions', 'human').size,
+        approvals:
+          dismissed !== undefined && dismissed < cutoff
+            ? 0
+            : by('approvalContributions', 'human').size,
+        agentReviewer: by('reviewerContributions', 'agent').size > 0,
+        botReviewer: by('reviewerContributions', 'bot').size > 0,
+      };
+    }
     const records = (byRepository.get(repositoryId) ?? []).filter((row) =>
       kind === 'prs' ? row.kind === 'pr' : row.kind === 'issue',
     );
@@ -59,29 +89,26 @@ function prepareRepositoryTimelineSamples(scenario: RepositoryTimelineScenario, 
             draft: record.draft,
             mergedAt: record.mergedAt,
             baseBranch: record.baseBranch,
-            humanReviewers: record.number === 107 ? 1 : 0,
-            approvals: 0,
-            agentReviewer: false,
-            botReviewer: false,
+            ...reviewState(record, source.asOf),
             latestActor: 'contributor' as const,
           }
         : { ...common, closedAt: record.state === 'Closed' ? at('09-11') : null, assignees: [] };
     });
     const snapshots =
       baseScenario === 'reference' || baseScenario === 'partial' || baseScenario === 'calendar'
-        ? ['10-12', '10-22'].map((date, index) => ({
+        ? ['10-12', '10-22'].map((date) => ({
             cutoff: { at: at(date), inclusive: false },
             coverage:
               baseScenario === 'partial'
                 ? { status: 'partial', reason: 'Some historical sample records are unavailable.' }
                 : { status: 'complete' },
-            // Membership and review state are supplied independently; no reconstruction from today's list.
+            // Membership, age and review state follow the dated records and credits at each cutoff.
+            // Labels, latest activity and author metadata repeat today's values in this sample.
             rows: rows
-              .filter((row) =>
-                kind === 'prs'
-                  ? (index === 0 ? [104, 105] : [104, 105, 107]).includes(row.number)
-                  : [201, 206].includes(row.number),
-              )
+              .filter((row) => {
+                const ended = 'mergedAt' in row ? row.mergedAt : row.closedAt;
+                return row.createdAt < at(date) && (ended === null || ended >= at(date));
+              })
               .map((row) => ({
                 ...row,
                 state: 'Open',
@@ -89,8 +116,10 @@ function prepareRepositoryTimelineSamples(scenario: RepositoryTimelineScenario, 
                 ...('draft' in row
                   ? {
                       mergedAt: null,
-                      humanReviewers: index === 0 ? 0 : 1,
-                      approvals: row.number === 107 ? 1 : 0,
+                      ...reviewState(
+                        records.find((record) => record.id === row.id)!,
+                        at(date),
+                      ),
                     }
                   : { closedAt: null }),
               })),

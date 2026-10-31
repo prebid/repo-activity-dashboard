@@ -54,36 +54,46 @@ function context(
 it.each(timelineGroupings)(
   'reconciles every repository metric with its known supporting population for %s',
   (grouping) => {
-    for (const metric of repositoryTimelineMetricIds) {
-      const scope = repositoryTimelineMetricScope(metric),
-        source = repositoryTimelineSample(scope.recordKind),
-        report = selectRepositoryTimeline(source, { ...request, grouping }, scope.family);
-      for (const row of report.rows) {
-        const value = row.values[metric]!;
-        if (value.value === null) continue;
-        const detail = selectRepositoryTimelineSupport(
-          source,
-          report,
-          context(report, row, metric),
-        );
-        if (detail.kind === 'authors') expect(detail.rows.length).toBe(value.value);
-        else if (detail.kind === 'repository') {
-          if (metric === 'medianMergeDays') {
-            const days = detail.rows
-              .map(
-                (row) =>
-                  (Date.parse('mergedAt' in row ? row.mergedAt! : '') - Date.parse(row.createdAt)) /
-                  86400000,
-              )
-              .sort((a, b) => a - b);
-            const half = Math.floor(days.length / 2);
-            expect(days.length % 2 ? days[half] : (days[half - 1] + days[half]) / 2).toBe(
-              value.value,
-            );
-          } else expect(detail.rows.length).toBe(value.value);
-        } else throw Error('Unexpected detail family');
+    // The second range ends on a prepared cutoff, so every grouping reaches snapshot cells.
+    const ranges = [
+      request.range,
+      { start: '2026-01-01T00:00:00.000Z', end: '2026-10-22T00:00:00.000Z', endInclusive: false },
+    ];
+    let snapshotCells = 0;
+    for (const metric of repositoryTimelineMetricIds)
+      for (const range of ranges) {
+        const scope = repositoryTimelineMetricScope(metric),
+          source = repositoryTimelineSample(scope.recordKind),
+          report = selectRepositoryTimeline(source, { range, grouping }, scope.family);
+        for (const row of report.rows) {
+          const value = row.values[metric]!;
+          if (value.value === null) continue;
+          if (scope.family === 'snapshot') snapshotCells++;
+          const detail = selectRepositoryTimelineSupport(
+            source,
+            report,
+            context(report, row, metric),
+          );
+          if (detail.kind === 'authors') expect(detail.rows.length).toBe(value.value);
+          else if (detail.kind === 'repository') {
+            if (metric === 'medianMergeDays') {
+              const days = detail.rows
+                .map(
+                  (row) =>
+                    (Date.parse('mergedAt' in row ? row.mergedAt! : '') -
+                      Date.parse(row.createdAt)) /
+                    86400000,
+                )
+                .sort((a, b) => a - b);
+              const half = Math.floor(days.length / 2);
+              expect(days.length % 2 ? days[half] : (days[half - 1] + days[half]) / 2).toBe(
+                value.value,
+              );
+            } else expect(detail.rows.length).toBe(value.value);
+          } else throw Error('Unexpected detail family');
+        }
       }
-    }
+    expect(snapshotCells).toBeGreaterThan(0);
   },
 );
 it.each(timelineGroupings)(

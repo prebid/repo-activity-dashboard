@@ -1,8 +1,30 @@
-import type { RepositoryPageFilters, RepositoryPageSource } from '@/models/repository-page';
+import type {
+  RepositoryFilterOptions,
+  RepositoryPageFilters,
+  RepositoryPageIssue,
+  RepositoryPagePr,
+  RepositoryPageSource,
+} from '@/models/repository-page';
 import { requiresNonDraftPr } from './repository-page-rules';
 import { ageBandFor, recordEventDate, reviewBucket } from './repository-page-values';
 import { inDateRange } from '@/lib/presentation/reporting-period';
 
+const distinct = (items: string[]) => [...new Set(items)].sort((a, b) => a.localeCompare(b, 'en'));
+/** Filter choices from loaded rows; account values use the same lowercase identity as filters. */
+export function repositoryFilterOptions(
+  rows: readonly (RepositoryPagePr | RepositoryPageIssue)[],
+): RepositoryFilterOptions {
+  return {
+    labels: distinct(rows.flatMap((row) => row.labels)),
+    authors: distinct(rows.map((row) => row.author.toLowerCase())),
+    branches: distinct(rows.flatMap((row) => ('baseBranch' in row ? [row.baseBranch] : []))),
+    assignees: distinct(
+      rows.flatMap((row) =>
+        'assignees' in row ? (row.assignees ?? []).map((value) => value.toLowerCase()) : [],
+      ),
+    ),
+  };
+}
 type Verdict = boolean | 'unknown';
 function category(value: string | null, selected: string[]): Verdict {
   if (!selected.length) return true;

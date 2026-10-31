@@ -46,6 +46,7 @@ export function TimelineRepositoryFilters({
     ...facets,
     kind: filters.kind,
     current: snapshot,
+    cutoff: snapshot,
   });
   const chips = repositoryFilterChips(filters, fields);
   return (

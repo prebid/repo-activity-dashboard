@@ -36,6 +36,7 @@ import { repositoryMatrixSummaryHref } from '@/lib/presentation/repository-timel
 import { readTimelineView, timelineViewKeys } from '@/lib/presentation/timeline-controls';
 import { safeTimelineParent } from '@/lib/presentation/timeline-navigation';
 import { readRepositoryFilterValues } from '@/lib/presentation/repository-page-query';
+import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 import {
   repositoryTimelineMetricScope,
   type RepositoryTimelineMetric,
@@ -218,7 +219,6 @@ export async function repositoryTimelinePreview(slug: string, params: URLSearchP
       (snapshot) => snapshot.rows,
     ),
   ];
-  const values = (items: string[]) => [...new Set(items)].sort();
   return {
     status: 'ready' as const,
     viewerId: viewer.id,
@@ -227,12 +227,7 @@ export async function repositoryTimelinePreview(slug: string, params: URLSearchP
     href: path + '?' + params.toString(),
     parent,
     omitted: params.get('timeline.omitted') === 'current',
-    facets: {
-      labels: values(rows.flatMap((row) => row.labels)),
-      authors: values(rows.map((row) => row.author.toLowerCase())),
-      branches: values(rows.flatMap((row) => ('baseBranch' in row ? [row.baseBranch] : []))),
-      assignees: values(rows.flatMap((row) => ('assignees' in row ? (row.assignees ?? []) : []))),
-    },
+    facets: repositoryFilterOptions(rows),
     controls: { ...context('repository', path, parsed, repository.id), filters },
   };
 }
