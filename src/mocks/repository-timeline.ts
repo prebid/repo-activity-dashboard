@@ -3,6 +3,7 @@ import {
   type RepositoryTimelineSource,
 } from '@/models/repository-timeline';
 import { contributionTimelineSample } from './contribution-timeline';
+import { sampleProfileUrl } from './repository-accounts';
 import type { RepositoryTimelineMatrixSource } from '@/models/repository-timeline-matrix';
 import type { ContributionRecord } from '@/models/contributions';
 
@@ -72,6 +73,7 @@ function prepareRepositoryTimelineSamples(scenario: RepositoryTimelineScenario, 
         title: record.title,
         url: record.url,
         author: author.login,
+        authorUrl: sampleProfileUrl(author.login),
         authorType: author.actorType === 'unknown' ? null : author.actorType,
         createdAt: record.createdAt,
         labels: [record.number % 2 ? 'maintenance' : 'feature'],

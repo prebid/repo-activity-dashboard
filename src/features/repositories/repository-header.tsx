@@ -1,3 +1,4 @@
+import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -14,7 +15,6 @@ import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import styles from './repository-page.module.css';
 import heading from './repository-heading.module.css';
-import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 
 export function RepositoryHeader({
   repository,
@@ -86,7 +86,7 @@ export function RepositoryHeader({
           <time dateTime={asOf}>{formatAsOf(asOf)}</time>
         </p>
       </header>
-      <nav aria-label="Repository lists" className={styles.tabs}>
+      <ViewTabs label="Repository lists">
         {(['prs', 'issues'] as const).map((kind) => (
           <Link
             key={kind}
@@ -128,15 +128,11 @@ export function RepositoryHeader({
           </Link>
         )}
         {!timelineLink && (
-          <span
-            className={timelineStyles.disabledTab}
-            aria-disabled="true"
-            title="These filters cannot be carried into Timeline. Reduce or clear the filters to continue."
-          >
+          <DisabledTab reason="These filters cannot be carried into Timeline. Reduce or clear the filters to continue.">
             Timeline
-          </span>
+          </DisabledTab>
         )}
-      </nav>
+      </ViewTabs>
     </>
   );
 }

@@ -13,6 +13,7 @@ import {
   repositoryInlineColumnIds,
 } from './repository-page-columns';
 import { GitHubAccountLink } from '@/components/github/account-link';
+import { accountTypeLabels } from '@/models/github-account';
 import pageStyles from './repository-page.module.css';
 import { timelineSupportContextColumns } from '@/lib/presentation/timeline-support-csv';
 export function timelineAuthorColumns(
@@ -27,14 +28,14 @@ export function timelineAuthorColumns(
       hideable: false,
       value: (row) => row.account,
       cell: (row) => (
-        <GitHubAccountLink
-          login={row.account}
-          url={'https://github.example/' + encodeURIComponent(row.account)}
-          label={'@' + row.account}
-        />
+        <GitHubAccountLink login={row.account} url={row.profileUrl} label={'@' + row.account} />
       ),
     },
-    { id: 'accountType', label: 'Account type', value: (row) => row.accountType },
+    {
+      id: 'accountType',
+      label: 'Account type',
+      value: (row) => accountTypeLabels[row.accountType],
+    },
     {
       id: 'recordCount',
       label: 'Records authored',
@@ -132,10 +133,7 @@ export function RepositoryTimelineSupportView({
     detail.recordKind,
     detail.descriptor.basis === 'snapshot',
   );
-  const rows = detail.rows.map((row) => ({
-    ...row,
-    authorUrl: 'https://github.example/' + encodeURIComponent(row.author),
-  }));
+  const rows = detail.rows;
   return (
     <div className={pageStyles.records}>
       <DataTable

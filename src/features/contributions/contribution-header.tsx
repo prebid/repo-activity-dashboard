@@ -1,10 +1,11 @@
+import { ViewTabs } from '@/components/navigation/view-tabs';
 import { countLabel } from '@/lib/presentation/format';
 import { contributionActorTypes } from '@/models/contributions';
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
+import type { MouseEvent } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { ArrowLeft, Users, Building2, Table2, CalendarDays } from 'lucide-react';
-import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 import type { ContributionPage } from '@/models/contribution-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
@@ -27,6 +28,39 @@ export function contributionTitle(page: ContributionPage): string {
       : (page.report.company?.name ?? 'Unmapped company');
 }
 
+/** Report | Over time, shared by the report header and the Over time view. */
+export function ContributionReportViewTabs({
+  active,
+  reportHref,
+  timelineHref,
+  onTimeline,
+}: {
+  active: 'report' | 'timeline';
+  reportHref: string;
+  timelineHref: string | null;
+  onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
+  return (
+    <ViewTabs label="Report view">
+      <Link
+        prefetch={false}
+        href={reportHref}
+        aria-current={active === 'report' ? 'page' : undefined}
+      >
+        <Table2 size={16} aria-hidden="true" />
+        Report
+      </Link>
+      <ContributionNavigationLink
+        href={timelineHref}
+        onClick={onTimeline}
+        aria-current={active === 'timeline' ? 'page' : undefined}
+      >
+        <CalendarDays size={16} aria-hidden="true" />
+        Over time
+      </ContributionNavigationLink>
+    </ViewTabs>
+  );
+}
 export function ContributionHeader({
   page,
   links,
@@ -88,7 +122,7 @@ export function ContributionHeader({
         )}
       </ContributionHeading>
       {report.kind === 'overview' && (
-        <nav className={styles.tabs} aria-label="Contribution reports">
+        <ViewTabs label="Contribution reports">
           <ContributionNavigationLink
             prefetch={false}
             href={contributionHref('contributors', page.sample, undefined, links.settings)}
@@ -107,19 +141,15 @@ export function ContributionHeader({
             <Building2 size={16} aria-hidden="true" /> Companies{' '}
             <span className={styles.tabCount}>{report.companyCount}</span>
           </ContributionNavigationLink>
-        </nav>
+        </ViewTabs>
       )}
       {!page.details && links.timelineHref !== undefined && (
-        <nav className={timelineStyles.tabs} aria-label="Report view">
-          <Link prefetch={false} href={links.currentHref} aria-current="page">
-            <Table2 size={16} aria-hidden="true" />
-            Report
-          </Link>
-          <ContributionNavigationLink href={links.timelineHref} onClick={links.onTimeline}>
-            <CalendarDays size={16} aria-hidden="true" />
-            Over time
-          </ContributionNavigationLink>
-        </nav>
+        <ContributionReportViewTabs
+          active="report"
+          reportHref={links.currentHref}
+          timelineHref={links.timelineHref}
+          onTimeline={links.onTimeline}
+        />
       )}
       <section className={styles.scope} aria-label="Contribution report scope">
         <div>

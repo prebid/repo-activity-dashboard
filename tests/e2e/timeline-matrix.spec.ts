@@ -123,7 +123,7 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
 }, info) => {
   await login(page);
   await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter');
-  const ready = () => expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
+  const ready = () => expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
   await ready();
   const table = page.getByRole('table');
   const row = (name: string) =>

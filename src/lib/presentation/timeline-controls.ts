@@ -154,11 +154,9 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
   const intervals = buildTimelineIntervals(request, asOf);
   const windows = Math.ceil(intervals.length / repositoryTimelineMatrixWindowSize);
   base.window = integer('timeline.window', windows);
-  if (
-    (area !== 'matrix' && params.has('timeline.window')) ||
-    (area === 'matrix' && (params.has('timeline.columns') || params.has('timeline.chart'))) ||
-    base.window > windows
-  )
+  if (area === 'matrix' && (params.has('timeline.columns') || params.has('timeline.chart')))
+    throw Error('The repository matrix has no chart or column choices.');
+  if ((area !== 'matrix' && params.has('timeline.window')) || base.window > windows)
     throw Error('Invalid Timeline period window.');
   if (
     !(

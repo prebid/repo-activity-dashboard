@@ -84,9 +84,8 @@ export function RepositoryTimelineMatrixScreen({
         window: { page: control.view.window, onChange: (window) => control.changeView({ window }) },
         repositoryHref: (slug) =>
           matrixRepositoryTimelineHref({ ...context, view: control.view }, slug, control.href),
-        detailHref: (id, interval) => {
+        detailHref: (row, interval) => {
           if (control.pending) return null;
-          const row = matrix.rows.find((row) => row.id === id)!;
           const href = matrixRepositoryTimelineHref(
             { ...context, view: control.view },
             row.repository.slug,

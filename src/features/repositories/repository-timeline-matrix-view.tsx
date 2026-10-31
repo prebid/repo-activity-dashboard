@@ -20,7 +20,12 @@ import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { TimelineScope } from '@/components/reporting/timeline-scope';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { useLocalTableController } from '@/components/tables/local-data-table';
-import { MeasurementValue } from '@/components/metrics/measurement-value';
+import {
+  TimelineCoverageNotice,
+  TimelineLinkLimitNotice,
+  TimelineValueCell,
+  timelineFooterLegend,
+} from '@/components/reporting/timeline-value';
 import { PageState } from '@/components/feedback/page-state';
 import { Button } from '@/components/ui/button';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
@@ -32,11 +37,9 @@ import {
   type RepositoryTimelineMetric,
 } from '@/models/repository-timeline';
 import { tablePageSize } from '@/models/table-query';
-import { formatCount } from '@/lib/presentation/format';
-import { contributionLinkLimitMessage } from '@/lib/presentation/contribution-return';
 export interface MatrixInteractions {
   sortMetric?: RepositoryTimelineMetric;
-  detailHref?: (repositoryId: string, interval: string) => string | null;
+  detailHref?: (row: RepositoryTimelineMatrixRow, interval: string) => string | null;
   exportControl?: React.ReactNode;
   pending?: boolean;
   table: TableController;
@@ -125,6 +128,7 @@ function MatrixTable({
   const metrics = repositoryTimelineMetricDefinitions(matrix.scope.metrics),
     multiple = metrics.length > 1;
   const definitions = new Map(metrics.map((metric) => [metric.id, metric]));
+  const linkable = !!interactions?.detailHref && !interactions.pending;
   const metric = definitions.get(sortMetric)!;
   const metricName = (row: RepositoryTimelineMatrixRow) => {
     const definition = definitions.get(row.metric)!;
@@ -157,7 +161,15 @@ function MatrixTable({
                   {row.repository.name}
                 </Link>
               ) : (
-                <strong className={styles.repository}>{row.repository.name}</strong>
+                <strong className={styles.repository}>
+                  {row.repository.name}
+                  {interactions && (
+                    <span className="sr-only">
+                      {' '}
+                      — no Timeline link: the link would be too large.
+                    </span>
+                  )}
+                </strong>
               )
             ) : (
               <span className="sr-only">{row.repository.name} — </span>
@@ -189,40 +201,19 @@ function MatrixTable({
           ' — ' +
           metric.label +
           '.',
-        cell: (row) => {
-          const value = (
-            <MeasurementValue
-              measurement={row.values[index]}
-              unit={repositoryTimelineMetricScope(row.metric).unit}
-            />
-          );
-          const href =
-            row.values[index].value !== null
-              ? interactions?.detailHref?.(row.id, interval.id)
-              : null;
-          return href ? (
-            <Link
-              prefetch={false}
-              href={href}
-              className={timelineStyles.valueLink}
-              aria-label={`${row.repository.name}${multiple ? ', ' + metricName(row) : ''}, ${label(interval)}: ${formatCount(row.values[index].value)}${repositoryTimelineMetricScope(row.metric).unit === 'days' ? ' d' : ''}`}
-            >
-              {value}
-            </Link>
-          ) : (
-            <span
-              title={
-                interactions?.detailHref &&
-                !interactions.pending &&
-                row.values[index].value !== null
-                  ? contributionLinkLimitMessage
-                  : undefined
-              }
-            >
-              {value}
-            </span>
-          );
-        },
+        cell: (row) => (
+          <TimelineValueCell
+            measurement={row.values[index]}
+            unit={repositoryTimelineMetricScope(row.metric).unit}
+            name={`${row.repository.name}${multiple ? ', ' + metricName(row) : ''}, ${label(interval)}`}
+            href={
+              linkable && row.values[index].value !== null
+                ? interactions.detailHref!(row, interval.id)
+                : null
+            }
+            linkable={linkable}
+          />
+        ),
       };
     }),
   ];
@@ -232,15 +223,26 @@ function MatrixTable({
   const incomplete = matrix.rows.some((row) =>
     row.values.some((value) => value.status === 'partial' || value.status === 'missing'),
   );
+  const unlinked =
+    !!interactions &&
+    !interactions.pending &&
+    (matrix.rows.some(
+      (row) =>
+        row.metric === matrix.scope.metrics[0] &&
+        interactions.repositoryHref(row.repository.slug) === null,
+    ) ||
+      (linkable &&
+        window.intervals.some((interval) =>
+          matrix.rows.some(
+            (row) =>
+              row.values[matrix.intervals.indexOf(interval)].value !== null &&
+              interactions.detailHref!(row, interval.id) === null,
+          ),
+        )));
   return (
     <div className={timelineStyles.stack}>
-      {incomplete && (
-        <aside className={timelineStyles.notice} aria-label="Timeline data coverage">
-          <strong>Some timeline values are incomplete or unavailable.</strong> Dashes keep missing
-          values distinct from zero; an asterisk marks incomplete data. A partial period describes
-          the covered dates.
-        </aside>
-      )}
+      {incomplete && <TimelineCoverageNotice />}
+      {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         disabled={interactions?.pending}
         title={multiple ? 'Repository metrics' : `${metric.group} · ${metric.label}`}
@@ -303,7 +305,7 @@ function MatrixTable({
         }
         footerNote={
           <span>
-            UTC · — unavailable or not applicable · * incomplete value
+            {timelineFooterLegend}
             {sortedInterval && (
               <>
                 <br />

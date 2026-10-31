@@ -84,13 +84,14 @@ export function selectRepositoryTimelineSupport(
   if (descriptor.basis === 'distinct-authors') {
     const groups = new Map<string, import('@/models/timeline-support').TimelineAuthorRow>();
     for (const row of rows) {
-      const account = row.author.toLowerCase(),
-        prior = groups.get(account);
+      const id = row.author.toLowerCase(),
+        prior = groups.get(id);
       if (prior) prior.recordCount++;
       else
-        groups.set(account, {
-          id: account,
-          account,
+        groups.set(id, {
+          id,
+          account: row.author,
+          profileUrl: row.authorUrl,
           recordCount: 1,
           accountType: row.authorType ?? 'unknown',
         });

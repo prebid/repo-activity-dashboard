@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { TimelineGrouping } from '@/models/reporting-timeline';
 import type { TimelineDisplayRow, TimelineMetricDefinition } from '@/models/timeline-presentation';
 import {
@@ -11,14 +11,16 @@ import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { useLocalTableController } from '@/components/tables/local-data-table';
-import { MeasurementValue } from '@/components/metrics/measurement-value';
 import styles from './timeline-layout.module.css';
 import type { TableController } from '@/lib/presentation/table-controller';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
-import Link from 'next/link';
 import type { CsvExportAlternative } from '@/components/exports/csv-export-dialog';
-import { formatCount } from '@/lib/presentation/format';
-import { contributionLinkLimitMessage } from '@/lib/presentation/contribution-return';
+import {
+  TimelineCoverageNotice,
+  TimelineLinkLimitNotice,
+  TimelineValueCell,
+  timelineFooterLegend,
+} from './timeline-value';
 export interface TimelineTableControls {
   detailHref?: (metric: string, interval: string) => string | null;
   csvDownload?: CsvExportAlternative['download'];
@@ -51,85 +53,79 @@ export function TimelineTable({
     Object.fromEntries(metrics.map((metric) => [metric.id, metric.defaultVisible])),
   );
   type Row = TimelineDisplayRow & { id: string };
-  const columns: DataColumn<Row>[] = [
-    {
-      id: 'period',
-      label: 'Period',
-      pinned: true,
-      hideable: false,
-      width: 210,
-      selectionGroup: 'Period',
-      description:
-        'Calendar interval and actual covered dates in UTC. A partial period can still have complete data for its covered dates.',
-      value: (row) => row.interval.covered.start,
-      cell: (row) => (
-        <div className={styles.period} title={timelineIntervalDescription(row.interval)}>
-          <strong>{timelineIntervalLabel(row.interval, grouping)}</strong>
-          {grouping !== 'day' && (
-            <span className={styles.dates}>{periodRangeLabel(row.interval.covered)}</span>
-          )}
-          {row.interval.partial && <span className={styles.partial}>Partial period</span>}
-        </div>
-      ),
-    },
-    ...metrics.map((metric): DataColumn<Row> => ({
-      ...metric,
-      width: metric.unit === 'days' ? 150 : 136,
-      align: 'right',
-      value: (row) => timelineMeasurement(row.values, metric.id).value,
-      sortGroup: (row) => measurementSortGroup(timelineMeasurement(row.values, metric.id)),
-      sortNote: measurementSortNote,
-      cell: (row) => {
-        const measurement = timelineMeasurement(row.values, metric.id),
-          href =
-            measurement.value !== null ? controls?.detailHref?.(metric.id, row.interval.id) : null;
-        const value = (
-          <MeasurementValue
-            measurement={timelineMeasurement(row.values, metric.id)}
-            unit={metric.unit}
-          />
-        );
-        return href ? (
-          <Link
-            prefetch={false}
-            href={href}
-            aria-label={`${metric.group ? metric.group + ' — ' : ''}${metric.label}, ${timelineIntervalLabel(row.interval, grouping)}: ${formatCount(measurement.value)}${metric.unit === 'days' ? ' d' : ''}`}
-            className={styles.valueLink}
-          >
-            {value}
-          </Link>
-        ) : (
-          <span
-            title={
-              controls?.detailHref && !controls.disabled && measurement.value !== null
-                ? contributionLinkLimitMessage
-                : undefined
-            }
-          >
-            {value}
-          </span>
-        );
+  const detailHref = controls?.detailHref,
+    linkable = !!detailHref && !controls?.disabled;
+  const tableRows = useMemo(() => rows.map((row) => ({ ...row, id: row.interval.id })), [rows]);
+  const columns = useMemo(
+    (): DataColumn<Row>[] => [
+      {
+        id: 'period',
+        label: 'Period',
+        pinned: true,
+        hideable: false,
+        selectionGroup: 'Period',
+        description:
+          'Calendar interval and actual covered dates in UTC. A partial period can still have complete data for its covered dates.',
+        value: (row) => row.interval.covered.start,
+        cell: (row) => (
+          <div className={styles.period} title={timelineIntervalDescription(row.interval)}>
+            <strong>{timelineIntervalLabel(row.interval, grouping)}</strong>
+            {grouping !== 'day' && (
+              <span className={styles.dates}>{periodRangeLabel(row.interval.covered)}</span>
+            )}
+            {row.interval.partial && <span className={styles.partial}>Partial period</span>}
+          </div>
+        ),
       },
-    })),
-  ];
+      ...metrics.map((metric): DataColumn<Row> => ({
+        ...metric,
+        width: metric.unit === 'days' ? 150 : 136,
+        align: 'right',
+        value: (row) => timelineMeasurement(row.values, metric.id).value,
+        sortGroup: (row) => measurementSortGroup(timelineMeasurement(row.values, metric.id)),
+        sortNote: measurementSortNote,
+        cell: (row) => {
+          const measurement = timelineMeasurement(row.values, metric.id);
+          return (
+            <TimelineValueCell
+              measurement={measurement}
+              unit={metric.unit}
+              name={`${metric.group ? metric.group + ' — ' : ''}${metric.label}, ${timelineIntervalLabel(row.interval, grouping)}`}
+              href={
+                linkable && measurement.value !== null
+                  ? detailHref(metric.id, row.interval.id)
+                  : null
+              }
+              linkable={linkable}
+            />
+          );
+        },
+      })),
+    ],
+    [metrics, grouping, detailHref, linkable],
+  );
   const incomplete = rows.some((row) =>
     metrics.some((metric) =>
       ['partial', 'missing'].includes(timelineMeasurement(row.values, metric.id).status),
     ),
   );
+  const unlinked =
+    linkable &&
+    rows.some((row) =>
+      metrics.some(
+        (metric) =>
+          timelineMeasurement(row.values, metric.id).value !== null &&
+          detailHref(metric.id, row.interval.id) === null,
+      ),
+    );
   return (
     <div className={styles.stack}>
-      {incomplete && (
-        <aside className={styles.notice} aria-label="Timeline data coverage">
-          <strong>Some timeline values are incomplete or unavailable.</strong> Dashes keep missing
-          values distinct from zero; an asterisk marks incomplete data. A partial period describes
-          the covered dates.
-        </aside>
-      )}
+      {incomplete && <TimelineCoverageNotice />}
+      {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         title={title}
         disabled={controls?.disabled}
-        rows={rows.map((row) => ({ ...row, id: row.interval.id }))}
+        rows={tableRows}
         columns={columns}
         controller={controls?.controller ?? localController}
         exportName={controls?.csvDownload ? 'timeline-sample.csv' : undefined}
@@ -139,7 +135,7 @@ export function TimelineTable({
         visibility={controls?.visibility ?? { value: visible, onChange: setVisible }}
         itemLabel={{ singular: 'interval', plural: 'intervals' }}
         description="One row per calendar interval, with exact covered dates."
-        footerNote="UTC · — unavailable or not applicable · * incomplete value"
+        footerNote={timelineFooterLegend}
       />
     </div>
   );

@@ -1,6 +1,4 @@
 'use client';
-import Link from 'next/link';
-import { Table2, CalendarDays } from 'lucide-react';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
@@ -12,9 +10,8 @@ import { GitHubAccountLink } from '@/components/github/account-link';
 import { TimelineTable } from '@/components/reporting/timeline-table';
 import { TimelineScope } from '@/components/reporting/timeline-scope';
 import { PageState } from '@/components/feedback/page-state';
-import { ContributionHeading } from './contribution-header';
+import { ContributionHeading, ContributionReportViewTabs } from './contribution-header';
 import styles from './contributions.module.css';
-import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 
 export const contributionTimelineMetrics: TimelineMetricDefinition[] =
   contributionMetricValues().map(
@@ -89,16 +86,7 @@ export function ContributionTimelineView({
           </p>
         )}
       </ContributionHeading>
-      <nav className={timelineStyles.tabs} aria-label="Report view">
-        <Link prefetch={false} href={reportHref}>
-          <Table2 size={16} aria-hidden="true" />
-          Report
-        </Link>
-        <Link prefetch={false} href={href} aria-current="page">
-          <CalendarDays size={16} aria-hidden="true" />
-          Over time
-        </Link>
-      </nav>
+      <ContributionReportViewTabs active="timeline" reportHref={reportHref} timelineHref={href} />
       {controls}
       <TimelineScope request={report.request} count={report.rows.length}>
         <span>{selection.repositoryIds.length} repositories</span>

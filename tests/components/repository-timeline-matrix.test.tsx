@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, renderHook, screen, within } from '@testing-library/react';
+import { useLocalTableController } from '@/components/tables/local-data-table';
 import { renderToString } from 'react-dom/server';
 import userEvent from '@testing-library/user-event';
 import { renderedMain } from '../support/rendered-html';
@@ -190,8 +191,11 @@ it('renders disabled SSR window buttons and a bounded-link unavailable state', (
   expect(buttons).toHaveLength(2);
   for (const button of buttons) expect(button).toHaveAttribute('disabled');
   render(<AllRepositoriesTabs active="summary" summaryHref="/repos" timelineHref={null} />);
-  expect(screen.getByText('Timeline')).toHaveAttribute('aria-disabled', 'true');
-  expect(screen.queryByRole('link', { name: 'Timeline' })).not.toBeInTheDocument();
+  const timeline = screen.getByRole('link', { name: 'Timeline' });
+  expect(timeline).toHaveAttribute('aria-disabled', 'true');
+  expect(timeline).not.toHaveAttribute('href');
+  expect(timeline).toHaveAttribute('tabindex', '0');
+  expect(timeline).toHaveAccessibleDescription(/too large for a timeline link/);
 });
 it('labels weekly windows with their covered dates instead of repeating two weekly ranges', async () => {
   const user = userEvent.setup();
@@ -229,4 +233,55 @@ it('renders selected metrics as consecutive repository groups, without splitting
     ),
   );
   expect(screen.getByRole('heading', { name: 'No metrics selected' })).toBeVisible();
+});
+it('explains repository names and values that lose their links to the URL budget', () => {
+  const table = renderHook(() => useLocalTableController()).result.current;
+  render(
+    <RepositoryTimelineMatrixView
+      matrix={report()}
+      href="/repos?timeline=1"
+      summaryHref="/repos"
+      interactions={{
+        table,
+        window: { page: 1, onChange: () => {} },
+        repositoryHref: () => null,
+        detailHref: () => null,
+      }}
+    />,
+  );
+  const grid = screen.getByRole('table');
+  expect(within(grid).queryAllByRole('link')).toEqual([]);
+  expect(
+    within(grid).getAllByText(/no Timeline link: the link would be too large/).length,
+  ).toBeGreaterThan(0);
+  expect(within(grid).getAllByText(/No supporting-records link/).length).toBeGreaterThan(0);
+  expect(
+    screen.getAllByRole('status').some((node) => /too large to link/.test(node.textContent ?? '')),
+  ).toBe(true);
+});
+it('keeps partial coverage in the accessible name of a linked value', () => {
+  const matrix = report('mixed', 'prsOpened', { ...request, grouping: 'quarter' });
+  const table = renderHook(() => useLocalTableController()).result.current;
+  render(
+    <RepositoryTimelineMatrixView
+      matrix={matrix}
+      href="/repos?timeline=1"
+      summaryHref="/repos"
+      interactions={{
+        table,
+        window: { page: 1, onChange: () => {} },
+        repositoryHref: () => '/repos/x',
+        detailHref: () => '/detail',
+      }}
+    />,
+  );
+  const partial = matrix.rows
+    .flatMap((row) => row.values)
+    .find((value) => value.status === 'partial');
+  expect(partial).toBeDefined();
+  expect(
+    screen
+      .getAllByRole('link')
+      .some((link) => /partial value\./.test(link.getAttribute('aria-label') ?? '')),
+  ).toBe(true);
 });

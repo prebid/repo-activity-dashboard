@@ -8,7 +8,7 @@ async function login(page: Page) {
   await expect(page).toHaveURL(/\/repos$/);
 }
 async function ready(page: Page) {
-  await expect(page.getByLabel('Timeline grouping')).toBeEnabled();
+  await expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
 }
 async function selectStatistics(page: Page, choices: [string, string][]) {
   await page.getByRole('button', { name: /^Metrics ·/ }).click();

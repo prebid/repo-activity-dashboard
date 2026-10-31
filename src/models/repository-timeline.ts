@@ -19,20 +19,20 @@ import {
 } from './reporting-timeline';
 
 const text = z.string().trim().min(1).max(500);
+// Sample records and profiles point at the reserved example host, never real GitHub accounts.
+const sampleGithubUrl = z.url().refine((value) => {
+  const url = new URL(value);
+  return (
+    url.protocol === 'https:' && url.hostname === 'github.example' && !url.username && !url.password
+  );
+});
 const metadata = {
   id: text,
   number: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
   title: text,
-  url: z.url().refine((value) => {
-    const url = new URL(value);
-    return (
-      url.protocol === 'https:' &&
-      url.hostname === 'github.example' &&
-      !url.username &&
-      !url.password
-    );
-  }),
+  url: sampleGithubUrl,
   author: text,
+  authorUrl: sampleGithubUrl,
   authorType: z.enum(['human', 'agent', 'bot']).nullable(),
   createdAt: utcInstantSchema,
   labels: z.array(text),

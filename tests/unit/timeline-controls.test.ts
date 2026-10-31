@@ -91,24 +91,25 @@ it('round trips each active view with relative dates, independent pages, windows
   ]);
 });
 it.each([
-  'timeline=0',
-  'timeline=1&timeline.state=2',
-  'timeline=1&timeline.group=bad',
-  'timeline=1&timeline.weird=1',
-  'timeline=1&timeline.page=0',
-  'timeline=1&timeline.page=-1',
-  'timeline=1&timeline.page=1000001',
-  'timeline=1&timeline.dir=sideways',
-  'timeline=1&timeline.group=week&timeline.group=day',
-  'timeline=1&period=custom',
-  'timeline=1&period=this-year&through=2026-10-24',
-  'timeline=1&timeline.window=2',
-  'timeline=1&timeline.chart=1',
-  'timeline=1&timeline.metric=bad',
-  'timeline=1&timeline.sort=missing',
-  'timeline=1&timeline.columns=prsOpened',
-  'timeline=1&timeline.family=snapshot',
-])('rejects malformed matrix state: %s', (query) => expect(() => parse(query)).toThrow());
+  ['timeline=1&timeline.state=2', 'Invalid Timeline state.'],
+  ['timeline=1&timeline.group=bad', 'invalid_value'],
+  ['timeline=1&timeline.weird=1', 'Unknown Timeline option.'],
+  ['timeline=1&timeline.page=0', 'Invalid Timeline page.'],
+  ['timeline=1&timeline.page=-1', 'Invalid Timeline page.'],
+  ['timeline=1&timeline.page=1000001', 'too_big'],
+  ['timeline=1&timeline.dir=sideways', 'Invalid Timeline ordering.'],
+  ['timeline=1&timeline.group=week&timeline.group=day', 'Repeated Timeline option.'],
+  ['timeline=1&period=custom', 'Choose a valid reporting period.'],
+  ['timeline=1&period=this-year&through=2026-10-24', 'Choose a valid reporting period.'],
+  ['timeline=1&timeline.window=2', 'Invalid Timeline period window.'],
+  ['timeline=1&timeline.chart=1', 'no chart or column choices'],
+  ['timeline=1&timeline.metric=bad', 'invalid_value'],
+  ['timeline=1&timeline.sort=missing', 'Invalid Timeline sort column.'],
+  ['timeline=1&timeline.columns=prsOpened', 'no chart or column choices'],
+  ['timeline=1&timeline.family=snapshot', 'does not accept repository family options'],
+])('rejects malformed matrix state: %s', (query, message) =>
+  expect(() => parse(query)).toThrow(message),
+);
 it.each([
   'timeline=1&timeline.chart=2',
   'timeline=1&timeline.metric=issuesOpened',

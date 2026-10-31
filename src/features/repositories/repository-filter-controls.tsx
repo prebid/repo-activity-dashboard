@@ -11,15 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
-  DialogClose,
 } from '@/components/ui/dialog';
-import { FilterChoices } from '@/components/tables/filter-choices';
-import {
-  repositoryPageFiltersSchema,
-  type RepositoryPageFilters,
-  type RepositoryPageSource,
-} from '@/models/repository-page';
+import { type RepositoryPageFilters, type RepositoryPageSource } from '@/models/repository-page';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { recordListTitle } from '@/lib/presentation/repository-records';
@@ -28,9 +21,9 @@ import {
   repositoryFilterFields,
   repositoryFilterChips,
   removeRepositoryFilter,
-  repositoryFilterErrorMessage,
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
+import { RepositoryFilterForm } from './repository-filter-form';
 import styles from './repository-controls.module.css';
 
 export function RepositoryFilterControls({
@@ -48,8 +41,7 @@ export function RepositoryFilterControls({
 }) {
   const interactive = useClientReady();
   const [container, setContainer] = useState<HTMLFieldSetElement | null>(null);
-  const [open, setOpen] = useState(false),
-    [error, setError] = useState('');
+  const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<RepositoryFilterDraft>({ ...filters });
   const fields = useMemo(() => repositoryFilterFields(source), [source]);
   const chips = repositoryFilterChips(filters, fields);
@@ -95,7 +87,6 @@ export function RepositoryFilterControls({
             if (value) {
               const captured = table.flushSearch();
               setDraft({ ...filters, search: captured.search });
-              setError('');
             }
             setOpen(value);
           }}
@@ -114,86 +105,26 @@ export function RepositoryFilterControls({
                 different fields combine.
               </DialogDescription>
             </DialogHeader>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                const parsed = repositoryPageFiltersSchema.safeParse(draft);
-                if (!parsed.success) {
-                  setError(repositoryFilterErrorMessage(parsed.error, fields));
-                  return;
-                }
-                onChange(parsed.data);
+            <RepositoryFilterForm
+              fields={fields}
+              draft={draft}
+              setDraft={setDraft}
+              defaults={defaults}
+              onApply={(next) => {
+                onChange(next);
                 setOpen(false);
+                return undefined;
               }}
-            >
-              <div className={styles.fieldGrid}>
-                {fields.map((field) => {
-                  const value = draft[field.key];
-                  return field.multiple ? (
-                    <FilterChoices
-                      key={field.key}
-                      label={field.label}
-                      options={field.options}
-                      selected={Array.isArray(value) ? value : []}
-                      onChange={(value) =>
-                        setDraft((previous) => ({ ...previous, [field.key]: value }))
-                      }
-                    />
-                  ) : (
-                    <label key={field.key} className={styles.selectField}>
-                      {field.label}
-                      <select
-                        value={
-                          typeof value === 'string' || typeof value === 'number'
-                            ? String(value)
-                            : ''
-                        }
-                        onChange={(event) => {
-                          const value = event.target.value;
-                          setDraft((previous) => ({
-                            ...previous,
-                            [field.key]:
-                              value === ''
-                                ? undefined
-                                : field.key === 'ageBand'
-                                  ? Number(value)
-                                  : value,
-                          }));
-                        }}
-                      >
-                        {field.options.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  );
-                })}
-              </div>
-              {source.kind === 'prs' && source.drilldown.selection.scope === 'current' && (
-                <p className={styles.help}>
-                  Reviewer, approval, agent/bot coverage, and current latest-activity filters
-                  exclude drafts. Human reviewers and current approvals are independent.
-                </p>
-              )}
-              {error && (
-                <p role="alert" className={styles.help}>
-                  {error}
-                </p>
-              )}
-              <DialogFooter className={styles.dialogFooter}>
-                <Button type="button" variant="ghost" onClick={() => setDraft({ ...defaults })}>
-                  Clear selections
-                </Button>
-                <DialogClose asChild>
-                  <Button type="button" variant="outline">
-                    Cancel
-                  </Button>
-                </DialogClose>
-                <Button type="submit">Apply filters</Button>
-              </DialogFooter>
-            </form>
+              help={
+                source.kind === 'prs' &&
+                source.drilldown.selection.scope === 'current' && (
+                  <p className={styles.help}>
+                    Reviewer, approval, agent/bot coverage, and current latest-activity filters
+                    exclude drafts. Human reviewers and current approvals are independent.
+                  </p>
+                )
+              }
+            />
           </DialogContent>
         </Dialog>
         {(chips.length > 0 || filters.search || filters.eventRange) && (

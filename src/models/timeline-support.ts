@@ -15,9 +15,11 @@ export interface TimelineSupportContext {
 }
 export interface TimelineAuthorRow {
   id: string;
+  /** The first observed login spelling; `id` is the case-insensitive account identity. */
   account: string;
+  profileUrl: string;
   recordCount: number;
-  accountType: string;
+  accountType: 'human' | 'agent' | 'bot' | 'unknown';
 }
 export type TimelineSupport = { context: TimelineSupportContext } & (
   | {

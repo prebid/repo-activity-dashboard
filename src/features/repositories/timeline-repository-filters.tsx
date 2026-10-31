@@ -9,23 +9,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
-  DialogClose,
 } from '@/components/ui/dialog';
-import { FilterChoices } from '@/components/tables/filter-choices';
-import {
-  repositoryPageFiltersSchema,
-  type RepositoryPageFilters,
-  type RepositoryFilterOptions,
-} from '@/models/repository-page';
+import { type RepositoryPageFilters, type RepositoryFilterOptions } from '@/models/repository-page';
 import {
   repositoryFilterFieldsFromOptions,
   repositoryFilterChips,
   removeRepositoryFilter,
-  repositoryFilterErrorMessage,
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
+import { RepositoryFilterForm } from './repository-filter-form';
 import styles from './repository-controls.module.css';
 export function TimelineRepositoryFilters({
   filters,
@@ -39,8 +32,7 @@ export function TimelineRepositoryFilters({
   onChange: (value: RepositoryPageFilters) => string | undefined;
 }) {
   const [open, setOpen] = useState(false),
-    [draft, setDraft] = useState<RepositoryFilterDraft>({ ...filters }),
-    [error, setError] = useState('');
+    [draft, setDraft] = useState<RepositoryFilterDraft>({ ...filters });
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const fields = repositoryFilterFieldsFromOptions({
     ...facets,
@@ -56,7 +48,6 @@ export function TimelineRepositoryFilters({
         onOpenChange={(value) => {
           if (value) {
             setDraft({ ...filters });
-            setError('');
           }
           setOpen(value);
         }}
@@ -78,20 +69,17 @@ export function TimelineRepositoryFilters({
                 : 'Metadata filters use the reporting snapshot. Current age and review counts require Backlog at cutoff.'}
             </DialogDescription>
           </DialogHeader>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const parsed = repositoryPageFiltersSchema.safeParse(draft);
-              if (!parsed.success) {
-                setError(repositoryFilterErrorMessage(parsed.error, fields));
-                return;
-              }
-              const message = onChange(parsed.data);
-              setError(message ?? '');
+          <RepositoryFilterForm
+            fields={fields}
+            draft={draft}
+            setDraft={setDraft}
+            defaults={defaultRepositoryFilters(filters.kind)}
+            onApply={(next) => {
+              const message = onChange(next);
               if (!message) setOpen(false);
+              return message ?? undefined;
             }}
-          >
-            <div className={styles.fieldGrid}>
+            leading={
               <label className={styles.selectField}>
                 Title or number
                 <Input
@@ -101,62 +89,8 @@ export function TimelineRepositoryFilters({
                   onChange={(e) => setDraft({ ...draft, search: e.target.value })}
                 />
               </label>
-              {fields.map((field) => {
-                const value = draft[field.key];
-                return field.multiple ? (
-                  <FilterChoices
-                    key={field.key}
-                    label={field.label}
-                    options={field.options}
-                    selected={Array.isArray(value) ? value : []}
-                    onChange={(next) => setDraft({ ...draft, [field.key]: next })}
-                  />
-                ) : (
-                  <label key={field.key} className={styles.selectField}>
-                    {field.label}
-                    <select
-                      value={
-                        typeof value === 'string' || typeof value === 'number' ? String(value) : ''
-                      }
-                      onChange={(e) =>
-                        setDraft({
-                          ...draft,
-                          [field.key]:
-                            e.target.value === ''
-                              ? undefined
-                              : field.key === 'ageBand'
-                                ? Number(e.target.value)
-                                : e.target.value,
-                        })
-                      }
-                    >
-                      {field.options.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                );
-              })}
-            </div>
-            {error && <p role="alert">{error}</p>}
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setDraft(defaultRepositoryFilters(filters.kind))}
-              >
-                Clear selections
-              </Button>
-              <DialogClose asChild>
-                <Button type="button" variant="outline">
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button type="submit">Apply filters</Button>
-            </DialogFooter>
-          </form>
+            }
+          />
         </DialogContent>
       </Dialog>
       {(chips.length > 0 || filters.search) && (

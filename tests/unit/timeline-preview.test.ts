@@ -185,7 +185,7 @@ it.each([
     'invalid',
   ),
 );
-it('composes issue/snapshot/partial previews without applying unsupported record filters', async () => {
+it('composes issue/snapshot/partial previews and applies compatible record filters', async () => {
   const result = await repositoryTimelinePreview(
     'prebidjs',
     new URLSearchParams(
@@ -198,14 +198,14 @@ it('composes issue/snapshot/partial previews without applying unsupported record
     new URLSearchParams('timeline=1&timeline.gap=1'),
   );
   expect(gap.status === 'ready' && gap.report.summary.prsAuthored.status).toBe('partial');
-  expect(
-    (
-      await repositoryTimelinePreview(
-        'prebidjs',
-        new URLSearchParams('timeline=1&prs.filter.authors=sample-alice'),
-      )
-    ).status,
-  ).toBe('ready');
+  const all = await repositoryTimelinePreview('prebidjs', new URLSearchParams('timeline=1'));
+  const alice = await repositoryTimelinePreview(
+    'prebidjs',
+    new URLSearchParams('timeline=1&prs.filter.authors=sample-alice'),
+  );
+  if (all.status !== 'ready' || alice.status !== 'ready') throw Error('Expected previews');
+  expect(all.report.summary.prsOpened).toEqual({ status: 'complete', value: 5 });
+  expect(alice.report.summary.prsOpened).toEqual({ status: 'complete', value: 1 });
   expect(
     (
       await repositoryTimelinePreview(

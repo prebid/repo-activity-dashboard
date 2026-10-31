@@ -1,3 +1,4 @@
+import { viewTabsClassName } from '@/components/navigation/view-tabs';
 import Link from 'next/link';
 import type { TimelineSupportContext } from '@/models/timeline-support';
 import { timelineMetricLabel, timelineMetricUnit } from '@/lib/presentation/timeline-metric-label';
@@ -20,7 +21,7 @@ export function TimelineSupportFrame({
 }) {
   return (
     <>
-      <nav className={styles.tabs} aria-label="Supporting view navigation">
+      <nav className={viewTabsClassName} aria-label="Supporting view navigation">
         <Link prefetch={false} href={context.parentHref}>
           ← Back to timeline
         </Link>

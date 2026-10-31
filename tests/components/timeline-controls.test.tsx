@@ -167,7 +167,11 @@ it('restores versioned preferences once, freezes Back state and keeps row/window
   await ready(result);
   expect(result.current.view.grouping).toBe('day');
   expect(result.current.table.flushSearch().search).toBe('');
+  const search = window.location.search;
   await interact(() => result.current.table.setSearch('ignored'));
+  // Timeline tables have no search; typing must not change the URL or the query.
+  expect(window.location.search).toBe(search);
+  expect(result.current.table.query.search).toBe('');
 });
 it('honors explicit state, isolates accounts and rejects oversized edits without storing or moving', async () => {
   const ctx = makeContext('matrix', 'timeline=1');
@@ -237,6 +241,8 @@ it('handles invalid, incompatible and unavailable storage while retaining usable
   expect(third.result.current.view.grouping).toBe('week');
   await interact(() => third.result.current.reset());
   await ready(third.result);
+  expect(third.result.current.view.grouping).toBe('month');
+  expect(third.result.current.storageAvailable).toBe(false);
 });
 it('keeps repository predicates across grouping changes and clears them on deliberate family changes', async () => {
   window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
@@ -360,7 +366,7 @@ it('retains rejected custom-date drafts in the shared Timeline controls', async 
       onReset={() => {}}
     />,
   );
-  await user.click(screen.getByRole('button', { name: 'Custom range for Timeline period' }));
+  await user.click(screen.getByRole('button', { name: 'Custom range for Reporting period' }));
   await user.clear(screen.getByLabelText('Start date'));
   await user.type(screen.getByLabelText('Start date'), '2020-01-01');
   await user.click(screen.getByRole('button', { name: 'Apply dates' }));
@@ -497,6 +503,7 @@ it('keeps rejected contribution edits and handles write failures and repository 
   });
   await interact(() => first.result.current.resetContribution());
   await ready(first.result);
+  expect(first.result.current.storageAvailable).toBe(false);
   first.unmount();
   vi.restoreAllMocks();
   window.history.replaceState(
@@ -681,4 +688,23 @@ it('resets matrix ordering to ascending names on grouping changes and the row pa
   await interact(() => result.current.changeView({ grouping: 'quarter' }));
   const params = new URLSearchParams(window.location.search);
   expect([params.get('timeline.sort'), params.get('timeline.dir')]).toEqual(['repository', 'asc']);
+});
+it('names each Timeline control by its visible label', () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1&timeline.state=1');
+  const context = makeContext('repository', window.location.search);
+  render(
+    <TimelineControls
+      context={context}
+      view={context.view}
+      metrics={[]}
+      pending={false}
+      storageAvailable
+      onView={() => undefined}
+      onPeriod={() => undefined}
+      onReset={() => undefined}
+    />,
+  );
+  for (const name of ['Group by', 'Records', 'Measure'])
+    expect(screen.getByRole('combobox', { name })).toBeInTheDocument();
+  expect(screen.getByRole('combobox', { name: /^Reporting period/ })).toBeInTheDocument();
 });

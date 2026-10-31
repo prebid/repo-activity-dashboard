@@ -1,9 +1,9 @@
+import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import Link from 'next/link';
 import { ArrowUpRight, CalendarDays, Table2 } from 'lucide-react';
 import { formatAsOf } from '@/lib/presentation/format';
 import styles from './overview.module.css';
 import heading from './repository-heading.module.css';
-import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 
 export function AllRepositoriesHeading({ asOf }: { asOf: string }) {
   return (
@@ -37,7 +37,7 @@ export function AllRepositoriesTabs({
   timelineHref: string | null;
 }) {
   return (
-    <nav className={timelineStyles.tabs} aria-label="Repository overview views">
+    <ViewTabs label="Repository overview views">
       <Link
         prefetch={false}
         href={summaryHref}
@@ -56,14 +56,10 @@ export function AllRepositoriesTabs({
           Timeline
         </Link>
       ) : (
-        <span
-          aria-disabled="true"
-          className={timelineStyles.disabledTab}
-          title="This view is too large for a timeline link. Reduce the selection and try again."
-        >
+        <DisabledTab reason="This view is too large for a timeline link. Reduce the selection and try again.">
           Timeline
-        </span>
+        </DisabledTab>
       )}
-    </nav>
+    </ViewTabs>
   );
 }

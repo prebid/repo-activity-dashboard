@@ -192,28 +192,31 @@ it.each([true, false])(
     expect(ties.rows.slice(0, 2).map((row) => row.id)).toEqual(['repo-000', 'repo-001']);
   },
 );
-it.each(['clock', 'revision', 'kind', 'duplicate-id', 'duplicate-slug'] as const)(
-  'rejects mixed or duplicate source context: %s',
-  (corruption) => {
-    const source = repositoryTimelineMatrixSample();
-    if (corruption === 'clock') source.repositories[0].asOf = '2026-10-23T12:00:00.000Z';
-    if (corruption === 'revision') source.repositories[0].scenarioId = 'other';
-    if (corruption === 'kind')
-      source.repositories[0] = repositoryTimelineMatrixSample('issues').repositories[0];
-    if (corruption === 'duplicate-id')
-      source.repositories[0].repository.id = source.repositories[1].repository.id;
-    if (corruption === 'duplicate-slug')
-      source.repositories[0].repository.slug = source.repositories[1].repository.slug;
-    expect(() =>
-      selectRepositoryTimelineMatrix(source, request, { metric: 'prsOpened', repositoryIds: [] }),
-    ).toThrow();
-  },
-);
+it.each([
+  ['clock', 'must share their source revision, clock and record kind'],
+  ['revision', 'must share their source revision, clock and record kind'],
+  ['kind', 'must share their source revision, clock and record kind'],
+  ['duplicate-id', 'Duplicate matrix repository identity'],
+  ['duplicate-slug', 'Duplicate matrix repository identity'],
+] as const)('rejects mixed or duplicate source context: %s', (corruption, message) => {
+  const source = repositoryTimelineMatrixSample();
+  if (corruption === 'clock') source.repositories[0].asOf = '2026-10-23T12:00:00.000Z';
+  if (corruption === 'revision') source.repositories[0].scenarioId = 'other';
+  if (corruption === 'kind')
+    source.repositories[0] = repositoryTimelineMatrixSample('issues').repositories[0];
+  if (corruption === 'duplicate-id')
+    source.repositories[0].repository.id = source.repositories[1].repository.id;
+  if (corruption === 'duplicate-slug')
+    source.repositories[0].repository.slug = source.repositories[1].repository.slug;
+  expect(() =>
+    selectRepositoryTimelineMatrix(source, request, { metric: 'prsOpened', repositoryIds: [] }),
+  ).toThrow(message);
+});
 it('rejects unknown metrics and wrong record kinds, and keeps complete/missing/zero samples separate', () => {
   const source = repositoryTimelineMatrixSample();
   expect(() =>
     selectRepositoryTimelineMatrix(source, request, { metric: 'bad' as never, repositoryIds: [] }),
-  ).toThrow();
+  ).toThrow('invalid_value');
   expect(() =>
     selectRepositoryTimelineMatrix(source, request, { metric: 'issuesOpened', repositoryIds: [] }),
   ).toThrow('record kind');

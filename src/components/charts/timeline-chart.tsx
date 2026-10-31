@@ -109,6 +109,10 @@ export function TimelineChart({
       partialPeriod: row.interval.partial,
     };
   });
+  const isolated = (index: number) =>
+    points[index]?.value != null &&
+    points[index - 1]?.value == null &&
+    points[index + 1]?.value == null;
   function selectInterval(index: number) {
     const row = rows[index];
     if (interactive && row && timelineMeasurement(row.values, metricId).value !== null)
@@ -232,19 +236,20 @@ export function TimelineChart({
                       type="linear"
                       stroke="var(--prebid-link)"
                       strokeWidth={2}
-                      dot={
-                        points.length <= 40
-                          ? (point) => (
-                              <TimelinePoint
-                                cx={point.cx}
-                                cy={point.cy}
-                                index={point.index}
-                                onSelect={
-                                  interactive && controls?.onInterval ? selectInterval : undefined
-                                }
-                              />
-                            )
-                          : false
+                      dot={(point) =>
+                        points.length <= 40 ? (
+                          <TimelinePoint
+                            cx={point.cx}
+                            cy={point.cy}
+                            index={point.index}
+                            onSelect={
+                              interactive && controls?.onInterval ? selectInterval : undefined
+                            }
+                          />
+                        ) : isolated(point.index) ? (
+                          // A value between gaps draws no line, so it keeps a plain marker.
+                          <TimelinePoint cx={point.cx} cy={point.cy} index={point.index} />
+                        ) : null
                       }
                       activeDot={(point) => (
                         <TimelinePoint

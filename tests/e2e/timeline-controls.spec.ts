@@ -29,7 +29,7 @@ test('restoration preserves a valid near-limit incoming link when canonical defa
   await expect(page).toHaveURL('http://127.0.0.1:3100' + href);
 });
 async function ready(page: Page) {
-  await expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
+  await expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
 }
 test('canonical presentation restoration does not fetch the Timeline data again', async ({
   page,
@@ -105,7 +105,7 @@ test('matrix filters, period windows and copied repository returns preserve full
   await ready(page);
   await expect(page).toHaveURL(matrix);
   await expect(page.getByRole('status')).toContainText('Window 24 of 25');
-  await page.getByLabel('Timeline grouping').selectOption('month');
+  await page.getByLabel('Group by', { exact: true }).selectOption('month');
   await ready(page);
   await expect(page.getByRole('status')).toContainText('Window 1 of 1');
   await page.goBack();
@@ -113,7 +113,7 @@ test('matrix filters, period windows and copied repository returns preserve full
   await expect(page).toHaveURL(matrix);
   await page.goForward();
   await ready(page);
-  await expect(page.getByLabel('Timeline grouping')).toHaveValue('month');
+  await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('month');
   await page.screenshot({ path: info.outputPath('timeline-matrix-controls.png'), fullPage: true });
 });
 test('saved matrix scope and presentation remain isolated from explicit links and other accounts', async ({
@@ -122,7 +122,7 @@ test('saved matrix scope and presentation remain isolated from explicit links an
   await login(page);
   await page.goto('/repos?timeline=1');
   await ready(page);
-  await page.getByLabel('Timeline grouping').selectOption('quarter');
+  await page.getByLabel('Group by', { exact: true }).selectOption('quarter');
   await ready(page);
   await page.getByRole('button', { name: 'Metrics · 1', exact: true }).click();
   const metricsDialog = page.getByRole('dialog', { name: 'Choose metrics' });
@@ -136,19 +136,19 @@ test('saved matrix scope and presentation remain isolated from explicit links an
   await repos(page, ['Prebid.js']);
   await page.goto('/repos?timeline=1');
   await ready(page);
-  await expect(page.getByLabel('Timeline grouping')).toHaveValue('quarter');
+  await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('quarter');
   expect(new URL(page.url()).searchParams.getAll('timeline.metric')).toEqual(['prsMerged']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.goto('/repos?timeline=1&timeline.state=1&timeline.group=week&repo=repo-prebidserver');
   await ready(page);
-  await expect(page.getByLabel('Timeline grouping')).toHaveValue('week');
+  await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('week');
   await expect(page.getByRole('table')).toContainText('Prebid Server (Go)');
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await expect(page).toHaveURL(/\/auth\/login/);
   await login(page, 'bob@example.test');
   await page.goto('/repos?timeline=1');
   await ready(page);
-  await expect(page.getByLabel('Timeline grouping')).toHaveValue('month');
+  await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('month');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
 });
 test('contribution entry keeps list search on return and filters before 50-row timeline pagination', async ({
@@ -163,14 +163,14 @@ test('contribution entry keeps list search on return and filters before 50-row t
   await expect(table.locator('tbody tr').last().locator('[data-column="prsAuthored"]')).toHaveText(
     '6',
   );
-  await page.getByLabel('Timeline grouping').selectOption('day');
+  await page.getByLabel('Group by', { exact: true }).selectOption('day');
   await ready(page);
   await expect(table.locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByText('Page 2 of 6', { exact: true })).toBeVisible();
   await repos(page, ['Prebid.js']);
   await expect(page.getByText('Page 1 of 6', { exact: true })).toBeVisible();
-  await page.getByLabel('Timeline grouping').selectOption('month');
+  await page.getByLabel('Group by', { exact: true }).selectOption('month');
   await ready(page);
   await expect(table.locator('tbody tr').last().locator('[data-column="prsAuthored"]')).toHaveText(
     '3',
@@ -216,7 +216,7 @@ test('repository entry retains title filters and exact activity dates, with revi
   const q = new URL(page.url()).searchParams;
   expect(q.get('timeline.from')).toBe('2026-10-01T14:00:00.000Z');
   expect(q.get('timeline.to')).toBe('2026-10-08T00:00:00.000Z');
-  await page.getByLabel('Timeline grouping').selectOption('day');
+  await page.getByLabel('Group by', { exact: true }).selectOption('day');
   await ready(page);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(7);
   await page.getByRole('button', { name: 'Show chart', exact: true }).click();
@@ -233,7 +233,9 @@ test('invalid custom-date drafts remain editable and narrow controls preserve th
   await page.goto('/repos?timeline=1&timeline.group=day');
   await ready(page);
   const before = page.url();
-  await page.getByRole('button', { name: 'Custom range for Timeline period', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Custom range for Reporting period', exact: true })
+    .click();
   const dialog = page.getByRole('dialog', { name: 'Custom date range' });
   await dialog.getByLabel('Start date', { exact: true }).fill('2020-01-01');
   await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
@@ -268,11 +270,11 @@ test('repository record filters remain independent of table pages and snapshot f
   await ready(page);
   await expect(page.getByText('Page 1 of 6', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.getAll('prs.filter.authors')).toEqual(['sample-alice']);
-  await page.getByLabel('Timeline measure').selectOption('snapshot');
+  await page.getByLabel('Measure', { exact: true }).selectOption('snapshot');
   await ready(page);
   expect(new URL(page.url()).searchParams.has('prs.filter.authors')).toBe(false);
   await expect(page.getByRole('heading', { name: 'Backlog over time', exact: true })).toBeVisible();
-  await page.getByLabel('Timeline records').selectOption('issues');
+  await page.getByLabel('Records', { exact: true }).selectOption('issues');
   await ready(page);
   await expect(page.getByRole('columnheader', { name: 'Open', exact: true })).toBeVisible();
 });

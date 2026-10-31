@@ -176,6 +176,7 @@ it('starts the repository chart collapsed, retains all chronological values and 
   expect(screen.getByRole('link', { name: 'Timeline' })).toHaveAttribute('aria-current', 'page');
   await user.click(screen.getByRole('button', { name: 'Show chart' }));
   expect(chart.data.mock.lastCall?.[0].map((p) => p.value)).toEqual([0, 0, 0, 0, 0, 0, 0, 1, 1, 3]);
+  expect(chart.line).toHaveBeenCalled();
   expect(chart.line.mock.calls.every(([props]) => props.connectNulls === false)).toBe(true);
   await user.selectOptions(screen.getByLabelText('Chart metric'), 'medianMergeDays');
   expect(screen.getByText('Whole-range median')).toBeVisible();

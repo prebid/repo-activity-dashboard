@@ -1,4 +1,5 @@
 'use client';
+import { useId } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TimeframeControl } from './timeframe-control';
@@ -37,14 +38,16 @@ export function TimelineControls({
   showPreferenceNote?: boolean;
 }) {
   const ready = useClientReady();
+  // Each select is named by its visible label so speech input can use the text on screen.
+  const id = useId();
   return (
     <section className={styles.panel} aria-label="Timeline settings">
       <fieldset disabled={!ready || pending} className={styles.bar}>
         {context.area !== 'contribution' && (
           <div className={styles.field}>
-            <span>Reporting period</span>
+            <span aria-hidden="true">Reporting period</span>
             <TimeframeControl
-              label="Timeline period"
+              label="Reporting period"
               period={resolveReportingPeriod(context.period, context.asOf)}
               asOf={context.asOf}
               onChange={onPeriod}
@@ -52,10 +55,10 @@ export function TimelineControls({
           </div>
         )}
         <label className={styles.field}>
-          Group by
+          <span id={id + '-grouping'}>Group by</span>
           <span className={styles.selectWrap}>
             <select
-              aria-label="Timeline grouping"
+              aria-labelledby={id + '-grouping'}
               value={view.grouping}
               onChange={(e) =>
                 onView({ grouping: e.target.value as TimelineViewState['grouping'] })
@@ -73,10 +76,10 @@ export function TimelineControls({
         {context.area === 'repository' && (
           <>
             <label className={styles.field}>
-              Records
+              <span id={id + '-records'}>Records</span>
               <span className={styles.selectWrap}>
                 <select
-                  aria-label="Timeline records"
+                  aria-labelledby={id + '-records'}
                   value={view.kind}
                   onChange={(e) => onView({ kind: e.target.value as TimelineViewState['kind'] })}
                 >
@@ -87,10 +90,10 @@ export function TimelineControls({
               </span>
             </label>
             <label className={styles.field}>
-              Measure
+              <span id={id + '-measure'}>Measure</span>
               <span className={styles.selectWrap}>
                 <select
-                  aria-label="Timeline measure"
+                  aria-labelledby={id + '-measure'}
                   value={view.family}
                   onChange={(e) =>
                     onView({ family: e.target.value as TimelineViewState['family'] })

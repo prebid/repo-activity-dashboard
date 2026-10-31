@@ -8,7 +8,7 @@ async function login(page: Page) {
   await expect(page).toHaveURL(/\/repos$/);
 }
 async function ready(page: Page) {
-  await expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
+  await expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
 }
 async function csv(page: Page) {
   await page.getByRole('button', { name: 'Export CSV', exact: true }).click();

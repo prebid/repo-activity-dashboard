@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest';
-import { render, screen, renderHook } from '@testing-library/react';
+import { render, screen, renderHook, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TimelineTable } from '@/components/reporting/timeline-table';
 import { TimelineSupportFrame } from '@/components/reporting/timeline-support-frame';
@@ -215,6 +215,25 @@ it('explains bounded-out detail links without turning known values into missing 
       }}
     />,
   );
-  expect(screen.getByTitle(/too large for a detail link/)).toHaveTextContent('3');
+  expect(screen.getByTitle(/too large to link/)).toHaveTextContent('3');
+  expect(screen.getByText(/the link would be too large/)).toBeInTheDocument();
+  expect(
+    screen.getAllByRole('status').some((node) => /too large to link/.test(node.textContent ?? '')),
+  ).toBe(true);
   expect(screen.queryByRole('link')).not.toBeInTheDocument();
+});
+it('shows author account types by label, preserved login casing and supplied profile URLs', () => {
+  const authors = selectRepositoryTimelineSupport(source, report, context('prAuthors'));
+  if (authors.kind !== 'authors') throw Error('Expected authors');
+  expect(authors.rows.every((row) => row.profileUrl.startsWith('https://github.example/'))).toBe(
+    true,
+  );
+  render(<Preview detail={authors} />);
+  const table = screen.getByRole('table');
+  expect(within(table).getAllByText('Human').length).toBeGreaterThan(0);
+  expect(within(table).queryByText('human')).not.toBeInTheDocument();
+  const first = authors.rows[0];
+  expect(
+    within(table).getAllByRole('link', { name: new RegExp('@' + first.account) })[0],
+  ).toHaveAttribute('href', first.profileUrl);
 });
