@@ -386,9 +386,15 @@ it('attaches the original source/coverage to support exports', () => {
     c = context(report, report.rows[9], 'prsOpened');
   const query = { search: 'text', sort: 'number', descending: true, page: 2 };
   const columns = timelineSupportContextColumns(c, query, 'sample-bob');
-  const values = Object.fromEntries(columns.map((column) => [column.id, column.value()]));
+  const values = Object.fromEntries(columns.map((column) => [column.id, column.value(null)]));
   expect(values).toMatchObject({
     asOf: request.range.end,
+    unit: 'count',
+    grouping: 'month',
+    calendarStart: '2026-10-01T00:00:00.000Z',
+    calendarEnd: '2026-11-01T00:00:00.000Z',
+    coveredEnd: request.range.end,
+    coveredInclusive: 'true',
     total: 3,
     search: 'text',
     selectedAuthor: 'sample-bob',
@@ -409,7 +415,7 @@ it('exports partial coverage, missing author selection and ascending ordering ex
     descending: false,
     page: 1,
   });
-  const values = Object.fromEntries(columns.map((column) => [column.id, column.value()]));
+  const values = Object.fromEntries(columns.map((column) => [column.id, column.value(null)]));
   expect(values).toMatchObject({
     reason: 'Incomplete history',
     selectedAuthor: null,

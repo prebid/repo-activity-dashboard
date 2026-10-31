@@ -10,6 +10,7 @@ vi.mock('next/navigation', () => ({
 import { loadTimelineReport } from '@/server/timeline-report';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { timelineExportResponse } from '@/server/timeline-export';
+import { readCsv } from '../support/csv';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
 const october = 'month:2026-10-01T00:00:00.000Z';
@@ -239,4 +240,64 @@ it('rejects matrix-origin detail links narrowed by extra record filters', async 
   );
   url.searchParams.set('prs.filter.authors', 'sample-bob');
   expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+});
+async function exportCsv(href: string, columns: string[]) {
+  const loaded = await loadTimelineReport(href);
+  if (loaded.status !== 'ready') throw Error('Expected report');
+  const source = loaded.category === 'matrix' ? loaded.matrix.source : loaded.report.source;
+  const response = await timelineExportResponse(
+    download({ href, revision: source.scenarioId, asOf: source.asOf, columns }),
+  );
+  expect(response.status).toBe(200);
+  return readCsv(await response.text());
+}
+it('exports matrix values, units and coverage by repository and period', async () => {
+  const csv = await exportCsv(
+    '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=prsMerged&timeline.metric=medianMergeDays',
+    ['period', 'repository', 'prsOpened', 'prsMerged', 'medianMergeDays'],
+  );
+  const october = csv.records.find(
+    (row) => row.Repository === 'Prebid.js' && row.Period === 'Oct 2026',
+  )!;
+  expect(october).toMatchObject({
+    'Pull requests — Opened': '3',
+    'Pull requests — Merged': '2',
+    'Duration — Median merge time': '31',
+    'Duration — Median merge time unit': 'days',
+    'Pull requests — Opened unit': 'count',
+    'Pull requests — Opened coverage': 'complete',
+    'Calendar start (UTC)': '2026-10-01T00:00:00.000Z',
+    'Covered end inclusive': 'true',
+  });
+  const mixed = await exportCsv(
+    '/repos?timeline=1&sample=mixed&repo=repo-prebidserverjava&repo=repo-prebidserver&timeline.group=quarter',
+    ['period', 'repository', 'prsOpened'],
+  );
+  const java = mixed.records.filter((row) => row['Repository ID'] === 'repo-prebidserverjava');
+  expect(java.length).toBeGreaterThan(0);
+  for (const row of java) {
+    expect(row['Pull requests — Opened']).toBe('');
+    expect(row['Pull requests — Opened coverage']).toBe('missing');
+    expect(row['Pull requests — Opened coverage detail']).not.toBe('');
+  }
+  expect(
+    mixed.records.find(
+      (row) => row['Repository ID'] === 'repo-prebidserver' && row.Period === 'Q1 2026',
+    )!['Pull requests — Opened coverage'],
+  ).toBe('partial');
+});
+it('exports series rows in the table sort order and Over time without repository columns', async () => {
+  const series = await exportCsv(
+    '/repos/prebidjs?timeline=1&timeline.sort=prsOpened&timeline.dir=desc',
+    ['period', 'prsOpened'],
+  );
+  expect(series.records.slice(0, 3).map((row) => row.Period)).toEqual([
+    'Oct 2026',
+    'Aug 2026',
+    'Sep 2026',
+  ]);
+  const contributors = await exportCsv('/contributors?timeline=1', ['period', 'prsAuthored']);
+  expect(contributors.headers).not.toContain('Repository ID');
+  expect(contributors.records.find((row) => row.Period === 'Oct 2026')!['PRs authored']).toBe('6');
+  expect(contributors.records.reduce((sum, row) => sum + Number(row['PRs authored']), 0)).toBe(8);
 });

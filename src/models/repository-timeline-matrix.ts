@@ -86,12 +86,3 @@ export const repositoryTimelineMatrixSortSchema = z.discriminatedUnion('kind', [
     .strict(),
 ]);
 export type RepositoryTimelineMatrixSort = z.infer<typeof repositoryTimelineMatrixSortSchema>;
-export interface RepositoryTimelineMatrixRepositoryIntent {
-  kind: 'repository-timeline';
-  source: TimelineSourceIdentity;
-  repositoryId: string;
-  metric: RepositoryTimelineMetric;
-  request: TimelineRequest;
-  recordKind: 'prs' | 'issues';
-  family: 'activity' | 'snapshot';
-}

@@ -1,29 +1,25 @@
 import type { TimelineSupportContext } from '@/models/timeline-support';
 import type { TableQuery } from '@/models/table-query';
+import { timelineIntervalColumns, timelineSourceColumns } from './timeline-csv';
+import { timelineMetricUnit } from './timeline-metric-label';
 /** Automatic provenance accompanies each exported support row; no synthetic rows are added for zero. */
 export function timelineSupportContextColumns<T>(
   context: TimelineSupportContext,
   query: TableQuery,
   author?: string,
+  contribution = false,
 ) {
   return [
-    { id: 'source', label: 'Source', value: () => context.source.source },
-    { id: 'revision', label: 'Source revision', value: () => context.source.scenarioId },
-    { id: 'asOf', label: 'Reporting as of (UTC)', value: () => context.source.asOf },
+    ...timelineSourceColumns<T>(context.source),
     { id: 'metric', label: 'Metric ID', value: () => context.metric },
+    {
+      id: 'unit',
+      label: 'Metric unit',
+      value: () => timelineMetricUnit(context.metric, contribution),
+    },
+    { id: 'grouping', label: 'Grouping', value: () => context.interval.id.split(':')[0] },
     { id: 'interval', label: 'Interval ID', value: () => context.interval.id },
-    { id: 'from', label: 'Covered start (UTC)', value: () => context.interval.covered.start },
-    { id: 'to', label: 'Covered end (UTC)', value: () => context.interval.covered.end },
-    {
-      id: 'inclusive',
-      label: 'Covered end inclusive',
-      value: () => String(context.interval.covered.endInclusive),
-    },
-    {
-      id: 'partialPeriod',
-      label: 'Partial calendar period',
-      value: () => String(context.interval.partial),
-    },
+    ...timelineIntervalColumns<T>(() => context.interval),
     { id: 'total', label: 'Full Timeline interval value', value: () => context.measurement.value },
     { id: 'coverage', label: 'Timeline coverage', value: () => context.measurement.status },
     {

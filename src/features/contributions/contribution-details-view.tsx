@@ -154,6 +154,31 @@ export function contributionDetailColumns(
     },
   ];
 }
+/** Record, account, repository and per-row coverage for every contribution supporting export. */
+export function contributionDetailExportColumns(
+  details: Pick<ContributionMetricDetails, 'metric'>,
+): DataColumn<ContributionSupportingRow>[] {
+  return [
+    { id: 'recordId', label: 'Record ID', value: (row) => row.record.id },
+    { id: 'recordURL', label: 'GitHub record URL', value: (row) => row.record.url },
+    { id: 'accountId', label: 'Account ID', value: (row) => row.account.id },
+    { id: 'login', label: 'GitHub account', value: (row) => row.account.login },
+    { id: 'repositoryId', label: 'Repository ID', value: (row) => row.repository.id },
+    { id: 'metric', label: 'Metric', value: () => details.metric },
+    {
+      id: 'valueCoverage',
+      exportWith: 'value',
+      label: 'Value coverage',
+      value: (row) => row.value.status,
+    },
+    {
+      id: 'valueReason',
+      exportWith: 'value',
+      label: 'Value coverage detail',
+      value: (row) => (row.value.status === 'complete' ? '' : row.value.reason),
+    },
+  ];
+}
 export function ContributionDetailsView({
   page,
   details,
@@ -173,24 +198,7 @@ export function ContributionDetailsView({
   const query = { ...controller.query, search: controller.draftSearch };
   const exportColumns: DataColumn<ContributionSupportingRow>[] = [
     ...columns,
-    { id: 'recordId', label: 'Record ID', value: (row) => row.record.id },
-    { id: 'recordURL', label: 'GitHub record URL', value: (row) => row.record.url },
-    { id: 'accountId', label: 'Account ID', value: (row) => row.account.id },
-    { id: 'login', label: 'GitHub account', value: (row) => row.account.login },
-    { id: 'repositoryId', label: 'Repository ID', value: (row) => row.repository.id },
-    { id: 'metric', label: 'Metric', value: () => details.metric },
-    {
-      id: 'valueCoverage',
-      exportWith: 'value',
-      label: 'Value coverage',
-      value: (row) => row.value.status,
-    },
-    {
-      id: 'valueReason',
-      exportWith: 'value',
-      label: 'Value coverage detail',
-      value: (row) => (row.value.status === 'complete' ? '' : row.value.reason),
-    },
+    ...contributionDetailExportColumns(details),
     { id: 'total', label: 'Full report total', value: () => details.measurement.value },
     { id: 'totalCoverage', label: 'Full report coverage', value: () => details.measurement.status },
     {

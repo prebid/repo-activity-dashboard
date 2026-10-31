@@ -3,11 +3,7 @@ import {
   repositoryTimelineMatrixSample,
   repositoryTimelineSample,
 } from '@/mocks/repository-timeline';
-import {
-  selectRepositoryTimelineMatrix,
-  repositoryTimelineMatrixDetail,
-  repositoryTimelineMatrixRepository,
-} from '@/lib/presentation/repository-timeline-matrix';
+import { selectRepositoryTimelineMatrix } from '@/lib/presentation/repository-timeline-matrix';
 import {
   selectRepositoryTimeline,
   repositoryTimelineValue,
@@ -204,46 +200,36 @@ it('keeps repository-entry and cell-detail intents distinct with exact interval 
     repositoryIds: ['repo-prebidjs', 'repo-prebidserver'],
   });
   expect(matrix.rows.find((row) => row.id === 'repo-prebidjs')!.values.at(-1)!.value).toBe(1);
-  expect(repositoryTimelineMatrixRepository(matrix, 'repo-prebidjs')).toMatchObject({
-    kind: 'repository-timeline',
-    request,
-    metric: 'humanApprovals1',
-    family: 'snapshot',
-  });
+  // Matrix cells link through the individual Timeline, so its descriptor is the cell's destination.
+  const individual = (id: string, family: 'activity' | 'snapshot', query = request) =>
+    selectRepositoryTimeline(
+      source.repositories.find((row) => row.repository.id === id)!,
+      query,
+      family,
+    );
   const last = matrix.intervals.at(-1)!;
-  const detail = repositoryTimelineMatrixDetail(matrix, 'repo-prebidjs', last.id)!;
-  expect(detail).toMatchObject({
+  const prebidjs = individual('repo-prebidjs', 'snapshot');
+  expect(prebidjs.rows.at(-1)!.values.humanApprovals1).toEqual(
+    matrix.rows.find((row) => row.id === 'repo-prebidjs')!.values.at(-1),
+  );
+  expect(repositoryTimelineDetail(prebidjs, 'humanApprovals1', last.id)).toMatchObject({
     basis: 'snapshot',
     cutoff: { at: request.range.end, inclusive: false },
     repositoryId: 'repo-prebidjs',
     source: matrix.source,
   });
-  const individual = selectRepositoryTimeline(
-    source.repositories.find((row) => row.repository.id === 'repo-prebidjs')!,
-    request,
-    'snapshot',
-  );
-  expect(detail).toEqual(repositoryTimelineDetail(individual, 'humanApprovals1', last.id));
+  expect(repositoryTimelineDetail(prebidjs, 'humanApprovals1', matrix.intervals[1].id)).toBeNull();
   expect(
-    repositoryTimelineMatrixDetail(matrix, 'repo-prebidjs', matrix.intervals[1].id),
-  ).toBeNull();
-  expect(repositoryTimelineMatrixDetail(matrix, 'repo-prebidserver', last.id)).not.toBeNull(); // known partial zero
-  const activity = selectRepositoryTimelineMatrix(source, reference, {
-    metric: 'prsOpened',
-    repositoryIds: ['repo-prebidjs'],
-  });
+    repositoryTimelineDetail(
+      individual('repo-prebidserver', 'snapshot'),
+      'humanApprovals1',
+      last.id,
+    ),
+  ).not.toBeNull(); // known partial zero
+  const activity = individual('repo-prebidjs', 'activity', reference);
   expect(
-    repositoryTimelineMatrixDetail(activity, 'repo-prebidjs', activity.intervals[0].id),
-  ).toMatchObject({ basis: 'event', range: activity.intervals[0].covered });
-  expect(() => repositoryTimelineMatrixDetail(matrix, 'missing', last.id)).toThrow(
-    'Unknown matrix repository',
-  );
-  expect(() => repositoryTimelineMatrixDetail(matrix, 'repo-prebidjs', 'bad')).toThrow(
-    'Unknown matrix interval',
-  );
-  expect(() => repositoryTimelineMatrixRepository(matrix, 'missing')).toThrow(
-    'Unknown matrix repository',
-  );
+    repositoryTimelineDetail(activity, 'prsOpened', activity.rows[0].interval.id),
+  ).toMatchObject({ basis: 'event', range: activity.rows[0].interval.covered });
 });
 it('owns one immutable calendar and projects only the chosen metric without affecting existing defaults', () => {
   const source = repositoryTimelineSample();
@@ -312,11 +298,15 @@ it('groups mixed PR, issue and duration metrics per repository without changing 
   expect(js[0].values[9].value).toBe(3);
   expect(js[1].values[8].value).toBe(1);
   expect(js[2].values[9].value).toBe(31);
-  const detail = repositoryTimelineMatrixDetail(
-    matrix,
-    'repo-prebidjs',
-    matrix.intervals[9].id,
+  const detail = repositoryTimelineDetail(
+    selectRepositoryTimeline(
+      source.repositories.find(
+        (item) => item.repository.id === 'repo-prebidjs' && item.kind === 'prs',
+      )!,
+      reference,
+    ),
     'medianMergeDays',
+    matrix.intervals[9].id,
   );
   expect(detail?.metric).toBe('medianMergeDays');
   expect(detail?.basis).toBe('duration');

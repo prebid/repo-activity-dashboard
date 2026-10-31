@@ -1,34 +1,31 @@
 import 'server-only';
 import { z } from 'zod';
 import { requireViewer } from '@/lib/auth/viewer';
-import { readBoundedBody, RequestBodyError } from '@/lib/auth/bounded-request';
+import { readReportingJson, reportingHeaders as headers } from '@/lib/auth/reporting-request';
 import { loadTimelineReport } from './timeline-report';
 import { repositoryTimelineMetricSchema } from '@/models/repository-timeline';
-import { timelineCsv } from '@/lib/presentation/timeline-csv';
-const headers = { 'cache-control': 'private, no-store', 'x-content-type-options': 'nosniff' };
+import { timelineCsv, TimelineCsvColumnError } from '@/lib/presentation/timeline-csv';
+const exportRequestSchema = z
+  .object({
+    href: z.string().max(7500),
+    revision: z.string().min(1).max(500),
+    asOf: z.string().min(1).max(40),
+    columns: z.array(z.string().min(1).max(100)).min(1).max(100),
+  })
+  .strict();
 export async function timelineExportResponse(request: Request) {
   await requireViewer();
-  if (
-    request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json'
-  )
-    return new Response('Expected JSON.', { status: 415, headers });
-  let input;
-  try {
-    input = z
-      .object({
-        href: z.string().max(7500),
-        revision: z.string().min(1).max(500),
-        asOf: z.string().min(1).max(40),
-        columns: z.array(z.string().min(1).max(100)).min(1).max(100),
-      })
-      .strict()
-      .parse(JSON.parse(new TextDecoder().decode(await readBoundedBody(request, 64 * 1024))));
-  } catch (error) {
-    return new Response('Invalid export options.', {
-      status: error instanceof RequestBodyError ? error.status : 400,
-      headers,
-    });
-  }
+  const read = await readReportingJson(
+    request,
+    exportRequestSchema,
+    (status) =>
+      new Response(status === 415 ? 'Expected JSON.' : 'Invalid export options.', {
+        status,
+        headers,
+      }),
+  );
+  if (!read.ok) return read.response;
+  const input = read.data;
   const loaded = await loadTimelineReport(input.href);
   if (loaded.status !== 'ready')
     return new Response('Invalid Timeline scope.', { status: 400, headers });
@@ -53,8 +50,11 @@ export async function timelineExportResponse(request: Request) {
         ? repositoryTimelineMetricSchema.parse(loaded.controls.view.metric)
         : undefined,
     );
-  } catch {
-    return new Response('Invalid export columns.', { status: 400, headers });
+  } catch (error) {
+    // Only a column choice is the caller's error; anything else is a server fault.
+    if (error instanceof TimelineCsvColumnError)
+      return new Response('Invalid export columns.', { status: 400, headers });
+    throw error;
   }
   return new Response(csv, {
     headers: {

@@ -1,18 +1,57 @@
 import type { RepositoryTimelineMetric, RepositoryTimeline } from '@/models/repository-timeline';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { RepositoryTimelineMatrix } from '@/models/repository-timeline-matrix';
-import type { TimelineInterval } from '@/models/reporting-timeline';
+import type { TimelineInterval, TimelineSourceIdentity } from '@/models/reporting-timeline';
 import type { Measurement } from '@/models/reporting-measurement';
 import type { TableQuery } from '@/models/table-query';
 import { reportMetricIds } from '@/models/contribution-metrics';
 import { serializeCsv } from './csv-export';
 import { selectTableRows } from './table-rows';
-import { measurementSortGroup } from './measurement-order';
 import { sortRepositoryTimelineMatrix } from './repository-timeline-matrix';
-import { timelineIntervalLabel } from './timeline-presentation';
+import { timelineIntervalLabel, timelineValueColumns } from './timeline-presentation';
 import { timelineMetricLabel, timelineMetricUnit } from './timeline-metric-label';
 
 type Report = RepositoryTimeline | ContributionTimeline | RepositoryTimelineMatrix;
+type CsvColumn<T> = { id: string; label: string; value: (row: T) => string | number | null };
+/** Source provenance shared by parent and supporting Timeline exports. */
+export function timelineSourceColumns<T>(source: TimelineSourceIdentity): CsvColumn<T>[] {
+  return [
+    { id: 'source', label: 'Source', value: () => source.source },
+    { id: 'revision', label: 'Source revision', value: () => source.scenarioId },
+    { id: 'asOf', label: 'Reporting as of (UTC)', value: () => source.asOf },
+  ];
+}
+/** Calendar identity and exact covered dates, with the same labels in every Timeline export. */
+export function timelineIntervalColumns<T>(read: (row: T) => TimelineInterval): CsvColumn<T>[] {
+  return [
+    ...(['calendar', 'covered'] as const).flatMap((kind) => {
+      const name = kind === 'calendar' ? 'Calendar' : 'Covered';
+      return [
+        {
+          id: kind + 'Start',
+          label: name + ' start (UTC)',
+          value: (row: T) => read(row)[kind].start,
+        },
+        { id: kind + 'End', label: name + ' end (UTC)', value: (row: T) => read(row)[kind].end },
+        {
+          id: kind + 'Inclusive',
+          label: name + ' end inclusive',
+          value: (row: T) => String(read(row)[kind].endInclusive),
+        },
+      ];
+    }),
+    {
+      id: 'partialPeriod',
+      label: 'Partial calendar period',
+      value: (row: T) => String(read(row).partial),
+    },
+  ];
+}
+export class TimelineCsvColumnError extends Error {
+  constructor() {
+    super('Invalid Timeline CSV columns.');
+  }
+}
 export function timelineCsv(
   report: Report,
   selected: readonly string[],
@@ -27,7 +66,7 @@ export function timelineCsv(
       : reportMetricIds;
   const allowed = ['period', ...(matrix ? ['repository'] : []), ...metrics];
   if (!selected.length || selected.some((id) => !allowed.includes(id)))
-    throw Error('Invalid Timeline CSV columns.');
+    throw new TimelineCsvColumnError();
   const chosen = metrics.filter((id) => selected.includes(id));
   type Row = {
     id: string;
@@ -72,43 +111,24 @@ export function timelineCsv(
           repositoryId: report.kind === 'repository' ? report.scope.repository.id : null,
           repository: report.kind === 'repository' ? report.scope.repository.name : null,
         })),
-        [
-          { id: 'period', value: (row) => row.interval.calendar.start },
-          ...metrics.map((id) => ({
-            id,
-            value: (row: Row) => row.values[id]!.value,
-            sortGroup: (row: Row) => measurementSortGroup(row.values[id]!),
-          })),
-        ],
+        timelineValueColumns<Row>(metrics),
         query,
         false,
       );
-  const columns: { id: string; label: string; value: (row: Row) => string | number | null }[] = [
-    { id: 'repositoryId', label: 'Repository ID', value: (row) => row.repositoryId },
-    { id: 'repository', label: 'Repository', value: (row) => row.repository },
+  const columns: CsvColumn<Row>[] = [
+    // Over time reports aggregate repositories, so they carry no per-row repository columns.
+    ...(report.kind === 'contributions'
+      ? []
+      : [
+          { id: 'repositoryId', label: 'Repository ID', value: (row: Row) => row.repositoryId },
+          { id: 'repository', label: 'Repository', value: (row: Row) => row.repository },
+        ]),
     {
       id: 'period',
       label: 'Period',
       value: (row) => timelineIntervalLabel(row.interval, report.request.grouping),
     },
-    ...(['calendar', 'covered'] as const).flatMap((kind) => [
-      {
-        id: kind + 'Start',
-        label: kind + ' start (UTC)',
-        value: (row: Row) => row.interval[kind].start,
-      },
-      { id: kind + 'End', label: kind + ' end (UTC)', value: (row: Row) => row.interval[kind].end },
-      {
-        id: kind + 'Inclusive',
-        label: kind + ' end inclusive',
-        value: (row: Row) => String(row.interval[kind].endInclusive),
-      },
-    ]),
-    {
-      id: 'partialPeriod',
-      label: 'Partial calendar period',
-      value: (row) => String(row.interval.partial),
-    },
+    ...timelineIntervalColumns<Row>((row) => row.interval),
     ...chosen.flatMap((id) => {
       const contribution = report.kind === 'contributions',
         label = timelineMetricLabel(id, contribution),
@@ -136,9 +156,7 @@ export function timelineCsv(
       ];
     }),
     { id: 'metrics', label: 'Metric IDs', value: () => JSON.stringify(chosen) },
-    { id: 'source', label: 'Source', value: () => report.source.source },
-    { id: 'revision', label: 'Source revision', value: () => report.source.scenarioId },
-    { id: 'asOf', label: 'Reporting as of (UTC)', value: () => report.source.asOf },
+    ...timelineSourceColumns<Row>(report.source),
     { id: 'grouping', label: 'Grouping', value: () => report.request.grouping },
     { id: 'rangeStart', label: 'Full range start (UTC)', value: () => report.request.range.start },
     { id: 'rangeEnd', label: 'Full range end (UTC)', value: () => report.request.range.end },

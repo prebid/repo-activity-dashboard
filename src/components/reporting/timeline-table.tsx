@@ -6,15 +6,17 @@ import {
   timelineIntervalLabel,
   timelineIntervalDescription,
   timelineMeasurement,
+  timelineValueColumns,
 } from '@/lib/presentation/timeline-presentation';
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
-import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
+import { measurementSortNote } from '@/lib/presentation/measurement-order';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { useLocalTableController } from '@/components/tables/local-data-table';
 import styles from './timeline-layout.module.css';
 import type { TableController } from '@/lib/presentation/table-controller';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { CsvExportAlternative } from '@/components/exports/csv-export-dialog';
+import { timelineExportFileName } from './timeline-csv-download';
 import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
@@ -56,6 +58,10 @@ export function TimelineTable({
   const detailHref = controls?.detailHref,
     linkable = !!detailHref && !controls?.disabled;
   const tableRows = useMemo(() => rows.map((row) => ({ ...row, id: row.interval.id })), [rows]);
+  const valueColumns = useMemo(
+    () => timelineValueColumns<Row>(metrics.map((metric) => metric.id)),
+    [metrics],
+  );
   const columns = useMemo(
     (): DataColumn<Row>[] => [
       {
@@ -66,7 +72,7 @@ export function TimelineTable({
         selectionGroup: 'Period',
         description:
           'Calendar interval and actual covered dates in UTC. A partial period can still have complete data for its covered dates.',
-        value: (row) => row.interval.covered.start,
+        value: valueColumns[0].value,
         cell: (row) => (
           <div className={styles.period} title={timelineIntervalDescription(row.interval)}>
             <strong>{timelineIntervalLabel(row.interval, grouping)}</strong>
@@ -77,12 +83,12 @@ export function TimelineTable({
           </div>
         ),
       },
-      ...metrics.map((metric): DataColumn<Row> => ({
+      ...metrics.map((metric, index): DataColumn<Row> => ({
         ...metric,
         width: metric.unit === 'days' ? 150 : 136,
         align: 'right',
-        value: (row) => timelineMeasurement(row.values, metric.id).value,
-        sortGroup: (row) => measurementSortGroup(timelineMeasurement(row.values, metric.id)),
+        value: valueColumns[index + 1].value,
+        sortGroup: valueColumns[index + 1].sortGroup,
         sortNote: measurementSortNote,
         cell: (row) => {
           const measurement = timelineMeasurement(row.values, metric.id);
@@ -102,7 +108,7 @@ export function TimelineTable({
         },
       })),
     ],
-    [metrics, grouping, detailHref, linkable],
+    [metrics, grouping, detailHref, linkable, valueColumns],
   );
   const incomplete = rows.some((row) =>
     metrics.some((metric) =>
@@ -128,7 +134,7 @@ export function TimelineTable({
         rows={tableRows}
         columns={columns}
         controller={controls?.controller ?? localController}
-        exportName={controls?.csvDownload ? 'timeline-sample.csv' : undefined}
+        exportName={controls?.csvDownload ? timelineExportFileName : undefined}
         csvDownload={controls?.csvDownload}
         exportContextKey={controls?.exportContextKey}
         searchable={false}

@@ -1,4 +1,5 @@
 'use client';
+import { StaleExportError } from './csv-download';
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -131,10 +132,14 @@ export function CsvExportDialog({
         URL.revokeObjectURL(url);
       }
       setOpen(false);
-    } catch {
+    } catch (error) {
       if (active.current?.controller === controller)
         setError(
-          timedOut ? 'Export took too long. Try again.' : 'Export failed. Please try again.',
+          error instanceof StaleExportError
+            ? error.message
+            : timedOut
+              ? 'Export took too long. Try again.'
+              : 'Export failed. Please try again.',
         );
     } finally {
       clearTimeout(timer);

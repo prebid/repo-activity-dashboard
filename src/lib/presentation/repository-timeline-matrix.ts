@@ -10,16 +10,10 @@ import {
   type RepositoryTimelineMatrixRow,
   type RepositoryTimelineMatrixWindow,
   type RepositoryTimelineMatrixSort,
-  type RepositoryTimelineMatrixRepositoryIntent,
 } from '@/models/repository-timeline-matrix';
 import { repositoryTimelineMetricScope } from '@/models/repository-timeline';
-import { repositoryPageFiltersSchema } from '@/models/repository-page';
 import type { TimelineRequest } from '@/models/reporting-timeline';
-import {
-  createRepositoryTimelineProjection,
-  repositoryTimelineValue,
-  repositoryTimelineMeasurementDetail,
-} from './repository-timeline';
+import { createRepositoryTimelineProjection, repositoryTimelineValue } from './repository-timeline';
 import { selectTableRows } from './table-rows';
 import { measurementSortGroup, measurementSortNote } from './measurement-order';
 import type { TableValueColumn } from '@/models/table-values';
@@ -145,15 +139,6 @@ function intervalIndex(matrix: RepositoryTimelineMatrix, id: string) {
   if (index < 0) throw Error('Unknown matrix interval');
   return index;
 }
-function repositoryRow(
-  matrix: RepositoryTimelineMatrix,
-  id: string,
-  metric = matrix.scope.metrics[0],
-) {
-  const row = matrix.rows.find((item) => item.repository.id === id && item.metric === metric);
-  if (!row) throw Error('Unknown matrix repository');
-  return row;
-}
 /** Full value axis, shared by pure sorting and tables that render only a period window. */
 export function repositoryTimelineMatrixValues(
   matrix: RepositoryTimelineMatrix,
@@ -195,44 +180,5 @@ export function sortRepositoryTimelineMatrix(
       descending: sort.descending,
     },
     false,
-  );
-}
-export function repositoryTimelineMatrixRepository(
-  matrix: RepositoryTimelineMatrix,
-  repositoryId: string,
-  metric = matrix.scope.metrics[0],
-): RepositoryTimelineMatrixRepositoryIntent {
-  const row = repositoryRow(matrix, repositoryId, metric);
-  return {
-    kind: 'repository-timeline',
-    source: matrix.source,
-    repositoryId: row.repository.id,
-    metric,
-    request: matrix.request,
-    ...repositoryTimelineMetricScope(metric),
-  };
-}
-export function repositoryTimelineMatrixDetail(
-  matrix: RepositoryTimelineMatrix,
-  repositoryId: string,
-  intervalId: string,
-  metric = matrix.scope.metrics[0],
-) {
-  const row = repositoryRow(matrix, repositoryId, metric),
-    index = intervalIndex(matrix, intervalId);
-  return repositoryTimelineMeasurementDetail(
-    {
-      source: matrix.source,
-      scope: {
-        repository: row.repository,
-        ...repositoryTimelineMetricScope(metric),
-        filters: repositoryPageFiltersSchema.parse({
-          kind: repositoryTimelineMetricScope(metric).recordKind,
-        }),
-      },
-    },
-    metric,
-    matrix.intervals[index].covered,
-    row.values[index],
   );
 }

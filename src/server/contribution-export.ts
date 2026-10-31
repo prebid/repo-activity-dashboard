@@ -1,6 +1,10 @@
 import 'server-only';
 import { z } from 'zod';
-import { readBoundedBody, RequestBodyError } from '@/lib/auth/bounded-request';
+import {
+  readReportingJson,
+  reportingBodyLimit,
+  reportingHeaders as headers,
+} from '@/lib/auth/reporting-request';
 import { requireViewer } from '@/lib/auth/viewer';
 import { loadContributionData } from './contribution-data';
 import { readContributionExport, contributionCsv } from '@/lib/presentation/contribution-export';
@@ -12,25 +16,19 @@ export async function contributionExportResponse(
   area: ContributionArea,
 ): Promise<Response> {
   await requireViewer();
-  const headers = { 'cache-control': 'private, no-store', 'x-content-type-options': 'nosniff' };
   let params = new URL(request.url).searchParams;
   if (request.method === 'POST') {
-    if (
-      request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json'
-    )
-      return new Response('Expected JSON.', { status: 415, headers });
-    try {
-      const input = z
-        .object({ query: z.string().max(64 * 1024) })
-        .strict()
-        .parse(JSON.parse(new TextDecoder().decode(await readBoundedBody(request, 64 * 1024))));
-      params = new URLSearchParams(input.query);
-    } catch (error) {
-      return new Response('Invalid export options.', {
-        status: error instanceof RequestBodyError ? error.status : 400,
-        headers,
-      });
-    }
+    const read = await readReportingJson(
+      request,
+      z.object({ query: z.string().max(reportingBodyLimit) }).strict(),
+      (status) =>
+        new Response(status === 415 ? 'Expected JSON.' : 'Invalid export options.', {
+          status,
+          headers,
+        }),
+    );
+    if (!read.ok) return read.response;
+    params = new URLSearchParams(read.data.query);
   }
   const options = readContributionExport(params, area);
   if (!options) return new Response('Invalid export options.', { status: 400, headers });
