@@ -23,7 +23,6 @@ import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
 import {
   selectRepositoryTimelineMatrix,
-  RepositoryTimelineMatrixLimitError,
   matrixRepositoryIds,
 } from '@/lib/presentation/repository-timeline-matrix';
 import { repositoryMatrixSummaryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
@@ -247,20 +246,16 @@ export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
     parsed.sample,
     parsed.gap,
   );
-  try {
-    return {
-      status: 'ready' as const,
-      viewerId: viewer.id,
-      matrix: selectRepositoryTimelineMatrix(source, parsed.request, {
-        repositoryIds,
-        metrics: parsed.metricIds as RepositoryTimelineMetric[],
-      }),
-      href: '/repos?' + params.toString(),
-      summaryHref,
-      controls: { ...context('matrix', '/repos', parsed, 'matrix'), repositoryIds },
-    };
-  } catch (error) {
-    if (error instanceof RepositoryTimelineMatrixLimitError) return invalid(error.message);
-    throw error;
-  }
+  // validateTimelineScope applied the matrix size rule above to these same inputs.
+  return {
+    status: 'ready' as const,
+    viewerId: viewer.id,
+    matrix: selectRepositoryTimelineMatrix(source, parsed.request, {
+      repositoryIds,
+      metrics: parsed.metricIds as RepositoryTimelineMetric[],
+    }),
+    href: '/repos?' + params.toString(),
+    summaryHref,
+    controls: { ...context('matrix', '/repos', parsed, 'matrix'), repositoryIds },
+  };
 }
