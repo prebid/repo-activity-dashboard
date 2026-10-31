@@ -1,3 +1,4 @@
+import { canonicalRoutePath } from './navigation';
 import { z } from 'zod';
 import { contributionUrlFits } from './contribution-return';
 import { safeReturnPath } from './navigation';
@@ -62,7 +63,7 @@ export function timelineSupportScopeKey(href: string) {
   for (const key of [...url.searchParams.keys()])
     if (/^support\.(authors|records)\./.test(key)) url.searchParams.delete(key);
   url.searchParams.sort();
-  return url.pathname + '?' + url.searchParams.toString();
+  return canonicalRoutePath(url.pathname) + '?' + url.searchParams.toString();
 }
 export function timelineSupportHref(
   parent: string,

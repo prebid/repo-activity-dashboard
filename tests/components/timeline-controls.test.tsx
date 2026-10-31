@@ -215,8 +215,11 @@ it('handles invalid, incompatible and unavailable storage while retaining usable
   localStorage.setItem(key, JSON.stringify({ version: 1, query: 'timeline.metric=unknown' }));
   const second = renderHook(() => useControls());
   await ready(second.result);
-  expect(second.result.current.notice).toContain('do not fit');
+  expect(second.result.current.notice).toBe(
+    'Saved Timeline choices that do not fit this report were skipped.',
+  );
   second.unmount();
+  window.history.replaceState(null, '', '/repos?timeline=1');
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
     throw Error('disabled');
   });
@@ -599,4 +602,83 @@ it('preserves a valid incoming URL when preference restoration would exceed the 
   expect(navigation.replace).not.toHaveBeenCalled();
   expect(window.location.href).toBe(before);
   expect(result.current.notice).toContain('do not fit');
+});
+it('restores compatible saved preferences when a saved metric belongs to the other record kind', async () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.family=activity',
+  );
+  const context = makeContext('repository', window.location.search);
+  localStorage.setItem(
+    timelinePreferenceKey('alice', context),
+    JSON.stringify({
+      version: 1,
+      query: 'timeline.chart=1&timeline.metric=medianMergeDays&timeline.group=quarter',
+    }),
+  );
+  const { result } = renderHook(() => useControls('repository'));
+  await ready(result);
+  expect(result.current.view).toMatchObject({ kind: 'issues', chart: true, grouping: 'quarter' });
+  expect(result.current.view.metric).toBe('issuesOpened');
+  expect(result.current.notice).toMatch(/skipped/);
+});
+it('saves the record kind with kind-specific choices so another kind ignores them', async () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  const context = makeContext('repository', window.location.search);
+  const { result } = renderHook(() => useControls('repository'));
+  await ready(result);
+  await interact(() => result.current.changeView({ metric: 'medianMergeDays' }));
+  const saved = new URLSearchParams(
+    (
+      JSON.parse(localStorage.getItem(timelinePreferenceKey('alice', context))!) as {
+        query: string;
+      }
+    ).query,
+  );
+  expect([
+    saved.get('timeline.metric'),
+    saved.get('timeline.kind'),
+    saved.get('timeline.family'),
+  ]).toEqual(['medianMergeDays', 'prs', 'activity']);
+});
+it('keeps saved matrix metrics when a saved period-column sort no longer exists', async () => {
+  window.history.replaceState(null, '', '/repos?timeline=1');
+  const context = makeContext('matrix', window.location.search);
+  localStorage.setItem(
+    timelinePreferenceKey('alice', context),
+    JSON.stringify({
+      version: 1,
+      query:
+        'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=week:2026-10-19T00:00:00.000Z',
+    }),
+  );
+  const { result } = renderHook(() => useControls('matrix'));
+  await ready(result);
+  expect(result.current.view.selectedMetrics).toEqual(['prsOpened', 'issuesOpened']);
+  expect(result.current.view.sort).toBe('repository');
+});
+it('starts explicit-state links without a restoration gate', () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/repos/prebidjs?timeline=1&timeline.state=1&period=this-year&timeline.group=month',
+  );
+  const { result } = renderHook(() => useControls('repository'));
+  expect(result.current.pending).toBe(false);
+});
+it('resets matrix ordering to ascending names on grouping changes and the row page on rank changes', async () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/repos?timeline=1&timeline.state=1&timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=month:2026-10-01T00:00:00.000Z&timeline.dir=desc&timeline.page=2',
+  );
+  const { result } = renderHook(() => useControls('matrix'));
+  await ready(result);
+  await interact(() => result.current.changeView({ metric: 'issuesOpened' }));
+  expect(new URLSearchParams(window.location.search).get('timeline.page')).toBe('1');
+  await ready(result);
+  await interact(() => result.current.changeView({ grouping: 'quarter' }));
+  const params = new URLSearchParams(window.location.search);
+  expect([params.get('timeline.sort'), params.get('timeline.dir')]).toEqual(['repository', 'asc']);
 });

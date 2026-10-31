@@ -1,3 +1,5 @@
+import { canonicalRoutePath } from '@/lib/presentation/navigation';
+import { timelineSupportScopeKey } from '@/lib/presentation/timeline-support-query';
 import { expect, it } from 'vitest';
 import {
   readTimelineView,
@@ -10,6 +12,7 @@ import {
   readTimelinePreferences,
   mergeTimelinePreferenceParameters,
   resolveTimelinePresentation,
+  readTimelineSource,
 } from '@/lib/presentation/timeline-controls';
 import {
   contributionTimelineEntry,
@@ -139,7 +142,7 @@ it('preserves exact inherited timestamps until a deliberate period change', () =
 it('rejects incompatible predicates and bounds full ranges before editing state', () => {
   expect(() =>
     validateTimelineProposal('timeline=1&prs.filter.approvals=1', context('repository')),
-  ).toThrow('snapshot');
+  ).toThrow('require Backlog at cutoff');
   expect(() =>
     validateTimelineProposal('timeline=1&issues.filter.assignment=assigned', context('repository')),
   ).toThrow('kind');
@@ -482,4 +485,96 @@ it('inherits supported author/duration insight metrics and never broadens contra
   expect(
     repositoryTimelineEntry(current, defaultRepositoryFilters('prs'), '/repos/prebidjs'),
   ).toContain('timeline.omitted=current');
+});
+it.each([
+  [
+    'matrix',
+    '/repos',
+    'timeline=1&period=this-year&timeline.group=month&timeline.metric=prsOpened&sample=reference&timeline.gap=0',
+  ],
+  [
+    'repository',
+    '/repos/prebidjs',
+    'timeline=1&period=this-year&timeline.kind=prs&timeline.family=activity&timeline.sort=prsOpened',
+  ],
+  [
+    'contribution',
+    '/contributors',
+    'timeline=1&scope=1&period=this-year&population=all&timeline.dir=desc',
+  ],
+] as const)(
+  'reuses loaded %s facts for presentation-only spellings of the same scope',
+  (area, path, same) => {
+    const loaded = { ...context(area), path, href: path + '?timeline=1' };
+    expect(resolveTimelinePresentation(path, same, loaded).awaitingData).toBe(false);
+    for (const changed of [
+      'period=last-month',
+      'sample=large',
+      'timeline.gap=1',
+      'timeline.group=week',
+    ])
+      expect(resolveTimelinePresentation(path, 'timeline=1&' + changed, loaded).awaitingData).toBe(
+        true,
+      );
+  },
+);
+it('treats changed repository, population and record scope as new facts', () => {
+  const matrix = context('matrix');
+  expect(
+    resolveTimelinePresentation('/repos', 'timeline=1&repo=repo-prebidjs', matrix).awaitingData,
+  ).toBe(true);
+  expect(
+    resolveTimelinePresentation('/repos', 'timeline=1&timeline.metric=issuesOpened', matrix)
+      .awaitingData,
+  ).toBe(true);
+  const repository = {
+    ...context('repository'),
+    path: '/repos/prebidjs',
+    href: '/repos/prebidjs?timeline=1',
+  };
+  expect(
+    resolveTimelinePresentation('/repos/prebidjs', 'timeline=1&timeline.kind=issues', repository)
+      .awaitingData,
+  ).toBe(true);
+  expect(
+    resolveTimelinePresentation('/repos/prebidjs', 'timeline=1&prs.filter.draft=drafts', repository)
+      .awaitingData,
+  ).toBe(true);
+  const contribution = {
+    ...context('contribution'),
+    path: '/contributors',
+    href: '/contributors?timeline=1',
+  };
+  expect(
+    resolveTimelinePresentation('/contributors', 'timeline=1&type=human', contribution)
+      .awaitingData,
+  ).toBe(true);
+  expect(
+    resolveTimelinePresentation('/contributors', 'timeline=1&exclude=account-alice', contribution)
+      .awaitingData,
+  ).toBe(true);
+  expect(readTimelineSource(new URLSearchParams('sample=mixed'), 'contribution')).toBeNull();
+  expect(readTimelineSource(new URLSearchParams('timeline.gap=2'), 'matrix')).toBeNull();
+  expect(readTimelineSource(new URLSearchParams('timeline.gap=1'), 'matrix')).toEqual({
+    sample: 'reference',
+    gap: true,
+  });
+});
+it('treats equivalent route spellings as the loaded page', () => {
+  const repository = {
+    ...context('repository'),
+    path: '/repos/prebidjs',
+    href: '/repos/prebidjs?timeline=1',
+  };
+  expect(
+    resolveTimelinePresentation('/repos/%70rebidjs', 'timeline=1', repository).awaitingData,
+  ).toBe(false);
+  expect(canonicalRoutePath('/contributors/github:42')).toBe(
+    canonicalRoutePath('/contributors/github%3a42'),
+  );
+  expect(canonicalRoutePath('/contributors/a@b')).toBe('/contributors/a%40b');
+  expect(canonicalRoutePath('/contributors/%E0%A4%A')).toBe('/contributors/%E0%A4%A');
+  expect(timelineSupportScopeKey('/repos/%70rebidjs?timeline=1&support.records.q=x')).toBe(
+    timelineSupportScopeKey('/repos/prebidjs?timeline=1'),
+  );
 });

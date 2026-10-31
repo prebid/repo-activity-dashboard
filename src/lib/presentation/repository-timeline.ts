@@ -44,9 +44,9 @@ export function validateRepositoryTimelineFilters(
 ): RepositoryPageFilters {
   const filters = repositoryPageFiltersSchema.parse(input);
   if (filters.eventRange)
-    throw Error('Use the exact timeline range instead of an eventRange predicate');
+    throw Error('Exact activity dates belong to the timeline range, not a record filter.');
   if (family === 'activity' && (filters.ageBand !== undefined || usesReviewFilters(filters)))
-    throw Error('Current age and review filters require snapshot scope');
+    throw Error('Current age and review filters require Backlog at cutoff.');
   // Every record in a backlog snapshot is open at its cutoff, so other states could only be zero.
   if (family === 'snapshot' && filters.states.some((state) => state !== 'Open'))
     throw Error('Backlog snapshots contain only records open at the cutoff');

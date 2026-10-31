@@ -15,3 +15,16 @@ export function safeReturnPath(value: string | null | undefined): string {
     return '/repos';
   }
 }
+/** One spelling per route: equivalent percent-encodings of a segment compare equal. */
+export function canonicalRoutePath(path: string): string {
+  return path
+    .split('/')
+    .map((segment) => {
+      try {
+        return encodeURIComponent(decodeURIComponent(segment));
+      } catch {
+        return segment;
+      }
+    })
+    .join('/');
+}

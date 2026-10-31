@@ -177,13 +177,13 @@ it('rejects incompatible filters and malformed detail requests', () => {
         repositoryPageFiltersSchema.parse({ kind: 'prs', ...field }),
         'activity',
       ),
-    ).toThrow('snapshot');
+    ).toThrow('require Backlog at cutoff');
   expect(() =>
     validateRepositoryTimelineFilters(
       repositoryPageFiltersSchema.parse({ kind: 'prs', eventRange: range }),
       'snapshot',
     ),
-  ).toThrow('exact');
+  ).toThrow('Exact activity dates');
   expect(() =>
     selectRepositoryTimeline(
       prs,

@@ -14,11 +14,9 @@ import {
   hasContributionScope,
   readContributionPreferenceCandidate,
   contributionPreferenceNeedsLookup,
-  serializeContributionPreferences,
   writeContributionSettings,
   readContributionPresentation,
   serializeContributionPresentation,
-  mergeContributionPreferences,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
 import {
@@ -33,7 +31,12 @@ import {
 import { writeTableQuery } from '@/lib/presentation/table-query';
 import { type TableQuery } from '@/models/table-query';
 import type { useTableController } from './use-table-controller';
-import { contributionPreferencesChanged } from './use-contribution-entry';
+import {
+  clearContributionScope,
+  discardContributionScope,
+  saveContributionScope,
+  savedScopeLookupTimeoutMs,
+} from './contribution-scope-storage';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 export function useContributionControls(
@@ -93,16 +96,10 @@ export function useContributionControls(
       invalidStored.current = { key: preferenceKey, raw: checked };
       setNotice('Saved filters could not be restored. Default filters are shown.');
       try {
-        if (localStorage.getItem(preferenceKey) !== checked) {
+        if (!discardContributionScope(preferenceKey, checked))
           setNotice(
             'Saved filters changed before they could be restored. Reload to use the latest settings.',
           );
-          return;
-        }
-        if (checked !== null) {
-          localStorage.removeItem(preferenceKey);
-          window.dispatchEvent(new Event(contributionPreferencesChanged));
-        }
       } catch {
         recordStorage(preferenceKey, false);
       }
@@ -180,7 +177,7 @@ export function useContributionControls(
             setNotice(
               'Saved filters could not be checked. Default filters are shown; reload to retry.',
             );
-          }, 15000);
+          }, savedScopeLookupTimeoutMs);
           void options
             .validate(candidate, controller.signal)
             .then(apply)
@@ -238,19 +235,16 @@ export function useContributionControls(
   }
   function remember(next: ContributionSettings, field: ContributionSettingField | 'reset') {
     try {
-      if (field !== 'reset') {
-        const raw = localStorage.getItem(preferenceKey);
-        const prior =
-          (invalidStored.current?.key === preferenceKey && raw === invalidStored.current.raw
-            ? null
-            : readContributionPreferenceCandidate(raw, directory, page.report.context.asOf)) ??
-          defaultContributionSettings(directory);
-        localStorage.setItem(
+      if (field !== 'reset')
+        saveContributionScope(
           preferenceKey,
-          serializeContributionPreferences(mergeContributionPreferences(prior, next, field)),
+          directory,
+          page.report.context.asOf,
+          next,
+          field,
+          invalidStored.current?.key === preferenceKey ? invalidStored.current.raw : undefined,
         );
-      } else localStorage.removeItem(preferenceKey);
-      window.dispatchEvent(new Event(contributionPreferencesChanged));
+      else clearContributionScope(preferenceKey);
       recordStorage(preferenceKey, true);
     } catch {
       recordStorage(preferenceKey, false);

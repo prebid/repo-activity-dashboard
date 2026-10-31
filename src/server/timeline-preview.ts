@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
-import { contributionSampleScenarios, type ContributionArea } from '@/models/contribution-page';
+import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
@@ -14,10 +14,7 @@ import {
 import { repositoryPageNavigationSample } from '@/mocks/repository-page';
 import { contributionSampleAsOf } from '@/mocks/contributions';
 import { selectContributionTimeline } from '@/lib/presentation/contribution-timeline';
-import {
-  selectRepositoryTimeline,
-  validateRepositoryTimelineFilters,
-} from '@/lib/presentation/repository-timeline';
+import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import {
   readContributionSettings,
   writeContributionSettings,
@@ -33,9 +30,13 @@ import {
   RepositoryTimelineMatrixLimitError,
 } from '@/lib/presentation/repository-timeline-matrix';
 import { repositoryMatrixSummaryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
-import { readTimelineView, timelineViewKeys } from '@/lib/presentation/timeline-controls';
+import {
+  readTimelineSource,
+  readTimelineView,
+  timelineViewKeys,
+  validateTimelineScope,
+} from '@/lib/presentation/timeline-controls';
 import { safeTimelineParent } from '@/lib/presentation/timeline-navigation';
-import { readRepositoryFilterValues } from '@/lib/presentation/repository-page-query';
 import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 import {
   repositoryTimelineMetricScope,
@@ -90,15 +91,11 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
     )
   )
     return invalid();
-  const sample = z
-    .enum([...contributionSampleScenarios, 'mixed'])
-    .safeParse(params.get('sample') ?? 'reference');
+  const source = readTimelineSource(params, area);
   if (
-    !sample.success ||
-    (area === 'contribution' && sample.data === 'mixed') ||
+    !source ||
     params.has('metric') ||
     params.getAll('timelineParent').length > 1 ||
-    (params.has('timeline.gap') && !['0', '1'].includes(params.get('timeline.gap')!)) ||
     (params.has('timeline.omitted') && params.get('timeline.omitted') !== 'current')
   )
     return invalid();
@@ -107,8 +104,7 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
       status: 'valid' as const,
       search: params.toString(),
       ...readTimelineView(params, area, contributionSampleAsOf),
-      sample: sample.data,
-      gap: params.get('timeline.gap') === '1',
+      ...source,
     };
   } catch (error) {
     return invalid(
@@ -196,16 +192,11 @@ export async function repositoryTimelinePreview(slug: string, params: URLSearchP
   if (parsed.status === 'invalid') return parsed;
   const parent = safeTimelineParent(params.get('timelineParent'), path);
   if (params.has('timelineParent') && !parent) return invalid();
-  const opposite = parsed.view.kind === 'prs' ? 'issues' : 'prs';
-  if ([...params.keys()].some((key) => key.startsWith(opposite + '.'))) return invalid();
-  const filters = readRepositoryFilterValues(params.toString(), parsed.view.kind);
-  if (!filters) return invalid();
+  let filters;
   try {
-    validateRepositoryTimelineFilters(filters, parsed.view.family);
-  } catch {
-    return invalid(
-      'Current age and review filters require Backlog at cutoff. Exact activity dates belong to the timeline range.',
-    );
+    filters = validateTimelineScope(params, parsed, 'repository', repositories)!;
+  } catch (error) {
+    return invalid(error instanceof Error ? error.message : undefined);
   }
   const source = repositoryTimelineSample(
     parsed.view.kind,
@@ -237,10 +228,14 @@ export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
   if (parsed.status === 'invalid') return parsed;
   const summaryHref = repositoryMatrixSummaryHref(params.get('summary'));
   if (summaryHref === null || params.getAll('summary').length > 1) return invalid();
+  try {
+    validateTimelineScope(params, parsed, 'matrix', repositories);
+  } catch (error) {
+    return invalid(error instanceof Error ? error.message : undefined);
+  }
   const ids = params.has('repo')
     ? params.getAll('repo').filter(Boolean)
     : repositories.map((row) => row.id);
-  if (ids.some((id) => !repositories.some((row) => row.id === id))) return invalid();
   const repositoryIds = [...new Set(ids)].sort();
   const kinds = new Set(
     parsed.metricIds.map(

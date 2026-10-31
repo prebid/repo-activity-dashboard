@@ -6,7 +6,8 @@ import {
   type TimelineViewState,
 } from '@/models/timeline-controls';
 import { dateRangeSchema, type PeriodSelection } from '@/models/reporting-period';
-import { readContributionPeriod } from './contribution-settings';
+import type { RepositoryPageFilters } from '@/models/repository-page';
+import { readContributionPeriod, readContributionScopeInput } from './contribution-settings';
 import { resolveReportingPeriod } from './reporting-period';
 import { buildTimelineIntervals, rangeContains } from './reporting-timeline';
 import {
@@ -16,9 +17,10 @@ import {
   repositoryTimelineFamilyMetrics,
 } from '@/models/repository-timeline';
 import { reportMetricIds } from '@/models/contribution-metrics';
-import { contributionActorTypes } from '@/models/contributions';
+import { contributionSampleScenarios } from '@/models/contribution-page';
 import { z } from 'zod';
 import { contributionUrlFits } from './contribution-return';
+import { canonicalRoutePath } from './navigation';
 import { readRepositoryFilterValues } from './repository-page-query';
 import { validateRepositoryTimelineFilters } from './repository-timeline';
 import {
@@ -256,33 +258,51 @@ export function timelinePreferenceParameters(params: URLSearchParams, area: Time
       result.append(key, value);
   return result;
 }
-export function validateTimelineProposal(search: string, context: TimelineControlContext) {
-  if (!contributionUrlFits(context.path + '?' + search))
-    throw Error('This view is too large for a link. Reduce the selection.');
-  const params = new URLSearchParams(search),
-    parsed = readTimelineView(params, context.area, context.asOf);
-  if (context.area === 'repository') {
+/** Scope rules shared by client proposals and server loaders; errors carry user-facing text. */
+export function validateTimelineScope(
+  params: URLSearchParams,
+  parsed: ReturnType<typeof readTimelineView>,
+  area: TimelineArea,
+  repositories: readonly { id: string }[],
+): RepositoryPageFilters | undefined {
+  let filters: RepositoryPageFilters | undefined;
+  if (area === 'repository') {
     const opposite = parsed.view.kind === 'prs' ? 'issues' : 'prs';
     if ([...params.keys()].some((key) => key.startsWith(opposite + '.')))
       throw Error('Record filters must match the selected kind.');
-    const filters = readRepositoryFilterValues(search, parsed.view.kind);
+    filters = readRepositoryFilterValues(params.toString(), parsed.view.kind) ?? undefined;
     if (!filters) throw Error('Choose valid repository filters.');
     validateRepositoryTimelineFilters(filters, parsed.view.family);
   }
   const selected = params.getAll('repo').filter(Boolean);
-  if (selected.some((id) => !context.repositories.some((row) => row.id === id)))
+  if (selected.some((id) => !repositories.some((row) => row.id === id)))
     throw Error('A selected repository is no longer available.');
   if (
-    context.area === 'matrix' &&
-    (params.has('repo') ? new Set(selected).size : context.repositories.length) *
+    area === 'matrix' &&
+    (params.has('repo') ? new Set(selected).size : repositories.length) *
       parsed.intervals.length *
       parsed.metricIds.length >
       repositoryTimelineMatrixCellLimit
   )
     throw Error(
-      'Matrix exceeds 10000 cells; select fewer repositories/metrics or a coarser grouping.',
+      `Matrix exceeds ${repositoryTimelineMatrixCellLimit} cells; select fewer repositories/metrics or a coarser grouping.`,
     );
+  return filters;
+}
+export function validateTimelineProposal(search: string, context: TimelineControlContext) {
+  if (!contributionUrlFits(context.path + '?' + search))
+    throw Error('This view is too large for a link. Reduce the selection.');
+  const params = new URLSearchParams(search),
+    parsed = readTimelineView(params, context.area, context.asOf);
+  validateTimelineScope(params, parsed, context.area, context.repositories);
   return parsed;
+}
+const timelinePreferenceVersion = 1;
+export function serializeTimelinePreferences(params: URLSearchParams, area: TimelineArea) {
+  return JSON.stringify({
+    version: timelinePreferenceVersion,
+    query: timelinePreferenceParameters(params, area).toString(),
+  });
 }
 export function readTimelinePreferences(
   raw: string | null,
@@ -291,7 +311,7 @@ export function readTimelinePreferences(
   if (raw === null) return new URLSearchParams();
   try {
     const stored = z
-      .object({ version: z.literal(1), query: z.string().max(7500) })
+      .object({ version: z.literal(timelinePreferenceVersion), query: z.string().max(7500) })
       .strict()
       .parse(JSON.parse(raw));
     const params = new URLSearchParams(stored.query);
@@ -301,6 +321,34 @@ export function readTimelinePreferences(
   } catch {
     return null;
   }
+}
+// Saved presentation choices that depend on the record kind, family, grouping or period.
+const dependentPreferenceGroups = [
+  ['timeline.sort', 'timeline.dir'],
+  ['timeline.metric', 'timeline.rank'],
+  ['timeline.columns'],
+];
+/**
+ * Merged restoration first, then the same merge without each saved dependent group that no longer
+ * fits, so one stale choice does not discard every other saved preference.
+ */
+export function timelinePreferenceCandidates(
+  merged: URLSearchParams,
+  explicit: URLSearchParams,
+): URLSearchParams[] {
+  const without = (groups: string[][]) => {
+    const result = new URLSearchParams(merged);
+    for (const key of groups.flat()) if (!explicit.has(key)) result.delete(key);
+    return result;
+  };
+  const saved = dependentPreferenceGroups.filter((group) =>
+    group.some((key) => merged.has(key) && !explicit.has(key)),
+  );
+  return [
+    merged,
+    ...saved.map((group) => without([group])),
+    ...(saved.length > 1 ? [without(saved)] : []),
+  ];
 }
 /** Explicit domains win independently: a repository choice need not discard a saved date preset. */
 export function mergeTimelinePreferenceParameters(
@@ -334,56 +382,67 @@ export function mergeTimelinePreferenceParameters(
   return result;
 }
 /** Presentation-only history can update immediately; data-scope changes must wait for their model. */
-function timelineDataKey(search: string, context: TimelineControlContext) {
+/** The prepared sample and temporal-gap variant a Timeline URL reads, or null when invalid. */
+export function readTimelineSource(params: URLSearchParams, area: TimelineArea) {
+  const sample = z
+    .enum([...contributionSampleScenarios, 'mixed'])
+    .safeParse(params.get('sample') ?? 'reference');
+  const gap = params.get('timeline.gap') ?? '0';
+  return !sample.success ||
+    (area === 'contribution' && sample.data === 'mixed') ||
+    params.getAll('sample').length > 1 ||
+    params.getAll('timeline.gap').length > 1 ||
+    !['0', '1'].includes(gap)
+    ? null
+    : { sample: sample.data, gap: gap === '1' };
+}
+/** Facts a URL loads, read through the same decoders as the server; null means not reusable. */
+function timelineDataKey(search: string, context: TimelineControlContext): string | null {
   const params = new URLSearchParams(search);
-  const list = (key: string, fallback: readonly string[] = []) =>
-    [...new Set(params.has(key) ? params.getAll(key).filter(Boolean) : fallback)].sort();
-  const kind = params.get('timeline.kind') ?? 'prs';
-  const base = {
-    sample: params.get('sample') ?? 'reference',
-    gap: params.get('timeline.gap') ?? '0',
-    group: params.get('timeline.group') ?? 'month',
-    period: params.get('period') ?? 'this-year',
-    from: params.get('from'),
-    through: params.get('through'),
-    exact: ['timeline.from', 'timeline.to', 'timeline.inclusive'].map((key) => params.get(key)),
-  };
+  const source = readTimelineSource(params, context.area);
+  let parsed;
+  try {
+    parsed = readTimelineView(params, context.area, context.asOf);
+  } catch {
+    return null;
+  }
+  if (!source) return null;
+  const base = { ...source, request: parsed.request };
   if (context.area === 'repository')
     return JSON.stringify({
       ...base,
-      kind,
-      family: params.get('timeline.family') ?? 'activity',
-      filters: readRepositoryFilterValues(params.toString(), kind as 'prs' | 'issues'),
+      kind: parsed.view.kind,
+      family: parsed.view.family,
+      filters: readRepositoryFilterValues(params.toString(), parsed.view.kind),
     });
-  const repositories = list(
-    'repo',
-    context.repositories.map((row) => row.id),
-  );
-  return JSON.stringify(
-    context.area === 'matrix'
-      ? {
-          ...base,
-          repositories,
-          metrics: [
-            ...new Set(
-              params.has('timeline.metric')
-                ? params.getAll('timeline.metric').filter(Boolean)
-                : ['prsOpened'],
-            ),
-          ],
-        }
-      : {
-          ...base,
-          repositories,
-          types: list('type', contributionActorTypes),
-          population:
-            params.get('population') ??
-            (params.has('account') || params.has('company') ? 'selected' : 'all'),
-          accounts: list('account'),
-          companies: [...new Set(params.getAll('company'))].sort(),
-          exclude: list('exclude'),
-        },
-  );
+  if (context.area === 'matrix')
+    return JSON.stringify({
+      ...base,
+      repositories: [
+        ...new Set(
+          params.has('repo')
+            ? params.getAll('repo').filter(Boolean)
+            : context.repositories.map((row) => row.id),
+        ),
+      ].sort(),
+      metrics: parsed.view.selectedMetrics,
+    });
+  const scope = readContributionScopeInput(params, context, context.asOf);
+  if (!scope) return null;
+  const sorted = (values: readonly (string | null)[]) => [...new Set(values)].sort();
+  return JSON.stringify({
+    ...base,
+    repositories: sorted(scope.selection.repositoryIds),
+    types: sorted(scope.selection.actorTypes),
+    population:
+      scope.selection.population.kind === 'all'
+        ? 'all'
+        : {
+            accounts: sorted(scope.selection.population.accountIds),
+            companies: sorted(scope.selection.population.companyIds),
+          },
+    exclude: sorted(scope.selection.excludedAccountIds),
+  });
 }
 export function resolveTimelinePresentation(
   path: string,
@@ -391,9 +450,11 @@ export function resolveTimelinePresentation(
   context: TimelineControlContext,
 ) {
   const source = new URL(context.href, 'https://dashboard.invalid');
+  const key = timelineDataKey(search, context);
   if (
-    path === context.path &&
-    timelineDataKey(search, context) === timelineDataKey(source.search, context)
+    canonicalRoutePath(path) === canonicalRoutePath(context.path) &&
+    key !== null &&
+    key === timelineDataKey(source.search, context)
   ) {
     try {
       return {
