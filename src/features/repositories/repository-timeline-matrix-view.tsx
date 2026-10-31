@@ -24,6 +24,8 @@ import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
   TimelineValueCell,
+  hasUnlinkedValue,
+  isIncompleteValue,
   timelineFooterLegend,
 } from '@/components/reporting/timeline-value';
 import { PageState } from '@/components/feedback/page-state';
@@ -117,7 +119,11 @@ function MatrixTable({
     page: 1,
   });
   const controller = interactions?.table ?? localController;
-  const window = repositoryTimelineMatrixWindow(matrix, interactions?.window.page ?? page);
+  const windowPage = interactions?.window.page ?? page;
+  const periodWindow = useMemo(
+    () => repositoryTimelineMatrixWindow(matrix, windowPage),
+    [matrix, windowPage],
+  );
   const changeWindow = interactions?.window.onChange ?? setPage;
   const sortMetric = interactions?.sortMetric ?? matrix.scope.metrics[0];
   const valueColumns = useMemo(
@@ -133,12 +139,12 @@ function MatrixTable({
     metricName(definitions.get(row.metric)!);
   const label = (interval: RepositoryTimelineMatrix['intervals'][number]) =>
     timelineIntervalLabel(interval, matrix.request.grouping);
-  const first = window.intervals[0],
-    last = window.intervals.at(-1)!;
+  const first = periodWindow.intervals[0],
+    last = periodWindow.intervals.at(-1)!;
   const windowLabel =
     matrix.request.grouping === 'week'
       ? periodRangeLabel({ ...last.covered, start: first.covered.start })
-      : label(first) + (window.intervals.length > 1 ? ' – ' + label(last) : '');
+      : label(first) + (periodWindow.intervals.length > 1 ? ' – ' + label(last) : '');
   const columns: DataColumn<RepositoryTimelineMatrixRow>[] = [
     {
       ...valueColumns[0],
@@ -183,8 +189,8 @@ function MatrixTable({
         );
       },
     },
-    ...window.intervals.map((interval, offset): DataColumn<RepositoryTimelineMatrixRow> => {
-      const index = window.startIndex + offset;
+    ...periodWindow.intervals.map((interval, offset): DataColumn<RepositoryTimelineMatrixRow> => {
+      const index = periodWindow.startIndex + offset;
       return {
         ...valueColumns[index + 1],
         label: label(interval) + (interval.partial ? ' (partial)' : ''),
@@ -214,10 +220,9 @@ function MatrixTable({
   ];
   const sortedInterval = matrix.intervals.find((interval) => interval.id === controller.query.sort);
   const outsideWindow =
-    sortedInterval && !window.intervals.some((interval) => interval.id === sortedInterval.id);
-  const incomplete = matrix.rows.some((row) =>
-    row.values.some((value) => value.status === 'partial' || value.status === 'missing'),
-  );
+    sortedInterval && !periodWindow.intervals.some((interval) => interval.id === sortedInterval.id);
+  const incomplete = matrix.rows.some((row) => row.values.some(isIncompleteValue));
+  const intervalIndex = new Map(matrix.intervals.map((interval, index) => [interval.id, index]));
   const unlinked =
     !!interactions &&
     !interactions.pending &&
@@ -227,12 +232,12 @@ function MatrixTable({
         interactions.repositoryHref(row.repository.slug) === null,
     ) ||
       (linkable &&
-        window.intervals.some((interval) =>
-          matrix.rows.some(
-            (row) =>
-              row.values[matrix.intervals.indexOf(interval)].value !== null &&
-              interactions.detailHref!(row, interval.id) === null,
-          ),
+        hasUnlinkedValue(
+          matrix.rows,
+          periodWindow.intervals.map((interval) => interval.id),
+          (row) => row.repository.slug + row.metric,
+          (row, interval) => row.values[intervalIndex.get(interval)!],
+          (row, interval) => interactions.detailHref!(row, interval),
         )));
   return (
     <div className={timelineStyles.stack}>
@@ -272,16 +277,18 @@ function MatrixTable({
             <div className={styles.windowLabel} role="status" aria-live="polite">
               <strong>{windowLabel}</strong>
               <span>
-                Periods {window.startIndex + 1}–{window.endIndex} of {matrix.intervals.length} ·
-                Window {window.page} of {window.pageCount}
+                Periods {periodWindow.startIndex + 1}–{periodWindow.endIndex} of{' '}
+                {matrix.intervals.length} · Window {periodWindow.page} of {periodWindow.pageCount}
               </span>
             </div>
             <nav className={styles.windowActions} aria-label="Timeline period windows">
               <Button
                 size="sm"
                 variant="outline"
-                disabled={!interactive || interactions?.pending || window.earlierPage === null}
-                onClick={() => changeWindow(window.earlierPage!)}
+                disabled={
+                  !interactive || interactions?.pending || periodWindow.earlierPage === null
+                }
+                onClick={() => changeWindow(periodWindow.earlierPage!)}
               >
                 <ChevronLeft size={14} aria-hidden="true" />
                 Earlier
@@ -289,8 +296,8 @@ function MatrixTable({
               <Button
                 size="sm"
                 variant="outline"
-                disabled={!interactive || interactions?.pending || window.laterPage === null}
-                onClick={() => changeWindow(window.laterPage!)}
+                disabled={!interactive || interactions?.pending || periodWindow.laterPage === null}
+                onClick={() => changeWindow(periodWindow.laterPage!)}
               >
                 Later
                 <ChevronRight size={14} aria-hidden="true" />

@@ -1,5 +1,5 @@
 'use client';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { CsvExportDialog } from '@/components/exports/csv-export-dialog';
 import { timelineCsvDownload } from '@/components/reporting/timeline-csv-download';
@@ -129,11 +129,18 @@ export function RepositoryTimelineScreen({
   facets: RepositoryFilterOptions;
   omitted: boolean;
 }) {
-  const metrics = repositoryTimelineMetricDefinitions(report.metrics);
+  const metrics = useMemo(
+    () => repositoryTimelineMetricDefinitions(report.metrics),
+    [report.metrics],
+  );
   const control = useTimelineControls(viewerId, context, defaults(metrics));
   const router = useRouter();
-  const detailHref = (metric: string, interval: string) =>
-    control.pending ? null : timelineSupportHref(control.href, report.source, metric, interval);
+  const { pending, href } = control;
+  const detailHref = useCallback(
+    (metric: string, interval: string) =>
+      pending ? null : timelineSupportHref(href, report.source, metric, interval),
+    [pending, href, report.source],
+  );
   return (
     <RepositoryTimelineView
       report={report}
@@ -204,6 +211,12 @@ export function ContributionTimelineScreen({
     defaults(contributionTimelineMetrics),
     options,
   );
+  const { pending, href } = control;
+  const detailHref = useCallback(
+    (metric: string, interval: string) =>
+      pending ? null : timelineSupportHref(href, report.source, metric, interval),
+    [pending, href, report.source],
+  );
   return (
     <ContributionTimelineView
       report={report}
@@ -237,10 +250,7 @@ export function ContributionTimelineScreen({
         controller: control.table,
         visibility: control.visibility,
         disabled: control.pending,
-        detailHref: (metric, interval) =>
-          control.pending
-            ? null
-            : timelineSupportHref(control.href, report.source, metric, interval),
+        detailHref,
         csvDownload: timelineCsvDownload(control.href, report.source),
         exportContextKey: JSON.stringify([control.href, report.source]),
       }}

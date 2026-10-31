@@ -21,6 +21,8 @@ import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
   TimelineValueCell,
+  hasUnlinkedValue,
+  isIncompleteValue,
   timelineFooterLegend,
 } from './timeline-value';
 import { metricName } from '@/models/column-selection';
@@ -111,20 +113,24 @@ export function TimelineTable({
     ],
     [metrics, grouping, detailHref, linkable, valueColumns],
   );
-  const incomplete = rows.some((row) =>
-    metrics.some((metric) =>
-      ['partial', 'missing'].includes(timelineMeasurement(row.values, metric.id).status),
-    ),
-  );
-  const unlinked =
-    linkable &&
-    rows.some((row) =>
-      metrics.some(
-        (metric) =>
-          timelineMeasurement(row.values, metric.id).value !== null &&
-          detailHref(metric.id, row.interval.id) === null,
+  const incomplete = useMemo(
+    () =>
+      rows.some((row) =>
+        metrics.some((metric) => isIncompleteValue(timelineMeasurement(row.values, metric.id))),
       ),
+    [rows, metrics],
+  );
+  const unlinked = useMemo(() => {
+    if (!linkable) return false;
+    const byInterval = new Map(rows.map((row) => [row.interval.id, row]));
+    return hasUnlinkedValue(
+      metrics,
+      [...byInterval.keys()],
+      (metric) => metric.id,
+      (metric, interval) => timelineMeasurement(byInterval.get(interval)!.values, metric.id),
+      (metric, interval) => detailHref(metric.id, interval),
     );
+  }, [linkable, rows, metrics, detailHref]);
   return (
     <div className={styles.stack}>
       {incomplete && <TimelineCoverageNotice />}

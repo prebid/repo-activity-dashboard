@@ -1,4 +1,5 @@
 'use client';
+import { useMemo } from 'react';
 import {
   repositoryTimelineFamilyLabels,
   type RepositoryTimeline,
@@ -31,7 +32,10 @@ export function RepositoryTimelineView({
   chartControls?: TimelineChartControls;
   parent?: string | null;
 }) {
-  const metrics = repositoryTimelineMetricDefinitions(report.metrics),
+  const metrics = useMemo(
+      () => repositoryTimelineMetricDefinitions(report.metrics),
+      [report.metrics],
+    ),
     snapshot = report.scope.family === 'snapshot';
   const key = JSON.stringify([report.source, report.request, report.scope]);
   return (
