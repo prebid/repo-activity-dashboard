@@ -4,7 +4,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TimelineSupportScreen } from '@/app/_screens/timeline-support-screen';
 import { selectRepositoryTimelineSupport } from '@/lib/presentation/timeline-support';
-import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import type { TimelineSupport } from '@/models/timeline-support';
 import {

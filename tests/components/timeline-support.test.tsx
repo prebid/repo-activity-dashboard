@@ -10,7 +10,7 @@ import {
   selectRepositoryTimelineSupport,
   selectContributionTimelineSupport,
 } from '@/lib/presentation/timeline-support';
-import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import { selectContributionTimeline } from '@/lib/presentation/contribution-timeline';

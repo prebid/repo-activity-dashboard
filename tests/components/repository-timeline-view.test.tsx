@@ -2,7 +2,7 @@ import { expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { RepositoryTimelineView } from '@/features/repositories/repository-timeline-view';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
-import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 
 const report = selectRepositoryTimeline(repositoryTimelineSample(), {
   grouping: 'month',

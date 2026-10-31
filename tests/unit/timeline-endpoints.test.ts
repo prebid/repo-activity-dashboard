@@ -1,6 +1,42 @@
 import { beforeEach, expect, it, vi } from 'vitest';
 const viewer = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
+// Server composition is checked against the reference cast, whose answers are hand-checkable.
+vi.mock('@/mocks/repository-timeline', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/mocks/repository-timeline')>();
+  const { onlyCast } = await import('../support/cast-source');
+  return {
+    ...actual,
+    repositoryTimelineSample: (...args: Parameters<typeof actual.repositoryTimelineSample>) => {
+      const [kind, repositoryId, scenario = 'reference', gap = false] = args;
+      return onlyCast(
+        actual.repositoryTimelineSample(
+          kind,
+          repositoryId,
+          scenario === 'calendar' ? 'reference' : scenario,
+          gap,
+        ),
+        scenario,
+        gap,
+      );
+    },
+    repositoryTimelineMatrixSample: (
+      ...args: Parameters<typeof actual.repositoryTimelineMatrixSample>
+    ) => {
+      const [kind, scenario = 'reference', gap = false] = args;
+      const matrix = actual.repositoryTimelineMatrixSample(
+        kind,
+        scenario === 'calendar' ? 'reference' : scenario,
+        gap,
+      );
+      return {
+        ...matrix,
+        repositories: matrix.repositories.map((source) => onlyCast(source, scenario, gap)),
+      };
+    },
+  };
+});
+
 vi.mock('@/lib/auth/viewer', () => ({ requireViewer: viewer }));
 vi.mock('next/navigation', () => ({
   notFound: () => {

@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 import {
   selectRepositoryTimeline,
   repositoryTimelineDetail,
@@ -56,7 +56,8 @@ it('uses issue creation and closure dates independently with exact interval desc
   const report = selectRepositoryTimeline(source, query);
   expect(report.summary).toEqual({
     issuesOpened: { status: 'complete', value: 3 },
-    issuesClosed: { status: 'complete', value: 1 },
+    // The cast's issues close on Sep 11 (202) and Oct 23 (201, 206).
+    issuesClosed: { status: 'complete', value: 3 },
     issueAuthors: { status: 'complete', value: 3 },
   });
   expect(
@@ -342,7 +343,7 @@ it.each(['missing date', 'open with date', 'before creation', 'after clock'])(
   (mode) => {
     const source = repositoryTimelineSample('issues', 'repo-prebidjs', 'calendar');
     if (source.kind !== 'issues') throw Error('Expected issues');
-    const row = source.rows.find((row) => row.number === 202)!;
+    const row = source.rows.find((row) => row.number === 90202)!;
     if (mode === 'missing date') row.closedAt = null;
     if (mode === 'open with date') row.state = 'Open';
     if (mode === 'before creation') row.closedAt = '2024-01-01T00:00:00.000Z';
@@ -497,7 +498,10 @@ it.each([
       humanApprovals1: 1,
       agentFeedbackPrs: 1,
       botFeedbackPrs: 1,
-      lastContributor: 2,
+      // PR 105's latest event before the cutoff is a bot review; PR 107's is Alice's approval.
+      lastContributor: 0,
+      lastBot: 1,
+      lastPrebidReviewer: 1,
     },
   ],
 ] as const)('derives Prebid.js backlog at the 10-%s cutoff from dated credits', (day, expected) => {
@@ -515,8 +519,8 @@ it.each([
 it('keeps open records in every snapshot and dismissed approvals out of today', () => {
   const issues = repositoryTimelineSample('issues', 'repo-prebidserver', 'reference');
   expect(issues.snapshots.map((row) => row.rows.map((issue) => issue.number))).toEqual([
-    [203, 204, 205],
-    [203, 204, 205],
+    [90203, 90204, 90205],
+    [90203, 90204, 90205],
   ]);
   const prs = repositoryTimelineSample('prs', 'repo-prebidjs', 'reference');
   const cutoff = prs.snapshots[1].rows.find((row) => row.number === 107)!;
@@ -529,7 +533,7 @@ it('keeps open records in every snapshot and dismissed approvals out of today', 
 });
 it('dates issue closures by closedAt, separately from creation', () => {
   const source = structuredClone(repositoryTimelineSample('issues', 'repo-prebidjs', 'reference'));
-  const closed = source.rows.find((row) => row.number === 202)!;
+  const closed = source.rows.find((row) => row.number === 90202)!;
   expect(closed.createdAt.slice(0, 10)).toBe('2026-09-09');
   if ('closedAt' in closed) closed.closedAt = '2026-10-03T12:00:00.000Z';
   const year = {
@@ -539,14 +543,17 @@ it('dates issue closures by closedAt, separately from creation', () => {
   };
   const monthly = selectRepositoryTimeline(source, { range: year, grouping: 'month' });
   expect(monthly.rows.map((row) => row.values.issuesOpened!.value)).toEqual([1, 1, 1]);
-  expect(monthly.rows.map((row) => row.values.issuesClosed!.value)).toEqual([0, 0, 1]);
+  // 202 now closes in October beside 201 and 206, which close on Oct 23.
+  expect(monthly.rows.map((row) => row.values.issuesClosed!.value)).toEqual([0, 0, 3]);
   const daily = selectRepositoryTimeline(source, { range: year, grouping: 'day' });
   const value = (day: string) =>
     daily.rows.find((row) => row.interval.calendar.start === day + 'T00:00:00.000Z')!.values
       .issuesClosed!.value;
   expect([value('2026-09-09'), value('2026-10-03')]).toEqual([0, 1]);
   const detail = repositoryTimelineDetail(monthly, 'issuesClosed', monthly.rows[2].interval.id)!;
-  expect(repositoryTimelineSupportingRows(source, detail).map((row) => row.number)).toEqual([202]);
+  expect(repositoryTimelineSupportingRows(source, detail).map((row) => row.number)).toEqual([
+    90201, 90202, 90206,
+  ]);
 });
 it('rejects record states a backlog snapshot cannot contain', () => {
   expect(() =>

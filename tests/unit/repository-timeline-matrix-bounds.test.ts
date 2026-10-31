@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { repositoryTimelineMatrixSample } from '@/mocks/repository-timeline';
+import { castTimelineMatrixSample as repositoryTimelineMatrixSample } from '../support/cast-timeline';
 import {
   selectRepositoryTimelineMatrix,
   repositoryTimelineMatrixWindow,

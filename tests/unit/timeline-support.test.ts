@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest';
 import {
-  repositoryTimelineSample,
-  repositoryTimelineMatrixSample,
-} from '@/mocks/repository-timeline';
+  castTimelineSample as repositoryTimelineSample,
+  castTimelineMatrixSample as repositoryTimelineMatrixSample,
+} from '../support/cast-timeline';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import {
   selectRepositoryTimeline,

@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import {
-  repositoryTimelineMatrixSample,
-  repositoryTimelineSample,
-} from '@/mocks/repository-timeline';
+  castTimelineMatrixSample as repositoryTimelineMatrixSample,
+  castTimelineSample as repositoryTimelineSample,
+} from '../support/cast-timeline';
 import { selectRepositoryTimelineMatrix } from '@/lib/presentation/repository-timeline-matrix';
 import {
   selectRepositoryTimeline,

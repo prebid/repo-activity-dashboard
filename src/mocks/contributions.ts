@@ -22,7 +22,7 @@ import {
   validateContributionSource,
   validateContributionDirectory,
 } from '@/lib/presentation/contribution-source';
-import { overviewAsOf } from './repository-overview';
+import { overviewAsOf } from './sample-clock';
 
 export const contributionSampleAsOf = overviewAsOf;
 export type ContributionScenario = ContributionSampleScenario;
@@ -180,6 +180,10 @@ function reference() {
       creditedAt: at(date),
     });
   return { accounts, records, credits };
+}
+/** The reference cast's records, credits and accounts, which the repository sample also contains. */
+export function contributionReferenceStory() {
+  return { ...reference(), repositories: structuredClone(repositories) };
 }
 function largeAccounts(extra = 0): ContributionAccount[] {
   return [

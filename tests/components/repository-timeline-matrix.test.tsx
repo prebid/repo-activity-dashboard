@@ -6,10 +6,8 @@ import userEvent from '@testing-library/user-event';
 import { renderedMain } from '../support/rendered-html';
 import { RepositoryTimelineMatrixView } from '@/features/repositories/repository-timeline-matrix-view';
 import { AllRepositoriesTabs } from '@/features/repositories/all-repositories-header';
-import {
-  repositoryTimelineMatrixSample,
-  type RepositoryTimelineScenario,
-} from '@/mocks/repository-timeline';
+import { castTimelineMatrixSample as repositoryTimelineMatrixSample } from '../support/cast-timeline';
+import { type RepositoryTimelineScenario } from '@/mocks/repository-timeline';
 import { selectRepositoryTimelineMatrix } from '@/lib/presentation/repository-timeline-matrix';
 import {
   repositoryTimelineMetricScope,

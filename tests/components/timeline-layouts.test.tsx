@@ -40,7 +40,7 @@ vi.mock('recharts', () => ({
 import { ContributionTimelineView } from '@/features/contributions/contribution-timeline-view';
 import { RepositoryTimelineView } from '@/features/repositories/repository-timeline-view';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
-import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 import { repositoryPageNavigationSample } from '@/mocks/repository-page';
 import { selectContributionTimeline } from '@/lib/presentation/contribution-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
