@@ -5,9 +5,15 @@ import {
   rangeContains,
   validateTimelineAvailability,
   withTimelineAvailability,
+  TimelineIntervalLimitError,
 } from '@/lib/presentation/reporting-timeline';
-import { timelineGroupings } from '@/models/reporting-timeline';
-import type { DateRange } from '@/models/reporting-period';
+import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
+import {
+  timelineCoverageWindowLimit,
+  timelineGroupings,
+  type TimelineGrouping,
+} from '@/models/reporting-timeline';
+import { periodPresets, type DateRange, type PeriodPreset } from '@/models/reporting-period';
 const at = (date: string) => date + 'T00:00:00.000Z';
 const range = (start: string, end: string, endInclusive = false): DateRange => ({
   start: at(start),
@@ -77,7 +83,7 @@ it('bounds work before generating huge ranges, with no truncation or regrouping'
   ).toHaveLength(500);
   expect(() =>
     buildTimelineIntervals({ range: { start, end, endInclusive: true }, grouping: 'day' }, clock),
-  ).toThrow('500 intervals');
+  ).toThrow(TimelineIntervalLimitError);
   expect(() =>
     buildTimelineIntervals(
       { range: range('0003-01-01', '9998-01-01'), grouping: 'day' },
@@ -140,8 +146,158 @@ it('keeps known-zero, unavailable and partial values separate from calendar clip
   );
   expect(() =>
     validateTimelineAvailability(
-      Array.from({ length: 257 }, () => range('2024-01-01', '2024-02-01')),
+      Array.from({ length: timelineCoverageWindowLimit + 1 }, () =>
+        range('2024-01-01', '2024-02-01'),
+      ),
       clock,
     ),
   ).toThrow('Too many');
 });
+// Expected bounds are written by hand from the calendar, never read back from the builder.
+const clipped: Record<TimelineGrouping, [number, string[], string[], string[], boolean[]]> = {
+  day: [
+    57,
+    ['2024-12-15', '2025-02-09'],
+    ['2024-12-15', '2025-02-09'],
+    ['2024-12-16', '2025-02-10'],
+    [false, false],
+  ],
+  week: [
+    9,
+    ['2024-12-09', '2025-02-03'],
+    ['2024-12-15', '2025-02-03'],
+    ['2024-12-16', '2025-02-10'],
+    [true, false],
+  ],
+  month: [
+    3,
+    ['2024-12-01', '2025-02-01'],
+    ['2024-12-15', '2025-02-01'],
+    ['2025-01-01', '2025-02-10'],
+    [true, true],
+  ],
+  'two-months': [
+    2,
+    ['2024-11-01', '2025-01-01'],
+    ['2024-12-15', '2025-01-01'],
+    ['2025-01-01', '2025-02-10'],
+    [true, true],
+  ],
+  quarter: [
+    2,
+    ['2024-10-01', '2025-01-01'],
+    ['2024-12-15', '2025-01-01'],
+    ['2025-01-01', '2025-02-10'],
+    [true, true],
+  ],
+  'half-year': [
+    2,
+    ['2024-07-01', '2025-01-01'],
+    ['2024-12-15', '2025-01-01'],
+    ['2025-01-01', '2025-02-10'],
+    [true, true],
+  ],
+  year: [
+    2,
+    ['2024-01-01', '2025-01-01'],
+    ['2024-12-15', '2025-01-01'],
+    ['2025-01-01', '2025-02-10'],
+    [true, true],
+  ],
+};
+const calendarEnds: Record<TimelineGrouping, [string, string]> = {
+  day: ['2024-12-16', '2025-02-10'],
+  week: ['2024-12-16', '2025-02-10'],
+  month: ['2025-01-01', '2025-03-01'],
+  'two-months': ['2025-01-01', '2025-03-01'],
+  quarter: ['2025-01-01', '2025-04-01'],
+  'half-year': ['2025-01-01', '2025-07-01'],
+  year: ['2025-01-01', '2026-01-01'],
+};
+it.each(timelineGroupings)(
+  'pins clipped Dec/Jan calendar and covered bounds for %s',
+  (grouping) => {
+    const rows = buildTimelineIntervals(
+      { range: range('2024-12-15', '2025-02-10'), grouping },
+      clock,
+    );
+    const [count, calendarStarts, coveredStarts, coveredEnds, partial] = clipped[grouping];
+    const ends = [rows[0], rows.at(-1)!];
+    expect(rows).toHaveLength(count);
+    expect(ends.map((row) => row.id)).toEqual(
+      calendarStarts.map((day) => grouping + ':' + at(day)),
+    );
+    expect(ends.map((row) => row.calendar.start)).toEqual(calendarStarts.map(at));
+    expect(ends.map((row) => row.calendar.end)).toEqual(calendarEnds[grouping].map(at));
+    expect(ends.map((row) => row.covered.start)).toEqual(coveredStarts.map(at));
+    expect(ends.map((row) => row.covered.end)).toEqual(coveredEnds.map(at));
+    expect(ends.map((row) => row.covered.endInclusive)).toEqual([false, false]);
+    expect(ends.map((row) => row.partial)).toEqual(partial);
+  },
+);
+it.each([
+  ['day', '2024-12-15T23:59:59.999Z', 0],
+  ['day', '2024-12-16T00:00:00.000Z', 1],
+  ['week', '2024-12-15T23:59:59.999Z', 0],
+  ['week', '2024-12-16T00:00:00.000Z', 1],
+  ['month', '2024-12-31T23:59:59.999Z', 0],
+  ['month', '2025-01-01T00:00:00.000Z', 1],
+  ['month', '2025-02-01T00:00:00.000Z', 2],
+  ['two-months', '2024-12-31T23:59:59.999Z', 0],
+  ['two-months', '2025-01-01T00:00:00.000Z', 1],
+  ['quarter', '2025-01-01T00:00:00.000Z', 1],
+  ['half-year', '2025-01-01T00:00:00.000Z', 1],
+  ['year', '2024-12-31T23:59:59.999Z', 0],
+  ['year', '2025-01-01T00:00:00.000Z', 1],
+  ['year', '2025-02-10T00:00:00.000Z', -1],
+] as const)('places %s event %s in interval %i', (grouping, event, index) => {
+  const rows = buildTimelineIntervals(
+    { range: range('2024-12-15', '2025-02-10'), grouping },
+    clock,
+  );
+  expect(timelineIntervalIndex(rows, event)).toBe(index);
+});
+it('keeps leap day as its own day and inside February', () => {
+  expect(
+    buildTimelineIntervals(
+      { range: range('2024-02-28', '2024-03-02'), grouping: 'day' },
+      clock,
+    ).map((row) => row.id),
+  ).toEqual(['day:' + at('2024-02-28'), 'day:' + at('2024-02-29'), 'day:' + at('2024-03-01')]);
+  expect(
+    buildTimelineIntervals(
+      { range: range('2024-02-15', '2024-03-15'), grouping: 'month' },
+      clock,
+    )[0],
+  ).toMatchObject({
+    calendar: range('2024-02-01', '2024-03-01'),
+    covered: range('2024-02-15', '2024-03-01'),
+    partial: true,
+  });
+});
+it.each([
+  ['week', '2017-01-02', '2026-08-03'],
+  ['month', '1984-01-01', '2025-09-01'],
+] as const)('stops %s timelines at exactly 500 intervals', (grouping, start, end) => {
+  expect(buildTimelineIntervals({ range: range(start, end), grouping }, clock)).toHaveLength(500);
+  expect(() => buildTimelineIntervals({ range: range(start, end, true), grouping }, clock)).toThrow(
+    TimelineIntervalLimitError,
+  );
+});
+it.each([
+  ['this-week', 'week'],
+  ['last-week', 'week'],
+  ['this-month', 'month'],
+  ['last-month', 'month'],
+  ['this-year', 'year'],
+  ['last-full-year', 'year'],
+] as const satisfies readonly (readonly [PeriodPreset, TimelineGrouping])[])(
+  'aligns the %s preset with one %s interval',
+  (preset, grouping) => {
+    expect(periodPresets).toContain(preset);
+    const period = resolveReportingPeriod({ kind: 'preset', preset }, clock).range;
+    const rows = buildTimelineIntervals({ range: period, grouping }, clock);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].calendar.start).toBe(period.start);
+  },
+);

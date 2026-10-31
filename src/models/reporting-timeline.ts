@@ -22,6 +22,7 @@ export const timelineGroupingLabels: Record<TimelineGrouping, string> = {
   year: 'Yearly',
 };
 export const timelineIntervalLimit = 500;
+export const timelineCoverageWindowLimit = 256;
 export const timelineRequestSchema = z
   .object({
     range: dateRangeSchema,

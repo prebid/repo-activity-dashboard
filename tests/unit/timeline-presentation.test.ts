@@ -41,3 +41,17 @@ it('preserves inclusivity and missing-value reasons without guessing absent metr
   ).toEqual({ status: 'missing', value: null, reason: 'Gap' });
   expect(() => timelineMeasurement({}, 'absent')).toThrow('Missing active timeline metric');
 });
+it('names a week that crosses years with both years', () => {
+  const [week] = buildTimelineIntervals(
+    {
+      range: {
+        start: '2024-12-30T00:00:00.000Z',
+        end: '2025-01-06T00:00:00.000Z',
+        endInclusive: false,
+      },
+      grouping: 'week',
+    },
+    range.end,
+  );
+  expect(timelineIntervalLabel(week, 'week')).toBe('Dec 30, 2024 – Jan 5, 2025');
+});

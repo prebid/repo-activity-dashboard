@@ -10,6 +10,7 @@ import {
 } from './repository-overview';
 import { latestActorCategories, type RepositoryPageFilters } from './repository-page';
 import {
+  timelineCoverageWindowLimit,
   timelineCutoffSchema,
   type TimelineCutoff,
   type TimelineInterval,
@@ -74,7 +75,7 @@ const context = {
   repository: z
     .object({ id: text, slug: text, name: text, primaryBranch: reportingBranchSchema })
     .strict(),
-  availableRanges: z.array(dateRangeSchema).max(256),
+  availableRanges: z.array(dateRangeSchema).max(timelineCoverageWindowLimit),
 };
 const snapshot = { cutoff: timelineCutoffSchema, coverage: reportingCoverageSchema };
 export const repositoryTimelineSourceSchema = z.discriminatedUnion('kind', [

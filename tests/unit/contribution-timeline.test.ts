@@ -278,7 +278,8 @@ it('separates repeated comments on one PR by interval without repeating its firs
     value: { status: 'complete', value: 1 },
     creditedAt: '2024-10-01T00:00:00.000Z',
   });
-  expect(report.source.scenarioId).not.toBe(
-    contributionTimelineSample('calendar', true).contributions.scenarioId,
-  );
+  expect(report.source).toMatchObject({
+    scenarioId: input.contributions.scenarioId,
+    asOf: input.contributions.asOf,
+  });
 });

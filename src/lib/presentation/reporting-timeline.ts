@@ -1,12 +1,14 @@
 import {
   timelineRequestSchema,
   timelineIntervalLimit,
+  timelineCoverageWindowLimit,
   type TimelineRequest,
   type TimelineInterval,
   type TimelineGrouping,
 } from '@/models/reporting-timeline';
 import { dateRangeSchema, utcInstantSchema, type DateRange } from '@/models/reporting-period';
 import type { Measurement } from '@/models/reporting-measurement';
+import { utcMonthStart, utcWeekStart } from './reporting-period';
 
 const day = 86_400_000;
 export class TimelineIntervalLimitError extends RangeError {
@@ -19,15 +21,15 @@ export class TimelineIntervalLimitError extends RangeError {
 const monthSteps = { month: 1, 'two-months': 2, quarter: 3, 'half-year': 6, year: 12 } as const;
 function startOf(at: string, grouping: TimelineGrouping): Date {
   const date = new Date(at);
-  date.setUTCHours(0, 0, 0, 0);
-  if (grouping === 'day') return date;
-  if (grouping === 'week') date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
-  else {
-    date.setUTCDate(1);
-    const step = monthSteps[grouping];
-    date.setUTCMonth(Math.floor(date.getUTCMonth() / step) * step);
+  if (grouping === 'week') return utcWeekStart(date);
+  if (grouping === 'day') {
+    date.setUTCHours(0, 0, 0, 0);
+    return date;
   }
-  return date;
+  const month = utcMonthStart(date);
+  const step = monthSteps[grouping];
+  month.setUTCMonth(Math.floor(month.getUTCMonth() / step) * step);
+  return month;
 }
 function advance(date: Date, grouping: TimelineGrouping) {
   const next = new Date(date);
@@ -105,7 +107,7 @@ export function validateTimelineAvailability(
   asOf: string,
 ): DateRange[] {
   utcInstantSchema.parse(asOf);
-  if (input.length > 256) throw Error('Too many timeline coverage windows');
+  if (input.length > timelineCoverageWindowLimit) throw Error('Too many timeline coverage windows');
   const ranges = input
     .map((range) => dateRangeSchema.parse(range))
     .sort((a, b) => a.start.localeCompare(b.start));

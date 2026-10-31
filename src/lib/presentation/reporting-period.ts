@@ -15,15 +15,22 @@ function range(start: Date, end: Date, endInclusive = false): DateRange {
     endInclusive,
   });
 }
-function monthStart(date: Date, offset = 0) {
+/** Calendar alignment shared by period presets and timeline intervals. */
+export function utcMonthStart(date: Date, offset = 0) {
   const result = new Date(date);
   result.setUTCDate(1);
   result.setUTCHours(0, 0, 0, 0);
   result.setUTCMonth(result.getUTCMonth() + offset);
   return result;
 }
+export function utcWeekStart(date: Date) {
+  const result = new Date(date);
+  result.setUTCHours(0, 0, 0, 0);
+  result.setUTCDate(result.getUTCDate() - ((result.getUTCDay() + 6) % 7));
+  return result;
+}
 function yearStart(date: Date, offset = 0) {
-  const result = monthStart(date);
+  const result = utcMonthStart(date);
   result.setUTCMonth(0);
   result.setUTCFullYear(result.getUTCFullYear() + offset);
   return result;
@@ -67,11 +74,9 @@ export function resolveReportingPeriod(
     const duration = effectiveEnd.getTime() - start.getTime() + Number(capped);
     comparison = range(new Date(start.getTime() - duration), start);
   } else {
-    const month = monthStart(now);
+    const month = utcMonthStart(now);
     const year = yearStart(now);
-    const week = new Date(now);
-    week.setUTCHours(0, 0, 0, 0);
-    week.setUTCDate(week.getUTCDate() - ((week.getUTCDay() + 6) % 7));
+    const week = utcWeekStart(now);
     const lastWeek = new Date(week.getTime() - 7 * day);
     switch (selection.preset) {
       case 'this-week':
@@ -84,11 +89,11 @@ export function resolveReportingPeriod(
         break;
       case 'this-month':
         selected = range(month, now, true);
-        comparison = elapsed(month, now, monthStart(now, -1), month);
+        comparison = elapsed(month, now, utcMonthStart(now, -1), month);
         break;
       case 'last-month':
-        selected = range(monthStart(now, -1), month);
-        comparison = range(monthStart(now, -2), monthStart(now, -1));
+        selected = range(utcMonthStart(now, -1), month);
+        comparison = range(utcMonthStart(now, -2), utcMonthStart(now, -1));
         break;
       case 'this-year':
         selected = range(year, now, true);

@@ -8,7 +8,7 @@ import {
 import { dateRangeSchema, type PeriodSelection } from '@/models/reporting-period';
 import { readContributionPeriod } from './contribution-settings';
 import { resolveReportingPeriod } from './reporting-period';
-import { buildTimelineIntervals } from './reporting-timeline';
+import { buildTimelineIntervals, rangeContains } from './reporting-timeline';
 import {
   repositoryTimelineMetricSchema,
   repositoryTimelineMetricIds,
@@ -69,12 +69,7 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
       end: params.get('timeline.to'),
       endInclusive: inclusive === '1' ? true : inclusive === '0' ? false : undefined,
     });
-    const outer = resolveReportingPeriod(period, asOf).range;
-    if (
-      exactRange.start < outer.start ||
-      exactRange.end > outer.end ||
-      (exactRange.end === outer.end && exactRange.endInclusive && !outer.endInclusive)
-    )
+    if (!rangeContains(resolveReportingPeriod(period, asOf).range, exactRange))
       throw Error('Exact timeline dates must stay inside the selected period.');
   }
   const integer = (key: string, fallback: number) => {
