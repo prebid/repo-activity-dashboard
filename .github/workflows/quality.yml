@@ -5,40 +5,170 @@ on:
     branches: [main]
 permissions:
   contents: read
+concurrency:
+  # Pull requests cancel superseded runs; each push keeps its own run.
+  group: frontend-quality-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
 jobs:
-  quality:
+  checks:
+    name: Fast checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 20
+    outputs:
+      browser_matrix: ${{ steps.plan.outputs.matrix }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0; DynamoDB Local tests only
+      - uses: ./.github/actions/prepare-node
+      - run: npm run audit:dependencies
+      - run: npm run check
+      - uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: temurin
           java-version: '21'
           overwrite-settings: false
-      - name: Install browser dependencies
-        run: |
-          # The Azure mirror has repeatedly delayed browser setup on these runners.
-          for source in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
-            if [ -f "$source" ]; then
-              sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$source"
-            fi
-          done
-          npx playwright install --with-deps chromium webkit
-      - run: npm run check:all
+      - run: npm run test:accounts
+      - id: plan
+        name: Prove complete browser partition
+        run: node scripts/browser-shards.mjs plan 2
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: browser-plan
+          path: test-results/browser-plan.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
-          name: frontend-verification
+          name: frontend-verification-checks
           path: |
             test-results/
-            playwright-report/
             coverage/
+          if-no-files-found: error
+  build:
+    name: Builds and packaged production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/prepare-node
+      - uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+        with:
+          distribution: temurin
+          java-version: '21'
+          overwrite-settings: false
+      - uses: ./.github/actions/install-browsers
+        with:
+          browser: both
+      - run: npm run build:production
+      - run: npm run test:production
+      - run: npm run build:preview
+      - run: npm run build:storybook
+      - name: Package one source-bound preview build
+        run: |
+          git diff --exit-code
+          git rev-parse HEAD > .next/build-revision
+          tar --exclude='.next/cache' --exclude='.next/standalone' -czf preview-build.tgz .next storybook-static
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: browser-preview-build
+          path: preview-build.tgz
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: frontend-verification-production
+          path: test-results/
+          if-no-files-found: error
+  browser:
+    name: Browser (${{ matrix.project }}, ${{ matrix.index }}/${{ matrix.total }})
+    needs: [checks, build]
+    if: ${{ needs.checks.result == 'success' && needs.build.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.checks.outputs.browser_matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/prepare-node
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: browser-preview-build
+          path: .ci-preview
+      - name: Restore the matching preview artifact
+        run: |
+          tar -xzf .ci-preview/preview-build.tgz
+          mkdir -p test-results
+          git rev-parse HEAD > test-results/source-revision
+          cmp .next/build-revision test-results/source-revision
+      - uses: ./.github/actions/install-browsers
+        with:
+          browser: ${{ matrix.browser }}
+      - name: Run and verify every selected case
+        env:
+          BROWSER_PROJECT: ${{ matrix.project }}
+          SHARD_INDEX: ${{ matrix.index }}
+          SHARD_TOTAL: ${{ matrix.total }}
+        run: |
+          node scripts/check-test-results.mjs playwright --clear
+          npx --no-install playwright test --project="$BROWSER_PROJECT" --shard="$SHARD_INDEX/$SHARD_TOTAL"
+          node scripts/check-test-results.mjs playwright
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: browser-report-${{ matrix.id }}
+          path: |
+            test-results/playwright.json
+            test-results/source-revision
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: frontend-verification-browser-${{ matrix.id }}
+          path: test-results/browser-artifacts/
+          if-no-files-found: ignore
+  quality:
+    name: quality
+    needs: [checks, build, browser]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Require every prerequisite
+        env:
+          CHECKS_RESULT: ${{ needs.checks.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          BROWSER_RESULT: ${{ needs.browser.result }}
+        run: |
+          test "$CHECKS_RESULT" = success
+          test "$BUILD_RESULT" = success
+          test "$BROWSER_RESULT" = success
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/prepare-node
+      - id: download_plan
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: browser-plan
+          path: test-results
+      - id: download_reports
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: browser-report-*
+          path: test-results/shards
+          merge-multiple: false
+      - name: Verify complete, unique, source-matched coverage
+        run: node scripts/browser-shards.mjs verify
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: ${{ always() && steps.download_plan.outcome == 'success' && steps.download_reports.outcome == 'success' }}
+        with:
+          name: frontend-verification
+          path: test-results/
           if-no-files-found: error
