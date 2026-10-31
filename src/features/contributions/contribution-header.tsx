@@ -1,20 +1,16 @@
-import { ViewTabs } from '@/components/navigation/view-tabs';
+import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import { countLabel } from '@/lib/presentation/format';
 import { contributionActorTypes } from '@/models/contributions';
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
-import type { MouseEvent } from 'react';
+import type { ComponentProps, MouseEvent } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { ArrowLeft, Users, Building2, Table2, CalendarDays } from 'lucide-react';
 import type { ContributionPage } from '@/models/contribution-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import {
-  EntityLink,
-  ContributionNavigationLink,
-  type ContributionLinks,
-} from './contribution-columns';
+import { EntityLink, type ContributionLinks } from './contribution-columns';
 
 import styles from './contributions.module.css';
 
@@ -29,6 +25,21 @@ export function contributionTitle(page: ContributionPage): string {
 }
 
 /** Report | Over time, shared by the report header and the Over time view. */
+/** A report tab, or a focusable unavailable tab that states why when no link fits. */
+function ContributionTab({
+  href,
+  reason,
+  children,
+  ...props
+}: Omit<ComponentProps<typeof Link>, 'href'> & { href: string | null; reason: string }) {
+  return href ? (
+    <Link prefetch={false} href={href} {...props}>
+      {children}
+    </Link>
+  ) : (
+    <DisabledTab reason={reason}>{children}</DisabledTab>
+  );
+}
 export function ContributionReportViewTabs({
   active,
   reportHref,
@@ -50,14 +61,15 @@ export function ContributionReportViewTabs({
         <Table2 size={16} aria-hidden="true" />
         Report
       </Link>
-      <ContributionNavigationLink
+      <ContributionTab
         href={timelineHref}
+        reason="This selection is too large for an Over time link. Narrow the filters or search and try again."
         onClick={onTimeline}
         aria-current={active === 'timeline' ? 'page' : undefined}
       >
         <CalendarDays size={16} aria-hidden="true" />
         Over time
-      </ContributionNavigationLink>
+      </ContributionTab>
     </ViewTabs>
   );
 }
@@ -123,24 +135,24 @@ export function ContributionHeader({
       </ContributionHeading>
       {report.kind === 'overview' && (
         <ViewTabs label="Contribution reports">
-          <ContributionNavigationLink
-            prefetch={false}
+          <ContributionTab
             href={contributionHref('contributors', page.sample, undefined, links.settings)}
+            reason="This selection is too large for a Contributors link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'contributors')}
             aria-current={page.area === 'contributors' ? 'page' : undefined}
           >
             <Users size={16} aria-hidden="true" /> Contributors{' '}
             <span className={styles.tabCount}>{report.contributorCount}</span>
-          </ContributionNavigationLink>
-          <ContributionNavigationLink
-            prefetch={false}
+          </ContributionTab>
+          <ContributionTab
             href={contributionHref('companies', page.sample, undefined, links.settings)}
+            reason="This selection is too large for a Companies link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'companies')}
             aria-current={page.area === 'companies' ? 'page' : undefined}
           >
             <Building2 size={16} aria-hidden="true" /> Companies{' '}
             <span className={styles.tabCount}>{report.companyCount}</span>
-          </ContributionNavigationLink>
+          </ContributionTab>
         </ViewTabs>
       )}
       {!page.details && links.timelineHref !== undefined && (
