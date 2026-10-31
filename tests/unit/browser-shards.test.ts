@@ -1,4 +1,8 @@
 // @vitest-environment node
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, rmSync, symlinkSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { expect, it } from 'vitest';
 import {
   browserInventory,
@@ -186,4 +190,20 @@ it.each([
   if (kind === 'empty-results') item.results = [];
   if (kind === 'false-count') data.stats.expected = 2;
   expect(() => verifyBrowserShards(plan, results, sourceRevision)).toThrow();
+});
+it.each(['direct', 'symlinked'] as const)('runs the command through a %s script path', (kind) => {
+  const link = mkdtempSync(join(tmpdir(), 'browser-shards-link-'));
+  try {
+    symlinkSync(resolve('scripts'), join(link, 'scripts'), 'dir');
+    const script =
+      kind === 'direct'
+        ? resolve('scripts/browser-shards.mjs')
+        : join(link, 'scripts/browser-shards.mjs');
+    // An unsupported mode exits before any plan or report is read or written.
+    const run = spawnSync(process.execPath, [script, 'unsupported'], { encoding: 'utf8' });
+    expect(run.stderr).toContain('Expected plan <shards-per-project> or verify');
+    expect(run.status).toBe(1);
+  } finally {
+    rmSync(link, { recursive: true, force: true });
+  }
 });

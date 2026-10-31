@@ -1,7 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync, appendFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 import { validateTestResults } from './check-test-results.mjs';
 
@@ -180,7 +179,8 @@ export function verifyBrowserShards(input, results, sourceRevision) {
   return plan.cases.length;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// import.meta.main also holds when the script is reached through a symlinked path.
+if (import.meta.main) {
   const [mode, count] = process.argv.slice(2);
   const sourceRevision = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
   mkdirSync('test-results', { recursive: true });
