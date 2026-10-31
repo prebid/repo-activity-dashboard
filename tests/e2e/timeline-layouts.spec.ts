@@ -161,6 +161,8 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
     page.getByRole('heading', { name: 'Activity over time', exact: true }),
   ).toBeVisible();
   await page.getByRole('link', { name: /^Issues / }).click();
+  // The issue list's own Timeline link carries the issue kind, so wait for that page first.
+  await expect(page).toHaveURL(/metric=openIssues/);
   await page
     .getByRole('navigation', { name: 'Repository lists' })
     .getByRole('link', { name: 'Timeline', exact: true })
