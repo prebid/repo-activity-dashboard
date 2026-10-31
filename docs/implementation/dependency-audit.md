@@ -14,7 +14,7 @@ The exception therefore applies only to this advisory, its reviewed moderate sev
 
 ## Patched modern consumers
 
-- Storybook's `@joshwooding/vite-plugin-react-docgen-typescript` receives `glob` 14.0.3 through a scoped override, addressing [GHSA-3g3m-2fjr-6pw4](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4). Its `globSync` API and file selection remain covered by the actual Storybook build.
+- Storybook's `@joshwooding/vite-plugin-react-docgen-typescript` receives `glob` 14.0.3 through a scoped override, addressing [GHSA-3g3m-2fjr-6pw4](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4). A direct test resolves `glob` from that consumer and checks its `globSync` API with the actual absolute/cwd/ignore/nodir options and known file membership. The normal Storybook build also passes, but its default `react-docgen` mode does not exercise this TypeScript docgen path.
 - `@typescript-eslint/typescript-estree` receives minimatch 11.0.3 through a scoped override. Its named `minimatch()` API is retained; lint and parser checks exercise the consumer.
 
 These overrides leave the older function-export consumers on their compatible API. Review/remove each override when its parent dependency accepts the patched version directly.

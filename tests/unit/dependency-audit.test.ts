@@ -1,7 +1,42 @@
 // @vitest-environment node
 import { createRequire } from 'node:module';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import { expect, it } from 'vitest';
 import { inspectDependencyAudit } from '../../scripts/audit-dependencies.mjs';
+
+it('retains the docgen consumer globSync API and absolute include/exclude file selection', () => {
+  const consumer = createRequire(
+    import.meta.resolve('@joshwooding/vite-plugin-react-docgen-typescript'),
+  );
+  const glob = consumer('glob') as {
+    globSync: (
+      pattern: string,
+      options: { absolute: boolean; cwd: string; ignore: string[]; nodir: boolean },
+    ) => string[];
+  };
+  const root = mkdtempSync(join(tmpdir(), 'docgen-glob-'));
+  try {
+    mkdirSync(join(root, 'src', 'excluded'), { recursive: true });
+    mkdirSync(join(root, 'src', 'directory.tsx'));
+    for (const file of ['one.tsx', 'two.tsx', 'skip.ts'])
+      writeFileSync(join(root, 'src', file), '');
+    writeFileSync(join(root, 'src', 'excluded', 'hidden.tsx'), '');
+    expect(
+      glob
+        .globSync('src/**/*.tsx', {
+          absolute: true,
+          cwd: root,
+          ignore: ['**/excluded/**'],
+          nodir: true,
+        })
+        .sort(),
+    ).toEqual([join(root, 'src', 'one.tsx'), join(root, 'src', 'two.tsx')]);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
 
 const url = 'https://github.com/advisories/GHSA-g3hv-75wg-m249';
 const integrity =
