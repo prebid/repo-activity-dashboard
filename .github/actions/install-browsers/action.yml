@@ -1,0 +1,23 @@
+name: Install browser dependencies
+description: Install a supported Playwright engine using the reliable Ubuntu package mirror.
+inputs:
+  browser:
+    description: chromium, webkit, firefox, or both for Chromium and WebKit.
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        BROWSER_ENGINE: ${{ inputs.browser }}
+      run: |
+        for mirror_list in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
+          if [ -f "$mirror_list" ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$mirror_list"
+          fi
+        done
+        case "$BROWSER_ENGINE" in
+          chromium|webkit|firefox) npx --no-install playwright install --with-deps "$BROWSER_ENGINE" ;;
+          both) npx --no-install playwright install --with-deps chromium webkit ;;
+          *) printf 'Unsupported browser engine\n' >&2; exit 1 ;;
+        esac
