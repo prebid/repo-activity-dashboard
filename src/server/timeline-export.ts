@@ -4,7 +4,11 @@ import { requireViewer } from '@/lib/auth/viewer';
 import { readReportingJson, reportingHeaders as headers } from '@/lib/auth/reporting-request';
 import { loadTimelineReport } from './timeline-report';
 import { repositoryTimelineMetricSchema } from '@/models/repository-timeline';
-import { timelineCsv, TimelineCsvColumnError } from '@/lib/presentation/timeline-csv';
+import {
+  timelineCsv,
+  TimelineCsvColumnError,
+  timelineExportFileName,
+} from '@/lib/presentation/timeline-csv';
 const exportRequestSchema = z
   .object({
     href: z.string().max(7500),
@@ -60,7 +64,7 @@ export async function timelineExportResponse(request: Request) {
     headers: {
       ...headers,
       'content-type': 'text/csv; charset=utf-8',
-      'content-disposition': 'attachment; filename="timeline-sample.csv"',
+      'content-disposition': `attachment; filename="${timelineExportFileName}"`,
     },
   });
 }

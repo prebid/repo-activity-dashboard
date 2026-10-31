@@ -16,7 +16,7 @@ import styles from './timeline-layout.module.css';
 import type { TableController } from '@/lib/presentation/table-controller';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { CsvExportAlternative } from '@/components/exports/csv-export-dialog';
-import { timelineExportFileName } from './timeline-csv-download';
+import { timelineExportFileName } from '@/lib/presentation/timeline-csv';
 import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,

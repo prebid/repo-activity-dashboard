@@ -12,6 +12,7 @@ import type { OverviewRepository } from '@/models/repository-overview';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import { repositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import styles from './repository-page.module.css';
 import heading from './repository-heading.module.css';
@@ -38,10 +39,7 @@ export function RepositoryHeader({
   const timelineLink =
     timelineHref !== undefined
       ? timelineHref
-      : '/repos/' +
-        encodeURIComponent(repository.slug) +
-        '?timeline=1' +
-        (activeKind === 'issues' ? '&timeline.kind=issues' : '');
+      : repositoryTimelineHref(repository.slug, activeKind === 'issues' ? 'issues' : 'prs');
   return (
     <>
       <div className={styles.breadcrumbs}>

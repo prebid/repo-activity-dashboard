@@ -11,6 +11,7 @@ import { contributionDetailRows } from './contribution-detail-rows';
 import { contributionTimelineDetail } from './contribution-timeline';
 import { repositoryTimelineDetail, repositoryTimelineSupportingRows } from './repository-timeline';
 import { normalizeGithubLogin } from '@/models/github-account';
+import { customPeriodForRange } from './reporting-period';
 
 export function selectContributionTimelineSupport(
   source: ContributionTimelineSource,
@@ -31,15 +32,7 @@ export function selectContributionTimelineSupport(
   const scope = contributionScope(source.contributions, descriptor.selection, descriptor.focus);
   const detailContext: ContributionContext = {
     ...descriptor.source,
-    period: {
-      kind: 'custom',
-      from: context.interval.covered.start.slice(0, 10),
-      through: new Date(
-        Date.parse(context.interval.covered.end) - Number(!context.interval.covered.endInclusive),
-      )
-        .toISOString()
-        .slice(0, 10),
-    },
+    period: customPeriodForRange(context.interval.covered),
     range: context.interval.covered,
     companyAttribution: 'current-mapping',
     selection: scope.selection,

@@ -22,6 +22,7 @@ import {
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { periodLabels } from '@/lib/presentation/overview-periods';
 import styles from './overview-controls.module.css';
+import { customPeriodForRange } from '@/lib/presentation/reporting-period';
 
 export function TimeframeControl({
   period,
@@ -63,9 +64,7 @@ export function TimeframeControl({
       period
         ? period.selection.kind === 'custom'
           ? period.selection.through
-          : new Date(new Date(period.range.end).getTime() - Number(!period.range.endInclusive))
-              .toISOString()
-              .slice(0, 10)
+          : customPeriodForRange(period.range).through
         : '',
     );
     setError('');

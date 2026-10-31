@@ -1,7 +1,7 @@
 import type { RepositoryPageSource } from '@/models/repository-page';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 import { periodPresets, type DateRange, type ResolvedPeriod } from '@/models/reporting-period';
-import { resolveReportingPeriod } from './reporting-period';
+import { customPeriodForRange, resolveReportingPeriod } from './reporting-period';
 import { withoutCurrentReviewFilters } from './repository-page-rules';
 import { repositoryDrilldownHref } from './repository-drilldown';
 import { readRepositoryFilters, writeRepositoryFilters } from './repository-page-query';
@@ -25,13 +25,7 @@ export function repositoryActivityPeriod(source: RepositoryPageSource): Resolved
   }
   const range = selection.range;
   return {
-    selection: {
-      kind: 'custom',
-      from: range.start.slice(0, 10),
-      through: new Date(new Date(range.end).getTime() - Number(!range.endInclusive))
-        .toISOString()
-        .slice(0, 10),
-    },
+    selection: customPeriodForRange(range),
     range,
     comparison: range,
     timezone: 'UTC',

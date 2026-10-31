@@ -11,6 +11,9 @@ import { sortRepositoryTimelineMatrix } from './repository-timeline-matrix';
 import { timelineIntervalLabel, timelineValueColumns } from './timeline-presentation';
 import { timelineMetricLabel, timelineMetricUnit } from './timeline-metric-label';
 
+/** The file name every Timeline export is downloaded as. */
+export const timelineExportFileName = 'timeline-sample.csv';
+
 type Report = RepositoryTimeline | ContributionTimeline | RepositoryTimelineMatrix;
 type CsvColumn<T> = { id: string; label: string; value: (row: T) => string | number | null };
 /** Source provenance shared by parent and supporting Timeline exports. */

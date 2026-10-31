@@ -1,4 +1,12 @@
 import { safeReturnPath } from './navigation';
+import { customPeriodForRange } from './reporting-period';
+
+/** A repository's Timeline for its record kind, with no list state to carry. */
+export function repositoryTimelineHref(slug: string, kind: 'prs' | 'issues') {
+  const params = new URLSearchParams({ timeline: '1' });
+  if (kind === 'issues') params.set('timeline.kind', 'issues');
+  return '/repos/' + encodeURIComponent(slug) + '?' + params.toString();
+}
 import {
   contributionReturnHref,
   contributionUrlFits,
@@ -157,12 +165,10 @@ export function repositoryTimelineEntry(
     filters.eventRange ??
     (source.drilldown.selection.scope === 'period' ? source.drilldown.selection.range : null);
   if (range) {
+    const period = customPeriodForRange(range);
     params.set('period', 'custom');
-    params.set('from', range.start.slice(0, 10));
-    params.set(
-      'through',
-      new Date(Date.parse(range.end) - Number(!range.endInclusive)).toISOString().slice(0, 10),
-    );
+    params.set('from', period.from);
+    params.set('through', period.through);
     params.set('timeline.from', range.start);
     params.set('timeline.to', range.end);
     params.set('timeline.inclusive', range.endInclusive ? '1' : '0');

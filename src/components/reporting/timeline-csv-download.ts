@@ -1,8 +1,8 @@
 import type { TimelineSourceIdentity } from '@/models/reporting-timeline';
 import type { CsvExportAlternative } from '@/components/exports/csv-export-dialog';
 import { postCsv } from '@/components/exports/csv-download';
+import { timelineExportFileName } from '@/lib/presentation/timeline-csv';
 
-export const timelineExportFileName = 'timeline-sample.csv';
 /** Export the loaded source revision and full scope; UI row/window limits are not report limits. */
 export function timelineCsvDownload(
   href: string,

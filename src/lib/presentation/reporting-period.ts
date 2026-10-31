@@ -15,6 +15,18 @@ function range(start: Date, end: Date, endInclusive = false): DateRange {
     endInclusive,
   });
 }
+/** The custom period whose days cover a range: its first day through its last included day. */
+export function customPeriodForRange(
+  covered: DateRange,
+): Extract<PeriodSelection, { kind: 'custom' }> {
+  return {
+    kind: 'custom',
+    from: covered.start.slice(0, 10),
+    through: new Date(Date.parse(covered.end) - Number(!covered.endInclusive))
+      .toISOString()
+      .slice(0, 10),
+  };
+}
 /** Calendar alignment shared by period presets and timeline intervals. */
 export function utcMonthStart(date: Date, offset = 0) {
   const result = new Date(date);
