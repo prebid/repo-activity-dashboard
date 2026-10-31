@@ -1,4 +1,6 @@
 'use client';
+import { followCaptured } from '@/lib/navigation/follow-captured';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { repositoryTimelineEntry } from '@/lib/presentation/timeline-navigation';
@@ -52,13 +54,7 @@ export function RepositoryInsightsScreen({
   const href = repositoryTimelineEntry(
     scope,
     filters,
-    path +
-      '?' +
-      writeTableQuery(search, key, {
-        ...controller.query,
-        search: controller.draftSearch,
-        page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
-      }),
+    path + '?' + writeTableQuery(search, key, pendingTableQuery(controller)),
   );
   return (
     <RepositoryInsightsView
@@ -66,18 +62,17 @@ export function RepositoryInsightsScreen({
       navigation={navigation}
       controller={controller}
       timelineHref={href}
-      onTimeline={(event) => {
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-          return;
-        event.preventDefault();
-        const captured = controller.flushSearch(),
-          origin = path + '?' + writeTableQuery(window.location.search, key, captured),
-          next = repositoryTimelineEntry(scope, filters, origin);
-        if (next) {
-          window.history.replaceState(null, '', origin);
-          router.push(next);
-        }
-      }}
+      onTimeline={(event) =>
+        followCaptured(
+          event,
+          () => {
+            const origin =
+              path + '?' + writeTableQuery(window.location.search, key, controller.flushSearch());
+            return { origin, href: repositoryTimelineEntry(scope, filters, origin) };
+          },
+          (href) => router.push(href),
+        )
+      }
     />
   );
 }

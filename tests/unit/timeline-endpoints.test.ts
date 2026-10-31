@@ -97,6 +97,33 @@ it('keeps matrix returns pinned to the same repository, source and range', async
   expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
   url.searchParams.set('timelineParent', '/contributors');
   expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+  // Each matrix consistency check: a valid parent that differs only in one pinned field.
+  for (const changed of [
+    '&timeline.group=week',
+    '&period=custom&from=2026-02-01&through=2026-10-24',
+    '&sample=mixed',
+    '&timeline.gap=1',
+    '&timeline.metric=prsMerged&timeline.rank=prsMerged',
+  ]) {
+    expect((await loadTimelineReport(href + changed)).status).toBe('ready');
+    url.searchParams.set('timelineParent', href + changed);
+    expect([changed, (await loadTimelineSupport(url.pathname, url.searchParams)).status]).toEqual([
+      changed,
+      'invalid',
+    ]);
+  }
+  url.searchParams.set('timelineParent', href);
+  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('ready');
+});
+it('rejects inherited property names as contribution support metrics', async () => {
+  const url = new URL(
+    await support('/contributors?timeline=1', 'prsAuthored'),
+    'https://example.test',
+  );
+  for (const name of ['constructor', '__proto__', 'hasOwnProperty']) {
+    url.searchParams.set('timeline.detail', name);
+    expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+  }
 });
 it('keeps comments and merged-volume details inside exact period and population filters', async () => {
   const parent =
@@ -125,6 +152,9 @@ it('rejects stale, missing and malformed detail scopes instead of substituting c
     ['timeline.clock', '2025-10-24T12:00:00.000Z'],
     ['timeline.interval', 'absent'],
     ['timeline.detail', 'notAMetric'],
+    ['timeline.detail', 'constructor'],
+    ['timeline.detail', '__proto__'],
+    ['timeline.detail', 'toString'],
     ['support.records.q', 'a'.repeat(8000)],
   ]) {
     const params = new URLSearchParams(url.search);

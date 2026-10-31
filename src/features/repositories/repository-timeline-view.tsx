@@ -8,6 +8,7 @@ import { TimelineTable } from '@/components/reporting/timeline-table';
 import { TimelineScope } from '@/components/reporting/timeline-scope';
 import { TimelineChart } from '@/components/charts/timeline-chart';
 import { RepositoryHeader } from './repository-header';
+import { repositoryTimelineReturnTo } from '@/lib/presentation/timeline-navigation';
 import { repositoryTimelineMetricDefinitions } from './repository-timeline-columns';
 import styles from '@/components/reporting/timeline-layout.module.css';
 import type { TimelineTableControls } from '@/components/reporting/timeline-table';
@@ -38,7 +39,7 @@ export function RepositoryTimelineView({
       <RepositoryHeader
         repository={report.scope.repository}
         asOf={report.source.asOf}
-        returnTo="/repos"
+        returnTo={repositoryTimelineReturnTo(parent)}
         navigation={navigation}
         activeKind="timeline"
         timelineHref={href}

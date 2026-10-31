@@ -28,6 +28,18 @@ const ownedParameters = [
   'age',
   'change',
 ];
+/** Only the parameters the Summary page reads; anything else is dropped from saved return links. */
+export function overviewSummarySearch(search: string): string {
+  const params = new URLSearchParams(search),
+    result = new URLSearchParams();
+  for (const [key, value] of params)
+    if (
+      ownedParameters.includes(key) ||
+      /^(backlog|activity)\.(q|sort|dir|page|columns)$/.test(key)
+    )
+      result.append(key, value);
+  return result.toString();
+}
 const previousSettingsSchema = overviewSettingsSchema
   .omit({ periods: true })
   .extend({ period: periodSelectionSchema, showChange: z.boolean() })

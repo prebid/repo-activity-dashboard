@@ -63,6 +63,8 @@ export interface DataTableProps<T> {
   itemLabel?: CountLabels;
   showSinglePageControls?: boolean;
   searchable?: boolean;
+  /** Longest search a URL codec for this table accepts. */
+  searchMaxLength?: number;
   pageSize?: number;
 }
 export function DataTable<T extends { id: string }>({
@@ -89,6 +91,7 @@ export function DataTable<T extends { id: string }>({
   itemLabel = { singular: 'item', plural: 'items' },
   showSinglePageControls = true,
   searchable = true,
+  searchMaxLength,
   pageSize = tablePageSize,
 }: DataTableProps<T>) {
   const ready = useClientReady();
@@ -264,6 +267,7 @@ export function DataTable<T extends { id: string }>({
               aria-label={'Search ' + title}
               placeholder="Find in table…"
               className={styles.search}
+              maxLength={searchMaxLength}
               value={controller.draftSearch}
               onChange={(event) => controller.setSearch(event.target.value)}
               onKeyDown={(event) => {

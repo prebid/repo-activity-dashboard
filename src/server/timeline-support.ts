@@ -42,7 +42,9 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
     report.source.asOf !== query.clock
   )
     return unavailable();
-  const measurement = (interval.values as Partial<Record<string, Measurement>>)[query.metric];
+  const values = interval.values as Partial<Record<string, Measurement>>;
+  // Only the report's own metrics; inherited names such as `constructor` are not metrics.
+  const measurement = Object.hasOwn(values, query.metric) ? values[query.metric] : undefined;
   if (!measurement || measurement.value === null) return unavailable();
   let back = parentHref;
   if (query.origin === 'matrix') {

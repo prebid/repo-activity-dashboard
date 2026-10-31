@@ -1,4 +1,6 @@
 'use client';
+import { followCaptured } from '@/lib/navigation/follow-captured';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import { useMemo, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import type { TimelineSupport } from '@/models/timeline-support';
@@ -66,7 +68,14 @@ export function TimelineSupportScreen({
   const table = useTableController({
     queryKey: key,
     columnIds: ids,
-    scopeKey: 'timeline-support:' + detail.context.source.scenarioId + ':' + detail.kind,
+    // Repository supporting tables keep sorts per repository and record kind, like record lists.
+    scopeKey:
+      'timeline-support:' +
+      detail.context.source.scenarioId +
+      ':' +
+      (detail.kind === 'contribution'
+        ? detail.kind
+        : [detail.kind, detail.repository.id, detail.recordKind].join(':')),
     viewerId,
     historyMode: 'push',
     defaultSort: {
@@ -85,13 +94,7 @@ export function TimelineSupportScreen({
   function snapshot(input: string, query: TableQuery) {
     return path + '?' + writeTableColumns(writeTableQuery(input, key, query), key, visible, ids);
   }
-  const href = pending
-    ? detail.context.href
-    : snapshot(search, {
-        ...table.query,
-        search: table.draftSearch,
-        page: table.draftSearch === table.query.search ? table.query.page : 1,
-      });
+  const href = pending ? detail.context.href : snapshot(search, pendingTableQuery(table));
   const visibility = {
     value: visible,
     onChange: (value: Record<string, boolean>) => {
@@ -141,26 +144,23 @@ export function TimelineSupportScreen({
           disabled={pending}
           authorHref={(account) => (pending ? null : timelineAuthorHref(href, account))}
           onAuthor={(event) => {
-            if (
-              pending ||
-              event.button !== 0 ||
-              event.metaKey ||
-              event.ctrlKey ||
-              event.altKey ||
-              event.shiftKey
-            )
-              return;
-            event.preventDefault();
-            const account = new URL(event.currentTarget.href).searchParams.get('support.author'),
-              frozen = snapshot(window.location.search, table.flushSearch()),
-              next = timelineAuthorHref(frozen, account);
-            if (next && contributionUrlFits(frozen)) {
-              window.history.replaceState(null, '', frozen);
-              router.push(next);
-            } else
-              setNotice(
-                'This selection is too large for a detail link. Narrow the Timeline filters and try again.',
-              );
+            if (pending) return;
+            const account = new URL(event.currentTarget.href).searchParams.get('support.author');
+            followCaptured(
+              event,
+              () => {
+                const frozen = snapshot(window.location.search, table.flushSearch());
+                return {
+                  origin: frozen,
+                  href: contributionUrlFits(frozen) ? timelineAuthorHref(frozen, account) : null,
+                };
+              },
+              (href) => router.push(href),
+              () =>
+                setNotice(
+                  'This selection is too large for a detail link. Narrow the Timeline filters and try again.',
+                ),
+            );
           }}
         />
       )}

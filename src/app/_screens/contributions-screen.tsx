@@ -1,4 +1,5 @@
 'use client';
+import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
@@ -79,12 +80,14 @@ export function ContributionsScreen({
     options,
   );
   function navigate(event: MouseEvent<HTMLAnchorElement>, destination: () => string | null) {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-      return;
-    event.preventDefault();
-    controls.freezeReturn();
-    const href = destination();
-    if (href) router.push(href);
+    followCaptured(
+      event,
+      () => {
+        controls.freezeReturn();
+        return { href: destination() };
+      },
+      (href) => router.push(href),
+    );
   }
   return (
     <ContributionContent

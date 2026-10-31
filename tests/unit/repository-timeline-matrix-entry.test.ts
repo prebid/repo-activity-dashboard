@@ -37,7 +37,14 @@ it('bounds the complete entry URL rather than accepting an oversized nested snap
       '/repos',
     ),
   ).toBeNull();
-  expect(
-    repositoryMatrixEntryHref(['repo-a'], '/repos?q=' + encodeURIComponent(' '.repeat(2400))),
-  ).toBeNull();
+});
+it('keeps only the Summary parameters, so nested child links stay within the link budget', () => {
+  const padded = repositoryMatrixEntryHref(
+    ['repo-a'],
+    '/repos?period=last-month&utm_source=' + encodeURIComponent(' '.repeat(2400)),
+  )!;
+  expect(new URL(padded, 'https://example.test').searchParams.get('summary')).toBe(
+    '/repos?period=last-month',
+  );
+  expect(repositoryMatrixEntryHref(['repo-a'], '/repos?q=x')).toBe('/repos?timeline=1&repo=repo-a');
 });

@@ -1,7 +1,14 @@
 import { safeReturnPath } from './navigation';
-import { contributionUrlFits, withContributionReturn } from './contribution-return';
-import { writeContributionSettings } from './contribution-settings';
-import type { ContributionSettings } from '@/models/contribution-settings';
+import {
+  contributionReturnHref,
+  contributionUrlFits,
+  withContributionReturn,
+} from './contribution-return';
+import { readContributionScopeInput, writeContributionSettings } from './contribution-settings';
+import type {
+  ContributionControlDirectory,
+  ContributionSettings,
+} from '@/models/contribution-settings';
 import type { RepositoryPageSource, RepositoryPageFilters } from '@/models/repository-page';
 import { writeRepositoryFilters } from './repository-page-query';
 import { currentReviewFilterKeys, withoutCurrentReviewFilters } from './repository-page-rules';
@@ -10,7 +17,7 @@ import { writeTimelineView } from './timeline-controls';
 import { writeTableQuery } from './table-query';
 import { writeTableColumns } from './table-column-preferences';
 import type { TableQuery } from '@/models/table-query';
-import type { RepositoryDrilldown } from '@/models/repository-drilldown';
+import { overviewReturnPathSchema, type RepositoryDrilldown } from '@/models/repository-drilldown';
 import {
   repositoryTimelineFamilyMetrics,
   repositoryTimelineMetricSchema,
@@ -34,9 +41,49 @@ export function repositoryTimelineOrigin(
     ),
   );
   params.set(source.kind + '.charts', charts ? '1' : '0');
-  return '/repos/' + encodeURIComponent(source.repository.slug) + '?' + params.toString();
+  // Author record lists keep their own path, so Back and the parent link return to that list.
+  return (
+    '/repos/' +
+    encodeURIComponent(source.repository.slug) +
+    (source.author ? '/authors/' + encodeURIComponent(source.author.account) : '') +
+    '?' +
+    params.toString()
+  );
 }
 
+/**
+ * The Over time Report tab: the entry list's path and presentation (search, ranking, page), with
+ * the current Over time population and period. List pages restart when that scope changed.
+ */
+export function contributionTimelineReportHref(
+  params: URLSearchParams,
+  path: string,
+  settings: ContributionSettings,
+  directory: ContributionControlDirectory,
+  asOf: string,
+): string {
+  const fallback = new URLSearchParams(params);
+  for (const key of [...fallback.keys()])
+    if (key === 'timeline' || key.startsWith('timeline.')) fallback.delete(key);
+  const fallbackHref = path + '?' + writeContributionSettings(fallback.toString(), settings);
+  const restored = new URL(
+    contributionReturnHref(params, fallbackHref),
+    'https://dashboard.invalid',
+  );
+  const previous = readContributionScopeInput(restored.searchParams, directory, asOf);
+  const changed =
+    !previous?.period ||
+    // The entry URL is unvalidated; only its serialized scope is compared.
+    writeContributionSettings('', {
+      ...previous,
+      period: previous.period,
+    } as ContributionSettings) !== writeContributionSettings('', settings);
+  const href =
+    restored.pathname +
+    '?' +
+    writeContributionSettings(restored.searchParams.toString(), settings, changed);
+  return contributionUrlFits(href) ? href : fallbackHref;
+}
 export function contributionTimelineEntry(
   href: string,
   settings: ContributionSettings,
@@ -47,12 +94,26 @@ export function contributionTimelineEntry(
   params.set('timeline', '1');
   return withContributionReturn(url.pathname + '?' + params.toString(), href);
 }
+/** The All Repositories origin a repository Timeline returns to, carried by its parent page. */
+export function repositoryTimelineReturnTo(parent: string | null | undefined): string {
+  if (!parent) return '/repos';
+  const url = new URL(parent, 'https://dashboard.invalid');
+  const origin = url.pathname === '/repos' ? parent : url.searchParams.get('returnTo');
+  return overviewReturnPathSchema.safeParse(origin).success ? origin! : '/repos';
+}
 export function safeTimelineParent(value: string | null, path: string): string | null {
   if (!value) return null;
   if (!contributionUrlFits(value) || safeReturnPath(value) !== value) return null;
   const url = new URL(value, 'https://dashboard.invalid');
   if (url.searchParams.has('timelineParent')) return null;
-  return url.pathname === '/repos' || url.pathname === path ? value : null;
+  const author = url.pathname.startsWith(path + '/authors/')
+    ? url.pathname.slice(path.length + '/authors/'.length)
+    : null;
+  return url.pathname === '/repos' ||
+    url.pathname === path ||
+    (author !== null && author !== '' && !author.includes('/'))
+    ? value
+    : null;
 }
 export function repositoryTimelineEntry(
   source: Pick<RepositoryPageSource, 'repository' | 'kind' | 'author'> & {

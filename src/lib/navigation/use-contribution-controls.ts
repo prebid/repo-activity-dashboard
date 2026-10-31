@@ -1,4 +1,5 @@
 'use client';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { ContributionOptions } from '@/models/contribution-options';
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -250,11 +251,7 @@ export function useContributionControls(
       recordStorage(preferenceKey, false);
     }
   }
-  const renderedQuery = {
-    ...table.query,
-    search: table.draftSearch,
-    page: table.draftSearch === table.query.search ? table.query.page : 1,
-  };
+  const renderedQuery = pendingTableQuery(table);
   function proposal() {
     const url = new URL(window.location.href);
     url.search = snapshot(url.search, renderedQuery);

@@ -1,4 +1,5 @@
 'use client';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
@@ -175,11 +176,12 @@ export function RepositoryInsightsView({
           title={title}
           rows={insight.rows}
           columns={authorColumns(insight.recordKind, (account) =>
-            repositoryAuthorRecordsHref(insight.repository, insight.drilldown, account, {
-              ...controller.query,
-              search: controller.draftSearch,
-              page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
-            }),
+            repositoryAuthorRecordsHref(
+              insight.repository,
+              insight.drilldown,
+              account,
+              pendingTableQuery(controller),
+            ),
           )}
           controller={controller}
           itemLabel={{ singular: 'author', plural: 'authors' }}

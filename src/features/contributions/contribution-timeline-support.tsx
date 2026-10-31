@@ -1,4 +1,6 @@
 'use client';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
+import { timelineSupportValueLimit } from '@/lib/presentation/timeline-support-query';
 import type { TimelineSupport } from '@/models/timeline-support';
 import { DataTable } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
@@ -19,13 +21,10 @@ export function ContributionTimelineSupportView({
   disabled: boolean;
 }) {
   const columns = contributionDetailColumns(detail.details),
-    query = {
-      ...controller.query,
-      search: controller.draftSearch,
-      page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
-    };
+    query = pendingTableQuery(controller);
   return (
     <DataTable
+      searchMaxLength={timelineSupportValueLimit}
       title="Supporting contributions"
       rows={detail.details.rows}
       columns={columns}

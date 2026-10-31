@@ -1,4 +1,6 @@
 'use client';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
+import { timelineSupportValueLimit } from '@/lib/presentation/timeline-support-query';
 import Link from 'next/link';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
@@ -103,15 +105,12 @@ export function RepositoryTimelineSupportView({
   authorHref: (account: string) => string | null;
   onAuthor: React.MouseEventHandler<HTMLAnchorElement>;
 }) {
-  const query = {
-    ...controller.query,
-    search: controller.draftSearch,
-    page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
-  };
+  const query = pendingTableQuery(controller);
   if (detail.kind === 'authors') {
     const columns = timelineAuthorColumns(authorHref, onAuthor);
     return (
       <DataTable
+        searchMaxLength={timelineSupportValueLimit}
         title="Unique authors"
         rows={detail.rows}
         columns={columns}
@@ -140,6 +139,7 @@ export function RepositoryTimelineSupportView({
   return (
     <div className={pageStyles.records}>
       <DataTable
+        searchMaxLength={timelineSupportValueLimit}
         title={
           detail.author
             ? 'Records by @' + detail.author

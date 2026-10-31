@@ -28,3 +28,11 @@ export function canonicalRoutePath(path: string): string {
     })
     .join('/');
 }
+/** Route params arrive percent-encoded; decode each segment once into its logical identity. */
+export function decodeRouteSegment(segment: string): string | null {
+  try {
+    return decodeURIComponent(segment);
+  } catch {
+    return null;
+  }
+}

@@ -17,13 +17,9 @@ import { selectContributionTimeline } from '@/lib/presentation/contribution-time
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import {
   readContributionSettings,
-  writeContributionSettings,
   contributionScopeKeys,
 } from '@/lib/presentation/contribution-settings';
-import {
-  contributionUrlFits,
-  contributionReturnHref,
-} from '@/lib/presentation/contribution-return';
+import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
 import {
   selectRepositoryTimelineMatrix,
@@ -36,7 +32,10 @@ import {
   timelineViewKeys,
   validateTimelineScope,
 } from '@/lib/presentation/timeline-controls';
-import { safeTimelineParent } from '@/lib/presentation/timeline-navigation';
+import {
+  contributionTimelineReportHref,
+  safeTimelineParent,
+} from '@/lib/presentation/timeline-navigation';
 import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 import {
   repositoryTimelineMetricScope,
@@ -165,16 +164,16 @@ export async function contributionTimelinePreview(
       !sample.contributions.companies.some((row) => row.id === focus.companyId))
   )
     notFound();
-  const fallback = new URLSearchParams(params);
-  for (const key of [...fallback.keys()])
-    if (key === 'timeline' || key.startsWith('timeline.')) fallback.delete(key);
   return {
     status: 'ready' as const,
     viewerId: viewer.id,
     report: selectContributionTimeline(sample, parsed.request, settings.selection, focus),
-    reportHref: contributionReturnHref(
+    reportHref: contributionTimelineReportHref(
       params,
-      path + '?' + writeContributionSettings(fallback.toString(), settings),
+      path,
+      settings,
+      sample.contributions,
+      sample.contributions.asOf,
     ),
     href: path + '?' + params.toString(),
     controls: {

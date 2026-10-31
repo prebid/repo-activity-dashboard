@@ -17,12 +17,13 @@ export function timelineParentQuery(params: URLSearchParams) {
     if (fields.includes(key) || key.startsWith('support.')) next.delete(key);
   return next;
 }
+export const timelineSupportValueLimit = 200;
 export function readTimelineSupportQuery(params: URLSearchParams) {
   for (const key of params.keys())
     if (/^support\.(authors|records)\./.test(key)) {
       const values = params.getAll(key);
       if (
-        values.some((value) => value.length > 200) ||
+        values.some((value) => value.length > timelineSupportValueLimit) ||
         (!key.endsWith('.columns') && values.length !== 1)
       )
         return null;

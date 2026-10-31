@@ -1,4 +1,5 @@
-import { canonicalRoutePath } from '@/lib/presentation/navigation';
+import { canonicalRoutePath, decodeRouteSegment } from '@/lib/presentation/navigation';
+import { companyFocus } from '@/lib/presentation/contribution-navigation';
 import { timelineSupportScopeKey } from '@/lib/presentation/timeline-support-query';
 import { expect, it } from 'vitest';
 import {
@@ -16,6 +17,8 @@ import {
 } from '@/lib/presentation/timeline-controls';
 import {
   contributionTimelineEntry,
+  contributionTimelineReportHref,
+  repositoryTimelineReturnTo,
   repositoryTimelineEntry,
   repositoryTimelineOrigin,
   matrixRepositoryTimelineHref,
@@ -27,8 +30,13 @@ import {
 } from '@/lib/presentation/contribution-return';
 import { repositoryTimelineFamilyMetrics } from '@/models/repository-timeline';
 import { repositoryPageSample } from '@/mocks/repository-page';
+import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
-import { defaultContributionSettings } from '@/lib/presentation/contribution-settings';
+import {
+  defaultContributionSettings,
+  writeContributionSettings,
+} from '@/lib/presentation/contribution-settings';
+import { contributionSample } from '@/mocks/contributions';
 import { repositoryCatalog } from '@/config/repositories';
 import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
 const asOf = '2026-10-24T12:00:00.000Z';
@@ -577,4 +585,83 @@ it('treats equivalent route spellings as the loaded page', () => {
   expect(timelineSupportScopeKey('/repos/%70rebidjs?timeline=1&support.records.q=x')).toBe(
     timelineSupportScopeKey('/repos/prebidjs?timeline=1'),
   );
+});
+it('opens the Report tab with the current Over time scope and the list presentation from entry', () => {
+  const directory = contributionSample();
+  const entry = new URL(
+    contributionTimelineEntry(
+      '/contributors?scope=1&period=this-year&report.q=Alice&report.page=3',
+      defaultContributionSettings(directory),
+    )!,
+    'https://dashboard.invalid',
+  );
+  const narrowed = defaultContributionSettings(directory);
+  narrowed.selection.repositoryIds = ['repo-prebidjs'];
+  narrowed.period = { kind: 'preset', preset: 'last-month' };
+  const params = new URLSearchParams(writeContributionSettings(entry.search, narrowed));
+  const report = new URL(
+    contributionTimelineReportHref(params, '/contributors', narrowed, directory, asOf),
+    'https://dashboard.invalid',
+  );
+  expect(report.pathname).toBe('/contributors');
+  expect(report.searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(report.searchParams.get('period')).toBe('last-month');
+  expect(report.searchParams.get('report.q')).toBe('Alice');
+  expect(report.searchParams.has('report.page')).toBe(false);
+  const unchanged = new URL(
+    contributionTimelineReportHref(
+      new URLSearchParams(entry.search),
+      '/contributors',
+      defaultContributionSettings(directory),
+      directory,
+      asOf,
+    ),
+    'https://dashboard.invalid',
+  );
+  expect(unchanged.searchParams.get('report.page')).toBe('3');
+});
+it('returns a repository Timeline to the All Repositories state its parent carried', () => {
+  const summary = '/repos?period=last-month&activity.sort=prsMerged';
+  expect(
+    repositoryTimelineReturnTo('/repos/prebidjs?returnTo=' + encodeURIComponent(summary)),
+  ).toBe(summary);
+  expect(repositoryTimelineReturnTo('/repos?timeline=1&repo=repo-prebidjs')).toBe(
+    '/repos?timeline=1&repo=repo-prebidjs',
+  );
+  expect(repositoryTimelineReturnTo('/repos/prebidjs?returnTo=%2Fcontributors')).toBe('/repos');
+  expect(repositoryTimelineReturnTo('/repos/prebidjs')).toBe('/repos');
+  expect(repositoryTimelineReturnTo(null)).toBe('/repos');
+});
+it('keeps an author record list as the Timeline origin and parent', () => {
+  const list = repositoryPageSample(repositoryOverviewSamples().repositories[0].repository, {
+    selection: { scope: 'current', metric: 'totalOpenPrs' },
+    returnTo: '/repos',
+  });
+  const source = { ...list, author: { account: 'sample-alice', returnTo: '/repos' } };
+  const filters = { ...defaultRepositoryFilters('prs'), authors: ['sample-alice'] };
+  const origin = repositoryTimelineOrigin(
+    source,
+    filters,
+    'authors.sort=recordCount',
+    { search: '', sort: 'number', descending: true, page: 1 },
+    {},
+    [],
+    false,
+  );
+  const path = '/repos/' + source.repository.slug;
+  expect(new URL(origin, 'https://example.test').pathname).toBe(path + '/authors/sample-alice');
+  expect(safeTimelineParent(origin, path)).toBe(origin);
+  expect(safeTimelineParent(path + '/authors/a/b?x=1', path)).toBeNull();
+  expect(safeTimelineParent(path + '/authors/?x=1', path)).toBeNull();
+  const entry = new URL(repositoryTimelineEntry(source, filters, origin)!, 'https://example.test');
+  expect(entry.searchParams.get('timelineParent')).toBe(origin);
+});
+it('decodes route segments once into logical identities', () => {
+  expect(decodeRouteSegment('github%3A42')).toBe('github:42');
+  expect(decodeRouteSegment('Magnite%2C%20Inc.')).toBe('Magnite, Inc.');
+  expect(decodeRouteSegment('%E0%A4%A')).toBeNull();
+  expect(companyFocus(['id', decodeRouteSegment('a%40b')!])).toEqual({
+    kind: 'company',
+    companyId: 'a@b',
+  });
 });
