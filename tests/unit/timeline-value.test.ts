@@ -12,49 +12,31 @@ it('treats partial and missing values as incomplete', () => {
   expect(isIncompleteValue(known)).toBe(false);
   expect(isIncompleteValue({ status: 'not-applicable', value: null, reason: 'None.' })).toBe(false);
 });
-it('checks the longest link once and sweeps every cell only when it does not fit', () => {
+it('checks each row once at the longest interval and sweeps every cell only when one does not fit', () => {
   const rows = ['a', 'longest-metric'],
     intervals = ['week:1', 'week:22'];
   const fits = vi.fn(() => '/link');
-  expect(
-    hasUnlinkedValue(
-      rows,
-      intervals,
-      (row) => row,
-      () => known,
-      fits,
-    ),
-  ).toBe(false);
-  expect(fits).toHaveBeenCalledTimes(1);
-  expect(fits).toHaveBeenCalledWith('longest-metric', 'week:22');
+  expect(hasUnlinkedValue(rows, intervals, () => known, fits)).toBe(false);
+  expect(fits.mock.calls).toEqual([
+    ['a', 'week:22'],
+    ['longest-metric', 'week:22'],
+  ]);
   // Links over budget only for the longest metric: its known value is reported.
   const budget = (row: string) => (row === 'longest-metric' ? null : '/link');
-  expect(
-    hasUnlinkedValue(
-      rows,
-      intervals,
-      (row) => row,
-      () => known,
-      budget,
-    ),
-  ).toBe(true);
+  expect(hasUnlinkedValue(rows, intervals, () => known, budget)).toBe(true);
   // A value with nothing to open needs no link.
   expect(
-    hasUnlinkedValue(
-      rows,
-      intervals,
-      (row) => row,
-      (row) => (row === 'longest-metric' ? absent : known),
-      budget,
-    ),
+    hasUnlinkedValue(rows, intervals, (row) => (row === 'longest-metric' ? absent : known), budget),
   ).toBe(false);
-  expect(
-    hasUnlinkedValue(
-      [],
-      intervals,
-      (row) => row,
-      () => known,
-      budget,
-    ),
-  ).toBe(false);
+  expect(hasUnlinkedValue([], intervals, () => known, budget)).toBe(false);
+});
+it('finds an unlinked row whose key is shorter but whose link carries its longer part twice', () => {
+  // Matrix links carry the slug once and the metric twice, so the longest key is not the longest link.
+  const rows = [
+    { slug: 'a-very-long-repository-slug', metric: 'prs' },
+    { slug: 'js', metric: 'humanApprovalsMoreThan2' },
+  ];
+  const href = (row: (typeof rows)[number]) =>
+    row.slug.length + 2 * row.metric.length > 40 ? null : '/link';
+  expect(hasUnlinkedValue(rows, ['month:1'], () => known, href)).toBe(true);
 });

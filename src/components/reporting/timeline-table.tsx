@@ -126,7 +126,6 @@ export function TimelineTable({
     return hasUnlinkedValue(
       metrics,
       [...byInterval.keys()],
-      (metric) => metric.id,
       (metric, interval) => timelineMeasurement(byInterval.get(interval)!.values, metric.id),
       (metric, interval) => detailHref(metric.id, interval),
     );

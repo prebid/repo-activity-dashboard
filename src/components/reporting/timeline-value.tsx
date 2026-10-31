@@ -14,22 +14,21 @@ export function isIncompleteValue(measurement: Measurement): boolean {
   return measurement.status === 'partial' || measurement.status === 'missing';
 }
 /**
- * Whether a known value lost its supporting link to the URL budget. A link grows only with the
- * ids it carries, so the longest row and interval ids are tried once; the cell-by-cell check
- * runs only when that longest link does not fit.
+ * Whether a known value lost its supporting link to the URL budget. For one row, a link grows only
+ * with the interval id it carries, so each row is tried once at the longest interval; the cell-by-cell
+ * check runs only when one of those links does not fit. Rows are not compared by key length, since a
+ * link can carry one part of a row's identity more often than another.
  */
 export function hasUnlinkedValue<R>(
   rows: readonly R[],
   intervals: readonly string[],
-  rowKey: (row: R) => string,
   value: (row: R, interval: string) => Measurement,
   href: (row: R, interval: string) => string | null,
 ): boolean {
   if (!rows.length || !intervals.length) return false;
   const size = (id: string) => encodeURIComponent(id).length;
-  const row = rows.reduce((a, b) => (size(rowKey(b)) > size(rowKey(a)) ? b : a));
   const interval = intervals.reduce((a, b) => (size(b) > size(a) ? b : a));
-  if (href(row, interval) !== null) return false;
+  if (rows.every((row) => href(row, interval) !== null)) return false;
   return rows.some((row) =>
     intervals.some(
       (interval) => value(row, interval).value !== null && href(row, interval) === null,

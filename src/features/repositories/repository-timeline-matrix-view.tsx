@@ -235,7 +235,6 @@ function MatrixTable({
         hasUnlinkedValue(
           matrix.rows,
           periodWindow.intervals.map((interval) => interval.id),
-          (row) => row.repository.slug + row.metric,
           (row, interval) => row.values[intervalIndex.get(interval)!],
           (row, interval) => interactions.detailHref!(row, interval),
         )));
