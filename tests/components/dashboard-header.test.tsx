@@ -5,15 +5,32 @@ import { DashboardHeader } from '@/components/layout/dashboard-header';
 import { repositoryCatalog } from '@/config/repositories';
 
 vi.mock('next/image', () => ({ default: (props: { alt: string }) => <span>{props.alt}</span> }));
-function header(activePath: string) {
+function header(activePath: string, administration = false) {
   return render(
     <DashboardHeader
       repositories={repositoryCatalog}
       activePath={activePath}
-      accountControls={null}
+      administration={administration}
+      accountControls={<button type="button">Theme settings</button>}
     />,
   );
 }
+it('places Accounts beside the account controls for administrators only', () => {
+  const viewer = header('/repos');
+  expect(screen.queryByRole('link', { name: 'Accounts' })).not.toBeInTheDocument();
+  viewer.unmount();
+  header('/admin/users', true);
+  const main = screen.getByRole('navigation', { name: 'Main navigation' });
+  expect(within(main).queryByRole('link', { name: 'Accounts' })).not.toBeInTheDocument();
+  const administration = screen.getByRole('navigation', { name: 'Administration' });
+  const accounts = within(administration).getByRole('link', { name: 'Accounts' });
+  expect(accounts).toHaveAttribute('href', '/admin/users');
+  expect(accounts).toHaveAttribute('aria-current', 'page');
+  // Same group, immediately before the account controls.
+  expect(administration.nextElementSibling).toBe(
+    screen.getByRole('button', { name: 'Theme settings' }),
+  );
+});
 it('leads with Overview and marks only the active main-navigation destination', () => {
   const overview = header('/repos');
   const navigation = screen.getByRole('navigation', { name: 'Main navigation' });
@@ -38,6 +55,18 @@ it('leads with Overview and marks only the active main-navigation destination', 
     'data-active',
     'true',
   );
+});
+it.each([
+  ['/repos', 'false', false],
+  ['/contributors', 'true', true],
+  ['/contributors/account-alice', 'true', false],
+  ['/companies', 'true', false],
+])('marks Contributions on %s as active=%s, current=%s', (path, active, current) => {
+  header(path);
+  const contributions = screen.getByRole('link', { name: 'Contributions' });
+  expect(contributions).toHaveAttribute('data-active', active);
+  if (current) expect(contributions).toHaveAttribute('aria-current', 'page');
+  else expect(contributions).not.toHaveAttribute('aria-current');
 });
 it('lists exactly the enabled repositories in the Repositories menu', async () => {
   header('/repos');

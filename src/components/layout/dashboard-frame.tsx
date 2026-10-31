@@ -1,5 +1,7 @@
 'use client';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
+import type { LayoutWidth } from '@/lib/presentation/layout-width';
+import { LayoutWidthContext } from './layout-width';
 import styles from './dashboard.module.css';
 
 // Resolve streamed slots in component fibers, not while a DOM element hydrates.
@@ -12,24 +14,29 @@ function StreamedSlot({ children }: { children: ReactNode }) {
 export function DashboardFrame({
   navigation,
   children,
+  layoutWidth = 'wide',
 }: {
   navigation: ReactNode;
   children: ReactNode;
+  layoutWidth?: LayoutWidth;
 }) {
+  const [width, setWidth] = useState(layoutWidth);
   return (
-    <div className={styles.surface}>
-      <a className={styles.skipLink} href="#dashboard-content">
-        Skip to content
-      </a>
-      <StreamedSlot>{navigation}</StreamedSlot>
-      <aside aria-label="Data source" className={styles.source}>
-        <span className={styles.sampleDot} aria-hidden="true" />
-        Sample reporting data{' '}
-        <span className={styles.sourceDetail}>· Prepared for design review</span>
-      </aside>
-      <main id="dashboard-content" className={styles.main}>
-        <StreamedSlot>{children}</StreamedSlot>
-      </main>
-    </div>
+    <LayoutWidthContext value={{ width, setWidth }}>
+      <div className={styles.surface} data-layout-width={width}>
+        <a className={styles.skipLink} href="#dashboard-content">
+          Skip to content
+        </a>
+        <StreamedSlot>{navigation}</StreamedSlot>
+        <aside aria-label="Data source" className={styles.source}>
+          <span className={styles.sampleDot} aria-hidden="true" />
+          Sample reporting data{' '}
+          <span className={styles.sourceDetail}>· Prepared for design review</span>
+        </aside>
+        <main id="dashboard-content" className={styles.main}>
+          <StreamedSlot>{children}</StreamedSlot>
+        </main>
+      </div>
+    </LayoutWidthContext>
   );
 }

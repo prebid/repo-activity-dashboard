@@ -17,10 +17,14 @@
   --input: var(--prebid-input-border);
   --ring: var(--prebid-ring);
   /* Fluid width: the gutter grows with the viewport so wide monitors use their edges. */
-  --dashboard-gutter: clamp(32px, 2.5vw, 64px);
+  --dashboard-gutter-scale: 1;
+  --dashboard-gutter: calc(var(--dashboard-gutter-scale) * clamp(32px, 2.5vw, 64px));
   min-height: 100svh;
   color: var(--foreground);
   background: var(--background);
+}
+.surface[data-layout-width='contained'] {
+  --dashboard-gutter-scale: 3;
 }
 .header {
   background: var(--card);
@@ -84,10 +88,15 @@
 }
 .account {
   margin-left: auto;
+  align-self: stretch;
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 0;
+}
+.administration {
+  display: flex;
+  align-self: stretch;
 }
 .accountName {
   color: var(--muted-foreground);
@@ -152,6 +161,10 @@
   }
   .accountName {
     max-width: 110px;
+  }
+  /* Both widths share one gutter here, so the switch would do nothing. */
+  .surface .widthToggle {
+    display: none;
   }
   .main {
     padding: 20px var(--dashboard-gutter) 40px;

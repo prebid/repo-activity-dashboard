@@ -5,6 +5,7 @@ import { useLocalTableController } from '../src/components/tables/local-data-tab
 import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { ThemeMenu } from '../src/components/layout/theme-menu';
+import { LayoutWidthToggle } from '../src/components/layout/layout-width';
 import { PageState } from '../src/components/feedback/page-state';
 import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
 import type { OverviewSettings } from '../src/models/overview-settings';
@@ -25,9 +26,11 @@ const defaultsForPreview = defaultOverviewSettings(definition);
 function OverviewPreview({
   twoPeriods = false,
   state = 'normal',
+  administration = false,
 }: {
   twoPeriods?: boolean;
   state?: 'normal' | 'empty' | 'loading' | 'error';
+  administration?: boolean;
 }) {
   const backlog = useLocalTableController();
   const activity = useLocalTableController();
@@ -45,7 +48,13 @@ function OverviewPreview({
         <DashboardHeader
           repositories={repositoryCatalog}
           activePath="/repos"
-          accountControls={<ThemeMenu />}
+          administration={administration}
+          accountControls={
+            <>
+              <LayoutWidthToggle />
+              <ThemeMenu />
+            </>
+          }
         />
       }
     >
@@ -88,6 +97,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Overview: Story = {};
 export const TwoPeriods: Story = { args: { twoPeriods: true } };
+export const Administration: Story = { args: { administration: true } };
 export const Empty: Story = { args: { state: 'empty' } };
 export const Loading: Story = { args: { state: 'loading' } };
 export const Error: Story = { args: { state: 'error' } };

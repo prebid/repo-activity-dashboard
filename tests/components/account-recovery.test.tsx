@@ -1,6 +1,7 @@
 import { beforeEach, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AdminUsersView from '@/features/administration/users-view';
+import { DashboardFrame } from '@/components/layout/dashboard-frame';
 import { Toolbar } from '@/components/layout/toolbar';
 import { LoginView } from '@/features/authentication/login-view';
 import { PageError } from '@/components/feedback/page-error';
@@ -25,8 +26,22 @@ const viewer = {
   authVersion: 1,
 };
 it('does not report a failed sign-out as success', async () => {
+  mocks.signOut.mockResolvedValue({});
+  render(
+    <DashboardFrame navigation={<Toolbar viewer={viewer} repositories={[]} />}>
+      {null}
+    </DashboardFrame>,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Sign out' }));
+  await screen.findByText('Sign-out could not be confirmed. Please try again.');
+  expect(mocks.replace).not.toHaveBeenCalled();
+  cleanup();
   mocks.signOut.mockResolvedValue({ url: 'http://localhost/auth/login?error=MissingCSRF' });
-  render(<Toolbar viewer={viewer} repositories={[]} />);
+  render(
+    <DashboardFrame navigation={<Toolbar viewer={viewer} repositories={[]} />}>
+      {null}
+    </DashboardFrame>,
+  );
   fireEvent.click(screen.getByRole('button', { name: 'Sign out' }));
   await screen.findByText('Sign-out could not be confirmed. Please try again.');
   expect(mocks.replace).not.toHaveBeenCalled();
