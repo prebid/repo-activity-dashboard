@@ -671,8 +671,14 @@ it('starts explicit-state links without a restoration gate', () => {
     '',
     '/repos/prebidjs?timeline=1&timeline.state=1&period=this-year&timeline.group=month',
   );
-  const { result } = renderHook(() => useControls('repository'));
-  expect(result.current.pending).toBe(false);
+  // The first render is what the server sends; effects have not run yet.
+  const pending: boolean[] = [];
+  renderHook(() => {
+    const controls = useControls('repository');
+    pending.push(controls.pending);
+    return controls;
+  });
+  expect(pending[0]).toBe(false);
 });
 it('resets matrix ordering to ascending names on grouping changes and the row page on rank changes', async () => {
   window.history.replaceState(
