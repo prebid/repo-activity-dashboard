@@ -10,7 +10,12 @@ import type {
 import { matchesCurrentPr, recordListKind } from '@/lib/presentation/repository-records';
 import { overviewBacklogs } from './overview-backlog';
 import { periodCount, periodIssues, periodPullRequests } from './repository-activity';
-import { worldRepository, type WorldIssue, type WorldPullRequest } from './repository-world';
+import {
+  byText,
+  worldRepository,
+  type WorldIssue,
+  type WorldPullRequest,
+} from './repository-world';
 import { overviewAsOf } from './sample-clock';
 
 const day = 86_400_000;
@@ -19,7 +24,7 @@ const ageDays = (createdAt: string) =>
 const newestFirst = (
   a: { createdAt: string; number: number },
   b: { createdAt: string; number: number },
-) => b.createdAt.localeCompare(a.createdAt) || b.number - a.number;
+) => byText(b.createdAt, a.createdAt) || b.number - a.number;
 function pullRequestRow(row: WorldPullRequest): RepositoryPullRequest {
   return {
     id: row.id,

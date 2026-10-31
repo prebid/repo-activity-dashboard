@@ -17,6 +17,8 @@ import { overviewAsOf } from './sample-clock';
 const day = 86_400_000;
 export const sampleHistoryStart = '2024-01-01T00:00:00.000Z';
 const iso = (milliseconds: number) => new Date(milliseconds).toISOString();
+/** Code-unit order for ISO instants, independent of locale collation. */
+export const byText = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 const asOfMs = Date.parse(overviewAsOf);
 // Divisors of the busiest repository's volume; 'empty' repositories have no records at all.
 const sampleSizes: Record<string, number | 'empty'> = {
@@ -66,6 +68,7 @@ export interface WorldPullRequest extends WorldRecord {
   /** When an unmerged PR was closed; it is open at earlier cutoffs only. */
   closedAt: string | null;
   baseBranch: string;
+  /** Review events in date order, as credit dating and cutoff state read them. */
   reviews: WorldReview[];
   humanReviewers: number | null;
   approvals: number | null;
@@ -107,12 +110,21 @@ function random(seed: string) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-function lognormalDays(next: () => number, median: number) {
-  const gauss = Math.sqrt(-2 * Math.log(1 - next())) * Math.cos(2 * Math.PI * next());
-  return Math.max(0.05, median * Math.exp(0.9 * gauss));
+// Generation uses only exactly rounded arithmetic, so browser and server builds of the sample agree.
+// Quantiles of a log-normal duration (sigma 0.9) as multiples of its median.
+const durationQuantiles = [
+  0.16, 0.251, 0.322, 0.387, 0.45, 0.513, 0.577, 0.644, 0.714, 0.788, 0.868, 0.954, 1.048, 1.152,
+  1.268, 1.4, 1.553, 1.732, 1.949, 2.222, 2.583, 3.103, 3.978, 6.254,
+];
+function durationDays(next: () => number, median: number) {
+  const quantile = durationQuantiles[Math.floor(next() * durationQuantiles.length)];
+  return median * quantile * (0.9 + 0.2 * next());
 }
-function pick<T>(next: () => number, values: readonly T[], skew = 0.8): T {
-  const weights = values.map((_, index) => 1 / (index + 1) ** skew);
+function pick<T>(next: () => number, values: readonly T[]): T {
+  // Weights fall off as rank^-0.75, from square roots only.
+  const weights = values.map(
+    (_, index) => 1 / (Math.sqrt(index + 1) * Math.sqrt(Math.sqrt(index + 1))),
+  );
   let target = next() * weights.reduce((sum, weight) => sum + weight, 0);
   for (let index = 0; index < values.length; index++)
     if ((target -= weights[index]) <= 0) return values[index];
@@ -144,7 +156,12 @@ function reviewsFor(
   const from = Date.parse(createdAt),
     to = Math.max(from + 1, end);
   const reviews: WorldReview[] = [];
-  const people = [...humanReviewerPool].sort(() => next() - 0.5);
+  // Fisher-Yates draws a fixed number of values; a random comparator's draws depend on the engine's sort.
+  const people = [...humanReviewerPool];
+  for (let i = people.length - 1; i > 0; i--) {
+    const j = Math.floor(next() * (i + 1));
+    [people[i], people[j]] = [people[j], people[i]];
+  }
   for (let i = 0; i < (counts.humanReviewers ?? 0); i++)
     reviews.push({
       account: people[i],
@@ -179,7 +196,7 @@ function reviewsFor(
         dismissedAt: null,
       });
   }
-  return reviews.sort((a, b) => a.at.localeCompare(b.at));
+  return reviews.sort((a, b) => byText(a.at, b.at));
 }
 function url(slug: string, kind: 'pull' | 'issues', number: number) {
   return 'https://github.example/example-fixtures/' + slug + '/' + kind + '/' + number;
@@ -273,7 +290,8 @@ function storyRecords(repositoryId: string, scenario: WorldScenario) {
           record.number === 107 && credit.metric === 'approvalContributions'
             ? '2026-10-23T00:00:00.000Z'
             : null,
-      }));
+      }))
+      .sort((a, b) => byText(a.at, b.at));
     const human = (kind: WorldReview['kind']) =>
       reviews.filter((row) => row.actorType === 'human' && row.kind === kind && !row.dismissedAt);
     const merged = record.state === 'Merged';
@@ -331,7 +349,7 @@ function historyRecords(
       const number = 10_001 + index,
         closed = next() < 0.06,
         primary = next() < 0.94;
-      let end = created + lognormalDays(next, 6) * day;
+      let end = created + durationDays(next, 6) * day;
       if (end >= asOfMs - 3_600_000) end = created + (asOfMs - created) * (0.2 + 0.7 * next());
       const author = authorFrom(prAuthors);
       const reviewers = [0, 1, 1, 2, 2, 3][Math.floor(next() * 6)],
@@ -378,7 +396,7 @@ function historyRecords(
     .sort((a, b) => a - b)
     .map((created, index): WorldIssue => {
       const number = 60_001 + index;
-      let end = created + lognormalDays(next, 10) * day;
+      let end = created + durationDays(next, 10) * day;
       if (end >= asOfMs - 3_600_000) end = created + (asOfMs - created) * (0.2 + 0.7 * next());
       const author = authorFrom(issueAuthors);
       const authorType = sampleAuthorType(author);
@@ -455,7 +473,7 @@ export function repositoryWorld(scenario: WorldScenario = 'reference', gap = fal
       scenario === 'empty' || (scenario === 'mixed' && repo.id === 'repo-prebidserverjava');
     if (scenario === 'mixed' && repo.id === 'repo-prebidserverjava') availability = [];
     const byCreated = <T extends { createdAt: string; number: number }>(rows: T[]) =>
-      rows.sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.number - b.number);
+      rows.sort((a, b) => byText(a.createdAt, b.createdAt) || a.number - b.number);
     result.set(repo.id, {
       id: repo.id,
       slug: repo.slug,
