@@ -85,7 +85,7 @@ it('runs the packaged production artifact with current sessions and protected ac
       ['/contributors?timeline=1', 'Contributions over time'],
       ['/companies?timeline=1', 'Contributions over time'],
       [
-        '/repos/prebidjs?timeline=1&timeline.detail=prsOpened&timeline.interval=month%3A2026-10-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z',
+        '/repos/prebidjs?timeline=1&timeline.detail=prsOpened&timeline.interval=month%3A2026-10-01T00%3A00%3A00.000Z&timeline.revision=repositories-reference-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z',
         'Supporting pull requests',
       ],
       ['/contributors', 'Alice'],
@@ -124,7 +124,7 @@ it('runs the packaged production artifact with current sessions and protected ac
       ],
       [
         '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
-        'sample-author-24',
+        'sample-bob',
       ],
       [
         '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-10-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
@@ -158,7 +158,7 @@ it('runs the packaged production artifact with current sessions and protected ac
     }
     const timelineBody = JSON.stringify({
       href: '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=medianMergeDays',
-      revision: 'contributions-reference-v2',
+      revision: 'repositories-reference-v1',
       asOf: '2026-10-24T12:00:00.000Z',
       columns: ['period', 'repository', 'prsOpened', 'medianMergeDays'],
     });
