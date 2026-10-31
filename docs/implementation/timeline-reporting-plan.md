@@ -96,7 +96,7 @@ Initial safety bound: **500 intervals per request**, checked before generating i
 
 ## Prepared sample and verification design
 
-Current repository period samples are prepared independently for a requested range. Do not call that generator separately for every interval: independently invented subranges cannot establish whole-range reconciliation. Timeline samples need a bounded, coherent set of prepared dated records/credits or supplied series that all groupings and their details share.
+Repository samples come from one dated record set per repository (`src/mocks/repository-world.ts`): Summary activity, period record lists, supporting details and the repository Timeline count the same records, and `tests/unit/repository-sample-parity.test.ts` checks that they agree. Do not generate a sample separately for every interval: independently invented subranges cannot establish whole-range reconciliation.
 
 Reuse established contribution identities and fixed first-credit facts where they fit. Project the validated sample into the requested interval/report shape; do not validate and calculate the entire report once per interval or materialize account × repository × interval collections. Supplied snapshots and derived summaries remain explicit facts. Expand supporting record metadata only for a selected detail route or export that actually needs it. Unsupported sample periods/filter combinations retain their requested scope and show coverage gaps, not values borrowed from another sample.
 
