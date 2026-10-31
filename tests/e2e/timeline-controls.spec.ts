@@ -180,6 +180,8 @@ test('contribution entry keeps list search on return and filters before 50-row t
     'Alice',
   );
   expect(new URL(page.url()).searchParams.get('period')).toBe('this-year');
+  // The Report tab carries the population narrowed on Over time, not the entry snapshot.
+  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
   await page.goto('/companies?timeline=1&scope=1&period=this-year');
   await ready(page);
   await page.getByRole('button', { name: 'All accounts', exact: true }).click();

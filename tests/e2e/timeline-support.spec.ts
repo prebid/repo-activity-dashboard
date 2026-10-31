@@ -139,6 +139,7 @@ test('contribution credits, comment counts and final merged volume exports match
   expect(volume.records[0]['Files changed']).toBe('10');
   expect(volume.records[0]['Full Timeline interval value']).toBe('10');
   expect(volume.records[0]['Counting basis']).toBe('merged-volume');
+  expect(volume.records[0]['GitHub account']).not.toBe('');
   await page.goto('/contributors?timeline=1&timeline.columns=prComments');
   await ready(page);
   const october = page
@@ -232,9 +233,15 @@ test('full-range matrix and series downloads ignore windows/pages and matrix cel
   const responsePromise = page.waitForResponse((response) =>
     response.url().endsWith('/api/reporting/timeline-export'),
   );
+  await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+  await expect(page.getByRole('dialog')).toContainText(
+    'beyond the visible period window and repository page',
+  );
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toBeHidden();
   const matrix = await csv(page);
   expect(matrix.records).toHaveLength(1000);
-  expect(matrix.records[0]['covered start (UTC)']).toBe('2025-06-12T00:00:00.000Z');
+  expect(matrix.records[0]['Covered start (UTC)']).toBe('2025-06-12T00:00:00.000Z');
   expect((await responsePromise).headers()['cache-control']).toBe('private, no-store');
   await page.goto(
     '/repos?timeline=1&timeline.group=month&repo=repo-prebidjs&repo=repo-prebidserver',
@@ -254,7 +261,7 @@ test('full-range matrix and series downloads ignore windows/pages and matrix cel
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   const series = await csv(page);
   expect(series.records).toHaveLength(500);
-  expect(series.records.at(-1)!['covered end (UTC)']).toBe('2026-10-24T12:00:00.000Z');
+  expect(series.records.at(-1)!['Covered end (UTC)']).toBe('2026-10-24T12:00:00.000Z');
 });
 test('chart points use the same interval details; partial values remain inspectable on mobile', async ({
   page,
@@ -271,7 +278,9 @@ test('chart points use the same interval details; partial values remain inspecta
   await page.setViewportSize({ width: 375, height: 1000 });
   await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter&repo=repo-prebidserver');
   await ready(page);
-  await page.getByRole('link', { name: 'Prebid Server (Go), Q1 2026: 0', exact: true }).click();
+  await page
+    .getByRole('link', { name: /^Prebid Server \(Go\), Q1 2026: 0, partial value\. / })
+    .click();
   await expect(page.getByLabel('Supporting data coverage')).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'No supporting records in this interval' }),
@@ -291,7 +300,8 @@ test('downloads and copied support links remain protected and stale source ident
     data: { href: '/repos?timeline=1', columns: ['period'] },
     maxRedirects: 0,
   });
-  expect([401, 403, 307]).toContain(denied.status());
+  expect(denied.status()).toBe(307);
+  expect(denied.headers()['location']).toContain('/auth/login');
   await login(page);
   await page.goto('/repos/prebidjs?timeline=1');
   await ready(page);
@@ -307,4 +317,35 @@ test('downloads and copied support links remain protected and stale source ident
   await ready(page);
   expect(new URL(page.url()).searchParams.has('timeline.detail')).toBe(false);
   expect(new URL(page.url()).searchParams.get('timeline')).toBe('1');
+});
+test('Back and Forward restore supporting-view search and author steps', async ({ page }) => {
+  await login(page);
+  await page.goto('/repos/prebidjs?timeline=1');
+  await ready(page);
+  await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 2', exact: true }).click();
+  const authors = page.getByRole('table');
+  await expect(authors.locator('tbody tr')).toHaveCount(2);
+  const search = page.getByRole('textbox', { name: /^Search / });
+  await search.fill('bob');
+  await search.press('Enter');
+  await expect(authors.locator('tbody tr')).toHaveCount(1);
+  const searched = new URL(page.url()).searchParams;
+  await authors.locator('a[href*="support.author"]').first().click();
+  await expect(page).toHaveURL(/support\.author=/);
+  const author = page.url();
+  await page.goBack();
+  // The author link freezes the visible columns into this entry; everything else is unchanged.
+  await expect(page).toHaveURL(
+    (url) =>
+      !url.searchParams.has('support.author') &&
+      url.searchParams.has('support.authors.columns') &&
+      [...searched].every(([name, value]) => url.searchParams.getAll(name).includes(value)),
+  );
+  await expect(page.getByRole('textbox', { name: /^Search / })).toHaveValue('bob');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+  await page.goForward();
+  await expect(page).toHaveURL(author);
+  await page.goBack();
+  await page.goBack();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
 });

@@ -98,24 +98,31 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   await expect(page.getByRole('status')).toContainText('Periods 493–500 of 500');
   await expect(table.locator('tbody tr')).toHaveCount(18);
   await expect(table.locator('thead th')).toHaveCount(9);
-  await table.getByRole('button', { name: 'Oct 21, 2026', exact: true }).click();
-  await table.getByRole('button', { name: 'Oct 21, 2026 ↑', exact: true }).click();
-  const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
+  const names = await table.locator('tbody [data-column="repository"]').allTextContents();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
+  await page.getByRole('button', { name: 'Earlier', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Periods 469–480 of 500');
+  // Oct 1, 2026 has distinct values (Prebid.js 254, two repositories at 13), unlike name order.
+  await table.getByRole('button', { name: 'Oct 1, 2026', exact: true }).click();
+  await table.getByRole('button', { name: 'Oct 1, 2026 ↑', exact: true }).click();
+  const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
+  expect(ordering[0]).toContain('Prebid.js');
+  expect(ordering).not.toEqual(names);
+  await page.getByRole('button', { name: 'Later', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
   await expect(table.locator('thead th')).toHaveCount(13);
   expect(await table.locator('tbody [data-column="repository"]').allTextContents()).toEqual(
     ordering,
   );
   await expect(
-    page.getByText(/Sorted by Oct 21, 2026 \(descending; outside visible periods\)/),
+    page.getByText(/Sorted by Oct 1, 2026 \(descending; outside visible periods\)/),
   ).toBeVisible();
-  await page.getByRole('button', { name: 'Later', exact: true }).click();
-  await expect(table.getByRole('columnheader', { name: 'Oct 21, 2026 ↓' })).toHaveAttribute(
+  await page.getByRole('button', { name: 'Earlier', exact: true }).click();
+  await expect(table.getByRole('columnheader', { name: 'Oct 1, 2026 ↓' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );
-  await expect(page.getByRole('button', { name: 'Later', exact: true })).toBeDisabled();
   await page.screenshot({ path: info.outputPath('matrix-dense.png'), fullPage: true });
 });
 test('mixed coverage, durations, snapshots and empty selections retain their meanings', async ({
