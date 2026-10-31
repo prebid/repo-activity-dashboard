@@ -14,6 +14,7 @@ import {
   mergeTimelinePreferenceParameters,
   resolveTimelinePresentation,
   readTimelineSource,
+  timelinePreferenceCandidates,
 } from '@/lib/presentation/timeline-controls';
 import {
   contributionTimelineEntry,
@@ -317,6 +318,55 @@ it('merges saved domains independently and discards metric dependencies from ano
     new URLSearchParams('period=custom&from=2020-01-01&through=2020-01-02'),
   );
   expect(explicit.toString()).toBe('period=this-year');
+  // A record saved before filters carried their kind keeps only the effective kind's filters.
+  const legacy = new URLSearchParams(
+    'timeline.kind=issues&timeline.sort=issuesClosed&prs.filter.authors=alice&issues.filter.authors=bob',
+  );
+  expect(
+    mergeTimelinePreferenceParameters(new URLSearchParams('timeline=1'), legacy).toString(),
+  ).toBe('timeline=1&timeline.kind=issues&timeline.sort=issuesClosed&issues.filter.authors=bob');
+  expect(
+    mergeTimelinePreferenceParameters(
+      new URLSearchParams('timeline=1'),
+      new URLSearchParams('issues.filter.authors=bob&prs.filter.authors=alice'),
+    ).toString(),
+  ).toBe('timeline=1&prs.filter.authors=alice');
+});
+it('tries presentation fallbacks first, then saved grouping, filters and repositories', () => {
+  const explicit = new URLSearchParams('timeline=1');
+  const strings = (merged: string) =>
+    timelinePreferenceCandidates(new URLSearchParams(merged), explicit).map((c) => c.toString());
+  // Without a saved grouping, filter or repository the candidates are the presentation fallbacks.
+  expect(strings('timeline=1&timeline.sort=a&timeline.dir=desc&timeline.metric=m')).toEqual([
+    'timeline=1&timeline.sort=a&timeline.dir=desc&timeline.metric=m',
+    'timeline=1&timeline.metric=m',
+    'timeline=1&timeline.sort=a&timeline.dir=desc',
+    'timeline=1',
+  ]);
+  expect(
+    strings(
+      'timeline=1&timeline.group=day&timeline.sort=a&timeline.metric=m&repo=r&prs.filter.x=1',
+    ),
+  ).toEqual([
+    'timeline=1&timeline.group=day&timeline.sort=a&timeline.metric=m&repo=r&prs.filter.x=1',
+    'timeline=1&timeline.group=day&timeline.metric=m&repo=r&prs.filter.x=1',
+    'timeline=1&timeline.group=day&timeline.sort=a&repo=r&prs.filter.x=1',
+    'timeline=1&timeline.group=day&repo=r&prs.filter.x=1',
+    'timeline=1&timeline.sort=a&timeline.metric=m&repo=r&prs.filter.x=1',
+    'timeline=1&repo=r&prs.filter.x=1',
+    'timeline=1&timeline.group=day&timeline.sort=a&timeline.metric=m&repo=r',
+    'timeline=1&timeline.group=day&repo=r',
+    'timeline=1&timeline.group=day&timeline.sort=a&timeline.metric=m&prs.filter.x=1',
+    'timeline=1&timeline.group=day&prs.filter.x=1',
+    'timeline=1',
+  ]);
+  // Explicit choices are never removed.
+  expect(
+    timelinePreferenceCandidates(
+      new URLSearchParams('timeline=1&timeline.group=day&timeline.sort=a'),
+      new URLSearchParams('timeline=1&timeline.group=day'),
+    ).map((c) => c.toString()),
+  ).toEqual(['timeline=1&timeline.group=day&timeline.sort=a', 'timeline=1&timeline.group=day']);
 });
 it('captures the full repository list presentation and handles author/period cohort entry', () => {
   const range = {
@@ -518,6 +568,8 @@ it.each([
     expect(resolveTimelinePresentation(path, same, loaded).awaitingData).toBe(false);
     for (const changed of [
       'period=last-month',
+      // Resolves to the default this-year range, but the selection the controls show differs.
+      'period=custom&from=2026-01-01&through=2026-12-31',
       'sample=large',
       'timeline.gap=1',
       'timeline.group=week',

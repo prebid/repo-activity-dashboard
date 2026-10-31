@@ -708,3 +708,132 @@ it('names each Timeline control by its visible label', () => {
     expect(screen.getByRole('combobox', { name })).toBeInTheDocument();
   expect(screen.getByRole('combobox', { name: /^Reporting period/ })).toBeInTheDocument();
 });
+function savedTimelineQuery(area: TimelineArea) {
+  const raw = localStorage.getItem(
+    timelinePreferenceKey('alice', makeContext(area, window.location.search)),
+  );
+  return raw === null ? null : (JSON.parse(raw) as { query: string }).query;
+}
+it('saves record filters with their kind and replaces them when another kind is saved', async () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  const first = renderHook(() => useControls('repository'));
+  await ready(first.result);
+  const filters = readRepositoryFilterValues('', 'prs')!;
+  await interact(() =>
+    first.result.current.changeFilters({ ...filters, authors: ['sample-alice'] }),
+  );
+  await ready(first.result);
+  const afterFilter = new URLSearchParams(savedTimelineQuery('repository')!);
+  expect(afterFilter.getAll('prs.filter.authors')).toEqual(['sample-alice']);
+  expect([afterFilter.get('timeline.kind'), afterFilter.get('timeline.family')]).toEqual([
+    'prs',
+    'activity',
+  ]);
+  first.unmount();
+  window.history.replaceState(
+    null,
+    '',
+    '/repos/prebidjs?timeline=1&period=this-year&timeline.kind=issues&timeline.family=activity',
+  );
+  const second = renderHook(() => useControls('repository'));
+  await ready(second.result);
+  await interact(() =>
+    second.result.current.changeView({ sort: 'issuesClosed', descending: true }),
+  );
+  expect(savedTimelineQuery('repository')).toBe(
+    'timeline.sort=issuesClosed&timeline.dir=desc&timeline.kind=issues&timeline.family=activity',
+  );
+  second.unmount();
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  const third = renderHook(() => useControls('repository'));
+  await ready(third.result);
+  expect(third.result.current.view).toMatchObject({
+    kind: 'issues',
+    sort: 'issuesClosed',
+    descending: true,
+  });
+  expect(third.result.current.notice).toBeUndefined();
+});
+it('keeps saved columns and sort when a saved grouping cannot cover an explicit long period', async () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/contributors?timeline=1&period=custom&from=2025-01-01&through=2026-10-24',
+  );
+  const stored =
+    'timeline.group=day&timeline.columns=prsAuthored&timeline.sort=prsAuthored&timeline.dir=desc';
+  localStorage.setItem(
+    timelinePreferenceKey('alice', makeContext('contribution', window.location.search)),
+    JSON.stringify({ version: 1, query: stored }),
+  );
+  const { result } = renderHook(() => useControls('contribution'));
+  await ready(result);
+  expect(result.current.view).toMatchObject({
+    grouping: 'month',
+    columns: ['prsAuthored'],
+    sort: 'prsAuthored',
+    descending: true,
+  });
+  expect(result.current.notice).toMatch(/skipped/);
+  // Daily grouping still fits the default period, so it stays saved for other visits.
+  expect(savedTimelineQuery('contribution')).toBe(stored);
+});
+it('restores a saved contribution scope when a saved Timeline column no longer exists', async () => {
+  window.history.replaceState(null, '', '/contributors?timeline=1');
+  const scope = defaultContributionSettings(source);
+  scope.period = { kind: 'preset', preset: 'last-month' };
+  const scopeKey = contributionPreferenceKey('alice', 'reference');
+  localStorage.setItem(scopeKey, serializeContributionPreferences(scope));
+  const scopeRaw = localStorage.getItem(scopeKey);
+  localStorage.setItem(
+    timelinePreferenceKey('alice', makeContext('contribution', window.location.search)),
+    JSON.stringify({ version: 1, query: 'timeline.columns=retiredMetric&timeline.dir=desc' }),
+  );
+  const { result } = renderHook(() => useControls('contribution'));
+  await ready(result);
+  expect(new URLSearchParams(window.location.search).get('period')).toBe('last-month');
+  expect(result.current.view.descending).toBe(true);
+  expect(result.current.notice).toMatch(/skipped/);
+  expect(savedTimelineQuery('contribution')).toBe('timeline.dir=desc');
+  expect(localStorage.getItem(scopeKey)).toBe(scopeRaw);
+});
+it('drops a saved matrix repository that is no longer enabled and keeps other choices', async () => {
+  window.history.replaceState(null, '', '/repos?timeline=1');
+  localStorage.setItem(
+    timelinePreferenceKey('alice', makeContext('matrix', window.location.search)),
+    JSON.stringify({ version: 1, query: 'repo=repo-retired&timeline.dir=desc' }),
+  );
+  const { result } = renderHook(() => useControls('matrix'));
+  await ready(result);
+  expect(result.current.view.descending).toBe(true);
+  expect(new URLSearchParams(window.location.search).has('repo')).toBe(false);
+  expect(result.current.notice).toMatch(/skipped/);
+  expect(savedTimelineQuery('matrix')).toBe('timeline.dir=desc');
+});
+it('repairs a saved choice that fails on every visit, but not one that fails only here', async () => {
+  window.history.replaceState(null, '', '/repos?timeline=1&timeline.group=week');
+  const monthSort = 'timeline.sort=month%3A2026-10-01T00%3A00%3A00.000Z';
+  const key = timelinePreferenceKey('alice', makeContext('matrix', window.location.search));
+  localStorage.setItem(key, JSON.stringify({ version: 1, query: monthSort }));
+  const stored = localStorage.getItem(key);
+  const explicitOnly = renderHook(() => useControls('matrix'));
+  await ready(explicitOnly.result);
+  expect(explicitOnly.result.current.notice).toMatch(/skipped/);
+  expect(localStorage.getItem(key)).toBe(stored);
+  explicitOnly.unmount();
+  window.history.replaceState(null, '', '/repos?timeline=1');
+  localStorage.setItem(
+    key,
+    JSON.stringify({ version: 1, query: 'timeline.group=week&' + monthSort }),
+  );
+  const stale = renderHook(() => useControls('matrix'));
+  await ready(stale.result);
+  expect(stale.result.current.notice).toMatch(/skipped/);
+  expect(savedTimelineQuery('matrix')).toBe('timeline.group=week');
+  stale.unmount();
+  window.history.replaceState(null, '', '/repos?timeline=1');
+  const repeat = renderHook(() => useControls('matrix'));
+  await ready(repeat.result);
+  expect(repeat.result.current.view.grouping).toBe('week');
+  expect(repeat.result.current.notice).toBeUndefined();
+});

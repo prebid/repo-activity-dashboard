@@ -328,7 +328,9 @@ const dependentPreferenceGroups = [
 ];
 /**
  * Merged restoration first, then the same merge without each saved dependent group that no longer
- * fits, so one stale choice does not discard every other saved preference.
+ * fits, so one stale choice does not discard every other saved preference. A saved grouping, saved
+ * record filters and a saved matrix repository selection are dropped only after every presentation
+ * fallback has failed: a report scope outranks a grouping or filter that cannot cover it.
  */
 export function timelinePreferenceCandidates(
   merged: URLSearchParams,
@@ -339,14 +341,24 @@ export function timelinePreferenceCandidates(
     for (const key of groups.flat()) if (!explicit.has(key)) result.delete(key);
     return result;
   };
-  const saved = dependentPreferenceGroups.filter((group) =>
-    group.some((key) => merged.has(key) && !explicit.has(key)),
-  );
-  return [
+  const isSaved = (group: string[]) => group.some((key) => merged.has(key) && !explicit.has(key));
+  const saved = dependentPreferenceGroups.filter(isSaved);
+  const filters = [...new Set(merged.keys())].filter((key) => /^(prs|issues)\./.test(key));
+  const scope = [['timeline.group'], filters, ['repo']].filter(isSaved);
+  const candidates = [
     merged,
     ...saved.map((group) => without([group])),
     ...(saved.length > 1 ? [without(saved)] : []),
+    ...scope.flatMap((group) => [
+      without([group]),
+      ...(saved.length ? [without([...saved, group])] : []),
+    ]),
+    ...(scope.length > 1 ? [without([...saved, ...scope])] : []),
   ];
+  return candidates.filter(
+    (candidate, index) =>
+      candidates.findIndex((other) => other.toString() === candidate.toString()) === index,
+  );
 }
 /** Explicit domains win independently: a repository choice need not discard a saved date preset. */
 export function mergeTimelinePreferenceParameters(
@@ -363,6 +375,8 @@ export function mergeTimelinePreferenceParameters(
   const differentFamily = ['timeline.kind', 'timeline.family'].some(
     (key) => explicit.has(key) && stored.has(key) && explicit.get(key) !== stored.get(key),
   );
+  // Records saved before filters carried their kind can hold the other kind's filters.
+  const kind = explicit.get('timeline.kind') ?? stored.get('timeline.kind') ?? 'prs';
   for (const name of new Set(stored.keys())) {
     if (
       explicit.has(name) ||
@@ -370,7 +384,7 @@ export function mergeTimelinePreferenceParameters(
         explicit.has('timeline.metric') &&
         !explicit.getAll('timeline.metric').includes(stored.get(name) ?? '')) ||
       (period && ['period', 'from', 'through'].includes(name)) ||
-      (filters && /^(prs|issues)\./.test(name)) ||
+      (/^(prs|issues)\./.test(name) && (filters || !name.startsWith(kind + '.'))) ||
       (differentFamily &&
         ['timeline.metric', 'timeline.columns', 'timeline.sort', 'timeline.dir'].includes(name))
     )
@@ -405,7 +419,8 @@ function timelineDataKey(search: string, context: TimelineControlContext): strin
     return null;
   }
   if (!source) return null;
-  const base = { ...source, request: parsed.request };
+  // The selection matters as well as its range: a custom period can resolve to a preset's range.
+  const base = { ...source, period: parsed.period, request: parsed.request };
   if (context.area === 'repository')
     return JSON.stringify({
       ...base,

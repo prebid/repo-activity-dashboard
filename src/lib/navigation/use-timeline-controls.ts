@@ -44,6 +44,37 @@ function checkedTarget(input: string, context: TimelineControlContext) {
   return target;
 }
 
+/**
+ * Remove saved choices that fail even on a bare Timeline URL, so their notice does not repeat.
+ * Choices that failed only against this URL's explicit options stay saved for other visits.
+ */
+function repairTimelinePreferences(
+  key: string,
+  context: TimelineControlContext,
+  stored: URLSearchParams,
+  raw: string | null,
+) {
+  const bare = new URLSearchParams('timeline=1');
+  const [merged, ...fallbacks] = timelinePreferenceCandidates(
+    mergeTimelinePreferenceParameters(bare, stored),
+    bare,
+  );
+  const fits = (candidate: URLSearchParams) => {
+    try {
+      checkedTarget(candidate.toString(), context);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  const accepted = fits(merged) ? undefined : fallbacks.find(fits);
+  if (!accepted) return;
+  const repaired = new URLSearchParams(stored);
+  for (const name of new Set(merged.keys())) if (!accepted.has(name)) repaired.delete(name);
+  if (localStorage.getItem(key) === raw)
+    localStorage.setItem(key, serializeTimelinePreferences(repaired, context.area));
+}
+
 /** One URL owner for Timeline state. Facts remain in authenticated server composition. */
 export function useTimelineControls(
   viewerId: string,
@@ -132,8 +163,9 @@ export function useTimelineControls(
         );
         if (settings) {
           try {
+            // Check the scope against the requested view; stale saved presentation falls back below.
             validateTimelineProposal(
-              writeContributionSettings(params.toString(), settings),
+              writeContributionSettings(explicit.toString(), settings),
               context,
             );
           } catch {
@@ -187,7 +219,14 @@ export function useTimelineControls(
           'Saved Timeline preferences do not fit this report. The requested view is unchanged.',
         );
       else {
-        if (skipped) setNotice('Saved Timeline choices that do not fit this report were skipped.');
+        if (skipped) {
+          setNotice('Saved Timeline choices that do not fit this report were skipped.');
+          try {
+            repairTimelinePreferences(key, context, stored, raw);
+          } catch {
+            setStorageAvailable(false);
+          }
+        }
         if (next !== window.location.search.slice(1)) {
           // Presentation restoration reuses the loaded facts, just like ordinary table edits.
           const href = context.path + '?' + next;
@@ -214,16 +253,19 @@ export function useTimelineControls(
     try {
       const prior =
         readTimelinePreferences(localStorage.getItem(key), context.area) ?? new URLSearchParams();
-      if (keys.includes('timeline.kind') || keys.includes('timeline.family'))
-        for (const name of [...prior.keys()]) if (/^(prs|issues)\./.test(name)) prior.delete(name);
-      // Kind-specific choices are saved with their kind and family, so other kinds skip them.
-      const saved =
-        context.area === 'repository' &&
-        keys.some((name) =>
-          ['timeline.metric', 'timeline.columns', 'timeline.sort', 'timeline.dir'].includes(name),
+      const dependent = (name: string) =>
+        /^(prs|issues)\./.test(name) ||
+        ['timeline.metric', 'timeline.columns', 'timeline.sort', 'timeline.dir'].includes(name);
+      let saved = keys;
+      // Kind-specific choices are saved with their kind and family, and replace another kind's.
+      if (context.area === 'repository' && keys.some(dependent)) {
+        saved = [...new Set([...keys, 'timeline.kind', 'timeline.family'])];
+        if (
+          ['timeline.kind', 'timeline.family'].some((name) => prior.get(name) !== params.get(name))
         )
-          ? [...new Set([...keys, 'timeline.kind', 'timeline.family'])]
-          : keys;
+          for (const name of [...prior.keys()])
+            if (dependent(name) && !saved.includes(name)) prior.delete(name);
+      }
       for (const name of saved) {
         prior.delete(name);
         for (const value of params.getAll(name)) prior.append(name, value);
