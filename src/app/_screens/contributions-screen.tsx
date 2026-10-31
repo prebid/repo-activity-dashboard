@@ -5,6 +5,7 @@ import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { ContributionControls } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
+import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
 import { contributionTableScope } from '@/lib/presentation/contribution-settings';
 import {
@@ -119,6 +120,14 @@ export function ContributionsScreen({
             ),
           ),
         currentHref: controls.returnHref,
+        timelineHref: contributionTimelineEntry(controls.returnHref, controls.value),
+        onTimeline: (event) =>
+          navigate(event, () =>
+            contributionTimelineEntry(
+              window.location.pathname + window.location.search,
+              controls.value,
+            ),
+          ),
         onAreaFollow: (event, area) =>
           navigate(event, () => contributionHref(area, page.sample, undefined, controls.value)),
         onFollow: (event, focus) =>

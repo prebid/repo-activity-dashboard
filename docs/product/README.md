@@ -18,11 +18,11 @@ Settle layouts and interactions across the pages with prepared sample data befor
 
 ## Approved delivery sequence
 
-Approved 2026-10-29. This section owns the project sequence; page contracts describe behavior, and implementation/operating documents describe how to deliver and verify it. The foundation, branded login, All Repositories and individual repository pages are merged into `codex/frontend-rebuild` (PRs #2, #3, #6 and #7).
+Approved 2026-10-29. This section owns the project sequence; page contracts describe behavior, and implementation/operating documents describe how to deliver and verify it. The foundation, branded login, All Repositories, individual repository pages and core Contributors/Companies reports are merged into `codex/frontend-rebuild` (PRs #2, #3, #6, #7 and #8). PR #8 merged at `d7097503e39d884e0462e63c3a07aadfba6e7920`.
 
 | Order | Milestone | Scope and completion evidence |
 | --- | --- | --- |
-| 1 | Continue the frontend with fake data | Contributors and Companies are next, with focused reports, individual/company inclusion and exclusions, saved preferences and exports. Then deliver shared timeline reporting, the merge-review/direct-push frontend extension and agent/bot tracking. Use the five-step process below and record the visual baseline for each delivered area. |
+| 1 | Continue the frontend with fake data | Core Contributors and Companies are complete. Shared timeline reporting is next, following its [focused implementation plan](../implementation/timeline-reporting-plan.md), then the merge-review/direct-push frontend extension and agent/bot tracking. Use the five-step process below and record the visual baseline for each delivered area. |
 | 2 | Deploy the reviewed frontend before database integration | Use the existing internal live site with clearly labeled sample reports and production authentication. Verify actual hosting, sign-in, access and account configuration. A separate staging site is optional. The deployment checkpoint can occur once a reviewed frontend increment is ready; remaining frontend work continues with samples. |
 | 3 | Integrate real reporting data incrementally | Connect one report area at a time through the server-side data boundary, preserving its reviewed display models and interactions. Verify counts, date/actor scope, summary-to-detail reconciliation, full-result filters/sorts/charts/exports, 50-row paging, missing-data behavior and access. Retain deterministic samples for design and regression tests. |
 | 4 | Add custom groups | Begin after real database data is integrated and validated in the application. Deliver group reporting, selection, membership and designated-editor behavior with their own models, visual review and tests. |
@@ -45,7 +45,11 @@ When expanded formats are prioritized, begin with a bounded plan and feasibility
 
 ## Timeline reporting
 
-Status: requested on 2026-10-29; every-two-month and every-three-month meanings are confirmed. This extends the current repository activity charts, which automatically use daily or monthly bins, and the existing two-period overview comparison. The broader timeline is planned, not implemented. Deliver it as a frontend increment after core Contributors/Companies and before real reporting integration, using the same five-step process and prepared sample data. Keep the two-period comparison for focused comparisons.
+Status: requested on 2026-10-29; every-two-month and every-three-month meanings are confirmed. Steps 1 and 2 supply tested timeline models, coherent fake samples and approved Timeline/Over time layouts. Step 3 filters, URL navigation and saved preferences are approved. Step 4 supporting-record drilldowns and full-range CSV exports are approved. Step 5 self-audit, visual refinements and full local verification are complete, including the approved grouped Metrics multi-select. The implementation is ready for independent draft review against `codex/frontend-rebuild`. This extends the current repository activity charts, which automatically use daily or monthly bins, and the existing two-period overview comparison. Deliver it as a frontend increment after core Contributors/Companies and before real reporting integration, using the same five-step process and prepared sample data. Keep the two-period comparison for focused comparisons.
+
+The [focused timeline implementation plan](../implementation/timeline-reporting-plan.md) defines the five checkpoints, proposed view defaults, ownership, coherent sample scenarios, bounded interval handling and test/visual evidence. Core Contributors/Companies are merged. The existing individual-repository and contribution [Step 2 previews](../implementation/timeline-reporting-plan.md#step-2-visual-preview-and-verification) and the [All Repositories matrix layout](../implementation/timeline-reporting-plan.md#all-repositories-matrix-layout-checkpoint) are implemented alongside the [Step 3 controls](../implementation/timeline-reporting-plan.md#step-3--implemented-controls-and-navigation), which are approved; the [Step 4 drilldowns and CSV](../implementation/timeline-reporting-plan.md#step-4--supporting-records-and-csv) are ready for visual review.
+
+Scope addition approved 2026-10-30: All Repositories also gets **Summary | Timeline** tabs. Its Timeline uses selected metrics grouped as rows under each repository, with periods as columns, with all/subset repository selection and a clearly labeled period window for long ranges. The local preview is exposed on `/repos`: the Timeline tab carries the Summary repository selection and preserves the Summary view for return. Dedicated Timeline selectors and preferences are implemented. Period windows and row pages restore through copied URLs and return navigation; fresh views use their starting positions. Supporting-record drilldowns and full-range CSV are implemented in Step 4 and await visual review. Matrix CSV uses one repository/period row across the full range, with the selected metrics as columns. Groups stay together across pages and sorting identifies its metric.
 
 **Range and grouping are independent controls.** The range chooses the whole time window; grouping chooses the size of each consecutive interval within it. For example, the 2025 calendar year grouped by month produces twelve monthly values; changing grouping retains the same overall date range and report filters.
 
@@ -55,14 +59,15 @@ Status: requested on 2026-10-29; every-two-month and every-three-month meanings 
 | Weekly | Monday-start UTC week. |
 | Monthly | Calendar month. |
 | Every 2 months | Jan–Feb, Mar–Apr, May–Jun, Jul–Aug, Sep–Oct, Nov–Dec. |
-| Quarterly (3 months) | Jan–Mar, Apr–Jun, Jul–Sep, Oct–Dec. This also covers the requested tri-monthly interval. |
-| Half-yearly | Jan–Jun and Jul–Dec. |
+| Quarterly | Jan–Mar, Apr–Jun, Jul–Sep, Oct–Dec. This also covers the requested tri-monthly interval. |
+| Every 6 months | Jan–Jun and Jul–Dec. |
 | Yearly | Jan–Dec. |
 
 These are consecutive calendar intervals, not overlapping rolling windows. Reuse the reporting range's established UTC boundaries and as-of cutoff. Show partially selected first/last intervals and the unfinished current interval explicitly, including their actual covered dates. A date-boundary event belongs to exactly one interval. Retain known-zero intervals; absent or incomplete coverage remains a dash or visibly partial value.
 
 Recommended presentation follows the existing page decisions:
 
+- All Repositories Timeline compares selected metrics across consecutive period columns, grouped by repository. Keep repositories statistically independent. Earlier/Later display windows do not change the selected range or full-range export scope. Repository names lead to the corresponding individual Timeline with range, grouping and metric preserved; interval cells later lead to supporting records. The Summary tab retains its existing tables and two-period comparison.
 - Repository pages gain a Timeline view with metric selection, the continuous range/grouping controls, a chart and a matching values table. Keep the current backlog distributions and record-list charts available for their existing uses. Start with a focused metric; distinct units such as counts and durations use separately labeled views.
 - Contributors and Companies gain an Over time table for the current person, company or selected population. Rows represent time intervals and columns represent the separate metrics, with existing repository/account/actor filters and exclusions retained. Company totals continue to use the current mapping. Contributor/company charting remains outside the initial scope.
 - Reuse the timeline selection/display contract across these views. Exact layout, entry points and defaults are reviewed visually. A calendar-grid/heatmap presentation is an optional, low-priority follow-up after the rest of the plan is complete and the site is deployed with validated real data.
@@ -114,6 +119,7 @@ Custom groups are outside the initial frontend steps, including group navigation
 
 ## Maintained implementation references
 
+- [Timeline reporting implementation plan](../implementation/timeline-reporting-plan.md): next frontend increment, shared calendar contracts, feature ownership, fake-data scenarios and five test/visual checkpoints.
 - [All Repositories implementation plan](../implementation/all-repositories-plan.md): sequenced frontend work, component/state ownership, prepared samples, and acceptance checks.
 - [Foundation contracts](../implementation/foundation-contracts.md): component ownership, typed display inputs, table state, authentication boundaries, quality checks and visual-design readiness.
 - [Account operations](../implementation/account-operations.md): configuration, provisioning, migration, recovery and release prerequisites for the retained account system.

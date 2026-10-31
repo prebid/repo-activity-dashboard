@@ -3,6 +3,7 @@ import {
   repositoryPageFiltersSchema,
   type RepositoryPageFilters,
   type RepositoryPageSource,
+  type RepositoryFilterOptions,
 } from '@/models/repository-page';
 import type { ZodError } from 'zod';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
@@ -36,19 +37,34 @@ const values = (items: string[]) =>
 const options = <T extends string>(items: Record<T, string>) =>
   (Object.keys(items) as T[]).map((value) => ({ value, label: items[value] }));
 export function repositoryFilterFields(source: RepositoryPageSource): RepositoryFilterField[] {
-  const current = source.drilldown.selection.scope === 'current';
+  return repositoryFilterFieldsFromOptions({
+    kind: source.kind,
+    current: source.drilldown.selection.scope === 'current',
+    labels: source.rows.flatMap((row) => row.labels),
+    authors: source.rows.map((row) => row.author.toLowerCase()),
+    branches: source.kind === 'prs' ? source.rows.map((row) => row.baseBranch) : [],
+    assignees:
+      source.kind === 'issues'
+        ? source.rows.flatMap((row) => row.assignees ?? []).map((value) => value.toLowerCase())
+        : [],
+  });
+}
+export function repositoryFilterFieldsFromOptions(
+  source: RepositoryFilterOptions & { kind: 'prs' | 'issues'; current: boolean },
+): RepositoryFilterField[] {
+  const current = source.current;
   const common: SharedField[] = [
     {
       key: 'labels',
       label: 'Labels',
       multiple: true,
-      options: values(source.rows.flatMap((row) => row.labels)),
+      options: values(source.labels),
     },
     {
       key: 'authors',
       label: 'Authors',
       multiple: true,
-      options: values(source.rows.map((row) => row.author.toLowerCase())),
+      options: values(source.authors),
     },
     {
       key: 'authorTypes',
@@ -90,7 +106,7 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
         key: 'branches',
         label: 'Target branch',
         multiple: true,
-        options: values(source.rows.map((row) => row.baseBranch)),
+        options: values(source.branches),
       },
     ];
     if (current) {
@@ -124,9 +140,7 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
       key: 'assignees',
       label: 'Assignees',
       multiple: true,
-      options: values(
-        source.rows.flatMap((row) => row.assignees ?? []).map((account) => account.toLowerCase()),
-      ),
+      options: values(source.assignees),
     },
     {
       key: 'assignment',

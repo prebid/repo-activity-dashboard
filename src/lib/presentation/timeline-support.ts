@@ -1,0 +1,109 @@
+import type {
+  ContributionTimeline,
+  ContributionTimelineSource,
+} from '@/models/contribution-timeline';
+import type { ContributionContext } from '@/models/contributions';
+import type { RepositoryTimeline, RepositoryTimelineSource } from '@/models/repository-timeline';
+import type { TimelineSupport, TimelineSupportContext } from '@/models/timeline-support';
+import type { ReportMetric } from '@/models/contribution-metrics';
+import { contributionScope } from './contribution-scope';
+import { contributionDetailRows } from './contribution-detail-rows';
+import { contributionTimelineDetail } from './contribution-timeline';
+import { repositoryTimelineDetail, repositoryTimelineSupportingRows } from './repository-timeline';
+
+export function selectContributionTimelineSupport(
+  source: ContributionTimelineSource,
+  report: ContributionTimeline,
+  context: TimelineSupportContext,
+): TimelineSupport {
+  const descriptor = contributionTimelineDetail(
+    report,
+    context.metric as ReportMetric,
+    context.interval.id,
+  );
+  if (
+    !descriptor ||
+    source.contributions.scenarioId !== descriptor.source.scenarioId ||
+    source.contributions.asOf !== descriptor.source.asOf
+  )
+    throw Error('Supporting contribution source is unavailable or stale.');
+  const scope = contributionScope(source.contributions, descriptor.selection, descriptor.focus);
+  const detailContext: ContributionContext = {
+    ...descriptor.source,
+    period: {
+      kind: 'custom',
+      from: context.interval.covered.start.slice(0, 10),
+      through: new Date(
+        Date.parse(context.interval.covered.end) - Number(!context.interval.covered.endInclusive),
+      )
+        .toISOString()
+        .slice(0, 10),
+    },
+    range: context.interval.covered,
+    companyAttribution: 'current-mapping',
+    selection: scope.selection,
+    focus: scope.focus,
+    includedAccountCount: scope.accounts.length,
+  };
+  const rows = contributionDetailRows(
+    scope.source,
+    detailContext,
+    descriptor.metric,
+    scope.accounts,
+  );
+  return {
+    kind: 'contribution',
+    context,
+    title:
+      report.scope.subject?.name ??
+      (report.scope.focus.kind === 'company' ? 'Unmapped company' : 'Contributions'),
+    details: {
+      context: detailContext,
+      metric: descriptor.metric,
+      basis: descriptor.basis,
+      measurement: context.measurement,
+      rows,
+      distinctRecords: new Set(rows.map((row) => row.record.id)).size,
+    },
+  };
+}
+export function selectRepositoryTimelineSupport(
+  source: RepositoryTimelineSource,
+  report: RepositoryTimeline,
+  context: TimelineSupportContext,
+  author?: string,
+): TimelineSupport {
+  const descriptor = repositoryTimelineDetail(
+    report,
+    context.metric as import('@/models/repository-timeline').RepositoryTimelineMetric,
+    context.interval.id,
+  );
+  if (!descriptor) throw Error('No supporting records for an unavailable value.');
+  const rows = repositoryTimelineSupportingRows(source, descriptor);
+  const base = { context, repository: source.repository, recordKind: source.kind, descriptor };
+  if (descriptor.basis === 'distinct-authors') {
+    const groups = new Map<string, import('@/models/timeline-support').TimelineAuthorRow>();
+    for (const row of rows) {
+      const account = row.author.toLowerCase(),
+        prior = groups.get(account);
+      if (prior) prior.recordCount++;
+      else
+        groups.set(account, {
+          id: account,
+          account,
+          recordCount: 1,
+          accountType: row.authorType ?? 'unknown',
+        });
+    }
+    if (!author) return { ...base, kind: 'authors', rows: [...groups.values()] };
+    if (!groups.has(author.toLowerCase())) throw Error('Unknown author in this interval.');
+    return {
+      ...base,
+      kind: 'repository',
+      author,
+      rows: rows.filter((row) => row.author.toLowerCase() === author.toLowerCase()),
+    };
+  }
+  if (author) throw Error('Author drilldowns require a unique-author metric.');
+  return { ...base, kind: 'repository', rows };
+}

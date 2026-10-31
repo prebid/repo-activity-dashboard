@@ -1,6 +1,10 @@
 'use client';
 import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import {
+  repositoryTimelineEntry,
+  repositoryTimelineOrigin,
+} from '@/lib/presentation/timeline-navigation';
 import type { RepositoryPageSource, RepositoryPageNavigation } from '@/models/repository-page';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-controls';
@@ -41,6 +45,7 @@ export function RepositoryPageScreen({
   navigation: RepositoryPageNavigation;
 }) {
   const router = useRouter();
+  const search = useSearchParams().toString();
   const controller = useTableController({
     queryKey: source.kind,
     scopeKey: 'repository:' + source.repository.slug + ':' + source.kind,
@@ -83,6 +88,53 @@ export function RepositoryPageScreen({
       navigation={navigation}
       controller={controller}
       controls={{
+        timelineHref: repositoryTimelineEntry(
+          source,
+          { ...settings.filters, search: controller.draftSearch },
+          repositoryTimelineOrigin(
+            source,
+            { ...settings.filters, search: controller.draftSearch },
+            search,
+            {
+              ...controller.query,
+              search: controller.draftSearch,
+              page: controller.draftSearch === controller.query.search ? controller.query.page : 1,
+            },
+            settings.visibility.value,
+            source.kind === 'prs' ? prColumnIds : issueColumnIds,
+            settings.chartsVisible,
+          ),
+        ),
+        onTimeline: (event) => {
+          if (
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          )
+            return;
+          event.preventDefault();
+          const captured = controller.flushSearch();
+          const origin = repositoryTimelineOrigin(
+            source,
+            { ...settings.filters!, search: captured.search },
+            window.location.search,
+            captured,
+            settings.visibility.value,
+            source.kind === 'prs' ? prColumnIds : issueColumnIds,
+            settings.chartsVisible,
+          );
+          const href = repositoryTimelineEntry(
+            source,
+            { ...settings.filters!, search: captured.search },
+            origin,
+          );
+          if (href) {
+            window.history.replaceState(null, '', origin);
+            router.push(href);
+          }
+        },
         charts: (
           <RepositoryCharts
             page={page}

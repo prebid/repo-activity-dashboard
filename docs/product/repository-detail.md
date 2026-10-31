@@ -29,7 +29,7 @@ Use the definitions in [All Repositories](all-repositories.md):
 
 Use one reusable page structure with repository-specific data and configuration.
 
-The page context should identify the repository, configured primary branch, and data freshness, with navigation back to All Repos and a link to GitHub.
+The page context identifies the repository, configured primary branch, and data freshness, with navigation back to All repositories and a link to GitHub. Center the repository name and its branch/GitHub details using the shared overview-header layout. The GitHub link uses Prebid logo blue, with a darker text shade in light mode. Branch details use the normal foreground color (white in dark mode). Keep the reporting snapshot on the right on wide screens and beneath the identity on narrow screens.
 
 The two primary record lists are:
 
@@ -60,7 +60,7 @@ Provide a clear way to return to Current open. In-page filtering and browser bac
 
 ### Repos navigation
 
-Use one top-level **Repos** navigation item. Its expandable list contains **All Repos**, followed by a link for each repository. Keep individual repository links inside this group so they do not clutter the main navigation bar. Individual repository links open the unfiltered current-open scope.
+Use **Overview** as the first top-level navigation item, linking directly to All repositories (`/repos`). Follow it with **Repositories**, whose expandable list contains only individual repository links, without a repeated heading inside the menu. Keep those links inside the dropdown so they do not clutter the main navigation bar. Individual repository links open the unfiltered current-open scope. Overview is active on the summary and cross-repository timeline; Repositories is active on individual repository routes.
 
 Repository pages remain independently addressable. All Repos is the cross-repository comparison and filtered entry point; users can also go directly to a repository from the Repos list.
 

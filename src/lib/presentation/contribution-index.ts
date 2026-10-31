@@ -1,3 +1,5 @@
+import type { TimelineInterval } from '@/models/reporting-timeline';
+import { timelineIntervalIndex } from './reporting-timeline';
 import {
   contributionMetricIds,
   type ContributionSource,
@@ -22,6 +24,7 @@ interface ContributionCell {
   overviewEvidence: boolean;
 }
 type Cells = Map<string, Map<string, ContributionCell>>;
+type RawCells = Map<string, Map<string, Map<ReportMetric, Count[]>>>;
 const indexes = new WeakMap<ContributionSource, ReturnType<typeof buildIndex>>();
 function baseline(coverage: ContributionCoverage): Count {
   if (coverage.status === 'complete') return { status: 'complete', value: 0 };
@@ -33,29 +36,55 @@ function buildIndex(source: ContributionSource) {
   const records = new Map(source.records.map((record) => [record.id, record]));
   const companies = new Map(source.companies.map((company) => [company.id, company]));
   const raw = new Map<string, Map<string, Map<ReportMetric, Count[]>>>();
-  const cell = (accountId: string, repositoryId: string) => {
+  const facts: {
+    accountId: string;
+    repositoryId: string;
+    metric: ReportMetric;
+    value: Count;
+    at: string;
+  }[] = [];
+  const cell = (raw: RawCells, accountId: string, repositoryId: string) => {
     let repos = raw.get(accountId);
     if (!repos) raw.set(accountId, (repos = new Map<string, Map<ReportMetric, Count[]>>()));
     let metrics = repos.get(repositoryId);
     if (!metrics) repos.set(repositoryId, (metrics = new Map<ReportMetric, Count[]>()));
     return metrics;
   };
-  const add = (accountId: string, repositoryId: string, metric: ReportMetric, value: Count) => {
-    const metrics = cell(accountId, repositoryId);
+  const add = (
+    accountId: string,
+    repositoryId: string,
+    metric: ReportMetric,
+    value: Count,
+    at: string,
+  ) => {
+    facts.push({ accountId, repositoryId, metric, value, at });
+    const metrics = cell(raw, accountId, repositoryId);
     const values = metrics.get(metric) ?? [];
     values.push(value);
     metrics.set(metric, values);
   };
   for (const credit of source.credits)
-    add(credit.accountId, records.get(credit.recordId)!.repositoryId, credit.metric, {
-      status: 'complete',
-      value: 1,
-    });
+    add(
+      credit.accountId,
+      records.get(credit.recordId)!.repositoryId,
+      credit.metric,
+      {
+        status: 'complete',
+        value: 1,
+      },
+      credit.creditedAt,
+    );
   for (const comment of source.activity.comments)
-    add(comment.accountId, records.get(comment.recordId)!.repositoryId, comment.kind, {
-      status: 'complete',
-      value: 1,
-    });
+    add(
+      comment.accountId,
+      records.get(comment.recordId)!.repositoryId,
+      comment.kind,
+      {
+        status: 'complete',
+        value: 1,
+      },
+      comment.createdAt,
+    );
   for (const volume of source.activity.volumes) {
     const record = records.get(volume.recordId)!;
     if (record.kind !== 'pr') throw Error('Expected PR volume');
@@ -69,6 +98,7 @@ function buildIndex(source: ContributionSource) {
           value: null,
           reason: 'Final merged diff values are unavailable.',
         },
+        record.mergedAt!,
       );
   }
   const defaults = new Map<ReportMetric, Count>();
@@ -80,9 +110,9 @@ function buildIndex(source: ContributionSource) {
   }
   const overrides = new Map<string, Map<string, Map<ReportMetric, Count>>>();
   for (const override of source.coverageOverrides) {
-    cell(override.accountId, override.repositoryId).set(
+    cell(raw, override.accountId, override.repositoryId).set(
       override.metric,
-      cell(override.accountId, override.repositoryId).get(override.metric) ?? [],
+      cell(raw, override.accountId, override.repositoryId).get(override.metric) ?? [],
     );
     let repos = overrides.get(override.accountId);
     if (!repos)
@@ -91,52 +121,66 @@ function buildIndex(source: ContributionSource) {
     if (!metrics) repos.set(override.repositoryId, (metrics = new Map<ReportMetric, Count>()));
     metrics.set(override.metric, baseline(override.coverage));
   }
-  const cells: Cells = new Map();
-  for (const [account, repositories] of raw) {
-    const selected = new Map<string, ContributionCell>();
-    cells.set(account, selected);
-    for (const [repository, metrics] of repositories) {
-      const values = new Map<ReportMetric, Count>();
-      const cell = { metrics: values, overviewEvidence: false };
-      selected.set(repository, cell);
-      for (const [metric, counts] of metrics) {
-        const count = sumContributionCounts(counts);
-        const override = overrides.get(account)?.get(repository)?.get(metric);
-        // Eligibility comes from account-specific evidence before report-wide
-        // coverage is applied. A global gap cannot populate the whole directory.
-        cell.overviewEvidence ||=
-          (count.value ?? 0) > 0 ||
-          count.status === 'partial' ||
-          count.status === 'missing' ||
-          override?.status === 'partial' ||
-          override?.status === 'missing';
-        const coverage = override ?? defaults.get(metric)!;
-        values.set(
-          metric,
-          coverage.status === 'missing'
-            ? coverage
-            : coverage.status === 'partial' && count.value !== null
-              ? {
-                  status: 'partial',
-                  value: count.value,
-                  reason: [
-                    coverage.reason,
-                    ...(count.status === 'complete' ? [] : [count.reason]),
-                  ].join('; '),
-                }
-              : count,
-        );
+  function finish(raw: RawCells): Cells {
+    const cells: Cells = new Map();
+    for (const [account, repositories] of raw) {
+      const selected = new Map<string, ContributionCell>();
+      cells.set(account, selected);
+      for (const [repository, metrics] of repositories) {
+        const values = new Map<ReportMetric, Count>();
+        const cell = { metrics: values, overviewEvidence: false };
+        selected.set(repository, cell);
+        for (const [metric, counts] of metrics) {
+          const count = sumContributionCounts(counts);
+          const override = overrides.get(account)?.get(repository)?.get(metric);
+          // Eligibility comes from account-specific evidence before report-wide
+          // coverage is applied. A global gap cannot populate the whole directory.
+          cell.overviewEvidence ||=
+            (count.value ?? 0) > 0 ||
+            count.status === 'partial' ||
+            count.status === 'missing' ||
+            override?.status === 'partial' ||
+            override?.status === 'missing';
+          const coverage = override ?? defaults.get(metric)!;
+          values.set(
+            metric,
+            coverage.status === 'missing'
+              ? coverage
+              : coverage.status === 'partial' && count.value !== null
+                ? {
+                    status: 'partial',
+                    value: count.value,
+                    reason: [
+                      coverage.reason,
+                      ...(count.status === 'complete' ? [] : [count.reason]),
+                    ].join('; '),
+                  }
+                : count,
+          );
+        }
       }
     }
+    return cells;
   }
-  function aggregate(
-    accounts: readonly ContributionAccount[],
-    repositories: readonly ContributionRepository[],
+  const cells = finish(raw);
+  function measureCells(
+    selectedCells: Cells,
+    accountIds: ReadonlySet<string>,
+    repoIds: ReadonlySet<string>,
   ) {
-    const repoIds = new Set(repositories.map((repo) => repo.id));
     const counts = new Map<ReportMetric, Count[]>();
-    for (const account of accounts) {
-      for (const [repository, { metrics }] of cells.get(account.id) ?? []) {
+    // Focused reports use direct account lookups; sparse timeline buckets avoid
+    // walking the full directory once per interval. Iterate the smaller side.
+    const candidates =
+      accountIds.size < selectedCells.size
+        ? [...accountIds].flatMap((id) => {
+            const repositories = selectedCells.get(id);
+            return repositories ? [[id, repositories] as const] : [];
+          })
+        : selectedCells;
+    for (const [account, repositories] of candidates) {
+      if (!accountIds.has(account)) continue;
+      for (const [repository, { metrics }] of repositories) {
         if (!repoIds.has(repository)) continue;
         for (const [metric, count] of metrics) {
           const values = counts.get(metric) ?? [];
@@ -145,7 +189,7 @@ function buildIndex(source: ContributionSource) {
         }
       }
     }
-    const totalCells = accounts.length * repoIds.size;
+    const totalCells = accountIds.size * repoIds.size;
     const measure = (metric: ReportMetric) => {
       const values = counts.get(metric) ?? [];
       // All implicit cells share a zero/null baseline. One representative preserves
@@ -165,7 +209,44 @@ function buildIndex(source: ContributionSource) {
   }
   return Object.freeze({
     source,
-    aggregate,
+    aggregate(
+      accounts: readonly ContributionAccount[],
+      repositories: readonly ContributionRepository[],
+    ) {
+      return measureCells(
+        cells,
+        new Set(accounts.map((row) => row.id)),
+        new Set(repositories.map((row) => row.id)),
+      );
+    },
+    timeline(
+      accounts: readonly ContributionAccount[],
+      repositories: readonly ContributionRepository[],
+      intervals: readonly TimelineInterval[],
+    ) {
+      const accountIds = new Set(accounts.map((account) => account.id)),
+        repoIds = new Set(repositories.map((repo) => repo.id));
+      const buckets = intervals.map((): RawCells => new Map());
+      for (const fact of facts) {
+        if (!accountIds.has(fact.accountId) || !repoIds.has(fact.repositoryId)) continue;
+        const index = timelineIntervalIndex(intervals, fact.at);
+        if (index < 0) continue;
+        const metrics = cell(buckets[index], fact.accountId, fact.repositoryId);
+        const values = metrics.get(fact.metric) ?? [];
+        values.push(fact.value);
+        metrics.set(fact.metric, values);
+      }
+      const selectedOverrides = source.coverageOverrides.filter(
+        (row) => accountIds.has(row.accountId) && repoIds.has(row.repositoryId),
+      );
+      return buckets.map((bucket) => {
+        for (const override of selectedOverrides) {
+          const metrics = cell(bucket, override.accountId, override.repositoryId);
+          if (!metrics.has(override.metric)) metrics.set(override.metric, []);
+        }
+        return measureCells(finish(bucket), accountIds, repoIds);
+      });
+    },
     company(id: string) {
       return companies.get(id);
     },

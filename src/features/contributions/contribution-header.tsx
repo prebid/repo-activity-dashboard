@@ -3,7 +3,8 @@ import { contributionActorTypes } from '@/models/contributions';
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
-import { ArrowLeft, Users, Building2 } from 'lucide-react';
+import { ArrowLeft, Users, Building2, Table2, CalendarDays } from 'lucide-react';
+import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 import type { ContributionPage } from '@/models/contribution-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
@@ -47,50 +48,45 @@ export function ContributionHeader({
           </Link>
         </nav>
       )}
-      <header className={styles.header}>
-        <div>
-          <p className={styles.eyebrow}>
-            {report.kind === 'overview'
-              ? 'Contribution activity'
-              : report.kind === 'contributor'
-                ? 'Contributor report'
-                : 'Company report'}
+      <ContributionHeading
+        title={title}
+        asOf={context.asOf}
+        eyebrow={
+          report.kind === 'overview'
+            ? 'Contribution activity'
+            : report.kind === 'contributor'
+              ? 'Contributor report'
+              : 'Company report'
+        }
+      >
+        {report.kind === 'overview' ? (
+          <p className={styles.subtitle}>
+            {page.area === 'contributors'
+              ? 'Understand who authors, reviews and merges work.'
+              : 'Explore contribution activity by current company affiliation.'}
           </p>
-          <h1>{title}</h1>
-          {report.kind === 'overview' ? (
-            <p className={styles.subtitle}>
-              {page.area === 'contributors'
-                ? 'Understand who authors, reviews and merges work.'
-                : 'Explore contribution activity by current company affiliation.'}
-            </p>
-          ) : report.kind === 'contributor' ? (
-            <div className={styles.meta}>
-              <GitHubAccountLink
-                login={report.account.login}
-                url={report.account.profileUrl}
-                label={'@' + report.account.login}
-              />
-              <span>{accountTypeLabels[report.account.actorType]}</span>
-              <EntityLink
-                links={links}
-                focus={{ kind: 'company', companyId: report.company?.id ?? null }}
-              >
-                {report.company?.name ?? 'Unmapped company'}
-              </EntityLink>
-            </div>
-          ) : (
-            <p className={styles.subtitle}>
-              {report.memberCount} included {report.memberCount === 1 ? 'account' : 'accounts'} ·{' '}
-              {report.company ? 'Current company mapping' : 'Accounts without a company mapping'}
-            </p>
-          )}
-        </div>
-        <p className={styles.snapshot}>
-          Reporting snapshot
-          <br />
-          <time dateTime={context.asOf}>{formatAsOf(context.asOf)}</time>
-        </p>
-      </header>
+        ) : report.kind === 'contributor' ? (
+          <div className={styles.meta}>
+            <GitHubAccountLink
+              login={report.account.login}
+              url={report.account.profileUrl}
+              label={'@' + report.account.login}
+            />
+            <span>{accountTypeLabels[report.account.actorType]}</span>
+            <EntityLink
+              links={links}
+              focus={{ kind: 'company', companyId: report.company?.id ?? null }}
+            >
+              {report.company?.name ?? 'Unmapped company'}
+            </EntityLink>
+          </div>
+        ) : (
+          <p className={styles.subtitle}>
+            {report.memberCount} included {report.memberCount === 1 ? 'account' : 'accounts'} ·{' '}
+            {report.company ? 'Current company mapping' : 'Accounts without a company mapping'}
+          </p>
+        )}
+      </ContributionHeading>
       {report.kind === 'overview' && (
         <nav className={styles.tabs} aria-label="Contribution reports">
           <ContributionNavigationLink
@@ -110,6 +106,18 @@ export function ContributionHeader({
           >
             <Building2 size={16} aria-hidden="true" /> Companies{' '}
             <span className={styles.tabCount}>{report.companyCount}</span>
+          </ContributionNavigationLink>
+        </nav>
+      )}
+      {!page.details && links.timelineHref !== undefined && (
+        <nav className={timelineStyles.tabs} aria-label="Report view">
+          <Link prefetch={false} href={links.currentHref} aria-current="page">
+            <Table2 size={16} aria-hidden="true" />
+            Report
+          </Link>
+          <ContributionNavigationLink href={links.timelineHref} onClick={links.onTimeline}>
+            <CalendarDays size={16} aria-hidden="true" />
+            Over time
           </ContributionNavigationLink>
         </nav>
       )}
@@ -157,5 +165,33 @@ export function ContributionHeader({
         {controls}
       </section>
     </>
+  );
+}
+
+/** Shared heading for list and Over time views; metric data stays with each view. */
+export function ContributionHeading({
+  title,
+  asOf,
+  eyebrow,
+  children,
+}: {
+  title: string;
+  asOf: string;
+  eyebrow: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <header className={styles.header}>
+      <div>
+        <p className={styles.eyebrow}>{eyebrow}</p>
+        <h1>{title}</h1>
+        {children}
+      </div>
+      <p className={styles.snapshot}>
+        Reporting snapshot
+        <br />
+        <time dateTime={asOf}>{formatAsOf(asOf)}</time>
+      </p>
+    </header>
   );
 }

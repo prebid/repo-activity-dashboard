@@ -1,4 +1,5 @@
 import { contributionRecordKey } from './contribution-identity';
+import { inDateRange } from './reporting-period';
 import type {
   ContributionSource,
   ContributionContext,
@@ -38,7 +39,8 @@ export function contributionDetailRows(
     const account = accounts.get(accountId),
       record = records.get(recordId)!;
     const repository = repos.get(record.repositoryId);
-    if (!account || !repository) return;
+    // Filter dated facts before grouping comments on the same account/record.
+    if (!account || !repository || !inDateRange(at, context.range)) return;
     const id = contributionRecordKey(accountId, recordId, metric);
     const prior = rows.get(id);
     if (prior) {

@@ -5,6 +5,9 @@
   --prebid-muted: #5e707f;
   --prebid-line: #e4eaee;
   --prebid-accent: #ffad32;
+  --prebid-brand-blue: #3887c2;
+  /* A darker logo-blue shade keeps small text readable on light surfaces. */
+  --prebid-brand-text: #2d72a6;
   --prebid-card: #fff;
   --prebid-input: #fff;
   --prebid-input-border: #cdd8df;
@@ -26,6 +29,7 @@
 }
 
 .dark {
+  --prebid-brand-text: var(--prebid-brand-blue);
   --prebid-background: #0d161f;
   --prebid-ink: #e6eef4;
   --prebid-muted: #a1b2bf;

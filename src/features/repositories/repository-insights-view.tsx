@@ -129,9 +129,13 @@ export function RepositoryInsightsView({
   insight,
   controller,
   navigation,
+  timelineHref,
+  onTimeline,
 }: {
   insight: RepositoryInsight;
   navigation?: RepositoryPageNavigation;
+  timelineHref?: string | null;
+  onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   controller: TableController;
 }) {
   const title = insightTitles[insight.drilldown.selection.metric],
@@ -159,6 +163,8 @@ export function RepositoryInsightsView({
     <RepositoryDrilldownFrame
       context={insight}
       navigation={navigation}
+      timelineHref={timelineHref}
+      onTimeline={onTimeline}
       title={title}
       measurement={measurement}
       summary={summary}

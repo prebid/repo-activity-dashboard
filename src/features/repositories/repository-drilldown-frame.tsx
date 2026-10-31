@@ -16,6 +16,8 @@ export function RepositoryDrilldownFrame({
   children,
   parentLink,
   navigation,
+  timelineHref,
+  onTimeline,
 }: {
   context: { repository: OverviewRepository; asOf: string; drilldown: RepositoryDrilldown };
   title: string;
@@ -24,6 +26,8 @@ export function RepositoryDrilldownFrame({
   children: ReactNode;
   parentLink?: { href: string; label: string };
   navigation?: RepositoryPageNavigation;
+  timelineHref?: string | null;
+  onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
 }) {
   const { repository, asOf, drilldown } = context,
     selection = drilldown.selection;
@@ -36,6 +40,8 @@ export function RepositoryDrilldownFrame({
         returnTo={drilldown.returnTo}
         parentLink={parentLink}
         navigation={navigation}
+        timelineHref={timelineHref}
+        onTimeline={onTimeline}
       />
       <p className={styles.supportingTitle}>{title}</p>
       <div className={styles.scope} aria-label="Selected repository scope" role="region">

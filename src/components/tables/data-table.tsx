@@ -15,6 +15,7 @@ import { PageState } from '@/components/feedback/page-state';
 import { countLabel, type CountLabels } from '@/lib/presentation/format';
 import { selectTableRows } from '@/lib/presentation/table-rows';
 import type { TableController } from '@/lib/presentation/table-controller';
+import type { TableValueColumn } from '@/models/table-values';
 
 const features = tableFeatures({
   rowPaginationFeature,
@@ -37,10 +38,15 @@ import { tablePageSize } from '@/models/table-query';
 
 export interface DataTableProps<T> {
   title: string;
+  disabled?: boolean;
   emptyTitle?: string;
   rows: T[];
   columns: DataColumn<T>[];
+  /** Full sortable/searchable axis when only a window of columns is rendered. */
+  valueColumns?: readonly TableValueColumn<T>[];
   columnMenuColumns?: DataColumn<T>[];
+  /** Some views control their columns through a dedicated axis/window control. */
+  showColumnMenu?: boolean;
   controller: TableController;
   exportName?: string;
   /** Optional explicit CSV columns; never affects visible columns, search or sorting. */
@@ -61,10 +67,13 @@ export interface DataTableProps<T> {
 }
 export function DataTable<T extends { id: string }>({
   title,
+  disabled = false,
   emptyTitle,
   rows,
   columns,
+  valueColumns = columns,
   columnMenuColumns,
+  showColumnMenu = true,
   controller,
   exportName,
   exportColumns,
@@ -82,7 +91,8 @@ export function DataTable<T extends { id: string }>({
   searchable = true,
   pageSize = tablePageSize,
 }: DataTableProps<T>) {
-  const interactive = useClientReady();
+  const ready = useClientReady();
+  const interactive = ready && !disabled;
   const [localVisibility, setLocalVisibility] = useState<Record<string, boolean>>({});
   const id = useId();
   const scrollArea = useRef<HTMLDivElement>(null);
@@ -115,8 +125,8 @@ export function DataTable<T extends { id: string }>({
   };
   const { query, update, reconcilePage } = controller;
   const matching = useMemo(
-    () => selectTableRows(rows, columns, query, searchable),
-    [rows, columns, query, searchable],
+    () => selectTableRows(rows, valueColumns, query, searchable),
+    [rows, valueColumns, query, searchable],
   );
   const defs = useMemo<ColumnDef<typeof features, T>[]>(
     () =>
@@ -186,7 +196,7 @@ export function DataTable<T extends { id: string }>({
       return alternative.download({ columnIds, query: captured, signal });
     }
     if (csvDownload) return csvDownload({ columnIds, query: captured, signal });
-    const fullRows = selectTableRows(rows, columns, captured, searchable);
+    const fullRows = selectTableRows(rows, valueColumns, captured, searchable);
     const text = tableCsv(
       fullRows,
       exportColumns ?? columns,
@@ -264,10 +274,12 @@ export function DataTable<T extends { id: string }>({
               }}
             />
           )}
-          <ColumnMenu
-            columns={columnMenuColumns ?? columns}
-            visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
-          />
+          {showColumnMenu && (
+            <ColumnMenu
+              columns={columnMenuColumns ?? columns}
+              visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
+            />
+          )}
           {exportName && (
             <CsvExportDialog
               title={title}
@@ -422,8 +434,8 @@ export function DataTable<T extends { id: string }>({
             (searchable ? ' matching ' : ' ') +
             countLabel(resultCount, itemLabel)}
         </span>
-        {columns.find((column) => column.id === query.sort)?.sortNote && (
-          <span>{columns.find((column) => column.id === query.sort)?.sortNote}</span>
+        {valueColumns.find((column) => column.id === query.sort)?.sortNote && (
+          <span>{valueColumns.find((column) => column.id === query.sort)?.sortNote}</span>
         )}
         {footerNote && <span>{footerNote}</span>}
         {(showSinglePageControls || pageCount > 1) && (

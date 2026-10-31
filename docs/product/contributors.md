@@ -112,7 +112,7 @@ Incomplete categories remain partial or unavailable; never force reconciliation 
 
 ## Over time tables — planned timeline increment
 
-After the core contributor/company overview and focused reports, add the [shared timeline view](README.md#timeline-reporting). Keep contributor/company reporting table-based: one row per calendar interval, separate metric columns, and full filtered CSV exports. Use Daily, Weekly, Monthly, Every 2 months, Quarterly (3 months), Half-yearly or Yearly grouping independently of the overall selected date range.
+After the core contributor/company overview and focused reports, add the [shared timeline view](README.md#timeline-reporting). Keep contributor/company reporting table-based: one row per calendar interval, separate metric columns, and full filtered CSV exports. Use Daily, Weekly, Monthly, Every 2 months, Quarterly, Every 6 months or Yearly grouping independently of the overall selected date range.
 
 Retain the selected person/company/population, repository scope, actor filters and exclusions when changing grouping or opening supporting details. Reviewer and approval contributions use their first qualifying credit dates, preserving the once-per-account/PR/metric rule across months and years. This measures credited contributions, not raw comment/review-event volume or the number of currently approved PRs.
 

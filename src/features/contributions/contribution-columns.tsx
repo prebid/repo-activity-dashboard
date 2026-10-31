@@ -40,6 +40,8 @@ export interface ContributionLinks {
   sample: ContributionSampleScenario;
   settings?: ContributionSettings;
   currentHref: string;
+  timelineHref?: string | null;
+  onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
   context?: ContributionContext;
   onMetric?: (
     event: MouseEvent<HTMLAnchorElement>,

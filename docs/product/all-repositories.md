@@ -2,7 +2,7 @@
 
 Status: requirements baseline agreed in the page-planning conversation on 2026-10-24. Layout, visual design, implementation, and database integration follow separately.
 
-The [planned shared timeline](README.md#timeline-reporting) adds continuous multi-interval exploration on repository and contribution reports. The overview keeps its two-period comparison; that control is not the timeline grouping selector.
+The [shared timeline](README.md#timeline-reporting) adds continuous multi-interval exploration on repository and contribution reports. The All Repositories Timeline addition was approved on 2026-10-30; its matrix models, fake samples and local layout are implemented. The Summary | Timeline preview now includes filters, period-window state and saved preferences; Step 3 is approved. Step 4 interval drilldowns and full-range CSV are approved. The final audit includes the new grouped Metrics multi-select. Summary keeps its two-period comparison; that control is not the timeline grouping selector.
 
 ## Purpose and scope
 
@@ -14,12 +14,22 @@ The landing page contains the login form. A normal successful login opens All Re
 
 ## Page structure
 
-Use two tables, each with one row per selected repository:
+Use **Summary | Timeline** tabs within All Repositories, with Summary as the default. The existing Summary retains two tables, each with one row per selected repository:
 
 1. **Current backlog:** the latest known state, unaffected by the activity timeframe selector.
 2. **Activity during selected period:** events and authorship within the selected dates.
 
 Group related columns so users can show the information they need and save their selection. The detailed default layout is a subsequent design task.
+
+## Timeline tab
+
+Select all repositories or a subset with the existing repository picker, then choose selected metrics, a continuous range and calendar grouping. Repositories are rows; chronological periods are columns. Pin the repository name and keep selected repositories visible even when their values are zero or unavailable. No cross-repository combined unique count or blended median is introduced.
+
+Long daily/weekly timelines use a clearly labeled window of period columns with Earlier/Later controls. Window movement is presentation only: it does not truncate the report, change grouping or limit CSV to the visible periods. Repository-row pagination remains independent, with at most 50 rows per page. Date columns follow the window rather than a duplicate period-column picker.
+
+A repository name opens that repository's individual Timeline with the full range, grouping and chosen metric preserved. A metric cell opens that repository's supporting data for the exact covered interval. Returning restores the matrix's repository selection, period window and sorting. CSV retains all selected repositories and periods with their metric and coverage context.
+
+This table complements the existing individual-repository chart and multi-metric interval table. It does not add a new top-level navigation item or a heatmap. Its models, window defaults, layout and verification follow the [All Repositories Timeline plan](../implementation/timeline-reporting-plan.md#all-repositories-timeline-addition).
 
 ## Current backlog table
 
@@ -178,7 +188,7 @@ The Difference row appears automatically when a second period is selected; there
 - Preserve separate sort settings for the two tables.
 - Save selected repositories, visible columns/groups, sorting, ordered activity periods/custom ranges and selected aging thresholds per account.
 - Save relative timeframe choices as relative choices: This month remains This month on a later visit.
-- Use a single top-level Repos navigation item with an expandable list containing All Repos and the individual repository links.
+- Put **Overview** first in the top-level navigation, linking to `/repos`. The following **Repositories** dropdown contains only individual repository links, without a repeated heading inside the menu. Keep the page title **All repositories**.
 - Selecting a repository name opens its repository page in the default Current open scope: the first page of open PRs including drafts and open issues, newest-created first by default, with at most 50 rows per list. Older matching records remain accessible through pagination. Selecting a metric count preserves that metric's specific filters with the same page-size limit; summary counts continue to cover the full matching set.
 - Clicking a count opens the repository-specific page with the relevant list prefiltered to the same repository, metric definition, branch scope, and period or current-backlog scope. PR and issue lists are the primary views. Supporting author/reviewer/approver and contribution-credit lists, where needed, contain only identity, count, and top-level record metadata; they do not require separate workspaces or display discussion content. Preserve the distinction between counts of people, records, and contributions. Selecting a PR or issue opens the actual record on GitHub. See [Repository page draft](repository-detail.md).
 - Display data freshness and distinguish complete, partial, and missing data.
@@ -218,3 +228,5 @@ These inputs do not block fixture-based design. Fixtures must distinguish known 
 - An unexpectedly higher reviewer/approval count: retain the real value rather than forcing it into the 2 bucket.
 
 No application behavior has been implemented or verified by this document.
+
+Page heading: **All repositories**, centered with its organization link beneath it and without an eyebrow label. Beneath it, show **Prebid on GitHub** linking to `https://github.com/prebid`, with no descriptive subtitle on either Summary or Timeline. Repository pages likewise center the repository name with branch and GitHub details beneath it; return navigation remains available. Both headers share their responsive alignment. GitHub links use Prebid logo blue with a darker text shade in light mode; branch details use the normal foreground color.

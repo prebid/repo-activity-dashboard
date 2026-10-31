@@ -1,0 +1,173 @@
+import { test, expect } from './fixtures';
+import type { Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+async function login(page: Page) {
+  await page.goto('/auth/login');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL(/\/repos$/);
+}
+test('normal Summary entry preserves selected repositories and both Summary periods', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto(
+    '/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-week&period2=last-month&age=30&age=60&activity.sort=prsMerged&activity.dir=desc',
+  );
+  const tabs = page.getByRole('navigation', { name: 'Repository overview views' });
+  await expect(tabs.getByRole('link', { name: 'Summary' })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('table')).toHaveCount(2);
+  const href = await tabs.getByRole('link', { name: 'Timeline' }).getAttribute('href');
+  const summary = new URL(href!, 'http://localhost').searchParams.get('summary')!;
+  await tabs.getByRole('link', { name: 'Timeline' }).click();
+  await expect(tabs.getByRole('link', { name: 'Timeline' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await expect(page.getByRole('table')).toHaveCount(1);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+  await expect(page.getByLabel('Timeline scope')).toContainText('2 repositories selected');
+  await tabs.getByRole('link', { name: 'Summary' }).click();
+  await expect(page).toHaveURL('http://127.0.0.1:3100' + summary);
+  await expect(page.getByRole('table')).toHaveCount(2);
+  const restored = new URL(page.url()).searchParams;
+  expect(restored.get('period')).toBe('this-week');
+  expect(restored.get('period2')).toBe('last-month');
+  expect(restored.getAll('age')).toEqual(['30', '60']);
+  expect(restored.get('activity.sort')).toBe('prsMerged');
+  expect(restored.get('activity.dir')).toBe('desc');
+});
+for (const [theme, width] of [
+  ['dark', 1440],
+  ['light', 375],
+  ['dark', 768],
+] as const) {
+  test(`matrix layout ${theme} ${width}`, async ({ page }, info) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await login(page);
+    await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
+    await page
+      .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
+      .click();
+    await page.goto('/repos?timeline=1');
+    const table = page.getByRole('table');
+    await expect(table.locator('tbody tr')).toHaveCount(18);
+    await expect(table.locator('thead th')).toHaveCount(11);
+    await expect(
+      table.getByRole('columnheader', { name: 'Oct 2026 (partial)', exact: true }),
+    ).toBeVisible();
+    for (const name of ['Columns', 'Show chart'])
+      await expect(page.getByRole('button', { name, exact: true })).toHaveCount(0);
+    await expect(page.getByRole('textbox')).toHaveCount(0);
+    const pinned = table.locator('tbody [data-column="repository"]').first();
+    const before = (await pinned.boundingBox())!;
+    const scroll = table.locator('..');
+    const overflows = await scroll.evaluate((node) => node.scrollWidth > node.clientWidth);
+    if (width < 1440) expect(overflows).toBe(true);
+    if (overflows) {
+      await scroll.evaluate((node) => {
+        node.scrollLeft = node.scrollWidth;
+      });
+      expect(await scroll.evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
+    }
+    expect(Math.abs((await pinned.boundingBox())!.x - before.x)).toBeLessThan(2);
+    await scroll.evaluate((node) => {
+      node.scrollLeft = 0;
+    });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+      width,
+    );
+    expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+    await page.getByRole('button', { name: /Column definitions for/ }).click();
+    await expect(page.getByRole('dialog')).toContainText('Partial calendar period');
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toBeHidden();
+    await page.screenshot({
+      path: info.outputPath(`matrix-${theme}-${width}.png`),
+      fullPage: true,
+    });
+  });
+}
+test('dense matrix renders only a period window and retains an offscreen sort', async ({
+  page,
+}, info) => {
+  await login(page);
+  await page.goto(
+    '/repos?timeline=1&sample=large&timeline.group=day&period=custom&from=2025-06-12&through=2026-10-24',
+  );
+  const table = page.getByRole('table');
+  await expect(page.getByRole('status')).toContainText('Periods 493–500 of 500');
+  await expect(table.locator('tbody tr')).toHaveCount(18);
+  await expect(table.locator('thead th')).toHaveCount(9);
+  await table.getByRole('button', { name: 'Oct 21, 2026', exact: true }).click();
+  await table.getByRole('button', { name: 'Oct 21, 2026 ↑', exact: true }).click();
+  const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
+  await page.getByRole('button', { name: 'Earlier', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
+  await expect(table.locator('thead th')).toHaveCount(13);
+  expect(await table.locator('tbody [data-column="repository"]').allTextContents()).toEqual(
+    ordering,
+  );
+  await expect(
+    page.getByText(/Sorted by Oct 21, 2026 \(descending; outside visible periods\)/),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Later', exact: true }).click();
+  await expect(table.getByRole('columnheader', { name: 'Oct 21, 2026 ↓' })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
+  await expect(page.getByRole('button', { name: 'Later', exact: true })).toBeDisabled();
+  await page.screenshot({ path: info.outputPath('matrix-dense.png'), fullPage: true });
+});
+test('mixed coverage, durations, snapshots and empty selections retain their meanings', async ({
+  page,
+}, info) => {
+  await login(page);
+  await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter');
+  const table = page.getByRole('table');
+  const row = (name: string) =>
+    table.locator('tbody tr').filter({ has: page.getByRole('cell', { name, exact: true }) });
+  await expect(page.getByLabel('Timeline data coverage')).toBeVisible();
+  await expect(row('Prebid Server (Java)').getByRole('cell').nth(1)).toContainText('—');
+  await expect(row('Prebid Server (Go)').getByRole('cell').nth(1).locator('sup')).toHaveText('*');
+  await expect(row('Prebid Documentation').getByRole('cell').nth(1)).toHaveText('0');
+  await page.screenshot({ path: info.outputPath('matrix-mixed.png'), fullPage: true });
+  await page.goto('/repos?timeline=1&timeline.metric=medianMergeDays');
+  await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('5 d');
+  await expect(row('Prebid.js').getByRole('cell').nth(10)).toHaveText('31 d');
+  await page.goto(
+    '/repos?timeline=1&timeline.metric=totalOpenPrs&timeline.group=day&period=custom&from=2026-10-11&through=2026-10-21',
+  );
+  await expect(row('Prebid.js').getByRole('cell').nth(1)).toHaveText('1');
+  await expect(row('Prebid.js').getByRole('cell').last()).toHaveText('2');
+  await page.goto('/repos?timeline=1&repo=');
+  await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
+  await expect(table).toHaveCount(0);
+  await page.goto(
+    '/repos?timeline=1&timeline.group=day&period=custom&from=2020-01-01&through=2026-10-24',
+  );
+  await expect(page.getByRole('heading', { name: 'Invalid timeline view' })).toBeVisible();
+  await expect(page.getByText(/exceeds 500 intervals/)).toBeVisible();
+});
+test('weekly issue periods and window controls fit on mobile', async ({ page }, info) => {
+  await page.setViewportSize({ width: 375, height: 1000 });
+  await login(page);
+  await page.goto('/repos?timeline=1&timeline.metric=issuesClosed&timeline.group=week');
+  await expect(page.getByRole('heading', { name: 'Issues · Closed', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Earlier', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'Earlier', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Window 3 of 4');
+  await expect(page.getByRole('status')).toContainText('Jun 15, 2026 – Sep 6, 2026');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+  expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+  await page.screenshot({ path: info.outputPath('matrix-weekly-mobile.png'), fullPage: true });
+});
+test('matrix preview requires sign-in and its Storybook empty layout remains reviewable', async ({
+  page,
+}) => {
+  await page.goto('/repos?timeline=1');
+  await expect(page).toHaveURL(/\/auth\/login/);
+  await page.goto(
+    'http://127.0.0.1:6007/iframe.html?id=timelines-repository-matrix--no-repositories&viewMode=story',
+  );
+  await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
+});

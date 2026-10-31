@@ -77,6 +77,17 @@ it('runs the packaged production artifact with current sessions and protected ac
     ).toMatchObject({ user: { id: 'admin' } });
     for (const [route, canary] of [
       ['/repos', 'Prebid.js'],
+      [
+        '/repos?timeline=1&timeline.metric=prsOpened&timeline.metric=medianMergeDays',
+        'Repository metrics',
+      ],
+      ['/repos/prebidjs?timeline=1', 'Activity over time'],
+      ['/contributors?timeline=1', 'Contributions over time'],
+      ['/companies?timeline=1', 'Contributions over time'],
+      [
+        '/repos/prebidjs?timeline=1&timeline.detail=prsOpened&timeline.interval=month%3A2026-10-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z',
+        'Supporting pull requests',
+      ],
       ['/contributors', 'Alice'],
       ['/companies', 'Example Acme'],
       ['/contributors/account-alice', 'sample-alice'],
@@ -145,6 +156,28 @@ it('runs the packaged production artifact with current sessions and protected ac
           Boolean(flight.headers.get('location')?.includes('/auth/login')),
       ).toBe(true);
     }
+    const timelineBody = JSON.stringify({
+      href: '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=medianMergeDays',
+      revision: 'contributions-reference-v2',
+      asOf: '2026-10-24T12:00:00.000Z',
+      columns: ['period', 'repository', 'prsOpened', 'medianMergeDays'],
+    });
+    const timelineCsv = await fetch(origin + '/api/reporting/timeline-export', {
+      method: 'POST',
+      headers: { cookie: cookie(), 'content-type': 'application/json' },
+      body: timelineBody,
+    });
+    expect(timelineCsv.status).toBe(200);
+    expect(timelineCsv.headers.get('cache-control')).toBe('private, no-store');
+    expect((await timelineCsv.text()).split('\r\n')).toHaveLength(11);
+    const deniedTimeline = await fetch(origin + '/api/reporting/timeline-export', {
+      method: 'POST',
+      redirect: 'manual',
+      headers: { 'content-type': 'application/json' },
+      body: timelineBody,
+    });
+    expect(deniedTimeline.status).toBe(307);
+    expect(deniedTimeline.headers.get('location')).toContain('/auth/login');
     const choiceBody = JSON.stringify({
       action: 'choices',
       sample: 'large',

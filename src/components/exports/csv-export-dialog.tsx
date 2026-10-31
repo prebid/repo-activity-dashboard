@@ -34,6 +34,7 @@ export interface CsvExportAlternative extends CsvLayoutChoice {
   }) => Promise<CsvFile>;
 }
 interface CsvExportDialogProps {
+  description?: React.ReactNode;
   title: string;
   columns: CsvColumnChoice[];
   visibleColumnIds: string[];
@@ -55,6 +56,7 @@ export function CsvExportDialog({
   layouts = noLayouts,
   onOpen,
   onDownload,
+  description,
 }: CsvExportDialogProps) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null),
     [open, setOpen] = useState(false);
@@ -166,9 +168,13 @@ export function CsvExportDialog({
           <DialogHeader className="text-left">
             <DialogTitle>{title} CSV export</DialogTitle>
             <DialogDescription>
-              Export all matching results with the current filters and sorting, beyond the current
-              page. Columns start with your table selection; changing them here only affects this
-              export.
+              {description ?? (
+                <>
+                  Export all matching results with the current filters and sorting, beyond the
+                  current page. Columns start with your table selection; changing them here only
+                  affects this export.
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
           <ScrollableDialogBody label="CSV export choices">

@@ -1,11 +1,20 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, GitBranch, GitPullRequest, CircleDot } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  GitBranch,
+  GitPullRequest,
+  CircleDot,
+  CalendarDays,
+} from 'lucide-react';
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import styles from './repository-page.module.css';
+import heading from './repository-heading.module.css';
+import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 
 export function RepositoryHeader({
   repository,
@@ -14,14 +23,25 @@ export function RepositoryHeader({
   navigation,
   activeKind,
   parentLink,
+  timelineHref,
+  onTimeline,
 }: {
   repository: OverviewRepository;
   asOf: string;
   returnTo: string;
   navigation?: RepositoryPageNavigation;
-  activeKind?: 'prs' | 'issues';
+  activeKind?: 'prs' | 'issues' | 'timeline';
+  timelineHref?: string | null;
+  onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   parentLink?: { href: string; label: string };
 }) {
+  const timelineLink =
+    timelineHref !== undefined
+      ? timelineHref
+      : '/repos/' +
+        encodeURIComponent(repository.slug) +
+        '?timeline=1' +
+        (activeKind === 'issues' ? '&timeline.kind=issues' : '');
   return (
     <>
       <div className={styles.breadcrumbs}>
@@ -38,15 +58,14 @@ export function RepositoryHeader({
           </>
         )}
       </div>
-      <header className={styles.header}>
-        <div>
-          <p className={styles.eyebrow}>Repository</p>
+      <header className={`${heading.layout} ${styles.header}`}>
+        <div className={heading.identity}>
           <h1>{repository.name}</h1>
           <div className={styles.meta}>
             <span>
               <GitBranch size={13} aria-hidden="true" />
               {repository.primaryBranch}
-              <span className={styles.muted}>primary branch</span>
+              <span>primary branch</span>
             </span>
             {navigation && (
               <Link
@@ -61,7 +80,7 @@ export function RepositoryHeader({
             )}
           </div>
         </div>
-        <p className={styles.snapshot}>
+        <p className={`${heading.aside} ${styles.snapshot}`}>
           Reporting snapshot
           <br />
           <time dateTime={asOf}>{formatAsOf(asOf)}</time>
@@ -97,6 +116,26 @@ export function RepositoryHeader({
             )}
           </Link>
         ))}
+        {timelineLink && (
+          <Link
+            prefetch={false}
+            href={timelineLink}
+            onClick={onTimeline}
+            aria-current={activeKind === 'timeline' ? 'page' : undefined}
+          >
+            <CalendarDays size={16} aria-hidden="true" />
+            <span>Timeline</span>
+          </Link>
+        )}
+        {!timelineLink && (
+          <span
+            className={timelineStyles.disabledTab}
+            aria-disabled="true"
+            title="These filters cannot be carried into Timeline. Reduce or clear the filters to continue."
+          >
+            Timeline
+          </span>
+        )}
       </nav>
     </>
   );

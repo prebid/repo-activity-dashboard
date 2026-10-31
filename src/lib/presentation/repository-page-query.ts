@@ -36,11 +36,20 @@ export function readRepositoryFilters(
   search: string,
   source: RepositoryPageSource,
 ): RepositoryPageFilters | null {
+  const filters = readRepositoryFilterValues(search, source.kind);
+  return filters && !repositoryFilterError(filters, source.drilldown.selection) ? filters : null;
+}
+/** Shared syntax decoder; each consumer applies its own current/historical compatibility rule. */
+export function readRepositoryFilterValues(
+  search: string,
+  kind: 'prs' | 'issues',
+): RepositoryPageFilters | null {
   const params = new URLSearchParams(search),
-    prefix = source.kind + '.filter.';
+    prefix = kind + '.filter.';
+  if (params.getAll(kind + '.q').length > 1) return null;
   const input: Record<string, unknown> = {
-    kind: source.kind,
-    search: params.get(source.kind + '.q') ?? '',
+    kind,
+    search: params.get(kind + '.q') ?? '',
   };
   for (const key of params.keys())
     if (
@@ -69,8 +78,7 @@ export function readRepositoryFilters(
   }
   const parsed = repositoryPageFiltersSchema.safeParse(input);
   if (!parsed.success) return null;
-  const filters = parsed.data;
-  return repositoryFilterError(filters, source.drilldown.selection) ? null : filters;
+  return parsed.data;
 }
 
 export function writeRepositoryFilters(search: string, filters: RepositoryPageFilters): string {
