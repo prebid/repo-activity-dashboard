@@ -77,3 +77,8 @@ it('sets record column defaults per selection', () => {
     latestActor: false,
   });
 });
+it('refuses inherited object names as repository metrics', () => {
+  for (const name of ['constructor', 'toString', 'hasOwnProperty', '__proto__'])
+    expect(() => repositoryMetricText(name)).toThrow('Unknown repository metric');
+  expect(repositoryMetricText('prsOpened').label).toBe('Opened');
+});

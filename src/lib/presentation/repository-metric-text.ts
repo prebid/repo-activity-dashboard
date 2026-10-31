@@ -191,9 +191,12 @@ export const activityMetricText: Record<RepositoryActivityTextMetric, Repository
 export function repositoryMetricText(id: string): RepositoryMetricText {
   const age = agingThresholdForColumn(id);
   if (age !== undefined) return agedPrsText(age);
-  const text =
-    (backlogMetricText as Record<string, RepositoryMetricText>)[id] ??
-    (activityMetricText as Record<string, RepositoryMetricText>)[id];
+  // Own properties only: inherited names such as `constructor` are not metrics.
+  const text = Object.hasOwn(backlogMetricText, id)
+    ? (backlogMetricText as Record<string, RepositoryMetricText>)[id]
+    : Object.hasOwn(activityMetricText, id)
+      ? (activityMetricText as Record<string, RepositoryMetricText>)[id]
+      : undefined;
   if (!text) throw Error('Unknown repository metric');
   return text;
 }

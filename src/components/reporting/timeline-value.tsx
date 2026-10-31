@@ -98,8 +98,8 @@ export function TimelineCoverageNotice() {
 }
 export function TimelineLinkLimitNotice() {
   return (
-    <aside className={styles.notice} role="status">
+    <p className={styles.notice} role="status">
       {timelineLinkLimitMessage}
-    </aside>
+    </p>
   );
 }

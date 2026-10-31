@@ -53,7 +53,7 @@ export function ContributionTimelineSupportView({
           label: 'Metric definition',
           value: () => reportMetricDescription(detail.details.metric),
         },
-        ...contributionDetailExportColumns(detail.details),
+        ...contributionDetailExportColumns(),
         ...timelineSupportContextColumns(detail.context, query, undefined, true),
       ]}
       itemLabel={{ singular: 'account / record row', plural: 'account / record rows' }}

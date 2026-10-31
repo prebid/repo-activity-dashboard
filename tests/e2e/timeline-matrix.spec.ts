@@ -106,6 +106,11 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   // Oct 1, 2026 has distinct values (Prebid.js 254, two repositories at 13), unlike name order.
   await table.getByRole('button', { name: 'Oct 1, 2026', exact: true }).click();
   await table.getByRole('button', { name: 'Oct 1, 2026 ↑', exact: true }).click();
+  // Header state and row order come from the same render, so this waits for the sorted rows.
+  await expect(table.getByRole('columnheader', { name: 'Oct 1, 2026 ↓' })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
   const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
   expect(ordering[0]).toContain('Prebid.js');
   expect(ordering).not.toEqual(names);

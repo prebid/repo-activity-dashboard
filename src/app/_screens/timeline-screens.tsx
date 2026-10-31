@@ -15,14 +15,15 @@ import {
   ContributionTimelineView,
   contributionTimelineMetrics,
 } from '@/features/contributions/contribution-timeline-view';
-import { repositoryTimelineMetricDefinitions } from '@/features/repositories/repository-timeline-columns';
+import {
+  repositoryTimelineMatrixMetricDefinitions,
+  repositoryTimelineMetricDefinitions,
+} from '@/features/repositories/repository-timeline-columns';
 import { TimelineRepositoryFilters } from '@/features/repositories/timeline-repository-filters';
 import {
   repositoryTimelineFamilyLabels,
   repositoryTimelineMetricIds,
-  repositoryTimelineMetricScope,
   type RepositoryTimeline,
-  type RepositoryTimelineMetric,
 } from '@/models/repository-timeline';
 import type { RepositoryTimelineMatrix } from '@/models/repository-timeline-matrix';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
@@ -43,7 +44,7 @@ export function RepositoryTimelineMatrixScreen({
   summaryHref,
 }: Shared & { matrix: RepositoryTimelineMatrix; summaryHref: string }) {
   const control = useTimelineControls(viewerId, context, {});
-  const matrixMetrics = repositoryTimelineMetricDefinitions(matrix.scope.metrics);
+  const matrixMetrics = repositoryTimelineMatrixMetricDefinitions(matrix.scope.metrics);
   const csv = timelineCsvDownload(control.href, matrix.source);
   return (
     <RepositoryTimelineMatrixView
@@ -54,17 +55,7 @@ export function RepositoryTimelineMatrixScreen({
         <TimelineControls
           context={context}
           {...control}
-          metrics={repositoryTimelineMetricDefinitions(repositoryTimelineMetricIds).map(
-            (metric) => ({
-              ...metric,
-              selectionGroup:
-                repositoryTimelineFamilyLabels[
-                  repositoryTimelineMetricScope(metric.id as RepositoryTimelineMetric).family
-                ] +
-                ' · ' +
-                metric.group,
-            }),
-          )}
+          metrics={repositoryTimelineMatrixMetricDefinitions(repositoryTimelineMetricIds)}
           onView={control.changeView}
           onPeriod={control.changePeriod}
           onReset={control.reset}

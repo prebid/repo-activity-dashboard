@@ -103,6 +103,7 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
     'descending',
   );
   expect(screen.getByRole('status')).toHaveTextContent('Periods 13–22 of 22');
+  expect(screen.getByRole('button', { name: 'Later' })).toBeDisabled();
 });
 it('bounds a 500-period DOM and keeps 50-row repository pages independent of the period window', async () => {
   const user = userEvent.setup();

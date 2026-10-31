@@ -7,16 +7,12 @@ import { tmpdir } from 'node:os';
 import { expect, it } from 'vitest';
 import { inspectDependencyAudit, npmAuditArguments } from '../../scripts/audit-dependencies.mjs';
 
-it('retains the docgen consumer globSync API and absolute include/exclude file selection', () => {
-  const consumer = createRequire(
-    import.meta.resolve('@joshwooding/vite-plugin-react-docgen-typescript'),
-  );
-  const glob = consumer('glob') as {
-    globSync: (
-      pattern: string,
-      options: { absolute: boolean; cwd: string; ignore: string[]; nodir: boolean },
-    ) => string[];
-  };
+type GlobSync = (
+  pattern: string,
+  options: { absolute: boolean; cwd: string; ignore: string[]; nodir: boolean },
+) => string[];
+/** The docgen plugin's selection: absolute paths, an excluded directory and a directory named like a file. */
+function expectDocgenSelection(globSync: GlobSync) {
   const root = mkdtempSync(join(tmpdir(), 'docgen-glob-'));
   try {
     mkdirSync(join(root, 'src', 'excluded'), { recursive: true });
@@ -25,18 +21,22 @@ it('retains the docgen consumer globSync API and absolute include/exclude file s
       writeFileSync(join(root, 'src', file), '');
     writeFileSync(join(root, 'src', 'excluded', 'hidden.tsx'), '');
     expect(
-      glob
-        .globSync('src/**/*.tsx', {
-          absolute: true,
-          cwd: root,
-          ignore: ['**/excluded/**'],
-          nodir: true,
-        })
-        .sort(),
+      globSync('src/**/*.tsx', {
+        absolute: true,
+        cwd: root,
+        ignore: ['**/excluded/**'],
+        nodir: true,
+      }).sort(),
     ).toEqual([join(root, 'src', 'one.tsx'), join(root, 'src', 'two.tsx')]);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+}
+it('retains the docgen consumer globSync file selection through its CommonJS build', () => {
+  const consumer = createRequire(
+    import.meta.resolve('@joshwooding/vite-plugin-react-docgen-typescript'),
+  );
+  expectDocgenSelection((consumer('glob') as { globSync: GlobSync }).globSync);
 });
 
 const url = 'https://github.com/advisories/GHSA-g3hv-75wg-m249';
@@ -281,7 +281,7 @@ it('reports npm audit failure details instead of a generic message', () => {
     ),
   ).toThrow('npm audit returned an error: 503: ENOAUDIT: Service unavailable.');
 });
-it('checks the glob ESM build the docgen plugin imports', async () => {
+it('retains the same file selection through the glob ESM build the docgen plugin imports', async () => {
   const plugin = import.meta.resolve('@joshwooding/vite-plugin-react-docgen-typescript');
   const manifestPath = createRequire(plugin).resolve('glob/package.json');
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
@@ -292,13 +292,7 @@ it('checks the glob ESM build the docgen plugin imports', async () => {
   const glob = (await import(
     pathToFileURL(join(dirname(manifestPath), typeof entry === 'string' ? entry : entry.default))
       .href
-  )) as { globSync: (pattern: string, options: { cwd: string; nodir: boolean }) => string[] };
+  )) as { globSync: GlobSync };
   expect(manifest.version).toBe('14.0.3');
-  const root = mkdtempSync(join(tmpdir(), 'docgen-glob-esm-'));
-  try {
-    writeFileSync(join(root, 'one.tsx'), '');
-    expect(glob.globSync('*.tsx', { cwd: root, nodir: true })).toEqual(['one.tsx']);
-  } finally {
-    rmSync(root, { recursive: true, force: true });
-  }
+  expectDocgenSelection(glob.globSync);
 });

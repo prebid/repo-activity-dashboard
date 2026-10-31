@@ -687,9 +687,19 @@ it('returns a repository Timeline to the All Repositories state its parent carri
   expect(
     repositoryTimelineReturnTo('/repos/prebidjs?returnTo=' + encodeURIComponent(summary)),
   ).toBe(summary);
-  expect(repositoryTimelineReturnTo('/repos?timeline=1&repo=repo-prebidjs')).toBe(
-    '/repos?timeline=1&repo=repo-prebidjs',
-  );
+  // A matrix parent has its own link; its Summary snapshot is the All Repositories origin.
+  expect(
+    repositoryTimelineReturnTo(
+      '/repos?timeline=1&repo=repo-prebidjs&summary=' + encodeURIComponent(summary),
+    ),
+  ).toBe(summary);
+  expect(repositoryTimelineReturnTo('/repos?timeline=1&repo=repo-prebidjs')).toBe('/repos');
+  // The snapshot keeps only Summary parameters, so a fragment never reaches the origin.
+  expect(
+    repositoryTimelineReturnTo(
+      '/repos?timeline=1&summary=' + encodeURIComponent('/repos?period=last-month#top'),
+    ),
+  ).toBe('/repos?period=last-month');
   expect(repositoryTimelineReturnTo('/repos/prebidjs?returnTo=%2Fcontributors')).toBe('/repos');
   expect(repositoryTimelineReturnTo('/repos/prebidjs')).toBe('/repos');
   expect(repositoryTimelineReturnTo(null)).toBe('/repos');

@@ -1,5 +1,6 @@
 import { safeReturnPath } from './navigation';
 import { customPeriodForRange } from './reporting-period';
+import { repositoryMatrixSummaryHref } from './repository-matrix-summary';
 
 /** A repository's Timeline for its record kind, with no list state to carry. */
 export function repositoryTimelineHref(slug: string, kind: 'prs' | 'issues') {
@@ -106,7 +107,11 @@ export function contributionTimelineEntry(
 export function repositoryTimelineReturnTo(parent: string | null | undefined): string {
   if (!parent) return '/repos';
   const url = new URL(parent, 'https://dashboard.invalid');
-  const origin = url.pathname === '/repos' ? parent : url.searchParams.get('returnTo');
+  // A matrix parent is reachable through its own link; its Summary snapshot is the origin.
+  const origin =
+    url.pathname === '/repos'
+      ? repositoryMatrixSummaryHref(url.searchParams.get('summary'))
+      : url.searchParams.get('returnTo');
   return overviewReturnPathSchema.safeParse(origin).success ? origin! : '/repos';
 }
 export function safeTimelineParent(value: string | null, path: string): string | null {

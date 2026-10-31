@@ -82,7 +82,7 @@ Review participation and approvals are independent measures; do not stack or add
 
 Current-open graphs do not require a historical period. Historical trend graphs belong to an explicitly selected activity scope and must not silently replace current backlog graphs on a direct visit.
 
-The planned Timeline view follows the [shared range/grouping and metric-time contract](README.md#timeline-reporting). It keeps event activity separate from historical end-of-interval backlog/approval snapshots; the current record cohort cannot establish those past snapshots by itself.
+The repository Timeline follows the [shared range/grouping and metric-time contract](README.md#timeline-reporting). It keeps event activity separate from historical end-of-interval backlog/approval snapshots; the current record cohort cannot establish those past snapshots by itself.
 
 Graphs must use the complete matching dataset, not just the loaded table page. State their scope and as-of time. Apply the relevant active filters consistently; explicitly label any restriction such as non-draft PRs so a graph does not imply it includes all open PRs.
 
