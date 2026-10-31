@@ -123,6 +123,8 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
 }, info) => {
   await login(page);
   await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter');
+  const ready = () => expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
+  await ready();
   const table = page.getByRole('table');
   const row = (name: string) =>
     table.locator('tbody tr').filter({ has: page.getByRole('cell', { name, exact: true }) });
@@ -132,14 +134,17 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
   await expect(row('Prebid Documentation').getByRole('cell').nth(1)).toHaveText('0');
   await page.screenshot({ path: info.outputPath('matrix-mixed.png'), fullPage: true });
   await page.goto('/repos?timeline=1&timeline.metric=medianMergeDays');
+  await ready();
   await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('5 d');
   await expect(row('Prebid.js').getByRole('cell').nth(10)).toHaveText('31 d');
   await page.goto(
     '/repos?timeline=1&timeline.metric=totalOpenPrs&timeline.group=day&period=custom&from=2026-10-11&through=2026-10-21',
   );
+  await ready();
   await expect(row('Prebid.js').getByRole('cell').nth(1)).toHaveText('1');
   await expect(row('Prebid.js').getByRole('cell').last()).toHaveText('2');
   await page.goto('/repos?timeline=1&repo=');
+  await ready();
   await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
   await expect(table).toHaveCount(0);
   await page.goto(

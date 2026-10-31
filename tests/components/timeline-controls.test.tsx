@@ -113,6 +113,25 @@ afterEach(() => {
 async function ready(result: { current: { pending: boolean } }) {
   await waitFor(() => expect(result.current.pending).toBe(false));
 }
+it.each(['matrix', 'repository', 'contribution'] as const)(
+  'restores %s presentation without requesting the same server data again',
+  async (area) => {
+    const path =
+      area === 'matrix' ? '/repos' : area === 'repository' ? '/repos/prebidjs' : '/contributors';
+    window.history.replaceState(null, '', path + '?timeline=1');
+    const context = makeContext(area, window.location.search);
+    localStorage.setItem(
+      timelinePreferenceKey('alice', context),
+      JSON.stringify({ version: 1, query: 'timeline.dir=desc' }),
+    );
+    const { result } = renderHook(() => useControls(area));
+    await ready(result);
+    expect(result.current.view.descending).toBe(true);
+    expect(new URLSearchParams(window.location.search).get('timeline.state')).toBe('1');
+    expect(navigation.replace).not.toHaveBeenCalled();
+    expect(navigation.push).not.toHaveBeenCalled();
+  },
+);
 it('restores versioned preferences once, freezes Back state and keeps row/window pages independent', async () => {
   const key = timelinePreferenceKey('alice', makeContext('matrix', 'timeline=1'));
   localStorage.setItem(
@@ -123,6 +142,7 @@ it('restores versioned preferences once, freezes Back state and keeps row/window
   await ready(result);
   expect(result.current.view.grouping).toBe('day');
   expect(result.current.view.window).toBe(25);
+  expect(navigation.replace).toHaveBeenCalledTimes(1);
   const before = window.location.href;
   await interact(() => {
     result.current.changeView({ window: 24 });

@@ -162,8 +162,13 @@ export function useTimelineControls(
       try {
         if (!params.has('period')) params.set('period', 'this-year');
         const next = checkedTarget(params.toString(), context);
-        if (next !== window.location.search.slice(1))
-          startTransition(() => router.replace(context.path + '?' + next, { scroll: false }));
+        if (next !== window.location.search.slice(1)) {
+          // Presentation restoration reuses the loaded facts, just like ordinary table edits.
+          const href = context.path + '?' + next;
+          if (resolveTimelinePresentation(context.path, next, context).awaitingData)
+            startTransition(() => router.replace(href, { scroll: false }));
+          else window.history.replaceState(null, '', href);
+        }
       } catch {
         setNotice(
           'Saved Timeline preferences do not fit this report. The requested view is unchanged.',

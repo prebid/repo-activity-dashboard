@@ -31,6 +31,26 @@ test('restoration preserves a valid near-limit incoming link when canonical defa
 async function ready(page: Page) {
   await expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
 }
+test('canonical presentation restoration does not fetch the Timeline data again', async ({
+  page,
+}) => {
+  await login(page);
+  const requests: string[] = [];
+  page.on('request', (request) => {
+    const url = new URL(request.url());
+    if (
+      url.pathname === '/repos' &&
+      url.searchParams.get('timeline') === '1' &&
+      url.searchParams.has('_rsc')
+    )
+      requests.push(request.url());
+  });
+  await page.goto('/repos?timeline=1');
+  await ready(page);
+  await expect(page).toHaveURL(/timeline\.state=1/);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
+  expect(requests).toEqual([]);
+});
 async function repos(page: Page, names: string[]) {
   await page.getByRole('button', { name: /^Choose repositories/ }).click();
   const dialog = page.getByRole('dialog', { name: 'Choose repositories', exact: true });
