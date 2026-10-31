@@ -8,6 +8,7 @@ import {
   additionalMetricDefinitions,
   type AdditionalMetric,
 } from './contribution-activity';
+import { metricName } from './column-selection';
 export const metricDescriptions: Record<ContributionMetric, string> = {
   prsAuthored: 'PRs created by the account during the period, including drafts and PRs now closed.',
   authoredPrsMerged:
@@ -41,7 +42,7 @@ export function isCoreMetric(value: ReportMetric): value is ContributionMetric {
 export function reportMetricLabel(metric: ReportMetric): string {
   return isCoreMetric(metric)
     ? contributionMetrics[metric].label
-    : additionalMetricDefinitions[metric].group + ' — ' + additionalMetricDefinitions[metric].label;
+    : metricName(additionalMetricDefinitions[metric]);
 }
 export function reportMetricDescription(metric: ReportMetric): string {
   return isCoreMetric(metric)

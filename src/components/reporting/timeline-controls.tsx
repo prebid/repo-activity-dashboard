@@ -12,6 +12,7 @@ import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
 import styles from './timeline-controls.module.css';
 import { TimelineMetricsSelector } from './timeline-metrics-selector';
+import { metricName } from '@/models/column-selection';
 export function TimelineControls({
   context,
   view,
@@ -128,7 +129,7 @@ export function TimelineControls({
                       .filter((metric) => view.selectedMetrics?.includes(metric.id))
                       .map((metric) => (
                         <option key={metric.id} value={metric.id}>
-                          {metric.group} — {metric.label}
+                          {metricName(metric)}
                         </option>
                       ))}
                   </select>

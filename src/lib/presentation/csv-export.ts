@@ -1,4 +1,5 @@
 import { csvCell } from './format';
+import { metricName } from '@/models/column-selection';
 interface CsvColumn<T> {
   id: string;
   label: string;
@@ -27,8 +28,9 @@ export function serializeCsv<T>(rows: readonly T[], columns: readonly CsvColumn<
     columns
       .map((column) =>
         csvCell(
-          column.group && !column.label.startsWith(column.group + ' — ')
-            ? column.group + ' — ' + column.label
+          // A label that already names its group is not prefixed twice.
+          column.group && !column.label.startsWith(metricName({ group: column.group, label: '' }))
+            ? metricName(column)
             : column.label,
         ),
       )

@@ -1,5 +1,6 @@
 import type { ActivityMetric, AgingThreshold, BacklogMetric } from '@/models/repository-overview';
 import { agingThresholdForColumn } from './overview-aging';
+import { metricName } from '@/models/column-selection';
 
 export interface RepositoryMetricText {
   label: string;
@@ -199,5 +200,5 @@ export function repositoryMetricText(id: string): RepositoryMetricText {
 /** Names a metric outside its table group, as headers, exports and supporting pages do. */
 export function repositoryMetricName(id: string): string {
   const text = repositoryMetricText(id);
-  return text.group + ' — ' + text.label;
+  return metricName(text);
 }

@@ -164,7 +164,7 @@ test('weekly issue periods and window controls fit on mobile', async ({ page }, 
   await page.setViewportSize({ width: 375, height: 1000 });
   await login(page);
   await page.goto('/repos?timeline=1&timeline.metric=issuesClosed&timeline.group=week');
-  await expect(page.getByRole('heading', { name: 'Issues · Closed', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Issues — Closed', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Earlier', exact: true })).toBeEnabled();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Window 3 of 4');

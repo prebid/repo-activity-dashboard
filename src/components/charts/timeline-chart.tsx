@@ -23,6 +23,7 @@ import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { formatUtcDate } from '@/lib/presentation/format';
 import styles from '@/components/reporting/timeline-layout.module.css';
+import { metricName } from '@/models/column-selection';
 export interface TimelineChartControls {
   onInterval?: (metric: string, interval: string) => void;
   disabled?: boolean;
@@ -152,8 +153,7 @@ export function TimelineChart({
               >
                 {metrics.map((item) => (
                   <option key={item.id} value={item.id}>
-                    {item.group ? item.group + ' — ' : ''}
-                    {item.label}
+                    {metricName(item)}
                   </option>
                 ))}
               </select>
@@ -174,9 +174,7 @@ export function TimelineChart({
               </strong>
             </div>
           </div>
-          <figure
-            aria-label={(metric.group ? metric.group + ' — ' : '') + metric.label + ' timeline'}
-          >
+          <figure aria-label={metricName(metric) + ' timeline'}>
             {points.some((point) => point.value !== null) ? (
               <div className={styles.chart} aria-hidden="true">
                 <ResponsiveContainer width="100%" height="100%">

@@ -18,6 +18,7 @@ import { absoluteChange } from '@/lib/presentation/measurement';
 import { activityPeriodLabel } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 import { OverviewMetric } from './overview-metric';
+import { metricName } from '@/models/column-selection';
 
 export type OverviewTableRow = RepositoryOverviewRow & { id: string };
 function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
@@ -62,7 +63,7 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
           repository={row.repository}
           measurement={row.backlog.counts[id]}
           selection={{ scope: 'current', metric: id }}
-          label={group + ' — ' + label}
+          label={metricName({ group, label })}
           returnTo={returnTo}
         />
       ),
@@ -150,7 +151,7 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
               range: row.period.range,
               ...(id === 'prsMerged' ? { branch: row.repository.primaryBranch } : {}),
             }}
-            label={group + ' — ' + label + ' — ' + activityPeriodLabel(row.period)}
+            label={metricName({ group, label }) + ' — ' + activityPeriodLabel(row.period)}
             returnTo={returnTo}
           />
         ),

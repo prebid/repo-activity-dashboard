@@ -23,6 +23,7 @@ import {
   TimelineValueCell,
   timelineFooterLegend,
 } from './timeline-value';
+import { metricName } from '@/models/column-selection';
 export interface TimelineTableControls {
   detailHref?: (metric: string, interval: string) => string | null;
   csvDownload?: CsvExportAlternative['download'];
@@ -96,7 +97,7 @@ export function TimelineTable({
             <TimelineValueCell
               measurement={measurement}
               unit={metric.unit}
-              name={`${metric.group ? metric.group + ' — ' : ''}${metric.label}, ${timelineIntervalLabel(row.interval, grouping)}`}
+              name={`${metricName(metric)}, ${timelineIntervalLabel(row.interval, grouping)}`}
               href={
                 linkable && measurement.value !== null
                   ? detailHref(metric.id, row.interval.id)

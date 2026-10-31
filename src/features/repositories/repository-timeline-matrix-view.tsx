@@ -37,6 +37,7 @@ import {
   type RepositoryTimelineMetric,
 } from '@/models/repository-timeline';
 import { tablePageSize } from '@/models/table-query';
+import { metricName } from '@/models/column-selection';
 export interface MatrixInteractions {
   sortMetric?: RepositoryTimelineMetric;
   detailHref?: (row: RepositoryTimelineMatrixRow, interval: string) => string | null;
@@ -69,9 +70,7 @@ export function RepositoryTimelineMatrixView({
       <AllRepositoriesTabs active="timeline" summaryHref={summaryHref} timelineHref={href} />
       {controls}
       <TimelineScope request={matrix.request} count={matrix.intervals.length}>
-        <span>
-          {metrics.length === 1 ? metric.group + ' · ' + metric.label : metrics.length + ' metrics'}
-        </span>
+        <span>{metrics.length === 1 ? metricName(metric) : metrics.length + ' metrics'}</span>
         <span>
           {matrix.scope.repositoryIds.length}{' '}
           {matrix.scope.repositoryIds.length === 1 ? 'repository' : 'repositories'} selected
@@ -130,10 +129,8 @@ function MatrixTable({
   const definitions = new Map(metrics.map((metric) => [metric.id, metric]));
   const linkable = !!interactions?.detailHref && !interactions.pending;
   const metric = definitions.get(sortMetric)!;
-  const metricName = (row: RepositoryTimelineMatrixRow) => {
-    const definition = definitions.get(row.metric)!;
-    return definition.group + ' — ' + definition.label;
-  };
+  const rowMetricName = (row: RepositoryTimelineMatrixRow) =>
+    metricName(definitions.get(row.metric)!);
   const label = (interval: RepositoryTimelineMatrix['intervals'][number]) =>
     timelineIntervalLabel(interval, matrix.request.grouping);
   const first = window.intervals[0],
@@ -176,7 +173,7 @@ function MatrixTable({
             )}
             {multiple && (
               <span className={styles.metricName} title={definitions.get(row.metric)!.description}>
-                {metricName(row)}
+                {rowMetricName(row)}
                 {repositoryTimelineMetricScope(row.metric).family === 'snapshot' ? (
                   <small>At cutoff</small>
                 ) : null}
@@ -197,15 +194,13 @@ function MatrixTable({
           timelineIntervalDescription(interval) +
           (interval.partial ? ' Partial calendar period.' : '') +
           ' Sort repositories by ' +
-          metric.group +
-          ' — ' +
-          metric.label +
+          metricName(metric) +
           '.',
         cell: (row) => (
           <TimelineValueCell
             measurement={row.values[index]}
             unit={repositoryTimelineMetricScope(row.metric).unit}
-            name={`${row.repository.name}${multiple ? ', ' + metricName(row) : ''}, ${label(interval)}`}
+            name={`${row.repository.name}${multiple ? ', ' + rowMetricName(row) : ''}, ${label(interval)}`}
             href={
               linkable && row.values[index].value !== null
                 ? interactions.detailHref!(row, interval.id)
@@ -245,7 +240,7 @@ function MatrixTable({
       {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         disabled={interactions?.pending}
-        title={multiple ? 'Repository metrics' : `${metric.group} · ${metric.label}`}
+        title={multiple ? 'Repository metrics' : metricName(metric)}
         rows={matrix.rows}
         rowClassName={(row) =>
           multiple && row.metric === matrix.scope.metrics.at(-1) ? styles.groupEnd : undefined
@@ -310,7 +305,7 @@ function MatrixTable({
               <>
                 <br />
                 Sorted by {label(sortedInterval)}
-                {multiple ? ' · ' + metric.group + ' — ' + metric.label : ''} (
+                {multiple ? ' · ' + metricName(metric) : ''} (
                 {controller.query.descending ? 'descending' : 'ascending'}
                 {outsideWindow ? '; outside visible periods' : ''}).
               </>

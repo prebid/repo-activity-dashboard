@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import type { DataColumn } from './table-columns';
 import styles from './data-table.module.css';
+import { metricName } from '@/models/column-selection';
 
 /** The same column metadata supplies mouse hover, screen-reader descriptions and this touch/keyboard view. */
 export function ColumnDefinitions<T>({
@@ -59,10 +60,7 @@ export function ColumnDefinitions<T>({
             <dl>
               {explained.map((column) => (
                 <div key={column.id}>
-                  <dt>
-                    {column.group ? column.group + ' — ' : ''}
-                    {column.label}
-                  </dt>
+                  <dt>{metricName(column)}</dt>
                   <dd>{column.description}</dd>
                 </div>
               ))}
