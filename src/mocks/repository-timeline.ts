@@ -166,6 +166,32 @@ function source(
     snapshots: snapshots(repository, kind, scenario),
   });
 }
+function deepFreeze<T>(value: T): T {
+  if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const child of Object.values(value)) deepFreeze(child);
+  }
+  return value;
+}
+const sources = new Map<string, RepositoryTimelineSource>();
+/**
+ * Each source is built and validated once, then shared read-only by every request: the full record
+ * set is large, and freezing makes an accidental write fail instead of changing later requests.
+ */
+function sharedSource(
+  repository: WorldRepository,
+  kind: 'prs' | 'issues',
+  scenario: RepositoryTimelineScenario,
+  gap: boolean,
+): RepositoryTimelineSource {
+  const key = [repository.id, kind, scenario, gap].join(':');
+  let built = sources.get(key);
+  if (!built) {
+    built = deepFreeze(source(repository, kind, scenario, gap));
+    sources.set(key, built);
+  }
+  return built;
+}
 export function repositoryTimelineSample(
   kind: 'prs' | 'issues' = 'prs',
   repositoryId = 'repo-prebidjs',
@@ -174,7 +200,7 @@ export function repositoryTimelineSample(
 ): RepositoryTimelineSource {
   const repository = repositoryWorld(worldScenario(scenario), gap).get(repositoryId);
   if (!repository) throw Error('Unknown sample repository');
-  return source(repository, kind, scenario, gap);
+  return sharedSource(repository, kind, scenario, gap);
 }
 export function repositoryTimelineMatrixSample(
   kind: 'prs' | 'issues' | 'mixed' = 'prs',
@@ -189,8 +215,11 @@ export function repositoryTimelineMatrixSample(
     kind,
     repositories: repositories.flatMap((repository) =>
       kind === 'mixed'
-        ? [source(repository, 'prs', scenario, gap), source(repository, 'issues', scenario, gap)]
-        : [source(repository, kind, scenario, gap)],
+        ? [
+            sharedSource(repository, 'prs', scenario, gap),
+            sharedSource(repository, 'issues', scenario, gap),
+          ]
+        : [sharedSource(repository, kind, scenario, gap)],
     ),
   };
 }

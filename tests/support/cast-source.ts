@@ -44,7 +44,8 @@ export function onlyCast(
   const shift = <T>(value: T): T =>
     calendar ? (JSON.parse(JSON.stringify(value).replaceAll('"2026-', '"2024-')) as T) : value;
   const window = windowFor(calendar, gap);
-  return {
+  // A copy, since sample sources are shared read-only between callers.
+  return structuredClone({
     ...source,
     scenarioId: calendar ? 'repositories-calendar-v1' : source.scenarioId,
     // Every repository shares the cast's window; only the scenario's own coverage rules apply.
@@ -64,5 +65,5 @@ export function onlyCast(
       ...snapshot,
       rows: snapshot.rows.filter(cast),
     })),
-  } as RepositoryTimelineSource;
+  }) as RepositoryTimelineSource;
 }
