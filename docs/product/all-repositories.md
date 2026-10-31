@@ -23,7 +23,7 @@ Group related columns so users can show the information they need and save their
 
 ## Timeline tab
 
-Select all repositories or a subset with the existing repository picker, then choose selected metrics, a continuous range and calendar grouping. Repositories are rows; chronological periods are columns. Pin the repository name and keep selected repositories visible even when their values are zero or unavailable. No cross-repository combined unique count or blended median is introduced.
+Select all repositories or a subset with the existing repository picker, then choose selected metrics, a continuous range and calendar grouping. Each repository groups one row per selected metric; chronological periods are columns. Pin the repository name and keep selected repositories visible even when their values are zero or unavailable. No cross-repository combined unique count or blended median is introduced.
 
 Long daily/weekly timelines use a clearly labeled window of period columns with Earlier/Later controls. Window movement is presentation only: it does not truncate the report, change grouping or limit CSV to the visible periods. Repository-row pagination remains independent, with at most 50 rows per page. Date columns follow the window rather than a duplicate period-column picker.
 

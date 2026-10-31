@@ -2,7 +2,7 @@
 
 Status: all five steps, visual review and reviewer-feedback fixes are complete and merged in PR #7. The implementation/checkpoint notes below are historical records; use the [approved project sequence](README.md#approved-delivery-sequence) for current work. Charts start collapsed on fresh visits and after resetting view preferences; explicit saved or URL choices still apply. Reporting remains prepared fake data, and ordinary lists show 50 rows per page.
 
-The [planned timeline increment](README.md#timeline-reporting) extends activity views with selectable daily, weekly, monthly, two-month, quarterly, half-yearly and yearly grouping across one continuous date range. The existing daily/monthly activity charts remain the implemented baseline; the new selector and broader historical metrics are future work.
+The [timeline increment](README.md#timeline-reporting) adds a repository Timeline with selectable daily, weekly, monthly, two-month, quarterly, half-yearly and yearly grouping across one continuous date range. The existing daily/monthly activity charts remain on the record lists.
 
 ## Confirmed purpose
 
