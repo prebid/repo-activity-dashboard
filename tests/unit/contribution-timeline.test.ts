@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
+import { contributionSample } from '@/mocks/contributions';
 import {
   selectContributionTimeline,
   contributionTimelineDetail,
@@ -35,6 +36,21 @@ it.each(timelineGroupings)(
     expect(JSON.stringify(report)).not.toContain('Sample PR');
   },
 );
+it.each([
+  { kind: 'preset', preset: 'this-year' },
+  { kind: 'preset', preset: 'last-month' },
+  { kind: 'custom', from: '2025-12-01', through: '2026-01-31' },
+  { kind: 'custom', from: '2025-01-01', through: '2025-01-31' },
+  { kind: 'custom', from: '2026-10-01', through: '2026-10-31' },
+] as const)('applies the report coverage rule to the Timeline for %o', (period) => {
+  const contributions = contributionSample({ period });
+  const report = selectContributions(contributions);
+  const timeline = selectContributionTimeline(contributionTimelineSample(), {
+    range: contributions.range,
+    grouping: 'month',
+  });
+  expect(timeline.summary).toEqual({ ...report.totals, ...report.additionalTotals });
+});
 it('pins monthly credits and keeps later merged volume separate from first reviewer credit', () => {
   const report = selectContributionTimeline(sample, request);
   expect(

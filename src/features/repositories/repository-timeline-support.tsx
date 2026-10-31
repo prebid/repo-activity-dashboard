@@ -80,12 +80,15 @@ export function repositoryTimelineSupportColumns(kind: 'prs' | 'issues', snapsho
       snapshot && snapshotColumnIds.has(column.id)
         ? {
             ...column,
+            // The review-count names match the Backlog at cutoff filter fields.
             label:
               column.id === 'approvals'
                 ? 'Human approvals at cutoff'
-                : column.id === 'ageDays'
-                  ? 'Age at cutoff (days)'
-                  : column.label,
+                : column.id === 'humanReviewers'
+                  ? 'Human reviewers at cutoff'
+                  : column.id === 'ageDays'
+                    ? 'Age at cutoff (days)'
+                    : column.label,
             description: 'Supplied historical value at the exact covered interval cutoff.',
           }
         : column,

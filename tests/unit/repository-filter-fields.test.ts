@@ -12,6 +12,7 @@ import {
   type RepositoryFilterKey,
 } from '@/features/repositories/repository-filter-fields';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
+import { repositoryTimelineSupportColumns } from '@/features/repositories/repository-timeline-support';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { currentIssueSample } from '@/mocks/current-records';
@@ -199,6 +200,27 @@ it('offers cutoff fields for Backlog at cutoff without current-state predicates'
       .filter((field) => field.key === 'approvals' || field.key === 'reviewers')
       .map((field) => field.label),
   ).toEqual(['Human reviewers at cutoff', 'Human approvals at cutoff']);
+});
+it('names cutoff review counts alike in the filter dialog and supporting records', () => {
+  const fields = repositoryFilterFieldsFromOptions({
+    labels: [],
+    authors: [],
+    branches: [],
+    assignees: [],
+    kind: 'prs',
+    current: true,
+    cutoff: true,
+  });
+  const columns = repositoryTimelineSupportColumns('prs', true);
+  const label = (id: string) => columns.find((column) => column.id === id)!.label;
+  expect([label('humanReviewers'), label('approvals')]).toEqual(
+    ['reviewers', 'approvals'].map((key) => fields.find((field) => field.key === key)!.label),
+  );
+  for (const kind of ['prs', 'issues'] as const)
+    for (const column of repositoryTimelineSupportColumns(kind, true)) {
+      expect(column.description ?? '').not.toMatch(/reporting snapshot/);
+      expect(column.description ?? '').not.toMatch(/^Current/);
+    }
 });
 it('builds filter choices with lowercase account identities', () => {
   expect(

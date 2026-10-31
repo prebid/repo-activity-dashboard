@@ -7,7 +7,7 @@ import {
   type TimelineGrouping,
 } from '@/models/reporting-timeline';
 import { dateRangeSchema, utcInstantSchema, type DateRange } from '@/models/reporting-period';
-import type { Measurement } from '@/models/reporting-measurement';
+import type { Measurement, ReportingCoverage } from '@/models/reporting-measurement';
 import { utcMonthStart, utcWeekStart } from './reporting-period';
 
 const day = 86_400_000;
@@ -123,11 +123,11 @@ export function validateTimelineAvailability(
   return ranges;
 }
 /** Apply time coverage without turning an unknown value into zero, or clipping into missing data. */
-export function withTimelineAvailability(
-  value: Measurement,
+/** How much of a range the prepared history covers, with one reason shared by every report. */
+export function timelineRangeCoverage(
   range: DateRange,
   available: readonly DateRange[],
-): Measurement {
+): ReportingCoverage {
   const from = Date.parse(range.start),
     through = Date.parse(range.end) + Number(range.endInclusive);
   const known = available.reduce(
@@ -140,13 +140,23 @@ export function withTimelineAvailability(
       ),
     0,
   );
-  if (known === through - from) return value;
+  if (known === through - from) return { status: 'complete' };
   const reason = 'This time range has incomplete prepared sample coverage.';
-  return known === 0 || value.value === null
-    ? { status: 'missing', value: null, reason }
+  return known === 0 ? { status: 'missing', reason } : { status: 'partial', reason };
+}
+export function withTimelineAvailability(
+  value: Measurement,
+  range: DateRange,
+  available: readonly DateRange[],
+): Measurement {
+  const coverage = timelineRangeCoverage(range, available);
+  if (coverage.status === 'complete') return value;
+  return coverage.status === 'missing' || value.value === null
+    ? { status: 'missing', value: null, reason: coverage.reason }
     : {
         status: 'partial',
         value: value.value,
-        reason: value.status === 'complete' ? reason : value.reason + '; ' + reason,
+        reason:
+          value.status === 'complete' ? coverage.reason : value.reason + '; ' + coverage.reason,
       };
 }

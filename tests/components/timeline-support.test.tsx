@@ -223,17 +223,39 @@ it('explains bounded-out detail links without turning known values into missing 
   expect(screen.queryByRole('link')).not.toBeInTheDocument();
 });
 it('shows author account types by label, preserved login casing and supplied profile URLs', () => {
-  const authors = selectRepositoryTimelineSupport(source, report, context('prAuthors'));
+  // PRs 105 and 108 are both Bob's; spelling one login differently must not split the account.
+  const mixed = structuredClone(source);
+  mixed.rows.find((row) => row.number === 105)!.author = 'Sample-Bob';
+  const authors = selectRepositoryTimelineSupport(
+    mixed,
+    selectRepositoryTimeline(mixed, request),
+    context('prAuthors'),
+  );
   if (authors.kind !== 'authors') throw Error('Expected authors');
   expect(authors.rows.every((row) => row.profileUrl.startsWith('https://github.example/'))).toBe(
     true,
   );
+  expect(authors.rows.filter((row) => row.id === 'sample-bob')).toEqual([
+    expect.objectContaining({ account: 'Sample-Bob', recordCount: 2 }),
+  ]);
   render(<Preview detail={authors} />);
   const table = screen.getByRole('table');
   expect(within(table).getAllByText('Human').length).toBeGreaterThan(0);
   expect(within(table).queryByText('human')).not.toBeInTheDocument();
-  const first = authors.rows[0];
-  expect(
-    within(table).getAllByRole('link', { name: new RegExp('@' + first.account) })[0],
-  ).toHaveAttribute('href', first.profileUrl);
+  expect(within(table).getByRole('link', { name: /@Sample-Bob/ })).toHaveAttribute(
+    'href',
+    authors.rows.find((row) => row.id === 'sample-bob')!.profileUrl,
+  );
+  expect(within(table).queryByText(/@sample-bob/)).not.toBeInTheDocument();
+  for (const login of ['sample-bob', 'SAMPLE-BOB']) {
+    const records = selectRepositoryTimelineSupport(
+      mixed,
+      selectRepositoryTimeline(mixed, request),
+      context('prAuthors'),
+      login,
+    );
+    if (records.kind !== 'repository') throw Error('Expected author records');
+    expect(records.author).toBe('Sample-Bob');
+    expect(records.rows.map((row) => row.number)).toEqual([105, 108]);
+  }
 });

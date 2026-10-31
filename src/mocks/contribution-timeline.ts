@@ -1,5 +1,9 @@
 import type { ContributionTimelineSource } from '@/models/contribution-timeline';
-import { contributionSample, type ContributionScenario } from './contributions';
+import {
+  contributionPreparedRange,
+  contributionSample,
+  type ContributionScenario,
+} from './contributions';
 import { validateContributionSource } from '@/lib/presentation/contribution-source';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 
@@ -31,7 +35,9 @@ export function contributionTimelineSample(
       ...contributions,
       scenarioId: contributions.scenarioId + '-temporal-gap',
     });
-  const year = contributions.range.start.slice(0, 4);
+  // The report's prepared history, so both apply one rule to ranges that leave it.
+  const prepared = scenario === 'calendar' ? contributions.range : contributionPreparedRange;
+  const year = prepared.start.slice(0, 4);
   return {
     contributions,
     availableRanges:
@@ -40,16 +46,16 @@ export function contributionTimelineSample(
         : gap
           ? [
               {
-                start: contributions.range.start,
+                start: prepared.start,
                 end: year + '-02-01T00:00:00.000Z',
                 endInclusive: false,
               },
               {
                 start: year + '-03-01T00:00:00.000Z',
-                end: contributions.range.end,
-                endInclusive: contributions.range.endInclusive,
+                end: prepared.end,
+                endInclusive: prepared.endInclusive,
               },
             ]
-          : [contributions.range],
+          : [prepared],
   };
 }
