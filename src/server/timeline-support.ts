@@ -20,6 +20,7 @@ import type { TimelineSupportContext } from '@/models/timeline-support';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import type { Measurement } from '@/models/reporting-measurement';
+import { normalizeGithubLogin } from '@/models/github-account';
 const invalid = (
   message = 'This supporting view is invalid, unavailable or no longer matches its timeline.',
   parentHref?: string,
@@ -110,7 +111,7 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
     const authors = selectRepositoryTimelineSupport(source, loaded.report, context);
     if (
       authors.kind !== 'authors' ||
-      !authors.rows.some((row) => row.account === query.author!.toLowerCase())
+      !authors.rows.some((row) => row.id === normalizeGithubLogin(query.author!))
     )
       return unavailable();
   }

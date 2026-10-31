@@ -10,6 +10,7 @@ import { contributionScope } from './contribution-scope';
 import { contributionDetailRows } from './contribution-detail-rows';
 import { contributionTimelineDetail } from './contribution-timeline';
 import { repositoryTimelineDetail, repositoryTimelineSupportingRows } from './repository-timeline';
+import { normalizeGithubLogin } from '@/models/github-account';
 
 export function selectContributionTimelineSupport(
   source: ContributionTimelineSource,
@@ -84,7 +85,7 @@ export function selectRepositoryTimelineSupport(
   if (descriptor.basis === 'distinct-authors') {
     const groups = new Map<string, import('@/models/timeline-support').TimelineAuthorRow>();
     for (const row of rows) {
-      const id = row.author.toLowerCase(),
+      const id = normalizeGithubLogin(row.author),
         prior = groups.get(id);
       if (prior) prior.recordCount++;
       else
@@ -97,12 +98,14 @@ export function selectRepositoryTimelineSupport(
         });
     }
     if (!author) return { ...base, kind: 'authors', rows: [...groups.values()] };
-    if (!groups.has(author.toLowerCase())) throw Error('Unknown author in this interval.');
+    const match = groups.get(normalizeGithubLogin(author));
+    if (!match) throw Error('Unknown author in this interval.');
+    // Titles and exports show the observed login, whatever casing the URL used.
     return {
       ...base,
       kind: 'repository',
-      author,
-      rows: rows.filter((row) => row.author.toLowerCase() === author.toLowerCase()),
+      author: match.account,
+      rows: rows.filter((row) => normalizeGithubLogin(row.author) === match.id),
     };
   }
   if (author) throw Error('Author drilldowns require a unique-author metric.');
