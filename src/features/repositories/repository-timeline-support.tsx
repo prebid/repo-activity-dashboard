@@ -162,7 +162,11 @@ export function RepositoryTimelineSupportView({
             value: (row) => row.state,
           },
           { id: 'recordLabels', label: 'Labels', value: (row) => row.labels.join(', ') },
-          { id: 'authorType', label: 'Author type', value: (row) => row.authorType ?? 'unknown' },
+          {
+            id: 'authorType',
+            label: 'Author type',
+            value: (row) => accountTypeLabels[row.authorType ?? 'unknown'],
+          },
           { id: 'basis', label: 'Counting basis', value: () => detail.descriptor.basis },
           {
             id: 'cutoffAt',

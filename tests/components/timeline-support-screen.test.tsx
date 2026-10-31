@@ -1,12 +1,16 @@
 import { useSyncExternalStore } from 'react';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TimelineSupportScreen } from '@/app/_screens/timeline-support-screen';
 import { selectRepositoryTimelineSupport } from '@/lib/presentation/timeline-support';
 import { repositoryTimelineSample } from '@/mocks/repository-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import type { TimelineSupport } from '@/models/timeline-support';
+import {
+  readTimelineSupportQuery,
+  timelineSupportHref,
+} from '@/lib/presentation/timeline-support-query';
 
 const navigation = vi.hoisted(() => ({ push: vi.fn(), replace: vi.fn() }));
 const subscribe = (notify: () => void) => {
@@ -77,6 +81,56 @@ it('writes no history and follows nothing while another scope is arriving', asyn
   for (const control of screen.getAllByRole('group'))
     if (control.getAttribute('aria-label')?.endsWith('table controls'))
       expect(control).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Columns' })).toBeDisabled();
+});
+it('freezes the list before a column change, and Back restores the earlier columns', async () => {
+  const user = userEvent.setup();
+  window.history.replaceState(null, '', href);
+  writes.length = 0;
+  render(<TimelineSupportScreen detail={detail} viewerId="alice" />);
+  await user.click(screen.getByRole('button', { name: 'Columns' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Account type' }));
+  expect(writes.map((write) => write.split(' ')[0])).toEqual(['replaceState', 'pushState']);
+  const columns = (write: string) =>
+    new URL(write.split(' ')[1], 'https://example.test').searchParams.getAll(
+      'support.authors.columns',
+    );
+  expect(columns(writes[0])).toEqual(['account', 'accountType', 'recordCount']);
+  expect(columns(writes[1])).toEqual(['account', 'recordCount']);
+  await user.keyboard('{Escape}');
+  expect(screen.queryByRole('columnheader', { name: /^Account type/ })).not.toBeInTheDocument();
+  window.history.back();
+  await waitFor(() =>
+    expect(screen.getByRole('columnheader', { name: /^Account type/ })).toBeInTheDocument(),
+  );
+  expect(window.location.pathname + window.location.search).toBe(writes[0].split(' ')[1]);
+});
+it('moves Back and Forward through a search in an author records list', async () => {
+  const user = userEvent.setup();
+  if (detail.kind !== 'authors') throw Error('Expected an authors list');
+  const account = detail.rows[0].account;
+  const authorHref = href + '&support.author=' + account;
+  const records = selectRepositoryTimelineSupport(
+    source,
+    report,
+    { ...detail.context, href: authorHref },
+    account,
+  );
+  window.history.replaceState(null, '', authorHref);
+  writes.length = 0;
+  render(<TimelineSupportScreen detail={records} viewerId="alice" />);
+  const search = screen.getByRole('textbox', { name: /^Search / });
+  await user.type(search, 'Sample{Enter}');
+  expect(writes.some((write) => /^pushState .*support\.records\.q=Sample/.test(write))).toBe(true);
+  const query = () => new URL(window.location.href).searchParams.get('support.records.q');
+  window.history.back();
+  await waitFor(() => expect(query()).toBeNull());
+  await waitFor(() => expect(screen.getByRole('textbox', { name: /^Search / })).toHaveValue(''));
+  window.history.forward();
+  await waitFor(() => expect(query()).toBe('Sample'));
+  await waitFor(() =>
+    expect(screen.getByRole('textbox', { name: /^Search / })).toHaveValue('Sample'),
+  );
 });
 it('opens supporting record lists with the shared record column defaults', () => {
   const headers = () =>
@@ -135,4 +189,33 @@ it('opens supporting record lists with the shared record column defaults', () =>
     expect(atCutoff.some((name) => visible.test(name))).toBe(true);
   for (const hidden of [/^Created/, /^Merged/, /^Latest actor/])
     expect(atCutoff.some((name) => hidden.test(name))).toBe(false);
+});
+it('stops supporting-table search at the length the support loader accepts', async () => {
+  const supportHref = timelineSupportHref(
+    '/repos/prebidjs?timeline=1',
+    report.source,
+    'prAuthors',
+    report.rows[9].interval.id,
+  )!;
+  expect(
+    readTimelineSupportQuery(new URL(supportHref, 'https://example.test').searchParams),
+  ).not.toBeNull();
+  const linked = selectRepositoryTimelineSupport(source, report, {
+    source: report.source,
+    interval: report.rows[9].interval,
+    metric: 'prAuthors',
+    measurement: report.rows[9].values.prAuthors!,
+    href: supportHref,
+    parentHref: '/repos/prebidjs?timeline=1',
+    scope: '/repos/prebidjs?timeline=1',
+  });
+  window.history.replaceState(null, '', supportHref);
+  render(<TimelineSupportScreen detail={linked} viewerId="alice" />);
+  const search = screen.getByRole('textbox', { name: /^Search / });
+  expect(search).toHaveAttribute('maxlength', '200');
+  await userEvent.type(search, 'a'.repeat(201) + '{Enter}');
+  expect(search).toHaveValue('a'.repeat(200));
+  const params = new URL(window.location.href).searchParams;
+  expect([...params.values()]).toContain('a'.repeat(200));
+  expect(readTimelineSupportQuery(params)).not.toBeNull();
 });

@@ -150,7 +150,7 @@ it('renders grouped contributions and historical approval labels without showing
   expect(screen.getByRole('columnheader', { name: 'Human approvals at cutoff' })).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(1);
 });
-it('uses the same CSV dialog for the matrix full-range explanation', async () => {
+it('shows the scope description its caller supplies in the CSV dialog', async () => {
   render(
     <CsvExportDialog
       title="Matrix"

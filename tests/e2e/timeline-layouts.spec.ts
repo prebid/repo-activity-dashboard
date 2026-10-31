@@ -175,7 +175,9 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
   await expect(anonymous).toHaveURL(/\/auth\/login/);
   await context.close();
 });
-test('timeline catalog renders loading and retry states', async ({ page }) => {
+test('timeline catalog specimens, not application routes, render loading and retry states', async ({
+  page,
+}) => {
   await page.goto('http://127.0.0.1:6007/iframe.html?id=timelines-layouts--loading&viewMode=story');
   await expect(page.getByRole('heading', { name: 'Loading timeline' })).toBeVisible();
   await page.goto('http://127.0.0.1:6007/iframe.html?id=timelines-layouts--error&viewMode=story');
