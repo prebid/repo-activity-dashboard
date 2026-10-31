@@ -198,3 +198,23 @@ it.each([400, 500])(
     );
   },
 );
+
+it('accepts an existing temporary credential without requiring an expiry migration', async () => {
+  const deps = dependencies();
+  const snapshot = {
+    user: { ...account, temporaryPasswordExpiresAt: undefined },
+    access: { email: account.email, userId: account.id, role: 'admin', isActive: true },
+    legacy: true,
+  };
+  deps.lookup.mockResolvedValue(snapshot);
+  expect(
+    await authorizeCredentials({ email: account.email, password: 'valid' }, deps),
+  ).toMatchObject({ mustChangePassword: true });
+  deps.lookup.mockResolvedValue({
+    ...snapshot,
+    user: { ...snapshot.user, temporaryPasswordExpiresAt: '2000-01-01T00:00:00.000Z' },
+  });
+  await expect(
+    authorizeCredentials({ email: account.email, password: 'valid' }, deps),
+  ).rejects.toMatchObject({ code: 'expired' });
+});

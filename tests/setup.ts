@@ -12,6 +12,23 @@ afterEach(() => {
 
 // A missing mock must fail locally, never discover the developer's real AWS identity.
 beforeEach(() => {
+  // Hosting settings must not turn isolated account tests into a live-deployment configuration check.
+  for (const key of [
+    'AWS_APP_ID',
+    'AUTH_URL',
+    'NEXTAUTH_URL',
+    'AUTH_SECRET',
+    'NEXTAUTH_SECRET',
+    'AMPLIFY_NEXTAUTH_SECRET',
+    'DASHBOARD_AUTH_BACKEND',
+    'DASHBOARD_AUTH_SECRET_ARN',
+    'DASHBOARD_TEMP_PASSWORD_HOURS',
+    'DYNAMODB_REGION',
+    'DYNAMODB_USERS_TABLE',
+    'DYNAMODB_WHITELIST_TABLE',
+    'NEXT_PUBLIC_APP_MODE',
+  ])
+    delete process.env[key];
   Object.assign(process.env, {
     AWS_ACCESS_KEY_ID: 'local',
     AWS_SECRET_ACCESS_KEY: 'local',

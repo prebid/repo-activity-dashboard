@@ -9,7 +9,7 @@ frontend:
         - npm run check
     build:
       commands:
-        - npm run build:production
+        - DASHBOARD_AUTH_BACKEND=legacy npm run build:production
   artifacts:
     baseDirectory: .next
     files:

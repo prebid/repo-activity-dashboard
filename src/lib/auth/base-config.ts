@@ -43,6 +43,7 @@ export async function getBaseAuthConfig(): Promise<Omit<NextAuthConfig, 'provide
     // NextAuth reads AUTH_URL after this factory resolves to set origin and secure-cookie defaults.
     process.env.AUTH_URL = authUrl;
   }
+  const legacy = !isPreviewBuild && getRuntimeSettings().authBackend === 'legacy';
   return {
     secret: await getSecret(),
     session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
@@ -64,6 +65,7 @@ export async function getBaseAuthConfig(): Promise<Omit<NextAuthConfig, 'provide
         // Identity/revision are the token contract; profile and permissions come from current storage.
         for (const field of ['name', 'picture', 'role', 'company', 'mustChangePassword'] as const)
           delete token[field];
+        if (legacy && token.authVersion === undefined) token.authVersion = 0;
         if (!sessionClaimsSchema.safeParse(token).success) return null;
         return token;
       },

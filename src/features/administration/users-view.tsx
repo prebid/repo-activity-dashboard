@@ -263,7 +263,7 @@ export default function AdminUsersView() {
       </div>
       {credential && (
         <TemporaryCredentialDialog
-          key={credential.expiresAt}
+          key={credential.expiresAt ?? credential.tempPassword}
           credential={credential}
           onClose={() => setCredential(null)}
           onRestoreFocus={() => {

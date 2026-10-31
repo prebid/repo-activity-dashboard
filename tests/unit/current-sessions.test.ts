@@ -58,3 +58,18 @@ it('separates corrupted account data from revoked access', () => {
     'operator attention',
   );
 });
+
+it('preserves non-expiring temporary passwords only at the existing-backend boundary', () => {
+  const temporary = { ...user, mustChangePassword: true, temporaryPasswordExpiresAt: undefined };
+  expect(currentIdentity(claims, { user: temporary, access })).toBeNull();
+  expect(currentIdentity(claims, { user: temporary, access, legacy: true })).toMatchObject({
+    mustChangePassword: true,
+  });
+  expect(
+    currentIdentity(claims, {
+      user: { ...temporary, temporaryPasswordExpiresAt: '2000-01-01T00:00:00.000Z' },
+      access,
+      legacy: true,
+    }),
+  ).toBeNull();
+});

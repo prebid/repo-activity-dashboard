@@ -57,3 +57,18 @@ it('keeps copy errors inside the active dialog and supports explicit acknowledge
   await user.click(screen.getByRole('button', { name: 'I have saved the password' }));
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
 });
+
+it('does not invent an expiry for an existing-backend temporary password', () => {
+  render(
+    <TemporaryCredentialDialog
+      credential={{ ...credential, expiresAt: null }}
+      onClose={() => {}}
+      onRestoreFocus={() => {}}
+    />,
+  );
+  expect(screen.getByRole('textbox', { name: 'Temporary password' })).toHaveValue(
+    credential.tempPassword,
+  );
+  expect(screen.queryByText(/Expires/)).not.toBeInTheDocument();
+  expect(screen.getByText(/must replace it at first sign-in/)).toBeVisible();
+});

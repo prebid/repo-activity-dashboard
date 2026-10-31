@@ -1,6 +1,25 @@
 # Account operations and Amplify runtime
 
-The retained account system now uses controlled operator provisioning, current account checks, and conditional DynamoDB transactions. These commands operate on the existing users/whitelist tables; they do not introduce a reporting database.
+The application has an existing-account compatibility backend and a separately activated managed backend. Both use the existing users/whitelist tables; neither introduces a reporting database. The current production selection and the deferred migration are distinguished below.
+
+## Current production compatibility release
+
+Amplify selects `DASHBOARD_AUTH_BACKEND=legacy` for the rebuilt frontend. This uses the existing account tables and deployment configuration; it does not provision AWS resources or run the managed account migration below. The reviewed reporting frontend, page access checks, password-change flow and administrator UI remain in place.
+
+- Existing configuration: `NEXTAUTH_URL` (or `AUTH_URL`), `NEXTAUTH_SECRET` (or `AUTH_SECRET`), `DYNAMODB_USERS_TABLE`, and `DYNAMODB_WHITELIST_TABLE`. Region precedence is `DYNAMODB_REGION`, `S3_REGION`, `AWS_REGION`, then the previously deployed `us-east-2` default.
+- An existing explicit `S3_ACCESS_KEY_ID` / `S3_SECRET_ACCESS_KEY` pair is used for DynamoDB. Without that pair, the runtime uses its normal AWS credential provider. The build never captures the hosting build role's temporary `AWS_*` credentials.
+- The signing key and explicit credential pair are copied only into the private server artifact. They are excluded from Git, public assets and Next's public environment mapping. Deployment-artifact access therefore remains access to these existing secrets. Runtime IAM and Secrets Manager replace this dependency in the deferred backend release.
+- Existing account IDs, password hashes, whitelist records and signed session cookies remain usable. Missing account links are resolved in memory for reads; they are not written back. Account roles retain their existing meaning, while inactive accounts and explicit conflicting links are denied.
+- Existing temporary passwords without an expiry remain valid until replaced. New/reissued temporary passwords follow that same policy and require replacement on first sign-in. The UI does not display an invented expiration date. Explicit expirations already present in a record remain enforced.
+- Account operations use existing item-level Get, Scan, Put and Update permissions. Creation remains a sequence of account/whitelist writes, not a multi-item transaction. The migration-dependent transaction/revision guarantees described below are deferred. Reads do not migrate or rewrite records.
+
+Use the existing administrator UI for this release. **Do not run the managed migration or operator provisioning against live tables as part of this compatibility deployment.** The managed implementation is retained for isolated tests and the separate backend activation PR; an unconfigured direct local production build still defaults to that mode unless compatibility is explicitly selected.
+
+`npm run build:production:fixture` builds with synthetic versions of the existing Amplify settings, checks that private settings reach the server artifact, and scans public output for secret canaries. The packaged-production suite runs both backends against isolated local services; compatibility fixtures reject transaction requests and verify no Secrets Manager access. Browser cases cover sign-in, account creation/reissue, required password replacement and protected reporting in Chromium and WebKit. These checks do not establish the current Amplify build outcome.
+
+## Deferred managed backend
+
+The remaining sections document the separately activated managed backend. Its AWS setup and account migration are not prerequisites for the compatibility release above.
 
 ## Runtime configuration
 

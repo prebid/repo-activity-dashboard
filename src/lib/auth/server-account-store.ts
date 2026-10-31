@@ -5,8 +5,11 @@ import { accountTargetSchema } from '@/models/account-target';
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import { getRuntimeSettings } from './runtime-settings';
 import { createAccountStore, type AccountStore } from './account-store';
-let store: AccountStore | undefined;
-export function getServerAccountStore(): AccountStore {
+import { createLegacyAccountStore } from './legacy-account-store';
+import { getLegacyAuthSettings } from './legacy-runtime';
+type WebAccountStore = AccountStore | ReturnType<typeof createLegacyAccountStore>;
+let store: WebAccountStore | undefined;
+export function getServerAccountStore(): WebAccountStore {
   if (isPreviewBuild) throw new Error('Account storage is unavailable in preview mode.');
   if (!store) {
     const settings = getRuntimeSettings();
@@ -22,6 +25,13 @@ export function getServerAccountStore(): AccountStore {
         'Missing or invalid account-store configuration.',
       );
     const target = parsed.data;
+    if (settings.authBackend === 'legacy') {
+      const client = createAccountClient({
+        region: target.region,
+        credentials: getLegacyAuthSettings().credentials,
+      });
+      return (store = createLegacyAccountStore(client, target));
+    }
     const client = createAccountClient({ region: target.region });
     store = createAccountStore(client, target, {
       temporaryPasswordHours: settings.temporaryPasswordHours,

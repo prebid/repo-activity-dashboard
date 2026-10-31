@@ -10,6 +10,7 @@ const mocks = vi.hoisted(() => ({
   secret: vi.fn(),
 }));
 vi.mock('server-only', () => ({}));
+vi.mock('@/lib/auth/runtime-settings', () => import('../fakes/runtime-settings'));
 vi.mock('@/lib/auth/get-secret', () => ({
   getSecret: mocks.secret,
 }));
@@ -352,4 +353,35 @@ it('returns a reissue code only when the expired temporary password verifies', a
   mocks.verify.mockResolvedValue(false);
   const wrong = await login('wrong');
   expect(wrong.response.headers.get('location')).not.toContain('temporary_expired');
+});
+
+it('retains a signed existing cookie in compatibility mode without trusting its stale role', async () => {
+  vi.stubEnv('DASHBOARD_AUTH_BACKEND', 'legacy');
+  const { encode } = await import('next-auth/jwt');
+  const cookie = await encode({
+    secret: 'offline-auth-handler-test-secret-only',
+    salt: 'authjs.session-token',
+    token: { id: 'real-user', email: 'real@example.test', role: 'admin' },
+  });
+  mocks.snapshot.mockResolvedValue({
+    user: {
+      id: 'real-user',
+      email: 'real@example.test',
+      password: 'private-hash',
+      role: 'viewer',
+      createdAt: '',
+      updatedAt: '',
+    },
+    access: { email: 'real@example.test', role: 'viewer', isActive: true },
+    legacy: true,
+  });
+  const { handlers } = await import('@/lib/auth/http-auth');
+  const response = await handlers.GET(
+    new NextRequest('http://localhost:3100/api/auth/session', {
+      headers: { cookie: 'authjs.session-token=' + cookie },
+    }),
+  );
+  expect(await response.json()).toMatchObject({
+    user: { id: 'real-user', role: 'viewer', authVersion: 0 },
+  });
 });

@@ -15,6 +15,7 @@ export const sessionClaimsSchema = z.object({
 export interface AccountSnapshot {
   user: unknown;
   access: unknown;
+  legacy?: boolean;
 }
 export function currentIdentity(
   claims: unknown,
@@ -53,7 +54,8 @@ export function currentIdentity(
     user.authVersion !== token.data.authVersion ||
     access.email !== user.email ||
     !access.isActive ||
-    !temporaryCredentialCurrent(user) ||
+    (!temporaryCredentialCurrent(user) &&
+      !(snapshot.legacy && user.temporaryPasswordExpiresAt === undefined)) ||
     (access.userId && access.userId !== user.id)
   )
     return null;

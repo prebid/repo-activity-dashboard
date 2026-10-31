@@ -10,9 +10,12 @@ import { DynamoDBClient, CreateTableCommand } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { hashPassword } from '@/lib/auth/passwords';
 import type { AccountRole } from '@/models/accounts';
-import { writeRuntimeSettings } from '../../scripts/runtime-settings.mjs';
+import { writeRuntimeSettings, writeLegacyAuthSettings } from '../../scripts/runtime-settings.mjs';
 
-export async function startProductionApp(endpoint: string, options: { browser?: boolean } = {}) {
+export async function startProductionApp(
+  endpoint: string,
+  options: { browser?: boolean; backend?: 'legacy' | 'managed' } = {},
+) {
   if (new URL(endpoint).hostname !== '127.0.0.1')
     throw new Error('Only local account fixtures are allowed');
   if ((await readFile('.next/dashboard-mode', 'utf8')).trim() !== 'production')
@@ -50,7 +53,20 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
     );
   });
   let accountUnavailable = false;
+  const accountOperations: string[] = [];
   const accountProxy = createServer((request, response) => {
+    const operation = String(request.headers['x-amz-target']);
+    accountOperations.push(operation);
+    if (options.backend === 'legacy' && operation.includes('Transact')) {
+      response.writeHead(400, { 'content-type': 'application/x-amz-json-1.0' });
+      response.end(
+        JSON.stringify({
+          __type: 'AccessDeniedException',
+          message: 'Transactions not authorized in legacy fixture',
+        }),
+      );
+      return;
+    }
     if (accountUnavailable) {
       response.writeHead(500, { 'content-type': 'application/x-amz-json-1.0' });
       response.end(
@@ -142,6 +158,7 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
     await writeRuntimeSettings(
       {
         AWS_APP_ID: options.browser ? undefined : 'fixture',
+        DASHBOARD_AUTH_BACKEND: options.backend,
         DYNAMODB_REGION: 'us-east-2',
         DYNAMODB_USERS_TABLE: users,
         DYNAMODB_WHITELIST_TABLE: whitelist,
@@ -150,6 +167,11 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
       },
       join(root, '.next/server/dashboard-runtime.json'),
     );
+    if (options.backend === 'legacy')
+      await writeLegacyAuthSettings(
+        { NEXTAUTH_SECRET: secret, S3_ACCESS_KEY_ID: 'local', S3_SECRET_ACCESS_KEY: 'local' },
+        join(root, '.next/server/dashboard-legacy-auth.json'),
+      );
     const env: NodeJS.ProcessEnv = {
       NODE_ENV: 'production',
       ...Object.fromEntries(
@@ -221,7 +243,7 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
             password: await hashPassword(input.password),
             createdAt: 'fixture',
             updatedAt: 'fixture',
-            authVersion: 1,
+            ...(options.backend !== 'legacy' ? { authVersion: 1 } : {}),
             mustChangePassword: input.mustChangePassword ?? false,
           },
         }),
@@ -229,7 +251,12 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
       await client.send(
         new PutCommand({
           TableName: whitelist,
-          Item: { email: input.email, userId: id, role, isActive: true },
+          Item: {
+            email: input.email,
+            ...(options.backend !== 'legacy' ? { userId: id } : {}),
+            role,
+            isActive: true,
+          },
         }),
       );
       return id;
@@ -245,6 +272,7 @@ export async function startProductionApp(endpoint: string, options: { browser?: 
       seedUser,
       dispose,
       secretReads: () => secretReads,
+      accountOperations,
       setAccountUnavailable: (value: boolean) => {
         accountUnavailable = value;
       },

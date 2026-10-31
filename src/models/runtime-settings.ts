@@ -5,6 +5,7 @@ export const runtimeSettingsSchema = z
   .object({
     version: z.literal(1),
     managed: z.boolean(),
+    authBackend: z.enum(['legacy', 'managed']).optional(),
     temporaryPasswordHours: temporaryPasswordHoursSchema.optional(),
     region: accountRegionSchema.optional(),
     usersTable: accountTableNameSchema.optional(),
@@ -28,11 +29,15 @@ export function resolveRuntimeSettings(
   return validateRuntimeSettings({
     version: 1,
     managed,
+    authBackend: environment.DASHBOARD_AUTH_BACKEND || stored.authBackend,
     temporaryPasswordHours:
       environment.DASHBOARD_TEMP_PASSWORD_HOURS ?? stored.temporaryPasswordHours,
     region:
       environment.DYNAMODB_REGION ||
       stored.region ||
+      ((environment.DASHBOARD_AUTH_BACKEND || stored.authBackend) === 'legacy'
+        ? environment.S3_REGION || environment.AWS_REGION || 'us-east-2'
+        : undefined) ||
       (!managed && phase === 'runtime' ? environment.AWS_REGION || undefined : undefined),
     usersTable: environment.DYNAMODB_USERS_TABLE || stored.usersTable,
     whitelistTable: environment.DYNAMODB_WHITELIST_TABLE || stored.whitelistTable,
@@ -62,10 +67,15 @@ export function validateRuntimeSettings(input: unknown): RuntimeSettings {
     throw new Error('Managed authentication requires an explicit account-store region.');
   if (
     settings.managed &&
-    (!settings.usersTable || !settings.whitelistTable || !settings.authUrl || !settings.secretArn)
+    (!settings.usersTable ||
+      !settings.whitelistTable ||
+      !settings.authUrl ||
+      (settings.authBackend !== 'legacy' && !settings.secretArn))
   )
     throw new Error(
-      'Managed authentication requires tables, HTTPS origin, region, and a Secrets Manager ARN.',
+      settings.authBackend === 'legacy'
+        ? 'Existing authentication requires account tables and an HTTPS origin.'
+        : 'Managed authentication requires tables, HTTPS origin, region, and a Secrets Manager ARN.',
     );
   return settings;
 }

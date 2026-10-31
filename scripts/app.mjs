@@ -1,7 +1,11 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile, rm } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { writeRuntimeSettings, writeRuntimeFile } from './runtime-settings.mjs';
+import {
+  writeRuntimeSettings,
+  writeRuntimeFile,
+  writeLegacyAuthSettings,
+} from './runtime-settings.mjs';
 const [command, mode] = process.argv.slice(2);
 if (!['dev', 'build', 'start'].includes(command) || !['preview', 'production'].includes(mode))
   throw new Error('Expected dev|build|start preview|production');
@@ -15,6 +19,10 @@ if (command === 'start') {
 const environment = { ...process.env, DASHBOARD_BUILD_MODE: mode, NEXT_TELEMETRY_DISABLED: '1' };
 if (command === 'build') {
   await rm('.next/dashboard-mode', { force: true });
+  await rm('.dashboard-legacy-auth.json', { force: true });
+  await rm('.next/server/dashboard-legacy-auth.json', { force: true });
+  if (mode === 'production' && process.env.DASHBOARD_AUTH_BACKEND === 'legacy')
+    await writeLegacyAuthSettings(process.env, '.dashboard-legacy-auth.json');
   await writeRuntimeSettings(mode === 'production' ? process.env : {}, '.dashboard-runtime.json');
 }
 const argumentsForNext = process.argv.slice(4);
@@ -55,6 +63,11 @@ child.on('exit', (code) => {
         '.next/server/dashboard-runtime.json',
         await readFile('.dashboard-runtime.json'),
       );
+      if (mode === 'production' && process.env.DASHBOARD_AUTH_BACKEND === 'legacy')
+        await writeRuntimeFile(
+          '.next/server/dashboard-legacy-auth.json',
+          await readFile('.dashboard-legacy-auth.json'),
+        );
       await writeFile('.next/dashboard-mode', mode);
     })().catch((error) => {
       console.error('Unable to record build mode:', error);

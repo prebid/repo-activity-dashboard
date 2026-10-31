@@ -70,12 +70,17 @@ export function TemporaryCredentialDialog({
             readOnly
             className="font-mono"
           />
-          <p className="text-sm">
-            Expires{' '}
-            <time dateTime={credential.expiresAt}>
-              {credential.expiresAt.replace('T', ' ').replace('.000Z', ' UTC').replace('Z', ' UTC')}
-            </time>
-          </p>
+          {credential.expiresAt && (
+            <p className="text-sm">
+              Expires{' '}
+              <time dateTime={credential.expiresAt}>
+                {credential.expiresAt
+                  .replace('T', ' ')
+                  .replace('.000Z', ' UTC')
+                  .replace('Z', ' UTC')}
+              </time>
+            </p>
+          )}
           <Button type="button" variant="outline" onClick={() => void copy()}>
             {copied ? 'Copied' : 'Copy password'}
           </Button>

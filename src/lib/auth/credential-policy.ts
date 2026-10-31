@@ -10,7 +10,7 @@ import { AccountError } from './account-errors';
 export interface CredentialDependencies {
   lookup: (
     email: string,
-  ) => Promise<{ user: AccountRecord | null; access: WhitelistRecord | null }>;
+  ) => Promise<{ user: AccountRecord | null; access: WhitelistRecord | null; legacy?: boolean }>;
   verify: (password: string, hash: string) => Promise<boolean>;
 }
 // Public dummy hash at the same work factor as real accounts; matching it never authorizes.
@@ -22,11 +22,15 @@ export async function authorizeCredentials(
   const parsed = credentialSchema.safeParse(input);
   if (!parsed.success) return null;
   const { email, password } = parsed.data;
-  const { user, access } = await dependencies.lookup(email);
+  const { user, access, legacy } = await dependencies.lookup(email);
   const verified = await dependencies.verify(password, user?.password ?? dummyHash);
   if (!user || !access?.isActive || access.userId !== user.id || user.email !== email || !verified)
     return null;
-  if (!temporaryCredentialCurrent(user)) throw new AccountError('expired');
+  if (
+    !temporaryCredentialCurrent(user) &&
+    !(legacy && user.temporaryPasswordExpiresAt === undefined)
+  )
+    throw new AccountError('expired');
   return {
     id: user.id,
     email: user.email,

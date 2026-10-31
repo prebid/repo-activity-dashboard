@@ -23,6 +23,9 @@ jobs:
       - uses: ./.github/actions/prepare-node
       - run: npm run audit:dependencies
       - run: npm run check
+        env:
+          AWS_APP_ID: synthetic-hosted-check
+          DASHBOARD_AUTH_BACKEND: legacy
       - uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: temurin
@@ -62,7 +65,7 @@ jobs:
       - uses: ./.github/actions/install-browsers
         with:
           browser: both
-      - run: npm run build:production
+      - run: npm run build:production:fixture
       - run: npm run test:production
       - run: npm run build:preview
       - run: npm run build:storybook

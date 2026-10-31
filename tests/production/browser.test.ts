@@ -18,10 +18,14 @@ async function signIn(
   await page.getByLabel('Password', { exact: true }).fill(password);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
 }
-it.each(['chromium', 'webkit'] as const)(
-  'production account lifecycle, protected navigation and credential recovery in %s',
-  async (engine) => {
-    const fixture = await startProductionApp(inject('accountEndpoint'), { browser: true });
+it.each(
+  (['chromium', 'webkit'] as const).flatMap((engine) =>
+    (['managed', 'legacy'] as const).map((backend) => ({ engine, backend })),
+  ),
+)(
+  'production account lifecycle, protected navigation and credential recovery in $engine with $backend authentication',
+  async ({ engine, backend }) => {
+    const fixture = await startProductionApp(inject('accountEndpoint'), { browser: true, backend });
     const browser = await (engine === 'chromium' ? chromium : webkit).launch();
     const errors: string[] = [],
       unexpectedOrigins: string[] = [];
@@ -150,6 +154,12 @@ it.each(['chromium', 'webkit'] as const)(
       expect(await denied.text()).not.toContain('Alice');
       await person.close();
       await admin.close();
+      if (backend === 'legacy') {
+        expect(fixture.secretReads()).toBe(0);
+        expect(fixture.accountOperations.some((operation) => operation.includes('Transact'))).toBe(
+          false,
+        );
+      }
       expect(errors).toEqual([]);
       expect(unexpectedOrigins).toEqual([]);
     } finally {
@@ -160,10 +170,14 @@ it.each(['chromium', 'webkit'] as const)(
   120000,
 );
 
-it.each(['chromium', 'webkit'] as const)(
-  'recovers from automatic sign-in transport failure after a committed password change in %s',
-  async (engine) => {
-    const fixture = await startProductionApp(inject('accountEndpoint'), { browser: true });
+it.each(
+  (['chromium', 'webkit'] as const).flatMap((engine) =>
+    (['managed', 'legacy'] as const).map((backend) => ({ engine, backend })),
+  ),
+)(
+  'recovers from automatic sign-in transport failure after a committed password change in $engine with $backend authentication',
+  async ({ engine, backend }) => {
+    const fixture = await startProductionApp(inject('accountEndpoint'), { browser: true, backend });
     const browser = await (engine === 'chromium' ? chromium : webkit).launch();
     try {
       const email = 'recovery@example.test';

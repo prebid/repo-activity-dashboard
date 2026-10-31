@@ -140,3 +140,17 @@ it('releases coalesced callers at the deadline and ignores a late provider resul
   expect(read).toHaveBeenCalledTimes(2);
   expect(vi.getTimerCount()).toBe(0);
 });
+
+it('uses the existing signing key without Secrets Manager when compatibility is explicit', async () => {
+  vi.stubEnv('DASHBOARD_AUTH_BACKEND', 'legacy');
+  vi.doMock('@/lib/auth/legacy-runtime', () => ({
+    getLegacyAuthSettings: () => ({ secret: key }),
+  }));
+  try {
+    const { getSecret } = await import('@/lib/auth/get-secret');
+    expect(await getSecret()).toBe(key);
+    expect(mocks.construct).not.toHaveBeenCalled();
+  } finally {
+    vi.doUnmock('@/lib/auth/legacy-runtime');
+  }
+});

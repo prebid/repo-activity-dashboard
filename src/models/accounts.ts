@@ -98,7 +98,7 @@ export const createdAccountResponseSchema = z.object({
   userId: z.string(),
   email: emailSchema,
   tempPassword: z.string().min(1),
-  expiresAt: temporaryExpirySchema,
+  expiresAt: temporaryExpirySchema.nullable(),
 });
 export const messageResponseSchema = z.object({ message: z.string() });
 export const errorResponseSchema = z.object({ error: z.string() });
