@@ -20,6 +20,7 @@ import {
 } from '@/lib/presentation/contribution-settings';
 import { readRepositoryFilterValues } from '@/lib/presentation/repository-page-query';
 import { localContributionOptions } from '../support/contribution-options';
+import { contributionPreferencesChanged } from '@/lib/navigation/use-contribution-entry';
 import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
 import type { ContributionOptions } from '@/models/contribution-options';
 import type { ContributionSettings } from '@/models/contribution-settings';
@@ -418,10 +419,15 @@ it('handles failed and invalid saved-account lookups without replacing newer Tim
   expect(localStorage.getItem(scopeKey)).not.toBeNull();
   first.unmount();
   const invalid = { ...failed, validate: vi.fn().mockResolvedValue(null) };
+  const announced = vi.fn();
+  window.addEventListener(contributionPreferencesChanged, announced);
   const second = renderHook(() => useControls('contribution', 'alice', invalid));
   await ready(second.result);
   expect(second.result.current.notice).toContain('could not be restored');
   expect(localStorage.getItem(scopeKey)).toBeNull();
+  // Other report views reread the saved scope when Over time discards it.
+  expect(announced).toHaveBeenCalledTimes(1);
+  window.removeEventListener(contributionPreferencesChanged, announced);
   second.unmount();
   localStorage.setItem(scopeKey, serializeContributionPreferences(saved));
   let resolve!: (value: ContributionSettings | null) => void;
@@ -461,7 +467,7 @@ it('times out a stalled saved lookup and rejects rapid edits until the current e
   expect(first.result.current.changeView({ grouping: 'week' })).toContain('still loading');
   await interact(() => vi.advanceTimersByTime(15000));
   expect(first.result.current.pending).toBe(false);
-  expect(first.result.current.notice).toContain('Reload to retry');
+  expect(first.result.current.notice).toContain('reload to retry');
   first.unmount();
   vi.useRealTimers();
   window.history.replaceState(null, '', '/repos?timeline=1');

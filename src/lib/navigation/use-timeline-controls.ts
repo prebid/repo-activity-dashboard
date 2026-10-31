@@ -21,7 +21,6 @@ import {
 import {
   contributionPreferenceKey,
   readContributionPreferenceCandidate,
-  contributionPreferenceNeedsLookup,
   hasContributionScope,
   writeContributionSettings,
   defaultContributionSettings,
@@ -32,8 +31,10 @@ import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import {
   clearContributionScope,
   discardContributionScope,
+  lookupSavedScope,
   saveContributionScope,
-  savedScopeLookupTimeoutMs,
+  savedScopeNotices,
+  savedScopeUnchanged,
 } from './contribution-scope-storage';
 
 function checkedTarget(input: string, context: TimelineControlContext) {
@@ -125,13 +126,6 @@ export function useTimelineControls(
     setRestoring(true);
     const current = () =>
       !controller.signal.aborted && window.location.pathname + window.location.search === before;
-    const timeout = setTimeout(() => {
-      if (current()) {
-        controller.abort();
-        setRestoring(false);
-        setNotice('Saved preferences could not be checked. Reload to retry.');
-      }
-    }, savedScopeLookupTimeoutMs);
     void (async () => {
       const explicit = new URLSearchParams(window.location.search);
       let params = explicit;
@@ -175,11 +169,10 @@ export function useTimelineControls(
             return;
           }
         }
-        if (settings && contributionPreferenceNeedsLookup(settings))
-          settings = await options!.validate(settings, controller.signal);
+        if (settings) settings = await lookupSavedScope(options!, settings, controller.signal);
         if (!current()) return;
-        if (localStorage.getItem(scopeKey) !== scopeRaw) {
-          setNotice('Saved filters changed while loading. Reload to use the latest settings.');
+        if (!savedScopeUnchanged(scopeKey, scopeRaw)) {
+          setNotice(savedScopeNotices.changed);
           return;
         }
         if (!settings) {
@@ -237,17 +230,12 @@ export function useTimelineControls(
       }
     })()
       .catch(() => {
-        if (current())
-          setNotice('Saved preferences could not be checked. The requested view is unchanged.');
+        if (current()) setNotice(savedScopeNotices.unchecked);
       })
       .finally(() => {
-        clearTimeout(timeout);
         if (!controller.signal.aborted) setRestoring(false);
       });
-    return () => {
-      clearTimeout(timeout);
-      controller.abort();
-    };
+    return () => controller.abort();
   }, [key, scopeKey, context, options, router]);
   function remember(params: URLSearchParams, keys: string[]) {
     try {

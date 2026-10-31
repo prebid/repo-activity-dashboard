@@ -35,8 +35,10 @@ import type { useTableController } from './use-table-controller';
 import {
   clearContributionScope,
   discardContributionScope,
+  lookupSavedScope,
   saveContributionScope,
-  savedScopeLookupTimeoutMs,
+  savedScopeNotices,
+  savedScopeUnchanged,
 } from './contribution-scope-storage';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
@@ -97,10 +99,7 @@ export function useContributionControls(
       invalidStored.current = { key: preferenceKey, raw: checked };
       setNotice('Saved filters could not be restored. Default filters are shown.');
       try {
-        if (!discardContributionScope(preferenceKey, checked))
-          setNotice(
-            'Saved filters changed before they could be restored. Reload to use the latest settings.',
-          );
+        if (!discardContributionScope(preferenceKey, checked)) setNotice(savedScopeNotices.changed);
       } catch {
         recordStorage(preferenceKey, false);
       }
@@ -148,10 +147,8 @@ export function useContributionControls(
         const apply = (restored: ContributionSettings | null) => {
           if (!currentLocation()) return;
           try {
-            if (localStorage.getItem(preferenceKey) !== raw) {
-              setNotice(
-                'Saved filters changed before they could be restored. Reload to use the latest settings.',
-              );
+            if (!savedScopeUnchanged(preferenceKey, raw)) {
+              setNotice(savedScopeNotices.changed);
               return;
             }
           } catch {
@@ -168,34 +165,15 @@ export function useContributionControls(
         };
         if (contributionPreferenceNeedsLookup(candidate)) {
           setChecking(true);
-          const timeout = setTimeout(() => {
-            if (!currentLocation()) {
-              controller.abort();
-              return;
-            }
-            controller.abort();
-            setChecking(false);
-            setNotice(
-              'Saved filters could not be checked. Default filters are shown; reload to retry.',
-            );
-          }, savedScopeLookupTimeoutMs);
-          void options
-            .validate(candidate, controller.signal)
+          void lookupSavedScope(options, candidate, controller.signal)
             .then(apply)
             .catch(() => {
-              if (currentLocation())
-                setNotice(
-                  'Saved filters could not be checked. Default filters are shown; reload to retry.',
-                );
+              if (currentLocation()) setNotice(savedScopeNotices.unchecked);
             })
             .finally(() => {
-              clearTimeout(timeout);
               if (!controller.signal.aborted) setChecking(false);
             });
-          return () => {
-            clearTimeout(timeout);
-            controller.abort();
-          };
+          return () => controller.abort();
         }
         apply(candidate);
       }

@@ -2,7 +2,10 @@ import { afterEach, expect, it, vi } from 'vitest';
 import {
   clearContributionScope,
   discardContributionScope,
+  lookupSavedScope,
   saveContributionScope,
+  savedScopeLookupTimeoutMs,
+  savedScopeNotices,
 } from '@/lib/navigation/contribution-scope-storage';
 import { contributionPreferencesChanged } from '@/lib/navigation/use-contribution-entry';
 import {
@@ -14,7 +17,10 @@ import { contributionSample, contributionSampleAsOf } from '@/mocks/contribution
 
 const source = contributionSample(),
   key = 'scope-test';
-afterEach(() => localStorage.clear());
+afterEach(() => {
+  localStorage.clear();
+  vi.useRealTimers();
+});
 function listen() {
   const heard = vi.fn();
   window.addEventListener(contributionPreferencesChanged, heard);
@@ -93,4 +99,36 @@ it('removes only the checked saved value and announces each removal', () => {
   clearContributionScope(key);
   expect(localStorage.getItem(key)).toBeNull();
   expect(heard).toHaveBeenCalledTimes(2);
+});
+it('looks up a saved scope only when it names accounts or companies', async () => {
+  const validate = vi.fn(() => Promise.resolve(null));
+  const plain = defaultContributionSettings(source);
+  await expect(lookupSavedScope({ validate }, plain, new AbortController().signal)).resolves.toBe(
+    plain,
+  );
+  expect(validate).not.toHaveBeenCalled();
+  const named = defaultContributionSettings(source);
+  named.selection.excludedAccountIds = ['account-alice'];
+  await expect(
+    lookupSavedScope({ validate }, named, new AbortController().signal),
+  ).resolves.toBeNull();
+  expect(validate).toHaveBeenCalledTimes(1);
+});
+it('abandons a stalled lookup at the timeout and when its caller aborts', async () => {
+  vi.useFakeTimers();
+  const named = defaultContributionSettings(source);
+  named.selection.excludedAccountIds = ['account-alice'];
+  const signals: AbortSignal[] = [];
+  const validate = vi.fn((_: unknown, signal: AbortSignal) => {
+    signals.push(signal);
+    return new Promise<null>(() => {});
+  });
+  const stalled = lookupSavedScope({ validate }, named, new AbortController().signal);
+  vi.advanceTimersByTime(savedScopeLookupTimeoutMs);
+  await expect(stalled).rejects.toThrow(savedScopeNotices.unchecked);
+  expect(signals[0].aborted).toBe(true);
+  const caller = new AbortController();
+  void lookupSavedScope({ validate }, named, caller.signal).catch(() => {});
+  caller.abort();
+  expect(signals[1].aborted).toBe(true);
 });
