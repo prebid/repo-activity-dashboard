@@ -86,18 +86,22 @@ export function DashboardHeader({
           >
             Contributions
           </Link>
-          {administration && (
-            <Link
-              prefetch={false}
-              href="/admin/users"
-              className={styles.navItem}
-              aria-current={activePath.startsWith('/admin') ? 'page' : undefined}
-            >
-              Accounts
-            </Link>
-          )}
         </nav>
-        <div className={styles.account}>{accountControls}</div>
+        <div className={styles.account}>
+          {administration && (
+            <nav aria-label="Administration" className={styles.administration}>
+              <Link
+                prefetch={false}
+                href="/admin/users"
+                className={styles.navItem}
+                aria-current={activePath.startsWith('/admin') ? 'page' : undefined}
+              >
+                Accounts
+              </Link>
+            </nav>
+          )}
+          {accountControls}
+        </div>
       </div>
     </header>
   );

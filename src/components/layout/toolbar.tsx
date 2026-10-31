@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ThemeMenu } from './theme-menu';
+import { LayoutWidthToggle } from './layout-width';
 import { signOut } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import type { AuthenticatedUser } from '@/models/accounts';
@@ -46,6 +47,7 @@ export function Toolbar({
       administration={viewer.role === 'admin'}
       accountControls={
         <>
+          <LayoutWidthToggle />
           <ThemeMenu />
           <span className={styles.accountName}>{viewer.name || viewer.email}</span>
           <Button

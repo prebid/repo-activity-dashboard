@@ -33,6 +33,9 @@ export default defineConfig({
           functions: 100,
           branches: 100,
         },
+        // The dashboard frame, header and width preference wrap every report page.
+        'src/{components/layout/{dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx}':
+          { perFile: true, lines: 100, statements: 100, functions: 100, branches: 100 },
         'src/features/authentication/{login-view,change-password-view}.tsx': {
           perFile: true,
           lines: 100,
