@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process';
-import { readFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { readFile, readdir, stat } from 'node:fs/promises';
+import { join, resolve, dirname } from 'node:path';
+import { z } from 'zod';
 const secret = 'legacy-artifact-secret-canary-01234567890123456789';
 const key = 'legacy-artifact-access-canary';
 const credential = 'legacy-artifact-credential-canary';
@@ -47,6 +48,32 @@ async function checkPublicFiles(path) {
     }
   }
 }
+const traceSchema = z.object({ files: z.array(z.string()) });
+let privateTraces = 0;
+/** @param {string} path */
+async function checkPrivateTraces(path) {
+  for (const entry of await readdir(path, { withFileTypes: true })) {
+    const file = join(path, entry.name);
+    if (entry.isDirectory() && entry.name !== 'cache') await checkPrivateTraces(file);
+    else if (entry.isFile() && entry.name.endsWith('.nft.json')) {
+      const trace = traceSchema.parse(JSON.parse(await readFile(file, 'utf8')));
+      for (const traced of trace.files) {
+        if (!traced.endsWith('/.dashboard-legacy-auth.json')) continue;
+        privateTraces++;
+        if (((await stat(resolve(dirname(file), traced))).mode & 0o777) !== 0o644)
+          throw new Error('Traced private server configuration is not runtime-readable.');
+      }
+    }
+  }
+}
+await checkPrivateTraces('.next');
+if (!privateTraces)
+  throw new Error('Private account configuration is absent from Next file traces.');
+if (((await stat('.next/server/dashboard-legacy-auth.json')).mode & 0o777) !== 0o644)
+  throw new Error('Packaged private server configuration is not runtime-readable.');
+console.log(
+  'Verified ' + privateTraces + ' private configuration traces with runtime-readable file modes.',
+);
 await checkPublicFiles('.next/static');
 await checkPublicFiles('public');
 console.log(

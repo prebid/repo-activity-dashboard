@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readFile, writeFile, rm } from 'node:fs/promises';
+import { readFile, writeFile, rm, chmod } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import {
   writeRuntimeSettings,
@@ -63,11 +63,15 @@ child.on('exit', (code) => {
         '.next/server/dashboard-runtime.json',
         await readFile('.dashboard-runtime.json'),
       );
-      if (mode === 'production' && process.env.DASHBOARD_AUTH_BACKEND === 'legacy')
+      if (mode === 'production' && process.env.DASHBOARD_AUTH_BACKEND === 'legacy') {
         await writeRuntimeFile(
           '.next/server/dashboard-legacy-auth.json',
           await readFile('.dashboard-legacy-auth.json'),
         );
+        // Hosting may package the traced root file instead of the copied server file.
+        // Both are private server artifacts and must be readable by the runtime user.
+        await chmod('.dashboard-legacy-auth.json', 0o644);
+      }
       await writeFile('.next/dashboard-mode', mode);
     })().catch((error) => {
       console.error('Unable to record build mode:', error);
