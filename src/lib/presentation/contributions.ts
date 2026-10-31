@@ -11,7 +11,12 @@ import {
   isKnownZeroContribution,
 } from './contribution-table-values';
 import { contributionDetailRows } from './contribution-detail-rows';
-import { isCoreMetric, isReportMetric, type ReportMetric } from '@/models/contribution-metrics';
+import {
+  contributionMetricBasis,
+  isCoreMetric,
+  isReportMetric,
+  type ReportMetric,
+} from '@/models/contribution-metrics';
 import type { ContributionMetricDetails } from '@/models/contribution-details';
 import {
   type ContributionSource,
@@ -188,7 +193,7 @@ export function selectContributionPresentation(
       context: data.context,
       metric,
       measurement: isCoreMetric(metric) ? report.totals[metric] : report.additionalTotals[metric],
-      basis: isCoreMetric(metric) ? 'credit' : metric.includes('.') ? 'merged-volume' : 'comments',
+      basis: contributionMetricBasis(metric),
       rows,
       distinctRecords: new Set(rows.map((row) => row.record.id)).size,
     },

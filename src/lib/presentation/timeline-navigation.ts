@@ -12,10 +12,10 @@ import { writeTableColumns } from './table-column-preferences';
 import type { TableQuery } from '@/models/table-query';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import {
+  repositoryTimelineFamilyMetrics,
   repositoryTimelineMetricSchema,
   repositoryTimelineMetricScope,
 } from '@/models/repository-timeline';
-import { timelineMetricIds } from './timeline-controls';
 export function repositoryTimelineOrigin(
   source: RepositoryPageSource,
   filters: RepositoryPageFilters,
@@ -85,7 +85,7 @@ export function repositoryTimelineEntry(
   params.set('timeline.family', 'activity');
   if (
     source.drilldown.selection.scope === 'period' &&
-    timelineMetricIds(source.kind, 'activity').some(
+    repositoryTimelineFamilyMetrics(source.kind, 'activity').some(
       (metric) => metric === source.drilldown.selection.metric,
     )
   )
@@ -129,7 +129,7 @@ export function matrixRepositoryTimelineHref(
     metric: selected,
     kind: scope.recordKind,
     family: scope.family,
-    statistics: undefined,
+    selectedMetrics: undefined,
     sort: 'period',
     descending: false,
     page: 1,

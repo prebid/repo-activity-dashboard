@@ -5,6 +5,7 @@ import type {
 } from '@/models/contribution-timeline';
 import type { ContributionSelection, ContributionFocus } from '@/models/contributions';
 import {
+  contributionMetricBasis,
   reportMetricIds,
   isCoreMetric,
   isReportMetric,
@@ -103,7 +104,7 @@ export function contributionTimelineDetail(
     kind: 'contribution',
     source: report.source,
     metric,
-    basis: isCoreMetric(metric) ? 'credit' : metric.includes('.') ? 'merged-volume' : 'comments',
+    basis: contributionMetricBasis(metric),
     range: row?.interval.covered ?? report.request.range,
     selection: report.scope.selection,
     focus: report.scope.focus,

@@ -35,14 +35,14 @@
   display: grid;
   gap: 6px;
 }
-.statistic {
+.metricName {
   font-size: 11px;
   line-height: 1.5;
   color: var(--muted-foreground);
   display: grid;
   gap: 2px;
 }
-.statistic small {
+.metricName small {
   font-size: 10px;
 }
 .groupEnd {

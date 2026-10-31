@@ -10,7 +10,7 @@ import { selectTableRows } from './table-rows';
 import { measurementSortGroup } from './measurement-order';
 import { sortRepositoryTimelineMatrix } from './repository-timeline-matrix';
 import { timelineIntervalLabel } from './timeline-presentation';
-import { timelineMetricLabel } from './timeline-metric-label';
+import { timelineMetricLabel, timelineMetricUnit } from './timeline-metric-label';
 
 type Report = RepositoryTimeline | ContributionTimeline | RepositoryTimelineMatrix;
 export function timelineCsv(
@@ -110,7 +110,9 @@ export function timelineCsv(
       value: (row) => String(row.interval.partial),
     },
     ...chosen.flatMap((id) => {
-      const label = timelineMetricLabel(id, report.kind === 'contributions');
+      const contribution = report.kind === 'contributions',
+        label = timelineMetricLabel(id, contribution),
+        unit = timelineMetricUnit(id, contribution);
       return [
         { id, label, value: (row: Row) => row.values[id]!.value },
         {
@@ -129,7 +131,7 @@ export function timelineCsv(
         {
           id: id + '.unit',
           label: label + ' unit',
-          value: () => (id === 'medianMergeDays' ? 'days' : 'count'),
+          value: () => unit,
         },
       ];
     }),

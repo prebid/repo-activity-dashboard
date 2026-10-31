@@ -120,21 +120,55 @@ export const repositoryTimelineMetricIds: readonly RepositoryTimelineMetric[] = 
   ...repositoryTimelineSnapshotMetrics.issues,
 ];
 export const repositoryTimelineMetricSchema = z.enum(repositoryTimelineMetricIds);
-/** Derive scope from the existing family registries, not a parallel metric definition. */
+export const repositoryTimelineFamilyLabels = {
+  activity: 'Period activity',
+  snapshot: 'Backlog at cutoff',
+} as const;
+export type RepositoryTimelineBasis = 'event' | 'distinct-authors' | 'duration' | 'snapshot';
+/** How each activity metric is dated and measured; snapshot metrics are states at a cutoff. */
+const activityMetricFacts: Record<
+  RepositoryTimelineActivityMetric,
+  {
+    basis: Exclude<RepositoryTimelineBasis, 'snapshot'>;
+    eventDate: 'createdAt' | 'mergedAt' | 'closedAt';
+  }
+> = {
+  prsOpened: { basis: 'event', eventDate: 'createdAt' },
+  prsMerged: { basis: 'event', eventDate: 'mergedAt' },
+  prAuthors: { basis: 'distinct-authors', eventDate: 'createdAt' },
+  medianMergeDays: { basis: 'duration', eventDate: 'mergedAt' },
+  issuesOpened: { basis: 'event', eventDate: 'createdAt' },
+  issuesClosed: { basis: 'event', eventDate: 'closedAt' },
+  issueAuthors: { basis: 'distinct-authors', eventDate: 'createdAt' },
+};
+export function repositoryTimelineFamilyMetrics(
+  recordKind: 'prs' | 'issues',
+  family: 'activity' | 'snapshot',
+): readonly RepositoryTimelineMetric[] {
+  return (
+    family === 'activity' ? repositoryTimelineActivityMetrics : repositoryTimelineSnapshotMetrics
+  )[recordKind];
+}
+/** The one per-metric registry: record kind, family, unit, counting basis and event date. */
 export function repositoryTimelineMetricScope(metric: RepositoryTimelineMetric): {
   recordKind: 'prs' | 'issues';
   family: 'activity' | 'snapshot';
   unit: 'count' | 'days';
+  basis: RepositoryTimelineBasis;
+  eventDate: 'createdAt' | 'mergedAt' | 'closedAt' | null;
 } {
   for (const recordKind of ['prs', 'issues'] as const) {
-    if (repositoryTimelineActivityMetrics[recordKind].some((id) => id === metric))
+    if (repositoryTimelineActivityMetrics[recordKind].some((id) => id === metric)) {
+      const facts = activityMetricFacts[metric as RepositoryTimelineActivityMetric];
       return {
         recordKind,
         family: 'activity',
-        unit: metric === 'medianMergeDays' ? 'days' : 'count',
+        unit: facts.basis === 'duration' ? 'days' : 'count',
+        ...facts,
       };
+    }
     if (repositoryTimelineSnapshotMetrics[recordKind].some((id) => id === metric))
-      return { recordKind, family: 'snapshot', unit: 'count' };
+      return { recordKind, family: 'snapshot', unit: 'count', basis: 'snapshot', eventDate: null };
   }
   throw Error('Unknown repository timeline metric');
 }
@@ -160,6 +194,6 @@ export type RepositoryTimelineDetail = {
   metric: RepositoryTimelineMetric;
   filters: RepositoryPageFilters;
 } & (
-  | { basis: 'event' | 'distinct-authors' | 'duration'; range: TimelineRequest['range'] }
+  | { basis: Exclude<RepositoryTimelineBasis, 'snapshot'>; range: TimelineRequest['range'] }
   | { basis: 'snapshot'; cutoff: TimelineCutoff }
 );

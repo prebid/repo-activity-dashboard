@@ -21,7 +21,7 @@ async function selectStatistics(page: Page, choices: [string, string][]) {
       .check();
   await dialog.getByRole('button', { name: 'Apply metrics', exact: true }).click();
 }
-test('grouped statistics preserve repositories, sorting, pages, saved views, cell destinations and CSV', async ({
+test('grouped metrics preserve repositories, sorting, pages, saved views, cell destinations and CSV', async ({
   page,
 }, info) => {
   await login(page);
@@ -62,12 +62,12 @@ test('grouped statistics preserve repositories, sorting, pages, saved views, cel
   for await (const chunk of stream) text += String(chunk);
   const csv = readCsv(text);
   expect(csv.records).toHaveLength(180);
-  expect(csv.headers).toContain('Median merge time');
+  expect(csv.headers).toContain('Duration — Median merge time');
   expect(csv.records[0]['Sort metric']).toBe('medianMergeDays');
   await expect(page.getByRole('dialog')).toBeHidden();
   expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
   await page.screenshot({
-    path: info.outputPath('timeline-grouped-statistics.png'),
+    path: info.outputPath('timeline-grouped-metrics.png'),
     fullPage: true,
   });
   await page.goto('/repos?timeline=1');
@@ -160,14 +160,12 @@ for (const [theme, width] of [
     });
     await expect(dialog).toHaveCSS('opacity', '1');
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
-    await page.screenshot({ path: info.outputPath(`statistics-selector-${theme}-${width}.png`) });
+    await page.screenshot({ path: info.outputPath(`metrics-selector-${theme}-${width}.png`) });
   });
 }
 test.describe('grouped timeline at enlarged content', () => {
   test.use({ viewport: { width: 640, height: 480 }, deviceScaleFactor: 2 });
-  test('keeps statistic choices and period scrolling keyboard accessible', async ({
-    page,
-  }, info) => {
+  test('keeps metric choices and period scrolling keyboard accessible', async ({ page }, info) => {
     await login(page);
     await page.goto(
       '/repos?timeline=1&timeline.metric=prsOpened&timeline.metric=prsMerged&timeline.metric=medianMergeDays',

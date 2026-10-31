@@ -1,30 +1,43 @@
 import { isReportMetric, reportMetricLabel } from '@/models/contribution-metrics';
-import { repositoryTimelineMetricSchema } from '@/models/repository-timeline';
+import {
+  repositoryTimelineMetricSchema,
+  repositoryTimelineMetricScope,
+  type RepositoryTimelineMetric,
+  type RepositoryTimelineSnapshotMetric,
+} from '@/models/repository-timeline';
+import {
+  repositoryMetricName,
+  repositoryMetricText,
+  type RepositoryMetricText,
+} from './repository-metric-text';
 import { recordListTitle } from './repository-records';
-import { agingThresholdSchema, type BacklogMetric } from '@/models/repository-overview';
+import { repositoryTimelineSnapshotSelection } from './repository-timeline';
+
+/** Timeline names come from the Summary metric text; snapshot descriptions name the cutoff state. */
+export function repositoryTimelineMetricText(id: RepositoryTimelineMetric): RepositoryMetricText {
+  const text = repositoryMetricText(id);
+  return repositoryTimelineMetricScope(id).family === 'snapshot'
+    ? {
+        ...text,
+        description:
+          recordListTitle(
+            repositoryTimelineSnapshotSelection(id as RepositoryTimelineSnapshotMetric),
+          ) +
+          ' at the covered interval cutoff. These are supplied historical values, not current state.',
+      }
+    : text;
+}
 export function timelineMetricLabel(metric: string, contribution = false): string {
   if (contribution) {
     if (!isReportMetric(metric)) throw Error('Unknown contribution metric');
     return reportMetricLabel(metric);
   }
-  const id = repositoryTimelineMetricSchema.parse(metric);
-  const labels: Partial<Record<typeof id, string>> = {
-    prsOpened: 'Pull requests — Opened',
-    prsMerged: 'Pull requests — Merged',
-    prAuthors: 'Unique authors — PRs',
-    issuesOpened: 'Issues — Opened',
-    issuesClosed: 'Issues — Closed',
-    issueAuthors: 'Unique authors — Issues',
-    medianMergeDays: 'Median merge time',
-  };
-  if (labels[id]) return labels[id];
-  return recordListTitle(
-    id.startsWith('agedPrs')
-      ? {
-          scope: 'current',
-          metric: 'agedPrs',
-          ageDays: agingThresholdSchema.parse(Number(id.slice(7))),
-        }
-      : { scope: 'current', metric: id as BacklogMetric },
-  );
+  return repositoryMetricName(repositoryTimelineMetricSchema.parse(metric));
+}
+export function timelineMetricUnit(metric: string, contribution = false): 'count' | 'days' {
+  if (contribution) {
+    if (!isReportMetric(metric)) throw Error('Unknown contribution metric');
+    return 'count';
+  }
+  return repositoryTimelineMetricScope(repositoryTimelineMetricSchema.parse(metric)).unit;
 }

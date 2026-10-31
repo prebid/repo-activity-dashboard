@@ -1,8 +1,8 @@
 import {
   repositoryTimelineSourceSchema,
-  repositoryTimelineActivityMetrics,
-  repositoryTimelineSnapshotMetrics,
+  repositoryTimelineFamilyMetrics,
   repositoryTimelineMetricScope,
+  type RepositoryTimelineSnapshotMetric,
   type RepositoryTimelineSource,
   type RepositoryTimeline,
   type RepositoryTimelineMetric,
@@ -20,7 +20,8 @@ import {
   type TimelineInterval,
 } from '@/models/reporting-timeline';
 import type { DateRange } from '@/models/reporting-period';
-import { agingThresholdSchema } from '@/models/repository-overview';
+import type { BacklogMetric } from '@/models/repository-overview';
+import type { RecordSelection } from '@/models/repository-records';
 import type { Count, Measurement } from '@/models/reporting-measurement';
 import {
   buildTimelineIntervals,
@@ -33,6 +34,7 @@ import { usesReviewFilters } from './repository-page-rules';
 import { matchesCurrentPr } from './repository-records';
 import { subsetCount } from './repository-page-values';
 import { mergeElapsedDays } from './repository-insights';
+import { agingThresholdForColumn } from './overview-aging';
 import { inDateRange } from './reporting-period';
 
 /** Reject incompatible explicit predicates; entry transitions can explain and remove them separately. */
@@ -134,33 +136,25 @@ function pageSource(source: RepositoryTimelineSource): RepositoryPageSource {
 function missing(reason: string): Measurement {
   return { status: 'missing', value: null, reason };
 }
+/** The current-state record selection a snapshot metric applies at each cutoff. */
+export function repositoryTimelineSnapshotSelection(
+  metric: RepositoryTimelineSnapshotMetric,
+): Extract<RecordSelection, { scope: 'current' }> {
+  const ageDays = agingThresholdForColumn(metric);
+  return ageDays === undefined
+    ? { scope: 'current', metric: metric as BacklogMetric }
+    : { scope: 'current', metric: 'agedPrs', ageDays };
+}
 function snapshotMetricMatch(
   row: RepositoryTimelineSource['rows'][number],
   metric: RepositoryTimelineMetric,
 ): boolean | 'unknown' {
   let match: boolean | 'unknown' = metric === 'openIssues';
   if ('draft' in row) {
-    const selection = metric.startsWith('agedPrs')
-      ? {
-          scope: 'current' as const,
-          metric: 'agedPrs' as const,
-          ageDays: agingThresholdSchema.parse(Number(metric.slice(7))),
-        }
-      : {
-          scope: 'current' as const,
-          metric: metric as Exclude<
-            RepositoryTimelineMetric,
-            | `agedPrs${number}`
-            | 'prsOpened'
-            | 'prsMerged'
-            | 'issuesOpened'
-            | 'issuesClosed'
-            | 'prAuthors'
-            | 'issueAuthors'
-            | 'medianMergeDays'
-          >,
-        };
-    match = matchesCurrentPr(row, selection);
+    match = matchesCurrentPr(
+      row,
+      repositoryTimelineSnapshotSelection(metric as RepositoryTimelineSnapshotMetric),
+    );
     if (
       !row.draft &&
       ((metric.startsWith('humanReviewers') && row.humanReviewers === null) ||
@@ -177,11 +171,12 @@ function activityDate(
   row: RepositoryTimelineSource['rows'][number],
   metric: RepositoryTimelineMetric,
 ) {
-  return metric === 'prsMerged' || metric === 'medianMergeDays'
+  const eventDate = repositoryTimelineMetricScope(metric).eventDate;
+  return eventDate === 'mergedAt'
     ? 'mergedAt' in row && row.baseBranch === source.repository.primaryBranch
       ? row.mergedAt
       : null
-    : metric === 'issuesClosed'
+    : eventDate === 'closedAt'
       ? 'closedAt' in row
         ? row.closedAt
         : null
@@ -242,10 +237,7 @@ function projectRepositoryTimeline(
     family,
   );
   if (filters.kind !== source.kind) throw Error('Timeline filters do not match record kind');
-  const allowedMetrics: readonly RepositoryTimelineMetric[] =
-    family === 'activity'
-      ? repositoryTimelineActivityMetrics[source.kind]
-      : repositoryTimelineSnapshotMetrics[source.kind];
+  const allowedMetrics = repositoryTimelineFamilyMetrics(source.kind, family);
   const metrics = [...new Set(requestedMetrics ?? allowedMetrics)];
   if (!metrics.length || metrics.some((metric) => !allowedMetrics.includes(metric)))
     throw Error('Selected metric does not match the repository timeline family');
@@ -289,8 +281,9 @@ function projectRepositoryTimeline(
           if (verdict === 'unknown') bucket.uncertain++;
           else bucket.known.push(row);
       }
+      const basis = repositoryTimelineMetricScope(metric).basis;
       const measurement = (bucket: typeof whole): Measurement => {
-        if (metric === 'medianMergeDays') {
+        if (basis === 'duration') {
           const days = bucket.known
             .map((row) => mergeElapsedDays(row.createdAt, 'mergedAt' in row ? row.mergedAt : null)!)
             .sort((a, b) => a - b);
@@ -309,7 +302,7 @@ function projectRepositoryTimeline(
             : { status: 'complete', value };
         }
         const count =
-          metric === 'prAuthors' || metric === 'issueAuthors'
+          basis === 'distinct-authors'
             ? new Set(bucket.known.map((row) => row.author.toLowerCase())).size
             : bucket.known.length;
         return subsetCount({ status: 'complete', value: 0 }, count, bucket.uncertain);
@@ -422,12 +415,7 @@ export function repositoryTimelineMeasurementDetail(
     ? { ...common, basis: 'snapshot', cutoff: { at: range.end, inclusive: range.endInclusive } }
     : {
         ...common,
-        basis:
-          metric === 'medianMergeDays'
-            ? 'duration'
-            : metric === 'prAuthors' || metric === 'issueAuthors'
-              ? 'distinct-authors'
-              : 'event',
+        basis: definition.basis as Exclude<typeof definition.basis, 'snapshot'>,
         range,
       };
 }

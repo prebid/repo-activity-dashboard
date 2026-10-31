@@ -286,7 +286,7 @@ it('owns one immutable calendar and projects only the chosen metric without affe
     }),
   ).toThrow('Detail metric');
 });
-it('groups mixed PR, issue and duration statistics per repository without changing their values', () => {
+it('groups mixed PR, issue and duration metrics per repository without changing their values', () => {
   const source = repositoryTimelineMatrixSample('mixed'),
     matrix = selectRepositoryTimelineMatrix(source, reference, {
       repositoryIds: ['repo-prebidjs', 'repo-prebidserver'],

@@ -26,7 +26,7 @@ export const repositoryTimelineMatrixSourceSchema = z
   .strict();
 export type RepositoryTimelineMatrixSource = z.infer<typeof repositoryTimelineMatrixSourceSchema>;
 const selectedRepositories = z.array(identity);
-// A single-statistic shorthand remains useful for isolated projection/equivalence checks.
+// A single-metric shorthand remains useful for isolated projection/equivalence checks.
 export const repositoryTimelineMatrixSelectionSchema = z
   .union([
     z

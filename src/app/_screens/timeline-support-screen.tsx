@@ -22,6 +22,9 @@ import {
 import { contributionDetailColumns } from '@/features/contributions/contribution-details-view';
 import { ContributionTimelineSupportView } from '@/features/contributions/contribution-timeline-support';
 import type { TableQuery } from '@/models/table-query';
+import type { RepositoryTimelineSnapshotMetric } from '@/models/repository-timeline';
+import { repositoryRecordColumnDefaults } from '@/lib/presentation/repository-page-preferences';
+import { repositoryTimelineSnapshotSelection } from '@/lib/presentation/repository-timeline';
 export function TimelineSupportScreen({
   detail,
   viewerId,
@@ -50,15 +53,13 @@ export function TimelineSupportScreen({
   const defaults = useMemo<Record<string, boolean>>(
     (): Record<string, boolean> =>
       detail.kind === 'repository'
-        ? {
-            humanReviewers: detail.context.metric.startsWith('humanReviewers'),
-            approvals: detail.context.metric.startsWith('humanApprovals'),
-            ageDays: detail.context.metric.startsWith('agedPrs'),
-            mergeDays: detail.descriptor.basis === 'duration',
-            agentReviewer: detail.context.metric === 'agentFeedbackPrs',
-            botReviewer: detail.context.metric === 'botFeedbackPrs',
-            latestActor: detail.context.metric.startsWith('last'),
-          }
+        ? repositoryRecordColumnDefaults(
+            detail.descriptor.basis === 'snapshot'
+              ? repositoryTimelineSnapshotSelection(
+                  detail.descriptor.metric as RepositoryTimelineSnapshotMetric,
+                )
+              : { scope: 'period', metric: detail.descriptor.metric },
+          )
         : {},
     [detail],
   );

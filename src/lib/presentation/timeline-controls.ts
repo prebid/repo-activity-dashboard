@@ -13,8 +13,7 @@ import {
   repositoryTimelineMetricSchema,
   repositoryTimelineMetricIds,
   repositoryTimelineMetricScope,
-  repositoryTimelineActivityMetrics,
-  repositoryTimelineSnapshotMetrics,
+  repositoryTimelineFamilyMetrics,
 } from '@/models/repository-timeline';
 import { reportMetricIds } from '@/models/contribution-metrics';
 import { contributionActorTypes } from '@/models/contributions';
@@ -27,11 +26,6 @@ import {
   repositoryTimelineMatrixWindowSize,
 } from '@/models/repository-timeline-matrix';
 export { timelineViewKeys };
-export function timelineMetricIds(kind: 'prs' | 'issues', family: 'activity' | 'snapshot') {
-  return (
-    family === 'activity' ? repositoryTimelineActivityMetrics : repositoryTimelineSnapshotMetrics
-  )[kind];
-}
 export function readTimelineView(params: URLSearchParams, area: TimelineArea, asOf: string) {
   if (params.getAll('timeline').length !== 1 || params.get('timeline') !== '1')
     throw Error('Invalid Timeline view.');
@@ -87,7 +81,7 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
   const direction = params.get('timeline.dir');
   if (direction !== null && direction !== 'asc' && direction !== 'desc')
     throw Error('Invalid Timeline ordering.');
-  const statistics =
+  const selectedMetrics =
     area === 'matrix'
       ? [
           ...new Set(
@@ -98,12 +92,12 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
           ),
         ]
       : undefined;
-  if (statistics && statistics.length > repositoryTimelineMetricIds.length)
+  if (selectedMetrics && selectedMetrics.length > repositoryTimelineMetricIds.length)
     throw Error('Too many metrics.');
   const rank = params.get('timeline.rank');
-  if (rank !== null && (area !== 'matrix' || !statistics?.includes(rank as never)))
+  if (rank !== null && (area !== 'matrix' || !selectedMetrics?.includes(rank as never)))
     throw Error('Choose a selected metric for sorting.');
-  const matrixMetric = statistics ? (rank ?? statistics[0] ?? 'prsOpened') : null;
+  const matrixMetric = selectedMetrics ? (rank ?? selectedMetrics[0] ?? 'prsOpened') : null;
   const scope = matrixMetric
     ? repositoryTimelineMetricScope(repositoryTimelineMetricSchema.parse(matrixMetric))
     : null;
@@ -125,7 +119,7 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
         : family === 'activity'
           ? 'issuesOpened'
           : 'openIssues'),
-    statistics,
+    selectedMetrics,
     chart: bool('timeline.chart', false),
     sort: params.get('timeline.sort') ?? (area === 'matrix' ? 'repository' : 'period'),
     descending: direction === 'desc',
@@ -144,8 +138,8 @@ export function readTimelineView(params: URLSearchParams, area: TimelineArea, as
     area === 'contribution'
       ? reportMetricIds
       : area === 'matrix'
-        ? statistics!
-        : timelineMetricIds(base.kind, base.family);
+        ? selectedMetrics!
+        : repositoryTimelineFamilyMetrics(base.kind, base.family);
   if (
     (area !== 'matrix' && !metricIds.includes(base.metric)) ||
     base.columns?.some((id) => !metricIds.includes(id))
@@ -188,10 +182,10 @@ export function writeTimelineView(
     params.set('timeline.family', view.family);
   }
   if (area === 'matrix') {
-    const statistics = view.statistics ?? [view.metric];
-    if (!statistics.length) params.set('timeline.metric', '');
+    const selectedMetrics = view.selectedMetrics ?? [view.metric];
+    if (!selectedMetrics.length) params.set('timeline.metric', '');
     else {
-      for (const id of statistics) params.append('timeline.metric', id);
+      for (const id of selectedMetrics) params.append('timeline.metric', id);
       params.set('timeline.rank', view.metric);
     }
   } else if (area === 'repository') params.set('timeline.metric', view.metric);

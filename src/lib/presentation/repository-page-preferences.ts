@@ -1,8 +1,16 @@
 import type { RepositoryPageSource } from '@/models/repository-page';
 
 export function repositoryColumnDefaults(page: RepositoryPageSource): Record<string, boolean> {
-  const { metric, scope } = page.drilldown.selection,
-    current = scope === 'current';
+  return repositoryRecordColumnDefaults(page.drilldown.selection);
+}
+/** Default record columns for a selection; record pages and Timeline supporting records share it. */
+export function repositoryRecordColumnDefaults(selection: {
+  scope: 'current' | 'period';
+  metric: string;
+}): Record<string, boolean> {
+  const { metric, scope } = selection,
+    current = scope === 'current',
+    merged = metric === 'prsMerged' || metric === 'medianMergeDays';
   return {
     labels: false,
     state: false,
@@ -15,13 +23,13 @@ export function repositoryColumnDefaults(page: RepositoryPageSource): Record<str
     approvals:
       (current && ['totalOpenPrs', 'nonDraftPrs'].includes(metric)) ||
       metric.startsWith('humanApprovals'),
-    mergedAt: metric === 'prsMerged',
-    mergeDays: metric === 'prsMerged',
-    baseBranch: metric === 'prsMerged',
+    mergedAt: merged,
+    mergeDays: merged,
+    baseBranch: merged,
     closedAt: metric === 'issuesClosed',
     agentReviewer: metric === 'agentFeedbackPrs',
     botReviewer: metric === 'botFeedbackPrs',
-    latestActor: false,
+    latestActor: metric.startsWith('last'),
     latestActivity: current,
     assignees: false,
   };

@@ -140,18 +140,24 @@ it('composes all repositories or explicit subsets without hidden histories and p
   expect(none.status === 'ready' && none.matrix.rows).toEqual([]);
 });
 it.each([
-  ['issuesClosed', 'issues', 'activity', 'count'],
-  ['medianMergeDays', 'prs', 'activity', 'days'],
-  ['humanApprovals1', 'prs', 'snapshot', 'count'],
-  ['openIssues', 'issues', 'snapshot', 'count'],
+  ['issuesClosed', 'issues', 'activity', 'count', 'event', 'closedAt'],
+  ['medianMergeDays', 'prs', 'activity', 'days', 'duration', 'mergedAt'],
+  ['humanApprovals1', 'prs', 'snapshot', 'count', 'snapshot', null],
+  ['openIssues', 'issues', 'snapshot', 'count', 'snapshot', null],
 ] as const)(
   'derives compatible scope from the active %s metric',
-  async (metric, recordKind, family, unit) => {
+  async (metric, recordKind, family, unit, basis, eventDate) => {
     const result = await repositoryTimelineMatrixPreview(
       new URLSearchParams('timeline=1&timeline.metric=' + metric + '&sample=mixed'),
     );
     expect(result.status === 'ready' && result.matrix.scope.metrics).toEqual([metric]);
-    expect(repositoryTimelineMetricScope(metric)).toEqual({ recordKind, family, unit });
+    expect(repositoryTimelineMetricScope(metric)).toEqual({
+      recordKind,
+      family,
+      unit,
+      basis,
+      eventDate,
+    });
     expect(
       result.status === 'ready' &&
         result.matrix.rows

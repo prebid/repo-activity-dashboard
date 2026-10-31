@@ -126,7 +126,7 @@ function MatrixTable({
     multiple = metrics.length > 1;
   const definitions = new Map(metrics.map((metric) => [metric.id, metric]));
   const metric = definitions.get(sortMetric)!;
-  const statistic = (row: RepositoryTimelineMatrixRow) => {
+  const metricName = (row: RepositoryTimelineMatrixRow) => {
     const definition = definitions.get(row.metric)!;
     return definition.group + ' — ' + definition.label;
   };
@@ -163,8 +163,8 @@ function MatrixTable({
               <span className="sr-only">{row.repository.name} — </span>
             )}
             {multiple && (
-              <span className={styles.statistic} title={definitions.get(row.metric)!.description}>
-                {statistic(row)}
+              <span className={styles.metricName} title={definitions.get(row.metric)!.description}>
+                {metricName(row)}
                 {repositoryTimelineMetricScope(row.metric).family === 'snapshot' ? (
                   <small>At cutoff</small>
                 ) : null}
@@ -205,7 +205,7 @@ function MatrixTable({
               prefetch={false}
               href={href}
               className={timelineStyles.valueLink}
-              aria-label={`${row.repository.name}${multiple ? ', ' + statistic(row) : ''}, ${label(interval)}: ${formatCount(row.values[index].value)}${repositoryTimelineMetricScope(row.metric).unit === 'days' ? ' d' : ''}`}
+              aria-label={`${row.repository.name}${multiple ? ', ' + metricName(row) : ''}, ${label(interval)}: ${formatCount(row.values[index].value)}${repositoryTimelineMetricScope(row.metric).unit === 'days' ? ' d' : ''}`}
             >
               {value}
             </Link>

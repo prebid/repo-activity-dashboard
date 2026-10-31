@@ -236,12 +236,12 @@ export function useTimelineControls(
   function changeView(patch: Partial<TimelineViewState>) {
     const scope =
       'grouping' in patch ||
-      (context.area === 'matrix' && 'statistics' in patch) ||
+      (context.area === 'matrix' && 'selectedMetrics' in patch) ||
       'kind' in patch ||
       'family' in patch;
     const nextView = { ...view, ...patch, ...(scope ? { page: 1 } : {}) };
-    if (patch.statistics && !patch.statistics.includes(nextView.metric))
-      nextView.metric = patch.statistics[0] ?? 'prsOpened';
+    if (patch.selectedMetrics && !patch.selectedMetrics.includes(nextView.metric))
+      nextView.metric = patch.selectedMetrics[0] ?? 'prsOpened';
     let next = writeTimelineView(canonical(window.location.search), context.area, nextView);
     const params = new URLSearchParams(next);
     if ('grouping' in patch) {
@@ -260,7 +260,7 @@ export function useTimelineControls(
       kind: 'kind',
       family: 'family',
       metric: context.area === 'matrix' ? 'rank' : 'metric',
-      statistics: 'metric',
+      selectedMetrics: 'metric',
       chart: 'chart',
       sort: 'sort',
       descending: 'dir',
@@ -281,7 +281,7 @@ export function useTimelineControls(
           /^(prs|issues)\./.test(k),
         ),
       );
-    if ('statistics' in patch) keys.push('timeline.rank');
+    if ('selectedMetrics' in patch) keys.push('timeline.rank');
     if ('grouping' in patch && context.area === 'matrix')
       keys.push('timeline.sort', 'timeline.dir');
     next = params.toString();

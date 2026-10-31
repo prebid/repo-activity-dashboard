@@ -17,7 +17,13 @@ import {
 } from '@/features/contributions/contribution-timeline-view';
 import { repositoryTimelineMetricDefinitions } from '@/features/repositories/repository-timeline-columns';
 import { TimelineRepositoryFilters } from '@/features/repositories/timeline-repository-filters';
-import { repositoryTimelineMetricIds, type RepositoryTimeline } from '@/models/repository-timeline';
+import {
+  repositoryTimelineFamilyLabels,
+  repositoryTimelineMetricIds,
+  repositoryTimelineMetricScope,
+  type RepositoryTimeline,
+  type RepositoryTimelineMetric,
+} from '@/models/repository-timeline';
 import type { RepositoryTimelineMatrix } from '@/models/repository-timeline-matrix';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
@@ -48,7 +54,17 @@ export function RepositoryTimelineMatrixScreen({
         <TimelineControls
           context={context}
           {...control}
-          metrics={repositoryTimelineMetricDefinitions(repositoryTimelineMetricIds)}
+          metrics={repositoryTimelineMetricDefinitions(repositoryTimelineMetricIds).map(
+            (metric) => ({
+              ...metric,
+              selectionGroup:
+                repositoryTimelineFamilyLabels[
+                  repositoryTimelineMetricScope(metric.id as RepositoryTimelineMetric).family
+                ] +
+                ' · ' +
+                metric.group,
+            }),
+          )}
           onView={control.changeView}
           onPeriod={control.changePeriod}
           onReset={control.reset}

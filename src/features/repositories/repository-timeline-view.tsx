@@ -1,5 +1,8 @@
 'use client';
-import type { RepositoryTimeline } from '@/models/repository-timeline';
+import {
+  repositoryTimelineFamilyLabels,
+  type RepositoryTimeline,
+} from '@/models/repository-timeline';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { TimelineTable } from '@/components/reporting/timeline-table';
 import { TimelineScope } from '@/components/reporting/timeline-scope';
@@ -54,7 +57,7 @@ export function RepositoryTimelineView({
       <TimelineScope request={report.request} count={report.rows.length}>
         <span>
           {report.scope.recordKind === 'prs' ? 'Pull requests' : 'Issues'} ·{' '}
-          {snapshot ? 'Backlog at cutoff' : 'Period activity'}
+          {repositoryTimelineFamilyLabels[report.scope.family]}
         </span>
         <span>Primary branch: {report.scope.repository.primaryBranch}</span>
         <span>

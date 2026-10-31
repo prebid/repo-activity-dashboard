@@ -10,7 +10,7 @@ export const timelineViewSchema = z
     kind: z.enum(['prs', 'issues']),
     family: z.enum(['activity', 'snapshot']),
     metric: z.string().min(1).max(100),
-    statistics: z.array(z.string().min(1).max(100)).max(50).optional(),
+    selectedMetrics: z.array(z.string().min(1).max(100)).max(50).optional(),
     chart: z.boolean(),
     sort: z.string().max(150),
     descending: z.boolean(),

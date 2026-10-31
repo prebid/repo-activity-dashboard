@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { TimelineSupportContext } from '@/models/timeline-support';
-import { timelineMetricLabel } from '@/lib/presentation/timeline-metric-label';
+import { timelineMetricLabel, timelineMetricUnit } from '@/lib/presentation/timeline-metric-label';
 import { timelineIntervalDescription } from '@/lib/presentation/timeline-presentation';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -41,7 +41,7 @@ export function TimelineSupportFrame({
             Timeline value:{' '}
             <MeasurementValue
               measurement={context.measurement}
-              unit={context.metric === 'medianMergeDays' ? 'days' : 'count'}
+              unit={timelineMetricUnit(context.metric, contribution)}
             />
           </span>
         </div>

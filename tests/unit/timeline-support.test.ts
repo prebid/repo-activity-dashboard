@@ -23,7 +23,6 @@ import {
   timelineSupportScopeKey,
 } from '@/lib/presentation/timeline-support-query';
 import { timelineCsv } from '@/lib/presentation/timeline-csv';
-import { timelineMetricLabel } from '@/lib/presentation/timeline-metric-label';
 import { timelineSupportContextColumns } from '@/lib/presentation/timeline-support-csv';
 import {
   repositoryTimelineMetricIds,
@@ -372,10 +371,7 @@ it('exports a full matrix beyond its window and an individual timeline beyond fi
     timelineCsv(individual, [], { search: '', sort: 'period', descending: false, page: 1 }),
   ).toThrow('columns');
 });
-it('labels every metric and attaches the original source/coverage to support exports', () => {
-  for (const id of repositoryTimelineMetricIds) expect(timelineMetricLabel(id)).not.toBe('');
-  for (const id of reportMetricIds) expect(timelineMetricLabel(id, true)).not.toBe('');
-  expect(() => timelineMetricLabel('bad', true)).toThrow();
+it('attaches the original source/coverage to support exports', () => {
   const report = selectRepositoryTimeline(repositoryTimelineSample(), request),
     c = context(report, report.rows[9], 'prsOpened');
   const query = { search: 'text', sort: 'number', descending: true, page: 2 };

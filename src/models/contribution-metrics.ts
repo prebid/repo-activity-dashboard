@@ -30,6 +30,11 @@ export const reportMetricIds: readonly ReportMetric[] = [
 export function isReportMetric(value: string): value is ReportMetric {
   return reportMetricIds.some((id) => id === value);
 }
+export type ContributionBasis = 'credit' | 'comments' | 'merged-volume';
+/** Credits are once-dated; comments count posted identities; merged volume is final PR size. */
+export function contributionMetricBasis(metric: ReportMetric): ContributionBasis {
+  return isCoreMetric(metric) ? 'credit' : metric.includes('.') ? 'merged-volume' : 'comments';
+}
 export function isCoreMetric(value: ReportMetric): value is ContributionMetric {
   return contributionMetricIds.some((id) => id === value);
 }

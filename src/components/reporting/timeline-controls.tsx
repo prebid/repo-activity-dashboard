@@ -6,10 +6,11 @@ import { timelineGroupings, timelineGroupingLabels } from '@/models/reporting-ti
 import type { TimelineControlContext, TimelineViewState } from '@/models/timeline-controls';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import type { PeriodSelection } from '@/models/reporting-period';
+import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
 import styles from './timeline-controls.module.css';
-import { TimelineStatisticsSelector } from './timeline-statistics-selector';
+import { TimelineMetricsSelector } from './timeline-metrics-selector';
 export function TimelineControls({
   context,
   view,
@@ -95,8 +96,8 @@ export function TimelineControls({
                     onView({ family: e.target.value as TimelineViewState['family'] })
                   }
                 >
-                  <option value="activity">Period activity</option>
-                  <option value="snapshot">Backlog at cutoff</option>
+                  <option value="activity">{repositoryTimelineFamilyLabels.activity}</option>
+                  <option value="snapshot">{repositoryTimelineFamilyLabels.snapshot}</option>
                 </select>
                 <ChevronDown aria-hidden="true" size={14} />
               </span>
@@ -105,13 +106,13 @@ export function TimelineControls({
         )}
         {context.area === 'matrix' && (
           <>
-            <TimelineStatisticsSelector
+            <TimelineMetricsSelector
               metrics={metrics}
-              selected={view.statistics ?? [view.metric]}
-              contextKey={JSON.stringify([context.href, view.statistics])}
-              onApply={(statistics) => onView({ statistics })}
+              selected={view.selectedMetrics ?? [view.metric]}
+              contextKey={JSON.stringify([context.href, view.selectedMetrics])}
+              onApply={(selectedMetrics) => onView({ selectedMetrics })}
             />
-            {(view.statistics?.length ?? 0) > 1 && (
+            {(view.selectedMetrics?.length ?? 0) > 1 && (
               <label className={styles.field}>
                 Sort metric
                 <span className={styles.selectWrap}>
@@ -121,7 +122,7 @@ export function TimelineControls({
                     onChange={(e) => onView({ metric: e.target.value })}
                   >
                     {metrics
-                      .filter((metric) => view.statistics?.includes(metric.id))
+                      .filter((metric) => view.selectedMetrics?.includes(metric.id))
                       .map((metric) => (
                         <option key={metric.id} value={metric.id}>
                           {metric.group} — {metric.label}

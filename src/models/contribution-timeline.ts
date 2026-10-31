@@ -5,7 +5,7 @@ import type {
   ContributionAccount,
   ContributionCompany,
 } from './contributions';
-import type { ReportMetric } from './contribution-metrics';
+import type { ContributionBasis, ReportMetric } from './contribution-metrics';
 import type { DateRange } from './reporting-period';
 import type { TimelineSeries, TimelineSourceIdentity } from './reporting-timeline';
 export interface ContributionTimelineSource {
@@ -26,7 +26,7 @@ export interface ContributionTimelineDetail {
   kind: 'contribution';
   source: TimelineSourceIdentity;
   metric: ReportMetric;
-  basis: 'credit' | 'comments' | 'merged-volume';
+  basis: ContributionBasis;
   range: DateRange;
   selection: ContributionSelection;
   focus: ContributionFocus;

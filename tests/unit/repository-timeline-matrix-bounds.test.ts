@@ -240,7 +240,7 @@ it('rejects unknown metrics and wrong record kinds, and keeps complete/missing/z
     ).toBe(true);
   }
 });
-it('counts every selected statistic against the cell budget and sorts complete repository groups', () => {
+it('counts every selected metric against the cell budget and sorts complete repository groups', () => {
   const source = repositoryTimelineMatrixSample('mixed'),
     repos = [...new Set(ids(source))];
   expect(() =>

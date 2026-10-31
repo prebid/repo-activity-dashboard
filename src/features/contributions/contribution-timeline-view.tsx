@@ -4,14 +4,9 @@ import { Table2, CalendarDays } from 'lucide-react';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
-import {
-  reportMetricIds,
-  isCoreMetric,
-  reportMetricDescription,
-  contributionSelectionGroups,
-} from '@/models/contribution-metrics';
-import { contributionActorTypes, contributionMetrics } from '@/models/contributions';
-import { additionalMetricDefinitions } from '@/models/contribution-activity';
+import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
+import { contributionActorTypes } from '@/models/contributions';
+import { contributionMetricValues } from '@/lib/presentation/contribution-table-values';
 import { accountTypeLabels } from '@/models/github-account';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { TimelineTable } from '@/components/reporting/timeline-table';
@@ -21,21 +16,19 @@ import { ContributionHeading } from './contribution-header';
 import styles from './contributions.module.css';
 import timelineStyles from '@/components/reporting/timeline-layout.module.css';
 
-export const contributionTimelineMetrics: TimelineMetricDefinition[] = reportMetricIds.map((id) => {
-  const core = isCoreMetric(id),
-    definition = core ? contributionMetrics[id] : additionalMetricDefinitions[id];
-  const group = core ? contributionSelectionGroups[id] : additionalMetricDefinitions[id].group;
-  return {
-    id,
-    label: definition.label,
-    group: core ? undefined : group,
-    selectionGroup: group,
-    selectionSection: core ? undefined : additionalMetricDefinitions[id].selectionSection,
-    description: reportMetricDescription(id),
-    unit: 'count',
-    defaultVisible: core,
-  };
-});
+export const contributionTimelineMetrics: TimelineMetricDefinition[] =
+  contributionMetricValues().map(
+    ({ id, label, group, description, selectionGroup, selectionSection }) => ({
+      id,
+      label,
+      group,
+      description,
+      selectionGroup,
+      selectionSection,
+      unit: 'count',
+      defaultVisible: isCoreMetric(id as ReportMetric),
+    }),
+  );
 export function ContributionTimelineView({
   report,
   area,

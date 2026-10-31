@@ -125,13 +125,13 @@ test('saved matrix scope and presentation remain isolated from explicit links an
   await page.getByLabel('Timeline grouping').selectOption('quarter');
   await ready(page);
   await page.getByRole('button', { name: 'Metrics · 1', exact: true }).click();
-  const statistics = page.getByRole('dialog', { name: 'Choose metrics' });
-  await statistics.getByRole('button', { name: 'Clear selection', exact: true }).click();
-  await statistics
+  const metricsDialog = page.getByRole('dialog', { name: 'Choose metrics' });
+  await metricsDialog.getByRole('button', { name: 'Clear selection', exact: true }).click();
+  await metricsDialog
     .getByRole('group', { name: 'Period activity · Pull requests', exact: true })
     .getByRole('checkbox', { name: 'Merged', exact: true })
     .check();
-  await statistics.getByRole('button', { name: 'Apply metrics', exact: true }).click();
+  await metricsDialog.getByRole('button', { name: 'Apply metrics', exact: true }).click();
   await ready(page);
   await repos(page, ['Prebid.js']);
   await page.goto('/repos?timeline=1');

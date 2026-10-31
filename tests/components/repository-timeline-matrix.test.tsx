@@ -200,7 +200,7 @@ it('labels weekly windows with their covered dates instead of repeating two week
   await user.click(screen.getByRole('button', { name: 'Earlier' }));
   expect(screen.getByRole('status')).toHaveTextContent('Jun 15, 2026 – Sep 6, 2026');
 });
-it('renders statistics as consecutive repository groups, without splitting a group at the fifty-row boundary', async () => {
+it('renders selected metrics as consecutive repository groups, without splitting a group at the fifty-row boundary', async () => {
   const user = userEvent.setup(),
     source = repositoryTimelineMatrixSample('mixed');
   const matrix = selectRepositoryTimelineMatrix(source, request, {

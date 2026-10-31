@@ -14,11 +14,8 @@ import {
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { ColumnSelection } from '@/components/tables/column-selection';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
-import {
-  repositoryTimelineMetricScope,
-  repositoryTimelineMetricSchema,
-} from '@/models/repository-timeline';
-export function TimelineStatisticsSelector({
+/** Choices are grouped by each definition's selectionGroup; callers own any family prefix. */
+export function TimelineMetricsSelector({
   metrics,
   selected,
   contextKey,
@@ -37,17 +34,6 @@ export function TimelineStatisticsSelector({
     setOpen(false);
     setError('');
   }, [contextKey]);
-  const choices = metrics.map((metric) => ({
-    ...metric,
-    selectionGroup:
-      (repositoryTimelineMetricScope(repositoryTimelineMetricSchema.parse(metric.id)).family ===
-      'activity'
-        ? 'Period activity'
-        : 'Backlog at cutoff') +
-      ' · ' +
-      metric.group,
-    selectionSection: undefined,
-  }));
   return (
     <div ref={setContainer}>
       <Dialog
@@ -77,7 +63,7 @@ export function TimelineStatisticsSelector({
           </DialogHeader>
           <ScrollableDialogBody label="Timeline metrics">
             <ColumnSelection
-              columns={choices}
+              columns={metrics}
               selectedIds={draft}
               onChange={setDraft}
               mode="form"

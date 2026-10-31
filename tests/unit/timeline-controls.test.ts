@@ -3,7 +3,6 @@ import {
   readTimelineView,
   writeTimelineView,
   writeTimelinePeriod,
-  timelineMetricIds,
   timelinePreferenceKey,
   timelinePreferenceFields,
   timelinePreferenceParameters,
@@ -23,6 +22,7 @@ import {
   contributionReturnHref,
   withContributionReturn,
 } from '@/lib/presentation/contribution-return';
+import { repositoryTimelineFamilyMetrics } from '@/models/repository-timeline';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { defaultContributionSettings } from '@/lib/presentation/contribution-settings';
@@ -73,7 +73,7 @@ it('round trips each active view with relative dates, independent pages, windows
   expect(
     parse('timeline=1&timeline.kind=issues&timeline.family=snapshot', 'repository').metricIds,
   ).toEqual(['openIssues']);
-  expect(timelineMetricIds('issues', 'activity')).toEqual([
+  expect(repositoryTimelineFamilyMetrics('issues', 'activity')).toEqual([
     'issuesOpened',
     'issuesClosed',
     'issueAuthors',
