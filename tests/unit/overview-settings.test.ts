@@ -11,7 +11,11 @@ import {
   writeOverviewSettings,
 } from '@/lib/presentation/overview-settings';
 import { readSavedTableSort, tableLocationStamp } from '@/lib/presentation/table-query';
-import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import {
+  customSampleSelection,
+  repositoryOverviewSample,
+  repositoryOverviewSamples,
+} from '@/mocks/repository-overview';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
 
@@ -238,8 +242,15 @@ describe('prepared display selection', () => {
       'repo-prebidjs',
     ]);
     expect(month.rows).toHaveLength(1);
-    expect(month.rows[0].activity.counts.prsOpened.value).toBe(47);
-    expect(week.rows[0].activity.counts.prsOpened.value).toBe(12);
+    expect(month.rows[0].activity).toEqual(
+      repositoryOverviewSample({ kind: 'preset', preset: 'this-month' }, ['repo-prebidjs']).rows[0]
+        .activity,
+    );
+    expect(week.rows[0].activity).toEqual(
+      repositoryOverviewSample({ kind: 'preset', preset: 'this-week' }, ['repo-prebidjs']).rows[0]
+        .activity,
+    );
+    expect(week.rows[0].activity).not.toEqual(month.rows[0].activity);
     expect(week.rows[0].backlog).toEqual(month.rows[0].backlog);
     expect(
       selectOverviewSample(samples, { kind: 'preset', preset: 'this-month' }, []).rows,
@@ -252,7 +263,9 @@ describe('prepared display selection', () => {
       { kind: 'custom', from: '2026-10-06', through: '2026-10-08' },
       ['repo-prebidjs'],
     );
-    expect(prepared.rows[0].activity.counts.prsOpened.value).toBe(7);
+    expect(prepared.rows[0].activity).toEqual(
+      repositoryOverviewSample(customSampleSelection, ['repo-prebidjs']).rows[0].activity,
+    );
     const absent = selectOverviewSample(
       samples,
       { kind: 'custom', from: '2026-10-01', through: '2026-10-02' },

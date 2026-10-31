@@ -90,6 +90,10 @@ export interface WorldRepository {
   issues: WorldIssue[];
 }
 
+/** The latest-activity category of an action by a record's own author. */
+export function authorCategory(authorType: WorldActorType | null) {
+  return authorType === 'agent' || authorType === 'bot' ? authorType : ('contributor' as const);
+}
 /** Deterministic pseudo-random numbers, so every sample view sees the same invented history. */
 function random(seed: string) {
   let state = [...seed].reduce(
@@ -157,22 +161,24 @@ function reviewsFor(
       at: between(next, from, to),
       dismissedAt: null,
     });
-  if (counts.agent)
-    reviews.push({
-      account: pick(next, agentPool),
-      actorType: 'agent',
-      kind: next() < 0.5 ? 'review' : 'approval',
-      at: between(next, from, to),
-      dismissedAt: null,
-    });
-  if (counts.bot)
-    reviews.push({
-      account: pick(next, botPool),
-      actorType: 'bot',
-      kind: 'review',
-      at: between(next, from, to),
-      dismissedAt: null,
-    });
+  // A covering agent or bot always leaves feedback; some also approve afterwards.
+  for (const [covered, actorType, pool, approves] of [
+    [counts.agent, 'agent', agentPool, 0.5],
+    [counts.bot, 'bot', botPool, 0.3],
+  ] as const) {
+    if (!covered) continue;
+    const account = pick(next, pool),
+      at = between(next, from, to);
+    reviews.push({ account, actorType, kind: 'review', at, dismissedAt: null });
+    if (next() < approves)
+      reviews.push({
+        account,
+        actorType,
+        kind: 'approval',
+        at: between(next, Date.parse(at), to),
+        dismissedAt: null,
+      });
+  }
   return reviews.sort((a, b) => a.at.localeCompare(b.at));
 }
 function url(slug: string, kind: 'pull' | 'issues', number: number) {
@@ -237,7 +243,7 @@ function storyRecords(repositoryId: string, scenario: WorldScenario) {
       latestActivity: {
         at: record.createdAt,
         account: author.login,
-        category: 'contributor' as const,
+        category: authorCategory(actorType(author.id)),
       },
     };
     if (record.kind === 'issue') {
@@ -283,7 +289,7 @@ function storyRecords(repositoryId: string, scenario: WorldScenario) {
       approvals: human('approval').length,
       agentReviewer: reviews.some((row) => row.actorType === 'agent'),
       botReviewer: reviews.some((row) => row.actorType === 'bot'),
-      latestActor: 'contributor',
+      latestActor: authorCategory(actorType(author.id)),
       // In the partial sample, PR 107's first approval date is unestablished.
       approvalHistoryKnown: !(scenario === 'partial' && record.number === 107),
     });
@@ -314,6 +320,9 @@ function historyRecords(
   };
   const prAuthors = authorPool('sample-author-', Math.max(4, Math.round(130 / size)));
   const issueAuthors = authorPool('sample-author-', Math.max(4, Math.round(240 / size)));
+  // One high-volume agent account in the busiest repository fills several table pages alone.
+  const authorFrom = (pool: readonly string[]) =>
+    repo.id === 'repo-prebidjs' && next() < 0.3 ? 'sample-author-2' : pick(next, pool);
   const prCount = Math.round(((600 / size) * span) / (365 * day));
   const issueCount = Math.round(((800 / size) * span) / (365 * day));
   const pullRequests = Array.from({ length: prCount }, () => at())
@@ -324,7 +333,7 @@ function historyRecords(
         primary = next() < 0.94;
       let end = created + lognormalDays(next, 6) * day;
       if (end >= asOfMs - 3_600_000) end = created + (asOfMs - created) * (0.2 + 0.7 * next());
-      const author = pick(next, prAuthors);
+      const author = authorFrom(prAuthors);
       const reviewers = [0, 1, 1, 2, 2, 3][Math.floor(next() * 6)],
         approvals = Math.min(reviewers, [0, 1, 1, 2][Math.floor(next() * 4)]);
       const createdAt = iso(created),
@@ -345,7 +354,7 @@ function historyRecords(
         authorType: authorType,
         createdAt,
         labels: [next() < 0.3 ? 'maintenance' : 'enhancement'],
-        latestActivity: { at: endAt, account: author, category: 'contributor' },
+        latestActivity: { at: endAt, account: author, category: authorCategory(authorType) },
         state: closed ? 'Closed' : 'Merged',
         draft: false,
         mergedAt: closed ? null : endAt,
@@ -361,7 +370,7 @@ function historyRecords(
           .length,
         agentReviewer: reviews.some((row) => row.actorType === 'agent'),
         botReviewer: reviews.some((row) => row.actorType === 'bot'),
-        latestActor: 'contributor',
+        latestActor: authorCategory(authorType),
         approvalHistoryKnown: true,
       };
     });
@@ -371,7 +380,7 @@ function historyRecords(
       const number = 60_001 + index;
       let end = created + lognormalDays(next, 10) * day;
       if (end >= asOfMs - 3_600_000) end = created + (asOfMs - created) * (0.2 + 0.7 * next());
-      const author = pick(next, issueAuthors);
+      const author = authorFrom(issueAuthors);
       const authorType = sampleAuthorType(author);
       const row = { author, createdAt: iso(created), closedAt: iso(end), number };
       return {
@@ -393,10 +402,11 @@ const fullHistory: DateRange = { start: sampleHistoryStart, end: overviewAsOf, e
 function referenceAvailability(id: string): DateRange[] {
   if (id === 'repo-github-activity-db')
     return [{ start: '2026-10-01T00:00:00.000Z', end: overviewAsOf, endInclusive: true }];
+  // A two-week outage that the default month and its comparison both overlap.
   if (id === 'repo-prebid-cache-java')
     return [
-      { start: sampleHistoryStart, end: '2026-09-01T00:00:00.000Z', endInclusive: false },
-      { start: '2026-10-01T00:00:00.000Z', end: overviewAsOf, endInclusive: true },
+      { start: sampleHistoryStart, end: '2026-09-21T00:00:00.000Z', endInclusive: false },
+      { start: '2026-10-04T00:00:00.000Z', end: overviewAsOf, endInclusive: true },
     ];
   return [fullHistory];
 }

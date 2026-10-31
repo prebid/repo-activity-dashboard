@@ -12,6 +12,7 @@ import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { withOverviewSort } from '@/lib/presentation/overview-sort';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import type { AgingThreshold } from '@/models/repository-overview';
+import type { PeriodSelection } from '@/models/reporting-period';
 import type { DataColumn } from '@/components/tables/data-table';
 
 const samples = repositoryOverviewSamples();
@@ -21,6 +22,18 @@ const definition = {
   repositoryIds: repositories.map((repo) => repo.id),
 };
 const defaultsForPreview = defaultOverviewSettings(definition);
+/** Prebid.js PRs opened in the bundled period whose selection matches. */
+function prebidjsOpened(selection: PeriodSelection) {
+  const period = samples.periods.find(
+    (entry) => JSON.stringify(entry.period.selection) === JSON.stringify(selection),
+  )!;
+  return period.rows['repo-prebidjs'].activity.counts.prsOpened.value!;
+}
+const signed = (value: number) => (value > 0 ? '+' : '') + value;
+const thisMonth = prebidjsOpened({ kind: 'preset', preset: 'this-month' });
+const lastMonth = prebidjsOpened({ kind: 'preset', preset: 'last-month' });
+const firstCustom = prebidjsOpened({ kind: 'custom', from: '2026-10-06', through: '2026-10-08' });
+const secondCustom = prebidjsOpened({ kind: 'custom', from: '2026-10-13', through: '2026-10-15' });
 it('renders signed differences only from complete values, including durations and known zero', () => {
   const view = render(
     <MeasurementDifference
@@ -115,15 +128,20 @@ it('groups two labeled periods and an automatic difference under one repository 
   expect(within(activity).getAllByRole('link', { name: 'Prebid.js' })).toHaveLength(1);
   expect(pairs[0]).toHaveTextContent('This month');
   expect(pairs[1]).toHaveTextContent('Last month');
-  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('47');
-  expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
+  expect(thisMonth).not.toBe(lastMonth);
+  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(thisMonth));
+  expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(lastMonth));
   expect(pairs[2]).toHaveTextContent('Difference');
-  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('-14');
+  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent(
+    signed(thisMonth - lastMonth),
+  );
   expect(screen.queryByRole('button', { name: 'Add second period' })).not.toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: 'Swap periods' }));
   expect(pairs[0]).toHaveTextContent('Last month');
-  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('61');
-  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('+14');
+  expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(lastMonth));
+  expect(pairs[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent(
+    signed(lastMonth - thisMonth),
+  );
   await user.click(screen.getByRole('button', { name: 'Remove period 1' }));
   expect(activity.querySelectorAll('tbody tr')).toHaveLength(18);
   expect(screen.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-month');
@@ -151,15 +169,20 @@ it('accepts two custom ranges, rejects duplicate dates, and keeps missing values
   );
   expect(pair[0]).toHaveTextContent('Oct 6, 2026 – Oct 8, 2026');
   expect(pair[1]).toHaveTextContent('Oct 13, 2026 – Oct 15, 2026');
-  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
-  expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('5');
-  expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('+2');
+  expect(firstCustom).not.toBe(secondCustom);
+  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(firstCustom));
+  expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent(
+    String(secondCustom),
+  );
+  expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent(
+    signed(firstCustom - secondCustom),
+  );
   await user.click(screen.getByRole('button', { name: 'Edit custom range for Period 2' }));
   await enter('2026-10-01', '2026-10-02');
   expect(
     screen.getByText('No prepared sample data for Period 2. Its values are shown as dashes.'),
   ).toBeVisible();
-  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
+  expect(pair[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(firstCustom));
   expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
   expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
 });
@@ -257,7 +280,9 @@ it('changes the primary period and aging independently', async () => {
   await user.keyboard('{Escape}');
   expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
   await user.selectOptions(screen.getByRole('combobox', { name: 'Period 1 preset' }), 'this-week');
-  expect(activityRow.querySelector('[data-column="prsOpened"]')).toHaveTextContent('12');
+  expect(activityRow.querySelector('[data-column="prsOpened"]')).toHaveTextContent(
+    String(prebidjsOpened({ kind: 'preset', preset: 'this-week' })),
+  );
   expect(backlogRow.querySelector('[data-column="totalOpenPrs"]')).toHaveTextContent('137');
   expect(backlogRow.querySelector('[data-column="agedPrs60"]')).toHaveTextContent('60');
   expect(screen.queryByRole('checkbox', { name: 'Show change' })).not.toBeInTheDocument();
@@ -281,7 +306,7 @@ it('validates custom dates and distinguishes unavailable samples from an empty r
   expect(screen.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('');
   const activity = screen.getByRole('region', { name: 'Period activity' });
   const row = within(activity).getByRole('link', { name: 'Prebid.js' }).closest('tr')!;
-  expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('7');
+  expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(firstCustom));
   await user.click(screen.getByRole('button', { name: 'Edit custom range for Period 1' }));
   expect(screen.getByLabelText('Start date')).toHaveValue('2026-10-06');
   fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-10-01' } });

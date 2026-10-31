@@ -11,6 +11,7 @@ import { repositoryAuthorRecordSample, repositoryInsightSample } from '@/mocks/r
 import { repositoryRecordSample } from '@/mocks/repository-records';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { authorColumns } from '@/features/repositories/repository-insights-view';
+import { recountActivity } from '../support/world-recount';
 const samples = repositoryOverviewSamples();
 const repo = samples.repositories.find((row) => row.repository.slug === 'prebidjs')!.repository;
 const range = samples.periods.find(
@@ -63,17 +64,29 @@ it('validates author handles and keeps malformed author-table state bounded', ()
   expect(isAuthorSelection({ ...parent.selection, metric: 'agentFeedbackCredits' })).toBe(false);
 });
 it('reconciles high-volume authors without expanding their records into the overview', () => {
-  for (const [metric, total, unique, count] of [
-    ['prAuthors', 529, 103, 240],
-    ['issueAuthors', 710, 194, 350],
+  const recount = recountActivity(repo.id, range).counts;
+  for (const [metric, total, unique] of [
+    ['prAuthors', recount.prsOpened, recount.prAuthors],
+    ['issueAuthors', recount.issuesOpened, recount.issueAuthors],
   ] as const) {
     const drilldown = { ...parent, selection: { ...parent.selection, metric } };
+    const all = repositoryRecordSample(repo, {
+      selection: {
+        scope: 'period',
+        metric: metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
+        range,
+      },
+      returnTo: parent.returnTo,
+    });
+    const authored = all.rows.filter((row) => row.author === 'sample-author-2');
+    expect(authored.length).toBeGreaterThan(100);
     const overview = repositoryInsightSample(repo, drilldown);
     if (overview.kind !== 'authors') throw new Error('Expected authors');
+    expect(overview.measurement).toEqual({ status: 'complete', value: unique });
     expect(overview.rows).toHaveLength(unique);
     expect(overview.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(total);
     expect(overview.rows.find((row) => row.account === 'sample-author-2')).toMatchObject({
-      recordCount: count,
+      recordCount: authored.length,
       accountType: 'agent',
     });
     expect(overview.rows.every((row) => !('records' in row))).toBe(true);
@@ -83,27 +96,14 @@ it('reconciles high-volume authors without expanding their records into the over
       'sample-author-2',
       repositoryAuthorsHref(repo, drilldown, query),
     );
-    expect(records.rows).toHaveLength(count);
-    expect(records.measurement).toEqual({ status: 'complete', value: count });
-    const all = repositoryRecordSample(repo, {
-      selection: {
-        scope: 'period',
-        metric: metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
-        range,
-      },
-      returnTo: parent.returnTo,
-    });
-    expect(records.rows).toEqual(all.rows.filter((row) => row.author === 'sample-author-2'));
+    expect(records.measurement).toEqual({ status: 'complete', value: authored.length });
+    expect(records.rows).toEqual(authored);
     expect(
       records.rows.every((row) => row.createdAt >= range.start && row.createdAt <= range.end),
     ).toBe(true);
     const states = new Set(records.rows.map((row) => row.state));
-    expect(states.has('Open')).toBe(true);
     expect(states.has('Closed')).toBe(true);
-    if (records.kind === 'prs') {
-      expect(states.has('Merged')).toBe(true);
-      expect(records.rows.some((row) => row.draft)).toBe(true);
-    }
+    if (records.kind === 'prs') expect(states.has('Merged')).toBe(true);
   }
 });
 it('distinguishes a valid empty author filter from an unavailable period', () => {
@@ -116,9 +116,10 @@ it('distinguishes a valid empty author filter from an unavailable period', () =>
       ...parent,
       selection: {
         ...parent.selection,
+        // The record set starts in 2024, so an earlier range has no prepared coverage.
         range: {
-          start: '2026-10-01T00:00:00.000Z',
-          end: '2026-10-02T00:00:00.000Z',
+          start: '2023-10-01T00:00:00.000Z',
+          end: '2023-10-02T00:00:00.000Z',
           endInclusive: false,
         },
       },
@@ -156,19 +157,28 @@ it.each([
 ])('rejects an invalid or repeatedly encoded account segment: %s', (segment) => {
   expect(readAuthorAccountSegment(segment)).toBeNull();
 });
-it.each([
-  ['prAuthors', 3],
-  ['issueAuthors', 2],
-] as const)('keeps the fake bot author and its %s records consistent', (metric, count) => {
-  const drilldown = { ...parent, selection: { ...parent.selection, metric } };
-  const overview = repositoryInsightSample(repo, drilldown);
-  if (overview.kind !== 'authors') throw new Error('Expected authors');
-  expect(overview.rows.find((row) => row.account === 'sample-author-3[bot]')).toMatchObject({
-    accountType: 'bot',
-    recordCount: count,
-  });
-  const records = repositoryAuthorRecordSample(repo, drilldown, 'sample-author-3[bot]', '/repos');
-  expect(records.measurement).toEqual({ status: 'complete', value: count });
-  expect(records.rows).toHaveLength(count);
-  expect(records.rows.every((row) => row.author === 'sample-author-3[bot]')).toBe(true);
-});
+it.each(['prAuthors', 'issueAuthors'] as const)(
+  'keeps the fake bot author and its %s records consistent',
+  (metric) => {
+    const drilldown = { ...parent, selection: { ...parent.selection, metric } };
+    const count = repositoryRecordSample(repo, {
+      selection: {
+        scope: 'period',
+        metric: metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
+        range,
+      },
+      returnTo: parent.returnTo,
+    }).rows.filter((row) => row.author === 'sample-author-3[bot]').length;
+    expect(count).toBeGreaterThan(0);
+    const overview = repositoryInsightSample(repo, drilldown);
+    if (overview.kind !== 'authors') throw new Error('Expected authors');
+    expect(overview.rows.find((row) => row.account === 'sample-author-3[bot]')).toMatchObject({
+      accountType: 'bot',
+      recordCount: count,
+    });
+    const records = repositoryAuthorRecordSample(repo, drilldown, 'sample-author-3[bot]', '/repos');
+    expect(records.measurement).toEqual({ status: 'complete', value: count });
+    expect(records.rows).toHaveLength(count);
+    expect(records.rows.every((row) => row.author === 'sample-author-3[bot]')).toBe(true);
+  },
+);

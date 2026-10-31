@@ -6,6 +6,7 @@ import type { RepositoryTimelineMatrixSource } from '@/models/repository-timelin
 import type { ContributionScenario } from './contributions';
 import { sampleProfileUrl } from './repository-accounts';
 import {
+  authorCategory,
   endedAt,
   repositoryWorld,
   reviewStateAt,
@@ -74,7 +75,7 @@ function issueRow(row: WorldIssue) {
 function latestBefore(row: WorldPullRequest, cutoff: string) {
   const review = row.reviews.filter((event) => event.at < cutoff).at(-1);
   const category = !review
-    ? ('contributor' as const)
+    ? authorCategory(row.authorType)
     : review.actorType === 'human'
       ? ('prebid-reviewer' as const)
       : review.actorType;
@@ -135,10 +136,7 @@ function snapshots(
               latestActivity: {
                 at: row.createdAt,
                 account: row.author,
-                category:
-                  row.authorType === null || row.authorType === 'human'
-                    ? ('contributor' as const)
-                    : row.authorType,
+                category: authorCategory(row.authorType),
               },
             })),
   }));

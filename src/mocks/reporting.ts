@@ -1,8 +1,8 @@
 import { repositoryCatalog } from '@/config/repositories';
 import type { RepositorySummary } from '@/models/reporting';
 import { overviewBacklogs } from './overview-backlog';
-export { repositorySample } from './repository-records';
-export { overviewAsOf as sampleAsOf } from './repository-overview';
+export { repositorySample } from './current-records';
+export { overviewAsOf as sampleAsOf } from './sample-clock';
 
 // Legacy default-list summaries share the approved overview's prepared backlog.
 export const repositorySummaries: RepositorySummary[] = repositoryCatalog

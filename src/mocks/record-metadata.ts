@@ -14,13 +14,11 @@ function latestAt(createdAt: string, number: number, asOf: string): string {
     Math.max(Date.parse(createdAt), Date.parse(asOf) - (number % 14) * 86_400_000),
   ).toISOString();
 }
-/** The latest activity a pull request shows on record pages and in Timeline supporting rows. */
+/** The latest activity an open pull request shows on record pages and in Timeline supporting rows. */
 export function pullRequestActivity(
   row: { author: string; createdAt: string; number: number; latestActor: LatestActor },
   asOf: string,
-  periodList = false,
-): LatestRecordActivity | null {
-  if (row.latestActor === 'unknown' && periodList) return null;
+): LatestRecordActivity {
   return {
     at: latestAt(row.createdAt, row.number, asOf),
     category: row.latestActor,

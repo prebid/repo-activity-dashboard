@@ -14,7 +14,7 @@ import {
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
-import { currentIssueSample } from '@/mocks/repository-records';
+import { currentIssueSample } from '@/mocks/current-records';
 import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 const samples = repositoryOverviewSamples(),
   repo = samples.repositories[0].repository;

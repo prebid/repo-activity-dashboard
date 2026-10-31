@@ -6,10 +6,9 @@ import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import type { RecordSelection, RepositoryRecordList } from '@/models/repository-records';
 import type { RepositoryPageSource } from '@/models/repository-page';
 import { repositoryRecordSample } from './repository-records';
-import { sampleAuthorType } from './repository-accounts';
-import { issueMetadata, pullRequestActivity } from './record-metadata';
+import { worldRepository, type WorldIssue, type WorldPullRequest } from './repository-world';
 
-/** Enrich the existing selected fake cohort; never generate a second set of counts or identities. */
+/** Enrich the selected records from the same record set; never a second set of identities. */
 export function repositoryPageSample(
   repo: OverviewRepository,
   drilldown: RepositoryDrilldown & { selection: RecordSelection },
@@ -19,22 +18,36 @@ export function repositoryPageSample(
 
 /** The same enrichment accepts existing author-filtered and merge-duration record lists. */
 export function repositoryPageRecordsSample(list: RepositoryRecordList): RepositoryPageSource {
-  const period = list.drilldown.selection.scope === 'period';
-  if (list.kind === 'prs')
+  const world = worldRepository(list.repository.id);
+  if (list.kind === 'prs') {
+    const records = new Map(world.pullRequests.map((row) => [row.id, row]));
+    const record = (id: string): WorldPullRequest => {
+      const found = records.get(id);
+      if (!found) throw new Error('Unknown sample pull request');
+      return found;
+    };
     return {
       ...list,
       rows: list.rows.map((row) => ({
         ...row,
-        authorType: sampleAuthorType(row.author),
-        latestActivity: pullRequestActivity(row, list.asOf, period),
+        authorType: record(row.id).authorType,
+        latestActivity: record(row.id).latestActivity,
       })),
     };
+  }
+  const records = new Map(world.issues.map((row) => [row.id, row]));
+  const record = (id: string): WorldIssue => {
+    const found = records.get(id);
+    if (!found) throw new Error('Unknown sample issue');
+    return found;
+  };
   return {
     ...list,
     rows: list.rows.map((row) => ({
       ...row,
-      authorType: sampleAuthorType(row.author),
-      ...issueMetadata(row, list.asOf),
+      authorType: record(row.id).authorType,
+      latestActivity: record(row.id).latestActivity,
+      assignees: record(row.id).assignees,
     })),
   };
 }

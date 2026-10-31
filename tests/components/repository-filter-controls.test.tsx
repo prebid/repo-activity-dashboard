@@ -6,7 +6,8 @@ import { RepositoryFilterControls } from '@/features/repositories/repository-fil
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { initialTableQuery, type TableController } from '@/lib/presentation/table-controller';
 import { repositoryPageSample } from '@/mocks/repository-page';
-import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import { overviewAsOf, repositoryOverviewSamples } from '@/mocks/repository-overview';
+import { sampleHistory } from '@/mocks/repository-world';
 const repo = repositoryOverviewSamples().repositories[0].repository;
 const source = repositoryPageSample(repo, {
   selection: { scope: 'current', metric: 'totalOpenPrs' },
@@ -85,11 +86,8 @@ it('closes an editing draft when the cohort or applied facets change', async () 
 });
 
 it('identifies the author selection limit and allows correction without losing the editing draft', async () => {
-  const samples = repositoryOverviewSamples();
-  const range = samples.periods.find(
-    (value) =>
-      value.period.selection.kind === 'preset' && value.period.selection.preset === 'this-year',
-  )!.period.range;
+  // The whole sample history has more distinct PR authors than one filter may select.
+  const range = { start: sampleHistory.start, end: overviewAsOf, endInclusive: true };
   const source = repositoryPageSample(repo, {
     selection: { scope: 'period', metric: 'prsOpened', range },
     returnTo: '/repos',
@@ -121,7 +119,9 @@ it('identifies the author selection limit and allows correction without losing t
   const choices = within(within(dialog).getByRole('group', { name: 'Authors' })).getAllByRole(
     'checkbox',
   );
-  expect(choices).toHaveLength(103);
+  // One option per distinct author, enough to exceed the 100-selection limit.
+  expect(choices).toHaveLength(new Set(source.rows.map((row) => row.author.toLowerCase())).size);
+  expect(choices.length).toBeGreaterThan(101);
   for (const checkbox of choices.slice(0, 101)) fireEvent.click(checkbox);
   await user.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
   expect(within(dialog).getByRole('alert')).toHaveTextContent(
