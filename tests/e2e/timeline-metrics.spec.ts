@@ -43,14 +43,15 @@ test('grouped metrics preserve repositories, sorting, pages, saved views, cell d
   await page.getByLabel('Sort metric').selectOption('medianMergeDays');
   await table.getByRole('button', { name: 'Oct 2026 (partial)', exact: true }).click();
   await table.getByRole('button', { name: 'Oct 2026 (partial) ↑', exact: true }).click();
-  await expect(table.locator('tbody tr').first()).toContainText('Prebid.js');
+  // GitHub Activity DB has October's longest median merge time.
+  await expect(table.locator('tbody tr').first()).toContainText('GitHub Activity DB');
   const parent = await page
     .getByRole('link', { name: 'Timeline', exact: true })
     .getAttribute('href');
   await page
-    .getByRole('link', { name: 'Prebid.js, Pull requests — Opened, Oct 2026: 3', exact: true })
+    .getByRole('link', { name: 'Prebid.js, Pull requests — Opened, Oct 2026: 78', exact: true })
     .click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await ready(page);
@@ -137,7 +138,7 @@ for (const [theme, width] of [
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(6);
     await expect(
       page.getByRole('link', {
-        name: 'Prebid.js, Duration — Median merge time, Oct 2026: 31 d',
+        name: 'Prebid.js, Duration — Median merge time, Oct 2026: 8.3 d',
         exact: true,
       }),
     ).toBeVisible();

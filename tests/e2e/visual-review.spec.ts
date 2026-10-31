@@ -132,7 +132,7 @@ test('review states distinguish empty, missing, partial, invalid, loading and re
     ],
     [
       'missing',
-      '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-02T00:00:00.000Z&inclusive=0',
+      '/repos/prebidjs?scope=period&metric=prAuthors&from=2023-10-01T00:00:00.000Z&to=2023-10-02T00:00:00.000Z&inclusive=0',
       'Sample records unavailable',
     ],
     [

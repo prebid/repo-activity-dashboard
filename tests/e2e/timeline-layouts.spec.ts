@@ -101,10 +101,10 @@ test('timeline periods, missing data and empty populations retain distinct meani
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(11);
   await expect(
     page.getByRole('table').locator('tbody tr').first().locator('[data-column="totalOpenPrs"]'),
-  ).toHaveText('1');
+  ).toHaveText('108');
   await expect(
     page.getByRole('table').locator('tbody tr').last().locator('[data-column="totalOpenPrs"]'),
-  ).toHaveText('2');
+  ).toHaveText('116');
   await page.screenshot({ path: info.outputPath('timeline-snapshots.png'), fullPage: true });
 });
 test('a 500-interval timeline keeps a full chart and fifty-row table, and rejects excess ranges', async ({

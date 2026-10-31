@@ -32,29 +32,32 @@ test('repository counts, nested authors, child search and copied returns retain 
     .getByRole('link', { name: 'Timeline', exact: true })
     .getAttribute('href');
   await page
-    .getByRole('link', { name: 'Pull requests — Opened, Oct 2026: 3', exact: true })
+    .getByRole('link', { name: 'Pull requests — Opened, Oct 2026: 78', exact: true })
     .click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   const records = await csv(page);
-  expect(records.records.map((row) => row['PR'])).toEqual(['108', '107', '105']);
-  expect(records.records.every((row) => row['Full Timeline interval value'] === '3')).toBe(true);
+  expect(records.records).toHaveLength(78);
+  expect(records.records.map((row) => row['PR'])).toEqual(
+    expect.arrayContaining(['105', '107', '108']),
+  );
+  expect(records.records.every((row) => row['Full Timeline interval value'] === '78')).toBe(true);
   await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await ready(page);
-  await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 2', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+  await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 18', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
   await page
     .getByRole('textbox', { name: 'Search Unique authors', exact: true })
     .fill('sample-bob');
-  await page.getByRole('link', { name: 'sample-bob: 2 authored records', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+  await page.getByRole('link', { name: 'sample-bob: 26 authored records', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(26);
   const copied = page.url(),
     isolated = await browser.newContext(),
     other = await isolated.newPage();
   try {
     await login(other);
     await other.goto(copied);
-    await expect(other.getByRole('table').locator('tbody tr')).toHaveCount(2);
+    await expect(other.getByRole('table').locator('tbody tr')).toHaveCount(26);
     await other.getByRole('link', { name: '← Back to authors', exact: true }).click();
     await expect(
       other.getByRole('textbox', { name: 'Search Unique authors', exact: true }),
@@ -87,15 +90,20 @@ test('merge medians, known zero and supplied historical approvals open the corre
   await page.goto('/repos/prebidjs?timeline=1');
   await ready(page);
   await page
-    .getByRole('link', { name: 'Duration — Median merge time, Oct 2026: 31 d', exact: true })
+    .getByRole('link', { name: 'Duration — Median merge time, Oct 2026: 8.3 d', exact: true })
     .click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(44);
   const duration = await csv(page);
-  expect(duration.records.map((row) => Number(row['Merge time'])).sort((a, b) => a - b)).toEqual([
-    1, 61,
-  ]);
-  expect(duration.records.every((row) => row['Full Timeline interval value'] === '31')).toBe(true);
-  await page.goto('/repos/prebidjs?timeline=1');
+  // The supporting merge times reproduce the interval's median.
+  const times = duration.records.map((row) => Number(row['Merge time'])).sort((a, b) => a - b);
+  expect(times).toHaveLength(44);
+  const middle = times.length / 2;
+  expect((times[middle - 1] + times[middle]) / 2).toBeCloseTo(
+    Number(duration.records[0]['Full Timeline interval value']),
+    6,
+  );
+  // The empty sample repository has a known zero for every interval.
+  await page.goto('/repos/prebid-mobile-ios-sdk?timeline=1');
   await ready(page);
   await page
     .getByRole('link', { name: 'Pull requests — Opened, Jan 2026: 0', exact: true })
@@ -109,10 +117,12 @@ test('merge medians, known zero and supplied historical approvals open the corre
   );
   await ready(page);
   await page
-    .getByRole('link', { name: 'Human approvals — 1 approval, Oct 21, 2026: 1', exact: true })
+    .getByRole('link', { name: 'Human approvals — 1 approval, Oct 21, 2026: 32', exact: true })
     .click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  await expect(page.getByRole('table').locator('[data-column="approvals"]')).toHaveText('1');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(32);
+  await expect(page.getByRole('table').locator('[data-column="approvals"]')).toHaveText(
+    Array(32).fill('1'),
+  );
   await expect(page.getByRole('link', { name: '107', exact: true })).toHaveAttribute(
     'target',
     '_blank',
@@ -139,7 +149,8 @@ test('contribution credits, comment counts and final merged volume exports match
   expect(volume.records[0]['Files changed']).toBe('10');
   expect(volume.records[0]['Full Timeline interval value']).toBe('10');
   expect(volume.records[0]['Counting basis']).toBe('merged-volume');
-  expect(volume.records[0]['GitHub account']).not.toBe('');
+  expect(volume.headers).toContain('GitHub account');
+  expect(volume.records[0]['GitHub account']).toBe('sample-bob');
   await page.goto('/contributors?timeline=1&timeline.columns=prComments');
   await ready(page);
   const october = page
@@ -250,8 +261,8 @@ test('full-range matrix and series downloads ignore windows/pages and matrix cel
   const parent = await page
     .getByRole('link', { name: 'Timeline', exact: true })
     .getAttribute('href');
-  await page.getByRole('link', { name: 'Prebid.js, Oct 2026: 3', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
+  await page.getByRole('link', { name: 'Prebid.js, Oct 2026: 78', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await page.goto(
@@ -273,18 +284,17 @@ test('chart points use the same interval details; partial values remain inspecta
   const dots = page.locator('.recharts-line-dots circle');
   await expect(dots).toHaveCount(10);
   await dots.last().click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await expect(page).toHaveURL(/timeline.detail=prsOpened/);
   await page.setViewportSize({ width: 375, height: 1000 });
   await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter&repo=repo-prebidserver');
   await ready(page);
+  // Prepared history for this repository starts in February, so Q1 records are partial.
   await page
-    .getByRole('link', { name: /^Prebid Server \(Go\), Q1 2026: 0, partial value\. / })
+    .getByRole('link', { name: /^Prebid Server \(Go\), Q1 2026: 95, partial value\. / })
     .click();
   await expect(page.getByLabel('Supporting data coverage')).toBeVisible();
-  await expect(
-    page.getByRole('heading', { name: 'No supporting records in this interval' }),
-  ).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   await page.screenshot({
@@ -306,7 +316,7 @@ test('downloads and copied support links remain protected and stale source ident
   await page.goto('/repos/prebidjs?timeline=1');
   await ready(page);
   const href = await page
-    .getByRole('link', { name: 'Pull requests — Opened, Oct 2026: 3', exact: true })
+    .getByRole('link', { name: 'Pull requests — Opened, Oct 2026: 78', exact: true })
     .getAttribute('href');
   const url = new URL(href!, 'http://127.0.0.1:3100');
   url.searchParams.set('timeline.revision', 'stale');
@@ -322,9 +332,9 @@ test('Back and Forward restore supporting-view search and author steps', async (
   await login(page);
   await page.goto('/repos/prebidjs?timeline=1');
   await ready(page);
-  await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 2', exact: true }).click();
+  await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 18', exact: true }).click();
   const authors = page.getByRole('table');
-  await expect(authors.locator('tbody tr')).toHaveCount(2);
+  await expect(authors.locator('tbody tr')).toHaveCount(18);
   const search = page.getByRole('textbox', { name: /^Search / });
   await search.fill('bob');
   await search.press('Enter');
@@ -347,5 +357,5 @@ test('Back and Forward restore supporting-view search and author steps', async (
   await expect(page).toHaveURL(author);
   await page.goBack();
   await page.goBack();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
 });

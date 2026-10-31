@@ -336,7 +336,7 @@ test('matrix entry preserves its population while restoring only compatible repo
   expect(new URL(page.url()).searchParams.has('prs.filter.authors')).toBe(false);
   await expect(
     page.getByRole('table').locator('tbody tr').last().locator('[data-column="prsOpened"]'),
-  ).toHaveText('3');
+  ).toHaveText('78');
 });
 test('issue-author insight entry inherits its metric and exact period without turning author-table search into record search', async ({
   page,
@@ -354,7 +354,9 @@ test('issue-author insight entry inherits its metric and exact period without tu
   expect(q.has('issues.q')).toBe(false);
   await page.getByRole('link', { name: /Previous repository view$/ }).click();
   await expect(page).toHaveURL(/authors.q=alice/);
+  await expect(page.getByRole('heading', { name: 'Issue authors', exact: true })).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),
-  ).toBeVisible();
+    page.getByRole('textbox', { name: 'Search Issue authors', exact: true }),
+  ).toHaveValue('alice');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
 });

@@ -136,7 +136,7 @@ test('saves columns and sorting without saving historical scope or filters', asy
   await page
     .getByRole('combobox', { name: 'Activity period preset', exact: true })
     .selectOption('this-year');
-  await expect(page.getByText('529 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('639 matching records', { exact: true })).toBeVisible();
   await page.goto('/repos/prebidjs');
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('combobox', { name: 'Record scope', exact: true })).toHaveValue(
@@ -200,8 +200,9 @@ test('unprepared custom dates remain unavailable, with a clear return to current
   await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Custom range for Activity period', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Custom date range', exact: true });
-  await dialog.getByLabel('Start date', { exact: true }).fill('2026-10-02');
-  await dialog.getByLabel('End date', { exact: true }).fill('2026-10-03');
+  // The sample record set starts in 2024, so earlier dates have no prepared coverage.
+  await dialog.getByLabel('Start date', { exact: true }).fill('2023-10-02');
+  await dialog.getByLabel('End date', { exact: true }).fill('2023-10-03');
   await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),
@@ -326,7 +327,7 @@ test('scope switching removes impossible merged-PR restrictions and preserves is
       '&prs.filter.states=Open&prs.filter.branches=release%2Fv2&prs.filter.draft=drafts',
   );
   await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('completed');
-  await expect(page.getByText('38 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('44 matching records', { exact: true })).toBeVisible();
   const p = new URL(page.url()).searchParams;
   expect(p.get('branch')).toBe('master');
   expect(p.has('prs.filter.states')).toBe(false);

@@ -103,11 +103,11 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Periods 469–480 of 500');
-  // Oct 1, 2026 has distinct values (Prebid.js 254, two repositories at 13), unlike name order.
-  await table.getByRole('button', { name: 'Oct 1, 2026', exact: true }).click();
-  await table.getByRole('button', { name: 'Oct 1, 2026 ↑', exact: true }).click();
+  // Sep 23, 2026 is led by Prebid.js (32 PRs opened), unlike name order.
+  await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
+  await table.getByRole('button', { name: 'Sep 23, 2026 ↑', exact: true }).click();
   // Header state and row order come from the same render, so this waits for the sorted rows.
-  await expect(table.getByRole('columnheader', { name: 'Oct 1, 2026 ↓' })).toHaveAttribute(
+  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );
@@ -121,10 +121,10 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
     ordering,
   );
   await expect(
-    page.getByText(/Sorted by Oct 1, 2026 \(descending; outside visible periods\)/),
+    page.getByText(/Sorted by Sep 23, 2026 \(descending; outside visible periods\)/),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(table.getByRole('columnheader', { name: 'Oct 1, 2026 ↓' })).toHaveAttribute(
+  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );
@@ -143,18 +143,18 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
   await expect(page.getByLabel('Timeline data coverage')).toBeVisible();
   await expect(row('Prebid Server (Java)').getByRole('cell').nth(1)).toContainText('—');
   await expect(row('Prebid Server (Go)').getByRole('cell').nth(1).locator('sup')).toHaveText('*');
-  await expect(row('Prebid Documentation').getByRole('cell').nth(1)).toHaveText('0');
+  await expect(row('Prebid Mobile iOS SDK').getByRole('cell').nth(1)).toHaveText('0');
   await page.screenshot({ path: info.outputPath('matrix-mixed.png'), fullPage: true });
   await page.goto('/repos?timeline=1&timeline.metric=medianMergeDays');
   await ready();
-  await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('5 d');
-  await expect(row('Prebid.js').getByRole('cell').nth(10)).toHaveText('31 d');
+  await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('4.853 d');
+  await expect(row('Prebid.js').getByRole('cell').nth(10)).toHaveText('8.3 d');
   await page.goto(
     '/repos?timeline=1&timeline.metric=totalOpenPrs&timeline.group=day&period=custom&from=2026-10-11&through=2026-10-21',
   );
   await ready();
-  await expect(row('Prebid.js').getByRole('cell').nth(1)).toHaveText('1');
-  await expect(row('Prebid.js').getByRole('cell').last()).toHaveText('2');
+  await expect(row('Prebid.js').getByRole('cell').nth(1)).toHaveText('108');
+  await expect(row('Prebid.js').getByRole('cell').last()).toHaveText('116');
   await page.goto('/repos?timeline=1&repo=');
   await ready();
   await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
