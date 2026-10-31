@@ -25,7 +25,7 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "check:all": "npm run check && npm run test:accounts && npm run audit:dependencies && npm run build:production && npm run test:production && npm run build:preview && npm run build:storybook && npm run test:e2e",
-    "audit:dependencies": "npm audit --audit-level=low",
+    "audit:dependencies": "node scripts/audit-dependencies.mjs",
     "auth:operator": "node --conditions=react-server --import tsx scripts/auth-operator.ts",
     "preview:storybook": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6007 --strictPort",
     "build:preview": "node scripts/app.mjs build preview",
@@ -95,6 +95,12 @@
   "overrides": {
     "next": {
       "postcss": "$postcss"
+    },
+    "@joshwooding/vite-plugin-react-docgen-typescript": {
+      "glob": "14.0.3"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.3"
     }
   },
   "packageManager": "npm@11.19.1"
