@@ -8,6 +8,26 @@ async function login(page: Page, email?: string) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+test('restoration preserves a valid near-limit incoming link when canonical defaults would exceed its budget', async ({
+  page,
+}) => {
+  await login(page);
+  const params = new URLSearchParams('timeline=1&period=this-year');
+  params.set('summary', '/repos?x=');
+  const padding = 7498 - new TextEncoder().encode('/repos?' + params.toString()).length;
+  params.set('summary', '/repos?x=' + 'a'.repeat(padding));
+  const href = '/repos?' + params.toString();
+  await page.goto(href);
+  await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      'Saved Timeline preferences do not fit this report. The requested view is unchanged.',
+      { exact: true },
+    ),
+  ).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
+  await expect(page).toHaveURL('http://127.0.0.1:3100' + href);
+});
 async function ready(page: Page) {
   await expect(page.getByLabel('Timeline grouping', { exact: true })).toBeEnabled();
 }

@@ -567,3 +567,16 @@ it('checks the final serialized URL before changing history or saved preferences
   expect(window.location.href).toBe(before);
   expect(localStorage.getItem(timelinePreferenceKey('alice', result.current.context))).toBeNull();
 });
+it('preserves a valid incoming URL when preference restoration would exceed the final link budget', async () => {
+  const params = new URLSearchParams('timeline=1&period=this-year');
+  params.set('summary', '/repos?x=');
+  const padding = 7498 - new TextEncoder().encode('/repos?' + params.toString()).length;
+  params.set('summary', '/repos?x=' + 'a'.repeat(padding));
+  window.history.replaceState(null, '', '/repos?' + params.toString());
+  const before = window.location.href;
+  const { result } = renderHook(() => useControls());
+  await ready(result);
+  expect(navigation.replace).not.toHaveBeenCalled();
+  expect(window.location.href).toBe(before);
+  expect(result.current.notice).toContain('do not fit');
+});

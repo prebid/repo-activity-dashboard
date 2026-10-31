@@ -103,11 +103,11 @@ Browser checks validate link destinations without relying on real third-party pa
 - First-credit dates and merge dates remain separate. A review earned before the period can contribute volume when its PR merges during the period; post-merge-only participation does not qualify.
 - Exports retain role labels, each metric's coverage, report scope and table search/sort. Profile/actor/help changes must preserve the protected-page boundary and the existing visual baseline.
 
-## Timeline reporting — planned frontend increment
+## Timeline reporting — prepared-data frontend
 
 These cases apply to the [shared timeline contract](../product/README.md#timeline-reporting). Frontend checks use prepared intervals and supporting records; real calculation/history coverage is verified separately during database integration.
 
-Execution follows the [five timeline checkpoints](timeline-reporting-plan.md#five-checkpoints). These entries remain planned until their implementation and results are recorded.
+Execution follows the [five timeline checkpoints](timeline-reporting-plan.md#five-checkpoints). The implementation plan records the completed frontend checkpoints and their test evidence. Database/history reconciliation remains a separate future check.
 
 | ID | Requirement | Scenario/check | Expected result | Planned level |
 | --- | --- | --- | --- | --- |
@@ -123,7 +123,7 @@ Execution follows the [five timeline checkpoints](timeline-reporting-plan.md#fiv
 | TIMELINE-10 | Matrix and individual values agree | All repositories, subsets, one repository and an account contributing across repositories | Each repository/metric/interval matches its individual Timeline. Repository attribution remains independent; zero and missing rows retain their meanings. | Contract/browser |
 | TIMELINE-11 | Period windows are presentation, not report filters | First/middle/last windows, a short final window and per-period sorting | Visible dates and full range are labeled separately. No intervals are lost or regrouped; offscreen sort context stays explicit, and repository paging does not change period scope. | Contract/component/browser |
 | TIMELINE-12 | Matrix drilldowns and exports preserve full context | Repository-name entry, interval-cell entry, copied links, Back/Forward and CSV | Individual views preserve metric/range/grouping; interval details match exact covered dates; returns restore repository selection/window/sort/page; CSV includes all selected repositories and periods. | Browser/download |
-| TIMELINE-13 | Matrix addition preserves the existing overview | Summary/Timeline switching, two comparison periods, empty repository selection and maximum matrix size | Summary settings remain intact. Empty selection is not replaced by all repositories. Only the chosen metric and shared interval definitions are serialized; measured limits precede materialization. | Contract/browser/serialization |
+| TIMELINE-13 | Matrix addition preserves the existing overview | Summary/Timeline switching, two comparison periods, empty repository selection and maximum matrix size | Summary settings remain intact. Empty selection is not replaced by all repositories. Only the selected metrics and shared interval definitions are serialized; the combined cell budget precedes materialization. Repository metric groups remain together when sorting and paging. | Contract/browser/serialization |
 
 ## Historical merge status and agent tracking
 
@@ -145,4 +145,4 @@ Execution follows the [five timeline checkpoints](timeline-reporting-plan.md#fiv
 | UI-02 | Realistic density remains readable | LOAD-01 / DISPLAY-01 | Long titles and many labels do not obscure controls; selected filters remain apparent at supported viewport widths. | Visual/manual |
 | UI-03 | Data remains available without interpreting color | Repository graph scenario | Labels/text/table values communicate the same values and scope as graph colors. | Accessibility/browser |
 
-Each case must later record its test location, execution result, source revision, and any residual scope. Current status for every case in this file is **Planned — not implemented or run**.
+Implementation status and execution evidence belong to the linked implementation plans. These scenario definitions alone do not claim a passing result. Real-data reconstruction, historical merge-state reporting and agent tracking retain their deferred scope.

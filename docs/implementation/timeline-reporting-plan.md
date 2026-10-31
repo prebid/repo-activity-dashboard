@@ -315,3 +315,18 @@ Final presentation refinements include **Metrics**, **Quarterly**, **Every 6 mon
 The target branch was verified on GitHub at `d7097503e39d884e0462e63c3a07aadfba6e7920`, matching the tested local base. Final source hashes, raw reports, retained initial failure evidence and the individual browser case index are in the task's `timeline-final-review/readiness` artifact folder. The draft handoff targets `codex/frontend-rebuild` from `codex/timeline-reporting`. Hosted CI is reported separately on the PR; independent approval and deployment are not claimed.
 
 Label refinement after visual review (2026-10-30): the user chose **Metrics** throughout Timeline and **Quarterly** without the parenthetical. Keep **Every 2 months** to avoid the ambiguity of bimonthly. Grouping, saved-state identifiers and sample values are unchanged. Existing focused checks passed: 291 unit/component cases and 16 browser cases in Chromium/WebKit, plus changed-file formatting/lint and rebuilt preview/Storybook. The review gallery screenshots have been refreshed.
+
+
+## Post-publication self-audit and CI repair
+
+The second self-review of PR #10 began at `94cfc92bd7244ec6f29607e6c2631ebd99cf38ca`. It traced the URL controller's restoration/editing paths, calendar and coverage projections, matrix grouping/sorting, supporting-record membership, authenticated CSV boundaries, shared UI ownership and their regression tests. Reporting remains fake; no account policy, layout or metric definition was reopened.
+
+| ID | Finding | Disposition |
+| --- | --- | --- |
+| T-A5 | Preference restoration validated the incoming URL before adding canonical presentation defaults, and could navigate beyond the 7,500-byte budget. | Restoration and ordinary edits now share the same final-target guard. A valid near-limit incoming URL stays unchanged with feedback. The component reproduction failed before the fix; a real server/browser regression passes in Chromium and WebKit. |
+| T-A6 | Hosted CI stopped at newly reported glob/minimatch dependency advisories after unit and account tests passed. | Scoped overrides install patched glob 14.0.3 and modern minimatch 11.0.3. The approved exact minimatch 3.1.5 non-applicability exception is documented in [dependency audit disposition](dependency-audit.md), checked against lock integrity and installed source, and does not waive other advisories. |
+| T-A7 | Acceptance prose still described all Timeline cases as unimplemented and the matrix as single-metric. | Updated the scope/evidence language and multi-metric contract without claiming real-data reconciliation. |
+
+The existing repeated-summary validation was also checked at its consuming route and already rejects duplicates; no redundant validator was added. Pure projection/selection modules remain shared between tables, drilldowns and exports. The final-target guard is used by both eligible navigation writers. The audit policy stays in the tooling layer and does not enter application or reporting code.
+
+Local verification of this repair: `npm run check` passed static/architecture/coverage gates and **1,700 unit/component tests**; `npm run audit:dependencies` reports **14 inherited package entries, one approved scoped advisory, and zero blocking findings**. Production/preview/Storybook builds and **8 packaged-production tests** passed. **32 Timeline control/grouped-metric browser cases** passed in Chromium/WebKit with no skips or flaky results. The full hosted check on the published repair head is tracked separately in the PR checks; the earlier 410-case full run remains evidence for the original head, not a claim that the repair has completed hosted CI.

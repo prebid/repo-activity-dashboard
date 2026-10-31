@@ -32,6 +32,14 @@ import { writeRepositoryFilters } from '@/lib/presentation/repository-page-query
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { contributionPreferencesChanged } from './use-contribution-entry';
 
+function checkedTarget(input: string, context: TimelineControlContext) {
+  const checked = validateTimelineProposal(input, context);
+  const target = writeTimelineView(input, context.area, checked.view);
+  if (!contributionUrlFits(context.path + '?' + target))
+    throw Error('This view is too large for a link. Reduce the selection.');
+  return target;
+}
+
 /** One URL owner for Timeline state. Facts remain in authenticated server composition. */
 export function useTimelineControls(
   viewerId: string,
@@ -152,9 +160,8 @@ export function useTimelineControls(
         return;
       }
       try {
-        const checked = validateTimelineProposal(params.toString(), context);
         if (!params.has('period')) params.set('period', 'this-year');
-        const next = writeTimelineView(params.toString(), context.area, checked.view);
+        const next = checkedTarget(params.toString(), context);
         if (next !== window.location.search.slice(1))
           startTransition(() => router.replace(context.path + '?' + next, { scroll: false }));
       } catch {
@@ -200,17 +207,11 @@ export function useTimelineControls(
   function apply(next: string, scope: boolean, rememberKeys: string[] = []) {
     if (busy.current || pending || restoring || awaitingData)
       return 'The current update is still loading. Try again when it finishes.';
-    let checked;
+    let target;
     try {
-      checked = validateTimelineProposal(next, context);
+      target = checkedTarget(next, context);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Invalid Timeline change.';
-      setNotice(message);
-      return message;
-    }
-    const target = writeTimelineView(next, context.area, checked.view);
-    if (!contributionUrlFits(context.path + '?' + target)) {
-      const message = 'This view is too large for a link. Reduce the selection.';
       setNotice(message);
       return message;
     }
