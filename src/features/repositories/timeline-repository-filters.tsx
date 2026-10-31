@@ -19,6 +19,7 @@ import {
 } from './repository-filter-fields';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { RepositoryFilterForm } from './repository-filter-form';
+import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import styles from './repository-controls.module.css';
 export function TimelineRepositoryFilters({
   filters,
@@ -66,7 +67,7 @@ export function TimelineRepositoryFilters({
             <DialogDescription>
               {snapshot
                 ? 'Filters use the supplied state at each cutoff.'
-                : 'Metadata filters use the reporting snapshot. Current age and review counts require Backlog at cutoff.'}
+                : `Metadata filters use the reporting snapshot. Current age and review counts require ${repositoryTimelineFamilyLabels.snapshot}.`}
             </DialogDescription>
           </DialogHeader>
           <RepositoryFilterForm

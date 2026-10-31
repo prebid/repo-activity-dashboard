@@ -7,7 +7,6 @@ import { timelineGroupings, timelineGroupingLabels } from '@/models/reporting-ti
 import type { TimelineControlContext, TimelineViewState } from '@/models/timeline-controls';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import type { PeriodSelection } from '@/models/reporting-period';
-import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
 import styles from './timeline-controls.module.css';
@@ -25,6 +24,7 @@ export function TimelineControls({
   onReset,
   children,
   showPreferenceNote = true,
+  familyLabels,
 }: {
   context: TimelineControlContext;
   view: TimelineViewState;
@@ -37,7 +37,11 @@ export function TimelineControls({
   onReset: () => void;
   children?: React.ReactNode;
   showPreferenceNote?: boolean;
+  /** Repository Timelines name their measure families; other areas have none. */
+  familyLabels?: Record<TimelineViewState['family'], string>;
 }) {
+  if (context.area === 'repository' && !familyLabels)
+    throw Error('Repository Timeline controls need their family labels.');
   const ready = useClientReady();
   // Each select is named by its visible label so speech input can use the text on screen.
   const id = useId();
@@ -100,8 +104,8 @@ export function TimelineControls({
                     onView({ family: e.target.value as TimelineViewState['family'] })
                   }
                 >
-                  <option value="activity">{repositoryTimelineFamilyLabels.activity}</option>
-                  <option value="snapshot">{repositoryTimelineFamilyLabels.snapshot}</option>
+                  <option value="activity">{familyLabels!.activity}</option>
+                  <option value="snapshot">{familyLabels!.snapshot}</option>
                 </select>
                 <ChevronDown aria-hidden="true" size={14} />
               </span>

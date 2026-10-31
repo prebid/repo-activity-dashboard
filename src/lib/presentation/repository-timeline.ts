@@ -1,5 +1,6 @@
 import {
   repositoryTimelineSourceSchema,
+  repositoryTimelineFamilyLabels,
   repositoryTimelineFamilyMetrics,
   repositoryTimelineMetricScope,
   type RepositoryTimelineSnapshotMetric,
@@ -46,7 +47,9 @@ export function validateRepositoryTimelineFilters(
   if (filters.eventRange)
     throw Error('Exact activity dates belong to the timeline range, not a record filter.');
   if (family === 'activity' && (filters.ageBand !== undefined || usesReviewFilters(filters)))
-    throw Error('Current age and review filters require Backlog at cutoff.');
+    throw Error(
+      `Current age and review filters require ${repositoryTimelineFamilyLabels.snapshot}.`,
+    );
   // Every record in a backlog snapshot is open at its cutoff, so other states could only be zero.
   if (family === 'snapshot' && filters.states.some((state) => state !== 'Open'))
     throw Error('Backlog snapshots contain only records open at the cutoff');

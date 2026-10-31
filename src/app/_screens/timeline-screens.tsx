@@ -152,13 +152,14 @@ export function RepositoryTimelineScreen({
           {omitted && (
             <aside className={styles.notice}>
               Current backlog constraints remain on the original list. Activity over time preserves
-              compatible metadata filters; choose Backlog at cutoff for historical age or review
-              filters.
+              compatible metadata filters; choose {repositoryTimelineFamilyLabels.snapshot} for
+              historical age or review filters.
             </aside>
           )}
           <TimelineControls
             context={context}
             {...control}
+            familyLabels={repositoryTimelineFamilyLabels}
             metrics={metrics}
             onView={control.changeView}
             onPeriod={control.changePeriod}

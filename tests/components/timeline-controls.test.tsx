@@ -1,5 +1,12 @@
 import { useMemo, useSyncExternalStore } from 'react';
-import { act as reactAct, renderHook, waitFor, render, screen } from '@testing-library/react';
+import {
+  act as reactAct,
+  renderHook,
+  waitFor,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
 import { useTimelineControls } from '@/lib/navigation/use-timeline-controls';
@@ -17,6 +24,7 @@ import type { TimelineArea, TimelineControlContext } from '@/models/timeline-con
 import type { ContributionOptions } from '@/models/contribution-options';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import { TimelineControls } from '@/components/reporting/timeline-controls';
+import { TimelineMetricsSelector } from '@/components/reporting/timeline-metrics-selector';
 async function interact(action: () => unknown) {
   await reactAct(async () => {
     action();
@@ -708,11 +716,56 @@ it('names each Timeline control by its visible label', () => {
       onView={() => undefined}
       onPeriod={() => undefined}
       onReset={() => undefined}
+      familyLabels={{ activity: 'Activity in each period', snapshot: 'Open at each cutoff' }}
     />,
   );
   for (const name of ['Group by', 'Records', 'Measure'])
     expect(screen.getByRole('combobox', { name })).toBeInTheDocument();
   expect(screen.getByRole('combobox', { name: /^Reporting period/ })).toBeInTheDocument();
+  // The shared controls show the labels their caller supplies.
+  expect(
+    within(screen.getByRole('combobox', { name: 'Measure' }))
+      .getAllByRole('option')
+      .map((option) => option.textContent),
+  ).toEqual(['Activity in each period', 'Open at each cutoff']);
+});
+it('refuses to render repository Timeline controls without family labels', () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1&timeline.state=1');
+  const context = makeContext('repository', window.location.search);
+  vi.spyOn(console, 'error').mockImplementation(() => {});
+  expect(() =>
+    render(
+      <TimelineControls
+        context={context}
+        view={context.view}
+        metrics={[]}
+        pending={false}
+        storageAvailable
+        onView={() => undefined}
+        onPeriod={() => undefined}
+        onReset={() => undefined}
+      />,
+    ),
+  ).toThrow('need their family labels');
+});
+it('applies whatever metric ids its caller defines in the shared metrics selector', async () => {
+  const user = userEvent.setup();
+  const onApply = vi.fn();
+  render(
+    <TimelineMetricsSelector
+      metrics={[
+        { id: 'alpha', label: 'Alpha', unit: 'count', defaultVisible: true, selectionGroup: 'One' },
+        { id: 'beta', label: 'Beta', unit: 'days', defaultVisible: false, selectionGroup: 'Two' },
+      ]}
+      selected={['alpha']}
+      contextKey="custom"
+      onApply={onApply}
+    />,
+  );
+  await user.click(screen.getByRole('button', { name: /Metrics · 1/ }));
+  await user.click(screen.getByRole('checkbox', { name: 'Beta' }));
+  await user.click(screen.getByRole('button', { name: 'Apply metrics' }));
+  expect(onApply).toHaveBeenCalledWith(['alpha', 'beta']);
 });
 function savedTimelineQuery(area: TimelineArea) {
   const raw = localStorage.getItem(
