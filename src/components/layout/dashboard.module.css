@@ -16,6 +16,8 @@
   --border: var(--prebid-line);
   --input: var(--prebid-input-border);
   --ring: var(--prebid-ring);
+  /* Fluid width: the gutter grows with the viewport so wide monitors use their edges. */
+  --dashboard-gutter: clamp(32px, 2.5vw, 64px);
   min-height: 100svh;
   color: var(--foreground);
   background: var(--background);
@@ -25,9 +27,7 @@
   border-bottom: 1px solid var(--border);
 }
 .headerInner {
-  max-width: 1480px;
-  margin: auto;
-  padding: 0 32px;
+  padding: 0 var(--dashboard-gutter);
   display: flex;
   align-items: center;
   gap: 36px;
@@ -106,9 +106,7 @@
   justify-content: flex-end;
   align-items: center;
   gap: 6px;
-  max-width: 1480px;
-  margin: auto;
-  padding: 12px 32px 0;
+  padding: 12px var(--dashboard-gutter) 0;
   color: var(--muted-foreground);
   font-size: 11px;
 }
@@ -119,9 +117,7 @@
   background: var(--prebid-accent);
 }
 .main {
-  max-width: 1480px;
-  margin: auto;
-  padding: 24px 32px 56px;
+  padding: 24px var(--dashboard-gutter) 56px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -140,10 +136,13 @@
   transform: none;
 }
 @media (max-width: 1000px) {
+  .surface {
+    --dashboard-gutter: 24px;
+  }
   .headerInner {
     flex-wrap: wrap;
     gap: 0;
-    padding: 16px 24px 0;
+    padding: 16px var(--dashboard-gutter) 0;
   }
   .navigation {
     order: 3;
@@ -155,15 +154,15 @@
     max-width: 110px;
   }
   .main {
-    padding: 20px 24px 40px;
-  }
-  .source {
-    padding-right: 24px;
+    padding: 20px var(--dashboard-gutter) 40px;
   }
 }
 @media (max-width: 600px) {
+  .surface {
+    --dashboard-gutter: 16px;
+  }
   .headerInner {
-    padding: 12px 16px 0;
+    padding: 12px var(--dashboard-gutter) 0;
   }
   .brand img {
     width: 114px;
@@ -184,11 +183,11 @@
     font-size: 12px;
   }
   .main {
-    padding: 18px 16px 32px;
+    padding: 18px var(--dashboard-gutter) 32px;
     gap: 20px;
   }
   .source {
-    padding: 10px 16px 0;
+    padding: 10px var(--dashboard-gutter) 0;
   }
   .sourceDetail {
     display: none;
