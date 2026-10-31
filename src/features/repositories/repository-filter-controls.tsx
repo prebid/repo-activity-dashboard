@@ -20,10 +20,9 @@ import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-que
 import {
   repositoryFilterFields,
   repositoryFilterChips,
-  removeRepositoryFilter,
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
-import { RepositoryFilterForm } from './repository-filter-form';
+import { RepositoryFilterChips, RepositoryFilterForm } from './repository-filter-form';
 import styles from './repository-controls.module.css';
 
 export function RepositoryFilterControls({
@@ -134,25 +133,19 @@ export function RepositoryFilterControls({
         )}
       </div>
       {(chips.length > 0 || filters.eventRange) && (
-        <div className={styles.chips} aria-label="Active filters">
-          {chips.map((chip) => (
-            <button
-              type="button"
-              key={chip.key + ':' + chip.value}
-              onClick={() => onChange(removeRepositoryFilter(filters, chip.key, chip.value))}
-              aria-label={'Remove ' + chip.label}
-            >
-              {chip.label}
-              <X size={12} aria-hidden="true" />
-            </button>
-          ))}
+        <RepositoryFilterChips
+          filters={filters}
+          chips={chips}
+          label="Active filters"
+          onChange={onChange}
+        >
           {filters.eventRange && (
             <button type="button" onClick={() => onChange({ ...filters, eventRange: undefined })}>
               Activity dates: {periodRangeLabel(filters.eventRange)} · UTC
               <X size={12} aria-hidden="true" />
             </button>
           )}
-        </div>
+        </RepositoryFilterChips>
       )}
     </fieldset>
   );

@@ -23,10 +23,8 @@ it('applies cutoff filters through the shared form, encoding age bands as number
   await userEvent.click(screen.getByRole('button', { name: 'Record filters' }));
   const dialog = screen.getByRole('dialog');
   expect(within(dialog).queryByText('Current state')).not.toBeInTheDocument();
-  await userEvent.selectOptions(
-    within(dialog).getByLabelText('Age'),
-    within(dialog).getAllByRole('option')[1],
-  );
+  const age = within(dialog).getByLabelText('Age');
+  await userEvent.selectOptions(age, within(age).getAllByRole('option')[1]);
   await userEvent.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
   expect(onChange).toHaveBeenCalledTimes(1);
   const applied = (onChange.mock.calls[0] as unknown as [{ ageBand?: unknown }])[0];

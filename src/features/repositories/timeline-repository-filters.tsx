@@ -14,11 +14,11 @@ import { type RepositoryPageFilters, type RepositoryFilterOptions } from '@/mode
 import {
   repositoryFilterFieldsFromOptions,
   repositoryFilterChips,
-  removeRepositoryFilter,
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
-import { RepositoryFilterForm } from './repository-filter-form';
+import { X } from 'lucide-react';
+import { RepositoryFilterChips, RepositoryFilterForm } from './repository-filter-form';
 import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import styles from './repository-controls.module.css';
 export function TimelineRepositoryFilters({
@@ -95,27 +95,23 @@ export function TimelineRepositoryFilters({
         </DialogContent>
       </Dialog>
       {(chips.length > 0 || filters.search) && (
-        <div className={styles.chips} aria-label="Active timeline filters">
-          {chips.map((chip) => (
-            <button
-              key={chip.key + chip.value}
-              type="button"
-              onClick={() => onChange(removeRepositoryFilter(filters, chip.key, chip.value))}
-              aria-label={'Remove ' + chip.label}
-            >
-              {chip.label} ×
-            </button>
-          ))}
+        <RepositoryFilterChips
+          filters={filters}
+          chips={chips}
+          label="Active timeline filters"
+          onChange={onChange}
+        >
           {filters.search && (
             <button
               type="button"
               onClick={() => onChange({ ...filters, search: '' })}
               aria-label="Remove title or number filter"
             >
-              Title or number: {filters.search} ×
+              Title or number: {filters.search}
+              <X size={12} aria-hidden="true" />
             </button>
           )}
-        </div>
+        </RepositoryFilterChips>
       )}
     </div>
   );

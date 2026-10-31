@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button';
 import { DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { FilterChoices } from '@/components/tables/filter-choices';
 import { repositoryPageFiltersSchema, type RepositoryPageFilters } from '@/models/repository-page';
+import { X } from 'lucide-react';
 import {
+  removeRepositoryFilter,
+  repositoryFilterChips,
   repositoryFilterErrorMessage,
   type RepositoryFilterDraft,
   type RepositoryFilterField,
@@ -98,5 +101,36 @@ export function RepositoryFilterForm({
         <Button type="submit">Apply filters</Button>
       </DialogFooter>
     </form>
+  );
+}
+/** Removable chips for the active field filters; callers add chips for filters they own. */
+export function RepositoryFilterChips({
+  filters,
+  chips,
+  label,
+  onChange,
+  children,
+}: {
+  filters: RepositoryPageFilters;
+  chips: ReturnType<typeof repositoryFilterChips>;
+  label: string;
+  onChange: (value: RepositoryPageFilters) => unknown;
+  children?: ReactNode;
+}) {
+  return (
+    <div className={styles.chips} aria-label={label}>
+      {chips.map((chip) => (
+        <button
+          type="button"
+          key={chip.key + ':' + chip.value}
+          onClick={() => onChange(removeRepositoryFilter(filters, chip.key, chip.value))}
+          aria-label={'Remove ' + chip.label}
+        >
+          {chip.label}
+          <X size={12} aria-hidden="true" />
+        </button>
+      ))}
+      {children}
+    </div>
   );
 }
