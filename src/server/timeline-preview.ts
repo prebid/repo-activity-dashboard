@@ -24,6 +24,7 @@ import { contributionPath } from '@/lib/presentation/contribution-navigation';
 import {
   selectRepositoryTimelineMatrix,
   RepositoryTimelineMatrixLimitError,
+  matrixRepositoryIds,
 } from '@/lib/presentation/repository-timeline-matrix';
 import { repositoryMatrixSummaryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
 import {
@@ -232,10 +233,10 @@ export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
   } catch (error) {
     return invalid(error instanceof Error ? error.message : undefined);
   }
-  const ids = params.has('repo')
-    ? params.getAll('repo').filter(Boolean)
-    : repositories.map((row) => row.id);
-  const repositoryIds = [...new Set(ids)].sort();
+  const repositoryIds = matrixRepositoryIds(
+    params,
+    repositories.map((row) => row.id),
+  );
   const kinds = new Set(
     parsed.metricIds.map(
       (metric) => repositoryTimelineMetricScope(metric as RepositoryTimelineMetric).recordKind,

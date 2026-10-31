@@ -4,7 +4,9 @@ import {
   selectRepositoryTimelineMatrix,
   repositoryTimelineMatrixWindow,
   sortRepositoryTimelineMatrix,
+  RepositoryTimelineMatrixLimitError,
 } from '@/lib/presentation/repository-timeline-matrix';
+import { readTimelineView, validateTimelineScope } from '@/lib/presentation/timeline-controls';
 import type { RepositoryTimelineMatrixSource } from '@/models/repository-timeline-matrix';
 import type { TimelineRequest } from '@/models/reporting-timeline';
 import { repositoryTimelineMetricScope } from '@/models/repository-timeline';
@@ -119,6 +121,40 @@ it('enforces interval and cell limits before producing oversized matrix values',
       { metric: 'prsOpened', repositoryIds: ids(tooMany) },
     ).rows,
   ).toHaveLength(21);
+});
+it('rejects an oversized matrix URL with the same rule the projection applies', () => {
+  const tooMany = extended(21);
+  const failure = (run: () => unknown) => {
+    try {
+      run();
+    } catch (error) {
+      return error;
+    }
+  };
+  const params = new URLSearchParams(
+    'timeline=1&period=custom&from=2025-06-12&through=2026-10-24&timeline.group=day',
+  );
+  for (const id of ids(tooMany)) params.append('repo', id);
+  const client = failure(() =>
+    validateTimelineScope(
+      params,
+      readTimelineView(params, 'matrix', request.range.end),
+      'matrix',
+      ids(tooMany).map((id) => ({ id })),
+    ),
+  );
+  const projected = failure(() =>
+    selectRepositoryTimelineMatrix(tooMany, request, {
+      metric: 'prsOpened',
+      repositoryIds: ids(tooMany),
+    }),
+  );
+  expect(client).toBeInstanceOf(RepositoryTimelineMatrixLimitError);
+  expect(projected).toBeInstanceOf(RepositoryTimelineMatrixLimitError);
+  expect((client as Error).message).toBe(
+    'Matrix exceeds 10000 cells; select fewer repositories/metrics or a coarser grouping.',
+  );
+  expect((projected as Error).message).toBe((client as Error).message);
 });
 it('sorts every repository by an offscreen period before paging, without mutating the model', () => {
   const source = extended(51),

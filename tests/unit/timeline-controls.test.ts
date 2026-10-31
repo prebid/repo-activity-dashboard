@@ -579,6 +579,15 @@ it.each([
       );
   },
 );
+it('treats an explicit list of every repository as the default matrix selection', () => {
+  const matrix = { ...context('matrix'), path: '/repos', href: '/repos?timeline=1' };
+  const every = new URLSearchParams('timeline=1');
+  for (const row of [...matrix.repositories].reverse()) every.append('repo', row.id);
+  expect(resolveTimelinePresentation('/repos', every.toString(), matrix).awaitingData).toBe(false);
+  every.delete('repo');
+  every.append('repo', matrix.repositories[0].id);
+  expect(resolveTimelinePresentation('/repos', every.toString(), matrix).awaitingData).toBe(true);
+});
 it('treats changed repository, population and record scope as new facts', () => {
   const matrix = context('matrix');
   expect(

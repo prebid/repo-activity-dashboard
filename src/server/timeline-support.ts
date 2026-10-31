@@ -13,6 +13,7 @@ import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import { repositoryTimelineSample } from '@/mocks/repository-timeline';
 import { readTimelineView } from '@/lib/presentation/timeline-controls';
 import { repositoryCatalog } from '@/config/repositories';
+import { matrixRepositoryIds } from '@/lib/presentation/repository-timeline-matrix';
 import { safeTimelineParent } from '@/lib/presentation/timeline-navigation';
 import type { ContributionSampleScenario } from '@/models/contribution-page';
 import type { RepositoryTimelineScenario } from '@/mocks/repository-timeline';
@@ -61,9 +62,10 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
     const matrixParams = new URL(candidate, 'https://dashboard.invalid').searchParams;
     try {
       const matrix = readTimelineView(matrixParams, 'matrix', report.source.asOf),
-        ids = matrixParams.has('repo')
-          ? matrixParams.getAll('repo')
-          : repositoryCatalog.filter((row) => row.enabled).map((row) => row.id);
+        ids = matrixRepositoryIds(
+          matrixParams,
+          repositoryCatalog.filter((row) => row.enabled).map((row) => row.id),
+        );
       if (
         !matrix.metricIds.includes(query.metric) ||
         matrix.request.grouping !== report.request.grouping ||

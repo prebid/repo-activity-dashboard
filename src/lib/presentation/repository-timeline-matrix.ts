@@ -25,6 +25,19 @@ function byRepository(a: RepositoryTimelineMatrixRow, b: RepositoryTimelineMatri
   );
 }
 export class RepositoryTimelineMatrixLimitError extends RangeError {}
+/** The repositories a matrix URL selects: its repo values, or every available one if none is named. */
+export function matrixRepositoryIds(params: URLSearchParams, available: readonly string[]) {
+  return [
+    ...new Set(params.has('repo') ? params.getAll('repo').filter(Boolean) : available),
+  ].sort();
+}
+/** The one matrix size rule, shared by URL validation and the projection. */
+export function assertMatrixCellLimit(repositories: number, metrics: number, intervals: number) {
+  if (repositories * metrics * intervals > repositoryTimelineMatrixCellLimit)
+    throw new RepositoryTimelineMatrixLimitError(
+      `Matrix exceeds ${repositoryTimelineMatrixCellLimit} cells; select fewer repositories/metrics or a coarser grouping.`,
+    );
+}
 /** One shared axis; each repository's selected metrics remain contiguous rows. */
 export function selectRepositoryTimelineMatrix(
   input: RepositoryTimelineMatrixSource,
@@ -68,13 +81,11 @@ export function selectRepositoryTimelineMatrix(
   const repositoryIds = [...new Set(selection.repositoryIds)].sort();
   if (repositoryIds.some((id) => !repositories.has(id)))
     throw Error('Unknown selected matrix repository');
-  if (
-    repositoryIds.length * selection.metrics.length * projection.intervals.length >
-    repositoryTimelineMatrixCellLimit
-  )
-    throw new RepositoryTimelineMatrixLimitError(
-      `Matrix exceeds ${repositoryTimelineMatrixCellLimit} cells; select fewer repositories/metrics or a coarser grouping`,
-    );
+  assertMatrixCellLimit(
+    repositoryIds.length,
+    selection.metrics.length,
+    projection.intervals.length,
+  );
   const rows: RepositoryTimelineMatrixRow[] = [];
   for (const id of repositoryIds) {
     const inputs = repositories.get(id)!;

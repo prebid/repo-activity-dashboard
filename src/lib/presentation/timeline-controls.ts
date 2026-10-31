@@ -23,10 +23,8 @@ import { contributionUrlFits } from './contribution-return';
 import { canonicalRoutePath } from './navigation';
 import { readRepositoryFilterValues } from './repository-page-query';
 import { validateRepositoryTimelineFilters } from './repository-timeline';
-import {
-  repositoryTimelineMatrixCellLimit,
-  repositoryTimelineMatrixWindowSize,
-} from '@/models/repository-timeline-matrix';
+import { repositoryTimelineMatrixWindowSize } from '@/models/repository-timeline-matrix';
+import { assertMatrixCellLimit, matrixRepositoryIds } from './repository-timeline-matrix';
 export { timelineViewKeys };
 export function readTimelineView(params: URLSearchParams, area: TimelineArea, asOf: string) {
   if (params.getAll('timeline').length !== 1 || params.get('timeline') !== '1')
@@ -275,15 +273,14 @@ export function validateTimelineScope(
   const selected = params.getAll('repo').filter(Boolean);
   if (selected.some((id) => !repositories.some((row) => row.id === id)))
     throw Error('A selected repository is no longer available.');
-  if (
-    area === 'matrix' &&
-    (params.has('repo') ? new Set(selected).size : repositories.length) *
-      parsed.intervals.length *
-      parsed.metricIds.length >
-      repositoryTimelineMatrixCellLimit
-  )
-    throw Error(
-      `Matrix exceeds ${repositoryTimelineMatrixCellLimit} cells; select fewer repositories/metrics or a coarser grouping.`,
+  if (area === 'matrix')
+    assertMatrixCellLimit(
+      matrixRepositoryIds(
+        params,
+        repositories.map((row) => row.id),
+      ).length,
+      parsed.metricIds.length,
+      parsed.intervals.length,
     );
   return filters;
 }
@@ -431,13 +428,10 @@ function timelineDataKey(search: string, context: TimelineControlContext): strin
   if (context.area === 'matrix')
     return JSON.stringify({
       ...base,
-      repositories: [
-        ...new Set(
-          params.has('repo')
-            ? params.getAll('repo').filter(Boolean)
-            : context.repositories.map((row) => row.id),
-        ),
-      ].sort(),
+      repositories: matrixRepositoryIds(
+        params,
+        context.repositories.map((row) => row.id),
+      ),
       metrics: parsed.view.selectedMetrics,
     });
   const scope = readContributionScopeInput(params, context, context.asOf);
