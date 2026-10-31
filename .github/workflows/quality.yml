@@ -6,7 +6,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: frontend-quality-${{ github.event.pull_request.number || github.ref }}
+  # Pull requests cancel superseded runs; each push keeps its own run.
+  group: frontend-quality-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 jobs:
   checks:
