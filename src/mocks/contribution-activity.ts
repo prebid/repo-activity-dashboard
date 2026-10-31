@@ -5,6 +5,7 @@ import {
 } from '@/models/contribution-activity';
 import type {
   ContributionAccount,
+  ContributionCoverage,
   ContributionCredit,
   ContributionRecord,
   ContributionSource,
@@ -34,7 +35,7 @@ export function contributionActivitySample(
   },
   range: DateRange,
   scenario: ContributionScenario,
-  unavailable: boolean,
+  coverage: ContributionCoverage,
 ): ContributionSource['activity'] {
   const comments: ContributionSource['activity']['comments'] = [],
     volumes: ContributionSource['activity']['volumes'] = [];
@@ -105,15 +106,10 @@ export function contributionActivitySample(
         createdAt: instant(date),
       });
     }
-  const omit = unavailable || scenario === 'empty';
+  const omit = coverage.status === 'missing' || scenario === 'empty';
   return {
     coverage: Object.fromEntries(
-      additionalMetricIds.map((metric) => [
-        metric,
-        unavailable
-          ? { status: 'missing', reason: 'No prepared activity sample for this range.' }
-          : { status: 'complete' },
-      ]),
+      additionalMetricIds.map((metric) => [metric, { ...coverage }]),
     ) as ContributionSource['activity']['coverage'],
     comments: omit ? [] : comments.filter((row) => inDateRange(row.createdAt, range)),
     volumes: omit

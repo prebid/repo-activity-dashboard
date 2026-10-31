@@ -2,7 +2,8 @@ import { temporaryPasswordHoursSchema } from '../src/models/temporary-credential
 import { parseArgs } from 'node:util';
 import { open, constants } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { realpathSync } from 'node:fs';
 import { z } from 'zod';
 import { accountRoleSchema, emailSchema, summarizeAccount } from '../src/models/accounts';
 import {
@@ -170,7 +171,11 @@ async function executeOperator(
   );
   return { created: true, accountId: prepared.user.id, credentialFile: resolve(command.output) };
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// tsx leaves import.meta.main unset; compare real paths so a symlinked invocation still runs.
+if (
+  process.argv[1] &&
+  realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))
+) {
   if (process.argv.includes('--help')) {
     console.log(
       'Commands: bootstrap, create, reset-password, set-access, inspect, migrate. All require --region, --users-table, --whitelist-table. Account commands require --email. Credential commands require --output FILE.credentials.json (new private file). create/set-access require --role; set-access also requires --active true|false. inspect is read-only; migrate is read-only unless --apply is supplied.',

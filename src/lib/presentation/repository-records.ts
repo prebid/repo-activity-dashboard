@@ -56,6 +56,17 @@ const actors: Partial<Record<RecordSelection['metric'], LatestActor>> = {
   lastOtherHuman: 'other-human',
   lastUnknown: 'unknown',
 };
+/** The open-PR field a current selection reads; when it is unknown, membership is unknown. */
+export function currentPrAttribute(
+  selection: Extract<RecordSelection, { scope: 'current' }>,
+): 'humanReviewers' | 'approvals' | 'agentReviewer' | 'botReviewer' | null {
+  const metric = selection.metric;
+  if (metric.startsWith('humanReviewers')) return 'humanReviewers';
+  if (metric.startsWith('humanApprovals')) return 'approvals';
+  if (metric === 'agentFeedbackPrs') return 'agentReviewer';
+  if (metric === 'botFeedbackPrs') return 'botReviewer';
+  return null;
+}
 export function matchesCurrentPr(
   row: RepositoryPullRequest,
   selection: Extract<RecordSelection, { scope: 'current' }>,

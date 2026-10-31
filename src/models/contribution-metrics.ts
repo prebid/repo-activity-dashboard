@@ -8,6 +8,7 @@ import {
   additionalMetricDefinitions,
   type AdditionalMetric,
 } from './contribution-activity';
+import { metricName } from './column-selection';
 export const metricDescriptions: Record<ContributionMetric, string> = {
   prsAuthored: 'PRs created by the account during the period, including drafts and PRs now closed.',
   authoredPrsMerged:
@@ -30,13 +31,18 @@ export const reportMetricIds: readonly ReportMetric[] = [
 export function isReportMetric(value: string): value is ReportMetric {
   return reportMetricIds.some((id) => id === value);
 }
+export type ContributionBasis = 'credit' | 'comments' | 'merged-volume';
+/** Credits are once-dated; comments count posted identities; merged volume is final PR size. */
+export function contributionMetricBasis(metric: ReportMetric): ContributionBasis {
+  return isCoreMetric(metric) ? 'credit' : metric.includes('.') ? 'merged-volume' : 'comments';
+}
 export function isCoreMetric(value: ReportMetric): value is ContributionMetric {
   return contributionMetricIds.some((id) => id === value);
 }
 export function reportMetricLabel(metric: ReportMetric): string {
   return isCoreMetric(metric)
     ? contributionMetrics[metric].label
-    : additionalMetricDefinitions[metric].group + ' — ' + additionalMetricDefinitions[metric].label;
+    : metricName(additionalMetricDefinitions[metric]);
 }
 export function reportMetricDescription(metric: ReportMetric): string {
   return isCoreMetric(metric)

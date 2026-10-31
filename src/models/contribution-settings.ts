@@ -21,7 +21,9 @@ export type ContributionDirectory = Pick<
   'accounts' | 'companies' | 'repositories'
 >;
 /** The report needs repository controls, not the complete account/company catalogue. */
-export type ContributionControlDirectory = Pick<ContributionDirectory, 'repositories'>;
+export interface ContributionControlDirectory {
+  repositories: readonly ContributionDirectory['repositories'][number][];
+}
 export const contributionDirectorySchema = z
   .object({
     accounts: z.array(contributionAccountSchema),

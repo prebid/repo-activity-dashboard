@@ -14,7 +14,8 @@ import {
   type RepositoryOverview,
 } from '@/models/repository-overview';
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
-import { formatAsOf } from '@/lib/presentation/format';
+import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
+import { repositoryMatrixEntryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
 import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
 import { RepositorySelector } from '@/components/reporting/repository-selector';
 import { ActivityPeriodControls } from './activity-period-controls';
@@ -85,19 +86,16 @@ export function AllRepositoriesView({
   const activityRows = useMemo(() => activityTableRows(data, secondaryData), [data, secondaryData]);
   return (
     <>
-      <div className={styles.pageHeader}>
-        <div>
-          <p className={styles.eyebrow}>Repository overview</p>
-          <h1 className={styles.title}>All repositories</h1>
-          <p className={styles.subtitle}>
-            Current work and recent activity, across {data.rows.length} repositories.
-          </p>
-        </div>
-        <p className={styles.asOf}>
-          <strong>Reporting snapshot</strong>
-          {formatAsOf(data.asOf)}
-        </p>
-      </div>
+      <AllRepositoriesHeading asOf={data.asOf} />
+      <AllRepositoriesTabs
+        active="summary"
+        summaryHref={returnTo}
+        timelineHref={repositoryMatrixEntryHref(
+          repositories.filter((row) => settings.value.repositoryIds.includes(row.id)),
+          returnTo,
+          data,
+        )}
+      />
       <div className={controls.bar} aria-label="Repository view settings" role="region">
         <RepositorySelector
           repositories={repositories}

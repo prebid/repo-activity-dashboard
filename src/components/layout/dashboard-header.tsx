@@ -9,8 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import styles from './dashboard.module.css';
@@ -34,7 +32,7 @@ export function DashboardHeader({
     repositories.filter((repo) => repo.enabled),
   );
   const [container, setContainer] = useState<HTMLElement | null>(null);
-  const inRepos = activePath.startsWith('/repos');
+  const inRepos = activePath.startsWith('/repos/');
   return (
     <header className={styles.header} ref={setContainer}>
       <div className={styles.headerInner}>
@@ -47,6 +45,14 @@ export function DashboardHeader({
           <Image src="/prebid-logo.png" alt="Prebid" width={143} height={25} priority />
         </Link>
         <nav aria-label="Main navigation" className={styles.navigation}>
+          <Link
+            prefetch={false}
+            href="/repos"
+            className={styles.navItem}
+            aria-current={activePath === '/repos' ? 'page' : undefined}
+          >
+            Overview
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className={styles.navItem} data-active={inRepos}>
@@ -54,17 +60,6 @@ export function DashboardHeader({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent container={container} align="start" className={styles.repoMenu}>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/repos"
-                  aria-current={activePath === '/repos' ? 'page' : undefined}
-                >
-                  All repositories
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuLabel>Repositories</DropdownMenuLabel>
               {repositories
                 .filter((repo) => repo.enabled)
                 .map((repo) => (

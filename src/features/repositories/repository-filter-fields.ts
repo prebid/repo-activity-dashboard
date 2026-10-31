@@ -3,9 +3,11 @@ import {
   repositoryPageFiltersSchema,
   type RepositoryPageFilters,
   type RepositoryPageSource,
+  type RepositoryFilterOptions,
 } from '@/models/repository-page';
 import type { ZodError } from 'zod';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
+import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 import { ageBands } from '@/lib/presentation/repository-page-values';
 import { actorLabels } from './repository-records-view';
 
@@ -36,19 +38,30 @@ const values = (items: string[]) =>
 const options = <T extends string>(items: Record<T, string>) =>
   (Object.keys(items) as T[]).map((value) => ({ value, label: items[value] }));
 export function repositoryFilterFields(source: RepositoryPageSource): RepositoryFilterField[] {
-  const current = source.drilldown.selection.scope === 'current';
+  return repositoryFilterFieldsFromOptions({
+    kind: source.kind,
+    current: source.drilldown.selection.scope === 'current',
+    ...repositoryFilterOptions(source.rows),
+  });
+}
+/** `cutoff` describes historical snapshot rows: state is fixed and review counts are at the cutoff. */
+export function repositoryFilterFieldsFromOptions(
+  source: RepositoryFilterOptions & { kind: 'prs' | 'issues'; current: boolean; cutoff?: boolean },
+): RepositoryFilterField[] {
+  const current = source.current,
+    cutoff = source.cutoff === true;
   const common: SharedField[] = [
     {
       key: 'labels',
       label: 'Labels',
       multiple: true,
-      options: values(source.rows.flatMap((row) => row.labels)),
+      options: values(source.labels),
     },
     {
       key: 'authors',
       label: 'Authors',
       multiple: true,
-      options: values(source.rows.map((row) => row.author.toLowerCase())),
+      options: values(source.authors),
     },
     {
       key: 'authorTypes',
@@ -75,12 +88,16 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
   if (source.kind === 'prs') {
     const fields: RepositoryPrFilterField[] = [
       ...common,
-      {
-        key: 'states',
-        label: 'Current state',
-        multiple: true,
-        options: values(['Open', 'Merged', 'Closed']),
-      },
+      ...(cutoff
+        ? []
+        : [
+            {
+              key: 'states',
+              label: 'Current state',
+              multiple: true,
+              options: values(['Open', 'Merged', 'Closed']),
+            } as const,
+          ]),
       {
         key: 'draft',
         label: 'Draft status',
@@ -90,7 +107,7 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
         key: 'branches',
         label: 'Target branch',
         multiple: true,
-        options: values(source.rows.map((row) => row.baseBranch)),
+        options: values(source.branches),
       },
     ];
     if (current) {
@@ -109,8 +126,16 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
         unknown: 'Unknown',
       });
       fields.push(
-        { key: 'reviewers', label: 'Human reviewers', options: reviews },
-        { key: 'approvals', label: 'Current human approvals', options: reviews },
+        {
+          key: 'reviewers',
+          label: cutoff ? 'Human reviewers at cutoff' : 'Human reviewers',
+          options: reviews,
+        },
+        {
+          key: 'approvals',
+          label: cutoff ? 'Human approvals at cutoff' : 'Current human approvals',
+          options: reviews,
+        },
         { key: 'agentReviewer', label: 'Prebid agent reviewers', options: coverage },
         { key: 'botReviewer', label: 'Bot reviewers', options: coverage },
       );
@@ -119,14 +144,21 @@ export function repositoryFilterFields(source: RepositoryPageSource): Repository
   }
   return [
     ...common,
-    { key: 'states', label: 'Current state', multiple: true, options: values(['Open', 'Closed']) },
+    ...(cutoff
+      ? []
+      : [
+          {
+            key: 'states',
+            label: 'Current state',
+            multiple: true,
+            options: values(['Open', 'Closed']),
+          } as const,
+        ]),
     {
       key: 'assignees',
       label: 'Assignees',
       multiple: true,
-      options: values(
-        source.rows.flatMap((row) => row.assignees ?? []).map((account) => account.toLowerCase()),
-      ),
+      options: values(source.assignees),
     },
     {
       key: 'assignment',

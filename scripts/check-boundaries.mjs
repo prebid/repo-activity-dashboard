@@ -1,6 +1,5 @@
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 import { applicationSources } from './application-sources.mjs';
 const retired = [
@@ -91,7 +90,8 @@ export function inspectBoundaries(root) {
       failures.push('Retired script: ' + name);
   return { sourceFiles: count, failures };
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// import.meta.main also holds when the script is reached through a symlinked path.
+if (import.meta.main) {
   const result = inspectBoundaries(process.cwd());
   console.log(JSON.stringify(result, null, 2));
   if (result.failures.length) process.exitCode = 1;

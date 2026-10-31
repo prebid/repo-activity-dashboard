@@ -1,5 +1,11 @@
 'use client';
+import { followCaptured } from '@/lib/navigation/follow-captured';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { repositoryTimelineEntry } from '@/lib/presentation/timeline-navigation';
+import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
+import { writeTableQuery } from '@/lib/presentation/table-query';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { authorTableColumnIds, type RepositoryInsight } from '@/models/repository-insights';
 import {
@@ -23,6 +29,9 @@ export function RepositoryInsightsScreen({
   viewerId: string;
   navigation: RepositoryPageNavigation;
 }) {
+  const path = usePathname(),
+    search = useSearchParams().toString(),
+    router = useRouter();
   const key =
     insight.kind === 'duration' ? 'prs' : insight.kind === 'authors' ? 'authors' : 'credits';
   const controller = useTableController({
@@ -37,7 +46,33 @@ export function RepositoryInsightsScreen({
           : creditIds,
     defaultSort: defaults[insight.kind],
   });
+  const scope = {
+    ...insight,
+    kind: insight.kind === 'authors' ? insight.recordKind : ('prs' as const),
+  };
+  const filters = defaultRepositoryFilters(scope.kind);
+  const href = repositoryTimelineEntry(
+    scope,
+    filters,
+    path + '?' + writeTableQuery(search, key, pendingTableQuery(controller)),
+  );
   return (
-    <RepositoryInsightsView insight={insight} navigation={navigation} controller={controller} />
+    <RepositoryInsightsView
+      insight={insight}
+      navigation={navigation}
+      controller={controller}
+      timelineHref={href}
+      onTimeline={(event) =>
+        followCaptured(
+          event,
+          () => {
+            const origin =
+              path + '?' + writeTableQuery(window.location.search, key, controller.flushSearch());
+            return { origin, href: repositoryTimelineEntry(scope, filters, origin) };
+          },
+          (href) => router.push(href),
+        )
+      }
+    />
   );
 }

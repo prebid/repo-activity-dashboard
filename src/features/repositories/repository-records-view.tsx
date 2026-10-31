@@ -134,6 +134,8 @@ export function RepositoryRecordTable({
 }) {
   const selection = list.drilldown.selection;
   const merged = selection.metric === 'prsMerged';
+  // Insight record tables keep their reviewed column set and defaults (status and labels shown),
+  // which differ from record pages and Timeline supporting records; see repositoryRecordColumnDefaults.
   const [visible, setVisible] = useState<Record<string, boolean>>({
     humanReviewers: selection.metric.startsWith('humanReviewers'),
     approvals: selection.metric.startsWith('humanApprovals'),

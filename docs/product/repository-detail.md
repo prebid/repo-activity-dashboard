@@ -2,7 +2,7 @@
 
 Status: all five steps, visual review and reviewer-feedback fixes are complete and merged in PR #7. The implementation/checkpoint notes below are historical records; use the [approved project sequence](README.md#approved-delivery-sequence) for current work. Charts start collapsed on fresh visits and after resetting view preferences; explicit saved or URL choices still apply. Reporting remains prepared fake data, and ordinary lists show 50 rows per page.
 
-The [planned timeline increment](README.md#timeline-reporting) extends activity views with selectable daily, weekly, monthly, two-month, quarterly, half-yearly and yearly grouping across one continuous date range. The existing daily/monthly activity charts remain the implemented baseline; the new selector and broader historical metrics are future work.
+The [timeline increment](README.md#timeline-reporting) adds a repository Timeline with selectable daily, weekly, monthly, two-month, quarterly, half-yearly and yearly grouping across one continuous date range. The existing daily/monthly activity charts remain on the record lists.
 
 ## Confirmed purpose
 
@@ -29,7 +29,7 @@ Use the definitions in [All Repositories](all-repositories.md):
 
 Use one reusable page structure with repository-specific data and configuration.
 
-The page context should identify the repository, configured primary branch, and data freshness, with navigation back to All Repos and a link to GitHub.
+The page context identifies the repository, configured primary branch, and data freshness, with navigation back to All repositories and a link to GitHub. Center the repository name and its branch/GitHub details using the shared overview-header layout. The GitHub link uses Prebid logo blue, with a darker text shade in light mode. Branch details use the normal foreground color (white in dark mode). Keep the reporting snapshot on the right on wide screens and beneath the identity on narrow screens.
 
 The two primary record lists are:
 
@@ -60,7 +60,7 @@ Provide a clear way to return to Current open. In-page filtering and browser bac
 
 ### Repos navigation
 
-Use one top-level **Repos** navigation item. Its expandable list contains **All Repos**, followed by a link for each repository. Keep individual repository links inside this group so they do not clutter the main navigation bar. Individual repository links open the unfiltered current-open scope.
+Use **Overview** as the first top-level navigation item, linking directly to All repositories (`/repos`). Follow it with **Repositories**, whose expandable list contains only individual repository links, without a repeated heading inside the menu. Keep those links inside the dropdown so they do not clutter the main navigation bar. Individual repository links open the unfiltered current-open scope. Overview is active on the summary and cross-repository timeline; Repositories is active on individual repository routes.
 
 Repository pages remain independently addressable. All Repos is the cross-repository comparison and filtered entry point; users can also go directly to a repository from the Repos list.
 
@@ -82,7 +82,7 @@ Review participation and approvals are independent measures; do not stack or add
 
 Current-open graphs do not require a historical period. Historical trend graphs belong to an explicitly selected activity scope and must not silently replace current backlog graphs on a direct visit.
 
-The planned Timeline view follows the [shared range/grouping and metric-time contract](README.md#timeline-reporting). It keeps event activity separate from historical end-of-interval backlog/approval snapshots; the current record cohort cannot establish those past snapshots by itself.
+The repository Timeline follows the [shared range/grouping and metric-time contract](README.md#timeline-reporting). It keeps event activity separate from historical end-of-interval backlog/approval snapshots; the current record cohort cannot establish those past snapshots by itself.
 
 Graphs must use the complete matching dataset, not just the loaded table page. State their scope and as-of time. Apply the relevant active filters consistently; explicitly label any restriction such as non-draft PRs so a graph does not imply it includes all open PRs.
 
@@ -200,9 +200,9 @@ Implementation starts from the merged All Repositories work on `codex/frontend-r
 - Unknown metadata that could satisfy an active filter makes the resulting count partial, even when there are zero known matches. A definite mismatch in another filter excludes that row. Explicit Unknown selections remain separate from zero/false/unassigned.
 - Current PR charts carry age and separate non-draft reviewer/approval distributions. The exact zero/one/two buckets retain separate more-than-two and unknown values for honest totals; the later visual layout determines how exceptional buckets are presented. Current issues have an age distribution. Period views use only the selected creation, merge or closure event date, with UTC daily bins for spans through 31 days and calendar-month bins for longer prepared ranges. Zero bins are retained, end-exclusive boundaries are respected, and an inclusive boundary event belongs to one bin.
 - All charts reflect the full filtered population, independently of table sorting/paging. The base cohort/count and selected filters remain available for scope labels and reset behavior. A selected distribution value or activity interval uses those same filter fields; it can narrow, never broaden, the incoming scope.
-- `repositoryPageSample` and `repositoryPageRecordsSample` enrich the existing prepared record lists; there is no second generator for summary counts. Metadata follows record identity across filtered lists and author-record routes. Human/agent/bot sample classifications have one owner in `src/mocks/repository-accounts.ts`.
+- `repositoryPageSample` and `repositoryPageRecordsSample` enrich record lists selected from the repository's dated sample record set; there is no second generator for summary counts. Metadata follows record identity across filtered lists and author-record routes. Human/agent/bot sample classifications have one owner in `src/mocks/repository-accounts.ts`.
 
-The scenario tests cover all 18 repositories, all current metrics/thresholds and nine prepared periods, quiet and large cohorts, partial/missing results, bot handles, unchanged summary totals, UTC/leap-day boundaries, overlapping review measures, unknown metadata, and matching author records. Unsupported ranges retain the existing sample-unavailable state. Prepared periods remain independent display scenarios, not historical event reconstruction.
+The scenario tests cover all 18 repositories, all current metrics/thresholds and the nine Summary periods, quiet and large cohorts, partial/missing results, bot handles, unchanged summary totals, UTC/leap-day boundaries, overlapping review measures, unknown metadata, and matching author records. Record lists and details count the same dated sample records for any range; ranges outside a repository's prepared history show the sample-unavailable state, and partly covered ranges are partial.
 
 ### Original implementation sequence — completed
 

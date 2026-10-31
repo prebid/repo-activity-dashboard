@@ -21,6 +21,8 @@ import {
 import styles from './repository-page.module.css';
 
 export interface RepositoryPageControls {
+  timelineHref?: string | null;
+  onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   filters: React.ReactNode;
   charts?: React.ReactNode;
   scope?: React.ReactNode;
@@ -115,6 +117,8 @@ export function RepositoryPageView({
         returnTo={returnTo}
         navigation={navigation}
         activeKind={page.kind}
+        timelineHref={controls?.timelineHref}
+        onTimeline={controls?.onTimeline}
         parentLink={
           page.author
             ? {

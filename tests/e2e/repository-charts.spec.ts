@@ -96,7 +96,7 @@ test('period bars filter the correct event dates and retain the base period and 
   );
   await showCharts(page);
   const chart = figure(page, 'PRs merged');
-  expect((await counts(chart)).reduce((a, b) => a + b, 0)).toBe(481);
+  expect((await counts(chart)).reduce((a, b) => a + b, 0)).toBe(448);
   const button = chart.getByRole('button').first(),
     label = await button.locator('[data-chart-count]').innerText(),
     count = Number(label);
@@ -117,7 +117,7 @@ test('period bars filter the correct event dates and retain the base period and 
   await page.reload();
   await expect(chart.getByRole('button').first()).toHaveAttribute('aria-pressed', 'true');
   await chart.getByRole('button').first().click();
-  await expect(page.getByText('481 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('448 matching records', { exact: true })).toBeVisible();
 });
 test('known zero, partial and missing charts preserve their meanings', async ({ page }) => {
   await login(page);

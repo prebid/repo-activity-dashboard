@@ -1,4 +1,5 @@
 'use client';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { ContributionOptions } from '@/models/contribution-options';
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -14,11 +15,9 @@ import {
   hasContributionScope,
   readContributionPreferenceCandidate,
   contributionPreferenceNeedsLookup,
-  serializeContributionPreferences,
   writeContributionSettings,
   readContributionPresentation,
   serializeContributionPresentation,
-  mergeContributionPreferences,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
 import {
@@ -33,7 +32,14 @@ import {
 import { writeTableQuery } from '@/lib/presentation/table-query';
 import { type TableQuery } from '@/models/table-query';
 import type { useTableController } from './use-table-controller';
-import { contributionPreferencesChanged } from './use-contribution-entry';
+import {
+  clearContributionScope,
+  discardContributionScope,
+  lookupSavedScope,
+  saveContributionScope,
+  savedScopeNotices,
+  savedScopeUnchanged,
+} from './contribution-scope-storage';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 export function useContributionControls(
@@ -93,16 +99,7 @@ export function useContributionControls(
       invalidStored.current = { key: preferenceKey, raw: checked };
       setNotice('Saved filters could not be restored. Default filters are shown.');
       try {
-        if (localStorage.getItem(preferenceKey) !== checked) {
-          setNotice(
-            'Saved filters changed before they could be restored. Reload to use the latest settings.',
-          );
-          return;
-        }
-        if (checked !== null) {
-          localStorage.removeItem(preferenceKey);
-          window.dispatchEvent(new Event(contributionPreferencesChanged));
-        }
+        if (!discardContributionScope(preferenceKey, checked)) setNotice(savedScopeNotices.changed);
       } catch {
         recordStorage(preferenceKey, false);
       }
@@ -150,10 +147,8 @@ export function useContributionControls(
         const apply = (restored: ContributionSettings | null) => {
           if (!currentLocation()) return;
           try {
-            if (localStorage.getItem(preferenceKey) !== raw) {
-              setNotice(
-                'Saved filters changed before they could be restored. Reload to use the latest settings.',
-              );
+            if (!savedScopeUnchanged(preferenceKey, raw)) {
+              setNotice(savedScopeNotices.changed);
               return;
             }
           } catch {
@@ -170,34 +165,15 @@ export function useContributionControls(
         };
         if (contributionPreferenceNeedsLookup(candidate)) {
           setChecking(true);
-          const timeout = setTimeout(() => {
-            if (!currentLocation()) {
-              controller.abort();
-              return;
-            }
-            controller.abort();
-            setChecking(false);
-            setNotice(
-              'Saved filters could not be checked. Default filters are shown; reload to retry.',
-            );
-          }, 15000);
-          void options
-            .validate(candidate, controller.signal)
+          void lookupSavedScope(options, candidate, controller.signal)
             .then(apply)
             .catch(() => {
-              if (currentLocation())
-                setNotice(
-                  'Saved filters could not be checked. Default filters are shown; reload to retry.',
-                );
+              if (currentLocation()) setNotice(savedScopeNotices.unchecked);
             })
             .finally(() => {
-              clearTimeout(timeout);
               if (!controller.signal.aborted) setChecking(false);
             });
-          return () => {
-            clearTimeout(timeout);
-            controller.abort();
-          };
+          return () => controller.abort();
         }
         apply(candidate);
       }
@@ -238,29 +214,22 @@ export function useContributionControls(
   }
   function remember(next: ContributionSettings, field: ContributionSettingField | 'reset') {
     try {
-      if (field !== 'reset') {
-        const raw = localStorage.getItem(preferenceKey);
-        const prior =
-          (invalidStored.current?.key === preferenceKey && raw === invalidStored.current.raw
-            ? null
-            : readContributionPreferenceCandidate(raw, directory, page.report.context.asOf)) ??
-          defaultContributionSettings(directory);
-        localStorage.setItem(
+      if (field !== 'reset')
+        saveContributionScope(
           preferenceKey,
-          serializeContributionPreferences(mergeContributionPreferences(prior, next, field)),
+          directory,
+          page.report.context.asOf,
+          next,
+          field,
+          invalidStored.current?.key === preferenceKey ? invalidStored.current.raw : undefined,
         );
-      } else localStorage.removeItem(preferenceKey);
-      window.dispatchEvent(new Event(contributionPreferencesChanged));
+      else clearContributionScope(preferenceKey);
       recordStorage(preferenceKey, true);
     } catch {
       recordStorage(preferenceKey, false);
     }
   }
-  const renderedQuery = {
-    ...table.query,
-    search: table.draftSearch,
-    page: table.draftSearch === table.query.search ? table.query.page : 1,
-  };
+  const renderedQuery = pendingTableQuery(table);
   function proposal() {
     const url = new URL(window.location.href);
     url.search = snapshot(url.search, renderedQuery);

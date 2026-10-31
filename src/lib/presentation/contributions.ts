@@ -11,12 +11,14 @@ import {
   isKnownZeroContribution,
 } from './contribution-table-values';
 import { contributionDetailRows } from './contribution-detail-rows';
-import { isCoreMetric, isReportMetric, type ReportMetric } from '@/models/contribution-metrics';
+import {
+  contributionMetricBasis,
+  isCoreMetric,
+  isReportMetric,
+  type ReportMetric,
+} from '@/models/contribution-metrics';
 import type { ContributionMetricDetails } from '@/models/contribution-details';
 import {
-  contributionActorTypes,
-  contributionSelectionSchema,
-  contributionFocusSchema,
   type ContributionSource,
   type ContributionAccount,
   type ContributionSelection,
@@ -28,72 +30,25 @@ import {
   type CompanyMetricRow,
   type RepositoryContributionRow,
 } from '@/models/contributions';
-import { contributionIndex } from './contribution-index';
+import { contributionScope } from './contribution-scope';
 
-export function defaultContributionSelection(source: ContributionSource): ContributionSelection {
-  return {
-    repositoryIds: source.repositories.map((row) => row.id),
-    actorTypes: [...contributionActorTypes],
-    population: { kind: 'all' },
-    excludedAccountIds: [],
-  };
-}
+export { defaultContributionSelection } from './contribution-scope';
 function prepare(
   input: ContributionSource,
   requested?: ContributionSelection,
   requestedFocus: ContributionFocus = { kind: 'overview' },
 ) {
-  const index = contributionIndex(input),
-    source = index.source;
-  const selection = contributionSelectionSchema.parse(
-    requested ?? defaultContributionSelection(source),
-  );
-  const focus = contributionFocusSchema.parse(requestedFocus);
-  const accountIds = new Set(source.accounts.map((row) => row.id));
-  const repositoryIds = new Set(source.repositories.map((row) => row.id));
-  const companyKnown = (id: string | null) => id === null || !!index.company(id);
-  if (
-    selection.repositoryIds.some((id) => !repositoryIds.has(id)) ||
-    selection.excludedAccountIds.some((id) => !accountIds.has(id))
-  )
-    throw Error('Unknown contribution selection');
-  if (
-    selection.population.kind === 'selected' &&
-    (selection.population.accountIds.some((id) => !accountIds.has(id)) ||
-      selection.population.companyIds.some((id) => !companyKnown(id)))
-  )
-    throw Error('Unknown selected population');
-  if (
-    (focus.kind === 'contributor' && !accountIds.has(focus.accountId)) ||
-    (focus.kind === 'company' && !companyKnown(focus.companyId))
-  )
-    throw Error('Unknown contribution focus');
-  const excluded = new Set(selection.excludedAccountIds);
-  const included = new Set(
-    selection.population.kind === 'selected' ? selection.population.accountIds : [],
-  );
-  const includedCompanies = new Set(
-    selection.population.kind === 'selected' ? selection.population.companyIds : [],
-  );
-  const accounts = source.accounts.filter(
-    (account) =>
-      selection.actorTypes.includes(account.actorType) &&
-      !excluded.has(account.id) &&
-      (selection.population.kind === 'all' ||
-        included.has(account.id) ||
-        includedCompanies.has(account.companyId)) &&
-      (focus.kind !== 'contributor' || account.id === focus.accountId) &&
-      (focus.kind !== 'company' || account.companyId === focus.companyId),
-  );
-  const chosenRepositories = new Set(selection.repositoryIds);
-  const repositories = source.repositories.filter((repo) => chosenRepositories.has(repo.id));
-  const companyFor = (id: string | null) => (id === null ? null : (index.company(id) ?? null));
-  const grouped = new Map<string | null, ContributionAccount[]>();
-  for (const account of accounts) {
-    const members = grouped.get(account.companyId) ?? [];
-    members.push(account);
-    grouped.set(account.companyId, members);
-  }
+  const {
+    index,
+    source,
+    selection,
+    focus,
+    accounts,
+    repositories,
+    chosenRepositories,
+    companyFor,
+    grouped,
+  } = contributionScope(input, requested, requestedFocus);
   const aggregates = new Map<string, ReturnType<typeof index.aggregate>>();
   function accountValues(account: ContributionAccount) {
     let values = aggregates.get(account.id);
@@ -238,7 +193,7 @@ export function selectContributionPresentation(
       context: data.context,
       metric,
       measurement: isCoreMetric(metric) ? report.totals[metric] : report.additionalTotals[metric],
-      basis: isCoreMetric(metric) ? 'credit' : metric.includes('.') ? 'merged-volume' : 'comments',
+      basis: contributionMetricBasis(metric),
       rows,
       distinctRecords: new Set(rows.map((row) => row.record.id)).size,
     },

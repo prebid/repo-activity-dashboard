@@ -4,6 +4,7 @@ import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-scr
 import { PageState } from '@/components/feedback/page-state';
 import Link from 'next/link';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
+import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
 export default async function RepositoryPage({
   params,
   searchParams,
@@ -13,6 +14,9 @@ export default async function RepositoryPage({
 }) {
   const { slug } = await params;
   const query = await searchParams;
+  const timelineParams = new URLSearchParams(encodeSearchParams(query));
+  if (timelineParams.has('timeline'))
+    return <RepositoryTimelineRoute slug={slug} params={timelineParams} />;
   const result = await repositoryDetail(slug, new URLSearchParams(encodeSearchParams(query)));
   if (result.status === 'page')
     return (

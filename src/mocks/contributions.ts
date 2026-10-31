@@ -16,15 +16,22 @@ import {
   type ContributionCoverage,
   type ContributionRepository,
 } from '@/models/contributions';
-import type { PeriodSelection } from '@/models/reporting-period';
+import type { DateRange, PeriodSelection } from '@/models/reporting-period';
 import { resolveReportingPeriod, inDateRange } from '@/lib/presentation/reporting-period';
+import { timelineRangeCoverage } from '@/lib/presentation/reporting-timeline';
 import {
   validateContributionSource,
   validateContributionDirectory,
 } from '@/lib/presentation/contribution-source';
-import { overviewAsOf } from './repository-overview';
+import { overviewAsOf } from './sample-clock';
 
 export const contributionSampleAsOf = overviewAsOf;
+/** The prepared contribution history: the sample year through the reporting clock. */
+export const contributionPreparedRange: DateRange = {
+  start: '2026-01-01T00:00:00.000Z',
+  end: contributionSampleAsOf,
+  endInclusive: true,
+};
 export type ContributionScenario = ContributionSampleScenario;
 const at = (date: string) => date + 'T12:00:00.000Z';
 const companies = [
@@ -181,6 +188,10 @@ function reference() {
     });
   return { accounts, records, credits };
 }
+/** The reference cast's records, credits and accounts, which the repository sample also contains. */
+export function contributionReferenceStory() {
+  return { ...reference(), repositories: structuredClone(repositories) };
+}
 function largeAccounts(extra = 0): ContributionAccount[] {
   return [
     ...Array.from({ length: 250 }, (_, i) =>
@@ -256,16 +267,13 @@ export function contributionSample({
   const data =
     scenario === 'coverage-gap' ? large(3000) : scenario === 'large' ? large() : reference();
   const { range } = resolveReportingPeriod(period, contributionSampleAsOf);
-  const unsupported = range.start < '2026-01-01T00:00:00.000Z';
-  const unavailable = scenario === 'missing' || unsupported;
-  const coverage: ContributionCoverage = unavailable
-    ? {
-        status: 'missing',
-        reason: unsupported
-          ? 'This range has no prepared contribution scenario.'
-          : 'Contribution samples are unavailable.',
-      }
-    : { status: 'complete' };
+  // The same rule as the contribution Timeline: ranges overlapping the prepared history are partial.
+  const prepared = timelineRangeCoverage(range, [contributionPreparedRange]);
+  const unavailable = scenario === 'missing' || prepared.status === 'missing';
+  const coverage: ContributionCoverage =
+    scenario === 'missing'
+      ? { status: 'missing', reason: 'Contribution samples are unavailable.' }
+      : prepared;
   const unverifiedApprovalRecord =
     scenario === 'partial' ? data.records.find((row) => row.number === 107)!.id : null;
   const credits =
@@ -284,7 +292,9 @@ export function contributionSample({
     data,
     range,
     scenario === 'coverage-gap' ? 'large' : scenario,
-    unavailable || scenario === 'coverage-gap',
+    scenario === 'missing' || scenario === 'coverage-gap'
+      ? { status: 'missing', reason: 'No prepared activity sample for this range.' }
+      : prepared,
   );
   const ids = new Set(
     [...credits, ...activity.comments, ...activity.volumes].map((row) => row.recordId),

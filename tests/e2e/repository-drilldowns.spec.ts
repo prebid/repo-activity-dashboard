@@ -67,12 +67,12 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   await expect(rows.nth(2).getByRole('link')).toHaveCount(0);
   await expect(rows.nth(0).locator('[data-column="prAuthors"] a')).toHaveCount(1);
   await rows.nth(1).locator('[data-column="prsMerged"] a').click();
-  await expect(page.getByText('48 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('50 matching records', { exact: true })).toBeVisible();
   await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(48);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   expect(await page.locator('tbody [data-column="title"] [data-state]').allTextContents()).toEqual(
-    Array(48).fill('Merged'),
+    Array(50).fill('Merged'),
   );
   await page.getByRole('button', { name: 'Title', exact: true }).click();
   await page.reload();
@@ -94,9 +94,9 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   }
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await rows.nth(0).locator('[data-column="issuesClosed"] a').click();
-  await expect(page.getByText('46 matching records', { exact: true })).toBeVisible();
+  await expect(page.getByText('72 matching records', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(46);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
 });
 test('known zero, partial, missing, invalid, and author scopes remain distinct', async ({
   page,
@@ -126,8 +126,9 @@ test('known zero, partial, missing, invalid, and author scopes remain distinct',
     ).toBeVisible();
     await expect(page.getByRole('table')).toHaveCount(0);
   }
+  // The sample record set starts in 2024, so an earlier range has no prepared coverage.
   await page.goto(
-    '/repos/prebidjs?scope=period&metric=prsOpened&from=2026-10-01T00:00:00.000Z&to=2026-10-02T00:00:00.000Z&inclusive=0',
+    '/repos/prebidjs?scope=period&metric=prsOpened&from=2023-10-01T00:00:00.000Z&to=2023-10-02T00:00:00.000Z&inclusive=0',
   );
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),

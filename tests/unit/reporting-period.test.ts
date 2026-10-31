@@ -6,7 +6,8 @@ import {
   utcInstantSchema,
   type PeriodPreset,
 } from '@/models/reporting-period';
-import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
+import { customPeriodForRange, resolveReportingPeriod } from '@/lib/presentation/reporting-period';
+import { repositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
 
 const asOf = '2026-10-24T12:00:00.000Z';
 const cases: [PeriodPreset, string, string, boolean, string, string, boolean][] = [
@@ -193,4 +194,26 @@ describe('reporting period selection', () => {
     ).toBe(false);
     expect(calendarDateSchema.parse('2024-02-29')).toBe('2024-02-29');
   });
+});
+it('names the days a covered range spans as a custom period', () => {
+  expect(
+    customPeriodForRange({
+      start: '2026-10-01T00:00:00.000Z',
+      end: '2026-10-08T00:00:00.000Z',
+      endInclusive: false,
+    }),
+  ).toEqual({ kind: 'custom', from: '2026-10-01', through: '2026-10-07' });
+  expect(
+    customPeriodForRange({
+      start: '2026-10-19T00:00:00.000Z',
+      end: '2026-10-24T12:00:00.000Z',
+      endInclusive: true,
+    }),
+  ).toEqual({ kind: 'custom', from: '2026-10-19', through: '2026-10-24' });
+});
+it('links a repository Timeline for its record kind', () => {
+  expect(repositoryTimelineHref('prebid.js', 'prs')).toBe('/repos/prebid.js?timeline=1');
+  expect(repositoryTimelineHref('a b', 'issues')).toBe(
+    '/repos/a%20b?timeline=1&timeline.kind=issues',
+  );
 });

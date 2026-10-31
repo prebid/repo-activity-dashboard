@@ -1,4 +1,5 @@
 import { contributionRecordKey } from './contribution-identity';
+import { inDateRange } from './reporting-period';
 import type {
   ContributionSource,
   ContributionContext,
@@ -6,7 +7,7 @@ import type {
   ContributionRecord,
 } from '@/models/contributions';
 import type { ContributionSupportingRow } from '@/models/contribution-details';
-import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
+import { contributionMetricBasis, type ReportMetric } from '@/models/contribution-metrics';
 import { changeStatIds, volumeMetricId } from '@/models/contribution-activity';
 function recordMetadata(record: ContributionRecord): ContributionSupportingRow['record'] {
   if (record.kind === 'issue') return record;
@@ -38,7 +39,8 @@ export function contributionDetailRows(
     const account = accounts.get(accountId),
       record = records.get(recordId)!;
     const repository = repos.get(record.repositoryId);
-    if (!account || !repository) return;
+    // Filter dated facts before grouping comments on the same account/record.
+    if (!account || !repository || !inDateRange(at, context.range)) return;
     const id = contributionRecordKey(accountId, recordId, metric);
     const prior = rows.get(id);
     if (prior) {
@@ -57,11 +59,12 @@ export function contributionDetailRows(
         lastAt: at,
       });
   }
-  if (isCoreMetric(metric)) {
+  const basis = contributionMetricBasis(metric);
+  if (basis === 'credit') {
     for (const credit of source.credits)
       if (credit.metric === metric)
         add(credit.accountId, credit.recordId, credit.creditedAt, { status: 'complete', value: 1 });
-  } else if (!metric.includes('.')) {
+  } else if (basis === 'comments') {
     for (const comment of source.activity.comments)
       if (comment.kind === metric)
         add(comment.accountId, comment.recordId, comment.createdAt, {

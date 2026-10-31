@@ -1,0 +1,200 @@
+.stack {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.valueLink {
+  display: inline-block;
+  border-radius: 3px;
+  color: var(--prebid-link);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 4px;
+}
+.valueLink:hover {
+  text-decoration-color: var(--prebid-link);
+}
+.scope {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 16px 18px;
+  display: grid;
+  gap: 12px;
+}
+.scopeMain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  font-size: 13px;
+}
+.grouping {
+  color: var(--muted-foreground);
+  padding-right: 16px;
+  border-right: 1px solid var(--border);
+}
+.scopeMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.period {
+  display: grid;
+  gap: 5px;
+  line-height: 1.45;
+}
+.period strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.dates {
+  font-size: 10px;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.partial {
+  width: fit-content;
+  font-size: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--muted-foreground);
+}
+.notice {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--prebid-accent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: var(--card);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.notice strong {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.section {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  min-width: 0;
+  overflow: hidden;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+.heading h2 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.heading p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 5px;
+  color: var(--muted-foreground);
+}
+.chartBody {
+  border-top: 1px solid var(--border);
+  padding: 18px 20px;
+}
+.chartToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.metricControl {
+  display: grid;
+  gap: 7px;
+  max-width: 100%;
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.metricControl select {
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 32px 8px 10px;
+  font-size: 12px;
+  width: 280px;
+  max-width: 100%;
+}
+.summary {
+  display: grid;
+  gap: 3px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.summary strong {
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+.chart {
+  height: 260px;
+  width: 100%;
+  min-width: 0;
+}
+.chartNote {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin-top: 12px;
+}
+.tooltip {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--foreground);
+  padding: 10px 12px;
+  box-shadow: 0 6px 20px #0002;
+  font-size: 12px;
+  max-width: 260px;
+  display: grid;
+  gap: 6px;
+}
+.tooltip small {
+  color: var(--muted-foreground);
+}
+@media (max-width: 600px) {
+  .scope {
+    padding: 14px;
+  }
+  .heading {
+    align-items: flex-start;
+    padding: 16px;
+    gap: 8px;
+  }
+  .heading button {
+    flex-shrink: 0;
+  }
+  .chartBody {
+    padding: 16px 12px;
+  }
+  .chart {
+    height: 220px;
+  }
+  .metricControl {
+    width: 100%;
+  }
+  .metricControl select {
+    width: 100%;
+  }
+  .summary {
+    text-align: left;
+  }
+}

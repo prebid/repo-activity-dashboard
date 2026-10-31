@@ -7,6 +7,8 @@ import { isInsightSelection, mergeElapsedDays } from '@/lib/presentation/reposit
 import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { backlogMetricIds, activityMetricIds, agingThresholds } from '@/models/repository-overview';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
+import { worldRepository } from '@/mocks/repository-world';
+import { recountActivity } from '../support/world-recount';
 const samples = repositoryOverviewSamples();
 const js = samples.repositories.find((row) => row.repository.slug === 'prebidjs')!.repository;
 const month = samples.periods.find(
@@ -58,7 +60,8 @@ it('reconciles every author, contribution and duration detail across all reposit
           returnTo: '/repos',
         });
         if (detail.kind === 'duration') {
-          expect(detail.records.rows.length).toBe(source.mergeDuration.sampleSize.value);
+          expect(detail.measurement).toEqual(source.mergeDuration.sampleSize);
+          expect(detail.records.rows.length).toBe(source.mergeDuration.sampleSize.value ?? 0);
           const times = detail.records.rows
             .map((row) => (Date.parse(row.mergedAt!) - Date.parse(row.createdAt)) / 86_400_000)
             .sort((a, b) => a - b);
@@ -77,12 +80,15 @@ it('reconciles every author, contribution and duration detail across all reposit
             ),
           ).toBe(true);
         } else {
-          expect(detail.rows.length).toBe(detail.measurement.value);
+          expect(detail.measurement).toEqual(
+            source.counts[metric as Exclude<InsightMetric, 'medianMergeDays'>],
+          );
+          expect(detail.rows.length).toBe(detail.measurement.value ?? 0);
           expect(new Set(detail.rows.map((row) => row.id)).size).toBe(detail.rows.length);
           if (detail.kind === 'authors') {
             expect(new Set(detail.rows.map((row) => row.account)).size).toBe(detail.rows.length);
             expect(detail.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(
-              source.counts[detail.recordKind === 'prs' ? 'prsOpened' : 'issuesOpened'].value,
+              source.counts[detail.recordKind === 'prs' ? 'prsOpened' : 'issuesOpened'].value ?? 0,
             );
             expect(detail.rows.every((row) => !('records' in row))).toBe(true);
           } else {
@@ -106,8 +112,9 @@ it('counts authors once per repository, includes all account types, and links th
   const pr = load('prAuthors'),
     issues = load('issueAuthors');
   if (pr.kind !== 'authors' || issues.kind !== 'authors') throw new Error('Expected authors');
-  expect(pr.rows).toHaveLength(24);
-  expect(issues.rows).toHaveLength(39);
+  const recount = recountActivity(js.id, month.period.range).counts;
+  expect(pr.rows).toHaveLength(recount.prAuthors);
+  expect(issues.rows).toHaveLength(recount.issueAuthors);
   expect(new Set(pr.rows.map((row) => row.accountType))).toEqual(
     new Set(['human', 'agent', 'bot']),
   );
@@ -119,18 +126,22 @@ it('counts authors once per repository, includes all account types, and links th
   for (const row of opened.rows)
     expectedCounts.set(row.author, (expectedCounts.get(row.author) ?? 0) + 1);
   expect(new Map(pr.rows.map((row) => [row.account, row.recordCount]))).toEqual(expectedCounts);
-  expect(pr.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(47);
-  expect(issues.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(58);
+  expect(pr.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(recount.prsOpened);
+  expect(issues.rows.reduce((sum, row) => sum + row.recordCount, 0)).toBe(recount.issuesOpened);
   const other = samples.repositories.find(
     (row) => row.repository.slug === 'prebidserver',
   )!.repository;
   const otherAuthors = repositoryInsightSample(other, pr.drilldown);
   if (otherAuthors.kind !== 'authors') throw new Error('Expected authors');
-  expect(otherAuthors.rows).toHaveLength(12);
+  expect(otherAuthors.rows).toHaveLength(
+    recountActivity(other.id, month.period.range).counts.prAuthors,
+  );
   expect(
     pr.rows.some((row) => otherAuthors.rows.some((otherRow) => otherRow.account === row.account)),
   ).toBe(true);
-  expect(new Set([...pr.rows, ...otherAuthors.rows].map((row) => row.id)).size).toBe(36);
+  expect(new Set([...pr.rows, ...otherAuthors.rows].map((row) => row.id)).size).toBe(
+    pr.rows.length + otherAuthors.rows.length,
+  );
 });
 it('keeps account/PR/metric credits distinct, with first-credit dates and older PRs', () => {
   const reviewers = load('agentFeedbackCredits'),
@@ -142,30 +153,33 @@ it('keeps account/PR/metric credits distinct, with first-credit dates and older 
     bots.kind !== 'contributions'
   )
     throw new Error('Expected credits');
-  expect(reviewers.rows).toHaveLength(18);
-  expect(approvals.rows).toHaveLength(9);
-  expect(bots.rows).toHaveLength(11);
-  expect(new Set(reviewers.rows.map((row) => row.pr.id)).size).toBe(9);
-  expect(new Set(reviewers.rows.map((row) => row.account)).size).toBe(2);
-  expect(new Set([...reviewers.rows, ...approvals.rows].map((row) => row.id)).size).toBe(27);
-  const merged = repositoryRecordSample(js, {
-    selection: {
-      scope: 'period',
-      metric: 'prsMerged',
-      range: month.period.range,
-      branch: 'master',
-    },
-    returnTo: '/repos',
-  });
-  expect(merged.kind).toBe('prs');
-  const older = merged.rows.find((row) => row.createdAt < month.period.range.start)!;
-  expect(reviewers.rows.some((row) => row.pr.id === older.id)).toBe(true);
+  const recount = recountActivity(js.id, month.period.range).counts;
+  expect(reviewers.rows).toHaveLength(recount.agentFeedbackCredits);
+  expect(approvals.rows).toHaveLength(recount.agentApprovalCredits);
+  expect(bots.rows).toHaveLength(recount.botFeedbackCredits);
+  expect([...new Set(reviewers.rows.map((row) => row.account))]).toEqual(
+    expect.arrayContaining(['sample-prebid-agent-a', 'sample-prebid-agent-b']),
+  );
+  // The same account and PR can hold one reviewer and one approval credit.
+  expect(
+    approvals.rows.some((approval) =>
+      reviewers.rows.some(
+        (review) => review.account === approval.account && review.pr.id === approval.pr.id,
+      ),
+    ),
+  ).toBe(true);
+  expect(new Set([...reviewers.rows, ...approvals.rows].map((row) => row.id)).size).toBe(
+    reviewers.rows.length + approvals.rows.length,
+  );
+  // Credits follow their first qualifying date, not the PR's creation period.
+  const records = new Map(worldRepository(js.id).pullRequests.map((row) => [row.id, row]));
+  expect(
+    reviewers.rows.some((row) => records.get(row.pr.id)!.createdAt < month.period.range.start),
+  ).toBe(true);
   for (const row of [...reviewers.rows, ...approvals.rows]) {
-    const source = merged.rows.find((record) => record.id === row.pr.id);
-    if (source && 'mergedAt' in source) {
-      expect(row.firstCreditAt >= source.createdAt).toBe(true);
-      expect(row.firstCreditAt <= source.mergedAt!).toBe(true);
-    }
+    const source = records.get(row.pr.id)!;
+    expect(row.firstCreditAt >= source.createdAt).toBe(true);
+    if (source.mergedAt) expect(row.firstCreditAt <= source.mergedAt).toBe(true);
     expect(new URL(row.pr.url).hostname).toBe('github.example');
   }
 });
@@ -189,9 +203,10 @@ it('distinguishes known zero, absent samples and no-merge duration', () => {
     const absent = repositoryInsightSample(empty, {
       selection: {
         ...selection,
+        // The record set starts in 2024, so an earlier range has no prepared coverage.
         range: {
-          start: '2026-10-01T00:00:00.000Z',
-          end: '2026-10-02T00:00:00.000Z',
+          start: '2023-10-01T00:00:00.000Z',
+          end: '2023-10-02T00:00:00.000Z',
           endInclusive: false,
         },
       },

@@ -110,9 +110,9 @@ For complete data, files changed equals the six mutually exclusive file-status c
 
 Incomplete categories remain partial or unavailable; never force reconciliation by guessing a missing category. The database integration will collect/prepare the actual counts, final-diff identity and pre-merge role evidence. GitHub's file-list coverage must be checked, including pagination/endpoint limits, before treating category counts as complete. Current samples test supplied facts and arithmetic, not real collection completeness. Source definitions: [GitHub PR diff fields and file statuses](https://docs.github.com/en/graphql/reference/pulls#patchstatus), [PR review comments](https://docs.github.com/en/rest/pulls/comments), [PR file listing](https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files).
 
-## Over time tables — planned timeline increment
+## Over time tables
 
-After the core contributor/company overview and focused reports, add the [shared timeline view](README.md#timeline-reporting). Keep contributor/company reporting table-based: one row per calendar interval, separate metric columns, and full filtered CSV exports. Use Daily, Weekly, Monthly, Every 2 months, Quarterly (3 months), Half-yearly or Yearly grouping independently of the overall selected date range.
+The contributor/company Over time view uses the [shared timeline view](README.md#timeline-reporting) and stays table-based: one row per calendar interval, separate metric columns, and full filtered CSV exports. Daily, Weekly, Monthly, Every 2 months, Quarterly, Every 6 months and Yearly grouping are independent of the overall selected date range.
 
 Retain the selected person/company/population, repository scope, actor filters and exclusions when changing grouping or opening supporting details. Reviewer and approval contributions use their first qualifying credit dates, preserving the once-per-account/PR/metric rule across months and years. This measures credited contributions, not raw comment/review-event volume or the number of currently approved PRs.
 

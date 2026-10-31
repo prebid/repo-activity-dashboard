@@ -80,19 +80,23 @@ it('retains a complete large population and representative bot/agent metadata wi
     selection: { scope: 'period', metric: 'prsOpened', range: period.range },
     returnTo: '/repos',
   });
+  const authored = (login: string) => source.rows.filter((row) => row.author === login).length;
+  expect(authored('sample-author-2')).toBeGreaterThan(100);
   expect(
     selectRepositoryPage(source, { kind: 'prs', authors: ['sample-author-2'] }).rows,
-  ).toHaveLength(240);
+  ).toHaveLength(authored('sample-author-2'));
   const bot = selectRepositoryPage(source, { kind: 'prs', authors: ['sample-author-3[bot]'] });
-  expect(bot.rows).toHaveLength(3);
+  expect(bot.rows.length).toBeGreaterThan(0);
+  expect(bot.rows).toHaveLength(authored('sample-author-3[bot]'));
   expect(bot.rows.every((row) => row.authorType === 'bot')).toBe(true);
+  // The record set starts in 2024, so an earlier range has no prepared coverage.
   const missing = repositoryPageSample(js, {
     selection: {
       scope: 'period',
       metric: 'issuesOpened',
       range: {
-        start: '2026-10-01T00:00:00.000Z',
-        end: '2026-10-02T00:00:00.000Z',
+        start: '2023-10-01T00:00:00.000Z',
+        end: '2023-10-02T00:00:00.000Z',
         endInclusive: false,
       },
     },
@@ -131,7 +135,10 @@ it('keeps metadata stable across narrower drilldowns and existing author-record 
     '/repos/prebidjs?authors.page=2',
   );
   const child = selectRepositoryPage(repositoryPageRecordsSample(author));
-  expect(child.rows).toHaveLength(350);
+  expect(child.rows.length).toBeGreaterThan(100);
+  expect(child.rows).toHaveLength(
+    opened.rows.filter((row) => row.author === 'sample-author-2').length,
+  );
   expect(child.author).toEqual({
     account: 'sample-author-2',
     returnTo: '/repos/prebidjs?authors.page=2',

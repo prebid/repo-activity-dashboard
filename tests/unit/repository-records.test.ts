@@ -1,9 +1,11 @@
 import { expect, it } from 'vitest';
-import { repositoryRecordSample, repositorySample } from '@/mocks/repository-records';
+import { repositoryRecordSample } from '@/mocks/repository-records';
+import { repositorySample } from '@/mocks/current-records';
 import { repositoryOverviewSamples, repositoryOverviewSample } from '@/mocks/repository-overview';
 import { backlogMetricIds, agingThresholds } from '@/models/repository-overview';
 import type { RecordSelection } from '@/models/repository-records';
 import { recordListTitle, matchesCurrentPr } from '@/lib/presentation/repository-records';
+import { recountActivity } from '../support/world-recount';
 
 const samples = repositoryOverviewSamples();
 const js = samples.repositories.find((row) => row.repository.slug === 'prebidjs')!.repository;
@@ -67,9 +69,10 @@ it('reconciles each prepared period count and constrains the relevant event date
           ...(metric === 'prsMerged' ? { branch: repository.primaryBranch } : {}),
         };
         const list = repositoryRecordSample(repository, { selection, returnTo: '/repos' });
-        expect(list.rows.length, repository.name + '/' + metric).toBe(
-          prepared.rows[repository.id].activity.counts[metric].value,
+        expect(list.measurement, repository.name + '/' + metric).toEqual(
+          prepared.rows[repository.id].activity.counts[metric],
         );
+        expect(list.rows.length, repository.name + '/' + metric).toBe(list.measurement.value ?? 0);
         for (const row of list.rows) {
           const event =
             metric === 'prsMerged' && 'mergedAt' in row
@@ -98,9 +101,10 @@ it('keeps period cohorts independent of current state and supports earlier-creat
   const opened = load({ scope: 'period', metric: 'prsOpened', range });
   const merged = load({ scope: 'period', metric: 'prsMerged', range, branch: 'master' });
   const closed = load({ scope: 'period', metric: 'issuesClosed', range });
-  expect(opened.rows).toHaveLength(47);
-  expect(merged.rows).toHaveLength(38);
-  expect(closed.rows).toHaveLength(46);
+  const recount = recountActivity(js.id, range);
+  expect(opened.rows).toHaveLength(recount.counts.prsOpened);
+  expect(merged.rows).toHaveLength(recount.counts.prsMerged);
+  expect(closed.rows).toHaveLength(recount.counts.issuesClosed);
   expect(opened.rows.some((row) => row.state === 'Merged')).toBe(true);
   expect(opened.rows.some((row) => row.state === 'Closed')).toBe(true);
   expect(merged.rows.some((row) => row.createdAt < range.start)).toBe(true);
@@ -130,12 +134,13 @@ it('retains missing and partial coverage instead of claiming exact empty cohorts
   });
   expect(partial.measurement).toMatchObject({ status: 'partial', value: 2 });
   expect(partial.rows).toHaveLength(2);
+  // The record set starts in 2024, so an earlier range has no prepared coverage.
   const unknown = load({
     scope: 'period',
     metric: 'prsOpened',
     range: {
-      start: '2026-10-01T00:00:00.000Z',
-      end: '2026-10-02T00:00:00.000Z',
+      start: '2023-10-01T00:00:00.000Z',
+      end: '2023-10-02T00:00:00.000Z',
       endInclusive: false,
     },
   });

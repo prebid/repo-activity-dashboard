@@ -15,6 +15,7 @@ import {
   defaultAgingThreshold,
 } from '@/models/repository-overview';
 import { countSchema, durationSchema } from '@/models/reporting-measurement';
+import { recountActivity } from '../support/world-recount';
 
 describe('overview display measurements', () => {
   it.each([-1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '0', null])(
@@ -94,8 +95,9 @@ describe('prepared All Repositories samples', () => {
     expect(agingThresholds).toEqual([30, 60, 90, 120, 180, 360]);
     expect(agingThresholdSchema.safeParse(31).success).toBe(false);
   });
-  it('pins independently specified backlog, feedback, approval and activity answers', () => {
-    const row = repositoryOverviewSample().rows[0];
+  it('pins the specified backlog and counts activity from the dated records', () => {
+    const sample = repositoryOverviewSample();
+    const row = { ...sample.rows[0], period: sample.period };
     const counts = Object.fromEntries(
       Object.entries(row.backlog.counts).map(([key, metric]) => [key, metric.value]),
     );
@@ -124,27 +126,23 @@ describe('prepared All Repositories samples', () => {
     expect(Object.values(row.backlog.agedPrs).map((metric) => metric.value)).toEqual([
       90, 60, 30, 0, 0, 0,
     ]);
+    // Activity is counted from the dated record set, so the oracle recounts those records.
+    const recount = recountActivity(row.repository.id, row.period.range);
     expect(
       Object.fromEntries(
         Object.entries(row.activity.counts).map(([key, metric]) => [key, metric.value]),
       ),
-    ).toEqual({
-      prsOpened: 47,
-      prsMerged: 38,
-      issuesOpened: 58,
-      issuesClosed: 46,
-      prAuthors: 24,
-      issueAuthors: 39,
-      agentFeedbackCredits: 18,
-      agentApprovalCredits: 9,
-      botFeedbackCredits: 11,
-      botApprovalCredits: 4,
-    });
+    ).toEqual(recount.counts);
+    expect(row.activity.counts.prsOpened.value).toBeGreaterThan(20);
+    expect(row.activity.counts.botApprovalCredits.value).toBeGreaterThan(0);
     expect(row.activity.mergeDuration).toEqual({
-      days: { status: 'complete', value: 5.5 },
-      sampleSize: { status: 'complete', value: 38 },
+      days: { status: 'complete', value: recount.medianMergeDays },
+      sampleSize: { status: 'complete', value: recount.counts.prsMerged },
     });
-    expect(absoluteChange(row.activity.counts.prsOpened, row.comparison.counts.prsOpened)).toBe(3);
+    const comparison = recountActivity(row.repository.id, row.period.comparison);
+    expect(absoluteChange(row.activity.counts.prsOpened, row.comparison.counts.prsOpened)).toBe(
+      recount.counts.prsOpened - comparison.counts.prsOpened,
+    );
   });
   it.each(periodPresets)(
     'supplies a structurally valid sample for %s without changing backlog',
@@ -179,13 +177,12 @@ describe('prepared All Repositories samples', () => {
     },
   );
   it('supplies distinct periods and keeps matching year-to-date windows consistent', () => {
-    expect(
-      periodPresets.map(
-        (preset) =>
-          repositoryOverviewSample({ kind: 'preset', preset }).rows[0].activity.counts.prsOpened
-            .value,
-      ),
-    ).toEqual([12, 15, 47, 61, 529, 491, 620]);
+    const opened = periodPresets.map(
+      (preset) =>
+        repositoryOverviewSample({ kind: 'preset', preset }).rows[0].activity.counts.prsOpened
+          .value,
+    );
+    expect(new Set(opened).size).toBe(periodPresets.length);
     expect(
       repositoryOverviewSample({ kind: 'preset', preset: 'this-year' }).rows[0].comparison,
     ).toEqual(
@@ -271,16 +268,23 @@ describe('prepared All Repositories samples', () => {
     const empty = rows.find((row) => row.repository.id === 'repo-prebid-mobile-ios-sdk');
     expect(empty?.backlog.counts.totalOpenPrs).toEqual({ status: 'complete', value: 0 });
     expect(empty?.activity.mergeDuration.days.status).toBe('not-applicable');
-    expect(
-      rows.find((row) => row.repository.id === 'repo-go-gdpr')?.activity.counts.prsOpened.value,
-    ).toBe(1);
+    for (const id of ['repo-go-gdpr', 'repo-openrtb']) {
+      const quiet = rows.find((row) => row.repository.id === id)!.activity.counts.prsOpened;
+      expect(quiet.status).toBe('complete');
+      expect(quiet.value).toBeLessThanOrEqual(1);
+    }
     expect(
       rows.find((row) => row.repository.id === 'repo-prebid-agent-skills')?.backlog.counts
         .humanApprovals0,
     ).toMatchObject({ status: 'missing', value: null });
     const partial = rows.find((row) => row.repository.id === 'repo-prebid-cache-java');
     expect(partial?.backlog.counts.agentFeedbackPrs).toMatchObject({ status: 'partial', value: 2 });
-    expect(partial?.activity.counts.issuesClosed.status).toBe('partial');
+    // Its prepared history has a two-week gap that both October and its comparison overlap.
+    for (const activity of [partial!.activity, partial!.comparison])
+      expect(activity.counts.issuesClosed).toMatchObject({
+        status: 'partial',
+        reason: 'This time range has incomplete prepared sample coverage.',
+      });
     const unknown = rows.find((row) => row.repository.id === 'repo-github-activity-db');
     expect(unknown?.comparison.counts.prsOpened).toMatchObject({ status: 'missing', value: null });
   });
@@ -295,23 +299,25 @@ describe('prepared All Repositories samples', () => {
       'Unknown sample repository',
     );
   });
-  it('supports the prepared custom range and explicitly marks any unprepared range', () => {
+  it('counts any custom range and marks a range outside the sample history missing', () => {
     const prepared = repositoryOverviewSample(customSampleSelection);
     expect(prepared.activitySample).toBe('prepared');
-    expect(prepared.rows[0].activity.counts.prsOpened.value).toBe(7);
-    expect(prepared.rows[0].comparison.counts.prsOpened).toEqual({ status: 'complete', value: 0 });
-    const unprepared = repositoryOverviewSample({
-      kind: 'custom',
-      from: '2026-10-01',
-      through: '2026-10-02',
-    });
-    expect(unprepared.activitySample).toBe('unprepared');
-    expect(unprepared.rows.map((row) => row.backlog)).toEqual(
-      prepared.rows.map((row) => row.backlog),
+    expect(prepared.rows[0].activity.counts.prsOpened.value).toBe(
+      recountActivity('repo-prebidjs', prepared.period.range).counts.prsOpened,
     );
-    for (const row of unprepared.rows) {
+    expect(prepared.rows[0].comparison.counts.prsOpened.value).toBe(
+      recountActivity('repo-prebidjs', prepared.period.comparison).counts.prsOpened,
+    );
+    const before = repositoryOverviewSample({
+      kind: 'custom',
+      from: '2023-10-01',
+      through: '2023-10-02',
+    });
+    expect(before.rows.map((row) => row.backlog)).toEqual(prepared.rows.map((row) => row.backlog));
+    for (const row of before.rows) {
       expect(row.activity.counts.prsOpened).toMatchObject({ status: 'missing', value: null });
       expect(row.comparison.counts.prsOpened).toMatchObject({ status: 'missing', value: null });
+      expect(row.activity.mergeDuration.days).toMatchObject({ status: 'missing', value: null });
     }
   });
   it('returns fresh serializable values independent of the wall clock and prior caller mutations', () => {

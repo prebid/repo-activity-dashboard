@@ -6,7 +6,7 @@ import type {
   ContributionContext,
 } from './contributions';
 import type { Count } from './reporting-measurement';
-import type { ReportMetric } from './contribution-metrics';
+import type { ContributionBasis, ReportMetric } from './contribution-metrics';
 export interface ContributionSupportingRow {
   id: string;
   account: ContributionAccount;
@@ -23,7 +23,7 @@ export interface ContributionMetricDetails {
   context: ContributionContext;
   metric: ReportMetric;
   measurement: Count;
-  basis: 'credit' | 'comments' | 'merged-volume';
+  basis: ContributionBasis;
   rows: ContributionSupportingRow[];
   distinctRecords: number;
 }

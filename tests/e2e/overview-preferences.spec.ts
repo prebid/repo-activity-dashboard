@@ -127,15 +127,15 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await expect(pairs.nth(1)).toContainText('Prebid.js');
   await expect(pairs.nth(0)).toContainText('This month');
   await expect(pairs.nth(1)).toContainText('Last month');
-  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('47');
-  await expect(pairs.nth(1).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('78');
+  await expect(pairs.nth(1).locator('[data-column="prsOpened"]')).toHaveText('92');
   await expect(pairs.nth(2)).toContainText('Difference');
   await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-14');
   await expect(activity.getByRole('link', { name: 'Prebid.js', exact: true })).toHaveCount(1);
   await expect(page.getByRole('button', { name: 'Add second period', exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Swap periods', exact: true }).click();
   await expect(pairs.nth(0)).toContainText('Last month');
-  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('61');
+  await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('92');
   await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+14');
   await page.goto('/repos');
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('last-month');
@@ -181,8 +181,8 @@ for (const theme of ['dark', 'light']) {
       await expect(pair.nth(0)).toContainText('Oct 6, 2026 – Oct 8, 2026');
       await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
       await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
-      await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('5');
-      await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('+2');
+      await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('9');
+      await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-2');
       await chooseAges(page, []);
       await expectAges(page, []);
       await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
@@ -272,9 +272,7 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expect(row(page, 'Current backlog').locator('[data-column="totalOpenPrs"]')).toHaveText(
     '137',
   );
-  await expect(row(page, 'Period activity').locator('[data-column="prsOpened"]')).toContainText(
-    '12',
-  );
+  await expect(row(page, 'Period activity').locator('[data-column="prsOpened"]')).toHaveText('43');
 
   const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();

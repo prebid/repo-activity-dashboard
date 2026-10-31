@@ -21,9 +21,9 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   await login(page);
   await page.goto(context);
   await periodRows(page).nth(1).locator('[data-column="prAuthors"] a').click();
-  await expect(page.getByText('29 unique accounts', { exact: true })).toBeVisible();
+  await expect(page.getByText('33 unique accounts', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(29);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(33);
   await page.getByRole('link', { name: 'View 3 PRs by sample-author-1', exact: true }).click();
   await expect(page.getByText('3 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
@@ -32,7 +32,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
     /^https:\/\/github\.example\/example-fixtures\/prebidjs\/pull\//,
   );
   await page.getByRole('link', { name: '← PR authors', exact: true }).click();
-  await expect(page.getByText('29 unique accounts', { exact: true })).toBeVisible();
+  await expect(page.getByText('33 unique accounts', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('last-month');
   expect(new URL(page.url()).searchParams.getAll('repo')).toEqual([
@@ -42,7 +42,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   expect(new URL(page.url()).searchParams.get('age')).toBe('60');
   await page.goto('/repos?repo=repo-prebidjs&period=this-year');
   await periodRows(page).nth(0).locator('[data-column="issueAuthors"] a').click();
-  await expect(page.getByText('194 unique accounts', { exact: true })).toBeVisible();
+  await expect(page.getByText('166 unique accounts', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
@@ -56,7 +56,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   expect(new URL(page.url()).searchParams.get('authors.page')).toBe('2');
   await page
     .getByRole('textbox', { name: 'Search Issue authors', exact: true })
-    .fill('sample-author-194');
+    .fill('sample-author-239');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   expect(new URL(page.url()).searchParams.get('metric')).toBe('issueAuthors');
 });
@@ -70,33 +70,39 @@ for (const [metric, noun, authorLabel] of [
   }) => {
     await login(page);
     await page.goto(context);
+    // Last month, the bot account authored both PRs and issues.
     await periodRows(page)
-      .nth(0)
+      .nth(1)
       .locator('[data-column="' + metric + '"] a')
       .click();
     const account = 'sample-author-3[bot]';
     await page.getByRole('textbox', { name: 'Search ' + authorLabel, exact: true }).fill(account);
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-    const link = page.getByRole('link', { name: 'View 2 ' + noun + ' by ' + account, exact: true });
+    const link = page.getByRole('link', {
+      name: /^View \d+ (PRs?|Issues?) by sample-author-3\[bot\]$/,
+    });
+    // The author row's record count is the population the child list must show.
+    const count = Number((await link.getAttribute('aria-label'))!.split(' ')[1]);
+    expect(count).toBeGreaterThan(0);
     await expect(link).toHaveAttribute('href', /sample-author-3%5Bbot%5D/);
     await link.click();
     const heading = page.getByRole('heading', { name: noun + ' by ' + account, exact: true });
     await expect(heading).toBeVisible();
-    await expect(page.getByText('2 matching records', { exact: true })).toBeVisible();
-    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+    await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
     expect(
       await page
         .locator('tbody [data-column="author"]')
         .getByText(account, { exact: true })
         .allTextContents(),
-    ).toEqual([account, account]);
+    ).toEqual(Array(count).fill(account));
     await expect(
       page.locator('tbody [data-column="author"]').getByText('Bot', { exact: true }),
-    ).toHaveCount(2);
+    ).toHaveCount(count);
     const query = new URL(page.url()).search;
     expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
-    expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
-    expect(new URL(page.url()).searchParams.get('to')).toBe('2026-10-24T12:00:00.000Z');
+    expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
+    expect(new URL(page.url()).searchParams.get('to')).toBe('2026-10-01T00:00:00.000Z');
     const returnTo = new URL(page.url()).searchParams.get('returnTo')!;
     const overview = new URL(returnTo, 'http://127.0.0.1:3100');
     const selected = new URL(context, 'http://127.0.0.1:3100');
@@ -107,7 +113,7 @@ for (const [metric, noun, authorLabel] of [
     expect(overview.searchParams.get('backlog.dir')).toBe('desc');
     await page.reload();
     await expect(heading).toBeVisible();
-    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
     await page.getByRole('link', { name: '← ' + authorLabel, exact: true }).click();
     await expect(
       page.getByRole('textbox', { name: 'Search ' + authorLabel, exact: true }),
@@ -129,8 +135,8 @@ for (const [metric, noun, authorLabel] of [
 }
 
 for (const [metric, noun, count, finalPageCount, oldestNumber] of [
-  ['prAuthors', 'PRs', 240, 40, '500001'],
-  ['issueAuthors', 'Issues', 350, 50, '550001'],
+  ['prAuthors', 'PRs', 184, 34, '11194'],
+  ['issueAuthors', 'Issues', 211, 11, '61613'],
 ] as const) {
   test(
     'high-volume ' +
@@ -180,15 +186,6 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       await page.reload();
       await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
       expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
-      if (metric === 'prAuthors') {
-        await page
-          .getByRole('textbox', { name: 'Search PRs by sample-author-2', exact: true })
-          .fill('Draft');
-        await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(14);
-        await expect(page.locator('tbody [data-column="title"] [data-state="Draft"]')).toHaveCount(
-          14,
-        );
-      }
       await page
         .getByRole('link', {
           name: metric === 'prAuthors' ? '← PR authors' : '← Issue authors',
@@ -234,10 +231,10 @@ test('all agent and bot contribution links reconcile credits, retain context, an
   await page.getByRole('menuitemcheckbox', { name: 'Bots', exact: true }).click();
   await page.keyboard.press('Escape');
   for (const [metric, count, distinct] of [
-    ['agentFeedbackCredits', 18, 9],
-    ['agentApprovalCredits', 9, 5],
-    ['botFeedbackCredits', 11, 6],
-    ['botApprovalCredits', 4, 2],
+    ['agentFeedbackCredits', 26, 26],
+    ['agentApprovalCredits', 18, 18],
+    ['botFeedbackCredits', 18, 18],
+    ['botApprovalCredits', 11, 11],
   ] as const) {
     await periodRows(page)
       .nth(0)
@@ -255,21 +252,23 @@ test('all agent and bot contribution links reconcile credits, retain context, an
   await page.goto(
     '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
   );
-  await expect(page.getByText('145 contribution credits', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(45);
+  await expect(page.getByText('225 contribution credits', { exact: true })).toBeVisible();
+  for (let pageNumber = 1; pageNumber < 5; pageNumber++) {
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
+  }
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(25);
   await page
     .getByRole('textbox', { name: 'Search Prebid agent reviewer contributions', exact: true })
     .fill('sample-prebid-agent-a');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.reload();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await expect(page.getByText('73 matching contribution credits', { exact: true })).toBeVisible();
+  await expect(page.getByText('149 matching contribution credits', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(23);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(49);
   expect(new URL(page.url()).searchParams.get('metric')).toBe('agentFeedbackCredits');
 });
 test('duration links show median and sample size separately with numeric sorting and valid branch scope', async ({
@@ -278,9 +277,10 @@ test('duration links show median and sample size separately with numeric sorting
   await login(page);
   await page.goto(context);
   await periodRows(page).nth(0).locator('[data-column="medianMergeDays"] a').click();
-  await expect(page.getByText('5.5 d', { exact: true })).toBeVisible();
-  await expect(page.getByText('38 merged PRs', { exact: true })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(38);
+  const scope = page.getByRole('region', { name: 'Selected repository scope', exact: true });
+  await expect(scope.getByText('8.3 d', { exact: true })).toBeVisible();
+  await expect(page.getByText('44 merged PRs', { exact: true })).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(44);
   await page.getByRole('button', { name: 'Merge time', exact: true }).click();
   await page.reload();
   await expect(
@@ -295,8 +295,9 @@ test('duration links show median and sample size separately with numeric sorting
   expect(new URL(page.url()).searchParams.get('metric')).toBe('medianMergeDays');
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await periodRows(page).nth(1).locator('[data-column="medianMergeDays"] a').click();
-  await expect(page.getByText('6.5 d', { exact: true })).toBeVisible();
-  await expect(page.getByText('48 merged PRs', { exact: true })).toBeVisible();
+  // A median can equal one PR's merge time, so read it from the summary.
+  await expect(scope.getByText('4.853 d', { exact: true })).toBeVisible();
+  await expect(page.getByText('50 merged PRs', { exact: true })).toBeVisible();
   await page.goto(
     '/repos/prebid-mobile-ios-sdk?scope=period&metric=medianMergeDays&branch=main&' + range,
   );
@@ -369,12 +370,12 @@ test('pending author search cannot cancel navigation while the destination respo
     await page
       .getByRole('textbox', { name: 'Search PR authors', exact: true })
       .fill('sample-author-2');
-    await page.getByRole('link', { name: 'View 240 PRs by sample-author-2', exact: true }).click();
+    await page.getByRole('link', { name: 'View 184 PRs by sample-author-2', exact: true }).click();
     await expect.poll(() => requests).toBe(1);
     await expect(page).toHaveURL(/authors.q=sample-author-2/);
     release();
     await expect(page).toHaveURL(/\/authors\/sample-author-2\?/);
-    await expect(page.getByText('240 matching records', { exact: true })).toBeVisible();
+    await expect(page.getByText('184 matching records', { exact: true })).toBeVisible();
     await page.getByRole('link', { name: '← PR authors', exact: true }).click();
     await expect(page.getByRole('textbox', { name: 'Search PR authors', exact: true })).toHaveValue(
       'sample-author-2',

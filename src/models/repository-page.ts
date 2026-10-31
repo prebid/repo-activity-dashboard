@@ -65,6 +65,12 @@ export const repositoryPageFiltersSchema = z.discriminatedUnion('kind', [
     .strict(),
 ]);
 export type RepositoryPageFilters = z.infer<typeof repositoryPageFiltersSchema>;
+export interface RepositoryFilterOptions {
+  labels: string[];
+  authors: string[];
+  branches: string[];
+  assignees: string[];
+}
 export interface LatestRecordActivity {
   at: string;
   account: string | null;

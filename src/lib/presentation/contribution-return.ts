@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { safeReturnPath } from './navigation';
 import { contributionScopeKeys } from './contribution-settings';
+import { timelineViewKeys } from '@/models/timeline-controls';
 
 export const contributionUrlLimit = 7500;
 export const contributionLinkLimitMessage =
@@ -51,6 +52,9 @@ const scopeKeys: ReadonlySet<string> = new Set([
   'view',
   'metric',
   'members.zero',
+  'timeline',
+  'timeline.gap',
+  ...timelineViewKeys,
 ]);
 function returnParameter(key: string): boolean {
   return (

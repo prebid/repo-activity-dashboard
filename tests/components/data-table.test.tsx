@@ -27,6 +27,50 @@ const rows: Row[] = Array.from({ length: 250 }, (_, i) => ({
   title: i === 249 ? 'Oldest keyboard issue' : 'Item ' + String(i + 1).padStart(3, '0'),
   count: i === 1 ? null : i,
 }));
+it('sorts and exports against a full value axis while rendering only the visible columns', async () => {
+  const blobs: Blob[] = [];
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:axis';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  const user = userEvent.setup();
+  render(
+    <DataTable
+      title="Window"
+      rows={rows}
+      columns={[columns[0]]}
+      valueColumns={[columns[0], { ...columns[1], sortNote: 'Sorted using the full axis.' }]}
+      showColumnMenu={false}
+      exportName="window.csv"
+      initialQuery={{ search: 'Item', sort: 'count', descending: true, page: 2 }}
+    />,
+  );
+  expect(screen.queryByRole('columnheader', { name: /Count/ })).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Columns' })).not.toBeInTheDocument();
+  expect(screen.getByText('Sorted using the full axis.')).toBeVisible();
+  expect(screen.getByRole('table').querySelector('tbody tr')).toHaveTextContent('Item 199');
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await user.click(screen.getByRole('button', { name: 'Download CSV' }));
+  expect(blobs).toHaveLength(1);
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('Missing CSV'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
+  });
+  expect(csv.split('\r\n')).toHaveLength(250);
+  expect(csv.split('\r\n')[0]).toBe('"Title"');
+  expect(csv.split('\r\n')[1]).toBe('"Item 249"');
+  expect(csv.split('\r\n').at(-1)).toBe('"Item 002"');
+});
 it('server-renders rows while keeping React-only table controls disabled until hydration', () => {
   const main = renderedMain(
     renderToString(
@@ -523,4 +567,11 @@ it('starts CSV choices from visible columns and keeps export-only choices out of
   expect(csv.split('\r\n')[0]).toBe('"Title","Count"');
   await user.click(screen.getByRole('button', { name: 'Export CSV' }));
   expect(screen.getByRole('checkbox', { name: 'Count' })).not.toBeChecked();
+});
+it('disables sorting and pagination while an owning report is replacing its scope', () => {
+  render(<DataTable title="Updating" rows={rows} columns={columns} disabled />);
+  expect(screen.getByRole('button', { name: 'Count' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Columns' })).toBeDisabled();
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
 });

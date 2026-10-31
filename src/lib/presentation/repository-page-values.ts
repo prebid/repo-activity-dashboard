@@ -1,6 +1,10 @@
 import { agingThresholds } from '@/models/repository-overview';
 import { type Count } from '@/models/reporting-measurement';
 import type { AgeBand, RepositoryPageSource, ReviewBucket } from '@/models/repository-page';
+import {
+  repositoryTimelineMetricSchema,
+  repositoryTimelineMetricScope,
+} from '@/models/repository-timeline';
 
 export function ageBandFor(days: number): AgeBand {
   if (!Number.isFinite(days) || days < 0) throw new Error('Invalid record age');
@@ -31,11 +35,14 @@ export function subsetCount(base: Count, count: number, uncertain = 0): Count {
       }
     : { status: 'complete', value: count };
 }
+/** Activity lists use the registry's event date; current-backlog lists are dated by creation. */
 export function activityDateBasis(
   source: RepositoryPageSource,
 ): 'createdAt' | 'mergedAt' | 'closedAt' {
-  const metric = source.drilldown.selection.metric;
-  return metric === 'prsMerged' ? 'mergedAt' : metric === 'issuesClosed' ? 'closedAt' : 'createdAt';
+  const metric = repositoryTimelineMetricSchema.safeParse(source.drilldown.selection.metric);
+  return (
+    (metric.success ? repositoryTimelineMetricScope(metric.data).eventDate : null) ?? 'createdAt'
+  );
 }
 export function recordEventDate(
   row: RepositoryPageSource['rows'][number],

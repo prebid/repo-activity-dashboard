@@ -118,9 +118,22 @@ it('builds repository pairs with independent display values and primary-period r
   expect(new Set(rows.map((row) => row.id)).size).toBe(6);
   const opened = activityColumns().find((column) => column.id === 'prsOpened')!;
   const duration = activityColumns().find((column) => column.id === 'medianMergeDays')!;
-  expect(rows.map((row) => opened.value(row))).toEqual([47, 61, -14, 15, 20, -5]);
-  expect(rows.map((row) => opened.sortValue!(row))).toEqual([47, 47, 47, 15, 15, 15]);
-  expect(duration.value(rows[2])).toBe(-1);
+  // Display values come from each period's input; ranking always uses the primary period.
+  const count = (report: typeof primary, index: number) =>
+    report.rows[index].activity.counts.prsOpened.value!;
+  const [js, js2, sa, sa2] = [
+    count(primary, 0),
+    count(secondary, 0),
+    count(primary, 1),
+    count(secondary, 1),
+  ];
+  expect(js).not.toBe(js2);
+  expect(rows.map((row) => opened.value(row))).toEqual([js, js2, js - js2, sa, sa2, sa - sa2]);
+  expect(rows.map((row) => opened.sortValue!(row))).toEqual([js, js, js, sa, sa, sa]);
+  expect(duration.value(rows[2])).toBe(
+    primary.rows[0].activity.mergeDuration.days.value! -
+      secondary.rows[0].activity.mergeDuration.days.value!,
+  );
   expect(rows.filter((row) => row.kind === 'period').every((row) => row.showPeriodLabel)).toBe(
     true,
   );
@@ -143,7 +156,9 @@ it('labels preset and custom rows from their effective UTC date ranges', () => {
   expect(periodRangeLabel(resolveReportingPeriod(month, asOf).range)).toBe(
     'Oct 1, 2026 – Oct 24, 2026',
   );
-  expect(
-    repositoryOverviewSample(custom2, ['repo-prebidjs']).rows[0].activity.counts.prsOpened.value,
-  ).toBe(5);
+  expect(repositoryOverviewSample(custom2, ['repo-prebidjs']).period.range).toEqual({
+    start: '2026-10-13T00:00:00.000Z',
+    end: '2026-10-16T00:00:00.000Z',
+    endInclusive: false,
+  });
 });

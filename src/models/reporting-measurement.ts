@@ -29,3 +29,4 @@ export const reportingCoverageSchema = z.discriminatedUnion('status', [
   z.object({ status: z.literal('partial'), reason: z.string().trim().min(1) }).strict(),
   z.object({ status: z.literal('missing'), reason: z.string().trim().min(1) }).strict(),
 ]);
+export type ReportingCoverage = z.infer<typeof reportingCoverageSchema>;

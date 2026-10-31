@@ -126,11 +126,12 @@ export function contributionPreferenceNeedsLookup(settings: ContributionSettings
         settings.selection.population.companyIds.some((id) => id !== null)))
   );
 }
-export function readContributionSettings(
+/** Decode the URL scope with its defaults, before any directory or identity validation. */
+export function readContributionScopeInput(
   params: URLSearchParams,
-  directory: ContributionDirectory,
+  directory: ContributionControlDirectory,
   asOf: string,
-): ContributionSettings | null {
+) {
   if (params.has('scope') && params.get('scope') !== '1') return null;
   const defaults = defaultContributionSettings(directory);
   const mode =
@@ -142,26 +143,30 @@ export function readContributionSettings(
   )
     return null;
   const list = (key: string) => params.getAll(key).filter(Boolean);
-  return validateContributionSettings(
-    {
-      period: readContributionPeriod(params, asOf),
-      selection: {
-        repositoryIds: params.has('repo') ? list('repo') : defaults.selection.repositoryIds,
-        actorTypes: params.has('type') ? list('type') : defaults.selection.actorTypes,
-        population:
-          mode === 'all'
-            ? { kind: 'all' }
-            : {
-                kind: 'selected',
-                accountIds: list('account'),
-                companyIds: params.getAll('company').map((id) => id || null),
-              },
-        excludedAccountIds: list('exclude'),
-      },
+  return {
+    period: readContributionPeriod(params, asOf),
+    selection: {
+      repositoryIds: params.has('repo') ? list('repo') : defaults.selection.repositoryIds,
+      actorTypes: params.has('type') ? list('type') : defaults.selection.actorTypes,
+      population:
+        mode === 'all'
+          ? ({ kind: 'all' } as const)
+          : {
+              kind: 'selected' as const,
+              accountIds: list('account'),
+              companyIds: params.getAll('company').map((id) => id || null),
+            },
+      excludedAccountIds: list('exclude'),
     },
-    directory,
-    asOf,
-  );
+  };
+}
+export function readContributionSettings(
+  params: URLSearchParams,
+  directory: ContributionDirectory,
+  asOf: string,
+): ContributionSettings | null {
+  const input = readContributionScopeInput(params, directory, asOf);
+  return input && validateContributionSettings(input, directory, asOf);
 }
 /** Write the complete scope, including explicit empty selections and relative presets. */
 export function writeContributionSettings(

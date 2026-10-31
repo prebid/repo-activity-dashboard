@@ -1,17 +1,5 @@
 .pageHeader {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
   margin-bottom: 4px;
-}
-.eyebrow {
-  color: var(--muted-foreground);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
 }
 .title {
   font-size: clamp(25px, 3vw, 32px);
@@ -19,17 +7,24 @@
   font-weight: 600;
   line-height: 1.2;
 }
-.subtitle {
-  color: var(--muted-foreground);
+.organizationLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--prebid-brand-text);
   font-size: 13px;
   line-height: 1.6;
   margin-top: 9px;
+  border-radius: 2px;
+  text-underline-offset: 3px;
+}
+.organizationLink:hover {
+  text-decoration: underline;
 }
 .asOf {
   color: var(--muted-foreground);
   font-size: 11px;
   line-height: 1.7;
-  text-align: right;
 }
 .asOf strong {
   display: block;
@@ -108,14 +103,6 @@
   flex-shrink: 0;
 }
 @media (max-width: 600px) {
-  .pageHeader {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .asOf {
-    text-align: left;
-  }
   .asOf strong {
     display: inline;
     margin-right: 6px;

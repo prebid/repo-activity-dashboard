@@ -29,40 +29,59 @@ function Preview({ insight }: { insight: RepositoryInsight }) {
   const controller = useLocalTableController();
   return <RepositoryInsightsView insight={insight} controller={controller} />;
 }
+/** The first prepared repository and period whose Summary value for a metric is exactly one. */
+function exactlyOne(metric: InsightMetric) {
+  for (const period of samples.periods)
+    for (const { repository } of samples.repositories) {
+      const activity = period.rows[repository.id].activity;
+      const value =
+        metric === 'medianMergeDays'
+          ? activity.mergeDuration.sampleSize.value
+          : activity.counts[metric].value;
+      if (value === 1) return { repository, range: period.period.range };
+    }
+  throw new Error('No sample period has exactly one ' + metric);
+}
 it('uses singular units for one account, record, credit, and merged PR', () => {
-  const gdpr = samples.repositories.find((row) => row.repository.slug === 'go-gdpr')!.repository;
-  const sales = samples.repositories.find(
-    (row) => row.repository.slug === 'salesagent',
-  )!.repository;
-  const oneAuthor = repositoryInsightSample(gdpr, {
-    selection: { scope: 'period', metric: 'prAuthors', range },
+  const author = exactlyOne('prAuthors');
+  const oneAuthor = repositoryInsightSample(author.repository, {
+    selection: { scope: 'period', metric: 'prAuthors', range: author.range },
     returnTo: '/repos',
   });
+  if (oneAuthor.kind !== 'authors') throw new Error('Expected authors');
   const view = render(<Preview insight={oneAuthor} />);
   expect(screen.getByText('1 unique account')).toBeVisible();
-  expect(screen.getByLabelText('View 1 PR by sample-author-1')).toBeVisible();
+  const only = oneAuthor.rows[0];
+  expect(
+    screen.getByLabelText(
+      'View ' +
+        only.recordCount +
+        ' PR' +
+        (only.recordCount === 1 ? '' : 's') +
+        ' by ' +
+        only.account,
+    ),
+  ).toBeVisible();
+  const credit = exactlyOne('agentFeedbackCredits');
   view.rerender(
     <Preview
-      insight={repositoryInsightSample(sales, {
-        selection: {
-          scope: 'period',
-          metric: 'agentFeedbackCredits',
-          range: samples.periods[0].period.range,
-        },
+      insight={repositoryInsightSample(credit.repository, {
+        selection: { scope: 'period', metric: 'agentFeedbackCredits', range: credit.range },
         returnTo: '/repos',
       })}
     />,
   );
   expect(screen.getByText('1 contribution credit')).toBeVisible();
   expect(screen.getByText('1 distinct PR')).toBeVisible();
+  const merged = exactlyOne('medianMergeDays');
   view.rerender(
     <Preview
-      insight={repositoryInsightSample(gdpr, {
+      insight={repositoryInsightSample(merged.repository, {
         selection: {
           scope: 'period',
           metric: 'medianMergeDays',
-          branch: gdpr.primaryBranch,
-          range: samples.periods[3].period.range,
+          branch: merged.repository.primaryBranch,
+          range: merged.range,
         },
         returnTo: '/repos',
       })}
@@ -70,15 +89,28 @@ it('uses singular units for one account, record, credit, and merged PR', () => {
   );
   expect(screen.getByText('1 merged PR')).toBeVisible();
 });
+/** An author with several records, so its link uses the plural record unit. */
+function frequentAuthor(insight: RepositoryInsight) {
+  if (insight.kind !== 'authors') throw new Error('Expected authors');
+  return insight.rows.find(
+    (row) => /^sample-author-\d+$/.test(row.account) && row.recordCount > 1,
+  )!;
+}
 it('uses compact account rows and links to full filtered record lists', () => {
-  render(<Preview insight={detail('prAuthors')} />);
-  expect(screen.getByText('24 unique accounts')).toBeVisible();
-  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(24);
+  const insight = detail('prAuthors');
+  render(<Preview insight={insight} />);
+  const accounts = insight.measurement.value!;
+  expect(accounts).toBeGreaterThan(1);
+  expect(screen.getByText(accounts + ' unique accounts')).toBeVisible();
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(accounts);
   expect(screen.getByText('Prebid agent')).toBeVisible();
   expect(screen.getByText('Bot')).toBeVisible();
-  const link = screen.getByRole('link', { name: 'View 2 PRs by sample-author-1' });
+  const author = frequentAuthor(insight);
+  const link = screen.getByRole('link', {
+    name: 'View ' + author.recordCount + ' PRs by ' + author.account,
+  });
   const target = new URL(link.getAttribute('href')!, 'https://dashboard.invalid');
-  expect(target.pathname).toBe('/repos/prebidjs/authors/sample-author-1');
+  expect(target.pathname).toBe('/repos/prebidjs/authors/' + author.account);
   expect(target.searchParams.get('metric')).toBe('prAuthors');
   expect(target.searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
   expect(screen.getByRole('table').querySelector('details')).toBeNull();
@@ -88,15 +120,22 @@ it('uses compact account rows and links to full filtered record lists', () => {
   );
 });
 it('shows credit units separately from distinct PR counts', () => {
-  render(<Preview insight={detail('agentFeedbackCredits')} />);
-  expect(screen.getByText('18 contribution credits')).toBeVisible();
-  expect(screen.getByText('9 distinct PRs')).toBeVisible();
-  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
+  const insight = detail('agentFeedbackCredits');
+  if (insight.kind !== 'contributions') throw new Error('Expected credits');
+  render(<Preview insight={insight} />);
+  const credits = insight.rows.length,
+    prs = new Set(insight.rows.map((row) => row.pr.id)).size;
+  expect(credits).toBeGreaterThan(1);
+  expect(screen.getByText(credits + ' contribution credits')).toBeVisible();
+  expect(screen.getByText(prs + ' distinct PRs')).toBeVisible();
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(credits);
   expect(screen.getByRole('button', { name: 'First credited' })).toHaveAccessibleDescription(
     /Repeated actions do not create additional credits/,
   );
 });
 it('captures pending author-search text in the record link return context', () => {
+  const insight = detail('prAuthors');
+  const author = frequentAuthor(insight);
   function PendingSearch() {
     const controller = useLocalTableController({
       search: '',
@@ -106,28 +145,34 @@ it('captures pending author-search text in the record link return context', () =
     });
     return (
       <RepositoryInsightsView
-        insight={detail('prAuthors')}
-        controller={{ ...controller, draftSearch: 'sample-author-2' }}
+        insight={insight}
+        controller={{ ...controller, draftSearch: author.account }}
       />
     );
   }
   render(<PendingSearch />);
   const href = screen
-    .getByRole('link', { name: 'View 2 PRs by sample-author-2' })
+    .getByRole('link', { name: 'View ' + author.recordCount + ' PRs by ' + author.account })
     .getAttribute('href')!;
   const params = new URL(href, 'https://dashboard.invalid').searchParams;
-  expect(params.get('authors.q')).toBe('sample-author-2');
+  expect(params.get('authors.q')).toBe(author.account);
   expect(params.get('authors.sort')).toBe('account');
   expect(params.get('authors.dir')).toBe('desc');
   expect(params.has('authors.page')).toBe(false);
 });
 it('shows the median separately from sample size and sorts numeric elapsed durations', async () => {
   const user = userEvent.setup();
-  render(<Preview insight={detail('medianMergeDays')} />);
+  const insight = detail('medianMergeDays');
+  if (insight.kind !== 'duration') throw new Error('Expected duration');
+  // A fixed median isolates the day-unit formatting from the sample's computed value.
+  insight.days = { status: 'complete', value: 5.5 };
+  render(<Preview insight={insight} />);
+  const merged = insight.records.rows.length;
+  expect(merged).toBeGreaterThan(1);
   expect(screen.getByText('5.5 d')).toBeVisible();
-  expect(screen.getByText('38 merged PRs')).toBeVisible();
+  expect(screen.getByText(merged + ' merged PRs')).toBeVisible();
   expect(screen.getByText('Primary branch: master')).toBeVisible();
-  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(38);
+  expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(merged);
   await user.click(screen.getByRole('button', { name: 'Merge time' }));
   const times = [...screen.getByRole('table').querySelectorAll('[data-column="mergeDays"]')].map(
     (cell) => Number.parseFloat(cell.textContent),
@@ -140,13 +185,14 @@ it('keeps empty, unavailable, and partial detail states explicit', () => {
   expect(screen.getByRole('heading', { name: 'No items' })).toBeVisible();
   view.rerender(<Preview insight={detail('medianMergeDays', true)} />);
   expect(screen.getByRole('heading', { name: 'No merged PRs in this period' })).toBeVisible();
+  // The record set starts in 2024, so an earlier range has no prepared coverage.
   const missing = repositoryInsightSample(repo, {
     selection: {
       scope: 'period',
       metric: 'prAuthors',
       range: {
-        start: '2026-10-01T00:00:00.000Z',
-        end: '2026-10-02T00:00:00.000Z',
+        start: '2023-10-01T00:00:00.000Z',
+        end: '2023-10-02T00:00:00.000Z',
         endInclusive: false,
       },
     },

@@ -8,3 +8,7 @@ export interface SelectableColumn {
   description?: string;
   required?: boolean;
 }
+/** The on-screen metric name: "Group — Label", or the label alone for an ungrouped metric. */
+export function metricName({ group, label }: Pick<SelectableColumn, 'group' | 'label'>): string {
+  return group ? group + ' — ' + label : label;
+}

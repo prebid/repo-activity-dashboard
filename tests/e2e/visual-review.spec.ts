@@ -132,7 +132,7 @@ test('review states distinguish empty, missing, partial, invalid, loading and re
     ],
     [
       'missing',
-      '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00:00:00.000Z&to=2026-10-02T00:00:00.000Z&inclusive=0',
+      '/repos/prebidjs?scope=period&metric=prAuthors&from=2023-10-01T00:00:00.000Z&to=2023-10-02T00:00:00.000Z&inclusive=0',
       'Sample records unavailable',
     ],
     [
@@ -209,16 +209,28 @@ test.describe('200 percent equivalent reflow', () => {
       await columns.focus();
       await expect(columns).toBeFocused();
       await page.keyboard.press('Enter');
-      await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
+      const menu = page.getByRole('menu', { name: 'Columns', exact: true });
+      await expect(menu).toBeVisible();
+      // Wait for the actual opening animation and entry focus, not an arbitrary delay.
+      await menu.evaluate(async (node) => {
+        await Promise.all(
+          node.getAnimations({ subtree: true }).map((animation) => animation.finished),
+        );
+      });
+      await expect
+        .poll(() => menu.evaluate((node) => node.contains(document.activeElement)))
+        .toBe(true);
       await page.keyboard.press('End');
-      // Menu positioning and keyboard roving focus settle after the open animation.
+      const last = menu.locator('[role="menuitemcheckbox"]:not([aria-disabled="true"])').last();
+      await expect(last).toBeFocused();
+      // Measure the intended final item after roving focus has completed.
       await expect
         .poll(async () => {
-          const box = await page.locator(':focus').boundingBox();
+          const box = await last.boundingBox();
           return !!box && box.y >= 0 && box.y + box.height <= 480;
         })
         .toBe(true);
-      const focused = await page.locator(':focus').boundingBox();
+      const focused = await last.boundingBox();
       expect(focused).not.toBeNull();
       expect(focused!.y).toBeGreaterThanOrEqual(0);
       expect(focused!.y + focused!.height).toBeLessThanOrEqual(480);

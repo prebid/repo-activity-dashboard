@@ -247,13 +247,14 @@ The UI imports the reporting client, not the fixture entities. The mock provider
 
 ## Timeline display scenarios
 
-Follow the [shared timeline contract](../product/README.md#timeline-reporting). Add prepared, coherent series and supporting records when implementing that frontend increment; these scenarios do not require raw-event reconstruction now.
+Follow the [shared timeline contract](../product/README.md#timeline-reporting) and [focused implementation plan](timeline-reporting-plan.md#prepared-sample-and-verification-design). Add prepared, coherent series and supporting records when implementing that frontend increment; these scenarios do not require raw-event reconstruction now. Keep calendar clipping separate from data completeness, and use one source/scenario identity for the whole range, intervals, details and CSV.
 
 - One complete calendar year with daily, weekly, monthly, two-month, quarterly, half-yearly and yearly representations of the same additive activity totals. Unique-author and median summaries have their own independently prepared whole-range answers.
 - A range beginning and ending inside calendar intervals, an unfinished current interval at the fixed as-of instant, leap-day/year transitions and Monday-start weeks. Boundary records belong to one interval only.
 - First reviewer/approval credits with later repeated actions that do not create additional contribution credit; current approval state remains a separate supplied snapshot.
 - Known-zero periods, missing periods and partial historical coverage, including historical backlog values that cannot be inferred from today's open list.
 - More than 50 intervals for pagination, full-result exports and matching chart/table values; person/company exclusions and exact interval return navigation remain consistent.
+- An All Repositories matrix for all 18 repositories and selected subsets, using the same per-repository source/interval answers as the individual Timelines. Include a person contributing to more than one repository without cross-repository deduplication, known-zero and missing repository rows, first/last/short period windows, sorting by a period outside the current window and full-range exports. Measure one selected metric at the interval limit; do not expand all metrics or histories for every repository/period.
 
 Custom-group timelines remain deferred with the other group scenarios. Real integration must independently verify the series and historical coverage; matching prepared frontend values alone does not prove those calculations.
 

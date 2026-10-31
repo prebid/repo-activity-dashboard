@@ -77,8 +77,26 @@ export default defineConfig({
           statements: 95,
           functions: 90,
         },
-        'src/lib/auth/{access-policy,api-access,account-response,diagnostics,credential-policy,request-body,get-secret,auth}.ts':
+        'src/lib/auth/{access-policy,api-access,account-response,diagnostics,credential-policy,request-body,reporting-request,get-secret,auth}.ts':
           { perFile: true, lines: 100, branches: 100, statements: 100, functions: 100 },
+        // Timeline loaders and the authenticated export; floors at the measured unit coverage.
+        'src/server/timeline-*.ts': {
+          perFile: true,
+          lines: 94,
+          branches: 90,
+          statements: 94,
+          functions: 70,
+        },
+        'src/components/{navigation/**,exports/csv-download.ts,reporting/timeline-{table,value,support-frame,csv-download}.{ts,tsx}}':
+          { perFile: true, lines: 95, branches: 85, statements: 95, functions: 90 },
+        // The chart's Recharts callbacks are exercised in browser tests; this keeps unit coverage.
+        'src/components/charts/timeline-chart.tsx': {
+          perFile: true,
+          lines: 70,
+          branches: 65,
+          statements: 70,
+          functions: 75,
+        },
         'src/app/api/admin/users/**': {
           perFile: true,
           lines: 100,

@@ -2,6 +2,7 @@ import { expect, expectTypeOf, it } from 'vitest';
 import { ZodError } from 'zod';
 import {
   repositoryFilterFields,
+  repositoryFilterFieldsFromOptions,
   repositoryFilterValue,
   removeRepositoryFilter,
   repositoryFilterChips,
@@ -11,8 +12,11 @@ import {
   type RepositoryFilterKey,
 } from '@/features/repositories/repository-filter-fields';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
+import { repositoryTimelineSupportColumns } from '@/features/repositories/repository-timeline-support';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import { currentIssueSample } from '@/mocks/current-records';
+import { repositoryFilterOptions } from '@/lib/presentation/repository-page-filters';
 const samples = repositoryOverviewSamples(),
   repo = samples.repositories[0].repository;
 const prs = repositoryPageSample(repo, {
@@ -176,4 +180,52 @@ it('reports the failing field and distinguishes array limits from invalid scalar
   expect(repositoryFilterErrorMessage(new ZodError([]), fields)).toBe(
     'These filters could not be applied. Check your selections.',
   );
+});
+it('offers cutoff fields for Backlog at cutoff without current-state predicates', () => {
+  const options = { labels: [], authors: [], branches: [], assignees: [] };
+  for (const kind of ['prs', 'issues'] as const) {
+    const fields = repositoryFilterFieldsFromOptions({
+      ...options,
+      kind,
+      current: true,
+      cutoff: true,
+    });
+    expect(fields.map((field) => field.key)).not.toContain('states');
+    expect(
+      fields.map((field) => field.label).filter((label) => label.startsWith('Current')),
+    ).toEqual([]);
+  }
+  expect(
+    repositoryFilterFieldsFromOptions({ ...options, kind: 'prs', current: true, cutoff: true })
+      .filter((field) => field.key === 'approvals' || field.key === 'reviewers')
+      .map((field) => field.label),
+  ).toEqual(['Human reviewers at cutoff', 'Human approvals at cutoff']);
+});
+it('names cutoff review counts alike in the filter dialog and supporting records', () => {
+  const fields = repositoryFilterFieldsFromOptions({
+    labels: [],
+    authors: [],
+    branches: [],
+    assignees: [],
+    kind: 'prs',
+    current: true,
+    cutoff: true,
+  });
+  const columns = repositoryTimelineSupportColumns('prs', true);
+  const label = (id: string) => columns.find((column) => column.id === id)!.label;
+  expect([label('humanReviewers'), label('approvals')]).toEqual(
+    ['reviewers', 'approvals'].map((key) => fields.find((field) => field.key === key)!.label),
+  );
+  for (const kind of ['prs', 'issues'] as const)
+    for (const column of repositoryTimelineSupportColumns(kind, true)) {
+      expect(column.description ?? '').not.toMatch(/reporting snapshot/);
+      expect(column.description ?? '').not.toMatch(/^Current/);
+    }
+});
+it('builds filter choices with lowercase account identities', () => {
+  expect(
+    repositoryFilterOptions([
+      { ...currentIssueSample('repo-prebidjs')[0], assignees: ['ChrisHuie', 'chrishuie'] },
+    ] as never),
+  ).toMatchObject({ assignees: ['chrishuie'] });
 });

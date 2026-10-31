@@ -5,6 +5,7 @@ import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import { PageState } from '@/components/feedback/page-state';
 import { ContributionsScreen } from './contributions-screen';
+import { ContributionTimelineRoute } from './timeline-route';
 
 export async function ContributionRoute({
   area,
@@ -15,11 +16,10 @@ export async function ContributionRoute({
   searchParams: Promise<PageSearchParams>;
   focus?: ContributionFocus;
 }) {
-  const result = await contributions(
-    area,
-    new URLSearchParams(encodeSearchParams(await searchParams)),
-    focus,
-  );
+  const params = new URLSearchParams(encodeSearchParams(await searchParams));
+  if (params.has('timeline'))
+    return <ContributionTimelineRoute area={area} params={params} focus={focus} />;
+  const result = await contributions(area, params, focus);
   if (result.status === 'invalid')
     return (
       <>

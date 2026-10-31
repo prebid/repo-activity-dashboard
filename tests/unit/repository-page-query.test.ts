@@ -1,3 +1,4 @@
+import { readRepositoryFilterValues } from '@/lib/presentation/repository-page-query';
 import { expect, it } from 'vitest';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
@@ -136,4 +137,9 @@ it('keeps issue and PR namespaces separate and supports known unknown assignment
   expect(readRepositoryFilters('issues.filter.states=Closed', historical)).toMatchObject({
     states: ['Closed'],
   });
+});
+it('rejects a repeated record search instead of choosing one of its values', () => {
+  expect(readRepositoryFilterValues('prs.q=a&prs.q=b', 'prs')).toBeNull();
+  expect(readRepositoryFilterValues('issues.q=a&issues.q=b', 'issues')).toBeNull();
+  expect(readRepositoryFilterValues('prs.q=a', 'prs')?.search).toBe('a');
 });

@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 const repository = fileURLToPath(new URL('../', import.meta.url));
 const resultSchema = z.object({
@@ -39,7 +39,8 @@ export function inspectArchitecture(root) {
     failures.push('Dependency scan exited without a complete result');
   return { root, sourceFiles, failures };
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// import.meta.main also holds when the script is reached through a symlinked path.
+if (import.meta.main) {
   const result = inspectArchitecture(process.cwd());
   console.log(JSON.stringify(result, null, 2));
   if (result.failures.length) process.exitCode = 1;

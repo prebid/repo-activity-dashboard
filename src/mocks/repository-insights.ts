@@ -1,6 +1,5 @@
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import type { OverviewRepository } from '@/models/repository-overview';
-import type { Count } from '@/models/reporting-measurement';
 import type {
   InsightSelection,
   RepositoryInsight,
@@ -8,28 +7,21 @@ import type {
   AuthorSelection,
   SupportingRecord,
 } from '@/models/repository-insights';
-import type {
-  RepositoryPullRequest,
-  RepositoryIssue,
-  RepositoryRecordList,
-} from '@/models/repository-records';
+import type { RepositoryRecordList } from '@/models/repository-records';
 import { repositoryRecordSample } from './repository-records';
 import { sampleAuthorType, sampleProfileUrl } from './repository-accounts';
-import { preparedPeriodSample } from './overview-period-sample';
-import { overviewAsOf } from './repository-overview';
+import { medianMergeDays, periodCount, periodCredits } from './repository-activity';
+import { worldRepository, type WorldPullRequest } from './repository-world';
+import { overviewAsOf } from './sample-clock';
 
-const creditedAccounts = {
-  agent: ['sample-prebid-agent-a', 'sample-prebid-agent-b'],
-  bot: ['sample-bot-a', 'sample-bot-b'],
-};
-function reference(row: RepositoryPullRequest | RepositoryIssue): SupportingRecord {
+function reference(row: WorldPullRequest): SupportingRecord {
   return {
     id: row.id,
     number: row.number,
     title: row.title,
     url: row.url,
     state: row.state,
-    ...('draft' in row ? { draft: row.draft } : {}),
+    draft: row.draft,
   };
 }
 export function repositoryInsightSample(
@@ -37,7 +29,7 @@ export function repositoryInsightSample(
   drilldown: RepositoryDrilldown & { selection: InsightSelection },
 ): RepositoryInsight {
   const { selection, returnTo } = drilldown;
-  const prepared = preparedPeriodSample(repo.id, selection.range)?.activity;
+  const world = worldRepository(repo.id);
   const context = {
     repository: { ...repo },
     asOf: overviewAsOf,
@@ -49,105 +41,75 @@ export function repositoryInsightSample(
       returnTo,
     });
     if (records.kind !== 'prs') throw new Error('Expected merged PR sample');
+    const merged = new Set(records.rows.map((row) => row.id));
     return {
       ...context,
       kind: 'duration',
       measurement: { ...records.measurement },
-      days: prepared
-        ? { ...prepared.mergeDuration.days }
-        : {
-            status: 'missing',
-            value: null,
-            reason: 'No prepared merge-duration sample for this date range.',
-          },
+      days: medianMergeDays(
+        world,
+        world.pullRequests.filter((row) => merged.has(row.id)),
+        selection.range,
+      ),
       records,
     };
   }
-  const measurement: Count = prepared
-    ? { ...prepared.counts[selection.metric] }
-    : { status: 'missing', value: null, reason: 'No prepared sample for this date range.' };
   if (selection.metric === 'prAuthors' || selection.metric === 'issueAuthors') {
     const isPr = selection.metric === 'prAuthors';
     const source = repositoryRecordSample(repo, {
       selection: { ...selection, metric: isPr ? 'prsOpened' : 'issuesOpened' },
       returnTo,
     });
+    // One author per login, whatever casing a record carries, as distinct-author counts use.
     const authors = new Map<string, RepositoryAuthor>();
-    if (measurement.value !== null)
-      for (const row of source.rows) {
-        const author = authors.get(row.author) ?? {
-          id: repo.id + ':' + row.author,
-          account: row.author,
-          profileUrl: sampleProfileUrl(row.author),
-          accountType: sampleAuthorType(row.author),
-          recordCount: 0,
-        };
-        author.recordCount += 1;
-        authors.set(row.author, author);
-      }
+    for (const row of source.rows) {
+      const key = row.author.toLowerCase();
+      const author = authors.get(key) ?? {
+        id: repo.id + ':' + key,
+        account: row.author,
+        profileUrl: sampleProfileUrl(row.author),
+        accountType: sampleAuthorType(row.author),
+        recordCount: 0,
+      };
+      author.recordCount += 1;
+      authors.set(key, author);
+    }
     return {
       ...context,
       kind: 'authors',
-      measurement,
+      measurement:
+        source.measurement.value === null
+          ? { ...source.measurement }
+          : periodCount(world, authors.size, selection.range),
       recordKind: isPr ? 'prs' : 'issues',
       rows: [...authors.values()].sort(
         (a, b) => b.recordCount - a.recordCount || a.account.localeCompare(b.account, 'en'),
       ),
     };
   }
-  const rows: Extract<RepositoryInsight, { kind: 'contributions' }>['rows'] = [];
-  if (measurement.value) {
-    const opened = repositoryRecordSample(repo, {
-      selection: { scope: 'period', metric: 'prsOpened', range: selection.range },
-      returnTo,
-    });
-    const merged = repositoryRecordSample(repo, {
-      selection: {
-        scope: 'period',
-        metric: 'prsMerged',
-        range: selection.range,
-        branch: repo.primaryBranch,
-      },
-      returnTo,
-    });
-    if (opened.kind !== 'prs' || merged.kind !== 'prs') throw new Error('Expected PR samples');
-    // Include older PRs: first-credit activity is not restricted to PRs created in this period.
-    const pool = [
-      ...merged.rows.filter((row) => row.createdAt < selection.range.start),
-      ...opened.rows,
-    ];
-    const accountType = selection.metric.startsWith('agent') ? 'agent' : 'bot';
-    const contribution = selection.metric.endsWith('ApprovalCredits') ? 'approval' : 'reviewer';
-    const start = Date.parse(selection.range.start),
-      end = Date.parse(selection.range.end) - Number(!selection.range.endInclusive);
-    if (Math.ceil(measurement.value / 2) > pool.length)
-      throw new Error('Insufficient prepared PRs for contribution sample');
-    for (let index = 0; index < measurement.value; index++) {
-      const pr = pool[Math.floor(index / 2)],
-        account = creditedAccounts[accountType][index % 2];
-      const first = Math.max(start, Date.parse(pr.createdAt)),
-        last = Math.min(end, pr.mergedAt ? Date.parse(pr.mergedAt) : end);
-      const firstCreditAt = new Date(
-        first + Math.floor((last - first) * (((index % 2) + 1) / 3)),
-      ).toISOString();
-      rows.push({
-        id: repo.id + ':' + account + ':' + pr.id + ':' + contribution,
-        account,
-        profileUrl: sampleProfileUrl(account),
-        accountType,
-        contribution,
-        firstCreditAt,
-        pr: reference(pr),
-      });
-    }
-  }
+  const credits = periodCredits(world, selection.metric, selection.range);
+  const measurement = periodCount(world, credits.length, selection.range);
   return {
     ...context,
     kind: 'contributions',
     measurement,
-    rows: rows.sort(
-      (a, b) => b.firstCreditAt.localeCompare(a.firstCreditAt) || a.id.localeCompare(b.id, 'en'),
-    ),
+    rows:
+      measurement.value === null
+        ? []
+        : credits
+            .map((credit) => ({
+              id: repo.id + ':' + credit.account + ':' + credit.pr.id + ':' + credit.contribution,
+              account: credit.account,
+              profileUrl: sampleProfileUrl(credit.account),
+              accountType: credit.accountType,
+              contribution: credit.contribution,
+              firstCreditAt: credit.firstCreditAt,
+              pr: reference(credit.pr),
+            }))
+            .sort(
+              (a, b) =>
+                b.firstCreditAt.localeCompare(a.firstCreditAt) || a.id.localeCompare(b.id, 'en'),
+            ),
   };
 }
 

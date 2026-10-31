@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest';
 import {
   repositoryColumnDefaults,
+  repositoryRecordColumnDefaults,
   repositoryColumnsKey,
   serializeRepositoryColumns,
 } from '@/lib/presentation/repository-page-preferences';
@@ -57,6 +58,19 @@ it('uses contextual defaults without conflating reviewers and approvals', () => 
     expect(defaults.mergedAt).toBe(metric === 'prsMerged');
     expect(defaults.closedAt).toBe(metric === 'issuesClosed');
   }
+});
+it('keeps Latest actor hidden on record pages and shown for supporting last-actor records', () => {
+  const lastBot = repositoryPageSample(repo, {
+    selection: { scope: 'current', metric: 'lastBot' },
+    returnTo: '/repos',
+  });
+  expect(repositoryColumnDefaults(lastBot)).toMatchObject({
+    latestActor: false,
+    latestActivity: true,
+  });
+  expect(repositoryRecordColumnDefaults({ scope: 'current', metric: 'lastBot' }).latestActor).toBe(
+    true,
+  );
 });
 it('ignores corrupt or retired preferences and isolates account, repository and tab keys', () => {
   for (const raw of [

@@ -1,10 +1,12 @@
 'use client';
+import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { ContributionControls } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
+import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
 import { contributionTableScope } from '@/lib/presentation/contribution-settings';
 import {
@@ -78,12 +80,14 @@ export function ContributionsScreen({
     options,
   );
   function navigate(event: MouseEvent<HTMLAnchorElement>, destination: () => string | null) {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-      return;
-    event.preventDefault();
-    controls.freezeReturn();
-    const href = destination();
-    if (href) router.push(href);
+    followCaptured(
+      event,
+      () => {
+        controls.freezeReturn();
+        return { href: destination() };
+      },
+      (href) => router.push(href),
+    );
   }
   return (
     <ContributionContent
@@ -119,6 +123,14 @@ export function ContributionsScreen({
             ),
           ),
         currentHref: controls.returnHref,
+        timelineHref: contributionTimelineEntry(controls.returnHref, controls.value),
+        onTimeline: (event) =>
+          navigate(event, () =>
+            contributionTimelineEntry(
+              window.location.pathname + window.location.search,
+              controls.value,
+            ),
+          ),
         onAreaFollow: (event, area) =>
           navigate(event, () => contributionHref(area, page.sample, undefined, controls.value)),
         onFollow: (event, focus) =>
