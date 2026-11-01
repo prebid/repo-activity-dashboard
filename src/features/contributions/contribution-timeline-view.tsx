@@ -5,6 +5,7 @@ import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
 import { contributionActorTypes } from '@/models/contributions';
 import { contributionMetricValues } from '@/lib/presentation/contribution-table-values';
+import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { accountTypeLabels } from '@/models/github-account';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { TimelineTable } from '@/components/reporting/timeline-table';
@@ -42,12 +43,7 @@ export function ContributionTimelineView({
   tableControls?: import('@/components/reporting/timeline-table').TimelineTableControls;
 }) {
   const { subject, focus, selection, includedAccountCount } = report.scope;
-  const title =
-    focus.kind === 'overview'
-      ? area === 'contributors'
-        ? 'Contributors'
-        : 'Companies'
-      : (subject?.name ?? 'Unmapped company');
+  const title = contributionSubjectTitle(area, focus.kind === 'overview' ? 'overview' : subject);
   const empty = !selection.repositoryIds.length
     ? 'No repositories selected'
     : !selection.actorTypes.length

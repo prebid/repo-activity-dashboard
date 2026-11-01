@@ -7,6 +7,7 @@ import { expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RepositoryPageView } from '@/features/repositories/repository-page-view';
+import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { OverviewMetric } from '@/features/repositories/overview-metric';
 import { useLocalTableController } from '@/components/tables/local-data-table';
 import { repositoryRecordSample } from '@/mocks/repository-records';
@@ -176,4 +177,41 @@ it('searches the full issue population by its visible Unassigned value', async (
   expect(screen.getByText('334 matching issues')).toBeVisible();
   expect(screen.getByText('Page 1 of 7')).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
+});
+
+it('marks the Timeline tab pending only while its handler navigation is pending', () => {
+  const page = selectRepositoryPage(
+    repositoryPageRecordsSample(
+      repositoryRecordSample(repo, {
+        selection: { scope: 'current', metric: 'totalOpenPrs' },
+        returnTo: '/repos',
+      }),
+    ),
+  );
+  function Controlled({ pending }: { pending: boolean }) {
+    const controller = useLocalTableController();
+    return (
+      <RepositoryPageView
+        page={page}
+        navigation={repositoryPageNavigationSample(page.repository)}
+        controller={controller}
+        controls={{
+          timelineHref: '/repos/prebidjs?timeline=1',
+          timelinePending: pending,
+          filters: null,
+          preferences: null,
+          visibility: { value: repositoryColumnDefaults(page), onChange: () => {} },
+        }}
+      />
+    );
+  }
+  const view = render(<Controlled pending />);
+  const tabs = screen.getByRole('navigation', { name: 'Repository lists' });
+  const state = (name: string | RegExp) =>
+    within(tabs).getByRole('link', { name }).lastElementChild?.getAttribute('data-pending');
+  expect(state('Timeline')).toBe('true');
+  expect(state(/^Pull requests/)).toBe('false');
+  expect(state(/^Issues/)).toBe('false');
+  view.rerender(<Controlled pending={false} />);
+  expect(state('Timeline')).toBe('false');
 });

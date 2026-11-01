@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import {
   formatCount,
+  formatDayNumber,
+  formatDays,
+  formatMeasure,
   formatAsOf,
   formatUtcDate,
   compareValues,
@@ -38,6 +41,31 @@ describe('presentation contracts', () => {
     expect(formatCount(0)).toBe('0');
     expect(formatCount(null)).toBe('—');
     expect(formatCount(12345)).toBe('12,345');
+  });
+  it.each([
+    ['null', null, '—', '—'],
+    ['0', 0, '0', '0 d'],
+    ['-0', -0, '0', '0 d'],
+    ['1e-9', 1e-9, '<0.1', '<0.1 d'],
+    ['0.0499', 0.0499, '<0.1', '<0.1 d'],
+    ['-0.01', -0.01, '-<0.1', '-<0.1 d'],
+    ['0.05', 0.05, '0.1', '0.1 d'],
+    ['4', 4, '4.0', '4.0 d'],
+    ['4.853', 4.853, '4.9', '4.9 d'],
+    ['8.3', 8.3, '8.3', '8.3 d'],
+    ['5.999', 5.999, '6.0', '6.0 d'],
+    ['1234.56', 1234.56, '1,234.6', '1,234.6 d'],
+    ['-0.5', -0.5, '-0.5', '-0.5 d'],
+  ] as const)('formats %s days at one decimal', (_, value, number, days) => {
+    expect(formatDayNumber(value)).toBe(number);
+    expect(formatDays(value)).toBe(days);
+    expect(formatMeasure(value, 'days')).toBe(days);
+  });
+  it('formats counts unchanged and days with their unit by measure', () => {
+    expect(formatMeasure(4.853, 'count')).toBe('4.853');
+    expect(formatMeasure(12345, 'count')).toBe('12,345');
+    expect(formatMeasure(null, 'count')).toBe('—');
+    expect(formatMeasure(61, 'days')).toBe('61.0 d');
   });
   it('formats provenance in UTC independently of the machine timezone', () => {
     expect(formatAsOf('not a date')).toBe('—');

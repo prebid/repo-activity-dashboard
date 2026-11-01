@@ -296,7 +296,7 @@ test('duration links show median and sample size separately with numeric sorting
   await page.getByRole('link', { name: '← All repositories', exact: true }).click();
   await periodRows(page).nth(1).locator('[data-column="medianMergeDays"] a').click();
   // A median can equal one PR's merge time, so read it from the summary.
-  await expect(scope.getByText('4.853 d', { exact: true })).toBeVisible();
+  await expect(scope.getByText('4.9 d', { exact: true })).toBeVisible();
   await expect(page.getByText('50 merged PRs', { exact: true })).toBeVisible();
   await page.goto(
     '/repos/prebid-mobile-ios-sdk?scope=period&metric=medianMergeDays&branch=main&' + range,
@@ -344,6 +344,37 @@ test('supporting detail tables stay accessible in both themes at desktop and nar
       }
     }
   }
+});
+test('an author record list keeps the repository record row padding whether linked or loaded directly', async ({
+  page,
+}) => {
+  await login(page);
+  // Stylesheet order differs between a document load and an in-app link, so an override
+  // that wins only on one order shows up as a mismatch here.
+  const cellPadding = (table: string) =>
+    page
+      .getByRole('table', { name: table, exact: true })
+      .locator('tbody td')
+      .first()
+      .evaluate((cell) => {
+        const style = getComputedStyle(cell);
+        return style.paddingTop + ' ' + style.paddingBottom;
+      });
+  await page.goto('/repos/prebidjs');
+  const repository = await cellPadding('Open pull requests');
+  await page.goto(
+    '/repos/prebidjs?scope=period&metric=prAuthors&from=2026-01-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1',
+  );
+  await page
+    .getByRole('textbox', { name: 'Search PR authors', exact: true })
+    .fill('sample-author-2');
+  await page.getByRole('link', { name: 'View 184 PRs by sample-author-2', exact: true }).click();
+  await expect(page.getByText('184 matching records', { exact: true })).toBeVisible();
+  const linked = await cellPadding('PRs by sample-author-2');
+  await page.reload();
+  await expect(page.getByText('184 matching records', { exact: true })).toBeVisible();
+  const loaded = await cellPadding('PRs by sample-author-2');
+  expect({ linked, loaded }).toEqual({ linked: repository, loaded: repository });
 });
 
 test('pending author search cannot cancel navigation while the destination response is delayed', async ({

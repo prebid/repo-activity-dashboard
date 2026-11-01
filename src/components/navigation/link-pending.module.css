@@ -1,0 +1,33 @@
+/* The bar is positioned inside its own link, so neighbouring tabs and links never move. */
+a:has(> .indicator) {
+  position: relative;
+}
+a:has(> .indicator[data-pending='true']) {
+  cursor: progress;
+}
+.indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  pointer-events: none;
+}
+.indicator[data-pending='true'] {
+  background: var(--prebid-brand-blue);
+  transform-origin: left;
+  animation: sweep 0.9s ease-in-out infinite alternate;
+}
+@keyframes sweep {
+  from {
+    transform: scaleX(0.25);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .indicator[data-pending='true'] {
+    animation: none;
+  }
+}

@@ -9,6 +9,7 @@ import {
 } from '@/lib/presentation/timeline-navigation';
 import type { RepositoryPageSource, RepositoryPageNavigation } from '@/models/repository-page';
 import { useTableController } from '@/lib/navigation/use-table-controller';
+import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-controls';
 import {
   selectRepositoryPage,
@@ -47,6 +48,7 @@ export function RepositoryPageScreen({
   navigation: RepositoryPageNavigation;
 }) {
   const router = useRouter();
+  const pendingNavigation = usePendingNavigation();
   const search = useSearchParams().toString();
   const controller = useTableController({
     queryKey: source.kind,
@@ -126,8 +128,9 @@ export function RepositoryPageScreen({
                 ),
               };
             },
-            (href) => router.push(href),
+            (href) => pendingNavigation.push(href, 'timeline'),
           ),
+        timelinePending: pendingNavigation.pendingKey === 'timeline',
         charts: (
           <RepositoryCharts
             page={page}

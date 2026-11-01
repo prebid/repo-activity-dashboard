@@ -58,6 +58,10 @@ export function readContributionLayoutQuery(params: URLSearchParams): {
     breakdown: view as CompanyBreakdown,
   };
 }
+export const companyBreakdownLabels: Record<CompanyBreakdown, string> = {
+  members: 'By contributor',
+  repositories: 'By repository',
+};
 export function companyBreakdownHref(path: string, search: string, view: CompanyBreakdown): string {
   const params = new URLSearchParams(search);
   if (view === 'members') params.delete('view');

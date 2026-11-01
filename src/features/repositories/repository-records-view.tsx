@@ -3,7 +3,7 @@ import { accountTypeLabels } from '@/models/github-account';
 import { useState } from 'react';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
-import { formatCount, formatUtcDate } from '@/lib/presentation/format';
+import { formatDays, formatUtcDate } from '@/lib/presentation/format';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import type {
   RepositoryRecordList,
@@ -64,10 +64,7 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
     align: 'right',
     description: 'Elapsed calendar days from PR creation to merge.',
     value: (row) => mergeElapsedDays(row.createdAt, row.mergedAt),
-    cell: (row) => {
-      const days = mergeElapsedDays(row.createdAt, row.mergedAt);
-      return days === null ? '—' : formatCount(days) + ' d';
-    },
+    cell: (row) => formatDays(mergeElapsedDays(row.createdAt, row.mergedAt)),
   },
   {
     id: 'baseBranch',

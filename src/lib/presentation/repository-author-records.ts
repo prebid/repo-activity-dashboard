@@ -1,5 +1,6 @@
 import type { DrilldownSelection, RepositoryDrilldown } from '@/models/repository-drilldown';
 import type { OverviewRepository } from '@/models/repository-overview';
+import type { RecordSelection } from '@/models/repository-records';
 import {
   authorAccountSchema,
   authorTableColumnIds,
@@ -26,6 +27,14 @@ export function isAuthorSelection(selection: DrilldownSelection): selection is A
     selection.scope === 'period' &&
     (selection.metric === 'prAuthors' || selection.metric === 'issueAuthors')
   );
+}
+/** The period record list an author list counts, which an author's page narrows to one author. */
+export function authorRecordSelection(selection: AuthorSelection): RecordSelection {
+  return {
+    scope: 'period',
+    metric: selection.metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
+    range: selection.range,
+  };
 }
 export function repositoryAuthorsHref(
   repo: OverviewRepository,

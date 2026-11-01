@@ -147,7 +147,7 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
   await page.screenshot({ path: info.outputPath('matrix-mixed.png'), fullPage: true });
   await page.goto('/repos?timeline=1&timeline.metric=medianMergeDays');
   await ready();
-  await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('4.853 d');
+  await expect(row('Prebid.js').getByRole('cell').nth(9)).toHaveText('4.9 d');
   await expect(row('Prebid.js').getByRole('cell').nth(10)).toHaveText('8.3 d');
   await page.goto(
     '/repos?timeline=1&timeline.metric=totalOpenPrs&timeline.group=day&period=custom&from=2026-10-11&through=2026-10-21',

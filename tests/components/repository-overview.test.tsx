@@ -66,6 +66,14 @@ it('renders signed differences only from complete values, including durations an
   expect(screen.getByText('-0.5 d')).toBeVisible();
   view.rerender(
     <MeasurementDifference
+      first={{ status: 'complete', value: 10 }}
+      second={{ status: 'complete', value: 6 }}
+      unit="days"
+    />,
+  );
+  expect(screen.getByText('+4.0 d')).toBeVisible();
+  view.rerender(
+    <MeasurementDifference
       first={{ status: 'partial', value: 3, reason: 'Incomplete' }}
       second={{ status: 'complete', value: 4 }}
     />,
@@ -485,11 +493,23 @@ it('renders metric uncertainty, details, units and neutral comparisons without f
         detail="38 merged PRs"
         comparison={{ status: 'complete', value: 7 }}
       />
+      <MeasurementValue
+        measurement={{ status: 'complete', value: 4.853 }}
+        unit="days"
+        comparison={{ status: 'complete', value: 2 }}
+      />
     </>,
   );
   expect(screen.getByText('Partial value. Incomplete sample')).toBeInTheDocument();
   expect(screen.getByText('5.5 d')).toBeVisible();
   expect(screen.getByText(/-1.5 d/)).toBeVisible();
+  expect(screen.getByTitle('Previous period: 7.0 d')).toHaveTextContent(
+    'Change from comparison period: -1.5 d Previous period value: 7.0 days',
+  );
+  expect(screen.getByText('4.9 d')).toBeVisible();
+  expect(screen.getByTitle('Previous period: 2.0 d')).toHaveTextContent(
+    'Change from comparison period: +2.9 d Previous period value: 2.0 days',
+  );
   expect(screen.getByText('No merges')).toBeInTheDocument();
   expect(screen.getByText('38 merged PRs')).toBeInTheDocument();
 });

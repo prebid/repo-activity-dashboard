@@ -1,4 +1,5 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -26,6 +27,7 @@ export function RepositoryHeader({
   parentLink,
   timelineHref,
   onTimeline,
+  timelinePending,
 }: {
   repository: OverviewRepository;
   asOf: string;
@@ -34,6 +36,8 @@ export function RepositoryHeader({
   activeKind?: 'prs' | 'issues' | 'timeline';
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
+  /** Set while a navigation started by `onTimeline` is pending. */
+  timelinePending?: boolean;
   parentLink?: { href: string; label: string };
 }) {
   const timelineLink =
@@ -46,12 +50,14 @@ export function RepositoryHeader({
         <Link prefetch={false} href={returnTo} aria-label="← All repositories">
           <ArrowLeft size={14} aria-hidden="true" />
           All repositories
+          <LinkPending />
         </Link>
         {parentLink && (
           <>
             <span aria-hidden="true">/</span>
             <Link prefetch={false} href={parentLink.href}>
               ← {parentLink.label}
+              <LinkPending />
             </Link>
           </>
         )}
@@ -112,6 +118,7 @@ export function RepositoryHeader({
                 <span className={styles.countLabel}>open</span>
               </span>
             )}
+            <LinkPending />
           </Link>
         ))}
         {timelineLink && (
@@ -123,6 +130,8 @@ export function RepositoryHeader({
           >
             <CalendarDays size={16} aria-hidden="true" />
             <span>Timeline</span>
+            {/* A click `onTimeline` leaves to the link reports through the link's own status. */}
+            <LinkPending pending={timelinePending || undefined} />
           </Link>
         )}
         {!timelineLink && (

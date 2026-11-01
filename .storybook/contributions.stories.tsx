@@ -10,6 +10,7 @@ import {
   selectContributions,
   defaultContributionSelection,
 } from '../src/lib/presentation/contributions';
+import { companyBreakdownLabels } from '../src/lib/presentation/contribution-navigation';
 import {
   contributionDefaultSort,
   contributionActorTypes,
@@ -93,7 +94,7 @@ function Preview({
                     controller.update({ page: 1, search: '' });
                   }}
                 >
-                  {value === 'members' ? 'By contributor' : 'By repository'}
+                  {companyBreakdownLabels[value]}
                 </button>
               ))}
             </nav>

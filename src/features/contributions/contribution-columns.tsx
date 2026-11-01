@@ -42,6 +42,8 @@ export interface ContributionLinks {
   currentHref: string;
   timelineHref?: string | null;
   onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  /** The tab whose handler-started navigation is pending: an area, or `timeline` for Over time. */
+  pendingTarget?: string | null;
   context?: ContributionContext;
   onMetric?: (
     event: MouseEvent<HTMLAnchorElement>,

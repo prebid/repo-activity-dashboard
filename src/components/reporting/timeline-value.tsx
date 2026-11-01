@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import type { Measurement } from '@/models/reporting-measurement';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import { formatCount } from '@/lib/presentation/format';
+import { formatMeasure } from '@/lib/presentation/format';
 import styles from './timeline-layout.module.css';
 
 export const timelineFooterLegend = 'UTC · — unavailable or not applicable · * incomplete value';
@@ -44,8 +44,7 @@ export function timelineValueName(
   return (
     name +
     ': ' +
-    formatCount(measurement.value) +
-    (unit === 'days' ? ' d' : '') +
+    formatMeasure(measurement.value, unit) +
     (measurement.status === 'partial' ? ', partial value. ' + measurement.reason : '')
   );
 }

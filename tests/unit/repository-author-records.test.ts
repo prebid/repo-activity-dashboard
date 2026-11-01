@@ -3,6 +3,7 @@ import {
   repositoryAuthorRecordsHref,
   repositoryAuthorsHref,
   authorListQuery,
+  authorRecordSelection,
   isAuthorSelection,
   readAuthorAccountSegment,
 } from '@/lib/presentation/repository-author-records';
@@ -62,6 +63,18 @@ it('validates author handles and keeps malformed author-table state bounded', ()
   ).toEqual({ search: 'abc', sort: '', descending: false, page: 1 });
   expect(isAuthorSelection(parent.selection)).toBe(true);
   expect(isAuthorSelection({ ...parent.selection, metric: 'agentFeedbackCredits' })).toBe(false);
+});
+it('expands an author list into the period records it counts', () => {
+  expect(authorRecordSelection(parent.selection)).toEqual({
+    scope: 'period',
+    metric: 'prsOpened',
+    range,
+  });
+  expect(authorRecordSelection({ ...parent.selection, metric: 'issueAuthors' })).toEqual({
+    scope: 'period',
+    metric: 'issuesOpened',
+    range,
+  });
 });
 it('reconciles high-volume authors without expanding their records into the overview', () => {
   const recount = recountActivity(repo.id, range).counts;

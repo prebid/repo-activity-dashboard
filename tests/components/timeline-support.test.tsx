@@ -87,7 +87,7 @@ it('connects known and zero cells but keeps unavailable measurements unlinked', 
     expect.stringContaining('prsOpened'),
   );
   expect(screen.queryByRole('link', { name: /Median, Jan/ })).not.toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Median, Oct 2026: 31 d' })).toBeVisible();
+  expect(screen.getByRole('link', { name: 'Median, Oct 2026: 31.0 d' })).toBeVisible();
   expect(screen.getByRole('button', { name: 'Export CSV' })).toBeVisible();
 });
 it('renders unique authors and source-specific PRs with GitHub destinations and the shared CSV dialog', async () => {

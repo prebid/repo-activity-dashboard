@@ -1,5 +1,6 @@
 import { test, expect } from './fixtures';
 import type { Page } from '@playwright/test';
+import { viewsFor } from '../support/views';
 
 type Mode = 'wide' | 'contained';
 
@@ -11,25 +12,8 @@ function gutter(width: number, mode: Mode) {
   return mode === 'contained' ? base * 3 : base;
 }
 
-const range = 'from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1';
 // One entry per page type and tab reachable from the main navigation.
-const views = [
-  '/repos',
-  '/repos?timeline=1',
-  '/repos/prebidjs',
-  '/repos/prebidjs?scope=current&metric=openIssues',
-  '/repos/prebidjs?timeline=1',
-  '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&' + range,
-  '/contributors',
-  '/contributors?timeline=1',
-  '/companies',
-  '/companies?timeline=1',
-  '/contributors/account-alice',
-  '/contributors/account-alice?timeline=1',
-  '/companies/id/company-acme',
-  '/companies/id/company-acme?view=repositories',
-  '/companies/id/company-acme?timeline=1',
-];
+const views = viewsFor('layout-width').map((view) => view.path);
 
 async function login(page: Page) {
   await page.goto('/auth/login');

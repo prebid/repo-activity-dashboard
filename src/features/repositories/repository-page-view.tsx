@@ -8,6 +8,7 @@ import { requiresNonDraftPr } from '@/lib/presentation/repository-page-rules';
 import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { DataTable } from '@/components/tables/data-table';
 import { PageState } from '@/components/feedback/page-state';
+import { LinkPending } from '@/components/navigation/link-pending';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
@@ -23,6 +24,7 @@ import styles from './repository-page.module.css';
 export interface RepositoryPageControls {
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
+  timelinePending?: boolean;
   filters: React.ReactNode;
   charts?: React.ReactNode;
   scope?: React.ReactNode;
@@ -119,6 +121,7 @@ export function RepositoryPageView({
         activeKind={page.kind}
         timelineHref={controls?.timelineHref}
         onTimeline={controls?.onTimeline}
+        timelinePending={controls?.timelinePending}
         parentLink={
           page.author
             ? {
@@ -175,6 +178,7 @@ export function RepositoryPageView({
                 })}
               >
                 All open {page.kind === 'prs' ? 'PRs' : 'issues'}
+                <LinkPending />
               </Link>
             )}
           </div>

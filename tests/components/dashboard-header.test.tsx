@@ -75,3 +75,14 @@ it('lists exactly the enabled repositories in the Repositories menu', async () =
     repositoryCatalog.filter((repo) => repo.enabled).map((repo) => repo.displayName),
   );
 });
+it('gives each header destination an idle pending indicator, but not the menu items that close on click', async () => {
+  header('/repos', true);
+  for (const name of ['Repository activity', 'Overview', 'Contributions', 'Accounts'])
+    expect(screen.getByRole('link', { name }).lastElementChild).toHaveAttribute(
+      'data-pending',
+      'false',
+    );
+  await userEvent.click(screen.getByRole('button', { name: /Repositories/ }));
+  for (const item of screen.getAllByRole('menuitem'))
+    expect(item.querySelector('[data-link-pending]')).toBeNull();
+});

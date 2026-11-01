@@ -18,6 +18,7 @@ export function RepositoryDrilldownFrame({
   navigation,
   timelineHref,
   onTimeline,
+  timelinePending,
 }: {
   context: { repository: OverviewRepository; asOf: string; drilldown: RepositoryDrilldown };
   title: string;
@@ -28,6 +29,7 @@ export function RepositoryDrilldownFrame({
   navigation?: RepositoryPageNavigation;
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
+  timelinePending?: boolean;
 }) {
   const { repository, asOf, drilldown } = context,
     selection = drilldown.selection;
@@ -42,6 +44,7 @@ export function RepositoryDrilldownFrame({
         navigation={navigation}
         timelineHref={timelineHref}
         onTimeline={onTimeline}
+        timelinePending={timelinePending}
       />
       <p className={styles.supportingTitle}>{title}</p>
       <div className={styles.scope} aria-label="Selected repository scope" role="region">

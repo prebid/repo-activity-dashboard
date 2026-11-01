@@ -30,7 +30,8 @@
     "preview:storybook": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6007 --strictPort",
     "build:preview": "node scripts/app.mjs build preview",
     "start:preview": "node scripts/app.mjs start preview",
-    "build:production:fixture": "node scripts/build-production-fixture.mjs"
+    "build:production:fixture": "node scripts/build-production-fixture.mjs",
+    "capture:views": "node scripts/capture-views.mjs"
   },
   "license": "Apache-2.0",
   "devDependencies": {

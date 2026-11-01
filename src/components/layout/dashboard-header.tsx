@@ -1,6 +1,5 @@
 'use client';
 import { useState, type ReactNode } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import type { RepositoryDefinition } from '@/config/repositories';
@@ -12,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import styles from './dashboard.module.css';
+import { BrandLogo } from './brand-logo';
+import { LinkPending } from '@/components/navigation/link-pending';
 import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
 
 export function DashboardHeader({
@@ -42,7 +43,8 @@ export function DashboardHeader({
           aria-label="Repository activity"
           className={styles.brand}
         >
-          <Image src="/prebid-logo.png" alt="Prebid" width={143} height={25} priority />
+          <BrandLogo size="header" />
+          <LinkPending />
         </Link>
         <nav aria-label="Main navigation" className={styles.navigation}>
           <Link
@@ -52,6 +54,7 @@ export function DashboardHeader({
             aria-current={activePath === '/repos' ? 'page' : undefined}
           >
             Overview
+            <LinkPending />
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -85,6 +88,7 @@ export function DashboardHeader({
             aria-current={activePath === '/contributors' ? 'page' : undefined}
           >
             Contributions
+            <LinkPending />
           </Link>
         </nav>
         <div className={styles.account}>
@@ -97,6 +101,7 @@ export function DashboardHeader({
                 aria-current={activePath.startsWith('/admin') ? 'page' : undefined}
               >
                 Accounts
+                <LinkPending />
               </Link>
             </nav>
           )}

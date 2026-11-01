@@ -5,6 +5,19 @@ import { PageState } from '@/components/feedback/page-state';
 import Link from 'next/link';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
+import { repositoryPageMetadata } from '@/server/page-metadata';
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<PageSearchParams>;
+}) {
+  return repositoryPageMetadata(
+    (await params).slug,
+    new URLSearchParams(encodeSearchParams(await searchParams)),
+  );
+}
 export default async function RepositoryPage({
   params,
   searchParams,

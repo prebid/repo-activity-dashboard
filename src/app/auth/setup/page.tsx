@@ -1,4 +1,6 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+export const metadata: Metadata = { title: 'Account access' };
 export default function SetupPage() {
   return (
     <section className="mx-auto max-w-md space-y-4 rounded-lg border bg-card p-8">

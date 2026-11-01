@@ -30,17 +30,23 @@ export async function allRepositories() {
   const viewer = await requireViewer();
   return { viewer, samples: repositoryOverviewSamples() };
 }
-async function repositoryContext(slug: string) {
-  const viewer = await requireViewer();
+/** The enabled catalog repository a route slug names, or null when the route is not found. */
+export function catalogRepository(slug: string) {
   const repo = repositoryCatalog.find((r) => r.slug === slug && r.enabled);
-  if (!repo) notFound();
+  if (!repo) return null;
   const identity = {
     id: repo.id,
     slug: repo.slug,
     name: repo.displayName,
     primaryBranch: reportingBranchSchema.parse(repo.primaryBranch),
   };
-  return { viewer, repo, identity };
+  return { repo, identity };
+}
+async function repositoryContext(slug: string) {
+  const viewer = await requireViewer();
+  const found = catalogRepository(slug);
+  if (!found) notFound();
+  return { viewer, ...found };
 }
 export async function repositoryDetail(slug: string, params = new URLSearchParams()) {
   const { viewer, repo, identity } = await repositoryContext(slug);

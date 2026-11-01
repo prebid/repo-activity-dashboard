@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AuthFrame } from '@/features/authentication/auth-frame';
 import styles from '@/features/authentication/authentication.module.css';
+export const metadata: Metadata = { title: 'Unable to sign in' };
 export default function AuthErrorPage() {
   return (
     <AuthFrame>

@@ -1,4 +1,5 @@
 import { viewTabsClassName } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
 import type { TimelineSupportContext } from '@/models/timeline-support';
 import { timelineMetricLabel, timelineMetricUnit } from '@/lib/presentation/timeline-metric-label';
@@ -24,10 +25,12 @@ export function TimelineSupportFrame({
       <nav className={viewTabsClassName} aria-label="Supporting view navigation">
         <Link prefetch={false} href={context.parentHref}>
           ← Back to timeline
+          <LinkPending />
         </Link>
         {authorBack && (
           <Link prefetch={false} href={authorBack}>
             ← Back to authors
+            <LinkPending />
           </Link>
         )}
       </nav>

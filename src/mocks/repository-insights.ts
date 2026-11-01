@@ -8,6 +8,7 @@ import type {
   SupportingRecord,
 } from '@/models/repository-insights';
 import type { RepositoryRecordList } from '@/models/repository-records';
+import { authorRecordSelection } from '@/lib/presentation/repository-author-records';
 import { repositoryRecordSample } from './repository-records';
 import { sampleAuthorType, sampleProfileUrl } from './repository-accounts';
 import { medianMergeDays, periodCount, periodCredits } from './repository-activity';
@@ -121,11 +122,7 @@ export function repositoryAuthorRecordSample(
   returnToAuthors: string,
 ): RepositoryRecordList {
   const source = repositoryRecordSample(repo, {
-    selection: {
-      scope: 'period',
-      metric: drilldown.selection.metric === 'prAuthors' ? 'prsOpened' : 'issuesOpened',
-      range: drilldown.selection.range,
-    },
+    selection: authorRecordSelection(drilldown.selection),
     returnTo: drilldown.returnTo,
   });
   const author = { account, returnTo: returnToAuthors };

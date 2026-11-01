@@ -1,4 +1,5 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
 import { ArrowUpRight, CalendarDays, Table2 } from 'lucide-react';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -45,6 +46,7 @@ export function AllRepositoriesTabs({
       >
         <Table2 size={16} aria-hidden="true" />
         Summary
+        <LinkPending />
       </Link>
       {timelineHref ? (
         <Link
@@ -54,6 +56,7 @@ export function AllRepositoriesTabs({
         >
           <CalendarDays size={16} aria-hidden="true" />
           Timeline
+          <LinkPending />
         </Link>
       ) : (
         <DisabledTab reason="This view is too large for a timeline link. Reduce the selection and try again.">

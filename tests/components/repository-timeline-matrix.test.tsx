@@ -153,8 +153,8 @@ it('keeps known zero, incomplete zero, missing and duration values distinct', ()
   expect(partial.querySelector('td:nth-child(2) sup')).toHaveTextContent('*');
   view.rerender(preview(report('reference', 'medianMergeDays')));
   const cells = within(repoRow('Prebid.js')).getAllByRole('cell');
-  expect(cells[9]).toHaveTextContent('5 d');
-  expect(cells[10]).toHaveTextContent('31 d');
+  expect(cells[9]).toHaveTextContent('5.0 d');
+  expect(cells[10]).toHaveTextContent('31.0 d');
   expect(cells[1]).toHaveTextContent('—');
 });
 it('explains snapshot cutoffs in shared column help and keeps empty selection separate', async () => {

@@ -34,7 +34,7 @@ export default defineConfig({
           branches: 100,
         },
         // The dashboard frame, header and width preference wrap every report page.
-        'src/{components/layout/{dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx}':
+        'src/{components/layout/{brand-logo,dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx}':
           { perFile: true, lines: 100, statements: 100, functions: 100, branches: 100 },
         'src/features/authentication/{login-view,change-password-view}.tsx': {
           perFile: true,
@@ -89,6 +89,14 @@ export default defineConfig({
           branches: 90,
           statements: 94,
           functions: 70,
+        },
+        // Decides which titles anonymous and redirected responses carry.
+        'src/server/page-metadata.ts': {
+          perFile: true,
+          lines: 100,
+          branches: 100,
+          statements: 100,
+          functions: 100,
         },
         'src/components/{navigation/**,exports/csv-download.ts,reporting/timeline-{table,value,support-frame,csv-download}.{ts,tsx}}':
           { perFile: true, lines: 95, branches: 85, statements: 95, functions: 90 },

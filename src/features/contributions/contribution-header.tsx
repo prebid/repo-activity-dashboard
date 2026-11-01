@@ -1,4 +1,5 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import { countLabel } from '@/lib/presentation/format';
 import { contributionActorTypes } from '@/models/contributions';
 import { accountTypeLabels } from '@/models/github-account';
@@ -10,31 +11,29 @@ import type { ContributionPage } from '@/models/contribution-page';
 import { formatAsOf } from '@/lib/presentation/format';
 import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
+import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { EntityLink, type ContributionLinks } from './contribution-columns';
 
 import styles from './contributions.module.css';
-
-export function contributionTitle(page: ContributionPage): string {
-  return page.report.kind === 'overview'
-    ? page.area === 'contributors'
-      ? 'Contributors'
-      : 'Companies'
-    : page.report.kind === 'contributor'
-      ? page.report.account.name
-      : (page.report.company?.name ?? 'Unmapped company');
-}
 
 /** Report | Over time, shared by the report header and the Over time view. */
 /** A report tab, or a focusable unavailable tab that states why when no link fits. */
 function ContributionTab({
   href,
   reason,
+  pending,
   children,
   ...props
-}: Omit<ComponentProps<typeof Link>, 'href'> & { href: string | null; reason: string }) {
+}: Omit<ComponentProps<typeof Link>, 'href'> & {
+  href: string | null;
+  reason: string;
+  pending?: boolean;
+}) {
   return href ? (
     <Link prefetch={false} href={href} {...props}>
       {children}
+      {/* A click the handler leaves to the link reports through the link's own status. */}
+      <LinkPending pending={pending || undefined} />
     </Link>
   ) : (
     <DisabledTab reason={reason}>{children}</DisabledTab>
@@ -45,11 +44,14 @@ export function ContributionReportViewTabs({
   reportHref,
   timelineHref,
   onTimeline,
+  timelinePending,
 }: {
   active: 'report' | 'timeline';
   reportHref: string;
   timelineHref: string | null;
   onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  /** Set while a navigation started by `onTimeline` is pending. */
+  timelinePending?: boolean;
 }) {
   return (
     <ViewTabs label="Report view">
@@ -60,11 +62,13 @@ export function ContributionReportViewTabs({
       >
         <Table2 size={16} aria-hidden="true" />
         Report
+        <LinkPending />
       </Link>
       <ContributionTab
         href={timelineHref}
         reason="This selection is too large for an Over time link. Narrow the filters or search and try again."
         onClick={onTimeline}
+        pending={timelinePending}
         aria-current={active === 'timeline' ? 'page' : undefined}
       >
         <CalendarDays size={16} aria-hidden="true" />
@@ -84,13 +88,21 @@ export function ContributionHeader({
 }) {
   const report = page.report,
     context = report.context;
-  const title = contributionTitle(page);
+  const title = contributionSubjectTitle(
+    page.area,
+    report.kind === 'overview'
+      ? 'overview'
+      : report.kind === 'contributor'
+        ? report.account
+        : report.company,
+  );
   return (
     <>
       {report.kind !== 'overview' && (
         <nav className={styles.breadcrumbs} aria-label="Contribution breadcrumb">
           <Link prefetch={false} href={page.returnTo}>
             <ArrowLeft size={14} aria-hidden="true" /> Back to report
+            <LinkPending />
           </Link>
         </nav>
       )}
@@ -139,6 +151,7 @@ export function ContributionHeader({
             href={contributionHref('contributors', page.sample, undefined, links.settings)}
             reason="This selection is too large for a Contributors link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'contributors')}
+            pending={links.pendingTarget === 'contributors'}
             aria-current={page.area === 'contributors' ? 'page' : undefined}
           >
             <Users size={16} aria-hidden="true" /> Contributors{' '}
@@ -148,6 +161,7 @@ export function ContributionHeader({
             href={contributionHref('companies', page.sample, undefined, links.settings)}
             reason="This selection is too large for a Companies link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'companies')}
+            pending={links.pendingTarget === 'companies'}
             aria-current={page.area === 'companies' ? 'page' : undefined}
           >
             <Building2 size={16} aria-hidden="true" /> Companies{' '}
@@ -161,6 +175,7 @@ export function ContributionHeader({
           reportHref={links.currentHref}
           timelineHref={links.timelineHref}
           onTimeline={links.onTimeline}
+          timelinePending={links.pendingTarget === 'timeline'}
         />
       )}
       <section className={styles.scope} aria-label="Contribution report scope">

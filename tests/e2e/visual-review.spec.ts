@@ -1,27 +1,15 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
+import { inventory, viewsFor, type InventoryId } from '../support/views';
 
 const range = 'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
-const views = [
-  [
-    'comparison',
-    '/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90',
-  ],
-  ['prs', '/repos/prebidjs?scope=current&metric=humanApprovals0'],
-  ['issues', '/repos/prebiddocs?scope=current&metric=openIssues'],
-  ['authors', '/repos/prebidjs?scope=period&metric=prAuthors&' + range],
-  [
-    'author-prs',
-    '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
-  ],
-  [
-    'author-issues',
-    '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
-  ],
-  ['credits', '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&' + range],
-  ['duration', '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&' + range],
-] as const;
+const activityViews = viewsFor('activity-region');
+function inventoryView(id: InventoryId) {
+  const view = inventory.find((entry) => entry.id === id);
+  if (!view) throw new Error('No inventory view ' + id);
+  return view;
+}
 async function login(page: Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -35,10 +23,10 @@ async function theme(page: Page, value: 'dark' | 'light') {
   await expect(page.locator('html')).toHaveClass(new RegExp(value));
 }
 
-for (const [name, path] of views) {
-  test('review matrix at tablet and laptop widths: ' + name, async ({ page }, testInfo) => {
+for (const view of viewsFor('visual-review')) {
+  test('review matrix at tablet and laptop widths: ' + view.id, async ({ page }, testInfo) => {
     await login(page);
-    await page.goto(path);
+    await page.goto(view.path);
     await expect(page.getByRole('table').first()).toBeVisible();
     // SSR markup can appear before a large record payload has hydrated. Exercise a
     // table-owned control before axe adds its own nodes to the document.
@@ -58,9 +46,9 @@ for (const [name, path] of views) {
         await page.mouse.move(0, 0);
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.screenshot({
-          path: testInfo.outputPath(name + '-' + mode + '-' + width + '.png'),
+          path: testInfo.outputPath(view.id + '-' + mode + '-' + width + '.png'),
         });
-        if (name === 'comparison')
+        if (activityViews.includes(view))
           await page
             .getByRole('region', { name: 'Period activity', exact: true })
             .screenshot({ path: testInfo.outputPath('activity-' + mode + '-' + width + '.png') });
@@ -84,7 +72,7 @@ test('large issue lists retain their server-rendered dashboard through hard navi
     observer.observe(document, { childList: true, subtree: true });
   });
   await login(page);
-  const path = '/repos/prebiddocs?scope=current&metric=openIssues';
+  const path = inventoryView('repo-docs-open-issues').path;
   for (const phase of ['initial', 'saved-theme-reload', 'cross-route'] as const) {
     if (phase === 'saved-theme-reload') await theme(page, 'light');
     if (phase === 'cross-route') {
@@ -196,10 +184,8 @@ test.describe('200 percent equivalent reflow', () => {
       width: 640,
       ratio: 2,
     });
-    for (const [name, path] of views.filter(([name]) =>
-      ['comparison', 'authors', 'duration'].includes(name),
-    )) {
-      await page.goto(path);
+    for (const view of viewsFor('reflow')) {
+      await page.goto(view.path);
       await expect(page.getByRole('table').first()).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
         640,
@@ -245,7 +231,7 @@ test.describe('200 percent equivalent reflow', () => {
         await page.keyboard.up('ArrowRight');
       }
       expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
-      await page.screenshot({ path: testInfo.outputPath(name + '-200-percent-equivalent.png') });
+      await page.screenshot({ path: testInfo.outputPath(view.id + '-200-percent-equivalent.png') });
     }
   });
 });

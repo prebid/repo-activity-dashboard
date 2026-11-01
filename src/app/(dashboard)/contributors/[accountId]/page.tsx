@@ -2,7 +2,22 @@ import { notFound } from 'next/navigation';
 import { ContributionRoute } from '@/app/_screens/contribution-route';
 import { requireViewer } from '@/lib/auth/viewer';
 import { decodeRouteSegment } from '@/lib/presentation/navigation';
-import type { PageSearchParams } from '@/lib/presentation/search-params';
+import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
+import { contributionPageMetadata } from '@/server/page-metadata';
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ accountId: string }>;
+  searchParams: Promise<PageSearchParams>;
+}) {
+  const accountId = decodeRouteSegment((await params).accountId);
+  return contributionPageMetadata(
+    'contributors',
+    new URLSearchParams(encodeSearchParams(await searchParams)),
+    accountId === null ? null : { kind: 'contributor', accountId },
+  );
+}
 export default async function Page({
   params,
   searchParams,
