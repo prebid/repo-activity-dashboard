@@ -1,0 +1,941 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "file": "src/app/globals.css",
+      "context": "@theme inline",
+      "selector": "",
+      "property": "--radius-sm",
+      "value": "calc(var(--prebid-radius-control) - 2px)",
+      "phase": "P2",
+      "reason": "rounded-sm stays 6px until P2 sets control radii; the specification defines only 8px and 12px"
+    },
+    {
+      "file": "src/components/charts/selectable-bars.module.css",
+      "context": "",
+      "selector": ".track",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P2",
+      "reason": "Bar and track radii below 8px: P2 decides whether controls need a small radius token"
+    },
+    {
+      "file": "src/components/charts/selectable-bars.module.css",
+      "context": "",
+      "selector": ".bar",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P2",
+      "reason": "Bar and track radii below 8px: P2 decides whether controls need a small radius token"
+    },
+    {
+      "file": "src/components/charts/selectable-bars.module.css",
+      "context": "",
+      "selector": ".horizontal button, .vertical button",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P2",
+      "reason": "Bar and track radii below 8px: P2 decides whether controls need a small radius token"
+    },
+    {
+      "file": "src/components/charts/selectable-bars.module.css",
+      "context": "",
+      "selector": ".scroll:focus-visible",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P2",
+      "reason": "Bar and track radii below 8px: P2 decides whether controls need a small radius token"
+    },
+    {
+      "file": "src/components/github/account-link.module.css",
+      "context": "",
+      "selector": ".link:focus-visible",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); identity (TYPE-10, Avatar)"
+    },
+    {
+      "file": "src/components/layout/dashboard.module.css",
+      "context": "",
+      "selector": ".brand",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
+    },
+    {
+      "file": "src/components/layout/dashboard.module.css",
+      "context": "",
+      "selector": ".navItem[data-active='true']::after, .navItem[aria-current='page']::after",
+      "property": "border-radius",
+      "value": "3px 3px 0 0",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
+    },
+    {
+      "file": "src/components/layout/theme-menu.module.css",
+      "context": "",
+      "selector": ".option",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); header menu (SHELL-09)"
+    },
+    {
+      "file": "src/components/navigation/view-tabs.module.css",
+      "context": "",
+      "selector": ".tabs a[aria-current='page']::after",
+      "property": "border-radius",
+      "value": "3px 3px 0 0",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
+    },
+    {
+      "file": "src/components/navigation/view-tabs.module.css",
+      "context": "",
+      "selector": ".tabs a:focus-visible, .disabled:focus-visible",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
+    },
+    {
+      "file": "src/components/reporting/overview-controls.module.css",
+      "context": "",
+      "selector": ".select",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); scope controls (P2 item 1)"
+    },
+    {
+      "file": "src/components/reporting/overview-controls.module.css",
+      "context": "",
+      "selector": ".repositoryList",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); scope controls (P2 item 1)"
+    },
+    {
+      "file": "src/components/reporting/timeline-controls.module.css",
+      "context": "",
+      "selector": ".selectWrap select",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); ReportToolbar"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".valueLink",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); scope summary and notices (ReportToolbar, Callout)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".dates",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".partial",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".partial",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".metricControl select",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); Trend disclosure (REPO-10)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".summary strong",
+      "property": "font-size",
+      "value": "20px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); Trend disclosure (REPO-10)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".tooltip",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); Trend disclosure (REPO-10)"
+    },
+    {
+      "file": "src/components/tables/column-selection.module.css",
+      "context": "",
+      "selector": ".group",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); column menu and dialog (CTRL-09)"
+    },
+    {
+      "file": "src/components/tables/column-selection.module.css",
+      "context": "",
+      "selector": ".count, .required",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); column menu and dialog (CTRL-09)"
+    },
+    {
+      "file": "src/components/tables/column-selection.module.css",
+      "context": "",
+      "selector": ".required",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); column menu and dialog (CTRL-09)"
+    },
+    {
+      "file": "src/components/tables/column-selection.module.css",
+      "context": "",
+      "selector": ".list [role='menuitemcheckbox'] > span:first-child",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); column menu and dialog (CTRL-09)"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".table .group",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".sort",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".definitionsList",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/components/tables/filter-choices.module.css",
+      "context": "",
+      "selector": ".field",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); filter choices"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".formEyebrow",
+      "property": "font-size",
+      "value": "9px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "29px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".field input",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); auth controls (COLOR-04, CTRL-02)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".noScriptNotice",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".notice, .error, .success",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".pageFooter",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "@media (max-width: 480px)",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "27px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "@media (max-width: 480px)",
+      "selector": ".field input",
+      "property": "font-size",
+      "value": "16px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); auth controls (COLOR-04, CTRL-02)"
+    },
+    {
+      "file": "src/features/contributions/contribution-controls.module.css",
+      "context": "",
+      "selector": ".options",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); contribution controls (P2 item 1)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".eyebrow",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".header h1",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".tabCount",
+      "property": "border-radius",
+      "value": "5px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".breakdowns a, .breakdowns button",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); controls, callouts"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .identityLink:focus-visible, .companyLink:focus-visible, .breakdowns a:focus-visible, .breakdowns button:focus-visible",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".metricLink",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); contribution tables"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".organizationLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".repositoryLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".metricLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
+    },
+    {
+      "file": "src/features/repositories/repository-controls.module.css",
+      "context": "",
+      "selector": ".scopeSelect select, .selectField select",
+      "property": "border-radius",
+      "value": "6px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); repository controls"
+    },
+    {
+      "file": "src/features/repositories/repository-controls.module.css",
+      "context": "",
+      "selector": ".chips button",
+      "property": "border-radius",
+      "value": "5px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); repository controls"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".header h1",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".tabCount",
+      "property": "border-radius",
+      "value": "5px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".countLabel",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".scopeTag",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); scope summary, callouts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".state",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); record status markers (REPO-05)"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".label",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); record status markers (REPO-05)"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".label",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P2",
+      "reason": "Controls and status markers: P2 sets their sizes and radii (CTRL-01, CTRL-04, REPO-05, TYPE-02); record status markers (REPO-05)"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .scopeDetails a:focus-visible, .number:focus-visible, .titleLink:focus-visible",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-records.module.css",
+      "context": "",
+      "selector": ".labels span",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); record rows"
+    },
+    {
+      "file": "src/features/repositories/repository-records.module.css",
+      "context": "",
+      "selector": ".supportingTitle",
+      "property": "font-size",
+      "value": "16px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); record rows"
+    },
+    {
+      "file": "src/features/repositories/repository-timeline-matrix.module.css",
+      "context": "",
+      "selector": ".metricName small",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); timeline matrix table"
+    },
+    {
+      "file": "src/app/(dashboard)/foundation/page.tsx",
+      "context": "FoundationPage > <h1 className>",
+      "selector": "",
+      "property": "text-3xl",
+      "value": "text-3xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/foundation/page.tsx",
+      "context": "FoundationPage > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/authors/[account]/page.tsx",
+      "context": "AuthorRecordsPage > <Link className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/not-found.tsx",
+      "context": "RepositoryNotFound > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/page.tsx",
+      "context": "RepositoryPage > <Link className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/auth/setup/page.tsx",
+      "context": "SetupPage > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/not-found.tsx",
+      "context": "NotFound > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/charts/review-distribution.tsx",
+      "context": "ReviewDistribution > <dl className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/layout/toolbar.tsx",
+      "context": "Toolbar > <DashboardHeader accountControls> > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/reporting/timeline-metrics-selector.tsx",
+      "context": "TimelineMetricsSelector > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/reporting/timeline-support-frame.tsx",
+      "context": "TimelineSupportFrame > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/ui/alert.tsx",
+      "context": "cva alertVariants",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/alert.tsx",
+      "context": "AlertDescription > <div className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/badge.tsx",
+      "context": "cva badgeVariants",
+      "selector": "",
+      "property": "text-xs",
+      "value": "text-xs",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "context": "cva buttonVariants",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "context": "cva buttonVariants > variants > size > sm",
+      "selector": "",
+      "property": "text-xs",
+      "value": "text-xs",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/card.tsx",
+      "context": "CardDescription > <div className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dialog.tsx",
+      "context": "DialogOverlay > <DialogPrimitive.Overlay className> > cn",
+      "selector": "",
+      "property": "bg-black/80",
+      "value": "bg-black",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dialog.tsx",
+      "context": "DialogTitle > <DialogPrimitive.Title className> > cn",
+      "selector": "",
+      "property": "text-lg",
+      "value": "text-lg",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dialog.tsx",
+      "context": "DialogDescription > <DialogPrimitive.Description className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuSubTrigger > <DropdownMenuPrimitive.SubTrigger className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuItem > <DropdownMenuPrimitive.Item className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuCheckboxItem > <DropdownMenuPrimitive.CheckboxItem className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuRadioItem > <DropdownMenuPrimitive.RadioItem className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuLabel > <DropdownMenuPrimitive.Label className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/dropdown-menu.tsx",
+      "context": "DropdownMenuShortcut > <span className> > cn",
+      "selector": "",
+      "property": "text-xs",
+      "value": "text-xs",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "context": "Input > <input className> > cn",
+      "selector": "",
+      "property": "text-base",
+      "value": "text-base",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "context": "Input > <input className> > cn",
+      "selector": "",
+      "property": "file:text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "context": "Input > <input className> > cn",
+      "selector": "",
+      "property": "md:text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/label.tsx",
+      "context": "cva labelVariants",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/password-input.tsx",
+      "context": "PasswordInput > PasswordInput > <button className>",
+      "selector": "",
+      "property": "rounded-[5px]",
+      "value": "5px",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/select.tsx",
+      "context": "SelectTrigger > <SelectPrimitive.Trigger className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/select.tsx",
+      "context": "SelectLabel > <SelectPrimitive.Label className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/select.tsx",
+      "context": "SelectItem > <SelectPrimitive.Item className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "context": "SheetOverlay > <SheetPrimitive.Overlay className> > cn",
+      "selector": "",
+      "property": "bg-black/80",
+      "value": "bg-black",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "context": "SheetTitle > <SheetPrimitive.Title className> > cn",
+      "selector": "",
+      "property": "text-lg",
+      "value": "text-lg",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "context": "SheetDescription > <SheetPrimitive.Description className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/table.tsx",
+      "context": "Table > <table className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/components/ui/table.tsx",
+      "context": "TableCaption > <caption className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/features/administration/temporary-credential-dialog.tsx",
+      "context": "TemporaryCredentialDialog > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P2",
+      "reason": "shadcn primitive and control sizes, radii and scrims: P2 restyles them (CTRL-01, CTRL-09, TYPE-02)"
+    },
+    {
+      "file": "src/features/administration/users-view.tsx",
+      "context": "AdminUsersView > <h1 className>",
+      "selector": "",
+      "property": "text-3xl",
+      "value": "text-3xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".field input",
+      "property": "font-size",
+      "value": "14px",
+      "phase": "P2",
+      "reason": "Input text size: P2 sets control text with the input tokens (CTRL-04)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".noScriptNotice",
+      "property": "font-size",
+      "value": "14px",
+      "phase": "P4",
+      "reason": "Sign-in notice text: P4 restyles the authentication screens (SHELL-13)"
+    }
+  ]
+}

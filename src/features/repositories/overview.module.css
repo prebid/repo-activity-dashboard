@@ -4,15 +4,15 @@
 .title {
   font-size: clamp(25px, 3vw, 32px);
   letter-spacing: -0.035em;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.2;
 }
 .organizationLink {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--prebid-brand-text);
-  font-size: 13px;
+  color: var(--prebid-link);
+  font-size: var(--prebid-text-body);
   line-height: 1.6;
   margin-top: 9px;
   border-radius: 2px;
@@ -23,14 +23,14 @@
 }
 .asOf {
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.7;
 }
 .asOf strong {
   display: block;
   color: var(--foreground);
   font-weight: 500;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .scope {
   display: flex;
@@ -56,16 +56,16 @@
   gap: 6px;
   margin-top: 2px;
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 16px;
 }
 .differenceRow {
-  --table-row-background: var(--background);
+  --table-row-background: var(--prebid-sunken);
   --table-cell-padding-block: 6px;
   --table-row-border-width: 2px;
 }
 .differenceLabel {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   font-weight: 600;
   line-height: 20px;
 }
@@ -94,7 +94,7 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.7;
   color: var(--muted-foreground);
 }

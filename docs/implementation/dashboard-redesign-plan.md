@@ -2,7 +2,7 @@
 
 Bring every dashboard page onto one Prebid visual system, make navigation respond immediately, replace the long state-carrying URLs with short explicit ones, and split the contribution area into Contributors and Reviewers. The plan is grounded in the 2026-10-31 visual review of `8119ede`, which covered 29 report views and the sign-in pages in both themes at 390–2560px. Finding IDs such as `TBL-02` refer to that review; Appendix A assigns every finding to a phase, and each phase plan restates the findings it implements with their file anchors.
 
-Status: decisions approved 2026-10-31. P0 plan proposed 2026-11-01 (see `## P0 plan`); P0 not started.
+Status: decisions approved 2026-10-31. P0 checkpoints approved 2026-11-01 (see `## P0 evidence`). P1 checkpoints approved 2026-11-01 (see `## P1 evidence`); P1 and P2 land in the same pull request as P0.
 
 ## Scope and preservation
 
@@ -17,7 +17,7 @@ Status: decisions approved 2026-10-31. P0 plan proposed 2026-11-01 (see `## P0 p
 | --- | --- | --- |
 | PR base | Redesign pull requests branch from and target `main`. `codex/frontend-rebuild` (`d5a7020`) is contained in `main` and receives no new work. | `docs/product/README.md:36`, `:101` (this change) |
 | Masthead | Navy `#17232e` in both themes with a 3px Prebid-blue top rule; logo only, no product name beside it. | — (P4) |
-| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. | `foundation-contracts.md` visual-readiness section (P1) |
+| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. | `foundation-contracts.md` `## What visually locked means` (P1) |
 | Colour roles | Orange `#ffad32` means act and "you are here" (primary action; nav, tab and sort underline). Blue means links, selection, group rules, the row-hover bar and charts. The amber "Data as of" chip is the one other warm accent. | `login.md:50` already requires orange primary actions (P1, P2) |
 | Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4) |
 | Sample-data notice | Removed with the frame row. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (P4) |
@@ -68,7 +68,7 @@ Starting values approved on 2026-10-31. Light value first, dark second. A phase 
 
 **Lines.** Subtle `#e3e9ee` / `#26394a` (between columns and rows); default `#d3dde5` / `#304352` (card edges); strong `#b8c6d1` / `#4a6274` (column groups, pinned edge, header base). Form-field and secondary-control edges use an input-border token of at least 3:1 against card and canvas; the P2 plan records it (candidates `#8696a5` / `#5b7387`, `#7d8f9d` / `#6a8396`).
 
-**Brand and state.** Prebid blue `#3887c2`; orange `#ffad32` (hover `#ffba56`, pressed `#f29d1f`, border `#e8a03a`, ink `#1c3445` at 6.93:1, both themes). Selection: one tint for selected controls, pressed bars and avatars, `#e8f1f8` / `#1e3a50` with ink `#1f5f8f` / `#9ed3f2`. Warning and "Data as of": `#fff6e6` / `#f5c46b` / ink `#8a5300` / icon `#b86e00`; dark `#3a2a10` / `#8a6a2a` / ink `#ffd08a`, dark icon value set in the P1 plan. Masthead `#17232e` in both themes. A Prebid chart palette replaces the stock `--chart-*` values and is checked for contrast and colour-blind separation in both themes.
+**Brand and state.** Prebid blue `#3887c2`; orange `#ffad32` (hover `#ffba56`, pressed `#f29d1f`, border `#e8a03a`, ink `#1c3445` at 6.93:1, both themes). Selection: one tint for selected controls, pressed bars and avatars, `#e8f1f8` / `#1e3a50` with ink `#1f5f8f` / `#9ed3f2`. Warning and "Data as of": `#fff6e6` / `#f5c46b` / ink `#8a5300` / icon `#b86e00`; dark `#3a2a10` / `#8a6a2a` / ink `#ffd08a`, dark icon `#ce8228` (P1). Dark link refined to `#6fb2e5` in P1 (the `#6cb0e3` below is 4.45:1 on the dark header-band hover). Masthead `#17232e` in both themes. A Prebid chart palette replaces the stock `--chart-*` values and is checked for contrast and colour-blind separation in both themes. P1 defines one series colour, Prebid blue; further colours are added with the first two-series chart, checked pair by pair.
 
 **Elevation and radius.** Level 1 (panels, buttons, masthead): `0 1px 2px rgb(16 42 67 / .06), 0 1px 3px rgb(16 42 67 / .08)`; dark `0 1px 2px rgb(0 0 0 / .4), inset 0 1px 0 rgb(255 255 255 / .03)`. Level 2 (menus) and level 3 (dialogs) are defined in the P1 plan. Pinned-column edge: `6px 0 8px -6px` shadow while scrolled sideways. Radius 8px for controls and menus, 12px for panels, callouts and dialogs.
 
@@ -113,11 +113,11 @@ Tests most likely affected: frame identity and the large-list view in `visual-re
 ### P1 — Foundation
 
 - The surface, text, line, brand, state, elevation and radius tokens from the Visual specification, at `:root` and `.dark` (rule 2), and the Prebid chart palette.
-- Fonts in `src/styles/fonts.ts`: `Mona_Sans({ subsets: ['latin', 'latin-ext'], axes: ['wdth'], variable: '--font-mona' })` with no fixed weight, and `Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' })`. `globals.css` maps `--font-display` and `--font-sans` to them; the variable classes go on `<html>` in `src/app/layout.tsx` and `src/app/global-error.tsx` and in `.storybook/preview.tsx`; component tests mock `next/font/google`. Remove the Arial hard-coding in `globals.css` and `theme-menu.module.css`.
+- Fonts in `src/styles/fonts.ts`: Mona Sans with its `wdth` axis and no fixed weight (`--font-mona`) and Inter (`--font-inter`), latin and latin-ext, through `next/font/local` with committed OFL files (see `## P1 plan`, item 3). `globals.css` maps `--font-display` and `--font-sans` to them; the variable classes go on `<html>` in `src/app/layout.tsx` and `src/app/global-error.tsx` and in `.storybook/preview.tsx`; Vitest aliases `next/font/local` to `tests/support/next-font.ts`. Remove the Arial hard-coding in `globals.css` and `theme-menu.module.css`.
 - `scripts/check-design-tokens.mjs`, exporting `inspectDesignTokens(root)` and appended to `check:boundaries`. It parses every CSS file under `src/` with the installed `postcss` and scans `className` strings and `style` objects in `src/**/*.tsx` and `.storybook/*.tsx`. It fails on hex, `rgb()`, `hsl()`, `oklch()` and `color-mix()` literals; literal `font-size`, `font` shorthand, `font-family`, `box-shadow` (except `none`) and `border-radius` values; Tailwind arbitrary values with a literal (`text-[13px]`, `bg-[#fff]`, `shadow-[…]`, `rounded-[5px]`) and default-scale colour and shadow utilities not mapped to a token — all outside `src/styles/prebid.css` and `src/app/globals.css`. It prints the files it scanned and fails on zero inputs. Allowlist entries are keyed by file, selector and property, each with a reason, and the list only shrinks. `tests/unit/design-tokens.test.ts` holds one failing fixture per pattern. The P1 plan states which of today's roughly 150 raw `font-size` and 12 `box-shadow` declarations P1 converts and which are allowlisted for P2–P4.
 - The story-coverage spec (rule 5) and a Storybook foundation page showing every token in both themes.
 
-Exit: the token check passes; a browser spec over the view inventory (split across files so CI's two shards per engine divide it) asserts no axe violations on `main` in both themes and that no rendered element's computed `font-family` resolves to Arial; a chart-palette test covers both themes.
+Exit: the token check passes; a browser spec over the view inventory (one spec in parallel mode, so CI's two shards per engine divide it) asserts no axe violations on `main` in both themes and that no rendered element's computed `font-family` resolves to Arial; a chart-colour test covers both themes.
 
 Tests most likely affected: Light `main` background in `theme.spec.ts`; the style-token checks in `foundation.spec.ts`; pinned-divider contrast in `repository-overview.spec.ts`; every axe-checking spec re-evaluates contrast.
 
@@ -239,7 +239,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | --- | --- | --- | --- | --- |
 | P0 | Checkpoints approved; pull request not opened | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P0b | Not started | — | — | — |
-| P1 | Not started | — | — | — |
+| P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Not started | — | — | — |
 | P3 | Not started | — | — | — |
 | P4 | Not started | — | — | — |
@@ -390,6 +390,162 @@ Base and branch measure the same values for every regenerated row: 220px from he
 - Node 24 ICU: the duration cases in `tests/unit/presentation.test.ts` pass on Node 24.22.1.
 - WebKit: `brand-assets.spec.ts` decodes the SVG logo at device scale 1 and 2 in the WebKit project.
 - Streaming metadata did not occur where observed: on `build:preview`, `/contributors/account-alice` renders its `<title>` inside `<head>` for both a Chrome and a Googlebot user agent. The production title assertion reads the whole HTML, which holds for either placement, and P0b's streamed-fallback check still counts markers only inside `<main>`.
+
+## P1 plan
+
+Proposed and approved 2026-11-01 against `abe9dd7`. P1 lands on the P0 branch and in the same pull request; Checkpoint B compares `abe9dd7` with the P1 head. Statements about installed software cite `node_modules`; counts come from `git grep -P` over `src/**/*.css` and the TSX under `src/` and `.storybook/`.
+
+### Scope
+
+The 22 P1 findings in Appendix A. P1 defines the tokens, fonts, type scale, elevation, radii and chart palette, maps them at `:root` and `.dark`, and moves existing styles onto them. Controls (P2), table structure (P3), and the shell, page header, navigation labels and tabs (P4) keep their structure; where a P1 token reaches those files, only the source of the value changes.
+
+| Finding | Items | Part left to a later phase |
+| --- | --- | --- |
+| COLOR-01, CONTRIB-11, REPOS-04, REPO-12 | 1, 2, 5 | — |
+| COLOR-02 | 2, 5 | — |
+| COLOR-03, REPO-01 | 2, 6 | — |
+| COLOR-06 | 1, 2 | Selected-control colour moves with P2 controls |
+| COLOR-07 | 1 | P1 defines subtle, default and strong lines and keeps card edges on default; table rows, columns, groups and the pinned edge move onto them in P3 (TBL-01, TBL-02) |
+| COLOR-08 | 2 | Orange as the primary action is P2 (COLOR-04, CTRL-02); callouts are P2 (`Callout`) |
+| COLOR-09, SHELL-04, CTRL-13, CONTRIB-16 | 2, 7 | — |
+| REPOS-09 | 2, 6 | Tinted brand surfaces on controls and headers are P2 and P4 |
+| CONTRIB-12, TYPE-01, SHELL-11 | 3, 4 | Display face on navigation and tabs, and the shell's 9–10px sizes, are P4 (decision 2) |
+| REPO-11, REPOS-02 | 4 | Page-title sizes are P4 (`PageHeader`, TYPE-03) |
+| TYPE-02 | 4, 7 | Button sizes are P2 (CTRL-01); overline styles merge as each owner converts its allowlisted sizes |
+| TYPE-04 | 4 | — |
+
+### Items
+
+**1. Tokens.** `src/styles/prebid.css` holds every Visual specification value as a primitive, light at `:root` and dark at `.dark` (next-themes sets the class on `<html>`): surfaces, text, lines, brand and state, selection, warning, masthead, elevation levels 1–3, radii 8px and 12px, the type scale, the number style and the chart palette. Values are hex or `rgb()` only, because `repository-overview.spec.ts:40` reads computed colours as three numbers. Refinements, recorded in the Visual specification:
+
+- Dark link `#6fb2e5`: the specified `#6cb0e3` is 4.45:1 on the dark header-band hover.
+- Dark warning icon `#ce8228`: 4.51:1 on the dark chip `#3a2a10`, 5.20:1 on the card.
+- Level 2 (menus, select, tooltips): light `0 2px 4px rgb(16 42 67 / .06), 0 8px 20px rgb(16 42 67 / .12)`; dark `0 2px 4px rgb(0 0 0 / .4), 0 8px 20px rgb(0 0 0 / .45), inset 0 1px 0 rgb(255 255 255 / .04)`.
+- Level 3 (dialogs, sheet): light `0 4px 8px rgb(16 42 67 / .08), 0 20px 48px rgb(16 42 67 / .2)`; dark `0 4px 8px rgb(0 0 0 / .45), 0 20px 48px rgb(0 0 0 / .6), inset 0 1px 0 rgb(255 255 255 / .05)`.
+
+Kept: the info, success and error sets, `--prebid-placeholder`, `--prebid-secondary-hover` and `--prebid-accent`, which have no Visual specification counterpart yet. Retired: `--prebid-brand-text` (its two consumers move to the link token), `--prebid-card-shadow` (level 1), the eight `--sidebar-*` tokens and `--chart-2` to `--chart-5` (no consumers), with their `@theme inline` mappings (`globals.css:31-42`).
+
+**2. Semantic mapping at `:root` and `.dark` (rule 2).** `globals.css` maps the shadcn names onto the primitives in place of the 62 stock `oklch()` values:
+
+- `--background` canvas; `--foreground`, `--card-foreground`, `--popover-foreground`, `--secondary-foreground` and `--accent-foreground` ink; `--card` card; `--popover` overlay; `--muted-foreground` muted.
+- `--primary` ink with `--primary-foreground` card, as today (P2 retargets it to orange with the one-primary rule); `--secondary`, `--muted` and `--accent` as today.
+- `--border` default line; `--input` the input border and `--ring` the focus ring, as today.
+- `--destructive` the error ink, which serves as text on the card and as a fill under `--destructive-foreground` (the card colour) in both themes.
+- `--chart-1`, plus new Tailwind colours for sunken, overlay and selection.
+
+The `.surface` mapping (`dashboard.module.css:2-18`) and the `--auth-*` aliases (`authentication.module.css:2-24`) are removed. Their consumers read the shared names, and the 13 `--auth-*` uses with no shadcn counterpart (info, success, error, placeholder, secondary hover and the orange submit) read the kept `--prebid-*` primitives directly. The 404 and error pages, `/auth/setup`, the portals that pass no container (`temporary-credential-dialog.tsx:44`, `users-view.tsx:173`) and the five Foundation stories that render without the dashboard frame then use the same system. Colour literals live only in `prebid.css`; `globals.css` holds `var()` mappings and font stacks, because it is the stylesheet that `components.json:8-10` points the shadcn CLI at. The colour literals left in feature CSS are converted: the overview apply button and the sign-in submit (`overview-controls.module.css:181`; `authentication.module.css:158, 160, 166`) take the ink and orange tokens. The orange sample-data dot (`dashboard.module.css:126`) is removed with the frame row in P4. `global-error.tsx` renders outside the root layout, so it imports `globals.css`, wraps its content in the shared theme provider (so a saved Light preference still applies) and carries the font classes.
+
+Consumers repointed:
+
+- In-card wells that read `--background` move to sunken: `overview-controls.module.css:16`, `timeline-controls.module.css:35`, `timeline-layout.module.css:126`, `column-selection.module.css:63`, `repository-controls.module.css:17` and the difference row at `overview.module.css:63`. Controls that fill with `bg-background` (the outline button, select trigger, switch thumb and alert in `src/components/ui/`) move to sunken, which keeps their current value within one step until P2 restyles them. The canvas itself (`dashboard.module.css:24`) stays, and so does the check-mark colour at `column-selection.module.css:99`, which uses `--background` as an ink.
+- The review-distribution tooltip (`review-distribution.tsx:18`) and the sheet move to overlay.
+- The table header band (`data-table.module.css:79`) moves to the header-band token with header ink, and row hover (`:101`) to the row-hover token; `--accent` keeps menu highlights (COLOR-06).
+- Selectable-bar tracks move to sunken and pressed bars to the selection tint.
+- The Trend line and markers (`timeline-chart.tsx:63-64, 235`) move from the link token to `--chart-1` (COLOR-03).
+- The two orange notice stripes (`timeline-layout.module.css:69`, `contributions.module.css:103`) move to the warning colours, so orange keeps its act and "you are here" meanings (COLOR-08).
+- Dialogs move to the overlay surface with level 3 (COLOR-02).
+
+**3. Fonts.** `next/font/local` with unmodified Google Fonts woff2 files committed under `src/styles/fonts/`: Mona Sans (wdth 75–125, wght 200–900) and Inter (wght 100–900), each in latin and latin-ext, 264,552 bytes in total, all preloaded. Each family carries its `OFL.txt` and a provenance file with the source URL, version string and sha256. This takes the fallback named in the P1 premise: with `next/font/google`, a clean build without network fails and production builds have no fetch timeout (`next/dist/compiled/@next/font/dist/google/loader.js:96-129`, `fetch-resource.js:19`), CI restores no `.next/cache`, and Storybook's plugin keeps the `fonts.gstatic.com` sources and loads them at runtime (`vite-plugin-storybook-nextjs/dist/index.js:121-138`), which `foundation.spec.ts:4-11` rejects. Inter is requested without the `opsz` axis.
+
+- `src/styles/fonts.ts` exports both faces with variables `--font-inter` and `--font-mona`; Mona Sans declares `font-stretch: 75% 125%`.
+- The variable classes go on `<html>` in `layout.tsx` and `global-error.tsx`; `.storybook/preview.tsx` adds them to `document.documentElement`, so portals and the html font rule see them.
+- `@theme inline` maps `--font-sans` to `var(--font-inter), ui-sans-serif, system-ui, sans-serif` and `--font-display` to `var(--font-mona), var(--font-inter), sans-serif`. Arial leaves `globals.css:122` and `theme-menu.module.css:45-48, 58-61`.
+- Vitest aliases `next/font/local` to a typed stub in `tests/support/next-font.ts`; the package entry is an empty module and `tests/unit/inventory-titles.test.ts` imports the root layout. `src/styles/fonts.ts` joins the 100% shell coverage group (`vitest.config.ts:37-38`).
+- Next names a local face after the binding in `fonts.ts` unless a `font-family` declaration is given, and Storybook names local faces `font-<hash>` behind the same variables (`next-font-loader` `local/loader.js:40`; `vite-plugin-storybook-nextjs/dist/index.js:152-167`). Components read only the `--font-inter` and `--font-mona` variables, never a family name.
+
+**4. Type.** The eight roles (display, title, KPI, heading, body, small, caption, overline) become custom properties and named Tailwind utilities (`text-display` to `text-overline`). Tailwind's default `text-*` sizes stay defined so shadcn primitives keep their sizes until P2; the token check rejects them (item 7).
+
+- P1 converts 130 of the 150 CSS `font-size` declarations. 124 are already on the scale and keep their size: 12px small ×55, 11px caption or overline ×43, 13px body ×24, 14px ×2. Four P1-owned sizes move onto the scale: the measurement marker and change 10→11px, the chart context line 10→11px, and the contribution totals 27→28px (KPI). The table title (17px) and the Trend heading (15px) become panel titles (below). The six on-scale sizes outside `font-size` declarations convert too: the `font` shorthands at `theme-menu.module.css:45, 58`, `text-[13px]` at `field-error.tsx:14` and `account-type-filter.tsx:109`, and the Recharts tick `fontSize: 11` at `timeline-chart.tsx:204, 212`.
+- The other 20 `font-size` declarations are allowlisted to their owners. P2 (controls and status markers): `timeline-layout.module.css:142` (20px), `column-selection.module.css:49` (10px), `authentication.module.css:301` (16px, which stops iOS zooming into the input), `repository-page.module.css:98, 162, 169` (10px). P3 (tables): `timeline-layout.module.css:55, 61`, `data-table.module.css:105` and `repository-timeline-matrix.module.css:46` (10px), and `repository-records.module.css:57` (16px). P4 (shell and page headers): `authentication.module.css:82` (9px), `:89` (29px), `:285` (10px) and `:298` (27px); `contributions.module.css:10` (10px) and `:17`; `overview.module.css:5`; `repository-page.module.css:23` (the three page titles at `clamp(25px, 3vw, 32px)`) and `:76` (10px).
+- Page titles (`h1`) take Mona Sans 800 at 112% width and keep today's sizes until P4's `PageHeader` sets display 30/34. Panel titles become title 18/26 in Mona Sans 700: the table title (17px today), the Trend heading (15px), the "At a glance" heading (13px) and `PageState` (REPOS-02, REPO-11). Navigation labels and tabs stay Inter until P4 rebuilds them.
+- Numbers use the specified `tabular-nums lining-nums` at weight 500 (KPI 600) on table cells, measurement and KPI values, timeline values and chart labels, so a known zero never renders bolder than a real value (TYPE-04). Inter's default digits are proportional and Arial's were already tabular, which is why the declared `tabular-nums` had no visible effect until now.
+- With variable faces, weights 500 and 600 render as declared; Arial collapsed them to 400 and 700. The Baseline font-pair count is re-measured.
+
+**5. Elevation and radius.** Panels take radius 12px and level 1: the table panel, chart card, timeline section, contribution totals and the sign-in card (whose `--prebid-card-shadow` recipe retires). Tailwind's `shadow` and `shadow-sm` map to level 1, `shadow-md` to level 2 and `shadow-lg` to level 3; `rounded-md` is 8px and `rounded-lg`/`rounded-xl` are 12px. The literal menu and tooltip shadows (`theme-menu.module.css:38`, `timeline-layout.module.css:164`) take level 2, the sign-in submit's shadow (`authentication.module.css:163`) takes level 1, and the input shadow at `:119` (1.6% opacity) is removed. With the seven `box-shadow: none` resets exempt, no box-shadow literal remains. Radii of 2–7px stay until their owning phase (the allowlist names each), and `rounded-sm` stays 6px until P2; the specification defines only 8px and 12px.
+
+**6. Chart palette.** One series colour, `--chart-1`, Prebid blue `#3887c2` in both themes. No chart draws more than one series today, and the stock `--chart-2` to `--chart-5` have no consumers. Blue reaches 3:1 on every surface a mark sits on: card, canvas, sunken track and selection tint (3.88, 3.45, 3.64 and 3.39 in Light; 4.11, 4.70, 4.44 and 3.05 in Dark). A candidate four-colour set (blue, aqua, violet, magenta) separated adjacent pairs under simulated colour-vision deficiency but not every pair (aqua and magenta are ΔE 1.6 apart under dark deuteranopia, OKLab ×100, Machado 2009 at full severity). Further series colours are added with the first chart that draws two series, checked pair by pair in both themes.
+
+**7. Token check.** `scripts/check-design-tokens.mjs` exports `inspectDesignTokens(root)`, is appended to `check:boundaries`, and follows `check-architecture.mjs`: JSON output, exit code 1 on failure, failure on zero inputs, and it also prints the files it scanned.
+
+- CSS under `src/` is parsed with the installed postcss 8.5.31. TSX under `src/` and `.storybook/` is parsed with the installed TypeScript: `className` strings, `cn`/`clsx`/`cva`/`twMerge` arguments, `style` objects, `fill`/`stroke`/`color` attributes, and object-literal attribute values carrying `fontSize`, `fontFamily`, `fill` or `stroke` (Recharts `tick` props; weights are not tokenized). Colour literals in `src/**/*.ts` are also checked.
+- It fails on the patterns in the P1 section above and on Tailwind's default `text-*` sizes. `none`, `inherit`, `initial`, `unset`, `transparent`, `currentColor`, radius `0` and `50%`, and `var()` values pass. Colour literals are allowed only in `prebid.css`; generic family names in the `globals.css` font stacks pass.
+- `scripts/design-token-allowlist.json` keys each entry by file, at-rule context, selector (or TSX symbol path), property and value, with an owning phase and a reason. A key of file, selector and property alone collides four times today (a base rule against its `@media` override in `dashboard.module.css` and `authentication.module.css`), and the value makes a changed literal count as new. Unused and duplicate entries fail, entries owned by a finished phase fail, and `tests/unit/design-tokens.test.ts` pins a ceiling on the entry count that each phase lowers; an added entry shows in the allowlist diff. Entries after P1: 104, none owned by P1. 63 are CSS (P2 29, including the `--radius-sm` theme key that keeps `rounded-sm` at 6px and the 14px sign-in input; P3 12; P4 22, including the 14px sign-in notice) and 41 are TSX class utilities (default `text-*` sizes, `rounded-[5px]` and the two `bg-black/80` scrims; P2 31, P4 10).
+- The unit test has a failing fixture per pattern, pass fixtures that bound the grammar, and a violation in a second child node (a `ts.forEachChild` visitor that returns a value skips the remaining children).
+- Sites the scanner cannot read statically (class values passed through as identifiers or calls, token names built at runtime) are listed as unmodelled; their count may not exceed a ceiling pinned in the unit test (86 after P1). A `completedPhases` list in the script fails any allowlist entry owned by a finished phase, and a `var(--prebid-*)` reference to a name that `prebid.css` does not define fails and cannot be allowlisted. In `prebid.css`, only custom properties directly in `:root` and `.dark` are exempt.
+
+**8. Token stories.** `.storybook/design-tokens.stories.tsx` (`Foundation/Tokens`) renders every `prebid.css` primitive from the tokens themselves: surfaces, text, lines, brand and state, selection, warning, elevation levels, radii, the type scale with Mona Sans and Inter specimens, the number style and the chart colour. Its stories join the story-coverage list.
+
+**9. Story coverage (rule 5).** `tests/e2e/covered-stories.ts` (no imports, like `tests/support/views.ts`) lists every story: the 82 that exist today, 64 of them opened by no spec, plus item 8's. `tests/e2e/story-coverage.spec.ts` opens each in Light and Dark, waits for `sb-show-main` and a non-empty `#storybook-root`, and runs axe there. Test titles come from the list, because the checks job lists browser cases before Storybook is built (`quality.yml:35-37`). `tests/unit/story-coverage.test.ts` checks the list against ids derived from `.storybook/*.stories.tsx` with Storybook's `toId`. The spec runs on the P0 head first. Violations that P1's tokens cause, or that a token can fix, are fixed in P1. Any other violation is recorded in the list against its story, theme and axe rule with the owning phase (controls P2, tables P3, shell P4), and the spec expects exactly those; an entry fails once its violation is gone.
+
+**10. Inventory design spec.** One spec over every inventory view in Light and Dark, in `test.describe.configure({ mode: 'parallel' })`, so shards can divide it; without parallel mode Playwright assigns whole files to shards. Each case runs axe on `main` and checks fonts. No element's computed family list may name Arial or Helvetica, and its first family must be the Inter, Mona Sans or monospace token. `document.fonts` must hold a loaded face for each family used. In Chromium, the CDP `CSS.getPlatformFontsForNode` result for sampled nodes must never name Arial. next/font's fallback faces use `src: local("Arial")` under a `Fallback` family name, so a family-name check alone passes when the font failed; the spec reads the fallback names from the built CSS. A committed negative control injects an Arial element.
+
+**11. Tests changed.** `theme.spec.ts:46` expects the Light canvas `rgb(238, 242, 246)`. `foundation.spec.ts:113-116` expects the dialog on the overlay surface. The chart colour gets a unit test on token values (3:1 against card, canvas, sunken and selection in both themes) and computed-colour checks in `repository-charts.spec.ts` in both themes. Specs that measure text geometry (`contribution-layout.spec.ts:37`, `repository-page-layout.spec.ts:38`, `column-selection.spec.ts:103`, `navigation-feedback.spec.ts`, and the `scrollWidth` checks) wait for `document.fonts.ready` before measuring; a limit changes only with its measured cause recorded.
+
+**12. Documents.** `foundation-contracts.md` `## What visually locked means` (line 76) gains the design-token rule: visual values come from `prebid.css` and the token check enforces it; the approved-decisions table's reference to a "visual-readiness section" points there. The Visual specification records the refinements in item 1 and the single chart colour. The P1 section's Fonts bullet and exit wording follow items 3 and 10.
+
+### Exit
+
+- `npm run check:boundaries` runs the token check, which passes with the allowlist; its unit tests pass.
+- The story coverage spec (including `Foundation/Tokens`) and the inventory design spec pass in Chromium and WebKit; the chart colour tests pass in both themes.
+- `npm run check:all` passes.
+
+Checkpoint A: `Foundation/Tokens` in Light and Dark, beside the sign-in page and a table, chart and dialog story in both themes. Checkpoint B: `capture:views` against `abe9dd7` and the P1 head at 1440, 1366 and 390px in Light and Dark.
+
+### Decisions (2026-11-01)
+
+1. Fonts are self-hosted from committed files through `next/font/local`, not fetched from Google at build time. Approved.
+2. P1 changes page and panel titles to Mona Sans; navigation labels and tabs change with the P4 header rebuild. Approved.
+3. Buttons keep the ink primary in P1; orange primary actions arrive in P2 with the one-primary-per-surface rule. Approved.
+4. Dark link `#6fb2e5` and dark warning icon `#ce8228`, as in item 1. Approved.
+5. One chart colour, Prebid blue; further series colours arrive with the first two-series chart, as in item 6. Approved.
+6. Story coverage covers every story; P1 fixes the violations its tokens cause or can fix, and records the rest against their owning phase, as in item 9. Approved.
+7. 130 font sizes become tokens now (124 at their current size); the other 20 are allowlisted to their owning phase, as in item 4. Approved.
+8. The orange notice stripes become warning amber, and the sign-in card takes level 1 and a 12px radius. Approved.
+
+### Unverified premises (P1)
+
+- Chromium and WebKit render Mona Sans at `font-stretch: 112%` from the local variable face.
+- `build:storybook` emits the local woff2 files and stories render with them offline.
+- `next/font/local` preloads all four files, and faces have loaded by the time the inventory spec checks them.
+- Text geometry with Inter stays inside the limits of the specs in item 11 or moves for a cause that can be named.
+- The committed Inter and Mona Sans files carry `tnum` and no `lnum` (read from the Google-served files during planning; recorded with the committed files' sha256 in `## P1 evidence`).
+
+### Carried to later phases
+
+- Ghost buttons on the page canvas: `--prebid-hover` (`#eff4f7`) is 1.02:1 against the new Light canvas, so their hover gives no visible change. P2's ghost-button spec gives canvas hovers a darker fill or an edge.
+- Light placeholder text `--prebid-placeholder` (`#74818d`) is 3.99:1 on an input and 3.74:1 on sunken, below 4.5:1, a value unchanged since before P1. P2 sets it with the input tokens; axe does not test placeholders.
+- Text arrows (U+2190 and U+2192) in the back links and the table scroll hint (`repository-header.tsx:59`, `data-table.tsx:322`, `timeline-support-frame.tsx`) render from a system font, because the Google-served Latin subset of Inter has no arrows. They become icons with TYPE-05 (P2 icon map, P3 for the table hint).
+- Inter sets text slightly wider than Arial, so fixed-width columns wrap more: GitHub handles break at the hyphen in the merge-duration Author column (150px; 19 rows grow from 49 to 63px at 1440, 4 before), "Unmapped company" takes two lines in the Contributors company column, and four repository names wrap in the 390px pinned column. Column widths are P3 (TBL-06, TBL-10, REPO-07).
+
+## P1 evidence
+
+Recorded 2026-11-01 against the P0 head `abe9dd7` on `build:preview`/`start:preview`, Node 24.22.1.
+
+### Checks
+
+- `npm run check:all` passed at the P1 head that was captured: Vitest 2,149, account integration 34, production integration 13 and Playwright 1,048 (Chromium and WebKit), with no skipped, pending or flaky results. Later P1 commits change only the `Foundation/Tokens` title specimen and this document.
+- The design-token check passes with 104 allowlisted sites, none owned by P1, and 86 unmodelled sites under its ceiling. The story-coverage spec runs all 91 stories in Light and Dark with no recorded violations.
+
+### Checkpoints
+
+Checkpoint A, approved 2026-11-01: the eight `Foundation/Tokens` stories, the sign-in, All repositories and repository chart stories, in Light and Dark.
+
+Checkpoint B, approved 2026-11-01: `capture:views` against `abe9dd7` and the P1 head, 204 cells each, none failed. Because the type change alters nearly every pixel, the pixel comparison was replaced by two checks:
+
+- Structure: all 34 views in Light and Dark at 1440px, 72 pairs, have identical text, link targets and names, headings, table cells, controls, accessibility tree, status codes, final URLs and titles. The only differences are the font variable classes on `<html>` and four font preloads. Every `h1` computes Mona Sans at 112% and weight 800; no element's computed family names Arial (50,738 elements). No console errors on either build.
+- Visual: at 390 and 1440px in both themes, no clipped text, no horizontal overflow and no lost separation; dialogs and menus sit on the overlay surface.
+
+### Baseline measurements
+
+Unchanged: header to first control 220px, 186 Tab presses, a 1,208-character Summary→Timeline href and 598 characters after one scope change. Changed: distinct font size and weight pairs 25 → 22 (27 → 24 with uppercase tracking); All repositories first table y=450 → 449 and Period activity y=1363 → 1362; repository first table y=767 → 772 (larger panel title); Contributors first table y=626 → 625; the `/repos` document 694,833 → 695,628 bytes and flight 263,977 → 264,067 bytes.
+
+### Unverified premises (P1): results
+
+- `font-stretch: 112%`: in Chromium the title "All repositories" measures 221.5, 233.2 and 245.9px at 100%, 112% and 125%, so the wdth axis applies. WebKit loads the face (the inventory design spec checks its loaded status) but its stretch rendering was not measured.
+- `build:storybook` emits the local woff2 files: the story-coverage spec and `foundation.spec.ts`, whose request guard rejects any non-local host, pass in both engines.
+- `next/font/local` preloads all four files (four `font/woff2` preload links on every page) and the faces report `loaded` when the inventory design spec checks them.
+- Text geometry: the geometry specs pass after waiting for `document.fonts.ready`; the wraps the wider face causes are listed under "Carried to later phases".
+- The committed font files have the sha256 values of the Google-served files whose GSUB lists `tnum` and no `lnum` (`src/styles/fonts/PROVENANCE.md`).
 
 ## Appendix A: findings by phase
 

@@ -110,10 +110,21 @@ test('component catalog themes also reach portaled dialogs', async ({ page }) =>
   const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveCSS('opacity', '1');
-  const background = await page
-    .locator('body')
-    .evaluate((el) => getComputedStyle(el).backgroundColor);
-  await expect(dialog).toHaveCSS('background-color', background);
+  // Dialogs sit on the raised overlay surface, which differs from the page canvas in Dark.
+  const [canvas, overlay] = await page.locator('body').evaluate((body) => {
+    const probe = document.createElement('div');
+    probe.style.backgroundColor = 'var(--prebid-overlay)';
+    body.append(probe);
+    const colors = [
+      getComputedStyle(body).backgroundColor,
+      getComputedStyle(probe).backgroundColor,
+    ];
+    probe.remove();
+    return colors;
+  });
+  expect(overlay).not.toBe(canvas);
+  expect(overlay).toBe(darkOverlay);
+  await expect(dialog).toHaveCSS('background-color', overlay);
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
     [],
   );
@@ -123,6 +134,25 @@ async function login(page: import('@playwright/test').Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+// --prebid-overlay in Dark (#1c2a37); dialogs must not fall back to the card or the canvas.
+const darkOverlay = 'rgb(28, 42, 55)';
+test('report dialogs sit on the overlay surface in Dark', async ({ page }) => {
+  await login(page);
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  // A feature dialog with its own frame class.
+  await page.goto('/repos/prebidjs');
+  await page.getByRole('button', { name: /^Filters(?: \(|$)/ }).click();
+  const filters = page.getByRole('dialog', { name: /^Filter pull requests$/ });
+  await expect(filters).toHaveCSS('opacity', '1');
+  await expect(filters).toHaveCSS('background-color', darkOverlay);
+  await page.keyboard.press('Escape');
+  // The shared scrollable dialog frame.
+  await page.goto('/companies/id/company-acme');
+  await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+  const csv = page.getByRole('dialog', { name: /CSV export$/ });
+  await expect(csv).toHaveCSS('opacity', '1');
+  await expect(csv).toHaveCSS('background-color', darkOverlay);
+});
 test('login return preserves issue context, pagination and full-result search', async ({
   page,
 }) => {

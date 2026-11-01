@@ -60,6 +60,19 @@ it('rejects transitive server imports, bare Node imports, reversed layers, cross
     ).toBe(true);
   }
 });
+it('lets only the global error document import the global stylesheet', () => {
+  const result = inspectArchitecture(
+    fixture({
+      'src/app/globals.css': 'body {}',
+      'src/app/global-error.tsx':
+        "'use client';\nimport './globals.css';\nexport default function GlobalError() { return null; }",
+      'src/components/view.tsx': "import '@/app/globals.css';\nexport const view = 1;",
+    }),
+  );
+  expect(result.failures).toEqual([
+    'global-stylesheet-in-root-documents-only: src/components/view.tsx -> src/app/globals.css',
+  ]);
+});
 it('never treats an empty scan as a successful architectural check', () => {
   expect(
     inspectArchitecture(fixture({ 'outside.ts': 'export const ignored = true;' })).failures,

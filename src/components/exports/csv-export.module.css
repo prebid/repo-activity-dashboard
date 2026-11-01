@@ -1,5 +1,5 @@
 .note {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -7,10 +7,10 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
 .layout legend {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -24,13 +24,13 @@
   gap: 6px;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .actions > span {
   margin-left: auto;
   color: var(--muted-foreground);
 }
 .error {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   color: var(--prebid-error-ink);
 }

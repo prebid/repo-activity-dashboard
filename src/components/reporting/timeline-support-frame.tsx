@@ -35,7 +35,7 @@ export function TimelineSupportFrame({
         )}
       </nav>
       <header>
-        <h1 className="text-2xl font-semibold">{title}</h1>
+        <h1 className="text-2xl">{title}</h1>
         <p className={styles.dates}>Reporting snapshot: {formatAsOf(context.source.asOf)}</p>
       </header>
       <section className={styles.scope} aria-label="Supporting interval scope">

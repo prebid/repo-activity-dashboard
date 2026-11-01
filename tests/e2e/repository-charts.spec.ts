@@ -167,6 +167,40 @@ for (const [kind, theme, width] of [
     const chart = figure(page, kind === 'current' ? 'Age distribution' : 'Issues created');
     await expect(chart).toBeVisible();
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
+    // Bars draw in the chart colour and stand out at 3:1 from their track and the card behind it.
+    const marks = await chart
+      .locator('li span[aria-hidden="true"] > span')
+      .first()
+      .evaluate((bar) => {
+        const rgb = (color: string) => (color.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
+        const luminance = (color: string) => {
+          const [r, g, b] = rgb(color).map((value) => {
+            const c = value / 255;
+            return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+          });
+          return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        };
+        const contrast = (a: string, b: string) => {
+          const [high, low] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+          return (high + 0.05) / (low + 0.05);
+        };
+        // Other tokens share the blue, so a sentinel proves the bar reads the chart token itself.
+        const root = document.documentElement;
+        root.style.setProperty('--prebid-chart-1', 'rgb(1, 2, 3)');
+        const sentinel = getComputedStyle(bar).backgroundColor;
+        root.style.removeProperty('--prebid-chart-1');
+        const color = getComputedStyle(bar).backgroundColor;
+        const track = getComputedStyle(bar.parentElement!).backgroundColor;
+        let card = bar.parentElement!.parentElement;
+        while (card && getComputedStyle(card).backgroundColor === 'rgba(0, 0, 0, 0)') {
+          card = card.parentElement;
+        }
+        const surface = getComputedStyle(card!).backgroundColor;
+        return { sentinel, track: contrast(color, track), card: contrast(color, surface) };
+      });
+    expect(marks.sentinel).toBe('rgb(1, 2, 3)');
+    expect(marks.track).toBeGreaterThanOrEqual(3);
+    expect(marks.card).toBeGreaterThanOrEqual(3);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       width,
     );

@@ -279,19 +279,23 @@ test('a link clicked during a handler navigation takes over the only pending bar
     await hold.end();
   }
 });
-test('the click feedback story shows the bar on every link in its pending section only', async ({
+test('the click feedback stories show the bar on every link when pending and on none when idle', async ({
   page,
 }) => {
-  await page.goto(
-    'http://127.0.0.1:6007/iframe.html?id=navigation-click-feedback--idle-and-pending&viewMode=story',
-  );
-  const indicators = (section: string, state: 'true' | 'false') =>
-    page
-      .getByRole('region', { name: section, exact: true })
-      .locator(`[data-link-pending][data-pending="${state}"]`);
-  await expect(indicators('Pending links', 'true')).not.toHaveCount(0);
-  const links = await indicators('Pending links', 'true').count();
-  await expect(indicators('Idle links', 'false')).toHaveCount(links);
-  await expect(indicators('Pending links', 'false')).toHaveCount(0);
-  await expect(indicators('Idle links', 'true')).toHaveCount(0);
+  const count = async (story: 'idle' | 'pending', state: 'true' | 'false') => {
+    await page.goto(
+      `http://127.0.0.1:6007/iframe.html?id=navigation-click-feedback--${story}&viewMode=story`,
+    );
+    const section = page.getByRole('region', {
+      name: story === 'pending' ? 'Pending links' : 'Idle links',
+      exact: true,
+    });
+    await expect(section.locator('[data-link-pending]').first()).toBeAttached();
+    return section.locator(`[data-link-pending][data-pending="${state}"]`).count();
+  };
+  const links = await count('pending', 'true');
+  expect(links).toBeGreaterThan(0);
+  expect(await count('pending', 'false')).toBe(0);
+  expect(await count('idle', 'false')).toBe(links);
+  expect(await count('idle', 'true')).toBe(0);
 });

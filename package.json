@@ -20,7 +20,7 @@
     "test:accounts": "node scripts/check-test-results.mjs accounts --clear && vitest run --config vitest.accounts.config.ts && node scripts/check-test-results.mjs accounts",
     "test:production": "node scripts/check-test-results.mjs production --clear && vitest run --config vitest.production.config.ts && node scripts/check-test-results.mjs production",
     "test:e2e": "node scripts/check-test-results.mjs playwright --clear && playwright test && node scripts/check-test-results.mjs playwright",
-    "check:boundaries": "node scripts/check-boundaries.mjs && node scripts/check-architecture.mjs",
+    "check:boundaries": "node scripts/check-boundaries.mjs && node scripts/check-architecture.mjs && node scripts/check-design-tokens.mjs",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run check:boundaries && npm run test:coverage",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",

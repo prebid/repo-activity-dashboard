@@ -13,7 +13,7 @@
   padding: 12px 2px 15px;
   position: relative;
   color: var(--muted-foreground);
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 500;
 }
 .tabs a:hover,
@@ -46,6 +46,6 @@
   }
   .tabs a {
     gap: 6px;
-    font-size: 12px;
+    font-size: var(--prebid-text-small);
   }
 }

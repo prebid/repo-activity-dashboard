@@ -14,9 +14,9 @@
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 9px 30px 9px 11px;
-  background-color: var(--background);
+  background-color: var(--prebid-sunken);
   color: var(--foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .scopeSelect {
   position: relative;
@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   min-width: 0;
 }
 .selectField select:focus-visible,
@@ -59,13 +59,13 @@
 .search {
   max-width: 280px;
   height: 36px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .dialog {
   max-width: 640px;
   max-height: calc(100dvh - 40px);
   overflow-y: auto;
-  background: var(--card);
+  background: var(--popover);
 }
 .fieldGrid {
   display: grid;
@@ -75,7 +75,7 @@
   margin: 10px 0 18px;
 }
 .help {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 12px 0;
@@ -94,7 +94,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   padding: 4px 8px;
   border: 1px solid var(--border);
   border-radius: 5px;
@@ -111,7 +111,7 @@
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 @media (max-width: 600px) {

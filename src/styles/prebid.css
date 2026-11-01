@@ -1,22 +1,47 @@
-/* Shared Prebid palette. Semantic tokens are applied by each surface. */
+/* The Prebid design tokens: the only file that holds visual values. globals.css maps them. */
 :root {
-  --prebid-background: #f6f8fa;
-  --prebid-ink: #1c3445;
-  --prebid-muted: #5e707f;
-  --prebid-line: #e4eaee;
-  --prebid-accent: #ffad32;
-  --prebid-brand-blue: #3887c2;
-  /* A darker logo-blue shade keeps small text readable on light surfaces. */
-  --prebid-brand-text: #2d72a6;
+  /* Surfaces */
+  --prebid-background: #eef2f6;
   --prebid-card: #fff;
-  --prebid-input: #fff;
-  --prebid-input-border: #cdd8df;
-  --prebid-placeholder: #74818d;
-  --prebid-ring: #3583b2;
+  --prebid-sunken: #f5f8fa;
+  --prebid-overlay: #fff;
+  --prebid-header-band: #e8eef4;
+  --prebid-header-band-hover: #dfe7ee;
+  --prebid-row-hover: #f1f6fb;
   --prebid-hover: #eff4f7;
-  --prebid-link: #385e77;
   --prebid-secondary: #f0f4f7;
   --prebid-secondary-hover: #e4ecf2;
+  --prebid-masthead: #17232e;
+
+  /* Text */
+  --prebid-ink: #1c3445;
+  --prebid-muted: #526473;
+  --prebid-header-ink: #3d5262;
+  --prebid-link: #2a6a9b;
+  --prebid-placeholder: #74818d;
+
+  /* Lines */
+  --prebid-line-subtle: #e3e9ee;
+  --prebid-line: #d3dde5;
+  --prebid-line-strong: #b8c6d1;
+  --prebid-input: #fff;
+  --prebid-input-border: #cdd8df;
+  --prebid-ring: #3583b2;
+
+  /* Brand and state */
+  --prebid-brand-blue: #3887c2;
+  --prebid-accent: #ffad32;
+  --prebid-accent-hover: #ffba56;
+  --prebid-accent-pressed: #f29d1f;
+  --prebid-accent-border: #e8a03a;
+  --prebid-accent-ink: #1c3445;
+  --prebid-selection: #e8f1f8;
+  --prebid-selection-ink: #1f5f8f;
+  --prebid-selection-edge: #2d72a6;
+  --prebid-warning-bg: #fff6e6;
+  --prebid-warning-border: #f5c46b;
+  --prebid-warning-ink: #8a5300;
+  --prebid-warning-icon: #b86e00;
   --prebid-info-bg: #edf5fa;
   --prebid-info-border: #d4e6f0;
   --prebid-error-ink: #9d252c;
@@ -25,24 +50,75 @@
   --prebid-success-ink: #236044;
   --prebid-success-bg: #edf8f1;
   --prebid-success-border: #c6e6d1;
-  --prebid-card-shadow: 0 16px 40px -20px #25456026, 0 3px 8px #25456004;
+  --prebid-chart-1: #3887c2;
+
+  /* Elevation and radius */
+  --prebid-elevation-1: 0 1px 2px rgb(16 42 67 / 0.06), 0 1px 3px rgb(16 42 67 / 0.08);
+  --prebid-elevation-2: 0 2px 4px rgb(16 42 67 / 0.06), 0 8px 20px rgb(16 42 67 / 0.12);
+  --prebid-elevation-3: 0 4px 8px rgb(16 42 67 / 0.08), 0 20px 48px rgb(16 42 67 / 0.2);
+  --prebid-radius-control: 8px;
+  --prebid-radius-panel: 12px;
+
+  /* Type. Families come from next/font variables set on <html> (src/styles/fonts.ts). */
+  --prebid-font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --prebid-font-display: var(--font-mona), var(--font-inter), ui-sans-serif, sans-serif;
+  --prebid-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --prebid-display-stretch: 112%;
+  --prebid-text-display: 30px;
+  --prebid-leading-display: 34px;
+  --prebid-text-title: 18px;
+  --prebid-leading-title: 26px;
+  --prebid-text-kpi: 28px;
+  --prebid-leading-kpi: 36px;
+  --prebid-text-heading: 14px;
+  --prebid-leading-heading: 20px;
+  --prebid-text-body: 13px;
+  --prebid-leading-body: 20px;
+  --prebid-text-small: 12px;
+  --prebid-leading-small: 18px;
+  --prebid-text-caption: 11px;
+  --prebid-leading-caption: 16px;
+  --prebid-text-overline: 11px;
+  --prebid-leading-overline: 16px;
+  --prebid-tracking-overline: 0.06em;
+  --prebid-numeric: tabular-nums lining-nums;
+  --prebid-number-weight: 500;
+  --prebid-kpi-weight: 600;
 }
 
 .dark {
-  --prebid-brand-text: var(--prebid-brand-blue);
   --prebid-background: #0d161f;
-  --prebid-ink: #e6eef4;
-  --prebid-muted: #a1b2bf;
-  --prebid-line: #304352;
   --prebid-card: #17232e;
-  --prebid-input: #111d27;
-  --prebid-input-border: #455b6b;
-  --prebid-placeholder: #96a9b7;
-  --prebid-ring: #73c3f3;
+  --prebid-sunken: #111c26;
+  --prebid-overlay: #1c2a37;
+  --prebid-header-band: #253947;
+  --prebid-header-band-hover: #2c4253;
+  --prebid-row-hover: #1d3040;
   --prebid-hover: #253947;
-  --prebid-link: #9ed3f2;
   --prebid-secondary: #253947;
   --prebid-secondary-hover: #304b5d;
+
+  --prebid-ink: #e6eef4;
+  --prebid-muted: #a1b2bf;
+  --prebid-header-ink: #b8c7d3;
+  /* #6cb0e3 in the original specification is 4.45:1 on the header-band hover. */
+  --prebid-link: #6fb2e5;
+  --prebid-placeholder: #96a9b7;
+
+  --prebid-line-subtle: #26394a;
+  --prebid-line: #304352;
+  --prebid-line-strong: #4a6274;
+  --prebid-input: #111d27;
+  --prebid-input-border: #455b6b;
+  --prebid-ring: #73c3f3;
+
+  --prebid-selection: #1e3a50;
+  --prebid-selection-ink: #9ed3f2;
+  --prebid-selection-edge: #5aa5dc;
+  --prebid-warning-bg: #3a2a10;
+  --prebid-warning-border: #8a6a2a;
+  --prebid-warning-ink: #ffd08a;
+  --prebid-warning-icon: #ce8228;
   --prebid-info-bg: #182f40;
   --prebid-info-border: #36596f;
   --prebid-error-ink: #ffb5b4;
@@ -51,5 +127,10 @@
   --prebid-success-ink: #a0dfbb;
   --prebid-success-bg: #17382d;
   --prebid-success-border: #396450;
-  --prebid-card-shadow: 0 16px 40px -20px #0008, 0 3px 8px #0002;
+
+  --prebid-elevation-1: 0 1px 2px rgb(0 0 0 / 0.4), inset 0 1px 0 rgb(255 255 255 / 0.03);
+  --prebid-elevation-2:
+    0 2px 4px rgb(0 0 0 / 0.4), 0 8px 20px rgb(0 0 0 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --prebid-elevation-3:
+    0 4px 8px rgb(0 0 0 / 0.45), 0 20px 48px rgb(0 0 0 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.05);
 }

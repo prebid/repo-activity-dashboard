@@ -1,7 +1,7 @@
 .panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--prebid-radius-control);
   background: var(--card);
   min-width: 0;
 }
@@ -18,7 +18,7 @@
 .field {
   display: grid;
   gap: 7px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
   max-width: 100%;
 }
@@ -32,10 +32,10 @@
   width: 100%;
   max-width: 320px;
   border: 1px solid var(--border);
-  background: var(--background);
+  background: var(--prebid-sunken);
   border-radius: 6px;
   color: var(--foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   height: 34px;
   padding: 6px 32px 6px 10px;
 }
@@ -47,7 +47,7 @@
 }
 .note,
 .notice {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
   line-height: 1.6;
   margin-top: 12px;

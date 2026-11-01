@@ -30,6 +30,8 @@ for (const [path, title, theme, width] of [
     await expect(
       page.getByRole('button', { name: 'Authored PRs merged ↓', exact: true }),
     ).toBeVisible();
+    // Widths are measured with the web fonts, not their fallback.
+    await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       width,
     );

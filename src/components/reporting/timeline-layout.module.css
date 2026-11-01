@@ -16,7 +16,7 @@
 }
 .scope {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--prebid-radius-control);
   background: var(--card);
   padding: 16px 18px;
   display: grid;
@@ -27,7 +27,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 16px;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
 .grouping {
   color: var(--muted-foreground);
@@ -38,7 +38,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 18px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.7;
   color: var(--muted-foreground);
 }
@@ -48,7 +48,7 @@
   line-height: 1.45;
 }
 .period strong {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   font-weight: 600;
 }
 .dates {
@@ -66,11 +66,11 @@
 }
 .notice {
   border: 1px solid var(--border);
-  border-left: 3px solid var(--prebid-accent);
-  border-radius: 8px;
+  border-left: 3px solid var(--prebid-warning-icon);
+  border-radius: var(--prebid-radius-control);
   padding: 12px 16px;
   background: var(--card);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.7;
   color: var(--muted-foreground);
 }
@@ -80,8 +80,9 @@
 }
 .section {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--prebid-radius-panel);
   background: var(--card);
+  box-shadow: var(--prebid-elevation-1);
   min-width: 0;
   overflow: hidden;
 }
@@ -93,11 +94,14 @@
   padding: 18px 20px;
 }
 .heading h2 {
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-title);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 700;
+  line-height: var(--prebid-leading-title);
 }
 .heading p {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   margin-top: 5px;
   color: var(--muted-foreground);
@@ -118,16 +122,16 @@
   display: grid;
   gap: 7px;
   max-width: 100%;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .metricControl select {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--prebid-sunken);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 8px 32px 8px 10px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   width: 280px;
   max-width: 100%;
 }
@@ -135,22 +139,25 @@
   display: grid;
   gap: 3px;
   text-align: right;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .summary strong {
   font-size: 20px;
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
   color: var(--foreground);
 }
 .chart {
   height: 260px;
   width: 100%;
   min-width: 0;
+  /* Axis tick text inherits these. */
+  font-size: var(--prebid-text-caption);
+  font-variant-numeric: var(--prebid-numeric);
 }
 .chartNote {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.6;
   color: var(--muted-foreground);
   margin-top: 12px;
@@ -158,11 +165,11 @@
 .tooltip {
   border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--card);
+  background: var(--popover);
   color: var(--foreground);
   padding: 10px 12px;
-  box-shadow: 0 6px 20px #0002;
-  font-size: 12px;
+  box-shadow: var(--prebid-elevation-2);
+  font-size: var(--prebid-text-small);
   max-width: 260px;
   display: grid;
   gap: 6px;

@@ -32,20 +32,19 @@
   overflow: auto;
   padding: 4px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--prebid-radius-control);
   background: var(--popover);
   color: var(--popover-foreground);
-  box-shadow: 0 8px 24px #0003;
+  box-shadow: var(--prebid-elevation-2);
 }
 .content[data-state='closed'] {
   display: none;
 }
 .label {
   padding: 8px;
-  font:
-    600 12px/1.4 Arial,
-    Helvetica,
-    sans-serif;
+  font-size: var(--prebid-text-small);
+  font-weight: 600;
+  line-height: 1.4;
 }
 .option {
   position: relative;
@@ -55,10 +54,8 @@
   padding: 10px 8px 10px 28px;
   border-radius: 4px;
   cursor: pointer;
-  font:
-    13px/1.4 Arial,
-    Helvetica,
-    sans-serif;
+  font-size: var(--prebid-text-body);
+  line-height: 1.4;
 }
 .option[data-highlighted] {
   background: var(--accent);

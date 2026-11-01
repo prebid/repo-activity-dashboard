@@ -15,7 +15,7 @@ export function ReviewDistribution({ data }: { data: DistributionPoint[] }) {
             <YAxis allowDecimals={false} />
             <Tooltip
               contentStyle={{
-                background: 'var(--background)',
+                background: 'var(--popover)',
                 borderColor: 'var(--border)',
                 color: 'var(--foreground)',
               }}

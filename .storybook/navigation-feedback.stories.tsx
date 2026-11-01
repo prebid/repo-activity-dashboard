@@ -60,17 +60,15 @@ function Links() {
     </>
   );
 }
-function Specimen() {
+// One state per story, so each landmark name appears once on the page.
+function Specimen({ pending }: { pending: boolean }) {
   return (
     <div className={frame.surface}>
-      {[false, true].map((pending) => (
-        <PendingSection key={String(pending)} value={pending}>
-          <section aria-label={pending ? 'Pending links' : 'Idle links'}>
-            <h2 className="px-8 pt-6 pb-3 text-sm font-semibold">{pending ? 'Pending' : 'Idle'}</h2>
-            <Links />
-          </section>
-        </PendingSection>
-      ))}
+      <PendingSection value={pending}>
+        <section aria-label={pending ? 'Pending links' : 'Idle links'}>
+          <Links />
+        </section>
+      </PendingSection>
     </div>
   );
 }
@@ -87,4 +85,5 @@ const meta = {
 } satisfies Meta<typeof Specimen>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const IdleAndPending: Story = {};
+export const Idle: Story = { args: { pending: false } };
+export const Pending: Story = { args: { pending: true } };

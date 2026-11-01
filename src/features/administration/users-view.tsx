@@ -124,7 +124,7 @@ export default function AdminUsersView() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold">Account administration</h1>
+        <h1 className="text-3xl">Account administration</h1>
         <p className="text-muted-foreground">Create accounts and reissue temporary credentials.</p>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

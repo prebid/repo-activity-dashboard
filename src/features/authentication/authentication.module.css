@@ -1,32 +1,9 @@
 .surface {
-  --auth-background: var(--prebid-background);
-  --auth-ink: var(--prebid-ink);
-  --auth-muted: var(--prebid-muted);
-  --auth-line: var(--prebid-line);
-  --auth-accent: var(--prebid-accent);
-  --auth-card: var(--prebid-card);
-  --auth-input: var(--prebid-input);
-  --auth-input-border: var(--prebid-input-border);
-  --auth-placeholder: var(--prebid-placeholder);
-  --auth-ring: var(--prebid-ring);
-  --auth-hover: var(--prebid-hover);
-  --auth-link: var(--prebid-link);
-  --auth-secondary: var(--prebid-secondary);
-  --auth-secondary-hover: var(--prebid-secondary-hover);
-  --auth-info-bg: var(--prebid-info-bg);
-  --auth-info-border: var(--prebid-info-border);
-  --auth-error-ink: var(--prebid-error-ink);
-  --auth-error-bg: var(--prebid-error-bg);
-  --auth-error-border: var(--prebid-error-border);
-  --auth-success-ink: var(--prebid-success-ink);
-  --auth-success-bg: var(--prebid-success-bg);
-  --auth-success-border: var(--prebid-success-border);
-  --auth-card-shadow: var(--prebid-card-shadow);
   position: relative;
   min-height: 100svh;
   padding: 32px 16px;
-  background: var(--auth-background);
-  color: var(--auth-ink);
+  background: var(--prebid-background);
+  color: var(--prebid-ink);
 }
 
 .appearance {
@@ -36,19 +13,19 @@
   z-index: 10;
 }
 .themeControl {
-  --theme-control-border: var(--auth-line);
-  --theme-control-background: var(--auth-card);
-  --theme-control-color: var(--auth-muted);
-  --theme-control-hover: var(--auth-hover);
-  color: var(--auth-muted);
-  background: var(--auth-card);
-  border: 1px solid var(--auth-line);
+  --theme-control-border: var(--prebid-line);
+  --theme-control-background: var(--prebid-card);
+  --theme-control-color: var(--prebid-muted);
+  --theme-control-hover: var(--prebid-hover);
+  color: var(--prebid-muted);
+  background: var(--prebid-card);
+  border: 1px solid var(--prebid-line);
 }
 .themeControl:hover {
-  background: var(--auth-hover);
+  background: var(--prebid-hover);
 }
 .themeControl:focus-visible {
-  outline: 2px solid var(--auth-ring);
+  outline: 2px solid var(--prebid-ring);
   outline-offset: 3px;
 }
 
@@ -70,14 +47,14 @@
 }
 .card {
   position: relative;
-  background: var(--auth-card);
-  border: 1px solid var(--auth-line);
-  border-radius: 16px;
+  background: var(--prebid-card);
+  border: 1px solid var(--prebid-line);
+  border-radius: var(--prebid-radius-panel);
   padding: 38px 39px 30px;
-  box-shadow: var(--auth-card-shadow);
+  box-shadow: var(--prebid-elevation-1);
 }
 .formEyebrow {
-  color: var(--auth-muted);
+  color: var(--prebid-muted);
   text-align: center;
   font-size: 9px;
   font-weight: 700;
@@ -87,14 +64,14 @@
 .title {
   text-align: center;
   font-size: 29px;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.25;
 }
 .subtitle {
   text-align: center;
-  color: var(--auth-muted);
-  font-size: 13px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-body);
   line-height: 1.7;
   margin-top: 10px;
 }
@@ -108,65 +85,64 @@
   gap: 9px;
 }
 .field label {
-  color: var(--auth-ink);
-  font-size: 12px;
+  color: var(--prebid-ink);
+  font-size: var(--prebid-text-small);
   font-weight: 600;
 }
 .field input {
   height: 47px;
-  border: 1px solid var(--auth-input-border);
+  border: 1px solid var(--prebid-input-border);
   border-radius: 7px;
-  box-shadow: 0 1px 2px #102b3f04;
-  color: var(--auth-ink);
-  background: var(--auth-input);
+  color: var(--prebid-ink);
+  background: var(--prebid-input);
   font-size: 14px;
 }
 .field input::placeholder {
-  color: var(--auth-placeholder);
+  color: var(--prebid-placeholder);
 }
 .field input:focus-visible {
-  outline: 2px solid var(--auth-ring);
+  outline: 2px solid var(--prebid-ring);
   outline-offset: 3px;
   box-shadow: none;
 }
 .field :global([data-slot='password-toggle']) {
-  color: var(--auth-muted);
+  color: var(--prebid-muted);
 }
 .field :global([data-slot='password-toggle']):hover {
-  background: var(--auth-hover);
+  background: var(--prebid-hover);
 }
 .field :global([data-slot='password-toggle']):focus-visible,
 .help summary:focus-visible,
 .backLink:focus-visible {
-  outline: 2px solid var(--auth-ring);
+  outline: 2px solid var(--prebid-ring);
   outline-offset: 2px;
 }
 .noScriptNotice {
   max-width: 448px;
   margin: 0 auto 16px;
-  border: 1px solid var(--auth-info-border);
+  border: 1px solid var(--prebid-info-border);
   border-radius: 7px;
   padding: 12px 14px;
-  color: var(--auth-link);
-  background: var(--auth-info-bg);
+  color: var(--prebid-link);
+  background: var(--prebid-info-bg);
   font-size: 14px;
   line-height: 1.5;
 }
 .submit {
   width: 100%;
   height: 47px;
-  border: 1px solid #e8a03a;
-  background: var(--auth-accent);
-  color: #192c39;
-  font-size: 13px;
+  border: 1px solid var(--prebid-accent-border);
+  background: var(--prebid-accent);
+  color: var(--prebid-accent-ink);
+  font-size: var(--prebid-text-body);
   font-weight: 700;
-  box-shadow: 0 2px 3px #102b3f0a;
+  box-shadow: var(--prebid-elevation-1);
 }
 .submit:hover {
-  background: #ffba56;
+  background: var(--prebid-accent-hover);
 }
 .submit:focus-visible {
-  outline: 2px solid var(--auth-ring);
+  outline: 2px solid var(--prebid-ring);
   outline-offset: 3px;
   box-shadow: none;
 }
@@ -174,25 +150,25 @@
   margin-left: 5px;
 }
 .help {
-  border-top: 1px solid var(--auth-line);
+  border-top: 1px solid var(--prebid-line);
   margin-top: 27px;
   padding-top: 20px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.7;
 }
 .help summary {
-  color: var(--auth-link);
+  color: var(--prebid-link);
   font-weight: 500;
   cursor: pointer;
   width: fit-content;
 }
 .help p {
-  color: var(--auth-muted);
+  color: var(--prebid-muted);
   margin-top: 10px;
 }
 .support {
-  color: var(--auth-muted);
-  font-size: 11px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-caption);
   line-height: 1.7;
   margin-top: 15px;
 }
@@ -200,26 +176,26 @@
 .error,
 .success {
   border-radius: 7px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   padding: 12px 14px;
   margin-top: 20px;
 }
 .notice {
-  color: var(--auth-link);
-  background: var(--auth-info-bg);
-  border: 1px solid var(--auth-info-border);
+  color: var(--prebid-link);
+  background: var(--prebid-info-bg);
+  border: 1px solid var(--prebid-info-border);
 }
 .error {
-  color: var(--auth-error-ink);
-  background: var(--auth-error-bg);
-  border: 1px solid var(--auth-error-border);
+  color: var(--prebid-error-ink);
+  background: var(--prebid-error-bg);
+  border: 1px solid var(--prebid-error-border);
   margin-top: 0;
 }
 .success {
-  color: var(--auth-success-ink);
-  background: var(--auth-success-bg);
-  border: 1px solid var(--auth-success-border);
+  color: var(--prebid-success-ink);
+  background: var(--prebid-success-bg);
+  border: 1px solid var(--prebid-success-border);
 }
 .steps {
   display: flex;
@@ -227,8 +203,8 @@
   justify-content: center;
   gap: 12px;
   margin-bottom: 25px;
-  color: var(--auth-muted);
-  font-size: 11px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-caption);
 }
 .steps span {
   display: flex;
@@ -236,17 +212,17 @@
   gap: 6px;
 }
 .steps .currentStep {
-  color: var(--auth-ink);
+  color: var(--prebid-ink);
   font-weight: 600;
 }
 .stepDivider {
   height: 1px;
   width: 22px;
-  background: var(--auth-input-border);
+  background: var(--prebid-input-border);
 }
 .fieldHint {
-  font-size: 11px;
-  color: var(--auth-muted);
+  font-size: var(--prebid-text-caption);
+  color: var(--prebid-muted);
   line-height: 1.5;
 }
 .passwordFooter {
@@ -254,26 +230,26 @@
   text-align: center;
 }
 .passwordFooter p {
-  font-size: 11px;
-  color: var(--auth-muted);
+  font-size: var(--prebid-text-caption);
+  color: var(--prebid-muted);
   line-height: 1.7;
 }
 .backLink {
   display: inline-block;
   margin-top: 13px;
-  font-size: 12px;
-  color: var(--auth-link);
+  font-size: var(--prebid-text-small);
+  color: var(--prebid-link);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .cancel {
   width: 100%;
   height: 44px;
-  color: var(--auth-ink);
-  background: var(--auth-secondary);
+  color: var(--prebid-ink);
+  background: var(--prebid-secondary);
 }
 .cancel:hover {
-  background: var(--auth-secondary-hover);
+  background: var(--prebid-secondary-hover);
 }
 .pageFooter {
   display: flex;
@@ -281,7 +257,7 @@
   justify-content: center;
   gap: 7px;
   padding-top: 23px;
-  color: var(--auth-muted);
+  color: var(--prebid-muted);
   font-size: 10px;
   line-height: 1.6;
 }
@@ -289,7 +265,7 @@
 @media (max-width: 480px) {
   .card {
     padding: 30px 25px 25px;
-    border-radius: 13px;
+    border-radius: var(--prebid-radius-panel);
   }
   .header {
     margin-bottom: 25px;

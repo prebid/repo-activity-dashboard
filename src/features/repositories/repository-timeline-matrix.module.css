@@ -13,11 +13,11 @@
   gap: 5px;
 }
 .windowLabel strong {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   font-weight: 500;
 }
 .windowLabel span {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .windowActions {
@@ -25,7 +25,7 @@
   gap: 8px;
 }
 .repository {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   font-weight: 500;
   overflow-wrap: anywhere;
   line-height: 1.5;
@@ -36,7 +36,7 @@
   gap: 6px;
 }
 .metricName {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.5;
   color: var(--muted-foreground);
   display: grid;

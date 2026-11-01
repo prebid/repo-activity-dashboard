@@ -3,7 +3,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   color: var(--muted-foreground);
 }
 .breadcrumbs a {
@@ -21,7 +21,7 @@
 }
 .header h1 {
   font-size: clamp(25px, 3vw, 32px);
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
 }
@@ -30,10 +30,10 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  color: var(--prebid-brand-text);
+  color: var(--prebid-link);
   gap: 10px 20px;
   margin-top: 12px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .meta > span,
 .meta a {
@@ -53,7 +53,7 @@
 }
 .snapshot {
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.8;
 }
 .snapshot time {
@@ -66,8 +66,8 @@
   padding: 2px 7px;
   border: 1px solid var(--border);
   border-radius: 5px;
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
+  font-size: var(--prebid-text-caption);
+  font-variant-numeric: var(--prebid-numeric);
   color: var(--foreground);
   background: var(--card);
 }
@@ -84,7 +84,7 @@
   background: var(--card);
   border: 1px solid var(--border);
   border-left: 3px solid var(--primary);
-  border-radius: 8px;
+  border-radius: var(--prebid-radius-control);
 }
 .scopeMain,
 .scopeDetails {
@@ -101,18 +101,18 @@
   color: var(--muted-foreground);
 }
 .scopeTitle {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 500;
   overflow-wrap: anywhere;
 }
 .matching {
   margin-left: auto;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   color: var(--muted-foreground);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
 }
 .scopeDetails {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .scopeDetails > span {
@@ -125,7 +125,7 @@
   text-underline-offset: 3px;
 }
 .notice {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   color: var(--muted-foreground);
 }
 .records {
@@ -175,7 +175,7 @@
 }
 .number {
   color: var(--muted-foreground);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
   text-decoration: none;
 }
 .number:hover {
@@ -190,15 +190,15 @@
   overflow-wrap: anywhere;
 }
 .author > span:first-child {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .secondary {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .activity time {
   white-space: nowrap;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .breadcrumbs a:focus-visible,
 .meta a:focus-visible,

@@ -60,8 +60,8 @@ function TimelinePoint({
       cx={cx}
       cy={cy}
       r={active ? 5 : partial ? 4 : 3}
-      fill={partial ? 'var(--card)' : 'var(--prebid-link)'}
-      stroke="var(--prebid-link)"
+      fill={partial ? 'var(--card)' : 'var(--chart-1)'}
+      stroke="var(--chart-1)"
       strokeWidth={partial ? 2 : 0}
       style={{ cursor: onSelect ? 'pointer' : undefined }}
       onClick={(event) => {
@@ -201,7 +201,7 @@ export function TimelineChart({
                       }
                       interval="preserveStartEnd"
                       minTickGap={28}
-                      tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }}
+                      tick={{ fill: 'var(--muted-foreground)' }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -209,7 +209,7 @@ export function TimelineChart({
                       width={42}
                       allowDecimals={metric.unit === 'days'}
                       domain={[0, 'auto']}
-                      tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }}
+                      tick={{ fill: 'var(--muted-foreground)' }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -232,7 +232,7 @@ export function TimelineChart({
                     <Line
                       dataKey="value"
                       type="linear"
-                      stroke="var(--prebid-link)"
+                      stroke="var(--chart-1)"
                       strokeWidth={2}
                       dot={(point) =>
                         points.length <= 40 ? (

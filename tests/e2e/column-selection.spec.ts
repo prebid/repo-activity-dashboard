@@ -99,6 +99,8 @@ test('small selectors retain separators, accessible controls and visible export 
   await page.getByRole('button', { name: 'Columns', exact: true }).click();
   const menu = page.getByRole('menu', { name: 'Columns', exact: true });
   await expect(menu).toHaveCSS('opacity', '1');
+  // Widths are measured with the web fonts, not their fallback.
+  await page.evaluate(() => document.fonts.ready);
   const bounds = await menu.boundingBox();
   expect(bounds!.width).toBeLessThanOrEqual(343);
   expect(bounds!.x).toBeGreaterThanOrEqual(0);

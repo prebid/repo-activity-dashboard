@@ -11,7 +11,7 @@ export function FieldError({
   className?: string;
 }) {
   return message ? (
-    <p id={id} role="alert" className={cn('text-[13px] text-[var(--prebid-error-ink)]', className)}>
+    <p id={id} role="alert" className={cn('text-body text-[var(--prebid-error-ink)]', className)}>
       {message}
     </p>
   ) : null;

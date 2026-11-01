@@ -43,7 +43,7 @@ test('dark is the default and explicit system or light choices survive reloads',
   await expect(root).toHaveClass(/dark/);
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(root).toHaveClass(/light/);
-  await expect(page.locator('main')).toHaveCSS('background-color', 'rgb(246, 248, 250)');
+  await expect(page.locator('main')).toHaveCSS('background-color', 'rgb(238, 242, 246)');
 
   // The native menu supports keyboard selection and restores focus to the trigger.
   await control.focus();

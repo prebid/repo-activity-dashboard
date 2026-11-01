@@ -1,7 +1,8 @@
 .panel {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--prebid-radius-panel);
   background: var(--card);
+  box-shadow: var(--prebid-elevation-1);
   overflow: clip;
   min-width: 0;
 }
@@ -15,13 +16,16 @@
 }
 .title {
   overflow-wrap: anywhere;
-  font-size: 17px;
-  font-weight: 600;
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-title);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 700;
+  line-height: var(--prebid-leading-title);
   letter-spacing: -0.02em;
 }
 .description {
   margin-top: 5px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -38,12 +42,12 @@
 .search {
   width: 176px;
   height: 34px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   background: var(--card);
 }
 .control {
   height: 34px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   background: var(--card);
   box-shadow: none;
 }
@@ -68,7 +72,7 @@
 .table {
   --table-cell-padding-block: 11px;
   width: 100%;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -76,7 +80,8 @@
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid var(--border);
-  background: var(--muted);
+  background: var(--prebid-header-band);
+  color: var(--prebid-header-ink);
 }
 .table th,
 .table td {
@@ -98,7 +103,7 @@
   border-bottom: 0;
 }
 .table tbody tr:hover td {
-  background: var(--accent);
+  background: var(--prebid-row-hover);
 }
 .table .group {
   padding: 10px 16px 6px;
@@ -106,7 +111,7 @@
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--prebid-header-ink);
   border-bottom: 0;
 }
 .table .groupStart {
@@ -114,7 +119,10 @@
 }
 .table .numeric {
   text-align: right;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
+}
+.table td.numeric {
+  font-weight: var(--prebid-number-weight);
 }
 .sort {
   width: 100%;
@@ -123,10 +131,10 @@
   gap: 5px;
   text-align: inherit;
   justify-content: inherit;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.5;
   font-weight: 600;
-  color: var(--muted-foreground);
+  color: var(--prebid-header-ink);
   border-radius: 2px;
   cursor: pointer;
 }
@@ -165,7 +173,7 @@
   gap: 12px;
   padding: 12px 24px;
   border-top: 1px solid var(--border);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .pages {
@@ -175,13 +183,13 @@
 }
 .scrollHint {
   padding: 0 24px 12px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .error {
   padding: 0 24px 12px;
   color: var(--destructive);
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
 .empty {
   padding: 24px;
@@ -252,12 +260,12 @@
   padding: 4px;
 }
 .definitionsList dt {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 600;
   margin-bottom: 5px;
 }
 .definitionsList dd {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.65;
   color: var(--muted-foreground);
 }

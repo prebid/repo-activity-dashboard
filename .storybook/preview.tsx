@@ -1,7 +1,10 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { ThemeProvider, useTheme } from '../src/components/providers/theme-provider';
+import { fontVariables } from '../src/styles/fonts';
 import '../src/app/globals.css';
+// On <html>, like the app, so portaled menus and dialogs inherit the font variables too.
+document.documentElement.classList.add(...fontVariables.split(' '));
 function ThemeFrame({
   theme,
   children,
@@ -20,7 +23,10 @@ function ThemeFrame({
     setTheme(theme);
   }, [theme, setTheme]);
   return (
-    <div className={fullBleed ? 'min-h-screen' : 'min-h-screen bg-background p-6 text-foreground'}>
+    <div
+      data-story-frame
+      className={fullBleed ? 'min-h-screen' : 'min-h-screen bg-background p-6 text-foreground'}
+    >
       {children}
     </div>
   );

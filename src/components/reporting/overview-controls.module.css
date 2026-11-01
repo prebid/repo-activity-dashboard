@@ -12,8 +12,8 @@
 .periodCard {
   padding: 14px;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--background);
+  border-radius: var(--prebid-radius-control);
+  background: var(--prebid-sunken);
   display: grid;
   gap: 10px;
   min-width: 0;
@@ -24,7 +24,7 @@
   justify-content: space-between;
   gap: 8px;
   min-height: 24px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .periodHeading {
   display: flex;
@@ -35,7 +35,7 @@
 }
 .periodDate {
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 16px;
 }
 .periodActions {
@@ -46,7 +46,7 @@
   gap: 8px;
   margin-bottom: 8px;
   color: var(--muted-foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .removePeriod {
   height: 24px;
@@ -72,7 +72,7 @@
 .control {
   height: 34px;
   background: var(--card);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   box-shadow: none;
 }
 .count {
@@ -80,12 +80,12 @@
   margin-left: 2px;
   padding-left: 9px;
   color: var(--muted-foreground);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
 }
 .preferenceNote {
   margin-left: auto;
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.6;
 }
 .selectLabel {
@@ -95,7 +95,7 @@
   min-width: 0;
   max-width: 100%;
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
 }
 .select {
   appearance: none;
@@ -109,7 +109,7 @@
   background: var(--card);
   color: var(--foreground);
   font: inherit;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .selectChevron {
   position: absolute;
@@ -139,9 +139,9 @@
   width: calc(100vw - 32px);
   max-height: calc(100svh - 32px);
   overflow-y: auto;
-  background: var(--card);
+  background: var(--popover);
   color: var(--foreground);
-  border-radius: 12px;
+  border-radius: var(--prebid-radius-panel);
 }
 .selectionActions {
   display: flex;
@@ -152,7 +152,7 @@
 .selectionActions > span {
   margin-left: auto;
   color: var(--muted-foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .repositoryList {
   max-height: min(42svh, 340px);
@@ -166,7 +166,7 @@
   gap: 12px;
   min-height: 42px;
   padding: 9px 12px;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   border-bottom: 1px solid var(--border);
   cursor: pointer;
 }
@@ -178,7 +178,7 @@
 }
 .apply {
   background: var(--prebid-accent);
-  color: #1c3445;
+  color: var(--prebid-accent-ink);
 }
 .apply:hover {
   background: var(--prebid-accent);
@@ -191,12 +191,12 @@
 .dateField {
   display: grid;
   gap: 7px;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
 .help,
 .notice {
   color: var(--muted-foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
 }
 .repositoryList .help {
@@ -206,7 +206,7 @@
   margin-top: 8px;
 }
 .error {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   color: var(--prebid-error-ink);
 }
 @media (max-width: 600px) {

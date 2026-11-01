@@ -28,19 +28,19 @@
   height: 100%;
 }
 .label {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   text-align: left;
   color: var(--muted-foreground);
 }
 .count {
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
+  font-size: var(--prebid-text-small);
+  font-variant-numeric: var(--prebid-numeric);
   text-align: right;
 }
 .track {
   display: flex;
   border-radius: 2px;
-  background: var(--muted);
+  background: var(--prebid-sunken);
 }
 .bar {
   display: block;
@@ -65,8 +65,8 @@
 }
 .horizontal button[aria-pressed='true'],
 .vertical button[aria-pressed='true'] {
-  border-color: var(--primary);
-  background: var(--muted);
+  border-color: var(--prebid-selection-edge);
+  background: var(--prebid-selection);
 }
 button[aria-pressed='true'] .label {
   color: var(--foreground);

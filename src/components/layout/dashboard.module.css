@@ -1,21 +1,4 @@
 .surface {
-  --background: var(--prebid-background);
-  --foreground: var(--prebid-ink);
-  --card: var(--prebid-card);
-  --card-foreground: var(--prebid-ink);
-  --popover: var(--prebid-card);
-  --popover-foreground: var(--prebid-ink);
-  --primary: var(--prebid-ink);
-  --primary-foreground: var(--prebid-card);
-  --secondary: var(--prebid-secondary);
-  --secondary-foreground: var(--prebid-ink);
-  --muted: var(--prebid-secondary);
-  --muted-foreground: var(--prebid-muted);
-  --accent: var(--prebid-hover);
-  --accent-foreground: var(--prebid-ink);
-  --border: var(--prebid-line);
-  --input: var(--prebid-input-border);
-  --ring: var(--prebid-ring);
   /* Fluid width: the gutter grows with the viewport so wide monitors use their edges. */
   --dashboard-gutter-scale: 1;
   --dashboard-gutter: calc(var(--dashboard-gutter-scale) * clamp(32px, 2.5vw, 64px));
@@ -55,7 +38,7 @@
   gap: 6px;
   height: auto;
   padding: 0 12px;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 500;
   border-radius: 0;
   color: var(--muted-foreground);
@@ -100,7 +83,7 @@
 }
 .accountName {
   color: var(--muted-foreground);
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   max-width: 130px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -117,7 +100,7 @@
   gap: 6px;
   padding: 12px var(--dashboard-gutter) 0;
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
 }
 .sampleDot {
   width: 5px;
@@ -193,7 +176,7 @@
   }
   .navItem {
     padding: 0 10px;
-    font-size: 12px;
+    font-size: var(--prebid-text-small);
   }
   .main {
     padding: 18px var(--dashboard-gutter) 32px;

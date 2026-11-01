@@ -106,7 +106,7 @@ export function AccountTypeFilter({
           {error && (
             <DropdownMenuLabel
               aria-hidden="true"
-              className="font-normal text-[13px] text-[var(--prebid-error-ink)]"
+              className="font-normal text-body text-[var(--prebid-error-ink)]"
             >
               {error}
             </DropdownMenuLabel>

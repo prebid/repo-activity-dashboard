@@ -9,7 +9,7 @@ export default async function FoundationPage() {
   await requireViewer();
   return (
     <>
-      <h1 className="text-3xl font-semibold">Component foundation</h1>
+      <h1 className="text-3xl">Component foundation</h1>
       <section
         data-testid="style-specimen"
         className="flex flex-wrap items-center gap-2 rounded-lg border bg-card p-4"

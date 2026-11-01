@@ -13,7 +13,9 @@ export function PageState({
       className="rounded-lg border bg-card p-6 text-center"
       role={onRetry ? 'alert' : 'status'}
     >
-      <h2 className="text-lg font-semibold">{title}</h2>
+      <h2 className="font-display text-title font-bold font-stretch-(--prebid-display-stretch)">
+        {title}
+      </h2>
       {children && <div className="mt-2 text-muted-foreground">{children}</div>}
       {onRetry && (
         <Button type="button" className="mt-4" onClick={onRetry}>
