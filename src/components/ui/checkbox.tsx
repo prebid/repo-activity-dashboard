@@ -21,7 +21,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   forwarded,
 ) {
   const local = React.useRef<HTMLInputElement>(null);
-  React.useImperativeHandle(forwarded, () => local.current!);
+  React.useImperativeHandle(forwarded, () => local.current!, []);
   React.useEffect(() => {
     // indeterminate is a DOM property with no attribute.
     local.current!.indeterminate = indeterminate;
@@ -34,12 +34,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
         type="checkbox"
         className="peer col-start-1 row-start-1 m-0 size-4 cursor-pointer appearance-none rounded-sm border border-input bg-(--prebid-input) focus-ring checked:border-selection-edge checked:bg-selection-edge indeterminate:border-selection-edge indeterminate:bg-selection-edge disabled:cursor-not-allowed disabled:opacity-50"
       />
-      <span className="pointer-events-none col-start-1 row-start-1 hidden place-items-center text-card peer-checked:grid peer-indeterminate:hidden peer-disabled:opacity-50">
-        <CheckIcon size={14} />
-      </span>
-      <span className="pointer-events-none col-start-1 row-start-1 hidden place-items-center text-card peer-indeterminate:grid peer-disabled:opacity-50">
-        <IndeterminateIcon size={14} />
-      </span>
+      {/* Only the glyph the input can show: the mixed state is set from the prop, so a box that is
+          not indeterminate never needs the dash, and long option lists render one svg per box. */}
+      {indeterminate ? (
+        <span className="pointer-events-none col-start-1 row-start-1 hidden place-items-center text-card peer-indeterminate:grid peer-disabled:opacity-50">
+          <IndeterminateIcon size={14} />
+        </span>
+      ) : (
+        <span className="pointer-events-none col-start-1 row-start-1 hidden place-items-center text-card peer-checked:grid peer-disabled:opacity-50">
+          <CheckIcon size={14} />
+        </span>
+      )}
     </span>
   );
 });

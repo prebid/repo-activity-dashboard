@@ -138,6 +138,15 @@ describe('Checkbox', () => {
     expect(box.indeterminate).toBe(false);
   });
 
+  it('draws only the glyph its state can show, one svg per box', () => {
+    const { container, rerender } = render(<Checkbox aria-label="Bot" />);
+    expect(container.querySelectorAll('svg')).toHaveLength(1);
+    expect(container.querySelector('svg')).toHaveClass('lucide-check');
+    rerender(<Checkbox aria-label="Bot" indeterminate />);
+    expect(container.querySelectorAll('svg')).toHaveLength(1);
+    expect(container.querySelector('svg')).toHaveClass('lucide-minus');
+  });
+
   it('cannot be changed while disabled', async () => {
     render(<Checkbox aria-label="Bots" disabled defaultChecked />);
     const box = screen.getByRole('checkbox', { name: 'Bots' });

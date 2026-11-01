@@ -1,4 +1,4 @@
-import { createElement, type ReactElement } from 'react';
+import { createElement, memo, type ComponentType, type ReactElement } from 'react';
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -75,10 +75,12 @@ export interface IconProps<Size extends number = IconSize> {
   /** Layout or animation only. */
   className?: string;
 }
-export type IconComponent = (props: IconProps) => ReactElement;
+export type IconComponent = ComponentType<IconProps>;
 
-function icon<Size extends number>(glyph: LucideIcon) {
-  return function Icon({ size, className }: IconProps<Size>): ReactElement {
+// Memoized: an icon's props are a size and a class, so a parent that re-renders, such as a long
+// option list on every click, does not redraw its svg.
+function icon<Size extends number>(glyph: LucideIcon): ComponentType<IconProps<Size>> {
+  return memo(function Icon({ size, className }: IconProps<Size>): ReactElement {
     return createElement(glyph, {
       size,
       strokeWidth: size === 10 ? 1 : 1.5,
@@ -87,7 +89,7 @@ function icon<Size extends number>(glyph: LucideIcon) {
       focusable: 'false',
       className,
     });
-  };
+  });
 }
 const concept = (glyph: LucideIcon): IconComponent => icon<IconSize>(glyph);
 const identity = icon<IdentityIconSize>;

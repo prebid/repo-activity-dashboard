@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ComponentType } from 'react';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import * as icons from '@/components/ui/icons';
@@ -73,7 +73,7 @@ const identity = new Set([
   'BotAccountIcon',
   'UnknownAccountIcon',
 ]);
-type Rendered = (props: icons.IconProps<number>) => ReactElement;
+type Rendered = ComponentType<icons.IconProps<number>>;
 const exported = Object.entries(icons) as [string, Rendered][];
 
 function svgOf(Icon: Rendered, size: number) {
