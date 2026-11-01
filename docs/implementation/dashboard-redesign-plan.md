@@ -259,7 +259,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P0b | Not started | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P3 | Plan proposed | — | — | — |
+| P3 | Plan approved; in progress | — | — | — |
 | P4 | Not started | — | — | — |
 | P5 | Not started | — | — | — |
 | P6 | Not started | — | — | — |
@@ -736,7 +736,7 @@ Proposed 2026-11-01 against `26b4456`, the head of the P0–P2 pull request. The
 
 ### Scope
 
-The 31 P3 findings in Appendix A, under the Delivery rules: about 60–70 files (roughly 40 source, config and docs; 22–28 tests), against 222 in P2. Most fixes land in `src/components/tables/data-table.tsx` and its CSS, which already render every header, pinned column and footer. A call site changes only where the call site itself is the defect, and each one is named below.
+The 31 P3 findings in Appendix A except TBL-15 (the administrator Users page is outside the redesign, decision 8), under the Delivery rules: about 60–70 files (roughly 40 source, config and docs; 22–28 tests), against 222 in P2. Most fixes land in `src/components/tables/data-table.tsx` and its CSS, which already render every header, pinned column and footer. A call site changes only where the call site itself is the defect, and each one is named below.
 
 ### Items
 
@@ -754,26 +754,24 @@ The 31 P3 findings in Appendix A, under the Delivery rules: about 60–70 files 
 
 **7. Periods** (REPOS-08, GAP-05). In two-period comparison each period carries an overline tag, "Period 1" and "Period 2", and the difference row shows its sign with the Unicode minus (decision 2). One partial-period marker everywhere, the caption "Partial" on its own line (decision 7).
 
-**8. Admin users** (TBL-15). The Users list moves onto DataTable, with sorting, a count and the pager (decision 8); `src/components/ui/table.tsx` has no other user and is deleted.
-
-**9. Allowlist.** The 14 P3-owned entries go and `completedPhases` adds `P3`. No new tooling.
+**8. Allowlist.** The P3-owned entries go and `completedPhases` adds `P3`. The two `src/components/ui/table.tsx` entries, which only the excluded Users page uses, move to P4 with that reason. No new tooling.
 
 ### Tests
 
-Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` through idle, ascending and descending; the label does not move when sorted; non-text contrast of the sort icons and spanner on the header band; the header stays visible after scrolling a 50-row table at 1440 and 375; the pinned column stays put at both scroll ends; digits right-aligned with the asterisk outside them; record numbers level with the title's first line; the Unicode minus on screen and the hyphen in CSV; the Authoring, Reviewing and Issues headings with unchanged CSV headers; one sort note for a hidden sorted column; the Users table's headers and actions; one computed style for drillable numbers across pages; the author link icon beside the name. Updated: 31 test files whose names include the typed sort arrows or pin header text and geometry. Dropped: three class-name assertions in `pager.test.tsx`. New stories for `SortIcon`, a sticky-header table and the Users table join the coverage list.
+Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` through idle, ascending and descending; the label does not move when sorted; non-text contrast of the sort icons and spanner on the header band; the header stays visible after scrolling a 50-row table at 1440 and 375; the pinned column stays put at both scroll ends; digits right-aligned with the asterisk outside them; record numbers level with the title's first line; the Unicode minus on screen and the hyphen in CSV; the Authoring, Reviewing and Issues headings with unchanged CSV headers; one sort note for a hidden sorted column; one computed style for drillable numbers across pages; the author link icon beside the name. Updated: 31 test files whose names include the typed sort arrows or pin header text and geometry. Dropped: three class-name assertions in `pager.test.tsx`. New stories for `SortIcon` and a sticky-header table join the coverage list.
 
 ### Order
 
 1. One worker builds the shared core: `data-table.tsx` and its CSS, `SortIcon`, the sort tokens, the Unicode minus, the asterisk slot, the drillable-number style and the sticky scroll area, with their tests and stories.
-2. Then four workers in parallel, each in its own worktree with disjoint files: (a) Timeline table and matrix; (b) records and insights; (c) contributions; (d) admin users.
-3. One independent review of the whole phase, `npm run check:all` once, one checkpoint for approval (stories and page captures together, decision 9), then the pull request.
+2. Then three workers in parallel, each in its own worktree with disjoint files: (a) All repositories Summary, the Timeline table and the matrix; (b) repository records, insights and Timeline supporting views; (c) contributions.
+3. One worker merges the three, closes the allowlist and records the step notes; one independent review of the whole phase; `npm run check:all` once; one checkpoint for approval (stories and page captures together, decision 9); then the pull request.
 
 ### Exit
 
 - Every table renders through one header implementation; no typed sort glyph remains; no allowlist entry is owned by P3; `completedPhases` includes `P3`.
 - The new behaviour tests and story coverage pass in both engines; `npm run check:all` passes.
 
-### Decisions (proposed)
+### Decisions (2026-11-01)
 
 1. Sticky headers: long tables scroll inside a bounded-height area, so a 50-row table becomes an in-page pane with its own vertical scroll and its horizontal scrollbar in view. The alternative, a header mirrored outside the scroller and kept in sync by script, avoids nested scrolling but adds about 100 lines to DataTable. Recommended: the bounded area.
 2. Two-period comparison: "Period 1"/"Period 2" overline tags and a signed difference with the Unicode minus, no colour and no extra glyph. Recommended.
@@ -782,8 +780,10 @@ Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` th
 5. A trailing-edge shadow while more columns remain to the right, with the pinned-edge token. Recommended.
 6. KPI tiles take the drillable-number style only; no icon or accent ("Headline totals" stays not added). Recommended.
 7. The partial-period marker is the caption "Partial" on its own line, replacing both "(partial)" and the bordered chip. Recommended.
-8. The Users list gains sortable headers, a count and the 50-row pager from DataTable. Recommended.
-9. One checkpoint at the end of the phase, stories and page captures together, instead of Checkpoint A before pages and B after. Recommended.
+8. The administrator Users page is outside the redesign; TBL-15 is withdrawn and the page keeps its current table.
+9. One checkpoint at the end of the phase, stories and page captures together, instead of Checkpoint A before pages and B after.
+
+Decisions 1–7 and 9 were approved as recommended; decision 8 is the maintainer's exclusion.
 
 ## Appendix A: findings by phase
 
@@ -889,7 +889,7 @@ Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` th
 | P3 | GAP-08 | low | Author-scoped record lists repeat the selected author in a full-width Author column on every row |
 | P3 | REPO-17 | low | Weekly timeline rows print the same date range twice |
 | P3 | TBL-12 | low | Row density and identity typography vary per feature through ad-hoc padding overrides |
-| P3 | TBL-15 | low | The admin users list uses the generic shadcn table instead of the shared table design |
+| — | TBL-15 | low | The admin users list uses the generic shadcn table instead of the shared table design (withdrawn: the administrator Users page is outside the redesign) |
 | P4 | CONTRIB-01 | high | Contribution pages use a third, divergent page-header pattern (left title + eyebrow) vs centered Repositories headers; snapshot emphasis also flips |
 | P4 | CONTRIB-02 | high | Switching Report -> Over time rebuilds a different header: area tabs vanish (74px jump), detail pages lose 'Back to report' and the company link, subtitle copy changes |
 | P4 | REPOS-01 | high | Three different page-header builds, and the 'Reporting snapshot' emphasis flips between pages |
