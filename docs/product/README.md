@@ -33,7 +33,7 @@ Calendar heatmap: optional, low-priority follow-up only after all the planned mi
 
 The existing live site has no current users. Temporary downtime or frontend defects during the transition are acceptable; maintaining uninterrupted service is not a project constraint. Authentication, authorization and account-data integrity remain required. Early hosted samples are not evidence of real-data correctness, and missing real data must not silently fall back to invented report values.
 
-Frontend implementation PRs continue to target `codex/frontend-rebuild`. A production release is a separate requested operation with the actual Amplify branch/build settings checked first; merging a feature PR does not itself approve deployment. This roadmap records the order, not a completed deployment or database integration.
+Frontend implementation PRs target `main`; `codex/frontend-rebuild` is contained in `main` and receives no new work. A production release is a separate requested operation with the actual Amplify branch/build settings checked first; merging a feature PR does not itself approve deployment. This roadmap records the order, not a completed deployment or database integration.
 
 ## Expanded export formats — deferred
 
@@ -98,7 +98,7 @@ Use the same review checkpoints that worked for the repository pages. Finish and
 | 2 | Build reusable overview and focused-report layouts using the approved Prebid design. | First user visual review in both themes and narrow/desktop layouts. |
 | 3 | Add filters, navigation, saved preferences and shared 50-row pagination. | Test state ownership, account isolation, Back/Forward, explicit URLs and full-result filtering; review the interactions visually. |
 | 4 | Complete supporting details, drilldowns and exports where applicable. | Details and full filtered exports reconcile with summaries and preserve report context; review the complete flows. |
-| 5 | Perform focused self-audit/adversarial review, required quality checks and final visual review. | User visual sign-off, then a draft PR against `codex/frontend-rebuild` with implementation, review notes and test evidence. Address review feedback in focused, tested groups. |
+| 5 | Perform focused self-audit/adversarial review, required quality checks and final visual review. | User visual sign-off, then a draft PR against `main` with implementation, review notes and test evidence. Address review feedback in focused, tested groups. |
 
 Custom groups are outside the initial frontend steps, including group navigation, group-based filters, configuration, editor permissions and group-specific samples/tests. Personal report filters and saved preferences remain in scope. Remaining layout choices are resolved during the relevant visual checkpoint; settled metric definitions and the fake-data boundary are preserved.
 
@@ -119,6 +119,7 @@ Custom groups are outside the initial frontend steps, including group navigation
 
 ## Maintained implementation references
 
+- [Dashboard redesign plan](../implementation/dashboard-redesign-plan.md): approved visual-system, navigation, URL-state and Contributors/Reviewers decisions; architecture rules, phase order, review checkpoints and the finding-to-phase map.
 - [Timeline reporting implementation plan](../implementation/timeline-reporting-plan.md): next frontend increment, shared calendar contracts, feature ownership, fake-data scenarios and five test/visual checkpoints.
 - [All Repositories implementation plan](../implementation/all-repositories-plan.md): sequenced frontend work, component/state ownership, prepared samples, and acceptance checks.
 - [Foundation contracts](../implementation/foundation-contracts.md): component ownership, typed display inputs, table state, authentication boundaries, quality checks and visual-design readiness.
