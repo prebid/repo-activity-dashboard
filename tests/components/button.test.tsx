@@ -115,14 +115,6 @@ describe('Button', () => {
       }
   });
 
-  it('shows the selected state of a pressed secondary button with weight as well as colour', () => {
-    render(<Button aria-pressed>Pressed</Button>);
-    expect(screen.getByRole('button', { name: 'Pressed' })).toHaveClass(
-      'aria-pressed:bg-selection',
-      'aria-pressed:font-semibold',
-    );
-  });
-
   it('renders its child element with the button classes when asChild is set', () => {
     render(
       <Button asChild variant="ghost" className="consumer-layout">

@@ -14,9 +14,11 @@ const buttonVariants = cva(
         /** Orange: the one action a surface asks for. */
         primary:
           'border-action-border bg-action text-action-foreground shadow-sm hover:bg-action-hover active:bg-action-pressed',
-        /** aria-pressed or an open menu or dialog shows the selected state, with weight as well as colour. */
+        /** aria-pressed or an open menu or dialog shows the selected state with a 2px edge as well as
+            colour. The label keeps its weight, so a pressed or open button never changes width and
+            a toolbar row near its limit does not wrap when a menu opens. */
         secondary:
-          'border-input bg-overlay text-foreground shadow-sm hover:border-brand hover:bg-accent aria-pressed:border-selection-edge aria-pressed:bg-selection aria-pressed:font-semibold aria-pressed:text-selection-foreground data-[state=open]:border-selection-edge data-[state=open]:bg-selection data-[state=open]:font-semibold data-[state=open]:text-selection-foreground',
+          'border-input bg-overlay text-foreground shadow-sm hover:border-brand hover:bg-accent aria-pressed:border-selection-edge aria-pressed:bg-selection aria-pressed:inset-ring aria-pressed:inset-ring-selection-edge aria-pressed:text-selection-foreground data-[state=open]:border-selection-edge data-[state=open]:bg-selection data-[state=open]:inset-ring data-[state=open]:inset-ring-selection-edge data-[state=open]:text-selection-foreground',
         ghost: 'border-transparent text-foreground hover:bg-ghost-hover',
         destructive:
           'border-transparent bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',

@@ -6,6 +6,19 @@ async function login(page: Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+test('opening the Columns menu does not resize or move its trigger', async ({ page }) => {
+  await login(page);
+  await page.setViewportSize({ width: 640, height: 480 });
+  await page.goto('/repos');
+  const trigger = page.getByRole('button', { name: 'Columns', exact: true }).first();
+  await trigger.scrollIntoViewIfNeeded();
+  const closed = await trigger.boundingBox();
+  await trigger.click();
+  await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
+  const open = await trigger.boundingBox();
+  expect(open).toEqual(closed);
+});
+
 test('column and CSV sections share groups, partial states and file/line bulk selection', async ({
   page,
 }, info) => {
