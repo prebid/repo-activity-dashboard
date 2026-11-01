@@ -188,7 +188,7 @@ for (const theme of ['light', 'dark'] as const)
       await open(page, 'repo-detail', theme);
       await followHeld(
         page,
-        page.getByRole('link', { name: '← All repositories', exact: true }),
+        page.getByRole('link', { name: 'All repositories', exact: true }),
         pageTitles['repos-summary'],
         { replaced: true },
       );

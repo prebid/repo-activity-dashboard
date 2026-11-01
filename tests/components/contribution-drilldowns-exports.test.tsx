@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest';
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ContributionDetailsView } from '@/features/contributions/contribution-details-view';
 import { ContributionView } from '@/features/contributions/contribution-view';
@@ -54,6 +54,16 @@ function Preview({ page }: { page: ContributionPage }) {
     <ContributionView page={page} controller={controller} links={links} />
   );
 }
+it('names the credited account’s type after its handle, whose avatar badge is hidden from assistive technology', () => {
+  render(<Preview page={data('approvalContributions')} />);
+  const handle = within(screen.getByRole('table')).getAllByRole('link', {
+    name: /GitHub profile for sample-alice/,
+  })[0];
+  // jsdom joins inline names without the spaces a browser inserts, so only the order is exact.
+  expect(handle.closest('td')).toHaveAccessibleName(
+    /^@sample-alice — GitHub profile for sample-alice \(sample placeholder\) ?Human$/,
+  );
+});
 it('keeps display-name reports, GitHub handles and actor icons distinct without an extra action', () => {
   render(<Preview page={data()} />);
   const row = screen.getByRole('link', { name: 'Alice — view contribution report' }).closest('tr')!;
@@ -122,12 +132,32 @@ it.each(['prComments', 'reviewed.filesChanged', 'issuesAuthored', 'issueComments
       expect(screen.getByRole('button', { name: /Merged on/ })).toBeVisible();
   },
 );
-it('shows unavailable detail coverage with an empty supporting list', () => {
+it('shows unavailable detail coverage with an empty supporting list', async () => {
+  const user = userEvent.setup();
+  const state = () =>
+    screen
+      .getByRole('heading', { name: 'No supporting records in this scope' })
+      .closest('[data-kind]');
   render(<Preview page={data('approvalContributions', 'missing')} />);
   expect(screen.getByLabelText('Detail coverage')).toHaveTextContent('missing history is not zero');
   expect(
     screen.getByRole('heading', { name: 'No supporting records in this scope' }),
   ).toBeVisible();
+  // Unavailable values leave the list empty: the missing state, never the empty-result one.
+  expect(state()).toHaveAttribute('data-kind', 'missing');
+  cleanup();
+  const empty = data('approvalContributions', 'empty');
+  expect(empty.details?.measurement.status).toBe('complete');
+  expect(empty.details?.rows).toEqual([]);
+  render(<Preview page={empty} />);
+  expect(state()).toHaveAttribute('data-kind', 'empty');
+  cleanup();
+  render(<Preview page={data('approvalContributions')} />);
+  await user.type(
+    screen.getByRole('textbox', { name: 'Search Approval contributions' }),
+    'no such record',
+  );
+  expect(state()).toHaveAttribute('data-kind', 'no-match');
 });
 it('selects export metrics/layout, sends pending search, and recovers from failed and redirected downloads', async () => {
   const user = userEvent.setup();

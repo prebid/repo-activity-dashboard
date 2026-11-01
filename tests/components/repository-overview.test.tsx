@@ -444,6 +444,26 @@ it('updates group spans and reveals automation partials through the controlled c
   expect(within(activity).getByRole('columnheader', { name: 'Agent reviewers' })).toBeVisible();
   expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
 });
+it('explains only the value marks each table shows, in that table’s footer', async () => {
+  const user = userEvent.setup();
+  render(<Preview />);
+  const backlog = screen.getByRole('region', { name: 'Current backlog' });
+  const activity = screen.getByRole('region', { name: 'Period activity' });
+  const marks = (region: HTMLElement) =>
+    [...region.querySelectorAll<HTMLElement>('[data-mark]')].map((entry) => entry.dataset.mark);
+  expect(marks(backlog)).toEqual(['missing']);
+  expect(marks(activity)).toEqual(['missing', 'partial']);
+  expect(
+    within(backlog).getByText(/Human reviewers, current approvals, and agent\/bot activity/),
+  ).toBeVisible();
+  // The partial automation counts sit in columns that start hidden.
+  await user.click(within(backlog).getByRole('button', { name: 'Columns' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'Reviewer coverage' }));
+  await user.keyboard('{Escape}');
+  expect(marks(backlog)).toEqual(['missing', 'partial']);
+  // The legends are the page's only glyph keys.
+  expect(document.querySelectorAll('[data-mark]')).toHaveLength(4);
+});
 it('uses the caller as the only owner of controlled visibility, including non-pinned sized columns', async () => {
   interface Row {
     id: string;
@@ -458,6 +478,7 @@ it('uses the caller as the only owner of controlled visibility, including non-pi
     const [value, onChange] = useState<Record<string, boolean>>({});
     return (
       <LocalDataTable
+        search="local"
         title="Controlled"
         columns={columns}
         rows={[{ id: 'one', a: 1, b: 2 }]}

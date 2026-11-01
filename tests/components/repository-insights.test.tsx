@@ -71,8 +71,11 @@ it('uses singular units for one account, record, credit, and merged PR', () => {
       })}
     />,
   );
-  expect(screen.getByText('1 contribution credit')).toBeVisible();
-  expect(screen.getByText('1 distinct PR')).toBeVisible();
+  const scope = () => screen.getByRole('region', { name: 'Selected repository scope' });
+  expect(within(scope()).getByText('1 contribution credit')).toBeVisible();
+  expect(within(scope()).getByText('1 distinct PR')).toBeVisible();
+  // The scope and the table footer both count it; without a search the footer has no "matching".
+  expect(screen.getAllByText('1 contribution credit')).toHaveLength(2);
   const merged = exactlyOne('medianMergeDays');
   view.rerender(
     <Preview
@@ -103,8 +106,23 @@ it('uses compact account rows and links to full filtered record lists', () => {
   expect(accounts).toBeGreaterThan(1);
   expect(screen.getByText(accounts + ' unique accounts')).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(accounts);
-  expect(screen.getByText('Prebid agent')).toBeVisible();
-  expect(screen.getByText('Bot')).toBeVisible();
+  const types = [
+    ...screen.getByRole('table').querySelectorAll('tbody [data-column="accountType"]'),
+  ];
+  expect(types.filter((cell) => cell.textContent === 'Prebid agent')).toHaveLength(1);
+  expect(types.filter((cell) => cell.textContent === 'Bot')).toHaveLength(1);
+  // Every account carries an avatar titled with its type; the type column keeps the text.
+  expect(
+    screen
+      .getByRole('table')
+      .querySelectorAll('tbody [data-column="account"] [data-kind="person"]'),
+  ).toHaveLength(accounts);
+  expect(screen.getByTitle('Prebid agent')).toHaveAttribute('data-account-type', 'agent');
+  // The type column can be hidden, so the account cell names the type the hidden badge shows.
+  const agent = screen.getByTitle('Prebid agent').closest('td')!;
+  expect(agent).toHaveAccessibleName(
+    /GitHub profile for [\w-]+ \(sample placeholder\) ?Prebid agent$/,
+  );
   const author = frequentAuthor(insight);
   const link = screen.getByRole('link', {
     name: 'View ' + author.recordCount + ' PRs by ' + author.account,
@@ -114,7 +132,7 @@ it('uses compact account rows and links to full filtered record lists', () => {
   expect(target.searchParams.get('metric')).toBe('prAuthors');
   expect(target.searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
   expect(screen.getByRole('table').querySelector('details')).toBeNull();
-  expect(screen.getByRole('link', { name: '← All repositories' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute(
     'href',
     '/repos?period=this-month&period2=last-month&age=60',
   );
@@ -126,8 +144,9 @@ it('shows credit units separately from distinct PR counts', () => {
   const credits = insight.rows.length,
     prs = new Set(insight.rows.map((row) => row.pr.id)).size;
   expect(credits).toBeGreaterThan(1);
-  expect(screen.getByText(credits + ' contribution credits')).toBeVisible();
-  expect(screen.getByText(prs + ' distinct PRs')).toBeVisible();
+  const scope = screen.getByRole('region', { name: 'Selected repository scope' });
+  expect(within(scope).getByText(credits + ' contribution credits')).toBeVisible();
+  expect(within(scope).getByText(prs + ' distinct PRs')).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(credits);
   expect(screen.getByRole('button', { name: 'First credited' })).toHaveAccessibleDescription(
     /Repeated actions do not create additional credits/,

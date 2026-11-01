@@ -152,7 +152,8 @@ test('missing, partial, empty and invalid contribution views retain their meanin
         await expect(
           page.getByRole('heading', { name: 'No confirmed contributions to list' }),
         ).toBeVisible();
-        await expect(page.getByRole('table')).toHaveCount(0);
+        await expect(page.getByRole('table').getByRole('columnheader').first()).toBeVisible();
+        await expect(page.getByRole('table').locator('tbody td[data-column]')).toHaveCount(0);
       } else await expect(page.getByRole('table')).toBeVisible();
     }
     await page.screenshot({
@@ -174,7 +175,10 @@ test('catalog contribution states render independently with functional company b
     'http://127.0.0.1:6007/iframe.html?id=contributions-pages--company&viewMode=story',
   );
   await expect(page.getByRole('heading', { name: 'Example Acme', level: 1 })).toBeVisible();
-  await page.getByRole('button', { name: 'By repository', exact: true }).click();
+  // The story's breakdown is links, as the company screen renders it.
+  const byRepository = page.getByRole('link', { name: 'By repository', exact: true });
+  await byRepository.click();
+  await expect(byRepository).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
   for (const [story, title] of [['error', 'This page could not load']] as const) {
     await page.goto(

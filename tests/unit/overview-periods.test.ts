@@ -6,6 +6,7 @@ import {
   activityTableRows,
   periodRangeLabel,
   validateActivityPeriods,
+  zonedRangeLabel,
 } from '@/lib/presentation/overview-periods';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import {
@@ -156,6 +157,13 @@ it('labels preset and custom rows from their effective UTC date ranges', () => {
   expect(periodRangeLabel(resolveReportingPeriod(month, asOf).range)).toBe(
     'Oct 1, 2026 – Oct 24, 2026',
   );
+  expect(zonedRangeLabel(resolveReportingPeriod(month, asOf).range)).toBe(
+    'Oct 1, 2026 – Oct 24, 2026 · UTC',
+  );
+  // An exclusive end shows the last included day; an inclusive end shows itself.
+  const days = { start: '2026-10-01T00:00:00.000Z', end: '2026-10-08T00:00:00.000Z' };
+  expect(zonedRangeLabel({ ...days, endInclusive: false })).toBe('Oct 1, 2026 – Oct 7, 2026 · UTC');
+  expect(zonedRangeLabel({ ...days, endInclusive: true })).toBe('Oct 1, 2026 – Oct 8, 2026 · UTC');
   expect(repositoryOverviewSample(custom2, ['repo-prebidjs']).period.range).toEqual({
     start: '2026-10-13T00:00:00.000Z',
     end: '2026-10-16T00:00:00.000Z',

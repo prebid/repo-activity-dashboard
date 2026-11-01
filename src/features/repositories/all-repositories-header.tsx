@@ -1,7 +1,7 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
-import { ArrowUpRight, CalendarDays, Table2 } from 'lucide-react';
+import { ExternalLinkIcon, ReportIcon, TimelineIcon } from '@/components/ui/icons';
 import { formatAsOf } from '@/lib/presentation/format';
 import styles from './overview.module.css';
 import heading from './repository-heading.module.css';
@@ -18,7 +18,7 @@ export function AllRepositoriesHeading({ asOf }: { asOf: string }) {
           className={`${styles.organizationLink} focus-ring`}
         >
           Prebid on GitHub
-          <ArrowUpRight size={13} aria-hidden="true" />
+          <ExternalLinkIcon size={14} />
         </a>
       </div>
       <p className={`${heading.aside} ${styles.asOf}`}>
@@ -44,7 +44,7 @@ export function AllRepositoriesTabs({
         href={summaryHref}
         aria-current={active === 'summary' ? 'page' : undefined}
       >
-        <Table2 size={16} aria-hidden="true" />
+        <ReportIcon size={16} />
         Summary
         <LinkPending />
       </Link>
@@ -54,7 +54,7 @@ export function AllRepositoriesTabs({
           href={timelineHref}
           aria-current={active === 'timeline' ? 'page' : undefined}
         >
-          <CalendarDays size={16} aria-hidden="true" />
+          <TimelineIcon size={16} />
           Timeline
           <LinkPending />
         </Link>

@@ -1,0 +1,19 @@
+/* The one disclosure pattern: no native marker, a trailing ChevronDown that turns 180° open. */
+.chevron {
+  display: inline-flex;
+}
+summary:has(.chevron) {
+  list-style: none;
+}
+summary:has(.chevron)::-webkit-details-marker {
+  display: none;
+}
+[aria-expanded='true'] > .chevron,
+details[open] > summary .chevron {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chevron {
+    transition: transform 150ms ease;
+  }
+}

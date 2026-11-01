@@ -1,7 +1,7 @@
 import { repositoryDetail } from '@/server/reporting';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-screen';
-import { PageState } from '@/components/feedback/page-state';
+import { EmptyState } from '@/components/feedback/empty-state';
 import Link from 'next/link';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
@@ -57,7 +57,8 @@ export default async function RepositoryPage({
         >
           All repositories
         </Link>
-        <PageState
+        <EmptyState
+          kind={result.status === 'invalid' ? 'error' : 'missing'}
           title={
             result.status === 'invalid'
               ? 'Invalid repository filter'
@@ -67,7 +68,7 @@ export default async function RepositoryPage({
           {result.status === 'invalid'
             ? 'The requested metric, dates, branch, or return path is invalid. Choose a count from All repositories.'
             : 'Choose another metric from All repositories.'}
-        </PageState>
+        </EmptyState>
       </>
     );
   const unhandled: never = result;

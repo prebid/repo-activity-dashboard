@@ -2,10 +2,13 @@
 import { accountTypeLabels } from '@/models/github-account';
 import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
 import { additionalMetricDefinitions } from '@/models/contribution-activity';
-import { ArrowUpRight } from 'lucide-react';
+import { ExternalLinkIcon } from '@/components/ui/icons';
+import { Callout } from '@/components/feedback/callout';
+import type { EmptyStateKind } from '@/components/feedback/empty-state';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { GitHubAccountLink } from '@/components/github/account-link';
+import { AccountTypeLabel, Avatar } from '@/components/github/avatar';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -21,6 +24,7 @@ import {
 } from '@/models/contribution-metrics';
 import { contributionContextColumns } from '@/lib/presentation/contribution-csv';
 import { ContributionHeader } from './contribution-header';
+import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import type { ContributionLinks } from './contribution-columns';
 import styles from './contributions.module.css';
 export const contributionDetailColumnIds = [
@@ -57,7 +61,7 @@ export function contributionDetailColumns(
           rel="noopener noreferrer"
           title="Sample record placeholder; real records will open on GitHub."
         >
-          #{row.record.number} {row.record.title} <ArrowUpRight size={12} aria-hidden="true" />
+          #{row.record.number} {row.record.title} <ExternalLinkIcon size={14} />
         </a>
       ),
     },
@@ -68,11 +72,20 @@ export function contributionDetailColumns(
       width: 160,
       value: (row) => row.account.name + ' ' + row.account.login,
       cell: (row) => (
-        <GitHubAccountLink
-          login={row.account.login}
-          url={row.account.profileUrl}
-          label={'@' + row.account.login}
-        />
+        <div className={styles.account}>
+          <Avatar
+            kind="person"
+            name={row.account.name}
+            accountType={row.account.actorType}
+            size={32}
+          />
+          <GitHubAccountLink
+            login={row.account.login}
+            url={row.account.profileUrl}
+            label={'@' + row.account.login}
+          />
+          <AccountTypeLabel accountType={row.account.actorType} />
+        </div>
       ),
     },
     {
@@ -154,6 +167,14 @@ export function contributionDetailColumns(
     },
   ];
 }
+/**
+ * The state of an empty supporting table: rows hidden by the search, no rows because the values
+ * are incomplete, or a complete result with nothing in it.
+ */
+export function supportingEmptyKind(details: ContributionMetricDetails): EmptyStateKind {
+  if (details.rows.length) return 'no-match';
+  return details.measurement.status === 'complete' ? 'empty' : 'missing';
+}
 /** Record, account, repository and per-row coverage for every contribution supporting export. */
 export function contributionDetailExportColumns(): DataColumn<ContributionSupportingRow>[] {
   return [
@@ -181,14 +202,14 @@ export function ContributionDetailsView({
   details,
   controller,
   links,
-  controls,
+  toolbar,
   visibility,
 }: {
   page: ContributionPage;
   details: ContributionMetricDetails;
   controller: TableController;
   links: ContributionLinks;
-  controls?: React.ReactNode;
+  toolbar?: ReportToolbarControls;
   visibility?: ColumnVisibility;
 }) {
   const columns = contributionDetailColumns(details);
@@ -208,7 +229,7 @@ export function ContributionDetailsView({
   ];
   return (
     <>
-      <ContributionHeader page={page} links={links} controls={controls} />
+      <ContributionHeader page={page} links={links} toolbar={toolbar} />
       <section
         className={styles.totals + ' ' + styles.detailTotals}
         aria-label="Supporting record totals"
@@ -236,12 +257,13 @@ export function ContributionDetailsView({
         </dl>
       </section>
       {details.measurement.status !== 'complete' && (
-        <aside className={styles.notice} aria-label="Detail coverage">
+        <Callout tone="warning" as="aside" aria-label="Detail coverage">
           {details.measurement.reason} Only supplied records and values are shown; missing history
           is not zero.
-        </aside>
+        </Callout>
       )}
       <DataTable
+        search="local"
         title={reportMetricLabel(details.metric)}
         description={
           <>
@@ -260,7 +282,10 @@ export function ContributionDetailsView({
         exportName="contribution-details-sample.csv"
         exportContextKey={JSON.stringify([details.context, details.metric])}
         exportColumns={exportColumns}
-        emptyTitle="No supporting records in this scope"
+        empty={{
+          kind: supportingEmptyKind(details),
+          title: 'No supporting records in this scope',
+        }}
         itemLabel={{ singular: 'account / record row', plural: 'account / record rows' }}
         footerNote="Totals describe the full report scope. Table search narrows displayed and exported supporting rows."
       />

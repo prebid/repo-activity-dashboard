@@ -80,7 +80,7 @@ test('direct lists share the drilldown layout and retain pagination through tab 
     '/repos/prebidjs?scope=current&metric=humanApprovals0&returnTo=%2Frepos%3Fage%3D60',
   );
   await expect(page.getByText('60 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: '← All repositories', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'All repositories', exact: true })).toHaveAttribute(
     'href',
     '/repos?age=60',
   );

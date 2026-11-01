@@ -1,0 +1,56 @@
+/* The two cover layers scroll with the content and hide the shadows at either end, so a shadow
+   shows only on a side with hidden items. */
+.content {
+  background:
+    linear-gradient(var(--popover) 30%, transparent) center top / 100% 32px no-repeat local,
+    linear-gradient(transparent, var(--popover) 70%) center bottom / 100% 32px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, var(--prebid-scroll-shadow), transparent) center top /
+      100% 10px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, var(--prebid-scroll-shadow), transparent) center
+      bottom / 100% 10px no-repeat scroll,
+    var(--popover);
+}
+/* A menu holding a scroll group stacks its rows in a column and only the group scrolls, so the
+   rows around it, such as a label and a closing action, stay in view. */
+.content:has(> .scrollGroup) {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+.content:has(> .scrollGroup) > * {
+  flex-shrink: 0;
+}
+.content > .scrollGroup {
+  flex-shrink: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+/* Unmounts at once on close: Radix keeps a closing menu mounted until its exit animation ends. */
+.content[data-state='closed'] {
+  display: none;
+}
+
+.box {
+  position: absolute;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--prebid-input-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-input);
+  color: var(--prebid-overlay);
+}
+[data-state='checked'] > .box,
+[data-state='indeterminate'] > .box {
+  border-color: var(--prebid-selection-edge);
+  background: var(--prebid-selection-edge);
+}
+
+/* The footer ends the menu with its closing action at the end of the row. */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px;
+}

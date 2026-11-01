@@ -1,0 +1,82 @@
+/* Each kind sets its tile fill and icon colour; tests/unit/state-contrast.test.ts checks them. */
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+.state[data-variant='page'] {
+  padding: 32px 24px;
+  border: 1px solid var(--prebid-line);
+  border-radius: var(--prebid-radius-panel);
+  background: var(--prebid-card);
+  box-shadow: var(--prebid-elevation-1);
+}
+.state[data-variant='embedded'] {
+  padding: 32px 16px;
+}
+.state[data-kind='empty'],
+.state[data-kind='no-match'],
+.state[data-kind='loading'] {
+  --state-tile: var(--prebid-secondary);
+  --state-icon: var(--prebid-muted);
+}
+.state[data-kind='missing'] {
+  --state-tile: var(--prebid-warning-bg);
+  --state-icon: var(--prebid-warning-icon);
+}
+.state[data-kind='error'] {
+  --state-tile: var(--prebid-error-bg);
+  --state-icon: var(--prebid-error-ink);
+}
+.tile {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--state-tile);
+  color: var(--state-icon);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .state[data-kind='loading'] .tile > svg {
+    animation: spin 1s linear infinite;
+  }
+}
+.title {
+  color: var(--prebid-ink);
+}
+.state[data-variant='page'] .title {
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-title);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 700;
+  line-height: var(--prebid-leading-title);
+}
+.state[data-variant='embedded'] .title {
+  font-family: var(--prebid-font-body);
+  font-size: var(--prebid-text-heading);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
+}
+.description {
+  max-width: 56ch;
+  margin-top: 4px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-body);
+  line-height: var(--prebid-leading-body);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}

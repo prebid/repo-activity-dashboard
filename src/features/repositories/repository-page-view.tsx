@@ -7,12 +7,20 @@ import type { ColumnVisibility } from '@/components/tables/table-columns';
 import { requiresNonDraftPr } from '@/lib/presentation/repository-page-rules';
 import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { DataTable } from '@/components/tables/data-table';
-import { PageState } from '@/components/feedback/page-state';
+import { Callout } from '@/components/feedback/callout';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
-import { periodRangeLabel } from '@/lib/presentation/overview-periods';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
+import { repositoryFiltersNarrow } from '@/lib/presentation/repository-page-query';
 import { formatCount } from '@/lib/presentation/format';
+import {
+  noReportControls,
+  ReportToolbar,
+  reportToolbarStatus,
+  type ReportToolbarGroup,
+} from '@/components/reporting/report-toolbar';
 import { RepositoryHeader } from './repository-header';
 import {
   repositoryPagePrColumns,
@@ -27,8 +35,10 @@ export interface RepositoryPageControls {
   timelinePending?: boolean;
   filters: React.ReactNode;
   charts?: React.ReactNode;
+  /** The record scope fields; absent on author lists, whose scope is fixed. */
   scope?: React.ReactNode;
-  preferences: React.ReactNode;
+  /** Columns, sorting and chart visibility are saved; Reset view restores them. */
+  preferences: { storageAvailable: boolean; onReset: () => void };
   visibility: ColumnVisibility;
 }
 
@@ -48,9 +58,14 @@ function RepositoryPageTable({
     title,
     controller,
     visibility: controls?.visibility ?? { value: visible, onChange: setVisible },
-    searchable: !controls,
+    // With page controls, the filter bar holds the search and the rows arrive already searched.
+    search: controls ? ('external' as const) : ('local' as const),
+    // Record filters are applied before the table, so it cannot see them narrow its rows.
+    filtered: repositoryFiltersNarrow(page.filters),
     headerContent: controls?.filters,
-    emptyTitle: page.cohortMeasurement.value ? 'No matching items' : undefined,
+    empty: page.cohortMeasurement.value
+      ? ({ kind: 'no-match', title: 'No matching items' } as const)
+      : ({ kind: 'empty', title: 'No items' } as const),
     description:
       controller.query.sort === 'createdAt' && controller.query.descending
         ? 'Newest created first'
@@ -70,10 +85,7 @@ function RepositoryPageTable({
           columnMenuColumns={repositoryPagePrColumns.filter(
             (column) => !repositoryInlineColumnIds.has(column.id),
           )}
-          itemLabel={{
-            singular: controls ? 'matching PR' : 'PR',
-            plural: controls ? 'matching PRs' : 'PRs',
-          }}
+          itemLabel={{ singular: 'PR', plural: 'PRs' }}
         />
       ) : (
         <DataTable
@@ -83,14 +95,22 @@ function RepositoryPageTable({
           columnMenuColumns={repositoryPageIssueColumns.filter(
             (column) => !repositoryInlineColumnIds.has(column.id),
           )}
-          itemLabel={{
-            singular: controls ? 'matching issue' : 'issue',
-            plural: controls ? 'matching issues' : 'issues',
-          }}
+          itemLabel={{ singular: 'issue', plural: 'issues' }}
         />
       )}
     </div>
   );
+}
+/**
+ * Reset view restores the saved columns, sorting and charts and keeps the record scope, so its
+ * group is named for what it restores and the Record scope select has a group of its own.
+ */
+function viewGroup(controls: RepositoryPageControls): ReportToolbarGroup {
+  return {
+    label: 'Columns, sorting and charts',
+    controls: null,
+    reset: { label: 'Reset view', onReset: controls.preferences.onReset },
+  };
 }
 export function RepositoryPageView({
   page,
@@ -131,70 +151,81 @@ export function RepositoryPageView({
             : undefined
         }
       />
-      {controls?.scope}
-      <section aria-label="Selected repository scope" className={styles.scope}>
-        <div className={styles.scopeMain}>
-          <span className={styles.scopeTag}>{current ? 'Current open' : 'Period activity'}</span>
-          <span className={styles.scopeTitle}>{title}</span>
-          <span className={styles.matching}>
-            {formatCount(page.measurement.value) +
+      <ReportToolbar
+        label="Selected repository scope"
+        {...(controls
+          ? {
+              disabled: false,
+              groups: controls.scope
+                ? [{ label: 'Record scope', controls: controls.scope }, viewGroup(controls)]
+                : [viewGroup(controls)],
+              status: reportToolbarStatus(false, controls.preferences.storageAvailable, 'report'),
+            }
+          : noReportControls)}
+        summary={{
+          lead: title,
+          facts: [
+            // The record scope select names the scope when it is shown.
+            ...(controls?.scope ? [] : [current ? 'Current open' : 'Period activity']),
+            formatCount(page.measurement.value) +
               (page.measurement.status === 'partial'
                 ? ' available sample records'
-                : ' matching records')}
-          </span>
-        </div>
-        {(!current || page.kind === 'prs' || page.author || focused) && (
-          <div className={styles.scopeDetails}>
-            {current ? (
-              <span>
-                {page.kind === 'issues'
-                  ? 'Open issues'
-                  : selection.metric === 'draftPrs' || prFilters?.draft === 'drafts'
-                    ? 'Drafts only'
-                    : selection.metric === 'totalOpenPrs' &&
-                        prFilters?.draft !== 'non-drafts' &&
-                        !nonDraftFiltered
-                      ? 'Includes drafts'
-                      : 'Excludes drafts'}
-              </span>
-            ) : (
-              <span>{periodRangeLabel(selection.range)} · UTC</span>
-            )}
-            {!current && selection.branch && <span>Primary branch: {selection.branch}</span>}
-            {page.author && (
-              <>
-                <span>Author: {page.author.account}</span>
-                <span>
-                  Created during this period{page.filters.states.length ? '' : ' · All statuses'}
-                </span>
-              </>
-            )}
-            {focused && (
-              <Link
-                prefetch={false}
-                href={repositoryDrilldownHref(page.repository, {
-                  selection: { scope: 'current', metric: baseline },
-                  returnTo,
-                })}
-              >
-                All open {page.kind === 'prs' ? 'PRs' : 'issues'}
-                <LinkPending />
-              </Link>
-            )}
-          </div>
-        )}
-      </section>
+                : ' matching records'),
+            ...(current
+              ? page.kind === 'prs' || page.author || focused
+                ? [
+                    page.kind === 'issues'
+                      ? 'Open issues'
+                      : selection.metric === 'draftPrs' || prFilters?.draft === 'drafts'
+                        ? 'Drafts only'
+                        : selection.metric === 'totalOpenPrs' &&
+                            prFilters?.draft !== 'non-drafts' &&
+                            !nonDraftFiltered
+                          ? 'Includes drafts'
+                          : 'Excludes drafts',
+                  ]
+                : []
+              : [zonedRangeLabel(selection.range)]),
+            ...(!current && selection.branch ? ['Primary branch: ' + selection.branch] : []),
+            ...(page.author
+              ? [
+                  'Author: ' + page.author.account,
+                  'Created during this period' +
+                    (page.filters.states.length ? '' : ' · All statuses'),
+                ]
+              : []),
+            ...(focused
+              ? [
+                  <Link
+                    key="all"
+                    className={styles.scopeLink}
+                    prefetch={false}
+                    href={repositoryDrilldownHref(page.repository, {
+                      selection: { scope: 'current', metric: baseline },
+                      returnTo,
+                    })}
+                  >
+                    All open {page.kind === 'prs' ? 'PRs' : 'issues'}
+                    <LinkPending />
+                  </Link>,
+                ]
+              : []),
+          ],
+        }}
+      />
       {page.measurement.status === 'partial' && (
-        <p role="status" className={styles.notice}>
+        <Callout tone="warning" as="p" role="status">
           Partial sample coverage: {page.measurement.reason} This list contains the available
           entries only.
-        </p>
+        </Callout>
       )}
       {controls?.charts}
       {page.measurement.value === null ? (
         <>
           {controls?.filters}
-          <PageState title="Sample records unavailable">{page.measurement.reason}</PageState>
+          <EmptyState kind="missing" title="Sample records unavailable">
+            {page.measurement.reason}
+          </EmptyState>
         </>
       ) : (
         <RepositoryPageTable
@@ -204,7 +235,6 @@ export function RepositoryPageView({
           controls={controls}
         />
       )}
-      {controls?.preferences}
     </>
   );
 }

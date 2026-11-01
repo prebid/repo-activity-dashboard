@@ -10,7 +10,11 @@ export interface SelectableBar {
   count: Count;
   selected: boolean;
 }
-/** Native buttons keep the bars, printed values and keyboard interaction on one semantic surface. */
+/**
+ * Native buttons keep the bars, printed values and keyboard interaction on one semantic surface.
+ * Vertical bars print each count directly above its bar on one shared baseline, so a known zero is
+ * a "0" on the axis with no bar, and an unavailable value is its dash there.
+ */
 export function SelectableBars({
   label,
   points,
@@ -24,44 +28,58 @@ export function SelectableBars({
 }) {
   const id = useId();
   const maximum = Math.max(1, ...points.map((point) => point.count.value ?? 0));
+  const vertical = orientation === 'vertical';
   return (
     <div
       className={styles.scroll}
       role="group"
       aria-label={label}
-      tabIndex={orientation === 'vertical' ? 0 : undefined}
+      tabIndex={vertical ? 0 : undefined}
     >
-      <ul className={orientation === 'vertical' ? styles.vertical : styles.horizontal}>
-        {points.map((point, index) => (
-          <li key={point.id}>
-            <button
-              type="button"
-              aria-describedby={id + '-' + index}
-              aria-pressed={point.selected}
-              disabled={!point.selected && (point.count.value === null || point.count.value === 0)}
-              onClick={() => onSelect(index)}
-              title={point.detail}
-            >
-              <span className={styles.label}>{point.label}</span>{' '}
-              <span className={styles.track} aria-hidden="true">
-                <span
-                  className={styles.bar}
-                  style={
-                    orientation === 'vertical'
-                      ? { height: ((point.count.value ?? 0) / maximum) * 100 + '%' }
-                      : { width: ((point.count.value ?? 0) / maximum) * 100 + '%' }
-                  }
-                />
-              </span>
-              <span className={styles.count} data-chart-count>
-                <MeasurementValue measurement={point.count} />
-              </span>
-            </button>
-            <span id={id + '-' + index} hidden>
-              {point.detail}
+      <ul className={vertical ? styles.vertical : styles.horizontal}>
+        {points.map((point, index) => {
+          const share = ((point.count.value ?? 0) / maximum) * 100 + '%';
+          const count = (
+            <span className={styles.count} data-chart-count>
+              <MeasurementValue measurement={point.count} />
             </span>
-          </li>
-        ))}
+          );
+          return (
+            <li key={point.id}>
+              <button
+                type="button"
+                className={styles.point}
+                aria-describedby={id + '-' + index}
+                aria-pressed={point.selected}
+                disabled={
+                  !point.selected && (point.count.value === null || point.count.value === 0)
+                }
+                onClick={() => onSelect(index)}
+                title={point.detail}
+              >
+                <span className={styles.label}>{point.label}</span>{' '}
+                {vertical ? (
+                  <span className={styles.plot}>
+                    {count}
+                    <span className={styles.track} aria-hidden="true" style={{ height: share }}>
+                      <span className={styles.bar} />
+                    </span>
+                  </span>
+                ) : (
+                  <>
+                    <span className={styles.track} aria-hidden="true">
+                      <span className={styles.bar} style={{ width: share }} />
+                    </span>
+                    {count}
+                  </>
+                )}
+              </button>
+              <span id={id + '-' + index} hidden>
+                {point.detail}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

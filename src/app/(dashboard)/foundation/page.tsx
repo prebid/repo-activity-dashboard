@@ -17,10 +17,12 @@ export default async function FoundationPage() {
         <p data-testid="text-specimen" className="text-sm">
           Spacing and typography specimen
         </p>
-        <Button>Example action</Button>
+        <Button variant="primary">Example action</Button>
         <Button variant="destructive">Destructive action</Button>
         <Label htmlFor="example-input">Example input</Label>
-        <Input id="example-input" className="w-48" />
+        <div className="w-48">
+          <Input id="example-input" />
+        </div>
         <span>
           Known zero: <MetricValue value={0} />
         </span>

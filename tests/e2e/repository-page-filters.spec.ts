@@ -53,7 +53,7 @@ test('filters the full PR population before fifty-row paging and restores page/f
   await expect(page.getByText('92 matching records', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Remove Labels: enhancement', exact: true }).click();
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: '← All repositories', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'All repositories', exact: true })).toHaveAttribute(
     'href',
     '/repos?age=60',
   );
@@ -144,7 +144,7 @@ test('saves columns and sorting without saving historical scope or filters', asy
   );
   await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR ↑');
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Reset view preferences', exact: true }).click();
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(50);
   await page.goto('/repos/prebidjs');
   await expect(page.getByText('Newest created first', { exact: true })).toBeVisible();

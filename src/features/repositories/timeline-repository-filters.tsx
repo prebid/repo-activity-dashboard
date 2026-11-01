@@ -17,7 +17,7 @@ import {
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
-import { X } from 'lucide-react';
+import { ClearIcon } from '@/components/ui/icons';
 import { RepositoryFilterChips, RepositoryFilterForm } from './repository-filter-form';
 import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import styles from './repository-controls.module.css';
@@ -54,14 +54,14 @@ export function TimelineRepositoryFilters({
         }}
       >
         <DialogTrigger asChild>
-          <Button variant="outline">
+          <Button variant="secondary">
             Record filters
             {chips.length || filters.search
               ? ' (' + (chips.length + Number(!!filters.search)) + ')'
               : ''}
           </Button>
         </DialogTrigger>
-        <DialogContent container={container} className={styles.dialog}>
+        <DialogContent container={container} size="md">
           <DialogHeader>
             <DialogTitle>Filter timeline records</DialogTitle>
             <DialogDescription>
@@ -104,11 +104,12 @@ export function TimelineRepositoryFilters({
           {filters.search && (
             <button
               type="button"
+              className={styles.chip}
               onClick={() => onChange({ ...filters, search: '' })}
               aria-label="Remove title or number filter"
             >
               Title or number: {filters.search}
-              <X size={12} aria-hidden="true" />
+              <ClearIcon size={14} />
             </button>
           )}
         </RepositoryFilterChips>

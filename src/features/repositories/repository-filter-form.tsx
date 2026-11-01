@@ -1,9 +1,11 @@
 import { useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import { Button } from '@/components/ui/button';
+import { NativeSelect } from '@/components/ui/native-select';
 import { DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { FilterChoices } from '@/components/tables/filter-choices';
 import { repositoryPageFiltersSchema, type RepositoryPageFilters } from '@/models/repository-page';
-import { X } from 'lucide-react';
+import { ClearIcon } from '@/components/ui/icons';
+import { Callout } from '@/components/feedback/callout';
 import {
   removeRepositoryFilter,
   repositoryFilterChips,
@@ -62,7 +64,7 @@ export function RepositoryFilterForm({
           ) : (
             <label key={field.key} className={styles.selectField}>
               {field.label}
-              <select
+              <NativeSelect
                 value={typeof value === 'string' || typeof value === 'number' ? String(value) : ''}
                 onChange={(event) => {
                   const next = event.target.value;
@@ -78,27 +80,29 @@ export function RepositoryFilterForm({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
           );
         })}
       </div>
       {help}
       {error && (
-        <p role="alert" className={styles.help}>
+        <Callout tone="error" as="p" role="alert">
           {error}
-        </p>
+        </Callout>
       )}
       <DialogFooter className={styles.dialogFooter}>
         <Button type="button" variant="ghost" onClick={() => setDraft({ ...defaults })}>
           Clear selections
         </Button>
         <DialogClose asChild>
-          <Button type="button" variant="outline">
+          <Button type="button" variant="secondary">
             Cancel
           </Button>
         </DialogClose>
-        <Button type="submit">Apply filters</Button>
+        <Button type="submit" variant="primary">
+          Apply filters
+        </Button>
       </DialogFooter>
     </form>
   );
@@ -122,12 +126,13 @@ export function RepositoryFilterChips({
       {chips.map((chip) => (
         <button
           type="button"
+          className={styles.chip}
           key={chip.key + ':' + chip.value}
           onClick={() => onChange(removeRepositoryFilter(filters, chip.key, chip.value))}
           aria-label={'Remove ' + chip.label}
         >
           {chip.label}
-          <X size={12} aria-hidden="true" />
+          <ClearIcon size={14} />
         </button>
       ))}
       {children}

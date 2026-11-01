@@ -20,7 +20,7 @@
 .link:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--prebid-radius-small);
 }
 
 .label {
@@ -36,5 +36,5 @@
   color: var(--muted-foreground);
 }
 .link svg {
-  margin-top: 4px;
+  margin-top: 3px;
 }

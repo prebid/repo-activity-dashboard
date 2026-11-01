@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext } from 'react';
-import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
+import { WidthToggleIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { layoutWidthCookieString, type LayoutWidth } from '@/lib/presentation/layout-width';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,6 @@ export function LayoutWidthToggle() {
   const layout = useContext(LayoutWidthContext);
   if (!layout) throw new Error('LayoutWidthToggle requires the dashboard frame');
   const wide = layout.width === 'wide';
-  const Icon = wide ? UnfoldHorizontal : FoldHorizontal;
   return (
     <Button
       variant="ghost"
@@ -36,7 +35,7 @@ export function LayoutWidthToggle() {
         layout.setWidth(next);
       }}
     >
-      <Icon aria-hidden="true" />
+      <WidthToggleIcon size={16} />
     </Button>
   );
 }

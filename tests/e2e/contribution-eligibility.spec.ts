@@ -86,7 +86,8 @@ test('coverage-gap filters preserve the full directory and focused reports witho
     page.getByRole('heading', { name: 'No confirmed contributions to list' }),
   ).toBeVisible();
   await expect(page.getByLabel('Data coverage')).toBeVisible();
-  await expect(page.getByRole('table')).toHaveCount(0);
+  await expect(page.getByRole('table').getByRole('columnheader').first()).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody td[data-column]')).toHaveCount(0);
   await page.goto(
     '/contributors/account-inactive-0001?sample=coverage-gap&scope=1&period=this-year',
   );

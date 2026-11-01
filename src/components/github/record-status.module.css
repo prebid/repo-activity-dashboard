@@ -1,0 +1,31 @@
+/* Each tone colours the glyph only; tests/unit/state-contrast.test.ts checks them on the card and
+   the hovered row. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--prebid-ink);
+  font-size: var(--prebid-text-caption);
+  font-weight: 500;
+  line-height: var(--prebid-leading-caption);
+  white-space: nowrap;
+}
+.status[data-state='Draft'] {
+  color: var(--prebid-muted);
+}
+.status > svg {
+  flex-shrink: 0;
+  color: var(--status-glyph);
+}
+.status[data-tone='success'] {
+  --status-glyph: var(--prebid-success-ink);
+}
+.status[data-tone='muted'] {
+  --status-glyph: var(--prebid-muted);
+}
+.status[data-tone='link'] {
+  --status-glyph: var(--prebid-link);
+}
+.status[data-tone='error'] {
+  --status-glyph: var(--prebid-error-ink);
+}

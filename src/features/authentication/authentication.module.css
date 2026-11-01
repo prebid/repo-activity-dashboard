@@ -89,28 +89,6 @@
   font-size: var(--prebid-text-small);
   font-weight: 600;
 }
-.field input {
-  height: 47px;
-  border: 1px solid var(--prebid-input-border);
-  border-radius: 7px;
-  color: var(--prebid-ink);
-  background: var(--prebid-input);
-  font-size: 14px;
-}
-.field input::placeholder {
-  color: var(--prebid-placeholder);
-}
-.field input:focus-visible {
-  outline: 2px solid var(--prebid-ring);
-  outline-offset: 3px;
-  box-shadow: none;
-}
-.field :global([data-slot='password-toggle']) {
-  color: var(--prebid-muted);
-}
-.field :global([data-slot='password-toggle']):hover {
-  background: var(--prebid-hover);
-}
 .field :global([data-slot='password-toggle']):focus-visible,
 .help summary:focus-visible,
 .backLink:focus-visible {
@@ -128,26 +106,10 @@
   font-size: 14px;
   line-height: 1.5;
 }
-.submit {
-  width: 100%;
-  height: 47px;
-  border: 1px solid var(--prebid-accent-border);
-  background: var(--prebid-accent);
-  color: var(--prebid-accent-ink);
-  font-size: var(--prebid-text-body);
-  font-weight: 700;
-  box-shadow: var(--prebid-elevation-1);
-}
-.submit:hover {
-  background: var(--prebid-accent-hover);
-}
-.submit:focus-visible {
-  outline: 2px solid var(--prebid-ring);
-  outline-offset: 3px;
-  box-shadow: none;
-}
-.submit svg {
-  margin-left: 5px;
+/* The submit and cancel wrappers are full-width grid cells; their button fills the cell. */
+.submit,
+.cancel {
+  display: grid;
 }
 .help {
   border-top: 1px solid var(--prebid-line);
@@ -156,7 +118,11 @@
   font-size: var(--prebid-text-small);
   line-height: 1.7;
 }
+/* DisclosureChevron hides the native marker and turns while the help is open. */
 .help summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--prebid-link);
   font-weight: 500;
   cursor: pointer;
@@ -242,15 +208,6 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cancel {
-  width: 100%;
-  height: 44px;
-  color: var(--prebid-ink);
-  background: var(--prebid-secondary);
-}
-.cancel:hover {
-  background: var(--prebid-secondary-hover);
-}
 .pageFooter {
   display: flex;
   align-items: center;
@@ -272,9 +229,6 @@
   }
   .title {
     font-size: 27px;
-  }
-  .field input {
-    font-size: 16px;
   }
 }
 @media (max-width: 360px) {

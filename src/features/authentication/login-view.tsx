@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import { safeReturnPath } from '@/lib/presentation/navigation';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ContinueIcon, LoadingIcon } from '@/components/ui/icons';
+import { DisclosureChevron } from '@/components/ui/disclosure-chevron';
 import { AuthFrame } from './auth-frame';
 import { PasswordInput } from '@/components/ui/password-input';
 import styles from './authentication.module.css';
@@ -88,6 +89,7 @@ export function LoginView({
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            size="lg"
             type="email"
             name="email"
             placeholder="you@company.com"
@@ -104,6 +106,7 @@ export function LoginView({
           <Label htmlFor="password">Password</Label>
           <PasswordInput
             id="password"
+            size="lg"
             name="password"
             placeholder="Enter your password"
             autoComplete="current-password"
@@ -118,17 +121,18 @@ export function LoginView({
             {error}
           </p>
         )}
-        <Button type="submit" className={styles.submit} disabled={busy}>
-          {busy ? 'Signing in…' : 'Sign in'}
-          {busy ? (
-            <Loader2 className="animate-spin" aria-hidden="true" />
-          ) : (
-            <ArrowRight aria-hidden="true" />
-          )}
-        </Button>
+        <div className={styles.submit}>
+          <Button type="submit" variant="primary" size="lg" disabled={busy}>
+            {busy ? 'Signing in…' : 'Sign in'}
+            {busy ? <LoadingIcon size={16} className="animate-spin" /> : <ContinueIcon size={16} />}
+          </Button>
+        </div>
       </form>
       <details className={styles.help}>
-        <summary>Signing in for the first time?</summary>
+        <summary>
+          Signing in for the first time?
+          <DisclosureChevron />
+        </summary>
         <p>
           Use the email address and temporary password your administrator sent you. You’ll choose
           your own password after signing in, before entering the dashboard.

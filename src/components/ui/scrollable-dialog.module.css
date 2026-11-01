@@ -1,9 +1,6 @@
+/* DialogContent sets the md width, height cap, padding and surface; the frame moves the
+   scrolling from the dialog to its body. */
 .frame {
-  background: var(--popover);
-  color: var(--foreground);
-  width: calc(100vw - 32px);
-  max-width: 620px;
-  max-height: calc(100svh - 32px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -32,9 +29,4 @@
 .frame input:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
-}
-@media (max-width: 600px) {
-  .frame {
-    padding: 20px;
-  }
 }

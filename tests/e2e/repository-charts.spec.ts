@@ -56,7 +56,7 @@ test('PR charts use the full population and keyboard selections combine without 
   await expect(page.getByText('21 matching records', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: '← All repositories', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'All repositories', exact: true })).toHaveAttribute(
     'href',
     '/repos?age=60',
   );
@@ -83,7 +83,7 @@ test('issue age bars reconcile across fifty-row pages and chart visibility stays
   await page.goto('/repos/prebidjs?view=issues');
   await expect(page.getByText('834 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Reset view preferences', exact: true }).click();
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(age).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
 });

@@ -23,7 +23,7 @@ it('keeps the All repositories origin in the breadcrumb and both record tabs', (
       parent="/repos/prebidjs?returnTo=%2Frepos%3Fperiod%3Dlast-month"
     />,
   );
-  expect(screen.getByRole('link', { name: '← All repositories' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute(
     'href',
     '/repos?period=last-month',
   );
@@ -44,8 +44,5 @@ it('returns to All repositories when the parent is not a repository page with an
       parent="/repos/prebidjs?returnTo=https%3A%2F%2Fexample.test%2Frepos"
     />,
   );
-  expect(screen.getByRole('link', { name: '← All repositories' })).toHaveAttribute(
-    'href',
-    '/repos',
-  );
+  expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute('href', '/repos');
 });

@@ -1,7 +1,8 @@
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
-import { GitPullRequest, GitMerge, CircleDot, CircleCheck } from 'lucide-react';
+import { Avatar } from '@/components/github/avatar';
+import { RecordStatus } from '@/components/github/record-status';
 import type { DataColumn } from '@/components/tables/data-table';
 import type {
   RepositoryPagePr,
@@ -20,8 +21,8 @@ export const repositoryInlineColumnIds: ReadonlySet<string> = new Set([
 
 type Row = RepositoryPagePr | RepositoryPageIssue;
 const authorLabels = accountTypeLabels;
+const recordStatuses = { Open: 'open', Merged: 'merged', Closed: 'closed' } as const;
 function RecordIdentity({ row }: { row: Row }) {
-  const state = 'draft' in row && row.draft ? 'Draft' : row.state;
   return (
     <div className={styles.identity}>
       <Link
@@ -34,18 +35,11 @@ function RecordIdentity({ row }: { row: Row }) {
         {row.title}
       </Link>
       <div className={styles.recordMeta}>
-        <span className={styles.state} data-state={state}>
-          {state === 'Merged' ? (
-            <GitMerge size={12} aria-hidden="true" />
-          ) : state === 'Closed' ? (
-            <CircleCheck size={12} aria-hidden="true" />
-          ) : 'draft' in row ? (
-            <GitPullRequest size={12} aria-hidden="true" />
-          ) : (
-            <CircleDot size={12} aria-hidden="true" />
-          )}
-          {state}
-        </span>
+        {'draft' in row ? (
+          <RecordStatus kind="pr" status={row.draft ? 'draft' : recordStatuses[row.state]} />
+        ) : (
+          <RecordStatus kind="issue" status={recordStatuses[row.state]} />
+        )}
         {row.labels.map((label) => (
           <span key={label} className={styles.label}>
             {label}
@@ -101,11 +95,14 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
         ...column,
         width: 170,
         cell: (row: T) => (
-          <div className={styles.author}>
-            <GitHubAccountLink login={row.author} url={row.authorUrl} />
-            <span className={styles.secondary}>
-              {row.authorType === null ? '—' : authorLabels[row.authorType]}
-            </span>
+          <div className={styles.account}>
+            <Avatar kind="person" name={row.author} accountType={row.authorType} size={32} />
+            <div className={styles.author}>
+              <GitHubAccountLink login={row.author} url={row.authorUrl} />
+              <span className={styles.secondary}>
+                {row.authorType === null ? '—' : authorLabels[row.authorType]}
+              </span>
+            </div>
           </div>
         ),
       };

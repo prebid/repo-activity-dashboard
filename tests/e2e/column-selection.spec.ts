@@ -73,7 +73,7 @@ test('column and CSV sections share groups, partial states and file/line bulk se
   expect(
     await group
       .getByRole('checkbox', { name: 'Files changed', exact: true })
-      .evaluate((element) => getComputedStyle(element.parentElement!).borderBottomWidth),
+      .evaluate((element) => getComputedStyle(element.closest('label')!).borderBottomWidth),
   ).toBe('1px');
   await expect(dialog).toHaveCSS('opacity', '1');
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(

@@ -2,7 +2,7 @@
 import { FieldError } from '@/components/feedback/field-error';
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { useEffect, useState } from 'react';
-import { Users, ChevronDown } from 'lucide-react';
+import { ExpandIcon, PopulationIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -51,13 +51,13 @@ export function PopulationSelector({
         }}
       >
         <DialogTrigger asChild>
-          <Button variant="outline" className={styles.control}>
-            <Users size={14} aria-hidden="true" />
+          <Button variant="secondary">
+            <PopulationIcon size={14} />
             {selected.population.kind === 'all' ? 'All accounts' : 'Selected accounts'}
             {selected.excludedAccountIds.length > 0
               ? ' · ' + selected.excludedAccountIds.length + ' excluded'
               : ''}
-            <ChevronDown size={13} aria-hidden="true" />
+            <ExpandIcon size={14} />
           </Button>
         </DialogTrigger>
         <ScrollableDialogContent container={container}>
@@ -131,9 +131,10 @@ export function PopulationSelector({
           <FieldError message={error} />
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="secondary">Cancel</Button>
             </DialogClose>
             <Button
+              variant="primary"
               onClick={() => {
                 const message = onApply(draft);
                 setError(message || '');

@@ -1,7 +1,7 @@
 import { expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SelectableBars } from '@/components/charts/selectable-bars';
+import { SelectableBars, type SelectableBar } from '@/components/charts/selectable-bars';
 import { RepositoryCharts } from '@/features/repositories/repository-charts';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
@@ -123,4 +123,46 @@ it('keeps a zero-activity timeline keyboard-scrollable even when its bars cannot
   await user.tab();
   expect(screen.getByRole('group', { name: 'Zero activity' })).toHaveFocus();
   expect(screen.getByRole('button', { name: 'Oct 1 0' })).toBeDisabled();
+});
+
+it('prints each vertical count on its own bar, with a known zero on the axis and a missing value as a dash', () => {
+  const day = (id: string, label: string, count: SelectableBar['count']): SelectableBar => ({
+    id,
+    label,
+    detail: label + ', 2026 UTC',
+    count,
+    selected: false,
+  });
+  render(
+    <SelectableBars
+      label="Activity"
+      orientation="vertical"
+      points={[
+        day('full', 'Oct 1', { status: 'complete', value: 8 }),
+        day('half', 'Oct 2', { status: 'complete', value: 4 }),
+        day('zero', 'Oct 3', { status: 'complete', value: 0 }),
+        day('missing', 'Oct 4', { status: 'missing', value: null, reason: 'Not prepared' }),
+      ]}
+      onSelect={vi.fn()}
+    />,
+  );
+  const plots = screen.getAllByRole('button').map((button) => {
+    const count = button.querySelector('[data-chart-count]')!;
+    // The count and its bar share one plot: the count first, then the bar it sits on.
+    const plot = count.parentElement!;
+    const bar = count.nextElementSibling as HTMLElement;
+    expect(plot.firstElementChild).toBe(count);
+    expect(bar).toHaveAttribute('aria-hidden', 'true');
+    // The visible glyph, without the screen-reader reason a missing value carries.
+    return { count: count.textContent?.split(' ')[0], height: bar.style.height };
+  });
+  expect(plots).toEqual([
+    { count: '8', height: '100%' },
+    { count: '4', height: '50%' },
+    { count: '0', height: '0%' },
+    { count: '—', height: '0%' },
+  ]);
+  // Names keep the label before the count, as horizontal bars do.
+  expect(screen.getByRole('button', { name: 'Oct 3 0' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: /^Oct 4 —/ })).toBeDisabled();
 });

@@ -28,8 +28,7 @@ import {
   repositoryPageIssueColumns,
 } from '@/features/repositories/repository-page-columns';
 import { Button } from '@/components/ui/button';
-import { PageState } from '@/components/feedback/page-state';
-import styles from '@/features/repositories/repository-controls.module.css';
+import { EmptyState } from '@/components/feedback/empty-state';
 const prIds = repositoryPagePrColumns.map((column) => column.id),
   issueIds = repositoryPageIssueColumns.map((column) => column.id);
 const prColumnIds = repositoryPagePrColumns
@@ -78,12 +77,17 @@ export function RepositoryPageScreen({
           navigation={navigation}
           activeKind={source.kind}
         />
-        <PageState title="Invalid repository filters">
-          This link contains unsupported filters for the selected scope.{' '}
-          <Button variant="outline" onClick={settings.clearFilters}>
-            Clear filters
-          </Button>
-        </PageState>
+        <EmptyState
+          kind="error"
+          title="Invalid repository filters"
+          action={
+            <Button variant="secondary" onClick={settings.clearFilters}>
+              Clear filters
+            </Button>
+          }
+        >
+          This link contains unsupported filters for the selected scope.
+        </EmptyState>
       </>
     );
   return (
@@ -162,18 +166,10 @@ export function RepositoryPageScreen({
           />
         ),
         visibility: settings.visibility,
-        preferences: (
-          <div className={styles.preferences}>
-            <span>
-              {settings.storageAvailable
-                ? 'Columns, sorting and chart visibility saved for this repository on this browser.'
-                : 'Browser storage is unavailable. Changes still work for this visit.'}
-            </span>
-            <Button variant="ghost" size="sm" onClick={settings.resetPresentation}>
-              Reset view preferences
-            </Button>
-          </div>
-        ),
+        preferences: {
+          storageAvailable: settings.storageAvailable,
+          onReset: settings.resetPresentation,
+        },
       }}
     />
   );

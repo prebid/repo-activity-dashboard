@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Columns3 } from 'lucide-react';
+import { ColumnsIcon, type IconComponent } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,19 +10,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { ColumnVisibility, DataColumn } from './table-columns';
 import { ColumnSelection } from './column-selection';
-import styles from './data-table.module.css';
 
 export function ColumnMenu<T>({
   columns,
   visibility,
   label = 'Columns',
   title = 'Visible columns',
+  icon: Icon = ColumnsIcon,
   allowEmpty = false,
 }: {
   columns: DataColumn<T>[];
   visibility: ColumnVisibility;
   label?: string;
   title?: string;
+  icon?: IconComponent;
   allowEmpty?: boolean;
 }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
@@ -32,12 +33,12 @@ export function ColumnMenu<T>({
     <div ref={setContainer}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className={styles.control}>
-            <Columns3 size={14} aria-hidden="true" />
+          <Button variant="secondary">
+            <Icon size={14} />
             {label}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent container={container} align="end" className={styles.columnMenu}>
+        <DropdownMenuContent container={container} align="end" size="lg">
           <DropdownMenuLabel>{title}</DropdownMenuLabel>
           <ColumnSelection
             mode="menu"

@@ -336,9 +336,13 @@ test('browser history, explicit URLs and empty selections keep their meaning wit
   await page.goForward();
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
   await page.goto('/repos?backlog.q=missing&activity.q=missing');
-  await expect(page.getByPlaceholder('Find in table…')).toHaveCount(0);
-  for (const title of ['Current backlog', 'Period activity'])
+  for (const title of ['Current backlog', 'Period activity']) {
+    // Each toolbar is present and holds no search field.
+    const toolbar = page.getByRole('group', { name: title + ' table controls', exact: true });
+    await expect(toolbar).toBeVisible();
+    await expect(toolbar.getByRole('textbox')).toHaveCount(0);
     await expect(page.getByRole('table', { name: title }).locator('tbody tr')).toHaveCount(18);
+  }
   await chooseAges(page, [120]);
   expect(new URL(page.url()).searchParams.has('backlog.q')).toBe(false);
   expect(new URL(page.url()).searchParams.has('activity.q')).toBe(false);
@@ -435,7 +439,9 @@ test('selectors remain usable without browser storage', async ({ context, page }
       };
   });
   await login(page);
-  await expect(page.getByText('Settings apply for this visit only.')).toBeVisible();
+  await expect(
+    page.getByText('Browser storage is unavailable. Changes still work in this URL.'),
+  ).toBeVisible();
   await chooseAges(page, [60]);
   await expect(row(page, 'Current backlog').locator('[data-column="agedPrs60"]')).toHaveText('60');
   await selectRepositories(page, []);

@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/feedback/callout';
+import { Pager } from '@/components/tables/pager';
 import { tablePageSize } from '@/models/table-query';
 import type {
   ContributionOptions,
@@ -131,12 +133,12 @@ export function ContributionChoices({
       <div className={styles.options} aria-busy={!current}>
         {!current && <p role="status">{data ? 'Updating choices…' : 'Loading choices…'}</p>}
         {current?.error ? (
-          <div role="alert">
+          <Callout tone="error" role="alert">
             Choices could not load.{' '}
             <Button size="sm" variant="ghost" onClick={() => setRetry((value) => value + 1)}>
               Retry {label.toLowerCase()}
             </Button>
-          </div>
+          </Callout>
         ) : (
           data?.choices.map((option) => (
             <label key={option.value}>
@@ -157,28 +159,15 @@ export function ContributionChoices({
         )}
         {data && !data.total && <p>No matching choices</p>}
       </div>
-      {data && data.total > tablePageSize && (
-        <nav className={styles.actions} aria-label={label + ' choices pages'}>
-          <Button
-            size="sm"
-            variant="outline"
-            disabled={!current || !data.page}
-            onClick={() => setPage(data.page - 1)}
-          >
-            Previous
-          </Button>
-          <span>
-            Page {data.page + 1} of {Math.ceil(data.total / tablePageSize)}
-          </span>
-          <Button
-            size="sm"
-            variant="outline"
-            disabled={!current || (data.page + 1) * tablePageSize >= data.total}
-            onClick={() => setPage(data.page + 1)}
-          >
-            Next
-          </Button>
-        </nav>
+      {data && (
+        <Pager
+          label={label + ' choices pages'}
+          size="sm"
+          page={data.page + 1}
+          pageCount={Math.ceil(data.total / tablePageSize)}
+          disabled={!current}
+          onPageChange={(next) => setPage(next - 1)}
+        />
       )}
     </fieldset>
   );

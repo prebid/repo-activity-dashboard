@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { ClearIcon, FiltersIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { SearchField } from '@/components/ui/search-field';
 import {
   Dialog,
   DialogTrigger,
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { type RepositoryPageFilters, type RepositoryPageSource } from '@/models/repository-page';
 import type { TableController } from '@/lib/presentation/table-controller';
-import { periodRangeLabel } from '@/lib/presentation/overview-periods';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import {
@@ -64,22 +64,23 @@ export function RepositoryFilterControls({
       aria-label="Repository record filters"
     >
       <div className={styles.filterActions}>
-        <Input
-          aria-label={
-            'Search ' + recordListTitle(source.drilldown.selection, source.author?.account)
-          }
-          placeholder="Find a title or number…"
-          className={styles.search}
-          value={table.draftSearch}
-          maxLength={200}
-          onChange={(event) => table.setSearch(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              table.flushSearch();
+        <span className={styles.search}>
+          <SearchField
+            aria-label={
+              'Search ' + recordListTitle(source.drilldown.selection, source.author?.account)
             }
-          }}
-        />
+            placeholder="Find a title or number…"
+            value={table.draftSearch}
+            maxLength={200}
+            onChange={(event) => table.setSearch(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                table.flushSearch();
+              }
+            }}
+          />
+        </span>
         <Dialog
           open={open}
           onOpenChange={(value) => {
@@ -91,12 +92,12 @@ export function RepositoryFilterControls({
           }}
         >
           <DialogTrigger asChild>
-            <Button variant="outline">
-              <SlidersHorizontal size={14} aria-hidden="true" />
+            <Button variant="secondary">
+              <FiltersIcon size={14} />
               Filters{chips.length ? ' (' + chips.length + ')' : ''}
             </Button>
           </DialogTrigger>
-          <DialogContent container={container} className={styles.dialog}>
+          <DialogContent container={container} size="md">
             <DialogHeader className="text-left">
               <DialogTitle>Filter {source.kind === 'prs' ? 'pull requests' : 'issues'}</DialogTitle>
               <DialogDescription>
@@ -140,9 +141,13 @@ export function RepositoryFilterControls({
           onChange={onChange}
         >
           {filters.eventRange && (
-            <button type="button" onClick={() => onChange({ ...filters, eventRange: undefined })}>
-              Activity dates: {periodRangeLabel(filters.eventRange)} · UTC
-              <X size={12} aria-hidden="true" />
+            <button
+              type="button"
+              className={styles.chip}
+              onClick={() => onChange({ ...filters, eventRange: undefined })}
+            >
+              Activity dates: {zonedRangeLabel(filters.eventRange)}
+              <ClearIcon size={14} />
             </button>
           )}
         </RepositoryFilterChips>

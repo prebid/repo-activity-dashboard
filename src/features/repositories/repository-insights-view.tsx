@@ -1,10 +1,13 @@
 'use client';
+import type { ReactNode } from 'react';
 import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
+import { AccountTypeLabel, Avatar, type AvatarAccountType } from '@/components/github/avatar';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
-import { PageState } from '@/components/feedback/page-state';
+import { Callout } from '@/components/feedback/callout';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatCount, formatUtcDate } from '@/lib/presentation/format';
@@ -24,6 +27,23 @@ function quantity(value: number | null, unit: string) {
   return formatCount(value) + ' ' + unit + (value === 1 ? '' : 's');
 }
 
+function AccountIdentity({
+  login,
+  url,
+  type,
+}: {
+  login: string;
+  url?: string;
+  type: AvatarAccountType;
+}) {
+  return (
+    <div className={styles.account}>
+      <Avatar kind="person" name={login} accountType={type} size={32} />
+      <GitHubAccountLink login={login} url={url} />
+      <AccountTypeLabel accountType={type} />
+    </div>
+  );
+}
 function RecordLink({ record }: { record: SupportingRecord }) {
   return (
     <Link
@@ -51,7 +71,9 @@ export function authorColumns(
       width: 220,
       hideable: false,
       value: (row) => row.account,
-      cell: (row) => <GitHubAccountLink login={row.account} url={row.profileUrl} />,
+      cell: (row) => (
+        <AccountIdentity login={row.account} url={row.profileUrl} type={row.accountType} />
+      ),
     },
     {
       id: 'accountType',
@@ -100,7 +122,9 @@ export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
     width: 210,
     hideable: false,
     value: (row) => row.account,
-    cell: (row) => <GitHubAccountLink login={row.account} url={row.profileUrl} />,
+    cell: (row) => (
+      <AccountIdentity login={row.account} url={row.profileUrl} type={row.accountType} />
+    ),
   },
   { id: 'pr', selectionGroup: 'Records', label: 'PR', width: 100, value: (row) => row.pr.number },
   {
@@ -143,25 +167,20 @@ export function RepositoryInsightsView({
 }) {
   const title = insightTitles[insight.drilldown.selection.metric],
     measurement = insight.measurement;
-  let summary;
+  let summary: ReactNode[];
   if (insight.kind === 'duration')
-    summary = (
+    summary = [
       <>
-        <span>
-          Median merge time: <MeasurementValue measurement={insight.days} unit="days" />
-        </span>
-        <span>{quantity(measurement.value, 'merged PR')}</span>
-      </>
-    );
-  else if (insight.kind === 'authors')
-    summary = <span>{quantity(measurement.value, 'unique account')}</span>;
+        Median merge time: <MeasurementValue measurement={insight.days} unit="days" />
+      </>,
+      quantity(measurement.value, 'merged PR'),
+    ];
+  else if (insight.kind === 'authors') summary = [quantity(measurement.value, 'unique account')];
   else
-    summary = (
-      <>
-        <span>{quantity(measurement.value, 'contribution credit')}</span>
-        <span>{quantity(new Set(insight.rows.map((row) => row.pr.id)).size, 'distinct PR')}</span>
-      </>
-    );
+    summary = [
+      quantity(measurement.value, 'contribution credit'),
+      quantity(new Set(insight.rows.map((row) => row.pr.id)).size, 'distinct PR'),
+    ];
   return (
     <RepositoryDrilldownFrame
       context={insight}
@@ -175,6 +194,7 @@ export function RepositoryInsightsView({
     >
       {insight.kind === 'authors' ? (
         <DataTable
+          search="local"
           key={JSON.stringify(insight.drilldown.selection)}
           title={title}
           rows={insight.rows}
@@ -192,6 +212,7 @@ export function RepositoryInsightsView({
         />
       ) : insight.kind === 'contributions' ? (
         <DataTable
+          search="local"
           key={JSON.stringify(insight.drilldown.selection)}
           title={title}
           rows={insight.rows}
@@ -203,14 +224,14 @@ export function RepositoryInsightsView({
       ) : (
         <>
           {insight.days.status === 'partial' && (
-            <p role="status" className={styles.notice}>
+            <Callout tone="warning" as="p" role="status">
               Partial merge-duration coverage: {insight.days.reason}
-            </p>
+            </Callout>
           )}
           {measurement.value === 0 ? (
-            <PageState title="No merged PRs in this period">
+            <EmptyState kind="empty" title="No merged PRs in this period">
               Median merge time is not applicable.
-            </PageState>
+            </EmptyState>
           ) : (
             <RepositoryRecordTable
               key={JSON.stringify(insight.drilldown.selection)}

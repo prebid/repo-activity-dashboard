@@ -27,8 +27,7 @@
   --shadow-sm: var(--prebid-elevation-1);
   --shadow-md: var(--prebid-elevation-2);
   --shadow-lg: var(--prebid-elevation-3);
-  /* 6px until P2 sets the control radii; the specification defines only 8px and 12px. */
-  --radius-sm: calc(var(--prebid-radius-control) - 2px);
+  --radius-sm: var(--prebid-radius-small);
   --radius-md: var(--prebid-radius-control);
   --radius-lg: var(--prebid-radius-panel);
   --radius-xl: var(--prebid-radius-panel);
@@ -56,6 +55,16 @@
   --color-overlay: var(--prebid-overlay);
   --color-selection: var(--prebid-selection);
   --color-selection-foreground: var(--prebid-selection-ink);
+  --color-selection-edge: var(--prebid-selection-edge);
+  --color-action: var(--prebid-accent);
+  --color-action-foreground: var(--prebid-accent-ink);
+  --color-action-hover: var(--prebid-accent-hover);
+  --color-action-pressed: var(--prebid-accent-pressed);
+  --color-action-border: var(--prebid-accent-border);
+  --color-ghost-hover: var(--prebid-ghost-hover);
+  --color-brand: var(--prebid-brand-blue);
+  --color-scrim: var(--prebid-scrim);
+  --color-placeholder: var(--prebid-placeholder);
 }
 
 /* One mapping for every page, dialog and story. Repeating it on .dark makes a nested .dark
@@ -68,8 +77,8 @@
   --card-foreground: var(--prebid-ink);
   --popover: var(--prebid-overlay);
   --popover-foreground: var(--prebid-ink);
-  --primary: var(--prebid-ink);
-  --primary-foreground: var(--prebid-card);
+  --primary: var(--prebid-accent);
+  --primary-foreground: var(--prebid-accent-ink);
   --secondary: var(--prebid-secondary);
   --secondary-foreground: var(--prebid-ink);
   --muted: var(--prebid-secondary);

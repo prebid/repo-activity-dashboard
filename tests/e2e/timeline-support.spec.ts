@@ -41,7 +41,7 @@ test('repository counts, nested authors, child search and copied returns retain 
     expect.arrayContaining(['105', '107', '108']),
   );
   expect(records.records.every((row) => row['Full Timeline interval value'] === '78')).toBe(true);
-  await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await ready(page);
   await page.getByRole('link', { name: 'Unique authors — PRs, Oct 2026: 18', exact: true }).click();
@@ -58,7 +58,7 @@ test('repository counts, nested authors, child search and copied returns retain 
     await login(other);
     await other.goto(copied);
     await expect(other.getByRole('table').locator('tbody tr')).toHaveCount(26);
-    await other.getByRole('link', { name: '← Back to authors', exact: true }).click();
+    await other.getByRole('link', { name: 'Back to authors', exact: true }).click();
     await expect(
       other.getByRole('textbox', { name: 'Search Unique authors', exact: true }),
     ).toHaveValue('sample-bob');
@@ -73,12 +73,12 @@ test('repository counts, nested authors, child search and copied returns retain 
   expect(filtered.records).toHaveLength(1);
   expect(filtered.records[0]['PR']).toBe('105');
   expect(filtered.records[0]['Export row search']).toBe('105');
-  await page.getByRole('link', { name: '← Back to authors', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to authors', exact: true }).click();
   await expect(
     page.getByRole('textbox', { name: 'Search Unique authors', exact: true }),
   ).toHaveValue('sample-bob');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to timeline', exact: true }).click();
   await ready(page);
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await page.screenshot({ path: info.outputPath('timeline-drilldown-return.png'), fullPage: true });
@@ -263,7 +263,7 @@ test('full-range matrix and series downloads ignore windows/pages and matrix cel
     .getAttribute('href');
   await page.getByRole('link', { name: 'Prebid.js, Oct 2026: 78', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await page.goto(
     '/repos/prebidjs?timeline=1&timeline.group=day&period=custom&from=2025-06-12&through=2026-10-24',

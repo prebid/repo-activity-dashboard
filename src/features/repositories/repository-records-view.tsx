@@ -53,7 +53,8 @@ function commonColumns<
 export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
   ...prColumns.map((column) => ({
     ...column,
-    width: column.id === 'title' ? 360 : column.id === 'author' ? 150 : 120,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
   })),
   ...commonColumns<RepositoryPullRequest>(),
   {
@@ -107,7 +108,8 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
 export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
   ...issueColumns.map((column) => ({
     ...column,
-    width: column.id === 'title' ? 360 : column.id === 'author' ? 150 : 120,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
   })),
   ...commonColumns<RepositoryIssue>(),
   {
@@ -149,6 +151,7 @@ export function RepositoryRecordTable({
   const title = titleOverride ?? recordListTitle(selection, list.author?.account);
   return list.kind === 'prs' ? (
     <DataTable
+      search="local"
       title={title}
       rows={list.rows}
       columns={recordPrColumns}
@@ -158,6 +161,7 @@ export function RepositoryRecordTable({
     />
   ) : (
     <DataTable
+      search="local"
       title={title}
       rows={list.rows}
       columns={recordIssueColumns}

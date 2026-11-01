@@ -1,7 +1,7 @@
 'use client';
 import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import { ExpandIcon } from '@/components/ui/icons';
 import type { RepositoryDefinition } from '@/config/repositories';
 import { Button } from '@/components/ui/button';
 import {
@@ -59,10 +59,10 @@ export function DashboardHeader({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className={styles.navItem} data-active={inRepos}>
-                Repositories <ChevronDown size={14} aria-hidden="true" />
+                Repositories <ExpandIcon size={14} />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent container={container} align="start" className={styles.repoMenu}>
+            <DropdownMenuContent container={container} align="start" size="md">
               {repositories
                 .filter((repo) => repo.enabled)
                 .map((repo) => (

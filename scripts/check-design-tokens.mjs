@@ -16,6 +16,21 @@ import { z } from 'zod';
 // - Token names: a literal var(--prebid-*) in a CSS value or a TSX/TS string, and Tailwind's
 //   prefix-(--prebid-*) in a class string, must name a token prebid.css defines. A name that an
 //   interpolation completes (`var(--prebid-text-${role})`) is not read.
+// - Text arrows: in TSX/TS under src/, a string, template part or JSX text holding a U+2190-U+21FF
+//   character (escapes are read as the character), or JSX text or a JSX attribute string holding
+//   a numeric character reference in that range or a named one containing "arr" (&larr;). Arrows
+//   chosen by a conditional, a logical operand or a concatenation form one site keyed by that
+//   expression. Comments, regular expressions, other named references (&lharu;) and characters
+//   built at run time (String.fromCharCode) are not read.
+// - Control overrides: in CSS modules outside src/components/ui/ and src/styles/, a declaration of
+//   a height or block size (min-, max- included), any background or border property except
+//   border-radius, box-shadow, font or font-size whose selector reaches a button, input, select,
+//   summary or textarea through a descendant or child combinator (`.bar button:hover`,
+//   `.field > input::placeholder`); nested rules are resolved against their parents. Unlayered
+//   feature CSS beats the primitives' layered utilities, so such a rule silently replaces the
+//   primitive's appearance. A control matched by its own class, by an attribute alone
+//   (`.bar [type='checkbox']`), by a sibling combinator, or only inside :global(), :is() or
+//   :where() is not read.
 // Values that cannot be read statically (style={identifier}, a class value that is an identifier
 // or a call, interpolated class names) are listed under `unmodelled` instead of passing silently,
 // and the scan fails when there are more of them than `unmodelledCeiling`.
@@ -26,9 +41,9 @@ const tokenFile = 'src/styles/prebid.css';
 const mappingFile = 'src/app/globals.css';
 const phases = ['P2', 'P3', 'P4'];
 /** Phases already merged; an allowlist entry owned by one fails. @type {readonly string[]} */
-export const completedPhases = Object.freeze([]);
+export const completedPhases = Object.freeze(['P1', 'P2']);
 /** The unmodelled sites in the tree today; lowered as values become readable or are removed. */
-export const unmodelledCeiling = 86;
+export const unmodelledCeiling = 68;
 /** @param {string} list space-separated words */
 const words = (list) => list.split(' ');
 const keywords = new Set(words('inherit initial unset revert revert-layer'));
@@ -64,6 +79,8 @@ const namedColours = new Set(
       'steelblue tan teal thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen',
   ),
 );
+const textArrow = /[←-⇿]/;
+const characterReference = /&(?:#x([0-9a-f]+)|#(\d+)|([a-z][a-z\d]*));/gi;
 const hexColour = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 const stringHex = /(?<![\w&#-])#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})(?![\w-])/i;
 const stringFunction = /(?<![\w-])(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color|color-mix)\(/i;
@@ -86,6 +103,21 @@ const namespaces = [
   [/^font-(.+)$/, '--font', 'font-family utility'],
 ];
 const helpers = new Set(['cn', 'clsx', 'cva', 'twMerge']);
+const controlElements = new Set(words('button input select summary textarea'));
+/**
+ * Size, fill, edge, shadow and text properties; border-radius shapes a control without restyling it.
+ * @param {string} property
+ */
+function restylesControlProperty(property) {
+  return (
+    /^(?:min-|max-)?(?:height|block-size)$/.test(property) ||
+    /^background(?:-|$)/.test(property) ||
+    (/^border(?:-|$)/.test(property) && !property.endsWith('radius')) ||
+    property === 'box-shadow' ||
+    property === 'font' ||
+    property === 'font-size'
+  );
+}
 /** JSX attributes that are checked as the CSS property they set. */
 const attributeProperties = new Map([
   ['fill', 'fill'],
@@ -651,6 +683,85 @@ function cssLocation(node) {
   return { context: atRules.join(' > '), selector: selectors.join(' { '), theme };
 }
 
+/** @param {string} file */
+function isFeatureModule(file) {
+  return (
+    file.endsWith('.module.css') &&
+    !file.startsWith('src/components/ui/') &&
+    !file.startsWith('src/styles/')
+  );
+}
+
+/**
+ * The complex selectors a rule matches: `&` stands for the parent rule's selectors, and a nested
+ * selector without one is a descendant of them.
+ * @param {import('postcss').Rule} rule
+ * @returns {string[]}
+ */
+function resolvedSelectors(rule) {
+  const own = postcss.list.comma(rule.selector).map((selector) => selector.trim());
+  let parent = rule.parent;
+  while (parent && parent.type === 'atrule') parent = parent.parent;
+  if (parent?.type !== 'rule') return own;
+  const outer = resolvedSelectors(/** @type {import('postcss').Rule} */ (parent));
+  return outer.flatMap((prefix) =>
+    own.map((selector) =>
+      selector.includes('&') ? selector.replaceAll('&', prefix) : `${prefix} ${selector}`,
+    ),
+  );
+}
+
+/**
+ * The combinator before a complex selector's last compound (' ', '>', '+', '~', or '' when there is
+ * one compound) and that compound's lower-case type selector ('' when it has none).
+ * @param {string} selector
+ */
+function lastCompound(selector) {
+  const text = selector.trim();
+  let depth = 0;
+  let start = 0;
+  let combinator = '';
+  for (let index = 0; index < text.length; index++) {
+    const char = text[index];
+    if (char === '\\') index++;
+    else if (char === '"' || char === "'") {
+      index++;
+      while (index < text.length && text[index] !== char) index += text[index] === '\\' ? 2 : 1;
+    } else if (char === '(' || char === '[') depth++;
+    else if (char === ')' || char === ']') depth--;
+    else if (depth === 0 && /[\s>+~]/.test(char)) {
+      let end = index;
+      combinator = ' ';
+      for (; end < text.length && /[\s>+~]/.test(text[end]); end++)
+        if (text[end].trim()) combinator = text[end];
+      start = end;
+      index = end - 1;
+    }
+  }
+  return {
+    combinator,
+    element: /^[a-z][a-z\d-]*/i.exec(text.slice(start))?.[0].toLowerCase() ?? '',
+  };
+}
+
+/**
+ * Whether a declaration restyles a native control or a primitive's control through a descendant
+ * or child selector.
+ * @param {import('postcss').Declaration} declaration
+ */
+function restylesControl(declaration) {
+  if (!restylesControlProperty(normaliseProperty(declaration.prop))) return false;
+  /** @type {import('postcss').Node | undefined} */
+  let rule = declaration.parent;
+  while (rule && rule.type !== 'rule')
+    rule = /** @type {import('postcss').Node | undefined} */ (rule.parent);
+  if (rule?.type !== 'rule') return false;
+  return resolvedSelectors(/** @type {import('postcss').Rule} */ (rule)).some((selector) => {
+    const { combinator, element } = lastCompound(selector);
+    return (combinator === ' ' || combinator === '>') && controlElements.has(element);
+  });
+}
+
 /**
  * @param {string} root
  * @param {string} file
@@ -671,6 +782,7 @@ function inspectCss(root, file, theme, sites, failures, references) {
   }
   const definitions = file === tokenFile;
   const generic = file === mappingFile;
+  const feature = isFeatureModule(file);
   parsed.walk((node) => {
     const line = node.source?.start?.line ?? 0;
     if (node.type === 'decl') {
@@ -685,6 +797,7 @@ function inspectCss(root, file, theme, sites, failures, references) {
       );
       if (definitions && isTokenDeclaration(node)) return;
       const rules = declarationRules(node.prop, node.value, { generic, theme: inTheme });
+      if (feature && restylesControl(node)) rules.push('descendant control override');
       if (rules.length) sites.push({ ...key, line, rules });
     } else if (node.type === 'atrule' && node.name === 'apply') {
       const { context, selector } = cssLocation(node);
@@ -765,6 +878,50 @@ function isText(node) {
   );
 }
 
+/**
+ * Whether raw JSX text holds a character reference to an arrow.
+ * @param {string} text
+ */
+function referencesArrow(text) {
+  for (const [, hex, decimal, name] of text.matchAll(characterReference)) {
+    if (name !== undefined) {
+      if (/arr/i.test(name)) return true;
+    } else {
+      const code = hex === undefined ? Number(decimal) : parseInt(hex, 16);
+      if (code >= 0x2190 && code <= 0x21ff) return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * @param {ts.Node} node
+ * @returns {node is ts.JsxText | ts.StringLiteral | ts.TemplateLiteralLikeNode}
+ */
+function hasTextArrow(node) {
+  if (ts.isJsxText(node) || (ts.isStringLiteral(node) && ts.isJsxAttribute(node.parent)))
+    return textArrow.test(node.text) || referencesArrow(node.text);
+  return isText(node) && textArrow.test(node.text);
+}
+
+/**
+ * The node an arrow site is keyed by: the text itself, or the conditional, logical, concatenation
+ * or template expression that chooses it.
+ * @param {ts.Node} node
+ */
+function arrowOwner(node) {
+  let current = node;
+  while (
+    ts.isParenthesizedExpression(current.parent) ||
+    ts.isConditionalExpression(current.parent) ||
+    ts.isBinaryExpression(current.parent) ||
+    ts.isTemplateSpan(current.parent) ||
+    ts.isTemplateExpression(current.parent)
+  )
+    current = current.parent;
+  return current;
+}
+
 /** @param {ts.PropertyName} name */
 function propertyName(name) {
   return ts.isIdentifier(name) ||
@@ -805,6 +962,9 @@ function inspectScript(root, file, kind, theme, sites, unmodelled, references) {
   );
   /** @type {Set<ts.Node>} */
   const consumed = new Set();
+  /** @type {Set<ts.Node>} */
+  const arrowSites = new Set();
+  const readArrows = file.startsWith('src/');
   /** @param {ts.Node} node */
   const line = (node) => source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1;
 
@@ -1232,6 +1392,13 @@ function inspectScript(root, file, kind, theme, sites, unmodelled, references) {
       (stringHex.test(node.text) || stringFunction.test(node.text))
     )
       addSite(node, 'string', node.text, ['colour literal']);
+    if (readArrows && hasTextArrow(node)) {
+      const owner = arrowOwner(node);
+      if (!arrowSites.has(owner)) {
+        arrowSites.add(owner);
+        addSite(owner, 'text', owner === node ? node.text : owner.getText(source), ['text arrow']);
+      }
+    }
     ts.forEachChild(node, visit);
   }
   visit(source);

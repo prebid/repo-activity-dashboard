@@ -9,6 +9,9 @@
   --prebid-header-band-hover: #dfe7ee;
   --prebid-row-hover: #f1f6fb;
   --prebid-hover: #eff4f7;
+  --prebid-ghost-hover: rgb(28 52 69 / 0.08);
+  --prebid-scrim: rgb(13 22 31 / 0.5);
+  --prebid-scroll-shadow: rgb(16 42 67 / 0.16);
   --prebid-secondary: #f0f4f7;
   --prebid-secondary-hover: #e4ecf2;
   --prebid-masthead: #17232e;
@@ -18,14 +21,14 @@
   --prebid-muted: #526473;
   --prebid-header-ink: #3d5262;
   --prebid-link: #2a6a9b;
-  --prebid-placeholder: #74818d;
+  --prebid-placeholder: #66727e;
 
   /* Lines */
   --prebid-line-subtle: #e3e9ee;
   --prebid-line: #d3dde5;
   --prebid-line-strong: #b8c6d1;
   --prebid-input: #fff;
-  --prebid-input-border: #cdd8df;
+  --prebid-input-border: #798b99;
   --prebid-ring: #3583b2;
 
   /* Brand and state */
@@ -44,6 +47,7 @@
   --prebid-warning-icon: #b86e00;
   --prebid-info-bg: #edf5fa;
   --prebid-info-border: #d4e6f0;
+  --prebid-info-ink: #1f5f8f;
   --prebid-error-ink: #9d252c;
   --prebid-error-bg: #fff1f0;
   --prebid-error-border: #f3c6c4;
@@ -58,6 +62,9 @@
   --prebid-elevation-3: 0 4px 8px rgb(16 42 67 / 0.08), 0 20px 48px rgb(16 42 67 / 0.2);
   --prebid-radius-control: 8px;
   --prebid-radius-panel: 12px;
+  --prebid-radius-small: 4px;
+  /* Chart bars and their tracks, whose ends stay square-ish at 7px thick. */
+  --prebid-radius-mark: 2px;
 
   /* Type. Families come from next/font variables set on <html> (src/styles/fonts.ts). */
   --prebid-font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -81,6 +88,8 @@
   --prebid-text-overline: 11px;
   --prebid-leading-overline: 16px;
   --prebid-tracking-overline: 0.06em;
+  /* Field text on coarse pointers, so iOS does not zoom into a focused field. */
+  --prebid-text-input-coarse: 16px;
   --prebid-numeric: tabular-nums lining-nums;
   --prebid-number-weight: 500;
   --prebid-kpi-weight: 600;
@@ -95,6 +104,9 @@
   --prebid-header-band-hover: #2c4253;
   --prebid-row-hover: #1d3040;
   --prebid-hover: #253947;
+  --prebid-ghost-hover: #253947;
+  --prebid-scrim: rgb(0 0 0 / 0.6);
+  --prebid-scroll-shadow: rgb(0 0 0 / 0.55);
   --prebid-secondary: #253947;
   --prebid-secondary-hover: #304b5d;
 
@@ -109,7 +121,7 @@
   --prebid-line: #304352;
   --prebid-line-strong: #4a6274;
   --prebid-input: #111d27;
-  --prebid-input-border: #455b6b;
+  --prebid-input-border: #6a8396;
   --prebid-ring: #73c3f3;
 
   --prebid-selection: #1e3a50;
@@ -121,6 +133,7 @@
   --prebid-warning-icon: #ce8228;
   --prebid-info-bg: #182f40;
   --prebid-info-border: #36596f;
+  --prebid-info-ink: #9ed3f2;
   --prebid-error-ink: #ffb5b4;
   --prebid-error-bg: #3b2029;
   --prebid-error-border: #75404a;

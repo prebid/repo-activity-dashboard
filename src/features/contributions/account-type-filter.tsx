@@ -2,21 +2,22 @@
 import { FieldError } from '@/components/feedback/field-error';
 import { accountTypeLabels } from '@/models/github-account';
 import { useEffect, useId, useState } from 'react';
-import { Users, ChevronDown } from 'lucide-react';
+import { AccountTypeIcon, ExpandIcon } from '@/components/ui/icons';
+import { accountTypeIcons } from '@/components/github/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuAction,
   DropdownMenuCheckboxItem,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuGroup,
+  DropdownMenuScrollGroup,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
 
-import styles from './contributions.module.css';
 type ActorType = ContributionAccount['actorType'];
 export function AccountTypeFilter({
   selected,
@@ -59,31 +60,36 @@ export function AccountTypeFilter({
         modal={false}
       >
         <DropdownMenuTrigger asChild>
-          <Button type="button" variant="outline" className={styles.typeFilter} disabled={pending}>
-            <Users size={14} aria-hidden="true" />
+          <Button type="button" variant="secondary" disabled={pending}>
+            <AccountTypeIcon size={14} />
             Account type: {summary}
-            <ChevronDown size={13} aria-hidden="true" />
+            <ExpandIcon size={14} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent container={container} align="end" className={styles.typeMenu}>
+        <DropdownMenuContent container={container} align="end" size="sm">
           <DropdownMenuLabel>Include account types</DropdownMenuLabel>
-          <DropdownMenuGroup className={styles.typeChoices}>
-            {contributionActorTypes.map((type) => (
-              <DropdownMenuCheckboxItem
-                key={type}
-                checked={draft.includes(type)}
-                onSelect={(event) => event.preventDefault()}
-                onCheckedChange={(checked) =>
-                  changeDraft((previous) =>
-                    checked
-                      ? [...new Set([...previous, type])]
-                      : previous.filter((value) => value !== type),
-                  )
-                }
-              >
-                {accountTypeLabels[type]}
-              </DropdownMenuCheckboxItem>
-            ))}
+          <DropdownMenuScrollGroup>
+            {contributionActorTypes.map((type) => {
+              // Each choice carries the glyph its accounts show in an identity badge.
+              const Icon = accountTypeIcons[type];
+              return (
+                <DropdownMenuCheckboxItem
+                  key={type}
+                  checked={draft.includes(type)}
+                  onSelect={(event) => event.preventDefault()}
+                  onCheckedChange={(checked) =>
+                    changeDraft((previous) =>
+                      checked
+                        ? [...new Set([...previous, type])]
+                        : previous.filter((value) => value !== type),
+                    )
+                  }
+                >
+                  <Icon size={16} />
+                  {accountTypeLabels[type]}
+                </DropdownMenuCheckboxItem>
+              );
+            })}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onSelect={(event) => {
@@ -101,17 +107,17 @@ export function AccountTypeFilter({
             >
               Clear selection
             </DropdownMenuItem>
-          </DropdownMenuGroup>
+          </DropdownMenuScrollGroup>
           <DropdownMenuSeparator />
           {error && (
-            <DropdownMenuLabel
+            <div
               aria-hidden="true"
-              className="font-normal text-body text-[var(--prebid-error-ink)]"
+              className="px-2 py-1.5 text-body text-[var(--prebid-error-ink)]"
             >
               {error}
-            </DropdownMenuLabel>
+            </div>
           )}
-          <DropdownMenuItem
+          <DropdownMenuAction
             aria-describedby={error ? errorId : undefined}
             onSelect={(event) => {
               event.preventDefault();
@@ -123,7 +129,7 @@ export function AccountTypeFilter({
             }}
           >
             Apply account types
-          </DropdownMenuItem>
+          </DropdownMenuAction>
         </DropdownMenuContent>
       </DropdownMenu>
       <FieldError id={errorId} message={open ? error : ''} className="sr-only" />

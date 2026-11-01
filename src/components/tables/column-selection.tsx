@@ -1,5 +1,6 @@
 'use client';
 import { useId, type ReactNode } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
 import { DropdownMenuCheckboxItem, DropdownMenuGroup } from '@/components/ui/dropdown-menu';
 import type { SelectableColumn } from '@/models/column-selection';
 import {
@@ -66,14 +67,11 @@ function Choice({
       </DropdownMenuCheckboxItem>
     ) : (
       <label className={className} title={description}>
-        <input
-          type="checkbox"
+        <Checkbox
           aria-label={name}
           aria-describedby={description ? descriptionId : undefined}
           checked={checked === true}
-          ref={(node) => {
-            if (node) node.indeterminate = checked === 'indeterminate';
-          }}
+          indeterminate={checked === 'indeterminate'}
           disabled={disabled}
           onChange={(event) => onChange(event.target.checked)}
         />

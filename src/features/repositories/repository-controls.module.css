@@ -5,37 +5,9 @@
   align-items: center;
   gap: 10px;
 }
-.scopeControls {
-  margin-bottom: 14px;
-}
-.scopeSelect select,
-.selectField select {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 9px 30px 9px 11px;
-  background-color: var(--prebid-sunken);
-  color: var(--foreground);
-  font-size: var(--prebid-text-small);
-}
 .scopeSelect {
-  position: relative;
   display: inline-flex;
-  align-items: center;
   min-width: 0;
-}
-.scopeSelect select {
-  appearance: none;
-  min-height: 36px;
-  padding-right: 36px;
-}
-.scopeChevron {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--muted-foreground);
 }
 .selectField {
   display: flex;
@@ -44,12 +16,6 @@
   font-size: var(--prebid-text-small);
   min-width: 0;
 }
-.selectField select:focus-visible,
-.scopeSelect select:focus-visible,
-.chips button:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
 .filters {
   min-width: 0;
   margin: 0;
@@ -57,15 +23,9 @@
   border: 0;
 }
 .search {
+  display: block;
+  width: 100%;
   max-width: 280px;
-  height: 36px;
-  font-size: var(--prebid-text-small);
-}
-.dialog {
-  max-width: 640px;
-  max-height: calc(100dvh - 40px);
-  overflow-y: auto;
-  background: var(--popover);
 }
 .fieldGrid {
   display: grid;
@@ -90,29 +50,31 @@
   gap: 6px;
   margin-top: 12px;
 }
-.chips button {
+/* Removable filter chips are native buttons this module draws; no primitive renders them. They
+   take the selection tint, because each one is an applied filter, at the 28px small height. */
+.chip {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: var(--prebid-text-caption);
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  color: var(--foreground);
-  background: var(--muted);
+  gap: 6px;
+  min-height: 28px;
+  font-size: var(--prebid-text-small);
+  font-weight: 500;
+  padding: 0 8px;
+  border: 1px solid var(--prebid-selection-edge);
+  border-radius: var(--prebid-radius-small);
+  color: var(--prebid-selection-ink);
+  background: var(--prebid-selection);
   cursor: pointer;
   overflow-wrap: anywhere;
   max-width: 100%;
   text-align: left;
 }
-.preferences {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  font-size: var(--prebid-text-caption);
-  color: var(--muted-foreground);
+.chip:hover {
+  border-color: var(--prebid-brand-blue);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 @media (max-width: 600px) {
   .fieldGrid {
@@ -124,8 +86,5 @@
   }
   .scopeControls > * {
     width: 100%;
-  }
-  .preferences {
-    justify-content: flex-start;
   }
 }

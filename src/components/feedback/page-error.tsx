@@ -1,12 +1,13 @@
 'use client';
 import { startTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { PageState } from './page-state';
+import { EmptyState } from './empty-state';
 
 export function PageError({ reset }: { reset: () => void }) {
   const router = useRouter();
   return (
-    <PageState
+    <EmptyState
+      kind="error"
       title="This page could not load"
       onRetry={() =>
         startTransition(() => {
@@ -16,6 +17,6 @@ export function PageError({ reset }: { reset: () => void }) {
       }
     >
       Please try again.
-    </PageState>
+    </EmptyState>
   );
 }

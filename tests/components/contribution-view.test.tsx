@@ -127,7 +127,15 @@ it('keeps zero-contribution company members visible and supports its repository 
   expect(screen.getByRole('heading', { name: 'Example Acme', level: 1 })).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(3);
   expect(screen.getByRole('link', { name: 'Eve — view contribution report' })).toBeVisible();
-  expect(screen.getByRole('navigation', { name: 'Company breakdown' })).toBeVisible();
+  // The breakdown switch is header content inside the table panel, above its scroll area.
+  const members = screen.getByRole('region', { name: 'Company contributors' });
+  const breakdown = within(members).getByRole('navigation', { name: 'Company breakdown' });
+  expect(breakdown).toBeVisible();
+  expect(
+    breakdown.compareDocumentPosition(
+      within(members).getByRole('region', { name: 'Company contributors table scroll area' }),
+    ) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
   view.rerender(
     <Preview
       data={page({
@@ -139,6 +147,65 @@ it('keeps zero-contribution company members visible and supports its repository 
     />,
   );
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(2);
+  expect(
+    within(screen.getByRole('region', { name: 'By repository' })).getByRole('navigation', {
+      name: 'Company breakdown',
+    }),
+  ).toBeVisible();
+  // The repository breakdown has no table search.
+  expect(screen.queryByRole('textbox', { name: 'Search By repository' })).not.toBeInTheDocument();
+});
+it('shows identities as avatars, with the account type, company monograms, the unmapped bucket and a 48px heading slot', () => {
+  const avatar = (scope: Element, size: 32 | 48) =>
+    scope.querySelector<HTMLElement>(`[data-kind][data-size="${size}"]`);
+  const heading = () => screen.getByRole('heading', { level: 1 }).closest('header')!;
+  const view = render(<Preview data={page()} />);
+  const alice = screen
+    .getByRole('link', { name: 'Alice — view contribution report' })
+    .closest('td')!;
+  expect(avatar(alice, 32)).toHaveAttribute('data-kind', 'person');
+  expect(avatar(alice, 32)).toHaveAttribute('title', 'Human');
+  expect(avatar(alice, 32)).toHaveTextContent(/^A$/);
+  expect(avatar(heading(), 48)).toBeNull();
+  view.rerender(<Preview data={page({ area: 'companies' })} />);
+  const acme = screen.getByRole('link', { name: 'Example Acme' }).closest('td')!;
+  expect(avatar(acme, 32)).toHaveAttribute('data-kind', 'company');
+  expect(avatar(acme, 32)).toHaveTextContent(/^EA$/);
+  const unmapped = screen.getByRole('link', { name: 'Unmapped company' }).closest('td')!;
+  expect(avatar(unmapped, 32)).toHaveAttribute('data-kind', 'unmapped-company');
+  view.rerender(
+    <Preview data={page({ focus: { kind: 'contributor', accountId: 'account-alice' } })} />,
+  );
+  expect(avatar(heading(), 48)).toHaveAttribute('data-kind', 'person');
+  expect(avatar(heading(), 48)).toHaveAttribute('title', 'Human');
+  view.rerender(
+    <Preview
+      data={page({ area: 'companies', focus: { kind: 'company', companyId: 'company-acme' } })}
+    />,
+  );
+  expect(avatar(heading(), 48)).toHaveAttribute('data-kind', 'company');
+  view.rerender(
+    <Preview data={page({ area: 'companies', focus: { kind: 'company', companyId: null } })} />,
+  );
+  expect(avatar(heading(), 48)).toHaveAttribute('data-kind', 'unmapped-company');
+});
+it('names the account type in the identity cell, whose avatar badge is hidden from assistive technology', () => {
+  render(<Preview data={page()} />);
+  const table = screen.getByRole('table');
+  for (const [name, login, type] of [
+    ['Alice', 'sample-alice', 'Human'],
+    ['Prebid sample agent', 'sample-agent', 'Prebid agent'],
+  ] as const) {
+    const cell = within(table)
+      .getByRole('link', { name: name + ' — view contribution report' })
+      .closest('td')!;
+    // jsdom joins inline names without the spaces a browser inserts, so only the order is exact.
+    expect(cell).toHaveAccessibleName(
+      new RegExp(
+        `^${name} — view contribution report ?@${login} — GitHub profile for ${login} \\(sample placeholder\\) ?${type}$`,
+      ),
+    );
+  }
 });
 it('renders unmapped company context without claiming a company affiliation', () => {
   render(
@@ -148,17 +215,27 @@ it('renders unmapped company context without claiming a company affiliation', ()
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(2);
 });
 it('keeps empty, partial and missing coverage distinct', () => {
+  const state = (title: string) =>
+    screen.getByRole('heading', { name: title }).closest('[data-kind]');
   const view = render(<Preview data={page({ sample: 'empty' })} />);
   expect(
     screen.getByRole('heading', { name: 'No counted contributions in this period' }),
   ).toBeVisible();
+  expect(state('No counted contributions in this period')).toHaveAttribute('data-kind', 'empty');
   view.rerender(<Preview data={page({ sample: 'partial' })} />);
   expect(screen.getByLabelText('Data coverage')).toHaveTextContent('incomplete');
   expect(screen.getByRole('table').querySelector('sup')).toBeInTheDocument();
   view.rerender(<Preview data={page({ sample: 'missing' })} />);
   expect(screen.getByLabelText('Data coverage')).toHaveTextContent('unavailable');
-  expect(screen.getByRole('heading', { name: 'No confirmed contributions to list' })).toBeVisible();
-  expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  // An empty table keeps its header row and states the result in one full-width row.
+  const empty = screen.getByRole('table');
+  expect(
+    within(empty).getByRole('heading', { name: 'No confirmed contributions to list' }),
+  ).toBeVisible();
+  // Unavailable values leave the list empty: the missing state, never the empty-result one.
+  expect(state('No confirmed contributions to list')).toHaveAttribute('data-kind', 'missing');
+  expect(within(empty).getAllByRole('columnheader').length).toBeGreaterThan(0);
+  expect(empty.querySelectorAll('tbody td[data-column]')).toHaveLength(0);
   view.rerender(
     <Preview
       data={page({ sample: 'missing', focus: { kind: 'contributor', accountId: 'account-alice' } })}
@@ -175,13 +252,17 @@ it('paginates 251 accounts at 50 rows and searches by the displayed account iden
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
   expect(screen.getByText('Page 1 of 6')).toBeVisible();
   await user.click(screen.getByRole('button', { name: 'Next' }));
-  expect(screen.getByText('Page 2 of 6')).toBeVisible();
+  expect(screen.getByRole('navigation', { name: 'Contributors pages' })).toHaveTextContent(
+    'Page 2 of 6',
+  );
   await user.type(
     screen.getByRole('textbox', { name: 'Search Contributors' }),
     'sample-heavy-agent',
   );
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(1);
-  expect(screen.getByText('Page 1 of 1')).toBeVisible();
+  // One page of results needs no pager.
+  expect(screen.queryByRole('navigation', { name: 'Contributors pages' })).not.toBeInTheDocument();
+  expect(screen.getByText('1 matching row')).toBeVisible();
   expect(screen.getByRole('table').querySelector('[data-column="prsAuthored"]')).toHaveTextContent(
     '240',
   );
@@ -256,6 +337,26 @@ it('shows singular scope and result labels for one selected account and reposito
   });
   render(<Preview data={{ ...page(), report }} />);
   expect(screen.getByText('1 included account')).toBeVisible();
-  expect(screen.getByText('1 repository')).toBeVisible();
-  expect(screen.getByText('1 matching row')).toBeVisible();
+  // The repository count belongs to the Repositories control, so the scope summary omits it.
+  expect(screen.getByRole('region', { name: 'Contribution report scope' })).not.toHaveTextContent(
+    /repositor/,
+  );
+  // No search is set, so the count does not say "matching".
+  expect(screen.getByText('1 row')).toBeVisible();
+});
+it('names a partial account type selection in the report scope summary', () => {
+  const source = contributionSample();
+  const repositoryIds = source.repositories.map((row) => row.id);
+  const report = selectContributions(source, {
+    repositoryIds,
+    actorTypes: ['bot', 'human'],
+    population: { kind: 'all' },
+    excludedAccountIds: [],
+  });
+  const view = render(<Preview data={{ ...page(), report }} />);
+  const scope = () => screen.getByRole('region', { name: 'Contribution report scope' });
+  // The Account type control reads "2 types", so the summary names them in their fixed order.
+  expect(within(scope()).getByText('Account types: Human, Bot')).toBeVisible();
+  view.rerender(<Preview data={page()} />);
+  expect(scope()).not.toHaveTextContent(/account types?:/i);
 });

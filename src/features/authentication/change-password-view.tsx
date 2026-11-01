@@ -12,7 +12,7 @@ import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { messageResponseSchema } from '@/models/accounts';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import { CheckIcon, ContinueIcon, LoadingIcon } from '@/components/ui/icons';
 import { AuthFrame } from './auth-frame';
 import { PasswordInput } from '@/components/ui/password-input';
 import styles from './authentication.module.css';
@@ -109,7 +109,7 @@ export function ChangePasswordView({
       {isFirstLogin ? (
         <div className={styles.steps} aria-label="Account setup: step 2 of 2">
           <span>
-            <Check size={14} aria-hidden="true" /> Signed in
+            <CheckIcon size={14} /> Signed in
           </span>
           <span className={styles.stepDivider} aria-hidden="true" />
           <span className={styles.currentStep}>02 &nbsp; Set your password</span>
@@ -141,6 +141,7 @@ export function ChangePasswordView({
           </Label>
           <PasswordInput
             id="currentPassword"
+            size="lg"
             name="currentPassword"
             visibilityLabel={isFirstLogin ? 'temporary password' : 'current password'}
             placeholder={
@@ -157,6 +158,7 @@ export function ChangePasswordView({
           <Label htmlFor="newPassword">New Password</Label>
           <PasswordInput
             id="newPassword"
+            size="lg"
             name="newPassword"
             visibilityLabel="new password"
             placeholder="Create your password"
@@ -175,6 +177,7 @@ export function ChangePasswordView({
           <Label htmlFor="confirmPassword">Confirm New Password</Label>
           <PasswordInput
             id="confirmPassword"
+            size="lg"
             name="confirmPassword"
             visibilityLabel="confirmed password"
             placeholder="Enter your new password again"
@@ -185,32 +188,37 @@ export function ChangePasswordView({
             autoComplete="new-password"
           />
         </div>
-        <Button
-          type="submit"
-          className={styles.submit}
-          disabled={!ready || isLoading || !currentPassword || !newPassword || !confirmPassword}
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="animate-spin" aria-hidden="true" /> Changing Password...
-            </>
-          ) : (
-            <>
-              {isFirstLogin ? 'Set password and continue' : 'Change Password'}
-              <ArrowRight aria-hidden="true" />
-            </>
-          )}
-        </Button>
-        {!isFirstLogin && (
+        <div className={styles.submit}>
           <Button
-            variant="secondary"
-            className={styles.cancel}
-            onClick={() => router.back()}
-            type="button"
-            disabled={!ready || isLoading}
+            type="submit"
+            variant="primary"
+            size="lg"
+            disabled={!ready || isLoading || !currentPassword || !newPassword || !confirmPassword}
           >
-            Cancel
+            {isLoading ? (
+              <>
+                <LoadingIcon size={16} className="animate-spin" /> Changing Password...
+              </>
+            ) : (
+              <>
+                {isFirstLogin ? 'Set password and continue' : 'Change Password'}
+                <ContinueIcon size={16} />
+              </>
+            )}
           </Button>
+        </div>
+        {!isFirstLogin && (
+          <div className={styles.cancel}>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => router.back()}
+              type="button"
+              disabled={!ready || isLoading}
+            >
+              Cancel
+            </Button>
+          </div>
         )}
       </form>
       <div className={styles.passwordFooter}>

@@ -8,7 +8,8 @@ import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { PopulationSelector } from '@/features/contributions/population-selector';
-import { ContributionControls } from '@/features/contributions/contribution-controls';
+import { contributionToolbar } from '@/features/contributions/contribution-controls';
+import { ReportToolbar } from '@/components/reporting/report-toolbar';
 import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
 import { selectContributions } from '@/lib/presentation/contributions';
 import {
@@ -497,19 +498,26 @@ it('connects period controls and presents browser-storage and pending states', a
   const user = userEvent.setup(),
     onChange = vi.fn(),
     onReset = vi.fn();
-  const { rerender } = render(
-    <ContributionControls
-      options={localContributionOptions(directory, contributionSampleAsOf)}
-      directory={directory}
-      value={defaults}
-      asOf={contributionSampleAsOf}
-      pending={false}
-      storageAvailable={false}
-      onChange={onChange}
-      onReset={onReset}
-    />,
+  const toolbar = (pending: boolean, storageAvailable: boolean) => (
+    <ReportToolbar
+      label="Contribution report scope"
+      {...contributionToolbar({
+        options: localContributionOptions(directory, contributionSampleAsOf),
+        directory,
+        value: defaults,
+        asOf: contributionSampleAsOf,
+        pending,
+        storageAvailable,
+        onChange,
+        onReset,
+      })}
+    />
   );
-  expect(screen.getByRole('status')).toHaveTextContent('Browser storage is unavailable');
+  const { rerender } = render(toolbar(false, false));
+  expect(screen.getByRole('status')).toHaveTextContent(
+    /^Browser storage is unavailable\. Changes still work in this URL\.$/,
+  );
+  expect(screen.getByRole('group', { name: 'Report filters' })).toBeEnabled();
   await user.selectOptions(
     screen.getByRole('combobox', { name: 'Reporting period preset' }),
     'this-month',
@@ -523,20 +531,13 @@ it('connects period controls and presents browser-storage and pending states', a
   );
   await user.click(screen.getByRole('button', { name: 'Reset filters' }));
   expect(onReset).toHaveBeenCalledOnce();
-  rerender(
-    <ContributionControls
-      options={localContributionOptions(directory, contributionSampleAsOf)}
-      directory={directory}
-      value={defaults}
-      asOf={contributionSampleAsOf}
-      pending
-      storageAvailable
-      onChange={onChange}
-      onReset={onReset}
-    />,
-  );
+  rerender(toolbar(true, true));
   expect(screen.getByRole('status')).toHaveTextContent('Updating report');
   expect(screen.getByRole('button', { name: 'Reset filters' })).toBeDisabled();
+  rerender(toolbar(false, true));
+  expect(screen.getByRole('status')).toHaveTextContent(
+    /^Preferences saved for your account on this browser\.$/,
+  );
 });
 
 it('discloses invalid saved filters instead of silently applying stale exclusions', () => {

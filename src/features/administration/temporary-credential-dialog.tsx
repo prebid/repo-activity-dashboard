@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Callout } from '@/components/feedback/callout';
 import type { IssuedCredential } from '@/models/accounts';
 export function TemporaryCredentialDialog({
   credential,
@@ -64,14 +64,9 @@ export function TemporaryCredentialDialog({
         </DialogHeader>
         <div className="space-y-3">
           <Label htmlFor="temporary-password">Temporary password</Label>
-          <Input
-            id="temporary-password"
-            value={credential.tempPassword}
-            readOnly
-            className="font-mono"
-          />
+          <Input id="temporary-password" value={credential.tempPassword} readOnly font="mono" />
           {credential.expiresAt && (
-            <p className="text-sm">
+            <p className="text-body">
               Expires{' '}
               <time dateTime={credential.expiresAt}>
                 {credential.expiresAt
@@ -81,24 +76,22 @@ export function TemporaryCredentialDialog({
               </time>
             </p>
           )}
-          <Button type="button" variant="outline" onClick={() => void copy()}>
+          <Button type="button" variant="secondary" onClick={() => void copy()}>
             {copied ? 'Copied' : 'Copy password'}
           </Button>
           {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+            <Callout tone="error" role="alert">
+              {error}
+            </Callout>
           )}
           {confirmDismiss && (
-            <Alert>
-              <AlertDescription>
-                You will not be able to retrieve this password after closing. You can use Reissue
-                password to replace it.
-              </AlertDescription>
+            <Callout tone="warning" role="alert">
+              You will not be able to retrieve this password after closing. You can use Reissue
+              password to replace it.
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="secondary"
                   autoFocus
                   onClick={() => setConfirmDismiss(false)}
                 >
@@ -108,11 +101,11 @@ export function TemporaryCredentialDialog({
                   Discard and close
                 </Button>
               </div>
-            </Alert>
+            </Callout>
           )}
         </div>
         <DialogFooter>
-          <Button type="button" onClick={onClose}>
+          <Button type="button" variant="primary" onClick={onClose}>
             I have saved the password
           </Button>
         </DialogFooter>

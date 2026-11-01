@@ -1,8 +1,8 @@
 'use client';
-import { useId } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ChartCell, ChartCells, ChartPanel } from '@/components/charts/chart-panel';
 import { SelectableBars } from '@/components/charts/selectable-bars';
+import { DataLegend, measurementMarks } from '@/components/feedback/data-legend';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type { RepositoryPageModel, RepositoryChart } from '@/models/repository-page';
 import {
@@ -10,7 +10,7 @@ import {
   isChartSelection,
   type RepositoryChartSelection,
 } from '@/lib/presentation/repository-chart-selection';
-import { periodRangeLabel } from '@/lib/presentation/overview-periods';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import styles from './repository-charts.module.css';
 const titles = {
   age: 'Age distribution',
@@ -38,64 +38,59 @@ export function RepositoryCharts({
   onVisibilityChange: (visible: boolean) => void;
   onSelect: (selection: RepositoryChartSelection) => void;
 }) {
-  const id = useId();
   return (
-    <section className={styles.section} aria-label="Repository charts">
-      <div className={styles.heading}>
-        <div>
-          <h2>At a glance</h2>
-          <p>
-            All matching {page.kind === 'prs' ? 'PRs' : 'issues'}, across every page. Select a bar
-            to filter; select it again to clear.
-          </p>
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          aria-expanded={visible}
-          aria-controls={id}
-          onClick={() => onVisibilityChange(!visible)}
-        >
-          {visible ? (
-            <ChevronUp size={14} aria-hidden="true" />
-          ) : (
-            <ChevronDown size={14} aria-hidden="true" />
-          )}
-          {visible ? 'Hide charts' : 'Show charts'}
-        </Button>
-      </div>
-      <div id={id} hidden={!visible}>
-        <div className={styles.grid}>
+    <ChartPanel
+      label="Repository charts"
+      title="At a glance"
+      description={
+        'All matching ' +
+        (page.kind === 'prs' ? 'PRs' : 'issues') +
+        ', across every page. Select a bar to filter; select it again to clear.'
+      }
+      content="bars"
+      showLabel="Show charts"
+      hideLabel="Hide charts"
+      expanded={visible}
+      onExpandedChange={onVisibilityChange}
+    >
+      <div
+        className={
+          page.charts.length === 1 && page.charts[0].kind === 'age' ? styles.single : undefined
+        }
+      >
+        <ChartCells>
           {page.charts.map((chart) => {
             const chartTitle = title(chart, page.kind);
+            // The value glyphs this chart shows, so its legend explains only those.
+            const marks = measurementMarks(chart.points.map((point) => point.count));
             return (
-              <figure
+              <ChartCell
                 key={chart.kind}
-                className={styles.card}
-                data-kind={chart.kind}
-                aria-label={chartTitle}
-              >
-                <figcaption>
-                  <strong>{chartTitle}</strong>
-                  <span>
-                    <MeasurementValue measurement={chart.measurement} />{' '}
-                    {page.kind === 'prs' ? 'PRs' : 'issues'}
-                  </span>
-                </figcaption>
-                <p className={styles.context}>
-                  {chart.kind === 'activity'
-                    ? periodRangeLabel(chart.range) +
-                      ' · UTC · ' +
+                title={chartTitle}
+                total={<MeasurementValue measurement={chart.measurement} />}
+                unit={page.kind === 'prs' ? 'PRs' : 'issues'}
+                context={
+                  chart.kind === 'activity'
+                    ? zonedRangeLabel(chart.range) +
+                      ' · ' +
                       (chart.granularity === 'day' ? 'Daily' : 'Monthly')
                     : chart.kind === 'age'
                       ? 'Age since creation · Current open'
                       : 'Non-draft PRs' +
                         (chart.excludedDrafts
                           ? ' · ' + chart.excludedDrafts + ' drafts excluded'
-                          : '')}
-                </p>
+                          : '')
+                }
+                footer={
+                  chart.measurement.value !== null && marks.length ? (
+                    <DataLegend marks={marks} />
+                  ) : undefined
+                }
+              >
                 {chart.measurement.value === null ? (
-                  <p className={styles.notice}>— {chart.measurement.reason}</p>
+                  <EmptyState variant="embedded" kind="missing" title="No chart values available">
+                    {chart.measurement.reason}
+                  </EmptyState>
                 ) : (
                   <SelectableBars
                     label={chartTitle + ' values'}
@@ -117,7 +112,7 @@ export function RepositoryCharts({
                           chart.kind === 'age'
                             ? label.replace('Over ', '>').replace(' through ', '–')
                             : label,
-                        detail: 'range' in point ? periodRangeLabel(point.range) + ' UTC' : label,
+                        detail: 'range' in point ? zonedRangeLabel(point.range) : label,
                         count: point.count,
                         selected: isChartSelection(page.filters, selection),
                       };
@@ -125,16 +120,11 @@ export function RepositoryCharts({
                     onSelect={(index) => onSelect(chartPointSelection(chart, index))}
                   />
                 )}
-                {chart.points.some((point) => point.count.status === 'partial') && (
-                  <p className={styles.notice}>
-                    * Partial coverage. Counts show available matching records.
-                  </p>
-                )}
-              </figure>
+              </ChartCell>
             );
           })}
-        </div>
+        </ChartCells>
       </div>
-    </section>
+    </ChartPanel>
   );
 }

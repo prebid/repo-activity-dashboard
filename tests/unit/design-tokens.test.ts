@@ -20,9 +20,9 @@ import {
 } from '../../scripts/check-design-tokens.mjs';
 
 // Each phase lowers this as it converts its allowlisted sites.
-const CEILING = 104;
+const CEILING = 45;
 // The unmodelled sites in the tree today; lowered as values become readable or are removed.
-const UNMODELLED_CEILING = 86;
+const UNMODELLED_CEILING = 68;
 
 const directories: string[] = [];
 const base = {
@@ -373,6 +373,137 @@ describe('CSS declarations', () => {
     expect(failures({ 'src/broken.css': '.a { color: red' })).toEqual([
       'src/broken.css:1: CSS parse error: Unclosed block',
     ]);
+  });
+});
+
+describe('control overrides in feature CSS', () => {
+  it('rejects a control reached through a descendant or child selector that sets its size, fill, edge, shadow or text size', () => {
+    expect(
+      failures({
+        'src/features/view.module.css': lines(
+          '.bar button { height: 30px; }',
+          '.bar > input { background: var(--x); }',
+          '.bar select { border: 1px solid var(--x); }',
+          '.bar summary { border-color: var(--x); }',
+          '.bar textarea { box-shadow: none; }',
+          '.bar button:hover:enabled { background-color: var(--x); }',
+          '.bar input::placeholder { font-size: var(--prebid-text-body); }',
+          ".bar input[type='checkbox'] { min-height: 16px; }",
+          '.a, .bar Button { height: 1px; }',
+          ':global(.dark) .bar>button { height: 1px; }',
+          '@media (max-width: 600px) { .bar button { height: 40px; } }',
+          '.bar { button { height: 1px; } }',
+          '.bar { & > select { height: 1px; } }',
+          '.bar button { font-size: 12px; }',
+        ),
+      }),
+    ).toEqual([
+      'src/features/view.module.css:1: descendant control override: .bar button height: 30px',
+      'src/features/view.module.css:2: descendant control override: .bar > input background: var(--x)',
+      'src/features/view.module.css:3: descendant control override: .bar select border: 1px solid var(--x)',
+      'src/features/view.module.css:4: descendant control override: .bar summary border-color: var(--x)',
+      'src/features/view.module.css:5: descendant control override: .bar textarea box-shadow: none',
+      'src/features/view.module.css:6: descendant control override: .bar button:hover:enabled background-color: var(--x)',
+      'src/features/view.module.css:7: descendant control override: .bar input::placeholder font-size: var(--prebid-text-body)',
+      "src/features/view.module.css:8: descendant control override: .bar input[type='checkbox'] min-height: 16px",
+      'src/features/view.module.css:9: descendant control override: .a, .bar Button height: 1px',
+      'src/features/view.module.css:10: descendant control override: :global(.dark) .bar>button height: 1px',
+      'src/features/view.module.css:11: descendant control override: [@media (max-width: 600px)] .bar button height: 40px',
+      'src/features/view.module.css:12: descendant control override: .bar { button height: 1px',
+      'src/features/view.module.css:13: descendant control override: .bar { & > select height: 1px',
+      'src/features/view.module.css:14: font-size literal, descendant control override: .bar button font-size: 12px',
+    ]);
+  });
+
+  it('rejects longhand and shorthand forms of the same size, fill, edge and text properties', () => {
+    expect(
+      failures({
+        'src/features/view.module.css': lines(
+          '.bar button { border-width: 0; }',
+          '.bar button { border-top: 0; }',
+          '.bar button { border-style: dashed; }',
+          '.bar button { border-bottom-color: var(--x); }',
+          '.bar button { border-inline: 0; }',
+          '.bar button { font: inherit; }',
+          '.bar button { background-image: none; }',
+          '.bar button { block-size: 30px; }',
+          '.bar button { max-height: 30px; }',
+          '.bar button { min-block-size: 30px; }',
+          '.bar button { border-top-left-radius: 0; border-start-start-radius: 0; }',
+        ),
+      }),
+    ).toEqual([
+      'src/features/view.module.css:1: descendant control override: .bar button border-width: 0',
+      'src/features/view.module.css:2: descendant control override: .bar button border-top: 0',
+      'src/features/view.module.css:3: descendant control override: .bar button border-style: dashed',
+      'src/features/view.module.css:4: descendant control override: .bar button border-bottom-color: var(--x)',
+      'src/features/view.module.css:5: descendant control override: .bar button border-inline: 0',
+      'src/features/view.module.css:6: descendant control override: .bar button font: inherit',
+      'src/features/view.module.css:7: descendant control override: .bar button background-image: none',
+      'src/features/view.module.css:8: descendant control override: .bar button block-size: 30px',
+      'src/features/view.module.css:9: descendant control override: .bar button max-height: 30px',
+      'src/features/view.module.css:10: descendant control override: .bar button min-block-size: 30px',
+    ]);
+  });
+
+  it('accepts other properties, controls matched by their own class, sibling combinators and other elements', () => {
+    expect(
+      failures({
+        'src/features/view.module.css': lines(
+          '.bar button { padding: 4px; color: var(--x); width: 100%; flex-shrink: 0; outline: 2px solid var(--x); border-radius: 0; }',
+          '.button { height: 34px; background: var(--x); }',
+          '.bar .control { height: 34px; border: 0; }',
+          '.bar + button { height: 1px; }',
+          '.bar ~ input { height: 1px; }',
+          'button { height: 1px; }',
+          '.bar button span { height: 1px; }',
+          '.bar buttons, .bar input-group { height: 1px; }',
+          '.bar :global(button), .bar :is(input) { height: 1px; }',
+          ".bar [data-slot='button'] { height: 1px; }",
+          '.bar:has(button) { height: 1px; }',
+          '.bar:not(button) { height: 1px; }',
+        ),
+      }),
+    ).toEqual([]);
+  });
+
+  it('applies only to CSS modules outside src/components/ui and src/styles', () => {
+    const rule = '.bar button { height: 30px; }';
+    expect(
+      failures({
+        'src/components/ui/menu.module.css': rule,
+        'src/styles/controls.module.css': rule,
+        'src/features/plain.css': rule,
+        'src/app/globals.css': rule,
+        'src/components/charts/bars.module.css': rule,
+        'src/app/(dashboard)/route.module.css': rule,
+      }),
+    ).toEqual([
+      'src/app/(dashboard)/route.module.css:1: descendant control override: .bar button height: 30px',
+      'src/components/charts/bars.module.css:1: descendant control override: .bar button height: 30px',
+    ]);
+  });
+
+  it('suppresses an allowlisted override by its selector, property and value', () => {
+    const root = fixture({ 'src/features/view.module.css': '.bar button { height: 30px; }' });
+    const result = inspectDesignTokens(root, {
+      allowlist: {
+        version: 1,
+        entries: [
+          {
+            file: 'src/features/view.module.css',
+            context: '',
+            selector: '.bar button',
+            property: 'height',
+            value: '30px',
+            phase: 'P3',
+            reason: 'The table system replaces this control.',
+          },
+        ],
+      },
+    });
+    expect(result.allowlisted).toBe(1);
+    expect(result.failures).toEqual([]);
   });
 });
 
@@ -823,6 +954,93 @@ describe('colour literals in other strings', () => {
   });
 });
 
+describe('text arrows', () => {
+  it('rejects U+2190 to U+21FF in src strings and JSX text, spelled or escaped', () => {
+    expect(
+      failures({
+        'src/arrows.tsx': lines(
+          'export const Back = () => <a aria-label="← All">← Back</a>;',
+          "export const escaped = '\\u2192 Next';",
+          "export const pair = ['⇐', 'x', '↿'];",
+          'export const hint = `more ${1} ⇿`;',
+          'export const Entities = () => (',
+          '  <p title="&larr; Back">',
+          '    <a>Next&nbsp;&rarr;</a>',
+          '    <a>&#8594;</a>',
+          '    <a>&#x21D2;</a>',
+          '  </p>',
+          ');',
+        ),
+      }),
+    ).toEqual([
+      'src/arrows.tsx:1: text arrow: [Back > <a aria-label>] text: ← All',
+      'src/arrows.tsx:1: text arrow: [Back] text: ← Back',
+      'src/arrows.tsx:2: text arrow: [escaped] text: → Next',
+      'src/arrows.tsx:3: text arrow: [pair] text: ⇐',
+      'src/arrows.tsx:3: text arrow: [pair] text: ↿',
+      'src/arrows.tsx:4: text arrow: [hint] text: `more ${1} ⇿`',
+      'src/arrows.tsx:6: text arrow: [Entities > <p title>] text: &larr; Back',
+      'src/arrows.tsx:7: text arrow: [Entities] text: Next&nbsp;&rarr;',
+      'src/arrows.tsx:8: text arrow: [Entities] text: &#8594;',
+      'src/arrows.tsx:9: text arrow: [Entities] text: &#x21D2;',
+    ]);
+  });
+
+  it('reports an arrow chosen by a conditional once, with its expression', () => {
+    expect(
+      failures({
+        'src/sort.tsx': lines(
+          'export const Sort = ({ down, on }: { down: boolean; on: boolean }) => (',
+          "  <b>{on ? (down ? ' ↓' : ' ↑') : ''}</b>",
+          ');',
+          "export const label = (name: string) => name + ' →';",
+        ),
+      }),
+    ).toEqual([
+      "src/sort.tsx:2: text arrow: [Sort] text: on ? (down ? ' ↓' : ' ↑') : ''",
+      "src/sort.tsx:4: text arrow: [label] text: name + ' →'",
+    ]);
+  });
+
+  it('ignores comments, other characters, other entities and files outside src', () => {
+    expect(
+      failures({
+        'src/plain.tsx': lines(
+          '// ← Back, in a comment',
+          "export const dots = '· — … ⟶ ⬅';",
+          'export const Plain = () => <a title="&amp;">&#8230; &nbsp; &copy;</a>;',
+          '/* → */ export const n = 1;',
+        ),
+        '.storybook/arrows.tsx': 'export const Story = () => <a>← Back</a>;',
+      }),
+    ).toEqual([]);
+  });
+
+  it('suppresses an allowlisted arrow site by its expression', () => {
+    const root = fixture({
+      'src/sort.tsx': "export const Sort = (down: boolean) => <b>{down ? ' ↓' : ' ↑'}</b>;",
+    });
+    const result = inspectDesignTokens(root, {
+      allowlist: {
+        version: 1,
+        entries: [
+          {
+            file: 'src/sort.tsx',
+            context: 'Sort',
+            selector: '',
+            property: 'text',
+            value: "down ? ' ↓' : ' ↑'",
+            phase: 'P3',
+            reason: 'Sort direction glyph.',
+          },
+        ],
+      },
+    });
+    expect(result.allowlisted).toBe(1);
+    expect(result.failures).toEqual([]);
+  });
+});
+
 describe('allowlist', () => {
   const css = lines(
     '.nav { font-size: 12px; }',
@@ -899,7 +1117,8 @@ describe('allowlist', () => {
     expect(result.failures).toEqual([
       'Duplicate allowlist entry: src/allow.css .nav font-size: 12px',
       'Allowlist entry has no reason: src/allow.css [@media (max-width: 600px)] .nav font-size: 12px',
-      'Allowlist entry phase "P1" is not P2, P3 or P4: src/allow.css .twice color: #fff',
+      // P1 is finished, so its entry fails as completed rather than unknown.
+      'Allowlist entry is owned by completed phase P1: src/allow.css .twice color: #fff',
       'Allowlist entry phase "P5" is not P2, P3 or P4: src/allow.css [#2] .twice color: #fff',
     ]);
   });
@@ -964,8 +1183,8 @@ describe('allowlist', () => {
             selector: '',
             property: 'bg-white',
             value: 'bg-white',
-            phase: 'P2',
-            reason: 'The outline button is restyled with the P2 controls.',
+            phase: 'P4',
+            reason: 'The outline button is restyled with the P4 shell.',
           },
         ],
       },

@@ -1,18 +1,3 @@
-.controls {
-  width: 100%;
-}
-.bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-width: 0;
-}
-.control {
-  height: 34px;
-  font-size: var(--prebid-text-small);
-  box-shadow: none;
-}
 .note {
   color: var(--muted-foreground);
   font-size: var(--prebid-text-caption);
@@ -59,7 +44,7 @@
 }
 .options {
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--prebid-radius-control);
   max-height: 210px;
   overflow-y: auto;
 }

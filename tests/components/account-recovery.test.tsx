@@ -71,6 +71,27 @@ it('explains expired temporary credentials without changing other rejected sign-
   fireEvent.submit(screen.getByRole('button', { name: 'Sign in' }).closest('form')!);
   await screen.findByText('Unable to sign in. Check your details and try again.');
 });
+it('states loading and an empty account list through the embedded state', async () => {
+  let respond: (response: Response) => void = () => {};
+  vi.stubGlobal(
+    'fetch',
+    vi.fn<typeof fetch>(
+      () =>
+        new Promise((resolve) => {
+          respond = resolve;
+        }),
+    ),
+  );
+  render(<AdminUsersView />);
+  const loading = screen.getByRole('status');
+  expect(loading).toHaveAttribute('data-kind', 'loading');
+  expect(loading).toHaveAttribute('data-variant', 'embedded');
+  expect(loading).toHaveTextContent(/^Loading accounts…$/);
+  respond(Response.json({ users: [] }));
+  const empty = await screen.findByRole('heading', { name: 'No accounts are listed.' });
+  expect(empty.closest('[data-kind]')).toHaveAttribute('data-kind', 'empty');
+  expect(screen.queryByText('Loading accounts…')).not.toBeInTheDocument();
+});
 it.each(['create', 'reissue'] as const)(
   'gives outcome-unknown guidance when %s loses its response',
   async (operation) => {

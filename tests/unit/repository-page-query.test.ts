@@ -6,6 +6,7 @@ import {
   readRepositoryFilters,
   writeRepositoryFilters,
   defaultRepositoryFilters,
+  repositoryFiltersNarrow,
 } from '@/lib/presentation/repository-page-query';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 const repo = repositoryOverviewSamples().repositories[0].repository;
@@ -142,4 +143,17 @@ it('rejects a repeated record search instead of choosing one of its values', () 
   expect(readRepositoryFilterValues('prs.q=a&prs.q=b', 'prs')).toBeNull();
   expect(readRepositoryFilterValues('issues.q=a&issues.q=b', 'issues')).toBeNull();
   expect(readRepositoryFilterValues('prs.q=a', 'prs')?.search).toBe('a');
+});
+it('says a list is narrowed exactly while a search or a non-default filter applies', () => {
+  for (const kind of ['prs', 'issues'] as const)
+    expect(repositoryFiltersNarrow(defaultRepositoryFilters(kind))).toBe(false);
+  const prs = defaultRepositoryFilters('prs');
+  expect(repositoryFiltersNarrow({ ...prs, search: 'keyboard' })).toBe(true);
+  expect(repositoryFiltersNarrow({ ...prs, labels: ['maintenance'] })).toBe(true);
+  expect(
+    repositoryFiltersNarrow(repositoryPageFiltersSchema.parse({ kind: 'prs', draft: 'drafts' })),
+  ).toBe(true);
+  expect(repositoryFiltersNarrow({ ...prs, eventRange: range })).toBe(true);
+  // An explicitly cleared range is the default, not a filter.
+  expect(repositoryFiltersNarrow({ ...prs, eventRange: undefined })).toBe(false);
 });

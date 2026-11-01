@@ -146,11 +146,12 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
   expect(new URL(page.url()).searchParams.get('timeline')).toBeNull();
   expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
   await page.goto('/repos/prebidjs');
+  // The record scope select names the scope, so the summary beside it does not repeat it.
   await expect(
     page
       .getByRole('region', { name: 'Selected repository scope' })
-      .getByText('Current open', { exact: true }),
-  ).toBeVisible();
+      .getByRole('combobox', { name: 'Record scope', exact: true }),
+  ).toHaveValue('current');
   await page.screenshot({ path: info.outputPath('timeline-entry.png') });
   await page
     .getByRole('navigation', { name: 'Repository lists' })

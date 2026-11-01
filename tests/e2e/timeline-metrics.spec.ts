@@ -52,7 +52,7 @@ test('grouped metrics preserve repositories, sorting, pages, saved views, cell d
     .getByRole('link', { name: 'Prebid.js, Pull requests — Opened, Oct 2026: 78', exact: true })
     .click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await page.getByRole('link', { name: '← Back to timeline', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to timeline', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + parent);
   await ready(page);
   await page.getByRole('button', { name: 'Export CSV', exact: true }).click();

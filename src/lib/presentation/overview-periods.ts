@@ -22,6 +22,10 @@ export function periodRangeLabel(range: DateRange): string {
     )
   );
 }
+/** The one notation for a range shown as a fact: "Oct 1, 2026 – Oct 24, 2026 · UTC". */
+export function zonedRangeLabel(range: DateRange): string {
+  return periodRangeLabel(range) + ' · UTC';
+}
 export function activityPeriodLabel(period: ResolvedPeriod): string {
   return period.selection.kind === 'preset'
     ? periodLabels[period.selection.preset]

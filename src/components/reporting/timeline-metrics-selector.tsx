@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Columns3, ChevronDown } from 'lucide-react';
+import { ExpandIcon, MetricsIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/feedback/callout';
 import {
   Dialog,
   DialogTrigger,
@@ -47,10 +48,10 @@ export function TimelineMetricsSelector({
         }}
       >
         <DialogTrigger asChild>
-          <Button variant="outline">
-            <Columns3 size={14} aria-hidden="true" />
+          <Button variant="secondary">
+            <MetricsIcon size={14} />
             Metrics · {selected.length}
-            <ChevronDown size={14} aria-hidden="true" />
+            <ExpandIcon size={14} />
           </Button>
         </DialogTrigger>
         <ScrollableDialogContent container={container}>
@@ -71,18 +72,19 @@ export function TimelineMetricsSelector({
             />
           </ScrollableDialogBody>
           {error && (
-            <p role="alert" className="text-sm">
+            <Callout tone="error" as="p" role="alert">
               {error}
-            </p>
+            </Callout>
           )}
           <DialogFooter>
             <Button variant="ghost" onClick={() => setDraft([])}>
               Clear selection
             </Button>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="secondary">Cancel</Button>
             </DialogClose>
             <Button
+              variant="primary"
               onClick={() => {
                 const result = onApply(draft);
                 if (typeof result === 'string') {

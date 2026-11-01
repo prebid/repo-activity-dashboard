@@ -126,6 +126,15 @@ it('keeps focused identity/profile destinations and company wording', () => {
   view.rerender(contribution('reference', { kind: 'company', companyId: null }));
   expect(screen.getByRole('heading', { name: 'Unmapped company', level: 1 })).toBeVisible();
 });
+it('says an all-zero range is recorded, and says nothing when a value is missing or nonzero', () => {
+  const zero = 'Every value in this range is a recorded zero; no data is missing.';
+  const view = render(contribution('empty'));
+  expect(screen.getByText(zero)).toBeVisible();
+  view.rerender(contribution('missing'));
+  expect(screen.queryByText(zero)).not.toBeInTheDocument();
+  view.rerender(contribution('reference'));
+  expect(screen.queryByText(zero)).not.toBeInTheDocument();
+});
 it('distinguishes a known-zero timeline, missing measurements and empty report selections', () => {
   const view = render(contribution('empty'));
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(10);
@@ -168,6 +177,28 @@ it('distinguishes a known-zero timeline, missing measurements and empty report s
     expect(screen.getByRole('heading', { name: title })).toBeVisible();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   }
+});
+it('names a partial account type selection in the scope summary, in the fixed type order', () => {
+  const repositoryIds = contributionTimelineSample('reference').contributions.repositories.map(
+    (row) => row.id,
+  );
+  const selection = (actorTypes: ContributionSelection['actorTypes']): ContributionSelection => ({
+    repositoryIds,
+    actorTypes,
+    population: { kind: 'all' },
+    excludedAccountIds: [],
+  });
+  const view = render(contribution('reference', undefined, selection(['bot', 'human'])));
+  const scope = () => screen.getByRole('region', { name: 'Timeline scope' });
+  // The Account type control reads "2 types", so the summary names them.
+  expect(within(scope()).getByText('Account types: Human, Bot')).toBeVisible();
+  view.rerender(contribution('reference', undefined, selection(['agent'])));
+  expect(within(scope()).getByText('Account type: Prebid agent')).toBeVisible();
+  view.rerender(contribution('reference', undefined, selection([])));
+  expect(within(scope()).getByText('No account types')).toBeVisible();
+  // With every type included the control reads "All" and the summary leaves the fact out.
+  view.rerender(contribution('reference'));
+  expect(scope()).not.toHaveTextContent(/account types?:/i);
 });
 it('starts the repository chart collapsed, retains all chronological values and separates duration units', async () => {
   const user = userEvent.setup();

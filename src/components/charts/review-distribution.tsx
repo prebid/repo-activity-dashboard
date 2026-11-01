@@ -24,7 +24,7 @@ export function ReviewDistribution({ data }: { data: DistributionPoint[] }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <dl className="flex flex-wrap gap-4 text-sm">
+      <dl className="flex flex-wrap gap-4 text-body">
         {data.map((p) => (
           <div key={p.label}>
             <dt>{p.label}</dt>

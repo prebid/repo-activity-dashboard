@@ -5,7 +5,7 @@
 }
 .valueLink {
   display: inline-block;
-  border-radius: 3px;
+  border-radius: var(--prebid-radius-small);
   color: var(--prebid-link);
   text-decoration: underline;
   text-decoration-color: var(--border);
@@ -29,19 +29,6 @@
   gap: 10px 16px;
   font-size: var(--prebid-text-body);
 }
-.grouping {
-  color: var(--muted-foreground);
-  padding-right: 16px;
-  border-right: 1px solid var(--border);
-}
-.scopeMeta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  font-size: var(--prebid-text-caption);
-  line-height: 1.7;
-  color: var(--muted-foreground);
-}
 .period {
   display: grid;
   gap: 5px;
@@ -64,52 +51,6 @@
   padding: 1px 5px;
   color: var(--muted-foreground);
 }
-.notice {
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--prebid-warning-icon);
-  border-radius: var(--prebid-radius-control);
-  padding: 12px 16px;
-  background: var(--card);
-  font-size: var(--prebid-text-small);
-  line-height: 1.7;
-  color: var(--muted-foreground);
-}
-.notice strong {
-  color: var(--foreground);
-  font-weight: 500;
-}
-.section {
-  border: 1px solid var(--border);
-  border-radius: var(--prebid-radius-panel);
-  background: var(--card);
-  box-shadow: var(--prebid-elevation-1);
-  min-width: 0;
-  overflow: hidden;
-}
-.heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 18px 20px;
-}
-.heading h2 {
-  font-family: var(--prebid-font-display);
-  font-size: var(--prebid-text-title);
-  font-stretch: var(--prebid-display-stretch);
-  font-weight: 700;
-  line-height: var(--prebid-leading-title);
-}
-.heading p {
-  font-size: var(--prebid-text-small);
-  line-height: 1.6;
-  margin-top: 5px;
-  color: var(--muted-foreground);
-}
-.chartBody {
-  border-top: 1px solid var(--border);
-  padding: 18px 20px;
-}
 .chartToolbar {
   display: flex;
   flex-wrap: wrap;
@@ -121,19 +62,10 @@
 .metricControl {
   display: grid;
   gap: 7px;
+  width: 280px;
   max-width: 100%;
   font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
-}
-.metricControl select {
-  color: var(--foreground);
-  background: var(--prebid-sunken);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 32px 8px 10px;
-  font-size: var(--prebid-text-small);
-  width: 280px;
-  max-width: 100%;
 }
 .summary {
   display: grid;
@@ -143,9 +75,10 @@
   color: var(--muted-foreground);
 }
 .summary strong {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--prebid-text-heading);
   font-variant-numeric: var(--prebid-numeric);
+  font-weight: var(--prebid-number-weight);
+  line-height: var(--prebid-leading-heading);
   color: var(--foreground);
 }
 .chart {
@@ -164,7 +97,7 @@
 }
 .tooltip {
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--prebid-radius-control);
   background: var(--popover);
   color: var(--foreground);
   padding: 10px 12px;
@@ -181,24 +114,10 @@
   .scope {
     padding: 14px;
   }
-  .heading {
-    align-items: flex-start;
-    padding: 16px;
-    gap: 8px;
-  }
-  .heading button {
-    flex-shrink: 0;
-  }
-  .chartBody {
-    padding: 16px 12px;
-  }
   .chart {
     height: 220px;
   }
   .metricControl {
-    width: 100%;
-  }
-  .metricControl select {
     width: 100%;
   }
   .summary {

@@ -25,7 +25,12 @@ test('normal Summary entry preserves selected repositories and both Summary peri
   );
   await expect(page.getByRole('table')).toHaveCount(1);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
-  await expect(page.getByLabel('Timeline scope')).toContainText('2 repositories selected');
+  // The repository control states the selection; the scope summary does not repeat it.
+  await expect(
+    page
+      .getByRole('region', { name: 'Timeline scope' })
+      .getByRole('button', { name: 'Choose repositories 2 / 18', exact: true }),
+  ).toBeVisible();
   await tabs.getByRole('link', { name: 'Summary' }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3100' + summary);
   await expect(page.getByRole('table')).toHaveCount(2);
@@ -95,14 +100,20 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
     '/repos?timeline=1&sample=large&timeline.group=day&period=custom&from=2025-06-12&through=2026-10-24',
   );
   const table = page.getByRole('table');
-  await expect(page.getByRole('status')).toContainText('Periods 493–500 of 500');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'Periods 493–500 of 500',
+  );
   await expect(table.locator('tbody tr')).toHaveCount(18);
   await expect(table.locator('thead th')).toHaveCount(9);
   const names = await table.locator('tbody [data-column="repository"]').allTextContents();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'Periods 481–492 of 500',
+  );
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Periods 469–480 of 500');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'Periods 469–480 of 500',
+  );
   // Sep 23, 2026 is led by Prebid.js (32 PRs opened), unlike name order.
   await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
   await table.getByRole('button', { name: 'Sep 23, 2026 ↑', exact: true }).click();
@@ -115,7 +126,9 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   expect(ordering[0]).toContain('Prebid.js');
   expect(ordering).not.toEqual(names);
   await page.getByRole('button', { name: 'Later', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Periods 481–492 of 500');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'Periods 481–492 of 500',
+  );
   await expect(table.locator('thead th')).toHaveCount(13);
   expect(await table.locator('tbody [data-column="repository"]').allTextContents()).toEqual(
     ordering,
@@ -172,8 +185,12 @@ test('weekly issue periods and window controls fit on mobile', async ({ page }, 
   await expect(page.getByRole('heading', { name: 'Issues — Closed', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Earlier', exact: true })).toBeEnabled();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Window 3 of 4');
-  await expect(page.getByRole('status')).toContainText('Jun 15, 2026 – Sep 6, 2026');
+  await expect(
+    page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
+  ).toContainText('Window 3 of 4');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'Jun 15, 2026 – Sep 6, 2026',
+  );
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
   await page.screenshot({ path: info.outputPath('matrix-weekly-mobile.png'), fullPage: true });

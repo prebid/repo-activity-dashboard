@@ -4,7 +4,7 @@ import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import { PageState } from '@/components/feedback/page-state';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { ContributionsScreen } from './contributions-screen';
 import { ContributionTimelineRoute } from './timeline-route';
 
@@ -25,10 +25,10 @@ export async function ContributionRoute({
     return (
       <>
         <h1>{contributionSubjectTitle(area, 'overview')}</h1>
-        <PageState title="Invalid contribution view">
+        <EmptyState kind="error" title="Invalid contribution view">
           This link contains an unsupported view, date range or filter identity.{' '}
           <Link href={'/' + area}>Open {area}</Link>
-        </PageState>
+        </EmptyState>
       </>
     );
   return (

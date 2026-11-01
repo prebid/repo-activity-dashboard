@@ -31,6 +31,28 @@ export default defineConfig({
           functions: 100,
           branches: 100,
         },
+        // The control primitives every feature composes.
+        'src/components/ui/{button,input,label,search-field,native-select,checkbox,radio}.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/components/ui/icons.ts': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/components/ui/{dialog,dropdown-menu,scrollable-dialog}.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
         'src/components/layout/theme-menu.tsx': {
           perFile: true,
           lines: 100,
@@ -103,8 +125,16 @@ export default defineConfig({
           statements: 100,
           functions: 100,
         },
-        'src/components/{navigation/**,exports/csv-download.ts,reporting/timeline-{table,value,support-frame,csv-download}.{ts,tsx}}':
+        'src/components/{navigation/**,exports/csv-download.ts,reporting/{timeline-{table,value,support-frame,csv-download}.{ts,tsx},report-toolbar.tsx}}':
           { perFile: true, lines: 95, branches: 85, statements: 95, functions: 90 },
+        // Notices, empty states, identities and the chart disclosure every report page shows.
+        'src/components/{feedback/**,github/**,charts/chart-panel.tsx}': {
+          perFile: true,
+          lines: 95,
+          branches: 85,
+          statements: 95,
+          functions: 90,
+        },
         // The chart's Recharts callbacks are exercised in browser tests; this keeps unit coverage.
         'src/components/charts/timeline-chart.tsx': {
           perFile: true,

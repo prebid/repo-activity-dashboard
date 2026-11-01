@@ -173,6 +173,34 @@ async function inspectFonts(
   return report;
 }
 
+/**
+ * Every visible icon from the icon map renders at its width attribute, at a size the map allows,
+ * with a 1.5px line (1px for a 10px badge glyph). absoluteStrokeWidth derives the stroke from that attribute, so a stylesheet
+ * that resizes an icon shows here as a size or line mismatch.
+ */
+async function inspectIcons(page: Page) {
+  return page.evaluate(() => {
+    const problems: string[] = [];
+    let count = 0;
+    for (const svg of document.querySelectorAll('svg.lucide')) {
+      if (!svg.checkVisibility()) continue;
+      count++;
+      const name = [...svg.classList].find((entry) => entry.startsWith('lucide-')) ?? 'lucide';
+      const declared = Number(svg.getAttribute('width'));
+      const style = getComputedStyle(svg);
+      const width = parseFloat(style.width);
+      const height = parseFloat(style.height);
+      const line = (Number(svg.getAttribute('stroke-width')) * width) / 24;
+      if (![10, 14, 16].includes(declared)) problems.push(`${name}: declared ${declared}px`);
+      if (Math.abs(width - declared) > 0.01 || Math.abs(height - declared) > 0.01)
+        problems.push(`${name}: renders ${width}x${height}px, declared ${declared}px`);
+      const expected = declared === 10 ? 1 : 1.5;
+      if (Math.abs(line - expected) > 0.01) problems.push(`${name}: ${line.toFixed(2)}px line`);
+    }
+    return { count, problems };
+  });
+}
+
 async function fontsReady(page: Page) {
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
 }
@@ -200,6 +228,9 @@ for (const [title, theme] of themes)
         expect(fonts.scanned).toBeGreaterThan(0);
         expect(fonts.samples.length).toBeGreaterThan(0);
         expect(fonts.problems.slice(0, 20), fonts.problems.length + ' font problems').toEqual([]);
+        const icons = await inspectIcons(page);
+        expect(icons.count).toBeGreaterThan(0);
+        expect(icons.problems.slice(0, 20), icons.problems.length + ' icon problems').toEqual([]);
       });
   });
 

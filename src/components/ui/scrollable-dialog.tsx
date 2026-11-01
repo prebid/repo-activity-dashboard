@@ -1,15 +1,14 @@
 'use client';
 import type { ComponentProps } from 'react';
 import { DialogContent } from './dialog';
-import { cn } from '@/lib/utils';
 import styles from './scrollable-dialog.module.css';
 
 /** Header and actions stay visible while the labelled choices region scrolls. */
-export function ScrollableDialogContent({
-  className,
-  ...props
-}: ComponentProps<typeof DialogContent>) {
-  return <DialogContent className={cn(styles.frame, className)} {...props} />;
+/** No className: like DialogContent under rule 3, its look comes from the primitive. */
+export function ScrollableDialogContent(
+  props: Omit<ComponentProps<typeof DialogContent>, 'size' | 'className'>,
+) {
+  return <DialogContent size="md" className={styles.frame} {...props} />;
 }
 export function ScrollableDialogBody({
   label,

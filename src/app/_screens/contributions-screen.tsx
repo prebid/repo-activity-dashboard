@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
-import { ContributionControls } from '@/features/contributions/contribution-controls';
+import { contributionToolbar } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
 import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
@@ -23,6 +23,7 @@ import styles from '@/features/contributions/contributions.module.css';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { LinkPending } from '@/components/navigation/link-pending';
+import { Checkbox } from '@/components/ui/checkbox';
 import { contributionDefaultSort } from '@/models/contributions';
 import type { ContributionPage } from '@/models/contribution-page';
 import {
@@ -102,19 +103,17 @@ export function ContributionsScreen({
       page={{ ...page, hideZeroMembers: controls.hideZeroMembers }}
       controller={controller}
       visibility={controls.visibility}
-      controls={
-        <ContributionControls
-          directory={directory}
-          options={options}
-          value={controls.value}
-          asOf={page.report.context.asOf}
-          pending={controls.pending}
-          notice={controls.notice}
-          storageAvailable={controls.storageAvailable}
-          onChange={(value, field) => controls.update(value, field)}
-          onReset={controls.reset}
-        />
-      }
+      toolbar={contributionToolbar({
+        directory,
+        options,
+        value: controls.value,
+        asOf: page.report.context.asOf,
+        pending: controls.pending,
+        notice: controls.notice,
+        storageAvailable: controls.storageAvailable,
+        onChange: (value, field) => controls.update(value, field),
+        onReset: controls.reset,
+      })}
       links={{
         sample: page.sample,
         settings: controls.value,
@@ -184,8 +183,7 @@ export function ContributionsScreen({
             </nav>
             {page.breakdown === 'members' && !page.details && (
               <label className={styles.zeroToggle}>
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={controls.hideZeroMembers}
                   onChange={(event) => controls.changeHideZeroMembers(event.target.checked)}
                 />

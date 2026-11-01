@@ -1,0 +1,110 @@
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 20px;
+  border: 1px solid var(--prebid-line);
+  border-radius: var(--prebid-radius-panel);
+  background: var(--prebid-card);
+  box-shadow: var(--prebid-elevation-1);
+  color: var(--prebid-ink);
+}
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.group + .group {
+  padding-top: 12px;
+  border-top: 1px solid var(--prebid-line-subtle);
+}
+/* Floated, a legend no longer sits in the fieldset's top border, so the rule between groups
+   runs above the label instead of through it. */
+.legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-overline);
+  font-weight: 600;
+  letter-spacing: var(--prebid-tracking-overline);
+  line-height: var(--prebid-leading-overline);
+  text-transform: uppercase;
+}
+.row {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+.controls {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+  min-width: 0;
+}
+/* A group that holds only its reset keeps the reset where wrapped resets sit. */
+.controls:empty {
+  display: none;
+}
+/* The reset ends the row; on phones it wraps under the controls at the start. */
+.reset {
+  display: inline-flex;
+  margin-left: auto;
+}
+/* An empty live region stays in the tree so a later sentence is announced, but takes no room. */
+.status:empty {
+  margin-top: -12px;
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sentence,
+.footnote {
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+}
+/* Inline flow, so the spaces around each separator stay in the text assistive technology reads. */
+.summary {
+  padding-top: 12px;
+  border-top: 1px solid var(--prebid-line-subtle);
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-small);
+  font-variant-numeric: var(--prebid-numeric);
+  line-height: var(--prebid-leading-small);
+  overflow-wrap: anywhere;
+}
+/* A toolbar rendered without controls holds the summary alone, with no rule above it. */
+.summary:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.lead {
+  color: var(--prebid-ink);
+  font-weight: 600;
+}
+.separator {
+  color: var(--prebid-muted);
+}
+@media (max-width: 600px) {
+  .toolbar {
+    padding: 14px 16px;
+  }
+  .reset {
+    margin-left: 0;
+  }
+}

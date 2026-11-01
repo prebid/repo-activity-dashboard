@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Button } from '../src/components/ui/button';
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '../src/components/ui/select';
+import { NativeSelect } from '../src/components/ui/native-select';
 import {
   Dialog,
   DialogTrigger,
@@ -30,21 +24,20 @@ function InteractionSpecimen() {
     <main className="max-w-sm space-y-4">
       <h1>Interactive primitives</h1>
       <Label htmlFor="long-select">Repository selection</Label>
-      <Select value={selection} onValueChange={setSelection}>
-        <SelectTrigger id="long-select">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {Array.from({ length: 50 }, (_, i) => (
-            <SelectItem key={i} value={'item-' + (i + 1)}>
-              Repository {i + 1}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <NativeSelect
+        id="long-select"
+        value={selection}
+        onChange={(event) => setSelection(event.target.value)}
+      >
+        {Array.from({ length: 50 }, (_, i) => (
+          <option key={i} value={'item-' + (i + 1)}>
+            Repository {i + 1}
+          </option>
+        ))}
+      </NativeSelect>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Open dialog</Button>
+          <Button variant="primary">Open dialog</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Sample dialog</DialogTitle>
@@ -53,7 +46,7 @@ function InteractionSpecimen() {
       </Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button>Open menu</Button>
+          <Button variant="secondary">Open menu</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>First action</DropdownMenuItem>

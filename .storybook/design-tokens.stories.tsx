@@ -360,7 +360,12 @@ function RadiusTokens() {
   return (
     <Page title="Radii">
       <Group title="Radii">
-        {['--prebid-radius-control', '--prebid-radius-panel'].map((token) => (
+        {[
+          '--prebid-radius-mark',
+          '--prebid-radius-small',
+          '--prebid-radius-control',
+          '--prebid-radius-panel',
+        ].map((token) => (
           <Tile key={token} tokens={[token]}>
             <div
               aria-hidden="true"

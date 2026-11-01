@@ -3,6 +3,8 @@ import { StaleExportError } from './csv-download';
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { ExportIcon } from '@/components/ui/icons';
+import { Callout } from '@/components/feedback/callout';
 import {
   Dialog,
   DialogTrigger,
@@ -165,7 +167,8 @@ export function CsvExportDialog({
         }}
       >
         <DialogTrigger asChild>
-          <Button type="button" variant="outline">
+          <Button type="button" variant="secondary">
+            <ExportIcon size={14} />
             Export CSV
           </Button>
         </DialogTrigger>
@@ -256,18 +259,19 @@ export function CsvExportDialog({
             />
           </ScrollableDialogBody>
           {error && (
-            <p role="alert" className={styles.error}>
+            <Callout tone="error" as="p" role="alert">
               {error}
-            </p>
+            </Callout>
           )}
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
-              <Button type="button" variant="outline">
+              <Button type="button" variant="secondary">
                 Cancel
               </Button>
             </DialogClose>
             <Button
               type="button"
+              variant="primary"
               disabled={pending || !chosen.length}
               onClick={() => {
                 void download();

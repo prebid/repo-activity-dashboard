@@ -11,6 +11,7 @@ import {
 import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { measurementSortNote } from '@/lib/presentation/measurement-order';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
+import { measurementMarks } from '@/components/feedback/data-legend';
 import { useLocalTableController } from '@/components/tables/local-data-table';
 import styles from './timeline-layout.module.css';
 import type { TableController } from '@/lib/presentation/table-controller';
@@ -21,9 +22,10 @@ import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
   TimelineValueCell,
+  TimelineZeroNotice,
   hasUnlinkedValue,
   isIncompleteValue,
-  timelineFooterLegend,
+  isRecordedZeroRange,
 } from './timeline-value';
 import { metricName } from '@/models/column-selection';
 export interface TimelineTableControls {
@@ -120,6 +122,25 @@ export function TimelineTable({
       ),
     [rows, metrics],
   );
+  const recordedZero = useMemo(
+    () =>
+      isRecordedZeroRange(
+        rows.flatMap((row) => metrics.map((metric) => timelineMeasurement(row.values, metric.id))),
+      ),
+    [rows, metrics],
+  );
+  const visibility = controls?.visibility ?? { value: visible, onChange: setVisible };
+  const legend = useMemo(
+    () =>
+      measurementMarks(
+        rows.flatMap((row) =>
+          metrics
+            .filter((metric) => visibility.value[metric.id] !== false)
+            .map((metric) => timelineMeasurement(row.values, metric.id)),
+        ),
+      ),
+    [rows, metrics, visibility.value],
+  );
   const unlinked = useMemo(() => {
     if (!linkable) return false;
     const byInterval = new Map(rows.map((row) => [row.interval.id, row]));
@@ -133,6 +154,7 @@ export function TimelineTable({
   return (
     <div className={styles.stack}>
       {incomplete && <TimelineCoverageNotice />}
+      {recordedZero && <TimelineZeroNotice />}
       {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         title={title}
@@ -143,11 +165,11 @@ export function TimelineTable({
         exportName={controls?.csvDownload ? timelineExportFileName : undefined}
         csvDownload={controls?.csvDownload}
         exportContextKey={controls?.exportContextKey}
-        searchable={false}
-        visibility={controls?.visibility ?? { value: visible, onChange: setVisible }}
+        search="none"
+        visibility={visibility}
         itemLabel={{ singular: 'interval', plural: 'intervals' }}
         description="One row per calendar interval, with exact covered dates."
-        footerNote={timelineFooterLegend}
+        legend={legend}
       />
     </div>
   );

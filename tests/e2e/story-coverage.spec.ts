@@ -36,6 +36,17 @@ for (const [title, theme] of themes)
           ),
           id + ' rendered nothing inside the story frame',
         ).toBe(true);
+        // Entry animations (dialogs fade and zoom in) blend colours until they end, and axe measures
+        // contrast; infinite ones such as a loading spinner never end, so they are not waited for.
+        await page.waitForFunction(() =>
+          document
+            .getAnimations()
+            .every(
+              (animation) =>
+                animation.playState !== 'running' ||
+                animation.effect?.getComputedTiming().iterations === Infinity,
+            ),
+        );
         const { violations } = await new AxeBuilder({ page }).include('#storybook-root').analyze();
         const expected = knownViolations
           .filter((entry) => entry.story === id && entry.theme === theme)

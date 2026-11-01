@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { DashboardFrame } from '../src/components/layout/dashboard-frame';
-import { PageState } from '../src/components/feedback/page-state';
+import { EmptyState } from '../src/components/feedback/empty-state';
 import { RepositoryTimelineView } from '../src/features/repositories/repository-timeline-view';
 import { ContributionTimelineView } from '../src/features/contributions/contribution-timeline-view';
 import { repositoryTimelineSample } from '../src/mocks/repository-timeline';
@@ -80,11 +80,13 @@ function Preview({
   return (
     <DashboardFrame navigation={<span>Prebid · Timeline reporting</span>}>
       {state === 'loading' ? (
-        <PageState title="Loading timeline">Preparing the selected intervals.</PageState>
+        <EmptyState kind="loading" title="Loading timeline">
+          Preparing the selected intervals.
+        </EmptyState>
       ) : state === 'error' && !recovered ? (
-        <PageState title="Timeline could not load" onRetry={() => recover(true)}>
+        <EmptyState kind="error" title="Timeline could not load" onRetry={() => recover(true)}>
           The requested range remains unchanged. Try again.
-        </PageState>
+        </EmptyState>
       ) : area === 'repository' ? (
         <RepositoryTimelineView
           report={selectRepositoryTimeline(repository, request, family)}

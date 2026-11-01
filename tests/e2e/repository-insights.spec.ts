@@ -31,9 +31,9 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
     'href',
     /^https:\/\/github\.example\/example-fixtures\/prebidjs\/pull\//,
   );
-  await page.getByRole('link', { name: '← PR authors', exact: true }).click();
+  await page.getByRole('link', { name: 'PR authors', exact: true }).click();
   await expect(page.getByText('33 unique accounts', { exact: true })).toBeVisible();
-  await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+  await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('last-month');
   expect(new URL(page.url()).searchParams.getAll('repo')).toEqual([
     'repo-prebidjs',
@@ -51,7 +51,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   await expect(
     page.getByText('Created during this period · All statuses', { exact: true }),
   ).toBeVisible();
-  await page.getByRole('link', { name: '← Issue authors', exact: true }).click();
+  await page.getByRole('link', { name: 'Issue authors', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   expect(new URL(page.url()).searchParams.get('authors.page')).toBe('2');
   await page
@@ -114,12 +114,12 @@ for (const [metric, noun, authorLabel] of [
     await page.reload();
     await expect(heading).toBeVisible();
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
-    await page.getByRole('link', { name: '← ' + authorLabel, exact: true }).click();
+    await page.getByRole('link', { name: authorLabel, exact: true }).click();
     await expect(
       page.getByRole('textbox', { name: 'Search ' + authorLabel, exact: true }),
     ).toHaveValue(account);
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-    await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+    await page.getByRole('link', { name: 'All repositories', exact: true }).click();
     await expect(page).toHaveURL(overview.href);
     await page.goto('/repos/prebidjs/authors/not-in-this-sample%5Bbot%5D' + query);
     await expect(
@@ -188,7 +188,7 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
       await page
         .getByRole('link', {
-          name: metric === 'prAuthors' ? '← PR authors' : '← Issue authors',
+          name: metric === 'prAuthors' ? 'PR authors' : 'Issue authors',
           exact: true,
         })
         .click();
@@ -199,7 +199,7 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       expect(
         new URL(page.url()).searchParams.has(metric === 'prAuthors' ? 'prs.q' : 'issues.q'),
       ).toBe(false);
-      await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+      await page.getByRole('link', { name: 'All repositories', exact: true }).click();
       await expect(page).toHaveURL(/\/repos\?period=this-year&age=60$/);
       for (const invalid of [
         '/repos/prebidjs/authors/bad%20actor?' + query,
@@ -240,11 +240,13 @@ test('all agent and bot contribution links reconcile credits, retain context, an
       .nth(0)
       .locator('[data-column="' + metric + '"] a')
       .click();
-    await expect(page.getByText(count + ' contribution credits', { exact: true })).toBeVisible();
-    await expect(page.getByText(distinct + ' distinct PRs', { exact: true })).toBeVisible();
+    // The table footer repeats the credit count, so read the scope summary.
+    const scope = page.getByRole('region', { name: 'Selected repository scope', exact: true });
+    await expect(scope.getByText(count + ' contribution credits', { exact: true })).toBeVisible();
+    await expect(scope.getByText(distinct + ' distinct PRs', { exact: true })).toBeVisible();
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
     expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
-    await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+    await page.getByRole('link', { name: 'All repositories', exact: true }).click();
     await expect(
       page.getByRole('heading', { name: 'All repositories', exact: true }),
     ).toBeVisible();
@@ -252,7 +254,11 @@ test('all agent and bot contribution links reconcile credits, retain context, an
   await page.goto(
     '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
   );
-  await expect(page.getByText('225 contribution credits', { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole('region', { name: 'Selected repository scope', exact: true })
+      .getByText('225 contribution credits', { exact: true }),
+  ).toBeVisible();
   for (let pageNumber = 1; pageNumber < 5; pageNumber++) {
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
     await page.getByRole('button', { name: 'Next', exact: true }).click();
@@ -293,7 +299,7 @@ test('duration links show median and sample size separately with numeric sorting
   expect(days).toEqual([...days].sort((a, b) => a - b));
   expect(new URL(page.url()).searchParams.get('branch')).toBe('master');
   expect(new URL(page.url()).searchParams.get('metric')).toBe('medianMergeDays');
-  await page.getByRole('link', { name: '← All repositories', exact: true }).click();
+  await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await periodRows(page).nth(1).locator('[data-column="medianMergeDays"] a').click();
   // A median can equal one PR's merge time, so read it from the summary.
   await expect(scope.getByText('4.9 d', { exact: true })).toBeVisible();
@@ -407,7 +413,7 @@ test('pending author search cannot cancel navigation while the destination respo
     release();
     await expect(page).toHaveURL(/\/authors\/sample-author-2\?/);
     await expect(page.getByText('184 matching records', { exact: true })).toBeVisible();
-    await page.getByRole('link', { name: '← PR authors', exact: true }).click();
+    await page.getByRole('link', { name: 'PR authors', exact: true }).click();
     await expect(page.getByRole('textbox', { name: 'Search PR authors', exact: true })).toHaveValue(
       'sample-author-2',
     );

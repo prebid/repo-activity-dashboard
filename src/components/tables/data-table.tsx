@@ -9,9 +9,10 @@ import {
   createPaginatedRowModel,
   type ColumnDef,
 } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { PageState } from '@/components/feedback/page-state';
+import { SearchField } from '@/components/ui/search-field';
+import { ScrollHintIcon } from '@/components/ui/icons';
+import { DataLegend, type DataLegendMark } from '@/components/feedback/data-legend';
+import { EmptyState, type EmptyStateKind } from '@/components/feedback/empty-state';
 import { countLabel, type CountLabels } from '@/lib/presentation/format';
 import { selectTableRows } from '@/lib/presentation/table-rows';
 import type { TableController } from '@/lib/presentation/table-controller';
@@ -26,6 +27,7 @@ export type { DataColumn } from './table-columns';
 import { columnSections, type ColumnVisibility, type DataColumn } from './table-columns';
 import { ColumnMenu } from './column-menu';
 import { ColumnDefinitions } from './column-definitions';
+import { Pager } from './pager';
 import {
   CsvExportDialog,
   type CsvExportAlternative,
@@ -36,10 +38,27 @@ import { cn } from '@/lib/utils';
 import styles from './data-table.module.css';
 import { tablePageSize } from '@/models/table-query';
 
+/**
+ * Where a table's search happens: `local` renders the toolbar field and filters the rows here,
+ * `external` means the feature renders the field and supplies rows it already filtered by the
+ * controller's query, and `none` means the table has no search.
+ */
+export type DataTableSearch = 'local' | 'external' | 'none';
+/** The state an empty table shows in its body, under the header row. */
+export interface DataTableEmpty {
+  kind: EmptyStateKind;
+  title: string;
+  /** Replaces the hint to adjust the scope or search. */
+  description?: React.ReactNode;
+}
 export interface DataTableProps<T> {
   title: string;
   disabled?: boolean;
-  emptyTitle?: string;
+  /** Defaults to "No matching items" when the search hides every row, otherwise "No items". */
+  empty?: DataTableEmpty;
+  search: DataTableSearch;
+  /** Set while filters outside the table narrow `rows`, so the count says "matching". */
+  filtered?: boolean;
   rows: T[];
   columns: DataColumn<T>[];
   /** Full sortable/searchable axis when only a window of columns is rendered. */
@@ -55,14 +74,19 @@ export interface DataTableProps<T> {
   csvDownload?: CsvExportAlternative['download'];
   exportContextKey?: string;
   description?: React.ReactNode;
+  /** The feature's toolbar controls, between the search field and Columns. */
   controls?: React.ReactNode;
+  /** The toolbar's last control; replaces the CSV dialog that `exportName` provides. */
+  exportControl?: React.ReactNode;
+  /** Panel content under the title row, such as a breakdown switch or a period window. */
   headerContent?: React.ReactNode;
   rowClassName?: (row: T) => string | undefined;
+  /** A footer note after the count. */
   footerNote?: React.ReactNode;
+  /** The value marks the table's cells show, explained by a DataLegend in the footer notes. */
+  legend?: readonly DataLegendMark[];
   visibility?: ColumnVisibility;
   itemLabel?: CountLabels;
-  showSinglePageControls?: boolean;
-  searchable?: boolean;
   /** Longest search a URL codec for this table accepts. */
   searchMaxLength?: number;
   pageSize?: number;
@@ -70,7 +94,9 @@ export interface DataTableProps<T> {
 export function DataTable<T extends { id: string }>({
   title,
   disabled = false,
-  emptyTitle,
+  empty,
+  search,
+  filtered = false,
   rows,
   columns,
   valueColumns = columns,
@@ -84,13 +110,13 @@ export function DataTable<T extends { id: string }>({
   exportContextKey,
   description,
   controls,
+  exportControl,
   headerContent,
   rowClassName,
   footerNote,
+  legend = [],
   visibility,
   itemLabel = { singular: 'item', plural: 'items' },
-  showSinglePageControls = true,
-  searchable = true,
   searchMaxLength,
   pageSize = tablePageSize,
 }: DataTableProps<T>) {
@@ -127,9 +153,10 @@ export function DataTable<T extends { id: string }>({
     else setLocalVisibility(value);
   };
   const { query, update, reconcilePage } = controller;
+  const localSearch = search === 'local';
   const matching = useMemo(
-    () => selectTableRows(rows, valueColumns, query, searchable),
-    [rows, valueColumns, query, searchable],
+    () => selectTableRows(rows, valueColumns, query, localSearch),
+    [rows, valueColumns, query, localSearch],
   );
   const defs = useMemo<ColumnDef<typeof features, T>[]>(
     () =>
@@ -141,6 +168,14 @@ export function DataTable<T extends { id: string }>({
     [columns],
   );
   const resultCount = matching.length;
+  // A count says "matching" only while a search or the caller's filters narrow it.
+  const narrowed = filtered || (search !== 'none' && query.search !== '');
+  const sortNote = valueColumns.find((column) => column.id === query.sort)?.sortNote;
+  const emptyState: DataTableEmpty =
+    empty ??
+    (rows.length
+      ? { kind: 'no-match', title: 'No matching items' }
+      : { kind: 'empty', title: 'No items' });
   useEffect(() => {
     const node = scrollArea.current;
     const measure = () => setOverflows(!!node && node.scrollWidth > node.clientWidth + 1);
@@ -199,7 +234,7 @@ export function DataTable<T extends { id: string }>({
       return alternative.download({ columnIds, query: captured, signal });
     }
     if (csvDownload) return csvDownload({ columnIds, query: captured, signal });
-    const fullRows = selectTableRows(rows, valueColumns, captured, searchable);
+    const fullRows = selectTableRows(rows, valueColumns, captured, localSearch);
     const text = tableCsv(
       fullRows,
       exportColumns ?? columns,
@@ -261,50 +296,52 @@ export function DataTable<T extends { id: string }>({
           disabled={!interactive}
           aria-label={title + ' table controls'}
         >
-          {controls}
-          {searchable && (
-            <Input
-              aria-label={'Search ' + title}
-              placeholder="Find in table…"
-              className={styles.search}
-              maxLength={searchMaxLength}
-              value={controller.draftSearch}
-              onChange={(event) => controller.setSearch(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  event.preventDefault();
-                  controller.flushSearch();
-                }
-              }}
-            />
+          {localSearch && (
+            <span className={styles.search}>
+              <SearchField
+                aria-label={'Search ' + title}
+                placeholder="Find in table…"
+                maxLength={searchMaxLength}
+                value={controller.draftSearch}
+                onChange={(event) => controller.setSearch(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    controller.flushSearch();
+                  }
+                }}
+              />
+            </span>
           )}
+          {controls}
           {showColumnMenu && (
             <ColumnMenu
               columns={columnMenuColumns ?? columns}
               visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
             />
           )}
-          {exportName && (
-            <CsvExportDialog
-              title={title}
-              columns={columns.map((column) => ({
-                id: column.id,
-                label: column.label,
-                group: column.group,
-                selectionGroup: column.selectionGroup,
-                selectionSection: column.selectionSection,
-                description: column.description,
-                required: column.hideable === false,
-              }))}
-              visibleColumnIds={visibleColumns.map((column) => column.id)}
-              contextKey={exportContextKey ?? controller.scopeKey}
-              layouts={csvAlternatives}
-              onOpen={() => {
-                controller.flushSearch();
-              }}
-              onDownload={download}
-            />
-          )}
+          {exportControl ??
+            (exportName ? (
+              <CsvExportDialog
+                title={title}
+                columns={columns.map((column) => ({
+                  id: column.id,
+                  label: column.label,
+                  group: column.group,
+                  selectionGroup: column.selectionGroup,
+                  selectionSection: column.selectionSection,
+                  description: column.description,
+                  required: column.hideable === false,
+                }))}
+                visibleColumnIds={visibleColumns.map((column) => column.id)}
+                contextKey={exportContextKey ?? controller.scopeKey}
+                layouts={csvAlternatives}
+                onOpen={() => {
+                  controller.flushSearch();
+                }}
+                onDownload={download}
+              />
+            ) : null)}
         </fieldset>
       </div>
       {headerContent && <div className={styles.headerContent}>{headerContent}</div>}
@@ -319,150 +356,144 @@ export function DataTable<T extends { id: string }>({
       </div>
       {overflows && (
         <p id={id + '-scroll-hint'} className={styles.scrollHint}>
-          Scroll horizontally to see all columns <span aria-hidden="true">→</span>
+          Scroll horizontally to see all columns <ScrollHintIcon size={14} />
         </p>
       )}
-      {matching.length === 0 ? (
-        <div className={styles.empty}>
-          <PageState title={emptyTitle ?? (rows.length ? 'No matching items' : 'No items')}>
-            {searchable ? 'Adjust the selected scope or search.' : 'Adjust the selected scope.'}
-          </PageState>
-        </div>
-      ) : (
-        <div
-          className={styles.scroll}
-          ref={scrollArea}
-          role="region"
-          aria-label={title + ' table scroll area'}
-          aria-describedby={overflows ? id + '-scroll-hint' : undefined}
-          tabIndex={0}
+      <div
+        className={styles.scroll}
+        ref={scrollArea}
+        role="region"
+        aria-label={title + ' table scroll area'}
+        aria-describedby={overflows ? id + '-scroll-hint' : undefined}
+        tabIndex={0}
+      >
+        <table
+          className={styles.table}
+          style={
+            sized
+              ? {
+                  tableLayout: 'fixed',
+                  minWidth: pinned
+                    ? 'calc(' + minimumWidth + 'px + var(--pinned-width))'
+                    : minimumWidth,
+                }
+              : undefined
+          }
         >
-          <table
-            className={styles.table}
-            style={
-              sized
-                ? {
-                    tableLayout: 'fixed',
-                    minWidth: pinned
-                      ? 'calc(' + minimumWidth + 'px + var(--pinned-width))'
-                      : minimumWidth,
-                  }
-                : undefined
-            }
-          >
-            <caption className="sr-only">{title}</caption>
-            {sections.map((section, index) => (
-              <colgroup key={index}>
-                {section.columns.map((column) => (
-                  <col
-                    key={column.id}
-                    style={{
-                      width: column.pinned
-                        ? 'var(--pinned-width)'
-                        : column.width === undefined
-                          ? undefined
-                          : `var(--table-column-width, ${column.width}px)`,
-                    }}
-                  />
-                ))}
-              </colgroup>
-            ))}
-            <thead>
-              {grouped ? (
-                <>
-                  <tr>
-                    {sections.map((section, index) =>
-                      section.label ? (
-                        <th
-                          key={index}
-                          scope="colgroup"
-                          id={id + '-group-' + index}
-                          colSpan={section.columns.length}
-                          className={cn(styles.group, styles.groupStart)}
-                        >
-                          {section.label}
-                        </th>
-                      ) : (
-                        section.columns.map((column) => header(column, 2))
-                      ),
-                    )}
-                  </tr>
-                  <tr>
-                    {visibleColumns
-                      .filter((column) => column.group)
-                      .map((column) => header(column))}
-                  </tr>
-                </>
-              ) : (
-                <tr>{visibleColumns.map((column) => header(column))}</tr>
-              )}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className={rowClassName?.(row.original)}>
-                  {row.getVisibleCells().map((cell, index) => {
-                    const column = visibleColumns[index];
-                    const start =
-                      !!column.group && visibleColumns[index - 1]?.group !== column.group;
-                    return (
-                      <td
-                        key={cell.id}
-                        headers={
-                          (column.group ? id + '-group-' + groupByColumn[column.id] + ' ' : '') +
-                          id +
-                          '-' +
-                          column.id
-                        }
-                        data-column={column.id}
-                        className={cn(
-                          column.pinned && styles.pinned,
-                          column.align === 'right' && styles.numeric,
-                          start && styles.groupStart,
-                        )}
-                      >
-                        {column.cell
-                          ? column.cell(row.original)
-                          : String(column.value(row.original) ?? '—')}
-                      </td>
-                    );
-                  })}
-                </tr>
+          <caption className="sr-only">{title}</caption>
+          {sections.map((section, index) => (
+            <colgroup key={index}>
+              {section.columns.map((column) => (
+                <col
+                  key={column.id}
+                  style={{
+                    width: column.pinned
+                      ? 'var(--pinned-width)'
+                      : column.width === undefined
+                        ? undefined
+                        : `var(--table-column-width, ${column.width}px)`,
+                  }}
+                />
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+            </colgroup>
+          ))}
+          <thead>
+            {grouped ? (
+              <>
+                <tr>
+                  {sections.map((section, index) =>
+                    section.label ? (
+                      <th
+                        key={index}
+                        scope="colgroup"
+                        id={id + '-group-' + index}
+                        colSpan={section.columns.length}
+                        className={cn(styles.group, styles.groupStart)}
+                      >
+                        {section.label}
+                      </th>
+                    ) : (
+                      section.columns.map((column) => header(column, 2))
+                    ),
+                  )}
+                </tr>
+                <tr>
+                  {visibleColumns.filter((column) => column.group).map((column) => header(column))}
+                </tr>
+              </>
+            ) : (
+              <tr>{visibleColumns.map((column) => header(column))}</tr>
+            )}
+          </thead>
+          <tbody>
+            {matching.length === 0 && (
+              <tr className={styles.emptyRow}>
+                <td colSpan={visibleColumns.length} className={styles.emptyCell}>
+                  <div className={styles.emptyState}>
+                    <EmptyState variant="embedded" kind={emptyState.kind} title={emptyState.title}>
+                      {emptyState.description ??
+                        (search === 'none'
+                          ? 'Adjust the selected scope.'
+                          : 'Adjust the selected scope or search.')}
+                    </EmptyState>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} className={rowClassName?.(row.original)}>
+                {row.getVisibleCells().map((cell, index) => {
+                  const column = visibleColumns[index];
+                  const start = !!column.group && visibleColumns[index - 1]?.group !== column.group;
+                  return (
+                    <td
+                      key={cell.id}
+                      headers={
+                        (column.group ? id + '-group-' + groupByColumn[column.id] + ' ' : '') +
+                        id +
+                        '-' +
+                        column.id
+                      }
+                      data-column={column.id}
+                      className={cn(
+                        column.pinned && styles.pinned,
+                        column.align === 'right' && styles.numeric,
+                        start && styles.groupStart,
+                      )}
+                    >
+                      {column.cell
+                        ? column.cell(row.original)
+                        : String(column.value(row.original) ?? '—')}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className={styles.footer}>
-        <span aria-live="polite">
-          {resultCount.toLocaleString('en-US') +
-            (searchable ? ' matching ' : ' ') +
-            countLabel(resultCount, itemLabel)}
-        </span>
-        {valueColumns.find((column) => column.id === query.sort)?.sortNote && (
-          <span>{valueColumns.find((column) => column.id === query.sort)?.sortNote}</span>
-        )}
-        {footerNote && <span>{footerNote}</span>}
-        {(showSinglePageControls || pageCount > 1) && (
-          <div className={styles.pages}>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={!interactive || page <= 1}
-              onClick={() => update({ page: page - 1 })}
-            >
-              Previous
-            </Button>
-            <span aria-live="polite">{'Page ' + page + ' of ' + pageCount}</span>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={!interactive || page >= pageCount}
-              onClick={() => update({ page: page + 1 })}
-            >
-              Next
-            </Button>
-          </div>
-        )}
+        <div className={styles.summary}>
+          <p className={styles.count} aria-live="polite">
+            {resultCount.toLocaleString('en-US') +
+              (narrowed ? ' matching ' : ' ') +
+              countLabel(resultCount, itemLabel)}
+          </p>
+          {(sortNote || footerNote || legend.length > 0) && (
+            <div className={styles.notes}>
+              {sortNote && <p>{sortNote}</p>}
+              {footerNote && <p>{footerNote}</p>}
+              <DataLegend marks={legend} />
+            </div>
+          )}
+        </div>
+        <Pager
+          label={title + ' pages'}
+          page={page}
+          pageCount={pageCount}
+          disabled={!interactive}
+          onPageChange={(next) => update({ page: next })}
+        />
       </div>
     </section>
   );

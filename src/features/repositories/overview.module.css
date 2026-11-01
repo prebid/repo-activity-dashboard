@@ -90,18 +90,6 @@
   outline: 2px solid var(--ring);
   outline-offset: 3px;
 }
-.legend {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: var(--prebid-text-caption);
-  line-height: 1.7;
-  color: var(--muted-foreground);
-}
-.legend svg {
-  margin-top: 2px;
-  flex-shrink: 0;
-}
 @media (max-width: 600px) {
   .asOf strong {
     display: inline;

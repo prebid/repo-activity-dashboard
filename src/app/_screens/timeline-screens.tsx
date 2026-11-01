@@ -2,12 +2,17 @@
 import { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { CsvExportDialog } from '@/components/exports/csv-export-dialog';
+import { Callout } from '@/components/feedback/callout';
 import { timelineCsvDownload } from '@/components/reporting/timeline-csv-download';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { useTimelineControls } from '@/lib/navigation/use-timeline-controls';
-import { TimelineControls } from '@/components/reporting/timeline-controls';
+import {
+  timelineRecordFilterNote,
+  timelineSettingsGroup,
+} from '@/components/reporting/timeline-controls';
+import { reportToolbarStatus } from '@/components/reporting/report-toolbar';
 import { RepositorySelector } from '@/components/reporting/repository-selector';
-import { ContributionControls } from '@/features/contributions/contribution-controls';
+import { contributionFilterGroup } from '@/features/contributions/contribution-controls';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { RepositoryTimelineView } from '@/features/repositories/repository-timeline-view';
 import { RepositoryTimelineMatrixView } from '@/features/repositories/repository-timeline-matrix-view';
@@ -32,11 +37,17 @@ import type { RepositoryFilterOptions, RepositoryPageNavigation } from '@/models
 import type { TimelineControlContext } from '@/models/timeline-controls';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
-import styles from '@/components/reporting/timeline-layout.module.css';
 
 const defaults = (metrics: TimelineMetricDefinition[]) =>
   Object.fromEntries(metrics.map((metric) => [metric.id, metric.defaultVisible]));
 type Shared = { viewerId: string; context: TimelineControlContext };
+type Control = ReturnType<typeof useTimelineControls>;
+/** Every Timeline toolbar disables while an update loads and states one status line. */
+const toolbarState = (control: Control) => ({
+  disabled: control.pending,
+  status: reportToolbarStatus(control.pending, control.storageAvailable, 'timeline'),
+  notice: control.notice ? ({ tone: 'error', text: control.notice } as const) : undefined,
+});
 export function RepositoryTimelineMatrixScreen({
   viewerId,
   context,
@@ -51,23 +62,27 @@ export function RepositoryTimelineMatrixScreen({
       matrix={matrix}
       href={control.href}
       summaryHref={summaryHref}
-      controls={
-        <TimelineControls
-          context={context}
-          {...control}
-          metrics={repositoryTimelineMatrixMetricDefinitions(repositoryTimelineMetricIds)}
-          onView={control.changeView}
-          onPeriod={control.changePeriod}
-          onReset={control.reset}
-        >
-          <RepositorySelector
-            description="Choose repositories for this timeline."
-            repositories={context.repositories}
-            selected={context.repositoryIds!}
-            onApply={control.changeRepositories}
-          />
-        </TimelineControls>
-      }
+      toolbar={{
+        ...toolbarState(control),
+        groups: [
+          timelineSettingsGroup({
+            context,
+            view: control.view,
+            metrics: repositoryTimelineMatrixMetricDefinitions(repositoryTimelineMetricIds),
+            onView: control.changeView,
+            onPeriod: control.changePeriod,
+            onReset: control.reset,
+            children: (
+              <RepositorySelector
+                description="Choose repositories for this timeline."
+                repositories={context.repositories}
+                selected={context.repositoryIds!}
+                onApply={control.changeRepositories}
+              />
+            ),
+          }),
+        ],
+      }}
       interactions={{
         pending: control.pending,
         sortMetric: control.view.metric as (typeof matrix.scope.metrics)[number],
@@ -138,34 +153,39 @@ export function RepositoryTimelineScreen({
       navigation={navigation}
       href={control.href}
       parent={parent}
-      controls={
-        <div className={styles.stack}>
-          {omitted && (
-            <aside className={styles.notice}>
-              Current backlog constraints remain on the original list. Activity over time preserves
-              compatible metadata filters; choose {repositoryTimelineFamilyLabels.snapshot} for
-              historical age or review filters.
-            </aside>
-          )}
-          <TimelineControls
-            context={context}
-            {...control}
-            familyLabels={repositoryTimelineFamilyLabels}
-            metrics={metrics}
-            onView={control.changeView}
-            onPeriod={control.changePeriod}
-            onReset={control.reset}
-          >
-            <TimelineRepositoryFilters
-              key={JSON.stringify([context.filters, context.view.family])}
-              filters={context.filters!}
-              facets={facets}
-              snapshot={control.view.family === 'snapshot'}
-              onChange={control.changeFilters}
-            />
-          </TimelineControls>
-        </div>
+      scopeNotice={
+        omitted && (
+          <Callout tone="info" as="aside">
+            Current backlog constraints remain on the original list. Activity over time preserves
+            compatible metadata filters; choose {repositoryTimelineFamilyLabels.snapshot} for
+            historical age or review filters.
+          </Callout>
+        )
       }
+      toolbar={{
+        ...toolbarState(control),
+        groups: [
+          timelineSettingsGroup({
+            context,
+            view: control.view,
+            familyLabels: repositoryTimelineFamilyLabels,
+            metrics,
+            onView: control.changeView,
+            onPeriod: control.changePeriod,
+            onReset: control.reset,
+            children: (
+              <TimelineRepositoryFilters
+                key={JSON.stringify([context.filters, context.view.family])}
+                filters={context.filters!}
+                facets={facets}
+                snapshot={control.view.family === 'snapshot'}
+                onChange={control.changeFilters}
+              />
+            ),
+          }),
+        ],
+        footnote: timelineRecordFilterNote,
+      }}
       tableControls={{
         controller: control.table,
         visibility: control.visibility,
@@ -215,29 +235,28 @@ export function ContributionTimelineScreen({
       area={area}
       href={control.href}
       reportHref={reportHref}
-      controls={
-        <div className={styles.stack}>
-          <ContributionControls
-            directory={{ repositories: context.repositories }}
-            options={options}
-            value={context.contribution!}
-            asOf={context.asOf}
-            pending={control.pending}
-            storageAvailable={control.storageAvailable}
-            onChange={control.changeContribution}
-            onReset={control.resetContribution}
-          />
-          <TimelineControls
-            context={context}
-            {...control}
-            metrics={contributionTimelineMetrics}
-            showPreferenceNote={false}
-            onView={control.changeView}
-            onPeriod={control.changePeriod}
-            onReset={control.reset}
-          />
-        </div>
-      }
+      toolbar={{
+        ...toolbarState(control),
+        groups: [
+          contributionFilterGroup({
+            directory: { repositories: context.repositories },
+            options,
+            value: context.contribution!,
+            asOf: context.asOf,
+            pending: control.pending,
+            onChange: control.changeContribution,
+            onReset: control.resetContribution,
+          }),
+          timelineSettingsGroup({
+            context,
+            view: control.view,
+            metrics: contributionTimelineMetrics,
+            onView: control.changeView,
+            onPeriod: control.changePeriod,
+            onReset: control.reset,
+          }),
+        ],
+      }}
       tableControls={{
         controller: control.table,
         visibility: control.visibility,
