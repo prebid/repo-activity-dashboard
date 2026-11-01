@@ -259,7 +259,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P0b | Not started | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P3 | Not started | — | — | — |
+| P3 | Plan proposed | — | — | — |
 | P4 | Not started | — | — | — |
 | P5 | Not started | — | — | — |
 | P6 | Not started | — | — | — |
@@ -729,6 +729,61 @@ Unchanged: 186 Tab presses to Period activity, 22 distinct font size and weight 
 - `pointer-coarse`: at a 390px touch viewport every button size measured 40px in Chromium; the 16px field text on a coarse pointer was not measured.
 - Single-page pagers: four "Page 1 of 1" assertions became assertions that the pager is absent; no other spec pinned footer text, and the browser suite passes.
 - `collisionPadding`: menus keep 16px from the viewport at 1000 and 390px in Chromium. At 1440×900 the Current backlog Columns menu opens above its trigger (step notes, Checkpoint B).
+
+## P3 plan
+
+Proposed 2026-11-01 against `26b4456`, the head of the P0–P2 pull request. The branch `feature/p3-table-system` is cut from that head; its pull request targets `main` once P0–P2 merge. Line references were read at `26b4456`.
+
+### Scope
+
+The 31 P3 findings in Appendix A, under the Delivery rules: about 60–70 files (roughly 40 source, config and docs; 22–28 tests), against 222 in P2. Most fixes land in `src/components/tables/data-table.tsx` and its CSS, which already render every header, pinned column and footer. A call site changes only where the call site itself is the defect, and each one is named below.
+
+### Items
+
+**1. Headers and lines** (CONTRIB-06, REPO-09, REPOS-12, TBL-01, TBL-02). In `data-table.module.css` only: group headings centred at 11/700 uppercase +0.07em over a 2px Prebid-blue spanner; 2px strong lines between column groups and at the pinned junction (one line, not two); 1px subtle lines between columns and rows; the header-band hover fill on sortable headers; a 3px blue inset bar on the first cell of a hovered row. Core contribution metrics get display-only group headings, Authoring (PRs authored, Authored PRs merged), Reviewing (Reviewer contributions, Approval contributions, Merges performed) and Issues (Issues authored), set in `contribution-columns.tsx`; column order and CSV headers do not change.
+
+**2. Sort** (TBL-03, TYPE-05, CONTRIB-08, CTRL-05, GAP-02). A `SortIcon` in `src/components/tables/` in a 14px slot with 12px icons at stroke 2: idle `ChevronsUpDown` in the muted sort ink, sorted `ArrowUp`/`ArrowDown` in the link colour; before the label in numeric columns and after it in text columns; an orange underline on the sorted header. `aria-sort` stays the state and the sort button's name is the column label alone, so labels never shift. When the sorted column is hidden or outside the visible period window, DataTable's footer note is the one description; the duplicates in `contribution-view.tsx` and `repository-page-view.tsx` go.
+
+**3. Alignment and numbers** (CONTRIB-07, GAP-01, TBL-04, TBL-05, REPO-17). Text left, numbers right with tabular figures, headers aligned with their cells and top-aligned, wrapping to at most two lines at one metric width. Body cells top-aligned, so numbers sit level with a record's title. The partial-value asterisk gets its own trailing slot, so digits align (the Phase 2 carry-over). Displayed negatives use the Unicode minus; CSV keeps the ASCII hyphen. Weekly period headers read a compact range (decision 3), and weekly rows print the range once.
+
+**4. Width, pinning and sticky headers** (TBL-06, TBL-07, TBL-08). The pinned identity column stays 248px (164px at <=600px) and numeric columns share surplus width (decision 4). The pinned edge shows a shadow while the table is scrolled sideways, and the trailing edge shows the same shadow while more columns remain (decision 5). The insights authors and credits tables pin their account column. Sticky headers use a bounded-height scroll area per table (decision 1): one `thead`, no script, and the horizontal scrollbar stays in view; a `--sticky-offset` token, which P4 sets, reserves room for the page header.
+
+**5. Records** (REPO-06, REPO-07, TBL-09, TBL-10, GAP-08, TBL-12). One record row: `RecordIdentity` (number, title link, `RecordStatus`, label chips) moves to `src/components/github/` and serves record pages, author lists, Timeline supporting records and the merge-duration insight, with status and labels inline instead of separate columns. The author link's external icon follows the name. Author-scoped lists hide the Author column. The feature density overrides in the contributions, records and page CSS go. The merge-duration rows gain the author type (model and mock), so their authors get avatars (the Phase 2 holdout).
+
+**6. Drillable numbers** (CONTRIB-10, REPOS-13, TBL-11, TYPE-13). One style for a number that opens its records: ink at rest, a dotted Prebid-blue underline, the link colour on hover. Summary, Timeline, Contributions and the supporting views use it; the KPI tiles take the same style and nothing more (decision 6).
+
+**7. Periods** (REPOS-08, GAP-05). In two-period comparison each period carries an overline tag, "Period 1" and "Period 2", and the difference row shows its sign with the Unicode minus (decision 2). One partial-period marker everywhere, the caption "Partial" on its own line (decision 7).
+
+**8. Admin users** (TBL-15). The Users list moves onto DataTable, with sorting, a count and the pager (decision 8); `src/components/ui/table.tsx` has no other user and is deleted.
+
+**9. Allowlist.** The 14 P3-owned entries go and `completedPhases` adds `P3`. No new tooling.
+
+### Tests
+
+Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` through idle, ascending and descending; the label does not move when sorted; non-text contrast of the sort icons and spanner on the header band; the header stays visible after scrolling a 50-row table at 1440 and 375; the pinned column stays put at both scroll ends; digits right-aligned with the asterisk outside them; record numbers level with the title's first line; the Unicode minus on screen and the hyphen in CSV; the Authoring, Reviewing and Issues headings with unchanged CSV headers; one sort note for a hidden sorted column; the Users table's headers and actions; one computed style for drillable numbers across pages; the author link icon beside the name. Updated: 31 test files whose names include the typed sort arrows or pin header text and geometry. Dropped: three class-name assertions in `pager.test.tsx`. New stories for `SortIcon`, a sticky-header table and the Users table join the coverage list.
+
+### Order
+
+1. One worker builds the shared core: `data-table.tsx` and its CSS, `SortIcon`, the sort tokens, the Unicode minus, the asterisk slot, the drillable-number style and the sticky scroll area, with their tests and stories.
+2. Then four workers in parallel, each in its own worktree with disjoint files: (a) Timeline table and matrix; (b) records and insights; (c) contributions; (d) admin users.
+3. One independent review of the whole phase, `npm run check:all` once, one checkpoint for approval (stories and page captures together, decision 9), then the pull request.
+
+### Exit
+
+- Every table renders through one header implementation; no typed sort glyph remains; no allowlist entry is owned by P3; `completedPhases` includes `P3`.
+- The new behaviour tests and story coverage pass in both engines; `npm run check:all` passes.
+
+### Decisions (proposed)
+
+1. Sticky headers: long tables scroll inside a bounded-height area, so a 50-row table becomes an in-page pane with its own vertical scroll and its horizontal scrollbar in view. The alternative, a header mirrored outside the scroller and kept in sync by script, avoids nested scrolling but adds about 100 lines to DataTable. Recommended: the bounded area.
+2. Two-period comparison: "Period 1"/"Period 2" overline tags and a signed difference with the Unicode minus, no colour and no extra glyph. Recommended.
+3. Weekly period headers read "Sep 21–27, 2026" instead of "Sep 21, 2026 – Sep 27, 2026". Recommended.
+4. Surplus width goes to the numeric columns equally, as Contributors does today. Recommended.
+5. A trailing-edge shadow while more columns remain to the right, with the pinned-edge token. Recommended.
+6. KPI tiles take the drillable-number style only; no icon or accent ("Headline totals" stays not added). Recommended.
+7. The partial-period marker is the caption "Partial" on its own line, replacing both "(partial)" and the bordered chip. Recommended.
+8. The Users list gains sortable headers, a count and the 50-row pager from DataTable. Recommended.
+9. One checkpoint at the end of the phase, stories and page captures together, instead of Checkpoint A before pages and B after. Recommended.
 
 ## Appendix A: findings by phase
 
