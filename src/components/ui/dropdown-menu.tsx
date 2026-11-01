@@ -50,6 +50,8 @@ const DropdownMenuContent = React.forwardRef<
     ref,
   ) => (
     <DropdownMenuPrimitive.Portal container={container}>
+      {/* The 72svh cap keeps a long menu on screen when focusing its last item scrolls the page
+          and the available height is measured again. */}
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
@@ -57,7 +59,7 @@ const DropdownMenuContent = React.forwardRef<
         data-size={size}
         className={cn(
           styles.content,
-          'z-50 max-h-[var(--radix-dropdown-menu-content-available-height)] max-w-[calc(100vw-32px)] overflow-y-auto overflow-x-hidden rounded-md border p-1 text-popover-foreground shadow-md',
+          'z-50 max-h-[min(72svh,var(--radix-dropdown-menu-content-available-height))] max-w-[calc(100vw-32px)] overflow-y-auto overflow-x-hidden rounded-md border p-1 text-popover-foreground shadow-md',
           'data-[size=auto]:min-w-[156px] data-[size=sm]:w-[240px] data-[size=md]:w-[320px] data-[size=lg]:w-[360px]',
           'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[var(--radix-dropdown-menu-content-transform-origin)]',
           className,
