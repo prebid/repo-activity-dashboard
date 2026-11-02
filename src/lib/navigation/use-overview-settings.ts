@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type {
   OverviewSettings,
   OverviewSettingsControl,
@@ -17,11 +17,21 @@ import {
   serializeOverviewPreferences,
 } from '@/lib/presentation/overview-settings';
 import { mergeValues } from '@/lib/presentation/repository-url';
-import { readPreference, usePreferenceCookie } from './use-preference-cookie';
+import {
+  preferenceChangeEvent,
+  readPreference,
+  usePreferenceCookie,
+} from './use-preference-cookie';
 import { useUrlState } from './use-url-state';
 
 export const overviewPreferencesInvalidNotice =
   'Saved All repositories preferences are invalid. Defaults are shown.';
+
+function subscribe(notify: () => void) {
+  window.addEventListener(preferenceChangeEvent, notify);
+  return () => window.removeEventListener(preferenceChangeEvent, notify);
+}
+const serverSnapshot = () => undefined;
 
 /**
  * All repositories settings. The scope (repositories, periods, PR ages) is the address's: an absent
@@ -44,12 +54,33 @@ export function useOverviewSettings(
       return value && (JSON.parse(serializeOverviewPreferences(value)) as unknown);
     },
   });
-  // Settings this page saved or reset; until then the server-validated value applies.
+  const binding = saved?.binding;
+  // The server and hydration render the server-validated value. A Summary that mounts again from
+  // history (Back, or a crumb that goes back) reads the live cookie, so column choices saved since
+  // its first render still show.
+  const raw = useSyncExternalStore(
+    subscribe,
+    useCallback(() => {
+      if (!binding) return undefined;
+      try {
+        return readPreference(binding, 'overview');
+      } catch {
+        return undefined;
+      }
+    }, [binding]),
+    serverSnapshot,
+  );
+  const live = useMemo(
+    () =>
+      raw === undefined ? (saved?.value ?? null) : readOverviewPreferences(raw, definition, asOf),
+    [raw, saved, definition, asOf],
+  );
+  // Settings this page saved or reset; until then the saved value applies.
   const [changed, setChanged] = useState<{
     viewerId: string;
     value: OverviewSettings | null;
   } | null>(null);
-  const current = changed?.viewerId === viewerId ? changed.value : (saved?.value ?? null);
+  const current = changed?.viewerId === viewerId ? changed.value : live;
   const currentRef = useRef(current);
   currentRef.current = current;
   // Once the browser refuses the cookie, the fields saved in this page are only in memory.
@@ -68,7 +99,6 @@ export function useOverviewSettings(
     () => read ?? { ...defaultOverviewSettings(definition), ...columns },
     [read, columns, definition],
   );
-  const binding = saved?.binding;
 
   /** The saved settings a change applies to: the live cookie, so another tab's fields survive. */
   const prior = useCallback((): OverviewSettings | null => {

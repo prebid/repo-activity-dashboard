@@ -5,6 +5,7 @@ import {
   useOverviewSettings,
 } from '@/lib/navigation/use-overview-settings';
 import { useTableController } from '@/lib/navigation/use-table-controller';
+import { preferenceChangeEvent } from '@/lib/navigation/use-preference-cookie';
 import {
   defaultOverviewSettings,
   overviewCatalogDefinition,
@@ -385,4 +386,21 @@ it('keeps a sort in the address when table storage is denied', () => {
   );
   act(() => anonymous.result.current.clearSavedSort());
   expect(anonymous.result.current.query.sort).toBe('');
+});
+it('shows column choices saved since the first render when the Summary mounts again from history', () => {
+  seedPreferences(alice, { overview: stored(defaults) });
+  // The payload a Back restores was rendered before this choice was saved.
+  const firstRender = serverSaved();
+  seedPreferences(alice, { overview: stored({ ...defaults, activityColumns: ['name'] }) });
+  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf, firstRender));
+  expect(result.current.value.activityColumns).toEqual(['name']);
+  // Another tab's later save reaches this page when a save here announces it.
+  seedPreferences(alice, { overview: stored({ ...defaults, backlogColumns: ['name'] }) });
+  act(() => {
+    window.dispatchEvent(new Event(preferenceChangeEvent));
+  });
+  expect(result.current.value).toMatchObject({
+    backlogColumns: ['name'],
+    activityColumns: defaults.activityColumns,
+  });
 });
