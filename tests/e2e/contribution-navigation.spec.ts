@@ -237,3 +237,60 @@ test('100-account deep links stay bounded and preserve copied return context', a
     [...settings.selection.population.accountIds].sort(),
   );
 });
+test('Over time area tabs open the other area’s Over time, whose Report tab stays in that area', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto('/contributors?scope=1&period=this-year');
+  await page
+    .getByRole('navigation', { name: 'Report view', exact: true })
+    .getByRole('link', { name: 'Over time', exact: true })
+    .click();
+  await expect(page).toHaveURL(
+    (url) => url.pathname === '/contributors' && url.searchParams.get('timeline') === '1',
+  );
+  await page
+    .getByRole('navigation', { name: 'Contribution reports', exact: true })
+    .getByRole('link', { name: 'Companies', exact: true })
+    .click();
+  await expect(page.getByRole('heading', { name: 'Companies', level: 1 })).toBeVisible();
+  await expect(page).toHaveURL(
+    (url) => url.pathname === '/companies' && url.searchParams.get('timeline') === '1',
+  );
+  const views = page.getByRole('navigation', { name: 'Report view', exact: true });
+  await expect(views.getByRole('link', { name: 'Over time', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await views.getByRole('link', { name: 'Report', exact: true }).click();
+  await expect(page).toHaveURL(
+    (url) => url.pathname === '/companies' && !url.searchParams.has('timeline'),
+  );
+  await expect(page.getByRole('table', { name: 'Companies', exact: true })).toBeVisible();
+});
+test('Back to report on a contributor’s Over time returns to the list the report came from', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto('/contributors?sample=large&scope=1&period=this-year');
+  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await page
+    .getByRole('textbox', { name: 'Search Contributors', exact: true })
+    .fill('sample-heavy-agent');
+  await page
+    .getByRole('table')
+    .getByRole('link', { name: /^Sample agent with hundreds.* — view contribution report$/ })
+    .click();
+  await expect(page.getByRole('region', { name: 'Report totals' })).toBeVisible();
+  await page
+    .getByRole('navigation', { name: 'Report view', exact: true })
+    .getByRole('link', { name: 'Over time', exact: true })
+    .click();
+  await expect(page.getByRole('region', { name: 'Timeline scope', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await expect(page).toHaveURL((url) => url.pathname === '/contributors');
+  await expect(page.getByRole('textbox', { name: 'Search Contributors', exact: true })).toHaveValue(
+    'sample-heavy-agent',
+  );
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+});

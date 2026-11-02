@@ -187,3 +187,41 @@ test('catalog contribution states render independently with functional company b
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
   }
 });
+for (const width of [1440, 390])
+  test(`Report and Over time keep one header, so the toolbar stays in place at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await login(page);
+    const top = (name: string) =>
+      page
+        .getByRole('region', { name, exact: true })
+        .evaluate((node) => node.getBoundingClientRect().top + window.scrollY);
+    for (const path of ['/contributors', '/contributors/account-alice']) {
+      await page.goto(path + '?scope=1&period=this-year');
+      await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+      await page.evaluate(() => document.fonts.ready);
+      const report = await top('Contribution report scope');
+      await page
+        .getByRole('navigation', { name: 'Report view', exact: true })
+        .getByRole('link', { name: 'Over time', exact: true })
+        .click();
+      await expect(page).toHaveURL((url) => url.searchParams.get('timeline') === '1');
+      await expect(page.getByRole('region', { name: 'Timeline scope', exact: true })).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      expect(Math.abs((await top('Timeline scope')) - report), path).toBeLessThanOrEqual(1);
+      const header = page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::header[1]');
+      if (path === '/contributors')
+        await expect(
+          page
+            .getByRole('navigation', { name: 'Contribution reports', exact: true })
+            .getByRole('link', { name: 'Contributors', exact: true }),
+        ).toHaveAttribute('aria-current', 'page');
+      else {
+        await expect(
+          header.getByRole('link', { name: 'Back to report', exact: true }),
+        ).toBeVisible();
+        await expect(header.getByRole('link', { name: 'Example Acme', exact: true })).toBeVisible();
+      }
+    }
+  });

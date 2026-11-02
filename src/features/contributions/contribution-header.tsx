@@ -1,20 +1,15 @@
+import { PageHeader } from '@/components/navigation/page-header';
+import { ViewBar } from '@/components/navigation/view-bar';
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { countLabel } from '@/lib/presentation/format';
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
-import type { ComponentProps, MouseEvent } from 'react';
+import type { ComponentProps, MouseEvent, ReactNode } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
-import {
-  BackIcon,
-  CompaniesIcon,
-  ContributorsIcon,
-  ReportIcon,
-  TimelineIcon,
-} from '@/components/ui/icons';
-import type { ContributionPage } from '@/models/contribution-page';
+import { CompaniesIcon, ContributorsIcon, ReportIcon, TimelineIcon } from '@/components/ui/icons';
+import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
-import { formatAsOf } from '@/lib/presentation/format';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import {
   noReportControls,
@@ -26,9 +21,6 @@ import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { Avatar, type AvatarAccountType } from '@/components/github/avatar';
 import { CompanyAvatar, EntityLink, type ContributionLinks } from './contribution-columns';
 
-import styles from './contributions.module.css';
-
-/** Report | Over time, shared by the report header and the Over time view. */
 /** A report tab, or a focusable unavailable tab that states why when no link fits. */
 function ContributionTab({
   href,
@@ -51,6 +43,48 @@ function ContributionTab({
     <DisabledTab reason={reason}>{children}</DisabledTab>
   );
 }
+
+const areaTabs = {
+  contributors: { label: 'Contributors', Icon: ContributorsIcon },
+  companies: { label: 'Companies', Icon: CompaniesIcon },
+} as const;
+
+/** Contributors | Companies: an overview's subjects, on Report and on Over time. */
+export function ContributionAreaTabs({
+  area,
+  hrefs,
+  onFollow,
+  pendingTarget,
+}: {
+  area: ContributionArea;
+  /** Each area's link; null when its URL does not fit. */
+  hrefs: Record<ContributionArea, string | null>;
+  onFollow?: (event: MouseEvent<HTMLAnchorElement>, area: ContributionArea) => void;
+  /** The area whose handler-started navigation is pending. */
+  pendingTarget?: string | null;
+}) {
+  return (
+    <ViewTabs label="Contribution reports">
+      {(['contributors', 'companies'] as const).map((target) => {
+        const { label, Icon } = areaTabs[target];
+        return (
+          <ContributionTab
+            key={target}
+            href={hrefs[target]}
+            reason={`This selection is too large for a ${label} link. Narrow the filters and try again.`}
+            onClick={onFollow && ((event) => onFollow(event, target))}
+            pending={pendingTarget === target}
+            aria-current={area === target ? 'page' : undefined}
+          >
+            <Icon size={16} /> {label}
+          </ContributionTab>
+        );
+      })}
+    </ViewTabs>
+  );
+}
+
+/** Report | Over time, shared by the report header and the Over time view. */
 export function ContributionReportViewTabs({
   active,
   reportHref,
@@ -66,7 +100,7 @@ export function ContributionReportViewTabs({
   timelinePending?: boolean;
 }) {
   return (
-    <ViewTabs label="Report view">
+    <ViewTabs label="Report view" variant="segmented">
       <Link
         prefetch={false}
         href={reportHref}
@@ -89,6 +123,18 @@ export function ContributionReportViewTabs({
     </ViewTabs>
   );
 }
+
+/** A company report's meta line: its included accounts and how they are attributed. */
+export function companyReportMeta(memberCount: number, mapped: boolean): string {
+  return (
+    memberCount +
+    ' included ' +
+    (memberCount === 1 ? 'account' : 'accounts') +
+    ' · ' +
+    (mapped ? 'Current company mapping' : 'Accounts without a company mapping')
+  );
+}
+
 export function ContributionHeader({
   page,
   links,
@@ -109,26 +155,32 @@ export function ContributionHeader({
         ? report.account
         : report.company,
   );
+  const subjects = report.kind === 'overview' && (
+    <ContributionAreaTabs
+      area={page.area}
+      hrefs={{
+        contributors: contributionHref('contributors', page.sample, undefined, links.settings),
+        companies: contributionHref('companies', page.sample, undefined, links.settings),
+      }}
+      onFollow={links.onAreaFollow}
+      pendingTarget={links.pendingTarget}
+    />
+  );
+  const modes = !page.details && links.timelineHref !== undefined && (
+    <ContributionReportViewTabs
+      active="report"
+      reportHref={links.currentHref}
+      timelineHref={links.timelineHref}
+      onTimeline={links.onTimeline}
+      timelinePending={links.pendingTarget === 'timeline'}
+    />
+  );
   return (
     <>
-      {report.kind !== 'overview' && (
-        <nav className={styles.breadcrumbs} aria-label="Contribution breadcrumb">
-          <Link prefetch={false} href={page.returnTo}>
-            <BackIcon size={14} /> Back to report
-            <LinkPending />
-          </Link>
-        </nav>
-      )}
       <ContributionHeading
         title={title}
         asOf={context.asOf}
-        eyebrow={
-          report.kind === 'overview'
-            ? 'Contribution activity'
-            : report.kind === 'contributor'
-              ? 'Contributor report'
-              : 'Company report'
-        }
+        returnTo={report.kind === 'overview' ? undefined : page.returnTo}
         identity={
           report.kind === 'contributor' ? (
             <ContributionSubjectAvatar subject={{ kind: 'contributor', account: report.account }} />
@@ -137,14 +189,8 @@ export function ContributionHeader({
           ) : undefined
         }
       >
-        {report.kind === 'overview' ? (
-          <p className={styles.subtitle}>
-            {page.area === 'contributors'
-              ? 'Understand who authors, reviews and merges work.'
-              : 'Explore contribution activity by current company affiliation.'}
-          </p>
-        ) : report.kind === 'contributor' ? (
-          <div className={styles.meta}>
+        {report.kind === 'contributor' ? (
+          <>
             <GitHubAccountLink
               login={report.account.login}
               url={report.account.profileUrl}
@@ -157,46 +203,16 @@ export function ContributionHeader({
             >
               {report.company?.name ?? 'Unmapped company'}
             </EntityLink>
-          </div>
-        ) : (
-          <p className={styles.subtitle}>
-            {report.memberCount} included {report.memberCount === 1 ? 'account' : 'accounts'} ·{' '}
-            {report.company ? 'Current company mapping' : 'Accounts without a company mapping'}
-          </p>
-        )}
+          </>
+        ) : report.kind === 'company' ? (
+          <span>{companyReportMeta(report.memberCount, !!report.company)}</span>
+        ) : undefined}
       </ContributionHeading>
-      {report.kind === 'overview' && (
-        <ViewTabs label="Contribution reports">
-          <ContributionTab
-            href={contributionHref('contributors', page.sample, undefined, links.settings)}
-            reason="This selection is too large for a Contributors link. Narrow the filters and try again."
-            onClick={(event) => links.onAreaFollow?.(event, 'contributors')}
-            pending={links.pendingTarget === 'contributors'}
-            aria-current={page.area === 'contributors' ? 'page' : undefined}
-          >
-            <ContributorsIcon size={16} /> Contributors{' '}
-            <span className={styles.tabCount}>{report.contributorCount}</span>
-          </ContributionTab>
-          <ContributionTab
-            href={contributionHref('companies', page.sample, undefined, links.settings)}
-            reason="This selection is too large for a Companies link. Narrow the filters and try again."
-            onClick={(event) => links.onAreaFollow?.(event, 'companies')}
-            pending={links.pendingTarget === 'companies'}
-            aria-current={page.area === 'companies' ? 'page' : undefined}
-          >
-            <CompaniesIcon size={16} /> Companies{' '}
-            <span className={styles.tabCount}>{report.companyCount}</span>
-          </ContributionTab>
-        </ViewTabs>
-      )}
-      {!page.details && links.timelineHref !== undefined && (
-        <ContributionReportViewTabs
-          active="report"
-          reportHref={links.currentHref}
-          timelineHref={links.timelineHref}
-          onTimeline={links.onTimeline}
-          timelinePending={links.pendingTarget === 'timeline'}
-        />
+      {(subjects || modes) && (
+        <ViewBar>
+          {subjects}
+          {modes}
+        </ViewBar>
       )}
       <ReportToolbar
         label="Contribution report scope"
@@ -253,36 +269,36 @@ export function ContributionSubjectAvatar({
   );
 }
 
-/** Shared heading for list and Over time views; metric data stays with each view. */
+/**
+ * Shared heading for list and Over time views, so switching between them keeps the header's
+ * rows and everything below it in place; metric data stays with each view.
+ */
 export function ContributionHeading({
   title,
   asOf,
-  eyebrow,
+  returnTo,
   identity,
   children,
 }: {
   title: string;
   asOf: string;
-  eyebrow: string;
+  /** On a contributor or company report, the report "Back to report" opens. */
+  returnTo?: string;
   /** The subject's avatar beside the title on contributor and company reports. */
-  identity?: React.ReactNode;
-  children: React.ReactNode;
+  identity?: ReactNode;
+  /** The one meta line under the title. */
+  children?: ReactNode;
 }) {
   return (
-    <header className={styles.header}>
-      <div className={styles.heading}>
-        {identity}
-        <div className={styles.headingText}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
-          <h1>{title}</h1>
-          {children}
-        </div>
-      </div>
-      <p className={styles.snapshot}>
-        Reporting snapshot
-        <br />
-        <time dateTime={asOf}>{formatAsOf(asOf)}</time>
-      </p>
-    </header>
+    <PageHeader
+      title={title}
+      asOf={asOf}
+      breadcrumbLabel="Contribution breadcrumb"
+      breadcrumbs={
+        returnTo === undefined ? undefined : [{ label: 'Back to report', href: returnTo }]
+      }
+      identity={identity}
+      meta={children}
+    />
   );
 }

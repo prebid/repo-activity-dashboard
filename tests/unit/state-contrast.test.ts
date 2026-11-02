@@ -81,7 +81,7 @@ const callout = declarations('src/components/feedback/callout.module.css');
 const emptyState = declarations('src/components/feedback/empty-state.module.css');
 const recordStatus = declarations('src/components/github/record-status.module.css');
 const avatar = declarations('src/components/github/avatar.module.css');
-const contributions = declarations('src/features/contributions/contributions.module.css');
+const pageHeader = declarations('src/components/navigation/page-header.module.css');
 
 describe.each(['light', 'dark'] as const)('state colours in %s', (name) => {
   const theme = all[name];
@@ -139,8 +139,8 @@ describe.each(['light', 'dark'] as const)('state colours in %s', (name) => {
     // The disc takes the surface the avatar sits on: the card, or --identity-surface on a row.
     expect(contrast(glyph, resolve(badge.background, theme))).toBeGreaterThanOrEqual(3);
     expect(contrast(glyph, resolve('var(--prebid-row-hover)', theme))).toBeGreaterThanOrEqual(3);
-    // The report heading's avatar sits on the canvas, and its header passes that surface on.
-    const heading = contributions.get('.header')?.['--identity-surface'];
+    // A page header's avatar sits on the canvas, and the header passes that surface on.
+    const heading = pageHeader.get('.header')?.['--identity-surface'];
     expect(resolve(heading, theme)).toBe(resolve('var(--prebid-background)', theme));
     expect(contrast(glyph, resolve(heading, theme))).toBeGreaterThanOrEqual(3);
     const unmapped = avatar.get(".avatar[data-kind='unmapped-company']")!;
