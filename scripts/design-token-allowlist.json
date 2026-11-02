@@ -268,8 +268,8 @@
       "selector": "",
       "property": "text-sm",
       "value": "text-sm",
-      "phase": "P3",
-      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+      "phase": "P4",
+      "reason": "The administrator Users page is outside the redesign (TBL-15 withdrawn)"
     },
     {
       "file": "src/components/ui/table.tsx",
@@ -277,8 +277,8 @@
       "selector": "",
       "property": "text-sm",
       "value": "text-sm",
-      "phase": "P3",
-      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+      "phase": "P4",
+      "reason": "The administrator Users page is outside the redesign (TBL-15 withdrawn)"
     },
     {
       "file": "src/features/administration/users-view.tsx",
