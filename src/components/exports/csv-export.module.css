@@ -3,18 +3,22 @@
   line-height: 1.6;
   color: var(--muted-foreground);
 }
-.layout {
+/* The Layout and Column set choices: a legend over one wrapping row of radios. */
+.layout,
+.sets {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
   font-size: var(--prebid-text-body);
 }
-.layout legend {
+.layout legend,
+.sets legend {
   font-size: var(--prebid-text-body);
   font-weight: 600;
   margin-bottom: 10px;
 }
-.layout label {
+.layout label,
+.sets label {
   display: flex;
   align-items: center;
   gap: 8px;
