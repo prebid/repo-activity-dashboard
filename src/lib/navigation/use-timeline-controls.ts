@@ -5,7 +5,6 @@ import type { TimelineControlContext, TimelineViewState } from '@/models/timelin
 import type { PeriodSelection } from '@/models/reporting-period';
 import type { RepositoryPageFilters } from '@/models/repository-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import type { ContributionOptions } from '@/models/contribution-options';
 import type { TableController } from '@/lib/presentation/table-controller';
 import {
   resolveTimelinePresentation,
@@ -14,90 +13,63 @@ import {
   timelinePreferenceKey,
   readTimelinePreferences,
   serializeTimelinePreferences,
-  validateTimelineProposal,
-  mergeTimelinePreferenceParameters,
-  timelinePreferenceCandidates,
+  timelineTarget,
 } from '@/lib/presentation/timeline-controls';
 import {
-  contributionPreferenceKey,
   readContributionPreferenceCandidate,
-  hasContributionScope,
   writeContributionSettings,
   defaultContributionSettings,
+  mergeContributionPreferences,
+  serializeContributionPreferences,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
 import { writeRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
-import {
-  clearContributionScope,
-  discardContributionScope,
-  lookupSavedScope,
-  saveContributionScope,
-  savedScopeNotices,
-  savedScopeUnchanged,
-} from './contribution-scope-storage';
-
-function checkedTarget(input: string, context: TimelineControlContext) {
-  const checked = validateTimelineProposal(input, context);
-  const target = writeTimelineView(input, context.area, checked.view);
-  if (!contributionUrlFits(context.path + '?' + target))
-    throw Error('This view is too large for a link. Reduce the selection.');
-  return target;
-}
+import { readPreference, usePreferenceCookie } from './use-preference-cookie';
 
 /**
- * Remove saved choices that fail even on a bare Timeline URL, so their notice does not repeat.
- * Choices that failed only against this URL's explicit options stay saved for other visits.
+ * One URL owner for Timeline state. Facts remain in authenticated server composition, which also
+ * applies saved preferences to an entry URL before the first render; this hook only saves
+ * deliberate changes, through the sections in `context.preferences`.
  */
-function repairTimelinePreferences(
-  key: string,
-  context: TimelineControlContext,
-  stored: URLSearchParams,
-  raw: string | null,
-) {
-  const bare = new URLSearchParams('timeline=1');
-  const [merged, ...fallbacks] = timelinePreferenceCandidates(
-    mergeTimelinePreferenceParameters(bare, stored),
-    bare,
-  );
-  const fits = (candidate: URLSearchParams) => {
-    try {
-      checkedTarget(candidate.toString(), context);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-  const accepted = fits(merged) ? undefined : fallbacks.find(fits);
-  if (!accepted) return;
-  const repaired = new URLSearchParams(stored);
-  for (const name of new Set(merged.keys())) if (!accepted.has(name)) repaired.delete(name);
-  if (localStorage.getItem(key) === raw)
-    localStorage.setItem(key, serializeTimelinePreferences(repaired, context.area));
-}
-
-/** One URL owner for Timeline state. Facts remain in authenticated server composition. */
 export function useTimelineControls(
   viewerId: string,
   context: TimelineControlContext,
   defaults: Record<string, boolean>,
-  options?: ContributionOptions,
 ) {
   const router = useRouter(),
     search = useSearchParams().toString();
-  // Explicit-state links never consult browser preferences, so their first render is final.
-  const [pending, startTransition] = useTransition(),
-    [restoring, setRestoring] = useState(() => !new URLSearchParams(search).has('timeline.state')),
-    [notice, setNotice] = useState<string>();
-  const [storageAvailable, setStorageAvailable] = useState(true);
+  const [pending, startTransition] = useTransition();
+  // A notice from this page's own edits replaces the server's entry notice for the same model.
+  const [ownNotice, setOwnNotice] = useState<{ href: string; text?: string }>();
+  const notice = ownNotice?.href === context.href ? ownNotice.text : context.preferences?.notice;
+  const setNotice = (text?: string) => setOwnNotice({ href: context.href, text });
+  const saved = context.preferences;
+  const key = timelinePreferenceKey(viewerId, context);
+  // The former localStorage value is copied once, for the next entry; this render is unchanged.
+  const presentationCookie = usePreferenceCookie(saved?.presentation, {
+    keys: [key],
+    read: (raw) => {
+      const stored = readTimelinePreferences(raw, context.area);
+      return stored && (JSON.parse(serializeTimelinePreferences(stored, context.area)) as unknown);
+    },
+  });
+  const scopeCookie = usePreferenceCookie(saved?.scope);
+  const storageAvailable = presentationCookie.storageAvailable && scopeCookie.storageAvailable;
   const busy = useRef(false);
   useEffect(() => {
     if (!pending) busy.current = false;
   }, [pending]);
-  const key = timelinePreferenceKey(viewerId, context);
-  const scopeKey = contributionPreferenceKey(viewerId, context.sample.split(':')[0]);
   const pathname = usePathname();
-  const { view, awaitingData } = resolveTimelinePresentation(pathname, search, context);
+  const resolved = resolveTimelinePresentation(pathname, search, context);
+  const awaitingData = resolved.awaitingData;
+  // A page past the last one shows the last page; the correction is kept for this address only,
+  // without a history write, and the next deliberate change writes it.
+  const [correction, setCorrection] = useState<{ search: string; page: number }>();
+  const view =
+    !awaitingData && correction?.search === search
+      ? { ...resolved.view, page: correction.page }
+      : resolved.view;
   const activeSearch = awaitingData
     ? new URL(context.href, 'https://dashboard.invalid').search
     : search;
@@ -108,167 +80,36 @@ export function useTimelineControls(
     if (context.contribution) result = writeContributionSettings(result, context.contribution);
     return writeTimelineView(result, context.area, current);
   }
-  useEffect(() => {
-    if (
-      resolveTimelinePresentation(window.location.pathname, window.location.search, context)
-        .awaitingData
-    ) {
-      setRestoring(false);
-      return;
-    }
-    if (new URLSearchParams(window.location.search).has('timeline.state')) {
-      setRestoring(false);
-      return;
-    }
-    const controller = new AbortController();
-    const before = window.location.pathname + window.location.search;
-    busy.current = false;
-    setRestoring(true);
-    const current = () =>
-      !controller.signal.aborted && window.location.pathname + window.location.search === before;
-    void (async () => {
-      const explicit = new URLSearchParams(window.location.search);
-      let params = explicit;
-      let raw: string | null = null,
-        scopeRaw: string | null = null;
-      try {
-        raw = localStorage.getItem(key);
-        scopeRaw = context.contribution ? localStorage.getItem(scopeKey) : null;
-      } catch {
-        setStorageAvailable(false);
-        return;
-      }
-      const stored = readTimelinePreferences(raw, context.area);
-      if (!stored) {
-        setNotice('Saved Timeline preferences are invalid. Defaults are shown.');
-        if (localStorage.getItem(key) === raw) localStorage.removeItem(key);
-        return;
-      }
-      params = mergeTimelinePreferenceParameters(params, stored);
-      if (
-        context.contribution &&
-        !hasContributionScope(new URLSearchParams(window.location.search)) &&
-        scopeRaw !== null
-      ) {
-        let settings = readContributionPreferenceCandidate(
-          scopeRaw,
-          { repositories: context.repositories },
-          context.asOf,
-        );
-        if (settings) {
-          try {
-            // Check the scope against the requested view; stale saved presentation falls back below.
-            validateTimelineProposal(
-              writeContributionSettings(explicit.toString(), settings),
-              context,
-            );
-          } catch {
-            setNotice(
-              'Saved filters are too large or incompatible with this Timeline. The requested view is unchanged.',
-            );
-            return;
-          }
-        }
-        if (settings) settings = await lookupSavedScope(options!, settings, controller.signal);
-        if (!current()) return;
-        if (!savedScopeUnchanged(scopeKey, scopeRaw)) {
-          setNotice(savedScopeNotices.changed);
-          return;
-        }
-        if (!settings) {
-          setNotice('Saved filters could not be restored. Default filters are shown.');
-          discardContributionScope(scopeKey, scopeRaw);
-          return;
-        }
-        const selected = new URLSearchParams(
-          writeContributionSettings(params.toString(), settings),
-        );
-        for (const name of [...params.keys()]) params.delete(name);
-        for (const [name, value] of selected) params.append(name, value);
-      }
-      if (!current()) return;
-      if (localStorage.getItem(key) !== raw) {
-        setNotice(
-          'Saved Timeline preferences changed while loading. Reload to use the latest settings.',
-        );
-        return;
-      }
-      let next: string | undefined,
-        skipped = false;
-      for (const candidate of timelinePreferenceCandidates(
-        new URLSearchParams(
-          params.has('period') ? params : writeTimelinePeriod(params.toString(), context.period),
-        ),
-        explicit,
-      ))
-        try {
-          next = checkedTarget(candidate.toString(), context);
-          break;
-        } catch {
-          skipped = true;
-        }
-      if (next === undefined)
-        setNotice(
-          'Saved Timeline preferences do not fit this report. The requested view is unchanged.',
-        );
-      else {
-        if (skipped) {
-          setNotice('Saved Timeline choices that do not fit this report were skipped.');
-          try {
-            repairTimelinePreferences(key, context, stored, raw);
-          } catch {
-            setStorageAvailable(false);
-          }
-        }
-        if (next !== window.location.search.slice(1)) {
-          // Presentation restoration reuses the loaded facts, just like ordinary table edits.
-          const href = context.path + '?' + next;
-          if (resolveTimelinePresentation(context.path, next, context).awaitingData)
-            startTransition(() => router.replace(href, { scroll: false }));
-          else window.history.replaceState(null, '', href);
-        }
-      }
-    })()
-      .catch(() => {
-        if (current()) setNotice(savedScopeNotices.unchecked);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setRestoring(false);
-      });
-    return () => controller.abort();
-  }, [key, scopeKey, context, options, router]);
   function remember(params: URLSearchParams, keys: string[]) {
-    try {
-      const prior =
-        readTimelinePreferences(localStorage.getItem(key), context.area) ?? new URLSearchParams();
-      const dependent = (name: string) =>
-        /^(prs|issues)\./.test(name) ||
-        ['timeline.metric', 'timeline.columns', 'timeline.sort', 'timeline.dir'].includes(name);
-      let saved = keys;
-      // Kind-specific choices are saved with their kind and family, and replace another kind's.
-      if (context.area === 'repository' && keys.some(dependent)) {
-        saved = [...new Set([...keys, 'timeline.kind', 'timeline.family'])];
-        if (
-          ['timeline.kind', 'timeline.family'].some((name) => prior.get(name) !== params.get(name))
-        )
-          for (const name of [...prior.keys()])
-            if (dependent(name) && !saved.includes(name)) prior.delete(name);
-      }
-      for (const name of saved) {
-        prior.delete(name);
-        for (const value of params.getAll(name)) prior.append(name, value);
-      }
-      localStorage.setItem(key, serializeTimelinePreferences(prior, context.area));
-    } catch {
-      setStorageAvailable(false);
+    if (!saved) return;
+    const prior =
+      readTimelinePreferences(
+        readPreference(saved.presentation.binding, saved.presentation.section),
+        context.area,
+      ) ?? new URLSearchParams();
+    const dependent = (name: string) =>
+      /^(prs|issues)\./.test(name) ||
+      ['timeline.metric', 'timeline.columns', 'timeline.sort', 'timeline.dir'].includes(name);
+    let fields = keys;
+    // Kind-specific choices are saved with their kind and family, and replace another kind's.
+    if (context.area === 'repository' && keys.some(dependent)) {
+      fields = [...new Set([...keys, 'timeline.kind', 'timeline.family'])];
+      if (['timeline.kind', 'timeline.family'].some((name) => prior.get(name) !== params.get(name)))
+        for (const name of [...prior.keys()])
+          if (dependent(name) && !fields.includes(name)) prior.delete(name);
     }
+    for (const name of fields) {
+      prior.delete(name);
+      for (const value of params.getAll(name)) prior.append(name, value);
+    }
+    presentationCookie.write(JSON.parse(serializeTimelinePreferences(prior, context.area)));
   }
   function apply(next: string, scope: boolean, rememberKeys: string[] = []) {
-    if (busy.current || pending || restoring || awaitingData)
+    if (busy.current || pending || awaitingData)
       return 'The current update is still loading. Try again when it finishes.';
     let target;
     try {
-      target = checkedTarget(next, context);
+      target = timelineTarget(next, context);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Invalid Timeline change.';
       setNotice(message);
@@ -391,17 +232,19 @@ export function useTimelineControls(
     params.delete('timeline.window');
     const error = apply(params.toString(), true);
     if (error) return error;
-    try {
-      saveContributionScope(
-        scopeKey,
-        { repositories: context.repositories },
+    if (!saved?.scope) return;
+    const directory = { repositories: context.repositories };
+    const prior =
+      readContributionPreferenceCandidate(
+        readPreference(saved.scope.binding, saved.scope.section),
+        directory,
         context.asOf,
-        value,
-        field,
-      );
-    } catch {
-      setStorageAvailable(false);
-    }
+      ) ?? defaultContributionSettings(directory);
+    scopeCookie.write(
+      JSON.parse(
+        serializeContributionPreferences(mergeContributionPreferences(prior, value, field)),
+      ),
+    );
   }
   function reset() {
     const params = new URLSearchParams(canonical(window.location.search));
@@ -422,12 +265,7 @@ export function useTimelineControls(
       params.set('timeline.family', view.family);
     }
     const error = apply(params.toString(), true);
-    if (!error)
-      try {
-        localStorage.removeItem(key);
-      } catch {
-        setStorageAvailable(false);
-      }
+    if (!error) presentationCookie.write(null);
   }
   function resetContribution() {
     const params = new URLSearchParams(
@@ -439,12 +277,7 @@ export function useTimelineControls(
     params.set('timeline.page', '1');
     for (const name of ['timeline.from', 'timeline.to', 'timeline.inclusive']) params.delete(name);
     const error = apply(params.toString(), true);
-    if (!error)
-      try {
-        clearContributionScope(scopeKey);
-      } catch {
-        setStorageAvailable(false);
-      }
+    if (!error) scopeCookie.write(null);
   }
   const query = { search: '', sort: view.sort, descending: view.descending, page: view.page };
   const table: TableController = {
@@ -460,11 +293,7 @@ export function useTimelineControls(
         ...(patch.page !== undefined ? { page: patch.page } : {}),
       }),
     reconcilePage: (page) => {
-      if (!pending && !restoring && !awaitingData) {
-        const params = new URLSearchParams(window.location.search);
-        params.set('timeline.page', String(page));
-        window.history.replaceState(null, '', context.path + '?' + params.toString());
-      }
+      if (!pending && !awaitingData) setCorrection({ search, page });
     },
   };
   return {
@@ -478,7 +307,7 @@ export function useTimelineControls(
     reset,
     resetContribution,
     table,
-    pending: pending || restoring || awaitingData,
+    pending: pending || awaitingData,
     notice,
     storageAvailable,
     href: context.path + '?' + canonical(activeSearch),

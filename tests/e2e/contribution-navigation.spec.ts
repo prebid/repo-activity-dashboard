@@ -3,10 +3,13 @@ import { contributionSample } from '../../src/mocks/contributions';
 import {
   defaultContributionSettings,
   writeContributionSettings,
-  contributionPreferenceKey,
   serializeContributionPreferences,
 } from '../../src/lib/presentation/contribution-settings';
 import type { Page } from '@playwright/test';
+import {
+  contributionPreferences,
+  seedContributionPreferences,
+} from '../support/browser-preferences';
 async function login(page: Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -71,14 +74,13 @@ test('explicit report links render rows without JavaScript or preference hydrati
 for (const saved of [false, true])
   test(
     'header entry makes one report request with ' + (saved ? 'saved' : 'default') + ' scope',
-    async ({ page }) => {
+    async ({ page, baseURL }) => {
       await login(page);
       if (saved) {
         const settings = defaultContributionSettings(contributionSample());
         settings.period = { kind: 'preset', preset: 'last-month' };
-        await page.evaluate(({ key, value }) => localStorage.setItem(key, value), {
-          key: contributionPreferenceKey('preview-alice', 'reference'),
-          value: serializeContributionPreferences(settings),
+        await seedContributionPreferences(page.context(), baseURL!, {
+          'contributions.scope': JSON.parse(serializeContributionPreferences(settings)) as unknown,
         });
         await page.reload();
       }
@@ -155,12 +157,11 @@ test('sorting and columns share a table scope across contributors and companies'
       page.getByRole('columnheader', { name: 'Issues authored', exact: true }),
     ).toHaveCount(0);
   }
-  const keys = await page.evaluate(() =>
-    Object.keys(localStorage).filter((key) =>
-      key.startsWith('dashboard:v1:preview-alice:contributions'),
-    ),
-  );
-  expect(keys).toHaveLength(1);
+  // One sort and one column section serve the repository table on both pages.
+  expect(Object.keys((await contributionPreferences(page.context())) ?? {}).sort()).toEqual([
+    'contributions.repositories.columns',
+    'contributions.repositories.sort',
+  ]);
   await page.goto(
     '/contributors/account-alice?period=this-year&repositories.sort=name&repositories.dir=desc&repositories.columns=name',
   );

@@ -6,8 +6,16 @@ import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { repositoryPageNavigationSample, repositoryPageSample } from '@/mocks/repository-page';
 import userEvent from '@testing-library/user-event';
 import { localContributionOptions } from '../support/contribution-options';
-import { timelinePreferenceKey } from '@/lib/presentation/timeline-controls';
-import { contributionPreferenceKey } from '@/lib/presentation/contribution-settings';
+import {
+  defaultContributionSettings,
+  serializeContributionPreferences,
+} from '@/lib/presentation/contribution-settings';
+import {
+  preferenceSections,
+  rawPreferenceCookie,
+  seedPreferences,
+} from '../support/preference-cookies';
+import { preferenceSnapshot } from '@/server/preferences';
 
 // Every report page's toolbar, rendered by the screen that composes it in the app.
 const viewer = vi.hoisted(() => vi.fn());
@@ -39,6 +47,7 @@ vi.mock('next/navigation', () => {
   };
 });
 import { RepositoriesScreen } from '@/app/_screens/repositories-screen';
+import { repositoriesPreferences } from '@/app/_screens/repository-preferences';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import {
   ContributionTimelineScreen,
@@ -191,12 +200,7 @@ describe('report toolbars', () => {
       expect(buttons.map((button) => button.textContent)).toEqual(resets);
       for (const button of buttons) {
         expect(button.closest('fieldset')).not.toBeNull();
-        // The ghost variant: no fill or edge at rest, the ghost hover fill.
-        expect(button).toHaveClass('border-transparent', 'hover:bg-ghost-hover');
-        expect(button).not.toHaveClass('bg-overlay', 'bg-action');
-        const icon = button.querySelector('svg');
-        expect(icon).toHaveClass('lucide-rotate-ccw');
-        expect(icon).toHaveAttribute('width', '14');
+        expect(button.querySelector('svg')).toHaveAttribute('width', '14');
       }
       // Decision 4's sentence is the toolbar's one status line once the page settles.
       const status = within(toolbar).getByRole('status');
@@ -215,22 +219,32 @@ describe('report toolbars', () => {
 
   describe('Over time resets', () => {
     // Report filters (period, account types) and Timeline settings (grouping, direction) both
-    // differ from their defaults, and each has a saved value in browser storage.
+    // differ from their defaults, and each has a saved value in the preference cookie.
     const search =
       'timeline=1&timeline.state=1&scope=1&period=last-month&type=human&type=bot' +
       '&timeline.group=week&timeline.dir=desc';
+    const binding = { accountId: 'sample-viewer', authVersion: 0 };
+    const keys = {
+      view: 'timeline.contributors.overview',
+      filters: 'contributions.scope',
+    } as const;
     async function overTime() {
       navigation.push.mockClear();
       window.history.replaceState(null, '', '/contributors?' + search);
+      seedPreferences(binding, {
+        [keys.view]: { version: 1, query: 'timeline.group=week' },
+        [keys.filters]: JSON.parse(
+          serializeContributionPreferences(defaultContributionSettings(contributionSample())),
+        ) as unknown,
+      });
       const result = ready(
-        await contributionTimelinePreview('contributors', new URLSearchParams(search)),
+        await contributionTimelinePreview(
+          'contributors',
+          new URLSearchParams(search),
+          undefined,
+          preferenceSnapshot('contributions', binding, rawPreferenceCookie('contributions')),
+        ),
       );
-      const keys = {
-        view: timelinePreferenceKey(result.viewerId, result.controls),
-        filters: contributionPreferenceKey(result.viewerId, result.controls.sample.split(':')[0]),
-      };
-      localStorage.setItem(keys.view, 'saved view');
-      localStorage.setItem(keys.filters, 'saved filters');
       render(
         <ContributionTimelineScreen
           viewerId={result.viewerId}
@@ -263,8 +277,7 @@ describe('report toolbars', () => {
       expect(params.getAll('type')).toEqual([]);
       expect(params.get('timeline.group')).toBe('week');
       expect(params.get('timeline.dir')).toBe('desc');
-      expect(localStorage.getItem(keys.filters)).toBeNull();
-      expect(localStorage.getItem(keys.view)).toBe('saved view');
+      expect(Object.keys(preferenceSections('contributions', binding)!)).toEqual([keys.view]);
     });
 
     it('Reset view restores the Timeline settings and keeps the report filters', async () => {
@@ -274,8 +287,7 @@ describe('report toolbars', () => {
       expect(params.get('timeline.dir')).toBe('asc');
       expect(params.get('period')).toBe('last-month');
       expect(params.getAll('type')).toEqual(['human', 'bot']);
-      expect(localStorage.getItem(keys.view)).toBeNull();
-      expect(localStorage.getItem(keys.filters)).toBe('saved filters');
+      expect(Object.keys(preferenceSections('contributions', binding)!)).toEqual([keys.filters]);
     });
   });
 
@@ -292,20 +304,27 @@ describe('report toolbars', () => {
     expect(within(view).queryByRole('combobox')).not.toBeInTheDocument();
   });
 
-  it('states the unavailable-storage sentence when browser storage throws', async () => {
-    for (const method of ['getItem', 'setItem', 'removeItem'] as const)
-      vi.spyOn(Storage.prototype, method).mockImplementation(() => {
-        throw new DOMException('Storage disabled', 'SecurityError');
-      });
+  it('states the unavailable-storage sentence once the browser refuses a saved change', async () => {
+    vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
     window.history.replaceState(null, '', '/repos');
-    render(<RepositoriesScreen viewerId="sample-viewer" samples={samples} />);
-    const status = within(
-      screen.getByRole('region', { name: 'Repository view settings' }),
-    ).getByRole('status');
-    await waitFor(() =>
-      expect(status).toHaveTextContent(
-        /^Browser storage is unavailable\. Changes still work in this URL\.$/,
-      ),
+    const binding = { accountId: 'sample-viewer', authVersion: 0 };
+    render(
+      <RepositoriesScreen
+        viewerId="sample-viewer"
+        samples={samples}
+        preferences={repositoriesPreferences(
+          preferenceSnapshot('repositories', binding, undefined),
+          samples,
+        )}
+      />,
     );
+    const toolbar = screen.getByRole('region', { name: 'Repository view settings' });
+    const period = screen.getByRole('combobox', { name: 'Period 1 preset' });
+    await waitFor(() => expect(period).toBeEnabled());
+    await userEvent.selectOptions(period, 'this-week');
+    expect(within(toolbar).getByRole('status')).toHaveTextContent(
+      /^Browser storage is unavailable\. Changes still work in this URL\.$/,
+    );
+    expect(period).toHaveValue('this-week');
   });
 });

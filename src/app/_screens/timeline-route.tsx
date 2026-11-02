@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import {
   contributionTimelinePreview,
   repositoryTimelinePreview,
   repositoryTimelineMatrixPreview,
 } from '@/server/timeline-preview';
+import { readPreferences } from '@/server/preferences';
 import {
   RepositoryTimelineMatrixScreen,
   RepositoryTimelineScreen,
@@ -15,6 +17,7 @@ import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { TimelineSupportScreen } from './timeline-support-screen';
+import { readTimelineSupportSort } from './repository-preferences';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
 function InvalidTimeline({ message, href }: { message: string; href: string }) {
   return (
@@ -27,8 +30,14 @@ function InvalidTimeline({ message, href }: { message: string; href: string }) {
     </>
   );
 }
+// An entry URL, one without timeline.state, is answered with a redirect to its explicit-state URL
+// with saved preferences applied, so the page renders once and never rewrites its address.
 export async function RepositoryTimelineMatrixRoute({ params }: { params: URLSearchParams }) {
-  const result = await repositoryTimelineMatrixPreview(params);
+  const result = await repositoryTimelineMatrixPreview(
+    params,
+    await readPreferences('repositories'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <RepositoryTimelineMatrixScreen
       viewerId={result.viewerId}
@@ -49,7 +58,12 @@ export async function RepositoryTimelineRoute({
 }) {
   if (params.has('timeline.detail'))
     return <TimelineSupportRoute path={'/repos/' + encodeURIComponent(slug)} params={params} />;
-  const result = await repositoryTimelinePreview(slug, params);
+  const result = await repositoryTimelinePreview(
+    slug,
+    params,
+    await readPreferences('repositories'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <RepositoryTimelineScreen
       viewerId={result.viewerId}
@@ -80,7 +94,13 @@ export async function ContributionTimelineRoute({
         params={params}
       />
     );
-  const result = await contributionTimelinePreview(area, params, focus);
+  const result = await contributionTimelinePreview(
+    area,
+    params,
+    focus,
+    await readPreferences('contributions'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <ContributionTimelineScreen
       viewerId={result.viewerId}
@@ -96,7 +116,11 @@ export async function ContributionTimelineRoute({
 async function TimelineSupportRoute({ path, params }: { path: string; params: URLSearchParams }) {
   const result = await loadTimelineSupport(path, params);
   return result.status === 'ready' ? (
-    <TimelineSupportScreen detail={result.detail} viewerId={result.viewerId} />
+    <TimelineSupportScreen
+      detail={result.detail}
+      viewerId={result.viewerId}
+      savedSort={await readTimelineSupportSort(result.detail)}
+    />
   ) : (
     <InvalidTimeline message={result.message} href={result.parentHref ?? path} />
   );

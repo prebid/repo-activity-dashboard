@@ -1,20 +1,21 @@
 'use client';
 import { pendingTableQuery } from '@/lib/presentation/table-controller';
-import type { ContributionOptions } from '@/models/contribution-options';
-import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import { useMemo, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ContributionPage } from '@/models/contribution-page';
 import type {
   ContributionControlDirectory,
   ContributionSettings,
 } from '@/models/contribution-settings';
+import {
+  isContributionPresentationDocument,
+  type ContributionPresentation,
+  type ContributionReportPreferences,
+} from '@/models/contribution-preferences';
 import { additionalMetricIds } from '@/models/contribution-activity';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
-  hasContributionScope,
-  readContributionPreferenceCandidate,
-  contributionPreferenceNeedsLookup,
   writeContributionSettings,
   readContributionPresentation,
   serializeContributionPresentation,
@@ -32,16 +33,30 @@ import {
 import { writeTableQuery } from '@/lib/presentation/table-query';
 import { type TableQuery } from '@/models/table-query';
 import type { useTableController } from './use-table-controller';
-import {
-  clearContributionScope,
-  discardContributionScope,
-  lookupSavedScope,
-  saveContributionScope,
-  savedScopeNotices,
-  savedScopeUnchanged,
-} from './contribution-scope-storage';
+import { legacyContributionScope, mergedContributionScope } from './contribution-scope-storage';
+import { readPreference, usePreferenceCookie } from './use-preference-cookie';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
+function parseJson(raw: string): unknown {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+/** The column choices a stored presentation holds for every table that shares its section. */
+function storedColumns(raw: string | null): Record<string, boolean> {
+  const value = raw === null ? null : parseJson(raw);
+  return isContributionPresentationDocument(value)
+    ? readContributionPresentation(raw, Object.keys(value.columns)).columns
+    : {};
+}
+
+/**
+ * Report scope, column and zero-member controls for one contribution report. The first render uses
+ * the URL and the server-validated `preferences`; deliberate changes save their own cookie section.
+ * Without `preferences` nothing is saved.
+ */
 export function useContributionControls(
   viewerId: string,
   page: ContributionPage,
@@ -49,27 +64,42 @@ export function useContributionControls(
   table: ReturnType<typeof useTableController>,
   tableKey: string,
   columnIds: readonly string[],
-  options: ContributionOptions,
+  preferences?: ContributionReportPreferences,
 ) {
   const router = useRouter(),
     pathname = usePathname(),
     search = useSearchParams().toString();
-  const preferenceKey = contributionPreferenceKey(viewerId, page.sample),
-    columnKey = preferenceKey + ':columns:' + tableKey;
+  const asOf = page.report.context.asOf;
+  const legacyKey = contributionPreferenceKey(viewerId, page.sample);
   const queryKey = tableKey === 'contributors' || tableKey === 'companies' ? 'report' : tableKey;
-  const [saved, setSaved] = useState<{
-    key: string;
-    columns: Record<string, boolean>;
-    hideZeroMembers: boolean;
+  const scopeCookie = usePreferenceCookie(
+    preferences?.scope,
+    legacyContributionScope(viewerId, page.sample, directory, asOf),
+  );
+  const presentationCookie = usePreferenceCookie(preferences?.presentation, {
+    keys: [legacyKey + ':columns:' + tableKey],
+    read: (raw) => {
+      if (!isContributionPresentationDocument(parseJson(raw))) return null;
+      const stored = readContributionPresentation(raw, columnIds);
+      return JSON.parse(
+        serializeContributionPresentation(stored.columns, stored.hideZeroMembers),
+      ) as unknown;
+    },
+  });
+  // A presentation saved in this session applies until the server renders again.
+  const [changed, setChanged] = useState<{
+    basis: ContributionReportPreferences['presentation'] | undefined;
+    table: string;
+    value: ContributionPresentation;
   } | null>(null);
-  // Independent writes must not clear each other's failures (a smaller column save may fit while a scope save fails).
-  const [storage, setStorage] = useState<Record<string, boolean>>({});
-  function recordStorage(key: string, available: boolean) {
-    setStorage((previous) => ({ ...previous, [key]: available }));
+  // Feedback from this session replaces the server's notice until the server renders again.
+  const [feedback, setFeedback] = useState<{
+    basis: ContributionReportPreferences | undefined;
+    text?: string;
+  } | null>(null);
+  function setNotice(text?: string) {
+    setFeedback({ basis: preferences, text });
   }
-  const invalidStored = useRef<{ key: string; raw: string | null } | null>(null);
-  const [checking, setChecking] = useState(false);
-  const [notice, setNotice] = useState<string>();
   const [pending, startTransition] = useTransition();
   const value: ContributionSettings = useMemo(
     () => ({
@@ -78,120 +108,23 @@ export function useContributionControls(
     }),
     [page.report.context.period, page.report.context.selection],
   );
-  const explicit = hasContributionScope(new URLSearchParams(search));
+  const saved =
+    changed?.basis === preferences?.presentation && changed?.table === tableKey
+      ? changed.value
+      : (preferences?.presentation.value ?? null);
   const defaults = Object.fromEntries(additionalMetricIds.map((id) => [id, false]));
   const columns = resolveTableColumns(
     search,
     tableKey,
     defaults,
-    saved?.key === columnKey ? saved.columns : {},
+    Object.fromEntries(
+      Object.entries(saved?.columns ?? {}).filter(([id]) => columnIds.includes(id)),
+    ),
     columnIds,
   );
   const zero = new URLSearchParams(search).get('members.zero');
   const hideZeroMembers =
-    tableKey === 'members' &&
-    (zero !== null ? zero === 'hide' : saved?.key === columnKey && saved.hideZeroMembers);
-  useEffect(() => {
-    const controller = new AbortController();
-    let raw: string | null = null;
-    let scope: ContributionSettings | null = null;
-    function rejectStored(checked: string | null) {
-      invalidStored.current = { key: preferenceKey, raw: checked };
-      setNotice('Saved filters could not be restored. Default filters are shown.');
-      try {
-        if (!discardContributionScope(preferenceKey, checked)) setNotice(savedScopeNotices.changed);
-      } catch {
-        recordStorage(preferenceKey, false);
-      }
-    }
-    try {
-      raw = localStorage.getItem(preferenceKey);
-      scope = readContributionPreferenceCandidate(raw, directory, page.report.context.asOf);
-      if (!explicit) {
-        if (raw !== null && !scope) rejectStored(raw);
-        else setNotice(undefined);
-      }
-      setStorage((previous) =>
-        preferenceKey in previous ? previous : { ...previous, [preferenceKey]: true },
-      );
-    } catch {
-      setStorage((previous) => ({ ...previous, [preferenceKey]: false }));
-    }
-    try {
-      setSaved({
-        key: columnKey,
-        ...readContributionPresentation(localStorage.getItem(columnKey), columnIds),
-      });
-      setStorage((previous) =>
-        columnKey in previous ? previous : { ...previous, [columnKey]: true },
-      );
-    } catch {
-      setSaved(null);
-      setStorage((previous) => ({ ...previous, [columnKey]: false }));
-    }
-    if (
-      !explicit &&
-      scope &&
-      writeContributionSettings('', scope) !== writeContributionSettings('', value)
-    ) {
-      const candidate = scope;
-      const url = new URL(window.location.href),
-        before = url.pathname + url.search;
-      url.search = writeContributionSettings(url.search, candidate);
-      if (!contributionUrlFits(url.pathname + url.search)) {
-        setNotice('Saved filters are too large for this link. Default filters are shown.');
-      } else {
-        const currentLocation = () =>
-          !controller.signal.aborted &&
-          window.location.pathname + window.location.search === before;
-        const apply = (restored: ContributionSettings | null) => {
-          if (!currentLocation()) return;
-          try {
-            if (!savedScopeUnchanged(preferenceKey, raw)) {
-              setNotice(savedScopeNotices.changed);
-              return;
-            }
-          } catch {
-            recordStorage(preferenceKey, false);
-            return;
-          }
-          if (!restored) {
-            rejectStored(raw);
-            return;
-          }
-          invalidStored.current = null;
-          url.search = writeContributionSettings(url.search, restored);
-          startTransition(() => router.replace(url.pathname + url.search, { scroll: false }));
-        };
-        if (contributionPreferenceNeedsLookup(candidate)) {
-          setChecking(true);
-          void lookupSavedScope(options, candidate, controller.signal)
-            .then(apply)
-            .catch(() => {
-              if (currentLocation()) setNotice(savedScopeNotices.unchecked);
-            })
-            .finally(() => {
-              if (!controller.signal.aborted) setChecking(false);
-            });
-          return () => controller.abort();
-        }
-        apply(candidate);
-      }
-    }
-    setChecking(false);
-    return () => controller.abort();
-  }, [
-    preferenceKey,
-    columnKey,
-    columnIds,
-    directory,
-    page.report.context.asOf,
-    explicit,
-    pathname,
-    router,
-    value,
-    options,
-  ]);
+    tableKey === 'members' && (zero !== null ? zero === 'hide' : !!saved?.hideZeroMembers);
   function presentation(search: string, visible = columns, hideZero = hideZeroMembers) {
     const params = new URLSearchParams(writeTableColumns(search, tableKey, visible, columnIds));
     if (tableKey === 'members') params.set('members.zero', hideZero ? 'hide' : 'show');
@@ -213,21 +146,9 @@ export function useContributionControls(
     return url;
   }
   function remember(next: ContributionSettings, field: ContributionSettingField | 'reset') {
-    try {
-      if (field !== 'reset')
-        saveContributionScope(
-          preferenceKey,
-          directory,
-          page.report.context.asOf,
-          next,
-          field,
-          invalidStored.current?.key === preferenceKey ? invalidStored.current.raw : undefined,
-        );
-      else clearContributionScope(preferenceKey);
-      recordStorage(preferenceKey, true);
-    } catch {
-      recordStorage(preferenceKey, false);
-    }
+    if (field === 'reset') scopeCookie.write(null);
+    else if (preferences)
+      scopeCookie.write(mergedContributionScope(preferences.scope, directory, asOf, next, field));
   }
   const renderedQuery = pendingTableQuery(table);
   function proposal() {
@@ -262,26 +183,37 @@ export function useContributionControls(
     }
     freezeReturn();
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
-    setSaved({ key: columnKey, columns: next, hideZeroMembers: hideZero });
-    try {
-      localStorage.setItem(columnKey, serializeContributionPresentation(next, hideZero));
-      recordStorage(columnKey, true);
-    } catch {
-      recordStorage(columnKey, false);
+    // Tables of one kind can render different columns, so only this table's columns are replaced
+    // in the section the cookie holds; choices for columns it lacks stay for the tables that have it.
+    const saving = preferences
+      ? storedColumns(
+          readPreference(preferences.presentation.binding, preferences.presentation.section),
+        )
+      : {};
+    for (const id of columnIds) {
+      delete saving[id];
+      if (typeof next[id] === 'boolean') saving[id] = next[id];
     }
+    setChanged({
+      basis: preferences?.presentation,
+      table: tableKey,
+      value: { columns: saving, hideZeroMembers: hideZero },
+    });
+    presentationCookie.write(JSON.parse(serializeContributionPresentation(saving, hideZero)));
   }
   const returnHref = pathname + '?' + snapshot(search, renderedQuery);
   const linkNotice = contributionHref('contributors', page.sample, returnHref, value)
     ? undefined
     : contributionLinkLimitMessage;
+  const notice = feedback && feedback.basis === preferences ? feedback.text : preferences?.notice;
   return {
     value,
     update: (next: ContributionSettings, field: ContributionSettingField) => update(next, field),
     reset: () => update(defaultContributionSettings(directory), 'reset'),
-    pending: pending || checking,
+    pending,
     notice: notice ?? linkNotice,
     storageAvailable:
-      storage[preferenceKey] !== false && storage[columnKey] !== false && table.storageAvailable,
+      scopeCookie.storageAvailable && presentationCookie.storageAvailable && table.storageAvailable,
     visibility: {
       value: columns,
       onChange: (next: Record<string, boolean>) => changePresentation(next, hideZeroMembers),

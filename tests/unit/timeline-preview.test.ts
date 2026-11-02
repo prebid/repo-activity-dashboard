@@ -1,5 +1,17 @@
 import { repositoryTimelineMetricScope } from '@/models/repository-timeline';
-import { beforeEach, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { PreferenceSectionKey } from '@/models/preferences';
+import {
+  encodePreferenceDocument,
+  withPreferenceSection,
+  type PreferenceDocument,
+} from '@/lib/presentation/preference-cookie';
+import {
+  defaultContributionSettings,
+  serializeContributionPreferences,
+} from '@/lib/presentation/contribution-settings';
+import { contributionSample } from '@/mocks/contributions';
+import { preferenceSnapshot } from '@/server/preferences';
 const viewer = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
 // Server composition is checked against the reference cast, whose answers are hand-checkable.
@@ -268,4 +280,178 @@ it('rejects ambiguous scalar scope fields rather than broadening a copied contri
       )
     ).status,
   ).toBe('invalid');
+});
+describe('saved preferences', () => {
+  const binding = { accountId: 'sample-viewer', authVersion: 0 };
+  function snapshot(
+    cookie: 'repositories' | 'contributions',
+    sections: Partial<Record<PreferenceSectionKey, unknown>>,
+  ) {
+    let document: PreferenceDocument | null = null;
+    for (const [section, value] of Object.entries(sections))
+      document = withPreferenceSection(document, binding, section as PreferenceSectionKey, value);
+    return preferenceSnapshot(
+      cookie,
+      binding,
+      document ? encodePreferenceDocument(document) : undefined,
+    );
+  }
+  const query = (href: string) => new URL(href, 'https://dashboard.invalid').searchParams;
+  it('redirects an entry to its explicit-state URL with saved presentation applied', async () => {
+    const saved = snapshot('repositories', {
+      'timeline.matrix': { version: 1, query: 'timeline.dir=desc' },
+      'timeline.repository': { version: 1, query: 'timeline.group=week' },
+    });
+    const matrix = await repositoryTimelineMatrixPreview(new URLSearchParams('timeline=1'), saved);
+    if (matrix.status !== 'redirect') throw Error('Expected a redirect');
+    expect(matrix.href.startsWith('/repos?timeline=1&')).toBe(true);
+    expect(query(matrix.href).get('timeline.dir')).toBe('desc');
+    const repository = await repositoryTimelinePreview(
+      'prebidjs',
+      new URLSearchParams('timeline=1'),
+      saved,
+    );
+    expect(repository.status === 'redirect' && repository.href).toMatch(
+      /^\/repos\/prebidjs\?timeline=1&period=this-year&timeline\.state=1&timeline\.group=week&/,
+    );
+    const contribution = await contributionTimelinePreview(
+      'companies',
+      new URLSearchParams('timeline=1'),
+      { kind: 'company', companyId: 'company-acme' },
+      snapshot('contributions', {}),
+    );
+    expect(contribution.status === 'redirect' && contribution.href).toBe(
+      '/companies/id/company-acme?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1',
+    );
+  });
+  it('hands explicit-state renders their sections without reading saved values', async () => {
+    const result = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1&timeline.state=1'),
+      snapshot('repositories', { 'timeline.matrix': { version: 9 } }),
+    );
+    if (result.status !== 'ready') throw Error('Expected a render');
+    expect(result.controls.preferences).toEqual({
+      presentation: { section: 'timeline.matrix', binding, value: null },
+    });
+    const contribution = await contributionTimelinePreview(
+      'contributors',
+      new URLSearchParams('timeline=1&timeline.state=1'),
+      undefined,
+      snapshot('contributions', { 'contributions.scope': { version: 9 } }),
+    );
+    if (contribution.status !== 'ready') throw Error('Expected a render');
+    expect(contribution.controls.preferences).toEqual({
+      presentation: { section: 'timeline.contributors.overview', binding, value: null },
+      scope: { section: 'contributions.scope', binding, value: null },
+    });
+  });
+  it('renders the requested view with the recovery notice and marks only the reported section', async () => {
+    const invalid = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1'),
+      snapshot('repositories', { 'timeline.matrix': { version: 9 } }),
+    );
+    if (invalid.status !== 'ready') throw Error('Expected a render');
+    expect(invalid.controls.preferences).toEqual({
+      presentation: { section: 'timeline.matrix', binding, value: null, invalid: '{"version":9}' },
+      notice: 'Saved Timeline preferences are invalid. Defaults are shown.',
+    });
+    const scope = defaultContributionSettings(contributionSample());
+    const retired = {
+      ...scope,
+      selection: { ...scope.selection, excludedAccountIds: ['account-retired'] },
+    };
+    const both = await contributionTimelinePreview(
+      'contributors',
+      new URLSearchParams('timeline=1'),
+      undefined,
+      snapshot('contributions', {
+        'contributions.scope': JSON.parse(serializeContributionPreferences(retired)) as unknown,
+        'timeline.contributors.overview': { version: 9 },
+      }),
+    );
+    if (both.status !== 'ready') throw Error('Expected a render');
+    // The invalid presentation is reported first; the scope was not consulted, so it stays.
+    expect(both.controls.preferences?.presentation.invalid).toBe('{"version":9}');
+    expect(both.controls.preferences?.scope).toEqual({
+      section: 'contributions.scope',
+      binding,
+      value: null,
+    });
+    const scopeOnly = await contributionTimelinePreview(
+      'contributors',
+      new URLSearchParams('timeline=1'),
+      undefined,
+      snapshot('contributions', {
+        'contributions.scope': JSON.parse(serializeContributionPreferences(retired)) as unknown,
+      }),
+    );
+    if (scopeOnly.status !== 'ready') throw Error('Expected a render');
+    expect(scopeOnly.controls.preferences).toMatchObject({
+      notice: 'Saved filters could not be restored. Default filters are shown.',
+      presentation: { value: null },
+      scope: { value: null },
+    });
+    expect(scopeOnly.controls.preferences?.presentation).not.toHaveProperty('invalid');
+    expect(JSON.parse(scopeOnly.controls.preferences!.scope!.invalid!) as unknown).toEqual(
+      JSON.parse(serializeContributionPreferences(retired)) as unknown,
+    );
+  });
+  it('marks a saved presentation that fails on every visit for deletion, and keeps one that fails only here', async () => {
+    const stale = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1'),
+      snapshot('repositories', {
+        'timeline.matrix': {
+          version: 1,
+          query: 'timeline.dir=desc&timeline.sort=week:2026-10-19T00:00:00.000Z',
+        },
+      }),
+    );
+    if (stale.status !== 'ready') throw Error('Expected a render');
+    expect(stale.href).toBe('/repos?timeline=1');
+    expect(stale.controls.view.descending).toBe(false);
+    expect(stale.controls.preferences).toEqual({
+      presentation: {
+        section: 'timeline.matrix',
+        binding,
+        value: null,
+        invalid:
+          '{"version":1,"query":"timeline.dir=desc&timeline.sort=week:2026-10-19T00:00:00.000Z"}',
+      },
+      notice: 'Saved Timeline choices that do not fit this report were skipped.',
+    });
+    const onlyHere = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1&timeline.group=month'),
+      snapshot('repositories', {
+        'timeline.matrix': {
+          version: 1,
+          query:
+            'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.group=week&timeline.sort=week:2026-10-19T00:00:00.000Z',
+        },
+      }),
+    );
+    if (onlyHere.status !== 'redirect') throw Error('Expected a redirect');
+    const redirected = query(onlyHere.href);
+    expect([redirected.get('timeline.group'), redirected.get('timeline.sort')]).toEqual([
+      'month',
+      'repository',
+    ]);
+    expect(redirected.getAll('timeline.metric')).toEqual(['prsOpened', 'issuesOpened']);
+  });
+  it('applies a saved scope that the directory still resolves, without a client lookup', async () => {
+    const scope = defaultContributionSettings(contributionSample());
+    const known = {
+      ...scope,
+      selection: { ...scope.selection, excludedAccountIds: ['account-alice'] },
+    };
+    const result = await contributionTimelinePreview(
+      'contributors',
+      new URLSearchParams('timeline=1'),
+      undefined,
+      snapshot('contributions', {
+        'contributions.scope': JSON.parse(serializeContributionPreferences(known)) as unknown,
+      }),
+    );
+    if (result.status !== 'redirect') throw Error('Expected a redirect');
+    expect(query(result.href).getAll('exclude')).toEqual(['account-alice']);
+  });
 });

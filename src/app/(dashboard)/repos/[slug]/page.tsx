@@ -6,6 +6,11 @@ import Link from 'next/link';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
 import { repositoryPageMetadata } from '@/server/page-metadata';
+import { readPreferences } from '@/server/preferences';
+import {
+  repositoryInsightSort,
+  repositoryPagePreferences,
+} from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
 import styles from '@/features/repositories/repository-page.module.css';
 export async function generateMetadata({
@@ -39,6 +44,10 @@ export default async function RepositoryPage({
         viewerId={result.viewer.id}
         source={result.source}
         navigation={result.navigation}
+        preferences={repositoryPagePreferences(
+          await readPreferences('repositories'),
+          result.source,
+        )}
       />
     );
   if (result.status === 'insight')
@@ -47,6 +56,7 @@ export default async function RepositoryPage({
         viewerId={result.viewer.id}
         insight={result.insight}
         navigation={result.navigation}
+        savedSort={repositoryInsightSort(await readPreferences('repositories'), result.insight)}
       />
     );
   if (result.status === 'invalid' || result.status === 'unsupported')

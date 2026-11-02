@@ -222,12 +222,9 @@ export function ContributionTimelineScreen({
 }: Shared & { report: ContributionTimeline; area: ContributionArea; reportHref: string }) {
   const sample = context.sample.split(':')[0] as ContributionSampleScenario;
   const options = useMemo(() => contributionOptionsClient(sample), [sample]);
-  const control = useTimelineControls(
-    viewerId,
-    context,
-    defaults(contributionTimelineMetrics),
-    options,
-  );
+  // The server checks a saved scope's accounts and companies before rendering, so the options
+  // serve the filter controls only.
+  const control = useTimelineControls(viewerId, context, defaults(contributionTimelineMetrics));
   const { pending, href } = control;
   const detailHref = useCallback(
     (metric: string, interval: string) =>

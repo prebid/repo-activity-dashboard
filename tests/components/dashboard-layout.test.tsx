@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, expect, it, vi } from 'vitest';
 import type { AuthenticatedUser } from '@/models/accounts';
 import DashboardLayout from '@/app/(dashboard)/layout';
+import { preferenceNoticeEvent } from '@/lib/navigation/use-preference-cookie';
 
 const { requireViewer, savedWidth } = vi.hoisted(() => ({
   requireViewer: vi.fn(),
@@ -79,6 +80,26 @@ it('frames the page with the skip link, masthead, content and one workspace foot
   expect(main.nextElementSibling).toBe(footer);
   expect(frame).not.toHaveTextContent('Sample reporting data');
   expect(screen.queryByRole('complementary', { name: 'Data source' })).not.toBeInTheDocument();
+});
+it('announces an evicted saved preference at the top of the page content', async () => {
+  requireViewer.mockResolvedValue({
+    id: 'alice',
+    email: 'alice@example.test',
+    role: 'user',
+    authVersion: 1,
+  } satisfies AuthenticatedUser);
+  render(await DashboardLayout({ children: <p>Report</p> }));
+  const main = screen.getByRole('main');
+  expect(within(main).queryByRole('alert')).not.toBeInTheDocument();
+  act(() => {
+    window.dispatchEvent(
+      new CustomEvent(preferenceNoticeEvent, {
+        detail: { kind: 'evicted', sections: ['overview'] },
+      }),
+    );
+  });
+  expect(main.firstElementChild).toBe(within(main).getByRole('alert'));
+  expect(within(main).getByRole('alert')).toHaveTextContent('least recently changed');
 });
 it.each([
   [undefined, 'wide'],

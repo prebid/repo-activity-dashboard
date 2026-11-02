@@ -1,6 +1,10 @@
 import { test, expect, expectTheme } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
+import {
+  encodePreferenceDocument,
+  preferenceCookies,
+} from '../../src/lib/presentation/preference-cookie';
 
 async function login(page: Page, email?: string) {
   await page.goto('/auth/login');
@@ -380,7 +384,7 @@ test('browser history, explicit URLs and empty selections keep their meaning wit
   ).toHaveCount(18);
 });
 
-test('saved page preferences remain separate for Alice and Bob', async ({ page }) => {
+test("one account's saved view is never shown to another account", async ({ page }) => {
   await login(page);
   await selectRepositories(page, ['SalesAgent']);
   await chooseAges(page, [360]);
@@ -395,11 +399,97 @@ test('saved page preferences remain separate for Alice and Bob', async ({ page }
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await expect(page).toHaveURL(/\/auth\/login/);
   await login(page, 'alice@example.test');
-  await expectAges(page, [360]);
+  // The browser holds one account's saved view at a time; Bob's is ignored for Alice.
+  await expectAges(page, [30]);
   await expect(
     page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
-  ).toHaveCount(1);
-  await expect(row(page, 'Current backlog', 'SalesAgent')).toBeVisible();
+  ).toHaveCount(18);
+});
+
+test('a later visit is rendered in its saved view by the server, without changing the address', async ({
+  page,
+  browser,
+}, testInfo) => {
+  await login(page);
+  await selectRepositories(page, ['Prebid.js', 'SalesAgent']);
+  await chooseAges(page, [90]);
+  const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
+  await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
+  const total = backlog.getByRole('columnheader', { name: 'Total PRs', exact: true });
+  await expect(total).toHaveAttribute('aria-sort', 'ascending');
+  // Sign-in reached this page by client navigation; the saved cookie is still readable here.
+  await expect(page.getByText('Preferences saved for your account on this browser.')).toBeVisible();
+  // Without scripts the page shows only what the server sent: the saved view, with no flash.
+  const serverOnly = await browser.newContext({
+    baseURL: testInfo.project.use.baseURL,
+    javaScriptEnabled: false,
+    storageState: await page.context().storageState(),
+  });
+  try {
+    const html = await serverOnly.newPage();
+    await html.goto('/repos');
+    await expect(
+      html.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
+    ).toHaveCount(2);
+    await expectAges(html, [90]);
+    await expect(
+      html.getByRole('columnheader', { name: 'Total PRs', exact: true }),
+    ).toHaveAttribute('aria-sort', 'ascending');
+  } finally {
+    await serverOnly.close();
+  }
+  await page.goto('/repos');
+  const entries = await page.evaluate(() => history.length);
+  await expect(page.getByRole('button', { name: 'Columns', exact: true }).first()).toBeEnabled();
+  await page.waitForLoadState('networkidle');
+  await expectAges(page, [90]);
+  await expect(total).toHaveAttribute('aria-sort', 'ascending');
+  expect(await page.evaluate(() => location.pathname + location.search)).toBe('/repos');
+  expect(await page.evaluate(() => history.length)).toBe(entries);
+});
+
+test('an invalid saved view shows the defaults with the recovery notice once', async ({
+  page,
+}, testInfo) => {
+  await login(page);
+  const { name, path } = preferenceCookies.repositories;
+  await page.context().addCookies([
+    {
+      name,
+      value: encodePreferenceDocument({
+        cookie: 'repositories',
+        binding: { accountId: 'preview-alice', authVersion: 0 },
+        sections: {
+          overview: { updated: 0, value: { version: 3, settings: { repositoryIds: 'all' } } },
+          'overview.backlog.sort': { updated: 1, value: { sort: 'name', descending: true } },
+        },
+      }),
+      domain: new URL(testInfo.project.use.baseURL!).hostname,
+      path,
+    },
+  ]);
+  await page.goto('/repos');
+  await expect(
+    page.getByText('Saved All repositories preferences are invalid. Defaults are shown.'),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
+  ).toHaveCount(18);
+  // The valid sort still applies; only the invalid section is removed after the page loads.
+  await expect(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('columnheader', { name: 'Repository', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  await page.waitForLoadState('networkidle');
+  await page.goto('/repos');
+  await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
+  await expect(page.getByText(/preferences are invalid/)).toHaveCount(0);
+  await expect(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('columnheader', { name: 'Repository', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
 });
 
 test('custom dates validate and show prepared or missing values without changing backlog', async ({
@@ -442,12 +532,18 @@ test('selectors remain usable without browser storage', async ({ context, page }
       Storage.prototype[method] = () => {
         throw new DOMException('Storage disabled', 'SecurityError');
       };
+    // The browser keeps no cookie a script writes; the session cookie comes from the server.
+    const cookie = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie')!;
+    Object.defineProperty(Document.prototype, 'cookie', { ...cookie, set: () => {} });
   });
   await login(page);
   await expect(
-    page.getByText('Browser storage is unavailable. Changes still work in this URL.'),
+    page.getByText('Preferences saved for your account on this browser.').first(),
   ).toBeVisible();
   await chooseAges(page, [60]);
+  await expect(
+    page.getByText('Browser storage is unavailable. Changes still work in this URL.'),
+  ).toBeVisible();
   await expect(row(page, 'Current backlog').locator('[data-column="agedPrs60"]')).toHaveText('60');
   await selectRepositories(page, []);
   await expect(

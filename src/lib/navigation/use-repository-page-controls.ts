@@ -1,9 +1,10 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { writeTableQuery } from '@/lib/presentation/table-query';
 import { useSearchParams } from 'next/navigation';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { RepositoryPageFilters, RepositoryPageSource } from '@/models/repository-page';
+import type { SavedPreference } from '@/models/preferences';
 import {
   defaultRepositoryFilters,
   readRepositoryFilters,
@@ -12,65 +13,72 @@ import {
 import {
   repositoryColumnDefaults,
   repositoryColumnsKey,
-  readRepositoryCharts,
+  readRepositoryPresentation,
   serializeRepositoryColumns,
+  type RepositoryPresentation,
 } from '@/lib/presentation/repository-page-preferences';
 import {
-  readTableColumns,
   resolveTableColumns,
   writeTableColumns,
 } from '@/lib/presentation/table-column-preferences';
 import type { useTableController } from './use-table-controller';
+import { readPreference, usePreferenceCookie } from './use-preference-cookie';
 
+/**
+ * Record-list filters, columns and charts. Filters live in the URL only. Columns and charts start
+ * from the server-validated `saved` value of this list kind, shared by every repository; a
+ * deliberate change saves only the field it changed. Without `saved`, changes last for this page.
+ */
 export function useRepositoryPageControls(
   viewerId: string,
   source: RepositoryPageSource,
   columnIds: readonly string[],
   table: ReturnType<typeof useTableController>,
+  saved?: SavedPreference<RepositoryPresentation>,
 ) {
   const search = useSearchParams().toString();
-  const key = repositoryColumnsKey(viewerId, source.repository.id, source.kind);
-  const [saved, setSaved] = useState<{
-    key: string;
-    columns: Record<string, boolean>;
-    chartsVisible: boolean;
+  const { write, storageAvailable } = usePreferenceCookie(saved, {
+    keys: [repositoryColumnsKey(viewerId, source.repository.id, source.kind)],
+    read: (raw) => {
+      const value = readRepositoryPresentation(raw, columnIds);
+      return value && (JSON.parse(serializePresentation(value)) as unknown);
+    },
+  });
+  // Choices this page saved or reset, per viewer and list kind; until then the saved value applies.
+  const owner = viewerId + ':' + source.kind;
+  const [changed, setChanged] = useState<{
+    owner: string;
+    value: RepositoryPresentation | null;
   } | null>(null);
-  const [storageAvailable, setStorageAvailable] = useState(true);
+  const current = changed?.owner === owner ? changed.value : (saved?.value ?? null);
+  // Choices for columns this list lacks stay saved for the lists that have them.
+  const savedColumns = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(current?.columns ?? {}).filter(([id]) => columnIds.includes(id)),
+      ),
+    [current, columnIds],
+  );
+  // Once the browser refuses the cookie, the choices saved in this page are only in memory.
+  const persisted = useRef(true);
   const defaults = useMemo(() => repositoryColumnDefaults(source), [source]);
   const filters = useMemo(() => readRepositoryFilters(search, source), [search, source]);
-  const columns = resolveTableColumns(
-    search,
-    source.kind,
-    defaults,
-    saved?.key === key ? saved.columns : {},
-    columnIds,
-  );
+  const columns = resolveTableColumns(search, source.kind, defaults, savedColumns, columnIds);
   const chartParam = new URLSearchParams(search).get(source.kind + '.charts');
   const chartsVisible =
-    chartParam === null ? (saved?.key === key ? saved.chartsVisible : false) : chartParam !== '0';
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(key);
-      setSaved({
-        key,
-        columns: readTableColumns(raw, columnIds),
-        chartsVisible: readRepositoryCharts(raw),
-      });
-      setStorageAvailable(true);
-    } catch {
-      setSaved(null);
-      setStorageAvailable(false);
-    }
-  }, [key, columnIds]);
-  function remember(value: Record<string, boolean> | null, showCharts = chartsVisible) {
-    setSaved(value ? { key, columns: value, chartsVisible: showCharts } : null);
-    try {
-      if (value) localStorage.setItem(key, serializeRepositoryColumns(value, showCharts));
-      else localStorage.removeItem(key);
-      setStorageAvailable(true);
-    } catch {
-      setStorageAvailable(false);
-    }
+    chartParam === null ? (current?.chartsVisible ?? false) : chartParam !== '0';
+  /** The saved choices a change applies to: the live cookie, so another tab's field survives. */
+  function prior(): RepositoryPresentation {
+    const value =
+      saved && persisted.current
+        ? readRepositoryPresentation(readPreference(saved.binding, saved.section), columnIds)
+        : current;
+    return value ?? { columns: {}, chartsVisible: false };
+  }
+  function remember(value: RepositoryPresentation | null) {
+    setChanged({ owner, value });
+    const result = write(value && (JSON.parse(serializePresentation(value)) as unknown));
+    if (result && result.status !== 'too-large') persisted.current = result.status === 'saved';
   }
   function changeColumns(value: Record<string, boolean>) {
     table.flushSearch();
@@ -80,10 +88,11 @@ export function useRepositoryPageControls(
     url.search = writeTableColumns(url.search, source.kind, value, columnIds);
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
     // Save deliberate overrides only, so context-sensitive defaults still work on another cohort.
-    const overrides = { ...(saved?.key === key ? saved.columns : {}) };
+    const saving = prior();
+    const overrides = { ...saving.columns };
     for (const id of columnIds)
       if ((columns[id] !== false) !== (value[id] !== false)) overrides[id] = value[id] !== false;
-    remember(overrides);
+    remember({ ...saving, columns: overrides });
   }
   function changeCharts(show: boolean) {
     table.flushSearch();
@@ -92,7 +101,7 @@ export function useRepositoryPageControls(
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
     url.searchParams.set(source.kind + '.charts', show ? '1' : '0');
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
-    remember(saved?.key === key ? saved.columns : {}, show);
+    remember({ ...prior(), chartsVisible: show });
   }
   const updateFilters = useCallback(
     (value: RepositoryPageFilters) => {
@@ -137,4 +146,8 @@ export function useRepositoryPageControls(
     visibility: { value: columns, onChange: changeColumns } satisfies ColumnVisibility,
     storageAvailable: storageAvailable && table.storageAvailable,
   };
+}
+
+function serializePresentation(value: RepositoryPresentation) {
+  return serializeRepositoryColumns(value.columns, value.chartsVisible);
 }

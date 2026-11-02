@@ -4,6 +4,8 @@ import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { repositoryAuthorPageMetadata } from '@/server/page-metadata';
+import { readPreferences } from '@/server/preferences';
+import { repositoryPagePreferences } from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
 import styles from '@/features/repositories/repository-page.module.css';
 
@@ -49,6 +51,7 @@ export default async function AuthorRecordsPage({
       viewerId={result.viewer.id}
       source={result.source}
       navigation={result.navigation}
+      preferences={repositoryPagePreferences(await readPreferences('repositories'), result.source)}
     />
   );
 }

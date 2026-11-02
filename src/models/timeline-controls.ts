@@ -4,6 +4,7 @@ import type { PeriodSelection, DateRange } from './reporting-period';
 import type { OverviewRepository } from './repository-overview';
 import type { RepositoryPageFilters } from './repository-page';
 import type { ContributionSettings } from './contribution-settings';
+import type { SavedPreference } from './preferences';
 export const timelineViewSchema = z
   .object({
     grouping: z.enum(timelineGroupings),
@@ -54,4 +55,15 @@ export interface TimelineControlContext {
   repositoryIds?: string[];
   filters?: RepositoryPageFilters;
   contribution?: ContributionSettings;
+  /** Saved-preference sections and the server's entry notice; without them nothing is saved. */
+  preferences?: TimelinePreferences;
+}
+/** What route composition resolved from the preference cookie for one Timeline render. */
+export interface TimelinePreferences {
+  /** Where deliberate presentation changes are saved: the validated query of preference fields. */
+  presentation: SavedPreference<string>;
+  /** Contribution Timelines: where deliberate scope changes are saved. */
+  scope?: SavedPreference<ContributionSettings>;
+  /** Why saved preferences were not applied to this entry; the toolbar shows it. */
+  notice?: string;
 }
