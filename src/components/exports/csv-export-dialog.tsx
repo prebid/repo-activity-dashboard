@@ -1,7 +1,7 @@
 'use client';
 import { StaleExportError } from './csv-download';
 import { ScrollableDialogContent, ScrollableDialogBody } from '@/components/ui/scrollable-dialog';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ExportIcon } from '@/components/ui/icons';
 import { Callout } from '@/components/feedback/callout';
@@ -14,8 +14,10 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
+import { Radio } from '@/components/ui/radio';
 import { ColumnSelection } from '@/components/tables/column-selection';
-import type { SelectableColumn } from '@/models/column-selection';
+import { matchingColumnSet } from '@/lib/presentation/column-selection';
+import type { ColumnSetChoice, ColumnSetOption, SelectableColumn } from '@/models/column-selection';
 import { type TableQuery } from '@/models/table-query';
 import styles from './csv-export.module.css';
 export interface CsvFile {
@@ -41,6 +43,11 @@ interface CsvExportDialogProps {
   title: string;
   columns: CsvColumnChoice[];
   visibleColumnIds: string[];
+  /**
+   * Named column sets offered above the column list. Choosing one changes only this export's
+   * columns; the table's columns, sort and saved choices stay as they are.
+   */
+  columnSets?: ColumnSetChoice;
   contextKey: string;
   layouts?: readonly CsvLayoutChoice[];
   onOpen?: () => void;
@@ -55,6 +62,7 @@ export function CsvExportDialog({
   title,
   columns,
   visibleColumnIds,
+  columnSets,
   contextKey,
   layouts = noLayouts,
   onOpen,
@@ -78,6 +86,18 @@ export function CsvExportDialog({
   const chosen = choices
     .filter((column) => column.required || selected.includes(column.id))
     .map((column) => column.id);
+  const setsName = useId();
+  // A layout offers only its own columns, so a set decides those alone.
+  const offered = (id: string) => choices.some((column) => column.id === id);
+  const sets = columnSets && {
+    label: columnSets.label,
+    domain: columnSets.domain.filter(offered),
+    options: columnSets.options.map((option) => ({
+      ...option,
+      columnIds: option.columnIds.filter(offered),
+    })),
+  };
+  const currentSet = sets && matchingColumnSet(sets, chosen);
   useEffect(() => {
     if (active.current) {
       clearTimeout(active.current.timer);
@@ -109,6 +129,19 @@ export function CsvExportDialog({
   function choose(ids: string[]) {
     const allowed = new Set(choices.map((column) => column.id));
     setSelected((previous) => [...previous.filter((id) => !allowed.has(id)), ...ids]);
+  }
+  /** A set decides its domain and its own columns; identity and other choices keep their state. */
+  function chooseSet(option: ColumnSetOption, domain: readonly string[]) {
+    const decided = new Set([...domain, ...option.columnIds]);
+    choose(
+      choices
+        .filter((column) =>
+          decided.has(column.id)
+            ? option.columnIds.includes(column.id)
+            : chosen.includes(column.id),
+        )
+        .map((column) => column.id),
+    );
   }
   async function download() {
     if (active.current || !chosen.length) return;
@@ -216,6 +249,21 @@ export function CsvExportDialog({
               Required identity fields, report context and coverage for selected metrics are
               included automatically.
             </p>
+            {sets && (
+              <fieldset className={styles.sets} disabled={pending}>
+                <legend>{sets.label}</legend>
+                {sets.options.map((option) => (
+                  <label key={option.id}>
+                    <Radio
+                      name={setsName}
+                      checked={currentSet?.id === option.id}
+                      onChange={() => chooseSet(option, sets.domain)}
+                    />
+                    {option.label}
+                  </label>
+                ))}
+              </fieldset>
+            )}
             <div className={styles.actions}>
               <Button
                 type="button"
@@ -230,15 +278,18 @@ export function CsvExportDialog({
               >
                 Visible columns
               </Button>
-              <Button
-                type="button"
-                size="sm"
-                variant="ghost"
-                disabled={pending}
-                onClick={() => choose(choices.map((column) => column.id))}
-              >
-                All columns
-              </Button>
+              {/* The All columns set replaces this action where sets are offered. */}
+              {!sets && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  disabled={pending}
+                  onClick={() => choose(choices.map((column) => column.id))}
+                >
+                  All columns
+                </Button>
+              )}
               <Button
                 type="button"
                 size="sm"

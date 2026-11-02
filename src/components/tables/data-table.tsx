@@ -422,7 +422,11 @@ export function DataTable<T extends { id: string }>({
           {showColumnMenu && (
             <ColumnMenu
               columns={columnMenuColumns ?? columns}
-              visibility={{ value: effectiveVisibility, onChange: changeVisibility }}
+              visibility={{
+                value: effectiveVisibility,
+                onChange: changeVisibility,
+                sets: visibility?.sets,
+              }}
             />
           )}
           {exportControl ??
@@ -439,6 +443,7 @@ export function DataTable<T extends { id: string }>({
                   required: column.hideable === false,
                 }))}
                 visibleColumnIds={visibleColumns.map((column) => column.id)}
+                columnSets={visibility?.sets}
                 contextKey={exportContextKey ?? controller.scopeKey}
                 layouts={csvAlternatives}
                 onOpen={() => {
