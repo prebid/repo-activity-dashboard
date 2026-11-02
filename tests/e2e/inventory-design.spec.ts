@@ -210,7 +210,12 @@ async function inspectIcons(page: Page) {
 }
 
 async function fontsReady(page: Page) {
-  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  // Layout requests the faces a page uses, and fonts.ready settles at once while none is
+  // pending, so two frames let layout run before waiting on the loads.
+  await page.evaluate(async () => {
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await document.fonts.ready;
+  });
 }
 
 for (const [title, theme] of themes)
