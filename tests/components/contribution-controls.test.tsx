@@ -1,5 +1,3 @@
-import type { ContributionOptions } from '@/models/contribution-options';
-import type { ContributionSettings } from '@/models/contribution-settings';
 import { localContributionOptions } from '../support/contribution-options';
 import { useMemo, useSyncExternalStore } from 'react';
 import { act, renderHook, render, screen, within, waitFor } from '@testing-library/react';
@@ -12,15 +10,26 @@ import { contributionToolbar } from '@/features/contributions/contribution-contr
 import { ReportToolbar } from '@/components/reporting/report-toolbar';
 import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
 import { selectContributions } from '@/lib/presentation/contributions';
+import { contributionChangeLimitMessage } from '@/lib/presentation/contribution-return';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
   readContributionSettings,
-  readContributionPreferences,
   serializeContributionPreferences,
 } from '@/lib/presentation/contribution-settings';
+import type { ContributionSettings } from '@/models/contribution-settings';
+import type {
+  ContributionReportPreferences,
+  ContributionTableKind,
+} from '@/models/contribution-preferences';
 import type { ContributionPage } from '@/models/contribution-page';
 import { contributionDefaultSort } from '@/models/contributions';
+import {
+  alice,
+  preferenceSections,
+  savedSection,
+  seedPreferences,
+} from '../support/preference-cookies';
 const navigation = vi.hoisted(() => ({ push: vi.fn(), replace: vi.fn() }));
 const subscribe = (notify: () => void) => {
   window.addEventListener('test-navigation', notify);
@@ -49,16 +58,40 @@ const wideDirectory = {
     companyId: null,
   })),
 };
-function useControls(
+const scopeSection = 'contributions.scope';
+const notice = 'Saved filters could not be restored. Default filters are shown.';
+const stored = (value: ContributionSettings): unknown =>
+  JSON.parse(serializeContributionPreferences(value));
+function scope(change: (value: ContributionSettings) => void) {
+  const value = structuredClone(defaults);
+  change(value);
+  return value;
+}
+/** The sections route composition hands the screen; none saved unless overridden. */
+function report(
+  overrides: Partial<ContributionReportPreferences> = {},
+  table: Exclude<ContributionTableKind, 'details'> = 'contributors',
+): ContributionReportPreferences {
+  return {
+    scope: savedSection(scopeSection),
+    presentation: savedSection(`contributions.${table}.columns`),
+    sort: savedSection(`contributions.${table}.sort`),
+    ...overrides,
+  };
+}
+/** The saved sections of the contributions cookie for Alice's session, by key. */
+const saved = () => preferenceSections('contributions') ?? {};
+function useControls({
   viewerId = 'alice',
   pickerDirectory = directory,
   tableKey = 'contributors',
-  suppliedOptions?: ContributionOptions,
-) {
-  const options = useMemo(
-    () => localContributionOptions(pickerDirectory, contributionSampleAsOf),
-    [pickerDirectory],
-  );
+  preferences,
+}: {
+  viewerId?: string;
+  pickerDirectory?: typeof directory;
+  tableKey?: ContributionTableKind;
+  preferences?: ContributionReportPreferences;
+} = {}) {
   const search = useSyncExternalStore(subscribe, () => window.location.search);
   const page = useMemo((): ContributionPage => {
     const settings = readContributionSettings(
@@ -84,6 +117,7 @@ function useControls(
     columnIds: ids,
     defaultSort: contributionDefaultSort,
     historyMode: 'push',
+    savedSort: preferences?.sort,
   });
   return {
     controls: useContributionControls(
@@ -93,107 +127,17 @@ function useControls(
       table,
       tableKey,
       ids,
-      suppliedOptions ?? options,
+      preferences,
     ),
     table,
   };
 }
 const history: string[] = [];
-it('does not restore a delayed saved scope over an explicit navigation', async () => {
-  const saved = {
-    ...defaults,
-    selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-  };
-  localStorage.setItem(
-    contributionPreferenceKey('alice', 'reference'),
-    serializeContributionPreferences(saved),
-  );
-  let resolve!: (value: ContributionSettings | null) => void;
-  let signal!: AbortSignal;
-  const options = {
-    ...localContributionOptions(directory, contributionSampleAsOf),
-    validate: vi.fn((_settings: ContributionSettings, active: AbortSignal) => {
-      signal = active;
-      return new Promise<ContributionSettings | null>((done) => {
-        resolve = done;
-      });
-    }),
-  };
-  const { result } = renderHook(() => useControls('alice', directory, 'contributors', options));
-  expect(result.current.controls.pending).toBe(true);
-  act(() => window.history.pushState(null, '', '/contributors?period=this-week'));
-  await act(async () => {
-    resolve(saved);
-    await Promise.resolve();
-  });
-  expect(signal.aborted).toBe(true);
-  expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-week' });
-  expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
-});
-it.each(['invalid', 'rejected', 'timeout', 'changed', 'changed-invalid', 'storage'] as const)(
-  'handles %s saved-scope validation without overwriting the active report',
-  async (mode) => {
-    vi.useFakeTimers();
-    const key = contributionPreferenceKey('alice', 'reference');
-    const saved = {
-      ...defaults,
-      selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-    };
-    const raw = serializeContributionPreferences(saved);
-    localStorage.setItem(key, raw);
-    let resolve!: (value: ContributionSettings | null) => void, reject!: (error: Error) => void;
-    const options = {
-      ...localContributionOptions(directory, contributionSampleAsOf),
-      validate: () =>
-        new Promise<ContributionSettings | null>((done, fail) => {
-          resolve = done;
-          reject = fail;
-        }),
-    };
-    const { result } = renderHook(() => useControls('alice', directory, 'contributors', options));
-    if (mode === 'changed' || mode === 'changed-invalid')
-      localStorage.setItem(key, serializeContributionPreferences(defaults));
-    const blocked =
-      mode === 'storage'
-        ? vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-            throw Error('blocked');
-          })
-        : undefined;
-    await act(async () => {
-      if (mode === 'timeout') await vi.advanceTimersByTimeAsync(15000);
-      else if (mode === 'rejected') reject(Error('offline'));
-      else resolve(mode === 'invalid' || mode === 'changed-invalid' ? null : saved);
-      await Promise.resolve();
-    });
-    blocked?.mockRestore();
-    expect(navigation.replace).not.toHaveBeenCalled();
-    expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
-    expect(result.current.controls.pending).toBe(false);
-    if (mode === 'storage') expect(result.current.controls.storageAvailable).toBe(false);
-    else expect(result.current.controls.notice).toMatch(/Saved filters/);
-    expect(localStorage.getItem(key)).toBe(
-      mode === 'changed' || mode === 'changed-invalid'
-        ? serializeContributionPreferences(defaults)
-        : mode === 'invalid'
-          ? null
-          : raw,
-    );
-    if (mode === 'invalid') {
-      act(() => {
-        result.current.controls.update(
-          { ...defaults, period: { kind: 'preset', preset: 'last-month' } },
-          'period',
-        );
-      });
-      expect(
-        readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
-          ?.selection.excludedAccountIds,
-      ).toEqual([]);
-    }
-  },
-);
+/** A cookie jar that keeps nothing, as when the browser blocks cookies. */
+function blockCookies() {
+  return vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
+}
 beforeEach(() => {
-  localStorage.clear();
   window.history.replaceState(null, '', '/contributors');
   history.length = 0;
   for (const method of ['pushState', 'replaceState'] as const) {
@@ -216,33 +160,199 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.clearAllMocks();
 });
-it('renders defaults without an unnecessary server replacement', () => {
-  renderHook(() => useControls());
-  expect(navigation.replace).not.toHaveBeenCalled();
-});
-it('does not navigate to oversized saved filters or replace the saved value with defaults', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  const large = {
-    ...defaults,
-    selection: {
-      ...defaults.selection,
-      population: {
-        kind: 'selected' as const,
-        accountIds: wideDirectory.accounts.map((account) => account.id),
-        companyIds: [],
-      },
+
+it('renders the server-validated columns, zero-member choice and sort first, writing nothing', () => {
+  seedPreferences(alice, { 'contributions.contributors.sort': { sort: 'name', descending: true } });
+  window.history.replaceState(null, '', '/companies/id/company-acme');
+  history.length = 0;
+  const preferences = report(
+    {
+      presentation: savedSection('contributions.members.columns', {
+        columns: { prComments: true, retired: true },
+        hideZeroMembers: true,
+      }),
+      sort: savedSection('contributions.members.sort', {
+        sort: 'issuesAuthored',
+        descending: false,
+      }),
     },
-  };
-  const raw = serializeContributionPreferences(large);
-  localStorage.setItem(key, raw);
-  const { result } = renderHook(() => useControls('alice', wideDirectory));
-  expect(result.current.controls.notice).toContain('Saved filters are too large');
+    'members',
+  );
+  const before = saved();
+  const { result } = renderHook(() => useControls({ tableKey: 'members', preferences }));
+  expect(result.current.controls.visibility.value.prComments).toBe(true);
+  // A saved column this table does not render is not applied.
+  expect(result.current.controls.visibility.value).not.toHaveProperty('retired');
+  expect(result.current.controls.hideZeroMembers).toBe(true);
+  expect(result.current.table.query).toMatchObject({ sort: 'issuesAuthored', descending: false });
+  expect(result.current.controls.notice).toBeUndefined();
+  expect(history).toEqual([]);
   expect(navigation.replace).not.toHaveBeenCalled();
-  expect(localStorage.getItem(key)).toBe(raw);
-  expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
+  expect(saved()).toEqual(before);
 });
+
+it('shows the recovery notice for a rejected scope and deletes it after hydration only while it is unchanged', () => {
+  const rejected = stored(scope((value) => (value.selection.excludedAccountIds = ['removed'])));
+  const raw = JSON.stringify(rejected);
+  seedPreferences(alice, {
+    'contributions.contributors.sort': { sort: 'name' },
+    [scopeSection]: rejected,
+  });
+  const preferences = report({ scope: savedSection(scopeSection, null, raw), notice });
+  const { result } = renderHook(() => useControls({ preferences }));
+  expect(result.current.controls.notice).toBe(notice);
+  expect(result.current.controls.value.selection.excludedAccountIds).toEqual([]);
+  expect(saved()).toEqual({ 'contributions.contributors.sort': { sort: 'name' } });
+  // A newer value saved since the server read the cookie survives.
+  const newer = stored(scope((value) => (value.period = { kind: 'preset', preset: 'last-month' })));
+  seedPreferences(alice, { [scopeSection]: newer });
+  renderHook(() => useControls({ preferences }));
+  expect(saved()).toEqual({ [scopeSection]: newer });
+  // The next deliberate change clears the notice.
+  act(() => {
+    result.current.controls.update(
+      scope((value) => (value.selection.actorTypes = ['bot'])),
+      'actorTypes',
+    );
+  });
+  expect(result.current.controls.notice).toBeUndefined();
+});
+
+it('saves a deliberate scope change field by field, keeping the other saved fields and sections', () => {
+  seedPreferences(alice, {
+    [scopeSection]: stored(
+      scope((value) => (value.period = { kind: 'preset', preset: 'last-month' })),
+    ),
+    'contributions.details.sort': { sort: 'creditedAt', descending: false },
+  });
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
+  act(() => {
+    result.current.controls.update(
+      scope((value) => (value.selection.repositoryIds = ['repo-prebidjs'])),
+      'repositoryIds',
+    );
+  });
+  expect(navigation.push).toHaveBeenCalledOnce();
+  expect(new URLSearchParams(window.location.search).getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(saved()).toEqual({
+    'contributions.details.sort': { sort: 'creditedAt', descending: false },
+    [scopeSection]: stored(
+      scope((value) => {
+        value.period = { kind: 'preset', preset: 'last-month' };
+        value.selection.repositoryIds = ['repo-prebidjs'];
+      }),
+    ),
+  });
+});
+
+it('merges a change into defaults rather than another account’s saved scope', () => {
+  seedPreferences(
+    { accountId: 'bob', authVersion: 0 },
+    {
+      [scopeSection]: stored(
+        scope((value) => (value.period = { kind: 'preset', preset: 'last-month' })),
+      ),
+    },
+  );
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
+  act(() => {
+    result.current.controls.update(
+      scope((value) => (value.selection.actorTypes = ['bot'])),
+      'actorTypes',
+    );
+  });
+  const { settings } = saved()[scopeSection] as { settings: ContributionSettings };
+  expect(settings.period).toEqual(defaults.period);
+  expect(settings.selection.actorTypes).toEqual(['bot']);
+  expect(preferenceSections('contributions', { accountId: 'bob', authVersion: 0 })).toBeNull();
+});
+
+it('does not save a repository drilldown when only the period changes', () => {
+  seedPreferences(alice, { [scopeSection]: stored(defaults) });
+  window.history.replaceState(
+    null,
+    '',
+    '/contributors/account-alice?period=this-year&repo=repo-prebidjs',
+  );
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
+  act(() => {
+    result.current.controls.update(
+      {
+        ...result.current.controls.value,
+        period: { kind: 'preset', preset: 'this-month' },
+      },
+      'period',
+    );
+  });
+  const { settings } = saved()[scopeSection] as { settings: ContributionSettings };
+  expect(settings.period).toEqual({ kind: 'preset', preset: 'this-month' });
+  expect(settings.selection.repositoryIds).toEqual([...defaults.selection.repositoryIds].sort());
+  expect(result.current.controls.value.selection.repositoryIds).toEqual(['repo-prebidjs']);
+});
+
+it('leaves a saved scope alone on an explicit link and when nothing is saved for the page', () => {
+  const savedScope = stored(scope((value) => (value.selection.repositoryIds = ['retired'])));
+  seedPreferences(alice, { [scopeSection]: savedScope });
+  window.history.replaceState(null, '', '/contributors?scope=1&period=this-month');
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
+  expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-month' });
+  expect(result.current.controls.notice).toBeUndefined();
+  expect(saved()).toEqual({ [scopeSection]: savedScope });
+  // Without server preferences a change applies to the URL and saves nothing.
+  const unsaved = renderHook(() => useControls());
+  act(() => {
+    unsaved.result.current.controls.update(defaults, 'population');
+  });
+  act(() => {
+    unsaved.result.current.controls.visibility.onChange({ prComments: true });
+  });
+  expect(unsaved.result.current.controls.visibility.value.prComments).toBe(true);
+  act(() => {
+    unsaved.result.current.controls.reset();
+  });
+  expect(saved()).toEqual({ [scopeSection]: savedScope });
+});
+
+it('copies legacy localStorage scope and columns into absent sections once, changing nothing rendered', () => {
+  const key = contributionPreferenceKey('alice', 'reference');
+  const legacy = scope((value) => (value.period = { kind: 'preset', preset: 'last-month' }));
+  localStorage.setItem(key, serializeContributionPreferences(legacy));
+  localStorage.setItem(
+    key + ':columns:contributors',
+    JSON.stringify({ version: 1, columns: { prComments: true, retired: true } }),
+  );
+  localStorage.setItem(key + ':columns:members', '{invalid');
+  localStorage.setItem('dashboard-theme', 'light');
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
+  expect(result.current.controls.value.period).toEqual(defaults.period);
+  expect(result.current.controls.visibility.value.prComments).toBe(false);
+  expect(history).toEqual([]);
+  const sections = saved();
+  expect((sections[scopeSection] as { settings: ContributionSettings }).settings.period).toEqual(
+    legacy.period,
+  );
+  expect(sections['contributions.contributors.columns']).toEqual({
+    version: 1,
+    columns: { prComments: true },
+    hideZeroMembers: false,
+  });
+  expect(localStorage.getItem(key)).toBeNull();
+  expect(localStorage.getItem(key + ':columns:contributors')).toBeNull();
+  // An unreadable legacy value is dropped, not copied.
+  renderHook(() => useControls({ tableKey: 'members', preferences: report({}, 'members') }));
+  expect(saved()).not.toHaveProperty('contributions.members.columns');
+  expect(localStorage.getItem(key + ':columns:members')).toBeNull();
+  expect(localStorage.getItem('dashboard-theme')).toBe('light');
+});
+
 it('rejects an oversized filter change before navigation or preference persistence', () => {
-  const { result } = renderHook(() => useControls('alice', wideDirectory));
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ pickerDirectory: wideDirectory, preferences }));
   act(() => {
     result.current.controls.update(
       {
@@ -259,70 +369,23 @@ it('rejects an oversized filter change before navigation or preference persisten
       'population',
     );
   });
-  expect(result.current.controls.notice).toContain('too large');
+  expect(result.current.controls.notice).toBe(contributionChangeLimitMessage);
   expect(window.location.pathname + window.location.search).toBe('/contributors');
   expect(navigation.push).not.toHaveBeenCalled();
-  expect(localStorage.getItem(contributionPreferenceKey('alice', 'reference'))).toBeNull();
+  expect(saved()).toEqual({});
   expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
 });
 it('refuses presentation writes that would turn a bounded incoming URL into an oversized one', () => {
   window.history.replaceState(null, '', '/contributors?scope=1&nav=' + 'a'.repeat(7400));
-  const { result } = renderHook(() => useControls());
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
   const before = window.location.href;
   act(() => {
     result.current.controls.visibility.onChange({ prComments: true });
   });
-  expect(result.current.controls.notice).toContain('too large');
+  expect(result.current.controls.notice).toBe(contributionChangeLimitMessage);
   expect(window.location.href).toBe(before);
-  expect(
-    localStorage.getItem(contributionPreferenceKey('alice', 'reference') + ':columns:contributors'),
-  ).toBeNull();
-});
-it('does not save a repository drilldown when only the period changes', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, serializeContributionPreferences(defaults));
-  window.history.replaceState(
-    null,
-    '',
-    '/contributors/account-alice?period=this-year&repo=repo-prebidjs',
-  );
-  const { result } = renderHook(() => useControls());
-  act(() => {
-    result.current.controls.update(
-      {
-        ...result.current.controls.value,
-        period: { kind: 'preset', preset: 'this-month' },
-      },
-      'period',
-    );
-  });
-  expect(
-    readContributionPreferences(localStorage.getItem(key), directory, contributionSampleAsOf)
-      ?.selection.repositoryIds,
-  ).toEqual([...defaults.selection.repositoryIds].sort());
-  expect(result.current.controls.value.selection.repositoryIds).toEqual(['repo-prebidjs']);
-});
-it('restores a relative period and excluded accounts on direct entry, but never overwrites an explicit link', async () => {
-  const saved = {
-    ...defaults,
-    period: { kind: 'preset' as const, preset: 'last-month' as const },
-    selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-  };
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, serializeContributionPreferences(saved));
-  const { result, unmount } = renderHook(() => useControls());
-  await waitFor(() => expect(result.current.controls.value.period).toEqual(saved.period));
-  expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
-  expect(navigation.replace).toHaveBeenCalledOnce();
-  unmount();
-  act(() => window.history.replaceState(null, '', '/contributors?period=this-week'));
-  const explicit = renderHook(() => useControls());
-  expect(explicit.result.current.controls.value.selection.excludedAccountIds).toEqual([]);
-  expect(explicit.result.current.controls.value.period).toEqual({
-    kind: 'preset',
-    preset: 'this-week',
-  });
-  expect(localStorage.getItem(key)).toBe(serializeContributionPreferences(saved));
+  expect(saved()).toEqual({});
 });
 it('flushes pending search, resets every page and freezes the previous scope for Back', () => {
   vi.useFakeTimers();
@@ -364,16 +427,18 @@ it('flushes pending search, resets every page and freezes the previous scope for
   expect(window.location.href).toBe(before);
 });
 it('saves columns independently, restores explicit column history and resets filters without losing presentation', () => {
-  const { result } = renderHook(() => useControls());
+  const preferences = report();
+  const { result } = renderHook(() => useControls({ preferences }));
   act(() => {
     result.current.controls.visibility.onChange({ prComments: true, issuesAuthored: false });
   });
   const columnHistory = history.at(-2)!;
   expect(result.current.controls.visibility.value.prComments).toBe(true);
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
-  const key = contributionPreferenceKey('alice', 'reference');
-  expect(JSON.parse(localStorage.getItem(key + ':columns:contributors')!)).toMatchObject({
-    columns: { prComments: true },
+  expect(saved()['contributions.contributors.columns']).toEqual({
+    version: 1,
+    columns: { prComments: true, issuesAuthored: false },
+    hideZeroMembers: false,
   });
   act(() => window.history.replaceState(null, '', columnHistory));
   expect(result.current.controls.visibility.value.prComments).toBe(false);
@@ -386,72 +451,137 @@ it('saves columns independently, restores explicit column history and resets fil
       'repositoryIds',
     );
   });
+  expect(saved()).toHaveProperty(scopeSection);
   act(() => result.current.table.setSearch('Alice'));
   act(() => {
     result.current.controls.reset();
   });
   expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
   expect(result.current.table.draftSearch).toBe('');
-  expect(localStorage.getItem(key)).toBeNull();
-  expect(localStorage.getItem(key + ':columns:contributors')).not.toBeNull();
+  expect(Object.keys(saved())).toEqual(['contributions.contributors.columns']);
 });
-it('isolates accounts and continues through read/write/remove storage failures', () => {
-  const aliceKey = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(
-    aliceKey,
-    serializeContributionPreferences({
-      ...defaults,
-      selection: { ...defaults.selection, actorTypes: ['bot'] },
-    }),
+it('keeps every change working when the browser refuses the cookie, until a save succeeds', () => {
+  const stablePreferences = report();
+  const { result, rerender } = renderHook(
+    ({ pickerDirectory }) => useControls({ pickerDirectory, preferences: stablePreferences }),
+    { initialProps: { pickerDirectory: directory } },
   );
-  const { result, rerender } = renderHook(({ viewerId }) => useControls(viewerId), {
-    initialProps: { viewerId: 'alice' },
-  });
-  expect(result.current.controls.value.selection.actorTypes).toEqual(['bot']);
-  act(() => {
-    window.history.replaceState(null, '', '/contributors');
-  });
-  rerender({ viewerId: 'bob' });
-  // Explicit scopes are authoritative even if the account changes; a fresh entry restores Bob's defaults.
-  act(() => window.history.replaceState(null, '', '/contributors'));
-  expect(result.current.controls.value.selection.actorTypes).toEqual([
-    'human',
-    'agent',
-    'bot',
-    'unknown',
-  ]);
-  const read = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw Error('blocked');
-  });
-  rerender({ viewerId: 'carol' });
-  expect(result.current.controls.storageAvailable).toBe(false);
-  read.mockRestore();
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw Error('full');
-  });
+  const blocked = blockCookies();
   act(() => {
     result.current.controls.update(
-      {
-        ...defaults,
-        selection: { ...defaults.selection, repositoryIds: [] },
-      },
-      'repositoryIds',
+      scope((value) => (value.selection.excludedAccountIds = ['account-alice'])),
+      'population',
     );
   });
-  expect(result.current.controls.value.selection.repositoryIds).toEqual([]);
+  expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
+  expect(result.current.controls.storageAvailable).toBe(false);
+  // A server navigation that supplies fresh picker props keeps the warning.
+  rerender({ pickerDirectory: { ...directory } });
   expect(result.current.controls.storageAvailable).toBe(false);
   act(() => {
     result.current.controls.visibility.onChange({ issuesAuthored: false });
   });
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw Error('blocked');
-  });
-  act(() => {
-    result.current.controls.reset();
-  });
-  expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
   expect(result.current.controls.storageAvailable).toBe(false);
+  blocked.mockRestore();
+  act(() => {
+    result.current.controls.update(defaults, 'population');
+  });
+  expect(result.current.controls.storageAvailable).toBe(false);
+  act(() => {
+    result.current.controls.visibility.onChange({ issuesAuthored: true });
+  });
+  expect(result.current.controls.storageAvailable).toBe(true);
+  expect(saved()).toHaveProperty(scopeSection);
+});
+it('restores and toggles zero-member visibility without dropping column preferences or prior pages', () => {
+  const preferences = report(
+    {
+      presentation: savedSection('contributions.members.columns', {
+        columns: { prComments: true },
+        hideZeroMembers: true,
+      }),
+    },
+    'members',
+  );
+  window.history.replaceState(null, '', '/companies/id/company-acme?members.page=2');
+  const { result } = renderHook(() => useControls({ tableKey: 'members', preferences }));
+  expect(result.current.controls.hideZeroMembers).toBe(true);
+  expect(result.current.controls.visibility.value.prComments).toBe(true);
+  act(() => {
+    result.current.controls.changeHideZeroMembers(false);
+  });
+  expect(result.current.controls.hideZeroMembers).toBe(false);
+  expect(new URLSearchParams(window.location.search).has('members.page')).toBe(false);
+  expect(saved()['contributions.members.columns']).toMatchObject({ hideZeroMembers: false });
+  const previous = history.at(-2)!;
+  expect(new URL(previous).searchParams.get('members.zero')).toBe('hide');
+  expect(new URL(previous).searchParams.get('members.page')).toBe('2');
+  act(() => window.history.replaceState(null, '', previous));
+  expect(result.current.controls.hideZeroMembers).toBe(true);
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: false });
+  });
+  expect(saved()['contributions.members.columns']).toMatchObject({
+    columns: { prComments: false },
+    hideZeroMembers: true,
+  });
+});
+it('freezes inherited columns and sorting in return URLs, including a pending search', () => {
+  const preferences = report({
+    presentation: savedSection('contributions.contributors.columns', {
+      columns: { prComments: true, issuesAuthored: false },
+      hideZeroMembers: false,
+    }),
+  });
+  const { result } = renderHook(() => useControls({ preferences }));
+  act(() => result.current.table.setSearch('Alice'));
+  const href = new URL(result.current.controls.returnHref, 'http://localhost');
+  expect(href.searchParams.getAll('contributors.columns')).toContain('prComments');
+  expect(href.searchParams.getAll('contributors.columns')).not.toContain('issuesAuthored');
+  expect(href.searchParams.get('report.sort')).toBe('authoredPrsMerged');
+  expect(href.searchParams.get('report.q')).toBe('Alice');
+  act(() => {
+    result.current.controls.freezeReturn();
+  });
+  expect(window.location.pathname + window.location.search).toBe(href.pathname + href.search);
+});
+it('shows the server’s notice until a change, and keeps it out of later views', () => {
+  const unfit = 'Saved filters are too large for this link. Default filters are shown.';
+  const preferences = report({ notice: unfit });
+  const { result } = renderHook(() => useControls({ preferences }));
+  expect(result.current.controls.notice).toBe(unfit);
+  act(() => {
+    result.current.controls.visibility.onChange({ prComments: true });
+  });
+  expect(result.current.controls.notice).toBeUndefined();
+});
+it('clears rejected-change feedback after a successful correction', () => {
+  const { result } = renderHook(() => useControls({ pickerDirectory: wideDirectory }));
+  let rejection: string | undefined;
+  act(() => {
+    rejection = result.current.controls.update(
+      {
+        ...defaults,
+        selection: {
+          ...defaults.selection,
+          population: {
+            kind: 'selected',
+            companyIds: [],
+            accountIds: wideDirectory.accounts.map((account) => account.id),
+          },
+        },
+      },
+      'population',
+    );
+  });
+  expect(rejection).toContain('This change is too large');
+  expect(window.location.pathname + window.location.search).toBe('/contributors');
+  act(() => {
+    result.current.controls.update(defaults, 'population');
+  });
+  expect(result.current.controls.notice).toBeUndefined();
+  expect(navigation.push).toHaveBeenCalledOnce();
 });
 it('drafts population union and exclusions separately, preserves selections across search and bounds large pickers', async () => {
   const user = userEvent.setup(),
@@ -538,222 +668,4 @@ it('connects period controls and presents browser-storage and pending states', a
   expect(screen.getByRole('status')).toHaveTextContent(
     /^Preferences saved for your account on this browser\.$/,
   );
-});
-
-it('discloses invalid saved filters instead of silently applying stale exclusions', () => {
-  localStorage.setItem(contributionPreferenceKey('alice', 'reference'), '{invalid');
-  const { result } = renderHook(() => useControls());
-  expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
-  expect(result.current.controls.notice).toBe(
-    'Saved filters could not be restored. Default filters are shown.',
-  );
-  act(() => {
-    result.current.controls.reset();
-  });
-  expect(result.current.controls.notice).toBeUndefined();
-});
-
-it('retains a failed-save warning when a server navigation supplies fresh picker props', () => {
-  const { result, rerender } = renderHook(
-    ({ pickerDirectory }) => useControls('alice', pickerDirectory),
-    { initialProps: { pickerDirectory: directory } },
-  );
-  const failure = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw Error('quota');
-  });
-  act(() => {
-    result.current.controls.update(
-      {
-        ...defaults,
-        selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-      },
-      'population',
-    );
-  });
-  expect(result.current.controls.storageAvailable).toBe(false);
-  rerender({ pickerDirectory: { ...directory } });
-  expect(result.current.controls.storageAvailable).toBe(false);
-  expect(result.current.controls.value.selection.excludedAccountIds).toEqual(['account-alice']);
-  failure.mockRestore();
-  act(() => {
-    result.current.controls.update(defaults, 'population');
-  });
-  expect(result.current.controls.storageAvailable).toBe(true);
-});
-
-it('does not let a successful column save clear a failed report-scope save', () => {
-  const { result } = renderHook(() => useControls());
-  const key = contributionPreferenceKey('alice', 'reference');
-  const original = localStorage.setItem.bind(localStorage);
-  const failure = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(function (
-    this: Storage,
-    item,
-    value,
-  ) {
-    if (item === key) throw Error('scope exceeds storage quota');
-    original(item, value);
-  });
-  act(() => {
-    result.current.controls.update(
-      {
-        ...defaults,
-        selection: { ...defaults.selection, excludedAccountIds: ['account-alice'] },
-      },
-      'population',
-    );
-  });
-  expect(result.current.controls.storageAvailable).toBe(false);
-  act(() => {
-    result.current.controls.visibility.onChange({ prComments: true });
-  });
-  expect(localStorage.getItem(key + ':columns:contributors')).not.toBeNull();
-  expect(localStorage.getItem(key)).toBeNull();
-  expect(result.current.controls.storageAvailable).toBe(false);
-  failure.mockRestore();
-  act(() => {
-    result.current.controls.update(defaults, 'population');
-  });
-  expect(result.current.controls.storageAvailable).toBe(true);
-});
-
-it('restores and toggles zero-member visibility without dropping column preferences or prior pages', () => {
-  const key = contributionPreferenceKey('alice', 'reference') + ':columns:members';
-  localStorage.setItem(
-    key,
-    JSON.stringify({ version: 1, columns: { prComments: true }, hideZeroMembers: true }),
-  );
-  window.history.replaceState(null, '', '/companies/id/company-acme?members.page=2');
-  const { result } = renderHook(() => useControls('alice', directory, 'members'));
-  expect(result.current.controls.hideZeroMembers).toBe(true);
-  expect(result.current.controls.visibility.value.prComments).toBe(true);
-  act(() => {
-    result.current.controls.changeHideZeroMembers(false);
-  });
-  expect(result.current.controls.hideZeroMembers).toBe(false);
-  expect(new URLSearchParams(window.location.search).has('members.page')).toBe(false);
-  const previous = history.at(-2)!;
-  expect(new URL(previous).searchParams.get('members.zero')).toBe('hide');
-  expect(new URL(previous).searchParams.get('members.page')).toBe('2');
-  act(() => window.history.replaceState(null, '', previous));
-  expect(result.current.controls.hideZeroMembers).toBe(true);
-  act(() => {
-    result.current.controls.visibility.onChange({ prComments: false });
-  });
-  expect(JSON.parse(localStorage.getItem(key)!)).toMatchObject({ hideZeroMembers: true });
-});
-it('freezes inherited columns and sorting in return URLs, including a pending search', () => {
-  const key = contributionPreferenceKey('alice', 'reference') + ':columns:contributors';
-  localStorage.setItem(
-    key,
-    JSON.stringify({ version: 1, columns: { prComments: true, issuesAuthored: false } }),
-  );
-  const { result } = renderHook(() => useControls());
-  act(() => result.current.table.setSearch('Alice'));
-  const href = new URL(result.current.controls.returnHref, 'http://localhost');
-  expect(href.searchParams.getAll('contributors.columns')).toContain('prComments');
-  expect(href.searchParams.getAll('contributors.columns')).not.toContain('issuesAuthored');
-  expect(href.searchParams.get('report.sort')).toBe('authoredPrsMerged');
-  expect(href.searchParams.get('report.q')).toBe('Alice');
-  act(() => {
-    result.current.controls.freezeReturn();
-  });
-  expect(window.location.pathname + window.location.search).toBe(href.pathname + href.search);
-});
-
-it('clears a definitively stale repository preference and notifies entry links', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  const saved = {
-    ...defaults,
-    selection: { ...defaults.selection, repositoryIds: ['repo-retired-example'] },
-  };
-  localStorage.setItem(key, serializeContributionPreferences(saved));
-  localStorage.setItem(key + ':columns:contributors', 'keep-columns');
-  localStorage.setItem('theme', 'light');
-  const changed = vi.fn();
-  window.addEventListener('dashboard:contribution-preferences-changed', changed);
-  try {
-    const { result } = renderHook(() => useControls());
-    expect(localStorage.getItem(key)).toBeNull();
-    expect(changed).toHaveBeenCalledOnce();
-    expect(localStorage.getItem(key + ':columns:contributors')).toBe('keep-columns');
-    expect(localStorage.getItem('theme')).toBe('light');
-    expect(result.current.controls.notice).toContain('Saved filters could not be restored');
-  } finally {
-    window.removeEventListener('dashboard:contribution-preferences-changed', changed);
-  }
-});
-it('retains a newer stored scope when a stale repository preference is rejected', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  const old = serializeContributionPreferences({
-    ...defaults,
-    selection: { ...defaults.selection, repositoryIds: ['retired'] },
-  });
-  const latest = serializeContributionPreferences(defaults);
-  localStorage.setItem(key, old);
-  const read = localStorage.getItem.bind(localStorage),
-    write = localStorage.setItem.bind(localStorage);
-  let changed = false;
-  vi.spyOn(Storage.prototype, 'getItem').mockImplementation((name) => {
-    if (name === key && !changed) {
-      changed = true;
-      write(key, latest);
-      return old;
-    }
-    return read(name);
-  });
-  renderHook(() => useControls());
-  expect(localStorage.getItem(key)).toBe(latest);
-});
-
-it('keeps explicit scope authoritative without deleting unused saved preferences', () => {
-  const key = contributionPreferenceKey('alice', 'reference'),
-    raw = serializeContributionPreferences({
-      ...defaults,
-      selection: { ...defaults.selection, repositoryIds: ['retired'] },
-    });
-  localStorage.setItem(key, raw);
-  window.history.replaceState(null, '', '/contributors?scope=1&period=this-month');
-  const { result } = renderHook(() => useControls());
-  expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-month' });
-  expect(localStorage.getItem(key)).toBe(raw);
-  expect(result.current.controls.notice).toBeUndefined();
-});
-it('keeps the default report usable and discloses a failed invalid-preference removal', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, '{invalid');
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw Error('blocked');
-  });
-  const { result } = renderHook(() => useControls());
-  expect(result.current.controls.storageAvailable).toBe(false);
-  expect(result.current.controls.notice).toContain('Saved filters could not be restored');
-  expect(result.current.controls.value.selection.repositoryIds).toHaveLength(18);
-  expect(localStorage.getItem(key)).toBe('{invalid');
-});
-it('clears rejected-change feedback after a successful correction', () => {
-  const { result } = renderHook(() => useControls('alice', wideDirectory));
-  let rejection: string | undefined;
-  act(() => {
-    rejection = result.current.controls.update(
-      {
-        ...defaults,
-        selection: {
-          ...defaults.selection,
-          population: {
-            kind: 'selected',
-            companyIds: [],
-            accountIds: wideDirectory.accounts.map((account) => account.id),
-          },
-        },
-      },
-      'population',
-    );
-  });
-  expect(rejection).toContain('This change is too large');
-  expect(window.location.pathname + window.location.search).toBe('/contributors');
-  act(() => {
-    result.current.controls.update(defaults, 'population');
-  });
-  expect(result.current.controls.notice).toBeUndefined();
-  expect(navigation.push).toHaveBeenCalledOnce();
 });
