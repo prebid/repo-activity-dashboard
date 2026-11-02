@@ -22,6 +22,11 @@ export interface DataColumn<T> extends Omit<SelectableColumn, 'required'>, Table
   labelCaption?: string;
   align?: 'left' | 'right';
   pinned?: boolean;
+  /**
+   * Takes the table's surplus width, as a record title does. Without a visible growing column,
+   * the surplus is shared equally by the numeric columns.
+   */
+  grow?: boolean;
   hideable?: boolean;
 }
 export interface ColumnVisibility {

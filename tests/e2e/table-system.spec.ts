@@ -60,31 +60,41 @@ for (const [theme, width] of [
     });
     await expect.poll(() => area.evaluate((element) => element.scrollTop)).toBeGreaterThan(400);
     expect((await area.boundingBox())!.height).toBeLessThanOrEqual(900);
+    // Every header cell sits at the top of the area and is the element hit at its centre. WebKit
+    // can hit-test a scrolled area before its scroll position commits, so this is retried; the
+    // failure lists the headers still out of place.
+    await expect
+      .poll(() =>
+        area.evaluate((element) => {
+          const area = element.getBoundingClientRect();
+          // Only header cells whose centre is inside the visible scroll area can be hit: at narrow
+          // widths the rest are scrolled out to the right.
+          return [...element.querySelectorAll('thead th')]
+            .map((th) => ({ th, box: th.getBoundingClientRect() }))
+            .filter(({ box }) => {
+              const centre = box.left + box.width / 2;
+              return centre > area.left && centre < Math.min(area.right, innerWidth);
+            })
+            .filter(({ th, box }) => {
+              const x = box.left + box.width / 2;
+              const hit = document.elementFromPoint(x, box.top + box.height / 2);
+              return Math.abs(box.top - area.top) > 1 || !th.contains(hit);
+            })
+            .map(({ th }) => th.textContent);
+        }),
+      )
+      .toEqual([]);
     const layout = await area.evaluate((element) => {
-      const area = element.getBoundingClientRect();
-      const top = area.top;
-      // Only header cells whose centre is inside the visible scroll area can be hit: at narrow
-      // widths the rest are scrolled out to the right.
-      const headers = [...element.querySelectorAll('thead th')]
-        .map((th) => ({ th, box: th.getBoundingClientRect() }))
-        .filter(({ box }) => {
-          const centre = box.left + box.width / 2;
-          return centre > area.left && centre < Math.min(area.right, innerWidth);
-        })
-        .map(({ th, box }) => {
-          const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
-          return { offset: box.top - top, covered: !th.contains(hit) };
-        });
       const thead = element.querySelector('thead')!.getBoundingClientRect();
       const visible = [...element.querySelectorAll('tbody tr')]
         .map((row) => row.getBoundingClientRect())
         .find((box) => box.bottom > thead.bottom)!;
-      return { headers, theadBottom: thead.bottom, firstRowBottom: visible.bottom, top };
+      return {
+        theadBottom: thead.bottom,
+        firstRowBottom: visible.bottom,
+        top: element.getBoundingClientRect().top,
+      };
     });
-    for (const header of layout.headers) {
-      expect(Math.abs(header.offset)).toBeLessThanOrEqual(1);
-      expect(header.covered).toBe(false);
-    }
     expect(layout.firstRowBottom).toBeGreaterThan(layout.theadBottom);
     // The pinned header and the pinned cells stay put at both horizontal ends.
     const pinnedHeader = area.locator('thead th').first();
@@ -117,6 +127,25 @@ for (const [theme, width] of [
     });
     await expect.poll(trailing).toBe('hidden');
   });
+
+test('a record title takes the surplus width while numbers keep their declared widths', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await page.goto('/repos/prebidjs');
+  const header = (name: string) =>
+    scrollArea(page)
+      .locator('thead th')
+      .filter({ hasText: new RegExp('^' + name + '$') });
+  const title = (await header('Title').boundingBox())!;
+  const age = (await header('Age in days').boundingBox())!;
+  const approvals = (await header('Current human approvals').boundingBox())!;
+  // Declared: Title 360px, Age in days 100px, Current human approvals 152px.
+  expect(title.width).toBeGreaterThan(500);
+  expect(Math.abs(age.width - 100)).toBeLessThanOrEqual(1);
+  expect(Math.abs(approvals.width - 152)).toBeLessThanOrEqual(1);
+});
 
 test('sort glyphs keep the label in place, and the sorted header changes ink as well as rule', async ({
   page,

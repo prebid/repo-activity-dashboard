@@ -110,6 +110,7 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
     ...column,
     // 200px keeps a typical handle and its 14px external-link icon on one line.
     width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
+    grow: column.id === 'title',
   })),
   ...commonColumns<RepositoryPullRequest>(),
   {
@@ -165,6 +166,7 @@ export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
     ...column,
     // 200px keeps a typical handle and its 14px external-link icon on one line.
     width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
+    grow: column.id === 'title',
   })),
   ...commonColumns<RepositoryIssue>(),
   {

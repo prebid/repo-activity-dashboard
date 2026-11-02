@@ -63,6 +63,7 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
       return {
         ...column,
         width: 360,
+        grow: true,
         hideable: false,
         cell: (row: T) => (
           <RecordIdentity

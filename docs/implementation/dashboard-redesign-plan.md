@@ -794,6 +794,7 @@ Step 2(c), contributions:
 
 - The contribution tables keep their own pinned width, 220px (180px at <=600px). P3 changes no pinned width. The 248px/164px in item 4 is DataTable's default, which Summary uses. `contribution-layout.spec.ts` bounds the identity column at <=255/<=185px either way.
 - Every number column is 126px wide, the Companies "Included accounts" column included (it was 110px). The Contributors table's minimum width therefore rises by 96px, to 1,216px with the pinned column. These widths are computed from the column widths, not measured. Below that width the table scrolls sideways inside its own area.
+- Record titles take the surplus width instead (a column's `grow`), so on record lists the numbers keep their declared widths and titles stay on one line at 1440px, as in the P2 look. Decision 4 applies to tables without a growing column. Measured at 1440px on `/repos/prebidjs`: the title column was 345px before and is over 500px after.
 - The Contributors company cell reads in body ink at body size (it was 12px muted), so the identity columns beside it share one style.
 - The supporting-record cell keeps one "#n title" link with a muted number. At the merge it used the feature's `.identityLink` and its own `.recordLink` and `.recordNumber` rules; step 4 moves it to `RecordTitleLink`. The contribution details keep their own Current state column.
 - `contributionDetailColumns` also renders the Timeline supporting contributions table, so the state, record and account cells change there too.
