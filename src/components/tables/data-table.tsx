@@ -165,6 +165,7 @@ export function DataTable<T extends { id: string }>({
   const grouped = sections.some((section) => section.label);
   const pinned = visibleColumns.some((column) => column.pinned);
   const sized = visibleColumns.some((column) => column.width);
+  const growing = visibleColumns.some((column) => column.grow);
   const minimumWidth = visibleColumns.reduce(
     (sum, column) => sum + (column.pinned ? 0 : (column.width ?? 140)),
     0,
@@ -484,11 +485,13 @@ export function DataTable<T extends { id: string }>({
                   <col
                     key={column.id}
                     style={{
-                      // Numeric columns share any width beyond the declared minimum equally, so
-                      // the pinned and text columns keep the widths they declare.
+                      // Width beyond the declared minimum goes to the growing columns, or else
+                      // equally to the numeric columns; every other column keeps its width.
                       width: column.pinned
                         ? 'var(--pinned-width)'
-                        : column.width === undefined || column.align === 'right'
+                        : column.width === undefined ||
+                            column.grow ||
+                            (!growing && column.align === 'right')
                           ? undefined
                           : `${column.width}px`,
                     }}

@@ -132,6 +132,7 @@ export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
     selectionGroup: 'Records',
     label: 'Title',
     width: 400,
+    grow: true,
     value: (row) => row.pr.title,
     cell: (row) => (
       <RecordIdentity

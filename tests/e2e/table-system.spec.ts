@@ -118,6 +118,25 @@ for (const [theme, width] of [
     await expect.poll(trailing).toBe('hidden');
   });
 
+test('a record title takes the surplus width while numbers keep their declared widths', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await page.goto('/repos/prebidjs');
+  const header = (name: string) =>
+    scrollArea(page)
+      .locator('thead th')
+      .filter({ hasText: new RegExp('^' + name + '$') });
+  const title = (await header('Title').boundingBox())!;
+  const age = (await header('Age in days').boundingBox())!;
+  const approvals = (await header('Current human approvals').boundingBox())!;
+  // Declared: Title 360px, Age in days 100px, Current human approvals 152px.
+  expect(title.width).toBeGreaterThan(500);
+  expect(Math.abs(age.width - 100)).toBeLessThanOrEqual(1);
+  expect(Math.abs(approvals.width - 152)).toBeLessThanOrEqual(1);
+});
+
 test('sort glyphs keep the label in place, and the sorted header changes ink as well as rule', async ({
   page,
 }) => {
