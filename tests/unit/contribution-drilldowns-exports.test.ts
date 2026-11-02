@@ -189,7 +189,9 @@ it('projects full filtered company and contributor repository exports before dis
   expect(summary.rows.every((row) => row.entityId !== 'account-person-001')).toBe(true);
   expect(summary.rows.reduce((sum, row) => sum + row.metrics.prsAuthored.value!, 0)).toBe(99);
   const flat = selectContributionExport(sample, selected, { ...options, layout: 'repositories' });
-  expect(flat.rows).toHaveLength(99);
+  // Acme's reviewers add a row for each further repository they reviewed or approved in.
+  expect(flat.rows).toHaveLength(434);
+  expect(new Set(flat.rows.map((row) => row.entityId)).size).toBe(99);
   expect(flat.rows.reduce((sum, row) => sum + row.metrics.prsAuthored.value!, 0)).toBe(99);
   const repo = selectContributionExport(
     sample,
@@ -210,7 +212,8 @@ it('projects full filtered company and contributor repository exports before dis
     query: { ...base.query, search: 'sample-person-019' },
     layout: 'repositories',
   });
-  expect(contributors.rows).toHaveLength(1);
+  // Person 19 authored one PR and reviewed twelve more across other repositories.
+  expect(contributors.rows).toHaveLength(13);
   expect(contributors.rows.every((row) => row.entityId === 'account-person-019')).toBe(true);
 });
 it('exports focus identities, unmapped companies, zero rows and unknown coverage truthfully', () => {

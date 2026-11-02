@@ -18,8 +18,8 @@ it('keeps a large directory available to pickers without turning global gaps int
   expect(contributionDirectorySample('coverage-gap').accounts).toEqual(source.accounts);
   const report = selectContributions(source);
   expect(report).toMatchObject({ contributorCount: 251, companyCount: 4 });
-  expect(values(report.totals)).toEqual([490, 250, 0, 0, 250, 350]);
-  expect(report.totals.reviewerContributions).toMatchObject({ status: 'partial', value: 0 });
+  expect(values(report.totals)).toEqual([490, 250, 935, 447, 250, 350]);
+  expect(report.totals.reviewerContributions).toMatchObject({ status: 'partial', value: 935 });
   expect(
     Object.values(report.additionalTotals).every(
       (value) => value.status === 'missing' && value.value === null,
@@ -85,16 +85,16 @@ it('retains full high-volume populations and totals before UI pagination or rank
   const report = selectContributions(source);
   if (report.kind !== 'overview') throw Error('Expected overview');
   expect(reportRows(report, 'contributors')).toHaveLength(251);
-  expect(values(report.totals)).toEqual([490, 250, 0, 0, 250, 350]);
+  expect(values(report.totals)).toEqual([490, 250, 935, 447, 250, 350]);
   expect(
     reportRows(
       selectContributions(source, undefined, undefined, { area: 'companies' }),
       'companies',
     ).map((row) => [row.company?.id ?? null, row.memberCount, values(row.metrics)]),
   ).toEqual([
-    ['company-acme', 100, [100, 100, 0, 0, 100, 0]],
-    ['company-beacon', 100, [100, 100, 0, 0, 100, 0]],
-    [null, 50, [50, 50, 0, 0, 50, 0]],
+    ['company-acme', 100, [100, 100, 835, 247, 100, 0]],
+    ['company-beacon', 100, [100, 100, 0, 200, 100, 0]],
+    [null, 50, [50, 50, 100, 0, 50, 0]],
     ['company-prebid', 1, [240, 0, 0, 0, 0, 350]],
   ]);
   const focus = { kind: 'contributor', accountId: 'account-heavy-agent' } as const;
@@ -105,7 +105,7 @@ it('retains full high-volume populations and totals before UI pagination or rank
   const selected = defaultContributionSelection(source);
   selected.excludedAccountIds = ['account-person-001'];
   const filtered = selectContributions(source, selected);
-  expect(values(filtered.totals)).toEqual([489, 249, 0, 0, 249, 350]);
+  expect(values(filtered.totals)).toEqual([489, 249, 935, 447, 249, 350]);
   if (filtered.kind !== 'overview') throw Error('Expected overview');
   expect(reportRows(filtered, 'contributors')).toHaveLength(250);
   const company = selectContributions(source, undefined, {
@@ -122,6 +122,41 @@ it('retains full high-volume populations and totals before UI pagination or rank
       'repositories',
     ).reduce((sum, row) => sum + row.metrics.prsAuthored.value!, 0),
   ).toBe(100);
+});
+it('gives the large sample review and approval credits by other accounts inside each PR', () => {
+  const source = contributionSample({ scenario: 'large' });
+  const records = new Map(source.records.map((record) => [record.id, record]));
+  const reviewing = source.credits.filter(
+    (credit) =>
+      credit.metric === 'reviewerContributions' || credit.metric === 'approvalContributions',
+  );
+  expect(reviewing).toHaveLength(935 + 447);
+  for (const credit of reviewing) {
+    const record = records.get(credit.recordId)!;
+    if (record.kind !== 'pr') throw Error('Expected PR');
+    // A self-merge carries no reviewer evidence, so no review or approval is by the PR's author.
+    expect(credit.accountId).not.toBe(record.authorId);
+    expect(credit.creditedAt > record.createdAt && credit.creditedAt < record.mergedAt!).toBe(true);
+  }
+  const keys = reviewing.map((credit) => [credit.accountId, credit.recordId, credit.metric].join());
+  expect(new Set(keys).size).toBe(keys.length);
+  const counts = new Map<string, number>();
+  for (const credit of reviewing)
+    if (credit.metric === 'reviewerContributions')
+      counts.set(credit.accountId, (counts.get(credit.accountId) ?? 0) + 1);
+  const ranked = [...counts.values()].sort((a, b) => b - a);
+  // A 50-row page of the Reviewer contributions ranking ends at 5 and the next starts at 4.
+  expect([ranked.length, ranked[0], ranked[49], ranked[50], ranked.at(-1)]).toEqual([
+    70, 124, 5, 4, 3,
+  ]);
+  const approvers = new Set(
+    reviewing
+      .filter((credit) => credit.metric === 'approvalContributions')
+      .map((credit) => credit.accountId),
+  );
+  // Twenty Beacon accounts approve without reviewing.
+  expect([...approvers].filter((id) => !counts.has(id))).toHaveLength(20);
+  expect(approvers.size).toBe(30);
 });
 it('keeps primary-branch merge details and role units consistent across every catalog repository', () => {
   const source = contributionSample({ scenario: 'large' });

@@ -253,7 +253,47 @@ function large(extra = 0) {
     'Sample: a long PR title with punctuation, “quoted text”, and Unicode — closed without merging';
   const draft = records.find((row) => row.number === 1002)!;
   if (draft.kind === 'pr') draft.draft = true;
-  return { accounts, records, credits: authorAndMergeCredits(records) };
+  return {
+    accounts,
+    records,
+    credits: [...authorAndMergeCredits(records), ...largeReviewCredits(records)],
+  };
+}
+/**
+ * Review and approval credits on the large sample's 250 merged PRs, so the Reviewers lens ranks and
+ * pages real values. PR `i` is authored and self-merged by person `i`; a self-merge carries no
+ * reviewer evidence, so every credit here is by another account, between the PR's creation (Oct 1
+ * 12:00) and its merge (Oct 2 12:00):
+ * - R1: person d (2–61, Acme) reviews every PR whose number is a multiple of d, except their own.
+ * - R2: person 200 + j (j 1–10, unmapped) reviews PRs j, j + 10, …, j + 90.
+ * - A1: person d (2–11) approves every PR whose number is a multiple of 2d.
+ * - A2: person 160 + j (j 1–20, Beacon) approves PRs j, j + 25, …, j + 225 without reviewing.
+ */
+function largeReviewCredits(records: ContributionRecord[]): ContributionCredit[] {
+  const person = (n: number) => 'account-person-' + String(n).padStart(3, '0');
+  const prs = new Map(
+    records.flatMap((row) => (row.kind === 'pr' ? [[row.number, row.id] as const] : [])),
+  );
+  const credits: ContributionCredit[] = [];
+  const credit = (who: number, number: number, metric: ContributionCredit['metric']) =>
+    credits.push({
+      accountId: person(who),
+      recordId: prs.get(number)!,
+      metric,
+      creditedAt:
+        metric === 'reviewerContributions'
+          ? '2026-10-01T18:00:00.000Z'
+          : '2026-10-02T06:00:00.000Z',
+    });
+  for (let d = 2; d <= 61; d++)
+    for (let i = 2 * d; i <= 250; i += d) credit(d, i, 'reviewerContributions');
+  for (let j = 1; j <= 10; j++)
+    for (let i = j; i <= j + 90; i += 10) credit(200 + j, i, 'reviewerContributions');
+  for (let d = 2; d <= 11; d++)
+    for (let i = 2 * d; i <= 250; i += 2 * d) credit(d, i, 'approvalContributions');
+  for (let j = 1; j <= 20; j++)
+    for (let i = j; i <= j + 225; i += 25) credit(160 + j, i, 'approvalContributions');
+  return credits;
 }
 export function contributionSample({
   scenario = 'reference',

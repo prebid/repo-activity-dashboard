@@ -160,6 +160,14 @@ it('reconciles every complete role breakdown and keeps missing file classificati
       ).toBe(totals[volumeMetricId(role, 'linesChanged')].value);
     }
   }
+  // Each large review or approval credit falls before its PR's merge, so it adds one volume entry.
+  const large = selectContributions(contributionSample({ scenario: 'large' })).additionalTotals;
+  expect(values(large, 'reviewed')).toEqual(
+    [4, 1, 0, 2, 1, 0, 0, 30, 20, 10].map((stat) => stat * 935),
+  );
+  expect(values(large, 'approved')).toEqual(
+    [4, 1, 0, 2, 1, 0, 0, 30, 20, 10].map((stat) => stat * 447),
+  );
   const partial = selectContributions(contributionSample({ scenario: 'partial' }), undefined, {
     kind: 'contributor',
     accountId: 'account-alice',
