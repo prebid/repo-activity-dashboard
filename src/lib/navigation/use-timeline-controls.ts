@@ -61,7 +61,15 @@ export function useTimelineControls(
     if (!pending) busy.current = false;
   }, [pending]);
   const pathname = usePathname();
-  const { view, awaitingData } = resolveTimelinePresentation(pathname, search, context);
+  const resolved = resolveTimelinePresentation(pathname, search, context);
+  const awaitingData = resolved.awaitingData;
+  // A page past the last one shows the last page; the correction is kept for this address only,
+  // without a history write, and the next deliberate change writes it.
+  const [correction, setCorrection] = useState<{ search: string; page: number }>();
+  const view =
+    !awaitingData && correction?.search === search
+      ? { ...resolved.view, page: correction.page }
+      : resolved.view;
   const activeSearch = awaitingData
     ? new URL(context.href, 'https://dashboard.invalid').search
     : search;
@@ -285,11 +293,7 @@ export function useTimelineControls(
         ...(patch.page !== undefined ? { page: patch.page } : {}),
       }),
     reconcilePage: (page) => {
-      if (!pending && !awaitingData) {
-        const params = new URLSearchParams(window.location.search);
-        params.set('timeline.page', String(page));
-        window.history.replaceState(null, '', context.path + '?' + params.toString());
-      }
+      if (!pending && !awaitingData) setCorrection({ search, page });
     },
   };
   return {

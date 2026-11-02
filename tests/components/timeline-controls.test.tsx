@@ -491,6 +491,19 @@ it('does not let pagination rewrite the URL while another report scope is arrivi
   expect(window.location.href).toBe(requested);
   expect(result.current.pending).toBe(true);
 });
+it('reconciles a page past the last one in memory, without a history write', async () => {
+  window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1&timeline.page=9');
+  const { result } = renderHook(() => useControls());
+  await ready(result);
+  const requested = window.location.href;
+  historyWrites.mockClear();
+  await interact(() => result.current.table.reconcilePage(2));
+  expect(result.current.view.page).toBe(2);
+  expect(result.current.table.query.page).toBe(2);
+  expect(new URLSearchParams(result.current.href.split('?')[1]).get('timeline.page')).toBe('2');
+  expect(window.location.href).toBe(requested);
+  expect(historyWrites).not.toHaveBeenCalled();
+});
 it('checks the final serialized URL before changing history or saved preferences', async () => {
   const params = new URLSearchParams(
     'timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1',
