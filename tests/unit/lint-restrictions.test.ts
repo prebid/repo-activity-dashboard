@@ -238,8 +238,9 @@ const headingOwners = [
 
 describe('rule 4: PageHeader owns the page h1', { timeout: 30_000 }, () => {
   beforeAll(async () => {
+    // Warm when an earlier block ran first in this worker; cold when this block runs alone.
     await reports(paths.feature, lines('export const warm = 1;'));
-  }, 30_000);
+  }, 90_000);
 
   it('rejects an h1 in features, routes, shared components, the shell and the primitives', async () => {
     const heading = lines('export const Title = () => <h1 className="title">Repositories</h1>;');
