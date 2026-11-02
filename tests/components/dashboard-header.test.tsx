@@ -4,11 +4,21 @@ import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DashboardHeader } from '@/components/layout/dashboard-header';
 import { repositoryCatalog } from '@/config/repositories';
+import { PreferenceBindingProvider } from '@/lib/navigation/preference-binding';
+import { alice, seedPreferences } from '../support/preference-cookies';
 
 const router = vi.hoisted(() => ({ push: vi.fn<(href: string) => void>() }));
-vi.mock('next/navigation', () => ({ useRouter: () => router }));
+// The router's query; null where no router provides one.
+const query = vi.hoisted((): { search: string | null } => ({ search: '' }));
+vi.mock('next/navigation', () => ({
+  useRouter: () => router,
+  useSearchParams: () => (query.search === null ? null : new URLSearchParams(query.search)),
+}));
 vi.mock('next/image', () => ({ default: (props: { alt: string }) => <span>{props.alt}</span> }));
-afterEach(() => router.push.mockReset());
+afterEach(() => {
+  router.push.mockReset();
+  query.search = '';
+});
 function header(activePath: string, administration = false) {
   return render(
     <DashboardHeader
@@ -55,7 +65,16 @@ it('leads with Overview and marks only the active main-navigation destination', 
   const navigation = screen.getByRole('navigation', { name: 'Main navigation' });
   expect(
     [...navigation.querySelectorAll('a, button')].map((item) => item.textContent?.trim()),
-  ).toEqual(['Overview', 'Repositories', 'Contributions']);
+  ).toEqual(['Overview', 'Repositories', 'Contributors', 'Reviewers']);
+  // Without a signed-in viewer's saved view, each lens opens its bare overview.
+  expect(within(navigation).getByRole('link', { name: 'Contributors' })).toHaveAttribute(
+    'href',
+    '/contributors',
+  );
+  expect(within(navigation).getByRole('link', { name: 'Reviewers' })).toHaveAttribute(
+    'href',
+    '/reviewers',
+  );
   expect(within(navigation).getByRole('link', { name: 'Overview' })).toHaveAttribute(
     'aria-current',
     'page',
@@ -75,17 +94,57 @@ it('leads with Overview and marks only the active main-navigation destination', 
     'true',
   );
 });
+// Each row: path, query (null: no router query), then the lens link that is active, and whether
+// it is also the current page.
 it.each([
-  ['/repos', 'false', false],
-  ['/contributors', 'true', true],
-  ['/contributors/account-alice', 'true', false],
-  ['/companies', 'true', false],
-])('marks Contributions on %s as active=%s, current=%s', (path, active, current) => {
+  ['/repos', '', null, false],
+  ['/repos', 'lens=reviewers', null, false],
+  ['/contributors', '', 'Contributors', true],
+  ['/contributors/account-alice', '', 'Contributors', false],
+  ['/companies', '', 'Contributors', false],
+  ['/companies', null, 'Contributors', false],
+  ['/companies/id/company-acme', 'view=repositories', 'Contributors', false],
+  ['/reviewers', '', 'Reviewers', true],
+  ['/reviewers', null, 'Reviewers', true],
+  ['/reviewers', 'timeline', 'Reviewers', true],
+  ['/contributors/account-alice', 'lens=reviewers', 'Reviewers', false],
+  ['/companies', 'lens=reviewers', 'Reviewers', false],
+  ['/companies/id/company-acme', 'lens=reviewers&view=repositories', 'Reviewers', false],
+  // Not a Reviewers-lens spelling (the invalid view), but never two marked destinations.
+  ['/contributors', 'lens=reviewers', 'Reviewers', false],
+] as const)('on %s?%s marks %s (current page: %s)', (path, search, active, current) => {
+  query.search = search;
   header(path);
-  const contributions = screen.getByRole('link', { name: 'Contributions' });
-  expect(contributions).toHaveAttribute('data-active', active);
-  if (current) expect(contributions).toHaveAttribute('aria-current', 'page');
-  else expect(contributions).not.toHaveAttribute('aria-current');
+  for (const name of ['Contributors', 'Reviewers'] as const) {
+    const link = screen.getByRole('link', { name });
+    expect(link, name).toHaveAttribute('data-active', String(name === active));
+    if (name === active && current) expect(link, name).toHaveAttribute('aria-current', 'page');
+    else expect(link, name).not.toHaveAttribute('aria-current');
+  }
+});
+it("opens each lens in the viewer's saved view of that lens", () => {
+  seedPreferences(alice, {
+    'contributions.contributors.sort': { sort: 'name', descending: false },
+    'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
+  });
+  render(
+    <PreferenceBindingProvider binding={alice}>
+      <DashboardHeader
+        repositories={repositoryCatalog}
+        activePath="/repos"
+        viewerId="alice"
+        accountControls={null}
+      />
+    </PreferenceBindingProvider>,
+  );
+  expect(screen.getByRole('link', { name: 'Contributors' })).toHaveAttribute(
+    'href',
+    '/contributors?sort=name',
+  );
+  expect(screen.getByRole('link', { name: 'Reviewers' })).toHaveAttribute(
+    'href',
+    '/reviewers?sort=-mergesPerformed',
+  );
 });
 it('lists exactly the enabled repositories in the Repositories menu and marks the current one', async () => {
   header('/repos/prebidjs');
@@ -102,7 +161,7 @@ it('lists exactly the enabled repositories in the Repositories menu and marks th
 });
 it('gives each header destination an idle pending indicator, but not the menu items that close on click', async () => {
   header('/repos', true);
-  for (const name of ['Repository activity', 'Overview', 'Contributions', 'Accounts'])
+  for (const name of ['Repository activity', 'Overview', 'Contributors', 'Reviewers', 'Accounts'])
     expect(screen.getByRole('link', { name }).lastElementChild).toHaveAttribute(
       'data-pending',
       'false',

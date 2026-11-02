@@ -172,16 +172,22 @@ for (const theme of ['light', 'dark'] as const)
         pageTitles['repos-timeline'],
       );
     });
-    test('a main navigation item stays marked until its page arrives', async ({ page }) => {
-      await open(page, 'repos-overview', theme);
-      await followHeld(
+    for (const [name, title] of [
+      ['Contributors', pageTitles.contributors],
+      ['Reviewers', 'Reviewers'],
+    ] as const)
+      test(`the ${name} main navigation item stays marked until its page arrives`, async ({
         page,
-        page
-          .getByRole('navigation', { name: 'Main navigation', exact: true })
-          .getByRole('link', { name: 'Contributions', exact: true }),
-        pageTitles.contributors,
-      );
-    });
+      }) => {
+        await open(page, 'repos-overview', theme);
+        await followHeld(
+          page,
+          page
+            .getByRole('navigation', { name: 'Main navigation', exact: true })
+            .getByRole('link', { name, exact: true }),
+          title,
+        );
+      });
     test('a breadcrumb back link stays marked until the parent page replaces it', async ({
       page,
     }) => {
