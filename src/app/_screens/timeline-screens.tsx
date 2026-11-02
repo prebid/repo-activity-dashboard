@@ -241,6 +241,8 @@ export function ContributionTimelineScreen({
   reportHref: string;
   /** "Back to report" on a subject's Over time: null when it cannot be restored. */
   returnTo?: string | null;
+  /** That crumb's label: the parent overview's name, else "Back to report" (absent). */
+  returnLabel?: string;
 }) {
   const sample = context.sample.split(':')[0] as ContributionSampleScenario;
   const options = useMemo(() => contributionOptionsClient(sample), [sample]);

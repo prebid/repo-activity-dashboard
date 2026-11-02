@@ -93,16 +93,28 @@ describe('Timeline pages from registry values', () => {
   it('name a subject’s Over time crumbs, unavailable when their frame cannot be restored', async () => {
     const company = await timelineView(view('/companies/unmapped?timeline'));
     if (company.status !== 'ready' || !('reportHref' in company)) throw Error('Expected Over time');
-    expect([company.reportHref, company.returnTo]).toEqual([
+    expect([company.reportHref, company.returnTo, company.returnLabel]).toEqual([
       '/companies/unmapped?v=1',
       '/companies?v=1',
+      'Back to Companies',
     ]);
-    const lost = await timelineView(view('/contributors/account-alice?timeline&back=-&back=!'));
-    expect(lost.status === 'ready' && 'reportHref' in lost && lost.returnTo).toBeNull();
-    const overview = await timelineView(view('/companies?timeline'));
-    expect(overview.status === 'ready' && 'reportHref' in overview && overview.returnTo).toBe(
-      undefined,
+    const reviewer = await timelineView(
+      view('/contributors/account-alice?timeline&lens=reviewers'),
     );
+    expect(reviewer.status === 'ready' && 'reportHref' in reviewer && reviewer).toMatchObject({
+      returnTo: '/reviewers?v=1',
+      returnLabel: 'Back to Reviewers',
+    });
+    const lost = await timelineView(view('/contributors/account-alice?timeline&back=-&back=!'));
+    expect(lost.status === 'ready' && 'reportHref' in lost && lost).toMatchObject({
+      returnTo: null,
+      returnLabel: 'Back to report',
+    });
+    const overview = await timelineView(view('/companies?timeline'));
+    expect(overview.status === 'ready' && 'reportHref' in overview && overview).toMatchObject({
+      returnTo: undefined,
+      returnLabel: undefined,
+    });
   });
   it('resolve an entry’s saved view per route, and nothing for an unreadable entry', async () => {
     const week = { version: 1, query: 'timeline.group=week' };

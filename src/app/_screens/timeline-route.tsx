@@ -68,6 +68,7 @@ export async function TimelineRoute({ view, entry }: { view: UrlView; entry: boo
       area={area}
       reportHref={result.reportHref}
       returnTo={result.returnTo}
+      returnLabel={result.returnLabel}
     />
   );
 }

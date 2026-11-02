@@ -109,8 +109,6 @@ export function readStoredContributionPreferences(raw: string | null): Contribut
   }
 }
 
-/** The tables whose saved columns are written as a version 2 diff against a lens's v1 columns. */
-export type ContributionLensTable = Exclude<ContributionTableKind, 'details'>;
 /**
  * A stored presentation for one table of a lens, or null when it is not a presentation document:
  * version 1's column map as stored, or version 2's `cols` diff expanded against the lens's v1

@@ -29,6 +29,7 @@ import {
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { companyFocus, contributionPath } from '@/lib/presentation/contribution-navigation';
+import { contributionBackLabel } from '@/lib/presentation/contribution-lens';
 import {
   backFrames,
   resolveBack,
@@ -445,6 +446,11 @@ export async function timelineView(
     ...canonical(result),
     reportHref: reportTab(view, report),
     returnTo: focus.kind === 'overview' ? undefined : crumb(returnTo),
+    // The crumb names an overview parent, as the subject's report does (decision D12).
+    returnLabel:
+      focus.kind === 'overview' || returnTo === undefined
+        ? undefined
+        : contributionBackLabel(returnTo.available ? returnTo.view : null),
   };
 }
 const reportScope = ['sample', 'lens', 'period', 'repo', 'type', 'account', 'company', 'exclude'];
