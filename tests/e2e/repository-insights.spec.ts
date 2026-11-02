@@ -289,9 +289,10 @@ test('duration links show median and sample size separately with numeric sorting
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(44);
   await page.getByRole('button', { name: 'Merge time', exact: true }).click();
   await page.reload();
-  await expect(
-    page.getByRole('columnheader', { name: 'Merge time ↑', exact: true }),
-  ).toHaveAttribute('aria-sort', 'ascending');
+  await expect(page.getByRole('columnheader', { name: 'Merge time', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
   const days = (await page.locator('[data-column="mergeDays"]').allTextContents()).map(
     Number.parseFloat,
   );

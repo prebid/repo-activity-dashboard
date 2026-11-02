@@ -29,7 +29,8 @@ function prebidjsOpened(selection: PeriodSelection) {
   )!;
   return period.rows['repo-prebidjs'].activity.counts.prsOpened.value!;
 }
-const signed = (value: number) => (value > 0 ? '+' : '') + value;
+// Displayed differences sign with '+' or the minus sign (U+2212), never the ASCII hyphen.
+const signed = (value: number) => (value > 0 ? '+' : value < 0 ? '\u2212' : '') + Math.abs(value);
 const thisMonth = prebidjsOpened({ kind: 'preset', preset: 'this-month' });
 const lastMonth = prebidjsOpened({ kind: 'preset', preset: 'last-month' });
 const firstCustom = prebidjsOpened({ kind: 'custom', from: '2026-10-06', through: '2026-10-08' });
@@ -48,7 +49,7 @@ it('renders signed differences only from complete values, including durations an
       second={{ status: 'complete', value: 10 }}
     />,
   );
-  expect(screen.getByText('-6')).toBeVisible();
+  expect(screen.getByText('\u22126')).toBeVisible();
   view.rerender(
     <MeasurementDifference
       first={{ status: 'complete', value: 0 }}
@@ -63,7 +64,7 @@ it('renders signed differences only from complete values, including durations an
       unit="days"
     />,
   );
-  expect(screen.getByText('-0.5 d')).toBeVisible();
+  expect(screen.getByText('\u22120.5 d')).toBeVisible();
   view.rerender(
     <MeasurementDifference
       first={{ status: 'complete', value: 10 }}
@@ -236,7 +237,7 @@ it('keeps aging exclusively in its own selector and removes the group when none 
     '6',
   );
   await user.click(within(backlog).getByRole('button', { name: 'Over 90 days' }));
-  expect(within(backlog).getByRole('columnheader', { name: 'Over 90 days ↑' })).toHaveAttribute(
+  expect(within(backlog).getByRole('columnheader', { name: 'Over 90 days' })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
@@ -381,7 +382,11 @@ it('renders separate grouped tables with complete sample populations and pinned 
     .getAttribute('headers')!
     .split(' ')
     .map((id) => document.getElementById(id)?.textContent);
-  expect(headings).toEqual(['Pull requests', 'Total PRs ↓']);
+  expect(headings).toEqual(['Pull requests', 'Total PRs']);
+  expect(document.getElementById(total.getAttribute('headers')!.split(' ')[1])).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
 });
 it('keeps column visibility and sorting independent without table search', async () => {
   const user = userEvent.setup();
@@ -411,12 +416,12 @@ it('keeps column visibility and sorting independent without table search', async
   expect(
     within(activity).queryByRole('columnheader', { name: 'Human reviewers' }),
   ).not.toBeInTheDocument();
-  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↓' }));
-  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↑' }));
-  expect(within(backlog).getByRole('columnheader', { name: 'Total PRs ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  const totalHeader = within(backlog).getByRole('columnheader', { name: 'Total PRs' });
+  expect(totalHeader).toHaveAttribute('aria-sort', 'descending');
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs' }));
+  expect(totalHeader).toHaveAttribute('aria-sort', 'ascending');
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs' }));
+  expect(totalHeader).toHaveAttribute('aria-sort', 'descending');
   expect(within(backlog).queryByRole('textbox')).not.toBeInTheDocument();
   expect(within(activity).queryByRole('textbox')).not.toBeInTheDocument();
   expect(within(backlog).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
@@ -523,9 +528,9 @@ it('renders metric uncertainty, details, units and neutral comparisons without f
   );
   expect(screen.getByText('Partial value. Incomplete sample')).toBeInTheDocument();
   expect(screen.getByText('5.5 d')).toBeVisible();
-  expect(screen.getByText(/-1.5 d/)).toBeVisible();
+  expect(screen.getByText(/\u22121.5 d/)).toBeVisible();
   expect(screen.getByTitle('Previous period: 7.0 d')).toHaveTextContent(
-    'Change from comparison period: -1.5 d Previous period value: 7.0 days',
+    'Change from comparison period: \u22121.5 d Previous period value: 7.0 days',
   );
   expect(screen.getByText('4.9 d')).toBeVisible();
   expect(screen.getByTitle('Previous period: 2.0 d')).toHaveTextContent(

@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect, expectTheme } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { inventory } from '../support/views';
@@ -175,8 +175,9 @@ async function inspectFonts(
 
 /**
  * Every visible icon from the icon map renders at its width attribute, at a size the map allows,
- * with a 1.5px line (1px for a 10px badge glyph). absoluteStrokeWidth derives the stroke from that attribute, so a stylesheet
- * that resizes an icon shows here as a size or line mismatch.
+ * with a 1.5px line (1px for a 10px badge glyph, 2px for a 12px sort glyph). absoluteStrokeWidth
+ * derives the stroke from that attribute, so a stylesheet that resizes an icon shows here as a size
+ * or line mismatch.
  */
 async function inspectIcons(page: Page) {
   return page.evaluate(() => {
@@ -187,14 +188,21 @@ async function inspectIcons(page: Page) {
       count++;
       const name = [...svg.classList].find((entry) => entry.startsWith('lucide-')) ?? 'lucide';
       const declared = Number(svg.getAttribute('width'));
+      // Only SortIcon's direction glyphs draw at 12px.
+      const direction = [
+        'lucide-chevrons-up-down',
+        'lucide-arrow-up',
+        'lucide-arrow-down',
+      ].includes(name);
       const style = getComputedStyle(svg);
       const width = parseFloat(style.width);
       const height = parseFloat(style.height);
       const line = (Number(svg.getAttribute('stroke-width')) * width) / 24;
-      if (![10, 14, 16].includes(declared)) problems.push(`${name}: declared ${declared}px`);
+      if (!(direction ? [12] : [10, 14, 16]).includes(declared))
+        problems.push(`${name}: declared ${declared}px`);
       if (Math.abs(width - declared) > 0.01 || Math.abs(height - declared) > 0.01)
         problems.push(`${name}: renders ${width}x${height}px, declared ${declared}px`);
-      const expected = declared === 10 ? 1 : 1.5;
+      const expected = declared === 10 ? 1 : declared === 12 ? 2 : 1.5;
       if (Math.abs(line - expected) > 0.01) problems.push(`${name}: ${line.toFixed(2)}px line`);
     }
     return { count, problems };
@@ -214,7 +222,7 @@ for (const [title, theme] of themes)
         const response = await page.goto(view.path);
         expect(response?.status()).toBe(200);
         expect(new URL(page.url()).pathname).toBe(new URL(view.path, page.url()).pathname);
-        await expect(page.locator('html')).toHaveClass(new RegExp(`(^|\\s)${theme}(\\s|$)`));
+        await expectTheme(page, theme);
         await fontsReady(page);
         const { violations } = await new AxeBuilder({ page }).include('main').analyze();
         expect(

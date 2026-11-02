@@ -105,7 +105,11 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   expect(screen.queryByRole('button', { name: 'Export CSV' })).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Show chart' })).not.toBeInTheDocument();
   await user.click(within(table).getByRole('button', { name: 'PRs authored' }));
-  await user.click(within(table).getByRole('button', { name: 'PRs authored ↑' }));
+  expect(within(table).getByRole('columnheader', { name: 'PRs authored' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+  await user.click(within(table).getByRole('button', { name: 'PRs authored' }));
   expect(table.querySelector('tbody tr [data-column="period"]')).toHaveTextContent('Oct 2026');
   await user.click(screen.getByRole('button', { name: 'Columns' }));
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Comment activity' }));

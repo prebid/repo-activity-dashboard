@@ -79,7 +79,11 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
   render(preview(matrix));
   expect(screen.getByRole('status')).toHaveTextContent('Periods 13–22 of 22');
   await user.click(screen.getByRole('button', { name: 'Aug 2026' }));
-  await user.click(screen.getByRole('button', { name: 'Aug 2026 ↑' }));
+  expect(screen.getByRole('columnheader', { name: 'Aug 2026' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+  await user.click(screen.getByRole('button', { name: 'Aug 2026' }));
   const names = () =>
     Array.from(screen.getByRole('table').querySelectorAll('tbody [data-column="repository"]')).map(
       (cell) => cell.textContent,
@@ -100,7 +104,7 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
   expect(screen.getByRole('button', { name: 'Earlier' })).toBeDisabled();
   await user.click(screen.getByRole('button', { name: 'Later' }));
   expect(names()).toEqual(sorted);
-  expect(screen.getByRole('columnheader', { name: 'Aug 2026 ↓' })).toHaveAttribute(
+  expect(screen.getByRole('columnheader', { name: 'Aug 2026' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );
@@ -142,7 +146,11 @@ it('bounds a 500-period DOM and keeps 50-row repository pages independent of the
   expect(screen.getByRole('status')).toHaveTextContent('Periods 1–12 of 22');
   expect(screen.getByText('Page 2 of 2')).toBeVisible();
   expect(repoRow('Repository 50')).toBeVisible();
-  await user.click(screen.getByRole('button', { name: 'Repository ↑' }));
+  expect(screen.getByRole('columnheader', { name: 'Repository' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+  await user.click(screen.getByRole('button', { name: 'Repository' }));
   expect(screen.getByText('Page 1 of 2')).toBeVisible();
   expect(screen.getByRole('table').querySelector('tbody tr')).toHaveTextContent('Repository 50');
   expect(screen.getByRole('status')).toHaveTextContent('Periods 1–12 of 22');
@@ -275,7 +283,11 @@ it('renders selected metrics as consecutive repository groups, without splitting
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(6);
   await user.click(screen.getByRole('button', { name: 'Previous' }));
   await user.click(screen.getByRole('button', { name: 'Oct 2026 (partial)' }));
-  await user.click(screen.getByRole('button', { name: 'Oct 2026 (partial) ↑' }));
+  expect(screen.getByRole('columnheader', { name: 'Oct 2026 (partial)' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+  await user.click(screen.getByRole('button', { name: 'Oct 2026 (partial)' }));
   const rows = screen.getByRole('table').querySelectorAll('tbody tr');
   expect(rows[0]).toHaveTextContent('Prebid Server (Go)');
   expect(rows[1]).toHaveTextContent('Pull requests — Merged');

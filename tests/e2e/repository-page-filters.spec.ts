@@ -142,7 +142,7 @@ test('saves columns and sorting without saving historical scope or filters', asy
   await expect(page.getByRole('combobox', { name: 'Record scope', exact: true })).toHaveValue(
     'current',
   );
-  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR ↑');
+  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR');
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
   await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(50);

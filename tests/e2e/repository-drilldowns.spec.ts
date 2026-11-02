@@ -77,7 +77,7 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   await page.getByRole('button', { name: 'Title', exact: true }).click();
   await page.reload();
   expect(new URL(page.url()).searchParams.get('branch')).toBe('master');
-  await expect(page.getByRole('columnheader', { name: 'Title ↑', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('columnheader', { name: 'Title', exact: true })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );

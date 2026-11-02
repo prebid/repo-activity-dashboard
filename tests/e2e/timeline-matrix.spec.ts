@@ -116,12 +116,14 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   );
   // Sep 23, 2026 is led by Prebid.js (32 PRs opened), unlike name order.
   await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
-  await table.getByRole('button', { name: 'Sep 23, 2026 ↑', exact: true }).click();
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
   // Header state and row order come from the same render, so this waits for the sorted rows.
-  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
   const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
   expect(ordering[0]).toContain('Prebid.js');
   expect(ordering).not.toEqual(names);
@@ -137,10 +139,9 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
     page.getByText(/Sorted by Sep 23, 2026 \(descending; outside visible periods\)/),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
   await page.screenshot({ path: info.outputPath('matrix-dense.png'), fullPage: true });
 });
 test('mixed coverage, durations, snapshots and empty selections retain their meanings', async ({

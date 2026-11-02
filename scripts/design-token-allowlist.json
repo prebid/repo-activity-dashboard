@@ -65,33 +65,6 @@
       "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
     },
     {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".table .group",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".sort",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".definitionsList",
-      "property": "border-radius",
-      "value": "4px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
       "file": "src/features/authentication/authentication.module.css",
       "context": "",
       "selector": ".formEyebrow",
@@ -360,15 +333,6 @@
       "value": "text-2xl",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/components/tables/data-table.tsx",
-      "context": "DataTable > header",
-      "selector": "",
-      "property": "text",
-      "value": "query.sort === column.id ? (query.descending ? ' ↓' : ' ↑') : ''",
-      "phase": "P3",
-      "reason": "Sort direction glyph; P3 SortIcon replaces it (TYPE-05)"
     },
     {
       "file": "src/components/ui/table.tsx",

@@ -1,0 +1,26 @@
+/* The one style for a number that opens its records: ink at rest with a dotted Prebid-blue
+   underline, the link colour on hover. Put `.link` on the link that wraps a MeasurementValue in
+   Summary, Timeline, Contributions, the supporting views and the KPI tiles:
+
+     import drillable from '@/components/metrics/drillable-number.module.css';
+     <Link className={drillable.link} href={…} aria-label={…}><MeasurementValue … /></Link>
+
+   The link keeps its own name and destination. MeasurementValue takes the underline onto its
+   digits, and a known zero keeps its muted ink until the link is hovered. */
+.link {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--prebid-brand-blue);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  border-radius: var(--prebid-radius-small);
+}
+.link:hover {
+  --measurement-quiet-ink: var(--prebid-link);
+  color: var(--prebid-link);
+}
+.link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}

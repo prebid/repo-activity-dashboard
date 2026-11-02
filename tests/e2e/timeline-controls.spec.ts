@@ -70,7 +70,10 @@ test('matrix filters, period windows and copied repository returns preserve full
   await repos(page, ['Prebid.js', 'Prebid Server (Go)']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(2);
   await page.getByRole('button', { name: 'Oct 21, 2026', exact: true }).click();
-  await page.getByRole('button', { name: 'Oct 21, 2026 ↑', exact: true }).click();
+  const sorted = page.getByRole('columnheader', { name: 'Oct 21, 2026', exact: true });
+  await expect(sorted).toHaveAttribute('aria-sort', 'ascending');
+  await page.getByRole('button', { name: 'Oct 21, 2026', exact: true }).click();
+  await expect(sorted).toHaveAttribute('aria-sort', 'descending');
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
   await expect(
     page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
