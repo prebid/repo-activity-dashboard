@@ -119,6 +119,8 @@ it('reads each lens’s own column and sort sections, version 1 or 2, and shares
   const sections = {
     'contributions.scope': stored(lastMonth),
     'contributions.contributors.sort': { sort: 'prsAuthored', descending: true },
+    // Version 1, as an earlier release saved it.
+    'contributions.contributors.columns': { version: 1, columns: { prComments: true } },
     'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
     'contributions.reviewers.contributors.columns': JSON.parse(
       serializeContributionPresentation(
@@ -141,14 +143,23 @@ it('reads each lens’s own column and sort sections, version 1 or 2, and shares
   expect(reviewers.preferences.sort.section).toBe('contributions.reviewers.contributors.sort');
   // The Contributors lens reads its own sections; Show all never reaches it.
   const contributors = await resolve(sections);
-  expect(contributors.target).toBe('/contributors?period=last-month&sort=-prsAuthored');
+  expect(contributors.target).toBe(
+    '/contributors?period=last-month&sort=-prsAuthored&cols=prComments',
+  );
   expect(contributors.preferences.presentation.section).toBe('contributions.contributors.columns');
+  // A version 2 section that names a Column set opens with that set's columns.
   const companies = await resolve(
-    { 'contributions.reviewers.companies.sort': { sort: 'name', descending: false } },
+    {
+      'contributions.reviewers.companies.sort': { sort: 'name', descending: false },
+      'contributions.reviewers.companies.columns': { version: 2, set: 'contributor' },
+    },
     'lens=reviewers',
     { area: 'companies' },
   );
-  expect(companies.target).toBe('/companies?lens=reviewers&sort=name');
+  expect(companies.target).toBe(
+    '/companies?lens=reviewers&sort=name' +
+      '&cols=prsAuthored,authoredPrsMerged,-reviewerContributions,-approvalContributions,-mergesPerformed,issuesAuthored',
+  );
   const company = await resolve(
     { 'contributions.reviewers.members.columns': { version: 2, cols: '-actorType' } },
     'lens=reviewers',

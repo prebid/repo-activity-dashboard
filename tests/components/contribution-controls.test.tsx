@@ -27,6 +27,7 @@ import type {
   ContributionTableKind,
 } from '@/models/contribution-preferences';
 import type { ContributionPage } from '@/models/contribution-page';
+import type { PreferenceSectionKey } from '@/models/preferences';
 import { lensDefaultSort, type ContributionLens } from '@/models/contribution-lens';
 import { contributionTableColumnIds } from '@/models/table-columns';
 import { matchingColumnSet } from '@/lib/presentation/column-selection';
@@ -88,6 +89,7 @@ function report(
 }
 /** The saved sections of the contributions cookie for Alice's session, by key. */
 const saved = () => preferenceSections('contributions') ?? {};
+type Controls = ReturnType<typeof useContributionControls>;
 function useControls({
   viewerId = 'alice',
   pickerDirectory = directory,
@@ -660,10 +662,14 @@ it('applies a Column set that hides the sorted metric with its lead sort in one 
   });
   const { visibility } = result.current.controls;
   expect(matchingColumnSet(visibility.sets!, visibility.value)?.label).toBe('Contributor');
-  // The lens's sections hold the same column diff as the address, and the lead sort.
+  // The lens's sections hold the set by name, where the address holds its column diff, and the
+  // lead sort.
+  expect(address.searchParams.get('cols')).toBe(
+    'prsAuthored,authoredPrsMerged,-reviewerContributions,-approvalContributions,-mergesPerformed,issuesAuthored',
+  );
   expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
     version: 2,
-    cols: address.searchParams.get('cols'),
+    set: 'contributor',
     hideZeroMembers: false,
   });
   expect(saved()['contributions.reviewers.contributors.sort']).toEqual({
@@ -690,6 +696,11 @@ it('keeps the sort and page when a Column set leaves the sorted column visible',
       result.current.controls.visibility.value,
     )?.label,
   ).toBe('All columns');
+  expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
+    version: 2,
+    set: 'all',
+    hideZeroMembers: false,
+  });
   expect(saved()).not.toHaveProperty('contributions.reviewers.contributors.sort');
   // An unknown set changes nothing.
   const href = window.location.href;
@@ -734,6 +745,78 @@ it('lists every account through Show all, on page 1, and saves it beside the len
     cols: 'prsAuthored',
     hideZeroMembers: false,
   });
+});
+it('rewrites a version 1 column section as version 2, with the same columns, on the next deliberate change', () => {
+  // Each table's v1 section as an earlier release saved it, and the address its entry opened.
+  const cases = [
+    {
+      section: 'contributions.contributors.columns',
+      stored: { version: 1, columns: { prComments: true, issuesAuthored: false } },
+      address: '/contributors?cols=-issuesAuthored,prComments',
+      table: 'contributors',
+      lens: 'contributors',
+      // A column change: Authored PRs merged is hidden as well.
+      change: (controls: Controls) =>
+        controls.visibility.onChange({ ...controls.visibility.value, authoredPrsMerged: false }),
+      written: {
+        version: 2,
+        cols: '-authoredPrsMerged,-issuesAuthored,prComments',
+        hideZeroMembers: false,
+      },
+    },
+    {
+      section: 'contributions.members.columns',
+      stored: {
+        version: 1,
+        columns: { prComments: true, actorType: false },
+        hideZeroMembers: true,
+      },
+      address: '/companies/id/company-acme?cols=-actorType,prComments&zero=hide',
+      table: 'members',
+      lens: 'contributors',
+      change: (controls: Controls) => controls.changeHideZeroMembers(false),
+      written: { version: 2, cols: '-actorType,prComments', hideZeroMembers: false },
+    },
+    {
+      section: 'contributions.reviewers.companies.columns',
+      stored: { version: 1, columns: { members: false, prComments: true } },
+      address: '/companies?lens=reviewers&cols=-members,prComments',
+      table: 'companies',
+      lens: 'reviewers',
+      change: (controls: Controls) => controls.changeShowAllAccounts(true),
+      written: {
+        version: 2,
+        cols: '-members,prComments',
+        hideZeroMembers: false,
+        showAllAccounts: true,
+      },
+    },
+  ] as const;
+  for (const { section, stored, address, table, lens, change, written } of cases) {
+    seedPreferences(alice, { [section]: stored });
+    window.history.replaceState(null, '', address);
+    const preferences: ContributionReportPreferences = {
+      scope: savedSection(scopeSection),
+      presentation: savedSection(section, {
+        columns: stored.columns,
+        hideZeroMembers: 'hideZeroMembers' in stored,
+      }),
+      sort: savedSection(section.replace(/columns$/, 'sort') as PreferenceSectionKey),
+    };
+    const { result, unmount } = renderHook(() =>
+      useControls({
+        tableKey: table,
+        columnIds: contributionTableColumnIds[table],
+        lens,
+        preferences,
+      }),
+    );
+    act(() => {
+      change(result.current.controls);
+    });
+    expect(saved()[section], section).toEqual(written);
+    unmount();
+  }
 });
 it('gives links the report’s address with its columns, sort and a pending search', () => {
   window.history.replaceState(

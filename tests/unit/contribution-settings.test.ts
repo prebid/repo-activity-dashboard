@@ -10,7 +10,17 @@ import {
   readContributionPresentationDocument,
   serializeContributionPresentation,
 } from '@/lib/presentation/contribution-settings';
+import { columnSetChange } from '@/lib/presentation/contribution-lens';
+import {
+  fitPreferenceCookie,
+  preferenceCookieByteLimit,
+  preferenceCookieBytes,
+  withPreferenceSection,
+  type PreferenceDocument,
+} from '@/lib/presentation/preference-cookie';
 import { reportMetricIds } from '@/models/contribution-metrics';
+import type { PreferenceSectionKey } from '@/models/preferences';
+import { contributionTableColumnIds } from '@/models/table-columns';
 import { expect, it } from 'vitest';
 import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
@@ -186,8 +196,8 @@ it('saves report table columns as a short version 2 diff against the lens’s de
     'contributors',
     'contributors',
   );
-  // Every column shown: the diff names the 36 columns the lens hides by default.
-  expect(JSON.parse(full)).toMatchObject({ version: 2, hideZeroMembers: false });
+  // Every column shown is the All columns set, stored by its name.
+  expect(JSON.parse(full)).toEqual({ version: 2, set: 'all', hideZeroMembers: false });
   expect(full.length).toBeLessThan(serializeContributionPresentation(choices, false).length);
   const reviewer = serializeContributionPresentation(
     { prComments: true, mergesPerformed: false, actorType: false },
@@ -250,6 +260,163 @@ it('saves report table columns as a short version 2 diff against the lens’s de
   expect(
     readContributionPresentationDocument('{"version":2,"cols":""}', 'companies', 'reviewers'),
   ).toMatchObject({ hideZeroMembers: false, showAllAccounts: false });
+});
+
+/** The columns a stored section shows on a table of a lens, in table order. */
+function shownColumns(
+  raw: string,
+  table: 'contributors' | 'companies' | 'members' | 'repositories',
+  lens: 'contributors' | 'reviewers',
+) {
+  const read = readContributionPresentationDocument(raw, table, lens)!;
+  return Object.keys(read.columns).filter((id) => read.columns[id]);
+}
+it('stores a choice that matches another Column set by the set’s name, and a Custom one as a diff', () => {
+  const every = (table: keyof typeof contributionTableColumnIds) =>
+    Object.fromEntries(contributionTableColumnIds[table].map((id) => [id, true]));
+  for (const table of ['contributors', 'companies', 'members', 'repositories'] as const)
+    for (const lens of ['contributors', 'reviewers'] as const) {
+      const raw = serializeContributionPresentation(
+        every(table),
+        false,
+        lens === 'reviewers',
+        lens,
+        table,
+      );
+      expect(JSON.parse(raw), table + ' ' + lens).toEqual({
+        version: 2,
+        set: 'all',
+        hideZeroMembers: false,
+        ...(lens === 'reviewers' && { showAllAccounts: true }),
+      });
+      expect(shownColumns(raw, table, lens)).toEqual([...contributionTableColumnIds[table]]);
+    }
+  // A set leaves identity columns as they are: they stay in `cols`, against v1.
+  const contributor = serializeContributionPresentation(
+    {
+      actorType: false,
+      prsAuthored: true,
+      authoredPrsMerged: true,
+      issuesAuthored: true,
+      reviewerContributions: false,
+      approvalContributions: false,
+      mergesPerformed: false,
+    },
+    false,
+    false,
+    'reviewers',
+    'contributors',
+  );
+  expect(JSON.parse(contributor)).toEqual({
+    version: 2,
+    set: 'contributor',
+    cols: '-actorType',
+    hideZeroMembers: false,
+  });
+  expect(shownColumns(contributor, 'contributors', 'reviewers')).toEqual([
+    'name',
+    'company',
+    'prsAuthored',
+    'authoredPrsMerged',
+    'issuesAuthored',
+  ]);
+  const credits = serializeContributionPresentation(
+    { reviewerContributions: true, approvalContributions: true, mergesPerformed: true },
+    true,
+    false,
+    'contributors',
+    'members',
+  );
+  expect(JSON.parse(credits)).toEqual({ version: 2, set: 'credits', hideZeroMembers: true });
+  expect(shownColumns(credits, 'members', 'contributors')).toEqual([
+    'name',
+    'actorType',
+    'prsAuthored',
+    'authoredPrsMerged',
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+    'issuesAuthored',
+  ]);
+  // The lens's own set is its v1 columns, whose diff is shorter than the set's name.
+  expect(
+    JSON.parse(
+      serializeContributionPresentation(
+        { company: false },
+        false,
+        false,
+        'reviewers',
+        'contributors',
+      ),
+    ),
+  ).toEqual({ version: 2, cols: '-company', hideZeroMembers: false });
+  // A Custom choice is a diff against the lens's v1 columns and reads back as the same columns.
+  const custom = serializeContributionPresentation(
+    { prComments: true, approvalContributions: false, company: false },
+    false,
+    false,
+    'reviewers',
+    'contributors',
+  );
+  expect(JSON.parse(custom)).toEqual({
+    version: 2,
+    cols: '-company,-approvalContributions,prComments',
+    hideZeroMembers: false,
+  });
+  expect(shownColumns(custom, 'contributors', 'reviewers')).toEqual([
+    'name',
+    'actorType',
+    'reviewerContributions',
+    'mergesPerformed',
+    'prComments',
+  ]);
+  // A named set must be one of the four, and its diff must name the table's columns.
+  for (const raw of [
+    '{"version":2,"set":"retired"}',
+    '{"version":2,"set":"all","cols":"unknown"}',
+    '{"version":2,"set":"all","cols":1}',
+    '{"version":2,"set":null,"cols":""}',
+  ])
+    expect(readContributionPresentationDocument(raw, 'contributors', 'reviewers'), raw).toBeNull();
+});
+it('keeps the saved scope when All columns is saved on both lenses’ people tables', () => {
+  const binding = { accountId: 'account-0123456789abcdef0123456789abcdef', authVersion: 7 };
+  let document: PreferenceDocument | null = null;
+  const save = (section: PreferenceSectionKey, value: unknown) => {
+    const fit = fitPreferenceCookie(
+      withPreferenceSection(document, binding, section, value),
+      section,
+    );
+    if (fit.status !== 'fits') throw Error('Expected the cookie to fit');
+    expect(fit.evicted, section).toEqual([]);
+    document = fit.document;
+    return preferenceCookieBytes('contributions', fit.value!);
+  };
+  save('contributions.scope', JSON.parse(serializeContributionPreferences(defaults)));
+  // The section each lens's Columns menu writes after choosing All columns.
+  const allColumns = (lens: 'contributors' | 'reviewers') =>
+    JSON.parse(
+      serializeContributionPresentation(
+        columnSetChange(
+          'all',
+          lens,
+          { visible: {}, sort: { sort: 'name', descending: false } },
+          'report',
+        ).visible,
+        false,
+        false,
+        lens,
+        'contributors',
+      ),
+    ) as unknown;
+  save('contributions.contributors.columns', allColumns('contributors'));
+  const bytes = save('contributions.reviewers.contributors.columns', allColumns('reviewers'));
+  expect(bytes).toBeLessThan(preferenceCookieByteLimit / 2);
+  expect(Object.keys(document!.sections)).toEqual([
+    'contributions.scope',
+    'contributions.contributors.columns',
+    'contributions.reviewers.contributors.columns',
+  ]);
 });
 
 it('reads legacy and current member presentation preferences without trusting malformed browser values', () => {

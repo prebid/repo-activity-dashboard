@@ -22,7 +22,14 @@ export {
   writeContributionSettings,
 };
 import { readTableColumns } from './table-column-preferences';
-import { columnTokens, contributionColumnTable, visibleColumns } from './url/defaults';
+import { matchingColumnSet } from './column-selection';
+import { columnSetOptions, columnSetVisibility } from './contribution-lens';
+import {
+  columnTokens,
+  contributionColumnTable,
+  visibleColumns,
+  type UrlColumnTable,
+} from './url/defaults';
 import {
   contributionSettingsSchema,
   type ContributionSettings,
@@ -34,7 +41,8 @@ import {
   type ContributionPresentation,
   type ContributionTableKind,
 } from '@/models/contribution-preferences';
-import type { ContributionLens } from '@/models/contribution-lens';
+import { lensColumnSet, type ColumnSetId, type ContributionLens } from '@/models/contribution-lens';
+import { reportMetricIds } from '@/models/contribution-metrics';
 
 export function readContributionPreferenceCandidate(
   raw: string | null,
@@ -110,10 +118,28 @@ export function readStoredContributionPreferences(raw: string | null): Contribut
 }
 
 /**
+ * The columns a version 2 `cols` diff is against: with a Column set, the set's columns over the
+ * table's v1 identity columns; otherwise the lens's v1 columns.
+ */
+function presentationBase(
+  table: Exclude<ContributionTableKind, 'details'>,
+  lens: ContributionLens,
+  set?: ColumnSetId,
+): UrlColumnTable {
+  const defaults = contributionColumnTable(table, lens);
+  if (!set) return defaults;
+  const visible = columnSetVisibility(
+    set,
+    Object.fromEntries(defaults.ids.map((id) => [id, defaults.visible.has(id)])),
+  );
+  return { ids: defaults.ids, visible: new Set(defaults.ids.filter((id) => visible[id])) };
+}
+/**
  * A stored presentation for one table of a lens, or null when it is not a presentation document:
- * version 1's column map as stored, or version 2's `cols` diff expanded against the lens's v1
- * columns for `table` into a choice for every column. A version 2 diff naming a column the table
- * lacks, or stored for supporting records, is not a document.
+ * version 1's column map as stored, or version 2's `cols` diff expanded against its base (the
+ * named Column set's columns, else the lens's v1 columns for `table`) into a choice for every
+ * column. A version 2 diff naming a column the table lacks, or stored for supporting records, is
+ * not a document.
  */
 export function readContributionPresentationDocument(
   raw: string | null,
@@ -135,11 +161,11 @@ export function readContributionPresentationDocument(
       showAllAccounts: false,
     };
   if (table === 'details') return null;
-  const defaults = contributionColumnTable(table, lens);
-  const visible = visibleColumns(defaults, value.cols ? value.cols.split(',') : []);
+  const base = presentationBase(table, lens, value.set);
+  const visible = visibleColumns(base, value.cols ? value.cols.split(',') : []);
   return (
     visible && {
-      columns: Object.fromEntries(defaults.ids.map((id) => [id, visible.includes(id)])),
+      columns: Object.fromEntries(base.ids.map((id) => [id, visible.includes(id)])),
       hideZeroMembers,
       showAllAccounts: value.showAllAccounts === true,
     }
@@ -165,9 +191,11 @@ export function readContributionPresentation(
   };
 }
 /**
- * A presentation section's JSON. With a report `table`, version 2: the column choices as a `cols`
- * diff against the lens's v1 columns (a column without a choice keeps its v1 state), and
- * `showAllAccounts` only when on. Supporting records, and callers that name no table, write
+ * A presentation section's JSON. With a report `table`, version 2 (a column without a choice keeps
+ * its v1 state), and `showAllAccounts` only when on. Columns that match a Column set other than the
+ * lens's own are stored by the set's name, with `cols` only for identity columns that differ from
+ * v1, so All columns stays tens of bytes; any other choice is a `cols` diff against the lens's v1
+ * columns, which are its own set. Supporting records, and callers that name no table, write
  * version 1's column map.
  */
 export function serializeContributionPresentation(
@@ -181,9 +209,19 @@ export function serializeContributionPresentation(
     return JSON.stringify({ version: 1, columns, hideZeroMembers });
   const defaults = contributionColumnTable(table, lens);
   const visible = defaults.ids.filter((id) => columns[id] ?? defaults.visible.has(id));
+  const matched = matchingColumnSet(
+    // The identity column `name` is required, so it never decides a set.
+    {
+      domain: reportMetricIds,
+      options: columnSetOptions(defaults.ids.filter((id) => id !== 'name')),
+    },
+    visible,
+  )?.id as ColumnSetId | undefined;
+  const set = matched === lensColumnSet[lens] ? undefined : matched;
+  const cols = columnTokens(presentationBase(table, lens, set), visible).join(',');
   return JSON.stringify({
     version: 2,
-    cols: columnTokens(defaults, visible).join(','),
+    ...(set ? { set, ...(cols && { cols }) } : { cols }),
     hideZeroMembers,
     ...(showAllAccounts && { showAllAccounts: true }),
   });

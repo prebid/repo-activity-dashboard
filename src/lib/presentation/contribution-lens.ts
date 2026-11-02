@@ -100,11 +100,26 @@ export interface ColumnSetSort {
   descending: boolean;
 }
 /**
- * The columns and sort after choosing a set (decisions D8 and D9). The set decides the metric
- * columns, or shows every column for `all`; identity columns keep their state. When the set hides
- * the sorted metric, the sort moves to the set's lead metric, descending (All credits: the lens's
- * default), or to Period ascending on Over time; the caller returns to page 1 then. `sort` is
- * absent when the sort does not change.
+ * The visibility a set gives (decision D8): the set decides the metric columns, or shows every
+ * column for `all`; identity columns keep their state.
+ */
+export function columnSetVisibility(
+  set: ColumnSetId,
+  current: Readonly<Record<string, boolean>>,
+): Record<string, boolean> {
+  const visible: Record<string, boolean> = { ...current };
+  if (set === 'all')
+    for (const id of [...Object.keys(visible), ...reportMetricIds]) visible[id] = true;
+  else
+    for (const id of reportMetricIds)
+      visible[id] = (columnSetMetrics[set] as readonly string[]).includes(id);
+  return visible;
+}
+/**
+ * The columns and sort after choosing a set (decisions D8 and D9): the set's visibility. When the
+ * set hides the sorted metric, the sort moves to the set's lead metric, descending (All credits:
+ * the lens's default), or to Period ascending on Over time; the caller returns to page 1 then.
+ * `sort` is absent when the sort does not change.
  */
 export function columnSetChange(
   set: ColumnSetId,
@@ -112,12 +127,7 @@ export function columnSetChange(
   current: { visible: Readonly<Record<string, boolean>>; sort: ColumnSetSort },
   kind: 'report' | 'timeline',
 ): { visible: Record<string, boolean>; sort?: ColumnSetSort } {
-  const visible: Record<string, boolean> = { ...current.visible };
-  if (set === 'all')
-    for (const id of [...Object.keys(visible), ...reportMetricIds]) visible[id] = true;
-  else
-    for (const id of reportMetricIds)
-      visible[id] = (columnSetMetrics[set] as readonly string[]).includes(id);
+  const visible = columnSetVisibility(set, current.visible);
   const sorted = current.sort.sort;
   if (!(reportMetricIds as readonly string[]).includes(sorted) || visible[sorted])
     return { visible };

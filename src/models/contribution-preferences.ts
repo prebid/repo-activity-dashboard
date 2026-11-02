@@ -1,3 +1,4 @@
+import { columnSetIds, type ColumnSetId } from './contribution-lens';
 import type { ContributionSettings } from './contribution-settings';
 import type { SavedPreference } from './preferences';
 import type { TableQuery } from './table-query';
@@ -29,13 +30,21 @@ export interface ContributionReportPreferences {
 }
 
 /**
- * A stored presentation. Version 1 holds a map of column choices. Version 2 holds `cols`, the URL's
- * column diff (`id` shown, `-id` hidden, comma-joined) against the lens's v1 columns for the
- * section's table, so a section stays tens of bytes; supporting records keep version 1.
+ * A stored presentation. Version 1 holds a map of column choices; supporting records keep it.
+ * Version 2 holds `cols`, the URL's column diff (`id` shown, `-id` hidden, comma-joined) against a
+ * base for the section's table: with `set`, that Column set's columns over the v1 identity
+ * columns, so a choice matching a set stores its name and at most the identity columns that
+ * differ; without `set`, the lens's v1 columns. `cols` may be absent only with `set`.
  */
 export type ContributionPresentationDocument =
   | { version: 1; columns: Record<string, unknown>; hideZeroMembers?: boolean }
-  | { version: 2; cols: string; hideZeroMembers?: boolean; showAllAccounts?: boolean };
+  | {
+      version: 2;
+      set?: ColumnSetId;
+      cols?: string;
+      hideZeroMembers?: boolean;
+      showAllAccounts?: boolean;
+    };
 
 const optionalBoolean = (value: object, key: string) =>
   !(key in value) || typeof (value as Record<string, unknown>)[key] === 'boolean';
@@ -52,11 +61,12 @@ export function isContributionPresentationDocument(
       typeof value.columns === 'object' &&
       !Array.isArray(value.columns)
     );
+  if (value.version !== 2 || !optionalBoolean(value, 'showAllAccounts')) return false;
+  const named = 'set' in value;
+  if (named && !columnSetIds.some((id) => id === value.set)) return false;
+  if (!('cols' in value)) return named;
   return (
-    value.version === 2 &&
-    'cols' in value &&
     typeof value.cols === 'string' &&
-    /^(?:-?[A-Za-z0-9._]+(?:,-?[A-Za-z0-9._]+)*)?$/.test(value.cols) &&
-    optionalBoolean(value, 'showAllAccounts')
+    /^(?:-?[A-Za-z0-9._]+(?:,-?[A-Za-z0-9._]+)*)?$/.test(value.cols)
   );
 }
