@@ -312,7 +312,7 @@ test('duplicate company IDs canonicalize without a loading deadlock on presentat
       .last()
       .locator('[data-column="prsAuthored"]')
       .textContent();
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: 'Columns · Contributor', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Comment activity', exact: true }).click();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('menu')).toBeHidden();

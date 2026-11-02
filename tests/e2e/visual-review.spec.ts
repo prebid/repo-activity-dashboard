@@ -29,10 +29,11 @@ for (const view of viewsFor('visual-review')) {
     await page.goto(view.path);
     await expect(page.getByRole('table').first()).toBeVisible();
     // SSR markup can appear before a large record payload has hydrated. Exercise a
-    // table-owned control before axe adds its own nodes to the document.
-    const ready = page.getByRole('button', { name: 'Columns', exact: true }).first();
+    // table-owned control before axe adds its own nodes to the document. A contribution table's
+    // trigger also names its column set.
+    const ready = page.getByRole('button', { name: /^Columns( · .+)?$/ }).first();
     await ready.click();
-    await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
+    await expect(page.getByRole('menu', { name: /^Columns( · .+)?$/ })).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(ready).toBeFocused();
     for (const mode of ['dark', 'light'] as const) {

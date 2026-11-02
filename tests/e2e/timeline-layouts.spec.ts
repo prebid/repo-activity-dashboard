@@ -54,7 +54,8 @@ for (const [path, title, theme, width] of [
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       width,
     );
-    await page.getByRole('button', { name: 'Columns', exact: true }).click();
+    // A contribution Timeline's trigger also names its column set.
+    await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
     await expect(page.getByRole('menu')).toBeVisible();
     await page.keyboard.press('Escape');
     if (path.startsWith('/repos/')) {
@@ -253,7 +254,7 @@ test('dense contribution timelines hydrate all metrics and retain fifty-row page
   await expect(page.getByText('Page 1 of 10', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByText('Page 2 of 10', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: 'Columns · Contributor', exact: true }).click();
   await page
     .getByRole('menuitemcheckbox', { name: 'Authored merged PR volume', exact: true })
     .click();

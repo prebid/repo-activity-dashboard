@@ -71,6 +71,30 @@ test('global gaps keep overview pages, counts and CSV exports bounded by recorde
   await page.screenshot({ path: info.outputPath('coverage-gap-mobile.png'), fullPage: true });
 });
 
+test('the Reviewers lens lists coverage-gap reviewers and companies without the global gap adding rows', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto('/reviewers?sample=coverage-gap');
+  await expect(page.getByLabel('Data coverage')).toContainText('account-specific gaps');
+  // The heavy agent authors PRs and issues but never reviews, approves or merges another's PR.
+  await expect(page.getByText('Page 1 of 5', { exact: true })).toBeVisible();
+  for (let number = 2; number <= 5; number++) {
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
+    await expect(page.getByText(`Page ${number} of 5`, { exact: true })).toBeVisible();
+  }
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  const reviewers = await csvDownload(page);
+  expect(reviewers.split('\r\n')).toHaveLength(251);
+  expect(reviewers).not.toContain('account-inactive-');
+  await page.goto('/companies?lens=reviewers&sample=coverage-gap');
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
+  await page.getByRole('switch', { name: 'Show all 4 companies', exact: true }).click();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(4);
+  const companies = await csvDownload(page);
+  expect(companies.split('\r\n')).toHaveLength(5);
+});
+
 test('coverage-gap filters preserve the full directory and focused reports without inventing overview activity', async ({
   page,
 }) => {
@@ -82,7 +106,7 @@ test('coverage-gap filters preserve the full directory and focused reports witho
   await page.getByRole('link', { name: /Sample agent.*— view contribution report/ }).click();
   await expect(page.getByRole('heading', { name: 'By repository', exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
   expect(listParam(page.url(), 'type')).toEqual(['agent']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
