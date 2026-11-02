@@ -4,7 +4,7 @@ import type { OverviewRepository } from '@/models/repository-overview';
 import type { Measurement } from '@/models/reporting-measurement';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
-import { formatCount } from '@/lib/presentation/format';
+import { formatMeasure } from '@/lib/presentation/format';
 import styles from './overview.module.css';
 
 export function OverviewMetric({
@@ -36,8 +36,7 @@ export function OverviewMetric({
         ': ' +
         label +
         ', ' +
-        formatCount(measurement.value) +
-        (unit === 'days' ? ' d' : '') +
+        formatMeasure(measurement.value, unit) +
         (measurement.status === 'partial' ? ' (partial)' : '')
       }
     >

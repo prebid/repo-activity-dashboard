@@ -4,13 +4,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PasswordInput } from '@/components/ui/password-input';
 
-it('preserves the input styling, reference and native props supplied by its caller', () => {
+it('preserves the reference and native props supplied by its caller', () => {
   const ref = createRef<HTMLInputElement>();
   render(
     <PasswordInput
       ref={ref}
       aria-label="Account password"
-      className="consumer-style"
       name="password"
       autoComplete="new-password"
       readOnly
@@ -18,7 +17,6 @@ it('preserves the input styling, reference and native props supplied by its call
     />,
   );
   const input = screen.getByLabelText('Account password');
-  expect(input).toHaveClass('consumer-style');
   expect(ref.current).toBe(input);
   expect(input).toHaveAttribute('autocomplete', 'new-password');
   expect(input).toHaveAttribute('readonly');

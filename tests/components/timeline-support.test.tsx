@@ -87,13 +87,17 @@ it('connects known and zero cells but keeps unavailable measurements unlinked', 
     expect.stringContaining('prsOpened'),
   );
   expect(screen.queryByRole('link', { name: /Median, Jan/ })).not.toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Median, Oct 2026: 31 d' })).toBeVisible();
+  expect(screen.getByRole('link', { name: 'Median, Oct 2026: 31.0 d' })).toBeVisible();
   expect(screen.getByRole('button', { name: 'Export CSV' })).toBeVisible();
 });
 it('renders unique authors and source-specific PRs with GitHub destinations and the shared CSV dialog', async () => {
   const user = userEvent.setup();
   const authors = selectRepositoryTimelineSupport(source, report, context('prAuthors'));
   const view = render(<Preview detail={authors} />);
+  // The supporting view's scope states its interval in the one range notation.
+  expect(screen.getByRole('region', { name: 'Supporting interval scope' })).toHaveTextContent(
+    'Oct 1, 2026 – Oct 24, 2026 · UTC',
+  );
   expect(screen.getByRole('link', { name: 'sample-bob: 2 authored records' })).toHaveAttribute(
     'href',
     '/repos/prebidjs?author=sample-bob',
@@ -149,6 +153,39 @@ it('renders grouped contributions and historical approval labels without showing
   view.rerender(<Preview detail={details} />);
   expect(screen.getByRole('columnheader', { name: 'Human approvals at cutoff' })).toBeVisible();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(1);
+});
+it('states an empty contribution interval as missing only when its value is incomplete', () => {
+  const s = contributionTimelineSample(),
+    r = selectContributionTimeline(s, request),
+    metric = 'reviewerContributions';
+  const detail = selectContributionTimelineSupport(s, r, {
+    ...context('prsOpened'),
+    source: r.source,
+    metric,
+    measurement: r.rows[9].values[metric],
+  });
+  if (detail.kind !== 'contribution') throw Error('Expected contributions');
+  const state = () =>
+    screen
+      .getByRole('heading', { name: 'No supporting contributions in this interval' })
+      .closest('[data-kind]');
+  // Designed fixtures: the same interval with no rows, once incomplete and once complete.
+  const empty = (measurement: typeof detail.details.measurement) => ({
+    ...detail,
+    details: { ...detail.details, rows: [], measurement },
+  });
+  const view = render(
+    <Preview
+      detail={empty({
+        status: 'missing',
+        value: null,
+        reason: 'Contribution samples are unavailable.',
+      })}
+    />,
+  );
+  expect(state()).toHaveAttribute('data-kind', 'missing');
+  view.rerender(<Preview detail={empty({ status: 'complete', value: 0 })} />);
+  expect(state()).toHaveAttribute('data-kind', 'empty');
 });
 it('shows the scope description its caller supplies in the CSV dialog', async () => {
   render(
@@ -242,6 +279,16 @@ it('shows author account types by label, preserved login casing and supplied pro
   const table = screen.getByRole('table');
   expect(within(table).getAllByText('Human').length).toBeGreaterThan(0);
   expect(within(table).queryByText('human')).not.toBeInTheDocument();
+  // Each account's avatar is titled with the type its Account type cell shows, and the account
+  // cell names that type for assistive technology, which the avatar is hidden from.
+  for (const row of table.querySelectorAll('tbody tr')) {
+    const type = row.querySelector('[data-column="accountType"]')!.textContent;
+    const account = row.querySelector<HTMLElement>('[data-column="account"]')!;
+    expect(account.querySelector('[data-kind="person"]')!.getAttribute('title')).toBe(type);
+    expect(account).toHaveAccessibleName(
+      new RegExp(`GitHub profile for [\\w-]+ \\(sample placeholder\\) ?${type}$`, 'i'),
+    );
+  }
   expect(within(table).getByRole('link', { name: /@Sample-Bob/ })).toHaveAttribute(
     'href',
     authors.rows.find((row) => row.id === 'sample-bob')!.profileUrl,
@@ -258,4 +305,52 @@ it('shows author account types by label, preserved login casing and supplied pro
     expect(records.author).toBe('Sample-Bob');
     expect(records.rows.map((row) => row.number)).toEqual([105, 108]);
   }
+});
+it('explains in its footer only the value marks its visible metrics show', () => {
+  const table = renderHook(() => useLocalTableController()).result.current;
+  const marks = () =>
+    [...document.querySelectorAll<HTMLElement>('[data-mark]')].map((entry) => entry.dataset.mark);
+  const metrics = [
+    { id: 'prsOpened', label: 'Opened', defaultVisible: true, unit: 'count' as const },
+    { id: 'medianMergeDays', label: 'Median', defaultVisible: true, unit: 'days' as const },
+  ];
+  // Designed rows: complete counts and one partial median.
+  const rows = report.rows.slice(0, 2).map((row, index) => ({
+    ...row,
+    values: {
+      prsOpened: { status: 'complete' as const, value: index },
+      medianMergeDays:
+        index === 0
+          ? { status: 'partial' as const, value: 2, reason: 'Some history is unavailable.' }
+          : { status: 'complete' as const, value: 3 },
+    },
+  }));
+  const shown = { controller: table, visibility: { value: {}, onChange: () => {} } };
+  const view = render(
+    <TimelineTable rows={rows} grouping="month" metrics={metrics} controls={shown} />,
+  );
+  expect(marks()).toEqual(['partial']);
+  expect(screen.getByText('2 intervals').nextElementSibling).toHaveTextContent(/^\* Partial data$/);
+  // Hiding the median hides its asterisk, so the legend goes with it.
+  view.rerender(
+    <TimelineTable
+      rows={rows}
+      grouping="month"
+      metrics={metrics}
+      controls={{ ...shown, visibility: { value: { medianMergeDays: false }, onChange: () => {} } }}
+    />,
+  );
+  expect(marks()).toEqual([]);
+  expect(screen.getByText('2 intervals').nextElementSibling).toBeNull();
+  const missing = {
+    ...rows[0],
+    values: {
+      ...rows[0].values,
+      prsOpened: { status: 'missing' as const, value: null, reason: 'Not prepared.' },
+    },
+  };
+  view.rerender(
+    <TimelineTable rows={[missing, rows[1]]} grouping="month" metrics={metrics} controls={shown} />,
+  );
+  expect(marks()).toEqual(['missing', 'partial']);
 });

@@ -2,12 +2,16 @@ import Link from 'next/link';
 import type { DataColumn } from '@/components/tables/data-table';
 import { MeasurementDifference } from '@/components/metrics/measurement-value';
 import type {
+  ActivityMetric,
   BacklogMetric,
+  RepositoryActivity,
   RepositoryOverviewRow,
   RepositoryActivityRow,
 } from '@/models/repository-overview';
-import { agingThresholds } from '@/models/repository-overview';
-import { agingColumnId } from '@/lib/presentation/overview-aging';
+import { activityMetricIds, agingThresholds, backlogMetricIds } from '@/models/repository-overview';
+import type { Measurement } from '@/models/reporting-measurement';
+import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
+import { measurementMarks, type DataLegendMark } from '@/components/feedback/data-legend';
 import {
   activityMetricText,
   agedPrsText,
@@ -264,6 +268,58 @@ export const defaultActivityColumns = [
   'issueAuthors',
   'medianMergeDays',
 ];
+
+type CellMeasurement = Pick<Measurement, 'status'> | undefined;
+
+/** The measurement a Current backlog cell shows; the repository cell shows none. */
+export function backlogCellMeasurement(row: OverviewTableRow, columnId: string): CellMeasurement {
+  const age = agingThresholdForColumn(columnId);
+  if (age !== undefined) return row.backlog.agedPrs[age];
+  return (backlogMetricIds as readonly string[]).includes(columnId)
+    ? row.backlog.counts[columnId as BacklogMetric]
+    : undefined;
+}
+
+/**
+ * The measurement a Period activity cell shows. A difference cell shows a dash unless both
+ * periods are complete, so it counts as missing then.
+ */
+export function activityCellMeasurement(
+  row: RepositoryActivityRow,
+  columnId: string,
+): CellMeasurement {
+  const read = (activity: RepositoryActivity): Measurement | undefined =>
+    columnId === 'medianMergeDays'
+      ? activity.mergeDuration.days
+      : (activityMetricIds as readonly string[]).includes(columnId)
+        ? activity.counts[columnId as ActivityMetric]
+        : undefined;
+  if (row.kind === 'period') return read(row.activity);
+  const first = read(row.primary),
+    second = read(row.secondary);
+  if (!first || !second) return undefined;
+  return { status: absoluteChange(first, second) === null ? 'missing' : 'complete' };
+}
+
+/** The value marks a table's visible columns show across all its rows, for its DataLegend. */
+export function overviewLegend<T>(
+  rows: readonly T[],
+  columns: readonly DataColumn<T>[],
+  visibility: Record<string, boolean>,
+  measurement: (row: T, columnId: string) => CellMeasurement,
+): DataLegendMark[] {
+  const shown = columns.filter(
+    (column) => column.hideable === false || visibility[column.id] !== false,
+  );
+  return measurementMarks(
+    rows.flatMap((row) =>
+      shown.flatMap((column) => {
+        const value = measurement(row, column.id);
+        return value ? [value] : [];
+      }),
+    ),
+  );
+}
 
 export function columnVisibilityFromIds<T>(
   columns: DataColumn<T>[],

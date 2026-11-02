@@ -72,7 +72,9 @@ test('matrix filters, period windows and copied repository returns preserve full
   await page.getByRole('button', { name: 'Oct 21, 2026', exact: true }).click();
   await page.getByRole('button', { name: 'Oct 21, 2026 ↑', exact: true }).click();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Window 24 of 25');
+  await expect(
+    page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
+  ).toContainText('Window 24 of 25');
   await expect(page.getByText(/outside visible periods/)).toBeVisible();
   const matrix = page.url();
   await page.getByRole('table').getByRole('link', { name: 'Prebid.js', exact: true }).click();
@@ -104,10 +106,18 @@ test('matrix filters, period windows and copied repository returns preserve full
   await page.getByRole('link', { name: /Repository timeline$/ }).click();
   await ready(page);
   await expect(page).toHaveURL(matrix);
-  await expect(page.getByRole('status')).toContainText('Window 24 of 25');
+  await expect(
+    page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
+  ).toContainText('Window 24 of 25');
   await page.getByLabel('Group by', { exact: true }).selectOption('month');
   await ready(page);
-  await expect(page.getByRole('status')).toContainText('Window 1 of 1');
+  // Monthly periods fit one window, so the window pager is hidden.
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    /Periods 1–(\d+) of \1\b/,
+  );
+  await expect(
+    page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
+  ).toHaveCount(0);
   await page.goBack();
   await ready(page);
   await expect(page).toHaveURL(matrix);
@@ -248,7 +258,9 @@ test('invalid custom-date drafts remain editable and narrow controls preserve th
   await dialog.getByRole('button', { name: 'Apply dates', exact: true }).click();
   await ready(page);
   await expect(dialog).toBeHidden();
-  await expect(page.getByRole('status')).toContainText('of 24');
+  await expect(page.getByRole('status', { name: 'Period window', exact: true })).toContainText(
+    'of 24',
+  );
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
   await page.screenshot({ path: info.outputPath('timeline-mobile-controls.png'), fullPage: true });

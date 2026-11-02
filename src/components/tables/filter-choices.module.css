@@ -1,17 +1,40 @@
 .field {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 12px;
+  border: 1px solid var(--input);
+  border-radius: var(--prebid-radius-control);
+  font-size: var(--prebid-text-small);
   min-width: 0;
 }
-.field summary {
+/* The summary is drawn by its own class, so the control-override check does not read it. */
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: var(--prebid-radius-control);
   cursor: pointer;
-  padding: 10px 12px;
 }
-.field summary span {
-  float: right;
+.trigger:hover {
+  background: var(--prebid-ghost-hover);
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* The selection count and the chevron share the muted ink at the row end. */
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
   color: var(--muted-foreground);
-  font-size: 11px;
+}
+.count {
+  font-size: var(--prebid-text-caption);
 }
 .content {
   padding: 0 12px 12px;
@@ -24,14 +47,7 @@
 .options label {
   display: flex;
   gap: 8px;
-  align-items: baseline;
+  align-items: center;
   padding: 6px 0;
   overflow-wrap: anywhere;
-}
-.options input {
-  accent-color: var(--primary);
-}
-.field summary:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
 }

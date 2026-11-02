@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DisclosureChevron } from '@/components/ui/disclosure-chevron';
 import { Input } from '@/components/ui/input';
 import styles from './filter-choices.module.css';
 
@@ -27,9 +29,15 @@ export function FilterChoices({
   );
   return (
     <details className={styles.field}>
-      <summary>
-        {label}
-        <span>{selected.length ? selected.length + ' selected' : 'Any'}</span>
+      {/* The shared disclosure trigger: no native marker, a trailing chevron that turns open. */}
+      <summary className={styles.trigger}>
+        <span className={styles.label}>{label}</span>
+        <span className={styles.state}>
+          <span className={styles.count}>
+            {selected.length ? selected.length + ' selected' : 'Any'}
+          </span>
+          <DisclosureChevron />
+        </span>
       </summary>
       <div className={styles.content}>
         {all.length > 8 && (
@@ -43,8 +51,7 @@ export function FilterChoices({
         <div className={styles.options} role="group" aria-label={label}>
           {matching.map((option) => (
             <label key={option.value}>
-              <input
-                type="checkbox"
+              <Checkbox
                 checked={selected.includes(option.value)}
                 onChange={(event) =>
                   onChange(

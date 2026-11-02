@@ -1,0 +1,410 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "file": "src/components/layout/dashboard.module.css",
+      "context": "",
+      "selector": ".brand",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
+    },
+    {
+      "file": "src/components/layout/dashboard.module.css",
+      "context": "",
+      "selector": ".navItem[data-active='true']::after, .navItem[aria-current='page']::after",
+      "property": "border-radius",
+      "value": "3px 3px 0 0",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
+    },
+    {
+      "file": "src/components/navigation/view-tabs.module.css",
+      "context": "",
+      "selector": ".tabs a[aria-current='page']::after",
+      "property": "border-radius",
+      "value": "3px 3px 0 0",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
+    },
+    {
+      "file": "src/components/navigation/view-tabs.module.css",
+      "context": "",
+      "selector": ".tabs a:focus-visible, .disabled:focus-visible",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".dates",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".partial",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/reporting/timeline-layout.module.css",
+      "context": "",
+      "selector": ".partial",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".table .group",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".sort",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/components/tables/data-table.module.css",
+      "context": "",
+      "selector": ".definitionsList",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".formEyebrow",
+      "property": "font-size",
+      "value": "9px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "29px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".noScriptNotice",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".notice, .error, .success",
+      "property": "border-radius",
+      "value": "7px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".pageFooter",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "@media (max-width: 480px)",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "27px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".eyebrow",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".header h1",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".tabCount",
+      "property": "border-radius",
+      "value": "5px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .identityLink:focus-visible, .companyLink:focus-visible, .breakdowns a:focus-visible",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
+    },
+    {
+      "file": "src/features/contributions/contributions.module.css",
+      "context": "",
+      "selector": ".metricLink",
+      "property": "border-radius",
+      "value": "3px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); contribution tables"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".title",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".organizationLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".repositoryLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
+    },
+    {
+      "file": "src/features/repositories/overview.module.css",
+      "context": "",
+      "selector": ".metricLink",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".header h1",
+      "property": "font-size",
+      "value": "clamp(25px, 3vw, 32px)",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".tabCount",
+      "property": "border-radius",
+      "value": "5px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".countLabel",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-page.module.css",
+      "context": "",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .number:focus-visible, .titleLink:focus-visible",
+      "property": "border-radius",
+      "value": "2px",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
+    },
+    {
+      "file": "src/features/repositories/repository-records.module.css",
+      "context": "",
+      "selector": ".labels span",
+      "property": "border-radius",
+      "value": "4px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); record rows"
+    },
+    {
+      "file": "src/features/repositories/repository-timeline-matrix.module.css",
+      "context": "",
+      "selector": ".metricName small",
+      "property": "font-size",
+      "value": "10px",
+      "phase": "P3",
+      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); timeline matrix table"
+    },
+    {
+      "file": "src/app/(dashboard)/foundation/page.tsx",
+      "context": "FoundationPage > <h1 className>",
+      "selector": "",
+      "property": "text-3xl",
+      "value": "text-3xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/foundation/page.tsx",
+      "context": "FoundationPage > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/authors/[account]/page.tsx",
+      "context": "AuthorRecordsPage > <Link className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/not-found.tsx",
+      "context": "RepositoryNotFound > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/(dashboard)/repos/[slug]/page.tsx",
+      "context": "RepositoryPage > <Link className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/auth/setup/page.tsx",
+      "context": "SetupPage > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/app/not-found.tsx",
+      "context": "NotFound > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/layout/toolbar.tsx",
+      "context": "Toolbar > <DashboardHeader accountControls> > <p className>",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/reporting/timeline-support-frame.tsx",
+      "context": "TimelineSupportFrame > <h1 className>",
+      "selector": "",
+      "property": "text-2xl",
+      "value": "text-2xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/components/tables/data-table.tsx",
+      "context": "DataTable > header",
+      "selector": "",
+      "property": "text",
+      "value": "query.sort === column.id ? (query.descending ? ' ↓' : ' ↑') : ''",
+      "phase": "P3",
+      "reason": "Sort direction glyph; P3 SortIcon replaces it (TYPE-05)"
+    },
+    {
+      "file": "src/components/ui/table.tsx",
+      "context": "Table > <table className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P3",
+      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+    },
+    {
+      "file": "src/components/ui/table.tsx",
+      "context": "TableCaption > <caption className> > cn",
+      "selector": "",
+      "property": "text-sm",
+      "value": "text-sm",
+      "phase": "P3",
+      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+    },
+    {
+      "file": "src/features/administration/users-view.tsx",
+      "context": "AdminUsersView > <h1 className>",
+      "selector": "",
+      "property": "text-3xl",
+      "value": "text-3xl",
+      "phase": "P4",
+      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+    },
+    {
+      "file": "src/features/authentication/authentication.module.css",
+      "context": "",
+      "selector": ".noScriptNotice",
+      "property": "font-size",
+      "value": "14px",
+      "phase": "P4",
+      "reason": "Sign-in notice text: P4 restyles the authentication screens (SHELL-13)"
+    }
+  ]
+}

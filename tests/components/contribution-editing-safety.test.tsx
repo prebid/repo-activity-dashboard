@@ -66,6 +66,20 @@ it('keeps rejected account types open with their draft selection', async () => {
     onApply = vi.fn<() => string | undefined>().mockReturnValueOnce(message);
   render(<AccountTypeFilter selected={['human']} onApply={onApply} />);
   await user.click(screen.getByRole('button', { name: 'Account type: Human' }));
+  // Each choice shows its account glyph at 16px, the badge glyph's menu size.
+  const glyphs = screen
+    .getAllByRole('menuitemcheckbox')
+    .map((item) => item.querySelector('svg[width="16"]')?.getAttribute('class'));
+  expect(glyphs).toEqual([
+    expect.stringContaining('lucide-user-round'),
+    expect.stringContaining('lucide-cpu'),
+    expect.stringContaining('lucide-bot'),
+    expect.stringContaining('lucide-circle-question-mark'),
+  ]);
+  // Apply is the menu's primary small action, in a footer after the choices.
+  const apply = screen.getByRole('menuitem', { name: 'Apply account types' });
+  expect(apply).toHaveClass('bg-action', 'h-7');
+  expect(apply.parentElement).toBe(screen.getByRole('menu').lastElementChild);
   await user.click(screen.getByRole('menuitemcheckbox', { name: 'Bot' }));
   await user.click(screen.getByRole('menuitem', { name: 'Apply account types' }));
   expect(screen.getByRole('alert')).toHaveTextContent(message);
@@ -86,8 +100,6 @@ it('propagates rejected custom dates through the contribution control boundary',
       value={defaultContributionSettings(source)}
       asOf={source.asOf}
       pending={false}
-      storageAvailable
-      onReset={vi.fn()}
       onChange={() => message}
     />,
   );

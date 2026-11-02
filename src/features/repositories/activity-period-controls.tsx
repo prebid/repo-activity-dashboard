@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ArrowDownUp, Plus, X } from 'lucide-react';
+import { AddIcon, ClearIcon, SwapIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/feedback/callout';
 import type { PeriodSelection } from '@/models/reporting-period';
 import type { RepositoryOverview } from '@/models/repository-overview';
-import { periodRangeLabel, validateActivityPeriods } from '@/lib/presentation/overview-periods';
+import { validateActivityPeriods, zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { TimeframeControl } from '@/components/reporting/timeframe-control';
 import styles from '@/components/reporting/overview-controls.module.css';
 
@@ -38,7 +39,7 @@ export function ActivityPeriodControls({
         <div className={styles.periodActions}>
           <span>Two periods and their difference, grouped by repository.</span>
           <Button variant="ghost" size="sm" onClick={() => onChange([periods[1], periods[0]])}>
-            <ArrowDownUp size={14} aria-hidden="true" />
+            <SwapIcon size={14} />
             Swap periods
           </Button>
         </div>
@@ -51,23 +52,24 @@ export function ActivityPeriodControls({
                 <strong>Period {index + 1}</strong>
                 {report && (
                   <span className={styles.periodDate}>
-                    ({periodRangeLabel(report.period.range)} · UTC)
+                    ({zonedRangeLabel(report.period.range)})
                   </span>
                 )}
               </div>
               {(secondary || index === 1) && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className={styles.removePeriod}
-                  aria-label={report ? 'Remove period ' + (index + 1) : 'Cancel adding period'}
-                  onClick={() => {
-                    if (report) onChange(periods.filter((_value, i) => i !== index));
-                    else setAdding(false);
-                  }}
-                >
-                  <X size={14} aria-hidden="true" />
-                </Button>
+                <span className={styles.removePeriod}>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label={report ? 'Remove period ' + (index + 1) : 'Cancel adding period'}
+                    onClick={() => {
+                      if (report) onChange(periods.filter((_value, i) => i !== index));
+                      else setAdding(false);
+                    }}
+                  >
+                    <ClearIcon size={14} />
+                  </Button>
+                </span>
               )}
             </div>
             <TimeframeControl
@@ -79,17 +81,19 @@ export function ActivityPeriodControls({
             />
             {!report && <p className={styles.help}>Choose a preset or enter a custom range.</p>}
             {report?.activitySample === 'unprepared' && (
-              <p role="status" className={styles.notice}>
+              <Callout tone="warning" as="p" role="status">
                 No prepared sample data for Period {index + 1}. Its values are shown as dashes.
-              </p>
+              </Callout>
             )}
           </section>
         ))}
         {!secondary && !adding && (
-          <Button variant="outline" className={styles.addPeriod} onClick={() => setAdding(true)}>
-            <Plus size={16} aria-hidden="true" />
-            Add second period
-          </Button>
+          <div className={styles.addPeriod}>
+            <Button variant="secondary" onClick={() => setAdding(true)}>
+              <AddIcon size={14} />
+              Add second period
+            </Button>
+          </div>
         )}
       </div>
     </div>

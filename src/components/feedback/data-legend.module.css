@@ -1,0 +1,20 @@
+.legend {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-caption);
+  font-weight: 500;
+  line-height: var(--prebid-leading-caption);
+}
+/* A 14px icon on a 16px line sits 1px down to centre on the first line. */
+.legend > svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.entry {
+  white-space: nowrap;
+}
+.glyph {
+  color: var(--prebid-ink);
+}

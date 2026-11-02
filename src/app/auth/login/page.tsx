@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import { LoginView } from '@/features/authentication/login-view';
 import { isPreviewBuild } from '@/lib/presentation/preview';
 import { firstSearchParam, type PageSearchParams } from '@/lib/presentation/search-params';
+export const metadata: Metadata = { title: 'Sign in' };
 export default async function LoginPage({
   searchParams,
 }: {

@@ -4,7 +4,7 @@ import { GetCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { z } from 'zod';
 import { verifyPassword } from '@/lib/auth/passwords';
 import { startProductionApp } from '../support/production-app';
-import { renderedMain } from '../support/rendered-html';
+import { documentTitles, iconLinks, renderedMain } from '../support/rendered-html';
 import { choicePageSchema } from '@/models/contribution-options';
 
 it('runs the packaged production artifact with current sessions and protected account APIs', async () => {
@@ -25,6 +25,18 @@ it('runs the packaged production artifact with current sessions and protected ac
     expect((await fetch(origin + '/api/auth/setup', { method: 'POST', body: '{}' })).status).toBe(
       403,
     );
+    const favicon = await fetch(origin + '/favicon.ico', { redirect: 'manual' });
+    expect(favicon.status).toBe(200);
+    expect(favicon.headers.get('content-type')).toBe('image/x-icon');
+    const signInPage = await (await fetch(origin + '/auth/login', { redirect: 'manual' })).text();
+    const icons = iconLinks(signInPage).sort();
+    expect(icons.map((href) => href.split('?')[0])).toEqual([
+      '/apple-icon.png',
+      '/favicon.ico',
+      '/icon.svg',
+    ]);
+    for (const href of icons)
+      expect((await fetch(origin + href, { redirect: 'manual' })).status, href).toBe(200);
     const jar = new Map<string, string>();
     function accept(response: Response) {
       for (const raw of response.headers.getSetCookie()) {
@@ -75,6 +87,15 @@ it('runs the packaged production artifact with current sessions and protected ac
     expect(
       await (await fetch(origin + '/api/auth/session', { headers: { cookie: cookie() } })).json(),
     ).toMatchObject({ user: { id: 'admin' } });
+    const authorRoute =
+      '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1';
+    // Page titles name report subjects, so only a permitted viewer may receive them.
+    const pageTitles = new Map([
+      ['/contributors/account-alice', 'Alice · Contributors'],
+      [authorRoute, 'PRs by sample-author-2 · Prebid.js'],
+    ]);
+    /** Each route's titles as its permitted viewer receives them, other than the default. */
+    const permittedTitles = new Map<string, string[]>();
     for (const [route, canary] of [
       ['/repos', 'Prebid.js'],
       [
@@ -106,10 +127,7 @@ it('runs the packaged production artifact with current sessions and protected ac
         '/repos/prebidjs?scope=current&metric=openIssues',
         'Sample issue 834: Improve documentation',
       ],
-      [
-        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
-        'PRs by sample-author-2',
-      ],
+      [authorRoute, 'PRs by sample-author-2'],
       [
         '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1',
         'Issues by sample-author-2',
@@ -143,19 +161,45 @@ it('runs the packaged production artifact with current sessions and protected ac
       expect(csv ? body : main?.textContent).toContain(canary);
       if (/^\/(contributors|companies)(?:\?|$|\/(?!export))/.test(route))
         expect(main?.querySelector('table tbody tr')).toBeTruthy();
+      const titles = documentTitles(body).filter(
+        (value): value is string => !!value && value !== 'Prebid',
+      );
+      // Each page names itself, so the absence checks below never run over an empty list.
+      if (!csv) expect(titles, route).not.toEqual([]);
+      const title = pageTitles.get(route);
+      if (title) expect(titles).toContain(title);
+      permittedTitles.set(route, titles);
       const anonymous = await fetch(origin + route, { redirect: 'manual' });
       expect(anonymous.status).toBe(307);
       expect(anonymous.headers.get('location')).toContain('/auth/login');
-      expect(await anonymous.text()).not.toContain(canary);
+      const anonymousBody = await anonymous.text();
+      expect(anonymousBody).not.toContain(canary);
+      expect(documentTitles(anonymousBody).filter((value) => value !== 'Prebid')).toEqual([]);
+      for (const value of titles) expect(anonymousBody, route).not.toContain(value);
       const flight = await fetch(origin + route, { headers: { RSC: '1' }, redirect: 'manual' });
       expect([200, 307]).toContain(flight.status);
       const payload = await flight.text();
       expect(payload).not.toContain(canary);
+      for (const value of titles) expect(payload, route).not.toContain(value);
       expect(
         payload.includes('/auth/login') ||
           Boolean(flight.headers.get('location')?.includes('/auth/login')),
       ).toBe(true);
     }
+    async function accountReadsFor(route: string, status: number) {
+      const before = fixture.accountOperations.length;
+      const response = await fetch(origin + route, {
+        headers: { cookie: cookie() },
+        redirect: 'manual',
+      });
+      expect(response.status).toBe(status);
+      return { reads: fixture.accountOperations.length - before, body: await response.text() };
+    }
+    // One viewer read per page request. '/' exports no metadata, so its redirect render resolves
+    // only the root layout's static title and adds no read; it does not reach page-metadata.
+    const viewerReads = (await accountReadsFor('/foundation', 200)).reads;
+    expect(viewerReads).toBeGreaterThan(0);
+    expect((await accountReadsFor('/', 307)).reads).toBe(viewerReads);
     const timelineBody = JSON.stringify({
       href: '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=medianMergeDays',
       revision: 'repositories-reference-v1',
@@ -308,6 +352,13 @@ it('runs the packaged production artifact with current sessions and protected ac
     expect(
       (await fetch(origin + '/api/admin/users', { headers: { cookie: cookie() } })).status,
     ).toBe(403);
+    // The layout's redirect renders generateMetadata a second time, outside getViewer's cache;
+    // page-metadata's per-request memo keeps that render from reading the account again.
+    const mustChange = await accountReadsFor('/contributors/account-alice', 307);
+    expect(mustChange.reads).toBe(viewerReads);
+    expect(documentTitles(mustChange.body).filter((value) => value !== 'Prebid')).toEqual([]);
+    for (const value of permittedTitles.get('/contributors/account-alice')!)
+      expect(mustChange.body).not.toContain(value);
     const changed = await fetch(origin + '/api/auth/change-password', {
       method: 'POST',
       headers: {

@@ -1,68 +1,19 @@
-.panel {
-  padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--card);
-  min-width: 0;
-}
-.bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: 16px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-}
 .field {
   display: grid;
   gap: 7px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
   max-width: 100%;
 }
 .selectWrap {
-  position: relative;
   display: block;
-  max-width: 100%;
-}
-.selectWrap select {
-  appearance: none;
-  width: 100%;
-  max-width: 320px;
-  border: 1px solid var(--border);
-  background: var(--background);
-  border-radius: 6px;
-  color: var(--foreground);
-  font-size: 12px;
-  height: 34px;
-  padding: 6px 32px 6px 10px;
-}
-.selectWrap svg {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  pointer-events: none;
-}
-.note,
-.notice {
-  font-size: 11px;
-  color: var(--muted-foreground);
-  line-height: 1.6;
-  margin-top: 12px;
-}
-.notice {
-  color: var(--foreground);
+  max-width: min(320px, 100%);
 }
 @media (max-width: 600px) {
-  .panel {
-    padding: 14px;
-  }
   .field {
     flex-grow: 1;
   }
-  .selectWrap select {
+  .selectWrap {
     max-width: 100%;
   }
 }

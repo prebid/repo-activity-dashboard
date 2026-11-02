@@ -368,11 +368,8 @@ it('retains rejected custom-date drafts in the shared Timeline controls', async 
       context={context}
       view={context.view}
       metrics={[]}
-      pending={false}
-      storageAvailable={false}
       onView={() => {}}
       onPeriod={() => 'Choose fewer than 501 intervals.'}
-      onReset={() => {}}
     />,
   );
   await user.click(screen.getByRole('button', { name: 'Custom range for Reporting period' }));
@@ -717,11 +714,8 @@ it('names each Timeline control by its visible label', () => {
       context={context}
       view={context.view}
       metrics={[]}
-      pending={false}
-      storageAvailable
       onView={() => undefined}
       onPeriod={() => undefined}
-      onReset={() => undefined}
       familyLabels={{ activity: 'Activity in each period', snapshot: 'Open at each cutoff' }}
     />,
   );
@@ -745,11 +739,8 @@ it('refuses to render repository Timeline controls without family labels', () =>
         context={context}
         view={context.view}
         metrics={[]}
-        pending={false}
-        storageAvailable
         onView={() => undefined}
         onPeriod={() => undefined}
-        onReset={() => undefined}
       />,
     ),
   ).toThrow('need their family labels');

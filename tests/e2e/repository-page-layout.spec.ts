@@ -26,6 +26,8 @@ for (const [kind, theme, width] of [
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
     await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
     await expect(page.getByRole('figure')).toHaveCount(0);
+    // Widths are measured with the web fonts, not their fallback.
+    await page.evaluate(() => document.fonts.ready);
     const scope = page.getByRole('combobox', { name: 'Record scope', exact: true });
     const selectBox = (await scope.boundingBox())!;
     const arrowBox = (await scope.locator('..').locator('svg').boundingBox())!;
@@ -78,7 +80,7 @@ test('direct lists share the drilldown layout and retain pagination through tab 
     '/repos/prebidjs?scope=current&metric=humanApprovals0&returnTo=%2Frepos%3Fage%3D60',
   );
   await expect(page.getByText('60 matching records', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: '← All repositories', exact: true })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'All repositories', exact: true })).toHaveAttribute(
     'href',
     '/repos?age=60',
   );

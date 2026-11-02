@@ -81,19 +81,28 @@ export function readRepositoryFilterValues(
   return parsed.data;
 }
 
+/** The filter fields that differ from their defaults: the ones a URL writes. */
+function changedFilterFields(filters: RepositoryPageFilters) {
+  const defaults = defaultRepositoryFilters(filters.kind);
+  return Object.entries(filters).filter(
+    ([field, value]) =>
+      field !== 'kind' &&
+      field !== 'search' &&
+      value !== undefined &&
+      JSON.stringify(value) !== JSON.stringify(defaults[field as keyof typeof defaults]),
+  );
+}
+
+/** Whether a search or any filter narrows the selected scope's records. */
+export function repositoryFiltersNarrow(filters: RepositoryPageFilters): boolean {
+  return Boolean(filters.search) || changedFilterFields(filters).length > 0;
+}
+
 export function writeRepositoryFilters(search: string, filters: RepositoryPageFilters): string {
   const params = new URLSearchParams(search),
     prefix = filters.kind + '.filter.';
   for (const key of [...params.keys()]) if (key.startsWith(prefix)) params.delete(key);
-  const defaults = defaultRepositoryFilters(filters.kind);
-  for (const [field, value] of Object.entries(filters)) {
-    if (
-      field === 'kind' ||
-      field === 'search' ||
-      value === undefined ||
-      JSON.stringify(value) === JSON.stringify(defaults[field as keyof typeof defaults])
-    )
-      continue;
+  for (const [field, value] of changedFilterFields(filters)) {
     if (field === 'eventRange') {
       const range = dateRangeSchema.parse(value);
       params.set(prefix + 'eventFrom', range.start);

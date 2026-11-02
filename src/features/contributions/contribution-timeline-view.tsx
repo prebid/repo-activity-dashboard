@@ -3,14 +3,25 @@ import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
-import { contributionActorTypes } from '@/models/contributions';
 import { contributionMetricValues } from '@/lib/presentation/contribution-table-values';
+import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { accountTypeLabels } from '@/models/github-account';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { TimelineTable } from '@/components/reporting/timeline-table';
-import { TimelineScope } from '@/components/reporting/timeline-scope';
-import { PageState } from '@/components/feedback/page-state';
-import { ContributionHeading, ContributionReportViewTabs } from './contribution-header';
+import {
+  noReportControls,
+  ReportToolbar,
+  type ReportToolbarControls,
+} from '@/components/reporting/report-toolbar';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
+import { countLabel } from '@/lib/presentation/format';
+import { EmptyState } from '@/components/feedback/empty-state';
+import {
+  accountTypesFact,
+  ContributionHeading,
+  ContributionReportViewTabs,
+  ContributionSubjectAvatar,
+} from './contribution-header';
 import styles from './contributions.module.css';
 
 export const contributionTimelineMetrics: TimelineMetricDefinition[] =
@@ -31,23 +42,19 @@ export function ContributionTimelineView({
   area,
   reportHref,
   href,
-  controls,
+  toolbar = noReportControls,
   tableControls,
 }: {
   report: ContributionTimeline;
   area: ContributionArea;
   reportHref: string;
   href: string;
-  controls?: React.ReactNode;
+  /** The report filters and Timeline settings; the view adds its scope summary. */
+  toolbar?: ReportToolbarControls;
   tableControls?: import('@/components/reporting/timeline-table').TimelineTableControls;
 }) {
   const { subject, focus, selection, includedAccountCount } = report.scope;
-  const title =
-    focus.kind === 'overview'
-      ? area === 'contributors'
-        ? 'Contributors'
-        : 'Companies'
-      : (subject?.name ?? 'Unmapped company');
+  const title = contributionSubjectTitle(area, focus.kind === 'overview' ? 'overview' : subject);
   const empty = !selection.repositoryIds.length
     ? 'No repositories selected'
     : !selection.actorTypes.length
@@ -66,6 +73,13 @@ export function ContributionTimelineView({
             : focus.kind === 'company'
               ? 'Company report'
               : 'Contributor report'
+        }
+        identity={
+          focus.kind === 'company' ? (
+            <ContributionSubjectAvatar subject={{ kind: 'company', company: subject }} />
+          ) : subject && 'login' in subject ? (
+            <ContributionSubjectAvatar subject={{ kind: 'contributor', account: subject }} />
+          ) : undefined
         }
       >
         {subject && 'login' in subject ? (
@@ -87,27 +101,35 @@ export function ContributionTimelineView({
         )}
       </ContributionHeading>
       <ContributionReportViewTabs active="timeline" reportHref={reportHref} timelineHref={href} />
-      {controls}
-      <TimelineScope request={report.request} count={report.rows.length}>
-        <span>{selection.repositoryIds.length} repositories</span>
-        <span>
-          {selection.actorTypes.length === contributionActorTypes.length
-            ? 'All account types'
-            : selection.actorTypes.map((type) => accountTypeLabels[type]).join(', ') ||
-              'No account types'}
-        </span>
-        <span>
-          {includedAccountCount} included {includedAccountCount === 1 ? 'account' : 'accounts'}
-        </span>
-        <span>Company attribution: current mapping</span>
-        {selection.excludedAccountIds.length > 0 && (
-          <span>{selection.excludedAccountIds.length} excluded</span>
-        )}
-      </TimelineScope>
+      <ReportToolbar
+        label="Timeline scope"
+        {...toolbar}
+        summary={{
+          lead: zonedRangeLabel(report.request.range),
+          facts: [
+            report.rows.length +
+              ' ' +
+              countLabel(report.rows.length, { singular: 'interval', plural: 'intervals' }),
+            ...accountTypesFact(selection.actorTypes),
+            includedAccountCount +
+              ' ' +
+              countLabel(includedAccountCount, {
+                singular: 'included account',
+                plural: 'included accounts',
+              }),
+            'Company attribution: current mapping',
+          ],
+        }}
+      />
       {empty ? (
-        <PageState title={empty}>
+        <EmptyState
+          kind={
+            selection.repositoryIds.length && selection.actorTypes.length ? 'no-match' : 'empty'
+          }
+          title={empty}
+        >
           Choose repositories and accounts to see their activity over time.
-        </PageState>
+        </EmptyState>
       ) : (
         <TimelineTable
           key={JSON.stringify([report.source, report.request, report.scope])}

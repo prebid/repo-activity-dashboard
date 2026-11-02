@@ -63,8 +63,12 @@ it('renders repository rows with exact monthly values, honest partial dates and 
   expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   for (const name of ['Columns', 'Export CSV', 'Show chart', 'Next'])
     expect(screen.queryByRole('button', { name })).not.toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Earlier' })).toBeDisabled();
-  expect(screen.getByRole('button', { name: 'Later' })).toBeDisabled();
+  // Ten monthly periods fit one window, so the window pager is hidden.
+  expect(screen.getByRole('status')).toHaveTextContent('Periods 1–10 of 10');
+  expect(
+    screen.queryByRole('navigation', { name: 'Timeline period windows' }),
+  ).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Earlier' })).not.toBeInTheDocument();
 });
 it('keeps sorting by a period after moving it offscreen and restores the same values on return', async () => {
   const user = userEvent.setup();
@@ -143,6 +147,27 @@ it('bounds a 500-period DOM and keeps 50-row repository pages independent of the
   expect(screen.getByRole('table').querySelector('tbody tr')).toHaveTextContent('Repository 50');
   expect(screen.getByRole('status')).toHaveTextContent('Periods 1–12 of 22');
 });
+it('explains only the value marks the visible period window shows', async () => {
+  const user = userEvent.setup();
+  const marks = () =>
+    [...document.querySelectorAll<HTMLElement>('[data-mark]')].map((entry) => entry.dataset.mark);
+  render(
+    preview(
+      report('reference', 'prsOpened', {
+        ...request,
+        range: { ...request.range, start: '2025-01-01T00:00:00.000Z' },
+      }),
+    ),
+  );
+  expect(screen.getByRole('status')).toHaveTextContent('Periods 13–22 of 22');
+  expect(marks()).toEqual([]);
+  await user.click(screen.getByRole('button', { name: 'Earlier' }));
+  // 2025 has no prepared coverage, so every value in that window is a dash.
+  expect(marks()).toEqual(['missing']);
+  expect(screen.getByText('18 repositories').nextElementSibling).toHaveTextContent(
+    /^— Not available or not applicable$/,
+  );
+});
 it('keeps known zero, incomplete zero, missing and duration values distinct', () => {
   const view = render(preview(report('mixed')));
   expect(screen.getByLabelText('Timeline data coverage')).toBeVisible();
@@ -153,9 +178,41 @@ it('keeps known zero, incomplete zero, missing and duration values distinct', ()
   expect(partial.querySelector('td:nth-child(2) sup')).toHaveTextContent('*');
   view.rerender(preview(report('reference', 'medianMergeDays')));
   const cells = within(repoRow('Prebid.js')).getAllByRole('cell');
-  expect(cells[9]).toHaveTextContent('5 d');
-  expect(cells[10]).toHaveTextContent('31 d');
+  expect(cells[9]).toHaveTextContent('5.0 d');
+  expect(cells[10]).toHaveTextContent('31.0 d');
   expect(cells[1]).toHaveTextContent('—');
+});
+it('says an all-zero matrix is recorded, and says nothing once one value is a partial zero', () => {
+  const zero = 'Every value in this range is a recorded zero; no data is missing.';
+  const matrix = report();
+  // Designed fixtures: every value a complete zero, then one of them a partial zero.
+  const zeros: RepositoryTimelineMatrix = {
+    ...matrix,
+    rows: matrix.rows.map((row) => ({
+      ...row,
+      values: row.values.map(() => ({ status: 'complete', value: 0 }) as const),
+    })),
+  };
+  const view = render(preview(zeros));
+  expect(screen.getByText(zero, { exact: true })).toBeVisible();
+  expect(screen.queryByLabelText('Timeline data coverage')).not.toBeInTheDocument();
+  const [first, ...rest] = zeros.rows;
+  const partial: RepositoryTimelineMatrix = {
+    ...zeros,
+    rows: [
+      {
+        ...first,
+        values: [
+          { status: 'partial', value: 0, reason: 'Some history is unavailable.' },
+          ...first.values.slice(1),
+        ],
+      },
+      ...rest,
+    ],
+  };
+  view.rerender(preview(partial));
+  expect(screen.queryByText(zero)).not.toBeInTheDocument();
+  expect(screen.getByLabelText('Timeline data coverage')).toBeVisible();
 });
 it('explains snapshot cutoffs in shared column help and keeps empty selection separate', async () => {
   const user = userEvent.setup();

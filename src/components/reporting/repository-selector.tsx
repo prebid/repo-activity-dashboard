@@ -1,8 +1,9 @@
 'use client';
 import { FieldError } from '@/components/feedback/field-error';
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, FolderGit2 } from 'lucide-react';
+import { ExpandIcon, RepositoriesIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import {
   Dialog,
@@ -61,19 +62,18 @@ export function RepositorySelector({
       <Dialog open={open} onOpenChange={changeOpen}>
         <DialogTrigger asChild>
           <Button
-            variant="outline"
-            className={styles.control}
+            variant="secondary"
             aria-label={'Choose repositories ' + selected.length + ' / ' + repositories.length}
           >
-            <FolderGit2 size={15} aria-hidden="true" />
+            <RepositoriesIcon size={14} />
             Repositories{' '}
             <span className={styles.count}>
               {selected.length} / {repositories.length}
             </span>
-            <ChevronDown size={14} aria-hidden="true" />
+            <ExpandIcon size={14} />
           </Button>
         </DialogTrigger>
-        <DialogContent container={container} className={styles.dialog}>
+        <DialogContent container={container}>
           <DialogHeader className="text-left">
             <DialogTitle>Choose repositories</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
@@ -100,8 +100,7 @@ export function RepositorySelector({
           <div className={styles.repositoryList} role="group" aria-label="Repositories">
             {matching.map((repo) => (
               <label key={repo.id} className={styles.repositoryOption}>
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={draft.includes(repo.id)}
                   onChange={(event) => {
                     const checked = event.currentTarget.checked;
@@ -122,10 +121,10 @@ export function RepositorySelector({
           <FieldError message={error} />
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="secondary">Cancel</Button>
             </DialogClose>
             <Button
-              className={styles.apply}
+              variant="primary"
               onClick={() => {
                 const message = onApply(draft);
                 setError(message || '');

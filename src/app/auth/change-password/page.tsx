@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import { requireViewer } from '@/lib/auth/viewer';
 import { ChangePasswordView } from '@/features/authentication/change-password-view';
 import { firstSearchParam, type PageSearchParams } from '@/lib/presentation/search-params';
+export const metadata: Metadata = { title: 'Change password' };
 export default async function ChangePasswordPage({
   searchParams,
 }: {

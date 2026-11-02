@@ -1,12 +1,15 @@
 'use client';
 import { useMemo } from 'react';
-import {
-  repositoryTimelineFamilyLabels,
-  type RepositoryTimeline,
-} from '@/models/repository-timeline';
+import type { RepositoryTimeline } from '@/models/repository-timeline';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { TimelineTable } from '@/components/reporting/timeline-table';
-import { TimelineScope } from '@/components/reporting/timeline-scope';
+import {
+  noReportControls,
+  ReportToolbar,
+  type ReportToolbarControls,
+} from '@/components/reporting/report-toolbar';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
+import { countLabel } from '@/lib/presentation/format';
 import { TimelineChart } from '@/components/charts/timeline-chart';
 import { RepositoryHeader } from './repository-header';
 import { repositoryTimelineReturnTo } from '@/lib/presentation/timeline-navigation';
@@ -19,7 +22,8 @@ export function RepositoryTimelineView({
   report,
   navigation,
   href,
-  controls,
+  toolbar = noReportControls,
+  scopeNotice,
   tableControls,
   chartControls,
   parent,
@@ -27,7 +31,10 @@ export function RepositoryTimelineView({
   report: RepositoryTimeline;
   navigation: RepositoryPageNavigation;
   href: string;
-  controls?: React.ReactNode;
+  /** The Timeline's controls; the view adds its scope summary. */
+  toolbar?: ReportToolbarControls;
+  /** A note about the scope carried over from the list, shown above the toolbar. */
+  scopeNotice?: React.ReactNode;
   tableControls?: TimelineTableControls;
   chartControls?: TimelineChartControls;
   parent?: string | null;
@@ -58,19 +65,23 @@ export function RepositoryTimelineView({
             : undefined
         }
       />
-      {controls}
-      <TimelineScope request={report.request} count={report.rows.length}>
-        <span>
-          {report.scope.recordKind === 'prs' ? 'Pull requests' : 'Issues'} ·{' '}
-          {repositoryTimelineFamilyLabels[report.scope.family]}
-        </span>
-        <span>Primary branch: {report.scope.repository.primaryBranch}</span>
-        <span>
-          {snapshot
-            ? 'Values are states at each covered interval’s end.'
-            : 'Values use each metric’s event date.'}
-        </span>
-      </TimelineScope>
+      {scopeNotice}
+      <ReportToolbar
+        label="Timeline scope"
+        {...toolbar}
+        summary={{
+          lead: zonedRangeLabel(report.request.range),
+          facts: [
+            report.rows.length +
+              ' ' +
+              countLabel(report.rows.length, { singular: 'interval', plural: 'intervals' }),
+            'Primary branch: ' + report.scope.repository.primaryBranch,
+            snapshot
+              ? 'Values are states at each covered interval’s end.'
+              : 'Values use each metric’s event date.',
+          ],
+        }}
+      />
       <div className={styles.stack} key={key}>
         <TimelineChart
           rows={report.rows}

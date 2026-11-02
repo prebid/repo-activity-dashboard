@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { AccountTypeFilter } from '../src/features/contributions/account-type-filter';
 import { ContributionView } from '../src/features/contributions/contribution-view';
@@ -10,6 +11,10 @@ import {
   selectContributions,
   defaultContributionSelection,
 } from '../src/lib/presentation/contributions';
+import {
+  companyBreakdownHref,
+  companyBreakdownLabels,
+} from '../src/lib/presentation/contribution-navigation';
 import {
   contributionDefaultSort,
   contributionActorTypes,
@@ -64,15 +69,31 @@ function Preview({
             returnTo: '/contributors',
           }}
           controller={controller}
-          controls={
-            <AccountTypeFilter
-              selected={actorTypes}
-              onApply={(types) => {
-                setActorTypes(types);
-                controller.update({ page: 1 });
-              }}
-            />
-          }
+          toolbar={{
+            disabled: false,
+            groups: [
+              {
+                label: 'Report filters',
+                controls: (
+                  <AccountTypeFilter
+                    selected={actorTypes}
+                    onApply={(types) => {
+                      setActorTypes(types);
+                      controller.update({ page: 1 });
+                    }}
+                  />
+                ),
+                reset: {
+                  label: 'Reset filters',
+                  onReset: () => {
+                    setActorTypes([...contributionActorTypes]);
+                    controller.update({ page: 1 });
+                  },
+                },
+              },
+            ],
+            status: { kind: 'saved' },
+          }}
           links={{
             sample,
             currentHref: '/contributors',
@@ -82,19 +103,21 @@ function Preview({
             },
           }}
           breakdownControls={
+            // Links, as the company screen renders them; a click switches the breakdown in place.
             <nav aria-label="Company breakdown" className={styles.breakdowns}>
               {(['members', 'repositories'] as const).map((value) => (
-                <button
+                <Link
                   key={value}
-                  type="button"
-                  aria-pressed={breakdown === value}
-                  onClick={() => {
+                  href={companyBreakdownHref('/companies/id/company-acme', '', value)}
+                  aria-current={breakdown === value ? 'page' : undefined}
+                  onClick={(event) => {
+                    event.preventDefault();
                     setBreakdown(value);
                     controller.update({ page: 1, search: '' });
                   }}
                 >
-                  {value === 'members' ? 'By contributor' : 'By repository'}
-                </button>
+                  {companyBreakdownLabels[value]}
+                </Link>
               ))}
             </nav>
           }

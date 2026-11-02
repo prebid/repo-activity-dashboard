@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ExternalLinkIcon } from '@/components/ui/icons';
 import { githubProfileUrlSchema } from '@/models/github-profile';
 import { cn } from '@/lib/utils';
 import styles from './account-link.module.css';
@@ -52,7 +52,7 @@ export function GitHubAccountLink({
       }
     >
       {content}
-      <ArrowUpRight size={11} aria-hidden="true" />
+      <ExternalLinkIcon size={14} />
     </a>
   );
 }

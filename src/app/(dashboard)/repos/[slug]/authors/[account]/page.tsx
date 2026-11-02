@@ -1,8 +1,24 @@
 import Link from 'next/link';
 import { repositoryAuthorDetail } from '@/server/reporting';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
-import { PageState } from '@/components/feedback/page-state';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
+import { repositoryAuthorPageMetadata } from '@/server/page-metadata';
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string; account: string }>;
+  searchParams: Promise<PageSearchParams>;
+}) {
+  const { slug, account } = await params;
+  return repositoryAuthorPageMetadata(
+    slug,
+    account,
+    new URLSearchParams(encodeSearchParams(await searchParams)),
+  );
+}
 
 export default async function AuthorRecordsPage({
   params,
@@ -20,9 +36,9 @@ export default async function AuthorRecordsPage({
         <Link prefetch={false} href="/repos" className="text-sm underline">
           All repositories
         </Link>
-        <PageState title="Invalid author filter">
+        <EmptyState kind="error" title="Invalid author filter">
           Choose an author from a PR or issue author list for the selected period.
-        </PageState>
+        </EmptyState>
       </>
     );
   return (

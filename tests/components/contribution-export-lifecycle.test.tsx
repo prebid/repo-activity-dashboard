@@ -25,6 +25,7 @@ function Preview({ data = page }: { data?: ContributionPage }) {
   if (data.report.kind !== 'overview') throw Error('Expected overview');
   return (
     <DataTable
+      search="local"
       title="Contributors"
       rows={reportRows(data.report, 'contributors')}
       columns={[

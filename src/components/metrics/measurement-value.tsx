@@ -1,6 +1,6 @@
 import type { Measurement } from '@/models/reporting-measurement';
 import { absoluteChange } from '@/lib/presentation/measurement';
-import { formatCount } from '@/lib/presentation/format';
+import { formatCount, formatDayNumber, formatMeasure } from '@/lib/presentation/format';
 import styles from './measurement-value.module.css';
 
 export function MeasurementDifference({
@@ -24,9 +24,7 @@ export function MeasurementDifference({
         </span>
       ) : (
         <span title="Period 1 minus Period 2">
-          {(difference > 0 ? '+' : '') +
-            formatCount(difference === 0 ? 0 : difference) +
-            (unit === 'days' ? ' d' : '')}
+          {(difference > 0 ? '+' : '') + formatMeasure(difference === 0 ? 0 : difference, unit)}
         </span>
       )}
     </span>
@@ -53,7 +51,7 @@ export function MeasurementValue({
         className={value === null || value === 0 ? styles.quiet : styles.value}
         title={reason ?? detail}
       >
-        {value === null ? '—' : unit === 'days' ? formatCount(value) + ' d' : formatCount(value)}
+        {formatMeasure(value, unit)}
         {measurement.status === 'partial' && (
           <sup aria-hidden="true" className={styles.marker}>
             *
@@ -73,19 +71,18 @@ export function MeasurementValue({
           className={styles.change}
           title={
             comparison.status === 'complete'
-              ? 'Previous period: ' + formatCount(comparison.value) + (unit === 'days' ? ' d' : '')
+              ? 'Previous period: ' + formatMeasure(comparison.value, unit)
               : comparison.reason
           }
         >
           <span className="sr-only">Change from comparison period: </span>
-          {change === null
-            ? '—'
-            : (change > 0 ? '+' : '') + formatCount(change) + (unit === 'days' ? ' d' : '')}
+          {change === null ? '—' : (change > 0 ? '+' : '') + formatMeasure(change, unit)}
           <span className="sr-only">
             {comparison.status === 'complete'
               ? ' Previous period value: ' +
-                formatCount(comparison.value) +
-                (unit === 'days' ? ' days' : '')
+                (unit === 'days'
+                  ? formatDayNumber(comparison.value) + ' days'
+                  : formatCount(comparison.value))
               : ' ' + comparison.reason}
           </span>
         </span>

@@ -1,6 +1,11 @@
 import { expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ContributionReportViewTabs } from '@/features/contributions/contribution-header';
+import {
+  ContributionHeader,
+  ContributionReportViewTabs,
+} from '@/features/contributions/contribution-header';
+import { contributionSample } from '@/mocks/contributions';
+import { selectContributions } from '@/lib/presentation/contributions';
 
 it('keeps an unavailable Over time tab focusable and explains why it is unavailable', () => {
   render(
@@ -30,3 +35,38 @@ it('links the Over time tab when its URL fits', () => {
   expect(timeline).toHaveAttribute('aria-current', 'page');
   expect(timeline).not.toHaveAttribute('aria-disabled');
 });
+const reportTabs = [
+  ['contributors', /^Contributors/],
+  ['companies', /^Companies/],
+  ['report', /^Report$/],
+  ['timeline', /^Over time$/],
+] as const;
+it.each(['contributors', 'companies', 'timeline', null])(
+  'marks only the %s tab pending while its handler navigation is pending',
+  (target) => {
+    render(
+      <ContributionHeader
+        page={{
+          sample: 'reference',
+          area: 'contributors',
+          breakdown: 'members',
+          returnTo: '/contributors',
+          report: selectContributions(contributionSample(), undefined, undefined, {
+            area: 'contributors',
+          }),
+        }}
+        links={{
+          sample: 'reference',
+          currentHref: '/contributors',
+          timelineHref: '/contributors?timeline=1',
+          pendingTarget: target,
+        }}
+      />,
+    );
+    for (const [key, name] of reportTabs)
+      expect(screen.getByRole('link', { name }).lastElementChild).toHaveAttribute(
+        'data-pending',
+        String(key === target),
+      );
+  },
+);

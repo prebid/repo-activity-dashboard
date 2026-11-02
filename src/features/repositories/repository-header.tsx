@@ -1,13 +1,14 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
 import {
-  ArrowLeft,
-  ArrowUpRight,
-  GitBranch,
-  GitPullRequest,
-  CircleDot,
-  CalendarDays,
-} from 'lucide-react';
+  BackIcon,
+  BranchIcon,
+  ExternalLinkIcon,
+  IssuesIcon,
+  PullRequestsIcon,
+  TimelineIcon,
+} from '@/components/ui/icons';
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -26,6 +27,7 @@ export function RepositoryHeader({
   parentLink,
   timelineHref,
   onTimeline,
+  timelinePending,
 }: {
   repository: OverviewRepository;
   asOf: string;
@@ -34,6 +36,8 @@ export function RepositoryHeader({
   activeKind?: 'prs' | 'issues' | 'timeline';
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
+  /** Set while a navigation started by `onTimeline` is pending. */
+  timelinePending?: boolean;
   parentLink?: { href: string; label: string };
 }) {
   const timelineLink =
@@ -43,15 +47,18 @@ export function RepositoryHeader({
   return (
     <>
       <div className={styles.breadcrumbs}>
-        <Link prefetch={false} href={returnTo} aria-label="← All repositories">
-          <ArrowLeft size={14} aria-hidden="true" />
+        <Link prefetch={false} href={returnTo}>
+          <BackIcon size={14} />
           All repositories
+          <LinkPending />
         </Link>
         {parentLink && (
           <>
             <span aria-hidden="true">/</span>
             <Link prefetch={false} href={parentLink.href}>
-              ← {parentLink.label}
+              <BackIcon size={14} />
+              {parentLink.label}
+              <LinkPending />
             </Link>
           </>
         )}
@@ -61,7 +68,7 @@ export function RepositoryHeader({
           <h1>{repository.name}</h1>
           <div className={styles.meta}>
             <span>
-              <GitBranch size={13} aria-hidden="true" />
+              <BranchIcon size={14} />
               {repository.primaryBranch}
               <span>primary branch</span>
             </span>
@@ -73,7 +80,7 @@ export function RepositoryHeader({
                 rel="noopener noreferrer"
               >
                 View repository on GitHub
-                <ArrowUpRight size={13} aria-hidden="true" />
+                <ExternalLinkIcon size={14} />
               </Link>
             )}
           </div>
@@ -98,11 +105,7 @@ export function RepositoryHeader({
             })}
             aria-current={activeKind === kind ? 'page' : undefined}
           >
-            {kind === 'prs' ? (
-              <GitPullRequest size={16} aria-hidden="true" />
-            ) : (
-              <CircleDot size={16} aria-hidden="true" />
-            )}
+            {kind === 'prs' ? <PullRequestsIcon size={16} /> : <IssuesIcon size={16} />}
             <span>{kind === 'prs' ? 'Pull requests' : 'Issues'}</span>
             {navigation && (
               <span className={styles.tabCount} title="Current open count">
@@ -112,6 +115,7 @@ export function RepositoryHeader({
                 <span className={styles.countLabel}>open</span>
               </span>
             )}
+            <LinkPending />
           </Link>
         ))}
         {timelineLink && (
@@ -121,8 +125,10 @@ export function RepositoryHeader({
             onClick={onTimeline}
             aria-current={activeKind === 'timeline' ? 'page' : undefined}
           >
-            <CalendarDays size={16} aria-hidden="true" />
+            <TimelineIcon size={16} />
             <span>Timeline</span>
+            {/* A click `onTimeline` leaves to the link reports through the link's own status. */}
+            <LinkPending pending={timelinePending || undefined} />
           </Link>
         )}
         {!timelineLink && (

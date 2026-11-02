@@ -11,7 +11,7 @@ import {
 } from './timeline-screens';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import { PageState } from '@/components/feedback/page-state';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { TimelineSupportScreen } from './timeline-support-screen';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
@@ -19,9 +19,9 @@ function InvalidTimeline({ message, href }: { message: string; href: string }) {
   return (
     <>
       <h1>Timeline</h1>
-      <PageState title="Invalid timeline view">
+      <EmptyState kind="error" title="Invalid timeline view">
         {message} <Link href={href}>Return to report</Link>
-      </PageState>
+      </EmptyState>
     </>
   );
 }

@@ -132,4 +132,5 @@ it('identifies the author selection limit and allows correction without losing t
   await user.click(within(dialog).getByRole('button', { name: 'Apply filters' }));
   expect(change).toHaveBeenCalledTimes(1);
   expect(change.mock.calls[0][0].authors).toHaveLength(100);
-});
+  // 101 selections in a list of more than 100 options; shared CI runners need more than 5s.
+}, 15_000);

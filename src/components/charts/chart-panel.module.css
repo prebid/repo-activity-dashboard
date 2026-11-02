@@ -1,0 +1,121 @@
+.panel {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--prebid-line);
+  border-radius: var(--prebid-radius-panel);
+  background: var(--prebid-card);
+  box-shadow: var(--prebid-elevation-1);
+  color: var(--prebid-ink);
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+.text {
+  min-width: 0;
+}
+.title {
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-title);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 700;
+  line-height: var(--prebid-leading-title);
+}
+.description {
+  margin-top: 4px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+}
+.body {
+  padding: 18px 20px;
+  border-top: 1px solid var(--prebid-line);
+}
+.body[hidden] {
+  display: none;
+}
+@media (max-width: 600px) {
+  .heading {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+  .body {
+    padding: 16px;
+  }
+}
+
+/* One row of equal cells, or one column at 1000px and below, so no row is left part-filled. Cells
+   reach the panel edges; each draws its top and left line, and the outer ones are clipped, so the
+   lines sit only between cells in either layout. */
+.cells {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin: -18px -20px;
+  overflow: hidden;
+}
+@media (max-width: 1000px) {
+  .cells {
+    grid-auto-flow: row;
+  }
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: -1px 0 0 -1px;
+  padding: 18px 20px;
+  border-top: 1px solid var(--prebid-line-subtle);
+  border-left: 1px solid var(--prebid-line-subtle);
+}
+@media (max-width: 600px) {
+  .cells {
+    margin: -16px;
+  }
+  .cell {
+    padding: 16px;
+  }
+}
+.caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cellTitle {
+  font-size: var(--prebid-text-heading);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
+}
+.total {
+  flex-shrink: 0;
+  font-size: var(--prebid-text-heading);
+  font-variant-numeric: var(--prebid-numeric);
+  font-weight: var(--prebid-number-weight);
+  line-height: var(--prebid-leading-heading);
+}
+.unit {
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-caption);
+  font-weight: 500;
+  line-height: var(--prebid-leading-caption);
+}
+.context {
+  margin-top: 2px;
+  color: var(--prebid-muted);
+  font-size: var(--prebid-text-caption);
+  font-weight: 500;
+  line-height: var(--prebid-leading-caption);
+}
+.chart {
+  margin-top: 12px;
+  min-width: 0;
+}
+/* Pushed to the cell's foot, so legends in one row line up whatever their charts' heights. */
+.footer {
+  margin-top: auto;
+  padding-top: 10px;
+}

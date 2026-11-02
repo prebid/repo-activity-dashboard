@@ -11,6 +11,7 @@ it('uses one definition for header hover and keyboard/touch help without sorting
   const user = userEvent.setup();
   render(
     <LocalDataTable
+      search="local"
       title="Example"
       rows={[{ id: 'one', count: 2 }]}
       columns={[
@@ -45,6 +46,7 @@ it('uses one definition for header hover and keyboard/touch help without sorting
 it('omits help when no visible column has a definition', () => {
   render(
     <LocalDataTable
+      search="local"
       title="Plain"
       rows={[{ id: 'one' }]}
       columns={[{ id: 'id', label: 'ID', value: (r) => r.id }]}

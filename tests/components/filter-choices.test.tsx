@@ -18,7 +18,11 @@ function Choices({ large = false }: { large?: boolean }) {
 }
 it('keeps selected values that are absent from the sample and supports selecting and removing values', () => {
   render(<Choices />);
+  // The shared disclosure trigger: a trailing chevron in place of the native marker.
+  const summary = screen.getByText('Authors').closest('summary')!;
+  expect(summary.lastElementChild!.querySelector('svg')).toHaveClass('lucide-chevron-down');
   fireEvent.click(screen.getByText('Authors'));
+  expect(summary.parentElement).toHaveAttribute('open');
   expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('checkbox', { name: 'Author 1' }));
   expect(screen.getByText('2 selected')).toBeVisible();

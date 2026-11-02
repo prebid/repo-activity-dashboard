@@ -1,9 +1,12 @@
 import { viewTabsClassName } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import Link from 'next/link';
 import type { TimelineSupportContext } from '@/models/timeline-support';
 import { timelineMetricLabel, timelineMetricUnit } from '@/lib/presentation/timeline-metric-label';
-import { timelineIntervalDescription } from '@/lib/presentation/timeline-presentation';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
+import { BackIcon } from '@/components/ui/icons';
+import { Callout } from '@/components/feedback/callout';
 import { formatAsOf } from '@/lib/presentation/format';
 import styles from './timeline-layout.module.css';
 export function TimelineSupportFrame({
@@ -23,16 +26,20 @@ export function TimelineSupportFrame({
     <>
       <nav className={viewTabsClassName} aria-label="Supporting view navigation">
         <Link prefetch={false} href={context.parentHref}>
-          ← Back to timeline
+          <BackIcon size={14} />
+          Back to timeline
+          <LinkPending />
         </Link>
         {authorBack && (
           <Link prefetch={false} href={authorBack}>
-            ← Back to authors
+            <BackIcon size={14} />
+            Back to authors
+            <LinkPending />
           </Link>
         )}
       </nav>
       <header>
-        <h1 className="text-2xl font-semibold">{title}</h1>
+        <h1 className="text-2xl">{title}</h1>
         <p className={styles.dates}>Reporting snapshot: {formatAsOf(context.source.asOf)}</p>
       </header>
       <section className={styles.scope} aria-label="Supporting interval scope">
@@ -46,15 +53,15 @@ export function TimelineSupportFrame({
             />
           </span>
         </div>
-        <p className={styles.dates}>{timelineIntervalDescription(context.interval)}</p>
+        <p className={styles.dates}>{zonedRangeLabel(context.interval.covered)}</p>
         {context.interval.partial && (
           <span className={styles.partial}>Partial calendar period</span>
         )}
       </section>
       {context.measurement.status !== 'complete' && (
-        <aside className={styles.notice} aria-label="Supporting data coverage">
+        <Callout tone="warning" as="aside" aria-label="Supporting data coverage">
           {context.measurement.reason} Only known matching records are shown.
-        </aside>
+        </Callout>
       )}
       {children}
     </>

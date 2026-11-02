@@ -132,8 +132,14 @@ test('periods, repository selection, saved defaults, explicit URLs and Back/Forw
   await dates.getByLabel('End date', { exact: true }).fill('2026-10-01');
   await dates.getByRole('button', { name: 'Apply dates', exact: true }).click();
   await ready(page);
+  // The period control names a custom range; the scope summary states its dates.
+  await expect(
+    page
+      .getByRole('region', { name: 'Contribution report scope' })
+      .getByRole('button', { name: 'Edit custom range for Reporting period', exact: true }),
+  ).toBeVisible();
   await expect(page.getByRole('region', { name: 'Contribution report scope' })).toContainText(
-    'Custom range',
+    'Oct 1, 2026 – Oct 1, 2026 · UTC',
   );
   await page.goBack();
   await expect(page.getByRole('combobox', { name: 'Reporting period preset' })).toHaveValue(
@@ -172,7 +178,9 @@ test('explicit empty repository/population selections stay empty and incomplete 
   await expect(
     page.getByRole('heading', { name: 'No confirmed contributions to list' }),
   ).toBeVisible();
-  await expect(page.getByRole('table')).toHaveCount(0);
+  // The empty table keeps its header row; the state is its only body row.
+  await expect(page.getByRole('table').getByRole('columnheader').first()).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody td[data-column]')).toHaveCount(0);
   await page.goto('/contributors?exclude=removed-account');
   await expect(page.getByRole('heading', { name: 'Invalid contribution view' })).toBeVisible();
 });

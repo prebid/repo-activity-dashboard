@@ -16,6 +16,7 @@ import {
 } from '@/lib/presentation/timeline-support-query';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { TimelineSupportFrame } from '@/components/reporting/timeline-support-frame';
+import { Callout } from '@/components/feedback/callout';
 import {
   repositoryTimelineSupportColumns,
   timelineAuthorColumns,
@@ -128,7 +129,11 @@ export function TimelineSupportScreen({
         detail.kind === 'repository' && detail.author ? timelineAuthorHref(href, null) : undefined
       }
     >
-      {notice && <p role="alert">{notice}</p>}
+      {notice && (
+        <Callout tone="info" as="p" role="alert">
+          {notice}
+        </Callout>
+      )}
       {detail.kind === 'contribution' ? (
         <ContributionTimelineSupportView
           detail={detail}

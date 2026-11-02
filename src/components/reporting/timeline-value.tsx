@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import type { Measurement } from '@/models/reporting-measurement';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import { formatCount } from '@/lib/presentation/format';
+import { Callout } from '@/components/feedback/callout';
+import { formatMeasure } from '@/lib/presentation/format';
 import styles from './timeline-layout.module.css';
 
-export const timelineFooterLegend = 'UTC · — unavailable or not applicable · * incomplete value';
 export const timelineLinkLimitMessage =
   'Some values and names are too large to link. Reduce the selected repositories, metrics or filters to open them.';
 
@@ -44,8 +44,7 @@ export function timelineValueName(
   return (
     name +
     ': ' +
-    formatCount(measurement.value) +
-    (unit === 'days' ? ' d' : '') +
+    formatMeasure(measurement.value, unit) +
     (measurement.status === 'partial' ? ', partial value. ' + measurement.reason : '')
   );
 }
@@ -88,17 +87,40 @@ export function TimelineValueCell({
 }
 export function TimelineCoverageNotice() {
   return (
-    <aside className={styles.notice} aria-label="Timeline data coverage">
-      <strong>Some timeline values are incomplete or unavailable.</strong> Dashes keep missing
-      values distinct from zero; an asterisk marks incomplete data. A partial period describes the
-      covered dates.
-    </aside>
+    <Callout
+      tone="warning"
+      as="aside"
+      aria-label="Timeline data coverage"
+      lead="Some timeline values are incomplete or unavailable."
+    >
+      Dashes keep missing values distinct from zero; an asterisk marks incomplete data. A partial
+      period describes the covered dates.
+    </Callout>
   );
 }
 export function TimelineLinkLimitNotice() {
   return (
-    <p className={styles.notice} role="status">
+    <Callout tone="info" as="p" role="status">
       {timelineLinkLimitMessage}
-    </p>
+    </Callout>
+  );
+}
+/**
+ * Whether every value in a timeline's range is a recorded zero. Missing, partial and
+ * not-applicable values are not, so the zero notice never hides a coverage gap.
+ */
+export function isRecordedZeroRange(measurements: Iterable<Measurement>): boolean {
+  let any = false;
+  for (const measurement of measurements) {
+    if (measurement.status !== 'complete' || measurement.value !== 0) return false;
+    any = true;
+  }
+  return any;
+}
+export function TimelineZeroNotice() {
+  return (
+    <Callout tone="info" as="p">
+      Every value in this range is a recorded zero; no data is missing.
+    </Callout>
   );
 }

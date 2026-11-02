@@ -1,5 +1,16 @@
 import { ContributionRoute } from '@/app/_screens/contribution-route';
-import type { PageSearchParams } from '@/lib/presentation/search-params';
+import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
+import { contributionPageMetadata } from '@/server/page-metadata';
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<PageSearchParams>;
+}) {
+  return contributionPageMetadata(
+    'companies',
+    new URLSearchParams(encodeSearchParams(await searchParams)),
+  );
+}
 export default function Page({ searchParams }: { searchParams: Promise<PageSearchParams> }) {
   return <ContributionRoute area="companies" searchParams={searchParams} />;
 }

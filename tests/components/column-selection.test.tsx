@@ -101,6 +101,7 @@ it('shares the same organization in the table menu and CSV form without changing
     const controller = useLocalTableController();
     return (
       <DataTable
+        search="local"
         title="Shared"
         rows={[{ id: 'one' }]}
         columns={choices.map((column) => ({

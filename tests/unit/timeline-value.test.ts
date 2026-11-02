@@ -1,10 +1,33 @@
 // @vitest-environment node
 import { expect, it, vi } from 'vitest';
-import { hasUnlinkedValue, isIncompleteValue } from '@/components/reporting/timeline-value';
+import {
+  hasUnlinkedValue,
+  isIncompleteValue,
+  isRecordedZeroRange,
+} from '@/components/reporting/timeline-value';
 import type { Measurement } from '@/models/reporting-measurement';
 
 const known: Measurement = { status: 'complete', value: 2 };
 const absent: Measurement = { status: 'missing', value: null, reason: 'No sample.' };
+const zero: Measurement = { status: 'complete', value: 0 };
+
+it('calls a range a recorded zero only when every value is a complete zero', () => {
+  expect(isRecordedZeroRange([zero, zero])).toBe(true);
+  expect(isRecordedZeroRange([zero])).toBe(true);
+  // A partial zero, a missing value or a not-applicable one is not a recorded zero.
+  expect(
+    isRecordedZeroRange([zero, { status: 'partial', value: 0, reason: 'Some history.' }]),
+  ).toBe(false);
+  expect(isRecordedZeroRange([zero, absent])).toBe(false);
+  expect(
+    isRecordedZeroRange([zero, { status: 'not-applicable', value: null, reason: 'No merges.' }]),
+  ).toBe(false);
+  expect(isRecordedZeroRange([zero, known])).toBe(false);
+  // An empty range has no values to call zero.
+  expect(isRecordedZeroRange([])).toBe(false);
+  // Any iterable, not only an array.
+  expect(isRecordedZeroRange([zero, zero].values())).toBe(true);
+});
 
 it('treats partial and missing values as incomplete', () => {
   expect(isIncompleteValue({ status: 'partial', value: 1, reason: 'Some history.' })).toBe(true);

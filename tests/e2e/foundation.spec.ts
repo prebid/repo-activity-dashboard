@@ -32,49 +32,21 @@ test('repeated callback parameters retain a usable login destination', async ({ 
   ).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
 });
-test('select bounds, dialog focus, menu keyboard actions and switch behavior', async ({ page }) => {
+test('native select, dialog focus, menu keyboard actions and switch behavior', async ({ page }) => {
   await page.setViewportSize({ width: 700, height: 500 });
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=foundation-interactive-primitives--keyboard&viewMode=story',
   );
+  // The browser draws the open list of a native select, so only its value and focus are checked.
   const select = page.getByRole('combobox', { name: 'Repository selection' });
+  await expect(select).toHaveValue('item-1');
+  await expect(select.locator('option')).toHaveCount(50);
+  await expect(select).toHaveCSS('appearance', 'none');
+  await select.selectOption('item-50');
+  await expect(select).toHaveValue('item-50');
+  await select.selectOption({ label: 'Repository 1' });
+  await expect(select).toHaveValue('item-1');
   await select.focus();
-  await page.keyboard.press('Enter');
-  const list = page.getByRole('listbox');
-  await expect(list).toBeVisible();
-  const bounds = await list.evaluate((el) => ({
-    maximum: getComputedStyle(el).maxHeight,
-    available: getComputedStyle(el).getPropertyValue('--radix-select-content-available-height'),
-  }));
-  expect(Number.parseFloat(bounds.available)).toBeGreaterThan(0);
-  expect(Number.parseFloat(bounds.maximum)).toBeCloseTo(Number.parseFloat(bounds.available));
-  expect(Number.parseFloat(bounds.maximum)).toBeLessThanOrEqual(500);
-  await expect(page.getByRole('option', { name: 'Repository 1', exact: true })).toBeFocused();
-  await page.keyboard.press('End');
-  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(select).toHaveText('Repository 50');
-  await expect(select).toBeFocused();
-  await expect(list).toHaveCount(0);
-  // Radix closes on viewport resize and restores focus. Reopen at the new size.
-  await page.keyboard.press('Enter');
-  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
-  await page.setViewportSize({ width: 700, height: 400 });
-  await expect(list).toHaveCount(0);
-  await expect(select).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(page.getByRole('option', { name: 'Repository 50', exact: true })).toBeFocused();
-  await expect
-    .poll(async () => {
-      const box = await list.boundingBox();
-      return box !== null && box.y >= 0 && box.y + box.height <= 400;
-    })
-    .toBe(true);
-  await page.keyboard.press('Home');
-  await expect(page.getByRole('option', { name: 'Repository 1', exact: true })).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(select).toHaveText('Repository 1');
-  await expect(list).toHaveCount(0);
   await expect(select).toBeFocused();
   await page.setViewportSize({ width: 700, height: 500 });
   const dialogTrigger = page.getByRole('button', { name: 'Open dialog' });
@@ -110,10 +82,21 @@ test('component catalog themes also reach portaled dialogs', async ({ page }) =>
   const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveCSS('opacity', '1');
-  const background = await page
-    .locator('body')
-    .evaluate((el) => getComputedStyle(el).backgroundColor);
-  await expect(dialog).toHaveCSS('background-color', background);
+  // Dialogs sit on the raised overlay surface, which differs from the page canvas in Dark.
+  const [canvas, overlay] = await page.locator('body').evaluate((body) => {
+    const probe = document.createElement('div');
+    probe.style.backgroundColor = 'var(--prebid-overlay)';
+    body.append(probe);
+    const colors = [
+      getComputedStyle(body).backgroundColor,
+      getComputedStyle(probe).backgroundColor,
+    ];
+    probe.remove();
+    return colors;
+  });
+  expect(overlay).not.toBe(canvas);
+  expect(overlay).toBe(darkOverlay);
+  await expect(dialog).toHaveCSS('background-color', overlay);
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
     [],
   );
@@ -123,6 +106,25 @@ async function login(page: import('@playwright/test').Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+// --prebid-overlay in Dark (#1c2a37); dialogs must not fall back to the card or the canvas.
+const darkOverlay = 'rgb(28, 42, 55)';
+test('report dialogs sit on the overlay surface in Dark', async ({ page }) => {
+  await login(page);
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  // A feature dialog with its own frame class.
+  await page.goto('/repos/prebidjs');
+  await page.getByRole('button', { name: /^Filters(?: \(|$)/ }).click();
+  const filters = page.getByRole('dialog', { name: /^Filter pull requests$/ });
+  await expect(filters).toHaveCSS('opacity', '1');
+  await expect(filters).toHaveCSS('background-color', darkOverlay);
+  await page.keyboard.press('Escape');
+  // The shared scrollable dialog frame.
+  await page.goto('/companies/id/company-acme');
+  await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+  const csv = page.getByRole('dialog', { name: /CSV export$/ });
+  await expect(csv).toHaveCSS('opacity', '1');
+  await expect(csv).toHaveCSS('background-color', darkOverlay);
+});
 test('login return preserves issue context, pagination and full-result search', async ({
   page,
 }) => {
@@ -130,10 +132,14 @@ test('login return preserves issue context, pagination and full-result search', 
   await expect(page).toHaveURL(/auth\/login\?callbackUrl=/);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/view=issues.*issues.page=2/);
-  await expect(page.getByText('834 matching issues')).toBeVisible();
+  await expect(page.getByText('834 issues', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').getByRole('row')).toHaveCount(51);
+  const pager = page.getByRole('navigation', { name: 'Open issues pages', exact: true });
+  await expect(pager).toContainText('Page 2 of 17');
   await page.getByRole('textbox', { name: 'Search Open issues' }).fill('Oldest sample issue');
-  await expect(page.getByText('Page 1 of 1')).toBeVisible();
+  await expect(page.getByText('1 matching issue', { exact: true })).toBeVisible();
+  // One page of results hides the pager.
+  await expect(pager).toHaveCount(0);
   await expect(
     page.getByRole('link', { name: 'Oldest sample issue: keyboard navigation' }),
   ).toHaveAttribute('href', /example-fixtures.*issues\/1$/);
@@ -152,7 +158,7 @@ test('catalog links retain current-list pagination and independent feedback/appr
     .filter({ has: page.getByRole('link', { name: 'Prebid.js', exact: true }) });
   await expect(row.locator('[data-column="totalOpenPrs"]')).toHaveText('137');
   await row.getByRole('link', { name: 'Prebid.js', exact: true }).click();
-  await expect(page.getByText('137 matching PRs')).toBeVisible();
+  await expect(page.getByText('137 PRs', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   const reviewed = page
@@ -345,7 +351,7 @@ test('repository issue search and same-route navigation keep the URL and rows sy
     .click();
   await expect(input).toHaveValue('');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await expect(page.getByText('834 matching issues')).toBeVisible();
+  await expect(page.getByText('834 issues', { exact: true })).toBeVisible();
 });
 test('sort survives a real router refresh caused by another tab signing in', async ({
   page,

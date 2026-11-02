@@ -4,7 +4,8 @@ import type { ColumnVisibility } from '@/components/tables/table-columns';
 import { useState } from 'react';
 import { additionalMetricIds, additionalMetricDefinitions } from '@/models/contribution-activity';
 import { DataTable } from '@/components/tables/data-table';
-import { PageState } from '@/components/feedback/page-state';
+import { Callout } from '@/components/feedback/callout';
+import { EmptyState } from '@/components/feedback/empty-state';
 import type { TableController } from '@/lib/presentation/table-controller';
 import type { ContributionPage } from '@/models/contribution-page';
 import { contributionMetricIds, contributionMetrics } from '@/models/contributions';
@@ -17,6 +18,7 @@ import {
 } from './contribution-columns';
 import { contributionCsvAlternatives, contributionCsvDownload } from './contribution-csv-export';
 import { ContributionHeader } from './contribution-header';
+import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import styles from './contributions.module.css';
 
 export function ContributionView({
@@ -24,14 +26,14 @@ export function ContributionView({
   controller,
   links,
   breakdownControls,
-  controls,
+  toolbar,
   visibility,
 }: {
   page: ContributionPage;
   controller: TableController;
   links: ContributionLinks;
   breakdownControls?: React.ReactNode;
-  controls?: React.ReactNode;
+  toolbar?: ReportToolbarControls;
   visibility?: ColumnVisibility;
 }) {
   const [localVisible, setVisible] = useState<Record<string, boolean>>(() =>
@@ -46,8 +48,14 @@ export function ContributionView({
   )
     return (
       <>
-        <ContributionHeader page={page} links={links} controls={controls} />
-        <PageState
+        <ContributionHeader page={page} links={links} toolbar={toolbar} />
+        <EmptyState
+          kind={
+            report.context.selection.repositoryIds.length &&
+            report.context.selection.actorTypes.length
+              ? 'no-match'
+              : 'empty'
+          }
           title={
             !report.context.selection.repositoryIds.length
               ? 'No repositories selected'
@@ -57,7 +65,7 @@ export function ContributionView({
           }
         >
           Adjust the repositories, account types, included accounts or exclusions to see results.
-        </PageState>
+        </EmptyState>
       </>
     );
   const table = report.table;
@@ -70,6 +78,9 @@ export function ContributionView({
     optionalSort && visible[optionalSort] === false
       ? additionalMetricDefinitions[optionalSort]
       : undefined;
+  // An overview lists only accounts with recorded activity or gaps, so with incomplete values an
+  // empty list means the contributions are unavailable, not that there are none.
+  const unconfirmed = report.kind === 'overview' && incomplete.length > 0;
   const tableCommon = {
     controller,
     csvAlternatives: contributionCsvAlternatives(page),
@@ -81,13 +92,16 @@ export function ContributionView({
       page.hideZeroMembers,
     ]),
     visibility: visibility ?? { value: visible, onChange: setVisible },
+    search: 'local' as const,
+    // A company report's breakdown switch sits inside its table panel.
+    headerContent: report.kind === 'company' ? breakdownControls : undefined,
     itemLabel: { singular: 'row', plural: 'rows' },
     exportName: page.area + '-sample.csv',
-    emptyTitle: controller.query.search
-      ? 'No matching rows'
-      : report.kind === 'overview' && incomplete.length > 0
-        ? 'No confirmed contributions to list'
-        : 'No counted contributions in this period',
+    empty: controller.query.search
+      ? ({ kind: 'no-match', title: 'No matching rows' } as const)
+      : unconfirmed
+        ? ({ kind: 'missing', title: 'No confirmed contributions to list' } as const)
+        : ({ kind: 'empty', title: 'No counted contributions in this period' } as const),
     footerNote: hiddenSort
       ? `Sorted by ${hiddenSort.group} — ${hiddenSort.label} (${controller.query.descending ? 'descending' : 'ascending'}); its column is hidden.`
       : 'Credits, comment activity and merged PR volumes are separate measures.',
@@ -97,23 +111,24 @@ export function ContributionView({
     repositories = repositoryContributionColumns(links);
   return (
     <>
-      <ContributionHeader page={page} links={links} controls={controls} />
+      <ContributionHeader page={page} links={links} toolbar={toolbar} />
       {incomplete.length > 0 && (
-        <aside className={styles.notice} aria-label="Data coverage">
-          <strong>
-            {incomplete.every((value) => value.status === 'missing') &&
+        <Callout
+          tone="warning"
+          as="aside"
+          aria-label="Data coverage"
+          lead={
+            incomplete.every((value) => value.status === 'missing') &&
             incomplete.length === contributionMetricIds.length + additionalMetricIds.length
               ? 'Reporting values are unavailable.'
-              : 'Some reporting values are incomplete.'}
-          </strong>
-          <span>
-            {' '}
-            Dashes mean unavailable; an asterisk marks a verified subtotal. Missing history is never
-            counted as zero.
-            {report.kind === 'overview' &&
-              ' Only accounts with recorded activity or account-specific gaps are listed.'}
-          </span>
-        </aside>
+              : 'Some reporting values are incomplete.'
+          }
+        >
+          Dashes mean unavailable; an asterisk marks a verified subtotal. Missing history is never
+          counted as zero.
+          {report.kind === 'overview' &&
+            ' Only accounts with recorded activity or account-specific gaps are listed.'}
+        </Callout>
       )}
       {report.kind !== 'overview' && (
         <section aria-label="Report totals" className={styles.totals}>
@@ -135,7 +150,6 @@ export function ContributionView({
           </dl>
         </section>
       )}
-      {report.kind === 'company' && breakdownControls}
       <div className={styles.table}>
         {table.kind === 'contributors' || table.kind === 'companies' ? (
           table.kind === 'contributors' ? (
@@ -164,12 +178,15 @@ export function ContributionView({
                 ? 'Known-zero totals are hidden; accounts with incomplete metrics remain visible.'
                 : 'All included accounts are shown, including those with no counted contributions.'
             }
-            emptyTitle={
+            empty={
               controller.query.search
-                ? 'No matching accounts'
-                : page.hideZeroMembers
-                  ? 'No members with nonzero or incomplete totals'
-                  : 'No accounts in this report'
+                ? { kind: 'no-match', title: 'No matching accounts' }
+                : {
+                    kind: 'empty',
+                    title: page.hideZeroMembers
+                      ? 'No members with nonzero or incomplete totals'
+                      : 'No accounts in this report',
+                  }
             }
             rows={
               page.hideZeroMembers
@@ -183,7 +200,7 @@ export function ContributionView({
             {...tableCommon}
             title="By repository"
             description="Repositories with activity (including optional metrics) or incomplete data. Confirmed-zero repositories are omitted."
-            searchable={false}
+            search="none"
             rows={table.rows}
             columns={repositories}
           />

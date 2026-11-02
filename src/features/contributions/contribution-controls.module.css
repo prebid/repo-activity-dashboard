@@ -1,21 +1,6 @@
-.controls {
-  width: 100%;
-}
-.bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-width: 0;
-}
-.control {
-  height: 34px;
-  font-size: 12px;
-  box-shadow: none;
-}
 .note {
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.6;
   margin-top: 8px;
 }
@@ -23,7 +8,7 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
 .mode legend {
   margin-bottom: 8px;
@@ -41,7 +26,7 @@
   gap: 8px;
 }
 .choices legend {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -55,11 +40,11 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .options {
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--prebid-radius-control);
   max-height: 210px;
   overflow-y: auto;
 }
@@ -70,7 +55,7 @@
   padding: 9px 12px;
   min-height: 40px;
   border-bottom: 1px solid var(--border);
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   cursor: pointer;
 }
 .options > label:last-child {
@@ -81,7 +66,7 @@
 }
 .options > p {
   padding: 12px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
 }
 .options span {
   overflow-wrap: anywhere;

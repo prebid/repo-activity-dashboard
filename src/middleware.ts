@@ -6,5 +6,5 @@ export function middleware(request: NextRequest) {
   return NextResponse.next({ request: { headers } });
 }
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images|prebid-logo).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images).*)'],
 };

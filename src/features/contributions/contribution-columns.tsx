@@ -1,4 +1,3 @@
-import { accountTypeLabels } from '@/models/github-account';
 import { formatCount } from '@/lib/presentation/format';
 import {
   contributorValues,
@@ -15,8 +14,8 @@ import type { ContributionSettings } from '@/models/contribution-settings';
 import { type AdditionalValues } from '@/models/contribution-activity';
 import Link from 'next/link';
 import type { MouseEvent, ComponentProps } from 'react';
-import { Building2, UserRound, Bot, Cpu, CircleHelp } from 'lucide-react';
 import { GitHubAccountLink } from '@/components/github/account-link';
+import { AccountTypeLabel, Avatar, type AvatarSize } from '@/components/github/avatar';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import type { DataColumn } from '@/components/tables/table-columns';
 import {
@@ -42,6 +41,8 @@ export interface ContributionLinks {
   currentHref: string;
   timelineHref?: string | null;
   onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  /** The tab whose handler-started navigation is pending: an area, or `timeline` for Over time. */
+  pendingTarget?: string | null;
   context?: ContributionContext;
   onMetric?: (
     event: MouseEvent<HTMLAnchorElement>,
@@ -153,7 +154,20 @@ function metricCell<T extends { metrics: ContributionValues; additionalMetrics: 
     />
   );
 }
-const actorIcons = { human: UserRound, agent: Cpu, bot: Bot, unknown: CircleHelp };
+/** A company row's identity: a monogram, or the dashed tile of the unmapped bucket. */
+export function CompanyAvatar({
+  company,
+  size,
+}: {
+  company: { name: string } | null;
+  size: AvatarSize;
+}) {
+  return company ? (
+    <Avatar kind="company" name={company.name} size={size} />
+  ) : (
+    <Avatar kind="unmapped-company" size={size} />
+  );
+}
 export function contributorColumns(
   links: ContributionLinks,
   showCompany = true,
@@ -165,32 +179,33 @@ export function contributorColumns(
         pinned: true,
         hideable: false,
         width: 220,
-        cell: (row) => {
-          const Icon = actorIcons[row.account.actorType];
-          return (
-            <div className={styles.identityCell}>
-              <span className={styles.avatar} title={accountTypeLabels[row.account.actorType]}>
-                <Icon size={17} aria-hidden="true" />
-              </span>
-              <div className={styles.identity}>
-                <EntityLink
-                  links={links}
-                  focus={{ kind: 'contributor', accountId: row.account.id }}
-                  className={styles.identityLink}
-                  label={row.account.name + ' — view contribution report'}
-                >
-                  {row.account.name}
-                </EntityLink>
-                <GitHubAccountLink
-                  login={row.account.login}
-                  url={row.account.profileUrl}
-                  label={'@' + row.account.login}
-                  className={styles.secondary}
-                />
-              </div>
+        cell: (row) => (
+          <div className={styles.identityCell}>
+            <Avatar
+              kind="person"
+              name={row.account.name}
+              accountType={row.account.actorType}
+              size={32}
+            />
+            <div className={styles.identity}>
+              <EntityLink
+                links={links}
+                focus={{ kind: 'contributor', accountId: row.account.id }}
+                className={styles.identityLink}
+                label={row.account.name + ' — view contribution report'}
+              >
+                {row.account.name}
+              </EntityLink>
+              <GitHubAccountLink
+                login={row.account.login}
+                url={row.account.profileUrl}
+                label={'@' + row.account.login}
+                className={styles.secondary}
+              />
+              <AccountTypeLabel accountType={row.account.actorType} />
             </div>
-          );
-        },
+          </div>
+        ),
       };
     if (column.id === 'company')
       return {
@@ -226,9 +241,7 @@ export function companyColumns(links: ContributionLinks): DataColumn<CompanyMetr
           width: 220,
           cell: (row) => (
             <div className={styles.identityCell}>
-              <span className={styles.avatar} aria-hidden="true">
-                <Building2 size={17} />
-              </span>
+              <CompanyAvatar company={row.company} size={32} />
               <div className={styles.identity}>
                 <EntityLink
                   links={links}

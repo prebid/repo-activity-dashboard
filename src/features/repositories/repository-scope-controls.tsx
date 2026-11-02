@@ -1,6 +1,6 @@
 'use client';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
-import { ChevronDown } from 'lucide-react';
+import { NativeSelect } from '@/components/ui/native-select';
 import type { RepositoryPageSource } from '@/models/repository-page';
 import type { DateRange } from '@/models/reporting-period';
 import { resolveReportingPeriod } from '@/lib/presentation/reporting-period';
@@ -25,7 +25,7 @@ export function RepositoryScopeControls({
     <div className={styles.scopeControls}>
       <label className={styles.scopeSelect}>
         <span className="sr-only">Record scope</span>
-        <select
+        <NativeSelect
           disabled={!ready}
           value={mode}
           onChange={(event) => onChange(event.target.value as RepositoryActivityMode, period.range)}
@@ -37,8 +37,7 @@ export function RepositoryScopeControls({
               ? 'Merged into ' + source.repository.primaryBranch
               : 'Closed during period'}
           </option>
-        </select>
-        <ChevronDown size={14} className={styles.scopeChevron} aria-hidden="true" />
+        </NativeSelect>
       </label>
       {mode !== 'current' && (
         <TimeframeControl

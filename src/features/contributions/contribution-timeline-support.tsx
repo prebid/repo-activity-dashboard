@@ -8,6 +8,7 @@ import type { ColumnVisibility } from '@/components/tables/table-columns';
 import {
   contributionDetailColumns,
   contributionDetailExportColumns,
+  supportingEmptyKind,
 } from './contribution-details-view';
 import { timelineSupportContextColumns } from '@/lib/presentation/timeline-support-csv';
 import { reportMetricDescription } from '@/models/contribution-metrics';
@@ -27,6 +28,7 @@ export function ContributionTimelineSupportView({
     query = pendingTableQuery(controller);
   return (
     <DataTable
+      search="local"
       searchMaxLength={timelineSupportValueLimit}
       title="Supporting contributions"
       rows={detail.details.rows}
@@ -57,7 +59,10 @@ export function ContributionTimelineSupportView({
         ...timelineSupportContextColumns(detail.context, query, undefined, true),
       ]}
       itemLabel={{ singular: 'account / record row', plural: 'account / record rows' }}
-      emptyTitle="No supporting contributions in this interval"
+      empty={{
+        kind: supportingEmptyKind(detail.details),
+        title: 'No supporting contributions in this interval',
+      }}
     />
   );
 }

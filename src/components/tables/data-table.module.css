@@ -1,7 +1,8 @@
 .panel {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--prebid-radius-panel);
   background: var(--card);
+  box-shadow: var(--prebid-elevation-1);
   overflow: clip;
   min-width: 0;
 }
@@ -15,13 +16,16 @@
 }
 .title {
   overflow-wrap: anywhere;
-  font-size: 17px;
-  font-weight: 600;
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-title);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 700;
+  line-height: var(--prebid-leading-title);
   letter-spacing: -0.02em;
 }
 .description {
   margin-top: 5px;
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -36,24 +40,8 @@
   gap: 8px;
 }
 .search {
-  width: 176px;
-  height: 34px;
-  font-size: 12px;
-  background: var(--card);
-}
-.control {
-  height: 34px;
-  font-size: 12px;
-  background: var(--card);
-  box-shadow: none;
-}
-.columnMenu {
-  width: min(360px, calc(100vw - 32px));
-  max-height: min(72svh, var(--radix-dropdown-menu-content-available-height));
-  padding: 8px;
-}
-.columnMenu[data-state='closed'] {
-  display: none;
+  display: block;
+  width: 240px;
 }
 .scroll {
   --pinned-width: 248px;
@@ -68,7 +56,7 @@
 .table {
   --table-cell-padding-block: 11px;
   width: 100%;
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -76,15 +64,18 @@
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid var(--border);
-  background: var(--muted);
+  background: var(--prebid-header-band);
+  color: var(--prebid-header-ink);
 }
 .table th,
 .table td {
   padding: var(--table-cell-padding-block) 16px;
 }
+/* --identity-surface follows the cell fill, so an avatar's account badge reads as cut out of it. */
 .table td {
+  --identity-surface: var(--table-row-background, var(--card));
   border-bottom: var(--table-row-border-width, 1px) solid var(--border);
-  background: var(--table-row-background, var(--card));
+  background: var(--identity-surface);
   vertical-align: middle;
 }
 .headerContent {
@@ -98,7 +89,7 @@
   border-bottom: 0;
 }
 .table tbody tr:hover td {
-  background: var(--accent);
+  --identity-surface: var(--prebid-row-hover);
 }
 .table .group {
   padding: 10px 16px 6px;
@@ -106,7 +97,7 @@
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--prebid-header-ink);
   border-bottom: 0;
 }
 .table .groupStart {
@@ -114,7 +105,10 @@
 }
 .table .numeric {
   text-align: right;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
+}
+.table td.numeric {
+  font-weight: var(--prebid-number-weight);
 }
 .sort {
   width: 100%;
@@ -123,10 +117,10 @@
   gap: 5px;
   text-align: inherit;
   justify-content: inherit;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   line-height: 1.5;
   font-weight: 600;
-  color: var(--muted-foreground);
+  color: var(--prebid-header-ink);
   border-radius: 2px;
   cursor: pointer;
 }
@@ -157,34 +151,60 @@
 .table .pinned + .groupStart {
   border-left: 0;
 }
+/* Footer slots: the count with its notes beneath it on the left, the pager on the right. */
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 12px 24px;
   padding: 12px 24px;
   border-top: 1px solid var(--border);
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
+  line-height: var(--prebid-leading-caption);
   color: var(--muted-foreground);
 }
-.pages {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.summary {
+  flex: 1 1 280px;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+.count {
+  font-variant-numeric: var(--prebid-numeric);
+}
+.notes {
+  display: grid;
+  gap: 2px;
 }
 .scrollHint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 0 24px 12px;
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
 .error {
   padding: 0 24px 12px;
   color: var(--destructive);
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
 }
-.empty {
-  padding: 24px;
+/* An empty table keeps its header row; the state spans every column and stays in the visible
+   width of the scroll area while the header scrolls sideways. */
+.scroll {
+  container-type: inline-size;
+}
+.table .emptyCell {
+  padding: 0;
+}
+.table tbody tr.emptyRow:hover td {
+  --identity-surface: var(--table-row-background, var(--card));
+}
+.emptyState {
+  position: sticky;
+  left: 0;
+  width: 100cqi;
 }
 @media (max-width: 600px) {
   .table {
@@ -200,10 +220,10 @@
   .controls {
     width: 100%;
   }
+  /* Search takes its own row; the other controls wrap beneath it. */
   .search {
-    flex: 1;
-    min-width: 100px;
-    width: 130px;
+    flex: 1 0 100%;
+    width: 100%;
   }
   .scroll {
     --pinned-width: 164px;
@@ -228,15 +248,6 @@
   align-items: center;
   gap: 7px;
 }
-.helpTrigger {
-  width: 26px;
-  height: 26px;
-  color: var(--muted-foreground);
-  flex-shrink: 0;
-}
-.definitionsDialog {
-  max-width: min(680px, calc(100vw - 32px));
-}
 .definitionsList {
   max-height: min(60svh, 540px);
   overflow: auto;
@@ -252,12 +263,12 @@
   padding: 4px;
 }
 .definitionsList dt {
-  font-size: 13px;
+  font-size: var(--prebid-text-body);
   font-weight: 600;
   margin-bottom: 5px;
 }
 .definitionsList dd {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 1.65;
   color: var(--muted-foreground);
 }

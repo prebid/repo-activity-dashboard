@@ -1,9 +1,11 @@
 'use client';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { useEffect, useRef, useState } from 'react';
-import { CalendarDays, ChevronDown } from 'lucide-react';
+import { CustomRangeIcon } from '@/components/ui/icons';
+import { Callout } from '@/components/feedback/callout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { NativeSelect } from '@/components/ui/native-select';
 import {
   Dialog,
   DialogClose,
@@ -77,10 +79,9 @@ export function TimeframeControl({
       <div className={styles.timeframe}>
         <label className={styles.selectLabel}>
           <span className="sr-only">{label} preset</span>
-          <select
+          <NativeSelect
             ref={select}
             disabled={!ready}
-            className={styles.select}
             value={period?.selection.kind === 'preset' ? period.selection.preset : ''}
             onChange={(event) =>
               setError(
@@ -102,24 +103,22 @@ export function TimeframeControl({
                 {periodLabels[preset]}
               </option>
             ))}
-          </select>
-          <ChevronDown size={14} className={styles.selectChevron} aria-hidden="true" />
+          </NativeSelect>
         </label>
         <Button
-          variant="outline"
+          variant="secondary"
           disabled={!ready}
-          className={styles.control}
           aria-label={(custom ? 'Edit custom range for ' : 'Custom range for ') + label}
           onClick={(event) => editDates(event.currentTarget)}
         >
-          <CalendarDays size={14} aria-hidden="true" />
+          <CustomRangeIcon size={14} />
           {custom ? 'Edit custom range' : 'Custom range'}
         </Button>
       </div>
       {error && !open && (
-        <p role="alert" className={styles.error}>
+        <Callout tone="error" as="p" role="alert">
           {error}
-        </p>
+        </Callout>
       )}
       <Dialog
         open={open}
@@ -130,7 +129,6 @@ export function TimeframeControl({
       >
         <DialogContent
           container={container}
-          className={styles.dialog}
           onCloseAutoFocus={(event) => {
             event.preventDefault();
             (returnFocus.current?.isConnected ? returnFocus.current : select.current)?.focus();
@@ -191,17 +189,17 @@ export function TimeframeControl({
               Ranges without prepared sample values will display dashes.
             </p>
             {error && (
-              <p role="alert" className={styles.error}>
+              <Callout tone="error" as="p" role="alert">
                 {error}
-              </p>
+              </Callout>
             )}
             <DialogFooter className="gap-2 sm:space-x-0">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type="button" variant="secondary">
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" className={styles.apply}>
+              <Button type="submit" variant="primary">
                 Apply dates
               </Button>
             </DialogFooter>

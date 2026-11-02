@@ -2,11 +2,12 @@
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { repositoryTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { writeTableQuery } from '@/lib/presentation/table-query';
 import { useTableController } from '@/lib/navigation/use-table-controller';
+import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { authorTableColumnIds, type RepositoryInsight } from '@/models/repository-insights';
 import {
   RepositoryInsightsView,
@@ -31,7 +32,7 @@ export function RepositoryInsightsScreen({
 }) {
   const path = usePathname(),
     search = useSearchParams().toString(),
-    router = useRouter();
+    pendingNavigation = usePendingNavigation();
   const key =
     insight.kind === 'duration' ? 'prs' : insight.kind === 'authors' ? 'authors' : 'credits';
   const controller = useTableController({
@@ -70,9 +71,10 @@ export function RepositoryInsightsScreen({
               path + '?' + writeTableQuery(window.location.search, key, controller.flushSearch());
             return { origin, href: repositoryTimelineEntry(scope, filters, origin) };
           },
-          (href) => router.push(href),
+          (href) => pendingNavigation.push(href, 'timeline'),
         )
       }
+      timelinePending={pendingNavigation.pendingKey === 'timeline'}
     />
   );
 }

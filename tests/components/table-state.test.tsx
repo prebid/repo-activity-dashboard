@@ -8,13 +8,16 @@ it('corrects local pagination without touching browser history', () => {
   window.history.replaceState(null, '', '/?unrelated=preserve');
   render(
     <DataTable
+      search="local"
       title="Local"
       initialQuery={{ ...initial, page: 3 }}
       columns={columns}
       rows={[{ id: 'a', name: 'One' }]}
     />,
   );
-  expect(screen.getByText('Page 1 of 1')).toBeVisible();
+  expect(screen.getByRole('cell', { name: 'One' })).toBeVisible();
+  // One page needs no pager.
+  expect(screen.queryByRole('navigation', { name: 'Local pages' })).not.toBeInTheDocument();
   expect(window.location.search).toBe('?unrelated=preserve');
 });
 it('does not submit a containing form when sorting or paging', () => {
@@ -27,6 +30,7 @@ it('does not submit a containing form when sorting or paging', () => {
       }}
     >
       <DataTable
+        search="local"
         title="Nested"
         columns={columns}
         rows={Array.from({ length: 101 }, (_, i) => ({ id: String(i), name: 'Item ' + i }))}
@@ -35,7 +39,7 @@ it('does not submit a containing form when sorting or paging', () => {
   );
   fireEvent.click(screen.getByRole('button', { name: 'Name' }));
   fireEvent.click(screen.getByRole('button', { name: 'Next' }));
-  expect(screen.getByText('Page 2 of 3')).toBeVisible();
+  expect(screen.getByRole('navigation', { name: 'Nested pages' })).toHaveTextContent('Page 2 of 3');
   expect(submitted).not.toHaveBeenCalled();
 });
 it('shows a recoverable local export error without losing the table', async () => {
@@ -49,6 +53,7 @@ it('shows a recoverable local export error without losing the table', async () =
   );
   render(
     <DataTable
+      search="local"
       title="Export"
       columns={columns}
       rows={[{ id: 'a', name: 'One' }]}

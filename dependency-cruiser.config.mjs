@@ -55,8 +55,16 @@ const configuration = {
       from: { path: presentationRoots },
       to: {
         path: '^src/(app|mocks|server|lib/(auth|aws))/|^node_modules/(@aws-sdk/|server-only/)',
+        // global-error.tsx replaces the root layout, so it imports the shared stylesheet itself.
+        pathNot: '^src/app/globals\\.css$',
         reachable: true,
       },
+    },
+    {
+      name: 'global-stylesheet-in-root-documents-only',
+      severity: 'error',
+      from: { path: presentationRoots, pathNot: '^src/app/global-error\\.tsx$' },
+      to: { path: '^src/app/globals\\.css$' },
     },
     {
       name: 'presentation-no-node',

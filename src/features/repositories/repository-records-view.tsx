@@ -3,7 +3,7 @@ import { accountTypeLabels } from '@/models/github-account';
 import { useState } from 'react';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
-import { formatCount, formatUtcDate } from '@/lib/presentation/format';
+import { formatDays, formatUtcDate } from '@/lib/presentation/format';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import type {
   RepositoryRecordList,
@@ -53,7 +53,8 @@ function commonColumns<
 export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
   ...prColumns.map((column) => ({
     ...column,
-    width: column.id === 'title' ? 360 : column.id === 'author' ? 150 : 120,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
   })),
   ...commonColumns<RepositoryPullRequest>(),
   {
@@ -64,10 +65,7 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
     align: 'right',
     description: 'Elapsed calendar days from PR creation to merge.',
     value: (row) => mergeElapsedDays(row.createdAt, row.mergedAt),
-    cell: (row) => {
-      const days = mergeElapsedDays(row.createdAt, row.mergedAt);
-      return days === null ? '—' : formatCount(days) + ' d';
-    },
+    cell: (row) => formatDays(mergeElapsedDays(row.createdAt, row.mergedAt)),
   },
   {
     id: 'baseBranch',
@@ -110,7 +108,8 @@ export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
 export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
   ...issueColumns.map((column) => ({
     ...column,
-    width: column.id === 'title' ? 360 : column.id === 'author' ? 150 : 120,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
   })),
   ...commonColumns<RepositoryIssue>(),
   {
@@ -152,6 +151,7 @@ export function RepositoryRecordTable({
   const title = titleOverride ?? recordListTitle(selection, list.author?.account);
   return list.kind === 'prs' ? (
     <DataTable
+      search="local"
       title={title}
       rows={list.rows}
       columns={recordPrColumns}
@@ -161,6 +161,7 @@ export function RepositoryRecordTable({
     />
   ) : (
     <DataTable
+      search="local"
       title={title}
       rows={list.rows}
       columns={recordIssueColumns}

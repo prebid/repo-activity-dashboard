@@ -1,6 +1,23 @@
 export function formatCount(value: number | null): string {
   return value === null ? '—' : new Intl.NumberFormat('en-US').format(value);
 }
+const dayFormat = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+/** A known nonzero value that would round to zero reads as below the shown precision. */
+export function formatDayNumber(value: number | null): string {
+  if (value === null) return '—';
+  if (value === 0) return '0';
+  const size = Math.abs(value);
+  return (value < 0 ? '-' : '') + (size < 0.05 ? '<0.1' : dayFormat.format(size));
+}
+export function formatDays(value: number | null): string {
+  return value === null ? '—' : formatDayNumber(value) + ' d';
+}
+export function formatMeasure(value: number | null, unit: 'count' | 'days'): string {
+  return unit === 'days' ? formatDays(value) : formatCount(value);
+}
 export function compareValues(
   a: string | number | null,
   b: string | number | null,

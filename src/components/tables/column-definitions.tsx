@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CircleHelp } from 'lucide-react';
+import { HelpIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -35,15 +35,14 @@ export function ColumnDefinitions<T>({
             type="button"
             disabled={disabled}
             variant="ghost"
-            size="icon"
-            className={styles.helpTrigger}
+            size="icon-sm"
             aria-label={'Column definitions for ' + title}
             title="Column definitions"
           >
-            <CircleHelp size={15} aria-hidden="true" />
+            <HelpIcon size={16} />
           </Button>
         </DialogTrigger>
-        <DialogContent container={container} className={styles.definitionsDialog}>
+        <DialogContent container={container} size="lg">
           <DialogHeader>
             <DialogTitle>{title} column definitions</DialogTitle>
             <DialogDescription>

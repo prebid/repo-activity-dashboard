@@ -13,7 +13,8 @@
   display: grid;
   gap: 4px;
 }
-.horizontal button {
+/* Each point is a native button this component draws; no primitive renders it. */
+.horizontal .point {
   display: grid;
   grid-template-columns: minmax(100px, 1.2fr) minmax(35px, 1fr) 48px;
   gap: 10px;
@@ -28,55 +29,55 @@
   height: 100%;
 }
 .label {
-  font-size: 11px;
+  font-size: var(--prebid-text-caption);
   text-align: left;
   color: var(--muted-foreground);
 }
 .count {
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
+  font-size: var(--prebid-text-small);
+  font-variant-numeric: var(--prebid-numeric);
   text-align: right;
 }
 .track {
   display: flex;
-  border-radius: 2px;
-  background: var(--muted);
+  border-radius: var(--prebid-radius-mark);
+  background: var(--prebid-sunken);
 }
 .bar {
   display: block;
-  border-radius: 2px;
+  border-radius: var(--prebid-radius-mark);
   background: var(--chart-1);
 }
-.horizontal button,
-.vertical button {
-  border-radius: 4px;
+.point {
+  border-radius: var(--prebid-radius-small);
   padding: 5px;
   border: 1px solid transparent;
   cursor: pointer;
 }
-.horizontal button:hover:enabled,
-.vertical button:hover:enabled {
+.point:hover:enabled {
   background: var(--muted);
 }
-.horizontal button:focus-visible,
-.vertical button:focus-visible {
+.point:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 0;
 }
-.horizontal button[aria-pressed='true'],
-.vertical button[aria-pressed='true'] {
-  border-color: var(--primary);
-  background: var(--muted);
+.point[aria-pressed='true'] {
+  border-color: var(--prebid-selection-edge);
+  background: var(--prebid-selection);
 }
-button[aria-pressed='true'] .label {
+.point[aria-pressed='true'] .label {
   color: var(--foreground);
   font-weight: 600;
 }
-.horizontal button:disabled,
-.vertical button:disabled {
+.point:disabled {
   cursor: default;
 }
+/* Each count sits directly on its bar. The plot reserves one count line (the small leading) and
+   the count's 2px margin above the tallest bar, so a full-height bar's count fills that space and
+   stays inside the plot. */
 .vertical {
+  --plot-bars: 120px;
+  --plot-count: calc(var(--prebid-leading-small) + 2px);
   display: flex;
   gap: 4px;
   min-width: max-content;
@@ -85,31 +86,61 @@ button[aria-pressed='true'] .label {
   flex: 1;
   min-width: 42px;
 }
-.vertical button {
+.vertical .point {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   width: 100%;
 }
+.vertical .plot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: stretch;
+  height: calc(var(--plot-bars) + var(--plot-count));
+  padding-top: var(--plot-count);
+}
+/* One baseline through every bar and the gaps between them: each plot's line reaches past its
+   point's 1px edge and 5px padding to the middle of the 4px gap. */
+.vertical .plot::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  bottom: -1px;
+  left: -8px;
+  border-top: 1px solid var(--prebid-line-strong);
+}
+.vertical li:first-child .plot::after {
+  left: -6px;
+}
+.vertical li:last-child .plot::after {
+  right: -6px;
+}
 .vertical .count {
-  order: 0;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  line-height: var(--prebid-leading-small);
   text-align: center;
 }
+/* The value sets its own taller line box; at the reserved leading the count is one line high. */
+.vertical .count > * {
+  line-height: inherit;
+}
 .vertical .track {
-  order: 1;
-  height: 120px;
+  flex-shrink: 0;
   width: 22px;
-  align-items: flex-end;
   background: transparent;
-  border-bottom: 1px solid var(--border);
   border-radius: 0;
 }
 .vertical .bar {
   width: 100%;
+  height: 100%;
 }
 .vertical .label {
-  order: 2;
+  order: 1;
   text-align: center;
   white-space: nowrap;
 }
@@ -117,5 +148,5 @@ button[aria-pressed='true'] .label {
 .scroll:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--prebid-radius-small);
 }

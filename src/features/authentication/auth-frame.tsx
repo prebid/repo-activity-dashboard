@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import { LockKeyhole } from 'lucide-react';
+import { SecureIcon } from '@/components/ui/icons';
 import type { ReactNode } from 'react';
+import { BrandLogo } from '@/components/layout/brand-logo';
 import styles from './authentication.module.css';
 
 export function AuthFrame({
@@ -13,7 +13,7 @@ export function AuthFrame({
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <Image src="/prebid-logo.png" alt="Prebid" width={171} height={30} priority />
+        <BrandLogo size="signIn" />
       </header>
       <section
         className={styles.card}
@@ -22,7 +22,7 @@ export function AuthFrame({
         {children}
       </section>
       <footer className={styles.pageFooter}>
-        <LockKeyhole size={12} aria-hidden="true" />
+        <SecureIcon size={14} />
         <span>Private workspace. Access by invitation.</span>
       </footer>
     </div>

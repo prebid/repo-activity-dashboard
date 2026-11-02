@@ -6,6 +6,19 @@ async function login(page: Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+test('opening the Columns menu does not resize or move its trigger', async ({ page }) => {
+  await login(page);
+  await page.setViewportSize({ width: 640, height: 480 });
+  await page.goto('/repos');
+  const trigger = page.getByRole('button', { name: 'Columns', exact: true }).first();
+  await trigger.scrollIntoViewIfNeeded();
+  const closed = await trigger.boundingBox();
+  await trigger.click();
+  await expect(page.getByRole('menu', { name: 'Columns', exact: true })).toBeVisible();
+  const open = await trigger.boundingBox();
+  expect(open).toEqual(closed);
+});
+
 test('column and CSV sections share groups, partial states and file/line bulk selection', async ({
   page,
 }, info) => {
@@ -73,7 +86,7 @@ test('column and CSV sections share groups, partial states and file/line bulk se
   expect(
     await group
       .getByRole('checkbox', { name: 'Files changed', exact: true })
-      .evaluate((element) => getComputedStyle(element.parentElement!).borderBottomWidth),
+      .evaluate((element) => getComputedStyle(element.closest('label')!).borderBottomWidth),
   ).toBe('1px');
   await expect(dialog).toHaveCSS('opacity', '1');
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
@@ -99,6 +112,8 @@ test('small selectors retain separators, accessible controls and visible export 
   await page.getByRole('button', { name: 'Columns', exact: true }).click();
   const menu = page.getByRole('menu', { name: 'Columns', exact: true });
   await expect(menu).toHaveCSS('opacity', '1');
+  // Widths are measured with the web fonts, not their fallback.
+  await page.evaluate(() => document.fonts.ready);
   const bounds = await menu.boundingBox();
   expect(bounds!.width).toBeLessThanOrEqual(343);
   expect(bounds!.x).toBeGreaterThanOrEqual(0);

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Button } from '../src/components/ui/button';
 import { MetricValue } from '../src/components/metrics/metric-value';
-import { PageState } from '../src/components/feedback/page-state';
+import { EmptyState } from '../src/components/feedback/empty-state';
 import type { DataColumn } from '../src/components/tables/data-table';
 import { LocalDataTable as DataTable } from '../src/components/tables/local-data-table';
 import { ReviewDistribution } from '../src/components/charts/review-distribution';
@@ -20,21 +20,22 @@ const columns: DataColumn<Row>[] = [
   },
 ];
 function Specimen({ state = 'normal' }: { state?: 'normal' | 'empty' | 'loading' | 'error' }) {
-  if (state === 'loading') return <PageState title="Loading records…" />;
+  if (state === 'loading') return <EmptyState kind="loading" title="Loading records…" />;
   if (state === 'error')
     return (
-      <PageState title="Could not load records" onRetry={() => {}}>
+      <EmptyState kind="error" title="Could not load records" onRetry={() => {}}>
         Retry example
-      </PageState>
+      </EmptyState>
     );
   return (
     <div className="space-y-6">
       <div className="flex gap-2">
-        <Button>Primary</Button>
-        <Button variant="outline">Secondary</Button>
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
         <Button variant="destructive">Destructive</Button>
       </div>
       <DataTable
+        search="local"
         title="Sample table"
         columns={columns}
         rows={

@@ -1,40 +1,51 @@
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
+import { LinkPending } from '@/components/navigation/link-pending';
 import { countLabel } from '@/lib/presentation/format';
-import { contributionActorTypes } from '@/models/contributions';
 import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import type { ComponentProps, MouseEvent } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
-import { ArrowLeft, Users, Building2, Table2, CalendarDays } from 'lucide-react';
+import {
+  BackIcon,
+  CompaniesIcon,
+  ContributorsIcon,
+  ReportIcon,
+  TimelineIcon,
+} from '@/components/ui/icons';
 import type { ContributionPage } from '@/models/contribution-page';
+import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
 import { formatAsOf } from '@/lib/presentation/format';
-import { periodRangeLabel, periodLabels } from '@/lib/presentation/overview-periods';
+import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
+import {
+  noReportControls,
+  ReportToolbar,
+  type ReportToolbarControls,
+} from '@/components/reporting/report-toolbar';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import { EntityLink, type ContributionLinks } from './contribution-columns';
+import { contributionSubjectTitle } from '@/lib/presentation/page-title';
+import { Avatar, type AvatarAccountType } from '@/components/github/avatar';
+import { CompanyAvatar, EntityLink, type ContributionLinks } from './contribution-columns';
 
 import styles from './contributions.module.css';
-
-export function contributionTitle(page: ContributionPage): string {
-  return page.report.kind === 'overview'
-    ? page.area === 'contributors'
-      ? 'Contributors'
-      : 'Companies'
-    : page.report.kind === 'contributor'
-      ? page.report.account.name
-      : (page.report.company?.name ?? 'Unmapped company');
-}
 
 /** Report | Over time, shared by the report header and the Over time view. */
 /** A report tab, or a focusable unavailable tab that states why when no link fits. */
 function ContributionTab({
   href,
   reason,
+  pending,
   children,
   ...props
-}: Omit<ComponentProps<typeof Link>, 'href'> & { href: string | null; reason: string }) {
+}: Omit<ComponentProps<typeof Link>, 'href'> & {
+  href: string | null;
+  reason: string;
+  pending?: boolean;
+}) {
   return href ? (
     <Link prefetch={false} href={href} {...props}>
       {children}
+      {/* A click the handler leaves to the link reports through the link's own status. */}
+      <LinkPending pending={pending || undefined} />
     </Link>
   ) : (
     <DisabledTab reason={reason}>{children}</DisabledTab>
@@ -45,11 +56,14 @@ export function ContributionReportViewTabs({
   reportHref,
   timelineHref,
   onTimeline,
+  timelinePending,
 }: {
   active: 'report' | 'timeline';
   reportHref: string;
   timelineHref: string | null;
   onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  /** Set while a navigation started by `onTimeline` is pending. */
+  timelinePending?: boolean;
 }) {
   return (
     <ViewTabs label="Report view">
@@ -58,16 +72,18 @@ export function ContributionReportViewTabs({
         href={reportHref}
         aria-current={active === 'report' ? 'page' : undefined}
       >
-        <Table2 size={16} aria-hidden="true" />
+        <ReportIcon size={16} />
         Report
+        <LinkPending />
       </Link>
       <ContributionTab
         href={timelineHref}
         reason="This selection is too large for an Over time link. Narrow the filters or search and try again."
         onClick={onTimeline}
+        pending={timelinePending}
         aria-current={active === 'timeline' ? 'page' : undefined}
       >
-        <CalendarDays size={16} aria-hidden="true" />
+        <TimelineIcon size={16} />
         Over time
       </ContributionTab>
     </ViewTabs>
@@ -76,21 +92,30 @@ export function ContributionReportViewTabs({
 export function ContributionHeader({
   page,
   links,
-  controls,
+  toolbar = noReportControls,
 }: {
   page: ContributionPage;
   links: ContributionLinks;
-  controls?: React.ReactNode;
+  /** The report filters; the header adds the report's scope summary. */
+  toolbar?: ReportToolbarControls;
 }) {
   const report = page.report,
     context = report.context;
-  const title = contributionTitle(page);
+  const title = contributionSubjectTitle(
+    page.area,
+    report.kind === 'overview'
+      ? 'overview'
+      : report.kind === 'contributor'
+        ? report.account
+        : report.company,
+  );
   return (
     <>
       {report.kind !== 'overview' && (
         <nav className={styles.breadcrumbs} aria-label="Contribution breadcrumb">
           <Link prefetch={false} href={page.returnTo}>
-            <ArrowLeft size={14} aria-hidden="true" /> Back to report
+            <BackIcon size={14} /> Back to report
+            <LinkPending />
           </Link>
         </nav>
       )}
@@ -103,6 +128,13 @@ export function ContributionHeader({
             : report.kind === 'contributor'
               ? 'Contributor report'
               : 'Company report'
+        }
+        identity={
+          report.kind === 'contributor' ? (
+            <ContributionSubjectAvatar subject={{ kind: 'contributor', account: report.account }} />
+          ) : report.kind === 'company' ? (
+            <ContributionSubjectAvatar subject={{ kind: 'company', company: report.company }} />
+          ) : undefined
         }
       >
         {report.kind === 'overview' ? (
@@ -139,18 +171,20 @@ export function ContributionHeader({
             href={contributionHref('contributors', page.sample, undefined, links.settings)}
             reason="This selection is too large for a Contributors link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'contributors')}
+            pending={links.pendingTarget === 'contributors'}
             aria-current={page.area === 'contributors' ? 'page' : undefined}
           >
-            <Users size={16} aria-hidden="true" /> Contributors{' '}
+            <ContributorsIcon size={16} /> Contributors{' '}
             <span className={styles.tabCount}>{report.contributorCount}</span>
           </ContributionTab>
           <ContributionTab
             href={contributionHref('companies', page.sample, undefined, links.settings)}
             reason="This selection is too large for a Companies link. Narrow the filters and try again."
             onClick={(event) => links.onAreaFollow?.(event, 'companies')}
+            pending={links.pendingTarget === 'companies'}
             aria-current={page.area === 'companies' ? 'page' : undefined}
           >
-            <Building2 size={16} aria-hidden="true" /> Companies{' '}
+            <CompaniesIcon size={16} /> Companies{' '}
             <span className={styles.tabCount}>{report.companyCount}</span>
           </ContributionTab>
         </ViewTabs>
@@ -161,52 +195,61 @@ export function ContributionHeader({
           reportHref={links.currentHref}
           timelineHref={links.timelineHref}
           onTimeline={links.onTimeline}
+          timelinePending={links.pendingTarget === 'timeline'}
         />
       )}
-      <section className={styles.scope} aria-label="Contribution report scope">
-        <div>
-          <span className={styles.scopeLabel}>
-            {context.period.kind === 'preset'
-              ? periodLabels[context.period.preset]
-              : 'Custom range'}
-          </span>
-          <strong>{periodRangeLabel(context.range)}</strong>
-        </div>
-        <div className={styles.scopeDetails}>
-          <span>
-            {new Set(context.selection.repositoryIds).size}{' '}
-            {countLabel(new Set(context.selection.repositoryIds).size, {
-              singular: 'repository',
-              plural: 'repositories',
-            })}
-          </span>
-          <span>
-            {new Set(context.selection.actorTypes).size === contributionActorTypes.length
-              ? 'All account types'
-              : context.selection.actorTypes.map((type) => accountTypeLabels[type]).join(', ') ||
-                'No account types'}
-          </span>
-          <span>
-            {context.includedAccountCount}{' '}
-            {countLabel(context.includedAccountCount, {
-              singular: 'included account',
-              plural: 'included accounts',
-            })}
-          </span>
-          <span>
-            {context.selection.population.kind === 'selected' ||
-            context.selection.excludedAccountIds.length
-              ? 'Filtered population'
-              : 'All accounts'}
-          </span>
-          {context.selection.excludedAccountIds.length > 0 && (
-            <span>{context.selection.excludedAccountIds.length} explicitly excluded</span>
-          )}
-          <span>Company attribution: current mapping</span>
-        </div>
-        {controls}
-      </section>
+      <ReportToolbar
+        label="Contribution report scope"
+        {...toolbar}
+        summary={{
+          lead: zonedRangeLabel(context.range),
+          facts: [
+            ...accountTypesFact(context.selection.actorTypes),
+            context.includedAccountCount +
+              ' ' +
+              countLabel(context.includedAccountCount, {
+                singular: 'included account',
+                plural: 'included accounts',
+              }),
+            'Company attribution: current mapping',
+          ],
+        }}
+      />
     </>
+  );
+}
+
+/**
+ * The included account types, in their fixed order, as a scope summary fact. With every type
+ * included there is none: the Account type control already reads "All".
+ */
+export function accountTypesFact(selected: readonly ContributionAccount['actorType'][]): string[] {
+  const types = contributionActorTypes.filter((type) => selected.includes(type));
+  if (types.length === contributionActorTypes.length) return [];
+  if (!types.length) return ['No account types'];
+  return [
+    (types.length === 1 ? 'Account type: ' : 'Account types: ') +
+      types.map((type) => accountTypeLabels[type]).join(', '),
+  ];
+}
+
+/** A focused report's subject at the heading's 48px identity size; the overview has none. */
+export function ContributionSubjectAvatar({
+  subject,
+}: {
+  subject:
+    | { kind: 'contributor'; account: { name: string; actorType: AvatarAccountType } }
+    | { kind: 'company'; company: { name: string } | null };
+}) {
+  return subject.kind === 'contributor' ? (
+    <Avatar
+      kind="person"
+      name={subject.account.name}
+      accountType={subject.account.actorType}
+      size={48}
+    />
+  ) : (
+    <CompanyAvatar company={subject.company} size={48} />
   );
 }
 
@@ -215,19 +258,25 @@ export function ContributionHeading({
   title,
   asOf,
   eyebrow,
+  identity,
   children,
 }: {
   title: string;
   asOf: string;
   eyebrow: string;
+  /** The subject's avatar beside the title on contributor and company reports. */
+  identity?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <header className={styles.header}>
-      <div>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h1>{title}</h1>
-        {children}
+      <div className={styles.heading}>
+        {identity}
+        <div className={styles.headingText}>
+          <p className={styles.eyebrow}>{eyebrow}</p>
+          <h1>{title}</h1>
+          {children}
+        </div>
       </div>
       <p className={styles.snapshot}>
         Reporting snapshot

@@ -1,12 +1,11 @@
 'use client';
 import { useMemo } from 'react';
-import { Info, RotateCcw } from 'lucide-react';
+import { PrAgeIcon } from '@/components/ui/icons';
 import { DataTable } from '@/components/tables/data-table';
 import { tablePageSize } from '@/models/table-query';
 import { ColumnMenu } from '@/components/tables/column-menu';
 import { agingColumnId, agingThresholdForColumn } from '@/lib/presentation/overview-aging';
-import { PageState } from '@/components/feedback/page-state';
-import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/feedback/empty-state';
 import type { TableController } from '@/lib/presentation/table-controller';
 import {
   agingThresholds,
@@ -16,12 +15,19 @@ import {
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
 import { repositoryMatrixEntryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
-import { backlogColumns, activityColumns, columnVisibilityFromIds } from './overview-columns';
+import {
+  activityCellMeasurement,
+  activityColumns,
+  backlogCellMeasurement,
+  backlogColumns,
+  columnVisibilityFromIds,
+  overviewLegend,
+} from './overview-columns';
 import { RepositorySelector } from '@/components/reporting/repository-selector';
+import { ReportToolbar, reportToolbarStatus } from '@/components/reporting/report-toolbar';
 import { ActivityPeriodControls } from './activity-period-controls';
 import { activityTableRows } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
-import controls from '@/components/reporting/overview-controls.module.css';
 
 export function AllRepositoriesView({
   data,
@@ -84,6 +90,14 @@ export function AllRepositoriesView({
     [data.rows],
   );
   const activityRows = useMemo(() => activityTableRows(data, secondaryData), [data, secondaryData]);
+  const backlogLegend = useMemo(
+    () => overviewLegend(rows, backlog, backlogVisibility, backlogCellMeasurement),
+    [rows, backlog, backlogVisibility],
+  );
+  const activityLegend = useMemo(
+    () => overviewLegend(activityRows, activity, activityVisibility, activityCellMeasurement),
+    [activityRows, activity, activityVisibility],
+  );
   return (
     <>
       <AllRepositoriesHeading asOf={data.asOf} />
@@ -96,47 +110,45 @@ export function AllRepositoriesView({
           data,
         )}
       />
-      <div className={controls.bar} aria-label="Repository view settings" role="region">
-        <RepositorySelector
-          repositories={repositories}
-          selected={settings.value.repositoryIds}
-          onApply={(repositoryIds) => settings.update({ repositoryIds })}
-        />
-        <Button variant="ghost" className={controls.control} onClick={settings.reset}>
-          <RotateCcw size={14} aria-hidden="true" />
-          Reset view
-        </Button>
-        <p className={controls.preferenceNote} role="status">
-          {settings.storageAvailable
-            ? 'Settings are saved per account in this browser.'
-            : 'Settings apply for this visit only.'}
-        </p>
-      </div>
-      {settings.notice && (
-        <p role="status" className={controls.notice}>
-          {settings.notice}
-        </p>
-      )}
+      <ReportToolbar
+        label="Repository view settings"
+        disabled={false}
+        groups={[
+          {
+            label: 'Repositories',
+            controls: (
+              <RepositorySelector
+                repositories={repositories}
+                selected={settings.value.repositoryIds}
+                onApply={(repositoryIds) => settings.update({ repositoryIds })}
+              />
+            ),
+            reset: { label: 'Reset view', onReset: settings.reset },
+          },
+        ]}
+        status={reportToolbarStatus(false, settings.storageAvailable, 'report')}
+        notice={settings.notice ? { tone: 'info', text: settings.notice } : undefined}
+      />
       {!rows.length ? (
-        <PageState title="No repositories selected">
+        <EmptyState kind="empty" title="No repositories selected">
           Choose repositories above to show their backlog and activity.
-        </PageState>
+        </EmptyState>
       ) : (
         <>
           <DataTable
             title="Current backlog"
-            searchable={false}
+            search="none"
             rows={rows}
             columns={backlog}
             columnMenuColumns={otherBacklogColumns}
             controller={backlogController}
             itemLabel={{ singular: 'repository', plural: 'repositories' }}
-            showSinglePageControls={false}
             controls={
               <ColumnMenu
                 columns={ageColumns}
                 visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
                 label="PR age"
+                icon={PrAgeIcon}
                 title="PR age thresholds"
                 allowEmpty
               />
@@ -148,11 +160,12 @@ export function AllRepositoriesView({
               </span>
             }
             visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}
-            footerNote="0 / 1 / 2 are exact approval counts. Additional detail is available in Columns."
+            footerNote="0 / 1 / 2 are exact approval counts. Human reviewers, current approvals, and agent/bot activity are measured separately. Additional detail is available in Columns."
+            legend={backlogLegend}
           />
           <DataTable
             title="Period activity"
-            searchable={false}
+            search="none"
             rows={activityRows}
             columns={activity}
             controller={activityController}
@@ -161,7 +174,6 @@ export function AllRepositoriesView({
               plural: secondaryData ? 'comparison rows' : 'repositories',
             }}
             pageSize={secondaryData ? tablePageSize - (tablePageSize % 3) : tablePageSize}
-            showSinglePageControls={false}
             rowClassName={(row) => (row.kind === 'difference' ? styles.differenceRow : undefined)}
             description={
               data.rows.length + ' repositories · ' + (secondaryData ? '2 periods' : '1 period')
@@ -187,14 +199,8 @@ export function AllRepositoriesView({
                 ? 'Difference = Period 1 − Period 2. Numeric columns sort by Period 1; swap periods to rank by Period 2.'
                 : 'Merges and merge time use each repository’s primary branch.'
             }
+            legend={activityLegend}
           />
-          <p className={styles.legend}>
-            <Info size={14} aria-hidden="true" />
-            <span>
-              — Not available or not applicable. * Partial data. Human reviewers, current approvals,
-              and agent/bot activity are measured separately.
-            </span>
-          </p>
         </>
       )}
     </>

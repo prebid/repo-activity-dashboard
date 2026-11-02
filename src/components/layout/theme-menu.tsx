@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { ThemeDarkIcon, ThemeLightIcon, ThemeSystemIcon } from '@/components/ui/icons';
 import { useTheme } from '@/components/providers/theme-provider';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,9 +17,9 @@ import { cn } from '@/lib/utils';
 import styles from './theme-menu.module.css';
 
 const choices = [
-  { value: 'system', label: 'System', icon: Monitor },
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
+  { value: 'system', label: 'System', icon: ThemeSystemIcon },
+  { value: 'light', label: 'Light', icon: ThemeLightIcon },
+  { value: 'dark', label: 'Dark', icon: ThemeDarkIcon },
 ] as const;
 
 export function ThemeMenu({ className }: { className?: string }) {
@@ -29,7 +29,7 @@ export function ThemeMenu({ className }: { className?: string }) {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   // The server cannot read this browser's saved preference. Keep its first render stable.
   const selected = mounted ? theme : undefined;
-  const Icon = choices.find((choice) => choice.value === selected)?.icon ?? Monitor;
+  const Icon = choices.find((choice) => choice.value === selected)?.icon ?? ThemeSystemIcon;
 
   return (
     <div ref={setContainer} className={styles.frame}>
@@ -43,15 +43,15 @@ export function ThemeMenu({ className }: { className?: string }) {
             title="Theme settings"
             disabled={!mounted}
           >
-            <Icon aria-hidden="true" />
+            <Icon size={16} />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" container={container} className={styles.content}>
-          <DropdownMenuLabel className={styles.label}>Appearance</DropdownMenuLabel>
+          <DropdownMenuLabel>Appearance</DropdownMenuLabel>
           <DropdownMenuRadioGroup value={selected} onValueChange={setTheme}>
             {choices.map(({ value, label, icon: OptionIcon }) => (
-              <DropdownMenuRadioItem key={value} value={value} className={styles.option}>
-                <OptionIcon size={16} aria-hidden="true" />
+              <DropdownMenuRadioItem key={value} value={value}>
+                <OptionIcon size={16} />
                 {label}
               </DropdownMenuRadioItem>
             ))}

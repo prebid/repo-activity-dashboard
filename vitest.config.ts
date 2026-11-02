@@ -2,7 +2,12 @@ import { defineConfig } from 'vitest/config';
 import { fileURLToPath } from 'node:url';
 export default defineConfig({
   oxc: { jsx: { runtime: 'automatic' } },
-  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'next/font/local': fileURLToPath(new URL('./tests/support/next-font.ts', import.meta.url)),
+    },
+  },
   test: {
     allowOnly: false,
     environment: 'jsdom',
@@ -26,6 +31,28 @@ export default defineConfig({
           functions: 100,
           branches: 100,
         },
+        // The control primitives every feature composes.
+        'src/components/ui/{button,input,label,search-field,native-select,checkbox,radio}.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/components/ui/icons.ts': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
+        'src/components/ui/{dialog,dropdown-menu,scrollable-dialog}.tsx': {
+          perFile: true,
+          lines: 100,
+          statements: 100,
+          functions: 100,
+          branches: 100,
+        },
         'src/components/layout/theme-menu.tsx': {
           perFile: true,
           lines: 100,
@@ -34,7 +61,7 @@ export default defineConfig({
           branches: 100,
         },
         // The dashboard frame, header and width preference wrap every report page.
-        'src/{components/layout/{dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx}':
+        'src/{components/layout/{brand-logo,dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx,styles/fonts.ts}':
           { perFile: true, lines: 100, statements: 100, functions: 100, branches: 100 },
         'src/features/authentication/{login-view,change-password-view}.tsx': {
           perFile: true,
@@ -90,8 +117,24 @@ export default defineConfig({
           statements: 94,
           functions: 70,
         },
-        'src/components/{navigation/**,exports/csv-download.ts,reporting/timeline-{table,value,support-frame,csv-download}.{ts,tsx}}':
+        // Decides which titles anonymous and redirected responses carry.
+        'src/server/page-metadata.ts': {
+          perFile: true,
+          lines: 100,
+          branches: 100,
+          statements: 100,
+          functions: 100,
+        },
+        'src/components/{navigation/**,exports/csv-download.ts,reporting/{timeline-{table,value,support-frame,csv-download}.{ts,tsx},report-toolbar.tsx}}':
           { perFile: true, lines: 95, branches: 85, statements: 95, functions: 90 },
+        // Notices, empty states, identities and the chart disclosure every report page shows.
+        'src/components/{feedback/**,github/**,charts/chart-panel.tsx}': {
+          perFile: true,
+          lines: 95,
+          branches: 85,
+          statements: 95,
+          functions: 90,
+        },
         // The chart's Recharts callbacks are exercised in browser tests; this keeps unit coverage.
         'src/components/charts/timeline-chart.tsx': {
           perFile: true,

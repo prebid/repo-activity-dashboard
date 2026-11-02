@@ -13,6 +13,7 @@ import {
   repositoryInlineColumnIds,
 } from './repository-page-columns';
 import { GitHubAccountLink } from '@/components/github/account-link';
+import { AccountTypeLabel, Avatar } from '@/components/github/avatar';
 import { accountTypeLabels } from '@/models/github-account';
 import pageStyles from './repository-page.module.css';
 import { timelineSupportContextColumns } from '@/lib/presentation/timeline-support-csv';
@@ -28,7 +29,11 @@ export function timelineAuthorColumns(
       hideable: false,
       value: (row) => row.account,
       cell: (row) => (
-        <GitHubAccountLink login={row.account} url={row.profileUrl} label={'@' + row.account} />
+        <div className={pageStyles.account}>
+          <Avatar kind="person" name={row.account} accountType={row.accountType} size={32} />
+          <GitHubAccountLink login={row.account} url={row.profileUrl} label={'@' + row.account} />
+          <AccountTypeLabel accountType={row.accountType} />
+        </div>
       ),
     },
     {
@@ -114,6 +119,7 @@ export function RepositoryTimelineSupportView({
     const columns = timelineAuthorColumns(authorHref, onAuthor);
     return (
       <DataTable
+        search="local"
         searchMaxLength={timelineSupportValueLimit}
         title="Unique authors"
         rows={detail.rows}
@@ -140,6 +146,7 @@ export function RepositoryTimelineSupportView({
   return (
     <div className={pageStyles.records}>
       <DataTable
+        search="local"
         searchMaxLength={timelineSupportValueLimit}
         title={
           detail.author
@@ -193,7 +200,10 @@ export function RepositoryTimelineSupportView({
           ),
         ]}
         exportContextKey={JSON.stringify([detail.context, query, detail.author])}
-        emptyTitle="No supporting records in this interval"
+        empty={{
+          kind: rows.length ? 'no-match' : 'empty',
+          title: 'No supporting records in this interval',
+        }}
         itemLabel={{ singular: 'record', plural: 'records' }}
         description={
           detail.descriptor.basis === 'snapshot'

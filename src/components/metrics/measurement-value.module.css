@@ -2,31 +2,31 @@
   display: inline-flex;
   flex-direction: column;
   align-items: flex-end;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
   white-space: nowrap;
   line-height: 20px;
 }
 .difference {
-  font-size: 12px;
+  font-size: var(--prebid-text-small);
   line-height: 20px;
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--prebid-numeric);
   white-space: nowrap;
 }
 .value {
-  font-weight: 500;
+  font-weight: var(--prebid-number-weight);
 }
 .quiet {
   color: var(--muted-foreground);
 }
 .marker {
-  font-size: 10px;
+  font-size: var(--prebid-text-caption);
   margin-left: 2px;
   color: var(--muted-foreground);
 }
 .change {
   line-height: 16px;
   color: var(--muted-foreground);
-  font-size: 10px;
+  font-size: var(--prebid-text-caption);
   font-weight: 400;
 }

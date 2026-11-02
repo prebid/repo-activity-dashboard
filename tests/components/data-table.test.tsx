@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import type { DataColumn } from '@/components/tables/data-table';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
-import { PageState } from '@/components/feedback/page-state';
+import { EmptyState } from '@/components/feedback/empty-state';
 interface Row {
   id: string;
   title: string;
@@ -43,6 +43,7 @@ it('sorts and exports against a full value axis while rendering only the visible
   const user = userEvent.setup();
   render(
     <DataTable
+      search="local"
       title="Window"
       rows={rows}
       columns={[columns[0]]}
@@ -75,7 +76,13 @@ it('server-renders rows while keeping React-only table controls disabled until h
   const main = renderedMain(
     renderToString(
       <main>
-        <DataTable title="Hydration" rows={rows} columns={columns} exportName="test.csv" />
+        <DataTable
+          search="local"
+          title="Hydration"
+          rows={rows}
+          columns={columns}
+          exportName="test.csv"
+        />
       </main>,
     ),
   )!;
@@ -98,12 +105,24 @@ it('keeps cell interaction state and focus when column render callbacks change',
     { id: 'title', label: 'Action', value: (row) => row.title, cell: () => <Counter /> },
   ];
   const view = render(
-    <DataTable title="Stable cells" rows={rows.slice(0, 1)} columns={makeColumns()} />,
+    <DataTable
+      search="local"
+      title="Stable cells"
+      rows={rows.slice(0, 1)}
+      columns={makeColumns()}
+    />,
   );
   const button = screen.getByRole('button', { name: 'Count 0' });
   await user.click(button);
   expect(button).toHaveTextContent('Count 1');
-  view.rerender(<DataTable title="Stable cells" rows={rows.slice(0, 1)} columns={makeColumns()} />);
+  view.rerender(
+    <DataTable
+      search="local"
+      title="Stable cells"
+      rows={rows.slice(0, 1)}
+      columns={makeColumns()}
+    />,
+  );
   expect(screen.getByRole('button', { name: 'Count 1' })).toBe(button);
   expect(button).toHaveFocus();
 });
@@ -134,7 +153,13 @@ it('keeps grouped rows together when sorting and exports their actual values', a
     { id: 'count', label: 'Count', value: (row) => row.count, sortValue: (row) => row.rank },
   ];
   render(
-    <DataTable title="Grouped" rows={grouped} columns={definitions} exportName="grouped.csv" />,
+    <DataTable
+      search="local"
+      title="Grouped"
+      rows={grouped}
+      columns={definitions}
+      exportName="grouped.csv"
+    />,
   );
   await user.click(screen.getByRole('button', { name: 'Count' }));
   await user.click(screen.getByRole('button', { name: 'Count ↑' }));
@@ -170,7 +195,15 @@ describe('shared table', () => {
       title: 'Repository ' + Math.floor(i / 3) + ' row ' + (i % 3),
       count: i,
     }));
-    render(<DataTable title="Comparison groups" rows={grouped} columns={columns} pageSize={48} />);
+    render(
+      <DataTable
+        search="local"
+        title="Comparison groups"
+        rows={grouped}
+        columns={columns}
+        pageSize={48}
+      />,
+    );
     expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
     expect(screen.getByText('Repository 15 row 2')).toBeVisible();
     await user.click(screen.getByRole('button', { name: 'Next' }));
@@ -184,13 +217,21 @@ describe('shared table', () => {
   it.each([0, NaN, 150])(
     'retains the 50-row maximum for invalid or oversized page sizes: %s',
     (pageSize) => {
-      render(<DataTable title="Bounded" rows={rows} columns={columns} pageSize={pageSize} />);
+      render(
+        <DataTable
+          search="local"
+          title="Bounded"
+          rows={rows}
+          columns={columns}
+          pageSize={pageSize}
+        />,
+      );
       expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
     },
   );
   it('paginates 250 rows and searches across the full set', async () => {
     const user = userEvent.setup();
-    render(<DataTable title="Records" rows={rows} columns={columns} />);
+    render(<DataTable search="local" title="Records" rows={rows} columns={columns} />);
     const seen: string[] = [];
     for (let page = 1; page <= 5; page++) {
       const visible = within(screen.getByRole('table')).getAllByRole('row');
@@ -203,15 +244,21 @@ describe('shared table', () => {
     expect(new Set(seen).size).toBe(250);
     expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
     await user.click(screen.getByRole('button', { name: 'Previous' }));
-    expect(screen.getByText('Page 4 of 5')).toBeVisible();
+    const pager = screen.getByRole('navigation', { name: 'Records pages' });
+    expect(pager).toHaveTextContent('Page 4 of 5');
+    expect(screen.getByText('250 items')).toBeVisible();
     await user.type(screen.getByRole('textbox', { name: 'Search Records' }), 'keyboard');
     expect(screen.getByText('Oldest keyboard issue')).toBeVisible();
-    expect(screen.getByText('Page 1 of 1')).toBeVisible();
+    expect(screen.getByText('1 matching item')).toBeVisible();
+    // A single page of results hides the pager instead of disabling it.
+    expect(pager).not.toBeInTheDocument();
+    expect(screen.queryByText(/^Page \d+ of \d+$/)).not.toBeInTheDocument();
   });
   it('sorts with missing values last and exposes sort state', async () => {
     const user = userEvent.setup();
     render(
       <DataTable
+        search="local"
         title="Numbers"
         rows={[
           { id: 'a', title: 'A', count: 0 },
@@ -231,9 +278,9 @@ describe('shared table', () => {
       'descending',
     );
   });
-  it.each([true, false])(
-    'exports every row in the applicable scope (searchable=%s)',
-    async (searchable) => {
+  it.each(['local', 'none'] as const)(
+    'exports every row in the applicable scope (search=%s)',
+    async (search) => {
       const blobs: Blob[] = [];
       vi.stubGlobal(
         'URL',
@@ -252,9 +299,9 @@ describe('shared table', () => {
           rows={rows}
           columns={columns}
           exportName="sample.csv"
-          searchable={searchable}
+          search={search}
           initialQuery={{
-            search: searchable ? '' : 'no match',
+            search: search === 'local' ? '' : 'no match',
             sort: '',
             descending: false,
             page: 1,
@@ -277,9 +324,32 @@ describe('shared table', () => {
       expect(csv).toContain('Oldest keyboard issue');
     },
   );
-  it('renders a meaningful empty state', () => {
-    render(<DataTable title="Empty" rows={[]} columns={columns} />);
-    expect(screen.getByText('No items')).toBeVisible();
+  it('keeps the header row of an empty table and states the result in one full-width row', () => {
+    const view = render(<DataTable search="local" title="Empty" rows={[]} columns={columns} />);
+    const table = screen.getByRole('table', { name: 'Empty' });
+    expect(
+      within(table)
+        .getAllByRole('columnheader')
+        .map((cell) => cell.textContent),
+    ).toEqual(['Title', 'Count']);
+    const state = within(table).getByRole('status');
+    expect(state).toHaveAttribute('data-kind', 'empty');
+    expect(state).toHaveAttribute('data-variant', 'embedded');
+    expect(within(state).getByRole('heading', { name: 'No items' })).toBeVisible();
+    expect(state).toHaveTextContent('Adjust the selected scope or search.');
+    expect(state.closest('td')).toHaveAttribute('colspan', '2');
+    view.rerender(
+      <DataTable
+        title="Empty"
+        rows={[]}
+        columns={columns}
+        search="none"
+        empty={{ kind: 'missing', title: 'Records unavailable', description: 'Not prepared.' }}
+      />,
+    );
+    const missing = within(screen.getByRole('table')).getByRole('status');
+    expect(missing).toHaveAttribute('data-kind', 'missing');
+    expect(missing).toHaveTextContent(/^Records unavailableNot prepared\.$/);
   });
   it('renders known zero and unavailable separately', () => {
     render(
@@ -293,7 +363,7 @@ describe('shared table', () => {
   });
   it('allows retry from the error state', async () => {
     const retry = vi.fn();
-    render(<PageState title="Unable to load" onRetry={retry} />);
+    render(<EmptyState kind="error" title="Unable to load" onRetry={retry} />);
     await userEvent.click(screen.getByRole('button', { name: 'Try again' }));
     expect(retry).toHaveBeenCalledOnce();
   });
@@ -302,7 +372,9 @@ describe('shared table', () => {
 describe('column controls', () => {
   it('hides presentation columns without changing the matching population', async () => {
     const user = userEvent.setup();
-    render(<DataTable title="Columns sample" rows={rows.slice(0, 3)} columns={columns} />);
+    render(
+      <DataTable search="local" title="Columns sample" rows={rows.slice(0, 3)} columns={columns} />,
+    );
     await user.click(screen.getByText('Columns'));
     await user.click(screen.getByRole('menuitemcheckbox', { name: 'Count' }));
     expect(screen.getByRole('menuitemcheckbox', { name: 'Title' })).toHaveAttribute(
@@ -314,7 +386,7 @@ describe('column controls', () => {
       within(screen.getByRole('table')).queryByRole('columnheader', { name: 'Count' }),
     ).not.toBeInTheDocument();
     expect(within(screen.getByRole('table')).getAllByRole('cell')).toHaveLength(3);
-    expect(screen.getByText('3 matching items')).toBeVisible();
+    expect(screen.getByText('3 items')).toBeVisible();
   });
 });
 
@@ -337,6 +409,7 @@ it('renders missing default cells, exports ascending order, and distinguishes an
   ];
   render(
     <DataTable
+      search="local"
       title="Defaults"
       rows={[
         { id: 'missing', title: 'Missing', count: null },
@@ -389,6 +462,7 @@ it('exports the full filtered sort order and handles explicit search submission'
       }}
     >
       <DataTable
+        search="local"
         title="Sorted export"
         rows={rows}
         columns={columns}
@@ -435,6 +509,7 @@ it('uses explicit CSV columns without making export-only metadata searchable or 
   vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
   render(
     <DataTable
+      search="local"
       title="Export contract"
       rows={[{ id: 'one', title: 'Visible row', count: 2 }]}
       columns={columns}
@@ -447,7 +522,10 @@ it('uses explicit CSV columns without making export-only metadata searchable or 
   );
   expect(screen.queryByRole('columnheader', { name: 'Coverage' })).not.toBeInTheDocument();
   await user.type(screen.getByRole('textbox', { name: 'Search Export contract' }), 'export-only');
-  expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  expect(screen.queryByText('Visible row')).not.toBeInTheDocument();
+  expect(within(screen.getByRole('table')).getByRole('status')).toHaveTextContent(
+    'No matching items',
+  );
   await user.clear(screen.getByRole('textbox', { name: 'Search Export contract' }));
   await user.click(screen.getByRole('button', { name: 'Export CSV' }));
   await user.click(screen.getByRole('button', { name: 'Download CSV' }));
@@ -492,7 +570,7 @@ it('defers resize-observer layout updates to a frame and cancels pending work on
     },
   );
   const view = render(
-    <DataTable title="Resize contract" rows={rows.slice(0, 1)} columns={columns} />,
+    <DataTable search="local" title="Resize contract" rows={rows.slice(0, 1)} columns={columns} />,
   );
   const region = screen.getByRole('region', { name: 'Resize contract table scroll area' });
   Object.defineProperty(region, 'scrollWidth', { configurable: true, value: 1000 });
@@ -534,6 +612,7 @@ it('starts CSV choices from visible columns and keeps export-only choices out of
   vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
   render(
     <DataTable
+      search="local"
       title="Selection"
       rows={rows}
       columns={columns.map((column) =>
@@ -568,8 +647,163 @@ it('starts CSV choices from visible columns and keeps export-only choices out of
   await user.click(screen.getByRole('button', { name: 'Export CSV' }));
   expect(screen.getByRole('checkbox', { name: 'Count' })).not.toBeChecked();
 });
+describe('table toolbar', () => {
+  const order = (toolbar: HTMLElement) =>
+    [...toolbar.querySelectorAll('input, button')].map(
+      (control) => control.getAttribute('aria-label') ?? control.textContent,
+    );
+  it('orders search, the feature controls and Columns, then Export CSV last', () => {
+    render(
+      <DataTable
+        search="local"
+        title="Ordered"
+        rows={rows}
+        columns={columns}
+        exportName="ordered.csv"
+        controls={<button type="button">Feature control</button>}
+      />,
+    );
+    expect(order(screen.getByRole('group', { name: 'Ordered table controls' }))).toEqual([
+      'Search Ordered',
+      'Feature control',
+      'Columns',
+      'Export CSV',
+    ]);
+    // The export trigger leads with the Download glyph, like Filters and Columns lead with theirs.
+    const icon = screen.getByRole('button', { name: 'Export CSV' }).firstElementChild;
+    expect(icon).toHaveClass('lucide-download');
+    expect(icon).toHaveAttribute('width', '14');
+  });
+  it('puts a feature export control in the last slot instead of the CSV dialog', () => {
+    render(
+      <DataTable
+        search="none"
+        title="Own export"
+        rows={rows}
+        columns={columns}
+        showColumnMenu={false}
+        exportName="unused.csv"
+        exportControl={<button type="button">Repository export</button>}
+        controls={<button type="button">Feature control</button>}
+      />,
+    );
+    expect(order(screen.getByRole('group', { name: 'Own export table controls' }))).toEqual([
+      'Feature control',
+      'Repository export',
+    ]);
+    expect(screen.queryByRole('button', { name: 'Export CSV' })).not.toBeInTheDocument();
+  });
+});
+
+describe('search modes', () => {
+  const query = { search: 'keyboard', sort: '', descending: false, page: 1 };
+  it.each([
+    ['local', true, 1, '1 matching item'],
+    ['external', false, 50, '250 matching items'],
+    ['none', false, 50, '250 items'],
+  ] as const)('%s: field %s, %i rows on the page, count "%s"', (search, field, shown, count) => {
+    render(
+      <DataTable
+        search={search}
+        title="Modes"
+        rows={rows}
+        columns={columns}
+        initialQuery={query}
+      />,
+    );
+    expect(screen.queryByRole('textbox', { name: 'Search Modes' }) !== null).toBe(field);
+    expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(shown);
+    expect(screen.getByText(count)).toBeVisible();
+  });
+  it('says "matching" for an external search only while its query is set', () => {
+    const view = render(
+      <DataTable search="external" title="External" rows={rows} columns={columns} />,
+    );
+    expect(screen.getByText('250 items')).toBeVisible();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    view.unmount();
+    render(
+      <DataTable
+        search="external"
+        title="External"
+        rows={rows.slice(0, 1)}
+        columns={columns}
+        initialQuery={{ ...query, search: 'Item' }}
+      />,
+    );
+    expect(screen.getByText('1 matching item')).toBeVisible();
+  });
+  it('says "matching" while the caller\'s filters narrow the rows, with no search text', () => {
+    const view = render(
+      <DataTable
+        search="external"
+        filtered
+        title="Filtered"
+        rows={rows.slice(0, 92)}
+        columns={columns}
+      />,
+    );
+    expect(screen.getByText('92 matching items')).toBeVisible();
+    view.rerender(
+      <DataTable
+        search="none"
+        filtered
+        title="Filtered"
+        rows={rows.slice(0, 1)}
+        columns={columns}
+      />,
+    );
+    expect(screen.getByText('1 matching item')).toBeVisible();
+  });
+  it.each([
+    ['none', 'Adjust the selected scope.'],
+    ['external', 'Adjust the selected scope or search.'],
+  ] as const)('an empty %s table suggests: %s', (search, hint) => {
+    render(<DataTable search={search} title="Nothing" rows={[]} columns={columns} />);
+    expect(within(screen.getByRole('table')).getByRole('status')).toHaveTextContent(
+      'No items' + hint,
+    );
+  });
+});
+
+describe('table footer', () => {
+  it('stacks the sort note, footer note and legend under the count, with the pager beside them', () => {
+    render(
+      <DataTable
+        search="none"
+        title="Notes"
+        rows={rows}
+        columns={columns}
+        valueColumns={[columns[0], { ...columns[1], sortNote: 'Missing values sort last.' }]}
+        footerNote="One row per record."
+        legend={['missing']}
+        initialQuery={{ search: '', sort: 'count', descending: false, page: 1 }}
+      />,
+    );
+    const count = screen.getByText('250 items');
+    const notes = count.nextElementSibling!;
+    expect([...notes.children].map((note) => note.textContent)).toEqual([
+      'Missing values sort last.',
+      'One row per record.',
+      '— Not available or not applicable',
+    ]);
+    expect(notes.querySelector('[data-mark="missing"]')).toBeInTheDocument();
+    const pager = screen.getByRole('navigation', { name: 'Notes pages' });
+    expect(pager).toHaveTextContent('Page 1 of 5');
+    expect(count.parentElement!.nextElementSibling).toBe(pager);
+  });
+  it('renders only the count on a single-page table without notes', () => {
+    render(<DataTable search="none" title="Bare" rows={rows.slice(0, 3)} columns={columns} />);
+    const count = screen.getByText('3 items');
+    expect(count.nextElementSibling).toBeNull();
+    expect(count.parentElement!.nextElementSibling).toBeNull();
+    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
+  });
+});
+
 it('disables sorting and pagination while an owning report is replacing its scope', () => {
-  render(<DataTable title="Updating" rows={rows} columns={columns} disabled />);
+  render(<DataTable search="local" title="Updating" rows={rows} columns={columns} disabled />);
   expect(screen.getByRole('button', { name: 'Count' })).toBeDisabled();
   expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
   expect(screen.getByRole('button', { name: 'Columns' })).toBeDisabled();

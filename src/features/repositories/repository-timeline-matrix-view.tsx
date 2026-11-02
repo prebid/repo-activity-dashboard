@@ -2,7 +2,6 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { TableController } from '@/lib/presentation/table-controller';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type {
   RepositoryTimelineMatrix,
   RepositoryTimelineMatrixRow,
@@ -16,20 +15,27 @@ import {
   timelineIntervalLabel,
 } from '@/lib/presentation/timeline-presentation';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
-import { periodRangeLabel } from '@/lib/presentation/overview-periods';
-import { TimelineScope } from '@/components/reporting/timeline-scope';
+import { periodRangeLabel, zonedRangeLabel } from '@/lib/presentation/overview-periods';
+import { countLabel } from '@/lib/presentation/format';
+import {
+  noReportControls,
+  ReportToolbar,
+  type ReportToolbarControls,
+} from '@/components/reporting/report-toolbar';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { useLocalTableController } from '@/components/tables/local-data-table';
+import { Pager } from '@/components/tables/pager';
+import { measurementMarks } from '@/components/feedback/data-legend';
 import {
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
   TimelineValueCell,
+  TimelineZeroNotice,
   hasUnlinkedValue,
   isIncompleteValue,
-  timelineFooterLegend,
+  isRecordedZeroRange,
 } from '@/components/reporting/timeline-value';
-import { PageState } from '@/components/feedback/page-state';
-import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
 import { repositoryTimelineMetricDefinitions } from './repository-timeline-columns';
 import timelineStyles from '@/components/reporting/timeline-layout.module.css';
@@ -40,6 +46,12 @@ import {
 } from '@/models/repository-timeline';
 import { tablePageSize } from '@/models/table-query';
 import { metricName } from '@/models/column-selection';
+/** The period window keeps its own wording on the shared pager buttons. */
+const windowPagerLabels = {
+  previous: 'Earlier',
+  next: 'Later',
+  position: (page: number, pageCount: number) => `Window ${page} of ${pageCount}`,
+};
 export interface MatrixInteractions {
   sortMetric?: RepositoryTimelineMetric;
   detailHref?: (row: RepositoryTimelineMatrixRow, interval: string) => string | null;
@@ -54,40 +66,44 @@ export function RepositoryTimelineMatrixView({
   matrix,
   href,
   summaryHref,
-  controls,
+  toolbar = noReportControls,
   interactions,
 }: {
   matrix: RepositoryTimelineMatrix;
   href: string;
   summaryHref: string;
-  controls?: React.ReactNode;
+  /** The Timeline's controls; the view adds its scope summary. */
+  toolbar?: ReportToolbarControls;
   interactions?: MatrixInteractions;
 }) {
   const metrics = repositoryTimelineMetricDefinitions(matrix.scope.metrics),
-    metric = metrics[0],
     multiple = metrics.length > 1;
   return (
     <>
       <AllRepositoriesHeading asOf={matrix.source.asOf} />
       <AllRepositoriesTabs active="timeline" summaryHref={summaryHref} timelineHref={href} />
-      {controls}
-      <TimelineScope request={matrix.request} count={matrix.intervals.length}>
-        <span>{metrics.length === 1 ? metricName(metric) : metrics.length + ' metrics'}</span>
-        <span>
-          {matrix.scope.repositoryIds.length}{' '}
-          {matrix.scope.repositoryIds.length === 1 ? 'repository' : 'repositories'} selected
-        </span>
-        <span>
-          {metrics.length === 1 &&
-          repositoryTimelineMetricScope(matrix.scope.metrics[0]).family === 'snapshot'
-            ? 'Backlog at each covered interval’s end.'
-            : multiple
-              ? 'Each repository groups the selected metrics; units and cutoff meanings remain separate.'
-              : 'Activity within each covered interval.'}
-        </span>
-      </TimelineScope>
+      <ReportToolbar
+        label="Timeline scope"
+        {...toolbar}
+        summary={{
+          lead: zonedRangeLabel(matrix.request.range),
+          facts: [
+            matrix.intervals.length +
+              ' ' +
+              countLabel(matrix.intervals.length, { singular: 'interval', plural: 'intervals' }),
+            metrics.length === 1 &&
+            repositoryTimelineMetricScope(matrix.scope.metrics[0]).family === 'snapshot'
+              ? 'Backlog at each covered interval’s end.'
+              : multiple
+                ? 'Each repository groups the selected metrics; units and cutoff meanings remain separate.'
+                : 'Activity within each covered interval.',
+          ],
+        }}
+      />
       {!matrix.scope.metrics.length ? (
-        <PageState title="No metrics selected">Choose metrics to compare over time.</PageState>
+        <EmptyState kind="empty" title="No metrics selected">
+          Choose metrics to compare over time.
+        </EmptyState>
       ) : matrix.rows.length ? (
         <MatrixTable
           key={JSON.stringify([matrix.source, matrix.request, matrix.scope])}
@@ -95,9 +111,9 @@ export function RepositoryTimelineMatrixView({
           interactions={interactions}
         />
       ) : (
-        <PageState title="No repositories selected">
+        <EmptyState kind="empty" title="No repositories selected">
           Choose repositories to see their activity over time.
-        </PageState>
+        </EmptyState>
       )}
     </>
   );
@@ -222,6 +238,10 @@ function MatrixTable({
   const outsideWindow =
     sortedInterval && !periodWindow.intervals.some((interval) => interval.id === sortedInterval.id);
   const incomplete = matrix.rows.some((row) => row.values.some(isIncompleteValue));
+  const legend = measurementMarks(
+    matrix.rows.flatMap((row) => row.values.slice(periodWindow.startIndex, periodWindow.endIndex)),
+  );
+  const recordedZero = isRecordedZeroRange(matrix.rows.flatMap((row) => row.values));
   const intervalIndex = new Map(matrix.intervals.map((interval, index) => [interval.id, index]));
   const unlinked =
     !!interactions &&
@@ -241,6 +261,7 @@ function MatrixTable({
   return (
     <div className={timelineStyles.stack}>
       {incomplete && <TimelineCoverageNotice />}
+      {recordedZero && <TimelineZeroNotice />}
       {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         disabled={interactions?.pending}
@@ -255,10 +276,9 @@ function MatrixTable({
         columns={columns}
         valueColumns={valueColumns}
         controller={controller}
-        searchable={false}
+        search="none"
         showColumnMenu={false}
-        controls={interactions?.exportControl}
-        showSinglePageControls={false}
+        exportControl={interactions?.exportControl}
         itemLabel={
           multiple
             ? { singular: 'metric row', plural: 'metric rows' }
@@ -273,51 +293,39 @@ function MatrixTable({
         }
         headerContent={
           <div className={styles.window}>
-            <div className={styles.windowLabel} role="status" aria-live="polite">
+            <div
+              className={styles.windowLabel}
+              role="status"
+              aria-live="polite"
+              aria-label="Period window"
+            >
               <strong>{windowLabel}</strong>
               <span>
                 Periods {periodWindow.startIndex + 1}–{periodWindow.endIndex} of{' '}
-                {matrix.intervals.length} · Window {periodWindow.page} of {periodWindow.pageCount}
+                {matrix.intervals.length}
               </span>
             </div>
-            <nav className={styles.windowActions} aria-label="Timeline period windows">
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={
-                  !interactive || interactions?.pending || periodWindow.earlierPage === null
-                }
-                onClick={() => changeWindow(periodWindow.earlierPage!)}
-              >
-                <ChevronLeft size={14} aria-hidden="true" />
-                Earlier
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={!interactive || interactions?.pending || periodWindow.laterPage === null}
-                onClick={() => changeWindow(periodWindow.laterPage!)}
-              >
-                Later
-                <ChevronRight size={14} aria-hidden="true" />
-              </Button>
-            </nav>
+            <Pager
+              label="Timeline period windows"
+              page={periodWindow.page}
+              pageCount={periodWindow.pageCount}
+              disabled={!interactive || interactions?.pending}
+              onPageChange={changeWindow}
+              labels={windowPagerLabels}
+            />
           </div>
         }
         footerNote={
-          <span>
-            {timelineFooterLegend}
-            {sortedInterval && (
-              <>
-                <br />
-                Sorted by {label(sortedInterval)}
-                {multiple ? ' · ' + metricName(metric) : ''} (
-                {controller.query.descending ? 'descending' : 'ascending'}
-                {outsideWindow ? '; outside visible periods' : ''}).
-              </>
-            )}
-          </span>
+          sortedInterval && (
+            <>
+              Sorted by {label(sortedInterval)}
+              {multiple ? ' · ' + metricName(metric) : ''} (
+              {controller.query.descending ? 'descending' : 'ascending'}
+              {outsideWindow ? '; outside visible periods' : ''}).
+            </>
+          )
         }
+        legend={legend}
       />
     </div>
   );

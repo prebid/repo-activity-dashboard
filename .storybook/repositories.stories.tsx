@@ -6,7 +6,7 @@ import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { ThemeMenu } from '../src/components/layout/theme-menu';
 import { LayoutWidthToggle } from '../src/components/layout/layout-width';
-import { PageState } from '../src/components/feedback/page-state';
+import { EmptyState } from '../src/components/feedback/empty-state';
 import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
 import type { OverviewSettings } from '../src/models/overview-settings';
 import { defaultOverviewSettings } from '../src/lib/presentation/overview-settings';
@@ -59,9 +59,11 @@ function OverviewPreview({
       }
     >
       {state === 'loading' ? (
-        <PageState title="Loading repository overview…" />
+        <EmptyState kind="loading" title="Loading repository overview…" />
       ) : state === 'error' ? (
-        <PageState title="Could not load repository overview">Please try again.</PageState>
+        <EmptyState kind="error" title="Could not load repository overview">
+          Please try again.
+        </EmptyState>
       ) : (
         <AllRepositoriesView
           data={data}

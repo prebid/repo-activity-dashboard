@@ -1,10 +1,10 @@
 'use client';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
-import { ContributionControls } from '@/features/contributions/contribution-controls';
+import { contributionToolbar } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
 import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
@@ -21,11 +21,15 @@ import {
 } from '@/features/contributions/contribution-columns';
 import styles from '@/features/contributions/contributions.module.css';
 import { useTableController } from '@/lib/navigation/use-table-controller';
+import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
+import { LinkPending } from '@/components/navigation/link-pending';
+import { Checkbox } from '@/components/ui/checkbox';
 import { contributionDefaultSort } from '@/models/contributions';
 import type { ContributionPage } from '@/models/contribution-page';
 import {
   contributionHref,
   companyBreakdownHref,
+  companyBreakdownLabels,
   contributionMetricHref,
 } from '@/lib/presentation/contribution-navigation';
 const detailSort = { sort: 'creditedAt', descending: true } as const;
@@ -50,7 +54,7 @@ export function ContributionsScreen({
   const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
   const pathname = usePathname(),
     search = useSearchParams().toString(),
-    router = useRouter();
+    pendingNavigation = usePendingNavigation();
   const table = page.details ? 'details' : page.report.table!.kind;
   const columnIds =
     page.details && page.details.basis !== 'comments' ? creditDetailColumnIds : ids[table];
@@ -79,14 +83,19 @@ export function ContributionsScreen({
     columnIds,
     options,
   );
-  function navigate(event: MouseEvent<HTMLAnchorElement>, destination: () => string | null) {
+  /** `pendingKey` names the tab or breakdown link that shows the pending navigation. */
+  function navigate(
+    event: MouseEvent<HTMLAnchorElement>,
+    destination: () => string | null,
+    pendingKey?: string,
+  ) {
     followCaptured(
       event,
       () => {
         controls.freezeReturn();
         return { href: destination() };
       },
-      (href) => router.push(href),
+      (href) => pendingNavigation.push(href, pendingKey),
     );
   }
   return (
@@ -94,19 +103,17 @@ export function ContributionsScreen({
       page={{ ...page, hideZeroMembers: controls.hideZeroMembers }}
       controller={controller}
       visibility={controls.visibility}
-      controls={
-        <ContributionControls
-          directory={directory}
-          options={options}
-          value={controls.value}
-          asOf={page.report.context.asOf}
-          pending={controls.pending}
-          notice={controls.notice}
-          storageAvailable={controls.storageAvailable}
-          onChange={(value, field) => controls.update(value, field)}
-          onReset={controls.reset}
-        />
-      }
+      toolbar={contributionToolbar({
+        directory,
+        options,
+        value: controls.value,
+        asOf: page.report.context.asOf,
+        pending: controls.pending,
+        notice: controls.notice,
+        storageAvailable: controls.storageAvailable,
+        onChange: (value, field) => controls.update(value, field),
+        onReset: controls.reset,
+      })}
       links={{
         sample: page.sample,
         settings: controls.value,
@@ -124,15 +131,23 @@ export function ContributionsScreen({
           ),
         currentHref: controls.returnHref,
         timelineHref: contributionTimelineEntry(controls.returnHref, controls.value),
+        pendingTarget: pendingNavigation.pendingKey,
         onTimeline: (event) =>
-          navigate(event, () =>
-            contributionTimelineEntry(
-              window.location.pathname + window.location.search,
-              controls.value,
-            ),
+          navigate(
+            event,
+            () =>
+              contributionTimelineEntry(
+                window.location.pathname + window.location.search,
+                controls.value,
+              ),
+            'timeline',
           ),
         onAreaFollow: (event, area) =>
-          navigate(event, () => contributionHref(area, page.sample, undefined, controls.value)),
+          navigate(
+            event,
+            () => contributionHref(area, page.sample, undefined, controls.value),
+            area,
+          ),
         onFollow: (event, focus) =>
           navigate(event, () =>
             contributionHref(
@@ -154,19 +169,21 @@ export function ContributionsScreen({
                   href={companyBreakdownHref(pathname, search, view)}
                   aria-current={page.breakdown === view ? 'page' : undefined}
                   onClick={(event) =>
-                    navigate(event, () =>
-                      companyBreakdownHref(pathname, window.location.search, view),
+                    navigate(
+                      event,
+                      () => companyBreakdownHref(pathname, window.location.search, view),
+                      view,
                     )
                   }
                 >
-                  {view === 'members' ? 'By contributor' : 'By repository'}
+                  {companyBreakdownLabels[view]}
+                  <LinkPending pending={pendingNavigation.pendingKey === view || undefined} />
                 </Link>
               ))}
             </nav>
             {page.breakdown === 'members' && !page.details && (
               <label className={styles.zeroToggle}>
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={controls.hideZeroMembers}
                   onChange={(event) => controls.changeHideZeroMembers(event.target.checked)}
                 />
