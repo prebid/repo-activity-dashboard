@@ -669,6 +669,80 @@
       ]
     }
   },
+  "/companies/id/company-acme?scope=1&period=this-year&nav=WzIsW1sidGhpcy15ZWFyIl0sWyIxIl0sWyJhc2MiXSxbIm1vbnRoIl0sWyJwZXJpb2QiXV0sW1siL2NvbnRyaWJ1dG9ycy9hY2NvdW50LWFsaWNlIixbWyJwZXJpb2QiLDBdLFsic2NvcGUiLDFdLFsidGltZWxpbmUiLDFdLFsidGltZWxpbmUuZGlyIiwyXSxbInRpbWVsaW5lLmdyb3VwIiwzXSxbInRpbWVsaW5lLnBhZ2UiLDFdLFsidGltZWxpbmUuc29ydCIsNF0sWyJ0aW1lbGluZS5zdGF0ZSIsMV1dXV1d": {
+    "route": "/companies/[...identity]",
+    "state": {
+      "focus": {
+        "companyId": "company-acme",
+        "kind": "company"
+      },
+      "layout": {
+        "breakdown": "members",
+        "sample": "reference"
+      },
+      "metric": null,
+      "scope": {
+        "period": {
+          "kind": "preset",
+          "preset": "this-year"
+        },
+        "selection": {
+          "actorTypes": [
+            "human",
+            "agent",
+            "bot",
+            "unknown"
+          ],
+          "excludedAccountIds": [],
+          "population": {
+            "kind": "all"
+          },
+          "repositoryIds": [
+            "repo-github-activity-db",
+            "repo-go-gdpr",
+            "repo-line-item-manager",
+            "repo-openrtb",
+            "repo-prebid-agent-skills",
+            "repo-prebid-cache-java",
+            "repo-prebid-integration-monitor",
+            "repo-prebid-mobile-ios-sdk",
+            "repo-prebid-universal-creative",
+            "repo-prebiddocs",
+            "repo-prebidjs",
+            "repo-prebidmobileandroid",
+            "repo-prebidmobileios",
+            "repo-prebidserver",
+            "repo-prebidserverjava",
+            "repo-professor-prebid",
+            "repo-repo-activity-dashboard",
+            "repo-salesagent"
+          ]
+        }
+      },
+      "table": {
+        "columns": [
+          "name",
+          "actorType",
+          "prsAuthored",
+          "authoredPrsMerged",
+          "reviewerContributions",
+          "approvalContributions",
+          "mergesPerformed",
+          "issuesAuthored"
+        ],
+        "descending": true,
+        "hideZeroMembers": false,
+        "key": "members",
+        "kind": "members",
+        "page": 1,
+        "search": "",
+        "sort": "authoredPrsMerged"
+      },
+      "trail": [
+        "/contributors/account-alice?period=this-year&scope=1&timeline=1&timeline.dir=asc&timeline.group=month&timeline.page=1&timeline.sort=period&timeline.state=1"
+      ]
+    }
+  },
   "/companies/id/company-acme?scope=1&period=this-year&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdXSxbWyIvY29udHJpYnV0b3JzL2FjY291bnQtYWxpY2UiLFtbInBlcmlvZCIsMF0sWyJyZXBvc2l0b3JpZXMuY29sdW1ucyIsMV0sWyJyZXBvc2l0b3JpZXMuZGlyIiwyXSxbInJlcG9zaXRvcmllcy5zb3J0IiwzXSxbInNjb3BlIiw0XV1dXV0": {
     "route": "/companies/[...identity]",
     "state": {
@@ -1708,6 +1782,142 @@
       "source": {
         "gap": false,
         "sample": "reference"
+      },
+      "timeline": {
+        "period": {
+          "kind": "preset",
+          "preset": "this-year"
+        },
+        "view": {
+          "chart": false,
+          "descending": false,
+          "family": "activity",
+          "grouping": "month",
+          "kind": "prs",
+          "metric": "prsAuthored",
+          "page": 1,
+          "sort": "period",
+          "window": 1
+        }
+      },
+      "trail": []
+    }
+  },
+  "/companies?timeline=1&sample=empty&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1": {
+    "route": "/companies",
+    "state": {
+      "focus": {
+        "kind": "overview"
+      },
+      "scope": {
+        "period": {
+          "kind": "preset",
+          "preset": "this-year"
+        },
+        "selection": {
+          "actorTypes": [
+            "human",
+            "agent",
+            "bot",
+            "unknown"
+          ],
+          "excludedAccountIds": [],
+          "population": {
+            "kind": "all"
+          },
+          "repositoryIds": [
+            "repo-github-activity-db",
+            "repo-go-gdpr",
+            "repo-line-item-manager",
+            "repo-openrtb",
+            "repo-prebid-agent-skills",
+            "repo-prebid-cache-java",
+            "repo-prebid-integration-monitor",
+            "repo-prebid-mobile-ios-sdk",
+            "repo-prebid-universal-creative",
+            "repo-prebiddocs",
+            "repo-prebidjs",
+            "repo-prebidmobileandroid",
+            "repo-prebidmobileios",
+            "repo-prebidserver",
+            "repo-prebidserverjava",
+            "repo-professor-prebid",
+            "repo-repo-activity-dashboard",
+            "repo-salesagent"
+          ]
+        }
+      },
+      "source": {
+        "gap": false,
+        "sample": "empty"
+      },
+      "timeline": {
+        "period": {
+          "kind": "preset",
+          "preset": "this-year"
+        },
+        "view": {
+          "chart": false,
+          "descending": false,
+          "family": "activity",
+          "grouping": "month",
+          "kind": "prs",
+          "metric": "prsAuthored",
+          "page": 1,
+          "sort": "period",
+          "window": 1
+        }
+      },
+      "trail": []
+    }
+  },
+  "/companies?timeline=1&sample=missing&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1": {
+    "route": "/companies",
+    "state": {
+      "focus": {
+        "kind": "overview"
+      },
+      "scope": {
+        "period": {
+          "kind": "preset",
+          "preset": "this-year"
+        },
+        "selection": {
+          "actorTypes": [
+            "human",
+            "agent",
+            "bot",
+            "unknown"
+          ],
+          "excludedAccountIds": [],
+          "population": {
+            "kind": "all"
+          },
+          "repositoryIds": [
+            "repo-github-activity-db",
+            "repo-go-gdpr",
+            "repo-line-item-manager",
+            "repo-openrtb",
+            "repo-prebid-agent-skills",
+            "repo-prebid-cache-java",
+            "repo-prebid-integration-monitor",
+            "repo-prebid-mobile-ios-sdk",
+            "repo-prebid-universal-creative",
+            "repo-prebiddocs",
+            "repo-prebidjs",
+            "repo-prebidmobileandroid",
+            "repo-prebidmobileios",
+            "repo-prebidserver",
+            "repo-prebidserverjava",
+            "repo-professor-prebid",
+            "repo-repo-activity-dashboard",
+            "repo-salesagent"
+          ]
+        }
+      },
+      "source": {
+        "gap": false,
+        "sample": "missing"
       },
       "timeline": {
         "period": {

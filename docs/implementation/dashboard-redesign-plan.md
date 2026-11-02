@@ -262,9 +262,9 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P0b | Not started | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P3 | Plan approved; in progress | — | — | — |
-| P4 | Plan approved; in progress | — | — | — |
-| P5 | Not started | — | — | — |
+| P3 | In review | Phase 3 pull request | — | — |
+| P4 | In review | Phase 4 pull request | — | — |
+| P5 | Plan recorded; P5a in review | P5a pull request | — | — |
 | P6 | Not started | — | — | — |
 
 ## P0 plan
@@ -1003,6 +1003,120 @@ Settled under the approved look, recorded for review:
 10. The footer carries the secure icon and "Private workspace. Access by invitation." with no links.
 11. Sections are panels with an `h2`: tables and chart panels.
 12. No bottom-sheet filters at phone width; header and toolbar compaction only.
+
+## P5 plan
+
+Proposed 2026-11-01 against the P4 head. The maintainer approved continuing into P5 with any choice that keeps the approved 2026-10-31 decisions; the choices below follow the URLs and Preferences rows and are recorded rather than awaited. Each sub-phase is one pull request stacked on the one before it until the stack merges.
+
+### Scope
+
+| Pull request | Goal | Files (estimate) |
+| --- | --- | --- |
+| P5a | Golden URL set; no runtime change | 7–9; no `src/` file |
+| P5b | Server-read preference cookies | 50–60 |
+| P5c-1 | Codec, registry, v1 defaults and lint; All repositories, repository pages and the matrix Timeline | 60–70 |
+| P5c-2 | Contributors, Reviewers, Companies and their Timelines | 60–70 |
+| P5d | Return context | 55–65 |
+| P5e | Cleanup and gate | 10–15 |
+
+P5c is split by area (decision 11): a codec-first split would send every in-app link through a 307 until the writers moved.
+
+### Freeze constraints
+
+Until AWS access returns (2026-11-03), nothing under `src/middleware.ts`, `src/lib/auth`, `src/app/auth`, `src/app/api/auth` or the authentication server actions changes, and `tests/production` and the account suites pass unchanged. P5 needs none of them:
+
+- P5b's server reader imports `requireViewer()`, which already returns the account ID and `authVersion`.
+- Legacy translation moves out of middleware into a page-level server helper (decision 8).
+- `back=` validation uses the codec's own route allowlist; `safeReturnPath` in `src/lib/presentation/navigation.ts` stays as it is, because the authentication views and `src/lib/auth/viewer.ts` share it.
+- The sign-in, change-password and Sign out navigations stay as named rule-6 exceptions (decision 18).
+
+### Items
+
+**P5a Golden URL set.** For every view in `tests/support/views.ts`, a Chromium browser spec records the address bar after load, the address bar after one scope change on All repositories, and one link per distinct route pattern and parameter-key set, with its count and longest length (decision 16). The set is compared against a committed text snapshot through Playwright's `toMatchSnapshot`, with a platform-free `snapshotPathTemplate`, and is regenerated with `--update-snapshots`. A unit test resolves every recorded link through today's pure readers and records the states as a Vitest file snapshot. Captured on the P4 head, because P4 changes the Over time area-tab links. No new script.
+
+**P5b Server-read preferences.** Two cookies (decision 13):
+
+- `repositories`, `Path=/repos`: All repositories settings and sorts, repository-page columns and sorts per list kind, repository and matrix Timeline presentation.
+- `contributions`, `Path=/`: contributors, reviewers and companies scope, columns and sort per table kind, contribution Timeline presentation.
+
+Each value carries a version, the account ID and `authVersion`, and is ignored when they do not match the session. Sections are keyed by view kind and table kind, not by repository (decision 2). Each cookie stays under 3,072 bytes, evicting the least recently updated section with a visible notice. The server validates each section through the existing readers; an invalid section renders defaults with the existing recovery notice. Only deliberate changes write, field by field, through `document.cookie` (decision 6); relative presets stay presets; exports never read a cookie. A one-time localStorage migration takes effect from the next request.
+
+The five client restoration effects and the second Timeline render go. Saved contribution scopes are validated on the server against the directory, which retires the 15-second client lookup. URL semantics do not change, so the golden diff is empty.
+
+**P5c Canonical short URLs.** One parameter registry and codec under `src/lib/presentation/`, with its history hook under `src/lib/navigation/` (rule 6), and frozen v1 defaults that include both lens defaults from the P6b text. Compact encodings:
+
+- comma-separated slugs, with all repositories omitted;
+- `-column` for a descending sort;
+- period plus snapshot instead of exact instants;
+- a bare `?timeline` flag that the codec writes itself, because `URLSearchParams` writes `timeline=` (decision 3);
+- `cols=` as a diff against the defaults on record, contribution and Timeline tables, with Summary columns viewer-only (decision 1).
+
+Unknown parameters show the existing invalid-view page. The Timeline allowlist and the contribution return-scope keys accept every registry name. A server helper called after `await requireViewer()` at the top of each report page does two things (decisions 8 and 9):
+
+- It answers legacy links with a 307 to the canonical form, decoded by the frozen current readers.
+- It redirects a bare entry to the saved view when that view differs from the defaults.
+
+Toolbar and breadcrumb entry links carry the saved explicit form, so an ordinary click needs no redirect. A rendered defaults-equal entry is materialized with `v=1` before its first push (decision 5). `scope=1` and `timeline.state=1` become legacy forms. Detail and drilldown routes never apply saved scope. Every history writer preserves `location.hash`, including P4's `SectionNav`. The rule-6 selectors join the shared arrays in `eslint.config.mjs`. Export routes accept the legacy form and serve the file without a redirect (decision 14).
+
+**P5d Return context.** `back=` frames appear only when the parent cannot be derived. A link carries at most eight frames within a 1,000-character budget, dropping the farthest first. When the immediate parent cannot fit, the link is disabled with the existing limit message. An unresolvable frame, snapshot pin or cookie section shows a notice or the unavailable state. When the parent is the previous history entry, the back link uses `history.go(-1)`. A Period activity drilldown's back link ends in a derived `#activity`, which costs no `back=` bytes (decision 4). The `returnTo`, `summary`, `timelineParent` and base64 `nav` writers retire.
+
+**P5e Cleanup and gate.** The retired writers and the base64 encoder go. A decode-only legacy reader stays, so old links keep their 307 (decision 12). The 7,500-byte cap and its message stay. Browser assertions over the inventory check that no in-app href exceeds 300 characters or contains `%25`, that the Summary→Timeline href is under 25 characters, that the address bar after one All repositories scope change is under 60, and that no history write happens after load.
+
+### Decisions (2026-11-01)
+
+Settled under the approved URLs and Preferences rows, recorded for review:
+
+1. Column visibility is a `cols=` diff on record, contribution and Timeline tables; Summary columns stay viewer-only.
+2. Preference sections are keyed by view kind and table kind. Sample-scenario isolation is dropped.
+3. The Timeline tab is a bare `?timeline` flag; `timeline=1` becomes a legacy 307.
+4. Return-to-section is a derived fragment, `#activity` for Period activity drilldowns.
+5. An entry is a report route whose query holds only view selectors. A defaults-equal entry is materialized with `v=1`; an absent `v` means v1.
+6. Preference cookies are written with `document.cookie`: non-HttpOnly, `SameSite=Lax`, `Secure` on https.
+7. An invalid section renders defaults with the recovery notice. After hydration, the client deletes it only if the cookie still holds that value. Rule 9 is amended to name this as the second permitted post-load write; it is cookie-only, with no history write.
+8. Legacy translation runs in a page-level server helper after `requireViewer()`, not in the frozen middleware. A `loading.tsx` above these pages would move it into the segment layout, which reads `x-dashboard-return-path`; this is recorded for P0b.
+9. The bare-entry redirect runs in the same helper, because a layout does not re-render on a same-segment navigation.
+10. P5b lands before P5c, because both rewrite the five control hooks and the screens.
+11. P5c is split by area into P5c-1 and P5c-2.
+12. P5e removes the encoder and writers and keeps a decode-only legacy reader.
+13. Two cookies: `repositories` with `Path=/repos`, and `contributions` with `Path=/`.
+14. Export links are not redirected; export routes accept the legacy form. A test asserts that a legacy and a canonical export link produce identical CSV bytes.
+15. The theme stays in localStorage, outside P5.
+16. The golden set keeps one link per route pattern and parameter-key set per view, with counts and the longest length.
+17. Each P5 pull request amends the conflicting documentation lines, including `foundation-contracts.md:17`, `:20`, `:28`, `:34` and `:132`, `repository-detail.md:238` and `timeline-reporting-plan.md:83`.
+18. Under the freeze, authentication navigation keeps named rule-6 exceptions; they are removed once AWS access returns.
+
+### Unverified premises (P5)
+
+- P5b: Amplify and CloudFront forward the preference cookies within header limits. This needs AWS access and is not verified in P5. Locally, a request to the built preview carrying the session cookie plus two 3,072-byte cookies returns 200, not 431.
+- P5c: literal `,` `:` `@` survive a `Link` click and a `router.push` in both engines.
+- P5c: a page-level `redirect()` during an RSC navigation replaces the entry with the canonical URL, without adding to `history.length`.
+- P5c: a request with `maxRedirects: 0` returns 307 for one legacy URL and one bare entry per route group.
+- P5c: the router cache serves each entry's own view on Back after a cookie change.
+- P5c: every exact drilldown interval round-trips through period plus snapshot.
+- P5d: the back link detects a previous-entry parent in Chromium and WebKit.
+
+### Tests
+
+Behaviour only (Delivery rule 2). The golden snapshot is the review artefact for every P5 pull request:
+
+- P5a creates it.
+- P5b's diff is empty.
+- P5c adds a canonical form per row. The unit test asserts that `legacyDecode(old)` equals the P5a state, that `encode(state)` equals the canonical form, and that the two round-trip.
+- P5d rewrites only the trail-bearing rows.
+- P5e's diff is empty, and its gate assertions run over the set.
+
+The tests that assert URLs (88 `toHaveURL` lines in 32 specs; `timeline=1` on 385 test lines; `returnTo`, `summary`, `timelineParent` and `nav` inputs) move with the area that changes them. Login helpers that assert a bare `/repos`, and the production suites' `waitForURL('**/repos')`, keep passing because every test starts without a preference cookie.
+
+### Order
+
+Each pull request is one core worker followed by one independent review. P5c-1 and P5c-2 touch disjoint areas once the codec is in, so P5c-2 starts when P5c-1's codec commit lands. Each pull request's CI is its gate. There is no Checkpoint A; each pull request records its golden-URL diff.
+
+### P5a notes
+
+- `tests/e2e/golden-urls.spec.ts` records 34 views, the whole inventory. Signed-out views are recorded before sign-in, and local and session storage are cleared before each view, so no saved preference shapes a record. The set is 173 per-view link kinds, 61 of them distinct, and 70,766 bytes before P4 merged. The webkit project ignores the spec through `testIgnore`, because the browser-result check rejects skipped cases. `tests/fixtures/golden` is excluded from Prettier, because Prettier reflows the generated JSON.
+- `tests/unit/golden-urls.test.ts` resolves 122 distinct URLs: 116 through today's readers, and 6 sign-in, setup and foundation paths recorded as "no reader".
+- Recorded on the P4 head: the address bar after one All repositories scope change (PR age, clear "Over 30 days") is 598 characters, and the longest href is the 1,208-character Summary→Timeline link, both equal to the Baseline rows. On the Timeline views, 11 of them rewrite their address after load (for example `/repos?timeline=1` gains `period`, `timeline.state` and the window keys); P5b removes that second render.
+- The set was first recorded on the P3 head. On the P4 head it differs only in the Over time area tabs (P4 decision 1) and the Report links on Over time pages.
 
 ## Appendix A: findings by phase
 
