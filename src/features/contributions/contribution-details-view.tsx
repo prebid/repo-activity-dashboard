@@ -9,6 +9,7 @@ import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { AccountTypeLabel, Avatar } from '@/components/github/avatar';
+import { RecordStatus, type RecordStatusProps } from '@/components/github/record-status';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -27,6 +28,16 @@ import { ContributionHeader } from './contribution-header';
 import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import type { ContributionLinks } from './contribution-columns';
 import styles from './contributions.module.css';
+const recordStatuses = { Open: 'open', Merged: 'merged', Closed: 'closed' } as const;
+/** The status a record's state cell shows: a draft only while its PR is still open. */
+function recordStatus(record: ContributionSupportingRow['record']): RecordStatusProps {
+  return record.kind === 'pr'
+    ? {
+        kind: 'pr',
+        status: record.draft && record.state === 'Open' ? 'draft' : recordStatuses[record.state],
+      }
+    : { kind: 'issue', status: record.state === 'Open' ? 'open' : 'closed' };
+}
 export const contributionDetailColumnIds = [
   'record',
   'account',
@@ -61,7 +72,8 @@ export function contributionDetailColumns(
           rel="noopener noreferrer"
           title="Sample record placeholder; real records will open on GitHub."
         >
-          #{row.record.number} {row.record.title} <ExternalLinkIcon size={14} />
+          <span className={styles.recordNumber}>#{row.record.number}</span> {row.record.title}
+          <ExternalLinkIcon size={14} />
         </a>
       ),
     },
@@ -72,19 +84,21 @@ export function contributionDetailColumns(
       width: 160,
       value: (row) => row.account.name + ' ' + row.account.login,
       cell: (row) => (
-        <div className={styles.account}>
+        <div className={styles.identityCell}>
           <Avatar
             kind="person"
             name={row.account.name}
             accountType={row.account.actorType}
             size={32}
           />
-          <GitHubAccountLink
-            login={row.account.login}
-            url={row.account.profileUrl}
-            label={'@' + row.account.login}
-          />
-          <AccountTypeLabel accountType={row.account.actorType} />
+          <div className={styles.identity}>
+            <GitHubAccountLink
+              login={row.account.login}
+              url={row.account.profileUrl}
+              label={'@' + row.account.login}
+            />
+            <AccountTypeLabel accountType={row.account.actorType} />
+          </div>
         </div>
       ),
     },
@@ -118,6 +132,7 @@ export function contributionDetailColumns(
         row.record.kind === 'pr' && row.record.draft && row.record.state === 'Open'
           ? 'Draft'
           : row.record.state,
+      cell: (row) => <RecordStatus {...recordStatus(row.record)} />,
     },
     {
       id: 'creditedAt',

@@ -155,15 +155,6 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
     },
     {
-      "file": "src/features/contributions/contributions.module.css",
-      "context": "",
-      "selector": ".metricLink",
-      "property": "border-radius",
-      "value": "3px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); contribution tables"
-    },
-    {
       "file": "src/features/repositories/overview.module.css",
       "context": "",
       "selector": ".title",
