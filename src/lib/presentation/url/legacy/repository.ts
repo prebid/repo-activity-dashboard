@@ -1,6 +1,7 @@
 // Frozen pre-codec URL readers, moved unchanged. They decode old links for the 307 to the
 // canonical form and serve callers that have not moved to the codec yet.
 import { repositoryPageFiltersSchema, type RepositoryPageFilters } from '@/models/repository-page';
+import { dateRangeSchema } from '@/models/reporting-period';
 import {
   overviewReturnPathSchema,
   repositoryDrilldownSchema,
@@ -153,4 +154,37 @@ export function readAuthorAccountSegment(segment: string): string | null {
 }
 export function authorListQuery(params: URLSearchParams): TableQuery {
   return readTableQuery(params.toString(), 'authors', authorTableColumnIds);
+}
+
+/**
+ * The pre-codec record filter writer, for the Timeline links and controls that still write legacy
+ * keys. Moved unchanged from repository-page-query.ts.
+ */
+export function writeRepositoryFilters(search: string, filters: RepositoryPageFilters): string {
+  const params = new URLSearchParams(search),
+    prefix = filters.kind + '.filter.';
+  const defaults = repositoryPageFiltersSchema.parse({ kind: filters.kind });
+  const changed = Object.entries(filters).filter(
+    ([field, value]) =>
+      field !== 'kind' &&
+      field !== 'search' &&
+      value !== undefined &&
+      JSON.stringify(value) !== JSON.stringify(defaults[field as keyof typeof defaults]),
+  );
+  for (const key of [...params.keys()]) if (key.startsWith(prefix)) params.delete(key);
+  for (const [field, value] of changed) {
+    if (field === 'eventRange') {
+      const range = dateRangeSchema.parse(value);
+      params.set(prefix + 'eventFrom', range.start);
+      params.set(prefix + 'eventTo', range.end);
+      params.set(prefix + 'eventInclusive', range.endInclusive ? '1' : '0');
+    } else if (Array.isArray(value))
+      for (const item of [...new Set(value)]) params.append(prefix + field, item);
+    else if (typeof value === 'string' || typeof value === 'number')
+      params.set(prefix + field, String(value));
+  }
+  if (filters.search) params.set(filters.kind + '.q', filters.search);
+  else params.delete(filters.kind + '.q');
+  params.delete(filters.kind + '.page');
+  return params.toString();
 }

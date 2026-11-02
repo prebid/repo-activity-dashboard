@@ -336,7 +336,7 @@ const urlCodec = {
   server: 'src/server/canonical-page.ts',
   toolbar: 'src/components/layout/toolbar.tsx',
   trail: 'src/lib/presentation/contribution-return.ts',
-  interimRoute: 'src/app/(dashboard)/repos/[slug]/page.tsx',
+  interimRoute: 'src/app/_screens/timeline-screens.tsx',
   interimLib: 'src/lib/presentation/timeline-navigation.ts',
 } as const;
 

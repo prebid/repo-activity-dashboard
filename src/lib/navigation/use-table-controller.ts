@@ -12,7 +12,7 @@ import { type TableQuery } from '@/models/table-query';
 import type { SavedPreference } from '@/models/preferences';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { usePreferenceCookie } from './use-preference-cookie';
-import { writeHistory } from './use-url-state';
+import { pinCurrentEntry, writeHistory } from './use-url-state';
 import {
   boundLocationStamp,
   readBoundTableQuery,
@@ -156,6 +156,8 @@ export function useTableController({
         // Freeze saved defaults in the previous entry before they can change.
         url.search = writeQuery(url.search, current);
         if (url.href !== window.location.href) writeHistory('replace', url.pathname + url.search);
+        // A rendered bare entry is pinned to its explicit form before the push (decision C4).
+        if (fields && pinCurrentEntry()) url.search = window.location.search;
       }
       url.search = writeQuery(url.search, next);
       if (url.href !== window.location.href) {
@@ -187,6 +189,7 @@ export function useTableController({
       readQuery,
       writeQuery,
       stampOf,
+      fields,
     ],
   );
   useEffect(() => {

@@ -4,6 +4,10 @@ import type { OverviewRepository } from '@/models/repository-overview';
 import type { Measurement } from '@/models/reporting-measurement';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+} from '@/lib/presentation/repository-url';
 import { formatMeasure } from '@/lib/presentation/format';
 import drillable from '@/components/metrics/drillable-number.module.css';
 
@@ -13,6 +17,7 @@ export function OverviewMetric({
   selection,
   label,
   returnTo,
+  links,
   unit = 'count',
   detail,
 }: {
@@ -21,6 +26,8 @@ export function OverviewMetric({
   selection: DrilldownSelection;
   label: string;
   returnTo: string;
+  /** The viewer's saved presentation of the list or insight the value opens. */
+  links?: RepositoryLinkPresentation;
   unit?: 'count' | 'days';
   detail?: string;
 }) {
@@ -30,7 +37,11 @@ export function OverviewMetric({
     <Link
       prefetch={false}
       className={drillable.link}
-      href={repositoryDrilldownHref(repository, { selection, returnTo })}
+      href={repositoryDrilldownHref(
+        repository,
+        { selection, returnTo },
+        drilldownPresentation(selection, links),
+      )}
       aria-label={
         repository.name +
         ': ' +

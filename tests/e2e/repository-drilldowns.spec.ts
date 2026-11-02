@@ -5,13 +5,17 @@ async function login(page: import('@playwright/test').Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+// An old Summary link; the page answers it with its canonical form, defaults left out.
 const context =
   '/repos?repo=repo-prebidjs&repo=repo-salesagent&period=this-month&period2=last-month&age=60&backlog.sort=totalOpenPrs&backlog.dir=desc&activity.sort=prsOpened&activity.dir=desc';
+const summary = '/repos?repo=prebidjs,salesagent&period2=last-month&age=60';
+const origin = 'http://127.0.0.1:3100';
 test('summary PR and issue links reconcile, paginate, search the full list, and return to both period filters', async ({
   page,
 }) => {
   await login(page);
   await page.goto(context);
+  await expect(page).toHaveURL(origin + summary);
   const backlog = page.getByRole('table', { name: 'Current backlog', exact: true });
   const js = backlog
     .getByRole('row')
@@ -23,11 +27,13 @@ test('summary PR and issue links reconcile, paginate, search the full list, and 
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(37);
-  expect(new URL(page.url()).searchParams.get('metric')).toBe('totalOpenPrs');
+  // The open-PR list is the repository's entry; its frame names the Summary it came from.
+  await expect(page).toHaveURL(
+    origin + '/repos/prebidjs?page=3&back=~repo:prebidjs,salesagent~period2:last-month~age:60',
+  );
   await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
-  for (const [key, value] of new URLSearchParams(context.split('?')[1]))
-    expect(new URL(page.url()).searchParams.getAll(key)).toContain(value);
+  await expect(page).toHaveURL(origin + summary);
   await js.locator('[data-column="agedPrs60"] a').click();
   await expect(page.getByText('60 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
@@ -50,7 +56,7 @@ test('summary PR and issue links reconcile, paginate, search the full list, and 
   await expect(
     page.getByRole('link', { name: 'Oldest sample issue: keyboard navigation', exact: true }),
   ).toHaveAttribute('href', 'https://github.example/example-fixtures/prebidjs/issues/1');
-  expect(new URL(page.url()).searchParams.get('metric')).toBe('openIssues');
+  expect(new URL(page.url()).searchParams.get('view')).toBe('issues');
   await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('last-month');
 });
@@ -69,14 +75,15 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   await rows.nth(1).locator('[data-column="prsMerged"] a').click();
   await expect(page.getByText('50 matching records', { exact: true })).toBeVisible();
   await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
+  expect(new URL(page.url()).searchParams.get('period')).toBe('last-month');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   expect(await page.locator('tbody [data-column="title"] [data-state]').allTextContents()).toEqual(
     Array(50).fill('Merged'),
   );
   await page.getByRole('button', { name: 'Title', exact: true }).click();
   await page.reload();
-  expect(new URL(page.url()).searchParams.get('branch')).toBe('master');
+  expect(new URL(page.url()).searchParams.get('metric')).toBe('prsMerged');
+  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   await expect(page.getByRole('columnheader', { name: 'Title', exact: true })).toHaveAttribute(
     'aria-sort',
     'ascending',
@@ -95,7 +102,7 @@ test('each stacked period opens its own cohort, retains branch scope, and differ
   await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await rows.nth(0).locator('[data-column="issuesClosed"] a').click();
   await expect(page.getByText('72 matching records', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
+  expect(new URL(page.url()).searchParams.get('period')).toBe('this-month');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
 });
 test('known zero, partial, missing, invalid, and author scopes remain distinct', async ({

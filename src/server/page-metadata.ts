@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getViewer } from '@/lib/auth/viewer';
 import { contributionDirectorySample } from '@/mocks/contributions';
+import { overviewAsOf } from '@/mocks/sample-clock';
 import { readContributionLayoutQuery } from '@/lib/presentation/contribution-navigation';
 import {
   contributionPageTitle,
@@ -44,7 +45,7 @@ export function repositoriesPageMetadata(params: URLSearchParams): Promise<Metad
   return titled(() => repositoriesPageTitle(params));
 }
 export function repositoryPageMetadata(slug: string, params: URLSearchParams): Promise<Metadata> {
-  return forRepository(slug, (repository) => repositoryPageTitle(repository, params));
+  return forRepository(slug, (repository) => repositoryPageTitle(repository, params, overviewAsOf));
 }
 export function repositoryAuthorPageMetadata(
   slug: string,
@@ -52,7 +53,7 @@ export function repositoryAuthorPageMetadata(
   params: URLSearchParams,
 ): Promise<Metadata> {
   return forRepository(slug, (repository) =>
-    repositoryAuthorPageTitle(repository, account, params),
+    repositoryAuthorPageTitle(repository, account, params, overviewAsOf),
   );
 }
 /** Subject names come from the URL's sample directory, as the report resolves them. */

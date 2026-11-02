@@ -18,6 +18,8 @@ import {
 } from '../support/preference-cookies';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
+const query = () => new URLSearchParams(window.location.search);
+const navigated = vi.hoisted(() => [] as unknown[][]);
 vi.mock('next/navigation', async () => {
   const { useSyncExternalStore } = await import('react');
   const subscribe = (notify: () => void) => {
@@ -28,7 +30,9 @@ vi.mock('next/navigation', async () => {
       window.removeEventListener('popstate', notify);
     };
   };
+  const router = { push: (...args: unknown[]) => navigated.push(args) };
   return {
+    useRouter: () => router,
     usePathname: () =>
       useSyncExternalStore(
         subscribe,
@@ -58,10 +62,10 @@ const issues = repositoryPageSample(repo, {
 const columns = ['ageDays', 'createdAt'],
   sorts = ['createdAt', 'number'];
 const defaultSort = { sort: 'createdAt', descending: true };
-const bob = { accountId: 'bob', authVersion: 0 };
 const history: { action: string; href: string }[] = [];
 beforeEach(() => {
   history.length = 0;
+  navigated.length = 0;
   window.history.replaceState(null, '', '/repos/prebidjs');
   for (const action of ['replaceState', 'pushState'] as const) {
     const native = window.history[action].bind(window.history);
@@ -107,59 +111,45 @@ function useControls(
     defaultSort,
     historyMode: 'push',
     savedSort: saved?.sort,
+    fields: { route: '/repos/[slug]', search: 'q', sort: 'sort', page: 'page' },
   });
   const settings = useRepositoryPageControls(viewerId, source, columns, table, saved?.presentation);
   return { table, settings };
 }
 
-it('starts from the saved list-kind presentation for every repository, with explicit URLs taking precedence', () => {
+it('renders the address’s presentation, which the saved one reaches only through links and entries', () => {
   const saved = {
     sort: savedSection('repository.prs.sort', { sort: 'number', descending: false }),
     presentation: savedSection<RepositoryPresentation>('repository.prs.columns', {
       columns: { ageDays: false },
-      chartsVisible: false,
+      chartsVisible: true,
     }),
   };
   const { result, rerender } = renderHook(
     ({ viewerId, source, saved }) => useControls(viewerId, source, saved),
     { initialProps: { viewerId: 'alice', source: prs, saved } },
   );
-  expect(result.current.settings.visibility.value.ageDays).toBe(false);
-  expect(result.current.table.query.sort).toBe('number');
+  // An absent field is its v1 default, whatever is saved.
+  expect(result.current.settings.visibility.value.ageDays).toBe(true);
+  expect(result.current.settings.chartsVisible).toBe(false);
+  expect(result.current.table.query.sort).toBe('createdAt');
   expect(result.current.settings.filters).toEqual(defaultRepositoryFilters('prs'));
   expect(history).toEqual([]);
   act(() =>
-    window.history.replaceState(
-      null,
-      '',
-      '/repos/prebidjs?prs.columns=ageDays&prs.sort=createdAt&prs.dir=desc',
-    ),
+    window.history.replaceState(null, '', '/repos/prebidjs?sort=number&cols=-ageDays&charts'),
   );
-  expect(result.current.settings.visibility.value.ageDays).toBe(true);
-  expect(result.current.table.query.sort).toBe('createdAt');
-  act(() => window.history.replaceState(null, '', '/repos/prebidjs'));
-  // Another account's sections arrive empty from the server.
-  rerender({ viewerId: 'bob', source: prs, saved: sections('prs', bob) });
-  expect(result.current.settings.visibility.value.ageDays).toBe(true);
-  expect(result.current.table.query.sort).toBe('createdAt');
+  expect(result.current.settings.visibility.value.ageDays).toBe(false);
+  expect(result.current.settings.chartsVisible).toBe(true);
+  expect(result.current.table.query.sort).toBe('number');
   rerender({ viewerId: 'alice', source: issues, saved: sections('issues') });
   expect(result.current.settings.filters?.kind).toBe('issues');
-  expect(result.current.settings.visibility.value.ageDays).toBe(true);
-  // One saved pull request presentation serves every repository.
-  rerender({
-    viewerId: 'alice',
-    source: { ...prs, repository: { ...repo, id: 'another', slug: 'another' } },
-    saved,
-  });
-  expect(result.current.settings.visibility.value.ageDays).toBe(false);
-  expect(result.current.table.query.sort).toBe('number');
 });
 it('captures pending search before applying filters, resets pages, preserves context and does not save filters', () => {
   vi.useFakeTimers();
   window.history.replaceState(
     null,
     '',
-    '/repos/prebidjs?scope=current&metric=agedPrs&age=60&prs.page=2&returnTo=%2Frepos%3Fage%3D60',
+    '/repos/prebidjs?age=60&metric=agedPrs&page=2&back=~age:60',
   );
   const { result } = renderHook(() => useControls());
   act(() => result.current.table.setSearch('sample'));
@@ -173,8 +163,9 @@ it('captures pending search before applying filters, resets pages, preserves con
     authorTypes: ['agent'],
   });
   expect(result.current.table.query.page).toBe(1);
-  expect(new URLSearchParams(window.location.search).get('age')).toBe('60');
-  expect(new URLSearchParams(window.location.search).get('returnTo')).toBe('/repos?age=60');
+  expect(window.location.search).toBe(
+    '?age=60&metric=agedPrs&authorTypes=agent&q=sample&back=~age:60',
+  );
   expect(preferenceSections('repositories')).toBeNull();
   const after = window.location.href;
   act(() => result.current.table.update({ page: 2 }));
@@ -192,10 +183,11 @@ it('captures pending search before applying filters, resets pages, preserves con
   });
   expect(result.current.settings.filters).toEqual(defaultRepositoryFilters('prs'));
   expect(result.current.table.draftSearch).toBe('');
+  expect(window.location.search).toBe('?age=60&metric=agedPrs&back=~age:60');
   expect(preferenceSections('repositories')).toBeNull();
 });
 it('saves deliberate column overrides and resets presentation without clearing cohort filters', () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?prs.filter.draft=drafts');
+  window.history.replaceState(null, '', '/repos/prebidjs?draft=drafts');
   const { result } = renderHook(() => useControls());
   act(() =>
     result.current.settings.visibility.onChange({
@@ -206,8 +198,7 @@ it('saves deliberate column overrides and resets presentation without clearing c
   expect(preferenceSections('repositories')).toEqual({
     'repository.prs.columns': stored({ createdAt: true }),
   });
-  const columnsBefore = history.at(-2)!.href;
-  expect(new URL(columnsBefore).searchParams.getAll('prs.columns')).toEqual(['ageDays']);
+  expect(query().get('cols')).toBe('createdAt');
   act(() =>
     result.current.settings.visibility.onChange({
       ...result.current.settings.visibility.value,
@@ -219,10 +210,10 @@ it('saves deliberate column overrides and resets presentation without clearing c
     'repository.prs.columns': stored({ createdAt: true, ageDays: false }),
     'repository.prs.sort': { sort: 'number', descending: false },
   });
-  const beforeSort = history.at(-2)!.href;
-  expect(new URL(beforeSort).searchParams.get('prs.sort')).toBe('createdAt');
-  expect(new URL(beforeSort).searchParams.get('prs.dir')).toBe('desc');
+  expect(window.location.search).toBe('?draft=drafts&sort=number&cols=-ageDays,createdAt');
+  const beforeReset = window.location.href;
   act(() => result.current.settings.resetPresentation());
+  expect(window.location.search).toBe('?draft=drafts');
   expect(result.current.table.query).toMatchObject({
     sort: 'createdAt',
     descending: true,
@@ -236,17 +227,17 @@ it('saves deliberate column overrides and resets presentation without clearing c
   expect(preferenceSections('repositories')).toBeNull();
   act(() => result.current.settings.resetPresentation());
   expect(preferenceSections('repositories')).toBeNull();
-  act(() => result.current.settings.visibility.onChange(result.current.settings.visibility.value));
   act(() => {
-    window.history.replaceState(null, '', beforeSort);
+    window.history.replaceState(null, '', beforeReset);
     window.dispatchEvent(new PopStateEvent('popstate'));
   });
-  expect(result.current.table.query.sort).toBe('createdAt');
+  expect(result.current.table.query.sort).toBe('number');
   expect(result.current.settings.visibility.value.ageDays).toBe(false);
 });
-it('recovers invalid filters and keeps changes in memory when the browser refuses the cookie', () => {
+it('recovers invalid filters and keeps changes in the address when the browser refuses the cookie', () => {
   vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
-  window.history.replaceState(null, '', '/repos/prebidjs?prs.filter.bad=1');
+  // An activity range does not apply to current open records.
+  window.history.replaceState(null, '', '/repos/prebidjs?events=this-month');
   const { result } = renderHook(() => useControls());
   expect(result.current.settings.filters).toBeNull();
   expect(result.current.settings.storageAvailable).toBe(true);
@@ -258,17 +249,13 @@ it('recovers invalid filters and keeps changes in memory when the browser refuse
   act(() => result.current.table.update({ sort: 'number' }));
   expect(result.current.settings.visibility.value.ageDays).toBe(false);
   expect(result.current.settings.chartsVisible).toBe(true);
-  act(() => window.history.replaceState(null, '', '/repos/prebidjs'));
-  // Both choices remain for this page although neither could be saved.
-  expect(result.current.settings.visibility.value.ageDays).toBe(false);
-  expect(result.current.settings.chartsVisible).toBe(true);
-  // A blocked jar holds no saved choice, so the reset's deletion succeeds and the defaults return.
+  expect(window.location.search).toBe('?sort=-number&cols=-ageDays,createdAt&charts');
   act(() => result.current.settings.resetPresentation());
   expect(result.current.settings.visibility.value.ageDays).toBe(true);
   expect(result.current.settings.chartsVisible).toBe(false);
 });
 
-it('saves chart visibility as its own field and restores it through history, accounts and reset', () => {
+it('saves chart visibility as its own field, keeping other tabs’ fields, and restores it through history', () => {
   seedPreferences(alice, { 'repository.prs.columns': stored({ ageDays: false }) });
   const saved = {
     ...sections(),
@@ -277,10 +264,7 @@ it('saves chart visibility as its own field and restores it through history, acc
       chartsVisible: false,
     }),
   };
-  const { result, rerender } = renderHook(
-    ({ viewerId, saved }) => useControls(viewerId, prs, saved),
-    { initialProps: { viewerId: 'alice', saved } },
-  );
+  const { result } = renderHook(() => useControls('alice', prs, saved));
   expect(result.current.settings.chartsVisible).toBe(false);
   // Another tab shows the issue charts and changes a pull request column after this page rendered.
   seedPreferences(alice, {
@@ -289,28 +273,33 @@ it('saves chart visibility as its own field and restores it through history, acc
   });
   act(() => result.current.settings.changeCharts(true));
   expect(result.current.settings.chartsVisible).toBe(true);
+  expect(window.location.search).toBe('?charts');
   expect(preferenceSections('repositories')).toEqual({
     'repository.issues.columns': stored({}, true),
     'repository.prs.columns': stored({ ageDays: false, createdAt: true }, true),
   });
-  const hidden = window.location.href;
-  act(() => window.history.replaceState(null, '', '/repos/prebidjs'));
-  expect(result.current.settings.chartsVisible).toBe(true);
-  rerender({ viewerId: 'bob', saved: sections('prs', bob) });
-  expect(result.current.settings.chartsVisible).toBe(false);
-  rerender({ viewerId: 'alice', saved });
-  expect(result.current.settings.chartsVisible).toBe(true);
+  const shown = window.location.href;
   act(() => result.current.settings.changeCharts(false));
   expect(result.current.settings.chartsVisible).toBe(false);
   act(() => {
-    window.history.replaceState(null, '', hidden);
+    window.history.replaceState(null, '', shown);
     window.dispatchEvent(new PopStateEvent('popstate'));
   });
   expect(result.current.settings.chartsVisible).toBe(true);
   act(() => result.current.settings.resetPresentation());
   expect(result.current.settings.chartsVisible).toBe(false);
-  act(() => result.current.settings.changeCharts(false));
-  expect(result.current.settings.chartsVisible).toBe(false);
+});
+it('changes the record scope with a server navigation that keeps the scroll and chosen columns', () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?draft=drafts&cols=createdAt&back=~age:60');
+  const { result } = renderHook(() => useControls());
+  const range = { start: '2026-10-01T00:00:00.000Z', end: prs.asOf, endInclusive: true };
+  act(() => result.current.settings.changeScope('created', range));
+  expect(navigated).toEqual([
+    [
+      '/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prsOpened&draft=drafts&cols=humanReviewers,approvals,ageDays,latestActivity&back=~age:60',
+      { scroll: false },
+    ],
+  ]);
 });
 
 it('renders the defaults for a rejected section and deletes it once after hydration', () => {

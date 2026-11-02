@@ -208,6 +208,11 @@ describe('useUrlState', () => {
     expect(spy).not.toHaveBeenCalled();
     result.current.navigate('/repos?timeline&repo=prebidjs');
     expect(router.push).toHaveBeenCalledWith('/repos?timeline&repo=prebidjs');
+    // A scope change that loads another cohort can keep the scroll position.
+    result.current.navigate('/repos?timeline&repo=prebidserver', { scroll: false });
+    expect(router.push).toHaveBeenLastCalledWith('/repos?timeline&repo=prebidserver', {
+      scroll: false,
+    });
     result.current.replaceHash('top');
     expect(window.location.hash).toBe('#top');
   });

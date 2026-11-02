@@ -1,12 +1,14 @@
-import { readRepositoryFilterValues } from './url/legacy/repository';
-export { readRepositoryFilterValues };
+import { readRepositoryFilterValues, writeRepositoryFilters } from './url/legacy/repository';
+export { readRepositoryFilterValues, writeRepositoryFilters };
 import {
   repositoryPageFiltersSchema,
   type RepositoryPageFilters,
   type RepositoryPageSource,
 } from '@/models/repository-page';
-import { repositoryFilterError } from './repository-page-rules';
 import { dateRangeSchema } from '@/models/reporting-period';
+import { repositoryFilterError } from './repository-page-rules';
+import { periodAt, periodRange, periodSelection, periodValue } from './url/period';
+import type { UrlValue, UrlValues } from './url/registry';
 
 export function defaultRepositoryFilters(
   kind: RepositoryPageSource['kind'],
@@ -14,12 +16,57 @@ export function defaultRepositoryFilters(
   return repositoryPageFiltersSchema.parse({ kind });
 }
 
+/** The URL fields record filters use; `q` is the record table's search. */
+export const repositoryFilterNames = [
+  'authors',
+  'authorTypes',
+  'states',
+  'latestActors',
+  'assignees',
+  'labels',
+  'branches',
+  'draft',
+  'assignment',
+  'ageBand',
+  'reviewers',
+  'approvals',
+  'agentReviewer',
+  'botReviewer',
+  'events',
+] as const;
+
+/**
+ * Record filters from URL values, or null when a value is not a filter of this list kind. The
+ * `events` period resolves against `at`, the instant the list is pinned to.
+ */
+export function readRepositoryFilterFields(
+  values: UrlValues,
+  kind: RepositoryPageSource['kind'],
+  at: string,
+): RepositoryPageFilters | null {
+  const input: Record<string, unknown> = { kind, search: values.q ?? '' };
+  for (const name of repositoryFilterNames) {
+    const value = values[name];
+    if (value === undefined || name === 'events') continue;
+    input[name] = name === 'ageBand' ? Number(value) : value;
+  }
+  if (typeof values.events === 'string') {
+    const selected = periodSelection(values.events);
+    const range = selected && periodRange(selected, at);
+    if (!range) return null;
+    input.eventRange = range;
+  }
+  const parsed = repositoryPageFiltersSchema.safeParse(input);
+  return parsed.success ? parsed.data : null;
+}
+
 /** Invalid explicit filters must never silently broaden a bookmarked cohort. */
 export function readRepositoryFilters(
-  search: string,
+  values: UrlValues,
   source: RepositoryPageSource,
+  at: string,
 ): RepositoryPageFilters | null {
-  const filters = readRepositoryFilterValues(search, source.kind);
+  const filters = readRepositoryFilterFields(values, source.kind, at);
   return filters && !repositoryFilterError(filters, source.drilldown.selection) ? filters : null;
 }
 
@@ -40,23 +87,30 @@ export function repositoryFiltersNarrow(filters: RepositoryPageFilters): boolean
   return Boolean(filters.search) || changedFilterFields(filters).length > 0;
 }
 
-export function writeRepositoryFilters(search: string, filters: RepositoryPageFilters): string {
-  const params = new URLSearchParams(search),
-    prefix = filters.kind + '.filter.';
-  for (const key of [...params.keys()]) if (key.startsWith(prefix)) params.delete(key);
+/**
+ * Record filters as URL fields, every filter name present: a filter at its default is undefined,
+ * so spreading the result over a view's values clears it. An event range is written as the period
+ * that resolves to it at `at`.
+ */
+export function repositoryFilterFields(
+  filters: RepositoryPageFilters,
+  at: string,
+): Record<string, UrlValue | undefined> {
+  const fields: Record<string, UrlValue | undefined> = Object.fromEntries(
+    repositoryFilterNames.map((name) => [name, undefined]),
+  );
+  fields.q = filters.search || undefined;
   for (const [field, value] of changedFilterFields(filters)) {
     if (field === 'eventRange') {
-      const range = dateRangeSchema.parse(value);
-      params.set(prefix + 'eventFrom', range.start);
-      params.set(prefix + 'eventTo', range.end);
-      params.set(prefix + 'eventInclusive', range.endInclusive ? '1' : '0');
-    } else if (Array.isArray(value))
-      for (const item of [...new Set(value)]) params.append(prefix + field, item);
-    else if (typeof value === 'string' || typeof value === 'number')
-      params.set(prefix + field, String(value));
+      const period = periodAt(dateRangeSchema.parse(value), at);
+      if (!period) throw new Error('This activity range cannot be written as a period.');
+      fields.events = periodValue(period);
+    } else
+      fields[field] = Array.isArray(value)
+        ? [...new Set(value as string[])]
+        : typeof value === 'number'
+          ? String(value)
+          : (value as string);
   }
-  if (filters.search) params.set(filters.kind + '.q', filters.search);
-  else params.delete(filters.kind + '.q');
-  params.delete(filters.kind + '.page');
-  return params.toString();
+  return fields;
 }

@@ -1,6 +1,5 @@
 import { loadContributionData } from './contribution-data';
 import { isReportMetric } from '@/models/contribution-metrics';
-import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
 import {
   repositoryPageSample,
   repositoryPageRecordsSample,
@@ -16,16 +15,16 @@ import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
-import { readRepositoryDrilldown } from '@/lib/presentation/repository-drilldown';
+import { readDrilldownSelection, summaryReturnTo } from '@/lib/presentation/repository-drilldown';
 import { reportingBranchSchema } from '@/models/repository-overview';
 import { isInsightSelection } from '@/lib/presentation/repository-insights';
+import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { repositoryInsightSample, repositoryAuthorRecordSample } from '@/mocks/repository-insights';
-import {
-  isAuthorSelection,
-  readAuthorAccountSegment,
-  authorListQuery,
-  repositoryAuthorsHref,
-} from '@/lib/presentation/repository-author-records';
+import { overviewAsOf } from '@/mocks/sample-clock';
+import { isAuthorSelection } from '@/lib/presentation/repository-author-records';
+import { resolveBack, type UrlView } from '@/lib/presentation/url/back';
+import { columnTableOf, visibleColumns } from '@/lib/presentation/url/defaults';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 export async function allRepositories() {
   const viewer = await requireViewer();
   return { viewer, samples: repositoryOverviewSamples() };
@@ -48,19 +47,23 @@ async function repositoryContext(slug: string) {
   if (!found) notFound();
   return { viewer, ...found };
 }
-export async function repositoryDetail(slug: string, params = new URLSearchParams()) {
+/** Whether a view's `cols` names only columns its table has; a table without `cols` has none. */
+function knownColumns(view: UrlView): boolean {
+  if (view.values.cols === undefined) return true;
+  const table = columnTableOf(view.route, view.values);
+  return table !== null && visibleColumns(table, view.values.cols as string[]) !== null;
+}
+/**
+ * A repository list or insight from its canonical values (the page helper has answered legacy
+ * links). Invalid when the values select no drilldown or name a column the table lacks.
+ */
+export async function repositoryDetail(slug: string, values: UrlValues = {}) {
   const { viewer, repo, identity } = await repositoryContext(slug);
-  const entry = readRepositoryPageEntry(params, identity);
+  const view: UrlView = { route: '/repos/[slug]', segments: { slug: [identity.slug] }, values };
+  const selection = readDrilldownSelection(values, identity, overviewAsOf);
   const navigation = repositoryPageNavigationSample(identity);
-  if (entry.status === 'invalid') return { status: 'invalid' as const };
-  if (entry.status === 'records')
-    return {
-      status: 'page' as const,
-      viewer,
-      navigation,
-      source: repositoryPageSample(identity, entry.drilldown),
-    };
-  const { selection, returnTo } = entry.drilldown;
+  if (!selection || !knownColumns(view)) return { status: 'invalid' as const };
+  const returnTo = summaryReturnTo(view);
   if (isInsightSelection(selection))
     return {
       status: 'insight' as const,
@@ -69,27 +72,47 @@ export async function repositoryDetail(slug: string, params = new URLSearchParam
       navigation,
       insight: repositoryInsightSample(identity, { selection, returnTo }),
     };
-  return { status: 'unsupported' as const, returnTo };
+  if (!isRecordSelection(selection)) return { status: 'invalid' as const };
+  return {
+    status: 'page' as const,
+    viewer,
+    navigation,
+    source: repositoryPageSample(identity, { selection, returnTo }),
+  };
 }
 
+/**
+ * One author's records from an author list, from canonical values. `account` is the decoded route
+ * segment, or null when it is not an account. The page returns to its author list, which keeps the
+ * list's search, sort, page and return context.
+ */
 export async function repositoryAuthorDetail(
   slug: string,
-  accountSegment: string,
-  params: URLSearchParams,
+  account: string | null,
+  values: UrlValues,
 ) {
   const { viewer, identity } = await repositoryContext(slug);
-  const author = readAuthorAccountSegment(accountSegment);
-  const parsed = readRepositoryDrilldown(params, identity);
-  if (author === null || parsed.status !== 'valid' || !isAuthorSelection(parsed.value.selection))
+  const selection = readDrilldownSelection(values, identity, overviewAsOf);
+  if (account === null || !selection || !isAuthorSelection(selection))
     return { status: 'invalid' as const };
-  const drilldown = { selection: parsed.value.selection, returnTo: parsed.value.returnTo };
-  const returnToAuthors = repositoryAuthorsHref(identity, drilldown, authorListQuery(params));
+  const view: UrlView = {
+    route: '/repos/[slug]/authors/[account]',
+    segments: { slug: [identity.slug], account: [account] },
+    values,
+  };
+  const [list] = resolveBack(view);
+  if (!knownColumns(view) || !list?.available) return { status: 'invalid' as const };
   return {
     status: 'list' as const,
     viewer,
     navigation: repositoryPageNavigationSample(identity),
     source: repositoryPageRecordsSample(
-      repositoryAuthorRecordSample(identity, drilldown, author, returnToAuthors),
+      repositoryAuthorRecordSample(
+        identity,
+        { selection, returnTo: summaryReturnTo(view) },
+        account,
+        list.href,
+      ),
     ),
   };
 }

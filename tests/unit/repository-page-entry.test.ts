@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest';
 import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
-import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import { drilldownValues } from '@/lib/presentation/repository-drilldown';
+import { legacyQuery } from '../support/legacy-query';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { backlogMetricIds, activityMetricIds, agingThresholds } from '@/models/repository-overview';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
@@ -40,7 +41,19 @@ it('preserves every existing metric entry and routes supporting lists separately
   expect(selections).toHaveLength(37);
   for (const selection of selections) {
     const drilldown = { selection, returnTo: '/repos?period=this-week&period2=last-week&age=60' };
-    const url = new URL(repositoryDrilldownHref(repo, drilldown), 'https://dashboard.invalid');
+    // An old link, written as the frozen writers wrote it.
+    const url = new URL(
+      legacyQuery('/repos/[slug]', '/repos/' + repo.slug, drilldownValues(selection), {
+        asOf: samples.asOf,
+        branch: () => repo.primaryBranch,
+      }),
+      'https://dashboard.invalid',
+    );
+    if (!url.searchParams.has('metric')) {
+      url.searchParams.set('scope', 'current');
+      url.searchParams.set('metric', selection.metric);
+    }
+    url.searchParams.set('returnTo', drilldown.returnTo);
     url.searchParams.set('view', 'issues'); // explicit metric still owns the destination
     const result = readRepositoryPageEntry(url.searchParams, repo);
     const supporting = [

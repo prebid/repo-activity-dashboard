@@ -5,12 +5,14 @@ import {
   useOverviewSettings,
 } from '@/lib/navigation/use-overview-settings';
 import { useTableController } from '@/lib/navigation/use-table-controller';
+import { preferenceChangeEvent } from '@/lib/navigation/use-preference-cookie';
 import {
   defaultOverviewSettings,
+  overviewCatalogDefinition,
   overviewPreferenceKey,
   serializeOverviewPreferences,
-  writeOverviewTableQueries,
 } from '@/lib/presentation/overview-settings';
+import type { TableFields } from '@/lib/presentation/url/table-binding';
 import type { SavedPreference } from '@/models/preferences';
 import type { OverviewSettings } from '@/models/overview-settings';
 import {
@@ -33,7 +35,9 @@ vi.mock('next/navigation', async () => {
       window.removeEventListener('popstate', notify);
     };
   };
+  const router = { push: () => {} };
   return {
+    useRouter: () => router,
     usePathname: () =>
       useSyncExternalStore(
         subscribe,
@@ -51,20 +55,30 @@ vi.mock('next/navigation', async () => {
   };
 });
 import { preferenceSnapshot, savedOverviewSettings } from '@/server/preferences';
+// The catalog's repositories, which the URL names by slug; an absent `repo` means all of them.
 const definition = {
-  repositoryIds: ['a', 'b'],
-  backlogColumns: ['name', 'total'],
-  activityColumns: ['name', 'merged'],
-  defaultBacklogColumns: ['name', 'total'],
-  defaultActivityColumns: ['name', 'merged'],
+  repositoryIds: overviewCatalogDefinition.repositoryIds,
+  backlogColumns: ['name', 'totalOpenPrs', 'draftPrs'],
+  activityColumns: ['name', 'prsOpened', 'prsMerged'],
+  defaultBacklogColumns: ['name', 'totalOpenPrs'],
+  defaultActivityColumns: ['name', 'prsOpened'],
 };
 const asOf = '2026-10-24T12:00:00.000Z';
 const defaults = defaultOverviewSettings(definition);
-const defaultSort = { sort: 'name', descending: false };
-const backlogPeers = ['activity'],
-  activityPeers = ['backlog'];
+const backlogFields: TableFields = {
+  route: '/repos',
+  sort: 'bsort',
+  page: 'bpage',
+  peers: ['asort', 'apage'],
+};
+const activityFields: TableFields = {
+  route: '/repos',
+  sort: 'asort',
+  page: 'apage',
+  peers: ['bsort', 'bpage'],
+};
 const bob = { accountId: 'bob', authVersion: 0 };
-const history: { action: string; href: string; state: unknown }[] = [];
+const history: { action: string; href: string }[] = [];
 beforeEach(() => {
   history.length = 0;
   window.history.replaceState(null, '', '/repos');
@@ -73,7 +87,7 @@ beforeEach(() => {
     vi.spyOn(window.history, action).mockImplementation(
       (data: unknown, unused: string, url?: string | URL | null) => {
         native(data, unused, url);
-        history.push({ action, href: window.location.href, state: data });
+        history.push({ action, href: window.location.pathname + window.location.search });
         window.dispatchEvent(new Event('test-navigation'));
       },
     );
@@ -83,6 +97,13 @@ afterEach(() => {
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
+/** Back to an earlier address, as the browser restores it. */
+function back(href: string) {
+  act(() => {
+    window.history.replaceState(null, '', href);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+}
 
 /** A section value, exactly as the existing serializer writes it. */
 const stored = (settings: OverviewSettings) =>
@@ -93,60 +114,67 @@ function serverSaved(binding = alice) {
   return savedOverviewSettings(preferenceSnapshot('repositories', binding, raw), definition, asOf);
 }
 
-it('starts from the saved settings without history writes and saves only the fields a change makes', () => {
-  const saved = { ...defaults, repositoryIds: ['b'], ageThresholds: [90 as const] };
+it('shows the address’s scope with the saved columns and saves only the fields a change makes', () => {
+  const saved = {
+    ...defaults,
+    repositoryIds: ['repo-prebidserver'],
+    ageThresholds: [90 as const],
+    backlogColumns: ['name'],
+  };
   seedPreferences(alice, { overview: stored(saved) });
   const { result } = renderHook(() =>
     useOverviewSettings('alice', definition, asOf, serverSaved()),
   );
-  expect(result.current.value).toEqual(saved);
+  // The server redirects a bare entry to the saved scope; this address is the defaults.
+  expect(result.current.value).toEqual({ ...defaults, backlogColumns: ['name'] });
   expect(result.current.notice).toBeUndefined();
   expect(history).toEqual([]);
   act(() => result.current.update({ ageThresholds: [60] }));
   expect(result.current.value.ageThresholds).toEqual([60]);
-  expect(history.map((item) => item.action)).toEqual(['replaceState', 'pushState']);
-  expect(history.every((item) => item.state === null)).toBe(true);
+  // The bare entry is pinned to the defaults before the change is pushed.
+  expect(history).toEqual([
+    { action: 'replaceState', href: '/repos?v=1' },
+    { action: 'pushState', href: '/repos?age=60' },
+  ]);
   expect(preferenceSections('repositories')).toEqual({
     overview: stored({ ...saved, ageThresholds: [60] }),
   });
-  const before = history[0].href;
-  expect(new URL(before).searchParams.get('age')).toBe('90');
-  act(() => {
-    window.history.replaceState(null, '', before);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  });
-  expect(result.current.value.ageThresholds).toEqual([90]);
+  back('/repos?v=1');
+  expect(result.current.value.ageThresholds).toEqual([30]);
   const location = window.location.href;
-  act(() => result.current.update({ backlogColumns: ['name'] }));
+  act(() => result.current.update({ activityColumns: ['name'] }));
   expect(window.location.href).toBe(location);
-  expect(result.current.value.backlogColumns).toEqual(['name']);
-  expect(result.current.value.activityColumns).toEqual(['name', 'merged']);
+  expect(result.current.value).toMatchObject({
+    backlogColumns: ['name'],
+    activityColumns: ['name'],
+  });
 });
 
 it('applies an explicit link to this view only, and a change there saves just its own field', () => {
-  seedPreferences(alice, { overview: stored({ ...defaults, repositoryIds: ['a'] }) });
-  window.history.replaceState(null, '', '/repos?repo=b&change=0');
+  seedPreferences(alice, {
+    overview: stored({ ...defaults, repositoryIds: ['repo-prebidjs'] }),
+  });
+  window.history.replaceState(null, '', '/repos?repo=prebidserver');
   const { result } = renderHook(() =>
     useOverviewSettings('alice', definition, asOf, serverSaved()),
   );
-  expect(result.current.value).toMatchObject({ repositoryIds: ['b'] });
+  expect(result.current.value).toMatchObject({ repositoryIds: ['repo-prebidserver'] });
   act(() => result.current.update({ backlogColumns: ['name'] }));
-  expect(result.current.value).toMatchObject({ repositoryIds: ['b'], backlogColumns: ['name'] });
+  expect(result.current.value).toMatchObject({
+    repositoryIds: ['repo-prebidserver'],
+    backlogColumns: ['name'],
+  });
   // The linked repository was shown, not chosen, so the saved selection is unchanged.
   expect(preferenceSections('repositories')?.overview).toEqual(
-    stored({ ...defaults, repositoryIds: ['a'], backlogColumns: ['name'] }),
+    stored({ ...defaults, repositoryIds: ['repo-prebidjs'], backlogColumns: ['name'] }),
   );
-  act(() => window.history.replaceState(null, '', '/repos'));
-  expect(result.current.value).toMatchObject({ repositoryIds: ['a'], backlogColumns: ['name'] });
 });
 
 it('keeps another account on its own saved settings', () => {
-  seedPreferences(alice, { overview: stored({ ...defaults, repositoryIds: ['a'] }) });
+  seedPreferences(alice, { overview: stored({ ...defaults, backlogColumns: ['name'] }) });
   // The server ignores a cookie bound to another account, so Bob starts from the defaults.
-  const { result, rerender } = renderHook(
-    ({ viewerId, binding }) =>
-      useOverviewSettings(viewerId, definition, asOf, serverSaved(binding)),
-    { initialProps: { viewerId: 'bob', binding: bob } },
+  const { result } = renderHook(() =>
+    useOverviewSettings('bob', definition, asOf, serverSaved(bob)),
   );
   expect(result.current.value).toEqual(defaults);
   act(() => result.current.update({ ageThresholds: [120] }));
@@ -154,9 +182,6 @@ it('keeps another account on its own saved settings', () => {
     overview: stored({ ...defaults, ageThresholds: [120] }),
   });
   expect(preferenceSections('repositories', alice)).toBeNull();
-  act(() => window.history.replaceState(null, '', '/repos'));
-  rerender({ viewerId: 'alice', binding: alice });
-  expect(result.current.value).toEqual(defaults);
 });
 
 it("keeps another tab's saved fields when this page saves a change", () => {
@@ -173,17 +198,15 @@ it("keeps another tab's saved fields when this page saves a change", () => {
 });
 
 it('keeps empty selections, relative periods and table pagination scopes distinct', () => {
-  window.history.replaceState(null, '', '/repos?backlog.page=2&activity.page=3');
+  window.history.replaceState(null, '', '/repos?bpage=2&apage=3');
   const { result } = renderHook(() =>
     useOverviewSettings('alice', definition, asOf, savedSection('overview')),
   );
   act(() => result.current.update({ periods: [{ kind: 'preset', preset: 'last-week' }] }));
-  expect(new URLSearchParams(window.location.search).get('backlog.page')).toBe('2');
-  expect(new URLSearchParams(window.location.search).has('activity.page')).toBe(false);
+  expect(window.location.search).toBe('?period=last-week&bpage=2');
   act(() => result.current.update({ repositoryIds: [] }));
   expect(result.current.value.repositoryIds).toEqual([]);
-  expect(new URLSearchParams(window.location.search).get('repo')).toBe('');
-  expect(new URLSearchParams(window.location.search).has('backlog.page')).toBe(false);
+  expect(window.location.search).toBe('?repo=&period=last-week');
   // A relative period is saved as its preset, not as the dates it resolves to today.
   expect(preferenceSections('repositories')?.overview).toMatchObject({
     version: 3,
@@ -220,7 +243,7 @@ it('keeps a newer value that replaced the rejected one in another tab', () => {
 });
 
 it('copies a former browser-storage value once, applying it from the next request', () => {
-  const saved = { ...defaults, repositoryIds: ['b'] };
+  const saved = { ...defaults, repositoryIds: ['repo-prebidserver'] };
   localStorage.setItem(overviewPreferenceKey('alice'), serializeOverviewPreferences(saved));
   const { result } = renderHook(() =>
     useOverviewSettings('alice', definition, asOf, savedSection('overview')),
@@ -239,7 +262,7 @@ it('discards a malformed former value without copying it', () => {
   expect(localStorage.getItem(overviewPreferenceKey('alice'))).toBeNull();
 });
 
-it('keeps changes in memory when the browser refuses the cookie', () => {
+it('keeps column changes in memory when the browser refuses the cookie', () => {
   vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
   const { result } = renderHook(() =>
     useOverviewSettings('alice', definition, asOf, savedSection('overview')),
@@ -252,10 +275,15 @@ it('keeps changes in memory when the browser refuses the cookie', () => {
     backlogColumns: ['name'],
     activityColumns: ['name'],
   });
-  act(() => result.current.update({ ageThresholds: [180], repositoryIds: ['b'] }));
-  expect(result.current.value).toMatchObject({ ageThresholds: [180], repositoryIds: ['b'] });
+  act(() => result.current.update({ ageThresholds: [180], repositoryIds: ['repo-prebidserver'] }));
+  expect(result.current.value).toMatchObject({
+    ageThresholds: [180],
+    repositoryIds: ['repo-prebidserver'],
+  });
+  expect(window.location.search).toBe('?repo=prebidserver&age=180');
   act(() => result.current.reset());
   expect(result.current.value).toEqual(defaults);
+  expect(window.location.search).toBe('?v=1');
 });
 
 it('keeps changes for this page only without saved preferences', () => {
@@ -280,96 +308,61 @@ function usePageControls(
     scopeKey: 'all-repositories:backlog',
     viewerId: 'alice',
     columnIds: definition.backlogColumns,
-    peerQueryKeys: backlogPeers,
-    defaultSort,
     savedSort: backlogSort,
+    fields: backlogFields,
   });
   const activity = useTableController({
     queryKey: 'activity',
     scopeKey: 'all-repositories:activity',
     viewerId: 'alice',
     columnIds: definition.activityColumns,
-    peerQueryKeys: activityPeers,
-    defaultSort,
+    fields: activityFields,
   });
   return { page, backlog, activity };
 }
-it('preserves pending searches across peer sorting and captures both before a scope change', () => {
-  vi.useFakeTimers();
+it('keeps each table’s sort apart and restarts a table’s pages when the scope shortens it', () => {
   const { result } = renderHook(() => usePageControls());
-  act(() => result.current.backlog.setSearch('prebid'));
-  act(() => result.current.activity.update({ sort: 'merged', descending: true }));
-  expect(result.current.backlog.draftSearch).toBe('prebid');
-  act(() => {
-    vi.advanceTimersByTime(250);
-  });
-  expect(result.current.backlog.query.search).toBe('prebid');
-  expect(result.current.activity.query).toMatchObject({ sort: 'merged', descending: true });
-  act(() => {
-    result.current.backlog.setSearch('one');
-    result.current.activity.setSearch('two');
-  });
-  act(() => {
-    result.current.backlog.flushSearch();
-    result.current.activity.flushSearch();
-    result.current.page.update({ repositoryIds: ['b'] });
-  });
-  act(() => {
-    vi.runAllTimers();
-  });
-  expect(result.current.backlog.query.search).toBe('one');
-  expect(result.current.activity.query.search).toBe('two');
-  expect(result.current.page.value.repositoryIds).toEqual(['b']);
+  expect(result.current.backlog.query).toMatchObject({ sort: 'totalOpenPrs', descending: true });
+  expect(result.current.activity.query).toMatchObject({ sort: 'prsOpened', descending: true });
+  act(() => result.current.activity.update({ sort: 'prsMerged', descending: true }));
+  act(() => result.current.backlog.update({ page: 2 }));
+  expect(window.location.search).toBe('?bpage=2&asort=-prsMerged');
+  expect(result.current.backlog.query.sort).toBe('totalOpenPrs');
+  act(() => result.current.page.update({ repositoryIds: ['repo-prebidserver'] }));
+  expect(window.location.search).toBe('?repo=prebidserver&asort=-prsMerged');
+  expect(result.current.page.value.repositoryIds).toEqual(['repo-prebidserver']);
 });
-it('reset clears only this page, including table sorts and drafts, and retains return history', () => {
+it('reset clears only this page, including table sorts, and retains return history', () => {
   localStorage.setItem('dashboard-theme', 'light');
-  const saved = { ...defaults, repositoryIds: ['b'] };
-  const savedSort = { sort: 'total', descending: true };
+  const saved = { ...defaults, repositoryIds: ['repo-prebidserver'] };
+  const savedSort = { sort: 'draftPrs', descending: true };
   const scope = { version: 1, retained: true };
   seedPreferences(alice, {
     overview: stored(saved),
     'overview.backlog.sort': savedSort,
     'contributions.scope': scope,
   });
+  // The saved explicit form a bare entry redirects to.
+  window.history.replaceState(null, '', '/repos?repo=prebidserver&bsort=-draftPrs');
   const { result } = renderHook(() =>
     usePageControls(savedSection('overview.backlog.sort', savedSort), serverSaved()),
   );
   expect(result.current.page.value).toEqual(saved);
+  expect(result.current.backlog.query).toMatchObject({ sort: 'draftPrs', descending: true });
   act(() => {
-    result.current.backlog.setSearch('query');
-  });
-  act(() => {
-    const backlog = result.current.backlog.flushSearch();
-    const activity = result.current.activity.flushSearch();
-    const url = new URL(window.location.href);
-    url.search = writeOverviewTableQueries(url.search, backlog, activity);
-    window.history.replaceState(null, '', url);
     result.current.backlog.clearSavedSort();
     result.current.activity.clearSavedSort();
     result.current.page.reset();
   });
   expect(result.current.page.value).toEqual(defaults);
-  expect(result.current.backlog.query).toMatchObject({
-    sort: 'name',
-    descending: false,
-    search: '',
-  });
-  expect(result.current.activity.query).toMatchObject({ sort: 'name', search: '' });
+  expect(result.current.backlog.query).toMatchObject({ sort: 'totalOpenPrs', descending: true });
   expect(preferenceSections('repositories')).toBeNull();
   expect(preferenceSections('contributions')).toEqual({ 'contributions.scope': scope });
   expect(localStorage.getItem('dashboard-theme')).toBe('light');
-  expect(window.location.search).toBe('');
-  const before = history.at(-2)!.href;
-  act(() => {
-    window.history.replaceState(null, '', before);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  });
-  expect(result.current.page.value.repositoryIds).toEqual(['b']);
-  expect(result.current.backlog.query).toMatchObject({
-    sort: 'total',
-    descending: true,
-    search: '',
-  });
+  expect(window.location.search).toBe('?v=1');
+  back('/repos?repo=prebidserver&bsort=-draftPrs');
+  expect(result.current.page.value.repositoryIds).toEqual(['repo-prebidserver']);
+  expect(result.current.backlog.query).toMatchObject({ sort: 'draftPrs', descending: true });
 });
 it('does not write history merely for flushing an untouched default sort', () => {
   const { result } = renderHook(() => usePageControls());
@@ -379,23 +372,35 @@ it('does not write history merely for flushing an untouched default sort', () =>
     result.current.activity.flushSearch();
   });
   expect(history).toEqual([]);
-  expect(result.current.backlog.query.sort).toBe('name');
+  expect(result.current.backlog.query.sort).toBe('totalOpenPrs');
 });
-it('keeps a usable in-memory sort when table storage is denied, including reset', () => {
+it('keeps a sort in the address when table storage is denied', () => {
   vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
   const { result } = renderHook(() => usePageControls(savedSection('overview.backlog.sort')));
-  act(() => result.current.backlog.update({ sort: 'total' }));
+  act(() => result.current.backlog.update({ sort: 'draftPrs', descending: false }));
   expect(result.current.backlog.storageAvailable).toBe(false);
-  expect(result.current.backlog.query.sort).toBe('total');
-  // A blocked cookie jar holds no saved sort, so clearing it succeeds and restores the default.
-  act(() => {
-    window.history.replaceState(null, '', '/repos');
-    result.current.backlog.clearSavedSort();
-  });
-  expect(result.current.backlog.query.sort).toBe('name');
+  expect(result.current.backlog.query.sort).toBe('draftPrs');
+  expect(window.location.search).toBe('?bsort=draftPrs');
   const anonymous = renderHook(() =>
     useTableController({ queryKey: 'items', columnIds: definition.backlogColumns }),
   );
   act(() => anonymous.result.current.clearSavedSort());
   expect(anonymous.result.current.query.sort).toBe('');
+});
+it('shows column choices saved since the first render when the Summary mounts again from history', () => {
+  seedPreferences(alice, { overview: stored(defaults) });
+  // The payload a Back restores was rendered before this choice was saved.
+  const firstRender = serverSaved();
+  seedPreferences(alice, { overview: stored({ ...defaults, activityColumns: ['name'] }) });
+  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf, firstRender));
+  expect(result.current.value.activityColumns).toEqual(['name']);
+  // Another tab's later save reaches this page when a save here announces it.
+  seedPreferences(alice, { overview: stored({ ...defaults, backlogColumns: ['name'] }) });
+  act(() => {
+    window.dispatchEvent(new Event(preferenceChangeEvent));
+  });
+  expect(result.current.value).toMatchObject({
+    backlogColumns: ['name'],
+    activityColumns: defaults.activityColumns,
+  });
 });

@@ -1,24 +1,25 @@
 'use client';
 import { followCaptured } from '@/lib/navigation/follow-captured';
-import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import { useMemo } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  repositoryTimelineEntry,
-  repositoryTimelineOrigin,
-} from '@/lib/presentation/timeline-navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { repositoryTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { RepositoryPageSource, RepositoryPageNavigation } from '@/models/repository-page';
 import type { SavedPreference } from '@/models/preferences';
 import type { TableQuery } from '@/models/table-query';
 import type { RepositoryPresentation } from '@/lib/presentation/repository-page-preferences';
+import type { RepositoryLinkPresentation } from '@/lib/presentation/repository-url';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
-import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-controls';
+import {
+  recordListRoute,
+  useRepositoryPageControls,
+} from '@/lib/navigation/use-repository-page-controls';
 import {
   selectRepositoryPage,
   repositoryPageDefaultSort,
 } from '@/lib/presentation/repository-page';
-import { repositoryScopeHref } from '@/lib/presentation/repository-page-navigation';
+import { pendingTableQuery } from '@/lib/presentation/table-controller';
+import { writeBoundTableQuery, type TableFields } from '@/lib/presentation/url/table-binding';
 import { RepositoryPageView } from '@/features/repositories/repository-page-view';
 import { RepositoryCharts } from '@/features/repositories/repository-charts';
 import { toggleChartSelection } from '@/lib/presentation/repository-chart-selection';
@@ -44,6 +45,8 @@ const issueColumnIds = repositoryPageIssueColumns
 export interface RepositoryPagePreferences {
   sort: SavedPreference<Pick<TableQuery, 'sort' | 'descending'>>;
   presentation: SavedPreference<RepositoryPresentation>;
+  /** Saved presentation of every repository list, which links to other lists carry (C3). */
+  links?: RepositoryLinkPresentation;
 }
 export function RepositoryPageScreen({
   viewerId,
@@ -57,9 +60,14 @@ export function RepositoryPageScreen({
   /** Without them, changes last for this page only. */
   preferences?: RepositoryPagePreferences;
 }) {
-  const router = useRouter();
   const pendingNavigation = usePendingNavigation();
-  const search = useSearchParams().toString();
+  const pathname = usePathname(),
+    search = useSearchParams().toString();
+  const route = recordListRoute(source);
+  const fields = useMemo<TableFields>(
+    () => ({ route, search: 'q', sort: 'sort', page: 'page' }),
+    [route],
+  );
   const controller = useTableController({
     queryKey: source.kind,
     scopeKey: 'repository:' + source.repository.slug + ':' + source.kind,
@@ -68,6 +76,7 @@ export function RepositoryPageScreen({
     defaultSort: repositoryPageDefaultSort,
     historyMode: 'push',
     savedSort: preferences?.sort,
+    fields,
   });
   const settings = useRepositoryPageControls(
     viewerId,
@@ -80,6 +89,7 @@ export function RepositoryPageScreen({
     () => (settings.filters ? selectRepositoryPage(source, settings.filters) : null),
     [source, settings.filters],
   );
+  const links = preferences?.links;
   if (!page || !settings.filters)
     return (
       <>
@@ -87,6 +97,7 @@ export function RepositoryPageScreen({
           repository={source.repository}
           asOf={source.asOf}
           returnTo={source.drilldown.returnTo}
+          links={links}
           navigation={navigation}
           activeKind={source.kind}
         />
@@ -103,45 +114,35 @@ export function RepositoryPageScreen({
         </EmptyState>
       </>
     );
+  /** This list's own address with its table state written in, as a Timeline's parent. */
+  const origin = (query: string, table: Partial<TableQuery>) => {
+    const written = writeBoundTableQuery(fields, query, table);
+    return written ? pathname + '?' + written : pathname;
+  };
   return (
     <RepositoryPageView
       page={page}
       navigation={navigation}
       controller={controller}
+      links={links}
       controls={{
         timelineHref: repositoryTimelineEntry(
           source,
           { ...settings.filters, search: controller.draftSearch },
-          repositoryTimelineOrigin(
-            source,
-            { ...settings.filters, search: controller.draftSearch },
-            search,
-            pendingTableQuery(controller),
-            settings.visibility.value,
-            source.kind === 'prs' ? prColumnIds : issueColumnIds,
-            settings.chartsVisible,
-          ),
+          origin(search, pendingTableQuery(controller)),
         ),
         onTimeline: (event) =>
           followCaptured(
             event,
             () => {
               const captured = controller.flushSearch();
-              const origin = repositoryTimelineOrigin(
-                source,
-                { ...settings.filters!, search: captured.search },
-                window.location.search,
-                captured,
-                settings.visibility.value,
-                source.kind === 'prs' ? prColumnIds : issueColumnIds,
-                settings.chartsVisible,
-              );
+              const parent = origin(window.location.search, captured);
               return {
-                origin,
+                origin: parent,
                 href: repositoryTimelineEntry(
                   source,
                   { ...settings.filters!, search: captured.search },
-                  origin,
+                  parent,
                 ),
               };
             },
@@ -159,15 +160,7 @@ export function RepositoryPageScreen({
           />
         ),
         scope: !source.author && (
-          <RepositoryScopeControls
-            source={source}
-            onChange={(mode, range) => {
-              controller.flushSearch();
-              router.push(repositoryScopeHref(source, mode, range, window.location.search), {
-                scroll: false,
-              });
-            }}
-          />
+          <RepositoryScopeControls source={source} onChange={settings.changeScope} />
         ),
         filters: (
           <RepositoryFilterControls

@@ -414,4 +414,12 @@ it('reads and writes registry fields when bound to the codec, keeping return con
     descending: true,
     page: 1,
   });
+  // A bare entry is pinned to its explicit form before a push leaves it, so Back shows it.
+  const replaceSpy = vi.spyOn(window.history, 'replaceState');
+  const before = replaceSpy.mock.calls.length;
+  act(() => result.current.update({ page: 2 }));
+  expect(replaceSpy.mock.calls.slice(before).map((call) => call[2])).toEqual([
+    '/repos/prebidjs?view=issues&v=1',
+  ]);
+  expect(window.location.search).toBe('?view=issues&page=2');
 });

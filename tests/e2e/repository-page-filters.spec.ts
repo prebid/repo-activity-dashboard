@@ -154,7 +154,7 @@ test('saves columns and sorting without saving historical scope or filters', asy
   await expect(page.getByText(/^Sorted by /)).toHaveCount(1);
 });
 
-test("another repository's pull requests open in the saved columns and sort, before any script runs", async ({
+test("another repository's pull requests redirect to the saved columns and sort, before any script runs", async ({
   page,
   browser,
 }, testInfo) => {
@@ -184,8 +184,9 @@ test("another repository's pull requests open in the saved columns and sort, bef
   await page.waitForLoadState('networkidle');
   await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR');
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
+  // The bare list entry was answered with the saved explicit form; nothing is written after load.
   expect(await page.evaluate(() => location.pathname + location.search)).toBe(
-    '/repos/prebidserver',
+    '/repos/prebidserver?sort=number&cols=-latestActivity',
   );
 });
 
@@ -250,7 +251,15 @@ test('unprepared custom dates remain unavailable, with a clear return to current
   await expect(page.getByRole('button', { name: 'Filters', exact: true })).toBeVisible();
   await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('current');
   await expect(page.getByText('137 matching records', { exact: true })).toBeVisible();
-  await page.goto('/repos/prebidjs?prs.filter.reviewers=99');
+  // A filter value the list does not offer is an invalid address, old or canonical.
+  for (const query of ['prs.filter.reviewers=99', 'reviewers=99']) {
+    await page.goto('/repos/prebidjs?' + query);
+    await expect(
+      page.getByRole('heading', { name: 'Invalid repository filter', exact: true }),
+    ).toBeVisible();
+  }
+  // A filter this scope cannot apply leaves the list recoverable in place.
+  await page.goto('/repos/prebidjs?events=this-month');
   await expect(
     page.getByRole('heading', { name: 'Invalid repository filters', exact: true }),
   ).toBeVisible();
@@ -272,8 +281,8 @@ test('opening filters captures pending search without dismissing the dialog', as
   await expect(dialog).toHaveCount(0);
   await expect(page.getByText('1 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  expect(new URL(page.url()).searchParams.get('prs.q')).toBe('Sample PR 1:');
-  expect(new URL(page.url()).searchParams.get('prs.filter.draft')).toBe('drafts');
+  expect(new URL(page.url()).searchParams.get('q')).toBe('Sample PR 1:');
+  expect(new URL(page.url()).searchParams.get('draft')).toBe('drafts');
 });
 
 for (const [scenario, path, count] of [
@@ -345,7 +354,7 @@ test('paused search bursts form one history entry with the pre-search page resto
   const input = page.getByRole('textbox', { name: 'Search Open pull requests', exact: true });
   for (const value of ['Sa', 'Samp', 'Sample']) {
     await input.fill(value);
-    await expect.poll(() => new URL(page.url()).searchParams.get('prs.q')).toBe(value);
+    await expect.poll(() => new URL(page.url()).searchParams.get('q')).toBe(value);
   }
   await page.goBack();
   await expect(page).toHaveURL(before);
@@ -368,10 +377,11 @@ test('scope switching removes impossible merged-PR restrictions and preserves is
   await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('completed');
   await expect(page.getByText('44 matching records', { exact: true })).toBeVisible();
   const p = new URL(page.url()).searchParams;
-  expect(p.get('branch')).toBe('master');
-  expect(p.has('prs.filter.states')).toBe(false);
-  expect(p.has('prs.filter.branches')).toBe(false);
-  expect(p.has('prs.filter.draft')).toBe(false);
+  expect(p.get('metric')).toBe('prsMerged');
+  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
+  expect(p.has('states')).toBe(false);
+  expect(p.has('branches')).toBe(false);
+  expect(p.has('draft')).toBe(false);
   await page.goto(
     '/repos/prebidjs?scope=period&metric=issuesOpened&' + range + '&issues.filter.states=Open',
   );
@@ -380,5 +390,5 @@ test('scope switching removes impossible merged-PR restrictions and preserves is
     page.getByRole('button', { name: 'Remove Current state: Open', exact: true }),
   ).toBeVisible();
   await expect.poll(() => new URL(page.url()).searchParams.get('metric')).toBe('issuesClosed');
-  expect(new URL(page.url()).searchParams.getAll('issues.filter.states')).toEqual(['Open']);
+  expect(new URL(page.url()).searchParams.get('states')).toBe('Open');
 });

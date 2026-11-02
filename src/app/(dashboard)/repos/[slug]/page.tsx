@@ -1,14 +1,18 @@
-import { repositoryDetail } from '@/server/reporting';
+import { notFound } from 'next/navigation';
+import { catalogRepository, repositoryDetail } from '@/server/reporting';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-screen';
 import { EmptyState } from '@/components/feedback/empty-state';
 import Link from 'next/link';
-import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
+import type { PageSearchParams } from '@/lib/presentation/search-params';
+import { legacySearchParams, queryPairs } from '@/lib/presentation/url/codec';
 import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
 import { repositoryPageMetadata } from '@/server/page-metadata';
 import { readPreferences } from '@/server/preferences';
 import {
+  recordEntryValues,
   repositoryInsightSort,
+  repositoryLinkPresentation,
   repositoryPagePreferences,
 } from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
@@ -22,9 +26,20 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
   searchParams: Promise<PageSearchParams>;
 }) {
-  return repositoryPageMetadata(
-    (await params).slug,
-    new URLSearchParams(encodeSearchParams(await searchParams)),
+  return repositoryPageMetadata((await params).slug, legacySearchParams(await searchParams));
+}
+function InvalidRepositoryView() {
+  return (
+    <>
+      <Link prefetch={false} href="/repos" className={styles.backLink}>
+        <BackIcon size={14} />
+        All repositories
+      </Link>
+      <EmptyState kind="error" title="Invalid repository filter">
+        The requested metric, dates, branch, or return path is invalid. Choose a count from All
+        repositories.
+      </EmptyState>
+    </>
   );
 }
 export default async function RepositoryPage({
@@ -36,23 +51,29 @@ export default async function RepositoryPage({
 }) {
   await requireViewer();
   const { slug } = await params;
+  if (!catalogRepository(slug)) notFound();
   const query = await searchParams;
-  // These screens still read legacy keys: the helper answers nothing until they read codec values.
-  await canonicalPage('/repos/[slug]', { slug: [slug] }, query, { legacyScreens: true });
-  const timelineParams = new URLSearchParams(encodeSearchParams(query));
-  if (timelineParams.has('timeline'))
-    return <RepositoryTimelineRoute slug={slug} params={timelineParams} />;
-  const result = await repositoryDetail(slug, new URLSearchParams(encodeSearchParams(query)));
+  const snapshot = await readPreferences('repositories');
+  const links = repositoryLinkPresentation(snapshot);
+  // The repository Timeline still reads legacy keys, so the helper hands its query back unchanged.
+  const page = await canonicalPage(
+    '/repos/[slug]',
+    { slug: [slug] },
+    query,
+    queryPairs(query).some(([key]) => key === 'timeline')
+      ? { legacyScreens: true }
+      : { saved: (_screen, values) => recordEntryValues(values, links) },
+  );
+  if (page.status === 'legacy') return <RepositoryTimelineRoute slug={slug} params={page.params} />;
+  if (page.status === 'invalid') return <InvalidRepositoryView />;
+  const result = await repositoryDetail(slug, page.values);
   if (result.status === 'page')
     return (
       <RepositoryPageScreen
         viewerId={result.viewer.id}
         source={result.source}
         navigation={result.navigation}
-        preferences={repositoryPagePreferences(
-          await readPreferences('repositories'),
-          result.source,
-        )}
+        preferences={repositoryPagePreferences(snapshot, result.source)}
       />
     );
   if (result.status === 'insight')
@@ -61,34 +82,9 @@ export default async function RepositoryPage({
         viewerId={result.viewer.id}
         insight={result.insight}
         navigation={result.navigation}
-        savedSort={repositoryInsightSort(await readPreferences('repositories'), result.insight)}
+        savedSort={repositoryInsightSort(snapshot, result.insight)}
+        links={links}
       />
     );
-  if (result.status === 'invalid' || result.status === 'unsupported')
-    return (
-      <>
-        <Link
-          prefetch={false}
-          href={result.status === 'unsupported' ? result.returnTo : '/repos'}
-          className={styles.backLink}
-        >
-          <BackIcon size={14} />
-          All repositories
-        </Link>
-        <EmptyState
-          kind={result.status === 'invalid' ? 'error' : 'missing'}
-          title={
-            result.status === 'invalid'
-              ? 'Invalid repository filter'
-              : 'This drilldown is not available yet'
-          }
-        >
-          {result.status === 'invalid'
-            ? 'The requested metric, dates, branch, or return path is invalid. Choose a count from All repositories.'
-            : 'Choose another metric from All repositories.'}
-        </EmptyState>
-      </>
-    );
-  const unhandled: never = result;
-  return unhandled;
+  return <InvalidRepositoryView />;
 }

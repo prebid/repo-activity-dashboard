@@ -131,7 +131,8 @@ test('login return preserves issue context, pagination and full-result search', 
   await page.goto('/repos/prebidjs?view=issues&issues.page=2');
   await expect(page).toHaveURL(/auth\/login\?callbackUrl=/);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-  await expect(page).toHaveURL(/view=issues.*issues.page=2/);
+  // The old link survives sign-in and is answered with its canonical form.
+  await expect(page).toHaveURL(/\/repos\/prebidjs\?view=issues&page=2$/);
   await expect(page.getByText('834 issues', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').getByRole('row')).toHaveCount(51);
   const pager = page.getByRole('navigation', { name: 'Open issues pages', exact: true });
@@ -312,10 +313,12 @@ test('sort defaults are per account and explicit URLs take precedence', async ({
   await expect(total).toHaveAttribute('aria-sort', 'descending');
   await page.getByRole('button', { name: 'Total PRs', exact: true }).click();
   await expect(total).toHaveAttribute('aria-sort', 'ascending');
+  // The bare entry is answered with the saved explicit form.
   await page.goto('/repos');
-  await expect(page).toHaveURL(/\/repos$/); // Restored defaults stay in memory until an action writes the URL.
+  await expect(page).toHaveURL(/\/repos\?bsort=totalOpenPrs$/);
   await expect(total).toHaveAttribute('aria-sort', 'ascending');
   await page.goto('/repos?backlog.sort=name&backlog.dir=asc');
+  await expect(page).toHaveURL(/\/repos\?bsort=name$/);
   await expect(
     page
       .getByRole('table', { name: 'Current backlog', exact: true })
@@ -342,7 +345,7 @@ test('repository issue search and same-route navigation keep the URL and rows sy
   await input.focus();
   await expect(input).toBeFocused();
   await input.pressSequentially('z'.repeat(130), { delay: 5 });
-  await expect(page).toHaveURL(/issues.q=z{130}/);
+  await expect(page).toHaveURL(/[?&]q=z{130}$/);
   await expect(input).toHaveValue('z'.repeat(130));
   await input.fill('Oldest sample issue');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
@@ -362,7 +365,7 @@ test('sort survives a real router refresh caused by another tab signing in', asy
   const total = page.getByRole('columnheader', { name: 'Total PRs', exact: true });
   await expect(total).toHaveAttribute('aria-sort', 'descending');
   await page.getByRole('button', { name: 'Total PRs', exact: true }).click();
-  await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
+  await expect(page).toHaveURL(/bsort=totalOpenPrs/);
   const refreshed = page.waitForResponse(
     (response) =>
       new URL(response.url()).pathname === '/repos' && response.request().headers()['rsc'] === '1',
@@ -373,7 +376,7 @@ test('sort survives a real router refresh caused by another tab signing in', asy
     await login(peer);
     await page.bringToFront();
     await refreshed;
-    await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
+    await expect(page).toHaveURL(/bsort=totalOpenPrs/);
     await expect(total).toHaveAttribute('aria-sort', 'ascending');
     observed.assertClean();
   } finally {

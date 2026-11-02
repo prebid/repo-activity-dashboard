@@ -18,6 +18,7 @@ const prebidjs = {
 } as const;
 const range = 'from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1';
 const query = (search: string) => new URLSearchParams(search);
+const asOf = '2026-10-24T12:00:00.000Z';
 const alice = { name: 'Alice' };
 const acme = { name: 'Example Acme' };
 
@@ -70,8 +71,19 @@ describe('repositoryPageTitle', () => {
     ['timeline=1&timeline.detail=constructor', 'Timeline · Prebid.js'],
     ['view=bogus', 'Prebid.js'],
     ['scope=current&metric=unknown', 'Prebid.js'],
+    // Canonical addresses: a period resolves at the reporting as-of unless the address pins one.
+    ['metric=humanApprovals0', 'PRs with 0 human approvals · Prebid.js'],
+    ['age=30&metric=agedPrs', 'PRs older than 30 days · Prebid.js'],
+    [
+      'period=this-year&at=2026-10-24T12:00Z&metric=prsOpened',
+      'PRs opened during the period · Prebid.js',
+    ],
+    ['period=this-month&metric=prAuthors&sort=account', 'PR authors · Prebid.js'],
+    ['view=issues&back=~age:60', 'Open issues · Prebid.js'],
+    ['metric=prsOpened', 'Prebid.js'],
+    ['metric=unknown', 'Prebid.js'],
   ])('titles ?%s as %s', (search, title) => {
-    expect(repositoryPageTitle(prebidjs, query(search))).toBe(title);
+    expect(repositoryPageTitle(prebidjs, query(search), asOf)).toBe(title);
   });
 });
 
@@ -90,8 +102,15 @@ describe('repositoryAuthorPageTitle', () => {
     ['%E0%A4%A', 'scope=period&metric=prAuthors&' + range, 'Prebid.js'],
     ['sample-author-2', 'scope=period&metric=prAuthors', 'Prebid.js'],
     ['sample-author-2', 'scope=current&metric=openIssues', 'Prebid.js'],
+    [
+      'sample-author-2',
+      'period=this-year&metric=prAuthors&listsort=-account',
+      'PRs by sample-author-2 · Prebid.js',
+    ],
+    ['sample-author-2', 'metric=prAuthors', 'Prebid.js'],
+    ['%E0%A4%A', 'period=this-year&metric=prAuthors', 'Prebid.js'],
   ])('titles %s with ?%s as %s', (account, search, title) => {
-    expect(repositoryAuthorPageTitle(prebidjs, account, query(search))).toBe(title);
+    expect(repositoryAuthorPageTitle(prebidjs, account, query(search), asOf)).toBe(title);
   });
 });
 

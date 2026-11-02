@@ -15,26 +15,52 @@ const navigation = {
   openIssues: { status: 'complete' as const, value: 4 },
 };
 
-it('keeps the All repositories origin in the breadcrumb and both record tabs', () => {
+it.each([
+  ['an old', '/repos/prebidjs?returnTo=%2Frepos%3Fperiod%3Dlast-month'],
+  ['a canonical', '/repos/prebidjs?view=issues&back=~period:last-month'],
+])(
+  'keeps the All repositories origin of %s parent in the breadcrumb and record tabs',
+  (_, parent) => {
+    render(
+      <RepositoryTimelineView
+        report={report}
+        navigation={navigation}
+        href="/repos/prebidjs?timeline=1"
+        parent={parent}
+      />,
+    );
+    expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute(
+      'href',
+      '/repos?period=last-month',
+    );
+    expect(screen.getByRole('link', { name: /^Pull requests/ })).toHaveAttribute(
+      'href',
+      '/repos/prebidjs?back=~period:last-month',
+    );
+    expect(screen.getByRole('link', { name: /^Issues/ })).toHaveAttribute(
+      'href',
+      '/repos/prebidjs?view=issues&back=~period:last-month',
+    );
+  },
+);
+it('marks the Summary unavailable when the parent page names one that cannot be restored', () => {
   render(
     <RepositoryTimelineView
       report={report}
       navigation={navigation}
       href="/repos/prebidjs?timeline=1"
-      parent="/repos/prebidjs?returnTo=%2Frepos%3Fperiod%3Dlast-month"
+      parent="/repos/prebidjs?back=!"
     />,
   );
-  expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute(
-    'href',
-    '/repos?period=last-month',
+  expect(screen.queryByRole('link', { name: 'All repositories' })).toBeNull();
+  expect(screen.getByText('All repositories').closest('[aria-disabled]')).toHaveAttribute(
+    'aria-disabled',
+    'true',
   );
-  for (const name of [/^Pull requests/, /^Issues/])
-    expect(
-      new URL(
-        screen.getByRole('link', { name }).getAttribute('href')!,
-        'https://example.test',
-      ).searchParams.get('returnTo'),
-    ).toBe('/repos?period=last-month');
+  expect(screen.getByRole('link', { name: /^Pull requests/ })).toHaveAttribute(
+    'href',
+    '/repos/prebidjs?back=!',
+  );
 });
 it('returns to All repositories when the parent is not a repository page with an origin', () => {
   render(
