@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   outputDir: 'test-results/browser-artifacts',
+  // Without {platform} or {projectName}, so macOS and Linux runs compare one committed file.
+  snapshotPathTemplate: 'tests/fixtures/golden/{arg}{ext}',
   fullyParallel: false,
   forbidOnly: true,
   workers: 1,
@@ -13,7 +15,12 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      // The golden URL set is recorded once, in Chromium; ignoring it here leaves no skipped case.
+      testIgnore: 'golden-urls.spec.ts',
+    },
   ],
   webServer: [
     {
