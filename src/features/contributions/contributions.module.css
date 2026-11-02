@@ -115,28 +115,12 @@
 }
 .table table {
   --pinned-width: 220px;
-  /* Share spare width across metrics while the identity column stays pinned at its declared width. */
-  --table-column-width: auto;
-}
-.table tbody td {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-.table th button {
-  white-space: normal;
 }
 .identityCell {
   display: flex;
   align-items: flex-start;
   gap: 11px;
   min-width: 0;
-}
-.account {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 .identity {
   display: flex;
@@ -168,9 +152,8 @@
   font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
+/* A company beside an identity reads as body text in the cell's ink, like the other text columns. */
 .companyLink {
-  font-size: var(--prebid-text-small);
-  color: var(--muted-foreground);
   overflow-wrap: anywhere;
   text-underline-offset: 3px;
 }
@@ -248,28 +231,22 @@
   }
 }
 
-.metricLink {
-  display: inline-block;
-  color: inherit;
-  border-radius: 3px;
-  text-decoration: none;
-}
-.metricLink:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.metricLink:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 3px;
-}
-
 .detailTotals dl {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+/* A supporting record: a muted number before the title, and the external-link glyph after the
+   title's last character, as on the account link. */
+.recordLink {
+  overflow-wrap: anywhere;
+}
+.recordNumber {
+  color: var(--muted-foreground);
+  font-variant-numeric: var(--prebid-numeric);
+}
 .recordLink svg {
   display: inline;
-  vertical-align: middle;
   margin-left: 3px;
+  vertical-align: -2px;
 }
 
 .memberControls {
