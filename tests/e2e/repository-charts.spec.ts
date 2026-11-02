@@ -143,6 +143,8 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   await page.goto('/repos/prebid-agent-skills');
   await expect(page).toHaveURL(/\/repos\/prebid-agent-skills\?charts$/);
   await expect(page.getByRole('button', { name: 'Hide charts', exact: true })).toBeVisible();
+  // A list with no prepared records keeps its charts without values.
+  await page.goto('/repos/prebid-agent-skills?metric=humanApprovals0&charts');
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),
   ).toBeVisible();
