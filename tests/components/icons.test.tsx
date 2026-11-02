@@ -59,6 +59,7 @@ const glyphs = {
   SignOutIcon: 'log-out',
   ChangePasswordIcon: 'key-round',
   DataAsOfIcon: 'clock',
+  SampleDataIcon: 'flask-conical',
   InfoIcon: 'info',
   WarningIcon: 'triangle-alert',
   ErrorIcon: 'circle-alert',

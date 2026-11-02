@@ -30,6 +30,7 @@ import {
   Download,
   Eye,
   EyeOff,
+  FlaskConical,
   FolderGit2,
   GitBranch,
   GitMerge,
@@ -164,6 +165,8 @@ export const SignOutIcon = concept(LogOut);
 export const ChangePasswordIcon = concept(KeyRound);
 /** The "Data as of" chip in a page header. */
 export const DataAsOfIcon = concept(Clock);
+/** The "Sample data" chip in a page header. */
+export const SampleDataIcon = concept(FlaskConical);
 
 // Notices and page states.
 export const InfoIcon = concept(Info);

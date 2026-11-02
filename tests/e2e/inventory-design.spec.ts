@@ -228,6 +228,15 @@ for (const [title, theme] of themes)
         expect(response?.status()).toBe(200);
         expect(new URL(page.url()).pathname).toBe(new URL(view.path, page.url()).pathname);
         await expectTheme(page, theme);
+        // Every report labels its prepared sample data beside the snapshot time.
+        if (
+          view.access === 'signed-in' &&
+          !view.path.startsWith('/auth/') &&
+          view.id !== 'foundation'
+        )
+          await expect(page.getByRole('complementary', { name: 'Data source' })).toContainText(
+            'Sample data',
+          );
         await fontsReady(page);
         const { violations } = await new AxeBuilder({ page }).include('main').analyze();
         expect(

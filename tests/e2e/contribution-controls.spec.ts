@@ -37,9 +37,12 @@ test('company inclusion, duplicate individual inclusion and exclusions keep 50-r
     .check();
   const individuals = dialog.getByRole('group', { name: /^Individuals/ });
   await individuals.getByRole('textbox').fill('sample-person-001');
+  // The search replaces the list once its request returns; check the account in the new list.
+  await expect(individuals.getByRole('checkbox', { name: /^Sample contributor / })).toHaveCount(1);
   await individuals.getByRole('checkbox', { name: /Sample contributor 1 / }).check();
   const exclusions = dialog.getByRole('group', { name: /^Exclusions/ });
   await exclusions.getByRole('textbox').fill('sample-person-001');
+  await expect(exclusions.getByRole('checkbox', { name: /^Sample contributor / })).toHaveCount(1);
   await exclusions.getByRole('checkbox', { name: /Sample contributor 1 / }).check();
   await dialog.getByRole('button', { name: 'Apply accounts', exact: true }).click();
   await expect(page.getByText('Page 1 of 2', { exact: true })).toBeVisible();

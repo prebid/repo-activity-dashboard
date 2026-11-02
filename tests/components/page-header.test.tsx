@@ -117,6 +117,16 @@ describe('PageHeader', () => {
     expect(within(header).getByRole('complementary', { name: 'Data source' })).toBeInTheDocument();
   });
 
+  it('labels prepared sample data in the Data source aside until live data replaces it', () => {
+    const view = render(<PageHeader title="All repositories" asOf={asOf} />);
+    const source = screen.getByRole('complementary', { name: 'Data source' });
+    expect(source).toHaveTextContent(/^Sample data\s*Data as of /);
+    view.rerender(<PageHeader title="All repositories" asOf={asOf} sampleData={false} />);
+    expect(screen.getByRole('complementary', { name: 'Data source' })).not.toHaveTextContent(
+      'Sample data',
+    );
+  });
+
   it('shows a dash for a snapshot time it cannot read', () => {
     render(<PageHeader title="All repositories" asOf="not a date" />);
     expect(screen.getByRole('complementary', { name: 'Data source' })).toHaveTextContent(

@@ -35,7 +35,7 @@ Use the existing top navigation with one Repos menu containing All repositories 
 
 Arrange the page vertically:
 
-1. Page title with its "Data as of" chip, without a sample-data notice, and one searchable repository multi-select shared by both tables. Include select all and clear selection; searching the picker only filters its options and does not silently change the selected repositories.
+1. Page title with its "Data as of" chip and, while reports read prepared samples, a "Sample data" chip beside it, and one searchable repository multi-select shared by both tables. Include select all and clear selection; searching the picker only filters its options and does not silently change the selected repositories.
 2. Current backlog table with its multi-select PR age menu and column-group controls.
 3. Activity table with up to two period selectors, separate custom-range actions, exact UTC dates, and its own column-group controls. When two periods are selected, their labeled rows stay adjacent for each repository.
 
