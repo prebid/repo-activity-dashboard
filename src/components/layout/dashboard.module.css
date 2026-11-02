@@ -253,11 +253,11 @@
     --dashboard-gutter: 16px;
   }
   /* The account group never narrows below its controls. An administrator's row, which also holds
-     Accounts, takes the room it needs from the logo, from 100px down to 72px. The group's track
+     Accounts, takes the room it needs from the logo, from 100px down to 64px. The group's track
      minimum is its own automatic minimum, so the navigation row spanning both tracks does not
      widen it. */
   .headerInner {
-    grid-template-columns: minmax(72px, max-content) 1fr;
+    grid-template-columns: minmax(64px, max-content) 1fr;
     column-gap: 8px;
   }
   .brand img {
@@ -266,7 +266,7 @@
     height: auto;
   }
   .account {
-    gap: 6px;
+    gap: 4px;
     min-width: auto;
   }
   /* Sign out, the group's one bare button: square, like the header icon buttons, once its label
