@@ -45,8 +45,11 @@ export function AccountMenu({
     <div ref={setContainer} className={styles.frame}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          {/* The label holds the visible name, which phone widths hide. */}
-          <Button variant="masthead" aria-label={'Account: ' + name}>
+          {/* Named by its content, "Account: <name>", so the name stays in it where phone widths
+              hide the name. The avatar's initials are decorative, and an aria-label would leave
+              them as visible text outside the name. */}
+          <Button variant="masthead">
+            <span className="sr-only">Account:</span>{' '}
             <Avatar kind="person" name={name} accountType="human" size={28} />
             <span className={frame.accountName}>{name}</span>
           </Button>
