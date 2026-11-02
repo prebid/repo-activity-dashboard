@@ -6,6 +6,11 @@ import { DashboardFrame } from '../src/components/layout/dashboard-frame';
 import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { ThemeMenu } from '../src/components/layout/theme-menu';
 import { LayoutWidthToggle } from '../src/components/layout/layout-width';
+import { AccountMenu } from '../src/components/layout/account-menu';
+import frame from '../src/components/layout/dashboard.module.css';
+import { Button } from '../src/components/ui/button';
+import { SignOutIcon } from '../src/components/ui/icons';
+import { previewAccounts } from '../src/lib/presentation/preview';
 import { EmptyState } from '../src/components/feedback/empty-state';
 import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
 import type { OverviewSettings } from '../src/models/overview-settings';
@@ -52,7 +57,13 @@ function OverviewPreview({
           accountControls={
             <>
               <LayoutWidthToggle />
-              <ThemeMenu />
+              <ThemeMenu tone="masthead" />
+              <AccountMenu viewer={previewAccounts[0]} passwordChange />
+              {/* The Toolbar's Sign out control, whose handler needs a session. */}
+              <Button variant="masthead">
+                <SignOutIcon size={16} />
+                <span className={frame.signOutLabel}>Sign out</span>
+              </Button>
             </>
           }
         />

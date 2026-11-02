@@ -2,6 +2,7 @@
 import { useState, type ReactNode } from 'react';
 import type { LayoutWidth } from '@/lib/presentation/layout-width';
 import { LayoutWidthContext } from './layout-width';
+import { WorkspaceFooter } from './workspace-footer';
 import styles from './dashboard.module.css';
 
 // Resolve streamed slots in component fibers, not while a DOM element hydrates.
@@ -28,14 +29,10 @@ export function DashboardFrame({
           Skip to content
         </a>
         <StreamedSlot>{navigation}</StreamedSlot>
-        <aside aria-label="Data source" className={styles.source}>
-          <span className={styles.sampleDot} aria-hidden="true" />
-          Sample reporting data{' '}
-          <span className={styles.sourceDetail}>· Prepared for design review</span>
-        </aside>
         <main id="dashboard-content" className={styles.main}>
           <StreamedSlot>{children}</StreamedSlot>
         </main>
+        <WorkspaceFooter />
       </div>
     </LayoutWidthContext>
   );

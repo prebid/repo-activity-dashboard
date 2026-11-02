@@ -8,7 +8,7 @@ const iconMap = 'src/components/ui/icons.ts';
 const iconMessage = 'Import icons from @/components/ui/icons, which sets their size and stroke.';
 const lucide = String.raw`/^lucide-react(\/|$)/`;
 // Rule 3: feature, route and shared component code composes primitives without restyling them.
-// The primitives themselves (ui/) and, until P4 rebuilds the shell, layout/ are outside it.
+// The primitives themselves (ui/) are outside it.
 const primitives = [
   'Button',
   'Input',
@@ -51,7 +51,7 @@ const restrictedSyntaxScopes = [
   { files: sourceFiles, ignores: [iconMap], selectors: restrictedSyntax.iconImports },
   {
     files: primitiveScope,
-    ignores: ['src/components/ui/**', 'src/components/layout/**'],
+    ignores: ['src/components/ui/**'],
     selectors: [...restrictedSyntax.iconImports, ...restrictedSyntax.primitiveClassNames],
   },
 ];

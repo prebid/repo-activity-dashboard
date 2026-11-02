@@ -152,11 +152,11 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
     await reports(paths.feature, lines('export const warm = 1;'));
   }, 30_000);
 
-  it('rejects a className on each primitive in features, routes and shared components', async () => {
+  it('rejects a className on each primitive in features, routes, shared components and the shell', async () => {
     const expected = [12, 13, 14, 15, 16, 17, 18, 19, 20].map(
       (line) => ['no-restricted-syntax', line] as const,
     );
-    for (const path of [paths.feature, paths.route, paths.component])
+    for (const path of [paths.feature, paths.route, paths.component, paths.layout])
       expect(await reports(path, primitiveOverrides), path).toEqual(expected);
   });
 
@@ -179,8 +179,8 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
     ).toEqual([]);
   });
 
-  it('leaves the primitives themselves, the P4 shell, tests and stories alone', async () => {
-    for (const path of [paths.primitive, paths.layout, paths.componentTest, paths.story])
+  it('leaves the primitives themselves, tests and stories alone', async () => {
+    for (const path of [paths.primitive, paths.componentTest, paths.story])
       expect(await reports(path, primitiveOverrides), path).toEqual([]);
   });
 
@@ -190,12 +190,12 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
       "export const load = () => import('lucide-react');",
       'export const Override = () => <Button className="mt-4" />;',
     );
-    expect(await reports(paths.feature, both)).toEqual([
-      ['no-restricted-syntax', 2],
-      ['no-restricted-syntax', 3],
-    ]);
-    for (const path of [paths.primitive, paths.layout])
-      expect(await reports(path, both), path).toEqual([['no-restricted-syntax', 2]]);
+    for (const path of [paths.feature, paths.layout])
+      expect(await reports(path, both), path).toEqual([
+        ['no-restricted-syntax', 2],
+        ['no-restricted-syntax', 3],
+      ]);
+    expect(await reports(paths.primitive, both)).toEqual([['no-restricted-syntax', 2]]);
   });
 
   it('does not read spread props, aliases or member names', async () => {

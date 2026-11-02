@@ -22,7 +22,17 @@ const choices = [
   { value: 'dark', label: 'Dark', icon: ThemeDarkIcon },
 ] as const;
 
-export function ThemeMenu({ className }: { className?: string }) {
+/**
+ * The theme choice behind a 36px icon button. `tone` is the surface it sits on: the page canvas,
+ * as on the sign-in pages, or the navy masthead. `className` places the control's wrapper.
+ */
+export function ThemeMenu({
+  className,
+  tone = 'page',
+}: {
+  className?: string;
+  tone?: 'page' | 'masthead';
+}) {
   const { theme, setTheme } = useTheme();
   const mounted = useClientReady();
   // Keep the popup within its owning landmark for assistive navigation.
@@ -32,13 +42,12 @@ export function ThemeMenu({ className }: { className?: string }) {
   const Icon = choices.find((choice) => choice.value === selected)?.icon ?? ThemeSystemIcon;
 
   return (
-    <div ref={setContainer} className={styles.frame}>
+    <div ref={setContainer} className={cn(styles.frame, className)}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            size="icon"
-            className={cn(styles.trigger, className)}
+            variant={tone === 'masthead' ? 'masthead' : 'secondary'}
+            size="icon-lg"
             aria-label="Theme settings"
             title="Theme settings"
             disabled={!mounted}
@@ -46,7 +55,7 @@ export function ThemeMenu({ className }: { className?: string }) {
             <Icon size={16} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" container={container} className={styles.content}>
+        <DropdownMenuContent align="end" container={container}>
           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
           <DropdownMenuRadioGroup value={selected} onValueChange={setTheme}>
             {choices.map(({ value, label, icon: OptionIcon }) => (

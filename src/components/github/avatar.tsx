@@ -9,8 +9,8 @@ import {
 import styles from './avatar.module.css';
 
 export type AvatarAccountType = keyof typeof accountTypeLabels;
-/** 32 in table cells; 48 in detail-page headers. */
-export type AvatarSize = 32 | 48;
+/** 28 in the masthead account control; 32 in table cells and menus; 48 in detail-page headers. */
+export type AvatarSize = 28 | 32 | 48;
 
 export type AvatarProps =
   /** A null account type is unavailable: no badge, and a title that says so. */

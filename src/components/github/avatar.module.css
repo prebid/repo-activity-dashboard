@@ -11,6 +11,12 @@
   font-weight: 600;
   user-select: none;
 }
+.avatar[data-size='28'] {
+  width: 28px;
+  height: 28px;
+  font-size: var(--prebid-text-caption);
+  line-height: var(--prebid-leading-caption);
+}
 .avatar[data-size='32'] {
   width: 32px;
   height: 32px;

@@ -1,9 +1,8 @@
 'use client';
-import { useState, type ReactNode } from 'react';
+import { useState, type MouseEvent, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ExpandIcon } from '@/components/ui/icons';
 import type { RepositoryDefinition } from '@/config/repositories';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +12,9 @@ import {
 import styles from './dashboard.module.css';
 import { BrandLogo } from './brand-logo';
 import { LinkPending } from '@/components/navigation/link-pending';
+import { followCaptured } from '@/lib/navigation/follow-captured';
 import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
+import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 
 export function DashboardHeader({
   repositories,
@@ -33,7 +34,21 @@ export function DashboardHeader({
     repositories.filter((repo) => repo.enabled),
   );
   const [container, setContainer] = useState<HTMLElement | null>(null);
+  const [repositoriesOpen, setRepositoriesOpen] = useState(false);
+  const navigation = usePendingNavigation();
   const inRepos = activePath.startsWith('/repos/');
+  // A menu item closes with its menu, so the router follows it and the trigger shows it pending.
+  // Modified clicks keep the browser's behaviour.
+  function followRepository(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    followCaptured(
+      event,
+      () => ({ href }),
+      (destination) => {
+        setRepositoriesOpen(false);
+        navigation.push(destination, 'repositories');
+      },
+    );
+  }
   return (
     <header className={styles.header} ref={setContainer}>
       <div className={styles.headerInner}>
@@ -56,11 +71,12 @@ export function DashboardHeader({
             Overview
             <LinkPending />
           </Link>
-          <DropdownMenu>
+          <DropdownMenu open={repositoriesOpen} onOpenChange={setRepositoriesOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className={styles.navItem} data-active={inRepos}>
+              <button type="button" className={styles.navItem} data-active={inRepos}>
                 Repositories <ExpandIcon size={14} />
-              </Button>
+                <LinkPending pending={navigation.pendingKey === 'repositories' || undefined} />
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent container={container} align="start" size="md">
               {repositories
@@ -71,6 +87,7 @@ export function DashboardHeader({
                       prefetch={false}
                       href={'/repos/' + repo.slug}
                       aria-current={activePath === '/repos/' + repo.slug ? 'page' : undefined}
+                      onClick={(event) => followRepository(event, '/repos/' + repo.slug)}
                     >
                       {repo.displayName}
                     </Link>

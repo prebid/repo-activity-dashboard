@@ -13,20 +13,8 @@
   z-index: 10;
 }
 .themeControl {
-  --theme-control-border: var(--prebid-line);
-  --theme-control-background: var(--prebid-card);
-  --theme-control-color: var(--prebid-muted);
-  --theme-control-hover: var(--prebid-hover);
-  color: var(--prebid-muted);
-  background: var(--prebid-card);
-  border: 1px solid var(--prebid-line);
-}
-.themeControl:hover {
-  background: var(--prebid-hover);
-}
-.themeControl:focus-visible {
-  outline: 2px solid var(--prebid-ring);
-  outline-offset: 3px;
+  /* Placement only: the theme menu's button draws the control in its page tone. */
+  display: inline-flex;
 }
 
 .page {
@@ -56,17 +44,18 @@
 .formEyebrow {
   color: var(--prebid-muted);
   text-align: center;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  font-size: var(--prebid-text-overline);
+  font-weight: 600;
+  line-height: var(--prebid-leading-overline);
+  letter-spacing: var(--prebid-tracking-overline);
   margin-bottom: 11px;
 }
 .title {
   text-align: center;
-  font-size: 29px;
+  font-size: var(--prebid-text-display);
   font-weight: 800;
   letter-spacing: -0.035em;
-  line-height: 1.25;
+  line-height: var(--prebid-leading-display);
 }
 .subtitle {
   text-align: center;
@@ -99,12 +88,12 @@
   max-width: 448px;
   margin: 0 auto 16px;
   border: 1px solid var(--prebid-info-border);
-  border-radius: 7px;
+  border-radius: var(--prebid-radius-panel);
   padding: 12px 14px;
   color: var(--prebid-link);
   background: var(--prebid-info-bg);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: var(--prebid-text-body);
+  line-height: var(--prebid-leading-body);
 }
 /* The submit and cancel wrappers are full-width grid cells; their button fills the cell. */
 .submit,
@@ -141,7 +130,7 @@
 .notice,
 .error,
 .success {
-  border-radius: 7px;
+  border-radius: var(--prebid-radius-panel);
   font-size: var(--prebid-text-small);
   line-height: 1.6;
   padding: 12px 14px;
@@ -201,8 +190,9 @@
   line-height: 1.7;
 }
 .backLink {
-  display: inline-block;
-  margin-top: 13px;
+  display: block;
+  width: fit-content;
+  margin: 13px auto 0;
   font-size: var(--prebid-text-small);
   color: var(--prebid-link);
   text-decoration: underline;
@@ -215,8 +205,8 @@
   gap: 7px;
   padding-top: 23px;
   color: var(--prebid-muted);
-  font-size: 10px;
-  line-height: 1.6;
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
 }
 
 @media (max-width: 480px) {
@@ -226,9 +216,6 @@
   }
   .header {
     margin-bottom: 25px;
-  }
-  .title {
-    font-size: 27px;
   }
 }
 @media (max-width: 360px) {
