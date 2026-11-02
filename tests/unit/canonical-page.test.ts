@@ -83,6 +83,33 @@ describe('canonicalPage', () => {
     });
   });
 
+  it('serves /reviewers with its own defaults and the `all` flag', async () => {
+    expect(await answer('/reviewers', {}, { sort: '-reviewerContributions' })).toEqual({
+      redirect: '/reviewers',
+    });
+    expect(await answer('/reviewers', {}, { all: '' })).toEqual({
+      status: 'canonical',
+      screen: 'contributionOverview',
+      values: { all: true },
+      entry: false,
+    });
+    expect(
+      await answer('/reviewers', {}, {}, { saved: () => ({ presentation: { all: true } }) }),
+    ).toEqual({
+      redirect: '/reviewers?all',
+    });
+    expect(await answer('/reviewers', {}, { lens: 'reviewers' })).toMatchObject({
+      status: 'invalid',
+    });
+    expect(
+      await answer(
+        '/companies',
+        {},
+        { all: '', lens: 'reviewers', sort: '-reviewerContributions' },
+      ),
+    ).toEqual({ redirect: '/companies?lens=reviewers&all' });
+  });
+
   it('renders the invalid view for unknown parameters and rejected legacy links', async () => {
     expect(await answer('/repos', {}, { nope: '1' })).toMatchObject({ status: 'invalid' });
     expect(

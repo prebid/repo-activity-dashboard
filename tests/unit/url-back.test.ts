@@ -132,6 +132,49 @@ describe('derive', () => {
   });
 });
 
+describe('the Reviewers lens', () => {
+  const reviewers = (values = {}): UrlView => ({ route: '/reviewers', segments: {}, values });
+  it('derives Reviewers-lens parents within the lens', () => {
+    expect(derive(reviewers())).toEqual({ kind: 'top' });
+    expect(
+      derive(reviewers({ metric: 'mergesPerformed', period: 'last-month', all: true })),
+    ).toEqual({ kind: 'derived', parent: reviewers({ period: 'last-month' }) });
+    expect(derive(reviewers({ timeline: true, group: 'week' }))).toEqual({
+      kind: 'derived',
+      parent: reviewers(),
+    });
+    expect(
+      derive({
+        route: '/companies',
+        segments: {},
+        values: { lens: 'reviewers', timeline: true, period: 'last-month' },
+      }),
+    ).toEqual({
+      kind: 'derived',
+      parent: {
+        route: '/companies',
+        segments: {},
+        values: { lens: 'reviewers', period: 'last-month' },
+      },
+    });
+  });
+  it('keeps a Show all parent in the frame, which reads back as that parent', () => {
+    const child = contributor({ lens: 'reviewers' });
+    const frame = encodeFrame(child, reviewers({ all: true, sort: 'name' }));
+    expect(frame).toBe('~sort:name~all');
+    expect(decodeFrame(child, frame!)).toEqual(reviewers({ sort: 'name', all: true }));
+    expect(resolveBack({ ...child, values: { lens: 'reviewers', back: [frame!] } })).toEqual([
+      {
+        available: true,
+        view: reviewers({ sort: 'name', all: true }),
+        href: '/reviewers?sort=name&all',
+      },
+    ]);
+    // The derived parent of a Contributors-lens page is /contributors, where `all` is unknown.
+    expect(decodeFrame(contributor(), '~all')).toBeNull();
+  });
+});
+
 describe('frames', () => {
   it('writes - for a derived parent, ~ for its differences and a path for another route', () => {
     expect(encodeFrame(repoPage(), summary())).toBe('-');

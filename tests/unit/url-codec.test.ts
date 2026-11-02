@@ -348,6 +348,78 @@ describe('serializeQuery', () => {
   });
 });
 
+describe('the Reviewers lens', () => {
+  it('serves /reviewers as a list route with its report, Over time and supporting views', () => {
+    expect(screenOf('/reviewers', {})).toBe('contributionOverview');
+    expect(screenOf('/reviewers', { metric: 'approvalContributions' })).toBe(
+      'contributionOverview',
+    );
+    expect(canonical('/reviewers', 'timeline&group=week').screen).toBe('contributionTimeline');
+    expect(
+      canonical(
+        '/reviewers',
+        'timeline&detail=reviewerContributions&interval=month:2026-10-01&snap=rev@2026-10-24',
+      ).screen,
+    ).toBe('support');
+    expect(
+      canonical('/reviewers', 'metric=reviewerContributions&period=this-month').values,
+    ).toEqual({ metric: 'reviewerContributions', period: 'this-month' });
+    // The route is the lens: `lens` is not a spelling of /reviewers or /contributors.
+    expect(parseQuery('/reviewers', 'lens=reviewers').kind).toBe('invalid');
+    expect(parseQuery('/contributors', 'lens=reviewers').kind).toBe('invalid');
+    expect(serializeQuery('/reviewers', { sort: '-reviewerContributions' })).toBe('');
+    expect(serializeQuery('/reviewers', { sort: '-authoredPrsMerged' })).toBe(
+      'sort=-authoredPrsMerged',
+    );
+  });
+  it('carries `lens` on every other contribution screen, a supporting view included', () => {
+    for (const [route, query] of [
+      ['/companies', 'lens=reviewers'],
+      ['/companies', 'timeline&lens=reviewers'],
+      [
+        '/companies',
+        'timeline&detail=mergesPerformed&interval=month:2026-10-01&snap=r@2026-10-24&lens=reviewers',
+      ],
+      ['/contributors/[accountId]', 'lens=reviewers&metric=approvalContributions'],
+      ['/companies/[...identity]', 'view=repositories&lens=reviewers'],
+      ['/companies/export', 'entity=overview&layout=summary&columns=name&lens=reviewers'],
+    ] as const)
+      expect(canonical(route, query).values.lens, query).toBe('reviewers');
+    expect(
+      parseQuery(
+        '/repos',
+        'timeline&detail=prsOpened&interval=month:2026-10-01&snap=r@2026-10-24&lens=reviewers',
+      ).kind,
+    ).toBe('invalid');
+  });
+  it('accepts the `all` flag on Reviewers-lens overviews and exports only', () => {
+    expect(canonical('/reviewers', 'all').values).toEqual({ all: true });
+    expect(canonical('/companies', 'lens=reviewers&all').values).toEqual({
+      lens: 'reviewers',
+      all: true,
+    });
+    expect(
+      canonical(
+        '/contributors/export',
+        'entity=overview&layout=summary&columns=name&lens=reviewers&all',
+      ).values.all,
+    ).toBe(true);
+    for (const [route, query] of [
+      ['/contributors', 'all'],
+      ['/contributors/[accountId]', 'lens=reviewers&all'],
+      ['/companies/[...identity]', 'lens=reviewers&all'],
+      ['/reviewers', 'timeline&all'],
+      ['/reviewers', 'all=1'],
+    ] as const)
+      expect(parseQuery(route, query).kind, route + '?' + query).toBe('invalid');
+    // A presentation field: never an entry, written after the table's other presentation.
+    expect(isEntry('/reviewers', { all: true })).toBe(false);
+    expect(
+      serializeQuery('/companies', { all: true, sort: 'name', lens: 'reviewers', q: 'acme' }),
+    ).toBe('lens=reviewers&q=acme&sort=name&all');
+  });
+});
+
 it('accepts every sample account and company ID as a literal list item', () => {
   for (const scenario of contributionSampleScenarios) {
     const directory = contributionDirectorySample(scenario);
