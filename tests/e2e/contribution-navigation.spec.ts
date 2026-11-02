@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import { contributionSample } from '../../src/mocks/contributions';
 import {
   defaultContributionSettings,
@@ -213,7 +214,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
     await copied.getByRole('link', { name: 'Back to report', exact: true }).click();
     await expect(copied.getByRole('table', { name: 'By repository', exact: true })).toBeVisible();
     expect(new URL(copied.url()).pathname).toBe(new URL(parent).pathname);
-    expect(new URL(copied.url()).searchParams.getAll('account').sort()).toEqual(
+    expect(listParam(copied.url(), 'account').sort()).toEqual(
       [...settings.selection.population.accountIds].sort(),
     );
     await copied.reload();
@@ -236,7 +237,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
     .click();
   await expect(page.getByRole('region', { name: 'Supporting record totals' })).toBeVisible();
   expect(page.url().length).toBeLessThan(7500);
-  expect(new URL(page.url()).searchParams.getAll('account').sort()).toEqual(
+  expect(listParam(page.url(), 'account').sort()).toEqual(
     [...settings.selection.population.accountIds].sort(),
   );
 });
@@ -296,4 +297,51 @@ test('Back to report on a contributor’s Over time returns to the list the repo
     'sample-heavy-agent',
   );
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+});
+test('old links and a differing bare entry are answered with one 307; exports never are', async ({
+  page,
+  baseURL,
+}) => {
+  await login(page);
+  const answer = async (path: string) => {
+    const response = await page.request.get(path, { maxRedirects: 0 });
+    const location = response.headers()['location'];
+    const target = location === undefined ? null : new URL(location, baseURL);
+    return [response.status(), target && target.pathname + target.search];
+  };
+  for (const [legacy, canonical] of [
+    [
+      '/contributors?scope=1&period=this-year&report.sort=name&report.dir=asc',
+      '/contributors?sort=name',
+    ],
+    [
+      '/companies?scope=1&period=last-month&repo=repo-prebidjs',
+      '/companies?repo=prebidjs&period=last-month',
+    ],
+    [
+      '/contributors/account-alice?scope=1&period=this-year&repositories.page=2',
+      '/contributors/account-alice?page=2',
+    ],
+    [
+      '/companies/id/company-acme?view=repositories&scope=1&period=this-year',
+      '/companies/id/company-acme?view=repositories',
+    ],
+  ])
+    expect(await answer(legacy), legacy).toEqual([307, canonical]);
+  // The canonical form is served as it is.
+  expect(await answer('/companies?repo=prebidjs&period=last-month')).toEqual([200, null]);
+  expect(await answer('/contributors')).toEqual([200, null]);
+  const lastMonth = defaultContributionSettings(contributionSample());
+  lastMonth.period = { kind: 'preset', preset: 'last-month' };
+  await seedContributionPreferences(page.context(), baseURL!, {
+    'contributions.scope': JSON.parse(serializeContributionPreferences(lastMonth)) as unknown,
+  });
+  expect(await answer('/contributors')).toEqual([307, '/contributors?period=last-month']);
+  // A subject page never takes the shared saved scope (decision C2).
+  expect(await answer('/contributors/account-alice')).toEqual([200, null]);
+  for (const query of [
+    'scope=1&period=this-year&entity=overview&column=name&column=prsAuthored',
+    'entity=overview&layout=summary&columns=name,prsAuthored',
+  ])
+    expect((await answer('/contributors/export?' + query))[0], query).toBe(200);
 });

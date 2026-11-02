@@ -2,64 +2,134 @@ export { companyFocus, readContributionLayoutQuery } from './url/legacy/contribu
 import type { ContributionContext } from '@/models/contributions';
 import type { ReportMetric } from '@/models/contribution-metrics';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import { writeContributionSettings } from './contribution-settings';
 import {
   type ContributionArea,
   type ContributionSampleScenario,
   type CompanyBreakdown,
 } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import { withContributionReturn } from './contribution-return';
+import { writeContributionSettings } from './contribution-settings';
+import { contributionUrlFits, withContributionReturn } from './contribution-return';
+import { encodeQueryValue, urlHref } from './url/codec';
+import { viewHref, type UrlView } from './url/back';
+import {
+  childViewHref,
+  contributionScopeValues,
+  contributionTarget,
+  contributionViewOf,
+  levelViewHref,
+  omitValues,
+  savedPresentationValues,
+  type ContributionTarget,
+  type SavedContributionTables,
+} from './contribution-url';
 
-export function contributionPath(
-  target: ContributionArea | Exclude<ContributionFocus, { kind: 'overview' }>,
-): string {
+export function contributionPath(target: ContributionTarget): string {
   if (typeof target === 'string') return '/' + target;
   if (target.kind === 'contributor') return '/contributors/' + encodeURIComponent(target.accountId);
   return target.companyId === null
     ? '/companies/unmapped'
     : '/companies/id/' + encodeURIComponent(target.companyId);
 }
+/** A target's view at a scope, with its table's saved presentation (decision C3). */
+function targetView(
+  target: ContributionTarget,
+  sample: ContributionSampleScenario,
+  settings: ContributionSettings | undefined,
+  saved: SavedContributionTables | undefined,
+  extra: Record<string, string> = {},
+): UrlView {
+  const { route, segments } = contributionTarget(target);
+  const values = {
+    ...(sample !== 'reference' && { sample }),
+    ...(settings && contributionScopeValues(settings)),
+    ...extra,
+  };
+  return {
+    route,
+    segments,
+    values: { ...values, ...savedPresentationValues(route, values, saved) },
+  };
+}
+/**
+ * A link to a contribution report at a scope. From a report (`returnTo`, its canonical href) the
+ * link carries that report as its parent frame; without one it is a same-level link written in
+ * explicit form, so it never answers with a saved view. Null when the link does not fit.
+ */
 export function contributionHref(
-  target: Parameters<typeof contributionPath>[0],
+  target: ContributionTarget,
   sample: ContributionSampleScenario,
   returnTo?: string,
   settings?: ContributionSettings,
+  saved?: SavedContributionTables,
 ): string | null {
-  const params = new URLSearchParams();
-  if (sample !== 'reference') params.set('sample', sample);
-  const search = settings
-    ? writeContributionSettings(params.toString(), settings)
-    : params.toString();
+  const child = targetView(target, sample, settings, saved);
+  if (returnTo === undefined) {
+    const href = urlHref(child.route, child.segments, child.values, { explicit: true });
+    return contributionUrlFits(href) ? href : null;
+  }
+  const parent = contributionViewOf(returnTo);
+  if (parent) return childViewHref(parent, child);
+  // An Over time view still reads legacy keys, so a link from it keeps the legacy trail, which the
+  // page answers with a 307 to its canonical form and `back` frames.
+  const sampled = sample === 'reference' ? '' : 'sample=' + encodeQueryValue(sample);
+  const search = settings ? writeContributionSettings(sampled, settings) : sampled;
   return withContributionReturn(contributionPath(target) + (search ? '?' + search : ''), returnTo);
 }
 export const companyBreakdownLabels: Record<CompanyBreakdown, string> = {
   members: 'By contributor',
   repositories: 'By repository',
 };
-export function companyBreakdownHref(path: string, search: string, view: CompanyBreakdown): string {
-  const params = new URLSearchParams(search);
-  if (view === 'members') params.delete('view');
-  else params.set('view', view);
-  return path + (params.size ? '?' + params.toString() : '');
+/**
+ * A company report's other breakdown (`search` is its canonical query): the same scope and parent,
+ * with that table's saved presentation in place of the current table's search, sort, page and
+ * columns. The page itself when the address would exceed the URL cap.
+ */
+export function companyBreakdownHref(
+  path: string,
+  search: string,
+  view: CompanyBreakdown,
+  saved?: SavedContributionTables,
+): string {
+  const query = search.replace(/^\?/, '');
+  const here = path + (query ? '?' + query : '');
+  const current = contributionViewOf(here);
+  if (!current) return here;
+  const values = omitValues(current.values, ['view', 'q', 'sort', 'page', 'cols', 'zero', 'v']);
+  if (view === 'repositories') values.view = 'repositories';
+  return (
+    levelViewHref(current, {
+      ...current,
+      values: { ...values, ...savedPresentationValues(current.route, values, saved) },
+    }) ?? here
+  );
 }
 
+/**
+ * A metric's supporting records for a report subject at the report's scope, optionally narrowed to
+ * one repository, from the report the value was clicked on (`returnTo`).
+ */
 export function contributionMetricHref(
-  target: Parameters<typeof contributionPath>[0],
+  target: ContributionTarget,
   sample: ContributionSampleScenario,
   context: ContributionContext,
   metric: ReportMetric,
   returnTo: string,
   repositoryId?: string,
+  saved?: SavedContributionTables,
 ): string | null {
   const settings = {
     period: context.period,
     selection: { ...context.selection, ...(repositoryId ? { repositoryIds: [repositoryId] } : {}) },
   };
-  const search = new URLSearchParams(writeContributionSettings('', settings));
-  if (sample !== 'reference') search.set('sample', sample);
-  const url = new URL(contributionPath(target), 'https://dashboard.invalid');
-  url.search = search.toString();
-  url.searchParams.set('metric', metric);
-  return withContributionReturn(url.pathname + url.search, returnTo);
+  const child = targetView(target, sample, settings, saved, { metric });
+  const parent = contributionViewOf(returnTo);
+  return parent ? childViewHref(parent, child) : viewHref(child, 'child');
+}
+/** The report target a focus names; an overview opens its area. */
+export function contributionTargetOf(
+  area: ContributionArea,
+  focus: ContributionFocus,
+): ContributionTarget {
+  return focus.kind === 'overview' ? area : focus;
 }

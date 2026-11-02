@@ -70,7 +70,10 @@ it.each(['contributors', 'companies', 'timeline', null])(
       );
   },
 );
-function header(focus?: Parameters<typeof selectContributions>[2]) {
+function header(
+  focus?: Parameters<typeof selectContributions>[2],
+  returnTo: string | null = '/contributors?page=2',
+) {
   const area = focus?.kind === 'company' ? 'companies' : 'contributors';
   return (
     <ContributionHeader
@@ -78,7 +81,7 @@ function header(focus?: Parameters<typeof selectContributions>[2]) {
         sample: 'reference',
         area,
         breakdown: 'members',
-        returnTo: '/contributors?report.page=2',
+        returnTo,
         report: selectContributions(contributionSample(), undefined, focus, { area }),
       }}
       links={{
@@ -106,9 +109,10 @@ it('puts the area tabs and Report | Over time in one view bar below the page hea
     'aria-current',
     'page',
   );
+  // A same-level tab names its defaults explicitly, so it never answers with a saved view.
   expect(within(areas).getByRole('link', { name: 'Companies' })).toHaveAttribute(
     'href',
-    '/companies',
+    '/companies?v=1',
   );
   // An overview has no breadcrumb, eyebrow or subtitle; the Data source aside states the snapshot.
   expect(screen.queryByRole('navigation', { name: 'Contribution breadcrumb' })).toBeNull();
@@ -124,7 +128,7 @@ it('leads a focused report’s header with Back to report and keeps its identity
   const trail = within(contributor).getByRole('navigation', { name: 'Contribution breadcrumb' });
   expect(within(trail).getByRole('link', { name: 'Back to report' })).toHaveAttribute(
     'href',
-    '/contributors?report.page=2',
+    '/contributors?page=2',
   );
   expect(within(contributor).getByRole('link', { name: /@sample-alice/ })).toBeVisible();
   expect(within(contributor).getByText('Human')).toBeVisible();
@@ -142,4 +146,12 @@ it('leads a focused report’s header with Back to report and keeps its identity
   expect(within(company).getByRole('link', { name: 'Back to report' })).toBeVisible();
   expect(within(company).getByText('3 included accounts · Current company mapping')).toBeVisible();
   expect(screen.queryByText('Company report')).toBeNull();
+});
+it('shows Back to report unavailable, with the reason, when its back frame cannot be restored', () => {
+  render(header({ kind: 'contributor', accountId: 'account-alice' }, null));
+  const trail = screen.getByRole('navigation', { name: 'Contribution breadcrumb' });
+  expect(within(trail).queryByRole('link')).toBeNull();
+  const crumb = within(trail).getByText('Back to report');
+  expect(crumb).toHaveAttribute('aria-disabled', 'true');
+  expect(crumb).toHaveTextContent('The page this link came from is not available.');
 });

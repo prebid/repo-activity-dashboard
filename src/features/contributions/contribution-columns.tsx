@@ -35,12 +35,16 @@ import {
 } from '@/lib/presentation/contribution-navigation';
 import styles from './contributions.module.css';
 import { contributionLinkLimitMessage } from '@/lib/presentation/contribution-return';
+import type { SavedContributionTables } from '@/lib/presentation/contribution-url';
 
 export type EntityFocus = Exclude<ContributionFocus, { kind: 'overview' }>;
 export interface ContributionLinks {
   sample: ContributionSampleScenario;
   settings?: ContributionSettings;
+  /** The current report's canonical address; links carry it as their parent. */
   currentHref: string;
+  /** Every table's saved presentation, which links that open a table carry. */
+  saved?: SavedContributionTables;
   timelineHref?: string | null;
   onTimeline?: (event: MouseEvent<HTMLAnchorElement>) => void;
   /** The tab whose handler-started navigation is pending: an area, or `timeline` for Over time. */
@@ -84,7 +88,13 @@ export function EntityLink({
   className?: string;
   label?: string;
 }) {
-  const href = contributionHref(focus, links.sample, links.currentHref, links.settings);
+  const href = contributionHref(
+    focus,
+    links.sample,
+    links.currentHref,
+    links.settings,
+    links.saved,
+  );
   return (
     <ContributionNavigationLink
       prefetch={false}
@@ -119,6 +129,7 @@ export function ContributionMetricLink({
     metric,
     links.currentHref,
     repositoryId,
+    links.saved,
   );
   return (
     <ContributionNavigationLink

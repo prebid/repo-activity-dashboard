@@ -21,11 +21,15 @@ import {
   repositoryContributionValues,
   type ValueColumn,
 } from './contribution-table-values';
-import { effectiveTableQuery, writeTableQuery } from './table-query';
+import { effectiveTableQuery } from './table-query';
 import { type TableQuery } from '@/models/table-query';
-import { writeContributionSettings } from './contribution-settings';
 import { contributionContextColumns } from './contribution-csv';
+import { contributionScopeValues } from './contribution-url';
 import { serializeCsv } from './csv-export';
+import { legacySearchParams, parseQuery, queryPairs, urlHref, type QueryInput } from './url/codec';
+import { defaultValue } from './url/defaults';
+import type { UrlRoute, UrlValue, UrlValues } from './url/registry';
+/** The frozen reader of a legacy export query. */
 export function readContributionExport(
   params: URLSearchParams,
   area: ContributionArea,
@@ -53,14 +57,11 @@ export function readContributionExport(
     )
   )
     return null;
-  const columns =
-    focus.data.kind === 'overview'
-      ? area === 'contributors'
-        ? contributorValues()
-        : companyValues()
-      : focus.data.kind === 'company' && breakdown === 'members'
-        ? contributorValues(false)
-        : repositoryContributionValues();
+  const columns = exportColumns(
+    focus.data,
+    area,
+    breakdown as ContributionExportRequest['breakdown'],
+  );
   const query = effectiveTableQuery(
     params.toString(),
     'export',
@@ -85,34 +86,145 @@ export function readContributionExport(
     query,
   };
 }
+const exportColumnOrder = ['name', 'actorType', 'company', 'members', ...reportMetricIds];
+const exportRoutes = {
+  contributors: '/contributors/export',
+  companies: '/companies/export',
+} as const satisfies Record<ContributionArea, UrlRoute>;
+/** Return context never changes an export, so it is dropped before the query is read. */
+const returnKeys: ReadonlySet<string> = new Set([
+  'back',
+  'returnTo',
+  'summary',
+  'timelineParent',
+  'nav',
+]);
+const exportOnly = (key: string) =>
+  key === 'column' ||
+  key === 'layout' ||
+  key === 'entity' ||
+  key === 'entityId' ||
+  key.startsWith('export.');
+const text = (values: UrlValues, name: string) =>
+  typeof values[name] === 'string' ? values[name] : undefined;
+/** An export request from canonical registry values; null when a choice is missing or unknown. */
+function canonicalExport(
+  values: UrlValues,
+  area: ContributionArea,
+): ContributionExportRequest | null {
+  const kind = text(values, 'entity') ?? 'overview',
+    id = text(values, 'id');
+  const focus = contributionFocusSchema.safeParse(
+    kind === 'contributor'
+      ? { kind, accountId: id }
+      : kind === 'company'
+        ? { kind, companyId: id === 'unmapped' ? null : id }
+        : { kind },
+  );
+  const requested = typeof values.columns === 'object' ? values.columns : [];
+  if (
+    !focus.success ||
+    (kind === 'overview' && id !== undefined) ||
+    values.lens === 'reviewers' ||
+    !requested.length ||
+    requested.some((column) => !exportColumnOrder.includes(column))
+  )
+    return null;
+  const breakdown = values.view === 'repositories' ? 'repositories' : 'members';
+  const columns = exportColumns(focus.data, area, breakdown);
+  const sort = text(values, 'sort') ?? defaultValue(exportRoutes[area], 'sort', values);
+  const sortId = typeof sort === 'string' ? sort.replace(/^-/, '') : '';
+  const searchable = !(
+    focus.data.kind === 'contributor' ||
+    (focus.data.kind === 'company' && breakdown === 'repositories')
+  );
+  return {
+    area,
+    focus: focus.data,
+    breakdown,
+    layout: text(values, 'layout') === 'repositories' ? 'repositories' : 'summary',
+    hideZeroMembers: values.zero === 'hide',
+    identityColumns: (['actorType', 'company', 'members'] as const).filter((column) =>
+      requested.includes(column),
+    ),
+    metrics: reportMetricIds.filter((metric) => requested.includes(metric)),
+    query: {
+      search: searchable ? (text(values, 'q') ?? '') : '',
+      ...(columns.some((column) => column.id === sortId)
+        ? { sort: sortId, descending: typeof sort === 'string' && sort.startsWith('-') }
+        : { sort: '', descending: false }),
+      page: 1,
+    },
+  };
+}
+/** The value columns an export's table has. */
+function exportColumns(
+  focus: ContributionExportRequest['focus'],
+  area: ContributionArea,
+  breakdown: ContributionExportRequest['breakdown'],
+) {
+  return focus.kind === 'overview'
+    ? area === 'contributors'
+      ? contributorValues()
+      : companyValues()
+    : focus.kind === 'company' && breakdown === 'members'
+      ? contributorValues(false)
+      : repositoryContributionValues();
+}
+/** An export query in either form, with the scope the report loads it from. */
+export type ContributionExportQuery =
+  | { form: 'canonical'; request: ContributionExportRequest; values: UrlValues }
+  | { form: 'legacy'; request: ContributionExportRequest; scope: URLSearchParams };
+/**
+ * Read an export query. Export links are never redirected (decision 14), so both the canonical
+ * form and the legacy form (`column`, `entityId`, `export.*`, `scope=1`) are served, and return
+ * context is ignored. Null when the query is neither, or names an unknown choice.
+ */
+export function readContributionExportQuery(
+  input: QueryInput,
+  area: ContributionArea,
+): ContributionExportQuery | null {
+  const pairs = queryPairs(input).filter(([key]) => !returnKeys.has(key));
+  const parsed = parseQuery(exportRoutes[area], pairs);
+  if (parsed.kind === 'canonical') {
+    const request = canonicalExport(parsed.values, area);
+    return request && { form: 'canonical', request, values: parsed.values };
+  }
+  if (parsed.kind === 'invalid') return null;
+  const request = readContributionExport(legacySearchParams(pairs), area);
+  return (
+    request && {
+      form: 'legacy',
+      request,
+      scope: legacySearchParams(pairs.filter(([key]) => !exportOnly(key))),
+    }
+  );
+}
+/** The canonical export link of a report's table: its scope, choices, search and sort. */
 export function contributionExportHref(
   page: ContributionPage,
   query: TableQuery,
   layout: ContributionExportRequest['layout'],
   metrics: readonly string[],
 ): string {
-  const params = new URLSearchParams(
-    writeContributionSettings('', {
+  const focus = page.report.context.focus;
+  const values: Record<string, UrlValue> = {
+    ...(page.sample !== 'reference' && { sample: page.sample }),
+    ...(page.breakdown === 'repositories' && { view: 'repositories' }),
+    ...contributionScopeValues({
       period: page.report.context.period,
       selection: page.report.context.selection,
     }),
-  );
-  if (page.sample !== 'reference') params.set('sample', page.sample);
-  const focus = page.report.context.focus;
-  params.set('entity', focus.kind);
-  if (focus.kind === 'contributor') params.set('entityId', focus.accountId);
-  if (focus.kind === 'company') params.set('entityId', focus.companyId ?? '');
-  params.set('view', page.breakdown);
-  params.set('layout', layout);
-  if (page.hideZeroMembers) params.set('members.zero', 'hide');
-  for (const column of ['name', 'actorType', 'company', 'members', ...reportMetricIds])
-    if (metrics.includes(column)) params.append('column', column);
-  return (
-    '/' +
-    page.area +
-    '/export?' +
-    writeTableQuery(params.toString(), 'export', { ...query, page: 1 })
-  );
+    entity: focus.kind,
+    ...(focus.kind === 'contributor' && { id: focus.accountId }),
+    ...(focus.kind === 'company' && { id: focus.companyId ?? 'unmapped' }),
+    layout,
+    columns: exportColumnOrder.filter((column) => metrics.includes(column)),
+    ...(page.hideZeroMembers && { zero: 'hide' }),
+    ...(query.search && { q: query.search }),
+    ...(query.sort && { sort: (query.descending ? '-' : '') + query.sort }),
+  };
+  return urlHref(exportRoutes[page.area], {}, values);
 }
 export function contributionCsv(
   rows: ContributionExportRow[],

@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import type { Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { observeBrowserErrors } from '../support/browser-errors';
@@ -197,9 +198,10 @@ test('contribution entry keeps list search on return and filters before 50-row t
   await expect(page.getByRole('textbox', { name: 'Search Contributors', exact: true })).toHaveValue(
     'Alice',
   );
-  expect(new URL(page.url()).searchParams.get('period')).toBe('this-year');
+  // The report's canonical address: an absent period is this year.
+  expect(new URL(page.url()).searchParams.get('period')).toBeNull();
   // The Report tab carries the population narrowed on Over time, not the entry snapshot.
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
   await page.goto('/companies?timeline=1&scope=1&period=this-year');
   await ready(page);
   await page.getByRole('button', { name: 'All accounts', exact: true }).click();

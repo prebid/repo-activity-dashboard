@@ -4,6 +4,7 @@ import {
   readContributionScopeInput,
   readContributionSettings,
   hasContributionScope,
+  writeContributionSettings,
 } from './url/legacy/contribution';
 import {
   defaultContributionSettings,
@@ -18,10 +19,9 @@ export {
   readContributionScopeInput,
   readContributionSettings,
   validateContributionSettings,
+  writeContributionSettings,
 };
 import { readTableColumns } from './table-column-preferences';
-import { repositoryCatalog } from '@/config/repositories';
-import { contributionActorTypes } from '@/models/contributions';
 import {
   contributionSettingsSchema,
   type ContributionSettings,
@@ -44,56 +44,6 @@ export function contributionPreferenceNeedsLookup(settings: ContributionSettings
       (settings.selection.population.accountIds.length > 0 ||
         settings.selection.population.companyIds.some((id) => id !== null)))
   );
-}
-/** Write the complete scope, including explicit empty selections and relative presets. */
-export function writeContributionSettings(
-  search: string,
-  value: ContributionSettings,
-  resetPages = false,
-): string {
-  const params = new URLSearchParams(search);
-  for (const key of contributionScopeKeys) params.delete(key);
-  params.set('scope', '1');
-  params.set('period', value.period.kind === 'preset' ? value.period.preset : 'custom');
-  if (value.period.kind === 'custom') {
-    params.set('from', value.period.from);
-    params.set('through', value.period.through);
-  }
-  const list = (key: string, values: readonly string[]) => {
-    if (!values.length) params.set(key, '');
-    else for (const value of values) params.append(key, value);
-  };
-  const equalIds = (a: readonly string[], b: readonly string[]) => {
-    const left = new Set(a),
-      right = new Set(b);
-    return left.size === right.size && [...left].every((id) => right.has(id));
-  };
-  if (
-    !value.selection.repositoryIds.length ||
-    !equalIds(
-      value.selection.repositoryIds,
-      repositoryCatalog.filter((repo) => repo.enabled).map((repo) => repo.id),
-    )
-  )
-    list('repo', [...new Set(value.selection.repositoryIds)].sort());
-  if (!equalIds(value.selection.actorTypes, contributionActorTypes))
-    list(
-      'type',
-      contributionActorTypes.filter((type) => value.selection.actorTypes.includes(type)),
-    );
-  if (value.selection.population.kind === 'selected') {
-    params.set('population', 'selected');
-    for (const id of [...new Set(value.selection.population.accountIds)].sort())
-      params.append('account', id);
-    for (const id of [...new Set(value.selection.population.companyIds)].sort())
-      params.append('company', id ?? '');
-  }
-  for (const id of [...new Set(value.selection.excludedAccountIds)].sort())
-    params.append('exclude', id);
-  if (resetPages)
-    for (const key of ['report', 'members', 'repositories', 'details'])
-      params.delete(key + '.page');
-  return params.toString();
 }
 export function contributionPreferenceKey(viewerId: string, sample: string): string {
   return 'dashboard:contributions:v1:' + [viewerId, sample].map(encodeURIComponent).join(':');

@@ -353,6 +353,21 @@ describe('rule 6: links and history writes go through the URL codec', { timeout:
         ]);
   });
 
+  it('rejects them in the contribution area, which builds its links through the codec', async () => {
+    for (const path of [
+      'src/app/(dashboard)/contributors/page.tsx',
+      'src/app/(dashboard)/companies/[...identity]/page.tsx',
+      'src/app/_screens/contribution-route.tsx',
+      'src/lib/navigation/use-contribution-controls.ts',
+      'src/lib/presentation/contribution-navigation.ts',
+      'src/lib/presentation/contribution-export.ts',
+      'src/server/contribution-export.ts',
+    ])
+      expect(await reports(path, urlWriters.searchParams), path).toEqual([
+        ['no-restricted-syntax', urlWriterLines.searchParams],
+      ]);
+  });
+
   it('accepts them in the codec, its legacy readers, the hook, tests and stories', async () => {
     for (const path of [urlCodec.codec, urlCodec.legacy, urlCodec.hook, paths.test, paths.story])
       for (const [form, text] of Object.entries(urlWriters))
