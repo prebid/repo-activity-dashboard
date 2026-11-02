@@ -231,6 +231,11 @@ This applies the [five-step frontend delivery process](../product/README.md#five
 Each is checked in the phase that first depends on it, and the result is recorded in `## Pn evidence`.
 
 - P0b: with existence checks in segment layouts above leaf loading boundaries, production 404 and 307 statuses are unchanged; document responses still carry report rows in server HTML (no streamed fallback), or the affected route gets no boundary.
+  - Result (2026-11-02, on `c577b6f`, `build:preview` and `build:production:fixture`): does not hold.
+  - Statuses hold: with leaf layouts that read `x-dashboard-return-path`, 92 of 92 statuses and `Location` headers matched the base.
+  - Server HTML does not: 52 of 52 report documents streamed their fallback, with the rows outside `<main>`. React outlines a finished boundary once the page passes 12,800 bytes.
+  - Skeletons never appeared on search-parameter tab clicks.
+  - Prefetch cost 4–12 account reads per page view in production, against 1 without it.
 - P1: CI, Amplify and Storybook builds can download Google Fonts. If not, use `next/font/local` with committed OFL woff2 files (same package, no new dependency). Inter serves `tnum` and `lnum` through Google Fonts. Storybook's Next.js framework handles `next/font/google`.
 - P4: the sticky masthead and view bar do not intercept clicks in existing browser specs; hash-only `history.replaceState` under the App Router notifies the router.
 - P5b: Amplify and CloudFront forward the preference cookies to server rendering within header limits.
@@ -259,7 +264,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | Phase | Status | Pull request | Checkpoint A | Checkpoint B |
 | --- | --- | --- | --- | --- |
 | P0 | Checkpoints approved; one pull request with P1 and P2 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P0b | Not started | — | — | — |
+| P0b | Closed: premise does not hold (2026-11-02). `prefetch={false}` and Architecture rule 10 are unchanged. | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P3 | Merged | #20 | — | — |
@@ -1070,7 +1075,7 @@ Settled under the approved URLs and Preferences rows, recorded for review:
 5. An entry is a report route whose query holds only view selectors. A defaults-equal entry is materialized with `v=1`; an absent `v` means v1.
 6. Preference cookies are written with `document.cookie`: non-HttpOnly, `SameSite=Lax`, `Secure` on https.
 7. An invalid section renders defaults with the recovery notice. After hydration, the client deletes it only if the cookie still holds that value. Rule 9 is amended to name this as the second permitted post-load write; it is cookie-only, with no history write.
-8. Legacy translation runs in a page-level server helper after `requireViewer()`, not in the frozen middleware. A `loading.tsx` above these pages would move it into the segment layout, which reads `x-dashboard-return-path`; this is recorded for P0b.
+8. Legacy translation runs in a page-level server helper after `requireViewer()`, not in the frozen middleware. A `loading.tsx` above these pages would move it into the segment layout, which reads `x-dashboard-return-path`; this is recorded for P0b. P0b result (2026-11-02): a layout-level 307 would need a request signal from outside Next, `sec-fetch-dest`, so that RSC requests are not redirected. Whether CloudFront and Amplify forward it is not verified.
 9. The bare-entry redirect runs in the same helper, because a layout does not re-render on a same-segment navigation.
 10. P5b lands before P5c, because both rewrite the five control hooks and the screens.
 11. P5c is split by area into P5c-1 and P5c-2.
