@@ -3,6 +3,8 @@ import { RepositoriesScreen } from '@/app/_screens/repositories-screen';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { RepositoryTimelineMatrixRoute } from '@/app/_screens/timeline-route';
 import { repositoriesPageMetadata } from '@/server/page-metadata';
+import { readPreferences } from '@/server/preferences';
+import { repositoriesPreferences } from '@/app/_screens/repository-preferences';
 export async function generateMetadata({
   searchParams,
 }: {
@@ -18,5 +20,11 @@ export default async function AllReposPage({
   const params = new URLSearchParams(encodeSearchParams(await searchParams));
   if (params.has('timeline')) return <RepositoryTimelineMatrixRoute params={params} />;
   const { viewer, samples } = await allRepositories();
-  return <RepositoriesScreen samples={samples} viewerId={viewer.id} />;
+  return (
+    <RepositoriesScreen
+      samples={samples}
+      viewerId={viewer.id}
+      preferences={repositoriesPreferences(await readPreferences('repositories'), samples)}
+    />
+  );
 }

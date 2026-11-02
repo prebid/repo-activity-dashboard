@@ -52,7 +52,7 @@ describe('field-wise writes', () => {
     });
     expect(assignments).toHaveBeenCalledOnce();
     expect(assignments.mock.lastCall![0]).toMatch(
-      /^dashboard-repositories=[\w-]+; Path=\/repos; Max-Age=31536000; SameSite=Lax$/,
+      /^dashboard-repositories=[\w-]+; Path=\/; Max-Age=31536000; SameSite=Lax$/,
     );
     expect((changed.mock.lastCall![0] as CustomEvent).detail).toEqual({
       section: 'overview.backlog.sort',

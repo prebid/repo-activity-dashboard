@@ -14,6 +14,8 @@ import {
   contributionDetailColumns,
 } from '@/features/repositories/repository-insights-view';
 import { repositoryMergedPrColumns } from '@/features/repositories/repository-page-columns';
+import type { SavedPreference } from '@/models/preferences';
+import type { TableQuery } from '@/models/table-query';
 const creditIds = contributionDetailColumns.map((column) => column.id),
   prIds = repositoryMergedPrColumns.map((column) => column.id);
 const defaults = {
@@ -21,31 +23,37 @@ const defaults = {
   contributions: { sort: 'firstCreditAt', descending: true },
   duration: { sort: 'createdAt', descending: true },
 };
+type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
 export function RepositoryInsightsScreen({
   insight,
   viewerId,
   navigation,
+  savedSort,
 }: {
   insight: RepositoryInsight;
   viewerId: string;
   navigation: RepositoryPageNavigation;
+  /** The table's saved sort, checked for shape by route composition; without it, sorts are not saved. */
+  savedSort?: SavedPreference<SavedSort>;
 }) {
   const path = usePathname(),
     search = useSearchParams().toString(),
     pendingNavigation = usePendingNavigation();
   const key =
     insight.kind === 'duration' ? 'prs' : insight.kind === 'authors' ? 'authors' : 'credits';
+  const columnIds =
+    insight.kind === 'duration'
+      ? prIds
+      : insight.kind === 'authors'
+        ? authorTableColumnIds
+        : creditIds;
   const controller = useTableController({
     queryKey: key,
     scopeKey: 'repository:' + insight.repository.slug + ':' + key,
     viewerId,
-    columnIds:
-      insight.kind === 'duration'
-        ? prIds
-        : insight.kind === 'authors'
-          ? authorTableColumnIds
-          : creditIds,
+    columnIds,
     defaultSort: defaults[insight.kind],
+    savedSort,
   });
   const scope = {
     ...insight,

@@ -25,15 +25,20 @@ import {
 import { contributionDetailColumns } from '@/features/contributions/contribution-details-view';
 import { ContributionTimelineSupportView } from '@/features/contributions/contribution-timeline-support';
 import type { TableQuery } from '@/models/table-query';
+import type { SavedPreference } from '@/models/preferences';
 import type { RepositoryTimelineSnapshotMetric } from '@/models/repository-timeline';
 import { repositoryRecordColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { repositoryTimelineSnapshotSelection } from '@/lib/presentation/repository-timeline';
+type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
 export function TimelineSupportScreen({
   detail,
   viewerId,
+  savedSort,
 }: {
   detail: TimelineSupport;
   viewerId: string;
+  /** The table's saved sort, checked for shape by route composition; without it, sorts are not saved. */
+  savedSort?: SavedPreference<SavedSort>;
 }) {
   const [notice, setNotice] = useState<string>();
   const path = usePathname(),
@@ -70,7 +75,7 @@ export function TimelineSupportScreen({
   const table = useTableController({
     queryKey: key,
     columnIds: ids,
-    // Repository supporting tables keep sorts per repository and record kind, like record lists.
+    // The former localStorage scope, copied once into the saved section of this detail kind.
     scopeKey:
       'timeline-support:' +
       detail.context.source.scenarioId +
@@ -80,6 +85,7 @@ export function TimelineSupportScreen({
         : [detail.kind, detail.repository.id, detail.recordKind].join(':')),
     viewerId,
     historyMode: 'push',
+    savedSort,
     defaultSort: {
       sort:
         detail.kind === 'authors'

@@ -17,6 +17,7 @@ import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { TimelineSupportScreen } from './timeline-support-screen';
+import { readTimelineSupportSort } from './repository-preferences';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
 function InvalidTimeline({ message, href }: { message: string; href: string }) {
   return (
@@ -115,7 +116,11 @@ export async function ContributionTimelineRoute({
 async function TimelineSupportRoute({ path, params }: { path: string; params: URLSearchParams }) {
   const result = await loadTimelineSupport(path, params);
   return result.status === 'ready' ? (
-    <TimelineSupportScreen detail={result.detail} viewerId={result.viewerId} />
+    <TimelineSupportScreen
+      detail={result.detail}
+      viewerId={result.viewerId}
+      savedSort={await readTimelineSupportSort(result.detail)}
+    />
   ) : (
     <InvalidTimeline message={result.message} href={result.parentHref ?? path} />
   );

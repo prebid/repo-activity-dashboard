@@ -7,6 +7,7 @@ import { selectRepositoryTimelineSupport } from '@/lib/presentation/timeline-sup
 import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import type { TimelineSupport } from '@/models/timeline-support';
+import { savedSection } from '../support/preference-cookies';
 import {
   readTimelineSupportQuery,
   timelineSupportHref,
@@ -57,6 +58,39 @@ beforeEach(() => {
   navigation.push.mockReset();
 });
 afterEach(() => vi.restoreAllMocks());
+it('starts sorted by the saved sort of its detail kind, unless the table lacks that column', () => {
+  window.history.replaceState(null, '', href);
+  writes.length = 0;
+  const sorted = () =>
+    screen
+      .getAllByRole('columnheader')
+      .filter((header) => /^(a|de)scending$/.test(header.getAttribute('aria-sort') ?? ''))
+      .map((header) => [header.getAttribute('aria-sort'), header.textContent?.trim()]);
+  const first = render(
+    <TimelineSupportScreen
+      detail={detail}
+      viewerId="alice"
+      savedSort={savedSection('timeline-support.authors.prs.sort', {
+        sort: 'account',
+        descending: false,
+      })}
+    />,
+  );
+  expect(sorted()).toEqual([['ascending', 'GitHub account']]);
+  first.unmount();
+  render(
+    <TimelineSupportScreen
+      detail={detail}
+      viewerId="alice"
+      savedSort={savedSection('timeline-support.authors.prs.sort', {
+        sort: 'createdAt',
+        descending: false,
+      })}
+    />,
+  );
+  expect(sorted()).toEqual([['descending', expect.stringMatching(/^Records authored/)]]);
+  expect(writes).toEqual([]);
+});
 it('freezes the authors table into history before following an author', async () => {
   window.history.replaceState(null, '', href);
   writes.length = 0;

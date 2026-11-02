@@ -62,7 +62,10 @@ export function useTableController({
   const [draft, setDraft] = useState<{ scope: string; stamp: string; value: string } | null>(null);
   // A sort saved or cleared in this session; until then the server-validated sort applies.
   const [changed, setChanged] = useState<{ scope: string; value: SavedSort | null } | null>(null);
-  const saved = changed?.scope === scope ? changed.value : (savedSort?.value ?? null);
+  // A saved sort on a column this table lacks does not apply here; the default sort does.
+  const applicable =
+    savedSort?.value && columnIds.includes(savedSort.value.sort) ? savedSort.value : null;
+  const saved = changed?.scope === scope ? changed.value : applicable;
   const [correction, setCorrection] = useState<{
     scope: string;
     stamp: string;

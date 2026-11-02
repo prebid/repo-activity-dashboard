@@ -1,6 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { useOverviewSettings } from '@/lib/navigation/use-overview-settings';
+import {
+  overviewPreferencesInvalidNotice,
+  useOverviewSettings,
+} from '@/lib/navigation/use-overview-settings';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import {
   defaultOverviewSettings,
@@ -8,15 +11,18 @@ import {
   serializeOverviewPreferences,
   writeOverviewTableQueries,
 } from '@/lib/presentation/overview-settings';
-import { preferenceKey } from '@/lib/presentation/table-query';
 import type { SavedPreference } from '@/models/preferences';
+import type { OverviewSettings } from '@/models/overview-settings';
 import {
   alice,
   preferenceSections,
+  rawPreferenceCookie,
   savedSection,
   seedPreferences,
 } from '../support/preference-cookies';
 
+vi.mock('server-only', () => ({}));
+vi.mock('@/lib/auth/viewer', () => ({ requireViewer: vi.fn() }));
 vi.mock('next/navigation', async () => {
   const { useSyncExternalStore } = await import('react');
   const subscribe = (notify: () => void) => {
@@ -44,6 +50,7 @@ vi.mock('next/navigation', async () => {
       ),
   };
 });
+import { preferenceSnapshot, savedOverviewSettings } from '@/server/preferences';
 const definition = {
   repositoryIds: ['a', 'b'],
   backlogColumns: ['name', 'total'],
@@ -56,6 +63,7 @@ const defaults = defaultOverviewSettings(definition);
 const defaultSort = { sort: 'name', descending: false };
 const backlogPeers = ['activity'],
   activityPeers = ['backlog'];
+const bob = { accountId: 'bob', authVersion: 0 };
 const history: { action: string; href: string; state: unknown }[] = [];
 beforeEach(() => {
   history.length = 0;
@@ -76,16 +84,31 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-it('restores preferences without history writes and materializes the previous view before a filter change', () => {
+/** A section value, exactly as the existing serializer writes it. */
+const stored = (settings: OverviewSettings) =>
+  JSON.parse(serializeOverviewPreferences(settings)) as unknown;
+/** What route composition hands the hook after the server read this session's cookie. */
+function serverSaved(binding = alice) {
+  const raw = rawPreferenceCookie('repositories');
+  return savedOverviewSettings(preferenceSnapshot('repositories', binding, raw), definition, asOf);
+}
+
+it('starts from the saved settings without history writes and saves only the fields a change makes', () => {
   const saved = { ...defaults, repositoryIds: ['b'], ageThresholds: [90 as const] };
-  localStorage.setItem(overviewPreferenceKey('alice'), serializeOverviewPreferences(saved));
-  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
+  seedPreferences(alice, { overview: stored(saved) });
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, serverSaved()),
+  );
   expect(result.current.value).toEqual(saved);
+  expect(result.current.notice).toBeUndefined();
   expect(history).toEqual([]);
   act(() => result.current.update({ ageThresholds: [60] }));
   expect(result.current.value.ageThresholds).toEqual([60]);
   expect(history.map((item) => item.action)).toEqual(['replaceState', 'pushState']);
   expect(history.every((item) => item.state === null)).toBe(true);
+  expect(preferenceSections('repositories')).toEqual({
+    overview: stored({ ...saved, ageThresholds: [60] }),
+  });
   const before = history[0].href;
   expect(new URL(before).searchParams.get('age')).toBe('90');
   act(() => {
@@ -100,32 +123,60 @@ it('restores preferences without history writes and materializes the previous vi
   expect(result.current.value.activityColumns).toEqual(['name', 'merged']);
 });
 
-it('uses explicit URLs and keeps accounts isolated when returning directly to the page', () => {
-  localStorage.setItem(
-    overviewPreferenceKey('alice'),
-    serializeOverviewPreferences({ ...defaults, repositoryIds: ['a'] }),
-  );
+it('applies an explicit link to this view only, and a change there saves just its own field', () => {
+  seedPreferences(alice, { overview: stored({ ...defaults, repositoryIds: ['a'] }) });
   window.history.replaceState(null, '', '/repos?repo=b&change=0');
-  const { result, rerender } = renderHook(
-    ({ viewerId }) => useOverviewSettings(viewerId, definition, asOf),
-    { initialProps: { viewerId: 'alice' } },
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, serverSaved()),
   );
   expect(result.current.value).toMatchObject({ repositoryIds: ['b'] });
+  act(() => result.current.update({ backlogColumns: ['name'] }));
+  expect(result.current.value).toMatchObject({ repositoryIds: ['b'], backlogColumns: ['name'] });
+  // The linked repository was shown, not chosen, so the saved selection is unchanged.
+  expect(preferenceSections('repositories')?.overview).toEqual(
+    stored({ ...defaults, repositoryIds: ['a'], backlogColumns: ['name'] }),
+  );
   act(() => window.history.replaceState(null, '', '/repos'));
-  rerender({ viewerId: 'bob' });
+  expect(result.current.value).toMatchObject({ repositoryIds: ['a'], backlogColumns: ['name'] });
+});
+
+it('keeps another account on its own saved settings', () => {
+  seedPreferences(alice, { overview: stored({ ...defaults, repositoryIds: ['a'] }) });
+  // The server ignores a cookie bound to another account, so Bob starts from the defaults.
+  const { result, rerender } = renderHook(
+    ({ viewerId, binding }) =>
+      useOverviewSettings(viewerId, definition, asOf, serverSaved(binding)),
+    { initialProps: { viewerId: 'bob', binding: bob } },
+  );
   expect(result.current.value).toEqual(defaults);
   act(() => result.current.update({ ageThresholds: [120] }));
-  act(() => window.history.replaceState(null, '', '/repos'));
-  rerender({ viewerId: 'alice' });
-  expect(result.current.value).toMatchObject({
-    repositoryIds: ['a'],
-    ageThresholds: [30],
+  expect(preferenceSections('repositories', bob)).toEqual({
+    overview: stored({ ...defaults, ageThresholds: [120] }),
   });
+  expect(preferenceSections('repositories', alice)).toBeNull();
+  act(() => window.history.replaceState(null, '', '/repos'));
+  rerender({ viewerId: 'alice', binding: alice });
+  expect(result.current.value).toEqual(defaults);
+});
+
+it("keeps another tab's saved fields when this page saves a change", () => {
+  seedPreferences(alice, { overview: stored(defaults) });
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, serverSaved()),
+  );
+  // Another tab hides a backlog column after this page rendered.
+  seedPreferences(alice, { overview: stored({ ...defaults, backlogColumns: ['name'] }) });
+  act(() => result.current.update({ ageThresholds: [180] }));
+  expect(preferenceSections('repositories')?.overview).toEqual(
+    stored({ ...defaults, backlogColumns: ['name'], ageThresholds: [180] }),
+  );
 });
 
 it('keeps empty selections, relative periods and table pagination scopes distinct', () => {
   window.history.replaceState(null, '', '/repos?backlog.page=2&activity.page=3');
-  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, savedSection('overview')),
+  );
   act(() => result.current.update({ periods: [{ kind: 'preset', preset: 'last-week' }] }));
   expect(new URLSearchParams(window.location.search).get('backlog.page')).toBe('2');
   expect(new URLSearchParams(window.location.search).has('activity.page')).toBe(false);
@@ -133,8 +184,8 @@ it('keeps empty selections, relative periods and table pagination scopes distinc
   expect(result.current.value.repositoryIds).toEqual([]);
   expect(new URLSearchParams(window.location.search).get('repo')).toBe('');
   expect(new URLSearchParams(window.location.search).has('backlog.page')).toBe(false);
-  const stored: unknown = JSON.parse(localStorage.getItem(overviewPreferenceKey('alice'))!);
-  expect(stored).toMatchObject({
+  // A relative period is saved as its preset, not as the dates it resolves to today.
+  expect(preferenceSections('repositories')?.overview).toMatchObject({
     version: 3,
     settings: { repositoryIds: [], periods: [{ kind: 'preset', preset: 'last-week' }] },
   });
@@ -143,32 +194,87 @@ it('keeps empty selections, relative periods and table pagination scopes distinc
   expect(history).toHaveLength(writes);
 });
 
-it('survives denied storage without treating malformed JSON as an outage', () => {
+it('shows the defaults with the recovery notice for a rejected section and deletes it once', () => {
+  const rejected = { version: 9, settings: {} };
+  seedPreferences(alice, { overview: rejected });
+  const saved = serverSaved();
+  expect(saved).toMatchObject({ value: null, invalid: JSON.stringify(rejected) });
+  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf, saved));
+  expect(result.current.value).toEqual(defaults);
+  expect(result.current.notice).toBe(overviewPreferencesInvalidNotice);
+  // After hydration the rejected value is deleted, with no history write.
+  expect(preferenceSections('repositories')).toBeNull();
+  expect(history).toEqual([]);
+  act(() => result.current.update({ ageThresholds: [60] }));
+  expect(result.current.notice).toBeUndefined();
+});
+
+it('keeps a newer value that replaced the rejected one in another tab', () => {
+  const newer = stored({ ...defaults, ageThresholds: [360] });
+  seedPreferences(alice, { overview: newer });
+  const rejected = JSON.stringify({ version: 9, settings: {} });
+  renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, savedSection('overview', null, rejected)),
+  );
+  expect(preferenceSections('repositories')).toEqual({ overview: newer });
+});
+
+it('copies a former browser-storage value once, applying it from the next request', () => {
+  const saved = { ...defaults, repositoryIds: ['b'] };
+  localStorage.setItem(overviewPreferenceKey('alice'), serializeOverviewPreferences(saved));
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, savedSection('overview')),
+  );
+  expect(result.current.value).toEqual(defaults);
+  expect(preferenceSections('repositories')).toEqual({ overview: stored(saved) });
+  expect(localStorage.getItem(overviewPreferenceKey('alice'))).toBeNull();
+  expect(history).toEqual([]);
+  expect(serverSaved().value).toEqual(saved);
+});
+
+it('discards a malformed former value without copying it', () => {
   localStorage.setItem(overviewPreferenceKey('alice'), '{');
-  const first = renderHook(() => useOverviewSettings('alice', definition, asOf));
-  expect(first.result.current.storageAvailable).toBe(true);
-  expect(first.result.current.value).toEqual(defaults);
-  first.unmount();
-  vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
+  renderHook(() => useOverviewSettings('alice', definition, asOf, savedSection('overview')));
+  expect(preferenceSections('repositories')).toBeNull();
+  expect(localStorage.getItem(overviewPreferenceKey('alice'))).toBeNull();
+});
+
+it('keeps changes in memory when the browser refuses the cookie', () => {
+  vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
+  const { result } = renderHook(() =>
+    useOverviewSettings('alice', definition, asOf, savedSection('overview')),
+  );
+  expect(result.current.storageAvailable).toBe(true);
+  act(() => result.current.update({ backlogColumns: ['name'] }));
   expect(result.current.storageAvailable).toBe(false);
+  act(() => result.current.update({ activityColumns: ['name'] }));
+  expect(result.current.value).toMatchObject({
+    backlogColumns: ['name'],
+    activityColumns: ['name'],
+  });
   act(() => result.current.update({ ageThresholds: [180], repositoryIds: ['b'] }));
   expect(result.current.value).toMatchObject({ ageThresholds: [180], repositoryIds: ['b'] });
   act(() => result.current.reset());
   expect(result.current.value).toEqual(defaults);
-  expect(result.current.storageAvailable).toBe(false);
 });
 
-function usePageControls(backlogSort?: SavedPreference<{ sort: string; descending: boolean }>) {
-  const page = useOverviewSettings('alice', definition, asOf);
+it('keeps changes for this page only without saved preferences', () => {
+  const { result } = renderHook(() => useOverviewSettings('alice', definition, asOf));
+  act(() => result.current.update({ backlogColumns: ['name'] }));
+  act(() => result.current.update({ activityColumns: ['name'] }));
+  expect(result.current.value).toMatchObject({
+    backlogColumns: ['name'],
+    activityColumns: ['name'],
+  });
+  expect(result.current.storageAvailable).toBe(true);
+  expect(preferenceSections('repositories')).toBeNull();
+});
+
+function usePageControls(
+  backlogSort?: SavedPreference<{ sort: string; descending: boolean }>,
+  overview?: SavedPreference<OverviewSettings>,
+) {
+  const page = useOverviewSettings('alice', definition, asOf, overview);
   const backlog = useTableController({
     queryKey: 'backlog',
     scopeKey: 'all-repositories:backlog',
@@ -190,7 +296,7 @@ function usePageControls(backlogSort?: SavedPreference<{ sort: string; descendin
 }
 it('preserves pending searches across peer sorting and captures both before a scope change', () => {
   vi.useFakeTimers();
-  const { result } = renderHook(usePageControls);
+  const { result } = renderHook(() => usePageControls());
   act(() => result.current.backlog.setSearch('prebid'));
   act(() => result.current.activity.update({ sort: 'merged', descending: true }));
   expect(result.current.backlog.draftSearch).toBe('prebid');
@@ -217,16 +323,18 @@ it('preserves pending searches across peer sorting and captures both before a sc
 });
 it('reset clears only this page, including table sorts and drafts, and retains return history', () => {
   localStorage.setItem('dashboard-theme', 'light');
-  localStorage.setItem(preferenceKey('alice', 'contributors'), 'retained');
-  localStorage.setItem(
-    overviewPreferenceKey('alice'),
-    serializeOverviewPreferences({ ...defaults, repositoryIds: ['b'] }),
-  );
+  const saved = { ...defaults, repositoryIds: ['b'] };
   const savedSort = { sort: 'total', descending: true };
-  seedPreferences(alice, { 'overview.backlog.sort': savedSort });
+  const scope = { version: 1, retained: true };
+  seedPreferences(alice, {
+    overview: stored(saved),
+    'overview.backlog.sort': savedSort,
+    'contributions.scope': scope,
+  });
   const { result } = renderHook(() =>
-    usePageControls(savedSection('overview.backlog.sort', savedSort)),
+    usePageControls(savedSection('overview.backlog.sort', savedSort), serverSaved()),
   );
+  expect(result.current.page.value).toEqual(saved);
   act(() => {
     result.current.backlog.setSearch('query');
   });
@@ -247,10 +355,9 @@ it('reset clears only this page, including table sorts and drafts, and retains r
     search: '',
   });
   expect(result.current.activity.query).toMatchObject({ sort: 'name', search: '' });
-  expect(localStorage.getItem(overviewPreferenceKey('alice'))).toBeNull();
   expect(preferenceSections('repositories')).toBeNull();
+  expect(preferenceSections('contributions')).toEqual({ 'contributions.scope': scope });
   expect(localStorage.getItem('dashboard-theme')).toBe('light');
-  expect(localStorage.getItem(preferenceKey('alice', 'contributors'))).toBe('retained');
   expect(window.location.search).toBe('');
   const before = history.at(-2)!.href;
   act(() => {
@@ -265,7 +372,7 @@ it('reset clears only this page, including table sorts and drafts, and retains r
   });
 });
 it('does not write history merely for flushing an untouched default sort', () => {
-  const { result } = renderHook(usePageControls);
+  const { result } = renderHook(() => usePageControls());
   history.length = 0;
   act(() => {
     result.current.backlog.flushSearch();
@@ -275,15 +382,6 @@ it('does not write history merely for flushing an untouched default sort', () =>
   expect(result.current.backlog.query.sort).toBe('name');
 });
 it('keeps a usable in-memory sort when table storage is denied, including reset', () => {
-  vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
   vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
   const { result } = renderHook(() => usePageControls(savedSection('overview.backlog.sort')));
   act(() => result.current.backlog.update({ sort: 'total' }));

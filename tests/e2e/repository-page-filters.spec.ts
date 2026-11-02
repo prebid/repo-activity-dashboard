@@ -154,6 +154,41 @@ test('saves columns and sorting without saving historical scope or filters', asy
   await expect(page.getByText(/^Sorted by /)).toHaveCount(1);
 });
 
+test("another repository's pull requests open in the saved columns and sort, before any script runs", async ({
+  page,
+  browser,
+}, testInfo) => {
+  await login(page);
+  await page.goto('/repos/prebidjs');
+  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Latest activity', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'PR', exact: true }).click();
+  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR');
+  const serverOnly = await browser.newContext({
+    baseURL: testInfo.project.use.baseURL,
+    javaScriptEnabled: false,
+    storageState: await page.context().storageState(),
+  });
+  try {
+    const html = await serverOnly.newPage();
+    await html.goto('/repos/prebidserver');
+    await expect(html.locator('th[aria-sort="ascending"]')).toHaveText('PR');
+    await expect(html.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
+    await expect(html.locator('tbody [data-column="ageDays"]').first()).toBeVisible();
+  } finally {
+    await serverOnly.close();
+  }
+  await page.goto('/repos/prebidserver');
+  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR');
+  await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
+  expect(await page.evaluate(() => location.pathname + location.search)).toBe(
+    '/repos/prebidserver',
+  );
+});
+
 for (const [theme, width] of [
   ['dark', 1440],
   ['light', 375],

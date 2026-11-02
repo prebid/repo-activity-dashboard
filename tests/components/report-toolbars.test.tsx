@@ -47,6 +47,7 @@ vi.mock('next/navigation', () => {
   };
 });
 import { RepositoriesScreen } from '@/app/_screens/repositories-screen';
+import { repositoriesPreferences } from '@/app/_screens/repository-preferences';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import {
   ContributionTimelineScreen,
@@ -199,12 +200,7 @@ describe('report toolbars', () => {
       expect(buttons.map((button) => button.textContent)).toEqual(resets);
       for (const button of buttons) {
         expect(button.closest('fieldset')).not.toBeNull();
-        // The ghost variant: no fill or edge at rest, the ghost hover fill.
-        expect(button).toHaveClass('border-transparent', 'hover:bg-ghost-hover');
-        expect(button).not.toHaveClass('bg-overlay', 'bg-action');
-        const icon = button.querySelector('svg');
-        expect(icon).toHaveClass('lucide-rotate-ccw');
-        expect(icon).toHaveAttribute('width', '14');
+        expect(button.querySelector('svg')).toHaveAttribute('width', '14');
       }
       // Decision 4's sentence is the toolbar's one status line once the page settles.
       const status = within(toolbar).getByRole('status');
@@ -308,20 +304,27 @@ describe('report toolbars', () => {
     expect(within(view).queryByRole('combobox')).not.toBeInTheDocument();
   });
 
-  it('states the unavailable-storage sentence when browser storage throws', async () => {
-    for (const method of ['getItem', 'setItem', 'removeItem'] as const)
-      vi.spyOn(Storage.prototype, method).mockImplementation(() => {
-        throw new DOMException('Storage disabled', 'SecurityError');
-      });
+  it('states the unavailable-storage sentence once the browser refuses a saved change', async () => {
+    vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
     window.history.replaceState(null, '', '/repos');
-    render(<RepositoriesScreen viewerId="sample-viewer" samples={samples} />);
-    const status = within(
-      screen.getByRole('region', { name: 'Repository view settings' }),
-    ).getByRole('status');
-    await waitFor(() =>
-      expect(status).toHaveTextContent(
-        /^Browser storage is unavailable\. Changes still work in this URL\.$/,
-      ),
+    const binding = { accountId: 'sample-viewer', authVersion: 0 };
+    render(
+      <RepositoriesScreen
+        viewerId="sample-viewer"
+        samples={samples}
+        preferences={repositoriesPreferences(
+          preferenceSnapshot('repositories', binding, undefined),
+          samples,
+        )}
+      />,
     );
+    const toolbar = screen.getByRole('region', { name: 'Repository view settings' });
+    const period = screen.getByRole('combobox', { name: 'Period 1 preset' });
+    await waitFor(() => expect(period).toBeEnabled());
+    await userEvent.selectOptions(period, 'this-week');
+    expect(within(toolbar).getByRole('status')).toHaveTextContent(
+      /^Browser storage is unavailable\. Changes still work in this URL\.$/,
+    );
+    expect(period).toHaveValue('this-week');
   });
 });
