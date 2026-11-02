@@ -3,8 +3,9 @@
   color: var(--foreground);
   font-family: var(--prebid-font-mono);
 }
+/* A link inside the summary sentence keeps its underline, so colour is not its only cue. */
 .scopeLink {
-  color: var(--foreground);
+  color: var(--prebid-link);
   text-decoration: underline;
   text-underline-offset: 3px;
 }

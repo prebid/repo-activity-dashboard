@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 import { listParam } from '../support/contribution-urls';
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function login(page: Page) {
   await page.goto('/auth/login');
@@ -263,4 +263,78 @@ test('dense contribution timelines hydrate all metrics and retain fifty-row page
     page.getByRole('table').getByRole('columnheader', { name: 'Files changed', exact: true }),
   ).toBeVisible();
   await page.screenshot({ path: info.outputPath('timeline-dense-contributions.png') });
+});
+
+/** How many line boxes a phrase takes inside an element; a no-break space matches a space. */
+function phraseLines(target: Locator, phrase: string) {
+  return target.evaluate((element, phrase) => {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const text = node as Text;
+      const at = text.data.replaceAll(' ', ' ').indexOf(phrase);
+      if (at < 0) continue;
+      const range = document.createRange();
+      range.setStart(text, at);
+      range.setEnd(text, at + phrase.length);
+      return range.getClientRects().length;
+    }
+    throw new Error('No text node holds ' + phrase);
+  }, phrase);
+}
+
+test('a weekly row heading that crosses a year breaks only around its dash', async ({ page }) => {
+  await login(page);
+  await page.goto('/repos/prebidjs?timeline&view=issues&group=week');
+  const heading = page
+    .getByRole('table')
+    .locator('tbody tr')
+    .first()
+    .getByText('Dec 29, 2025 – Jan 4, 2026', { exact: true });
+  for (const width of [390, 375]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.evaluate(() => document.fonts.ready);
+    for (const date of ['Dec 29, 2025', 'Jan 4, 2026'])
+      expect(await phraseLines(heading, date), `${date} at ${width}px`).toBe(1);
+  }
+});
+
+test('the toolbar, chart panel and table titles share one inset', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await login(page);
+  await page.goto('/repos/prebidjs?timeline');
+  await page.evaluate(() => document.fonts.ready);
+  // Where each text starts, measured on its first character rather than its box.
+  const textLeft = (target: Locator) =>
+    target.evaluate((element) => {
+      const text = document.createTreeWalker(element, NodeFilter.SHOW_TEXT).nextNode() as Text;
+      const range = document.createRange();
+      range.setStart(text, 0);
+      range.setEnd(text, 1);
+      return range.getBoundingClientRect().left;
+    });
+  const [label, trend, table] = await Promise.all(
+    [
+      page
+        .getByRole('region', { name: 'Timeline scope', exact: true })
+        .getByText('Reporting period', { exact: true }),
+      page.getByRole('heading', { name: 'Trend', exact: true }),
+      page.getByRole('heading', { name: 'Activity over time', exact: true }),
+    ].map(textLeft),
+  );
+  expect(Math.abs(label - table)).toBeLessThanOrEqual(1);
+  expect(Math.abs(trend - table)).toBeLessThanOrEqual(1);
+});
+
+test('the stacked phone toolbar gives every select the card width', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 1000 });
+  await login(page);
+  await page.goto('/repos/prebidjs?timeline');
+  const toolbar = page.getByRole('region', { name: 'Timeline scope', exact: true });
+  const widths = await Promise.all(
+    ['Reporting period preset', 'Group by', 'Records', 'Measure'].map(
+      async (name) =>
+        (await toolbar.getByRole('combobox', { name, exact: true }).boundingBox())!.width,
+    ),
+  );
+  for (const width of widths.slice(1)) expect(Math.abs(width - widths[0])).toBeLessThanOrEqual(1);
 });
