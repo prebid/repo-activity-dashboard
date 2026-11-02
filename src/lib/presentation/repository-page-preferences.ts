@@ -1,4 +1,5 @@
 import type { RepositoryPageSource } from '@/models/repository-page';
+import { readTableColumns } from './table-column-preferences';
 
 /** Record pages keep their reviewed default: Latest activity already names the actor category. */
 export function repositoryColumnDefaults(page: RepositoryPageSource): Record<string, boolean> {
@@ -72,4 +73,37 @@ export function serializeRepositoryColumns(
   chartsVisible = false,
 ): string {
   return JSON.stringify({ version: 1, columns, chartsVisible });
+}
+/** What a record list saves: deliberate column overrides and whether its charts are open. */
+export interface RepositoryPresentation {
+  columns: Record<string, boolean>;
+  chartsVisible: boolean;
+}
+/**
+ * A saved record-list presentation, or null when the stored value is not one. Column IDs outside
+ * `allowed` are dropped rather than rejected; without it, every boolean column choice is kept.
+ */
+export function readRepositoryPresentation(
+  raw: string | null,
+  allowed?: readonly string[],
+): RepositoryPresentation | null {
+  let ids: readonly string[];
+  try {
+    const value: unknown = JSON.parse(raw ?? 'null');
+    if (
+      !value ||
+      typeof value !== 'object' ||
+      !('version' in value) ||
+      value.version !== 1 ||
+      !('columns' in value) ||
+      !value.columns ||
+      typeof value.columns !== 'object' ||
+      Array.isArray(value.columns)
+    )
+      return null;
+    ids = allowed ?? Object.keys(value.columns);
+  } catch {
+    return null;
+  }
+  return { columns: readTableColumns(raw, ids), chartsVisible: readRepositoryCharts(raw) };
 }

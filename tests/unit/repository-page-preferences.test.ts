@@ -160,3 +160,35 @@ it('defaults to hidden charts for fresh, legacy and corrupt preferences, honorin
   expect(readRepositoryCharts(serializeRepositoryColumns({ ageDays: false }, false))).toBe(false);
   expect(readRepositoryCharts(serializeRepositoryColumns({}, true))).toBe(true);
 });
+
+it('reads a saved record-list presentation and rejects values that are not one', async () => {
+  const { readRepositoryPresentation } =
+    await import('@/lib/presentation/repository-page-preferences');
+  for (const raw of [
+    null,
+    '{',
+    'null',
+    '[]',
+    '{}',
+    '{"version":2,"columns":{}}',
+    '{"version":1}',
+    '{"version":1,"columns":[]}',
+    '{"version":1,"columns":null}',
+    '{"version":1,"columns":4}',
+  ])
+    expect(readRepositoryPresentation(raw, ['ageDays'])).toBeNull();
+  expect(
+    readRepositoryPresentation(
+      serializeRepositoryColumns({ ageDays: false, retired: true }, true),
+      ['ageDays'],
+    ),
+  ).toEqual({ columns: { ageDays: false }, chartsVisible: true });
+  expect(readRepositoryPresentation('{"version":1,"columns":{}}', ['ageDays'])).toEqual({
+    columns: {},
+    chartsVisible: false,
+  });
+  // Without a column list every boolean choice is kept, for a list that names its own columns.
+  expect(
+    readRepositoryPresentation('{"version":1,"columns":{"ageDays":false,"labels":"no"}}'),
+  ).toEqual({ columns: { ageDays: false }, chartsVisible: false });
+});

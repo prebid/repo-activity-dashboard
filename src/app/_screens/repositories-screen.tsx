@@ -14,14 +14,26 @@ import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { withOverviewSort } from '@/lib/presentation/overview-sort';
 import type { OverviewSettings } from '@/models/overview-settings';
 import type { RepositoryOverviewSamples } from '@/models/repository-overview';
+import type { SavedPreference } from '@/models/preferences';
+import type { TableQuery } from '@/models/table-query';
 const backlogPeers = ['activity'];
 const activityPeers = ['backlog'];
+type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
+/** The viewer's saved sections, validated by route composition for the first render. */
+export interface RepositoriesPreferences {
+  overview: SavedPreference<OverviewSettings>;
+  backlogSort: SavedPreference<SavedSort>;
+  activitySort: SavedPreference<SavedSort>;
+}
 export function RepositoriesScreen({
   viewerId,
   samples,
+  preferences,
 }: {
   viewerId: string;
   samples: RepositoryOverviewSamples;
+  /** Without them, changes last for this page only. */
+  preferences?: RepositoriesPreferences;
 }) {
   const repositories = useMemo(
     () => samples.repositories.map((row) => row.repository),
@@ -31,13 +43,14 @@ export function RepositoriesScreen({
     () => ({ ...overviewSettingsColumns, repositoryIds: repositories.map((repo) => repo.id) }),
     [repositories],
   );
-  const settings = useOverviewSettings(viewerId, definition, samples.asOf);
+  const settings = useOverviewSettings(viewerId, definition, samples.asOf, preferences?.overview);
   const backlogTable = useTableController({
     queryKey: 'backlog',
     scopeKey: 'all-repositories:backlog',
     viewerId,
     columnIds: overviewSettingsColumns.backlogColumns,
     peerQueryKeys: backlogPeers,
+    savedSort: preferences?.backlogSort,
   });
   const activityTable = useTableController({
     queryKey: 'activity',
@@ -45,6 +58,7 @@ export function RepositoriesScreen({
     viewerId,
     columnIds: overviewSettingsColumns.activityColumns,
     peerQueryKeys: activityPeers,
+    savedSort: preferences?.activitySort,
   });
   const backlog = withOverviewSort(backlogTable, 'backlog', settings.value);
   const activity = withOverviewSort(activityTable, 'activity', settings.value);

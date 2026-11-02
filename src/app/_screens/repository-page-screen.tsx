@@ -8,6 +8,9 @@ import {
   repositoryTimelineOrigin,
 } from '@/lib/presentation/timeline-navigation';
 import type { RepositoryPageSource, RepositoryPageNavigation } from '@/models/repository-page';
+import type { SavedPreference } from '@/models/preferences';
+import type { TableQuery } from '@/models/table-query';
+import type { RepositoryPresentation } from '@/lib/presentation/repository-page-preferences';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { useRepositoryPageControls } from '@/lib/navigation/use-repository-page-controls';
@@ -37,14 +40,22 @@ const prColumnIds = repositoryPagePrColumns
 const issueColumnIds = repositoryPageIssueColumns
   .filter((column) => column.hideable !== false && !repositoryInlineColumnIds.has(column.id))
   .map((column) => column.id);
+/** The viewer's saved sections for this list kind, validated by route composition. */
+export interface RepositoryPagePreferences {
+  sort: SavedPreference<Pick<TableQuery, 'sort' | 'descending'>>;
+  presentation: SavedPreference<RepositoryPresentation>;
+}
 export function RepositoryPageScreen({
   viewerId,
   source,
   navigation,
+  preferences,
 }: {
   viewerId: string;
   source: RepositoryPageSource;
   navigation: RepositoryPageNavigation;
+  /** Without them, changes last for this page only. */
+  preferences?: RepositoryPagePreferences;
 }) {
   const router = useRouter();
   const pendingNavigation = usePendingNavigation();
@@ -56,12 +67,14 @@ export function RepositoryPageScreen({
     columnIds: source.kind === 'prs' ? prIds : issueIds,
     defaultSort: repositoryPageDefaultSort,
     historyMode: 'push',
+    savedSort: preferences?.sort,
   });
   const settings = useRepositoryPageControls(
     viewerId,
     source,
     source.kind === 'prs' ? prColumnIds : issueColumnIds,
     controller,
+    preferences?.presentation,
   );
   const page = useMemo(
     () => (settings.filters ? selectRepositoryPage(source, settings.filters) : null),

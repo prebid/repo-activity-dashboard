@@ -25,9 +25,9 @@ const toBase64Url = (text: string) =>
     .replace(/=+$/, '');
 
 describe('cookie names, paths and attributes', () => {
-  it('scopes the repositories cookie to /repos and the contributions cookie to the whole site', () => {
+  it('scopes both cookies to the whole site', () => {
     expect(preferenceCookies).toEqual({
-      repositories: { name: 'dashboard-repositories', path: '/repos' },
+      repositories: { name: 'dashboard-repositories', path: '/' },
       contributions: { name: 'dashboard-contributions', path: '/' },
     });
     expect(preferenceCookieVersion).toBe(1);
@@ -35,7 +35,7 @@ describe('cookie names, paths and attributes', () => {
   });
   it('writes a script-readable, SameSite=Lax cookie that is Secure only on HTTPS', () => {
     expect(preferenceCookieString('repositories', 'abc', false)).toBe(
-      'dashboard-repositories=abc; Path=/repos; Max-Age=31536000; SameSite=Lax',
+      'dashboard-repositories=abc; Path=/; Max-Age=31536000; SameSite=Lax',
     );
     expect(preferenceCookieString('contributions', 'abc', true)).toBe(
       'dashboard-contributions=abc; Path=/; Max-Age=31536000; SameSite=Lax; Secure',

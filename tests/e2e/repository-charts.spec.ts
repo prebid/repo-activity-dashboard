@@ -126,7 +126,8 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   expect(await counts(figure(page, 'Age distribution'))).toEqual([0, 0, 0, 0, 0, 0, 0]);
   await expect(figure(page, 'Age distribution').getByRole('button').first()).toBeDisabled();
   await page.goto('/repos/prebid-cache-java?scope=current&metric=agentFeedbackPrs');
-  await showCharts(page);
+  // The open charts are a saved choice for every repository's pull request lists.
+  await expect(page.getByRole('button', { name: 'Hide charts', exact: true })).toBeVisible();
   await expect(page.getByText(/Partial sample coverage:/)).toBeVisible();
   const age = figure(page, 'Age distribution');
   const point = age.locator('button:enabled').first();
@@ -137,7 +138,7 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   await point.click();
   await expect(page.getByText(count + ' available sample records', { exact: true })).toBeVisible();
   await page.goto('/repos/prebid-agent-skills?scope=current&metric=humanApprovals0');
-  await showCharts(page);
+  await expect(page.getByRole('button', { name: 'Hide charts', exact: true })).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),
   ).toBeVisible();

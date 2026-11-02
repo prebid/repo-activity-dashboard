@@ -7,12 +7,14 @@ import {
 } from '@/models/preferences';
 
 /**
- * Per-viewer preferences live in two cookies the server reads, so the first render is final. The
- * repositories cookie is only sent to /repos pages; the contributions cookie is site-wide because
- * contribution pages live under several top-level paths.
+ * Per-viewer preferences live in two cookies the server reads, so the first render is final. Both
+ * are site-wide: a browser matches `document.cookie` against the address the document was loaded
+ * at, not the one client navigation moved it to, so a /repos-only cookie would be unreadable to a
+ * page reached from sign-in or another report, and a field-wise write there would drop its other
+ * sections.
  */
 export const preferenceCookies = {
-  repositories: { name: 'dashboard-repositories', path: '/repos' },
+  repositories: { name: 'dashboard-repositories', path: '/' },
   contributions: { name: 'dashboard-contributions', path: '/' },
 } as const satisfies Record<PreferenceCookieName, { name: string; path: string }>;
 
