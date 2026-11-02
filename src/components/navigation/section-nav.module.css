@@ -69,8 +69,9 @@
 .menu {
   display: none;
 }
-/* The menu keeps its button whole; the tabs beside it shrink and scroll instead. */
-@media (max-width: 600px) {
+/* The menu keeps its button whole; the tabs beside it shrink and scroll instead. Up to the
+   masthead's two-row width the chips and the record tabs do not both fit the bar's row. */
+@media (max-width: 1120px) {
   .sections {
     flex-shrink: 0;
   }
@@ -80,5 +81,19 @@
   }
   .menu {
     display: block;
+  }
+}
+/* The narrowest phones: the trigger keeps its name but shows only its icons, so it fits beside a
+   segmented control. */
+@media (max-width: 375px) {
+  .menuLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

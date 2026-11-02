@@ -47,7 +47,7 @@ function jumpTo(id: string): boolean {
 }
 
 /**
- * The page's section chips, the current one following the scroll position; at 600px and below a
+ * The page's section chips, the current one following the scroll position; at 1120px and below a
  * "Sections" menu replaces them. Without JavaScript the chips are plain fragment links.
  */
 export function SectionNav({
@@ -133,7 +133,7 @@ export function SectionNav({
           <DropdownMenuTrigger asChild>
             <Button type="button" size="sm" disabled={!ready}>
               <SectionsIcon size={14} />
-              Sections
+              <span className={styles.menuLabel}>Sections</span>
               <ExpandIcon size={14} />
             </Button>
           </DropdownMenuTrigger>

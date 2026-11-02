@@ -93,8 +93,10 @@
   background: var(--prebid-accent);
 }
 
-/* Segmented: one bordered group the height of an in-page control. */
+/* Segmented: one bordered group the height of an in-page control. It keeps its width beside other
+   tabs, so no mode is clipped inside the frame; the subject tabs beside it scroll instead. */
 .tabs[data-variant='segmented'] {
+  flex-shrink: 0;
   width: fit-content;
   max-width: 100%;
   gap: 2px;
@@ -124,12 +126,30 @@
     height: 34px;
   }
 }
+/* Phone widths: a segmented control and the current subject tab beside it share the view bar's
+   row whole. Chromium on Linux sets these labels up to 12% wider than macOS and WebKit, which the
+   padding here and the icon rule below leave room for. */
 @media (max-width: 600px) {
   .tabs:not([data-variant='segmented']) {
     gap: 16px;
   }
   .tabs a {
     gap: 6px;
+  }
+  .tabs[data-variant='segmented'] a,
+  .tabs[data-variant='segmented'] .disabled {
+    padding: 0 8px;
+  }
+}
+/* The narrowest phones: the view bar's tabs drop their icons, which their labels repeat. */
+@media (max-width: 375px) {
+  :global([data-view-bar]) .tabs a > svg,
+  :global([data-view-bar]) .tabs .disabled > svg {
+    display: none;
+  }
+  .tabs[data-variant='segmented'] a,
+  .tabs[data-variant='segmented'] .disabled {
+    padding: 0 6px;
   }
 }
 
