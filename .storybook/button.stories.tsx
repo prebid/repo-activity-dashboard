@@ -8,11 +8,20 @@ import {
   ExpandIcon,
   ExportIcon,
   ResetIcon,
+  SignOutIcon,
+  ThemeSystemIcon,
+  WidthToggleIcon,
 } from '../src/components/ui/icons';
 
-const variants: ButtonVariant[] = ['primary', 'secondary', 'ghost', 'destructive'];
+// The canvas variants; the masthead variant has its own story on the navy band.
+const variants = [
+  'primary',
+  'secondary',
+  'ghost',
+  'destructive',
+] as const satisfies readonly Exclude<ButtonVariant, 'masthead'>[];
 const textSizes = ['sm', 'md', 'lg'] as const satisfies readonly ButtonSize[];
-const labels: Record<ButtonVariant, string> = {
+const labels: Record<(typeof variants)[number], string> = {
   primary: 'Apply',
   secondary: 'Columns',
   ghost: 'Reset view',
@@ -28,7 +37,7 @@ function Row({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-/** Every variant at every size: 28, 34 and 40px text buttons and 28 and 34px icon buttons. */
+/** Every variant at every size: 28, 34 and 40px text buttons and 28, 34 and 36px icon buttons. */
 function SizesSpecimen() {
   return (
     <main className="space-y-6">
@@ -45,6 +54,9 @@ function SizesSpecimen() {
           </Button>
           <Button variant={variant} size="icon" aria-label={labels[variant] + ' icon'}>
             <AddIcon size={14} />
+          </Button>
+          <Button variant={variant} size="icon-lg" aria-label={labels[variant] + ' icon-lg'}>
+            <AddIcon size={16} />
           </Button>
         </Row>
       ))}
@@ -76,6 +88,62 @@ function PressedSpecimen() {
           <ExpandIcon size={14} />
         </Button>
       </Row>
+    </main>
+  );
+}
+
+/**
+ * Header buttons on the navy masthead, the same in both themes: 36px icon buttons and labelled
+ * buttons at rest, pressed and open. The selected state adds a fill and an edge, never width.
+ */
+function MastheadSpecimen() {
+  return (
+    <main className="space-y-6">
+      <h1 className="sr-only">Masthead buttons</h1>
+      <section className="space-y-2">
+        <h2 className="text-overline font-semibold text-muted-foreground uppercase">masthead</h2>
+        <div className="flex flex-wrap items-center gap-3 rounded-lg bg-masthead p-4">
+          <Button
+            variant="masthead"
+            size="icon-lg"
+            aria-label="Full-width layout"
+            aria-pressed={false}
+          >
+            <WidthToggleIcon size={16} />
+          </Button>
+          <Button variant="masthead" size="icon-lg" aria-label="Contained layout" aria-pressed>
+            <WidthToggleIcon size={16} />
+          </Button>
+          <Button variant="masthead" size="icon-lg" aria-label="Theme settings" data-state="closed">
+            <ThemeSystemIcon size={16} />
+          </Button>
+          <Button
+            variant="masthead"
+            size="icon-lg"
+            aria-label="Open theme settings"
+            data-state="open"
+            aria-expanded
+          >
+            <ThemeSystemIcon size={16} />
+          </Button>
+          <Button variant="masthead" aria-label="Account, closed" data-state="closed">
+            Account
+            <ExpandIcon size={14} />
+          </Button>
+          <Button variant="masthead" aria-label="Account, open" data-state="open" aria-expanded>
+            Account
+            <ExpandIcon size={14} />
+          </Button>
+          <Button variant="masthead">
+            <SignOutIcon size={16} />
+            Sign out
+          </Button>
+          <Button variant="masthead" disabled>
+            <SignOutIcon size={16} />
+            Signing out…
+          </Button>
+        </div>
+      </section>
     </main>
   );
 }
@@ -143,5 +211,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Sizes: Story = {};
 export const Pressed: Story = { render: () => <PressedSpecimen /> };
+export const Masthead: Story = { render: () => <MastheadSpecimen /> };
 export const Disabled: Story = { render: () => <DisabledSpecimen /> };
 export const WithIcon: Story = { render: () => <WithIconSpecimen /> };

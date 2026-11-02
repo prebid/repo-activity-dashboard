@@ -1,0 +1,160 @@
+/* The header sits on the canvas, so an avatar's badge disc takes the canvas to read as cut out. */
+.header {
+  --identity-surface: var(--prebid-background);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'crumbs crumbs'
+    'subject source';
+  align-items: center;
+  gap: 8px 24px;
+  min-width: 0;
+}
+
+/* One 20px row that scrolls sideways rather than wrapping. The padding, taken back by the
+   margin, keeps focus outlines inside the scrolling row. */
+.crumbs {
+  grid-area: crumbs;
+  min-width: 0;
+}
+.crumbs ol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  margin: -2px;
+  padding: 2px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+}
+.crumbs li {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+}
+.crumbs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 20px;
+  color: var(--prebid-link);
+  text-underline-offset: 3px;
+}
+.crumbs a:hover {
+  text-decoration: underline;
+}
+.crumbs [aria-current='page'] {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.subject {
+  grid-area: subject;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.text {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.title {
+  min-height: var(--prebid-leading-display);
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-display);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 800;
+  line-height: var(--prebid-leading-display);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+/* One 18px line that scrolls sideways rather than wrapping, padded like the breadcrumb row. */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 22px;
+  margin: -2px;
+  padding: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+}
+.meta > * {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+}
+.meta a {
+  color: var(--prebid-link);
+  text-underline-offset: 3px;
+}
+.meta a:hover {
+  text-decoration: underline;
+}
+.crumbs a:focus-visible,
+.meta a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 0;
+  border-radius: var(--prebid-radius-small);
+}
+.crumbs ol::-webkit-scrollbar,
+.meta::-webkit-scrollbar {
+  display: none;
+}
+
+.source {
+  grid-area: source;
+  min-width: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--prebid-warning-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-warning-bg);
+  color: var(--prebid-warning-ink);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+  white-space: nowrap;
+}
+.chip svg {
+  color: var(--prebid-warning-icon);
+}
+.chipLabel {
+  font-weight: 600;
+}
+.chip time {
+  font-variant-numeric: var(--prebid-numeric);
+  font-weight: var(--prebid-number-weight);
+}
+
+/* At phone width the chip takes its own row under the title, which keeps the full width. */
+@media (max-width: 600px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'crumbs'
+      'subject'
+      'source';
+    gap: 8px;
+  }
+  .subject {
+    gap: 12px;
+  }
+}

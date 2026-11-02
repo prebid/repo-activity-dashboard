@@ -4,11 +4,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Button, type ButtonSize, type ButtonVariant } from '@/components/ui/button';
 
-const variants: ButtonVariant[] = ['primary', 'secondary', 'ghost', 'destructive'];
-const sizes: ButtonSize[] = ['sm', 'md', 'lg', 'icon-sm', 'icon'];
+const variants: ButtonVariant[] = ['primary', 'secondary', 'ghost', 'masthead', 'destructive'];
+const sizes: ButtonSize[] = ['sm', 'md', 'lg', 'icon-sm', 'icon', 'icon-lg'];
 
+// Sizes and fills are geometry and appearance: the browser suite measures the Button stories.
 describe('Button', () => {
-  it('defaults to a 34px secondary button and forwards its reference and native props', async () => {
+  it('forwards its reference and native props', async () => {
     const ref = createRef<HTMLButtonElement>();
     const click = vi.fn();
     render(
@@ -19,52 +20,11 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: 'Columns' });
     expect(ref.current).toBe(button);
     expect(button).toHaveAttribute('type', 'button');
-    expect(button).toHaveClass('h-[34px]', 'border-input', 'bg-overlay');
     await userEvent.click(button);
     expect(click).toHaveBeenCalledTimes(1);
   });
 
-  it('draws the orange action fill only for primary', () => {
-    render(
-      <>
-        {variants.map((variant) => (
-          <Button key={variant} variant={variant}>
-            {variant}
-          </Button>
-        ))}
-      </>,
-    );
-    for (const variant of variants)
-      expect(
-        screen.getByRole('button', { name: variant }).classList.contains('bg-action'),
-        variant,
-      ).toBe(variant === 'primary');
-  });
-
-  it('gives every size its own height and 40px on a coarse pointer', () => {
-    render(
-      <>
-        {sizes.map((size) => (
-          <Button key={size} size={size} aria-label={size} />
-        ))}
-      </>,
-    );
-    const heights: Record<ButtonSize, string> = {
-      sm: 'h-7',
-      md: 'h-[34px]',
-      lg: 'h-10',
-      'icon-sm': 'size-7',
-      icon: 'size-[34px]',
-    };
-    for (const size of sizes) {
-      const button = screen.getByRole('button', { name: size });
-      expect(button, size).toHaveClass(heights[size]);
-      if (size !== 'lg')
-        expect(button.className, size).toMatch(/(^|\s)pointer-coarse:(h|size)-10(\s|$)/);
-    }
-  });
-
-  it('sets Inter 700 only on a primary lg button', () => {
+  it('renders every variant at every size as a named button', () => {
     render(
       <>
         {variants.flatMap((variant) =>
@@ -73,7 +33,7 @@ describe('Button', () => {
               key={variant + size}
               variant={variant}
               size={size}
-              aria-label={variant + size}
+              aria-label={variant + ' ' + size}
             />
           )),
         )}
@@ -81,49 +41,30 @@ describe('Button', () => {
     );
     for (const variant of variants)
       for (const size of sizes)
-        expect(
-          screen.getByRole('button', { name: variant + size }).classList.contains('font-bold'),
-          variant + ' ' + size,
-        ).toBe(variant === 'primary' && size === 'lg');
+        expect(screen.getByRole('button', { name: variant + ' ' + size })).toBeEnabled();
   });
 
-  it('mutes only icon-only ghost buttons until they are hovered', () => {
+  it('exposes a pressed masthead toggle and an open masthead menu trigger', () => {
     render(
       <>
-        {variants.flatMap((variant) =>
-          sizes.map((size) => (
-            <Button
-              key={variant + size}
-              variant={variant}
-              size={size}
-              aria-label={variant + size}
-            />
-          )),
-        )}
+        <Button variant="masthead" size="icon-lg" aria-label="Full-width layout" aria-pressed />
+        <Button variant="masthead" size="icon-lg" aria-label="Theme settings" aria-expanded />
       </>,
     );
-    for (const variant of variants)
-      for (const size of sizes) {
-        const button = screen.getByRole('button', { name: variant + size });
-        const muted = variant === 'ghost' && (size === 'icon-sm' || size === 'icon');
-        expect(button.classList.contains('text-muted-foreground'), variant + ' ' + size).toBe(
-          muted,
-        );
-        expect(button.classList.contains('hover:text-foreground'), variant + ' ' + size).toBe(
-          muted,
-        );
-      }
+    expect(
+      screen.getByRole('button', { name: 'Full-width layout', pressed: true }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Theme settings', expanded: true })).toBeEnabled();
   });
 
-  it('renders its child element with the button classes when asChild is set', () => {
+  it('renders its child element instead of a button when asChild is set', () => {
     render(
-      <Button asChild variant="ghost" className="consumer-layout">
+      <Button asChild variant="ghost">
         <a href="https://github.com/prebid">Repositories</a>
       </Button>,
     );
     const link = screen.getByRole('link', { name: 'Repositories' });
     expect(link).toHaveAttribute('href', 'https://github.com/prebid');
-    expect(link).toHaveClass('hover:bg-ghost-hover', 'consumer-layout');
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 

@@ -20,24 +20,6 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
     },
     {
-      "file": "src/components/navigation/view-tabs.module.css",
-      "context": "",
-      "selector": ".tabs a[aria-current='page']::after",
-      "property": "border-radius",
-      "value": "3px 3px 0 0",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
-    },
-    {
-      "file": "src/components/navigation/view-tabs.module.css",
-      "context": "",
-      "selector": ".tabs a:focus-visible, .disabled:focus-visible",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
-    },
-    {
       "file": "src/features/authentication/authentication.module.css",
       "context": "",
       "selector": ".formEyebrow",

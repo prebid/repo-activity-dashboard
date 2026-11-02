@@ -66,6 +66,11 @@ export interface DataTableEmpty {
 }
 export interface DataTableProps<T> {
   title: string;
+  /**
+   * Makes the panel a page section: the id a view bar's section chip links to. The title then
+   * takes focus after a jump.
+   */
+  anchor?: string;
   disabled?: boolean;
   /** Defaults to "No matching items" when the search hides every row, otherwise "No items". */
   empty?: DataTableEmpty;
@@ -112,6 +117,7 @@ export interface DataTableProps<T> {
 }
 export function DataTable<T extends { id: string }>({
   title,
+  anchor,
   disabled = false,
   empty,
   search,
@@ -378,11 +384,13 @@ export function DataTable<T extends { id: string }>({
     );
   }
   return (
-    <section className={styles.panel} aria-label={title}>
+    <section id={anchor} className={styles.panel} aria-label={title}>
       <div className={styles.heading}>
         <div>
           <div className={styles.titleRow}>
-            <h2 className={styles.title}>{title}</h2>
+            <h2 className={styles.title} tabIndex={anchor ? -1 : undefined}>
+              {title}
+            </h2>
             <ColumnDefinitions title={title} columns={visibleColumns} disabled={!interactive} />
           </div>
           {description && <div className={styles.description}>{description}</div>}

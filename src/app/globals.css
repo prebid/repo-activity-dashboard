@@ -65,6 +65,12 @@
   --color-brand: var(--prebid-brand-blue);
   --color-scrim: var(--prebid-scrim);
   --color-placeholder: var(--prebid-placeholder);
+  --color-masthead: var(--prebid-masthead);
+  --color-masthead-foreground: var(--prebid-masthead-ink);
+  --color-masthead-hover: var(--prebid-masthead-hover);
+  --color-masthead-selection: var(--prebid-masthead-selection);
+  --color-masthead-selection-foreground: var(--prebid-masthead-selection-ink);
+  --color-masthead-selection-edge: var(--prebid-masthead-selection-edge);
 }
 
 /* One mapping for every page, dialog and story. Repeating it on .dark makes a nested .dark
@@ -96,6 +102,10 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    /* A fragment jump or a focused element lands 12px below the sticky masthead and view bar. */
+    scroll-padding-top: calc(var(--sticky-offset) + 12px);
   }
   body {
     @apply bg-background text-foreground;

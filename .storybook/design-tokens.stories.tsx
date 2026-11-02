@@ -142,6 +142,10 @@ const textPairs = [
   ['--prebid-muted', '--prebid-card'],
   ['--prebid-header-ink', '--prebid-header-band'],
   ['--prebid-link', '--prebid-card'],
+  // The masthead is navy in both themes, at rest and under a hovered control.
+  ['--prebid-masthead-ink', '--prebid-masthead'],
+  ['--prebid-masthead-muted', '--prebid-masthead'],
+  ['--prebid-masthead-ink', '--prebid-masthead-hover'],
 ] as const;
 
 function TextTokens() {
@@ -149,7 +153,7 @@ function TextTokens() {
     <Page title="Text">
       <Group title="Text colours">
         {textPairs.map(([ink, surface]) => (
-          <Tile key={ink} tokens={[ink, surface]}>
+          <Tile key={ink + ' ' + surface} tokens={[ink, surface]}>
             <p
               className="p-3 text-body"
               style={{
@@ -300,6 +304,12 @@ function BrandAndStateTokens() {
           ink="--prebid-selection-ink"
           edge="--prebid-selection-edge"
           label="Selected"
+        />
+        <Chip
+          background="--prebid-masthead-selection"
+          ink="--prebid-masthead-selection-ink"
+          edge="--prebid-masthead-selection-edge"
+          label="Selected on the masthead"
         />
       </Group>
       <Group title="Notices">

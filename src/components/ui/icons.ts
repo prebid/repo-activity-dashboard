@@ -24,6 +24,7 @@ import {
   CircleDashed,
   CircleDot,
   CircleQuestionMark,
+  Clock,
   Columns3,
   Cpu,
   Download,
@@ -38,10 +39,12 @@ import {
   GitPullRequestDraft,
   Hourglass,
   Inbox,
+  KeyRound,
   Info,
   ListChecks,
   LoaderCircle,
   LockKeyhole,
+  LogOut,
   Minus,
   Monitor,
   Moon,
@@ -54,6 +57,7 @@ import {
   SlidersHorizontal,
   Sun,
   Table2,
+  TableOfContents,
   TriangleAlert,
   UserRound,
   UserRoundCheck,
@@ -113,6 +117,8 @@ export const PullRequestsIcon = concept(GitPullRequest);
 export const IssuesIcon = concept(CircleDot);
 export const ContributorsIcon = concept(Users);
 export const CompaniesIcon = concept(Building2);
+/** The page's sections, on the narrow-width menu that replaces the section chips. */
+export const SectionsIcon = concept(TableOfContents);
 
 // Report and table controls.
 export const ColumnsIcon = concept(Columns3);
@@ -154,6 +160,10 @@ export const ShowPasswordIcon = concept(Eye);
 export const HidePasswordIcon = concept(EyeOff);
 export const SecureIcon = concept(LockKeyhole);
 export const ContinueIcon = concept(ArrowRight);
+export const SignOutIcon = concept(LogOut);
+export const ChangePasswordIcon = concept(KeyRound);
+/** The "Data as of" chip in a page header. */
+export const DataAsOfIcon = concept(Clock);
 
 // Notices and page states.
 export const InfoIcon = concept(Info);

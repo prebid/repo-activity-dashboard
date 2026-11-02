@@ -11,6 +11,11 @@ export interface ChartPanelProps {
   /** The region name, such as "Repository charts". */
   label: string;
   title: string;
+  /**
+   * Makes the panel a page section: the id a view bar's section chip links to. The title then
+   * takes focus after a jump.
+   */
+  anchor?: string;
   description: ReactNode;
   /** bars: a set of bar charts; trend: one chart over time. Picks the trigger's icon. */
   content: keyof typeof contentIcons;
@@ -28,6 +33,7 @@ export interface ChartPanelProps {
 export function ChartPanel({
   label,
   title,
+  anchor,
   description,
   content,
   showLabel,
@@ -40,10 +46,12 @@ export function ChartPanel({
   const id = useId();
   const Icon = contentIcons[content];
   return (
-    <section className={styles.panel} aria-label={label} data-expanded={expanded}>
+    <section id={anchor} className={styles.panel} aria-label={label} data-expanded={expanded}>
       <div className={styles.heading}>
         <div className={styles.text}>
-          <h2 className={styles.title}>{title}</h2>
+          <h2 className={styles.title} tabIndex={anchor ? -1 : undefined}>
+            {title}
+          </h2>
           <p className={styles.description}>{description}</p>
         </div>
         <Button

@@ -14,7 +14,16 @@
   --prebid-scroll-shadow: rgb(16 42 67 / 0.16);
   --prebid-secondary: #f0f4f7;
   --prebid-secondary-hover: #e4ecf2;
+  /* The masthead is navy in both themes, so its set is defined here only and .dark keeps it. */
   --prebid-masthead: #17232e;
+  --prebid-masthead-ink: #e6eef4;
+  --prebid-masthead-muted: #a1b2bf;
+  --prebid-masthead-line: #304352;
+  --prebid-masthead-hover: #253947;
+  --prebid-masthead-ring: #73c3f3;
+  --prebid-masthead-selection: #1e3a50;
+  --prebid-masthead-selection-ink: #9ed3f2;
+  --prebid-masthead-selection-edge: #5aa5dc;
 
   /* Text */
   --prebid-ink: #1c3445;
@@ -74,8 +83,19 @@
   --prebid-trailing-shadow: inset -6px 0 8px -6px var(--prebid-scroll-shadow);
   --prebid-row-hover-bar: inset 3px 0 0 var(--prebid-brand-blue);
   --prebid-sort-underline: inset 0 -2px 0 var(--prebid-accent);
-  /* Room a sticky page header takes above a table's scroll area; P4 sets it. */
-  --sticky-offset: 0px;
+
+  /* Shell. The masthead is one 64px row, or a 56px row over a 44px navigation row at 1000px and
+     below, and the view bar sticks under it. --sticky-offset is the sticky chrome above the
+     content: the masthead, plus the view bar on a page that has one (below). Table scroll areas
+     and the root scroll padding read it. */
+  --shell-height: 64px;
+  --shell-row-height: 64px;
+  --shell-nav-height: 44px;
+  --view-bar-height: 44px;
+  --sticky-offset: var(--shell-height);
+  /* Stacking order of the sticky chrome: above table headers, below menus and dialogs (z-50). */
+  --prebid-layer-view-bar: 20;
+  --prebid-layer-masthead: 30;
 
   /* Type. Families come from next/font variables set on <html> (src/styles/fonts.ts). */
   --prebid-font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -161,4 +181,16 @@
   /* Repeated so a nested .dark scope reads its own scroll shadow. */
   --prebid-pinned-shadow: 6px 0 8px -6px var(--prebid-scroll-shadow);
   --prebid-trailing-shadow: inset -6px 0 8px -6px var(--prebid-scroll-shadow);
+}
+
+@media (max-width: 1000px) {
+  :root {
+    --shell-height: 100px;
+    --shell-row-height: 56px;
+  }
+}
+
+/* A page with a view bar keeps its content clear of the masthead and the bar. */
+:root:has([data-view-bar]) {
+  --sticky-offset: calc(var(--shell-height) + var(--view-bar-height));
 }
