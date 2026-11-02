@@ -170,7 +170,7 @@ Tests most likely affected: accessible names that include the typed sort glyph (
 
 - Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
 - `PageHeader`: back link and title flush left, one meta line, the "Data as of" chip on the right inside `aside aria-label="Data source"`. Header rows have fixed heights so sibling tabs never move the toolbar; existing h1, region, tab-navigation and button accessible names are kept; the `ReportToolbar` summary row is the one place each page states its scope.
-- `ViewBar`: a fixed 44px bar holding the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; sticky at `top: var(--shell-height)`; `scroll-padding-top` equals the masthead height plus 44px plus 12px; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry. At 600px and below a "Sections" menu replaces the chips. P4 sets `--sticky-offset` for P3's sticky table headers.
+- `ViewBar`: a fixed 44px bar holding the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; sticky at `top: var(--shell-height)`; `scroll-padding-top` equals the masthead height plus 44px plus 12px; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry. At 1120px and below (600px until the final visual inspection) a "Sections" menu replaces the chips. P4 sets `--sticky-offset` for P3's sticky table headers.
 - Remove the frame's sample-data row. Merge the two contribution tab rows into the view bar.
 - Branded edge pages (404, error, setup) and a footer, using the same tokens.
 - Amend the documents in the Page header and Sample-data rows of Approved decisions.
@@ -754,7 +754,7 @@ The 31 P3 findings in Appendix A except TBL-15 (the administrator Users page is 
 
 **3. Alignment and numbers** (CONTRIB-07, GAP-01, TBL-04, TBL-05, REPO-17). Text left, numbers right with tabular figures, headers aligned with their cells and top-aligned, wrapping to at most two lines at one metric width. Body cells top-aligned, so numbers sit level with a record's title. The partial-value asterisk gets its own trailing slot, so digits align (the Phase 2 carry-over). Displayed negatives use the Unicode minus; CSV keeps the ASCII hyphen. Weekly period headers read a compact range (decision 3), and weekly rows print the range once.
 
-**4. Width, pinning and sticky headers** (TBL-06, TBL-07, TBL-08). The pinned identity column stays 248px (164px at <=600px) and numeric columns share surplus width (decision 4). The pinned edge shows a shadow while the table is scrolled sideways, and the trailing edge shows the same shadow while more columns remain (decision 5). The insights authors and credits tables pin their account column. Sticky headers use a bounded-height scroll area per table (decision 1): one `thead`, no script, and the horizontal scrollbar stays in view; a `--sticky-offset` token, which P4 sets, reserves room for the page header.
+**4. Width, pinning and sticky headers** (TBL-06, TBL-07, TBL-08). The pinned identity column stays 248px (164px at <=600px; 128px at <=374px from the final visual inspection) and numeric columns share surplus width (decision 4). The pinned edge shows a shadow while the table is scrolled sideways, and the trailing edge shows the same shadow while more columns remain (decision 5). The insights authors and credits tables pin their account column. Sticky headers use a bounded-height scroll area per table (decision 1): one `thead`, no script, and the horizontal scrollbar stays in view; a `--sticky-offset` token, which P4 sets, reserves room for the page header.
 
 **5. Records** (REPO-06, REPO-07, TBL-09, TBL-10, GAP-08, TBL-12). One record row: `RecordIdentity` (number, title link, `RecordStatus`, label chips) moves to `src/components/github/` and serves record pages, author lists, Timeline supporting records and the merge-duration insight, with status and labels inline instead of separate columns. The author link's external icon follows the name. Author-scoped lists hide the Author column. The feature density overrides in the contributions, records and page CSS go. The merge-duration rows gain the author type (model and mock), so their authors get avatars (the Phase 2 holdout).
 
@@ -884,7 +884,7 @@ The P4 findings in Appendix A: about 95–120 files (roughly 55–65 source, con
 
 **3. Page header** (CONTRIB-01, REPOS-01, TYPE-03, REPO-02, REPO-04, SHELL-17). One `PageHeader`: an optional breadcrumb row (back icon once, separators, the current view unlinked with `aria-current="page"`), the title flush left at display 30/34, an optional identity slot inside the same `<header>`, one meta line, and the amber "Data as of" chip inside `aside aria-label="Data source"`. Fixed row heights keep sibling tabs from moving the toolbar. `AllRepositoriesHeading`, `RepositoryHeader`, `ContributionHeading` and the Timeline support header render through it with unchanged props and accessible names. A repository subpage keeps the repository name as its `h1` and shows the subpage as the current crumb (decision 5).
 
-**4. View bar and sections** (CONTRIB-02, CONTRIB-03, CTRL-07, REPO-13, REPO-16, P4 sticky sections). A fixed 44px `ViewBar`, sticky below the masthead, holds the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry; at 600px and below a "Sections" menu replaces the chips. Sections are the panels with an `h2`: tables and chart panels (decision 11). `ViewTabs` gains an optional `variant`: underline for subject sets (Contributors|Companies, Pull requests|Issues|Timeline) and segmented for view modes (Summary|Timeline, Report|Over time, company breakdown) (decision 3); tabs never wrap and scroll sideways at narrow widths. On Over time, the area tabs link to the other area's Over time (decision 1). Count pills leave the area tabs (decision 2); the repository record tabs keep one shared `TabCount` style. The two contribution tab rows merge into the view bar. P4 sets `--sticky-offset` to the masthead plus the view bar, so P3's sticky table headers sit below both, and `scroll-padding-top` to that height plus 12px.
+**4. View bar and sections** (CONTRIB-02, CONTRIB-03, CTRL-07, REPO-13, REPO-16, P4 sticky sections). A fixed 44px `ViewBar`, sticky below the masthead, holds the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry; at 600px and below a "Sections" menu replaces the chips (1120px from the final visual inspection). Sections are the panels with an `h2`: tables and chart panels (decision 11). `ViewTabs` gains an optional `variant`: underline for subject sets (Contributors|Companies, Pull requests|Issues|Timeline) and segmented for view modes (Summary|Timeline, Report|Over time, company breakdown) (decision 3); tabs never wrap and scroll sideways at narrow widths. On Over time, the area tabs link to the other area's Over time (decision 1). Count pills leave the area tabs (decision 2); the repository record tabs keep one shared `TabCount` style. The two contribution tab rows merge into the view bar. P4 sets `--sticky-offset` to the masthead plus the view bar, so P3's sticky table headers sit below both, and `scroll-padding-top` to that height plus 12px.
 
 **5. Frame, edge pages and footer** (SHELL-05, SHELL-10, SHELL-14, SHELL-15, REPO-03, REPOS-14, CONTRIB-17). The frame's sample-data row is deleted. A footer after `<main>` carries the secure icon and "Private workspace. Access by invitation." with no links (decision 10). A token-styled skip link sits over the masthead's left gutter. Root not-found, error and global-error render through a branded `EdgeFrame` and keep their `h1` text. Contained mode caps content at 1760px (decision 9). The Timeline support frame states its interval through a summary-only `ReportToolbar`; insight panel titles stay (decision 4). At 600px and below the header and toolbar compact; a bottom-sheet filter pattern is not added (decision 12).
 
@@ -986,7 +986,7 @@ Expected at the checkpoint:
 
 - A navy masthead in both themes, 64px (100px at 1000px and below; 1120px from P6) under a 3px blue rule, with the knockout logo, Mona Sans navigation with a hover pill and the orange underline on its bottom edge, 36px header buttons, the account button and Sign out at the right; it stays at the top while scrolling.
 - Page titles flush left at display 30/34 with one meta line and the amber chip on the right (beneath the title at 600px and below); sibling views keep the toolbar in place.
-- A 44px view bar sticky under the masthead: underline tabs for subject sets, segmented tabs for view modes, section chips with scroll-spy where a page has two or more panels and a Sections menu at 600px and below; a jump lands the section's title under the bar and focuses it. P3's sticky table headers sit below the bar.
+- A 44px view bar sticky under the masthead: underline tabs for subject sets, segmented tabs for view modes, section chips with scroll-spy where a page has two or more panels and a Sections menu at 600px and below (1120px from the final visual inspection); a jump lands the section's title under the bar and focuses it. P3's sticky table headers sit below the bar.
 - Subpage tabs underlined without the bold weight; tab counts in one style.
 - The footer on every dashboard and edge page; branded 404 and error pages; contained width capped at 1760px.
 - Keyboard reach: `npm run capture:views -- --measure` against the 186-Tab baseline. Predicted from the tab order, not measured: about 15 presses.
@@ -1248,6 +1248,101 @@ Re-recorded on `build:preview`; compared with the P5c–P5e record:
 - `npm run audit:dependencies` and `npm run capture:views`.
 - Amplify and CloudFront limits for the 32-section contributions cookie (the P5b premise remains open).
 - The signed-out `/reviewers` sign-in callback, which falls back to `/repos` (recorded, not tested).
+
+## Final visual inspection
+
+An inspection of the redesigned dashboard after P6, on `build:preview` of `418c3a4`, and the fixes on `feature/final-visual-fixes`, cut from `b72b042`.
+
+### Method
+
+1. **Captures.** The 41 inventory views at 320, 375, 390, 768, 1366, 1440 and 2560px in Light and Dark: 574 cells, each a viewport and a full-page capture. `scripts/capture-views.mjs` ran through a wrapper outside the repository that adds viewport heights for 320 (568), 375 (667) and 768 (1024).
+2. **DOM audit** on every cell: page overflow, clipped text, overlapping interactive elements, targets under 24px, text under 11px, and visible focus on the first 15 Tab stops at 1440 Light. It found no page overflow, no target failing after the WCAG 2.5.8 spacing exception, no text under 11px and visible focus on all 572 sampled stops. It flagged 104 clipped-text elements, all rows that scroll sideways, and 56 overlapping pairs.
+3. **Four inspectors** read the captures and the audit and reported 57 findings, each with its views, a cropped image, the cause at file and line, a fix and a test.
+4. **Consolidation** checked each finding against its image, the code at the cited lines and the approved decisions. Duplicates were merged into 27 verified findings; 7 were refuted.
+5. **Fixes.** Three workers split by area (navigation; tables; toolbars, Timeline and sign-in presentation), each with a behaviour test per finding, merged with `--no-ff`. The integration step finished the parts that crossed their files: the Current backlog description (15), the global paragraph wrap and the table footer note (24), the typed Over time heading (11) and the plan amendments.
+
+### Findings and fixes
+
+Numbers follow the consolidated list. Each fix keeps the approved look; a divergence from the inspector's suggested fix is stated.
+
+| # | Finding | Fix | Test |
+| --- | --- | --- | --- |
+| 1 | From 601 to about 1120px the view bar cuts the record tabs and section chips | The Sections menu replaces the chips up to 1120px, the two-row masthead width (P6 decision 15), instead of 600px. CSS only | `view-bar.spec.ts`: at 768 the record tabs lie inside an unscrolled row beside the Sections button; at 1121 the chips show without scrolling |
+| 2 | A bounded table pane hides its last rows with no cue | DataTable also sets `data-more-below` from the vertical scroll position; the frame draws an 8px bottom-edge cue. It is a gradient of `--prebid-scroll-shadow`, as the menu scroll cue is, because the token check accepts only a bare token as `box-shadow` | `table-system.spec.ts`: the cue shows at 1440×900 on `/repos` until the pane is scrolled to its end, and not at 2560×1300 |
+| 3 | Segmented view-mode controls lose an option inside their frame on phones | The segmented variant never shrinks; underline subject tabs scroll beside it. At 600px and below the bar's row gap and the segmented padding are 8px; at 375px and below the bar's tab icons hide, segmented padding is 6px and the Sections trigger shows its icon alone, keeping the name "Sections" | `layout-width.spec.ts`: at 320, 375 and 390 both view modes and the current subject tab lie inside their rows and the viewport |
+| 4 | At 320 the current masthead destination is scrolled out of view on Reviewers pages | `reveal()` is exported from `view-bar.tsx`, and `DashboardHeader` scrolls the current destination into view when the row overflows; `toolbar.tsx` and `navigation.ts` are unchanged | `layout-width.spec.ts`: at 320 Reviewers stays inside the overflowing navigation on three Reviewers-lens views, and Contributors on `/contributors` |
+| 5 | At 320 the first numeric column's values are off-screen | At 374px and below the pinned column is 128px in DataTable and 140px in the contribution tables | `layout-width.spec.ts`: at 320 the first value beside the pinned column is inside the visible area on Companies, contributors Over time and a quarterly Timeline |
+| 6 | A toolbar group holding only its reset leaves an empty labelled band | CSS only: the reset sits on the overline's line, or beside the status sentence when its group is the toolbar's only one; on phones it drops below the overline | `repository-page-layout.spec.ts`: at 1440 and 768 the reset is level with the overline or the status line; at 320 the page does not scroll sideways |
+| 7 | The "All open PRs/issues" scope link is drawn in ink | It takes the link colour. It keeps its underline at rest, since inside the summary sentence colour would otherwise be its only cue (Architecture rule 8) | `repository-page-layout.spec.ts`: its colour equals the breadcrumb link's in Light and Dark |
+| 8 | From 601 to 1365px a reset drops to a row of its own once the fields wrap | The fields take a zero flex basis, so they wrap beside the reset; on phones the reset still starts its row | `layout-width.spec.ts`: at 768 the reset is level with the last field row; at 390 it starts the group |
+| 9 | Merge-duration handles wrap into three-line rows while Base branch takes spare width | Author is 224px (measured; the suggested 210px still wrapped `sample-author-3[bot]`); Base branch, Agent reviewer, Bot reviewer, Latest actor and Author type declare 120px, so only Title takes surplus (P3 step 2(c)) | `repository-insights.spec.ts`: at 1440 every Author handle is one line and Base branch is at most 121px |
+| 10 | Account type and Company wrap two-word values | Account type 132px and Company 168px (measured; "Unmapped company" wrapped at 160px) | `contribution-layout.spec.ts`: at 1440 on `/reviewers` and `/contributors` each value and the Account type header is one line |
+| 11 | Over time lacks the Authoring, Reviewing and Issues headings | The Over time metrics take the report table's display-only headings through an optional `TimelineMetricDefinition.displayGroup`; names, Columns, the CSV dialog and CSV headers keep plain labels | `contribution-lenses.spec.ts`: the headings span their metrics and the CSV is unchanged |
+| 12 | The current breadcrumb is cut mid-word on phones | The current crumb shrinks and ends in an ellipsis; parent crumbs keep their size and the full text stays in the DOM | `layout-width.spec.ts`: at 320, 375 and 390 the crumb ends inside an unscrolled breadcrumb row |
+| 13 | The pager label wraps at 320 | The position text never wraps; below 360px "Previous" and "Next" are visually hidden and keep the buttons' names. The buttons are 40×34, not the suggested 34px squares, because rule 3 forbids a `className` on `Button` | `repository-page-layout.spec.ts`: at 320 and 375 "Page 1 of 247" is one line and the pager ends inside the footer |
+| 14 | Toolbar summaries set hyphens at tabular width | The summary drops `font-variant-numeric`; it is prose | `repository-page-layout.spec.ts`: a hyphen measures under 0.9 of a figure (the suggested 0.45em fails even when fixed: 0.466em in Chromium) |
+| 15 | Dot-separated summaries break inside facts and start lines with "·" | Each summary item is an inline block, and its separator is a no-wrap " ·" at its end, so `textContent` is unchanged. The Current backlog description ends "Open now" with a no-break " ·" | `layout-width.spec.ts`: at 320 and 390 no separator starts a line, a fact wraps only when longer than the line, and the backlog separator sits on the "Open now" line |
+| 16 | The help icon jumps to the panel edge when a title wraps | The title row is inline flow, with a word joiner before the help button (WebKit needed it as well as `nowrap`) | `repository-page-layout.spec.ts`: at 320 the button follows the title's last line |
+| 17 | The Timeline "Record filters" trigger has no Filters icon | It leads with `FiltersIcon` at 14px; its name is unchanged | `timeline-repository-filters.test.tsx`: glyph identity and the name "Record filters (1)" |
+| 18 | Weekly range headings strand the year on its own line | `compactRangeLabel` puts no-break spaces inside each date, so a range breaks only around its dash; charts and CSV keep `timelineIntervalLabel` | `timeline-matrix.spec.ts` and `timeline-layouts.spec.ts`: each date is one line |
+| 19 | In approval headers the numeral stays with the sort icon and its noun wraps | Not fixed; see below | — |
+| 20 | Table panels are inset 24px, toolbar and chart panels 20px | ReportToolbar and ChartPanel use 24px above 600px; DataTable is unchanged | `timeline-layouts.spec.ts`: at 1440 the three titles start within 1px of each other |
+| 21 | Phone toolbar selects mix full and content widths | At 600px and below the reporting-period select grows to the card width | `timeline-layouts.spec.ts`: at 320 the four selects are equal within 1px |
+| 22 | A one-line account name sits 6px below its row | The account cell aligns to the top | `repository-insights.spec.ts`: the name and the Account type text share a top within 1px |
+| 23 | The external-link icon can wrap alone | The name's last character and the icon sit in one no-wrap span | `repository-insights.spec.ts`: at 390 every icon follows its name's last line |
+| 24 | Single words alone on the last line | Paragraphs take `text-wrap: pretty` in the `globals.css` base layer; the centred sign-in subtitle takes `balance` in `authentication.module.css`. CSS only, under the authentication freeze | `authentication.spec.ts` (sign-in and error at 320 and 1440) and `repository-page-layout.spec.ts` (the table footer note at 320) |
+| 25 | The Confirm New Password placeholder is cut at 320 | The `Input` primitive ends overflowing text with an ellipsis; its story gains a long placeholder | Story coverage with axe in Light and Dark; weaker than geometry, since no DOM measure shows a placeholder's clipping |
+| 26 | On account setup the theme button covers the card's corner on phones | At 600px and below the setup card, the only card rendered directly in the surface, gains a 32px top margin. The suggested surface padding would also have moved the sign-in cards. `src/app/auth/setup/page.tsx` is unchanged | `layout-width.spec.ts`: at 320, 375 and 390 the button and the card do not intersect |
+| 27 | On the foundation specimen "Example input" is separated from its field | The label and its field wrap as one unit | `foundation.spec.ts`: at 320 and 768 the label sits beside or directly above the field |
+
+Finding 19 is not fixed. Binding the numeral to its noun needs 80px for "⇕ 0 approvals" (Chromium and WebKit), while the header's content box is 73px at 1366 and 78px at 1440, so the label would be clipped. At 1366 all three approval headers wrap alike, and at 1600 all fit; the uneven wrap appears only in between. A fit needs the Human approvals columns at about 114px instead of 106px (`overview-columns.tsx`), which widens the Current backlog's default minimum by 24px. That is left for a layout decision.
+
+### Refuted
+
+- Masthead navigation at 320 should show all four labels: the row scrolls by design below the 390px fit (P6 decision 15); only the cut current item was kept (finding 4).
+- Record titles take all surplus width: settled by P3 step 2(c).
+- Two-line numeric headers such as "Age in / days": P3 item 3 allows two lines at one metric width.
+- The Companies identity column is too narrow for the Unmapped company subtitle: the 220px pinned width is fixed by P3 step 2(c) and decision 4, and the subtitle stays readable.
+- GitHub logins should never break at hyphens in the phone account column: P2 Checkpoint B accepted wrapping over cutting; the lone icon was kept (finding 23).
+- Underline subject tabs clipped at phone width: tabs scroll by design (P4 item 4) and `reveal()` keeps the current one in view; kept only where a view mode or a tablet-width destination is lost (findings 1 and 3).
+- The audit's 56 overlapping pairs: password fields and their Show password toggles, which sit inside the field's reserved padding by design.
+
+### Technical calls
+
+Recorded here rather than awaited, under the approved look:
+
+- The Sections menu breakpoint moves from 600px to 1120px (P4 item 4; amended above).
+- View bar on phones: at 600px and below an 8px row gap and 8px segmented padding; at 375px and below no view-bar tab icons, 6px segmented padding and an icon-only Sections trigger.
+- Pinned columns at 374px and below: 128px (DataTable) and 140px (contributions). The contribution tables' minimum width grows by 60px with the wider Company and Account type columns.
+- Declared widths: record Author 224px; Base branch, Agent reviewer, Bot reviewer, Latest actor and Author type 120px; contribution Company 168px and Account type 132px.
+- The bottom-edge cue of a bounded table pane is a gradient of the scroll-shadow token, and the pager's buttons below 360px are 40×34.
+- ReportToolbar and ChartPanel inline padding is 24px above 600px, matching DataTable.
+- `TimelineMetricDefinition` gains the optional `displayGroup`, an additive change under Delivery rule 1.
+
+Visible text changes: the Over time core metrics sit under "Authoring", "Reviewing" and "Issues"; the "Record filters" trigger shows the Filters icon; below 360px the pager shows chevrons only and at 375px and below the Sections trigger shows its icon only, both keeping their names; compact weekly ranges, and the names of the headers and links that show them, hold no-break spaces inside each date and read the same; the Current backlog description's separator follows "Open now". Unchanged: data values, link targets, URLs, CSV content, the other accessible names and the sign-in pages' copy, form fields and submit handling.
+
+### Checks
+
+On `feature/final-visual-fixes`: the three worker branches merged with `--no-ff` (conflicts only where two branches appended tests at the end of `layout-width.spec.ts` and `repository-page-layout.spec.ts`; all kept), then the integration commits. No file under `src/` or `.storybook/` changed after the builds below.
+
+| Check | Result |
+| --- | --- |
+| `npm run check` | exit 0; 195 test files, 3,015 tests, each verified as an individual pass |
+| `npm run test:accounts` | exit 0; 34 tests |
+| `npm run build:production:fixture`, `npm run test:production` | exit 0; 13 tests in 4 files |
+| `npm run build:preview`, `npm run build:storybook` | exit 0 |
+| Full browser suite, Chromium | First run: 825 passed, 2 failed. `repository-overview.spec.ts` at 320px expected the 164px pinned column; it now expects 128px below 375px (finding 5). Rerun: 827 passed; `check-test-results.mjs playwright` verified 827 |
+| WebKit: `repository-page-layout`, `timeline-layouts`, `view-bar`, `table-system`, `inventory-design`, `visual-review`, `layout-width`, `contribution-layout`, `repository-overview`, `repository-insights`, `timeline-matrix`, `authentication`, `foundation`, `contribution-lenses` | 246 passed; the checker verified 246 |
+
+After-fix captures of 15 views named by the findings, at 320, 390, 768 and 1440 in Light on `build:preview` of this branch, are kept outside the repository for review. In them the narrower pinned column at 320px wraps repository and company names onto two lines.
+
+### Not run
+
+- Visual sign-off of the after-fix captures, and any Dark capture after the fixes.
+- The full WebKit suite; only the 14 files above ran in WebKit.
+- Chromium on Linux, which CI uses: the view-bar margins at 320–390px were measured in an aarch64 Linux container, not on CI's x86_64 runners, and widths between 376 and about 388px were not measured with the final CSS; there "Contributors" may clip by a few pixels.
+- A pager inside a dialog below 360px.
+- `npm run audit:dependencies`.
 
 ## Appendix A: findings by phase
 
