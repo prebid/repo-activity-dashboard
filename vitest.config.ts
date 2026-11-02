@@ -60,8 +60,9 @@ export default defineConfig({
           functions: 100,
           branches: 100,
         },
-        // The dashboard frame, header and width preference wrap every report page.
-        'src/{components/layout/{brand-logo,dashboard-frame,dashboard-header,layout-width,toolbar}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx,styles/fonts.ts}':
+        // The dashboard frame, masthead, account menu and width preference wrap every report page;
+        // the edge frame wraps the pages outside it.
+        'src/{components/layout/{account-menu,brand-logo,dashboard-frame,dashboard-header,edge-frame,layout-width,toolbar,workspace-footer}.tsx,lib/presentation/layout-width.ts,app/\\(dashboard\\)/layout.tsx,styles/fonts.ts}':
           { perFile: true, lines: 100, statements: 100, functions: 100, branches: 100 },
         'src/features/authentication/{login-view,change-password-view}.tsx': {
           perFile: true,

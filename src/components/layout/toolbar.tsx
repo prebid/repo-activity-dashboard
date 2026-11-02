@@ -3,10 +3,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ThemeMenu } from './theme-menu';
 import { LayoutWidthToggle } from './layout-width';
+import { AccountMenu } from './account-menu';
 import { signOut } from 'next-auth/react';
 import { notifyAuthTransition } from '@/components/providers/auth-transitions';
 import type { AuthenticatedUser } from '@/models/accounts';
+import { isPreviewBuild } from '@/lib/presentation/preview';
 import { Button } from '@/components/ui/button';
+import { SignOutIcon } from '@/components/ui/icons';
 import { DashboardHeader } from './dashboard-header';
 import styles from './dashboard.module.css';
 import type { RepositoryDefinition } from '@/config/repositories';
@@ -48,18 +51,14 @@ export function Toolbar({
       accountControls={
         <>
           <LayoutWidthToggle />
-          <ThemeMenu />
-          <span className={styles.accountName}>{viewer.name || viewer.email}</span>
-          <Button
-            variant="ghost"
-            size="sm"
-            disabled={signingOut}
-            onClick={() => void handleSignOut()}
-          >
-            {signingOut ? 'Signing out…' : 'Sign out'}
+          <ThemeMenu tone="masthead" />
+          <AccountMenu viewer={viewer} passwordChange={!isPreviewBuild} />
+          <Button variant="masthead" disabled={signingOut} onClick={() => void handleSignOut()}>
+            <SignOutIcon size={16} />
+            <span className={styles.signOutLabel}>{signingOut ? 'Signing out…' : 'Sign out'}</span>
           </Button>
           {signOutError && (
-            <p role="alert" className="text-sm text-destructive">
+            <p role="alert" className={styles.signOutError}>
               {signOutError}
             </p>
           )}

@@ -2,128 +2,11 @@
   "version": 1,
   "entries": [
     {
-      "file": "src/components/layout/dashboard.module.css",
-      "context": "",
-      "selector": ".brand",
-      "property": "border-radius",
-      "value": "3px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
-    },
-    {
-      "file": "src/components/layout/dashboard.module.css",
-      "context": "",
-      "selector": ".navItem[data-active='true']::after, .navItem[aria-current='page']::after",
-      "property": "border-radius",
-      "value": "3px 3px 0 0",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); shell (SHELL-08, SHELL-10)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".formEyebrow",
-      "property": "font-size",
-      "value": "9px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".title",
-      "property": "font-size",
-      "value": "29px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".noScriptNotice",
-      "property": "border-radius",
-      "value": "7px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".notice, .error, .success",
-      "property": "border-radius",
-      "value": "7px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".pageFooter",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "@media (max-width: 480px)",
-      "selector": ".title",
-      "property": "font-size",
-      "value": "27px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); auth screens (SHELL-13)"
-    },
-    {
-      "file": "src/app/(dashboard)/foundation/page.tsx",
-      "context": "FoundationPage > <h1 className>",
-      "selector": "",
-      "property": "text-3xl",
-      "value": "text-3xl",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/app/(dashboard)/foundation/page.tsx",
-      "context": "FoundationPage > <p className>",
-      "selector": "",
-      "property": "text-sm",
-      "value": "text-sm",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/app/(dashboard)/repos/[slug]/not-found.tsx",
-      "context": "RepositoryNotFound > <h1 className>",
-      "selector": "",
-      "property": "text-2xl",
-      "value": "text-2xl",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
       "file": "src/app/auth/setup/page.tsx",
       "context": "SetupPage > <h1 className>",
       "selector": "",
       "property": "text-2xl",
       "value": "text-2xl",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/app/not-found.tsx",
-      "context": "NotFound > <h1 className>",
-      "selector": "",
-      "property": "text-2xl",
-      "value": "text-2xl",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/components/layout/toolbar.tsx",
-      "context": "Toolbar > <DashboardHeader accountControls> > <p className>",
-      "selector": "",
-      "property": "text-sm",
-      "value": "text-sm",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
     },
@@ -153,15 +36,6 @@
       "value": "text-3xl",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/features/authentication/authentication.module.css",
-      "context": "",
-      "selector": ".noScriptNotice",
-      "property": "font-size",
-      "value": "14px",
-      "phase": "P4",
-      "reason": "Sign-in notice text: P4 restyles the authentication screens (SHELL-13)"
     }
   ]
 }

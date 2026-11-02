@@ -1,0 +1,46 @@
+/* The trigger may shorten its name when the masthead row runs out of room. Its avatar's badge disc
+   takes the fill behind it, so it reads as cut out of the avatar. */
+.frame {
+  --identity-surface: var(--prebid-masthead);
+  display: inline-flex;
+  min-width: 0;
+}
+.frame > button {
+  min-width: 0;
+  max-width: 100%;
+}
+.frame > button:hover {
+  --identity-surface: var(--prebid-masthead-hover);
+}
+.frame > button[data-state='open'] {
+  --identity-surface: var(--prebid-masthead-selection);
+}
+
+.identity {
+  --identity-surface: var(--prebid-overlay);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+}
+.names {
+  display: grid;
+  min-width: 0;
+}
+.name {
+  color: var(--popover-foreground);
+  font-size: var(--prebid-text-body);
+  font-weight: 600;
+  line-height: var(--prebid-leading-body);
+  overflow-wrap: anywhere;
+}
+.detail,
+.role {
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+  overflow-wrap: anywhere;
+}
+.role {
+  padding: 6px 8px;
+}

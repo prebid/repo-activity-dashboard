@@ -7,7 +7,13 @@ async function login(page: Page) {
   await expect(page).toHaveURL(/\/repos$/);
 }
 /** The logo is the vector file itself at every device scale: no srcset and no optimizer proxy. */
-async function expectVectorLogo(page: Page, image: Locator, scale: number, width: number) {
+async function expectVectorLogo(
+  page: Page,
+  image: Locator,
+  scale: number,
+  width: number,
+  pathname: string,
+) {
   expect(await page.evaluate(() => window.devicePixelRatio)).toBe(scale);
   await expect(image).toHaveAttribute('alt', 'Prebid');
   expect(await image.getAttribute('srcset')).toBeNull();
@@ -20,7 +26,7 @@ async function expectVectorLogo(page: Page, image: Locator, scale: number, width
       size: [box.width, box.height],
     };
   });
-  expect(new URL(loaded.currentSrc).pathname).toBe('/images/prebid-logo.svg');
+  expect(new URL(loaded.currentSrc).pathname).toBe(pathname);
   expect(loaded.naturalWidth).toBeGreaterThan(0);
   // Preflight's height:auto keeps the lockup's 140:25 ratio at the requested width. The height
   // attribute is that ratio rounded, up to 0.46px away, so the tolerance stays well under it.
@@ -35,6 +41,7 @@ async function expectVectorLogo(page: Page, image: Locator, scale: number, width
 for (const scale of [1, 2]) {
   test.describe('device scale ' + scale, () => {
     test.use({ deviceScaleFactor: scale });
+    // The masthead is navy in both themes, so it takes the white-wordmark lockup.
     test('renders the header logo as SVG', async ({ page }) => {
       await login(page);
       await expectVectorLogo(
@@ -42,11 +49,18 @@ for (const scale of [1, 2]) {
         page.locator('header a[aria-label="Repository activity"] img'),
         scale,
         143,
+        '/images/prebid-logo-knockout.svg',
       );
     });
     test('renders the sign-in logo as SVG', async ({ page }) => {
       await page.goto('/auth/login');
-      await expectVectorLogo(page, page.locator('main header img'), scale, 171);
+      await expectVectorLogo(
+        page,
+        page.locator('main header img'),
+        scale,
+        171,
+        '/images/prebid-logo.svg',
+      );
     });
   });
 }

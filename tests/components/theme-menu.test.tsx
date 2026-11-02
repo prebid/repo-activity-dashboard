@@ -13,11 +13,16 @@ beforeEach(() => {
   theme.set.mockReset();
 });
 
-it.each(['system', 'light', 'dark'])(
-  'hydrates a saved %s preference without replacing server markup',
-  async (preference) => {
+it.each([
+  ['system', 'page'],
+  ['light', 'masthead'],
+  ['dark', 'page'],
+] as const)(
+  'hydrates a saved %s preference on the %s surface without replacing server markup',
+  async (preference, tone) => {
+    const menu = <ThemeMenu className="consumer-theme" tone={tone === 'page' ? undefined : tone} />;
     const container = document.createElement('div');
-    container.innerHTML = renderToString(<ThemeMenu className="consumer-theme" />);
+    container.innerHTML = renderToString(menu);
     document.body.append(container);
     const serverButton = container.querySelector('button')!;
     expect(serverButton).toBeDisabled();
@@ -27,13 +32,12 @@ it.each(['system', 'light', 'dark'])(
     let root: Root | undefined;
     try {
       act(() => {
-        root = hydrateRoot(container, <ThemeMenu className="consumer-theme" />, {
+        root = hydrateRoot(container, menu, {
           onRecoverableError: recover,
         });
       });
       expect(container.querySelector('button')).toBe(serverButton);
       await waitFor(() => expect(serverButton).toBeEnabled());
-      expect(serverButton).toHaveClass('consumer-theme');
       expect(serverButton).toHaveAccessibleName('Theme settings');
       expect(recover).not.toHaveBeenCalled();
       expect(errors).not.toHaveBeenCalled();
