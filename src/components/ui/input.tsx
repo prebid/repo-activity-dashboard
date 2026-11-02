@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           fieldVariants({ size }),
-          'placeholder:text-placeholder file:border-0 file:bg-transparent file:font-medium file:text-foreground',
+          'text-ellipsis placeholder:text-placeholder file:border-0 file:bg-transparent file:font-medium file:text-foreground',
           font === 'mono' && 'font-mono',
           className,
         )}
