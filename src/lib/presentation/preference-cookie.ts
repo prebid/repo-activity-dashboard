@@ -88,7 +88,8 @@ const wireSchema = z
 
 /**
  * Decode a cookie value for the current session. A value for another format version, account or
- * authentication revision is ignored; sections this cookie cannot hold are dropped.
+ * authentication revision is ignored; sections this cookie cannot hold are dropped. A value longer
+ * than any writer produces is malformed and is not decoded.
  */
 export function decodePreferenceCookie(
   cookie: PreferenceCookieName,
@@ -96,6 +97,8 @@ export function decodePreferenceCookie(
   binding: PreferenceBinding,
 ): PreferenceCookieRead {
   if (raw === undefined || raw === '') return { status: 'absent' };
+  if (preferenceCookieBytes(cookie, raw) > preferenceCookieByteLimit)
+    return { status: 'malformed' };
   let decoded: unknown;
   try {
     decoded = JSON.parse(fromBase64Url(raw));

@@ -73,16 +73,32 @@ export function savedPreference<T>(
   if (preferenceSectionCookie(section) !== snapshot.cookie)
     throw Error(`The ${section} section is not in the ${snapshot.cookie} cookie.`);
   const base = { section, binding: snapshot.binding };
-  const raw = preferenceSectionText(snapshot.document, section);
-  if (raw === null) return { ...base, value: null };
+  let raw: string | null = null;
   let value: T | null | undefined;
   try {
+    raw = preferenceSectionText(snapshot.document, section);
+    if (raw === null) return { ...base, value: null };
     value = read(raw);
   } catch {
     value = null;
   }
   if (value === undefined) return { ...base, value: null };
-  return value === null ? { ...base, value: null, invalid: raw } : { ...base, value };
+  if (value !== null) return { ...base, value };
+  // A section whose text could not be produced cannot be matched for deletion.
+  return raw === null ? { ...base, value: null } : { ...base, value: null, invalid: raw };
+}
+
+/**
+ * Mark a section the server read as well formed but rejected for every view it applies to, so the
+ * client deletes it after hydration while the cookie still holds the same value.
+ */
+export function rejectedPreference<T>(
+  snapshot: PreferenceSnapshot,
+  saved: SavedPreference<T>,
+): SavedPreference<T> {
+  return saved.invalid !== undefined
+    ? saved
+    : savedPreference<T>(snapshot, saved.section, () => null);
 }
 
 function storedSortColumn(raw: string): string | null {

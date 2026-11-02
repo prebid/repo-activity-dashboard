@@ -84,6 +84,33 @@ it('renders an ordinary server link and resolves a saved scope before client nav
   expect(result.current).toBe('/contributors');
 });
 
+it('reads a scope another tab saved when this window regains focus or becomes visible', () => {
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
+  });
+  const { result } = entry();
+  expect(query(result.current).get('period')).toBe('last-month');
+  // Another tab writes the cookie; this window receives no event for it.
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'this-month' }),
+    ),
+  });
+  act(() => {
+    window.dispatchEvent(new FocusEvent('focus'));
+  });
+  expect(query(result.current).get('period')).toBe('this-month');
+  seedPreferences(alice, {
+    'contributions.scope': saved((value) => (value.selection.actorTypes = ['bot'])),
+  });
+  act(() => {
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+  expect(query(result.current).getAll('type')).toEqual(['bot']);
+});
+
 it('ignores a scope saved for another account or authentication revision', () => {
   seedPreferences(alice, {
     'contributions.scope': saved(

@@ -188,6 +188,51 @@ it('shows the entry notice, deletes the rejected section after hydration and cle
   await interact(() => result.current.changeView({ chart: true }));
   expect(result.current.notice).toBeUndefined();
 });
+it('deletes a saved choice that fails on every visit after hydration, and keeps one that fails only here', async () => {
+  const monthSort = 'timeline.sort=month%3A2026-10-01T00%3A00%3A00.000Z';
+  // A weekly report has no month column, so the server redirects without the saved sort.
+  seedPreferences(alice, { 'timeline.matrix': { version: 1, query: monthSort } });
+  const weekly = 'timeline=1&timeline.group=week';
+  const onlyHere = resolveTimelineEntry(weekly, makeContext('matrix', weekly), {
+    presentation: monthSort,
+  });
+  if (onlyHere.kind !== 'redirect') throw Error('Expected a redirect');
+  window.history.replaceState(null, '', '/repos?' + onlyHere.search);
+  const explicitOnly = renderHook(() => useControls());
+  await ready(explicitOnly.result);
+  expect(explicitOnly.result.current.view.grouping).toBe('week');
+  expect(explicitOnly.result.current.notice).toBeUndefined();
+  expect(savedTimelineQuery('matrix')).toBe(monthSort);
+  explicitOnly.unmount();
+  // A saved weekly grouping never has a month column: the server renders the requested view.
+  const stale = { version: 1, query: 'timeline.group=week&' + monthSort };
+  seedPreferences(alice, { 'timeline.matrix': stale, overview: 'kept' });
+  const rejected = resolveTimelineEntry('timeline=1', makeContext('matrix', 'timeline=1'), {
+    presentation: stale.query,
+  });
+  expect(rejected).toEqual({
+    kind: 'final',
+    notice: 'Saved Timeline choices that do not fit this report were skipped.',
+    rejected: 'presentation',
+  });
+  window.history.replaceState(null, '', '/repos?timeline=1');
+  historyWrites.mockClear();
+  const context = makeContext('matrix', 'timeline=1', 'alice', timelineEntryNotices.skipped);
+  context.preferences!.presentation = savedSection(
+    'timeline.matrix',
+    null,
+    '{"version":1,"query":"timeline.group=week&timeline.sort=month%3A2026-10-01T00%3A00%3A00.000Z"}',
+  );
+  const repeat = renderHook(() => useTimelineControls('alice', context, {}));
+  expect(repeat.result.current.notice).toBe(timelineEntryNotices.skipped);
+  expect(repeat.result.current.view.grouping).toBe('month');
+  expect(preferenceSections('repositories')).toEqual({ overview: 'kept' });
+  expect(historyWrites).not.toHaveBeenCalled();
+  // With the section gone, the next entry has nothing to skip.
+  expect(
+    resolveTimelineEntry('timeline=1', makeContext('matrix', 'timeline=1'), { presentation: '' }),
+  ).toMatchObject({ kind: 'redirect' });
+});
 it('copies a legacy localStorage Timeline preference once without changing this render', async () => {
   const key = timelinePreferenceKey('alice', makeContext('matrix', 'timeline=1'));
   localStorage.setItem(key, JSON.stringify({ version: 1, query: 'timeline.group=week' }));

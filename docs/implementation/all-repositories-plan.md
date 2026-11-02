@@ -63,7 +63,7 @@ Use small typed display inputs; they are not a database schema or a frozen netwo
 | Pure display types under `src/models/` | Repository identity, current backlog, per-period values, availability notes, and drilldown selection. Keep existing contribution and account models independent. |
 | Prepared samples under `src/mocks/` | Fixed clock, stable IDs, summary values, and bounded supporting rows. These remain behind the existing server composition boundary. |
 | Pure helpers under `src/lib/presentation/` | Validated settings/query parsing, UTC period boundaries, display formatting, and drilldown URL construction. No React, storage access, or reporting calculations from event history. |
-| Page controller under `src/lib/navigation/` and `_screens` | Current URL, browser preference restoration, page-level selection, and composition of two table controllers. One owner for each setting. |
+| Page controller under `src/lib/navigation/` and `_screens` | Current URL, saving deliberate changes, page-level selection, and composition of two table controllers. Saved sections are validated by route composition on the server (`src/app/_screens/repository-preferences.ts`) before the first render. One owner for each setting. |
 | Repository feature under `src/features/repositories/` | Backlog/activity column definitions, metric explanations, controls, and page composition from supplied values/callbacks. Repository-specific meanings stay here. |
 | Shared components | Table mechanics, numeric/availability presentation, menu and input primitives. No repository metric registry, router, mock imports, account store, or GitHub client inside the table. |
 

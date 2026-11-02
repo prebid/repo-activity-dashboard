@@ -9,9 +9,19 @@ import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { preferenceChangeEvent, readPreference } from './use-preference-cookie';
 import { usePreferenceBinding } from './preference-binding';
 
+/**
+ * A save in this window dispatches the change event. Cookies fire no event across tabs, so the
+ * cookie is also read again when this window regains focus or becomes visible.
+ */
 function subscribe(notify: () => void) {
   window.addEventListener(preferenceChangeEvent, notify);
-  return () => window.removeEventListener(preferenceChangeEvent, notify);
+  window.addEventListener('focus', notify);
+  document.addEventListener('visibilitychange', notify);
+  return () => {
+    window.removeEventListener(preferenceChangeEvent, notify);
+    window.removeEventListener('focus', notify);
+    document.removeEventListener('visibilitychange', notify);
+  };
 }
 const serverSnapshot = () => null;
 /**

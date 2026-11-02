@@ -132,6 +132,28 @@ it('marks absent, valid, not-applicable and invalid sections', () => {
   });
 });
 
+it('reads a section too deeply nested to serialize as absent instead of throwing', () => {
+  let deep: unknown = 0;
+  for (let depth = 0; depth < 200_000; depth++) deep = [deep];
+  const snapshot = {
+    cookie: 'repositories' as const,
+    binding: alice,
+    status: 'bound' as const,
+    document: {
+      cookie: 'repositories' as const,
+      binding: alice,
+      sections: { overview: { updated: 0, value: deep } },
+    },
+  };
+  const read = vi.fn(() => 1);
+  expect(savedPreference(snapshot, 'overview', read)).toEqual({
+    section: 'overview',
+    binding: alice,
+    value: null,
+  });
+  expect(read).not.toHaveBeenCalled();
+});
+
 it('validates columns, All repositories settings and Timeline presentation with their readers', () => {
   const definition = {
     repositoryIds: ['a', 'b'],

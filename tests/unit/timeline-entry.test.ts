@@ -135,15 +135,49 @@ describe('saved presentation', () => {
     expect(view.has('prs.filter.authors')).toBe(false);
     expect(view.get('timeline.dir')).toBe('asc');
   });
-  it('keeps saved matrix metrics when a saved period-column sort no longer exists', () => {
+  it('keeps saved matrix metrics when a saved period-column sort is not in this report', () => {
     const view = target(
-      entry('matrix', 'timeline=1', {
+      entry('matrix', 'timeline=1&timeline.group=month', {
         presentation:
-          'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=week:2026-10-19T00:00:00.000Z',
+          'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.group=week&timeline.sort=week:2026-10-19T00:00:00.000Z',
       }),
     );
     expect(view.getAll('timeline.metric')).toEqual(['prsOpened', 'issuesOpened']);
-    expect(view.get('timeline.sort')).toBe('repository');
+    expect([view.get('timeline.group'), view.get('timeline.sort')]).toEqual([
+      'month',
+      'repository',
+    ]);
+  });
+  it('rejects a saved choice that fails on every visit, but not one that fails only here', () => {
+    const monthSort = 'timeline.sort=month%3A2026-10-01T00%3A00%3A00.000Z';
+    // A weekly report has no month column, but a bare entry does, so the choice stays saved.
+    const onlyHere = target(
+      entry('matrix', 'timeline=1&timeline.group=week', { presentation: monthSort }),
+    );
+    expect([onlyHere.get('timeline.group'), onlyHere.get('timeline.sort')]).toEqual([
+      'week',
+      'repository',
+    ]);
+    expect(
+      target(entry('matrix', 'timeline=1', { presentation: monthSort })).get('timeline.sort'),
+    ).toBe('month:2026-10-01T00:00:00.000Z');
+    // A saved weekly grouping never has a month column.
+    const stale = 'timeline.group=week&' + monthSort;
+    const rejected = {
+      kind: 'final',
+      notice: 'Saved Timeline choices that do not fit this report were skipped.',
+      rejected: 'presentation',
+    };
+    expect(entry('matrix', 'timeline=1', { presentation: stale })).toEqual(rejected);
+    expect(entry('matrix', 'timeline=1&period=this-month', { presentation: stale })).toEqual(
+      rejected,
+    );
+    // An explicit grouping the whole saved section fits applies it.
+    expect(
+      target(entry('matrix', 'timeline=1&timeline.group=month', { presentation: stale })).get(
+        'timeline.sort',
+      ),
+    ).toBe('month:2026-10-01T00:00:00.000Z');
   });
   it('keeps saved columns and sort when a saved grouping cannot cover an explicit long period', () => {
     const view = target(
@@ -159,12 +193,21 @@ describe('saved presentation', () => {
       view.get('timeline.dir'),
     ]).toEqual(['month', ['prsAuthored'], 'prsAuthored', 'desc']);
   });
-  it('drops a saved matrix repository that is no longer enabled and keeps other choices', () => {
-    const view = target(
+  it('rejects a saved matrix repository that is no longer enabled', () => {
+    expect(
       entry('matrix', 'timeline=1', { presentation: 'repo=repo-retired&timeline.dir=desc' }),
+    ).toEqual({
+      kind: 'final',
+      notice: timelineEntryNotices.skipped,
+      rejected: 'presentation',
+    });
+    // An explicit repository selection does not consult the saved one.
+    const view = target(
+      entry('matrix', 'timeline=1&repo=repo-prebidjs', {
+        presentation: 'repo=repo-retired&timeline.dir=desc',
+      }),
     );
-    expect(view.has('repo')).toBe(false);
-    expect(view.get('timeline.dir')).toBe('desc');
+    expect([view.getAll('repo'), view.get('timeline.dir')]).toEqual([['repo-prebidjs'], 'desc']);
   });
   it('renders a valid incoming URL unchanged when saved choices would exceed the link budget', () => {
     const params = new URLSearchParams('timeline=1&period=this-year');
@@ -210,21 +253,37 @@ describe('saved contribution scope', () => {
       notice: timelineEntryNotices.scopeUnfit,
     });
   });
-  it('keeps a saved scope when a saved Timeline column no longer exists', () => {
+  it('rejects a saved Timeline column that no longer exists and applies the scope once it is gone', () => {
     const lastMonth = {
       ...scope,
       period: { kind: 'preset' as const, preset: 'last-month' as const },
     };
-    const view = target(
+    expect(
       entry('contribution', 'timeline=1', {
         presentation: 'timeline.columns=retiredMetric&timeline.dir=desc',
         scope: lastMonth,
       }),
-    );
-    expect([view.get('period'), view.get('timeline.dir'), view.has('timeline.columns')]).toEqual([
+    ).toEqual({ kind: 'final', notice: timelineEntryNotices.skipped, rejected: 'presentation' });
+    expect(target(entry('contribution', 'timeline=1', { scope: lastMonth })).get('period')).toBe(
       'last-month',
+    );
+  });
+  it('keeps a saved scope when a saved Timeline grouping does not fit only this report', () => {
+    const long = {
+      ...scope,
+      period: { kind: 'custom' as const, from: '2025-01-01', through: '2026-10-24' },
+    };
+    // Daily intervals cannot cover the saved long period, but they fit a bare entry.
+    const view = target(
+      entry('contribution', 'timeline=1', {
+        presentation: 'timeline.group=day&timeline.dir=desc',
+        scope: long,
+      }),
+    );
+    expect([view.get('period'), view.get('timeline.group'), view.get('timeline.dir')]).toEqual([
+      'custom',
+      'month',
       'desc',
-      false,
     ]);
   });
 });

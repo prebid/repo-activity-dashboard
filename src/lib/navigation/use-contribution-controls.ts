@@ -34,7 +34,7 @@ import { writeTableQuery } from '@/lib/presentation/table-query';
 import { type TableQuery } from '@/models/table-query';
 import type { useTableController } from './use-table-controller';
 import { legacyContributionScope, mergedContributionScope } from './contribution-scope-storage';
-import { usePreferenceCookie } from './use-preference-cookie';
+import { readPreference, usePreferenceCookie } from './use-preference-cookie';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 function parseJson(raw: string): unknown {
@@ -43,6 +43,13 @@ function parseJson(raw: string): unknown {
   } catch {
     return null;
   }
+}
+/** The column choices a stored presentation holds for every table that shares its section. */
+function storedColumns(raw: string | null): Record<string, boolean> {
+  const value = raw === null ? null : parseJson(raw);
+  return isContributionPresentationDocument(value)
+    ? readContributionPresentation(raw, Object.keys(value.columns)).columns
+    : {};
 }
 
 /**
@@ -176,12 +183,23 @@ export function useContributionControls(
     }
     freezeReturn();
     if (url.href !== window.location.href) window.history.pushState(null, '', url);
+    // Tables of one kind can render different columns, so only this table's columns are replaced
+    // in the section the cookie holds; choices for columns it lacks stay for the tables that have it.
+    const saving = preferences
+      ? storedColumns(
+          readPreference(preferences.presentation.binding, preferences.presentation.section),
+        )
+      : {};
+    for (const id of columnIds) {
+      delete saving[id];
+      if (typeof next[id] === 'boolean') saving[id] = next[id];
+    }
     setChanged({
       basis: preferences?.presentation,
       table: tableKey,
-      value: { columns: next, hideZeroMembers: hideZero },
+      value: { columns: saving, hideZeroMembers: hideZero },
     });
-    presentationCookie.write(JSON.parse(serializeContributionPresentation(next, hideZero)));
+    presentationCookie.write(JSON.parse(serializeContributionPresentation(saving, hideZero)));
   }
   const returnHref = pathname + '?' + snapshot(search, renderedQuery);
   const linkNotice = contributionHref('contributors', page.sample, returnHref, value)

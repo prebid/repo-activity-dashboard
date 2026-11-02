@@ -24,6 +24,7 @@ import type {
 } from '@/models/contribution-preferences';
 import type { ContributionPage } from '@/models/contribution-page';
 import { contributionDefaultSort } from '@/models/contributions';
+import { contributionDetailColumnIds } from '@/features/contributions/contribution-details-view';
 import {
   alice,
   preferenceSections,
@@ -85,11 +86,13 @@ function useControls({
   viewerId = 'alice',
   pickerDirectory = directory,
   tableKey = 'contributors',
+  columnIds = ids,
   preferences,
 }: {
   viewerId?: string;
   pickerDirectory?: typeof directory;
   tableKey?: ContributionTableKind;
+  columnIds?: readonly string[];
   preferences?: ContributionReportPreferences;
 } = {}) {
   const search = useSyncExternalStore(subscribe, () => window.location.search);
@@ -114,7 +117,7 @@ function useControls({
     queryKey: tableKey === 'members' ? 'members' : 'report',
     scopeKey: 'contributions-test',
     viewerId,
-    columnIds: ids,
+    columnIds,
     defaultSort: contributionDefaultSort,
     historyMode: 'push',
     savedSort: preferences?.sort,
@@ -126,7 +129,7 @@ function useControls({
       pickerDirectory,
       table,
       tableKey,
-      ids,
+      columnIds,
       preferences,
     ),
     table,
@@ -493,6 +496,35 @@ it('keeps every change working when the browser refuses the cookie, until a save
   });
   expect(result.current.controls.storageAvailable).toBe(true);
   expect(saved()).toHaveProperty(scopeSection);
+});
+it('replaces only its own columns in a section that another table of the same kind shares', () => {
+  // Credit details render no last-activity column; comment details do.
+  const creditIds = contributionDetailColumnIds.filter((id) => id !== 'lastAt');
+  const stored = { version: 1, columns: { lastAt: true, state: false }, hideZeroMembers: false };
+  seedPreferences(alice, { 'contributions.details.columns': stored });
+  const preferences: ContributionReportPreferences = {
+    scope: savedSection(scopeSection),
+    presentation: savedSection('contributions.details.columns', {
+      columns: stored.columns,
+      hideZeroMembers: false,
+    }),
+    sort: savedSection('contributions.details.sort'),
+  };
+  const { result } = renderHook(() =>
+    useControls({ tableKey: 'details', columnIds: creditIds, preferences }),
+  );
+  expect(result.current.controls.visibility.value).not.toHaveProperty('lastAt');
+  act(() => {
+    result.current.controls.visibility.onChange({
+      ...result.current.controls.visibility.value,
+      repository: false,
+    });
+  });
+  expect(saved()['contributions.details.columns']).toEqual({
+    version: 1,
+    columns: { lastAt: true, state: false, repository: false },
+    hideZeroMembers: false,
+  });
 });
 it('restores and toggles zero-member visibility without dropping column preferences or prior pages', () => {
   const preferences = report(

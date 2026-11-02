@@ -418,6 +418,7 @@ export function timelineTarget(input: string, context: TimelineControlContext): 
 }
 export const timelineEntryNotices = {
   invalid: 'Saved Timeline preferences are invalid. Defaults are shown.',
+  skipped: 'Saved Timeline choices that do not fit this report were skipped.',
   scopeInvalid: 'Saved filters could not be restored. Default filters are shown.',
   scopeUnfit:
     'Saved filters are too large or incompatible with this Timeline. The requested view is unchanged.',
@@ -428,10 +429,29 @@ export type TimelineEntry =
   /** Render the requested URL as it is; `rejected` names the invalid section the notice is about. */
   | { kind: 'final'; notice?: string; rejected?: 'presentation' | 'scope' };
 /**
+ * Whether saved presentation choices fail on a bare entry, where no explicit field can be the
+ * cause. Such choices would be skipped on every visit, so their section is treated as invalid.
+ */
+function failsOnBareEntry(presentation: string, context: TimelineControlContext): boolean {
+  const bare = new URLSearchParams('timeline=1');
+  try {
+    timelineTarget(
+      mergeTimelinePreferenceParameters(bare, new URLSearchParams(presentation)).toString(),
+      context,
+    );
+    return false;
+  } catch {
+    return true;
+  }
+}
+/**
  * Resolve a Timeline entry, a URL without `timeline.state`, against saved preferences on the
  * server. Explicit fields win per domain, a saved scope applies only when the URL names none, and
  * stale dependent choices fall back one group at a time. The result is the explicit-state URL to
  * redirect to; when saved preferences cannot apply, the requested view renders with a notice.
+ * A saved choice that fails only against this URL's explicit fields is left out of the redirect
+ * and stays saved; one that fails even on a bare entry rejects the presentation section, which
+ * renders the requested view with the skipped notice.
  */
 export function resolveTimelineEntry(
   search: string,
@@ -464,13 +484,15 @@ export function resolveTimelineEntry(
   }
   if (!params.has('period'))
     params = new URLSearchParams(writeTimelinePeriod(params.toString(), context.period));
-  for (const candidate of timelinePreferenceCandidates(params, explicit)) {
+  for (const [index, candidate] of timelinePreferenceCandidates(params, explicit).entries()) {
     let target;
     try {
       target = timelineTarget(candidate.toString(), context);
     } catch {
       continue;
     }
+    if (index > 0 && failsOnBareEntry(saved.presentation, context))
+      return { kind: 'final', notice: timelineEntryNotices.skipped, rejected: 'presentation' };
     return target === search ? { kind: 'final' } : { kind: 'redirect', search: target };
   }
   return { kind: 'final', notice: timelineEntryNotices.unfit };

@@ -42,6 +42,7 @@ import {
   validateTimelineScope,
 } from '@/lib/presentation/timeline-controls';
 import {
+  rejectedPreference,
   savedContributionScope,
   savedTimelinePresentation,
   type PreferenceSnapshot,
@@ -184,10 +185,11 @@ function timelinePreferences(
           : null,
   });
   if (resolved.kind === 'redirect') return { redirect: controls.path + '?' + resolved.search };
-  // Only the section a notice reports is deleted after hydration; the other was not consulted.
+  // Only the section a notice reports is deleted after hydration; the other was not consulted. A
+  // well-formed presentation that fails on every visit is reported as well as an unreadable one.
   const reported = <T>(saved: SavedPreference<T>, kind: 'presentation' | 'scope') =>
     resolved.rejected === kind
-      ? saved
+      ? rejectedPreference(snapshot, saved)
       : { section: saved.section, binding: saved.binding, value: saved.value };
   return {
     preferences: {

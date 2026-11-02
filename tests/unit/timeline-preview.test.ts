@@ -396,6 +396,47 @@ describe('saved preferences', () => {
       JSON.parse(serializeContributionPreferences(retired)) as unknown,
     );
   });
+  it('marks a saved presentation that fails on every visit for deletion, and keeps one that fails only here', async () => {
+    const stale = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1'),
+      snapshot('repositories', {
+        'timeline.matrix': {
+          version: 1,
+          query: 'timeline.dir=desc&timeline.sort=week:2026-10-19T00:00:00.000Z',
+        },
+      }),
+    );
+    if (stale.status !== 'ready') throw Error('Expected a render');
+    expect(stale.href).toBe('/repos?timeline=1');
+    expect(stale.controls.view.descending).toBe(false);
+    expect(stale.controls.preferences).toEqual({
+      presentation: {
+        section: 'timeline.matrix',
+        binding,
+        value: null,
+        invalid:
+          '{"version":1,"query":"timeline.dir=desc&timeline.sort=week:2026-10-19T00:00:00.000Z"}',
+      },
+      notice: 'Saved Timeline choices that do not fit this report were skipped.',
+    });
+    const onlyHere = await repositoryTimelineMatrixPreview(
+      new URLSearchParams('timeline=1&timeline.group=month'),
+      snapshot('repositories', {
+        'timeline.matrix': {
+          version: 1,
+          query:
+            'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.group=week&timeline.sort=week:2026-10-19T00:00:00.000Z',
+        },
+      }),
+    );
+    if (onlyHere.status !== 'redirect') throw Error('Expected a redirect');
+    const redirected = query(onlyHere.href);
+    expect([redirected.get('timeline.group'), redirected.get('timeline.sort')]).toEqual([
+      'month',
+      'repository',
+    ]);
+    expect(redirected.getAll('timeline.metric')).toEqual(['prsOpened', 'issuesOpened']);
+  });
   it('applies a saved scope that the directory still resolves, without a client lookup', async () => {
     const scope = defaultContributionSettings(contributionSample());
     const known = {

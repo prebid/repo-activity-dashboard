@@ -99,7 +99,8 @@ describe('the 3,072-byte cap', () => {
   const sections = preferenceSectionKeys.repositories.slice(0, 4) as PreferenceSectionKey[];
   it('evicts the least recently updated sections and says so until dismissed', async () => {
     const user = userEvent.setup();
-    seedPreferences(alice, Object.fromEntries(sections.map((key) => [key, 'x'.repeat(700)])));
+    // Four sections that fit under the cap together, as a writer leaves them.
+    seedPreferences(alice, Object.fromEntries(sections.map((key) => [key, 'x'.repeat(500)])));
     render(<PreferenceNotice />);
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     const { result } = renderHook(() => usePreferenceCookie(savedSection(sections[0])));

@@ -1,6 +1,12 @@
 import { beforeEach, expect, it, vi } from 'vitest';
-const viewer = vi.hoisted(() => vi.fn());
+const { viewer, jar } = vi.hoisted(() => ({ viewer: vi.fn(), jar: new Map<string, string>() }));
 vi.mock('server-only', () => ({}));
+vi.mock('next/headers', () => ({
+  cookies: () =>
+    Promise.resolve({
+      get: (name: string) => (jar.has(name) ? { name, value: jar.get(name)! } : undefined),
+    }),
+}));
 // Server composition is checked against the reference cast, whose answers are hand-checkable.
 vi.mock('@/mocks/repository-timeline', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/mocks/repository-timeline')>();
@@ -49,9 +55,22 @@ import { timelineExportResponse } from '@/server/timeline-export';
 import { readCsv } from '../support/csv';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
+import {
+  contributionTimelinePreview,
+  repositoryTimelineMatrixPreview,
+  repositoryTimelinePreview,
+} from '@/server/timeline-preview';
+import { readPreferences } from '@/server/preferences';
+import {
+  encodePreferenceDocument,
+  preferenceCookies,
+  withPreferenceSection,
+} from '@/lib/presentation/preference-cookie';
+import type { PreferenceCookieName, PreferenceSectionKey } from '@/models/preferences';
 const october = 'month:2026-10-01T00:00:00.000Z';
 beforeEach(() => {
-  viewer.mockReset().mockResolvedValue({ id: 'sample-viewer' });
+  jar.clear();
+  viewer.mockReset().mockResolvedValue({ id: 'sample-viewer', authVersion: 0 });
 });
 async function support(parent: string, metric: string, interval = october) {
   const report = await loadTimelineReport(parent);
@@ -287,6 +306,62 @@ async function exportCsv(href: string, columns: string[]) {
   expect(response.status).toBe(200);
   return readCsv(await response.text());
 }
+it.each([
+  [
+    'repositories',
+    'timeline.repository',
+    '/repos/prebidjs?timeline=1&timeline.sort=prsOpened&timeline.dir=desc',
+    ['period', 'prsOpened'],
+  ],
+  [
+    'repositories',
+    'timeline.matrix',
+    '/repos?timeline=1&repo=repo-prebidjs',
+    ['repository', 'period', 'prsOpened'],
+  ],
+  [
+    'contributions',
+    'timeline.contributors.overview',
+    '/contributors?timeline=1',
+    ['period', 'prsAuthored'],
+  ],
+] as const)(
+  'exports the same %s Timeline whatever its saved %s presentation',
+  async (cookie: PreferenceCookieName, section: PreferenceSectionKey, href, columns) => {
+    const loaded = await loadTimelineReport(href);
+    if (loaded.status !== 'ready') throw Error('Expected report');
+    const source = loaded.category === 'matrix' ? loaded.matrix.source : loaded.report.source;
+    const csv = async () => {
+      const response = await timelineExportResponse(
+        download({ href, revision: source.scenarioId, asOf: source.asOf, columns: [...columns] }),
+      );
+      expect(response.status).toBe(200);
+      return response.text();
+    };
+    const withoutCookie = await csv();
+    jar.set(
+      preferenceCookies[cookie].name,
+      encodePreferenceDocument(
+        withPreferenceSection(null, { accountId: 'sample-viewer', authVersion: 0 }, section, {
+          version: 1,
+          query: 'timeline.group=week',
+        }),
+      ),
+    );
+    // A page reads this cookie: the same address is an entry it redirects to the saved grouping.
+    const url = new URL(href, 'https://dashboard.invalid');
+    const saved = await readPreferences(cookie);
+    const page =
+      section === 'timeline.matrix'
+        ? await repositoryTimelineMatrixPreview(url.searchParams, saved)
+        : section === 'timeline.repository'
+          ? await repositoryTimelinePreview('prebidjs', url.searchParams, saved)
+          : await contributionTimelinePreview('contributors', url.searchParams, undefined, saved);
+    if (page.status !== 'redirect') throw Error('Expected the page to apply the saved view');
+    expect(new URL(page.href, url).searchParams.get('timeline.group')).toBe('week');
+    expect(await csv()).toBe(withoutCookie);
+  },
+);
 it('exports matrix values, units and coverage by repository and period', async () => {
   const csv = await exportCsv(
     '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=prsMerged&timeline.metric=medianMergeDays',

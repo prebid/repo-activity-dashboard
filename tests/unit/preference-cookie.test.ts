@@ -210,6 +210,28 @@ describe('byte cap and eviction', () => {
       evicted: [sections[1], sections[2], sections[3]],
     });
   });
+  it('reads a value at the cap and treats a longer one as malformed without decoding it', () => {
+    const value = (size: number) =>
+      encodePreferenceDocument(withPreferenceSection(null, alice, 'overview', 'x'.repeat(size)));
+    let size = 2000;
+    while (preferenceCookieBytes('repositories', value(size + 1)) <= preferenceCookieByteLimit)
+      size++;
+    expect(
+      fitPreferenceCookie(withPreferenceSection(null, alice, 'overview', 'x'.repeat(size))),
+    ).toMatchObject({ status: 'fits', evicted: [] });
+    expect(decodePreferenceCookie('repositories', value(size), alice)).toMatchObject({
+      status: 'bound',
+    });
+    expect(decodePreferenceCookie('repositories', value(size + 1), alice)).toEqual({
+      status: 'malformed',
+    });
+    // A deeply nested value is refused by its length before any parsing.
+    const nested = toBase64Url('['.repeat(20_000) + ']'.repeat(20_000));
+    expect(decodePreferenceCookie('repositories', nested, alice)).toEqual({ status: 'malformed' });
+    expect(decodePreferenceCookie('contributions', 'a+'.repeat(2000), alice)).toEqual({
+      status: 'malformed',
+    });
+  });
   it('refuses a section that alone exceeds the cap', () => {
     const document = withPreferenceSection(full(10), alice, 'overview', 'z'.repeat(4000));
     expect(fitPreferenceCookie(document, 'overview')).toEqual({ status: 'too-large' });
