@@ -15,6 +15,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock('next/navigation', () => ({
   usePathname: () => '/repos',
   useRouter: () => ({ replace: mocks.replace, refresh: mocks.refresh }),
+  useSearchParams: () => new URLSearchParams(),
 }));
 vi.mock('next-auth/react', () => ({ signOut: mocks.signOut, signIn: mocks.signIn }));
 vi.mock('@/components/providers/auth-transitions', () => ({ notifyAuthTransition: mocks.notify }));

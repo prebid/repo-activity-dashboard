@@ -92,15 +92,24 @@ test('the masthead and the 44px view bar stay stuck at the top to the end of the
   await expect(sectionsNav(page)).toBeVisible();
   const banner = page.getByRole('banner');
   const bar = page.locator('[data-view-bar]');
-  for (const share of [0.5, 1]) {
-    await page.evaluate(
-      (share) => window.scrollTo(0, document.documentElement.scrollHeight * share),
-      share,
-    );
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
-    const [masthead, view] = await Promise.all([banner.boundingBox(), bar.boundingBox()]);
-    expect([masthead!.y, masthead!.height], 'masthead at ' + share).toEqual([0, 64]);
-    expect([view!.y, view!.height], 'view bar at ' + share).toEqual([64, 44]);
+  // The bar sits under the one-row masthead, and under both rows once the masthead takes two.
+  for (const [width, shell] of [
+    [1280, 64],
+    [1121, 64],
+    [1120, 100],
+  ] as const) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const share of [0.5, 1]) {
+      const at = `at ${width}px and ${share}`;
+      await page.evaluate(
+        (share) => window.scrollTo(0, document.documentElement.scrollHeight * share),
+        share,
+      );
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
+      const [masthead, view] = await Promise.all([banner.boundingBox(), bar.boundingBox()]);
+      expect([masthead!.y, masthead!.height], 'masthead ' + at).toEqual([0, shell]);
+      expect([view!.y, view!.height], 'view bar ' + at).toEqual([shell, 44]);
+    }
   }
 });
 

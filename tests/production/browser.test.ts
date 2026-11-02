@@ -121,7 +121,7 @@ it.each(
       await form.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
       await form
         .getByRole('navigation', { name: 'Main navigation' })
-        .getByRole('link', { name: 'Contributions', exact: true })
+        .getByRole('link', { name: 'Contributors', exact: true })
         .click();
       await form.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
       await form
