@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { MouseEventHandler, ReactNode } from 'react';
-import { BackIcon, DataAsOfIcon, NextIcon } from '@/components/ui/icons';
+import { BackIcon, DataAsOfIcon, NextIcon, SampleDataIcon } from '@/components/ui/icons';
+import { reportingDataIsSample } from '@/config/reporting';
 import { formatAsOf } from '@/lib/presentation/format';
 import { LinkPending } from './link-pending';
 import styles from './page-header.module.css';
@@ -29,11 +30,13 @@ export interface PageHeaderProps {
   identity?: ReactNode;
   /** The one meta line under the title: plain facts and links at one size. */
   meta?: ReactNode;
+  /** Labels the report as prepared sample data; the reporting configuration decides by default. */
+  sampleData?: boolean;
 }
 
 /**
  * The page header: an optional breadcrumb row, the title flush left with an optional identity
- * and one meta line, and the "Data as of" chip on the right. The breadcrumb and meta rows have
+ * and one meta line, and the "Sample data" and "Data as of" chips on the right. The breadcrumb and meta rows have
  * fixed heights, so sibling views with the same header keep everything below it in place.
  */
 export function PageHeader({
@@ -44,6 +47,7 @@ export function PageHeader({
   breadcrumbLabel = 'Breadcrumb',
   identity,
   meta,
+  sampleData = reportingDataIsSample,
 }: PageHeaderProps) {
   return (
     <header className={styles.header}>
@@ -77,6 +81,12 @@ export function PageHeader({
         </div>
       </div>
       <aside className={styles.source} aria-label="Data source">
+        {sampleData && (
+          <p className={styles.sample}>
+            <SampleDataIcon size={14} />
+            Sample data
+          </p>
+        )}
         <p className={styles.chip}>
           <DataAsOfIcon size={14} />
           <span className={styles.chipLabel}>Data as of</span>{' '}

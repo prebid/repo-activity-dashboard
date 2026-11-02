@@ -117,7 +117,28 @@
 
 .source {
   grid-area: source;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
   min-width: 0;
+}
+/* Prepared sample data, labelled until live reporting data replaces it. */
+.sample {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--prebid-info-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-info-bg);
+  color: var(--prebid-info-ink);
+  font-size: var(--prebid-text-small);
+  font-weight: 600;
+  line-height: var(--prebid-leading-small);
+  white-space: nowrap;
 }
 .chip {
   display: inline-flex;
@@ -153,6 +174,9 @@
       'subject'
       'source';
     gap: 8px;
+  }
+  .source {
+    justify-content: flex-start;
   }
   .subject {
     gap: 12px;

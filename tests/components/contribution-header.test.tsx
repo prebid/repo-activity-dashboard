@@ -115,7 +115,7 @@ it('puts the area tabs and Report | Over time in one view bar below the page hea
   expect(screen.queryByText('Contribution activity')).toBeNull();
   expect(screen.queryByText(/Understand who authors/)).toBeNull();
   expect(screen.getByRole('complementary', { name: 'Data source' })).toHaveTextContent(
-    /^Data as of /,
+    /^Sample data\s*Data as of /,
   );
 });
 it('leads a focused report’s header with Back to report and keeps its identity and meta line in it', () => {
