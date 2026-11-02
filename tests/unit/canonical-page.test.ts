@@ -26,7 +26,14 @@ vi.mock('@/server/preferences', async (importOriginal) => {
 import { canonicalPage, oversizedLinkMessage } from '@/server/canonical-page';
 import { timelineEntryValues } from '@/server/timeline-preview';
 import { readPreferences } from '@/server/preferences';
-import type { UrlRoute, UrlSegments, UrlValues } from '@/lib/presentation/url/registry';
+import {
+  routeKinds,
+  urlRoutes,
+  type ReportRoute,
+  type UrlRoute,
+  type UrlSegments,
+  type UrlValues,
+} from '@/lib/presentation/url/registry';
 import { serializeTimelinePreferences } from '@/lib/presentation/timeline-controls';
 import { alice, clearPreferenceCookies, seedPreferences } from '../support/preference-cookies';
 
@@ -35,7 +42,8 @@ async function answer(...args: Parameters<typeof canonicalPage>) {
   try {
     return await canonicalPage(...args);
   } catch (error) {
-    return { redirect: (error as { href: string }).href };
+    if (!(error instanceof Error) || error.message !== 'NEXT_REDIRECT') throw error;
+    return { redirect: (error as Error & { href: string }).href };
   }
 }
 const timelineSection = (query: string, area: 'matrix' | 'repository') =>
@@ -108,6 +116,68 @@ describe('canonicalPage', () => {
         { all: '', lens: 'reviewers', sort: '-reviewerContributions' },
       ),
     ).toEqual({ redirect: '/companies?lens=reviewers&all' });
+  });
+
+  it('answers an old contribution link on /reviewers as /contributors does, in the Reviewers lens', async () => {
+    const old = { scope: '1', period: 'last-month' };
+    expect(await answer('/contributors', {}, old)).toEqual({
+      redirect: '/contributors?period=last-month',
+    });
+    expect(await answer('/reviewers', {}, old)).toEqual({
+      redirect: '/reviewers?period=last-month',
+    });
+    expect(await answer('/reviewers', {}, { scope: '1' })).toEqual({ redirect: '/reviewers?v=1' });
+    // Sorts and columns the link named are written against the Reviewers lens's defaults.
+    expect(
+      await answer(
+        '/reviewers',
+        {},
+        {
+          scope: '1',
+          'report.sort': 'reviewerContributions',
+          'report.dir': 'desc',
+          'contributors.columns': ['name', 'reviewerContributions', 'prsAuthored'],
+        },
+      ),
+    ).toEqual({
+      redirect:
+        '/reviewers?cols=-actorType,-company,prsAuthored,-approvalContributions,-mergesPerformed',
+    });
+    expect(await answer('/reviewers', {}, { scope: '1', 'report.sort': 'prsAuthored' })).toEqual({
+      redirect: '/reviewers?sort=prsAuthored',
+    });
+    expect(await answer('/reviewers', {}, { timeline: '1', 'timeline.group': 'week' })).toEqual({
+      redirect: '/reviewers?timeline&group=week',
+    });
+    // A link the old reader rejects renders the invalid view at its address.
+    expect(await answer('/reviewers', {}, { scope: '1', sample: 'unknown' })).toEqual({
+      status: 'invalid',
+      message: 'This link is invalid.',
+    });
+  });
+
+  it('answers an old-form query on every report route with a 307 or the invalid view', async () => {
+    const segments: Record<UrlRoute, UrlSegments> = {
+      '/repos': {},
+      '/repos/[slug]': { slug: ['prebidjs'] },
+      '/repos/[slug]/authors/[account]': { slug: ['prebidjs'], account: ['sample-author-2'] },
+      '/contributors': {},
+      '/contributors/[accountId]': { accountId: ['account-alice'] },
+      '/companies': {},
+      '/companies/[...identity]': { identity: ['id', 'company-acme'] },
+      '/reviewers': {},
+      '/contributors/export': {},
+      '/companies/export': {},
+    };
+    for (const route of urlRoutes) {
+      if (routeKinds[route] === 'export') continue;
+      const result = await answer(route as ReportRoute, segments[route], {
+        scope: '1',
+        period: 'last-month',
+      });
+      if ('redirect' in result) expect(result.redirect, route).toMatch(/^\//);
+      else expect(result.status, route).toBe('invalid');
+    }
   });
 
   it('renders the invalid view for unknown parameters and rejected legacy links', async () => {
