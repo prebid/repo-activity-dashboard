@@ -29,6 +29,26 @@ export async function seedContributionPreferences(
   ]);
 }
 
+/** Replace the browser's repositories cookie with these sections, oldest first. */
+export async function seedRepositoryPreferences(
+  context: BrowserContext,
+  baseURL: string,
+  sections: Partial<Record<PreferenceSectionKey, unknown>>,
+  binding: PreferenceBinding = previewAlice,
+) {
+  let updated = 0;
+  const value = encodePreferenceDocument({
+    cookie: 'repositories',
+    binding,
+    sections: Object.fromEntries(
+      Object.entries(sections).map(([section, value]) => [section, { updated: updated++, value }]),
+    ),
+  });
+  await context.addCookies([
+    { name: preferenceCookies.repositories.name, value, url: new URL('/', baseURL).href },
+  ]);
+}
+
 /** The contributions cookie's sections for a session, or null when it holds none for it. */
 export async function contributionPreferences(
   context: BrowserContext,
