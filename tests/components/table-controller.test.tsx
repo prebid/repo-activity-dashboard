@@ -105,7 +105,7 @@ afterEach(() => {
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
-it('observes router changes, uses null external state, and preserves unrelated query values', () => {
+it('observes router changes, keeps the entry record in history state, and preserves unrelated query values', () => {
   window.history.replaceState({ __NA: true }, '', '/?items.page=2&view=issues&repo=a&repo=b');
   const { result } = renderHook(() =>
     useTableController({ ...options, columnIds: [...columnIds] }),
@@ -113,7 +113,8 @@ it('observes router changes, uses null external state, and preserves unrelated q
   expect(result.current.query).toEqual({ ...initial, page: 2 });
   act(() => result.current.update({ search: 'needle', page: 1 }));
   expect(result.current.query).toEqual({ ...initial, search: 'needle' });
-  expect(historySpy).toHaveBeenLastCalledWith(null, '', expect.any(URL));
+  // A replace keeps the entry's record of the address it was pushed from (none here).
+  expect(historySpy).toHaveBeenLastCalledWith({ dashboardPrevious: null }, '', expect.any(String));
   expect(new URLSearchParams(window.location.search).getAll('repo')).toEqual(['a', 'b']);
   act(() => window.history.replaceState(null, '', '/'));
   expect(result.current.query).toEqual(initial);
@@ -383,3 +384,34 @@ it.each([
     }
   },
 );
+it('reads and writes registry fields when bound to the codec, keeping return context', () => {
+  window.history.replaceState(null, '', '/repos/prebidjs?view=issues&sort=number&back=~age:');
+  const fields = { route: '/repos/[slug]', search: 'q', sort: 'sort', page: 'page' } as const;
+  const { result } = renderHook(() =>
+    useTableController({
+      queryKey: 'issues',
+      columnIds: ['number', 'createdAt'],
+      fields,
+      historyMode: 'push',
+    }),
+  );
+  expect(result.current.query).toEqual({ search: '', sort: 'number', descending: false, page: 1 });
+  act(() => result.current.update({ sort: 'createdAt', descending: false, page: 2 }));
+  expect(window.location.pathname + window.location.search).toBe(
+    '/repos/prebidjs?view=issues&sort=createdAt&page=2&back=~age:',
+  );
+  expect(pushSpy).toHaveBeenCalledTimes(1);
+  act(() => result.current.setSearch('fix'));
+  act(() => {
+    result.current.flushSearch();
+  });
+  expect(window.location.search).toBe('?view=issues&q=fix&sort=createdAt&back=~age:');
+  // Without a sort the v1 default applies.
+  act(() => window.history.replaceState(null, '', '/repos/prebidjs?view=issues'));
+  expect(result.current.query).toEqual({
+    search: '',
+    sort: 'createdAt',
+    descending: true,
+    page: 1,
+  });
+});

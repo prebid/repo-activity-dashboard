@@ -1,14 +1,16 @@
-import Link from 'next/link';
 import type { MouseEventHandler, ReactNode } from 'react';
 import { BackIcon, DataAsOfIcon, NextIcon } from '@/components/ui/icons';
 import { formatAsOf } from '@/lib/presentation/format';
+import { unavailableParentMessage } from '@/lib/presentation/url/back';
+import { HistoryLink } from './history-link';
 import { LinkPending } from './link-pending';
 import styles from './page-header.module.css';
 
 /** A link to a view above this one. */
 export interface PageHeaderCrumb {
   label: string;
-  href: string;
+  /** Null when the view this page came from cannot be restored: the crumb shows why, unlinked. */
+  href: string | null;
   /** For a link whose navigation a feature's handler starts; `pending` then reports it. */
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   pending?: boolean;
@@ -51,13 +53,25 @@ export function PageHeader({
         <nav className={styles.crumbs} aria-label={breadcrumbLabel}>
           <ol>
             {breadcrumbs.map((crumb, index) => (
-              <li key={crumb.href + ' ' + crumb.label}>
+              <li key={String(crumb.href) + ' ' + crumb.label}>
                 {index > 0 && <NextIcon size={14} />}
-                <Link prefetch={false} href={crumb.href} onClick={crumb.onClick}>
-                  {index === 0 && <BackIcon size={14} />}
-                  {crumb.label}
-                  <LinkPending pending={crumb.pending || undefined} />
-                </Link>
+                {crumb.href === null ? (
+                  <span
+                    className={styles.unavailable}
+                    aria-disabled="true"
+                    title={unavailableParentMessage}
+                  >
+                    {index === 0 && <BackIcon size={14} />}
+                    {crumb.label}
+                    <span className="sr-only"> {unavailableParentMessage}</span>
+                  </span>
+                ) : (
+                  <HistoryLink prefetch={false} href={crumb.href} onClick={crumb.onClick}>
+                    {index === 0 && <BackIcon size={14} />}
+                    {crumb.label}
+                    <LinkPending pending={crumb.pending || undefined} />
+                  </HistoryLink>
+                )}
               </li>
             ))}
             {current && (

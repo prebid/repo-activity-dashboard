@@ -1,4 +1,5 @@
 'use client';
+import { writeHistory } from './use-url-state';
 interface LinkClick {
   button: number;
   metaKey: boolean;
@@ -30,6 +31,6 @@ export function followCaptured(
   }
   event.preventDefault();
   if (origin && origin !== window.location.pathname + window.location.search)
-    window.history.replaceState(null, '', origin);
+    writeHistory('replace', origin);
   navigate(href);
 }

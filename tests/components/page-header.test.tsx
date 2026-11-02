@@ -2,6 +2,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { PageHeader } from '@/components/navigation/page-header';
 import { formatAsOf } from '@/lib/presentation/format';
+import { unavailableParentMessage } from '@/lib/presentation/url/back';
 
 const asOf = '2026-10-31T16:00:00.000Z';
 
@@ -76,6 +77,29 @@ describe('PageHeader', () => {
     expect(follow).toHaveBeenCalledTimes(1);
     // Without a current view the trail holds only its links.
     expect(within(trail).getAllByRole('listitem')).toHaveLength(1);
+  });
+
+  it('states why a parent cannot be restored instead of linking to it', () => {
+    render(
+      <PageHeader
+        title="Prebid.js"
+        asOf={asOf}
+        breadcrumbs={[
+          { label: 'All repositories', href: null },
+          { label: 'Timeline', href: '/repos/prebidjs?timeline' },
+        ]}
+      />,
+    );
+    const trail = screen.getByRole('navigation', { name: 'Breadcrumb' });
+    expect(within(trail).queryByRole('link', { name: /All repositories/ })).toBeNull();
+    const unavailable = within(trail).getByText('All repositories');
+    expect(unavailable).toHaveAttribute('aria-disabled', 'true');
+    expect(unavailable).toHaveAttribute('title', unavailableParentMessage);
+    expect(unavailable).toHaveTextContent('All repositories ' + unavailableParentMessage);
+    expect(within(trail).getByRole('link', { name: 'Timeline' })).toHaveAttribute(
+      'href',
+      '/repos/prebidjs?timeline',
+    );
   });
 
   it('keeps the identity inside the header that holds the h1', () => {
