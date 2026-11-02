@@ -4,6 +4,8 @@ import {
   timelineIntervalLabel,
   timelineIntervalDescription,
   timelineMeasurement,
+  timelinePeriodDates,
+  timelinePeriodHeading,
 } from '@/lib/presentation/timeline-presentation';
 import { timelineGroupings } from '@/models/reporting-timeline';
 const range = {
@@ -54,4 +56,17 @@ it('names a week that crosses years with both years', () => {
     range.end,
   );
   expect(timelineIntervalLabel(week, 'week')).toBe('Dec 30, 2024 – Jan 5, 2025');
+});
+it('heads a week with a compact range and adds covered dates only where they differ', () => {
+  const [partial, full] = buildTimelineIntervals({ range, grouping: 'week' }, range.end);
+  expect(timelinePeriodHeading(partial, 'week')).toBe('Feb 2–8, 2026');
+  expect(timelinePeriodDates(partial, 'week')).toBe('Feb 4–8, 2026');
+  expect(timelinePeriodHeading(full, 'week')).toBe('Feb 9–15, 2026');
+  expect(timelinePeriodDates(full, 'week')).toBeNull();
+  // Other groupings keep their labels, and a month still states its covered dates.
+  const [month] = buildTimelineIntervals({ range, grouping: 'month' }, range.end);
+  expect(timelinePeriodHeading(month, 'month')).toBe('Feb 2026');
+  expect(timelinePeriodDates(month, 'month')).toBe('Feb 4–18, 2026');
+  const [day] = buildTimelineIntervals({ range, grouping: 'day' }, range.end);
+  expect(timelinePeriodDates(day, 'day')).toBeNull();
 });

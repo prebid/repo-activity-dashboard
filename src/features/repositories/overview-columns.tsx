@@ -199,8 +199,9 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
             )}
             {row.showPeriodLabel && (
               <span className={styles.periodLabel}>
-                <span className="sr-only">Period {row.periodIndex + 1}: </span>
-                {activityPeriodLabel(row.period)}
+                <span className={styles.periodTag}>Period {row.periodIndex + 1}</span>
+                <span className="sr-only">: </span>
+                <span>{activityPeriodLabel(row.period)}</span>
               </span>
             )}
           </div>

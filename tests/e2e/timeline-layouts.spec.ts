@@ -28,7 +28,11 @@ for (const [path, title, theme, width] of [
     const table = page.getByRole('table');
     await expect(table.locator('tbody tr')).toHaveCount(10);
     await expect(table.locator('tbody tr').first()).toContainText('Jan 2026');
-    await expect(table.locator('tbody tr').last()).toContainText('Partial period');
+    const lastPeriod = table.locator('tbody tr').last().locator('[data-column="period"]');
+    const dates = (await lastPeriod.getByText('Oct 1–24, 2026', { exact: true }).boundingBox())!;
+    const partial = (await lastPeriod.getByText('Partial', { exact: true }).boundingBox())!;
+    // The partial-period caption sits on its own line under the covered dates.
+    expect(partial.y).toBeGreaterThanOrEqual(dates.y + dates.height - 0.5);
     await expect(page.getByRole('button', { name: 'Export CSV', exact: true })).toBeVisible();
     await expect(page.getByRole('textbox')).toHaveCount(0);
     const period = table.locator('tbody [data-column="period"]').first();
@@ -196,7 +200,11 @@ test('weekly issue labels keep the covered dates readable on narrow screens', as
   await login(page);
   await page.goto('/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.group=week');
   await expect(page.getByRole('table').locator('tbody tr').first()).toContainText('Dec 29, 2025');
-  await expect(page.getByRole('table').locator('tbody tr').first()).toContainText('Jan 1, 2026');
+  await expect(page.getByRole('table').locator('tbody tr').first()).toContainText('Jan 1–4, 2026');
+  // A full week's range is its heading, printed once.
+  await expect(
+    page.getByRole('table').locator('tbody tr').nth(1).locator('[data-column="period"]'),
+  ).toHaveText('Jan 5–11, 2026');
   await page.getByRole('button', { name: 'Show chart', exact: true }).click();
   await expect(page.getByRole('figure')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);

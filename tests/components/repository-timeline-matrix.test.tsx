@@ -90,12 +90,16 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
     );
   const sorted = names();
   expect(sorted[0]).toBe('Prebid.js');
+  // The sorted header shows a visible sort, so the footer adds no note.
+  expect(screen.queryByText(/^Sorted by/)).not.toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: 'Earlier' }));
   expect(screen.getByRole('status')).toHaveTextContent('Periods 1–12 of 22');
   expect(screen.getByRole('table').querySelectorAll('thead th')).toHaveLength(13);
   expect(
-    screen.getByText(/Sorted by Aug 2026 \(descending; outside visible periods\)/),
-  ).toBeVisible();
+    screen.getAllByText(
+      'Sorted by Aug 2026 (descending); its column is outside the visible periods.',
+    ),
+  ).toHaveLength(1);
   expect(names()).toEqual(sorted);
   const priorYear = within(repoRow('Prebid.js')).getAllByRole('cell').slice(1);
   expect(priorYear).toHaveLength(12);
@@ -108,6 +112,7 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
     'aria-sort',
     'descending',
   );
+  expect(screen.queryByText(/^Sorted by/)).not.toBeInTheDocument();
   expect(screen.getByRole('status')).toHaveTextContent('Periods 13–22 of 22');
   expect(screen.getByRole('button', { name: 'Later' })).toBeDisabled();
 });
@@ -265,8 +270,36 @@ it('labels weekly windows with their covered dates instead of repeating two week
   const user = userEvent.setup();
   render(preview(report('reference', 'issuesClosed', { ...request, grouping: 'week' })));
   expect(screen.getByRole('status')).toHaveTextContent('Sep 7, 2026 – Oct 24, 2026');
+  // Weekly headers say a shared month and year once.
+  expect(screen.getByRole('button', { name: 'Sep 7–13, 2026' })).toBeVisible();
+  expect(screen.getByRole('columnheader', { name: 'Sep 28 – Oct 4, 2026' })).toBeVisible();
+  expect(screen.getByRole('columnheader', { name: 'Oct 19–25, 2026 (partial)' })).toBeVisible();
   await user.click(screen.getByRole('button', { name: 'Earlier' }));
   expect(screen.getByRole('status')).toHaveTextContent('Jun 15, 2026 – Sep 6, 2026');
+});
+it('names the metric that ranks a period sort outside the window', async () => {
+  const user = userEvent.setup(),
+    source = repositoryTimelineMatrixSample('mixed');
+  render(
+    preview(
+      selectRepositoryTimelineMatrix(
+        source,
+        { ...request, range: { ...request.range, start: '2025-01-01T00:00:00.000Z' } },
+        {
+          repositoryIds: [...new Set(source.repositories.map((row) => row.repository.id))],
+          metrics: ['prsOpened', 'prsMerged'],
+        },
+      ),
+    ),
+  );
+  await user.click(screen.getByRole('button', { name: 'Sep 2026' }));
+  expect(screen.queryByText(/^Sorted by/)).not.toBeInTheDocument();
+  await user.click(screen.getByRole('button', { name: 'Earlier' }));
+  expect(
+    screen.getByText(
+      'Sorted by Sep 2026 · Pull requests — Opened (ascending); its column is outside the visible periods.',
+    ),
+  ).toBeVisible();
 });
 it('renders selected metrics as consecutive repository groups, without splitting a group at the fifty-row boundary', async () => {
   const user = userEvent.setup(),

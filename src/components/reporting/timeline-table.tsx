@@ -3,12 +3,12 @@ import { useMemo, useState } from 'react';
 import type { TimelineGrouping } from '@/models/reporting-timeline';
 import type { TimelineDisplayRow, TimelineMetricDefinition } from '@/models/timeline-presentation';
 import {
-  timelineIntervalLabel,
   timelineIntervalDescription,
   timelineMeasurement,
+  timelinePeriodDates,
+  timelinePeriodHeading,
   timelineValueColumns,
 } from '@/lib/presentation/timeline-presentation';
-import { periodRangeLabel } from '@/lib/presentation/overview-periods';
 import { measurementSortNote } from '@/lib/presentation/measurement-order';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { measurementMarks } from '@/components/feedback/data-legend';
@@ -19,6 +19,7 @@ import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { CsvExportAlternative } from '@/components/exports/csv-export-dialog';
 import { timelineExportFileName } from '@/lib/presentation/timeline-csv';
 import {
+  PartialPeriodMarker,
   TimelineCoverageNotice,
   TimelineLinkLimitNotice,
   TimelineValueCell,
@@ -78,15 +79,17 @@ export function TimelineTable({
         description:
           'Calendar interval and actual covered dates in UTC. A partial period can still have complete data for its covered dates.',
         value: valueColumns[0].value,
-        cell: (row) => (
-          <div className={styles.period} title={timelineIntervalDescription(row.interval)}>
-            <strong>{timelineIntervalLabel(row.interval, grouping)}</strong>
-            {grouping !== 'day' && (
-              <span className={styles.dates}>{periodRangeLabel(row.interval.covered)}</span>
-            )}
-            {row.interval.partial && <span className={styles.partial}>Partial period</span>}
-          </div>
-        ),
+        cell: (row) => {
+          // A full week's dates are its heading, so the range prints once.
+          const dates = timelinePeriodDates(row.interval, grouping);
+          return (
+            <div className={styles.period} title={timelineIntervalDescription(row.interval)}>
+              <strong>{timelinePeriodHeading(row.interval, grouping)}</strong>
+              {dates && <span className={styles.dates}>{dates}</span>}
+              {row.interval.partial && <PartialPeriodMarker />}
+            </div>
+          );
+        },
       },
       ...metrics.map((metric, index): DataColumn<Row> => ({
         ...metric,
@@ -101,7 +104,7 @@ export function TimelineTable({
             <TimelineValueCell
               measurement={measurement}
               unit={metric.unit}
-              name={`${metricName(metric)}, ${timelineIntervalLabel(row.interval, grouping)}`}
+              name={`${metricName(metric)}, ${timelinePeriodHeading(row.interval, grouping)}`}
               href={
                 linkable && measurement.value !== null
                   ? detailHref(metric.id, row.interval.id)

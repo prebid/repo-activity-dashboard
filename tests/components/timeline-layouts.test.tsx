@@ -93,10 +93,16 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   const table = screen.getByRole('table');
   expect(table.querySelectorAll('thead tr')).toHaveLength(1);
   expect(table.querySelectorAll('tbody tr')).toHaveLength(10);
-  expect(table.querySelector('tbody tr [data-column="period"]')).toHaveTextContent('Jan 2026');
-  expect(table.querySelector('tbody tr:last-child [data-column="period"]')).toHaveTextContent(
-    'Partial period',
-  );
+  const first = table.querySelector<HTMLElement>('tbody tr [data-column="period"]')!;
+  expect(first).toHaveTextContent('Jan 2026');
+  expect(within(first).queryByText('Partial')).not.toBeInTheDocument();
+  // A partial period adds the caption "Partial" on its own line, under its covered dates.
+  const last = table.querySelector<HTMLElement>('tbody tr:last-child [data-column="period"]')!;
+  expect([...last.firstElementChild!.children].map((line) => line.textContent)).toEqual([
+    'Oct 2026',
+    'Oct 1–24, 2026',
+    'Partial',
+  ]);
   expect(table.querySelector('tbody tr:last-child [data-column="prsAuthored"]')).toHaveTextContent(
     '6',
   );
@@ -229,6 +235,16 @@ it('starts the repository chart collapsed, retains all chronological values and 
   ]);
   await user.click(screen.getByRole('button', { name: 'Hide chart' }));
   expect(screen.queryByRole('figure')).not.toBeInTheDocument();
+});
+it('prints a full week’s range once and adds covered dates only to a partial week', () => {
+  render(repository('reference', 'activity', { ...request, grouping: 'week' }));
+  const periods = [
+    ...screen.getByRole('table').querySelectorAll<HTMLElement>('tbody [data-column="period"]'),
+  ].map((cell) => [...cell.firstElementChild!.children].map((line) => line.textContent));
+  expect(periods[0]).toEqual(['Dec 29, 2025 – Jan 4, 2026', 'Jan 1–4, 2026', 'Partial']);
+  expect(periods[1]).toEqual(['Jan 5–11, 2026']);
+  expect(periods).toContainEqual(['Jan 26 – Feb 1, 2026']);
+  expect(periods.at(-1)).toEqual(['Oct 19–25, 2026', 'Oct 19–24, 2026', 'Partial']);
 });
 it('keeps the full 500-interval chart independent of the 50-row table page', async () => {
   const user = userEvent.setup();

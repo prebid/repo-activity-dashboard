@@ -131,12 +131,19 @@ it('groups two labeled periods and an automatic difference under one repository 
   await user.selectOptions(screen.getByRole('combobox', { name: 'Period 2 preset' }), 'last-month');
   const activity = screen.getByRole('table', { name: 'Period activity' });
   expect(activity.querySelectorAll('tbody tr')).toHaveLength(48);
-  const pairs = [...activity.querySelectorAll('tbody tr')].filter((row) =>
+  const pairs = [...activity.querySelectorAll<HTMLElement>('tbody tr')].filter((row) =>
     row.textContent?.includes('Prebid.js'),
   );
   expect(within(activity).getAllByRole('link', { name: 'Prebid.js' })).toHaveLength(1);
   expect(pairs[0]).toHaveTextContent('This month');
   expect(pairs[1]).toHaveTextContent('Last month');
+  // Each period row carries its own tag; the difference row carries none.
+  expect(within(pairs[0]).getByText('Period 1', { exact: true })).toBeVisible();
+  expect(within(pairs[1]).getByText('Period 2', { exact: true })).toBeVisible();
+  expect(within(pairs[2]).queryByText(/^Period \d$/)).not.toBeInTheDocument();
+  expect(pairs[1].querySelector('[data-column="name"]')).toHaveTextContent(
+    'Prebid.js: Period 2: Last month',
+  );
   expect(thisMonth).not.toBe(lastMonth);
   expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(thisMonth));
   expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(lastMonth));
