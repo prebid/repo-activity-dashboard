@@ -263,7 +263,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P3 | Plan approved; in progress | — | — | — |
-| P4 | Not started | — | — | — |
+| P4 | Plan approved; in progress | — | — | — |
 | P5 | Not started | — | — | — |
 | P6 | Not started | — | — | — |
 
@@ -860,6 +860,59 @@ Expected at the checkpoint:
 10. Technical call: `RepositoryRecordTable`'s `list` prop narrows from `RepositoryRecordList` to `MergedPullRequestList`, and its issues branch is removed. Its only caller, the merge-duration insight in `repository-insights-view.tsx`, passes merged pull requests, so the issues branch was dead code. This is a prop change under Delivery rule 1.
 
 Decisions 1–7 and 9 were approved as recommended; decision 8 is the maintainer's exclusion; decision 10 is a technical call recorded at the phase review.
+
+## P4 plan
+
+Proposed and approved 2026-11-01 against the P3 head; the branch `feature/p4-shell-header` is cut from it and its pull request stacks on the P3 pull request until both merge. The maintainer approved continuing from P3 into P4 with any choice that keeps the look approved on 2026-10-31; the decisions below follow that rule and are recorded rather than awaited.
+
+### Scope
+
+The P4 findings in Appendix A: about 95–120 files (roughly 55–65 source, config and docs; 40–55 tests and stories), larger than P3 because every page's header is replaced. P4 adds `PageHeader`, `ViewBar`, `SectionNav` and an account menu (Component ownership); the existing headers keep their props and render through `PageHeader`, so call sites do not change.
+
+### Items
+
+**1. Masthead** (SHELL-01, SHELL-07, SHELL-08, SHELL-09, CTRL-11). Navy in both themes, sticky at the top, 64px (`--shell-height`; at 1000px and below a 56px row plus a 44px navigation row), a 3px Prebid-blue top rule and the knockout logo. Navigation labels in Mona Sans 14/600 with a hover pill and the orange underline; no navigation icons (decision 8). Header icon buttons are 36×36 through a new `Button` size `icon-lg` and variant `masthead`, with a visible pressed and open state; the theme and width controls drop their `className`. Repositories menu items show pending navigation.
+
+**2. Account menu** (SHELL-06). A 36px trigger with a 28px `Avatar` and the name (hidden at 600px and below) opens a menu with name, email, role and, outside preview builds, a Change password link to the existing route. Sign out stays a visible masthead button, rightmost, styled as a masthead button: its handler, `signOut` call, labels, disabled state and alert are unchanged (decision 6).
+
+**3. Page header** (CONTRIB-01, REPOS-01, TYPE-03, REPO-02, REPO-04, SHELL-17). One `PageHeader`: an optional breadcrumb row (back icon once, separators, the current view unlinked with `aria-current="page"`), the title flush left at display 30/34, an optional identity slot inside the same `<header>`, one meta line, and the amber "Data as of" chip inside `aside aria-label="Data source"`. Fixed row heights keep sibling tabs from moving the toolbar. `AllRepositoriesHeading`, `RepositoryHeader`, `ContributionHeading` and the Timeline support header render through it with unchanged props and accessible names. A repository subpage keeps the repository name as its `h1` and shows the subpage as the current crumb (decision 5).
+
+**4. View bar and sections** (CONTRIB-02, CONTRIB-03, CTRL-07, REPO-13, REPO-16, P4 sticky sections). A fixed 44px `ViewBar`, sticky below the masthead, holds the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry; at 600px and below a "Sections" menu replaces the chips. Sections are the panels with an `h2`: tables and chart panels (decision 11). `ViewTabs` gains an optional `variant`: underline for subject sets (Contributors|Companies, Pull requests|Issues|Timeline) and segmented for view modes (Summary|Timeline, Report|Over time, company breakdown) (decision 3); tabs never wrap and scroll sideways at narrow widths. On Over time, the area tabs link to the other area's Over time (decision 1). Count pills leave the area tabs (decision 2); the repository record tabs keep one shared `TabCount` style. The two contribution tab rows merge into the view bar. P4 sets `--sticky-offset` to the masthead plus the view bar, so P3's sticky table headers sit below both, and `scroll-padding-top` to that height plus 12px.
+
+**5. Frame, edge pages and footer** (SHELL-05, SHELL-10, SHELL-14, SHELL-15, REPO-03, REPOS-14, CONTRIB-17). The frame's sample-data row is deleted. A footer after `<main>` carries the secure icon and "Private workspace. Access by invitation." with no links (decision 10). A token-styled skip link sits over the masthead's left gutter. Root not-found, error and global-error render through a branded `EdgeFrame` and keep their `h1` text. Contained mode caps content at 1760px (decision 9). The Timeline support frame states its interval through a summary-only `ReportToolbar`; insight panel titles stay (decision 4). At 600px and below the header and toolbar compact; a bottom-sheet filter pattern is not added (decision 12).
+
+**6. Lint and allowlist** (rule 3, rule 4). Rule 3 drops the `layout/` exemption once the four sites are fixed; the `h1` rule (Architecture rule 4) rejects `h1` outside `PageHeader`, the authentication views, `src/app/auth/**` and the edge files, through the shared selector arrays. P4-owned allowlist entries go, except those of the deferred items below; `completedPhases` gains `P4` only when those are settled.
+
+### Deferred while AWS access is out
+
+The authentication and account pages change presentation only until AWS access returns (2026-11-03). Deferred: the branded setup page (`src/app/auth/setup/page.tsx`, SHELL-05 part) and sentence-case copy on the sign-in and change-password pages (SHELL-13 copy; its CSS-only token changes in `authentication.module.css` proceed). The administrator Users page stays outside the redesign (SHELL-16 withdrawn, P3 decision 8). Their allowlist entries stay owned by P4.
+
+### Tests
+
+Behaviour only (Delivery rule 2): the masthead and view bar stay visible while scrolling; a section jump moves focus and updates the fragment without a Back entry; Period activity is reachable in one action from the first screen, with Tab presses counted against the 186 baseline; the three navigation labels fit one row at 390px; the account menu shows its contents per build; P3's sticky table headers stay below the view bar. 42 test files that pin the old headers, Sign out placement, the Data source aside, tab names or layout geometry are updated; nine class-name assertions in them are removed.
+
+### Order
+
+1. One worker builds the shared core: tokens, `Button` `icon-lg` and `masthead`, `PageHeader`, `ViewBar`, `SectionNav`, `ViewTabs` variant and `TabCount`, the `DataTable` section anchor, their stories and tests.
+2. Three workers in parallel, each in its own worktree: (a) repositories and Timeline support; (b) contributions; (c) shell, account menu, edge pages and footer.
+3. One worker integrates, applies the lint rules and closes the allowlist; one independent review; the pull request's CI as the full gate; one checkpoint page, published without waiting.
+
+### Decisions (2026-11-01)
+
+Settled under the approved look, recorded for review:
+
+1. Over time area tabs link to the other area's Over time.
+2. Count pills leave the area tabs; the record tabs keep one count style.
+3. Underline tabs for subject sets, segmented for view modes.
+4. Insight panel titles stay; the toolbar summary states the scope.
+5. A repository subpage keeps the repository name as its `h1`; the subpage is the current crumb.
+6. Sign out stays a visible masthead button; the account menu holds name, email, role and Change password.
+7. The setup page's branding and the sign-in copy wait for AWS access.
+8. No navigation icons.
+9. Contained width caps at 1760px.
+10. The footer carries the secure icon and "Private workspace. Access by invitation." with no links.
+11. Sections are panels with an `h2`: tables and chart panels.
+12. No bottom-sheet filters at phone width; header and toolbar compaction only.
 
 ## Appendix A: findings by phase
 
