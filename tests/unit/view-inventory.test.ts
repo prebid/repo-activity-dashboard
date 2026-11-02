@@ -32,15 +32,15 @@ const thisMonth = 'period=this-month&at=2026-10-24T12:00Z';
 const thisYear = 'period=this-year&at=2026-10-24T12:00Z';
 
 describe('view inventory', () => {
-  it('lists four sign-in pages and thirty report views under unique, well-formed ids and paths', () => {
+  it('lists four sign-in pages and thirty-seven report views under unique, well-formed ids and paths', () => {
     expect(signInPages.map((view) => view.path)).toEqual([
       '/auth/login',
       '/auth/error',
       '/auth/setup',
       '/auth/change-password',
     ]);
-    expect(reportViews).toHaveLength(30);
-    expect(inventory).toHaveLength(34);
+    expect(reportViews).toHaveLength(37);
+    expect(inventory).toHaveLength(41);
     expect(new Set(ids(inventory)).size).toBe(inventory.length);
     expect(new Set(paths(inventory)).size).toBe(inventory.length);
     for (const view of inventory) {
@@ -64,7 +64,7 @@ describe('view inventory', () => {
   it('keeps each page group on one pathname and shares groups only between repeat views', () => {
     const groups = new Map<string, InventoryView[]>();
     for (const view of inventory) groups.set(view.page, [...(groups.get(view.page) ?? []), view]);
-    expect(groups.size).toBe(26);
+    expect(groups.size).toBe(32);
     for (const [page, views] of groups) {
       expect(page).toMatch(kebab);
       const pathnames = new Set(views.map((view) => new URL(view.path, origin).pathname));
@@ -91,6 +91,7 @@ describe('view inventory', () => {
         'contributors-timeline-empty',
         'contributors-timeline-missing',
       ],
+      reviewers: ['reviewers', 'reviewers-large'],
     });
   });
   it('pins the prepared-sample state views that the real-data milestone removes', () => {
@@ -100,9 +101,10 @@ describe('view inventory', () => {
       'repos-timeline-mixed-quarter',
       'contributors-timeline-empty',
       'contributors-timeline-missing',
+      'reviewers-large',
     ]);
   });
-  it('selects exactly the views each browser spec covered before the inventory', () => {
+  it('selects the views each browser spec covers, with the Reviewers-lens views', () => {
     expect(ids(viewsFor('visual-review'))).toEqual([
       'repos-comparison',
       'repo-docs-open-issues',
@@ -112,6 +114,9 @@ describe('view inventory', () => {
       'repo-duration-metric',
       'repo-author',
       'repo-author-issues',
+      'reviewers-large',
+      'contributor-detail-reviewers',
+      'contributor-no-reviewer-activity',
     ]);
     expect(paths(viewsFor('visual-review'))).toEqual(
       [
@@ -123,6 +128,9 @@ describe('view inventory', () => {
         '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=issueAuthors',
         '/repos/prebidjs?' + thisMonth + '&metric=agentFeedbackCredits',
         '/repos/prebidjs?' + thisMonth + '&metric=medianMergeDays',
+        '/reviewers?sample=large',
+        '/contributors/account-alice?lens=reviewers',
+        '/contributors/account-finn?lens=reviewers',
       ].sort(),
     );
     expect(ids(viewsFor('reflow'))).toEqual([
@@ -147,6 +155,11 @@ describe('view inventory', () => {
         '/companies/id/company-acme',
         '/companies/id/company-acme?view=repositories',
         '/companies/id/company-acme?timeline',
+        '/reviewers',
+        '/reviewers?timeline',
+        '/companies?lens=reviewers',
+        '/contributors/account-alice?lens=reviewers',
+        '/companies/id/company-acme?lens=reviewers',
       ].sort(),
     );
     expect(ids(viewsFor('activity-region'))).toEqual(['repos-comparison']);
