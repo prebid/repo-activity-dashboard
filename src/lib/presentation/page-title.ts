@@ -102,6 +102,13 @@ export function repositoryAuthorPageTitle(
 }
 
 /**
+ * The lens a contribution request names in its raw query, valid or not, as the masthead reads it:
+ * the document title and the invalid view use it, so all three agree on a rejected address.
+ */
+export function contributionQueryLens(params: Pick<URLSearchParams, 'get'>): ContributionLens {
+  return params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors';
+}
+/**
  * Names the view first, then its subject; only the default view of a focused report adds its
  * area. In the Reviewers lens (`lens`, else the query's `lens`) a title that does not already end
  * with "Reviewers" gains " · Reviewers" (decision D13).
@@ -110,7 +117,7 @@ export function contributionPageTitle(
   area: ContributionArea,
   subject: { name: string } | null | 'overview',
   params: URLSearchParams,
-  lens: ContributionLens = params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors',
+  lens: ContributionLens = contributionQueryLens(params),
 ): string {
   const title = contributionViewTitle(area, subject, params, lens);
   return lens === 'reviewers' && !title.endsWith('Reviewers')

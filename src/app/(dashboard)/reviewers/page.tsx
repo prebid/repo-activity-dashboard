@@ -27,5 +27,5 @@ export default async function Page({ searchParams }: { searchParams: Promise<Pag
     query,
     contributionPageOptions('/reviewers', {}),
   );
-  return <ContributionRoute area="contributors" lens="reviewers" page={page} />;
+  return <ContributionRoute area="contributors" lens="reviewers" page={page} query={query} />;
 }

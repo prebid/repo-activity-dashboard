@@ -14,8 +14,14 @@ import { alice, preferenceSections, seedPreferences } from '../support/preferenc
 // screen it composes.
 const viewer = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
-vi.mock('@/lib/auth/viewer', () => ({ requireViewer: viewer }));
+vi.mock('@/lib/auth/viewer', () => ({
+  requireViewer: viewer,
+  // Page titles are rendered only for a signed-in viewer.
+  getViewer: () => Promise.resolve({ kind: 'authenticated', user: { mustChangePassword: false } }),
+}));
+vi.mock('next/image', () => ({ default: (props: { alt: string }) => <span>{props.alt}</span> }));
 vi.mock('next/headers', () => ({
+  headers: () => Promise.resolve(new Headers()),
   cookies: () =>
     Promise.resolve({
       get: (name: string) => {
@@ -55,11 +61,19 @@ vi.mock('next/navigation', () => {
       new URLSearchParams(useSyncExternalStore(subscribe, () => window.location.search)),
   };
 });
-import ContributorsPage from '@/app/(dashboard)/contributors/page';
-import ContributorPage from '@/app/(dashboard)/contributors/[accountId]/page';
+import ContributorsPage, {
+  generateMetadata as contributorsMetadata,
+} from '@/app/(dashboard)/contributors/page';
+import ContributorPage, {
+  generateMetadata as contributorMetadata,
+} from '@/app/(dashboard)/contributors/[accountId]/page';
 import { PreferenceBindingProvider } from '@/lib/navigation/preference-binding';
 import { ContributionRoute } from '@/app/_screens/contribution-route';
-import CompaniesPage from '@/app/(dashboard)/companies/page';
+import { DashboardHeader } from '@/components/layout/dashboard-header';
+import { repositoryCatalog } from '@/config/repositories';
+import CompaniesPage, {
+  generateMetadata as companiesMetadata,
+} from '@/app/(dashboard)/companies/page';
 import CompanyPage from '@/app/(dashboard)/companies/[...identity]/page';
 import ReviewersPage from '@/app/(dashboard)/reviewers/page';
 
@@ -242,6 +256,96 @@ it('renders the invalid view for an unknown parameter and for Show all outside t
     'href',
     '/reviewers',
   );
+});
+it('renders an address it rejects in the lens its query names, as the title and the masthead do', async () => {
+  type Search = Record<string, string>;
+  const alicePage = (search: Search) => ({
+    params: Promise.resolve({ accountId: 'account-alice' }),
+    searchParams: Promise.resolve(search),
+  });
+  const cases: {
+    path: string;
+    search: Search;
+    open: (search: Search) => Promise<unknown>;
+    title: (search: Search) => Promise<{ title?: unknown }>;
+    heading: string;
+    recovery: [string, string];
+    document: string;
+    masthead: 'Contributors' | 'Reviewers';
+  }[] = [
+    // `lens` is not a /contributors parameter: the address names the Reviewers lens anyway.
+    {
+      path: '/contributors',
+      search: { lens: 'reviewers' },
+      open: (search) => ContributorsPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => contributorsMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Reviewers',
+      recovery: ['Open reviewers', '/reviewers'],
+      document: 'Reviewers',
+      masthead: 'Reviewers',
+    },
+    {
+      path: '/companies',
+      search: { lens: 'reviewers', bogus: '1' },
+      open: (search) => CompaniesPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => companiesMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Companies',
+      recovery: ['Open companies', '/companies?lens=reviewers'],
+      document: 'Companies · Reviewers',
+      masthead: 'Reviewers',
+    },
+    // Show all belongs to overviews.
+    {
+      path: '/contributors/account-alice',
+      search: { all: '', lens: 'reviewers' },
+      open: (search) => ContributorPage(alicePage(search)),
+      title: (search) => contributorMetadata(alicePage(search)),
+      heading: 'Reviewers',
+      recovery: ['Open reviewers', '/reviewers'],
+      document: 'Alice · Reviewers',
+      masthead: 'Reviewers',
+    },
+    {
+      path: '/contributors',
+      search: { unknown: '1' },
+      open: (search) => ContributorsPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => contributorsMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Contributors',
+      recovery: ['Open contributors', '/contributors'],
+      document: 'Contributors',
+      masthead: 'Contributors',
+    },
+  ];
+  for (const { path, search, open, title, heading, recovery, document, masthead } of cases) {
+    const address = path + '?' + new URLSearchParams(search).toString();
+    History.prototype.replaceState.call(window.history, null, '', address);
+    const element = (await open(search)) as ReactElement<Parameters<typeof ContributionRoute>[0]>;
+    const view = render(
+      <>
+        <DashboardHeader
+          repositories={repositoryCatalog}
+          activePath={path}
+          accountControls={null}
+        />
+        {await ContributionRoute(element.props)}
+      </>,
+    );
+    expect(screen.getByText('Invalid contribution view'), address).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 }).textContent, address).toBe(heading);
+    expect(screen.getByRole('link', { name: recovery[0] }), address).toHaveAttribute(
+      'href',
+      recovery[1],
+    );
+    expect((await title(search)).title, address).toBe(document);
+    const main = screen.getByRole('navigation', { name: 'Main navigation' });
+    for (const name of ['Contributors', 'Reviewers'] as const)
+      expect(within(main).getByRole('link', { name }), address + ' ' + name).toHaveAttribute(
+        'data-active',
+        String(name === masthead),
+      );
+    view.unmount();
+  }
+  expect(historyWrites).not.toHaveBeenCalled();
 });
 
 it('opens the area report from its crumb, named after the lens: its saved form without a frame, else the frame', async () => {

@@ -21,5 +21,5 @@ export default async function Page({ searchParams }: { searchParams: Promise<Pag
     query,
     contributionPageOptions('/contributors', {}),
   );
-  return <ContributionRoute area="contributors" page={page} />;
+  return <ContributionRoute area="contributors" page={page} query={query} />;
 }

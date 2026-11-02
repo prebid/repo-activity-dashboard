@@ -11,8 +11,9 @@ import {
   contributionLensValues,
   contributionReportRoute,
 } from '@/lib/presentation/contribution-url';
-import { contributionSubjectTitle } from '@/lib/presentation/page-title';
-import { urlHref } from '@/lib/presentation/url/codec';
+import { contributionQueryLens, contributionSubjectTitle } from '@/lib/presentation/page-title';
+import type { PageSearchParams } from '@/lib/presentation/search-params';
+import { legacySearchParams, urlHref } from '@/lib/presentation/url/codec';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionLens } from '@/models/contribution-lens';
 import type { ContributionFocus } from '@/models/contributions';
@@ -47,24 +48,29 @@ function InvalidContributionView({
 /**
  * A contribution report page after the URL helper: a report or an Over time view renders from its
  * registry values, in a lens. `lens` names the Reviewers lens of /reviewers, whose route is the
- * lens; elsewhere the values' `lens` decides.
+ * lens; elsewhere the values' `lens` decides, and for an address the helper rejects, the raw
+ * `query`'s, as the document title and the masthead read it.
  */
 export async function ContributionRoute({
   area,
   page,
+  query,
   focus,
   lens: routeLens,
 }: {
   area: ContributionArea;
   page: CanonicalPage;
+  query: PageSearchParams;
   focus?: ContributionFocus;
   lens?: ContributionLens;
 }) {
   const lens: ContributionLens =
     routeLens ??
-    (page.status === 'canonical' && page.values.lens === 'reviewers'
-      ? 'reviewers'
-      : 'contributors');
+    (page.status === 'canonical'
+      ? page.values.lens === 'reviewers'
+        ? 'reviewers'
+        : 'contributors'
+      : contributionQueryLens(legacySearchParams(query)));
   if (page.status === 'invalid') return <InvalidContributionView area={area} lens={lens} />;
   const { route, segments } = contributionReportRoute(area, focus, lens);
   if (page.values.timeline === true)

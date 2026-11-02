@@ -41,6 +41,11 @@ export default async function Page({
     contributionPageOptions('/contributors/[accountId]', segments),
   );
   return (
-    <ContributionRoute area="contributors" page={page} focus={{ kind: 'contributor', accountId }} />
+    <ContributionRoute
+      area="contributors"
+      page={page}
+      query={query}
+      focus={{ kind: 'contributor', accountId }}
+    />
   );
 }
