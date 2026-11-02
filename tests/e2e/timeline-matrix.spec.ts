@@ -10,14 +10,16 @@ test('normal Summary entry preserves selected repositories and both Summary peri
   page,
 }) => {
   await login(page);
+  // An old Summary link is answered with its canonical form.
+  const canonical =
+    '/repos?repo=prebidjs,prebidserver&period=this-week&period2=last-month&age=30,60&asort=-prsMerged';
   await page.goto(
     '/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-week&period2=last-month&age=30&age=60&activity.sort=prsMerged&activity.dir=desc',
   );
+  await expect(page).toHaveURL('http://127.0.0.1:3100' + canonical);
   const tabs = page.getByRole('navigation', { name: 'Repository overview views' });
   await expect(tabs.getByRole('link', { name: 'Summary' })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('table')).toHaveCount(2);
-  const href = await tabs.getByRole('link', { name: 'Timeline' }).getAttribute('href');
-  const summary = new URL(href!, 'http://localhost').searchParams.get('summary')!;
   await tabs.getByRole('link', { name: 'Timeline' }).click();
   await expect(tabs.getByRole('link', { name: 'Timeline' })).toHaveAttribute(
     'aria-current',
@@ -31,15 +33,10 @@ test('normal Summary entry preserves selected repositories and both Summary peri
       .getByRole('region', { name: 'Timeline scope' })
       .getByRole('button', { name: 'Choose repositories 2 / 18', exact: true }),
   ).toBeVisible();
+  // The matrix still links its Summary in the old form; the Summary restores the same view.
   await tabs.getByRole('link', { name: 'Summary' }).click();
-  await expect(page).toHaveURL('http://127.0.0.1:3100' + summary);
+  await expect(page).toHaveURL('http://127.0.0.1:3100' + canonical);
   await expect(page.getByRole('table')).toHaveCount(2);
-  const restored = new URL(page.url()).searchParams;
-  expect(restored.get('period')).toBe('this-week');
-  expect(restored.get('period2')).toBe('last-month');
-  expect(restored.getAll('age')).toEqual(['30', '60']);
-  expect(restored.get('activity.sort')).toBe('prsMerged');
-  expect(restored.get('activity.dir')).toBe('desc');
 });
 for (const [theme, width] of [
   ['dark', 1440],
