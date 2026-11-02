@@ -22,19 +22,21 @@ export function periodRangeLabel(range: DateRange): string {
 }
 /**
  * A range that says a shared month and year once: "Sep 21–27, 2026", "Sep 28 – Oct 4, 2026", and
- * "Dec 29, 2025 – Jan 4, 2026" across years. A single day reads as that day.
+ * "Dec 29, 2025 – Jan 4, 2026" across years. A single day reads as that day. No-break spaces
+ * keep each date whole, so a wrapped range breaks only around its dash.
  */
 export function compactRangeLabel(range: DateRange): string {
   const first = new Date(range.start),
     last = lastIncluded(range);
   const year = last.getUTCFullYear();
-  if (first.getUTCFullYear() !== year) return periodRangeLabel(range);
   const month = (date: Date) => formatUtcDate(date.toISOString()).split(' ')[0];
-  if (first.getUTCMonth() !== last.getUTCMonth())
-    return `${month(first)} ${first.getUTCDate()} – ${month(last)} ${last.getUTCDate()}, ${year}`;
+  const day = (date: Date) => `${month(date)} ${date.getUTCDate()}`;
+  const dated = (date: Date) => `${day(date)}, ${date.getUTCFullYear()}`;
+  if (first.getUTCFullYear() !== year) return `${dated(first)} – ${dated(last)}`;
+  if (first.getUTCMonth() !== last.getUTCMonth()) return `${day(first)} – ${dated(last)}`;
   return first.getUTCDate() === last.getUTCDate()
-    ? formatUtcDate(range.start)
-    : `${month(first)} ${first.getUTCDate()}–${last.getUTCDate()}, ${year}`;
+    ? dated(first)
+    : `${day(first)}–${last.getUTCDate()}, ${year}`;
 }
 /** The one notation for a range shown as a fact: "Oct 1, 2026 – Oct 24, 2026 · UTC". */
 export function zonedRangeLabel(range: DateRange): string {

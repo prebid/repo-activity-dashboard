@@ -182,10 +182,17 @@ it('says a shared month and year once in a compact range', () => {
     end: end + 'T00:00:00.000Z',
     endInclusive,
   });
-  expect(compactRangeLabel(range('2026-09-21', '2026-09-28'))).toBe('Sep 21–27, 2026');
-  expect(compactRangeLabel(range('2026-09-28', '2026-10-05'))).toBe('Sep 28 – Oct 4, 2026');
-  expect(compactRangeLabel(range('2025-12-29', '2026-01-05'))).toBe('Dec 29, 2025 – Jan 4, 2026');
+  // No-break spaces keep each date whole; only the spaces around a dash may wrap.
+  expect(compactRangeLabel(range('2026-09-21', '2026-09-28'))).toBe('Sep\u00a021–27,\u00a02026');
+  expect(compactRangeLabel(range('2026-09-28', '2026-10-05'))).toBe(
+    'Sep\u00a028 – Oct\u00a04,\u00a02026',
+  );
+  expect(compactRangeLabel(range('2025-12-29', '2026-01-05'))).toBe(
+    'Dec\u00a029,\u00a02025 – Jan\u00a04,\u00a02026',
+  );
   // An inclusive end shows itself, and a range inside one day reads as that day.
-  expect(compactRangeLabel(range('2026-10-19', '2026-10-24', true))).toBe('Oct 19–24, 2026');
-  expect(compactRangeLabel(range('2026-10-24', '2026-10-25'))).toBe('Oct 24, 2026');
+  expect(compactRangeLabel(range('2026-10-19', '2026-10-24', true))).toBe(
+    'Oct\u00a019–24,\u00a02026',
+  );
+  expect(compactRangeLabel(range('2026-10-24', '2026-10-25'))).toBe('Oct\u00a024,\u00a02026');
 });

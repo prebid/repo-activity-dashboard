@@ -241,3 +241,28 @@ test('matrix preview requires sign-in and its Storybook empty layout remains rev
   );
   await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
 });
+test('a weekly header that crosses a month keeps its end date whole', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await login(page);
+  await page.goto('/repos?timeline&repo=prebidserver&group=week');
+  const header = page
+    .getByRole('table')
+    .getByRole('columnheader', { name: 'Sep 28 – Oct 4, 2026', exact: true });
+  await expect(header).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  // A Range over "Oct 4, 2026" draws one rect when the date sits on one line.
+  const lines = await header.evaluate((element) => {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const text = node as Text;
+      const at = text.data.replaceAll(' ', ' ').indexOf('Oct 4, 2026');
+      if (at < 0) continue;
+      const range = document.createRange();
+      range.setStart(text, at);
+      range.setEnd(text, at + 'Oct 4, 2026'.length);
+      return range.getClientRects().length;
+    }
+    throw new Error('No text node holds Oct 4, 2026');
+  });
+  expect(lines).toBe(1);
+});
