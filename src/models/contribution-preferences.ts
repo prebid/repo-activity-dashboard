@@ -6,10 +6,14 @@ import type { TableQuery } from './table-query';
 export type ContributionTableKind =
   'details' | 'contributors' | 'companies' | 'members' | 'repositories';
 
-/** Saved column overrides, and for company members whether zero totals are hidden. */
+/**
+ * Saved column overrides, for company members whether zero totals are hidden, and for a
+ * Reviewers-lens overview whether every account with activity is listed.
+ */
 export interface ContributionPresentation {
   columns: Record<string, boolean>;
   hideZeroMembers: boolean;
+  showAllAccounts?: boolean;
 }
 
 /**

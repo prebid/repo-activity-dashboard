@@ -246,6 +246,16 @@ interface ContributionReportBase {
   totals: ContributionValues;
   additionalTotals: AdditionalValues;
 }
+/**
+ * A Reviewers-lens overview's population: the accounts with reviewer evidence, or every account
+ * with activity when `showingAll`. The `all` counts name the "Show all" population.
+ */
+export interface ContributionPopulation {
+  role: 'reviewer';
+  showingAll: boolean;
+  allContributorCount: number;
+  allCompanyCount: number;
+}
 export type ContributionReport = ContributionReportBase &
   (
     | {
@@ -253,6 +263,8 @@ export type ContributionReport = ContributionReportBase &
         contributorCount: number;
         companyCount: number;
         table: Extract<ContributionTable, { kind: 'contributors' | 'companies' }> | null;
+        /** Present only in the Reviewers lens. */
+        population?: ContributionPopulation;
       }
     | {
         kind: 'contributor';
