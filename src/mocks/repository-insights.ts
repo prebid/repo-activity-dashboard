@@ -10,6 +10,7 @@ import type {
 import type { RepositoryRecordList } from '@/models/repository-records';
 import { authorRecordSelection } from '@/lib/presentation/repository-author-records';
 import { repositoryRecordSample } from './repository-records';
+import { repositoryPageRecordsSample } from './repository-page';
 import { sampleAuthorType, sampleProfileUrl } from './repository-accounts';
 import { medianMergeDays, periodCount, periodCredits } from './repository-activity';
 import { worldRepository, type WorldPullRequest } from './repository-world';
@@ -43,6 +44,8 @@ export function repositoryInsightSample(
     });
     if (records.kind !== 'prs') throw new Error('Expected merged PR sample');
     const merged = new Set(records.rows.map((row) => row.id));
+    // Author types come from the record pages' enrichment, so both lists classify an author alike.
+    const enriched = repositoryPageRecordsSample(records).rows;
     return {
       ...context,
       kind: 'duration',
@@ -52,7 +55,13 @@ export function repositoryInsightSample(
         world.pullRequests.filter((row) => merged.has(row.id)),
         selection.range,
       ),
-      records,
+      records: {
+        ...records,
+        rows: records.rows.map((row, index) => ({
+          ...row,
+          authorType: enriched[index].authorType,
+        })),
+      },
     };
   }
   if (selection.metric === 'prAuthors' || selection.metric === 'issueAuthors') {
