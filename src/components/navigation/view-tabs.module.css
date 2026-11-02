@@ -1,7 +1,7 @@
-/* View tabs. underline (the default) marks the current subject with the orange underline and a
-   weight change; segmented marks the current mode with the selection fill and edge, keeping its
-   weight so the group never changes width. Both stay on one row and scroll sideways when the row
-   is wider than its space, so the row height never changes. */
+/* View tabs. underline (the default) marks the current subject with the orange underline;
+   segmented marks the current mode with the selection fill and edge. In both the current tab is
+   700, and every label reserves its 700 width, so no tab or group changes width. Both stay on one
+   row and scroll sideways when the row is wider than its space, so the row height never changes. */
 .tabs {
   display: flex;
   flex-wrap: nowrap;
@@ -34,6 +34,26 @@
 .tabs a[aria-current='true'] {
   color: var(--foreground);
 }
+.tabs a[aria-current='page'] {
+  font-weight: 700;
+}
+/* A label over a zero-height bold copy of itself, which sets its width at either weight. The copy
+   is hidden, so it is neither seen nor read. */
+.label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.label::after {
+  content: attr(data-label);
+  content: attr(data-label) / '';
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+}
 /* Inside the outline, because the scrolling row clips anything drawn past its edges. */
 .tabs a:focus-visible,
 .disabled:focus-visible {
@@ -58,9 +78,6 @@
 .tabs:not([data-variant='segmented']) .disabled {
   height: var(--view-bar-height);
   padding: 0 2px;
-}
-.tabs:not([data-variant='segmented']) a[aria-current='page'] {
-  font-weight: 700;
 }
 /* aria-current='true' marks the list a subpage belongs to: the underline and ink without the
    weight, so the subpage is not read as the list itself. */

@@ -219,3 +219,46 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
     expect(box.x + box.width).toBeLessThanOrEqual(375 - gutter(375, 'wide') + 0.5);
   }
 });
+
+test("an administrator's first masthead row fits from 320px without overlapping or cutting off the avatar", async ({
+  page,
+}) => {
+  await page.goto(
+    'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--administration&viewMode=story',
+  );
+  const account = page.getByRole('button', { name: /^Account: / });
+  const row = [
+    page.getByRole('link', { name: 'Repository activity', exact: true }),
+    page
+      .getByRole('navigation', { name: 'Administration', exact: true })
+      .getByRole('link', { name: 'Accounts', exact: true }),
+    page.getByRole('button', { name: 'Theme settings', exact: true }),
+    account,
+    page.getByRole('button', { name: 'Sign out', exact: true }),
+  ];
+  await expect(row[2]).toBeEnabled();
+  for (const width of [320, 340, 360, 375]) {
+    await page.setViewportSize({ width, height: 800 });
+    const at = `at ${width}px`;
+    const boxes = await Promise.all(row.map(async (control) => (await control.boundingBox())!));
+    // Left to right inside the gutters, each control clear of the one before it.
+    expect(boxes[0].x, at).toBeGreaterThanOrEqual(gutter(width, 'wide') - 0.5);
+    for (let index = 1; index < boxes.length; index++)
+      expect(boxes[index].x, at + ' control ' + index).toBeGreaterThanOrEqual(
+        boxes[index - 1].x + boxes[index - 1].width - 0.5,
+      );
+    const last = boxes[boxes.length - 1];
+    expect(last.x + last.width, at).toBeLessThanOrEqual(width - gutter(width, 'wide') + 0.5);
+    for (const box of boxes.slice(2)) expect([box.width, box.height], at).toEqual([36, 36]);
+    // The avatar sits whole inside its trigger.
+    const trigger = boxes[3];
+    const avatar = (await account.getByTitle('Human', { exact: true }).boundingBox())!;
+    expect(avatar.x, at).toBeGreaterThanOrEqual(trigger.x);
+    expect(avatar.y, at).toBeGreaterThanOrEqual(trigger.y);
+    expect(avatar.x + avatar.width, at).toBeLessThanOrEqual(trigger.x + trigger.width);
+    expect(avatar.y + avatar.height, at).toBeLessThanOrEqual(trigger.y + trigger.height);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), at).toBeLessThanOrEqual(
+      width,
+    );
+  }
+});

@@ -149,7 +149,7 @@ function SectionsSpecimen() {
         <span className="font-display text-heading font-semibold">Repository activity</span>
       </header>
       <main className="px-8 pt-6 pb-24">
-        <div className="grid gap-5">
+        <div className="grid grid-cols-1 gap-5">
           <PageHeader
             title="Prebid.js"
             asOf={asOf}

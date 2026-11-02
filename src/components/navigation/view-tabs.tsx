@@ -1,5 +1,30 @@
-import { useId, type ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, useId, type ReactNode } from 'react';
 import styles from './view-tabs.module.css';
+
+/**
+ * Wraps each text label among a tab's children in a span that also lays out an invisible bold
+ * copy, so the tab is as wide as its current (bold) state whether or not it is current. Icons,
+ * counts and the pending bar are elements and stay as they are.
+ */
+function reserveBoldLabels(tabs: ReactNode): ReactNode {
+  return Children.map(tabs, (tab) =>
+    isValidElement<{ children?: ReactNode }>(tab)
+      ? cloneElement(
+          tab,
+          undefined,
+          Children.map(tab.props.children, (child) =>
+            typeof child === 'string' && child.trim() ? (
+              <span className={styles.label} data-label={child}>
+                {child}
+              </span>
+            ) : (
+              child
+            ),
+          ),
+        )
+      : tab,
+  );
+}
 
 /**
  * underline: a set of subjects, such as Pull requests | Issues | Timeline or Contributors |
@@ -7,8 +32,10 @@ import styles from './view-tabs.module.css';
  */
 export type ViewTabsVariant = 'underline' | 'segmented';
 
-export const viewTabsClassName = styles.tabs;
-/** Tabs never wrap: a row wider than its space scrolls sideways. */
+/**
+ * Tabs never wrap: a row wider than its space scrolls sideways. A tab's text labels are its
+ * string children; each keeps its bold width, so marking another tab current moves no tab.
+ */
 export function ViewTabs({
   label,
   variant = 'underline',
@@ -20,7 +47,7 @@ export function ViewTabs({
 }) {
   return (
     <nav className={styles.tabs} data-variant={variant} aria-label={label}>
-      {children}
+      {reserveBoldLabels(children)}
     </nav>
   );
 }

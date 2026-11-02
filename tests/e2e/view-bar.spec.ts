@@ -83,11 +83,12 @@ for (const theme of ['light', 'dark'] as const)
       expect(contrast(colours[edge], colours.band), edge).toBeGreaterThanOrEqual(3);
   });
 
-test('the view bar stays 44px tall and stuck under the masthead to the end of the page', async ({
+test('the masthead and the 44px view bar stay stuck at the top to the end of the page', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto(story('navigation-view-bar--sections'));
+  // A page story with the real DashboardFrame and DashboardHeader.
+  await page.goto(story('repositories-all-repositories--overview'));
   await expect(sectionsNav(page)).toBeVisible();
   const banner = page.getByRole('banner');
   const bar = page.locator('[data-view-bar]');
@@ -102,6 +103,40 @@ test('the view bar stays 44px tall and stuck under the masthead to the end of th
     expect([view!.y, view!.height], 'view bar at ' + share).toEqual([64, 44]);
   }
 });
+
+for (const [id, label] of [
+  ['navigation-view-bar--tabs', 'Repository lists'],
+  ['navigation-view-bar--view-modes', 'Repository overview views'],
+] as const)
+  test(`the current tab is 700 and moving it moves no tab (${label})`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto(story(id));
+    const tabs = page.getByRole('navigation', { name: label, exact: true }).getByRole('link');
+    await expect(tabs.first()).toHaveAttribute('aria-current', 'page');
+    await page.evaluate(() => document.fonts.ready);
+    const read = () =>
+      tabs.evaluateAll((links) =>
+        links.map((link) => ({
+          left: link.getBoundingClientRect().left,
+          weight: getComputedStyle(link).fontWeight,
+        })),
+      );
+    const before = await read();
+    expect(before.map((tab) => tab.weight)).toEqual(
+      before.map((_, index) => (index ? '600' : '700')),
+    );
+    // Mark the second tab current, as following its link would.
+    await tabs.evaluateAll(([first, second]) => {
+      first.removeAttribute('aria-current');
+      second.setAttribute('aria-current', 'page');
+    });
+    const after = await read();
+    expect(after.map((tab) => tab.weight)).toEqual(
+      after.map((_, index) => (index === 1 ? '700' : '600')),
+    );
+    for (const [index, tab] of after.entries())
+      expect(Math.abs(tab.left - before[index].left), 'tab ' + index).toBeLessThanOrEqual(1);
+  });
 
 for (const theme of ['light', 'dark'] as const)
   test(`a section chip moves focus to its heading and replaces the fragment (${theme})`, async ({
@@ -157,10 +192,18 @@ test('at phone width a Sections menu replaces the chips and leaves focus on the 
   await expect(
     nav.getByRole('link', { name: 'Period activity', exact: true, includeHidden: true }),
   ).toBeHidden();
-  // The bar holds the tabs and the menu in one row without overflowing it.
+  // The bar holds the tabs and the menu in one row inside the viewport, and the page does not
+  // scroll sideways.
   const bar = page.locator('[data-view-bar]');
-  expect((await bar.boundingBox())!.height).toBe(44);
+  const box = (await bar.boundingBox())!;
+  expect(box.height).toBe(44);
   expect(await bar.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  const viewport = await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(box.x + box.width).toBeLessThanOrEqual(viewport.innerWidth);
+  expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.innerWidth);
   const entries = await historyLength(page);
   await trigger.focus();
   await page.keyboard.press('Enter');

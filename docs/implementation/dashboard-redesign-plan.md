@@ -953,6 +953,13 @@ Step 3, the merge (`p4/integrate`):
 - `layout-width.spec.ts` checks that at 390px the three main navigation destinations share one row without scrolling it (Tests; P6 adds the fourth).
 - Documents: `all-repositories-plan.md:38` and `acceptance-matrix.md:26` drop the sample-data label. `docs/product/README.md:26`, `login.md:60` and `account-operations.md:114` still describe "clearly labeled sample reports"; the Sample-data row does not name them, so they are unchanged.
 
+Step 4, review fixes (`p4/fix`), superseding the step notes above where they differ:
+
+- The invalid Timeline state keeps its `h1` "Timeline": it renders `PageHeader` with an empty snapshot above the `EmptyState`, as the invalid contribution view does, so its chip reads "Data as of —". The invalid repository and author states are unchanged. `timeline-matrix.spec.ts` checks the one level-1 heading.
+- Administrator masthead at 320–375px: the account trigger shortens its name, never itself (a minimum of its avatar, padding and border). At 600px and below the trigger and Sign out are 36px squares like the theme button, the column gap is 8px, and the account group never narrows below its controls; an administrator's row takes the room it still needs from the logo, which narrows from 100px to 72px (about 74px at 320px). `layout-width.spec.ts` checks at 320, 340, 360 and 375px that the first-row controls do not overlap and the avatar sits inside its trigger.
+- Tabs follow the Typography decision in both variants: the current tab is 700. `ViewTabs` wraps each string child of a tab in a label span over an invisible, zero-height 700 copy of itself (`data-label` and `::after`, hidden from assistive technology), so every tab is as wide at 600 as at 700 and marking another tab current moves no tab (`view-bar.spec.ts`, both variants). A tab marked `aria-current="true"` stays 600.
+- The opened account menu is described by its email and role lines (`aria-describedby`), which are text, not items.- `view-bar.spec.ts` measures the sticky masthead on `repositories-all-repositories--overview`, which renders `DashboardFrame` and `DashboardHeader`; the phone check bounds the bar and the page by the viewport, and the Sections specimen's grid takes a `minmax(0, 1fr)` column. `viewTabsClassName`, which had no caller, is removed.
+
 Visible text changes (P4 as merged):
 
 - Every report header: "Reporting snapshot" and its time become the amber "Data as of" chip with the same time. Timeline support's "Reporting snapshot: …" line becomes the same chip.
@@ -962,7 +969,7 @@ Visible text changes (P4 as merged):
 - All repositories Summary: "On this page" chips "Current backlog" and "Period activity".
 - Repository pages: the meta line reads "Primary branch <name>" (it read "<name> primary branch"); breadcrumb links are separated by a chevron icon instead of "/"; a subpage's title follows them as the current crumb. Record lists with charts gain chips for their panels; the repository Timeline gains "Trend" and "Activity over time" or "Backlog over time".
 - Timeline support: the interval facts (metric, "Timeline value: …", covered dates, "Partial") read as the toolbar summary line.
-- Invalid Timeline view: the unstyled "Timeline" heading above the error is gone.
+- Invalid Timeline view: the unstyled "Timeline" heading above the error becomes the page header's title, with the chip "Data as of —".
 - Contributions: the eyebrows ("Contribution activity", "Contributor report", "Company report") and the subtitles ("Understand who authors, reviews and merges work.", "Explore contribution activity by current company affiliation.", "Contribution activity across your selected population.", "Contribution activity for this account." and "… company.") are gone. The area tabs read "Contributors" and "Companies" without counts. Over time shows the area tabs on an overview and "Back to report" on a contributor or company, and a contributor's company is a link. The invalid contribution view's chip reads "Data as of —".
 - Sign-in, change-password and setup pages: no text change.
 

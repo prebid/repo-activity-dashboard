@@ -12,15 +12,19 @@ import {
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import { EmptyState } from '@/components/feedback/empty-state';
+import { PageHeader } from '@/components/navigation/page-header';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { TimelineSupportScreen } from './timeline-support-screen';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
-/** No snapshot is read for an invalid view, so the state's heading names the page without a header. */
 function InvalidTimeline({ message, href }: { message: string; href: string }) {
   return (
-    <EmptyState kind="error" title="Invalid timeline view">
-      {message} <Link href={href}>Return to report</Link>
-    </EmptyState>
+    <>
+      {/* No snapshot is read for an invalid view, so the header states no snapshot time. */}
+      <PageHeader title="Timeline" asOf="" />
+      <EmptyState kind="error" title="Invalid timeline view">
+        {message} <Link href={href}>Return to report</Link>
+      </EmptyState>
+    </>
   );
 }
 export async function RepositoryTimelineMatrixRoute({ params }: { params: URLSearchParams }) {

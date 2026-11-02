@@ -214,6 +214,9 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
     '/repos?timeline=1&timeline.group=day&period=custom&from=2020-01-01&through=2026-10-24',
   );
   await expect(page.getByRole('heading', { name: 'Invalid timeline view' })).toBeVisible();
+  // The page keeps its one title above the error.
+  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Timeline');
   await expect(page.getByText(/exceeds 500 intervals/)).toBeVisible();
 });
 test('weekly issue periods and window controls fit on mobile', async ({ page }, info) => {

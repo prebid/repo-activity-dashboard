@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Avatar } from '@/components/github/avatar';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordIcon } from '@/components/ui/icons';
@@ -37,6 +37,9 @@ export function AccountMenu({
 }) {
   // Keep the popup within the masthead landmark for assistive navigation.
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  // The email and role are text, not items, so the menu's description announces them on opening.
+  const emailId = useId();
+  const roleId = useId();
   const name = viewer.name || viewer.email;
   return (
     <div ref={setContainer} className={styles.frame}>
@@ -48,16 +51,25 @@ export function AccountMenu({
             <span className={frame.accountName}>{name}</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" size="sm" container={container}>
+        <DropdownMenuContent
+          align="end"
+          size="sm"
+          container={container}
+          aria-describedby={emailId + ' ' + roleId}
+        >
           <div className={styles.identity}>
             <Avatar kind="person" name={name} accountType="human" size={32} />
             <div className={styles.names}>
               <p className={styles.name}>{name}</p>
-              <p className={styles.detail}>{viewer.email}</p>
+              <p id={emailId} className={styles.detail}>
+                {viewer.email}
+              </p>
             </div>
           </div>
           <DropdownMenuSeparator />
-          <p className={styles.role}>Role: {accountRoleLabels[viewer.role]}</p>
+          <p id={roleId} className={styles.role}>
+            Role: {accountRoleLabels[viewer.role]}
+          </p>
           {passwordChange && (
             <>
               <DropdownMenuSeparator />

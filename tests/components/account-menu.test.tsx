@@ -28,6 +28,14 @@ it('names its trigger after the account and shows the name, email and role', asy
   expect(screen.getByRole('banner')).toContainElement(content);
 });
 
+it('describes the opened menu with the email and role, which are text rather than items', async () => {
+  const user = userEvent.setup();
+  await user.click(menu({ ...alice, role: 'admin' }, true).trigger);
+  expect(screen.getByRole('menu', { name: 'Account: Alice (sample)' })).toHaveAccessibleDescription(
+    'alice@example.test Role: Administrator',
+  );
+});
+
 it('offers Change password as a link to the existing page only where the build allows it', async () => {
   const user = userEvent.setup();
   const preview = menu(alice);
