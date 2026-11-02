@@ -5,6 +5,7 @@ import {
   defaultContributionSettings,
   writeContributionSettings,
 } from '../../src/lib/presentation/contribution-settings';
+import { listParam } from '../support/contribution-urls';
 
 const source = contributionSample({ scenario: 'large' });
 const people = source.accounts
@@ -25,13 +26,11 @@ async function login(page: Page) {
   await expect(page).toHaveURL(/\/repos$/);
 }
 function assertScope(url: string, expected: ReturnType<typeof settings>) {
-  const params = new URL(url).searchParams;
-  expect(params.getAll('account').sort()).toEqual([...people.map((account) => account.id)].sort());
-  expect(params.getAll('exclude').sort()).toEqual(
-    [...expected.selection.excludedAccountIds].sort(),
-  );
-  expect(params.getAll('type')).toEqual(['human']);
-  expect(params.get('period')).toBe('this-year');
+  expect(listParam(url, 'account')).toEqual([...people.map((account) => account.id)].sort());
+  expect(listParam(url, 'exclude')).toEqual([...expected.selection.excludedAccountIds].sort());
+  expect(listParam(url, 'type')).toEqual(['human']);
+  // An absent period is the v1 default.
+  expect(new URL(url).searchParams.get('period')).toBeNull();
 }
 test('130 selected accounts retain every visible drilldown with bounded per-page link text', async ({
   page,
@@ -41,7 +40,8 @@ test('130 selected accounts retain every visible drilldown with bounded per-page
   const table = page.getByRole('table', { name: 'Contributors', exact: true });
   await expect(table.locator('tbody tr')).toHaveCount(50);
   await expect(table.getByRole('link', { name: / — view contribution report$/ })).toHaveCount(50);
-  await expect(table.getByRole('link', { name: / — view supporting records$/ })).toHaveCount(300);
+  // The contributor lens shows three metric columns by default (decision C5).
+  await expect(table.getByRole('link', { name: / — view supporting records$/ })).toHaveCount(150);
   const hrefs = await table
     .locator('a[href]')
     .evaluateAll((nodes) =>
@@ -68,9 +68,12 @@ test('copied links and browser history retain parent scope after child account, 
   params.set('report.sort', 'prsAuthored');
   params.set('report.dir', 'desc');
   params.set('report.q', 'Sample contributor');
-  const columns = ['name', 'actorType', 'prsAuthored'];
-  for (const column of columns) params.append('contributors.columns', column);
+  for (const column of ['name', 'actorType', 'prsAuthored'])
+    params.append('contributors.columns', column);
+  // An old link: the page answers it with a 307 to its canonical form.
   await page.goto('/contributors?' + params.toString());
+  const columns = '-company,-authoredPrsMerged,-issuesAuthored';
+  expect(new URL(page.url()).searchParams.get('cols')).toBe(columns);
   const table = page.getByRole('table', { name: 'Contributors', exact: true });
   await expect(page.getByText('Page 2 of 3', { exact: true })).toBeVisible();
   await table
@@ -119,10 +122,8 @@ test('copied links and browser history retain parent scope after child account, 
       .getByRole('checkbox', { name: exclude.name + ' (@' + exclude.login + ')', exact: true })
       .check();
     await dialog.getByRole('button', { name: 'Apply accounts', exact: true }).click();
-    await expect.poll(() => new URL(copied.url()).searchParams.getAll('account').length).toBe(129);
-    expect(new URL(copied.url()).searchParams.getAll('exclude').sort()).toEqual(
-      ['account-person-129', exclude.id].sort(),
-    );
+    await expect.poll(() => listParam(copied.url(), 'account').length).toBe(129);
+    expect(listParam(copied.url(), 'exclude')).toEqual(['account-person-129', exclude.id].sort());
     await copied
       .getByRole('combobox', { name: 'Reporting period preset', exact: true })
       .selectOption('last-month');
@@ -141,13 +142,13 @@ test('copied links and browser history retain parent scope after child account, 
       'aria-sort',
       'descending',
     );
-    expect(new URL(copied.url()).searchParams.getAll('contributors.columns')).toEqual(columns);
+    expect(new URL(copied.url()).searchParams.get('cols')).toBe(columns);
     assertScope(copied.url(), root);
   } finally {
     await copiedContext.close();
   }
 });
-test('a shared v1 bookmark restores frozen presentation and upgrades its remaining return trail', async ({
+test('a shared v1 bookmark is answered with back frames that restore its frozen presentation', async ({
   page,
 }) => {
   await login(page);
@@ -182,24 +183,25 @@ test('a shared v1 bookmark restores frozen presentation and upgrades its remaini
   await page.goto(
     '/contributors/account-person-001?sample=large&scope=1&period=this-year&nav=' + nav,
   );
+  // The 307 translates the trail into frames: the company page, then its derived Companies.
+  expect(new URL(page.url()).search).toBe(
+    '?sample=large&back=/companies/id/company-acme~sort:-name~page:2' +
+      '~cols:-actorType,-authoredPrsMerged,-issuesAuthored',
+  );
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(
     page.getByRole('table', { name: 'Company contributors', exact: true }),
   ).toBeVisible();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.getAll('members.columns')).toEqual([
-    'name',
-    'prsAuthored',
-  ]);
-  const packed = JSON.parse(
-    Buffer.from(new URL(page.url()).searchParams.get('nav')!, 'base64url').toString('utf8'),
-  ) as unknown[];
-  expect(packed[0]).toBe(2);
+  expect(new URL(page.url()).searchParams.get('cols')).toBe(
+    '-actorType,-authoredPrsMerged,-issuesAuthored',
+  );
+  expect(new URL(page.url()).searchParams.has('nav')).toBe(false);
   await page.reload();
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page.getByRole('table', { name: 'Companies', exact: true })).toBeVisible();
 });
-test('malformed compact context falls back safely while the current report remains usable', async ({
+test('malformed compact context leaves Back to report unavailable while the report remains usable', async ({
   page,
 }) => {
   await login(page);
@@ -214,8 +216,15 @@ test('malformed compact context falls back safely while the current report remai
     '/contributors/account-alice?scope=1&period=this-year&nav=' + nav,
   );
   expect(response?.status()).toBe(200);
+  expect(new URL(page.url()).search).toBe('?back=!');
   await expect(page.getByRole('table', { name: 'By repository', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
-  await expect(page.getByRole('table', { name: 'Contributors', exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.has('nav')).toBe(false);
+  const trail = page.getByRole('navigation', { name: 'Contribution breadcrumb' });
+  await expect(trail.getByRole('link')).toHaveCount(0);
+  await expect(trail.getByText('Back to report')).toHaveAttribute('aria-disabled', 'true');
+  await expect(trail).toContainText('The page this link came from is not available.');
+  // Links onward keep the unavailable position rather than inventing a broader parent.
+  const company = page.getByRole('link', { name: 'Example Acme', exact: true });
+  expect(
+    new URL((await company.getAttribute('href'))!, page.url()).searchParams.getAll('back'),
+  ).toEqual(['/contributors/account-alice', '!']);
 });

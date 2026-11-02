@@ -12,6 +12,8 @@ vi.mock('next/navigation', () => ({
     throw Error('not-found');
   },
 }));
+// No preference cookie: a bare entry renders in place.
+vi.mock('next/headers', () => ({ cookies: () => Promise.resolve({ get: () => undefined }) }));
 // Bob and Example Acme keep every record and membership under the identities above.
 vi.mock('@/mocks/contributions', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/mocks/contributions')>();
@@ -68,7 +70,7 @@ it.each([
 ] as const)(
   'serves the %s report, Timeline, support and export for the identity',
   async (area, focus, prs) => {
-    const report = await contributions(area, new URLSearchParams(), focus);
+    const report = await contributions(area, {}, focus);
     expect(report.status).toBe('ready');
     const href = contributionPath(focus) + '?timeline=1';
     const timeline = await loadTimelineReport(href);

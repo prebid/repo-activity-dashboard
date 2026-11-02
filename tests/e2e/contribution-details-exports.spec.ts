@@ -1,4 +1,4 @@
-import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
+import { listParam, parentHref } from '../support/contribution-urls';
 import { test, expect } from './fixtures';
 import type { Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
@@ -36,7 +36,8 @@ test('names open internal reports, handles open GitHub and company credits retai
   await expect(page.getByTitle('Bot', { exact: true }).locator('svg')).toHaveCount(1);
   await alice.click();
   await expect(page.getByRole('heading', { name: 'Alice', level: 1 })).toBeVisible();
-  await page.goto('/companies?period=this-year&repo=repo-prebidjs&type=human');
+  // Reviewer contributions is in Columns until the Reviewers lens (decision C5).
+  await page.goto('/companies?repo=prebidjs&type=human&cols=reviewerContributions');
   await page.getByRole('textbox', { name: 'Search Companies' }).fill('Acme');
   await page
     .getByRole('table')
@@ -45,19 +46,23 @@ test('names open internal reports, handles open GitHub and company credits retai
   await expect(
     page.getByRole('region', { name: 'Supporting record totals' }).locator('dd'),
   ).toHaveText(['4', '4', '3']);
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['human']);
-  expect(contributionReturnHref(new URL(page.url()).searchParams, '/contributors')).toContain(
-    'report.q=Acme',
+  expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
+  expect(listParam(page.url(), 'type')).toEqual(['human']);
+  expect(parentHref(page.url())).toBe(
+    '/companies?repo=prebidjs&type=human&q=Acme&cols=reviewerContributions',
   );
   const table = page.getByRole('table');
   await expect(table.locator('tbody tr')).toHaveCount(4);
   await expect(table.getByRole('link', { name: /#102 / })).toHaveCount(2);
   await page.reload();
   await expect(table.locator('tbody tr')).toHaveCount(4);
+  // The report is the entry this page was opened from, so Back to report goes back to it (a
+  // reload keeps that record) and Forward returns here.
+  const entries = await page.evaluate(() => history.length);
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Search Companies' })).toHaveValue('Acme');
-  await page.goBack();
+  expect(await page.evaluate(() => history.length)).toBe(entries);
+  await page.goForward();
   await expect(page.getByRole('region', { name: 'Supporting record totals' })).toBeVisible();
 });
 test('agent PR/issue details keep historical records, 50-row pagination and full scoped exports', async ({
@@ -249,7 +254,7 @@ test('partial metric ordering matches both CSV layouts and remains numeric in ea
 }) => {
   await login(page);
   await page.goto(
-    '/contributors?sample=partial&period=this-year&report.sort=approvalContributions&report.dir=desc',
+    '/contributors?sample=partial&sort=-approvalContributions&cols=approvalContributions',
   );
   const table = page.getByRole('table');
   for (const descending of [true, false]) {

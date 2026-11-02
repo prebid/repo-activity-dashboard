@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import { contributionSample } from '../../src/mocks/contributions';
 import {
   defaultContributionSettings,
@@ -213,7 +214,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
     await copied.getByRole('link', { name: 'Back to report', exact: true }).click();
     await expect(copied.getByRole('table', { name: 'By repository', exact: true })).toBeVisible();
     expect(new URL(copied.url()).pathname).toBe(new URL(parent).pathname);
-    expect(new URL(copied.url()).searchParams.getAll('account').sort()).toEqual(
+    expect(listParam(copied.url(), 'account').sort()).toEqual(
       [...settings.selection.population.accountIds].sort(),
     );
     await copied.reload();
@@ -236,7 +237,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
     .click();
   await expect(page.getByRole('region', { name: 'Supporting record totals' })).toBeVisible();
   expect(page.url().length).toBeLessThan(7500);
-  expect(new URL(page.url()).searchParams.getAll('account').sort()).toEqual(
+  expect(listParam(page.url(), 'account').sort()).toEqual(
     [...settings.selection.population.accountIds].sort(),
   );
 });

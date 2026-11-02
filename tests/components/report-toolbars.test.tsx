@@ -179,6 +179,7 @@ const pages: [
           page={result.page}
           viewerId={result.viewer.id}
           directory={result.directory}
+          view={{ route: '/contributors', segments: {}, values: {} }}
         />
       );
     },

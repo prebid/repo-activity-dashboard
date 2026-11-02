@@ -9,8 +9,10 @@ import {
   defaultContributionSettings,
   serializeContributionPreferences,
   serializeContributionPresentation,
-  writeContributionSettings,
 } from '@/lib/presentation/contribution-settings';
+import { contributionReportRoute } from '@/lib/presentation/contribution-url';
+import { isEntry, parseQuery, urlHref } from '@/lib/presentation/url/codec';
+import { entryValues } from '@/lib/presentation/url/entry';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea } from '@/models/contribution-page';
@@ -26,8 +28,9 @@ vi.mock('next/navigation', () => ({
 }));
 import { preferenceSnapshot } from '@/server/preferences';
 import {
+  contributionEntry,
   contributionEntryNotices,
-  resolveContributionReport,
+  contributionReportPreferences,
 } from '@/server/contribution-preferences';
 import { contributions } from '@/server/reporting';
 
@@ -55,72 +58,107 @@ function snapshot(sections: Partial<Record<PreferenceSectionKey, unknown>>, bind
     document ? encodePreferenceDocument(document) : undefined,
   );
 }
+type Target = {
+  area?: ContributionArea;
+  focus?: Exclude<ContributionFocus, { kind: 'overview' }>;
+  binding?: PreferenceBinding;
+};
+/**
+ * One request's entry resolution: the saved values the page helper applies (and the address it
+ * redirects to), and the preferences the rendered report starts from.
+ */
 async function resolve(
   sections: Partial<Record<PreferenceSectionKey, unknown>>,
   search = '',
-  { area = 'contributors', focus, binding = alice } = {} as {
-    area?: ContributionArea;
-    focus?: Exclude<ContributionFocus, { kind: 'overview' }>;
-    binding?: PreferenceBinding;
-  },
+  { area = 'contributors', focus, binding = alice }: Target = {},
 ) {
-  const params = new URLSearchParams(search);
-  const loaded = await contributions(area, params, focus);
+  const { route, segments } = contributionReportRoute(area, focus);
+  const parsed = parseQuery(route, search);
+  if (parsed.kind !== 'canonical') throw Error('Expected a canonical query');
+  const read = snapshot(sections, binding);
+  const entry = contributionEntry(
+    read,
+    route,
+    segments,
+    parsed.values,
+    isEntry(route, parsed.values),
+  );
+  const loaded = await contributions(area, parsed.values, focus);
   if (loaded.status !== 'ready') throw Error('Expected a contribution report');
-  const path = focus
-    ? focus.kind === 'contributor'
-      ? '/contributors/' + focus.accountId
-      : '/companies/id/' + focus.companyId
-    : '/' + area;
-  return resolveContributionReport(snapshot(sections, binding), {
-    path,
-    params,
-    page: loaded.page,
-  });
-}
-function ready(entry: Awaited<ReturnType<typeof resolve>>) {
-  if (entry.status !== 'ready') throw Error('Expected the report to render, got a redirect');
-  return entry.preferences;
+  return {
+    entry,
+    /** Where the helper sends the entry: its own address when nothing saved differs. */
+    target: urlHref(route, segments, entryValues(route, parsed.values, entry.saved ?? {})),
+    preferences: contributionReportPreferences(read, loaded.page, entry),
+  };
 }
 const lastMonth = scope((value) => (value.period = { kind: 'preset', preset: 'last-month' }));
 
-it('answers an entry with a saved scope by redirecting to its explicit-scope URL', async () => {
+it('answers a list entry with its saved scope and presentation in explicit form', async () => {
   const saved = scope((value) => {
     value.period = { kind: 'custom', from: '2026-09-01', through: '2026-09-30' };
     value.selection.excludedAccountIds = ['account-alice'];
   });
-  const entry = await resolve({ 'contributions.scope': stored(saved) }, 'sample=reference');
-  expect(entry).toEqual({
-    status: 'redirect',
-    href: '/contributors?' + writeContributionSettings('sample=reference', saved),
+  const { target, preferences } = await resolve({
+    'contributions.scope': stored(saved),
+    'contributions.contributors.sort': { sort: 'prsAuthored', descending: true },
+    'contributions.contributors.columns': JSON.parse(
+      serializeContributionPresentation({ prComments: true, issuesAuthored: false }, false),
+    ) as unknown,
   });
-  const company = await resolve({ 'contributions.scope': stored(lastMonth) }, 'view=repositories', {
-    area: 'companies',
-    focus: { kind: 'company', companyId: 'company-acme' },
-  });
-  expect(company).toEqual({
-    status: 'redirect',
-    href: '/companies/id/company-acme?' + writeContributionSettings('view=repositories', lastMonth),
-  });
+  expect(target).toBe(
+    '/contributors?period=2026-09-01..2026-09-30&exclude=account-alice' +
+      '&sort=-prsAuthored&cols=-issuesAuthored,prComments',
+  );
+  expect(preferences.scope.value).toEqual(saved);
+  expect(preferences.notice).toBeUndefined();
 });
 
-it('renders an entry in place when nothing is saved or the saved scope is the rendered one', async () => {
-  expect(ready(await resolve({})).scope).toEqual({
+it('applies only saved presentation on a contributor or company entry (C2)', async () => {
+  const company = await resolve(
+    {
+      'contributions.scope': stored(lastMonth),
+      'contributions.repositories.sort': { sort: 'name', descending: false },
+    },
+    'view=repositories',
+    { area: 'companies', focus: { kind: 'company', companyId: 'company-acme' } },
+  );
+  expect(company.target).toBe('/companies/id/company-acme?view=repositories&sort=name');
+  // The saved scope is neither applied nor checked on a detail page.
+  expect(company.preferences.scope).toEqual({
     section: 'contributions.scope',
     binding: alice,
     value: null,
   });
-  const same = ready(await resolve({ 'contributions.scope': stored(defaults) }));
-  expect(same.scope.value).toEqual(scope());
-  expect(same.notice).toBeUndefined();
 });
 
-it('keeps an explicit scope authoritative without reading or rejecting the saved one', async () => {
-  const entry = ready(
-    await resolve({ 'contributions.scope': '{invalid' }, 'scope=1&period=this-month'),
+it('renders an entry in place when nothing is saved or the saved view is the default one', async () => {
+  const nothing = await resolve({});
+  expect(nothing.target).toBe('/contributors');
+  expect(nothing.preferences.scope).toEqual({
+    section: 'contributions.scope',
+    binding: alice,
+    value: null,
+  });
+  const same = await resolve({ 'contributions.scope': stored(defaults) });
+  expect(same.target).toBe('/contributors');
+  expect(same.preferences.scope.value).toEqual(scope());
+  expect(same.preferences.notice).toBeUndefined();
+});
+
+it('keeps an explicit view authoritative without reading or rejecting the saved scope', async () => {
+  const { entry, target, preferences } = await resolve(
+    { 'contributions.scope': '{invalid' },
+    'period=this-month',
   );
-  expect(entry.scope).toEqual({ section: 'contributions.scope', binding: alice, value: null });
-  expect(entry.notice).toBeUndefined();
+  expect(entry.saved).toBeNull();
+  expect(target).toBe('/contributors?period=this-month');
+  expect(preferences.scope).toEqual({
+    section: 'contributions.scope',
+    binding: alice,
+    value: null,
+  });
+  expect(preferences.notice).toBeUndefined();
 });
 
 it.each([
@@ -139,10 +177,11 @@ it.each([
     }),
   ],
 ])('renders defaults with the recovery notice for a saved scope naming %s', async (_, saved) => {
-  const entry = ready(await resolve({ 'contributions.scope': stored(saved) }));
-  expect(entry.notice).toBe(contributionEntryNotices.invalid);
+  const { target, preferences } = await resolve({ 'contributions.scope': stored(saved) });
+  expect(target).toBe('/contributors');
+  expect(preferences.notice).toBe(contributionEntryNotices.invalid);
   // The rejected value goes to the client for compare-and-delete.
-  expect(entry.scope).toEqual({
+  expect(preferences.scope).toEqual({
     section: 'contributions.scope',
     binding: alice,
     value: null,
@@ -151,12 +190,13 @@ it.each([
 });
 
 it('renders the requested view when the saved scope does not fit the link, keeping it', async () => {
-  const entry = ready(
-    await resolve({ 'contributions.scope': stored(lastMonth) }, 'nav=' + 'a'.repeat(7470)),
-  );
-  expect(entry.notice).toBe(contributionEntryNotices.unfit);
-  expect(entry.scope.value).toEqual(lastMonth);
-  expect(entry.scope.invalid).toBeUndefined();
+  // A parent frame that leaves too little of the 7,500-byte cap for the saved period.
+  const back = 'back=~q:' + 'a'.repeat(7470);
+  const { target, preferences } = await resolve({ 'contributions.scope': stored(lastMonth) }, back);
+  expect(target).toBe('/contributors?' + back);
+  expect(preferences.notice).toBe(contributionEntryNotices.unfit);
+  expect(preferences.scope.value).toEqual(lastMonth);
+  expect(preferences.scope.invalid).toBeUndefined();
 });
 
 it('ignores preferences saved for another account or authentication revision', async () => {
@@ -164,19 +204,18 @@ it('ignores preferences saved for another account or authentication revision', a
     { ...alice, accountId: 'account-bob' },
     { ...alice, authVersion: 2 },
   ]) {
-    const entry = ready(
-      await resolve(
-        {
-          'contributions.scope': stored(lastMonth),
-          'contributions.contributors.sort': { sort: 'name', descending: true },
-        },
-        '',
-        { binding },
-      ),
+    const { target, preferences } = await resolve(
+      {
+        'contributions.scope': stored(lastMonth),
+        'contributions.contributors.sort': { sort: 'name', descending: true },
+      },
+      '',
+      { binding },
     );
-    expect(entry.scope.value).toBeNull();
-    expect(entry.sort.value).toBeNull();
-    expect(entry.notice).toBeUndefined();
+    expect(target).toBe('/contributors');
+    expect(preferences.scope.value).toBeNull();
+    expect(preferences.sort.value).toBeNull();
+    expect(preferences.notice).toBeUndefined();
   }
 });
 
@@ -184,22 +223,20 @@ it('validates the table kind’s column and sort sections, rejecting malformed o
   const columns = JSON.parse(
     serializeContributionPresentation({ prComments: true, retired: false }, true),
   ) as unknown;
-  const valid = ready(
-    await resolve(
-      {
-        'contributions.members.columns': columns,
-        'contributions.members.sort': { sort: 'name', descending: true },
-        'contributions.contributors.sort': { sort: 'name', descending: false },
-      },
-      'scope=1&view=members',
-      { area: 'companies', focus: { kind: 'company', companyId: 'company-acme' } },
-    ),
+  const valid = await resolve(
+    {
+      'contributions.members.columns': columns,
+      'contributions.members.sort': { sort: 'name', descending: true },
+      'contributions.contributors.sort': { sort: 'name', descending: false },
+    },
+    'period=this-year',
+    { area: 'companies', focus: { kind: 'company', companyId: 'company-acme' } },
   );
-  expect(valid.presentation).toMatchObject({
+  expect(valid.preferences.presentation).toMatchObject({
     section: 'contributions.members.columns',
     value: { columns: { prComments: true, retired: false }, hideZeroMembers: true },
   });
-  expect(valid.sort).toMatchObject({
+  expect(valid.preferences.sort).toMatchObject({
     section: 'contributions.members.sort',
     value: { sort: 'name', descending: true },
   });
@@ -211,21 +248,19 @@ it('validates the table kind’s column and sort sections, rejecting malformed o
     ],
     [{ version: 1, columns: {}, hideZeroMembers: 'yes' }, 'name'],
   ] as const) {
-    const rejected = ready(
-      await resolve(
-        {
-          'contributions.details.columns': presentation,
-          'contributions.details.sort': sort,
-        },
-        'scope=1&period=this-year&metric=prsAuthored',
-      ),
+    const rejected = await resolve(
+      {
+        'contributions.details.columns': presentation,
+        'contributions.details.sort': sort,
+      },
+      'metric=prsAuthored',
     );
-    expect(rejected.presentation).toMatchObject({
+    expect(rejected.preferences.presentation).toMatchObject({
       section: 'contributions.details.columns',
       value: null,
       invalid: JSON.stringify(presentation),
     });
-    expect(rejected.sort).toMatchObject({
+    expect(rejected.preferences.sort).toMatchObject({
       section: 'contributions.details.sort',
       value: null,
       invalid: JSON.stringify(sort),

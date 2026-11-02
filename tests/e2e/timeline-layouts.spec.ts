@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import type { Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function login(page: Page) {
@@ -148,7 +149,7 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
   await expect(page).not.toHaveURL(/[?&]timeline=/);
   await expect(page.getByRole('heading', { name: 'Alice', level: 1 })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('timeline')).toBeNull();
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
   await page.goto('/repos/prebidjs');
   // The record scope select names the scope, so the summary beside it does not repeat it.
   await expect(

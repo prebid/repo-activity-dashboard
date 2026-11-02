@@ -298,8 +298,9 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
     }
   expect(csv.split('\r\n')).toHaveLength(8);
   expect(csv).toContain('"Alice"');
-  expect(csv).toContain('"Approval contributions"');
-  expect(csv).toContain('"Reviewer contributions"');
+  // The export has the visible columns: the contributor lens's three metrics (decision C5).
+  expect(csv).toContain('"Issues authored"');
+  expect(csv).not.toContain('"Approval contributions"');
   const response = await page.request.post('/api/auth/setup', {
     data: { email: 'unused@example.test', password: 'unused' },
   });

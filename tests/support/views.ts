@@ -170,7 +170,7 @@ export const reportViews = [
   },
   {
     id: 'contributors-report',
-    path: '/contributors?scope=1&period=this-year',
+    path: '/contributors?v=1',
     access: 'signed-in',
     page: 'contributors',
     uses: [],

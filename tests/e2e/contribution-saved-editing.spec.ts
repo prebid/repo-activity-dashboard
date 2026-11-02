@@ -170,10 +170,9 @@ test('main entry validates and restores saved custom dates and exclusions withou
   await expect(entry(page)).toHaveAttribute('href', '/contributors');
   await entry(page).click();
   await expect(page).toHaveURL(/exclude=account-alice/);
-  expect(new URL(page.url()).searchParams.get('period')).toBe('custom');
-  expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01');
-  expect(new URL(page.url()).searchParams.get('through')).toBe('2026-09-30');
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(new URL(page.url()).search).toBe(
+    '?repo=prebidjs&period=2026-09-01..2026-09-30&exclude=account-alice',
+  );
   await expect(
     page
       .getByRole('table')
@@ -191,7 +190,8 @@ test('an explicitly empty saved population stays empty', async ({ page, baseURL 
   await expect(
     page.getByRole('heading', { name: 'No accounts match this report', exact: true }),
   ).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('population')).toBe('selected');
+  // An empty `account` list is a selected population with nobody in it.
+  expect(new URL(page.url()).search).toBe('?account=');
 });
 test('selected-only edits remain reversible without refetching on each toggle', async ({
   page,
@@ -241,14 +241,17 @@ test('selected-only edits remain reversible without refetching on each toggle', 
   await page.screenshot({ path: info.outputPath('selected-only-mobile.png') });
   await dialog.getByRole('button', { name: 'Apply accounts', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  expect(new URL(page.url()).searchParams.getAll('account')).toEqual(['account-bob']);
+  expect(new URL(page.url()).searchParams.get('account')).toBe('account-bob');
 });
 test('an oversized Apply preserves its draft, current URL and preferences', async ({
   page,
 }, info) => {
   await login(page);
-  // A bounded incoming URL can leave too little room for a new scope/presentation snapshot.
+  // An old link's return trail on a top-level report is dropped by the 307.
   await page.goto('/contributors?scope=1&period=this-year&nav=' + 'a'.repeat(7200));
+  await expect(page).toHaveURL(/\/contributors$/);
+  // A bounded incoming URL can leave too little room for a new scope.
+  await page.goto('/contributors?back=~q:' + 'a'.repeat(7460));
   const before = page.url();
   await page.getByRole('button', { name: 'All accounts', exact: true }).click();
   const dialog = page.getByRole('dialog');

@@ -2,8 +2,8 @@
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
-import { isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
 import { contributionMetricValues } from '@/lib/presentation/contribution-table-values';
+import { contributionTimelineColumnTable } from '@/lib/presentation/url/defaults';
 import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { accountTypeLabels } from '@/models/github-account';
 import { GitHubAccountLink } from '@/components/github/account-link';
@@ -50,7 +50,8 @@ export const contributionTimelineMetrics: TimelineMetricDefinition[] =
       selectionGroup,
       selectionSection,
       unit: 'count',
-      defaultVisible: isCoreMetric(id as ReportMetric),
+      // The contributor lens's three metrics (decision C5); the rest are in Columns.
+      defaultVisible: contributionTimelineColumnTable('contributors').visible.has(id),
     }),
   );
 export function ContributionTimelineView({

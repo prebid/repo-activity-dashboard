@@ -238,8 +238,8 @@ it('selects export metrics/layout, sends pending search, and recovers from faile
   const body = JSON.parse(encoded) as { query: string };
   const url = new URL('/contributors/export?' + body.query, 'http://localhost');
   expect(url.searchParams.get('layout')).toBe('repositories');
-  expect(url.searchParams.get('export.q')).toBe('Alice');
-  expect(url.searchParams.getAll('column')).not.toContain('prsAuthored');
+  expect(url.searchParams.get('q')).toBe('Alice');
+  expect(url.searchParams.get('columns')!.split(',')).not.toContain('prsAuthored');
   expect(create).toHaveBeenCalledOnce();
   expect(click).toHaveBeenCalledOnce();
   expect(revoke).toHaveBeenCalledWith('blob:export');

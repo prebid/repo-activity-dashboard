@@ -14,9 +14,13 @@ import { contributionChangeLimitMessage } from '@/lib/presentation/contribution-
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
-  readContributionSettings,
   serializeContributionPreferences,
+  validateContributionSettings,
 } from '@/lib/presentation/contribution-settings';
+import { contributionScopeInput } from '@/lib/presentation/contribution-url';
+import { parseQuery } from '@/lib/presentation/url/codec';
+import { matchRoute } from '@/lib/presentation/url/registry';
+import type { TableFields } from '@/lib/presentation/url/table-binding';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import type {
   ContributionReportPreferences,
@@ -96,9 +100,17 @@ function useControls({
   preferences?: ContributionReportPreferences;
 } = {}) {
   const search = useSyncExternalStore(subscribe, () => window.location.search);
+  const pathname = useSyncExternalStore(subscribe, () => window.location.pathname);
+  // The canonical view the server rendered for this address, and the report it loaded.
+  const view = useMemo(() => {
+    const matched = matchRoute(pathname)!;
+    const parsed = parseQuery(matched.route, search);
+    if (parsed.kind !== 'canonical') throw Error('Expected a canonical address: ' + search);
+    return { ...matched, values: parsed.values };
+  }, [pathname, search]);
   const page = useMemo((): ContributionPage => {
-    const settings = readContributionSettings(
-      new URLSearchParams(search),
+    const settings = validateContributionSettings(
+      contributionScopeInput(view.values, directory),
       directory,
       contributionSampleAsOf,
     )!;
@@ -112,7 +124,11 @@ function useControls({
         settings.selection,
       ),
     };
-  }, [search]);
+  }, [view]);
+  const fields: TableFields = useMemo(
+    () => ({ route: view.route, search: 'q', sort: 'sort', page: 'page' }),
+    [view.route],
+  );
   const table = useTableController({
     queryKey: tableKey === 'members' ? 'members' : 'report',
     scopeKey: 'contributions-test',
@@ -121,6 +137,7 @@ function useControls({
     defaultSort: contributionDefaultSort,
     historyMode: 'push',
     savedSort: preferences?.sort,
+    fields,
   });
   return {
     controls: useContributionControls(
@@ -131,6 +148,7 @@ function useControls({
       tableKey,
       columnIds,
       preferences,
+      view,
     ),
     table,
   };
@@ -164,9 +182,13 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-it('renders the server-validated columns, zero-member choice and sort first, writing nothing', () => {
+it('renders the columns, zero-member choice and sort its address names, writing nothing', () => {
   seedPreferences(alice, { 'contributions.contributors.sort': { sort: 'name', descending: true } });
-  window.history.replaceState(null, '', '/companies/id/company-acme');
+  window.history.replaceState(
+    null,
+    '',
+    '/companies/id/company-acme?sort=issuesAuthored&cols=prComments&zero=hide',
+  );
   history.length = 0;
   const preferences = report(
     {
@@ -184,7 +206,6 @@ it('renders the server-validated columns, zero-member choice and sort first, wri
   const before = saved();
   const { result } = renderHook(() => useControls({ tableKey: 'members', preferences }));
   expect(result.current.controls.visibility.value.prComments).toBe(true);
-  // A saved column this table does not render is not applied.
   expect(result.current.controls.visibility.value).not.toHaveProperty('retired');
   expect(result.current.controls.hideZeroMembers).toBe(true);
   expect(result.current.table.query).toMatchObject({ sort: 'issuesAuthored', descending: false });
@@ -192,6 +213,16 @@ it('renders the server-validated columns, zero-member choice and sort first, wri
   expect(history).toEqual([]);
   expect(navigation.replace).not.toHaveBeenCalled();
   expect(saved()).toEqual(before);
+  // An absent field is its v1 default, never a saved preference: saved values reach the address
+  // through the server's entry redirect or the link that opened it.
+  act(() => window.history.replaceState(null, '', '/companies/id/company-acme'));
+  expect(result.current.controls.visibility.value.prComments).toBe(false);
+  expect(result.current.controls.visibility.value.issuesAuthored).toBe(true);
+  expect(result.current.controls.hideZeroMembers).toBe(false);
+  expect(result.current.table.query).toMatchObject({
+    sort: 'authoredPrsMerged',
+    descending: true,
+  });
 });
 
 it('shows the recovery notice for a rejected scope and deletes it after hydration only while it is unchanged', () => {
@@ -237,7 +268,7 @@ it('saves a deliberate scope change field by field, keeping the other saved fiel
     );
   });
   expect(navigation.push).toHaveBeenCalledOnce();
-  expect(new URLSearchParams(window.location.search).getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(new URLSearchParams(window.location.search).get('repo')).toBe('prebidjs');
   expect(saved()).toEqual({
     'contributions.details.sort': { sort: 'creditedAt', descending: false },
     [scopeSection]: stored(
@@ -274,11 +305,7 @@ it('merges a change into defaults rather than another account’s saved scope', 
 
 it('does not save a repository drilldown when only the period changes', () => {
   seedPreferences(alice, { [scopeSection]: stored(defaults) });
-  window.history.replaceState(
-    null,
-    '',
-    '/contributors/account-alice?period=this-year&repo=repo-prebidjs',
-  );
+  window.history.replaceState(null, '', '/contributors/account-alice?repo=prebidjs');
   const preferences = report();
   const { result } = renderHook(() => useControls({ preferences }));
   act(() => {
@@ -299,7 +326,7 @@ it('does not save a repository drilldown when only the period changes', () => {
 it('leaves a saved scope alone on an explicit link and when nothing is saved for the page', () => {
   const savedScope = stored(scope((value) => (value.selection.repositoryIds = ['retired'])));
   seedPreferences(alice, { [scopeSection]: savedScope });
-  window.history.replaceState(null, '', '/contributors?scope=1&period=this-month');
+  window.history.replaceState(null, '', '/contributors?period=this-month');
   const preferences = report();
   const { result } = renderHook(() => useControls({ preferences }));
   expect(result.current.controls.value.period).toEqual({ kind: 'preset', preset: 'this-month' });
@@ -379,7 +406,12 @@ it('rejects an oversized filter change before navigation or preference persisten
   expect(result.current.controls.value.selection.population).toEqual({ kind: 'all' });
 });
 it('refuses presentation writes that would turn a bounded incoming URL into an oversized one', () => {
-  window.history.replaceState(null, '', '/contributors?scope=1&nav=' + 'a'.repeat(7400));
+  // A parent frame that fits the 7,500-byte cap with too little room for another column.
+  window.history.replaceState(
+    null,
+    '',
+    '/contributors/account-alice?back=~account:' + 'a'.repeat(7450),
+  );
   const preferences = report();
   const { result } = renderHook(() => useControls({ preferences }));
   const before = window.location.href;
@@ -392,11 +424,7 @@ it('refuses presentation writes that would turn a bounded incoming URL into an o
 });
 it('flushes pending search, resets every page and freezes the previous scope for Back', () => {
   vi.useFakeTimers();
-  window.history.replaceState(
-    null,
-    '',
-    '/contributors?report.page=4&members.page=2&repositories.page=3',
-  );
+  window.history.replaceState(null, '', '/contributors?page=4');
   const { result } = renderHook(() => useControls());
   act(() => result.current.table.setSearch('Bob'));
   act(() => {
@@ -411,12 +439,7 @@ it('flushes pending search, resets every page and freezes the previous scope for
       'population',
     );
   });
-  const params = new URLSearchParams(window.location.search);
-  expect(params.get('report.q')).toBe('Bob');
-  expect(params.get('exclude')).toBe('account-alice');
-  expect(['report', 'members', 'repositories'].every((key) => !params.has(key + '.page'))).toBe(
-    true,
-  );
+  expect(window.location.search).toBe('?exclude=account-alice&q=Bob');
   const before = history.at(-2)!;
   expect(new URL(before).searchParams.has('exclude')).toBe(false);
   act(() => {
@@ -435,7 +458,10 @@ it('saves columns independently, restores explicit column history and resets fil
   act(() => {
     result.current.controls.visibility.onChange({ prComments: true, issuesAuthored: false });
   });
+  // The bare entry was pinned to its explicit defaults before the push (decision C4).
   const columnHistory = history.at(-2)!;
+  expect(new URL(columnHistory).search).toBe('?v=1');
+  expect(window.location.search).toBe('?cols=-issuesAuthored,prComments');
   expect(result.current.controls.visibility.value.prComments).toBe(true);
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
   expect(saved()['contributions.contributors.columns']).toEqual({
@@ -510,21 +536,30 @@ it('replaces only its own columns in a section that another table of the same ki
     }),
     sort: savedSection('contributions.details.sort'),
   };
+  window.history.replaceState(null, '', '/contributors?metric=prsAuthored&cols=-state');
   const { result } = renderHook(() =>
     useControls({ tableKey: 'details', columnIds: creditIds, preferences }),
   );
   expect(result.current.controls.visibility.value).not.toHaveProperty('lastAt');
+  expect(result.current.controls.visibility.value.state).toBe(false);
   act(() => {
     result.current.controls.visibility.onChange({
       ...result.current.controls.visibility.value,
       repository: false,
     });
   });
+  // Every column this table renders is replaced; the comment details' Last activity stays.
   expect(saved()['contributions.details.columns']).toEqual({
     version: 1,
-    columns: { lastAt: true, state: false, repository: false },
+    columns: {
+      ...Object.fromEntries(creditIds.map((id) => [id, true])),
+      lastAt: true,
+      state: false,
+      repository: false,
+    },
     hideZeroMembers: false,
   });
+  expect(window.location.search).toBe('?metric=prsAuthored&cols=-repository,-state');
 });
 it('restores and toggles zero-member visibility without dropping column preferences or prior pages', () => {
   const preferences = report(
@@ -536,7 +571,11 @@ it('restores and toggles zero-member visibility without dropping column preferen
     },
     'members',
   );
-  window.history.replaceState(null, '', '/companies/id/company-acme?members.page=2');
+  window.history.replaceState(
+    null,
+    '',
+    '/companies/id/company-acme?page=2&cols=prComments&zero=hide',
+  );
   const { result } = renderHook(() => useControls({ tableKey: 'members', preferences }));
   expect(result.current.controls.hideZeroMembers).toBe(true);
   expect(result.current.controls.visibility.value.prComments).toBe(true);
@@ -544,11 +583,10 @@ it('restores and toggles zero-member visibility without dropping column preferen
     result.current.controls.changeHideZeroMembers(false);
   });
   expect(result.current.controls.hideZeroMembers).toBe(false);
-  expect(new URLSearchParams(window.location.search).has('members.page')).toBe(false);
+  expect(window.location.search).toBe('?cols=prComments');
   expect(saved()['contributions.members.columns']).toMatchObject({ hideZeroMembers: false });
   const previous = history.at(-2)!;
-  expect(new URL(previous).searchParams.get('members.zero')).toBe('hide');
-  expect(new URL(previous).searchParams.get('members.page')).toBe('2');
+  expect(new URL(previous).search).toBe('?page=2&cols=prComments&zero=hide');
   act(() => window.history.replaceState(null, '', previous));
   expect(result.current.controls.hideZeroMembers).toBe(true);
   act(() => {
@@ -559,24 +597,20 @@ it('restores and toggles zero-member visibility without dropping column preferen
     hideZeroMembers: true,
   });
 });
-it('freezes inherited columns and sorting in return URLs, including a pending search', () => {
-  const preferences = report({
-    presentation: savedSection('contributions.contributors.columns', {
-      columns: { prComments: true, issuesAuthored: false },
-      hideZeroMembers: false,
-    }),
-  });
-  const { result } = renderHook(() => useControls({ preferences }));
+it('gives links the report’s address with its columns, sort and a pending search', () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/contributors?sort=name&cols=-issuesAuthored,prComments&back=!',
+  );
+  const { result } = renderHook(() => useControls({ preferences: report() }));
   act(() => result.current.table.setSearch('Alice'));
-  const href = new URL(result.current.controls.returnHref, 'http://localhost');
-  expect(href.searchParams.getAll('contributors.columns')).toContain('prComments');
-  expect(href.searchParams.getAll('contributors.columns')).not.toContain('issuesAuthored');
-  expect(href.searchParams.get('report.sort')).toBe('authoredPrsMerged');
-  expect(href.searchParams.get('report.q')).toBe('Alice');
+  const href = result.current.controls.returnHref;
+  expect(href).toBe('/contributors?q=Alice&sort=name&cols=-issuesAuthored,prComments&back=!');
   act(() => {
     result.current.controls.freezeReturn();
   });
-  expect(window.location.pathname + window.location.search).toBe(href.pathname + href.search);
+  expect(window.location.pathname + window.location.search).toBe(href);
 });
 it('shows the server’s notice until a change, and keeps it out of later views', () => {
   const unfit = 'Saved filters are too large for this link. Default filters are shown.';

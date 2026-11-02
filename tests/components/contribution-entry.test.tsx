@@ -2,7 +2,10 @@ import { act, renderHook } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import type { ReactNode } from 'react';
 import { expect, it, vi } from 'vitest';
-import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
+import {
+  savedContributionEntry,
+  useContributionEntry,
+} from '@/lib/navigation/use-contribution-entry';
 import {
   PreferenceBindingProvider,
   usePreferenceBinding,
@@ -77,7 +80,7 @@ it('renders an ordinary server link and resolves a saved scope before client nav
       saved((value) => (value.selection.actorTypes = ['bot'])),
     );
   });
-  expect(query(result.current).getAll('type')).toEqual(['bot']);
+  expect(result.current).toBe('/contributors?type=bot');
   act(() => {
     writePreference(alice, 'contributions.scope', null);
   });
@@ -173,9 +176,7 @@ it('keeps an explicit empty saved population empty in its entry link', () => {
       value.selection.population = { kind: 'selected', accountIds: [], companyIds: [] };
     }),
   });
-  const params = query(entry().result.current);
-  expect(params.get('repo')).toBe('');
-  expect(params.get('population')).toBe('selected');
+  expect(entry().result.current).toBe('/contributors?repo=&account=');
 });
 
 it('uses only enabled repositories supplied by the header', () => {
@@ -189,4 +190,54 @@ it('uses only enabled repositories supplied by the header', () => {
       directory.repositories.filter((repo) => repo.id !== 'repo-prebidjs'),
     ).result.current,
   ).toBe('/contributors');
+});
+
+it('carries the saved Contributors columns and sort in the same explicit link', () => {
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
+    'contributions.contributors.columns': {
+      version: 1,
+      columns: { prComments: true, issuesAuthored: false },
+    },
+    'contributions.contributors.sort': { sort: 'name', descending: false },
+    // Another table's choices stay with that table.
+    'contributions.companies.sort': { sort: 'members', descending: true },
+  });
+  expect(entry().result.current).toBe(
+    '/contributors?period=last-month&sort=name&cols=-issuesAuthored,prComments',
+  );
+});
+
+it('reads each entry’s own table: scope and presentation on lists, presentation on subjects', () => {
+  const sections: Record<string, unknown> = {
+    'contributions.scope': saved((value) => (value.selection.actorTypes = ['human'])),
+    'contributions.companies.sort': { sort: 'members', descending: true },
+    'contributions.members.columns': { version: 1, columns: {}, hideZeroMembers: true },
+    'contributions.repositories.columns': { version: 1, columns: { prComments: true } },
+    'contributions.repositories.sort': { sort: 'name', descending: false },
+  };
+  const read = (section: string) =>
+    section in sections ? JSON.stringify(sections[section]) : null;
+  expect(savedContributionEntry('/companies', {}, {}, read)).toEqual({
+    scope: expect.objectContaining({ type: ['human'] }) as unknown,
+    presentation: { sort: '-members' },
+  });
+  // A subject never takes the shared scope (decision C2).
+  expect(
+    savedContributionEntry('/contributors/[accountId]', { accountId: ['account-alice'] }, {}, read),
+  ).toEqual({ presentation: { cols: ['prComments'], sort: 'name' } });
+  expect(savedContributionEntry('/companies/[...identity]', {}, {}, read)).toEqual({
+    presentation: { zero: 'hide' },
+  });
+  expect(
+    savedContributionEntry('/companies/[...identity]', {}, { view: 'repositories' }, read),
+  ).toEqual({ presentation: { cols: ['prComments'], sort: 'name' } });
+  // Unreadable sections are ignored, and an unreadable scope leaves the entry to the server.
+  const broken = (section: string) => (section === 'contributions.scope' ? '{' : 'not json');
+  expect(savedContributionEntry('/contributors', {}, {}, broken)).toBeNull();
+  expect(savedContributionEntry('/contributors', {}, {}, () => null)).toEqual({
+    presentation: {},
+  });
 });

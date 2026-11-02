@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 async function login(page: Page) {
@@ -48,25 +49,25 @@ test('mixed account types filter both overviews, focused reports, paging and bro
   await expect(page.getByText('Page 2 of 6', { exact: true })).toBeVisible();
   await types(page, ['Prebid agent']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['agent']);
-  expect(new URL(page.url()).searchParams.has('report.page')).toBe(false);
+  expect(listParam(page.url(), 'type')).toEqual(['agent']);
+  expect(new URL(page.url()).searchParams.has('page')).toBe(false);
   await page
     .getByRole('table')
     .getByRole('link', { name: / — view contribution report$/ })
     .click();
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['agent']);
+  expect(listParam(page.url(), 'type')).toEqual(['agent']);
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('350');
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.goto('/contributors');
   await types(page, ['Human', 'Bot']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(6);
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['human', 'bot']);
+  expect(listParam(page.url(), 'type')).toEqual(['human', 'bot']);
   await page
     .getByRole('navigation', { name: 'Contribution reports' })
     .getByRole('link', { name: /^Companies/ })
     .click();
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['human', 'bot']);
+  expect(listParam(page.url(), 'type')).toEqual(['human', 'bot']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
   await page.reload();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);

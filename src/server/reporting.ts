@@ -1,4 +1,4 @@
-import { loadContributionData } from './contribution-data';
+import { loadContributionValues } from './contribution-data';
 import { isReportMetric } from '@/models/contribution-metrics';
 import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
 import {
@@ -11,8 +11,13 @@ import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
 import { selectContributionPresentation } from '@/lib/presentation/contributions';
-import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import { contributionReturnHref } from '@/lib/presentation/contribution-return';
+import {
+  contributionColumnVisibility,
+  contributionReportRoute,
+} from '@/lib/presentation/contribution-url';
+import { resolveBack } from '@/lib/presentation/url/back';
+import { instantIso } from '@/lib/presentation/url/period';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
@@ -93,16 +98,27 @@ export async function repositoryAuthorDetail(
     ),
   };
 }
+/**
+ * One contribution report view from its registry values. `lens=reviewers` answers with the invalid
+ * view until the Reviewers report exists (decision C6); a snapshot pin must be the sample's as-of.
+ */
 export async function contributions(
   area: ContributionArea,
-  params = new URLSearchParams(),
+  values: UrlValues = {},
   focus: ContributionFocus = { kind: 'overview' },
 ) {
-  const loaded = await loadContributionData(area, params, focus);
+  const loaded = await loadContributionValues(area, values, focus);
   if (loaded.status === 'invalid') return loaded;
   const { viewer, options, source, settings } = loaded;
-  const metric = params.get('metric');
-  if (metric !== null && !isReportMetric(metric))
+  const metric = typeof values.metric === 'string' ? values.metric : null;
+  const { route, segments } = contributionReportRoute(area, focus);
+  if (
+    (metric !== null && !isReportMetric(metric)) ||
+    values.lens === 'reviewers' ||
+    (typeof values.at === 'string' && instantIso(values.at) !== source.asOf) ||
+    // `cols` naming a column this table lacks.
+    (values.cols !== undefined && contributionColumnVisibility(route, values) === null)
+  )
     return { status: 'invalid' as const, viewer, area };
   const presentation = selectContributionPresentation(
     source,
@@ -111,15 +127,13 @@ export async function contributions(
     metric ?? undefined,
     { area, breakdown: options.breakdown },
   );
+  const [parent] = resolveBack({ route, segments, values });
   const page: ContributionPage = {
     area,
     sample: options.sample,
     breakdown: options.breakdown,
     ...presentation,
-    returnTo: contributionReturnHref(
-      params,
-      contributionHref(area, options.sample, undefined, settings) ?? '/' + area,
-    ),
+    returnTo: parent?.available ? parent.href : null,
   };
   return {
     status: 'ready' as const,

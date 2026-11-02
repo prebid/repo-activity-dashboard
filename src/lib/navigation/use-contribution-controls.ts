@@ -1,7 +1,6 @@
 'use client';
 import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import { useMemo, useState, useTransition } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ContributionPage } from '@/models/contribution-page';
 import type {
   ContributionControlDirectory,
@@ -12,30 +11,32 @@ import {
   type ContributionPresentation,
   type ContributionReportPreferences,
 } from '@/models/contribution-preferences';
-import { additionalMetricIds } from '@/models/contribution-activity';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
-  writeContributionSettings,
   readContributionPresentation,
   serializeContributionPresentation,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
 import {
-  contributionUrlFits,
   contributionLinkLimitMessage,
   contributionChangeLimitMessage,
 } from '@/lib/presentation/contribution-return';
 import {
-  resolveTableColumns,
-  writeTableColumns,
-} from '@/lib/presentation/table-column-preferences';
-import { writeTableQuery } from '@/lib/presentation/table-query';
-import { type TableQuery } from '@/models/table-query';
+  contributionColumnTokens,
+  contributionColumnVisibility,
+  contributionScopeFields,
+  contributionScopeValues,
+  omitValues,
+} from '@/lib/presentation/contribution-url';
+import { contributionHref } from '@/lib/presentation/contribution-navigation';
+import { urlHref } from '@/lib/presentation/url/codec';
+import type { UrlView } from '@/lib/presentation/url/back';
+import type { UrlValue } from '@/lib/presentation/url/registry';
 import type { useTableController } from './use-table-controller';
 import { legacyContributionScope, mergedContributionScope } from './contribution-scope-storage';
 import { readPreference, usePreferenceCookie } from './use-preference-cookie';
-import { contributionHref } from '@/lib/presentation/contribution-navigation';
+import { useUrlState } from './use-url-state';
 
 function parseJson(raw: string): unknown {
   try {
@@ -53,9 +54,11 @@ function storedColumns(raw: string | null): Record<string, boolean> {
 }
 
 /**
- * Report scope, column and zero-member controls for one contribution report. The first render uses
- * the URL and the server-validated `preferences`; deliberate changes save their own cookie section.
- * Without `preferences` nothing is saved.
+ * Report scope, column and zero-member controls for one contribution report. The address holds
+ * the view: absent fields are the v1 defaults, and saved values reached it through the server's
+ * entry redirect or the link that opened it. Scope changes load the report again; column and
+ * zero-member changes add a history entry. Deliberate changes save their own cookie section;
+ * without `preferences` nothing is saved.
  */
 export function useContributionControls(
   viewerId: string,
@@ -64,14 +67,14 @@ export function useContributionControls(
   table: ReturnType<typeof useTableController>,
   tableKey: string,
   columnIds: readonly string[],
-  preferences?: ContributionReportPreferences,
+  preferences: ContributionReportPreferences | undefined,
+  view: UrlView,
 ) {
-  const router = useRouter(),
-    pathname = usePathname(),
-    search = useSearchParams().toString();
+  const state = useUrlState(view.route);
+  const values = state.values ?? view.values;
+  const current: UrlView = useMemo(() => ({ ...view, values }), [view, values]);
   const asOf = page.report.context.asOf;
   const legacyKey = contributionPreferenceKey(viewerId, page.sample);
-  const queryKey = tableKey === 'contributors' || tableKey === 'companies' ? 'report' : tableKey;
   const scopeCookie = usePreferenceCookie(
     preferences?.scope,
     legacyContributionScope(viewerId, page.sample, directory, asOf),
@@ -86,7 +89,7 @@ export function useContributionControls(
       ) as unknown;
     },
   });
-  // A presentation saved in this session applies until the server renders again.
+  // A presentation saved in this session, until the server renders again.
   const [changed, setChanged] = useState<{
     basis: ContributionReportPreferences['presentation'] | undefined;
     table: string;
@@ -108,81 +111,56 @@ export function useContributionControls(
     }),
     [page.report.context.period, page.report.context.selection],
   );
-  const saved =
-    changed?.basis === preferences?.presentation && changed?.table === tableKey
-      ? changed.value
-      : (preferences?.presentation.value ?? null);
-  const defaults = Object.fromEntries(additionalMetricIds.map((id) => [id, false]));
-  const columns = resolveTableColumns(
-    search,
-    tableKey,
-    defaults,
-    Object.fromEntries(
-      Object.entries(saved?.columns ?? {}).filter(([id]) => columnIds.includes(id)),
+  // Only the columns this table renders; a details table for a credit metric has no Last activity.
+  const columns = Object.fromEntries(
+    Object.entries(contributionColumnVisibility(view.route, values) ?? {}).filter(([id]) =>
+      columnIds.includes(id),
     ),
-    columnIds,
   );
-  const zero = new URLSearchParams(search).get('members.zero');
-  const hideZeroMembers =
-    tableKey === 'members' && (zero !== null ? zero === 'hide' : !!saved?.hideZeroMembers);
-  function presentation(search: string, visible = columns, hideZero = hideZeroMembers) {
-    const params = new URLSearchParams(writeTableColumns(search, tableKey, visible, columnIds));
-    if (tableKey === 'members') params.set('members.zero', hideZero ? 'hide' : 'show');
-    return params.toString();
-  }
-  function snapshot(search: string, query: TableQuery) {
-    const params = new URLSearchParams(
-      presentation(writeTableQuery(writeContributionSettings(search, value), queryKey, query)),
-    );
-    params.sort();
-    return params.toString();
-  }
-  function freezeReturn() {
-    const query = table.flushSearch(),
-      url = new URL(window.location.href);
-    url.search = snapshot(url.search, query);
-    if (contributionUrlFits(url.pathname + url.search) && url.href !== window.location.href)
-      window.history.replaceState(null, '', url);
-    return url;
+  const hideZeroMembers = tableKey === 'members' && values.zero === 'hide';
+  /** Values with the table's pending search, so a change or a link keeps what was typed. */
+  function proposal(base = state.values ?? values): Record<string, UrlValue> {
+    const query = pendingTableQuery(table);
+    const next = omitValues(base, ['q', 'page']);
+    if (query.search) next.q = query.search;
+    if (query.page > 1) next.page = String(query.page);
+    return next;
   }
   function remember(next: ContributionSettings, field: ContributionSettingField | 'reset') {
     if (field === 'reset') scopeCookie.write(null);
     else if (preferences)
       scopeCookie.write(mergedContributionScope(preferences.scope, directory, asOf, next, field));
   }
-  const renderedQuery = pendingTableQuery(table);
-  function proposal() {
-    const url = new URL(window.location.href);
-    url.search = snapshot(url.search, renderedQuery);
-    return url;
-  }
   function update(next: ContributionSettings, field: ContributionSettingField | 'reset') {
-    const reset = field === 'reset';
     setNotice(undefined);
-    const url = proposal();
-    url.search = writeContributionSettings(url.search, next, true);
-    if (reset)
-      for (const key of ['report', 'members', 'repositories', 'details'])
-        url.searchParams.delete(key + '.q');
-    if (!contributionUrlFits(url.pathname + url.search)) {
+    const nextValues = {
+      ...omitValues(proposal(), [...contributionScopeFields, 'page', 'v']),
+      ...contributionScopeValues(next),
+    };
+    if (field === 'reset') delete nextValues.q;
+    const href = state.href(nextValues);
+    if (href === null) {
       setNotice(contributionChangeLimitMessage);
       return contributionChangeLimitMessage;
     }
-    freezeReturn();
     remember(next, field);
-    startTransition(() => router.push(url.pathname + url.search, { scroll: false }));
+    startTransition(() => state.navigate(href));
   }
   function changePresentation(next: Record<string, boolean>, hideZero: boolean) {
     setNotice(undefined);
-    const url = proposal();
-    url.search = presentation(url.search, next, hideZero);
-    if (hideZero !== hideZeroMembers) url.searchParams.delete('members.page');
-    if (!contributionUrlFits(url.pathname + url.search)) {
+    const nextValues = omitValues(proposal(), ['cols', 'zero', 'v']);
+    // Columns the choice does not name keep what the address shows.
+    const tokens = contributionColumnTokens(view.route, nextValues, {
+      ...contributionColumnVisibility(view.route, state.values ?? values),
+      ...next,
+    });
+    if (tokens.length) nextValues.cols = tokens;
+    if (hideZero) nextValues.zero = 'hide';
+    if (hideZero !== hideZeroMembers) delete nextValues.page;
+    if (!state.push(nextValues)) {
       setNotice(contributionChangeLimitMessage);
       return contributionChangeLimitMessage;
     }
-    freezeReturn();
-    if (url.href !== window.location.href) window.history.pushState(null, '', url);
     // Tables of one kind can render different columns, so only this table's columns are replaced
     // in the section the cookie holds; choices for columns it lacks stay for the tables that have it.
     const saving = preferences
@@ -201,13 +179,20 @@ export function useContributionControls(
     });
     presentationCookie.write(JSON.parse(serializeContributionPresentation(saving, hideZero)));
   }
-  const returnHref = pathname + '?' + snapshot(search, renderedQuery);
-  const linkNotice = contributionHref('contributors', page.sample, returnHref, value)
+  const returnHref = urlHref(view.route, view.segments, proposal(values));
+  const linkNotice = contributionHref(
+    { kind: 'contributor', accountId: 'account' },
+    page.sample,
+    returnHref,
+    value,
+  )
     ? undefined
     : contributionLinkLimitMessage;
   const notice = feedback && feedback.basis === preferences ? feedback.text : preferences?.notice;
   return {
     value,
+    values,
+    current,
     update: (next: ContributionSettings, field: ContributionSettingField) => update(next, field),
     reset: () => update(defaultContributionSettings(directory), 'reset'),
     pending,
@@ -220,7 +205,13 @@ export function useContributionControls(
     },
     hideZeroMembers,
     changeHideZeroMembers: (hide: boolean) => changePresentation(columns, hide),
+    /** The current report's canonical address, which links from it carry as their parent. */
     returnHref,
-    freezeReturn,
+    /** Commit a pending table search to this history entry before following a link. */
+    freezeReturn: () => {
+      table.flushSearch();
+    },
+    /** The saved presentation changed in this session, which links opening this table carry. */
+    changed: changed?.basis === preferences?.presentation ? changed : null,
   };
 }

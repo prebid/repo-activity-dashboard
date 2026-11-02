@@ -1,6 +1,5 @@
 import { selectTableRows } from '@/lib/presentation/table-rows';
 import { reportRows } from '../support/contribution-reports';
-import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import { isKnownZeroContribution } from '@/lib/presentation/contribution-table-values';
 import { describe, expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
@@ -13,10 +12,16 @@ import {
 import { contributionDetailRows } from '@/lib/presentation/contribution-detail-rows';
 import { contributionMetricHref } from '@/lib/presentation/contribution-navigation';
 import {
-  readContributionExport,
+  readContributionExportQuery,
   contributionExportHref,
   contributionCsv,
 } from '@/lib/presentation/contribution-export';
+import { contributionViewOf } from '@/lib/presentation/contribution-url';
+import { resolveBack } from '@/lib/presentation/url/back';
+import type { ContributionArea } from '@/models/contribution-page';
+/** The request an export link's query asks for, in either form. */
+const exportRequest = (href: string, area: ContributionArea) =>
+  readContributionExportQuery(new URL(href, 'https://example.test').search, area)?.request ?? null;
 import { reportMetricIds, isCoreMetric } from '@/models/contribution-metrics';
 import {
   contributorValues,
@@ -317,10 +322,11 @@ it('validates export options, preserves complete scope and selects only requeste
     'prsAuthored',
     'approved.linesAdded',
   ]);
-  const params = new URL(href, 'https://example.test').searchParams;
-  const request = readContributionExport(params, 'contributors')!;
-  expect(params.get('exclude')).toBe('account-bob');
-  expect(params.has('export.page')).toBe(false);
+  expect(href).toBe(
+    '/contributors/export?sample=partial&exclude=account-bob&entity=overview&layout=repositories' +
+      '&columns=prsAuthored,approved.linesAdded',
+  );
+  const request = exportRequest(href, 'contributors')!;
   expect(request.layout).toBe('repositories');
   expect(request.metrics).toEqual(['prsAuthored', 'approved.linesAdded']);
   const exported = selectContributionExport(source, report.context.selection, request);
@@ -336,8 +342,15 @@ it('validates export options, preserves complete scope and selects only requeste
     'column=prsAuthored&entity=contributor',
     'column=prsAuthored&view=bad',
     'column=prsAuthored&layout=bad',
+    'columns=bad',
+    'columns=prsAuthored&entity=group',
+    'columns=prsAuthored&entity=contributor',
+    'columns=prsAuthored&entity=overview&id=account-alice',
+    'columns=prsAuthored&view=bad',
+    'columns=prsAuthored&lens=reviewers',
+    'columns=prsAuthored&unknown=1',
   ])
-    expect(readContributionExport(new URLSearchParams(query), 'contributors')).toBeNull();
+    expect(readContributionExportQuery(query, 'contributors')).toBeNull();
   for (const focus of [
     { kind: 'contributor' as const, accountId: 'account-alice' },
     { kind: 'company' as const, companyId: null },
@@ -349,21 +362,15 @@ it('validates export options, preserves complete scope and selects only requeste
       'summary',
       ['prsAuthored'],
     );
-    const parsed = readContributionExport(
-      new URL(link, 'https://example.test').searchParams,
-      'companies',
-    )!;
+    const parsed = exportRequest(link, 'companies')!;
     expect(parsed.focus).toEqual(focus);
     if (focus.kind === 'contributor') expect(parsed.query.search).toBe('');
   }
-  expect(
-    readContributionExport(
-      new URLSearchParams(
-        'column=prsAuthored&entity=company&entityId=&view=repositories&export.q=Alice',
-      ),
-      'companies',
-    )?.query.search,
-  ).toBe('');
+  for (const query of [
+    'column=prsAuthored&entity=company&entityId=&view=repositories&export.q=Alice',
+    'view=repositories&entity=company&id=unmapped&columns=prsAuthored&q=Alice',
+  ])
+    expect(readContributionExportQuery(query, 'companies')?.request.query.search).toBe('');
   const missing = selectContributionExport(
     contributionSample({ scenario: 'missing' }),
     selection,
@@ -390,13 +397,14 @@ it('builds metric links with a narrower repository and an exact return path', ()
     'reference',
     report.context,
     'reviewerContributions',
-    '/companies?report.page=2',
+    '/companies?page=2',
     'repo-prebidjs',
   );
-  const params = new URL(href!, 'https://example.test').searchParams;
-  expect(params.getAll('repo')).toEqual(['repo-prebidjs']);
-  expect(params.get('metric')).toBe('reviewerContributions');
-  expect(contributionReturnHref(params, '/contributors')).toBe('/companies?report.page=2');
+  expect(href).toBe(
+    '/companies/id/company-acme?repo=prebidjs&metric=reviewerContributions&back=~-repo~page:2',
+  );
+  const [parent] = resolveBack(contributionViewOf(href!)!);
+  expect(parent).toEqual(expect.objectContaining({ available: true, href: '/companies?page=2' }));
 });
 
 it('retains ascending export order and labels the actual sort direction', () => {
@@ -446,11 +454,8 @@ it('hides only known-zero members in summary and flat exports, independent of vi
     hideZeroMembers: true,
     report: selectContributionPresentation(source, selection, request.focus).report,
   };
-  const parsed = readContributionExport(
-    new URL(
-      contributionExportHref(page, request.query, 'summary', ['prsAuthored']),
-      'http://localhost',
-    ).searchParams,
+  const parsed = exportRequest(
+    contributionExportHref(page, request.query, 'summary', ['prsAuthored']),
     'companies',
   );
   expect(parsed?.hideZeroMembers).toBe(true);

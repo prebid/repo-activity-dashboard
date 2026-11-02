@@ -166,7 +166,10 @@ test('contribution credits, comment counts and final merged volume exports match
   expect(comments.records.reduce((sum, row) => sum + Number(row['Comments']), 0)).toBe(count);
   expect(comments.records.every((row) => row['Counting basis'] === 'comments')).toBe(true);
   expect(comments.headers).not.toContain('Comment body');
-  await page.goto('/contributors?timeline=1&type=human&exclude=account-alice');
+  // Reviewer contributions is in Columns until the Reviewers lens (decision C5).
+  await page.goto(
+    '/contributors?timeline=1&type=human&exclude=account-alice&timeline.columns=reviewerContributions',
+  );
   await ready(page);
   const credits = page
     .getByRole('table')
