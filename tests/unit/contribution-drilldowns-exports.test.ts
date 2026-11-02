@@ -308,6 +308,62 @@ it('searches and sorts on the same values as display, with missing values last',
     }).at(-1)?.metrics.prsAuthored.value,
   ).toBeNull();
 });
+it('exports in the Reviewers lens and records the lens and the listed accounts', () => {
+  const lens = (view: { allAccounts?: boolean }) => {
+    const report = selectContributionPresentation(source, selection, overview, undefined, {
+      lens: 'reviewers',
+      ...view,
+    }).report;
+    const page: ContributionPage = {
+      area: 'contributors',
+      sample: 'reference',
+      breakdown: 'members',
+      returnTo: null,
+      report,
+      lens: 'reviewers',
+      ...view,
+    };
+    return contributionExportHref(
+      page,
+      { ...base.query, sort: 'reviewerContributions' },
+      'summary',
+      ['reviewerContributions'],
+    );
+  };
+  const reviewers = lens({});
+  // The lens's default sort is left out, as on the page.
+  expect(reviewers).toBe(
+    '/contributors/export?lens=reviewers&entity=overview&layout=summary&columns=reviewerContributions',
+  );
+  // Show all is presentation, written before the export's own choices.
+  expect(lens({ allAccounts: true })).toBe(reviewers.replace('reviewers&', 'reviewers&all&'));
+  const csv = (href: string) => {
+    const request = exportRequest(href, 'contributors')!;
+    const exported = selectContributionExport(source, selection, request);
+    return contributionCsv(exported.rows, request, exported.context).split('\r\n');
+  };
+  const [header, ...rows] = csv(reviewers);
+  expect(header).toContain('"Report lens","Listed accounts"');
+  expect(rows).toHaveLength(6);
+  expect(rows[0]).toContain('"reviewers","Reviewer activity"');
+  expect(exportRequest(reviewers, 'contributors')?.query).toMatchObject({
+    sort: 'reviewerContributions',
+    descending: true,
+  });
+  const all = csv(lens({ allAccounts: true }));
+  expect(all).toHaveLength(8);
+  expect(all[1]).toContain('"reviewers","All accounts with activity"');
+  expect(
+    csv('/contributors/export?entity=overview&layout=summary&columns=prsAuthored')[1],
+  ).toContain('"contributors","All accounts with activity"');
+  // A focused export names its lens and no listed population.
+  const person = csv(
+    '/contributors/export?lens=reviewers&entity=contributor&id=account-alice&layout=summary&columns=prsAuthored',
+  );
+  expect(person[0]).toContain('"Report lens"');
+  expect(person[0]).not.toContain('Listed accounts');
+  expect(person[1]).toContain('"reviewers"');
+});
 it('validates export options, preserves complete scope and selects only requested metric columns', () => {
   const report = selectContributionPresentation(
     source,
@@ -350,7 +406,9 @@ it('validates export options, preserves complete scope and selects only requeste
     'columns=prsAuthored&entity=contributor',
     'columns=prsAuthored&entity=overview&id=account-alice',
     'columns=prsAuthored&view=bad',
-    'columns=prsAuthored&lens=reviewers',
+    // Show all is a Reviewers-lens overview's population only.
+    'columns=prsAuthored&all',
+    'columns=prsAuthored&entity=contributor&id=account-alice&lens=reviewers&all',
     'columns=prsAuthored&unknown=1',
   ])
     expect(readContributionExportQuery(query, 'contributors')).toBeNull();

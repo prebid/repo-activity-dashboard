@@ -1,4 +1,4 @@
-import { expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
 import { contributionMetricIds } from '@/models/contributions';
 import { changeStatIds } from '@/models/contribution-activity';
@@ -222,4 +222,128 @@ it('preserves explicit contributor reports and complete company member rosters u
     'account-bob',
     'account-eve',
   ]);
+});
+
+describe('the Reviewers lens population', () => {
+  const reviewers = { lens: 'reviewers' } as const;
+  const ids = (
+    report: ReturnType<typeof selectContributions>,
+    kind: 'contributors' | 'companies',
+  ) =>
+    kind === 'contributors'
+      ? reportRows(report, kind).map((row) => row.id)
+      : reportRows(report, kind).map((row) => row.company?.id ?? null);
+  it('lists review, approval and merge credits, and incomplete reviewer history', () => {
+    const reference = contributionSample();
+    const people = selectContributions(reference, undefined, undefined, reviewers);
+    // Finn authored an issue and commented on it: in the Contributors lens only.
+    expect(ids(selectContributions(reference), 'contributors')).toContain('account-finn');
+    expect(ids(people, 'contributors')).not.toContain('account-finn');
+    expect(people).toMatchObject({
+      contributorCount: 6,
+      companyCount: 4,
+      population: {
+        role: 'reviewer',
+        showingAll: false,
+        allContributorCount: 7,
+        allCompanyCount: 4,
+      },
+    });
+    expect(selectContributions(reference)).not.toHaveProperty('population');
+    // An account-specific missing reviewer history qualifies; a period-wide gap does not.
+    const withGap = structuredClone(reference);
+    withGap.coverageOverrides.push({
+      accountId: 'account-finn',
+      repositoryId: reference.repositories[1].id,
+      metric: 'approvalContributions',
+      coverage: { status: 'missing', reason: 'Approvals unavailable for this account.' },
+    });
+    expect(
+      ids(selectContributions(withGap, undefined, undefined, reviewers), 'contributors'),
+    ).toContain('account-finn');
+    const gap = contributionSample({ scenario: 'coverage-gap' });
+    expect(selectContributions(gap, undefined, undefined, reviewers)).toMatchObject({
+      contributorCount: 250,
+      companyCount: 3,
+    });
+  });
+  it('counts a self-merge as reviewer evidence', () => {
+    const large = selectContributions(
+      contributionSample({ scenario: 'large' }),
+      undefined,
+      undefined,
+      reviewers,
+    );
+    // Person 100 only authored and merged their own PR; the heavy agent never merged one.
+    expect(ids(large, 'contributors')).toContain('account-person-100');
+    expect(ids(large, 'contributors')).not.toContain('account-heavy-agent');
+    if (large.kind !== 'overview') throw Error('Expected overview');
+    expect([large.contributorCount, large.population?.allContributorCount]).toEqual([250, 251]);
+  });
+  it('qualifies companies through a reviewer member and totals every selected member', () => {
+    const reference = contributionSample();
+    const view = { ...reviewers, area: 'companies' } as const;
+    const companies = selectContributions(reference, undefined, undefined, view);
+    const beacon = reportRows(companies, 'companies').find(
+      (row) => row.company?.id === 'company-beacon',
+    )!;
+    // Finn is not a reviewer, but his issue still counts in Beacon's totals and member count.
+    expect(beacon.memberCount).toBe(2);
+    expect(beacon.metrics.issuesAuthored.value).toBe(2);
+    const large = contributionSample({ scenario: 'large' });
+    expect(ids(selectContributions(large, undefined, undefined, view), 'companies')).toEqual([
+      'company-acme',
+      'company-beacon',
+      null,
+    ]);
+    // Show all restores the all-activity population.
+    const all = selectContributions(large, undefined, undefined, { ...view, allAccounts: true });
+    expect(all).toMatchObject({
+      companyCount: 4,
+      population: { showingAll: true, allCompanyCount: 4 },
+    });
+    expect(ids(all, 'companies')).toContain('company-prebid');
+  });
+  it.each([
+    ['reference', 7, 4, 6, 4],
+    ['partial', 7, 4, 6, 4],
+    ['large', 251, 4, 250, 3],
+    ['coverage-gap', 251, 4, 250, 3],
+    ['missing', 0, 0, 0, 0],
+    ['empty', 0, 0, 0, 0],
+  ] as const)('lists the %s sample’s people and companies in each lens', (scenario, ...counts) => {
+    const source = contributionSample({ scenario });
+    const lens = (view: object) => {
+      const report = selectContributions(source, undefined, undefined, view);
+      return [
+        report.kind === 'overview' && report.contributorCount,
+        report.kind === 'overview' && report.companyCount,
+      ];
+    };
+    expect([...lens({}), ...lens(reviewers)]).toEqual(counts);
+  });
+  it('exports the lens’s population, and hides members with no reviewer credit', () => {
+    const reference = contributionSample();
+    const exported = selectContributionExport(reference, defaultContributionSelection(reference), {
+      ...request,
+      lens: 'reviewers',
+    });
+    expect(exported.rows.map((row) => row.entityId)).not.toContain('account-finn');
+    expect(exported.rows).toHaveLength(6);
+    const all = selectContributionExport(reference, defaultContributionSelection(reference), {
+      ...request,
+      lens: 'reviewers',
+      allAccounts: true,
+    });
+    expect(all.rows).toHaveLength(7);
+    const members = (lens: 'contributors' | 'reviewers') =>
+      selectContributionExport(reference, defaultContributionSelection(reference), {
+        ...request,
+        lens,
+        focus: { kind: 'company', companyId: 'company-beacon' },
+        hideZeroMembers: true,
+      }).rows.map((row) => row.entityId);
+    expect(members('contributors')).toEqual(['account-carol', 'account-finn']);
+    expect(members('reviewers')).toEqual(['account-carol']);
+  });
 });

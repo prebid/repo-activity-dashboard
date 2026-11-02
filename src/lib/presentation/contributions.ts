@@ -31,12 +31,14 @@ import {
   type RepositoryContributionRow,
 } from '@/models/contributions';
 import { contributionScope } from './contribution-scope';
+import type { ContributionLens, PopulationRole } from '@/models/contribution-lens';
 
 export { defaultContributionSelection } from './contribution-scope';
 function prepare(
   input: ContributionSource,
   requested?: ContributionSelection,
   requestedFocus: ContributionFocus = { kind: 'overview' },
+  view: ContributionReportView = {},
 ) {
   const {
     index,
@@ -55,10 +57,20 @@ function prepare(
     if (!values) aggregates.set(account.id, (values = index.aggregate([account], repositories)));
     return values;
   }
-  const eligibleAccounts =
+  // Accounts with any activity or incomplete history: the Contributors lens's population and the
+  // Reviewers lens's "Show all". Otherwise the Reviewers lens lists reviewer evidence only.
+  const activeAccounts =
     focus.kind === 'overview'
       ? accounts.filter((account) => index.hasOverviewEvidence(account.id, chosenRepositories))
       : [];
+  const reviewerLens = view.lens === 'reviewers';
+  const role: PopulationRole | undefined =
+    reviewerLens && !view.allAccounts ? 'reviewer' : undefined;
+  const eligibleAccounts = role
+    ? activeAccounts.filter((account) =>
+        index.hasOverviewEvidence(account.id, chosenRepositories, role),
+      )
+    : activeAccounts;
   function contributors(includeZeros = false): ContributorMetricRow[] {
     if (!repositories.length) return [];
     return (includeZeros ? accounts : eligibleAccounts).map((account) => ({
@@ -68,6 +80,8 @@ function prepare(
       ...accountValues(account),
     }));
   }
+  // A company qualifies through an eligible member; its totals and member count cover every
+  // selected member.
   const companyMeasures = new Map<string | null, ReturnType<typeof index.aggregate>>();
   for (const id of new Set(eligibleAccounts.map((account) => account.companyId)))
     companyMeasures.set(id, index.aggregate(grouped.get(id)!, repositories));
@@ -101,6 +115,15 @@ function prepare(
     companies,
     contributorCount: eligibleAccounts.length,
     companyCount: companyMeasures.size,
+    population:
+      reviewerLens && focus.kind === 'overview'
+        ? {
+            role: 'reviewer' as const,
+            showingAll: !!view.allAccounts,
+            allContributorCount: activeAccounts.length,
+            allCompanyCount: new Set(activeAccounts.map((account) => account.companyId)).size,
+          }
+        : undefined,
     context,
     aggregate: index.aggregate,
   };
@@ -108,6 +131,10 @@ function prepare(
 export interface ContributionReportView {
   area?: 'contributors' | 'companies';
   breakdown?: 'members' | 'repositories';
+  /** The Reviewers lens lists accounts with reviewer evidence; absent means Contributors. */
+  lens?: ContributionLens;
+  /** In the Reviewers lens, list every account with activity instead. */
+  allAccounts?: boolean;
 }
 /** Select only the requested display collection; all metrics still use the full selected scope. */
 export function selectContributions(
@@ -116,7 +143,7 @@ export function selectContributions(
   focus: ContributionFocus = { kind: 'overview' },
   view: ContributionReportView = {},
 ): ContributionReport {
-  return reportFrom(prepare(source, selection, focus), view);
+  return reportFrom(prepare(source, selection, focus, view), view);
 }
 function repositoryContributions(
   data: ReturnType<typeof prepare>,
@@ -147,6 +174,7 @@ function reportFrom(
       kind: 'overview',
       contributorCount: data.contributorCount,
       companyCount: data.companyCount,
+      ...(data.population && { population: data.population }),
       table: details
         ? null
         : view.area === 'companies'
@@ -183,7 +211,7 @@ export function selectContributionPresentation(
   view: ContributionReportView = {},
 ): { report: ContributionReport; details?: ContributionMetricDetails } {
   if (metric !== undefined && !isReportMetric(metric)) throw Error('Unknown contribution metric');
-  const data = prepare(source, selection, focus),
+  const data = prepare(source, selection, focus, view),
     report = reportFrom(data, view, !!metric);
   if (!metric) return { report };
   const rows = contributionDetailRows(data.source, data.context, metric, data.accounts);
@@ -206,7 +234,7 @@ export function selectContributionExport(
   selection: ContributionSelection,
   request: ContributionExportRequest,
 ): { context: ContributionContext; rows: ContributionExportRow[] } {
-  const data = prepare(source, selection, request.focus);
+  const data = prepare(source, selection, request.focus, request);
   if (!data.accounts.length || !data.repositories.length)
     return { context: data.context, rows: [] };
   const report = reportFrom(data, request);
@@ -273,7 +301,13 @@ export function selectContributionExport(
       context: data.context,
       rows: selectTableRows(
         request.hideZeroMembers
-          ? table.rows.filter((row) => !isKnownZeroContribution(row))
+          ? table.rows.filter(
+              (row) =>
+                !isKnownZeroContribution(
+                  row,
+                  request.lens === 'reviewers' ? 'reviewer' : undefined,
+                ),
+            )
           : table.rows,
         contributorValues(false),
         request.query,

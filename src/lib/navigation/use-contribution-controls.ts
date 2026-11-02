@@ -10,11 +10,14 @@ import {
   isContributionPresentationDocument,
   type ContributionPresentation,
   type ContributionReportPreferences,
+  type ContributionTableKind,
 } from '@/models/contribution-preferences';
+import type { ContributionLens } from '@/models/contribution-lens';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
   readContributionPresentation,
+  readContributionPresentationDocument,
   serializeContributionPresentation,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
@@ -45,12 +48,13 @@ function parseJson(raw: string): unknown {
     return null;
   }
 }
-/** The column choices a stored presentation holds for every table that shares its section. */
-function storedColumns(raw: string | null): Record<string, boolean> {
-  const value = raw === null ? null : parseJson(raw);
-  return isContributionPresentationDocument(value)
-    ? readContributionPresentation(raw, Object.keys(value.columns)).columns
-    : {};
+/** The column choices a stored presentation of a lens's table holds, version 1 or 2. */
+function storedColumns(
+  raw: string | null,
+  table: ContributionTableKind,
+  lens: ContributionLens,
+): Record<string, boolean> {
+  return readContributionPresentationDocument(raw, table, lens)?.columns ?? {};
 }
 
 /**
@@ -166,6 +170,8 @@ export function useContributionControls(
     const saving = preferences
       ? storedColumns(
           readPreference(preferences.presentation.binding, preferences.presentation.section),
+          tableKey as ContributionTableKind,
+          page.lens ?? 'contributors',
         )
       : {};
     for (const id of columnIds) {

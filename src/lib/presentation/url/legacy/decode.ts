@@ -493,6 +493,9 @@ export function timelineStateValues(
   }
   const source = readTimelineSource(params, area);
   const values: Values = {};
+  // A Timeline query names its lens; on /reviewers the route is the lens.
+  if (area === 'contribution' && params.get('lens') === 'reviewers' && route !== '/reviewers')
+    values.lens = 'reviewers';
   const state = (fields: Record<string, unknown>) => ({ source, timeline, ...fields });
   const read =
     screen === 'matrix'

@@ -7,8 +7,10 @@ import { resolveBack, viewOf } from '@/lib/presentation/url/back';
 import { contributionScopeInput } from '@/lib/presentation/contribution-url';
 import {
   readContributionPresentation,
+  readContributionPresentationDocument,
   serializeContributionPresentation,
 } from '@/lib/presentation/contribution-settings';
+import { reportMetricIds } from '@/models/contribution-metrics';
 import { expect, it } from 'vitest';
 import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
@@ -173,6 +175,83 @@ it('isolates saved report identities, retains relative dates and rejects malform
   ).toBeNull();
 });
 
+it('saves report table columns as a short version 2 diff against the lens’s defaults', () => {
+  const choices = Object.fromEntries(
+    ['name', 'actorType', 'company', ...reportMetricIds].map((id) => [id, true]),
+  );
+  const full = serializeContributionPresentation(
+    choices,
+    false,
+    false,
+    'contributors',
+    'contributors',
+  );
+  // Every column shown: the diff names the 36 columns the lens hides by default.
+  expect(JSON.parse(full)).toMatchObject({ version: 2, hideZeroMembers: false });
+  expect(full.length).toBeLessThan(serializeContributionPresentation(choices, false).length);
+  const reviewer = serializeContributionPresentation(
+    { prComments: true, mergesPerformed: false, actorType: false },
+    true,
+    true,
+    'reviewers',
+    'members',
+  );
+  expect(JSON.parse(reviewer)).toEqual({
+    version: 2,
+    cols: '-actorType,-mergesPerformed,prComments',
+    hideZeroMembers: true,
+    showAllAccounts: true,
+  });
+  // A column without a choice keeps its default; the read expands every column of the table.
+  const read = readContributionPresentationDocument(reviewer, 'members', 'reviewers')!;
+  expect(Object.keys(read.columns)).toHaveLength(41);
+  expect(Object.keys(read.columns).filter((id) => read.columns[id])).toEqual([
+    'name',
+    'reviewerContributions',
+    'approvalContributions',
+    'prComments',
+  ]);
+  expect(read).toMatchObject({ hideZeroMembers: true, showAllAccounts: true });
+  // The same diff means other columns in the other lens; supporting records keep version 1.
+  expect(
+    readContributionPresentation(
+      reviewer,
+      ['prsAuthored', 'prComments'],
+      'members',
+      'contributors',
+    ),
+  ).toEqual({
+    columns: { prsAuthored: true, prComments: true },
+    hideZeroMembers: true,
+    showAllAccounts: true,
+  });
+  expect(
+    JSON.parse(
+      serializeContributionPresentation({ lastAt: true }, false, true, 'reviewers', 'details'),
+    ),
+  ).toEqual({
+    version: 1,
+    columns: { lastAt: true },
+    hideZeroMembers: false,
+  });
+  expect(readContributionPresentationDocument(reviewer, 'details')).toBeNull();
+  expect(readContributionPresentation(reviewer, ['prComments'])).toEqual({
+    columns: {},
+    hideZeroMembers: false,
+    showAllAccounts: false,
+  });
+  for (const raw of [
+    '{"version":2,"cols":"unknown","hideZeroMembers":false}',
+    '{"version":2,"cols":"a b"}',
+    '{"version":2,"cols":"","showAllAccounts":"yes"}',
+    '{"version":3,"cols":""}',
+  ])
+    expect(readContributionPresentationDocument(raw, 'contributors', 'reviewers'), raw).toBeNull();
+  expect(
+    readContributionPresentationDocument('{"version":2,"cols":""}', 'companies', 'reviewers'),
+  ).toMatchObject({ hideZeroMembers: false, showAllAccounts: false });
+});
+
 it('reads legacy and current member presentation preferences without trusting malformed browser values', () => {
   for (const raw of [
     null,
@@ -186,14 +265,16 @@ it('reads legacy and current member presentation preferences without trusting ma
     expect(readContributionPresentation(raw, ['name'])).toEqual({
       columns: {},
       hideZeroMembers: false,
+      showAllAccounts: false,
     });
   expect(readContributionPresentation('{"version":1,"columns":{"name":false}}', ['name'])).toEqual({
     columns: { name: false },
     hideZeroMembers: false,
+    showAllAccounts: false,
   });
   expect(
     readContributionPresentation(serializeContributionPresentation({ name: true }, true), ['name']),
-  ).toEqual({ columns: { name: true }, hideZeroMembers: true });
+  ).toEqual({ columns: { name: true }, hideZeroMembers: true, showAllAccounts: false });
 });
 it('persists only explicit filter intent, including an unchanged repository chosen deliberately', () => {
   const saved = defaultContributionSettings(directory);

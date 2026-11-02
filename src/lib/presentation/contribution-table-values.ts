@@ -14,6 +14,7 @@ import {
   type RepositoryContributionRow,
 } from '@/models/contributions';
 import { additionalMetricDefinitions, type AdditionalValues } from '@/models/contribution-activity';
+import { roleMetrics, type PopulationRole } from '@/models/contribution-lens';
 import type { TableValueColumn } from '@/models/table-values';
 import { measurementSortGroup, measurementSortNote } from './measurement-order';
 export interface ValueColumn<T> extends Omit<SelectableColumn, 'required'>, TableValueColumn<T> {}
@@ -103,11 +104,17 @@ export function repositoryContributionValues(): ValueColumn<RepositoryContributi
     ...contributionMetricValues<RepositoryContributionRow>(),
   ];
 }
-/** Only complete zero values are hidden; unknown, partial and not-applicable values stay visible. */
+/**
+ * Only complete zero values are hidden; unknown, partial and not-applicable values stay visible.
+ * With `reviewer` (the Reviewers lens), only the three reviewer credit metrics decide.
+ */
 export function isKnownZeroContribution(
   row: Pick<ContributorMetricRow, 'metrics' | 'additionalMetrics'>,
+  role?: PopulationRole,
 ): boolean {
-  return Object.values({ ...row.metrics, ...row.additionalMetrics }).every(
-    (value) => value.status === 'complete' && value.value === 0,
-  );
+  const values =
+    role === 'reviewer'
+      ? roleMetrics.reviewer.map((metric) => row.metrics[metric])
+      : Object.values({ ...row.metrics, ...row.additionalMetrics });
+  return values.every((value) => value.status === 'complete' && value.value === 0);
 }

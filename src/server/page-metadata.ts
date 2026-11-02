@@ -13,6 +13,7 @@ import {
 } from '@/lib/presentation/page-title';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
+import type { ContributionLens } from '@/models/contribution-lens';
 import type { OverviewRepository } from '@/models/repository-overview';
 import { catalogRepository } from './reporting';
 
@@ -56,15 +57,19 @@ export function repositoryAuthorPageMetadata(
     repositoryAuthorPageTitle(repository, account, params, overviewAsOf),
   );
 }
-/** Subject names come from the URL's sample directory, as the report resolves them. */
+/**
+ * Subject names come from the URL's sample directory, as the report resolves them. `lens` names the
+ * Reviewers lens of /reviewers, whose route is the lens; elsewhere the query's `lens` decides.
+ */
 export function contributionPageMetadata(
   area: ContributionArea,
   params: URLSearchParams,
   focus: ContributionFocus | null = { kind: 'overview' },
+  lens?: ContributionLens,
 ): Promise<Metadata> {
   return titled(() => {
     if (focus === null) return null;
-    if (focus.kind === 'overview') return contributionPageTitle(area, 'overview', params);
+    if (focus.kind === 'overview') return contributionPageTitle(area, 'overview', params, lens);
     const layout = readContributionLayoutQuery(params);
     if (!layout) return null;
     const directory = contributionDirectorySample(layout.sample);
@@ -74,6 +79,6 @@ export function contributionPageMetadata(
         : focus.companyId === null
           ? null
           : directory.companies.find((company) => company.id === focus.companyId);
-    return subject === undefined ? null : contributionPageTitle(area, subject, params);
+    return subject === undefined ? null : contributionPageTitle(area, subject, params, lens);
   });
 }

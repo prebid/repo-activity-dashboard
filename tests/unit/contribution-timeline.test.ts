@@ -333,6 +333,13 @@ it('opens the other area’s Over time with the same scope and view but not this
     '/companies?timeline&v=1',
   );
   expect(contributionTimelineAreaHref('/contributors?q=x', 'companies')).toBeNull();
+  // The Reviewers lens stays: /reviewers for people, `lens=reviewers` on Companies.
+  expect(contributionTimelineAreaHref('/reviewers?timeline&group=week', 'companies')).toBe(
+    '/companies?timeline&lens=reviewers&group=week',
+  );
+  expect(
+    contributionTimelineAreaHref('/companies?timeline&lens=reviewers&back=~q:x', 'contributors'),
+  ).toBe('/reviewers?timeline&v=1');
   // A frame past the URL cap is not a canonical address.
   expect(
     contributionTimelineAreaHref(

@@ -82,7 +82,6 @@ describe('Timeline pages from registry values', () => {
   it('render the invalid view for values the Timeline cannot read', async () => {
     for (const href of [
       '/repos/prebidjs?timeline&cols=unknown',
-      '/companies?timeline&lens=reviewers',
       '/repos?timeline&back=~q:' + 'x'.repeat(7480),
     ])
       expect((await timelineView(view(href))).status, href).toBe('invalid');
@@ -125,12 +124,40 @@ describe('Timeline pages from registry values', () => {
         snapshot('contributions', { 'timeline.companies.company': week }),
       ),
     ).toEqual({ scope: {}, presentation: { group: 'week' } });
+    // The Reviewers lens keeps its own Over time sections.
     expect(
       await timelineEntryValues(
         view('/companies?timeline&lens=reviewers'),
         snapshot('contributions', { 'timeline.companies.overview': week }),
       ),
     ).toBeNull();
+    expect(
+      await timelineEntryValues(
+        view('/companies?timeline&lens=reviewers'),
+        snapshot('contributions', { 'timeline.reviewers.companies.overview': week }),
+      ),
+    ).toEqual({ scope: {}, presentation: { group: 'week' } });
+    expect(
+      await timelineEntryValues(
+        view('/reviewers?timeline'),
+        snapshot('contributions', {
+          'timeline.reviewers.contributors.overview': {
+            version: 1,
+            query: 'timeline.columns=prComments',
+          },
+        }),
+      ),
+    ).toEqual({
+      scope: {},
+      presentation: {
+        cols: [
+          '-reviewerContributions',
+          '-approvalContributions',
+          '-mergesPerformed',
+          'prComments',
+        ],
+      },
+    });
   });
 });
 
@@ -155,6 +182,18 @@ describe('supporting views from registry values', () => {
       ),
     );
     expect(matrixless).toMatchObject({ status: 'invalid', parentHref: '/repos/prebidjs?timeline' });
+  });
+  it('load a Reviewers-lens cell under its lens’s Timeline', async () => {
+    const timeline = await timelineView(view('/companies?timeline&lens=reviewers'));
+    if (timeline.status !== 'ready' || !('report' in timeline)) throw Error('Expected Over time');
+    const cell =
+      '&detail=reviewerContributions&interval=month:2026-10-01&snap=' +
+      timeline.report.source.scenarioId +
+      '@2026-10-24T12:00Z';
+    for (const parent of ['/companies?timeline&lens=reviewers', '/reviewers?timeline']) {
+      const support = await loadTimelineSupport(view(parent + cell));
+      expect(support.status, parent).toBe('ready');
+    }
   });
 });
 

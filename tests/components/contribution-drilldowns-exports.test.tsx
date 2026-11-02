@@ -373,6 +373,8 @@ it('heads the core metrics Authoring, Reviewing and Issues on screen only, leavi
     'Company attribution',
     'Report focus',
     'Report selection',
+    'Report lens',
+    'Listed accounts',
     'Table search',
     'Sorted by',
     'Sort direction',

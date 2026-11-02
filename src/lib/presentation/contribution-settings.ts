@@ -22,12 +22,19 @@ export {
   writeContributionSettings,
 };
 import { readTableColumns } from './table-column-preferences';
+import { columnTokens, contributionColumnTable, visibleColumns } from './url/defaults';
 import {
   contributionSettingsSchema,
   type ContributionSettings,
   type ContributionDirectory,
   type ContributionControlDirectory,
 } from '@/models/contribution-settings';
+import {
+  isContributionPresentationDocument,
+  type ContributionPresentation,
+  type ContributionTableKind,
+} from '@/models/contribution-preferences';
+import type { ContributionLens } from '@/models/contribution-lens';
 
 export function readContributionPreferenceCandidate(
   raw: string | null,
@@ -102,26 +109,84 @@ export function readStoredContributionPreferences(raw: string | null): Contribut
   }
 }
 
-export function readContributionPresentation(raw: string | null, columnIds: readonly string[]) {
-  let hideZeroMembers = false;
+/** The tables whose saved columns are written as a version 2 diff against a lens's v1 columns. */
+export type ContributionLensTable = Exclude<ContributionTableKind, 'details'>;
+/**
+ * A stored presentation for one table of a lens, or null when it is not a presentation document:
+ * version 1's column map as stored, or version 2's `cols` diff expanded against the lens's v1
+ * columns for `table` into a choice for every column. A version 2 diff naming a column the table
+ * lacks, or stored for supporting records, is not a document.
+ */
+export function readContributionPresentationDocument(
+  raw: string | null,
+  table: ContributionTableKind,
+  lens: ContributionLens = 'contributors',
+): Required<ContributionPresentation> | null {
+  let value: unknown;
   try {
-    const value: unknown = JSON.parse(raw ?? 'null');
-    hideZeroMembers = !!(
-      value &&
-      typeof value === 'object' &&
-      'version' in value &&
-      value.version === 1 &&
-      'hideZeroMembers' in value &&
-      value.hideZeroMembers === true
-    );
+    value = JSON.parse(raw ?? 'null');
   } catch {
-    /* Invalid browser preferences use presentation defaults. */
+    return null;
   }
-  return { columns: readTableColumns(raw, columnIds), hideZeroMembers };
+  if (!isContributionPresentationDocument(value)) return null;
+  const hideZeroMembers = value.hideZeroMembers === true;
+  if (value.version === 1)
+    return {
+      columns: readTableColumns(raw, Object.keys(value.columns)),
+      hideZeroMembers,
+      showAllAccounts: false,
+    };
+  if (table === 'details') return null;
+  const defaults = contributionColumnTable(table, lens);
+  const visible = visibleColumns(defaults, value.cols ? value.cols.split(',') : []);
+  return (
+    visible && {
+      columns: Object.fromEntries(defaults.ids.map((id) => [id, visible.includes(id)])),
+      hideZeroMembers,
+      showAllAccounts: value.showAllAccounts === true,
+    }
+  );
 }
+/**
+ * A stored presentation's choices for the columns a table renders. `table` and `lens` expand a
+ * version 2 section; without them only version 1 column choices are read.
+ */
+export function readContributionPresentation(
+  raw: string | null,
+  columnIds: readonly string[],
+  table?: ContributionTableKind,
+  lens?: ContributionLens,
+): Required<ContributionPresentation> {
+  const stored = readContributionPresentationDocument(raw, table ?? 'details', lens);
+  if (!stored) return { columns: {}, hideZeroMembers: false, showAllAccounts: false };
+  return {
+    ...stored,
+    columns: Object.fromEntries(
+      Object.entries(stored.columns).filter(([id]) => columnIds.includes(id)),
+    ),
+  };
+}
+/**
+ * A presentation section's JSON. With a report `table`, version 2: the column choices as a `cols`
+ * diff against the lens's v1 columns (a column without a choice keeps its v1 state), and
+ * `showAllAccounts` only when on. Supporting records, and callers that name no table, write
+ * version 1's column map.
+ */
 export function serializeContributionPresentation(
   columns: Record<string, boolean>,
   hideZeroMembers: boolean,
+  showAllAccounts = false,
+  lens: ContributionLens = 'contributors',
+  table?: ContributionTableKind,
 ): string {
-  return JSON.stringify({ version: 1, columns, hideZeroMembers });
+  if (table === undefined || table === 'details')
+    return JSON.stringify({ version: 1, columns, hideZeroMembers });
+  const defaults = contributionColumnTable(table, lens);
+  const visible = defaults.ids.filter((id) => columns[id] ?? defaults.visible.has(id));
+  return JSON.stringify({
+    version: 2,
+    cols: columnTokens(defaults, visible).join(','),
+    hideZeroMembers,
+    ...(showAllAccounts && { showAllAccounts: true }),
+  });
 }

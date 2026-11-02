@@ -1,4 +1,5 @@
 import type { ContributionArea } from '@/models/contribution-page';
+import type { ContributionLens } from '@/models/contribution-lens';
 import { isReportMetric, reportMetricLabel } from '@/models/contribution-metrics';
 import type { OverviewRepository } from '@/models/repository-overview';
 import { repositoryTimelineMetricSchema } from '@/models/repository-timeline';
@@ -23,12 +24,17 @@ export const defaultPageTitle = 'Prebid';
 const allRepositories = 'All repositories';
 const titleFrom = (...parts: string[]) => parts.join(' · ');
 
-/** A contribution report's subject: its area, a contributor or a company. */
+/**
+ * A contribution report's subject: its area, a contributor or a company. The people overview is
+ * "Reviewers" in the Reviewers lens.
+ */
 export function contributionSubjectTitle(
   area: ContributionArea,
   subject: { name: string } | null | 'overview',
+  lens: ContributionLens = 'contributors',
 ): string {
-  if (subject === 'overview') return area === 'contributors' ? 'Contributors' : 'Companies';
+  if (subject === 'overview')
+    return area === 'companies' ? 'Companies' : lens === 'reviewers' ? 'Reviewers' : 'Contributors';
   return subject?.name ?? 'Unmapped company';
 }
 
@@ -97,14 +103,27 @@ export function repositoryAuthorPageTitle(
 
 /**
  * Names the view first, then its subject; only the default view of a focused report adds its
- * area.
+ * area. In the Reviewers lens (`lens`, else the query's `lens`) a title that does not already end
+ * with "Reviewers" gains " · Reviewers" (decision D13).
  */
 export function contributionPageTitle(
   area: ContributionArea,
   subject: { name: string } | null | 'overview',
   params: URLSearchParams,
+  lens: ContributionLens = params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors',
 ): string {
-  const subjectTitle = contributionSubjectTitle(area, subject);
+  const title = contributionViewTitle(area, subject, params, lens);
+  return lens === 'reviewers' && !title.endsWith('Reviewers')
+    ? titleFrom(title, 'Reviewers')
+    : title;
+}
+function contributionViewTitle(
+  area: ContributionArea,
+  subject: { name: string } | null | 'overview',
+  params: URLSearchParams,
+  lens: ContributionLens,
+): string {
+  const subjectTitle = contributionSubjectTitle(area, subject, lens);
   if (params.has('timeline')) {
     const metric = supportDetail(params);
     return metric !== null && isReportMetric(metric)
@@ -117,5 +136,5 @@ export function contributionPageTitle(
   if (subject === 'overview') return subjectTitle;
   if (area === 'companies' && params.get('view') === 'repositories')
     return titleFrom(companyBreakdownLabels.repositories, subjectTitle);
-  return titleFrom(subjectTitle, contributionSubjectTitle(area, 'overview'));
+  return titleFrom(subjectTitle, contributionSubjectTitle(area, 'overview', lens));
 }

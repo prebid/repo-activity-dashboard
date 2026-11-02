@@ -4,6 +4,7 @@ import type { RepositoryTimelineMatrix } from '@/models/repository-timeline-matr
 import type { TimelineInterval, TimelineSourceIdentity } from '@/models/reporting-timeline';
 import type { Measurement } from '@/models/reporting-measurement';
 import type { TableQuery } from '@/models/table-query';
+import type { ContributionLens } from '@/models/contribution-lens';
 import { reportMetricIds } from '@/models/contribution-metrics';
 import { serializeCsv } from './csv-export';
 import { selectTableRows } from './table-rows';
@@ -55,11 +56,13 @@ export class TimelineCsvColumnError extends Error {
     super('Invalid Timeline CSV columns.');
   }
 }
+/** `lens`: the lens a contribution Over time view was read in, recorded as "Report lens". */
 export function timelineCsv(
   report: Report,
   selected: readonly string[],
   query: TableQuery,
   rankMetric?: RepositoryTimelineMetric,
+  lens: ContributionLens = 'contributors',
 ) {
   const matrix = report.kind === 'repository-matrix';
   const metrics = matrix
@@ -169,6 +172,9 @@ export function timelineCsv(
       value: () => String(report.request.range.endInclusive),
     },
     { id: 'scope', label: 'Report scope', value: () => JSON.stringify(report.scope) },
+    ...(report.kind === 'contributions'
+      ? [{ id: 'lens', label: 'Report lens', value: () => lens }]
+      : []),
     { id: 'sort', label: 'Sort column', value: () => query.sort },
     {
       id: 'rank',

@@ -62,6 +62,7 @@ type Target = {
   area?: ContributionArea;
   focus?: Exclude<ContributionFocus, { kind: 'overview' }>;
   binding?: PreferenceBinding;
+  lens?: 'contributors' | 'reviewers';
 };
 /**
  * One request's entry resolution: the saved values the page helper applies (and the address it
@@ -70,9 +71,9 @@ type Target = {
 async function resolve(
   sections: Partial<Record<PreferenceSectionKey, unknown>>,
   search = '',
-  { area = 'contributors', focus, binding = alice }: Target = {},
+  { area = 'contributors', focus, binding = alice, lens }: Target = {},
 ) {
-  const { route, segments } = contributionReportRoute(area, focus);
+  const { route, segments } = contributionReportRoute(area, focus, lens);
   const parsed = parseQuery(route, search);
   if (parsed.kind !== 'canonical') throw Error('Expected a canonical query');
   const read = snapshot(sections, binding);
@@ -83,7 +84,7 @@ async function resolve(
     parsed.values,
     isEntry(route, parsed.values),
   );
-  const loaded = await contributions(area, parsed.values, focus);
+  const loaded = await contributions(area, parsed.values, focus, lens);
   if (loaded.status !== 'ready') throw Error('Expected a contribution report');
   return {
     entry,
@@ -112,6 +113,48 @@ it('answers a list entry with its saved scope and presentation in explicit form'
   );
   expect(preferences.scope.value).toEqual(saved);
   expect(preferences.notice).toBeUndefined();
+});
+
+it('reads each lens’s own column and sort sections, version 1 or 2, and shares the scope', async () => {
+  const sections = {
+    'contributions.scope': stored(lastMonth),
+    'contributions.contributors.sort': { sort: 'prsAuthored', descending: true },
+    'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
+    'contributions.reviewers.contributors.columns': JSON.parse(
+      serializeContributionPresentation(
+        { prComments: true, approvalContributions: false },
+        false,
+        true,
+        'reviewers',
+        'contributors',
+      ),
+    ) as unknown,
+  };
+  const reviewers = await resolve(sections, '', { lens: 'reviewers' });
+  expect(reviewers.target).toBe(
+    '/reviewers?period=last-month&sort=-mergesPerformed&cols=-approvalContributions,prComments&all',
+  );
+  expect(reviewers.preferences.presentation).toMatchObject({
+    section: 'contributions.reviewers.contributors.columns',
+    value: { hideZeroMembers: false, showAllAccounts: true },
+  });
+  expect(reviewers.preferences.sort.section).toBe('contributions.reviewers.contributors.sort');
+  // The Contributors lens reads its own sections; Show all never reaches it.
+  const contributors = await resolve(sections);
+  expect(contributors.target).toBe('/contributors?period=last-month&sort=-prsAuthored');
+  expect(contributors.preferences.presentation.section).toBe('contributions.contributors.columns');
+  const companies = await resolve(
+    { 'contributions.reviewers.companies.sort': { sort: 'name', descending: false } },
+    'lens=reviewers',
+    { area: 'companies' },
+  );
+  expect(companies.target).toBe('/companies?lens=reviewers&sort=name');
+  const company = await resolve(
+    { 'contributions.reviewers.members.columns': { version: 2, cols: '-actorType' } },
+    'lens=reviewers',
+    { area: 'companies', focus: { kind: 'company', companyId: 'company-acme' } },
+  );
+  expect(company.target).toBe('/companies/id/company-acme?lens=reviewers&cols=-actorType');
 });
 
 it('applies only saved presentation on a contributor or company entry (C2)', async () => {

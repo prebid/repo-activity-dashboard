@@ -53,6 +53,7 @@ export async function timelineExportResponse(request: Request) {
       loaded.category === 'matrix' && loaded.matrix.scope.metrics.length
         ? repositoryTimelineMetricSchema.parse(loaded.controls.view.metric)
         : undefined,
+      loaded.controls.lens,
     );
   } catch (error) {
     // Only a column choice is the caller's error; anything else is a server fault.

@@ -60,6 +60,7 @@ import ContributorPage from '@/app/(dashboard)/contributors/[accountId]/page';
 import { PreferenceBindingProvider } from '@/lib/navigation/preference-binding';
 import { ContributionRoute } from '@/app/_screens/contribution-route';
 import CompaniesPage from '@/app/(dashboard)/companies/page';
+import ReviewersPage from '@/app/(dashboard)/reviewers/page';
 
 const defaults = defaultContributionSettings(contributionSample());
 const lastMonth: ContributionSettings = {
@@ -160,10 +161,31 @@ it('answers a legacy link with a redirect to its canonical form, decoded by the 
   await expect(route({ period: 'this-year' })).rejects.toThrow('redirect /contributors');
 });
 
-it('renders the invalid view for an unknown parameter and for the Reviewers lens', async () => {
+it('serves /reviewers: the saved Reviewers view, its reviewer population and its invalid view', async () => {
+  seedPreferences(alice, {
+    'contributions.scope': stored(lastMonth),
+    'contributions.contributors.sort': { sort: 'name', descending: false },
+    'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
+  });
+  await expect(route({}, ReviewersPage)).rejects.toThrow(
+    'redirect /reviewers?period=last-month&sort=-mergesPerformed',
+  );
+  const all = render(await route({ all: '' }, ReviewersPage));
+  expect(screen.getByRole('link', { name: 'Finn — view contribution report' })).toBeInTheDocument();
+  all.unmount();
+  render(await route({ v: '1' }, ReviewersPage));
+  expect(
+    screen.getByRole('link', { name: 'Alice — view contribution report' }),
+  ).toBeInTheDocument();
+  // Finn has no review, approval or merge credit.
+  expect(screen.queryByRole('link', { name: 'Finn — view contribution report' })).toBeNull();
+  expect(historyWrites).not.toHaveBeenCalled();
+});
+
+it('renders the invalid view for an unknown parameter and for Show all outside the Reviewers lens', async () => {
   for (const [search, page] of [
     [{ unknown: '1' }, ContributorsPage],
-    [{ lens: 'reviewers' }, CompaniesPage],
+    [{ all: '' }, CompaniesPage],
     [{ cols: 'retired' }, ContributorsPage],
   ] as const) {
     const view = render(await route(search, page));
@@ -171,6 +193,12 @@ it('renders the invalid view for an unknown parameter and for the Reviewers lens
     expect(historyWrites).not.toHaveBeenCalled();
     view.unmount();
   }
+  render(await route({ lens: 'reviewers' }, ReviewersPage));
+  expect(screen.getByRole('heading', { level: 1, name: 'Reviewers' })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Open reviewers' })).toHaveAttribute(
+    'href',
+    '/reviewers',
+  );
 });
 
 it('opens the area report from Back to report: its saved form without a frame, else the frame', async () => {

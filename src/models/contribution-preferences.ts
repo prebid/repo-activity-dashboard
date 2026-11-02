@@ -28,19 +28,35 @@ export interface ContributionReportPreferences {
   notice?: string;
 }
 
-/** Whether a stored presentation value has the shape serializeContributionPresentation writes. */
+/**
+ * A stored presentation. Version 1 holds a map of column choices. Version 2 holds `cols`, the URL's
+ * column diff (`id` shown, `-id` hidden, comma-joined) against the lens's v1 columns for the
+ * section's table, so a section stays tens of bytes; supporting records keep version 1.
+ */
+export type ContributionPresentationDocument =
+  | { version: 1; columns: Record<string, unknown>; hideZeroMembers?: boolean }
+  | { version: 2; cols: string; hideZeroMembers?: boolean; showAllAccounts?: boolean };
+
+const optionalBoolean = (value: object, key: string) =>
+  !(key in value) || typeof (value as Record<string, unknown>)[key] === 'boolean';
+/** Whether a stored presentation value has a shape serializeContributionPresentation writes. */
 export function isContributionPresentationDocument(
   value: unknown,
-): value is { version: 1; columns: Record<string, unknown>; hideZeroMembers?: boolean } {
+): value is ContributionPresentationDocument {
+  if (!value || typeof value !== 'object' || !('version' in value)) return false;
+  if (!optionalBoolean(value, 'hideZeroMembers')) return false;
+  if (value.version === 1)
+    return (
+      'columns' in value &&
+      !!value.columns &&
+      typeof value.columns === 'object' &&
+      !Array.isArray(value.columns)
+    );
   return (
-    !!value &&
-    typeof value === 'object' &&
-    'version' in value &&
-    value.version === 1 &&
-    'columns' in value &&
-    !!value.columns &&
-    typeof value.columns === 'object' &&
-    !Array.isArray(value.columns) &&
-    (!('hideZeroMembers' in value) || typeof value.hideZeroMembers === 'boolean')
+    value.version === 2 &&
+    'cols' in value &&
+    typeof value.cols === 'string' &&
+    /^(?:-?[A-Za-z0-9._]+(?:,-?[A-Za-z0-9._]+)*)?$/.test(value.cols) &&
+    optionalBoolean(value, 'showAllAccounts')
   );
 }

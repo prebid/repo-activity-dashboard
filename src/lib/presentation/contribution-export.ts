@@ -122,10 +122,12 @@ function canonicalExport(
         : { kind },
   );
   const requested = typeof values.columns === 'object' ? values.columns : [];
+  const lens = values.lens === 'reviewers' ? 'reviewers' : 'contributors';
   if (
     !focus.success ||
     (kind === 'overview' && id !== undefined) ||
-    values.lens === 'reviewers' ||
+    // Show all is a Reviewers-lens overview's population.
+    (values.all === true && (lens !== 'reviewers' || kind !== 'overview')) ||
     !requested.length ||
     requested.some((column) => !exportColumnOrder.includes(column))
   )
@@ -155,6 +157,8 @@ function canonicalExport(
         : { sort: '', descending: false }),
       page: 1,
     },
+    lens,
+    allAccounts: values.all === true,
   };
 }
 /** The value columns an export's table has. */
@@ -220,7 +224,11 @@ export function contributionExportHref(
     ...(focus.kind === 'company' && { id: focus.companyId ?? 'unmapped' }),
     layout,
     columns: exportColumnOrder.filter((column) => metrics.includes(column)),
+    ...(page.lens === 'reviewers' && { lens: 'reviewers' }),
     ...(page.hideZeroMembers && { zero: 'hide' }),
+    ...(page.lens === 'reviewers' &&
+      page.allAccounts &&
+      focus.kind === 'overview' && { all: true }),
     ...(query.search && { q: query.search }),
     ...(query.sort && { sort: (query.descending ? '-' : '') + query.sort }),
   };
@@ -301,7 +309,12 @@ export function contributionCsv(
       label: 'Hide zero member totals',
       value: () => String(request.hideZeroMembers ?? false),
     },
-    ...contributionContextColumns<ContributionExportRow>(context, request.query),
+    ...contributionContextColumns<ContributionExportRow>(context, request.query, {
+      lens: request.lens ?? 'contributors',
+      ...(request.focus.kind === 'overview' && {
+        listed: request.lens === 'reviewers' && !request.allAccounts ? 'reviewers' : 'all',
+      }),
+    }),
   ];
   return serializeCsv(rows, columns);
 }

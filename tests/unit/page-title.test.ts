@@ -148,7 +148,28 @@ describe('contributionPageTitle', () => {
     ['companies', acme, 'view=repositories', 'By repository · Example Acme'],
     ['companies', acme, 'timeline=1&view=repositories', 'Over time · Example Acme'],
     ['companies', null, '', 'Unmapped company · Companies'],
+    // The Reviewers lens (decision D13).
+    ['companies', 'overview', 'lens=reviewers', 'Companies · Reviewers'],
+    ['companies', 'overview', 'timeline&lens=reviewers', 'Over time · Companies · Reviewers'],
+    ['contributors', alice, 'lens=reviewers', 'Alice · Reviewers'],
+    [
+      'contributors',
+      alice,
+      'lens=reviewers&metric=mergesPerformed',
+      reportMetricLabel('mergesPerformed') + ' · Alice · Reviewers',
+    ],
+    ['companies', acme, 'lens=reviewers', 'Example Acme · Companies · Reviewers'],
   ] as const)('titles %s %o with ?%s as %s', (area, subject, search, title) => {
     expect(contributionPageTitle(area, subject, query(search))).toBe(title);
+  });
+  it.each([
+    ['', 'Reviewers'],
+    ['timeline', 'Over time · Reviewers'],
+    ['metric=reviewerContributions', reportMetricLabel('reviewerContributions') + ' · Reviewers'],
+  ])('titles /reviewers?%s as %s', (search, title) => {
+    expect(contributionPageTitle('contributors', 'overview', query(search), 'reviewers')).toBe(
+      title,
+    );
+    expect(contributionSubjectTitle('contributors', 'overview', 'reviewers')).toBe('Reviewers');
   });
 });
