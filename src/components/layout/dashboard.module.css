@@ -298,9 +298,11 @@
   .navigation::-webkit-scrollbar {
     display: none;
   }
-  /* Body size at normal width, so the four destinations fit one row at 390px. */
+  /* Body size at normal width with 4px padding, so the four destinations fit one row at 390px.
+     Chromium on Linux sets these labels about 7% wider than macOS and WebKit, so 6px padding
+     overflowed the 358px row there by 11px. */
   .navItem {
-    padding: 0 6px;
+    padding: 0 4px;
     font-size: var(--prebid-text-body);
     font-stretch: 100%;
   }
@@ -309,8 +311,8 @@
   }
   .navItem[data-active='true']::after,
   .navItem[aria-current='page']::after {
-    right: 6px;
-    left: 6px;
+    right: 4px;
+    left: 4px;
   }
   .main {
     padding: 18px var(--dashboard-gutter) 32px;

@@ -1174,7 +1174,7 @@ As in P5c–P5e: a core step (fixture, model, codec registration, presentation, 
 12. A crumb whose parent is an overview report without a metric or Over time reads "Back to Contributors", "Back to Reviewers" or "Back to Companies"; any other parent keeps "Back to report". This also changes Contributors-lens crumbs.
 13. The people overview is titled "Reviewers"; any other Reviewers-lens title that does not end with "Reviewers" gains " · Reviewers".
 14. Fourteen new sections, `contributions.reviewers.<table>.{columns,sort}` and `timeline.reviewers.<area>.<focus>`, take `dashboard-contributions` from 18 to 32. The scope, the supporting-records table and `timeline-support.contribution.sort` are shared. Column sections gain version 2, a `cols` diff against the lens's v1 defaults; version 1 is still read.
-15. At 600px and below the navigation labels use the 13px body size at 100% width. The two-row masthead and the 100px shell move from 1000px to 1120px; the gutter, width switch and account-name rules stay at 1000px.
+15. At 600px and below the navigation labels use the 13px body size at 100% width with 4px horizontal padding; at 6px, Chromium on Linux needed 369px of the 358px row at 390px. The two-row masthead and the 100px shell move from 1000px to 1120px; the gutter, width switch and account-name rules stay at 1000px.
 16. The members table is titled "Company members" in the Reviewers lens.
 17. `ReviewersIcon` maps to `MessageSquareCheck`.
 18. `lens` is not registered on `/contributors` or `/reviewers` (the invalid view); it is accepted on the contribution supporting screen.
