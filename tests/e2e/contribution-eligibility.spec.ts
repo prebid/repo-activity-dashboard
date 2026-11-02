@@ -28,9 +28,12 @@ test('global gaps keep overview pages, counts and CSV exports bounded by recorde
   await expect(page.getByLabel('Contribution report scope')).toContainText(
     '3251 included accounts',
   );
+  // The area tabs carry no counts; the pages, rows and CSV lines below state 251 and 4.
   const tabs = page.getByRole('navigation', { name: 'Contribution reports' });
-  await expect(tabs.getByRole('link', { name: 'Contributors 251', exact: true })).toBeVisible();
-  await expect(tabs.getByRole('link', { name: 'Companies 4', exact: true })).toBeVisible();
+  await expect(tabs.getByRole('link', { name: 'Contributors', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   await expect(page.getByText('Page 1 of 6', { exact: true })).toBeVisible();
   await page.screenshot({ path: info.outputPath('coverage-gap-contributors.png'), fullPage: true });
@@ -43,7 +46,7 @@ test('global gaps keep overview pages, counts and CSV exports bounded by recorde
   expect(csv.split('\r\n')).toHaveLength(252);
   expect(csv).not.toContain('account-inactive-');
   expect(csv).toContain('"partial"');
-  await tabs.getByRole('link', { name: 'Companies 4', exact: true }).click();
+  await tabs.getByRole('link', { name: 'Companies', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Companies', level: 1 })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(4);
   const companies = await csvDownload(page);

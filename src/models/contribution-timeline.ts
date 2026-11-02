@@ -19,6 +19,8 @@ export interface ContributionTimeline extends TimelineSeries<ReportMetric> {
     focus: ContributionFocus;
     includedAccountCount: number;
     subject: ContributionAccount | ContributionCompany | null;
+    /** A contributor subject's current company, null when unmapped; absent on other reports. */
+    company?: ContributionCompany | null;
     companyAttribution: 'current-mapping';
   };
 }

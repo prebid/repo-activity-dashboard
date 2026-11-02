@@ -23,6 +23,7 @@ import styles from '@/features/contributions/contributions.module.css';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { LinkPending } from '@/components/navigation/link-pending';
+import { ViewTabs } from '@/components/navigation/view-tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { contributionDefaultSort } from '@/models/contributions';
 import type { ContributionPage } from '@/models/contribution-page';
@@ -161,7 +162,7 @@ export function ContributionsScreen({
       breakdownControls={
         page.report.kind === 'company' ? (
           <div className={styles.memberControls}>
-            <nav aria-label="Company breakdown" className={styles.breakdowns}>
+            <ViewTabs label="Company breakdown" variant="segmented">
               {(['members', 'repositories'] as const).map((view) => (
                 <Link
                   prefetch={false}
@@ -180,7 +181,7 @@ export function ContributionsScreen({
                   <LinkPending pending={pendingNavigation.pendingKey === view || undefined} />
                 </Link>
               ))}
-            </nav>
+            </ViewTabs>
             {page.breakdown === 'members' && !page.details && (
               <label className={styles.zeroToggle}>
                 <Checkbox
