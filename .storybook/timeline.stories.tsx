@@ -99,6 +99,23 @@ function Preview({
           area={area === 'companies' || area === 'company' ? 'companies' : 'contributors'}
           href="/contributors?timeline=1"
           reportHref="/contributors"
+          // The header links the screens supply: area tabs on an overview, otherwise Back to
+          // report and, for a contributor, the company's report.
+          navigation={
+            area === 'person'
+              ? {
+                  returnTo: '/contributors',
+                  company: '/companies/id/' + (report.scope.company?.id ?? 'unmapped'),
+                }
+              : area === 'company'
+                ? { returnTo: '/companies' }
+                : {
+                    areas: {
+                      contributors: '/contributors?timeline=1',
+                      companies: '/companies?timeline=1',
+                    },
+                  }
+          }
         />
       )}
     </DashboardFrame>

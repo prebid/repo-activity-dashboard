@@ -182,6 +182,23 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
   for (const button of [w, t, m, s])
     expect(button.y + button.height / 2).toBeCloseTo(a.y + a.height / 2, 0);
 
+  // At 390px the three main navigation destinations share one row without scrolling it.
+  await page.setViewportSize({ width: 390, height: 844 });
+  const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+  const destinations = await Promise.all(
+    [
+      main.getByRole('link', { name: 'Overview', exact: true }),
+      main.getByRole('button', { name: 'Repositories', exact: true }),
+      main.getByRole('link', { name: 'Contributions', exact: true }),
+    ].map(async (item) => (await item.boundingBox())!),
+  );
+  for (const box of destinations) {
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(390);
+    expect(box.y + box.height / 2).toBeCloseTo(destinations[0].y + destinations[0].height / 2, 0);
+  }
+  expect(await main.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+
   await page.setViewportSize({ width: 375, height: 800 });
   await expect(width).toBeHidden();
   await expect(accounts).toBeVisible();

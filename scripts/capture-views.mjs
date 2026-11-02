@@ -322,16 +322,29 @@ function measureView(page) {
   });
 }
 
-/** Tab presses from a freshly loaded document until focus enters Period activity. @param {Page} page */
+/**
+ * Key presses from a freshly loaded document until focus enters Period activity: Tab, then Enter
+ * once focus is on the "Period activity" section chip, which counts as one press. A build without
+ * section chips counts Tab presses alone. Null past tabPressLimit Tab presses, or when Enter on
+ * the chip leaves focus outside the section. @param {Page} page
+ */
 async function tabsToPeriodActivity(page) {
+  const focus = () =>
+    page.evaluate(() => {
+      const active = document.activeElement;
+      if (active?.closest('main [aria-label="Period activity"]')) return 'section';
+      return active?.matches('main nav[aria-label="On this page"] a') &&
+        active.textContent?.trim() === 'Period activity'
+        ? 'chip'
+        : null;
+    });
   for (let presses = 1; presses <= tabPressLimit; presses++) {
     await page.keyboard.press('Tab');
-    if (
-      await page.evaluate(
-        () => !!document.activeElement?.closest('main [aria-label="Period activity"]'),
-      )
-    )
-      return presses;
+    const at = await focus();
+    if (at === 'section') return presses;
+    if (at !== 'chip') continue;
+    await page.keyboard.press('Enter');
+    return (await focus()) === 'section' ? presses + 1 : null;
   }
   return null;
 }
@@ -420,8 +433,10 @@ async function measure(browser, base) {
       firstTableTop: 'page top of the first main table',
       periodActivityTop: 'page top of main [aria-label="Period activity"]',
       tabPressesToPeriodActivity:
-        'Tab presses from a freshly loaded /repos until focus is inside Period activity; null after ' +
-        tabPressLimit,
+        'key presses from a freshly loaded /repos until focus is inside Period activity: Tab, and ' +
+        'one Enter on the "Period activity" section chip where the page has one; null after ' +
+        tabPressLimit +
+        ' Tab presses or when that Enter leaves focus outside the section',
       fontPairs:
         'distinct computed font-size / font-weight of visible text nodes over typeSampleIds; the uppercase variant also keys uppercase text by letter-spacing',
       inAppLinks: 'same-origin a[href] values that are not fragment-only',

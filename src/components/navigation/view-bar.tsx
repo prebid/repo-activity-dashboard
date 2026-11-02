@@ -27,9 +27,12 @@ export function ViewBar({
 }) {
   const row = useRef<HTMLDivElement>(null);
   // Reveals a current tab once, when it first renders, so a tab row the reader scrolled stays put.
+  // A subpage marks the list it belongs to with aria-current="true".
   const revealed = useRef<readonly Element[]>([]);
   useEffect(() => {
-    const current = [...row.current!.querySelectorAll('nav [aria-current="page"]')];
+    const current = [
+      ...row.current!.querySelectorAll('nav [aria-current="page"], nav [aria-current="true"]'),
+    ];
     if (current.every((tab) => revealed.current.includes(tab))) return;
     revealed.current = current;
     current.forEach(reveal);

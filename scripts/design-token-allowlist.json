@@ -8,7 +8,7 @@
       "property": "text-2xl",
       "value": "text-2xl",
       "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+      "reason": "Deferred while AWS access is out: the branded setup page (SHELL-05) waits until the authentication pages may change beyond presentation"
     },
     {
       "file": "src/components/ui/table.tsx",
@@ -35,7 +35,7 @@
       "property": "text-3xl",
       "value": "text-3xl",
       "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
+      "reason": "The administrator Users page is outside the redesign (SHELL-16 withdrawn, P3 decision 8)"
     }
   ]
 }

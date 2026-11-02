@@ -43,7 +43,7 @@ const phases = ['P2', 'P3', 'P4'];
 /** Phases already merged; an allowlist entry owned by one fails. @type {readonly string[]} */
 export const completedPhases = Object.freeze(['P1', 'P2', 'P3']);
 /** The unmodelled sites in the tree today; lowered as values become readable or are removed. */
-export const unmodelledCeiling = 68;
+export const unmodelledCeiling = 67;
 /** @param {string} list space-separated words */
 const words = (list) => list.split(' ');
 const keywords = new Set(words('inherit initial unset revert revert-layer'));

@@ -30,7 +30,8 @@
   white-space: nowrap;
 }
 .tabs a:hover,
-.tabs a[aria-current='page'] {
+.tabs a[aria-current='page'],
+.tabs a[aria-current='true'] {
   color: var(--foreground);
 }
 /* Inside the outline, because the scrolling row clips anything drawn past its edges. */
@@ -61,7 +62,10 @@
 .tabs:not([data-variant='segmented']) a[aria-current='page'] {
   font-weight: 700;
 }
-.tabs:not([data-variant='segmented']) a[aria-current='page']::after {
+/* aria-current='true' marks the list a subpage belongs to: the underline and ink without the
+   weight, so the subpage is not read as the list itself. */
+.tabs:not([data-variant='segmented']) a[aria-current='page']::after,
+.tabs:not([data-variant='segmented']) a[aria-current='true']::after {
   content: '';
   position: absolute;
   right: 0;

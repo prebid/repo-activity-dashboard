@@ -251,6 +251,29 @@ describe('ViewBar', () => {
     expect(left).toHaveBeenCalledTimes(2);
   });
 
+  it('scrolls to the list a subpage belongs to when no tab is the current page', () => {
+    vi.spyOn(Element.prototype, 'scrollWidth', 'get').mockReturnValue(600);
+    vi.spyOn(Element.prototype, 'clientWidth', 'get').mockReturnValue(200);
+    const left = vi.spyOn(Element.prototype, 'scrollLeft', 'set');
+    tops = {};
+    boxes.mockImplementation(function (this: Element) {
+      const box = this.getAttribute('aria-current') === 'true' ? [400, 100] : [0, 200];
+      return { left: box[0], right: box[0] + box[1], width: box[1] } as DOMRect;
+    });
+    render(
+      <ViewBar>
+        <ViewTabs label="Repository lists">
+          <Link href="/repos/prebidjs">Pull requests</Link>
+          <Link href="/repos/prebidjs?kind=issues" aria-current="true">
+            Issues
+          </Link>
+        </ViewTabs>
+      </ViewBar>,
+    );
+    expect(left).toHaveBeenCalledTimes(1);
+    expect(left).toHaveBeenLastCalledWith(350);
+  });
+
   it('leaves a tab row alone when it fits or its current tab is in view', () => {
     const left = vi.spyOn(Element.prototype, 'scrollLeft', 'set');
     render(<Page />);
