@@ -5,10 +5,6 @@
   background: var(--prebid-background);
   color: var(--prebid-ink);
 }
-/* Short paragraphs end on more than one word; :where() lets .subtitle balance its lines instead. */
-.surface :where(p) {
-  text-wrap: pretty;
-}
 
 .appearance {
   position: absolute;

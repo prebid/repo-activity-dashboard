@@ -26,7 +26,6 @@ import {
   ContributionReportViewTabs,
   ContributionSubjectAvatar,
 } from './contribution-header';
-import type { DataColumn } from '@/components/tables/table-columns';
 import { ContributionNavigationLink, coreMetricHeading } from './contribution-columns';
 
 /**
@@ -45,18 +44,12 @@ export interface ContributionTimelineNavigation {
 }
 
 /**
- * An Over time metric with the report table's display-only heading. `TimelineTable` spreads each
- * metric into its column, so the heading reaches the screen and never metric names, Columns, the
- * CSV dialog or CSV headers.
- */
-type ContributionTimelineMetric = TimelineMetricDefinition &
-  Pick<DataColumn<unknown>, 'displayGroup'>;
-/**
  * The Over time metric columns in each lens: every report metric, with the lens's three shown by
- * default (decisions C5 and D22); the rest are in Columns.
+ * default (decisions C5 and D22); the rest are in Columns. Core metrics carry the report table's
+ * display-only headings.
  */
 export const contributionTimelineMetrics: Readonly<
-  Record<ContributionLens, ContributionTimelineMetric[]>
+  Record<ContributionLens, TimelineMetricDefinition[]>
 > = Object.fromEntries(
   contributionLenses.map((lens) => [
     lens,
@@ -74,7 +67,7 @@ export const contributionTimelineMetrics: Readonly<
       }),
     ),
   ]),
-) as Record<ContributionLens, ContributionTimelineMetric[]>;
+) as Record<ContributionLens, TimelineMetricDefinition[]>;
 export function ContributionTimelineView({
   report,
   area,

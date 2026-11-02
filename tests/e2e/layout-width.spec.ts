@@ -570,6 +570,44 @@ test('toolbar summaries wrap whole facts and never start a line with a separator
   }
 });
 
+test('the Current backlog description keeps its separator on the Open now line', async ({
+  page,
+}) => {
+  await login(page);
+  for (const id of ['repos-overview', 'repos-comparison'] satisfies InventoryId[]) {
+    for (const width of [320, 390]) {
+      const at = `${id} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(pathOf(id));
+      await page.evaluate(() => document.fonts.ready);
+      const label = page.getByText('Open now', { exact: true });
+      // Its one separator stays on the label's line, including at 320px, where the line wraps.
+      const lines = await label.evaluate((element) => {
+        const range = document.createRange();
+        const top = (node: Text, offset: number) => {
+          range.setStart(node, offset);
+          range.setEnd(node, offset + 1);
+          return range.getBoundingClientRect().top;
+        };
+        const description = element.parentElement!.parentElement!;
+        const walker = document.createTreeWalker(description, NodeFilter.SHOW_TEXT);
+        const texts: Text[] = [];
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) texts.push(node as Text);
+        const dots = texts.filter((text) => text.data.includes('·'));
+        const last = texts[texts.length - 1];
+        return {
+          dots: dots.map((text) => top(text, text.data.indexOf('·'))),
+          label: top(element.firstChild as Text, 0),
+          end: top(last, last.data.length - 1),
+        };
+      });
+      if (width === 320) expect(lines.end, at).toBeGreaterThan(lines.label + 1);
+      expect(lines.dots.length, at).toBe(1);
+      expect(Math.abs(lines.dots[0] - lines.label), at).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
 test('the setup card clears the theme button on phones', async ({ page }) => {
   await page.goto('/auth/setup');
   const card = page

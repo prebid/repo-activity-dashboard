@@ -174,6 +174,35 @@ test('a wrapped table title keeps its help button after its last word at 320px',
   expect(centre).toBeLessThanOrEqual(last.bottom);
 });
 
+test('a wrapped table footer note does not end on a word alone at 320px', async ({ page }) => {
+  await signIn(page, 320);
+  await page.goto(viewPath('repo-docs-open-issues'));
+  const note = page.getByText('Sorted by Created (descending); its column is hidden.', {
+    exact: true,
+  });
+  await expect(note).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const lines = await note.evaluate((paragraph) => {
+    const text = paragraph.firstChild as Text;
+    const range = document.createRange();
+    const top = (at: number) => {
+      range.setStart(text, at);
+      range.setEnd(text, at + 1);
+      return range.getBoundingClientRect().top;
+    };
+    const words = [...text.data.matchAll(/\S+/g)];
+    const [previous, last] = words.slice(-2);
+    return {
+      first: top(0),
+      previous: top(previous.index + previous[0].length - 1),
+      last: top(last.index),
+    };
+  });
+  // The note wraps at this width; its last line holds more than its last word.
+  expect(lines.last).toBeGreaterThan(lines.first + 1);
+  expect(Math.abs(lines.last - lines.previous)).toBeLessThan(1);
+});
+
 const authorRecords =
   '/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors';
 
