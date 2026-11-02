@@ -1,12 +1,24 @@
 import { expect, it } from 'vitest';
 import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
-import { drilldownValues } from '@/lib/presentation/repository-drilldown';
-import { legacyQuery } from '../support/legacy-query';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { backlogMetricIds, activityMetricIds, agingThresholds } from '@/models/repository-overview';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 const samples = repositoryOverviewSamples();
 const repo = samples.repositories[0].repository;
+/** An old drilldown link's query, in the form the pre-codec Summary wrote it. */
+function legacyDrilldown(selection: DrilldownSelection, returnTo: string): URLSearchParams {
+  const params = new URLSearchParams({ scope: selection.scope, metric: selection.metric });
+  if (selection.scope === 'current' && selection.metric === 'agedPrs')
+    params.set('age', String(selection.ageDays));
+  if (selection.scope === 'period') {
+    params.set('from', selection.range.start);
+    params.set('to', selection.range.end);
+    params.set('inclusive', selection.range.endInclusive ? '1' : '0');
+    if (selection.branch) params.set('branch', selection.branch);
+  }
+  params.set('returnTo', returnTo);
+  return params;
+}
 it('defaults direct visits to current open records without restoring a historical scope', () => {
   for (const [query, metric] of [
     ['', 'totalOpenPrs'],
@@ -41,21 +53,9 @@ it('preserves every existing metric entry and routes supporting lists separately
   expect(selections).toHaveLength(37);
   for (const selection of selections) {
     const drilldown = { selection, returnTo: '/repos?period=this-week&period2=last-week&age=60' };
-    // An old link, written as the frozen writers wrote it.
-    const url = new URL(
-      legacyQuery('/repos/[slug]', '/repos/' + repo.slug, drilldownValues(selection), {
-        asOf: samples.asOf,
-        branch: () => repo.primaryBranch,
-      }),
-      'https://dashboard.invalid',
-    );
-    if (!url.searchParams.has('metric')) {
-      url.searchParams.set('scope', 'current');
-      url.searchParams.set('metric', selection.metric);
-    }
-    url.searchParams.set('returnTo', drilldown.returnTo);
-    url.searchParams.set('view', 'issues'); // explicit metric still owns the destination
-    const result = readRepositoryPageEntry(url.searchParams, repo);
+    const params = legacyDrilldown(selection, drilldown.returnTo);
+    params.set('view', 'issues'); // explicit metric still owns the destination
+    const result = readRepositoryPageEntry(params, repo);
     const supporting = [
       'prAuthors',
       'issueAuthors',
