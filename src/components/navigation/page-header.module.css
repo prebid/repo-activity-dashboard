@@ -117,7 +117,28 @@
 
 .source {
   grid-area: source;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
   min-width: 0;
+}
+/* Prepared sample data, labelled until live reporting data replaces it. */
+.sample {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--prebid-info-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-info-bg);
+  color: var(--prebid-info-ink);
+  font-size: var(--prebid-text-small);
+  font-weight: 600;
+  line-height: var(--prebid-leading-small);
+  white-space: nowrap;
 }
 .chip {
   display: inline-flex;
@@ -144,7 +165,16 @@
   font-weight: var(--prebid-number-weight);
 }
 
-/* At phone width the chip takes its own row under the title, which keeps the full width. */
+/* Between phone and desktop widths the chips stack on the right, so the title column keeps its
+   width and its one-line meta row does not scroll. */
+@media (min-width: 601px) and (max-width: 1000px) {
+  .source {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+}
+/* At phone width the chips take their own row under the title, which keeps the full width. */
 @media (max-width: 600px) {
   .header {
     grid-template-columns: minmax(0, 1fr);
@@ -153,6 +183,9 @@
       'subject'
       'source';
     gap: 8px;
+  }
+  .source {
+    justify-content: flex-start;
   }
   .subject {
     gap: 12px;
