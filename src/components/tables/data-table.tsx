@@ -226,6 +226,10 @@ export function DataTable<T extends { id: string }>({
         'data-more',
         node.scrollLeft + node.clientWidth < node.scrollWidth - 1,
       );
+      wrapper.toggleAttribute(
+        'data-more-below',
+        node.scrollTop + node.clientHeight < node.scrollHeight - 1,
+      );
     };
     const thead = node.querySelector('thead')!;
     const measure = () => {
@@ -392,6 +396,8 @@ export function DataTable<T extends { id: string }>({
             <h2 className={styles.title} tabIndex={anchor ? -1 : undefined}>
               {title}
             </h2>
+            {/* A word joiner, so the help button stays on the title's last line in WebKit too. */}
+            {'\u2060'}
             <ColumnDefinitions title={title} columns={visibleColumns} disabled={!interactive} />
           </div>
           {description && <div className={styles.description}>{description}</div>}

@@ -49,6 +49,13 @@ function Activity({ activity }: { activity: LatestRecordActivity | null }) {
     <span title="Latest activity unavailable">—</span>
   );
 }
+// Short text values keep a declared width, so only the growing title takes the surplus.
+const shortTextColumnIds: ReadonlySet<string> = new Set([
+  'baseBranch',
+  'agentReviewer',
+  'botReviewer',
+  'latestActor',
+]);
 function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] {
   return columns.map((column) => {
     if (column.id === 'number')
@@ -77,7 +84,9 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
     if (column.id === 'author')
       return {
         ...column,
-        width: 170,
+        // Beside the 32px avatar, a handle as long as "sample-author-3[bot]" and its
+        // external-link icon keep one line.
+        width: 224,
         cell: (row: T) => (
           <div className={styles.account}>
             <Avatar kind="person" name={row.author} accountType={row.authorType} size={32} />
@@ -109,7 +118,9 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
       width:
         column.id === 'createdAt' || column.id === 'mergedAt' || column.id === 'closedAt'
           ? 128
-          : column.width,
+          : shortTextColumnIds.has(column.id)
+            ? 120
+            : column.width,
     };
   });
 }
@@ -118,6 +129,7 @@ function authorTypeColumn<T extends Row>(): DataColumn<T> {
     id: 'authorType',
     selectionGroup: 'Identity',
     label: 'Author category',
+    width: 120,
     value: (row) => (row.authorType === null ? null : authorLabels[row.authorType]),
   };
 }

@@ -1,6 +1,7 @@
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
+import { inventory, type InventoryId } from '../support/views';
 const context =
   '/repos?repo=repo-prebidjs&repo=repo-salesagent&period=this-month&period2=last-month&age=60&activity.sort=prsOpened&activity.dir=desc';
 const range = 'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
@@ -471,5 +472,114 @@ test('pending author search cannot cancel navigation while the destination respo
   } finally {
     release();
     await page.unrouteAll({ behavior: 'wait' });
+  }
+});
+
+const viewPath = (id: InventoryId) => inventory.find((view) => view.id === id)!.path;
+test('merged PR authors keep their handle on one line and short text columns keep their width', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await page.goto(viewPath('repo-duration-metric'));
+  const area = page.getByRole('region', { name: /table scroll area$/ });
+  const links = area.locator('tbody [data-column="author"] a[target="_blank"]');
+  await expect(links.first()).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const handles = await links.evaluateAll((elements) =>
+    elements.map((link) => {
+      const tops = new Set<number>();
+      const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const rect of range.getClientRects())
+          if (rect.width > 0) tops.add(Math.round(rect.top));
+      }
+      return { handle: link.textContent, lines: tops.size };
+    }),
+  );
+  // The sample's longest handle is a bot's.
+  expect(handles.map((entry) => entry.handle)).toContain('sample-author-3[bot]');
+  expect(handles.filter((entry) => entry.lines !== 1)).toEqual([]);
+  const base = (await area
+    .getByRole('columnheader', { name: 'Base branch', exact: true })
+    .boundingBox())!;
+  expect(base.width).toBeLessThanOrEqual(121);
+});
+test('an author list sets the account name level with the other values in its row', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await page.goto(viewPath('repo-authors-metric'));
+  const row = page
+    .getByRole('region', { name: /table scroll area$/ })
+    .locator('tbody tr')
+    .first();
+  await expect(row).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const tops = await row.evaluate((element) => {
+    // The top of an element's first visible text box.
+    const top = (container: Element) => {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!node.textContent?.trim()) continue;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        return range.getClientRects()[0].top;
+      }
+      return NaN;
+    };
+    return {
+      account: top(element.querySelector('[data-column="account"] a[target="_blank"]')!),
+      type: top(element.querySelector('[data-column="accountType"]')!),
+    };
+  });
+  expect(Math.abs(tops.account - tops.type)).toBeLessThanOrEqual(1);
+});
+test("an account link's external-link icon stays on the name's last line at 390px", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await login(page);
+  await page.goto(viewPath('repo-credits-metric'));
+  const links = page
+    .getByRole('region', { name: /table scroll area$/ })
+    .locator('tbody [data-column="account"] a[target="_blank"]');
+  await expect(links.first()).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const placements = await links.evaluateAll((elements) =>
+    elements.map((link) => {
+      const svg = link.querySelector('svg')!;
+      const icon = svg.getBoundingClientRect();
+      // The name's text boxes, which come before the icon.
+      const name: DOMRect[] = [];
+      const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!(node.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING)) break;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        name.push(...[...range.getClientRects()].filter((rect) => rect.width > 0));
+      }
+      const last = name[name.length - 1];
+      return {
+        name: link.textContent ?? '',
+        lines: new Set(name.map((rect) => Math.round(rect.top))).size,
+        centre: icon.top + icon.height / 2,
+        gap: icon.left - last.right,
+        top: last.top,
+        bottom: last.bottom,
+      };
+    }),
+  );
+  // Some names wrap at this width, and "sample-agent" fills its first line.
+  expect(placements.some((placement) => placement.lines > 1)).toBe(true);
+  expect(placements.map((placement) => placement.name)).toContain('sample-agent');
+  for (const placement of placements) {
+    expect(placement.centre, placement.name).toBeGreaterThanOrEqual(placement.top);
+    expect(placement.centre, placement.name).toBeLessThanOrEqual(placement.bottom);
+    expect(placement.gap, placement.name).toBeGreaterThanOrEqual(0);
+    expect(placement.gap, placement.name).toBeLessThanOrEqual(8);
   }
 });
