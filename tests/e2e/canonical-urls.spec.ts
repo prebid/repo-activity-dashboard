@@ -83,6 +83,25 @@ test('literal comma, colon and at survive a link click and a server navigation',
   expect(await page.locator('a[href*="%25"]').count()).toBe(0);
 });
 
+test('a scope change made through a server navigation keeps the address fragment', async ({
+  page,
+}) => {
+  await login(page);
+  // A record scope change loads another cohort through router.push.
+  await page.goto('/repos/prebidjs#period-activity');
+  await page.getByRole('combobox', { name: 'Record scope', exact: true }).selectOption('created');
+  await expect(page).toHaveURL(
+    origin +
+      '/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prsOpened#period-activity',
+  );
+  // So does a Timeline grouping change.
+  await page.goto('/repos?timeline#period-activity');
+  await expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
+  await page.getByLabel('Group by', { exact: true }).selectOption('quarter');
+  await expect(page).toHaveURL(origin + '/repos?timeline&group=quarter#period-activity');
+  await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('quarter');
+});
+
 test('a 307 during an in-app navigation replaces the entry it lands on', async ({ page }) => {
   await login(page);
   const before = await page.evaluate(() => history.length);

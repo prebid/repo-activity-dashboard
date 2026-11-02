@@ -18,9 +18,9 @@ export interface InventoryView {
   readonly uses: readonly ViewUse[];
 }
 
-const octoberRange =
-  'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
-const yearRange = 'from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1';
+// A period pinned to the samples' snapshot, as the Summary's drilldown links write it.
+const thisMonth = 'period=this-month&at=2026-10-24T12:00Z';
+const thisYear = 'period=this-year&at=2026-10-24T12:00Z';
 
 export const signInPages = [
   {
@@ -51,7 +51,7 @@ export const reportViews = [
   },
   {
     id: 'repos-comparison',
-    path: '/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90',
+    path: '/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90',
     access: 'signed-in',
     page: 'repos-summary',
     uses: ['visual-review', 'reflow', 'activity-region'],
@@ -93,42 +93,43 @@ export const reportViews = [
   },
   {
     id: 'repo-open-issues-metric',
-    path: '/repos/prebidjs?scope=current&metric=openIssues',
+    // The Summary's open-issues link is the Issues tab; the pinned form keeps the two rows apart.
+    path: '/repos/prebidjs?view=issues&v=1',
     access: 'signed-in',
     page: 'repo-issues',
     uses: ['layout-width'],
   },
   {
     id: 'repo-docs-open-issues',
-    path: '/repos/prebiddocs?scope=current&metric=openIssues',
+    path: '/repos/prebiddocs?view=issues',
     access: 'signed-in',
     page: 'repo-docs-open-issues',
     uses: ['visual-review'],
   },
   {
     id: 'repo-approvals-metric',
-    path: '/repos/prebidjs?scope=current&metric=humanApprovals0',
+    path: '/repos/prebidjs?metric=humanApprovals0',
     access: 'signed-in',
     page: 'repo-approvals',
     uses: ['visual-review'],
   },
   {
     id: 'repo-authors-metric',
-    path: '/repos/prebidjs?scope=period&metric=prAuthors&' + octoberRange,
+    path: '/repos/prebidjs?' + thisMonth + '&metric=prAuthors',
     access: 'signed-in',
     page: 'repo-authors',
     uses: ['visual-review', 'reflow', 'type-sample'],
   },
   {
     id: 'repo-credits-metric',
-    path: '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&' + octoberRange,
+    path: '/repos/prebidjs?' + thisMonth + '&metric=agentFeedbackCredits',
     access: 'signed-in',
     page: 'repo-credits',
     uses: ['visual-review'],
   },
   {
     id: 'repo-duration-metric',
-    path: '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&' + octoberRange,
+    path: '/repos/prebidjs?' + thisMonth + '&metric=medianMergeDays',
     access: 'signed-in',
     page: 'repo-durations',
     uses: ['visual-review', 'reflow'],
@@ -149,14 +150,14 @@ export const reportViews = [
   },
   {
     id: 'repo-author',
-    path: '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&' + yearRange,
+    path: '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=prAuthors',
     access: 'signed-in',
     page: 'repo-author-prs',
     uses: ['visual-review', 'layout-width', 'type-sample'],
   },
   {
     id: 'repo-author-issues',
-    path: '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&' + yearRange,
+    path: '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=issueAuthors',
     access: 'signed-in',
     page: 'repo-author-issues',
     uses: ['visual-review'],

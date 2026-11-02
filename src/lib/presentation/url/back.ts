@@ -405,7 +405,8 @@ export type BackMode = 'child' | 'back' | 'level';
 /**
  * Append `back` frames to an href within the budget. At most 8 frames; their `&back=` parameters
  * take at most 1,000 characters and the whole href at most 7,500 bytes. Farther frames are dropped
- * first, then trailing `-` frames.
+ * first, then trailing `-` frames. When a dropped frame is not `-`, the kept frames end with `!`, so
+ * the first dropped ancestor shows as unavailable instead of its derived default.
  * - `child`: a link one level down; the first frame is never dropped, and the link is refused
  *   (null) when it cannot fit.
  * - `back`: a link to an ancestor; every frame may be dropped.
@@ -429,21 +430,25 @@ function appendBack(base: string, frames: readonly string[]): string {
 }
 /** The frames `withBack` keeps for a base href, or null when the link is refused. */
 export function fitBack(base: string, frames: readonly string[], mode: BackMode): string[] | null {
-  const trim = (list: string[]) => {
-    while (list.length && list[list.length - 1] === derivedFrame) list.pop();
-    return list;
-  };
-  const kept = trim(frames.slice(0, backFrameLimit));
-  // The immediate parent is never partially reconstructed: in `child` and `level` it stays whole.
-  const pinned = mode !== 'back' && kept.length ? 1 : 0;
-  for (;;) {
+  const fits = (kept: readonly string[]) => {
     const budgeted = kept.slice(mode === 'level' ? 1 : 0);
     const share = budgeted.reduce((sum, frame) => sum + '&back='.length + frame.length, 0);
-    if (share <= backBudget && contributionUrlFits(appendBack(base, kept))) return kept;
-    if (kept.length <= pinned) return null;
-    kept.pop();
-    trim(kept);
+    return share <= backBudget && contributionUrlFits(appendBack(base, kept));
+  };
+  // The immediate parent is never partially reconstructed: in `child` and `level` it stays whole.
+  const least = mode !== 'back' && frames.length ? 1 : 0;
+  for (let count = Math.min(frames.length, backFrameLimit); count >= least; count--) {
+    const kept = frames.slice(0, count);
+    // A dropped ancestor that is not derived cannot be restored, and its derived default would be
+    // broader: `!` marks it, and the frames before it keep their positions.
+    const lost = frames.slice(count).some((frame) => frame !== derivedFrame);
+    if (lost && !kept.includes(unavailableFrame)) {
+      if (count === backFrameLimit) continue;
+      kept.push(unavailableFrame);
+    } else while (kept.length && kept[kept.length - 1] === derivedFrame) kept.pop();
+    if (fits(kept)) return kept;
   }
+  return null;
 }
 /**
  * A view's canonical href with its `back` frames within the budget for a mode; null when the mode

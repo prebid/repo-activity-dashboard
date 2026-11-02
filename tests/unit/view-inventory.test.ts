@@ -28,9 +28,8 @@ const origin = 'http://inventory.test';
 const parse = (argv: readonly string[]) => parseCaptureArguments(argv, { root, cwd: root, now });
 const ids = (views: readonly InventoryView[]) => views.map((view) => view.id);
 const paths = (views: readonly InventoryView[]) => views.map((view) => view.path).sort();
-const octoberRange =
-  'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
-const yearRange = 'from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1';
+const thisMonth = 'period=this-month&at=2026-10-24T12:00Z';
+const thisYear = 'period=this-year&at=2026-10-24T12:00Z';
 
 describe('view inventory', () => {
   it('lists four sign-in pages and thirty report views under unique, well-formed ids and paths', () => {
@@ -116,14 +115,14 @@ describe('view inventory', () => {
     ]);
     expect(paths(viewsFor('visual-review'))).toEqual(
       [
-        '/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90',
-        '/repos/prebidjs?scope=current&metric=humanApprovals0',
-        '/repos/prebiddocs?scope=current&metric=openIssues',
-        '/repos/prebidjs?scope=period&metric=prAuthors&' + octoberRange,
-        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&' + yearRange,
-        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&' + yearRange,
-        '/repos/prebidjs?scope=period&metric=agentFeedbackCredits&' + octoberRange,
-        '/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&' + octoberRange,
+        '/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90',
+        '/repos/prebidjs?metric=humanApprovals0',
+        '/repos/prebiddocs?view=issues',
+        '/repos/prebidjs?' + thisMonth + '&metric=prAuthors',
+        '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=prAuthors',
+        '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=issueAuthors',
+        '/repos/prebidjs?' + thisMonth + '&metric=agentFeedbackCredits',
+        '/repos/prebidjs?' + thisMonth + '&metric=medianMergeDays',
       ].sort(),
     );
     expect(ids(viewsFor('reflow'))).toEqual([
@@ -136,9 +135,9 @@ describe('view inventory', () => {
         '/repos',
         '/repos?timeline',
         '/repos/prebidjs',
-        '/repos/prebidjs?scope=current&metric=openIssues',
+        '/repos/prebidjs?view=issues&v=1',
         '/repos/prebidjs?timeline',
-        '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&' + yearRange,
+        '/repos/prebidjs/authors/sample-author-2?' + thisYear + '&metric=prAuthors',
         '/contributors',
         '/contributors?timeline',
         '/companies',

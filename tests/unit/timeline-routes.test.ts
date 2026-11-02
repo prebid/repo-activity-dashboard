@@ -221,12 +221,16 @@ describe('Timeline loader checks behind registry values', () => {
     ])
       expect((await timelineView(view(href))).status, href).toBe('invalid');
   });
-  it('load a matrix of mixed record kinds and render an entry whose saved values add nothing', async () => {
+  // Building the mixed matrix sample takes about a second on a developer machine and over five
+  // seconds on a loaded CI runner, past Vitest's default timeout.
+  it('load a matrix of mixed record kinds', { timeout: 15_000 }, async () => {
     const mixed = await timelineView(view('/repos?timeline&metric=prsOpened,issuesOpened'));
     expect(mixed.status === 'ready' && 'matrix' in mixed && mixed.matrix.scope.metrics).toEqual([
       'prsOpened',
       'issuesOpened',
     ]);
+  });
+  it('render a matrix entry whose saved values add nothing', async () => {
     const entry = await timelineView(view('/repos?timeline'), {
       entry: true,
       preferences: snapshot('repositories', { overview: 'kept' }),

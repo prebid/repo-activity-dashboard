@@ -5,6 +5,7 @@ import {
   derive,
   encodeFrame,
   escapeFrameText,
+  fitBack,
   rebaseBack,
   resolveBack,
   sameView,
@@ -359,12 +360,43 @@ describe('withBack', () => {
       '/repos/prebidjs?view=issues&back=~repo:a#period-activity',
     );
     expect(withBack('/x', ['-', '-'], 'child')).toBe('/x');
-    const nine = Array.from({ length: 9 }, (_, index) => '~p:' + index);
-    expect(withBack('/x', nine, 'back')!.match(/back=/g)).toHaveLength(8);
-    // 990 + 6 fits; a second frame does not, so the farthest is dropped.
-    expect(withBack('/x', [frame(990), frame(10)], 'child')).toBe('/x?back=' + frame(990));
+    // A dropped derived frame needs no mark: an absent frame means the derived parent.
+    expect(withBack('/x', [frame(990), '-'], 'child')).toBe('/x?back=' + frame(990));
     expect(withBack('/x', [frame(995), frame(10)], 'child')).toBeNull();
-    expect(withBack('/x', [frame(995), '-', frame(10)], 'back')).toBe('/x');
+  });
+
+  it('marks the first dropped ancestor unavailable rather than deriving it', () => {
+    const query = (frames: string[]) => '/x?' + frames.map((value) => 'back=' + value).join('&');
+    // Past the eighth value: seven frames and the mark fill the eight.
+    const nine = Array.from({ length: 9 }, (_, index) => '~p:' + index);
+    expect(withBack('/x', nine, 'back')).toBe(query([...nine.slice(0, 7), '!']));
+    expect(withBack('/x', nine, 'level')).toBe(query([...nine.slice(0, 7), '!']));
+    expect(withBack('/x', [...nine.slice(0, 8), '-'], 'level')).toBe(query(nine.slice(0, 8)));
+    // Over the 1,000-character share: 986 + 7 fits, 986 + 16 does not.
+    expect(withBack('/x', [frame(980), frame(10)], 'child')).toBe(query([frame(980), '!']));
+    // A derived frame before the first dropped one keeps the mark at its position.
+    expect(withBack('/x', [frame(970), '-', frame(30)], 'child')).toBe(
+      query([frame(970), '-', '!']),
+    );
+    expect(withBack('/x', [frame(995), '-', frame(10)], 'back')).toBe(query(['!']));
+    // The immediate parent fits only without the mark its dropped parent needs: no link.
+    expect(withBack('/x', [frame(990), frame(10)], 'child')).toBeNull();
+    // A frame after an unavailable one is never resolved, so dropping it needs no second mark.
+    expect(withBack('/x', [frame(980), '!', frame(30)], 'child')).toBe(query([frame(980), '!']));
+
+    // A searched list whose frame takes 979 of the 1,000 characters.
+    const list =
+      '/repos/prebidjs~metric:prsOpened~period:this-month~at:2026-10-24T12:00Z~labels:' +
+      'y'.repeat(447) +
+      '~q:' +
+      'x'.repeat(450);
+    const kept = fitBack('/repos/prebidjs?timeline', [list, '~repo:prebidjs'], 'child');
+    expect(kept).toEqual([list, '!']);
+    const [parent, top, ...rest] = resolveBack(repoPage({ timeline: true, back: kept! }));
+    expect(parent).toMatchObject({ available: true, view: { route: '/repos/[slug]' } });
+    // Without the mark this crumb would open the derived Summary, a broader report.
+    expect(top).toEqual({ available: false });
+    expect(rest).toEqual([]);
   });
 
   it('exempts the first frame of the page’s own address from the share but not the cap', () => {
