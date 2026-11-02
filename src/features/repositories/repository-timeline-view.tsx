@@ -12,10 +12,8 @@ import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { countLabel } from '@/lib/presentation/format';
 import { TimelineChart } from '@/components/charts/timeline-chart';
 import { RepositoryHeader } from './repository-header';
-import { repositoryTimelineReturnTo } from '@/lib/presentation/timeline-navigation';
 import { summaryReturnTo } from '@/lib/presentation/repository-drilldown';
-import { parseQuery } from '@/lib/presentation/url/codec';
-import { matchRoute } from '@/lib/presentation/url/registry';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
 import { repositoryTimelineMetricDefinitions } from './repository-timeline-columns';
 import styles from '@/components/reporting/timeline-layout.module.css';
 import type { TimelineTableControls } from '@/components/reporting/timeline-table';
@@ -23,15 +21,18 @@ import type { TimelineChartControls } from '@/components/charts/timeline-chart';
 
 /**
  * The Summary a repository Timeline returns to through the page it was opened from: a repository
- * list, insight or author page names its own Summary; a matrix parent names its Summary itself.
+ * list, insight or author page names its own Summary; a matrix parent's Summary is its own parent.
+ * `/repos` when the Timeline names no parent (the crumb opens the viewer's saved Summary, as the
+ * masthead does), null when the parent cannot be restored.
  */
 function parentSummary(parent: string | null | undefined): string | null {
-  const url = parent ? new URL(parent, 'https://dashboard.invalid') : null;
-  const matched = url && matchRoute(url.pathname);
-  const parsed = matched && matched.route !== '/repos' && parseQuery(matched.route, url.search);
-  return parsed && parsed.kind === 'canonical'
-    ? summaryReturnTo({ ...matched, values: parsed.values })
-    : repositoryTimelineReturnTo(parent);
+  if (parent === undefined) return '/repos';
+  const view = parent === null ? null : viewOf(parent);
+  if (!view) return null;
+  if (view.route !== '/repos') return summaryReturnTo(view);
+  if (view.values.back === undefined && view.values.repo === undefined) return '/repos';
+  const [summary] = resolveBack(view);
+  return summary?.available ? summary.href : null;
 }
 export function RepositoryTimelineView({
   report,
@@ -71,14 +72,14 @@ export function RepositoryTimelineView({
         activeKind="timeline"
         timelineHref={href}
         parentLink={
-          parent
-            ? {
+          parent === undefined
+            ? undefined
+            : {
                 href: parent,
-                label: parent.startsWith('/repos?')
+                label: parent?.startsWith('/repos?')
                   ? 'Repository timeline'
                   : 'Previous repository view',
               }
-            : undefined
         }
         sections={[
           { id: 'trend', label: 'Trend' },

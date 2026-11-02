@@ -21,27 +21,11 @@ import {
   withTimelineAvailability,
 } from './reporting-timeline';
 import { inDateRange } from './reporting-period';
-import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
+import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import type { TimelineViewState } from '@/models/timeline-controls';
-import {
-  contributionReturnHref,
-  contributionUrlFits,
-  withContributionReturn,
-} from './contribution-return';
-import { contributionHref } from './contribution-navigation';
-import { writeContributionSettings } from './contribution-settings';
-import { contributionColumnVisibility, contributionScopeInput } from './contribution-url';
-import { writeTableColumns } from './table-column-preferences';
-import { writeTableQuery } from './table-query';
-import { writeTimelineView } from './timeline-controls';
-import { contributionTimelineEntry } from './timeline-navigation';
-import { resolveBack, type UrlView } from './url/back';
-import { encodeQueryValue, legacySearchParams, queryPairs } from './url/codec';
-import { columnTableOf, contributionTableOf } from './url/defaults';
-import { routePath, screenOf } from './url/registry';
-
-const origin = 'https://dashboard.invalid';
+import { contributionScopeValues, omitValues } from './contribution-url';
+import { childViewHref, viewHref, viewOf, type UrlView } from './url/back';
+import { screenOf } from './url/registry';
 
 /** Partition supplied once-attributed facts; no GitHub history or client-side report calculation. */
 export function selectContributionTimeline(
@@ -135,118 +119,40 @@ export function contributionTimelineDetail(
 }
 
 /**
- * An overview's Over time in another area: the same scope and Timeline view, without the return
- * trail, whose report belongs to the area being left. Null when the URL does not fit.
+ * An overview's Over time in another area: the same scope and Timeline view, without return
+ * context, which belongs to the area being left. Null for another href or when it does not fit.
  */
 export function contributionTimelineAreaHref(href: string, area: ContributionArea): string | null {
-  const query = legacySearchParams(
-    queryPairs(new URL(href, origin).search).filter(
-      ([key]) => key !== 'nav' && key !== 'returnTo' && key !== 'back',
-    ),
-  ).toString();
-  const result = '/' + area + (query ? '?' + query : '');
-  return contributionUrlFits(result) ? result : null;
-}
-
-/** A report view in the legacy form the Over time screens read, or null for another view. */
-function legacyReportHref(view: UrlView): string | null {
-  const { route, segments, values } = view;
-  const screen = screenOf(route, values);
-  if (screen !== 'contributionOverview' && screen !== 'contributionDetail') return null;
-  // A rendered report's period, columns and scope are valid, or the page is the invalid view.
-  const table = columnTableOf(route, values)!;
-  const settings = contributionScopeInput(values)!;
-  const kind = contributionTableOf(route, values);
-  const text = (name: string) => (typeof values[name] === 'string' ? values[name] : '');
-  let query = writeContributionSettings(
-    (['sample', 'view', 'metric'] as const)
-      .filter((name) => text(name))
-      .map((name) => name + '=' + encodeQueryValue(text(name)))
-      .join('&'),
-    settings,
-  );
-  const sort = text('sort');
-  query = writeTableQuery(
-    query,
-    kind === 'contributors' || kind === 'companies' ? 'report' : kind,
+  const view = viewOf(href);
+  if (!view || view.values.timeline !== true) return null;
+  return viewHref(
     {
-      search: text('q'),
-      ...(sort && { sort: sort.replace(/^-/, ''), descending: sort.startsWith('-') }),
-      page: Number(text('page') || 1),
+      route: area === 'contributors' ? '/contributors' : '/companies',
+      segments: {},
+      values: omitValues(view.values, ['back']),
     },
+    'level',
+    { explicit: true },
   );
-  if (values.cols)
-    query = writeTableColumns(query, kind, contributionColumnVisibility(route, values)!, table.ids);
-  if (values.zero === 'hide') query += '&members.zero=hide';
-  return routePath(route, segments) + '?' + query;
 }
+const overTimeScope = ['sample', 'lens', 'period', 'repo', 'type', 'account', 'company', 'exclude'];
 /**
- * The legacy address of a contribution Over time view, which its screens read until they read
- * codec values; null for another view or one pinned to a snapshot. A report's "Back to report"
- * opens an Over time parent at this address.
- */
-export function legacyTimelineHref(view: UrlView): string | null {
-  const { route, segments, values } = view;
-  if (screenOf(route, values) !== 'contributionTimeline' || values.at !== undefined) return null;
-  const text = (name: string) => (typeof values[name] === 'string' ? values[name] : '');
-  const sort = text('sort') || 'period';
-  const visibility = contributionColumnVisibility(route, values)!;
-  let query = writeContributionSettings(
-    text('sample') ? 'sample=' + encodeQueryValue(text('sample')) : '',
-    contributionScopeInput(values)!,
-  );
-  query = writeTimelineView(query, 'contribution', {
-    grouping: (text('group') || 'month') as TimelineViewState['grouping'],
-    kind: 'prs',
-    family: 'activity',
-    metric: 'prsAuthored',
-    chart: false,
-    sort: sort.replace(/^-/, ''),
-    descending: sort.startsWith('-'),
-    page: Number(text('page') || 1),
-    window: 1,
-    ...(values.cols && {
-      columns: Object.keys(visibility).filter((id) => visibility[id]),
-    }),
-  });
-  return routePath(route, segments) + '?' + query + (values.gap ? '&timeline.gap=1' : '');
-}
-/**
- * The Over time link of a report view. The Over time screens still read legacy keys, so the link
- * is their legacy form, carrying the report and the reports above it as its return trail; the
- * report's Report tab and "Back to report" links are answered with a 307 to the canonical form.
- * Null when the link does not fit.
+ * The Over time link of a report view: the report's scope on the same subject, with the report as
+ * its parent frame (none when the report is the one Over time derives). It is written in explicit
+ * form, so the report's scope never gives way to a saved one. Null when the link does not fit.
  */
 export function contributionTimelineHref(
   view: UrlView,
   settings: ContributionSettings,
 ): string | null {
-  const report = legacyReportHref(view);
-  if (!report) return null;
-  const chain: string[] = [];
-  for (const ancestor of resolveBack(view)) {
-    const legacy = ancestor.available ? legacyReportHref(ancestor.view) : null;
-    if (!legacy) break;
-    chain.push(legacy);
-  }
-  let parent: string | undefined;
-  for (const href of chain.reverse()) parent = withContributionReturn(href, parent) ?? href;
-  const trailed = withContributionReturn(report, parent) ?? withContributionReturn(report);
-  return trailed && contributionTimelineEntry(trailed, settings);
-}
-
-/**
- * "Back to report" on a contributor or company Over time: where the report its Report tab opens
- * returns to, which is the parent in that report's trail, or else its area with the same scope.
- */
-export function contributionTimelineReturnHref(
-  reportHref: string,
-  area: ContributionArea,
-  sample: ContributionSampleScenario,
-  settings: ContributionSettings,
-): string {
-  return contributionReturnHref(
-    new URL(reportHref, origin).searchParams,
-    contributionHref(area, sample, undefined, settings) ?? '/' + area,
+  const screen = screenOf(view.route, view.values);
+  if (screen !== 'contributionOverview' && screen !== 'contributionDetail') return null;
+  const scoped = Object.fromEntries(
+    Object.entries(view.values).filter(([name]) => overTimeScope.includes(name)),
   );
+  const child: UrlView = {
+    ...view,
+    values: { ...scoped, ...contributionScopeValues(settings), timeline: true, v: '1' },
+  };
+  return childViewHref(view, child);
 }

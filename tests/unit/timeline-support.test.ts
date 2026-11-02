@@ -1,4 +1,6 @@
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
+import { timelineQueryOf } from '../support/timeline-urls';
+vi.mock('server-only', () => ({}));
 import {
   castTimelineSample as repositoryTimelineSample,
   castTimelineMatrixSample as repositoryTimelineMatrixSample,
@@ -17,7 +19,6 @@ import {
 } from '@/lib/presentation/timeline-support';
 import {
   timelineSupportHref,
-  timelineParentQuery,
   readTimelineSupportQuery,
   timelineAuthorHref,
   timelineSupportScopeKey,
@@ -276,45 +277,44 @@ it('preserves exclusions and interval dating for comments and final merged revie
 it('keeps source, exact interval and independent nested author table state in bounded URLs', () => {
   const report = selectRepositoryTimeline(repositoryTimelineSample(), request),
     row = report.rows[9];
-  const href = timelineSupportHref(
-    '/repos/prebidjs?timeline=1&timeline.sort=prsOpened&timeline.page=2',
-    report.source,
-    'prAuthors',
-    row.interval.id,
-  )!;
-  const params = new URL(href, 'https://example.test').searchParams;
-  expect(readTimelineSupportQuery(params)).toMatchObject({
+  const parent = '/repos/prebidjs?timeline&sort=prsOpened&page=2';
+  const href = timelineSupportHref(parent, report.source, 'prAuthors', row.interval.id)!;
+  expect(href).toBe(
+    parent +
+      '&detail=prAuthors&interval=month:2026-10-01&snap=' +
+      report.source.scenarioId +
+      '@2026-10-24T12:00Z',
+  );
+  expect(readTimelineSupportQuery(timelineQueryOf(href))).toMatchObject({
     metric: 'prAuthors',
     interval: row.interval.id,
     origin: 'timeline',
   });
-  params.set('support.authors.q', 'bob');
-  params.set('support.authors.page', '2');
-  const child = timelineAuthorHref('/repos/prebidjs?' + params.toString(), 'sample-bob')!;
-  const nested = new URL(child, 'https://example.test');
-  nested.searchParams.set('support.records.q', 'matching');
-  nested.searchParams.set('support.records.page', '3');
-  const back = timelineAuthorHref(nested.pathname + nested.search, null)!;
-  expect(back).toContain('support.authors.q=bob');
-  expect(back).not.toContain('support.records');
-  expect(back).not.toContain('support.author=');
-  expect(timelineParentQuery(params).get('timeline.page')).toBe('2');
-  expect(timelineParentQuery(params).has('timeline.detail')).toBe(false);
-  expect(timelineSupportScopeKey(href)).toBe(
-    timelineSupportScopeKey('/repos/prebidjs?' + params.toString()),
-  );
+  const list = href + '&listq=bob&listpage=2';
+  const listed =
+    parent +
+    '&listq=bob&listpage=2&detail=prAuthors&interval=month:2026-10-01&snap=' +
+    report.source.scenarioId +
+    '@2026-10-24T12:00Z';
+  const child = timelineAuthorHref(list, 'sample-bob')!;
+  expect(child).toBe(listed + '&author=sample-bob');
+  // The authors list keeps its own search and page; the author's records table is left behind.
+  expect(timelineAuthorHref(child + '&dq=matching&dpage=3', null)).toBe(listed);
+  expect(timelineSupportScopeKey(list)).toBe(timelineSupportScopeKey(href));
+  expect(timelineSupportScopeKey(href + '&dq=x')).toBe(timelineSupportScopeKey(href));
   expect(
     timelineSupportHref('https://evil.test', report.source, 'prsOpened', row.interval.id),
   ).toBeNull();
   expect(
     timelineSupportHref(
-      '/repos?q=' + 'x'.repeat(7400),
+      '/repos/prebidjs?timeline&back=~q:' + 'x'.repeat(7480),
       report.source,
       'prsOpened',
       row.interval.id,
     ),
   ).toBeNull();
-  expect(timelineAuthorHref('/repos?q=' + 'x'.repeat(7499), 'alice')).toBeNull();
+  expect(timelineAuthorHref(href + '&back=~q:' + 'x'.repeat(7400), 'alice')).toBeNull();
+  const query = timelineQueryOf(href);
   for (const suffix of [
     '&support.bad=1',
     '&support.records.q=' + 'a'.repeat(201),
@@ -323,7 +323,7 @@ it('keeps source, exact interval and independent nested author table state in bo
     '&support.author=a&support.author=b',
     '&support.records.q=a&support.records.q=b',
   ])
-    expect(readTimelineSupportQuery(new URLSearchParams(params.toString() + suffix))).toBeNull();
+    expect(readTimelineSupportQuery(new URLSearchParams(query.toString() + suffix))).toBeNull();
 });
 it('exports a full matrix beyond its window and an individual timeline beyond fifty rows', () => {
   const input = repositoryTimelineMatrixSample(),

@@ -335,9 +335,6 @@ const urlCodec = {
   legacy: 'src/lib/presentation/url/legacy/table-query.ts',
   server: 'src/server/canonical-page.ts',
   toolbar: 'src/components/layout/toolbar.tsx',
-  trail: 'src/lib/presentation/contribution-return.ts',
-  interimRoute: 'src/app/_screens/timeline-screens.tsx',
-  interimLib: 'src/lib/presentation/timeline-navigation.ts',
 } as const;
 
 describe('rule 6: links and history writes go through the URL codec', { timeout: 30_000 }, () => {
@@ -353,15 +350,29 @@ describe('rule 6: links and history writes go through the URL codec', { timeout:
         ]);
   });
 
-  it('rejects them in the contribution area, which builds its links through the codec', async () => {
+  it('rejects them in every report file, with no interim exception left', async () => {
     for (const path of [
       'src/app/(dashboard)/contributors/page.tsx',
       'src/app/(dashboard)/companies/[...identity]/page.tsx',
+      'src/app/(dashboard)/repos/page.tsx',
+      'src/app/(dashboard)/repos/[slug]/page.tsx',
       'src/app/_screens/contribution-route.tsx',
+      'src/app/_screens/timeline-screens.tsx',
+      'src/app/_screens/timeline-support-screen.tsx',
+      'src/components/reporting/timeline-csv-download.ts',
       'src/lib/navigation/use-contribution-controls.ts',
+      'src/lib/navigation/use-timeline-controls.ts',
       'src/lib/presentation/contribution-navigation.ts',
       'src/lib/presentation/contribution-export.ts',
+      'src/lib/presentation/contribution-return.ts',
+      'src/lib/presentation/repository-timeline-matrix-entry.ts',
+      'src/lib/presentation/search-params.ts',
+      'src/lib/presentation/timeline-controls.ts',
+      'src/lib/presentation/timeline-navigation.ts',
+      'src/lib/presentation/timeline-support-query.ts',
       'src/server/contribution-export.ts',
+      'src/server/reporting.ts',
+      'src/server/timeline-preview.ts',
     ])
       expect(await reports(path, urlWriters.searchParams), path).toEqual([
         ['no-restricted-syntax', urlWriterLines.searchParams],
@@ -374,18 +385,19 @@ describe('rule 6: links and history writes go through the URL codec', { timeout:
         expect(await reports(path, text), form + ' ' + path).toEqual([]);
   });
 
-  it('keeps every other selector in the named and interim exceptions', async () => {
+  it('keeps every other selector in the named authentication exceptions and the owners', async () => {
     const writerAndHeading = lines(
       "export const query = new URLSearchParams('a=1');",
       'export const Title = () => <h1>Title</h1>;',
     );
-    for (const path of [urlCodec.toolbar, urlCodec.interimRoute])
-      expect(await reports(path, writerAndHeading), path).toEqual([['no-restricted-syntax', 2]]);
+    expect(await reports(urlCodec.toolbar, writerAndHeading)).toEqual([
+      ['no-restricted-syntax', 2],
+    ]);
     const writerAndIcon = lines(
       "export const query = new URLSearchParams('a=1');",
       "export const load = () => import('lucide-react');",
     );
-    for (const path of [urlCodec.trail, urlCodec.interimLib, urlCodec.hook])
+    for (const path of [urlCodec.legacy, urlCodec.hook])
       expect(await reports(path, writerAndIcon), path).toEqual([['no-restricted-syntax', 2]]);
     const writerAndPrimitive = lines(
       "import { Button } from '@/components/ui/button';",

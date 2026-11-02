@@ -461,6 +461,19 @@ export function viewHref(view: UrlView, mode: BackMode, options: HrefOptions = {
     urlHref(view.route, view.segments, kept.length ? { ...rest, back: kept } : rest, options)
   );
 }
+/** The report view a same-origin canonical href shows, or null for any other href. */
+export function viewOf(href: string): UrlView | null {
+  let url: URL;
+  try {
+    url = new URL(href, 'https://dashboard.invalid');
+  } catch {
+    return null;
+  }
+  const matched = url.origin === 'https://dashboard.invalid' ? matchRoute(url.pathname) : null;
+  if (!matched || !href.startsWith('/')) return null;
+  const parsed = parseQuery(matched.route, url.search);
+  return parsed.kind === 'canonical' ? { ...matched, values: parsed.values } : null;
+}
 /** Whether two hrefs show the same view, ignoring return context, version and fragment. */
 export function sameView(a: string | null | undefined, b: string | null | undefined): boolean {
   if (!a || !b) return false;
@@ -490,4 +503,30 @@ export function rebaseBack(previous: UrlView, next: UrlView): string[] {
   const frame = encodeFrame({ ...next, values: omit(next.values, ['back']) }, parent.view);
   if (frame === null) return frames;
   return [frame, ...frames.slice(1)];
+}
+const withoutBack = (view: UrlView): UrlView => ({
+  ...view,
+  values: omit(view.values, ['back']),
+});
+/**
+ * A link one level down from `parent`: the child's canonical href with the parent as its first
+ * `back` frame and the parent's own frames after it. Null when the parent frame cannot fit, so the
+ * link is disabled with the existing limit message.
+ */
+export function childViewHref(parent: UrlView, child: UrlView): string | null {
+  const own = withoutBack(child);
+  const frame = encodeFrame(own, withoutBack(parent));
+  if (frame === null) return null;
+  return viewHref(
+    { ...own, values: { ...own.values, back: [frame, ...backFrames(parent.values)] } },
+    'child',
+  );
+}
+/**
+ * The same page with other values (a same-level tab or an edit): the parent it resolves to is
+ * kept by rebasing its frames. Null when the address would exceed the URL cap.
+ */
+export function levelViewHref(current: UrlView, next: UrlView): string | null {
+  const own = withoutBack(next);
+  return viewHref({ ...own, values: { ...own.values, back: rebaseBack(current, own) } }, 'level');
 }

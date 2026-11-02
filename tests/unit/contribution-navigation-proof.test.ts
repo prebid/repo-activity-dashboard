@@ -1,15 +1,10 @@
 import { expect, it } from 'vitest';
 import { contributionSample } from '@/mocks/contributions';
-import {
-  defaultContributionSettings,
-  writeContributionSettings,
-} from '@/lib/presentation/contribution-settings';
+import { defaultContributionSettings } from '@/lib/presentation/contribution-settings';
+import { viewOf } from '@/lib/presentation/url/back';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import {
-  contributionReturnHref,
-  withContributionReturn,
-  contributionUrlFits,
-} from '@/lib/presentation/contribution-return';
+import { contributionUrlFits } from '@/lib/presentation/contribution-return';
+import { contributionReturnHref, withContributionReturn } from '../support/legacy-trail';
 
 it('keeps 100-account navigation bounded through repeated report visits', () => {
   const sample = contributionSample({ scenario: 'large' });
@@ -19,7 +14,8 @@ it('keeps 100-account navigation bounded through repeated report visits', () => 
     accountIds: sample.accounts.slice(0, 100).map((account) => account.id),
     companyIds: [],
   };
-  let href = '/contributors?sample=large&' + writeContributionSettings('', settings);
+  const accounts = [...settings.selection.population.accountIds].sort();
+  let href = '/contributors?sample=large&account=' + accounts.join(',');
   for (let depth = 0; depth < 12; depth++) {
     href = contributionHref(
       { kind: 'contributor', accountId: 'account-alice' },
@@ -27,10 +23,9 @@ it('keeps 100-account navigation bounded through repeated report visits', () => 
       href,
       settings,
     )!;
-    expect(new TextEncoder().encode(href).length).toBeLessThan(7500);
-    expect(new URL(href, 'https://dashboard.test').searchParams.getAll('account')).toEqual(
-      [...settings.selection.population.accountIds].sort(),
-    );
+    // Each parent is the derived one or a short diff from it, so the link never grows.
+    expect(new TextEncoder().encode(href).length).toBeLessThan(2600);
+    expect(viewOf(href)!.values.account).toEqual(accounts);
   }
 });
 

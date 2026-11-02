@@ -47,38 +47,16 @@ const headingMessage =
 const urlMessage =
   'Build links and history entries with the URL codec (src/lib/presentation/url) and useUrlState.';
 const urlCodecOwners = ['src/lib/presentation/url/**', 'src/lib/navigation/use-url-state.ts'];
-// Named exceptions, removed by P5e or when their owner moves: authentication navigation stays as
-// it is while authentication code is frozen (decision 18), and the return-trail encoder keeps
-// its tests until P5e removes it. The interim lists are files whose links and history writes have
-// not moved to the codec yet; each file leaves its list when it does.
+// Named exceptions: authentication navigation stays as it is while authentication code is frozen
+// (decision 18); they are removed once that code can change.
 const urlCodecExceptions = {
-  lib: [
-    'src/lib/presentation/contribution-return.ts',
-    'src/lib/navigation/use-timeline-controls.ts',
-    'src/lib/presentation/repository-timeline-matrix-entry.ts',
-    'src/lib/presentation/search-params.ts',
-    'src/lib/presentation/timeline-controls.ts',
-    'src/lib/presentation/timeline-navigation.ts',
-    'src/lib/presentation/timeline-support-query.ts',
-    'src/server/reporting.ts',
-  ],
-  views: [
-    'src/components/layout/toolbar.tsx',
-    'src/app/_screens/timeline-screens.tsx',
-    'src/app/_screens/timeline-support-screen.tsx',
-    'src/components/reporting/timeline-csv-download.ts',
-  ],
+  views: ['src/components/layout/toolbar.tsx'],
   authViews: [
     'src/features/authentication/login-view.tsx',
     'src/features/authentication/change-password-view.tsx',
   ],
 };
-const urlExempt = [
-  ...urlCodecOwners,
-  ...urlCodecExceptions.lib,
-  ...urlCodecExceptions.views,
-  ...urlCodecExceptions.authViews,
-];
+const urlExempt = [...urlCodecOwners, ...urlCodecExceptions.views, ...urlCodecExceptions.authViews];
 // Selectors for no-restricted-syntax, by architecture rule. A config object that sets a rule
 // replaces the options of earlier objects for the same file, so each file scope below lists every
 // selector that applies to it.
@@ -161,7 +139,7 @@ const restrictedSyntaxScopes = [
   },
   // The rule-6 exempt files keep every other selector of their scope.
   {
-    files: [...urlCodecOwners, ...urlCodecExceptions.lib],
+    files: urlCodecOwners,
     ignores: [iconMap],
     selectors: [...restrictedSyntax.iconImports, ...restrictedSyntax.headings],
   },

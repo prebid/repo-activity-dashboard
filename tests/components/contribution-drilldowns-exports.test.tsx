@@ -28,7 +28,7 @@ function data(
     area: 'contributors',
     sample,
     breakdown: 'members',
-    returnTo: '/contributors?report.page=3',
+    returnTo: '/contributors?page=3',
     ...selectContributionPresentation(
       source,
       defaultContributionSelection(source),
@@ -46,7 +46,7 @@ function Preview({ page }: { page: ContributionPage }) {
   });
   const links = {
     sample: page.sample,
-    currentHref: '/contributors?report.page=3',
+    currentHref: '/contributors?page=3',
     context: page.report.context,
   };
   return page.details ? (
@@ -123,7 +123,7 @@ it('paginates a 240-PR supporting cohort without limiting it to current open PRs
   expect(record).toHaveAttribute('href', expect.stringContaining('github.example'));
   expect(screen.getByRole('link', { name: 'Back to report' })).toHaveAttribute(
     'href',
-    '/contributors?report.page=3',
+    '/contributors?page=3',
   );
 });
 it('shows each supporting record’s state as the label its search and CSV value carry', () => {

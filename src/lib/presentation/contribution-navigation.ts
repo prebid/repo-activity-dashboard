@@ -8,9 +8,8 @@ import {
   type CompanyBreakdown,
 } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import { writeContributionSettings } from './contribution-settings';
-import { contributionUrlFits, withContributionReturn } from './contribution-return';
-import { encodeQueryValue, urlHref } from './url/codec';
+import { contributionUrlFits } from './contribution-return';
+import { urlHref } from './url/codec';
 import { viewHref, type UrlView } from './url/back';
 import {
   childViewHref,
@@ -69,12 +68,7 @@ export function contributionHref(
     return contributionUrlFits(href) ? href : null;
   }
   const parent = contributionViewOf(returnTo);
-  if (parent) return childViewHref(parent, child);
-  // An Over time view still reads legacy keys, so a link from it keeps the legacy trail, which the
-  // page answers with a 307 to its canonical form and `back` frames.
-  const sampled = sample === 'reference' ? '' : 'sample=' + encodeQueryValue(sample);
-  const search = settings ? writeContributionSettings(sampled, settings) : sampled;
-  return withContributionReturn(contributionPath(target) + (search ? '?' + search : ''), returnTo);
+  return parent ? childViewHref(parent, child) : viewHref(child, 'child');
 }
 export const companyBreakdownLabels: Record<CompanyBreakdown, string> = {
   members: 'By contributor',

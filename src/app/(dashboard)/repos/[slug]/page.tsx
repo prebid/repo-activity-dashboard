@@ -6,7 +6,8 @@ import { EmptyState } from '@/components/feedback/empty-state';
 import Link from 'next/link';
 import type { PageSearchParams } from '@/lib/presentation/search-params';
 import { legacySearchParams, queryPairs } from '@/lib/presentation/url/codec';
-import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
+import { InvalidTimeline, TimelineRoute } from '@/app/_screens/timeline-route';
+import { timelineEntryValues } from '@/server/timeline-preview';
 import { repositoryPageMetadata } from '@/server/page-metadata';
 import { readPreferences } from '@/server/preferences';
 import {
@@ -55,17 +56,21 @@ export default async function RepositoryPage({
   const query = await searchParams;
   const snapshot = await readPreferences('repositories');
   const links = repositoryLinkPresentation(snapshot);
-  // The repository Timeline still reads legacy keys, so the helper hands its query back unchanged.
-  const page = await canonicalPage(
-    '/repos/[slug]',
-    { slug: [slug] },
-    query,
-    queryPairs(query).some(([key]) => key === 'timeline')
-      ? { legacyScreens: true }
-      : { saved: (_screen, values) => recordEntryValues(values, links) },
-  );
-  if (page.status === 'legacy') return <RepositoryTimelineRoute slug={slug} params={page.params} />;
-  if (page.status === 'invalid') return <InvalidRepositoryView />;
+  const view = { route: '/repos/[slug]' as const, segments: { slug: [slug] } };
+  const page = await canonicalPage(view.route, view.segments, query, {
+    saved: (screen, values) =>
+      screen === 'repositoryTimeline'
+        ? timelineEntryValues({ ...view, values }, snapshot)
+        : recordEntryValues(values, links),
+  });
+  if (page.status === 'invalid')
+    return queryPairs(query).some(([key]) => key === 'timeline') ? (
+      <InvalidTimeline message={page.message} href={'/repos/' + encodeURIComponent(slug)} />
+    ) : (
+      <InvalidRepositoryView />
+    );
+  if (page.values.timeline === true)
+    return <TimelineRoute view={{ ...view, values: page.values }} entry={page.entry} />;
   const result = await repositoryDetail(slug, page.values);
   if (result.status === 'page')
     return (

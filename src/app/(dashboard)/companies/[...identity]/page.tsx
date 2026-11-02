@@ -45,7 +45,7 @@ export default async function Page({
     '/companies/[...identity]',
     segments,
     query,
-    contributionPageOptions('/companies/[...identity]', segments, query),
+    contributionPageOptions('/companies/[...identity]', segments),
   );
   return <ContributionRoute area="companies" page={page} focus={focus} />;
 }

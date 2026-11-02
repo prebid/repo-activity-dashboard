@@ -1,7 +1,4 @@
-import {
-  safeContributionReturn,
-  contributionReturnHref,
-} from '@/lib/presentation/contribution-return';
+import { safeContributionReturn } from '../support/legacy-trail';
 import { contributionSample } from '@/mocks/contributions';
 import {
   defaultContributionSelection,
@@ -77,20 +74,22 @@ it('carries the parent report as a back frame without accepting external return 
     '/contributors?report.page=2',
   );
 });
-it('keeps the legacy return trail for a parent that still reads legacy keys', () => {
-  const overTime = '/contributors/account-alice?timeline=1&scope=1&period=this-year';
+it('carries an Over time parent as a frame its Report reads back', () => {
+  const overTime = '/contributors/account-alice?timeline&period=last-month';
   const href = contributionHref(
     { kind: 'company', companyId: 'company-acme' },
     'reference',
     overTime,
-    defaultContributionSettings(contributionSample()),
+    {
+      ...defaultContributionSettings(contributionSample()),
+      period: { kind: 'preset', preset: 'last-month' },
+    },
   )!;
-  const url = new URL(href, 'https://example.test');
-  expect(url.pathname).toBe('/companies/id/company-acme');
-  expect(url.searchParams.get('scope')).toBe('1');
-  const restored = new URL(contributionReturnHref(url.searchParams, '/'), 'https://example.test');
-  expect(restored.pathname).toBe('/contributors/account-alice');
-  expect(restored.searchParams.get('timeline')).toBe('1');
+  expect(href).toBe(
+    '/companies/id/company-acme?period=last-month&back=/contributors/account-alice~timeline',
+  );
+  const [restored] = resolveBack(contributionViewOf(href)!);
+  expect(restored).toMatchObject({ available: true, href: overTime });
 });
 it('validates layout scenarios and retains independent table queries when switching breakdowns', () => {
   expect(readContributionLayoutQuery(new URLSearchParams())).toEqual({

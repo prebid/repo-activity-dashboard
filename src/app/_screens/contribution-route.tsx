@@ -8,14 +8,13 @@ import {
   savedContributionTables,
 } from '@/server/contribution-preferences';
 import { contributionReportRoute } from '@/lib/presentation/contribution-url';
-import { legacySearchParams, queryPairs } from '@/lib/presentation/url/codec';
 import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
 import { ContributionsScreen } from './contributions-screen';
-import { ContributionTimelineRoute } from './timeline-route';
+import { TimelineRoute } from './timeline-route';
 
 function InvalidContributionView({ area }: { area: ContributionArea }) {
   return (
@@ -31,8 +30,8 @@ function InvalidContributionView({ area }: { area: ContributionArea }) {
 }
 
 /**
- * A contribution report page after the URL helper: a canonical view renders from its registry
- * values; an Over time view, whose screens still read legacy keys, renders from the legacy query.
+ * A contribution report page after the URL helper: a report or an Over time view renders from its
+ * registry values.
  */
 export async function ContributionRoute({
   area,
@@ -43,19 +42,12 @@ export async function ContributionRoute({
   page: CanonicalPage;
   focus?: ContributionFocus;
 }) {
-  if (page.status === 'legacy') {
-    // The bare `?timeline` flag is the legacy `timeline=1` the Over time screens read.
-    const params = legacySearchParams(
-      queryPairs(page.params).map(([key, value]) =>
-        key === 'timeline' && value === '' ? ([key, '1'] as const) : ([key, value] as const),
-      ),
-    );
-    return <ContributionTimelineRoute area={area} params={params} focus={focus} />;
-  }
   if (page.status === 'invalid') return <InvalidContributionView area={area} />;
+  const { route, segments } = contributionReportRoute(area, focus);
+  if (page.values.timeline === true)
+    return <TimelineRoute view={{ route, segments, values: page.values }} entry={page.entry} />;
   const result = await contributions(area, page.values, focus);
   if (result.status === 'invalid') return <InvalidContributionView area={area} />;
-  const { route, segments } = contributionReportRoute(area, focus);
   const snapshot = await readPreferences('contributions');
   const entry = contributionEntry(snapshot, route, segments, page.values, page.entry);
   return (

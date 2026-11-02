@@ -1,7 +1,10 @@
 // Legacy link decoding: a pre-codec URL, resolved by the frozen readers, as registry values. The
 // page helper answers it with a 307 to `urlHref(...)` of these values.
 import { repositoryCatalog } from '@/config/repositories';
-import type { ContributionSettings } from '@/models/contribution-settings';
+import type {
+  ContributionControlDirectory,
+  ContributionSettings,
+} from '@/models/contribution-settings';
 import type { DateRange, PeriodSelection } from '@/models/reporting-period';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 import type { RepositoryPageFilters } from '@/models/repository-page';
@@ -13,6 +16,7 @@ import { instantIso, instantValue, periodAt, periodRange, periodValue } from '..
 import {
   matchRoute,
   routePath,
+  timelineScreen,
   type UrlRoute,
   type UrlSegments,
   type UrlValue,
@@ -21,7 +25,9 @@ import {
 import type { UrlView } from '../back';
 import { legacyBackFrames, legacyTrailKeys } from './back';
 import { readTableQuery } from './table-query';
-import { readTimelineView } from './timeline';
+import { matrixRepositoryIds, readTimelineSource, readTimelineView } from './timeline';
+import { readContributionScopeInput } from './contribution';
+import { readRepositoryFilterValues } from './repository';
 import { legacyState, type LegacyContext } from './state';
 
 export type LegacyDecoded =
@@ -176,6 +182,9 @@ export function legacyDecode(
   const href = legacyHref(route, segments, params);
   const values = decodeValues(route, segments, params, context);
   if (!values) return invalidLink;
+  // The old explicit-state markers pin the v1 defaults: the link never meant a saved view. The
+  // serializer keeps `v` only when nothing but selectors and return context remain.
+  if (params.get('scope') === '1' || params.get('timeline.state') === '1') values.v = '1';
   const back = legacyBackFrames({ route, segments, values }, href, (ancestor) =>
     ancestorView(ancestor, context),
   );
@@ -223,7 +232,7 @@ function decodeState(
   switch (route) {
     case '/repos':
       return params.has('timeline')
-        ? matrixValues(params, state, values, context)
+        ? matrixValues(params, state, values, context.asOf)
         : summaryValues(params, state, values, context);
     case '/repos/[slug]':
       return params.has('timeline')
@@ -268,7 +277,7 @@ function matrixValues(
   params: URLSearchParams,
   state: Record<string, unknown>,
   values: Values,
-  context: LegacyContext,
+  asOf: string,
 ): boolean {
   const { source, timeline, repositoryIds, summary } = state as {
     source: Source;
@@ -286,7 +295,7 @@ function matrixValues(
   // The last window is the default; it moves with the period, so only another window is kept.
   const withoutWindow = new URLSearchParams(params);
   withoutWindow.delete('timeline.window');
-  if (readTimelineView(withoutWindow, 'matrix', context.asOf).view.window !== view.window)
+  if (readTimelineView(withoutWindow, 'matrix', asOf).view.window !== view.window)
     values.window = String(view.window);
   return true;
 }
@@ -453,4 +462,71 @@ function contributionValues(
   // Absent legacy columns meant the viewer's choice, never a fixed list: only named ones carry.
   if (params.has(table.kind + '.columns')) columnsValue(route, values, table.columns);
   return true;
+}
+
+/**
+ * A Timeline view's registry values from the Timeline screens' query form (decision C9), without
+ * return context: what a Timeline control writes after a change. Null when the frozen readers
+ * reject the query. A contribution Timeline's scope is read against `directory`.
+ */
+export function timelineStateValues(
+  route: UrlRoute,
+  query: string,
+  asOf: string,
+  directory?: ContributionControlDirectory,
+): UrlValues | null {
+  const params = new URLSearchParams(query);
+  const screen = timelineScreen(route);
+  const area =
+    screen === 'matrix'
+      ? 'matrix'
+      : screen === 'repositoryTimeline'
+        ? 'repository'
+        : 'contribution';
+  let timeline: TimelineState;
+  try {
+    const { period, exactRange, view } = readTimelineView(params, area, asOf);
+    timeline = { period, exactRange, view };
+  } catch {
+    return null;
+  }
+  const source = readTimelineSource(params, area);
+  const values: Values = {};
+  const state = (fields: Record<string, unknown>) => ({ source, timeline, ...fields });
+  const read =
+    screen === 'matrix'
+      ? matrixValues(
+          params,
+          state({
+            summary: '/repos',
+            repositoryIds: matrixRepositoryIds(
+              params,
+              repositoryCatalog.filter((row) => row.enabled).map((row) => row.id),
+            ),
+          }),
+          values,
+          asOf,
+        )
+      : screen === 'repositoryTimeline'
+        ? repositoryTimelineValues(
+            params,
+            state({ filters: readRepositoryFilterValues(query, timeline.view.kind), parent: null }),
+            values,
+            asOf,
+          )
+        : contributionValues(
+            route,
+            params,
+            state({ focus: true, scope: scopeOf(params, asOf, directory) }),
+            values,
+          );
+  return read ? values : null;
+}
+function scopeOf(
+  params: URLSearchParams,
+  asOf: string,
+  directory: ContributionControlDirectory | undefined,
+): ContributionSettings | null {
+  const input = directory && readContributionScopeInput(params, directory, asOf);
+  return input?.period ? ({ ...input, period: input.period } as ContributionSettings) : null;
 }

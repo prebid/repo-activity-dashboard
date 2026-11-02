@@ -28,24 +28,22 @@ vi.mock('next/navigation', () => ({
 import { loadTimelineReport } from '@/server/timeline-report';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
+import { viewOf } from '@/lib/presentation/url/back';
 beforeEach(() => {
   viewer.mockReset().mockResolvedValue({ id: 'sample-viewer' });
 });
 
 it('opens one author drilldown for every casing of a login the interval observed', async () => {
-  const parent = '/repos/prebidjs?timeline=1';
+  const parent = '/repos/prebidjs?timeline';
   const report = await loadTimelineReport(parent);
   if (report.status !== 'ready' || report.category === 'matrix') throw Error('Expected report');
-  const url = new URL(
-    timelineSupportHref(
-      parent,
-      report.report.source,
-      'prAuthors',
-      'month:2026-10-01T00:00:00.000Z',
-    )!,
-    'https://example.test',
-  );
-  const authors = await loadTimelineSupport(url.pathname, url.searchParams);
+  const href = timelineSupportHref(
+    parent,
+    report.report.source,
+    'prAuthors',
+    'month:2026-10-01T00:00:00.000Z',
+  )!;
+  const authors = await loadTimelineSupport(viewOf(href)!);
   if (authors.status !== 'ready' || authors.detail.kind !== 'authors')
     throw Error('Expected authors');
   // October's Prebid.js PRs are Bob's 105 and 108 and Drew's 107.
@@ -54,8 +52,11 @@ it('opens one author drilldown for every casing of a login the interval observed
     ['sample-drew', 1],
   ]);
   for (const login of ['Sample-Bob', 'sample-bob', 'SAMPLE-BOB']) {
-    url.searchParams.set('support.author', login);
-    const records = await loadTimelineSupport(url.pathname, url.searchParams);
+    const view = viewOf(href)!;
+    const records = await loadTimelineSupport({
+      ...view,
+      values: { ...view.values, author: login },
+    });
     if (records.status !== 'ready' || records.detail.kind !== 'repository')
       throw Error('Expected records for ' + login);
     expect(records.detail.author).toBe('Sample-Bob');

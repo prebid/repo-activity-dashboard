@@ -134,20 +134,20 @@ describe('view inventory', () => {
     expect(paths(viewsFor('layout-width'))).toEqual(
       [
         '/repos',
-        '/repos?timeline=1',
+        '/repos?timeline',
         '/repos/prebidjs',
         '/repos/prebidjs?scope=current&metric=openIssues',
-        '/repos/prebidjs?timeline=1',
+        '/repos/prebidjs?timeline',
         '/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&' + yearRange,
         '/contributors',
-        '/contributors?timeline=1',
+        '/contributors?timeline',
         '/companies',
-        '/companies?timeline=1',
+        '/companies?timeline',
         '/contributors/account-alice',
-        '/contributors/account-alice?timeline=1',
+        '/contributors/account-alice?timeline',
         '/companies/id/company-acme',
         '/companies/id/company-acme?view=repositories',
-        '/companies/id/company-acme?timeline=1',
+        '/companies/id/company-acme?timeline',
       ].sort(),
     );
     expect(ids(viewsFor('activity-region'))).toEqual(['repos-comparison']);

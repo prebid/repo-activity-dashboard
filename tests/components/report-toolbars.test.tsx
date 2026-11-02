@@ -55,11 +55,9 @@ import {
   RepositoryTimelineScreen,
 } from '@/app/_screens/timeline-screens';
 import { ContributionsScreen } from '@/app/_screens/contributions-screen';
-import {
-  contributionTimelinePreview,
-  repositoryTimelineMatrixPreview,
-  repositoryTimelinePreview,
-} from '@/server/timeline-preview';
+import { timelineView } from '@/server/timeline-preview';
+import { viewOf } from '@/lib/presentation/url/back';
+import { timelineQueryOf } from '../support/timeline-urls';
 import { contributions } from '@/server/reporting';
 
 beforeEach(() => {
@@ -107,13 +105,12 @@ const pages: [
   ],
   [
     'All repositories Timeline',
-    '/repos?timeline=1',
+    '/repos?timeline',
     'Timeline scope',
     ['Reset view'],
     async () => {
-      const result = ready(
-        await repositoryTimelineMatrixPreview(new URLSearchParams('timeline=1')),
-      );
+      const result = ready(await timelineView(viewOf('/repos?timeline')!));
+      if (!('matrix' in result)) throw Error('Expected the matrix');
       return (
         <RepositoryTimelineMatrixScreen
           viewerId={result.viewerId}
@@ -126,13 +123,12 @@ const pages: [
   ],
   [
     'Repository Timeline',
-    '/repos/' + repository.slug + '?timeline=1',
+    '/repos/' + repository.slug + '?timeline',
     'Timeline scope',
     ['Reset view'],
     async () => {
-      const result = ready(
-        await repositoryTimelinePreview(repository.slug, new URLSearchParams('timeline=1')),
-      );
+      const result = ready(await timelineView(viewOf('/repos/' + repository.slug + '?timeline')!));
+      if (!('omitted' in result)) throw Error('Expected a repository Timeline');
       return (
         <RepositoryTimelineScreen
           viewerId={result.viewerId}
@@ -148,13 +144,12 @@ const pages: [
   ],
   [
     'Contributors Over time',
-    '/contributors?timeline=1',
+    '/contributors?timeline',
     'Timeline scope',
     ['Reset filters', 'Reset view'],
     async () => {
-      const result = ready(
-        await contributionTimelinePreview('contributors', new URLSearchParams('timeline=1')),
-      );
+      const result = ready(await timelineView(viewOf('/contributors?timeline')!));
+      if (!('reportHref' in result)) throw Error('Expected Over time');
       return (
         <ContributionTimelineScreen
           viewerId={result.viewerId}
@@ -221,9 +216,7 @@ describe('report toolbars', () => {
   describe('Over time resets', () => {
     // Report filters (period, account types) and Timeline settings (grouping, direction) both
     // differ from their defaults, and each has a saved value in the preference cookie.
-    const search =
-      'timeline=1&timeline.state=1&scope=1&period=last-month&type=human&type=bot' +
-      '&timeline.group=week&timeline.dir=desc';
+    const search = 'timeline&period=last-month&type=human,bot&group=week&sort=-period';
     const binding = { accountId: 'sample-viewer', authVersion: 0 };
     const keys = {
       view: 'timeline.contributors.overview',
@@ -239,13 +232,15 @@ describe('report toolbars', () => {
         ) as unknown,
       });
       const result = ready(
-        await contributionTimelinePreview(
-          'contributors',
-          new URLSearchParams(search),
-          undefined,
-          preferenceSnapshot('contributions', binding, rawPreferenceCookie('contributions')),
-        ),
+        await timelineView(viewOf('/contributors?' + search)!, {
+          preferences: preferenceSnapshot(
+            'contributions',
+            binding,
+            rawPreferenceCookie('contributions'),
+          ),
+        }),
       );
+      if (!('reportHref' in result)) throw Error('Expected Over time');
       render(
         <ContributionTimelineScreen
           viewerId={result.viewerId}
@@ -266,9 +261,9 @@ describe('report toolbars', () => {
       await waitFor(() => expect(button).toBeEnabled());
       await userEvent.click(button);
       expect(navigation.push).toHaveBeenCalledOnce();
-      const url = new URL(String(navigation.push.mock.lastCall?.[0]), 'https://dashboard.invalid');
-      expect(url.pathname).toBe('/contributors');
-      return url.searchParams;
+      const href = String(navigation.push.mock.lastCall?.[0]);
+      expect(new URL(href, 'https://dashboard.invalid').pathname).toBe('/contributors');
+      return timelineQueryOf(href);
     }
 
     it('Reset filters restores the shared report filters and keeps the Timeline settings', async () => {
@@ -284,8 +279,9 @@ describe('report toolbars', () => {
     it('Reset view restores the Timeline settings and keeps the report filters', async () => {
       const { keys, toolbar } = await overTime();
       const params = await click(toolbar, 'Timeline settings', 'Reset view');
-      expect(params.get('timeline.group')).toBe('month');
-      expect(params.get('timeline.dir')).toBe('asc');
+      // The default grouping and order are left out of the address.
+      expect(params.has('timeline.group')).toBe(false);
+      expect(params.has('timeline.dir')).toBe(false);
       expect(params.get('period')).toBe('last-month');
       expect(params.getAll('type')).toEqual(['human', 'bot']);
       expect(Object.keys(preferenceSections('contributions', binding)!)).toEqual([keys.filters]);

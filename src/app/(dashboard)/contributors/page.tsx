@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Pag
     '/contributors',
     {},
     query,
-    contributionPageOptions('/contributors', {}, query),
+    contributionPageOptions('/contributors', {}),
   );
   return <ContributionRoute area="contributors" page={page} />;
 }

@@ -5,20 +5,16 @@ import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { contributionToolbar } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
-import { savedContributionEntry } from '@/lib/navigation/use-contribution-entry';
-import { useEntryHref } from '@/lib/navigation/use-entry-href';
+import { areaEntryParent, useAreaEntryHref } from '@/lib/navigation/use-contribution-entry';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
 import type { ContributionReportPreferences } from '@/models/contribution-preferences';
 import { contributionTableScope } from '@/lib/presentation/contribution-settings';
 import { contributionTimelineHref } from '@/lib/presentation/contribution-timeline';
 import {
   contributionViewOf,
-  type ContributionRoute,
   type SavedContributionTables,
 } from '@/lib/presentation/contribution-url';
-import { derive, type UrlView } from '@/lib/presentation/url/back';
-import { isEntry } from '@/lib/presentation/url/codec';
-import type { PreferenceSectionKey } from '@/models/preferences';
+import type { UrlView } from '@/lib/presentation/url/back';
 import {
   ContributionDetailsView,
   contributionDetailColumnIds,
@@ -62,21 +58,7 @@ const here = () => window.location.pathname + window.location.search;
  * area entry opens it as the masthead does, in the viewer's saved explicit form.
  */
 function useReturnTo(page: ContributionPage, current: UrlView, viewerId: string) {
-  const derivation = current.values.back === undefined ? derive(current) : null;
-  const parent =
-    derivation?.kind === 'derived' && isEntry(derivation.parent.route, derivation.parent.values)
-      ? derivation.parent
-      : null;
-  const route = (parent?.route ?? '/contributors') as ContributionRoute;
-  const selectorsKey = JSON.stringify(parent?.values ?? {});
-  const selectors = useMemo(() => JSON.parse(selectorsKey) as UrlView['values'], [selectorsKey]);
-  const saved = useMemo(
-    () => (read: (section: PreferenceSectionKey) => string | null) =>
-      savedContributionEntry(route, {}, selectors, read),
-    [route, selectors],
-  );
-  const entryHref = useEntryHref(route, saved, { viewerId, selectors });
-  return parent ? entryHref : page.returnTo;
+  return useAreaEntryHref(areaEntryParent(current), viewerId) ?? page.returnTo;
 }
 
 export function ContributionsScreen({

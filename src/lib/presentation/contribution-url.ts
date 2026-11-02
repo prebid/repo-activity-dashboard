@@ -10,7 +10,7 @@ import type {
   ContributionSettings,
 } from '@/models/contribution-settings';
 import type { TableQuery } from '@/models/table-query';
-import { backFrames, encodeFrame, rebaseBack, viewHref, type UrlView } from './url/back';
+import type { UrlView } from './url/back';
 import { parseQuery } from './url/codec';
 import {
   columnTableOf,
@@ -210,29 +210,4 @@ export function omitValues(values: UrlValues, names: readonly string[]): Values 
   for (const name of names) delete result[name];
   return result;
 }
-const withoutBack = (view: UrlView): UrlView => ({
-  ...view,
-  values: omitValues(view.values, ['back']),
-});
-/**
- * A link one level down from `parent`: the child's canonical href with the parent as its first
- * `back` frame and the parent's own frames after it. Null when the parent frame cannot fit, so the
- * link is disabled with the existing limit message.
- */
-export function childViewHref(parent: UrlView, child: UrlView): string | null {
-  const own = withoutBack(child);
-  const frame = encodeFrame(own, withoutBack(parent));
-  if (frame === null) return null;
-  return viewHref(
-    { ...own, values: { ...own.values, back: [frame, ...backFrames(parent.values)] } },
-    'child',
-  );
-}
-/**
- * The same page with other values (a same-level tab or an edit): the parent it resolves to is
- * kept by rebasing its frames. Null when the address would exceed the URL cap.
- */
-export function levelViewHref(current: UrlView, next: UrlView): string | null {
-  const own = withoutBack(next);
-  return viewHref({ ...own, values: { ...own.values, back: rebaseBack(current, own) } }, 'level');
-}
+export { childViewHref, levelViewHref } from './url/back';

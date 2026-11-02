@@ -13,16 +13,10 @@ import {
   defaultContributionSettings,
   validateContributionSettings,
 } from '@/lib/presentation/contribution-settings';
-import {
-  contributionTimelineHref,
-  legacyTimelineHref,
-} from '@/lib/presentation/contribution-timeline';
-import { contributionReturnHref } from '@/lib/presentation/contribution-return';
-import { parseQuery, urlHref, withoutDefaults } from '@/lib/presentation/url/codec';
-import { legacyDecode } from '@/lib/presentation/url/legacy/decode';
+import { contributionTimelineHref } from '@/lib/presentation/contribution-timeline';
+import { parseQuery, urlHref } from '@/lib/presentation/url/codec';
 import { resolveBack } from '@/lib/presentation/url/back';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import { legacyContext } from '@/server/legacy-context';
 
 const source = contributionSample();
 const defaults = defaultContributionSettings(source);
@@ -164,7 +158,7 @@ it('carries the parent as the first back frame and its own frames after it', () 
   ).toBeNull();
 });
 
-it('links a report to its legacy Over time with a trail that decodes back to the report', () => {
+it('links a report to its Over time, which resolves the report and its parents', () => {
   const report = view(
     '/contributors/account-alice?sample=large&q=agent&sort=name&cols=prComments&back=~q:heavy',
   );
@@ -173,76 +167,44 @@ it('links a report to its legacy Over time with a trail that decodes back to the
     contributionSample({ scenario: 'large' }),
     source.asOf,
   )!;
-  const timeline = new URL(contributionTimelineHref(report, settings)!, 'https://dashboard.test');
-  expect(timeline.pathname).toBe('/contributors/account-alice');
-  expect(timeline.searchParams.get('timeline')).toBe('1');
-  // The Over time's Report tab restores the report in legacy form; the page answers it with a
-  // 307 to the canonical report, with the report's own parent as its frame.
-  const restored = contributionReturnHref(timeline.searchParams, '/');
-  const url = new URL(restored, 'https://dashboard.test');
-  const decoded = legacyDecode(report.route, report.segments, url.searchParams, legacyContext());
-  if (decoded.kind !== 'values') throw Error('Expected the frozen readers to decode the report');
-  expect(withoutDefaults(report.route, decoded.values)).toEqual(report.values);
+  const href = contributionTimelineHref(report, settings)!;
+  expect(href).toBe(
+    '/contributors/account-alice?timeline&sample=large&back=~q:agent~sort:name~cols:prComments&back=~q:heavy&v=1',
+  );
+  const [restored, grandparent] = resolveBack(view(href));
+  expect(restored).toMatchObject({
+    available: true,
+    href: '/contributors/account-alice?sample=large&q=agent&sort=name&cols=prComments&back=~q:heavy',
+  });
+  expect(grandparent).toMatchObject({
+    available: true,
+    href: '/contributors?sample=large&q=heavy',
+  });
 });
-
-it('carries report ancestors in the legacy Over time trail and stops at any other ancestor', () => {
+it('carries report ancestors as frames and keeps an unavailable one unavailable', () => {
   const settings = defaultContributionSettings(source);
-  const trail = (href: string) => {
-    const timeline = new URL(contributionTimelineHref(view(href), settings)!, 'https://x.test');
-    const chain: string[] = [];
-    let params = timeline.searchParams;
-    for (let step = 0; step < 4; step++) {
-      const parent = contributionReturnHref(params, '');
-      if (!parent) break;
-      const url = new URL(parent, 'https://x.test');
-      chain.push(url.pathname);
-      params = url.searchParams;
-    }
-    return chain;
-  };
+  const chain = (href: string) =>
+    resolveBack(view(contributionTimelineHref(view(href), settings)!)).map((ancestor) =>
+      ancestor.available ? ancestor.href : null,
+    );
   // An overview is top-level: its Over time returns to it alone.
-  expect(trail('/companies?q=Acme')).toEqual(['/companies']);
+  expect(chain('/companies?q=Acme')).toEqual(['/companies?q=Acme']);
   // A company's members table, hiding zero totals, then the derived Companies report.
-  expect(trail('/companies/id/company-acme?zero=hide&page=2')).toEqual([
-    '/companies/id/company-acme',
-    '/companies',
+  expect(chain('/companies/id/company-acme?zero=hide&page=2')).toEqual([
+    '/companies/id/company-acme?page=2&zero=hide',
+    '/companies?v=1',
   ]);
-  expect(
-    contributionReturnHref(
-      new URL(
-        contributionTimelineHref(view('/companies/id/company-acme?zero=hide&page=2'), settings)!,
-        'https://x.test',
-      ).searchParams,
-      '',
-    ),
-  ).toContain('members.page=2&members.zero=hide');
-  // An unavailable ancestor, or an Over time one, ends the trail there.
-  expect(trail('/contributors/account-alice?back=!')).toEqual(['/contributors/account-alice']);
-  expect(trail('/companies/id/company-acme?back=/contributors/account-alice~timeline')).toEqual([
-    '/companies/id/company-acme',
+  // An unavailable ancestor stays unavailable, and an Over time ancestor is restored.
+  expect(chain('/contributors/account-alice?back=!')).toEqual([
+    '/contributors/account-alice?back=!&v=1',
+    null,
+  ]);
+  expect(chain('/companies/id/company-acme?back=/contributors/account-alice~timeline')).toEqual([
+    '/companies/id/company-acme?back=/contributors/account-alice~timeline&v=1',
+    '/contributors/account-alice?timeline&v=1',
+    '/contributors/account-alice?v=1',
+    '/contributors?v=1',
   ]);
   // Only a report has an Over time link.
   expect(contributionTimelineHref(view('/contributors?timeline'), settings)).toBeNull();
-});
-
-it('opens an Over time parent at the legacy address its screens read, decoding to the same view', () => {
-  for (const href of [
-    '/contributors/account-alice?timeline',
-    '/companies?timeline&sample=large&gap&repo=prebidjs&period=last-month&group=week&sort=-prsAuthored&page=2&cols=prComments',
-  ]) {
-    const overTime = view(href);
-    const legacy = new URL(legacyTimelineHref(overTime)!, 'https://dashboard.test');
-    expect(legacy.searchParams.get('timeline')).toBe('1');
-    const decoded = legacyDecode(
-      overTime.route,
-      overTime.segments,
-      legacy.searchParams,
-      legacyContext(),
-    );
-    if (decoded.kind !== 'values') throw Error('Expected the frozen readers to decode it');
-    expect(withoutDefaults(overTime.route, decoded.values)).toEqual(overTime.values);
-  }
-  // Reports and snapshot pins keep their canonical address.
-  expect(legacyTimelineHref(view('/contributors'))).toBeNull();
-  expect(legacyTimelineHref(view('/contributors?timeline&at=2026-10-24T12:00Z'))).toBeNull();
 });

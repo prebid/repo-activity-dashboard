@@ -1,7 +1,8 @@
 import { allRepositories } from '@/server/reporting';
 import { RepositoriesScreen } from '@/app/_screens/repositories-screen';
 import type { PageSearchParams } from '@/lib/presentation/search-params';
-import { RepositoryTimelineMatrixRoute } from '@/app/_screens/timeline-route';
+import { InvalidTimeline, TimelineRoute } from '@/app/_screens/timeline-route';
+import { timelineEntryValues } from '@/server/timeline-preview';
 import { repositoriesPageMetadata } from '@/server/page-metadata';
 import { readPreferences } from '@/server/preferences';
 import { repositoriesPreferences, summaryEntryValues } from '@/app/_screens/repository-preferences';
@@ -26,18 +27,27 @@ export default async function AllReposPage({
   await requireViewer();
   const query = await searchParams;
   const { viewer, samples } = await allRepositories();
-  const preferences = repositoriesPreferences(await readPreferences('repositories'), samples);
-  // The matrix Timeline still reads legacy keys, so the helper hands its query back unchanged.
-  const page = await canonicalPage(
-    '/repos',
-    {},
-    query,
-    queryPairs(query).some(([key]) => key === 'timeline')
-      ? { legacyScreens: true }
-      : { saved: () => summaryEntryValues(preferences) },
-  );
-  if (page.status === 'legacy') return <RepositoryTimelineMatrixRoute params={page.params} />;
-  if (page.status === 'invalid') return <InvalidRepositoriesView message={page.message} />;
+  const snapshot = await readPreferences('repositories');
+  const preferences = repositoriesPreferences(snapshot, samples);
+  const page = await canonicalPage('/repos', {}, query, {
+    saved: (screen, values) =>
+      screen === 'summary'
+        ? summaryEntryValues(preferences)
+        : timelineEntryValues({ route: '/repos', segments: {}, values }, snapshot),
+  });
+  if (page.status === 'invalid')
+    return queryPairs(query).some(([key]) => key === 'timeline') ? (
+      <InvalidTimeline message={page.message} href="/repos" />
+    ) : (
+      <InvalidRepositoriesView message={page.message} />
+    );
+  if (page.screen !== 'summary')
+    return (
+      <TimelineRoute
+        view={{ route: '/repos', segments: {}, values: page.values }}
+        entry={page.entry}
+      />
+    );
   const definition = {
     ...overviewSettingsColumns,
     repositoryIds: samples.repositories.map((row) => row.repository.id),

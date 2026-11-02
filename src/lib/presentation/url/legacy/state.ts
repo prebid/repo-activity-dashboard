@@ -12,7 +12,7 @@ import type { PeriodSelection } from '@/models/reporting-period';
 import { contributionDefaultSort, type ContributionFocus } from '@/models/contributions';
 import { additionalMetricIds } from '@/models/contribution-activity';
 import { contributionMetricBasis, isReportMetric } from '@/models/contribution-metrics';
-import { contributionReturnHref } from '../../contribution-return';
+import { trail } from './trail';
 import { decodeRouteSegment } from '../../navigation';
 import type { TableController } from '../../table-controller';
 import { authorRecordSelection, isAuthorSelection } from '../../repository-author-records';
@@ -115,19 +115,9 @@ function readers(context: LegacyContext) {
 
   /** Every decoded frame of a contribution return trail, nearest first, each without its own trail. */
   function returnTrail(params: URLSearchParams): string[] {
-    const frames: string[] = [];
-    let current = params;
-    // Eight frames at most, plus one read that finds none.
-    for (let reads = 0; reads <= 8; reads++) {
-      const parent = contributionReturnHref(current, '');
-      if (!parent) break;
-      const url = new URL(parent, origin);
-      current = url.searchParams;
-      const shown = new URLSearchParams(current);
-      shown.delete('nav');
-      frames.push(url.pathname + (shown.size ? '?' + shown.toString() : ''));
-    }
-    return frames;
+    return trail(params).map(
+      ({ path, params: query }) => path + (query.size ? '?' + query.toString() : ''),
+    );
   }
 
   /** A supporting-record view and the Timeline it was opened from. */

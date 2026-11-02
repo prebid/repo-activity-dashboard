@@ -33,7 +33,7 @@ import { ContributionNavigationLink } from './contribution-columns';
  */
 export interface ContributionTimelineNavigation {
   /** On a contributor or company report, the report "Back to report" opens. */
-  returnTo?: string;
+  returnTo?: string | null;
   /** On an overview, each area's Over time; null when its URL does not fit. */
   areas?: Record<ContributionArea, string | null>;
   /** On a contributor report, the company's report; null when its URL does not fit. */

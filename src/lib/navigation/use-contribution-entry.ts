@@ -18,6 +18,8 @@ import {
 import { readSavedTableSort } from '@/lib/presentation/table-query';
 import type { SavedViewValues } from '@/lib/presentation/url/entry';
 import type { UrlSegments, UrlValues } from '@/lib/presentation/url/registry';
+import { derive, type UrlView } from '@/lib/presentation/url/back';
+import { isEntry } from '@/lib/presentation/url/codec';
 import { useEntryHref } from './use-entry-href';
 
 type Read = (section: PreferenceSectionKey) => string | null;
@@ -101,4 +103,28 @@ export function useContributionEntry(
     [known, viewerId],
   );
   return useEntryHref('/contributors', saved, { viewerId });
+}
+/**
+ * A contribution crumb whose parent is an area entry (an overview at the default scope, reached
+ * without a `back` frame): the entry in the viewer's saved explicit form, as the masthead opens it.
+ * `parent` is null for any other crumb, which keeps its own href.
+ */
+export function useAreaEntryHref(parent: UrlView | null, viewerId: string): string | null {
+  const route = (parent?.route ?? '/contributors') as ContributionRoute;
+  const selectorsKey = JSON.stringify(parent?.values ?? {});
+  const selectors = useMemo(() => JSON.parse(selectorsKey) as UrlValues, [selectorsKey]);
+  const saved = useCallback(
+    (read: Read) => savedContributionEntry(route, {}, selectors, read),
+    [route, selectors],
+  );
+  const href = useEntryHref(route, saved, { viewerId, selectors });
+  return parent ? href : null;
+}
+/** The area entry a view's parent crumb opens when the view names no frame, or null. */
+export function areaEntryParent(view: UrlView | null): UrlView | null {
+  if (!view || view.values.back !== undefined) return null;
+  const derivation = derive(view);
+  return derivation.kind === 'derived' && isEntry(derivation.parent.route, derivation.parent.values)
+    ? derivation.parent
+    : null;
 }

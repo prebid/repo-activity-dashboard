@@ -16,9 +16,12 @@ import type { RepositoryDefinition } from '@/config/repositories';
 export function Toolbar({
   repositories,
   viewer,
+  asOf,
 }: {
   repositories: readonly RepositoryDefinition[];
   viewer: AuthenticatedUser;
+  /** The reporting snapshot, which the masthead's saved entry links are checked against. */
+  asOf?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -47,6 +50,7 @@ export function Toolbar({
       repositories={repositories}
       activePath={pathname}
       viewerId={viewer.id}
+      asOf={asOf}
       administration={viewer.role === 'admin'}
       accountControls={
         <>

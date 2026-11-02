@@ -2,7 +2,7 @@
 // frozen readers give each ancestor's absolute legacy href, nearest first, and each is decoded and
 // written as a diff frame against the parent derived from the view below it.
 import { overviewReturnPathSchema } from '@/models/repository-drilldown';
-import { trail } from '../../contribution-return';
+import { trail } from './trail';
 import { allowedParent, derive, encodeFrame, unavailableFrame, type UrlView } from '../back';
 import { repositoryMatrixSummaryHref } from './overview';
 import { safeTimelineParent, timelineParentQuery } from './timeline';

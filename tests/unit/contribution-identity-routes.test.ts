@@ -1,9 +1,10 @@
 import { beforeEach, expect, it, vi } from 'vitest';
 const viewer = vi.hoisted(() => vi.fn());
 // Logical identities with reserved, percent and non-ASCII characters; each must be decoded once.
+// A `/` inside one route segment is outside the URL codec's route allowlist (decision C7).
 const ids = vi.hoisted(() => ({
-  account: 'account-bøb/ops?#&%25',
-  company: 'company-açme & co/1?#',
+  account: 'account-bøb?#&%25',
+  company: 'company-açme & co?#',
 }));
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/viewer', () => ({ requireViewer: viewer }));
@@ -35,6 +36,7 @@ import ContributorPage from '@/app/(dashboard)/contributors/[accountId]/page';
 import CompanyPage from '@/app/(dashboard)/companies/[...identity]/page';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
+import { viewOf } from '@/lib/presentation/url/back';
 import { contributions } from '@/server/reporting';
 import { contributionExportResponse } from '@/server/contribution-export';
 import { loadTimelineReport } from '@/server/timeline-report';
@@ -72,7 +74,7 @@ it.each([
   async (area, focus, prs) => {
     const report = await contributions(area, {}, focus);
     expect(report.status).toBe('ready');
-    const href = contributionPath(focus) + '?timeline=1';
+    const href = contributionPath(focus) + '?timeline';
     const timeline = await loadTimelineReport(href);
     if (timeline.status !== 'ready' || timeline.category !== 'contribution')
       throw Error('Expected the contribution Timeline');
@@ -80,16 +82,13 @@ it.each([
       (row) => row.interval.id === 'month:2026-10-01T00:00:00.000Z',
     )!;
     expect(october.values.prsAuthored).toEqual({ status: 'complete', value: prs });
-    const support = new URL(
-      timelineSupportHref(
-        href,
-        timeline.report.source,
-        'prsAuthored',
-        'month:2026-10-01T00:00:00.000Z',
-      )!,
-      'https://example.test',
-    );
-    const records = await loadTimelineSupport(support.pathname, support.searchParams);
+    const support = timelineSupportHref(
+      href,
+      timeline.report.source,
+      'prsAuthored',
+      'month:2026-10-01T00:00:00.000Z',
+    )!;
+    const records = await loadTimelineSupport(viewOf(support)!);
     expect(records.status).toBe('ready');
     expect(JSON.stringify(records)).toContain('"number":105');
     const download = await timelineExportResponse(

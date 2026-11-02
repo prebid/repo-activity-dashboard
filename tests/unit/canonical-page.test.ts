@@ -5,7 +5,15 @@ const redirect = vi.hoisted(() =>
     throw Object.assign(new Error('NEXT_REDIRECT'), { href });
   }),
 );
-vi.mock('next/navigation', () => ({ redirect }));
+vi.mock('next/navigation', () => ({
+  redirect,
+  notFound: () => {
+    throw Error('not-found');
+  },
+}));
+vi.mock('@/lib/auth/viewer', () => ({
+  requireViewer: () => Promise.resolve({ id: 'alice', authVersion: 0 }),
+}));
 vi.mock('@/server/preferences', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/server/preferences')>();
   const { rawPreferenceCookie, alice } = await import('../support/preference-cookies');
@@ -15,7 +23,10 @@ vi.mock('@/server/preferences', async (importOriginal) => {
       Promise.resolve(actual.preferenceSnapshot(cookie, alice, rawPreferenceCookie(cookie))),
   };
 });
-import { canonicalPage, oversizedLinkMessage, savedTimelineValues } from '@/server/canonical-page';
+import { canonicalPage, oversizedLinkMessage } from '@/server/canonical-page';
+import { timelineEntryValues } from '@/server/timeline-preview';
+import { readPreferences } from '@/server/preferences';
+import type { UrlRoute, UrlSegments, UrlValues } from '@/lib/presentation/url/registry';
 import { serializeTimelinePreferences } from '@/lib/presentation/timeline-controls';
 import { alice, clearPreferenceCookies, seedPreferences } from '../support/preference-cookies';
 
@@ -124,55 +135,65 @@ describe('canonicalPage', () => {
     ).toEqual({ redirect: '/contributors/account-alice?sort=prsAuthored' });
   });
 
-  it('hands the query back while the route’s screens read legacy keys', async () => {
+  it('pins an old explicit-state link to the v1 defaults rather than an entry', async () => {
+    seedPreferences(alice, { 'timeline.matrix': timelineSection('timeline.group=week', 'matrix') });
+    const saved =
+      (route: UrlRoute, segments: UrlSegments) => async (_: unknown, values: UrlValues) =>
+        timelineEntryValues({ route, segments, values }, await readPreferences('repositories'));
     expect(
       await answer(
         '/repos',
         {},
-        { timeline: '1', 'timeline.group': 'week' },
-        { legacyScreens: true },
+        { timeline: '1', 'timeline.state': '1' },
+        { saved: saved('/repos', {}) },
       ),
-    ).toEqual({ status: 'legacy', params: new URLSearchParams('timeline=1&timeline.group=week') });
-    expect(redirect).not.toHaveBeenCalled();
+    ).toEqual({ redirect: '/repos?timeline&v=1' });
+    expect(await answer('/repos', {}, { timeline: '1' }, { saved: saved('/repos', {}) })).toEqual({
+      redirect: '/repos?timeline&group=week',
+    });
   });
 });
 
-describe('savedTimelineValues', () => {
-  it('reads the matrix section as scope and presentation', async () => {
+describe('timelineEntryValues', () => {
+  const entry =
+    (route: UrlRoute, segments: UrlSegments = {}) =>
+    async () =>
+      timelineEntryValues(
+        { route, segments, values: { timeline: true } },
+        await readPreferences(route.startsWith('/repos') ? 'repositories' : 'contributions'),
+      );
+  it('resolves the matrix entry to its saved scope and presentation', async () => {
     seedPreferences(alice, {
       'timeline.matrix': timelineSection(
         'timeline.group=week&period=last-month&repo=repo-prebidjs&timeline.sort=repository&timeline.dir=desc',
         'matrix',
       ),
     });
-    expect(await savedTimelineValues('/repos', {}, { timeline: true })).toEqual({
-      scope: { period: 'last-month', repo: ['prebidjs'] },
-      presentation: expect.objectContaining({ group: 'week', sort: '-repository' }) as unknown,
+    expect(await entry('/repos')()).toEqual({
+      scope: {},
+      presentation: expect.objectContaining({
+        repo: ['prebidjs'],
+        period: 'last-month',
+        group: 'week',
+        sort: '-repository',
+      }) as unknown,
     });
     expect(
-      await answer(
-        '/repos',
-        {},
-        { timeline: '' },
-        {
-          saved: (_, values) => savedTimelineValues('/repos', {}, values),
-        },
-      ),
+      await answer('/repos', {}, { timeline: '' }, { saved: () => entry('/repos')() }),
     ).toEqual({
       redirect: '/repos?timeline&repo=prebidjs&period=last-month&group=week&sort=-repository',
     });
   });
 
-  it('reads a repository Timeline section as presentation, period and filters included', async () => {
+  it('applies a repository Timeline section as presentation, period and filters included', async () => {
     seedPreferences(alice, {
       'timeline.repository': timelineSection(
         'timeline.group=quarter&period=last-full-year',
         'repository',
       ),
     });
-    expect(
-      await savedTimelineValues('/repos/[slug]', { slug: ['prebidjs'] }, { timeline: true }),
-    ).toEqual({
+    expect(await entry('/repos/[slug]', { slug: ['prebidjs'] })()).toEqual({
+      scope: {},
       presentation: expect.objectContaining({
         group: 'quarter',
         period: 'last-full-year',
@@ -180,14 +201,13 @@ describe('savedTimelineValues', () => {
     });
   });
 
-  it('has nothing for other screens, absent or invalid sections', async () => {
-    expect(await savedTimelineValues('/repos', {}, {})).toBeNull();
-    expect(await savedTimelineValues('/contributors', {}, { timeline: true })).toBeNull();
+  it('has nothing for absent sections, and leaves invalid ones to the entry’s notice', async () => {
+    expect(await entry('/repos')()).toBeNull();
     seedPreferences(alice, { 'timeline.matrix': { version: 9 } });
-    expect(await savedTimelineValues('/repos', {}, { timeline: true })).toBeNull();
+    expect(await entry('/repos')()).toBeNull();
     seedPreferences(alice, {
       'timeline.matrix': timelineSection('timeline.group=decade', 'matrix'),
     });
-    expect(await savedTimelineValues('/repos', {}, { timeline: true })).toBeNull();
+    expect(await entry('/repos')()).toBeNull();
   });
 });

@@ -3,7 +3,8 @@ import {
   contributionTableScope,
   contributionPreferenceNeedsLookup,
 } from '@/lib/presentation/contribution-settings';
-import { contributionReturnHref } from '@/lib/presentation/contribution-return';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
+import { contributionScopeInput } from '@/lib/presentation/contribution-url';
 import {
   readContributionPresentation,
   serializeContributionPresentation,
@@ -115,30 +116,20 @@ it('preserves table context and complete scope in focused links, resetting only 
   expect(['report', 'members', 'repositories'].every((key) => !updated.has(key + '.page'))).toBe(
     true,
   );
-  const parent = '/companies?' + writeContributionSettings(before, selected);
-  const link = new URL(
-    contributionHref(
-      { kind: 'contributor', accountId: 'account-bob' },
-      'partial',
-      parent,
-      selected,
-    )!,
-    'https://example.test',
-  );
-  expect(read(link.search)).toEqual(selected);
-  expect(
-    new URL(
-      contributionReturnHref(link.searchParams, '/contributors'),
-      'https://example.test',
-    ).searchParams.get('report.q'),
-  ).toBe('Bob');
-  expect(
-    read(
-      new URL(contributionReturnHref(link.searchParams, '/contributors'), 'https://example.test')
-        .search,
-    ),
-  ).toEqual(selected);
-  expect(link.searchParams.has('report.q')).toBe(false);
+  const parent =
+    '/companies?sample=partial&period=last-month&repo=prebidjs&type=human&company=company-acme&exclude=account-alice&q=Bob&sort=issuesAuthored&page=3';
+  const link = contributionHref(
+    { kind: 'contributor', accountId: 'account-bob' },
+    'partial',
+    parent,
+    selected,
+  )!;
+  const child = viewOf(link)!;
+  // The link keeps the report's scope; the report's search, sort and page belong to its frame.
+  expect(contributionScopeInput(child.values)).toEqual(selected);
+  expect(child.values.q).toBeUndefined();
+  const [report] = resolveBack(child);
+  expect(report).toMatchObject({ available: true, view: viewOf(parent) });
 });
 it('isolates saved report identities, retains relative dates and rejects malformed/stale settings', () => {
   expect(contributionPreferenceKey('alice', 'reference')).not.toBe(

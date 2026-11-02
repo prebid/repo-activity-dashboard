@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Pag
     '/companies',
     {},
     query,
-    contributionPageOptions('/companies', {}, query),
+    contributionPageOptions('/companies', {}),
   );
   return <ContributionRoute area="companies" page={page} />;
 }

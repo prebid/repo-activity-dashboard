@@ -60,7 +60,9 @@ import {
   contributionTimelinePreview,
   repositoryTimelinePreview,
   repositoryTimelineMatrixPreview,
+  timelineView,
 } from '@/server/timeline-preview';
+import { viewOf } from '@/lib/presentation/url/back';
 beforeEach(() => {
   viewer.mockReset().mockResolvedValue({ id: 'sample-viewer' });
 });
@@ -81,9 +83,9 @@ it('guards both sample compositions and returns only their active model', async 
     repositoryTimelineMatrixPreview(new URLSearchParams('timeline=bad')),
   ).rejects.toThrow('denied');
 });
-it('keeps contribution population, exact range and the return report explicit', async () => {
+it('keeps contribution population and exact range explicit', async () => {
   const query = new URLSearchParams(
-    'timeline=1&timeline.group=week&period=this-month&repo=repo-prebidjs&type=human&company=company-acme&exclude=account-alice&report.q=Bob',
+    'timeline=1&timeline.group=week&period=this-month&repo=repo-prebidjs&type=human&company=company-acme&exclude=account-alice',
   );
   const result = await contributionTimelinePreview('companies', query, {
     kind: 'company',
@@ -93,12 +95,6 @@ it('keeps contribution population, exact range and the return report explicit', 
   expect(result.report.scope.includedAccountCount).toBe(2);
   expect(result.report.request.grouping).toBe('week');
   expect(result.report.summary.prsAuthored.value).toBe(2);
-  const back = new URL(result.reportHref, 'https://example.test');
-  expect(back.pathname).toBe('/companies/id/company-acme');
-  expect(back.searchParams.get('report.q')).toBe('Bob');
-  expect(back.searchParams.get('scope')).toBe('1');
-  expect(back.searchParams.has('timeline')).toBe(false);
-  expect(back.searchParams.getAll('exclude')).toEqual(['account-alice']);
   const empty = await contributionTimelinePreview(
     'contributors',
     new URLSearchParams('timeline=1&repo='),
@@ -172,9 +168,7 @@ it('composes all repositories or explicit subsets without hidden histories and p
   expect(JSON.stringify(all)).not.toContain('Sample PR');
   expect(all).not.toHaveProperty('navigation');
   expect(all).not.toHaveProperty('directory');
-  const summary =
-    '/repos?period=this-week&period2=last-month&age=30&age=60&activity.sort=prsMerged';
-  const query = new URLSearchParams({ timeline: '1', repo: 'repo-prebidjs', summary });
+  const query = new URLSearchParams({ timeline: '1', repo: 'repo-prebidjs' });
   query.append('repo', 'repo-prebidjs');
   const subset = await repositoryTimelineMatrixPreview(query);
   if (subset.status !== 'ready') throw Error('Expected matrix');
@@ -182,7 +176,6 @@ it('composes all repositories or explicit subsets without hidden histories and p
   expect(subset.matrix.rows[0].values.map((value) => value.value)).toEqual([
     0, 0, 0, 0, 0, 0, 0, 1, 1, 3,
   ]);
-  expect(subset.summaryHref).toBe(summary);
   expect(subset.href).toBe('/repos?' + query.toString());
   const none = await repositoryTimelineMatrixPreview(new URLSearchParams('timeline=1&repo='));
   expect(none.status === 'ready' && none.matrix.rows).toEqual([]);
@@ -453,5 +446,58 @@ describe('saved preferences', () => {
     );
     if (result.status !== 'redirect') throw Error('Expected a redirect');
     expect(query(result.href).getAll('exclude')).toEqual(['account-alice']);
+  });
+});
+
+describe('canonical Timeline pages', () => {
+  const view = (href: string) => viewOf(href)!;
+  it('opens the matrix Summary tab at its parent, else the Summary it derives', async () => {
+    const framed = await timelineView(view('/repos?timeline&repo=prebidjs&back=~period:this-week'));
+    if (framed.status !== 'ready' || !('matrix' in framed)) throw Error('Expected matrix');
+    expect(framed.href).toBe('/repos?timeline&repo=prebidjs&back=~period:this-week');
+    expect(framed.controls.href).toBe(framed.href);
+    expect(framed.summaryHref).toBe('/repos?repo=prebidjs&period=this-week');
+    const derived = await timelineView(view('/repos?timeline&repo=prebidjs'));
+    expect(derived.status === 'ready' && 'matrix' in derived && derived.summaryHref).toBe(
+      '/repos?repo=prebidjs',
+    );
+    // At the defaults the tab opens the area entry in the viewer's saved form (null here).
+    const bare = await timelineView(view('/repos?timeline'));
+    expect(bare.status === 'ready' && 'matrix' in bare && bare.summaryHref).toBeNull();
+    // A tab is never unavailable: an unresolvable frame gives the derived Summary.
+    const broken = await timelineView(view('/repos?timeline&back=!'));
+    expect(broken.status === 'ready' && 'matrix' in broken && broken.summaryHref).toBe(
+      '/repos?v=1',
+    );
+  });
+  it('names a repository Timeline’s parent, or none, or an unavailable one', async () => {
+    const parent = '/repos/prebidjs?view=issues&q=crash';
+    const framed = await timelineView(
+      view('/repos/prebidjs?timeline&view=issues&back=/repos/prebidjs~view:issues~q:crash'),
+    );
+    expect(framed.status === 'ready' && 'omitted' in framed && framed.parent).toBe(parent);
+    const none = await timelineView(view('/repos/prebidjs?timeline'));
+    expect(none.status === 'ready' && 'omitted' in none && none.parent).toBeUndefined();
+    const unavailable = await timelineView(view('/repos/prebidjs?timeline&back=!'));
+    expect(unavailable.status === 'ready' && 'omitted' in unavailable && unavailable.parent).toBe(
+      null,
+    );
+  });
+  it('opens the Over time Report tab at the current scope with the report’s presentation', async () => {
+    const result = await timelineView(
+      view('/companies/id/company-acme?timeline&period=this-month&back=~-period~q:Bob~page:3'),
+    );
+    if (result.status !== 'ready' || !('reportHref' in result)) throw Error('Expected Over time');
+    // The report came from this year; the tab follows this view's month and restarts its pages.
+    expect(result.reportHref).toBe('/companies/id/company-acme?period=this-month&q=Bob');
+    // The report's own parent is the companies overview it derives.
+    expect(result.returnTo).toBe('/companies?v=1');
+    const same = await timelineView(view('/companies/id/company-acme?timeline&back=~q:Bob~page:3'));
+    expect(same.status === 'ready' && 'reportHref' in same && same.reportHref).toBe(
+      '/companies/id/company-acme?q=Bob&page=3',
+    );
+  });
+  it('answers the Reviewers lens with the invalid view until it exists', async () => {
+    expect((await timelineView(view('/companies?timeline&lens=reviewers'))).status).toBe('invalid');
   });
 });

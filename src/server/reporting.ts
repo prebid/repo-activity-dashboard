@@ -14,7 +14,6 @@ import {
   contributionColumnVisibility,
   contributionReportRoute,
 } from '@/lib/presentation/contribution-url';
-import { legacyTimelineHref } from '@/lib/presentation/contribution-timeline';
 import { instantIso } from '@/lib/presentation/url/period';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
@@ -155,8 +154,7 @@ export async function contributions(
     sample: options.sample,
     breakdown: options.breakdown,
     ...presentation,
-    // An Over time parent opens at the legacy address its screens still read.
-    returnTo: parent?.available ? (legacyTimelineHref(parent.view) ?? parent.href) : null,
+    returnTo: parent?.available ? parent.href : null,
   };
   return {
     status: 'ready' as const,

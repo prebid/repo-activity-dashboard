@@ -55,6 +55,9 @@ import { timelineExportResponse } from '@/server/timeline-export';
 import { readCsv } from '../support/csv';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
+import { viewHref, viewOf } from '@/lib/presentation/url/back';
+import type { UrlValue } from '@/lib/presentation/url/registry';
+import { canonicalHref } from '../support/timeline-urls';
 import {
   contributionTimelinePreview,
   repositoryTimelineMatrixPreview,
@@ -68,14 +71,29 @@ import {
 } from '@/lib/presentation/preference-cookie';
 import type { PreferenceCookieName, PreferenceSectionKey } from '@/models/preferences';
 const october = 'month:2026-10-01T00:00:00.000Z';
+/** A canonical href with some values replaced (undefined removes one). */
+function edited(href: string, patch: Record<string, UrlValue | undefined>) {
+  const view = viewOf(href)!;
+  const values: Record<string, UrlValue> = { ...view.values };
+  for (const [name, value] of Object.entries(patch))
+    if (value === undefined) delete values[name];
+    else values[name] = value;
+  return viewHref({ ...view, values }, 'level')!;
+}
+/** The supporting view at a canonical href, or a view the codec does not read. */
+const load = (href: string) =>
+  loadTimelineSupport(
+    viewOf(href) ?? { route: '/repos/[slug]', segments: { slug: ['prebidjs'] }, values: {} },
+  );
 beforeEach(() => {
   jar.clear();
   viewer.mockReset().mockResolvedValue({ id: 'sample-viewer', authVersion: 0 });
 });
 async function support(parent: string, metric: string, interval = october) {
-  const report = await loadTimelineReport(parent);
+  const href = canonicalHref(parent);
+  const report = await loadTimelineReport(href);
   if (report.status !== 'ready' || report.category === 'matrix') throw Error('Expected report');
-  return timelineSupportHref(parent, report.report.source, metric, interval)!;
+  return timelineSupportHref(href, report.report.source, metric, interval)!;
 }
 const download = (body: unknown) =>
   new Request('http://localhost/api/reporting/timeline-export', {
@@ -86,9 +104,7 @@ const download = (body: unknown) =>
 it('guards malformed downloads and supporting requests before reporting work', async () => {
   viewer.mockRejectedValue(Error('denied'));
   await expect(timelineExportResponse(download({}))).rejects.toThrow('denied');
-  await expect(loadTimelineSupport('/repos/prebidjs', new URLSearchParams())).rejects.toThrow(
-    'denied',
-  );
+  await expect(load('/repos/prebidjs')).rejects.toThrow('denied');
 });
 it.each([
   '/bad',
@@ -110,126 +126,103 @@ it.each([
   expect((await loadTimelineReport(href)).status).toBe('ready'),
 );
 it('resolves exact PR, author and median populations without serializing unrelated histories', async () => {
-  const href = await support('/repos/prebidjs?timeline=1', 'prAuthors'),
-    url = new URL(href, 'https://example.test');
-  const result = await loadTimelineSupport(url.pathname, url.searchParams);
+  const href = await support('/repos/prebidjs?timeline=1', 'prAuthors');
+  expect(href).toBe(
+    '/repos/prebidjs?timeline&detail=prAuthors&interval=month:2026-10-01&snap=repositories-reference-v1@2026-10-24T12:00Z',
+  );
+  const result = await load(href);
   if (result.status !== 'ready' || result.detail.kind !== 'authors')
     throw Error('Expected authors');
   expect(result.detail.rows.map((row) => row.recordCount)).toEqual([2, 1]);
-  expect(result.detail.context.parentHref).toBe('/repos/prebidjs?timeline=1');
+  expect(result.detail.context.parentHref).toBe('/repos/prebidjs?timeline');
   expect(JSON.stringify(result)).not.toContain('Sample PR');
-  url.searchParams.set('support.author', 'sample-bob');
-  const nested = await loadTimelineSupport(url.pathname, url.searchParams);
+  const nested = await load(edited(href, { author: 'sample-bob' }));
   expect(
     nested.status === 'ready' &&
       nested.detail.kind === 'repository' &&
       nested.detail.rows.map((row) => row.number),
   ).toEqual([105, 108]);
-  url.searchParams.set('support.author', 'unknown');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
-  const median = new URL(
-    await support('/repos/prebidjs?timeline=1', 'medianMergeDays'),
-    'https://example.test',
-  );
-  const duration = await loadTimelineSupport(median.pathname, median.searchParams);
+  expect((await load(edited(href, { author: 'unknown' }))).status).toBe('invalid');
+  const median = await support('/repos/prebidjs?timeline=1', 'medianMergeDays');
+  const duration = await load(median);
   expect(duration.status === 'ready' && duration.detail.context.measurement.value).toBe(31);
-  median.searchParams.set('support.author', 'sample-bob');
-  expect((await loadTimelineSupport(median.pathname, median.searchParams)).status).toBe('invalid');
+  expect((await load(edited(median, { author: 'sample-bob' }))).status).toBe('invalid');
 });
 it('keeps matrix returns pinned to the same repository, source and range', async () => {
-  const href = '/repos?timeline=1&repo=repo-prebidjs',
+  const href = '/repos?timeline&repo=prebidjs',
     loaded = await loadTimelineReport(href);
   if (loaded.status !== 'ready' || loaded.category !== 'matrix') throw Error('Expected matrix');
   const child = matrixRepositoryTimelineHref(loaded.controls, 'prebidjs', href)!;
-  const url = new URL(
-    timelineSupportHref(child, loaded.matrix.source, 'prsOpened', october, 'matrix')!,
-    'https://example.test',
-  );
-  const result = await loadTimelineSupport(url.pathname, url.searchParams);
+  const detail = timelineSupportHref(child, loaded.matrix.source, 'prsOpened', october, 'matrix')!;
+  const result = await load(detail);
   expect(result.status === 'ready' && result.detail.context.parentHref).toBe(href);
-  url.searchParams.set('timelineParent', '/repos?timeline=1&repo=repo-prebidserver');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
-  url.searchParams.set('timelineParent', '/repos?timeline=1&timeline.group=bad');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
-  url.searchParams.set('timelineParent', '/contributors');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+  /** The supporting view with another matrix as its Timeline's parent. */
+  const fromMatrix = (matrix: string) => {
+    const view = viewOf(detail)!;
+    const [, ...farther] = view.values.back as string[];
+    const frame = '/repos~timeline' + matrix;
+    return viewHref({ ...view, values: { ...view.values, back: [frame, ...farther] } }, 'level')!;
+  };
+  expect((await load(fromMatrix('~repo:prebidserver'))).status).toBe('invalid');
+  expect((await load(fromMatrix('~group:bad'))).status).toBe('invalid');
+  expect((await load(edited(detail, { back: ['/contributors'] }))).status).toBe('invalid');
   // Each matrix consistency check: a valid parent that differs only in one pinned field.
-  for (const changed of [
-    '&timeline.group=week',
-    '&period=custom&from=2026-02-01&through=2026-10-24',
-    '&sample=mixed',
-    '&timeline.gap=1',
-    '&timeline.metric=prsMerged&timeline.rank=prsMerged',
+  for (const [changed, query] of [
+    ['~group:week', '&group=week'],
+    ['~period:2026-02-01..2026-10-24', '&period=2026-02-01..2026-10-24'],
+    ['~sample:mixed', '&sample=mixed'],
+    ['~gap', '&gap'],
+    ['~metric:prsMerged', '&metric=prsMerged'],
   ]) {
-    expect((await loadTimelineReport(href + changed)).status).toBe('ready');
-    url.searchParams.set('timelineParent', href + changed);
-    expect([changed, (await loadTimelineSupport(url.pathname, url.searchParams)).status]).toEqual([
+    expect((await loadTimelineReport(href + query)).status).toBe('ready');
+    expect([changed, (await load(fromMatrix('~repo:prebidjs' + changed))).status]).toEqual([
       changed,
       'invalid',
     ]);
   }
-  url.searchParams.set('timelineParent', href);
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('ready');
+  expect((await load(fromMatrix('~repo:prebidjs'))).status).toBe('ready');
 });
 it('rejects inherited property names as contribution support metrics', async () => {
-  const url = new URL(
-    await support('/contributors?timeline=1', 'prsAuthored'),
-    'https://example.test',
-  );
-  for (const name of ['constructor', '__proto__', 'hasOwnProperty']) {
-    url.searchParams.set('timeline.detail', name);
-    expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
-  }
+  const href = await support('/contributors?timeline=1', 'prsAuthored');
+  for (const name of ['constructor', '__proto__', 'hasOwnProperty'])
+    expect((await load(edited(href, { detail: name }))).status).toBe('invalid');
 });
 it('keeps comments and merged-volume details inside exact period and population filters', async () => {
   const parent =
     '/contributors?timeline=1&account=account-bob&repo=repo-prebidjs&period=this-year&timeline.group=month';
-  const url = new URL(await support(parent, 'reviewed.filesChanged'), 'https://example.test'),
-    result = await loadTimelineSupport(url.pathname, url.searchParams);
+  const href = await support(parent, 'reviewed.filesChanged'),
+    result = await load(href);
   if (result.status !== 'ready' || result.detail.kind !== 'contribution')
     throw Error('Expected contributions');
   expect(result.detail.details.rows.map((row) => [row.record.number, row.value.value])).toEqual([
     [101, 10],
   ]);
   expect(result.detail.details.context.range.start).toBe('2026-10-01T00:00:00.000Z');
-  url.searchParams.set('support.author', 'sample-bob');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
-  url.searchParams.delete('support.author');
-  url.searchParams.set('support.origin', 'matrix');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+  expect((await load(edited(href, { author: 'sample-bob' }))).status).toBe('invalid');
+  expect((await load(edited(href, { origin: 'matrix' }))).status).toBe('invalid');
 });
 it('rejects stale, missing and malformed detail scopes instead of substituting current data', async () => {
-  const url = new URL(
-    await support('/repos/prebidjs?timeline=1', 'prsOpened'),
-    'https://example.test',
-  );
-  for (const [key, value] of [
-    ['timeline.revision', 'other'],
-    ['timeline.clock', '2025-10-24T12:00:00.000Z'],
-    ['timeline.interval', 'absent'],
-    ['timeline.detail', 'notAMetric'],
-    ['timeline.detail', 'constructor'],
-    ['timeline.detail', '__proto__'],
-    ['timeline.detail', 'toString'],
-    ['support.records.q', 'a'.repeat(8000)],
-  ]) {
-    const params = new URLSearchParams(url.search);
-    params.set(key, value);
-    expect((await loadTimelineSupport(url.pathname, params)).status).toBe('invalid');
-  }
-  const missing = new URL(
-    await support('/repos/prebidjs?timeline=1&sample=missing', 'prsOpened'),
-    'https://example.test',
-  );
-  expect((await loadTimelineSupport(missing.pathname, missing.searchParams)).status).toBe(
-    'invalid',
-  );
-  const bad = new URLSearchParams(url.search);
-  bad.set('timeline.group', 'bad');
-  expect((await loadTimelineSupport(url.pathname, bad)).status).toBe('invalid');
-  expect((await loadTimelineSupport('/repos', new URLSearchParams(url.search))).status).toBe(
-    'invalid',
-  );
+  const href = await support('/repos/prebidjs?timeline=1', 'prsOpened');
+  for (const [name, value] of [
+    ['snap', 'other@2026-10-24T12:00Z'],
+    ['snap', 'repository-timeline-v1@2025-10-24T12:00Z'],
+    ['interval', 'month:2026-09-15'],
+    ['detail', 'notAMetric'],
+    ['detail', 'constructor'],
+    ['detail', '__proto__'],
+    ['detail', 'toString'],
+    ['group', 'week'],
+  ])
+    expect([name, value, (await load(edited(href, { [name]: value }))).status]).toEqual([
+      name,
+      value,
+      'invalid',
+    ]);
+  const missing = await support('/repos/prebidjs?timeline=1&sample=missing', 'prsOpened');
+  expect((await load(missing)).status).toBe('invalid');
+  // A view the codec does not read, or a supporting view without its Timeline, is no detail.
+  expect((await load(href.replace('detail=', 'timeline.detail='))).status).toBe('invalid');
+  expect((await load(href.replace('/repos/prebidjs?timeline&', '/repos?'))).status).toBe('invalid');
 });
 it('exports all 500 intervals through an authenticated no-store CSV route and refuses stale/invalid options', async () => {
   const href =
@@ -285,16 +278,13 @@ it('exports the full matrix independently of its visible period window', async (
   expect((await response.text()).split('\r\n')).toHaveLength(18 * 297 + 1);
 });
 it('rejects matrix-origin detail links narrowed by extra record filters', async () => {
-  const href = '/repos?timeline=1&repo=repo-prebidjs',
+  const href = '/repos?timeline&repo=prebidjs',
     loaded = await loadTimelineReport(href);
   if (loaded.status !== 'ready' || loaded.category !== 'matrix') throw Error('Expected matrix');
   const child = matrixRepositoryTimelineHref(loaded.controls, 'prebidjs', href)!;
-  const url = new URL(
-    timelineSupportHref(child, loaded.matrix.source, 'prsOpened', october, 'matrix')!,
-    'https://example.test',
-  );
-  url.searchParams.set('prs.filter.authors', 'sample-bob');
-  expect((await loadTimelineSupport(url.pathname, url.searchParams)).status).toBe('invalid');
+  const detail = timelineSupportHref(child, loaded.matrix.source, 'prsOpened', october, 'matrix')!;
+  expect((await load(detail)).status).toBe('ready');
+  expect((await load(edited(detail, { authors: ['sample-bob'] }))).status).toBe('invalid');
 });
 async function exportCsv(href: string, columns: string[]) {
   const loaded = await loadTimelineReport(href);

@@ -50,13 +50,17 @@ function drilldownTitle(repository: OverviewRepository, selection: DrilldownSele
  * canonical address's period resolves at `asOf`; a legacy link is read by the frozen readers, as
  * its redirect body is titled.
  */
+/** A Timeline supporting view's metric: `detail`, or the old `timeline.detail` of a legacy link. */
+function supportDetail(params: URLSearchParams): string | null {
+  return params.get('detail') ?? params.get('timeline.detail');
+}
 export function repositoryPageTitle(
   repository: OverviewRepository,
   params: URLSearchParams,
   asOf: string,
 ): string {
   if (params.has('timeline')) {
-    const metric = repositoryTimelineMetricSchema.safeParse(params.get('timeline.detail'));
+    const metric = repositoryTimelineMetricSchema.safeParse(supportDetail(params));
     return metric.success
       ? titleFrom(repositoryMetricName(metric.data), 'Timeline', repository.name)
       : titleFrom('Timeline', repository.name);
@@ -102,7 +106,7 @@ export function contributionPageTitle(
 ): string {
   const subjectTitle = contributionSubjectTitle(area, subject);
   if (params.has('timeline')) {
-    const metric = params.get('timeline.detail');
+    const metric = supportDetail(params);
     return metric !== null && isReportMetric(metric)
       ? titleFrom(reportMetricLabel(metric), 'Over time', subjectTitle)
       : titleFrom('Over time', subjectTitle);

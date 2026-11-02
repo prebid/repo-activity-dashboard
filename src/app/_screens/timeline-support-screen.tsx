@@ -5,16 +5,15 @@ import { useMemo, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import type { TimelineSupport } from '@/models/timeline-support';
 import { useTableController } from '@/lib/navigation/use-table-controller';
-import { writeTableQuery } from '@/lib/presentation/table-query';
-import {
-  resolveTableColumns,
-  writeTableColumns,
-} from '@/lib/presentation/table-column-preferences';
+import { followHref, useUrlState } from '@/lib/navigation/use-url-state';
 import {
   timelineAuthorHref,
   timelineSupportScopeKey,
 } from '@/lib/presentation/timeline-support-query';
-import { contributionUrlFits } from '@/lib/presentation/contribution-return';
+import { columnTokens, visibleColumns } from '@/lib/presentation/url/defaults';
+import { parseQuery } from '@/lib/presentation/url/codec';
+import { matchRoute, type UrlValues } from '@/lib/presentation/url/registry';
+import { writeBoundTableQuery, type TableFields } from '@/lib/presentation/url/table-binding';
 import { TimelineSupportFrame } from '@/components/reporting/timeline-support-frame';
 import { Callout } from '@/components/feedback/callout';
 import {
@@ -30,6 +29,8 @@ import type { RepositoryTimelineSnapshotMetric } from '@/models/repository-timel
 import { repositoryRecordColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import { repositoryTimelineSnapshotSelection } from '@/lib/presentation/repository-timeline';
 type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
+const tooLarge =
+  'This selection is too large for a link. Reduce the columns or return to the Timeline to narrow its filters.';
 export function TimelineSupportScreen({
   detail,
   viewerId,
@@ -44,22 +45,33 @@ export function TimelineSupportScreen({
   const path = usePathname(),
     search = useSearchParams().toString(),
     router = useRouter();
-  const key = detail.kind === 'authors' ? 'support.authors' : 'support.records';
+  const { route } = matchRoute(path)!;
+  const url = useUrlState(route);
+  const authors = detail.kind === 'authors';
+  // The authors list keeps its table in `list*`, a records table in `d*`; both choose columns in
+  // `dcols`, against the table's v1 columns.
+  const fields: TableFields = useMemo(
+    () =>
+      authors
+        ? { route, search: 'listq', sort: 'listsort', page: 'listpage' }
+        : { route, search: 'dq', sort: 'dsort', page: 'dpage' },
+    [authors, route],
+  );
   const ids = useMemo(
     () =>
       (detail.kind === 'contribution'
         ? contributionDetailColumns(detail.details)
-        : detail.kind === 'authors'
+        : authors
           ? timelineAuthorColumns()
           : repositoryTimelineSupportColumns(
               detail.recordKind,
               detail.descriptor.basis === 'snapshot',
             )
       ).map((column) => column.id),
-    [detail],
+    [detail, authors],
   );
-  const defaults = useMemo<Record<string, boolean>>(
-    (): Record<string, boolean> =>
+  const table = useMemo(() => {
+    const defaults =
       detail.kind === 'repository'
         ? repositoryRecordColumnDefaults(
             detail.descriptor.basis === 'snapshot'
@@ -69,11 +81,11 @@ export function TimelineSupportScreen({
               : { scope: 'period', metric: detail.descriptor.metric },
             !!detail.author,
           )
-        : {},
-    [detail],
-  );
-  const table = useTableController({
-    queryKey: key,
+        : {};
+    return { ids, visible: new Set(ids.filter((id) => defaults[id] !== false)) };
+  }, [detail, ids]);
+  const controller = useTableController({
+    queryKey: authors ? 'support.authors' : 'support.records',
     columnIds: ids,
     // The former localStorage scope, copied once into the saved section of this detail kind.
     scopeKey:
@@ -87,44 +99,51 @@ export function TimelineSupportScreen({
     historyMode: 'push',
     savedSort,
     defaultSort: {
-      sort:
-        detail.kind === 'authors'
-          ? 'recordCount'
-          : detail.kind === 'contribution'
-            ? 'creditedAt'
-            : 'createdAt',
+      sort: authors ? 'recordCount' : detail.kind === 'contribution' ? 'creditedAt' : 'createdAt',
       descending: true,
     },
+    fields,
   });
   const pending =
     timelineSupportScopeKey(path + '?' + search) !== timelineSupportScopeKey(detail.context.href);
-  const visible = resolveTableColumns(search, key, defaults, {}, ids);
-  function snapshot(input: string, query: TableQuery) {
-    return path + '?' + writeTableColumns(writeTableQuery(input, key, query), key, visible, ids);
+  const parsed = parseQuery(route, search);
+  const values: UrlValues = parsed.kind === 'canonical' ? parsed.values : {};
+  const tokens = typeof values.dcols === 'object' ? values.dcols : [];
+  const shown = visibleColumns(table, tokens) ?? [...table.visible];
+  const visible = Object.fromEntries(ids.map((id) => [id, shown.includes(id)]));
+  /** The view at an address with the table's state written in. */
+  function snapshot(query: string, state: TableQuery) {
+    const written = writeBoundTableQuery(fields, query, state);
+    return path + (written ? '?' + written : '');
   }
-  const href = pending ? detail.context.href : snapshot(search, pendingTableQuery(table));
+  const href = pending ? detail.context.href : snapshot(search, pendingTableQuery(controller));
   const visibility = {
     value: visible,
     onChange: (value: Record<string, boolean>) => {
       if (pending) return;
-      const proposed = new URL(href, 'https://dashboard.invalid');
-      const next = path + '?' + writeTableColumns(proposed.search, key, value, ids);
-      if (!contributionUrlFits(next)) {
-        setNotice(
-          'This selection is too large for a link. Reduce the columns or return to the Timeline to narrow its filters.',
-        );
+      // A pending search is written first, so Back returns to the list as it was shown.
+      controller.flushSearch();
+      const current = parseQuery(route, window.location.search);
+      const rest = Object.fromEntries(
+        Object.entries(current.kind === 'canonical' ? current.values : values).filter(
+          ([name]) => name !== 'dcols',
+        ),
+      );
+      const next = columnTokens(
+        table,
+        ids.filter((id) => value[id] !== false),
+      );
+      if (!url.push(next.length ? { ...rest, dcols: next } : rest)) {
+        setNotice(tooLarge);
         return;
       }
       setNotice(undefined);
-      const frozen = snapshot(window.location.search, table.flushSearch());
-      if (contributionUrlFits(frozen)) window.history.replaceState(null, '', frozen);
-      window.history.pushState(null, '', next);
     },
   };
-  const controller = {
-    ...table,
+  const tableController = {
+    ...controller,
     reconcilePage: (page: number) => {
-      if (!pending) table.reconcilePage(page);
+      if (!pending) controller.reconcilePage(page);
     },
   };
   return (
@@ -144,30 +163,31 @@ export function TimelineSupportScreen({
       {detail.kind === 'contribution' ? (
         <ContributionTimelineSupportView
           detail={detail}
-          controller={controller}
+          controller={tableController}
           visibility={visibility}
           disabled={pending}
         />
       ) : (
         <RepositoryTimelineSupportView
           detail={detail}
-          controller={controller}
+          controller={tableController}
           visibility={visibility}
           disabled={pending}
           authorHref={(account) => (pending ? null : timelineAuthorHref(href, account))}
           onAuthor={(event) => {
             if (pending) return;
-            const account = new URL(event.currentTarget.href).searchParams.get('support.author');
+            const account = parseQuery(route, new URL(event.currentTarget.href).search);
+            const author =
+              account.kind === 'canonical' && typeof account.values.author === 'string'
+                ? account.values.author
+                : null;
             followCaptured(
               event,
               () => {
-                const frozen = snapshot(window.location.search, table.flushSearch());
-                return {
-                  origin: frozen,
-                  href: contributionUrlFits(frozen) ? timelineAuthorHref(frozen, account) : null,
-                };
+                const frozen = snapshot(window.location.search, controller.flushSearch());
+                return { origin: frozen, href: timelineAuthorHref(frozen, author) };
               },
-              (href) => router.push(href),
+              (target) => followHref(router, target),
               () =>
                 setNotice(
                   'This selection is too large for a detail link. Narrow the Timeline filters and try again.',

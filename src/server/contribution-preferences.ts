@@ -20,8 +20,8 @@ import { urlHref } from '@/lib/presentation/url/codec';
 import { appliesSavedScope, entryValues, type SavedViewValues } from '@/lib/presentation/url/entry';
 import type { UrlRoute, UrlSegments, UrlValues } from '@/lib/presentation/url/registry';
 import type { ContributionSampleScenario } from '@/models/contribution-page';
-import type { PageSearchParams } from '@/lib/presentation/search-params';
 import type { CanonicalPageOptions } from './canonical-page';
+import { timelineEntryValues } from './timeline-preview';
 import {
   readPreferences,
   savedContributionScope,
@@ -131,19 +131,21 @@ export function contributionEntry(
     : { saved: null, scope, notice: contributionEntryNotices.unfit };
 }
 /**
- * The page helper's options for a contribution route: entries read the saved view, and an Over
- * time view keeps its legacy screens until the Timeline reads codec values.
+ * The page helper's options for a contribution route: a report entry reads the saved scope and
+ * table presentation, and an Over time entry its saved Timeline view (on list routes with the
+ * saved scope).
  */
 export function contributionPageOptions(
   route: UrlRoute,
   segments: UrlSegments,
-  query: PageSearchParams,
 ): CanonicalPageOptions {
   return {
-    legacyScreens: query.timeline !== undefined,
-    saved: async (_screen, values) =>
-      contributionEntry(await readPreferences('contributions'), route, segments, values, true)
-        .saved,
+    saved: async (screen, values) => {
+      const snapshot = await readPreferences('contributions');
+      return screen === 'contributionTimeline'
+        ? timelineEntryValues({ route, segments, values }, snapshot)
+        : contributionEntry(snapshot, route, segments, values, true).saved;
+    },
   };
 }
 

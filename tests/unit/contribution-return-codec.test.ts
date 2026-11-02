@@ -5,10 +5,8 @@ import {
   writeContributionSettings,
 } from '@/lib/presentation/contribution-settings';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import {
-  contributionReturnHref,
-  withContributionReturn,
-} from '@/lib/presentation/contribution-return';
+import { contributionReturnHref, withContributionReturn } from '../support/legacy-trail';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
 
 const origin = 'https://dashboard.test';
 const encode = (value: unknown) => Buffer.from(JSON.stringify(value)).toString('base64url');
@@ -61,19 +59,25 @@ it('compacts a 100-account snapshot without storing mutable references to the ch
   expect(decoded(href)[0]).toBe(2);
   expect(contributionReturnHref(new URL(href, origin).searchParams, '/companies')).toBe(parent);
 });
-it('keeps a 130-account report linkable with its full default presentation frozen', () => {
-  const { settings, parent } = population(130, true);
+it('keeps a 130-account report linkable with its presentation as a short parent frame', () => {
+  const { settings } = population(130, true);
+  const accounts = [
+    ...(settings.selection.population as { accountIds: string[] }).accountIds,
+  ].sort();
+  // The report written in canonical form: its default columns and sort are left out.
+  const parent = '/contributors?sample=large&account=' + accounts.join(',') + '&page=2';
   const href = contributionHref(
     { kind: 'contributor', accountId: 'account-person-001' },
     'large',
     parent,
     settings,
   );
-  expect(href).not.toBeNull();
-  expect(Buffer.byteLength(href!)).toBeLessThan(5000);
-  const restored = contributionReturnHref(new URL(href!, origin).searchParams, '/companies');
-  expect(restored).toBe(parent);
-  expect(new URL(restored, origin).searchParams.getAll('contributors.columns')).toEqual(columns);
+  expect(href).toBe(
+    '/contributors/account-person-001?sample=large&account=' + accounts.join(',') + '&back=~page:2',
+  );
+  expect(Buffer.byteLength(href!)).toBeLessThan(2600);
+  const [restored] = resolveBack(viewOf(href!)!);
+  expect(restored).toMatchObject({ available: true, href: parent });
 });
 it('preserves two independent parents when a copied child changes repeated scope and presentation keys', () => {
   const { parent: overview, query } = population(100, true);

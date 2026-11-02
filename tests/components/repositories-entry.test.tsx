@@ -1,7 +1,10 @@
 import { render, renderHook, screen, within } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, expect, it } from 'vitest';
-import { useRepositoriesEntryHref } from '@/lib/navigation/use-repositories-entry';
+import {
+  useRepositoriesEntryHref,
+  useRepositoryListEntryQuery,
+} from '@/lib/navigation/use-repositories-entry';
 import { PreferenceBindingProvider } from '@/lib/navigation/preference-binding';
 import {
   defaultOverviewSettings,
@@ -81,4 +84,23 @@ it('names an address All repositories cannot show and links to its entry', () =>
     'href',
     '/repos',
   );
+});
+
+it('opens any repository list in the viewer’s saved list presentation, bare without one', () => {
+  const query = () =>
+    renderHook(() => useRepositoryListEntryQuery(), { wrapper: Session }).result.current;
+  expect(query()).toBe('');
+  seedPreferences(alice, {
+    'repository.prs.sort': { sort: 'number', descending: false },
+    'repository.prs.columns': { version: 1, columns: { latestActor: true }, chartsVisible: true },
+  });
+  expect(query()).toBe('?sort=number&cols=latestActor&charts');
+  // An unreadable sort is left out, as the server leaves it out.
+  seedPreferences(alice, { 'repository.prs.sort': 'not json' });
+  expect(query()).toBe('');
+  // Without the reporting snapshot the Summary entry stays bare.
+  seedPreferences(alice, { overview: saved({ ageThresholds: [60] }) });
+  expect(
+    renderHook(() => useRepositoriesEntryHref(undefined), { wrapper: Session }).result.current,
+  ).toBe('/repos');
 });

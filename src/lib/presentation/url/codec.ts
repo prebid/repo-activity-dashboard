@@ -57,6 +57,8 @@ export function isLegacyKey(key: string): boolean {
 
 const listItem = /^[A-Za-z0-9._~:@-]+$/;
 const columnToken = /^-?[A-Za-z0-9._]+$/;
+// A sort may name a matrix period column, whose ID is `<grouping>:<ISO instant>`.
+const sortToken = /^-?[A-Za-z][A-Za-z0-9._:-]*$/;
 const instantPattern = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?Z)?$/;
 const periodRange = /^\d{4}-\d{2}-\d{2}\.\.\d{4}-\d{2}-\d{2}$/;
 const frameLimit = 7500;
@@ -101,7 +103,7 @@ function readValue(entry: UrlParam, raw: readonly string[]): UrlValue | typeof l
     case 'instant':
       return instantPattern.test(value) ? value : null;
     case 'sort':
-      return columnToken.test(value) ? value : null;
+      return sortToken.test(value) ? value : null;
     case 'cols': {
       const tokens = value === '' ? [] : value.split(',');
       return tokens.every((token) => columnToken.test(token)) ? tokens : null;

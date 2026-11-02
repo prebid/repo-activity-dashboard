@@ -23,6 +23,7 @@ import type { TimelineArea, TimelineControlContext } from '@/models/timeline-con
 import type { PreferenceSectionKey } from '@/models/preferences';
 import { TimelineControls } from '@/components/reporting/timeline-controls';
 import { TimelineMetricsSelector } from '@/components/reporting/timeline-metrics-selector';
+import { addressQuery, canonicalHref, timelineQueryOf } from '../support/timeline-urls';
 import {
   alice,
   preferenceSections,
@@ -37,6 +38,7 @@ async function interact(action: () => unknown) {
   });
 }
 const navigation = vi.hoisted(() => ({ push: vi.fn(), replace: vi.fn() }));
+vi.mock('server-only', () => ({}));
 const subscribe = (notify: () => void) => {
   window.addEventListener('test-navigation', notify);
   window.addEventListener('popstate', notify);
@@ -65,18 +67,22 @@ function makeContext(
   viewer?: string,
   notice?: string,
 ): TimelineControlContext {
-  const parsed = readTimelineView(new URLSearchParams(search), area, asOf);
   const path =
     area === 'contribution'
       ? '/contributors'
       : area === 'repository'
         ? '/repos/prebidjs'
         : '/repos';
+  // `search` is an address (canonical) or an old Timeline query, which the page answers with its
+  // canonical address.
+  const href = canonicalHref(path + '?' + search.replace(/^\?/, ''));
+  search = timelineQueryOf(href).toString();
+  const parsed = readTimelineView(new URLSearchParams(search), area, asOf);
   const binding = { accountId: viewer ?? '', authVersion: 0 };
   return {
     area,
     path,
-    href: path + '?' + new URLSearchParams(search).toString(),
+    href,
     sample: 'reference',
     preferenceScope: area,
     asOf,
@@ -108,7 +114,7 @@ function useControls(area: TimelineArea = 'matrix', viewer = 'alice') {
 }
 const historyWrites = vi.fn();
 beforeEach(() => {
-  window.history.replaceState(null, '', '/repos?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1'));
   historyWrites.mockClear();
   for (const method of ['pushState', 'replaceState'] as const) {
     const original = window.history[method].bind(window.history);
@@ -158,7 +164,7 @@ it.each([
       presentation: 'timeline.dir=desc',
     });
     if (entry.kind !== 'redirect') throw Error('Expected a redirect');
-    window.history.replaceState(null, '', path + '?' + entry.search);
+    window.history.replaceState(null, '', canonicalHref(path + '?' + entry.search));
     historyWrites.mockClear();
     const views: boolean[] = [];
     const { result } = renderHook(() => {
@@ -197,7 +203,7 @@ it('deletes a saved choice that fails on every visit after hydration, and keeps 
     presentation: monthSort,
   });
   if (onlyHere.kind !== 'redirect') throw Error('Expected a redirect');
-  window.history.replaceState(null, '', '/repos?' + onlyHere.search);
+  window.history.replaceState(null, '', canonicalHref('/repos?' + onlyHere.search));
   const explicitOnly = renderHook(() => useControls());
   await ready(explicitOnly.result);
   expect(explicitOnly.result.current.view.grouping).toBe('week');
@@ -215,7 +221,7 @@ it('deletes a saved choice that fails on every visit after hydration, and keeps 
     notice: 'Saved Timeline choices that do not fit this report were skipped.',
     rejected: 'presentation',
   });
-  window.history.replaceState(null, '', '/repos?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1'));
   historyWrites.mockClear();
   const context = makeContext('matrix', 'timeline=1', 'alice', timelineEntryNotices.skipped);
   context.preferences!.presentation = savedSection(
@@ -246,7 +252,7 @@ it('saves deliberate presentation fields, never row or window pages, and freezes
   window.history.replaceState(
     null,
     '',
-    '/repos?timeline=1&timeline.state=1&period=this-year&timeline.group=day',
+    canonicalHref('/repos?timeline=1&timeline.state=1&period=this-year&timeline.group=day'),
   );
   const { result } = renderHook(() => useControls());
   await ready(result);
@@ -286,7 +292,11 @@ it('saves deliberate presentation fields, never row or window pages, and freezes
 });
 it('honors explicit state, writes only for its own session and rejects oversized edits without storing or moving', async () => {
   seedPreferences(alice, { 'timeline.matrix': { version: 1, query: 'timeline.group=week' } });
-  window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1&timeline.group=day');
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref('/repos?timeline=1&timeline.state=1&timeline.group=day'),
+  );
   const { result, rerender } = renderHook(({ viewer }) => useControls('matrix', viewer), {
     initialProps: { viewer: 'alice' },
   });
@@ -305,7 +315,9 @@ it('honors explicit state, writes only for its own session and rejects oversized
   expect(result.current.notice).toContain('no longer available');
   await interact(() => result.current.changeRepositories([]));
   await ready(result);
-  expect(new URLSearchParams(window.location.search).get('repo')).toBe('');
+  expect(addressQuery().get('repo')).toBe('');
+  // The matrix keeps the Summary it came from as its parent, which had every repository.
+  expect(window.location.search).toBe('?timeline&repo=&group=day&back=~-repo');
   await interact(() => result.current.changePeriod({ kind: 'preset', preset: 'last-week' }));
   await ready(result);
   expect(result.current.context.period).toEqual({ kind: 'preset', preset: 'last-week' });
@@ -334,7 +346,7 @@ it('keeps working when the browser keeps no cookie', async () => {
   expect(result.current.view.grouping).toBe('month');
 });
 it('keeps repository predicates across grouping changes and clears them on deliberate family changes', async () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos/prebidjs?timeline=1'));
   const { result } = renderHook(() => useControls('repository'));
   await ready(result);
   await interact(() =>
@@ -369,7 +381,11 @@ it('keeps repository predicates across grouping changes and clears them on delib
   expect(result.current.view.metric).toBe('openIssues');
 });
 it('saves an Over time scope change into the shared scope section and deletes it on reset', async () => {
-  window.history.replaceState(null, '', '/contributors?timeline=1&type=agent&report.q=Alice');
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref('/contributors?timeline=1&type=agent&report.q=Alice'),
+  );
   const { result } = renderHook(() => useControls('contribution'));
   await ready(result);
   expect(result.current.context.contribution!.selection.actorTypes).toEqual(['agent']);
@@ -383,14 +399,15 @@ it('saves an Over time scope change into the shared scope section and deletes it
     version: number;
     settings: { period: unknown; selection: { actorTypes: string[] } };
   };
-  // Only the changed field is saved; the explicit account types stay in the link.
+  // Only the changed field is saved; the explicit account types stay in the address.
   expect(scope.version).toBe(1);
   expect(scope.settings.period).toEqual({ kind: 'preset', preset: 'last-month' });
   expect(scope.settings.selection.actorTypes).toEqual(
     readContributionSettings(new URLSearchParams(''), source, asOf)!.selection.actorTypes,
   );
   expect(savedTimelineQuery('contribution')).toBeNull();
-  expect(new URLSearchParams(window.location.search).get('report.q')).toBe('Alice');
+  // The report this Over time came from keeps its period, so the parent frame records it.
+  expect(window.location.search).toBe('?timeline&period=last-month&type=agent&back=~-period');
   await interact(() => result.current.resetContribution());
   await ready(result);
   expect(preferenceSections('contributions')).toBeNull();
@@ -416,7 +433,7 @@ it('retains rejected custom-date drafts in the shared Timeline controls', async 
   expect(screen.getByLabelText('Start date')).toHaveValue('2020-01-01');
 });
 it('clears obsolete saved sort columns when grouping or family changes', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1'));
   const { result } = renderHook(() => useControls());
   await ready(result);
   await interact(() =>
@@ -430,7 +447,7 @@ it('clears obsolete saved sort columns when grouping or family changes', async (
   expect(saved).not.toContain('month%3A');
 });
 it('rejects rapid edits until the current edit has been accepted', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1'));
   const { result } = renderHook(() => useControls());
   await ready(result);
   let rejected: string | undefined;
@@ -441,7 +458,7 @@ it('rejects rapid edits until the current edit has been accepted', async () => {
   expect(rejected).toContain('still loading');
 });
 it('keeps rejected contribution edits and handles write failures and repository resets', async () => {
-  window.history.replaceState(null, '', '/contributors?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/contributors?timeline=1'));
   const first = renderHook(() => useControls('contribution'));
   await ready(first.result);
   const before = window.location.href;
@@ -478,15 +495,19 @@ it('keeps rejected contribution edits and handles write failures and repository 
   window.history.replaceState(
     null,
     '',
-    '/repos/prebidjs?timeline=1&timeline.state=1&timeline.kind=issues&timeline.family=snapshot',
+    canonicalHref(
+      '/repos/prebidjs?timeline=1&timeline.state=1&timeline.kind=issues&timeline.family=snapshot',
+    ),
   );
   const second = renderHook(() => useControls('repository'));
   await ready(second.result);
   await interact(() => second.result.current.reset());
-  expect(navigation.push.mock.lastCall?.[0]).toContain('timeline.kind=issues');
+  expect(timelineQueryOf(navigation.push.mock.lastCall![0] as string).get('timeline.kind')).toBe(
+    'issues',
+  );
 });
 it('disables scope edits while the URL has advanced beyond the supplied model, then resumes with matching data', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1&timeline.state=1'));
   const initial = makeContext('matrix', window.location.search);
   const { result, rerender } = renderHook(
     ({ context }) => useTimelineControls('alice', context, {}),
@@ -497,7 +518,7 @@ it('disables scope edits while the URL has advanced beyond the supplied model, t
     window.history.replaceState(
       null,
       '',
-      '/repos?timeline=1&timeline.state=1&timeline.group=day&timeline.window=24',
+      canonicalHref('/repos?timeline=1&timeline.state=1&timeline.group=day&timeline.window=24'),
     ),
   );
   expect(result.current.pending).toBe(true);
@@ -512,7 +533,7 @@ it('disables scope edits while the URL has advanced beyond the supplied model, t
     window.history.replaceState(
       null,
       '',
-      '/repos?timeline=1&timeline.state=1&timeline.group=month',
+      canonicalHref('/repos?timeline=1&timeline.state=1&timeline.group=month'),
     ),
   );
   rerender({ context: { ...initial } });
@@ -520,7 +541,7 @@ it('disables scope edits while the URL has advanced beyond the supplied model, t
   expect(result.current.view.window).toBe(1);
 });
 it('does not let pagination rewrite the URL while another report scope is arriving', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1');
+  window.history.replaceState(null, '', canonicalHref('/repos?timeline=1&timeline.state=1'));
   const original = makeContext('matrix', window.location.search);
   const { result } = renderHook(() => useTimelineControls('alice', original, {}));
   await ready(result);
@@ -528,7 +549,7 @@ it('does not let pagination rewrite the URL while another report scope is arrivi
     window.history.replaceState(
       null,
       '',
-      '/repos/prebidjs?timeline=1&timeline.state=1&timeline.page=4',
+      canonicalHref('/repos/prebidjs?timeline=1&timeline.state=1&timeline.page=4'),
     ),
   );
   const requested = window.location.href;
@@ -537,7 +558,11 @@ it('does not let pagination rewrite the URL while another report scope is arrivi
   expect(result.current.pending).toBe(true);
 });
 it('reconciles a page past the last one in memory, without a history write', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1&timeline.page=9');
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref('/repos?timeline=1&timeline.state=1&timeline.page=9'),
+  );
   const { result } = renderHook(() => useControls());
   await ready(result);
   const requested = window.location.href;
@@ -545,18 +570,17 @@ it('reconciles a page past the last one in memory, without a history write', asy
   await interact(() => result.current.table.reconcilePage(2));
   expect(result.current.view.page).toBe(2);
   expect(result.current.table.query.page).toBe(2);
-  expect(new URLSearchParams(result.current.href.split('?')[1]).get('timeline.page')).toBe('2');
+  expect(timelineQueryOf(result.current.href).get('timeline.page')).toBe('2');
   expect(window.location.href).toBe(requested);
   expect(historyWrites).not.toHaveBeenCalled();
 });
 it('checks the final serialized URL before changing history or saved preferences', async () => {
-  const params = new URLSearchParams(
-    'timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1',
-  );
-  params.set('summary', '/repos?x=');
-  const padding = 7498 - new TextEncoder().encode('/repos?' + params.toString()).length;
-  params.set('summary', '/repos?x=' + 'a'.repeat(padding));
-  window.history.replaceState(null, '', '/repos?' + params.toString());
+  // A Summary parent frame that leaves the address just under the 7,500-byte cap.
+  const base = '/repos?timeline&back=~age:';
+  const ages: string[] = [];
+  while (new TextEncoder().encode(base + ages.join(',')).length < 7488)
+    ages.push(String(ages.length + 1));
+  window.history.replaceState(null, '', base + ages.join(','));
   const { result } = renderHook(() => useControls());
   await ready(result);
   const before = window.location.href;
@@ -567,7 +591,7 @@ it('checks the final serialized URL before changing history or saved preferences
   expect(rawPreferenceCookie('repositories')).toBeUndefined();
 });
 it('saves the record kind with kind-specific choices so another kind ignores them', async () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos/prebidjs?timeline=1'));
   const { result } = renderHook(() => useControls('repository'));
   await ready(result);
   await interact(() => result.current.changeView({ metric: 'medianMergeDays' }));
@@ -582,7 +606,7 @@ it.each([
   '/repos/prebidjs?timeline=1&timeline.state=1&period=this-year&timeline.group=month',
   '/repos/prebidjs?timeline=1',
 ])('renders %s without a loading gate on the first render', (url) => {
-  window.history.replaceState(null, '', url);
+  window.history.replaceState(null, '', canonicalHref(url));
   // The first render is what the server sends; effects have not run yet.
   const pending: boolean[] = [];
   renderHook(() => {
@@ -596,19 +620,28 @@ it('resets matrix ordering to ascending names on grouping changes and the row pa
   window.history.replaceState(
     null,
     '',
-    '/repos?timeline=1&timeline.state=1&timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=month:2026-10-01T00:00:00.000Z&timeline.dir=desc&timeline.page=2',
+    canonicalHref(
+      '/repos?timeline=1&timeline.state=1&timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=month:2026-10-01T00:00:00.000Z&timeline.dir=desc&timeline.page=2',
+    ),
   );
   const { result } = renderHook(() => useControls('matrix'));
   await ready(result);
   await interact(() => result.current.changeView({ metric: 'issuesOpened' }));
-  expect(new URLSearchParams(window.location.search).get('timeline.page')).toBe('1');
+  // The first row page is the default, which the address leaves out.
+  expect(new URLSearchParams(window.location.search).has('page')).toBe(false);
   await ready(result);
   await interact(() => result.current.changeView({ grouping: 'quarter' }));
-  const params = new URLSearchParams(window.location.search);
-  expect([params.get('timeline.sort'), params.get('timeline.dir')]).toEqual(['repository', 'asc']);
+  // Ascending repository names are the default order, which the address leaves out.
+  expect(navigation.push.mock.lastCall![0]).toBe(
+    '/repos?timeline&metric=prsOpened,issuesOpened&rank=issuesOpened&group=quarter',
+  );
 });
 it('names each Timeline control by its visible label', () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1&timeline.state=1');
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref('/repos/prebidjs?timeline=1&timeline.state=1'),
+  );
   const context = makeContext('repository', window.location.search);
   render(
     <TimelineControls
@@ -631,7 +664,11 @@ it('names each Timeline control by its visible label', () => {
   ).toEqual(['Activity in each period', 'Open at each cutoff']);
 });
 it('refuses to render repository Timeline controls without family labels', () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1&timeline.state=1');
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref('/repos/prebidjs?timeline=1&timeline.state=1'),
+  );
   const context = makeContext('repository', window.location.search);
   vi.spyOn(console, 'error').mockImplementation(() => {});
   expect(() =>
@@ -666,7 +703,7 @@ it('applies whatever metric ids its caller defines in the shared metrics selecto
   expect(onApply).toHaveBeenCalledWith(['alpha', 'beta']);
 });
 it('saves record filters with their kind and replaces them when another kind is saved', async () => {
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
+  window.history.replaceState(null, '', canonicalHref('/repos/prebidjs?timeline=1'));
   const first = renderHook(() => useControls('repository'));
   await ready(first.result);
   const filters = readRepositoryFilterValues('', 'prs')!;
@@ -684,7 +721,9 @@ it('saves record filters with their kind and replaces them when another kind is 
   window.history.replaceState(
     null,
     '',
-    '/repos/prebidjs?timeline=1&period=this-year&timeline.kind=issues&timeline.family=activity',
+    canonicalHref(
+      '/repos/prebidjs?timeline=1&period=this-year&timeline.kind=issues&timeline.family=activity',
+    ),
   );
   const second = renderHook(() => useControls('repository'));
   await ready(second.result);

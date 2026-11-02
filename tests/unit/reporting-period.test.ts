@@ -212,8 +212,6 @@ it('names the days a covered range spans as a custom period', () => {
   ).toEqual({ kind: 'custom', from: '2026-10-19', through: '2026-10-24' });
 });
 it('links a repository Timeline for its record kind', () => {
-  expect(repositoryTimelineHref('prebid.js', 'prs')).toBe('/repos/prebid.js?timeline=1');
-  expect(repositoryTimelineHref('a b', 'issues')).toBe(
-    '/repos/a%20b?timeline=1&timeline.kind=issues',
-  );
+  expect(repositoryTimelineHref('prebid.js', 'prs')).toBe('/repos/prebid.js?timeline');
+  expect(repositoryTimelineHref('a b', 'issues')).toBe('/repos/a%20b?timeline&view=issues');
 });

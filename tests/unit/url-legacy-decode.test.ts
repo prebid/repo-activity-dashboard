@@ -13,7 +13,7 @@ import {
   rangeValues,
 } from '@/lib/presentation/url/period';
 import { matchRoute } from '@/lib/presentation/url/registry';
-import { withContributionReturn } from '@/lib/presentation/contribution-return';
+import { withContributionReturn } from '../support/legacy-trail';
 import { legacyContext } from '@/server/legacy-context';
 
 const context = legacyContext();
@@ -186,7 +186,8 @@ describe('legacyDecode', () => {
       ),
     ).toBe('/companies/id/company-acme?company=company-acme&zero=hide');
     expect(canonical('/contributors?scope=1&population=selected')).toBe('/contributors?account=');
-    expect(canonical('/contributors?scope=1&sample=large')).toBe('/contributors?sample=large');
+    // The old explicit-state marker pins the defaults: such a link never meant a saved view.
+    expect(canonical('/contributors?scope=1&sample=large')).toBe('/contributors?sample=large&v=1');
     expect(canonical('/contributors?sample=unknown')).toBe('invalid');
     expect(legacyDecode('/companies/[...identity]', { identity: ['other'] }, '', context)).toEqual({
       kind: 'invalid',
@@ -220,10 +221,10 @@ describe('legacyDecode', () => {
   it('translates legacy return context into back frames', () => {
     // A malformed trail renders the page with an unavailable crumb (P5d behaviour change).
     expect(canonical('/contributors/account-alice?scope=1&nav=@@@')).toBe(
-      '/contributors/account-alice?back=!',
+      '/contributors/account-alice?back=!&v=1',
     );
     // A top-level report has no parent, so its trail is dropped.
-    expect(canonical('/contributors?scope=1&nav=@@@')).toBe('/contributors');
+    expect(canonical('/contributors?scope=1&nav=@@@')).toBe('/contributors?v=1');
     // An Over time's parent must be its own Report.
     const elsewhere = withContributionReturn('/contributors?timeline=1', '/companies')!;
     expect(canonical(elsewhere)).toBe('/contributors?timeline&back=!');
