@@ -106,6 +106,8 @@ test('changing a drilldown period preserves the saved repository population', as
   await login(page);
   await page.goto('/contributors?period=this-year');
   await page.getByRole('combobox', { name: 'Reporting period preset' }).selectOption('this-month');
+  // The choice navigates in the client; let that navigation finish before leaving the page.
+  await expect(page).toHaveURL(/[?&]period=this-month(&|$)/);
   await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
   await page.goto('/contributors/account-alice?period=this-year');
   await page
