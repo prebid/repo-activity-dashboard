@@ -17,7 +17,7 @@ import {
   type RepositoryFilterDraft,
 } from './repository-filter-fields';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
-import { ClearIcon } from '@/components/ui/icons';
+import { ClearIcon, FiltersIcon } from '@/components/ui/icons';
 import { RepositoryFilterChips, RepositoryFilterForm } from './repository-filter-form';
 import { repositoryTimelineFamilyLabels } from '@/models/repository-timeline';
 import styles from './repository-controls.module.css';
@@ -55,6 +55,7 @@ export function TimelineRepositoryFilters({
       >
         <DialogTrigger asChild>
           <Button variant="secondary">
+            <FiltersIcon size={14} />
             Record filters
             {chips.length || filters.search
               ? ' (' + (chips.length + Number(!!filters.search)) + ')'

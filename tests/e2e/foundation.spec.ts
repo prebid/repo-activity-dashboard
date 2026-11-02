@@ -248,6 +248,22 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await page.screenshot({ path: testInfo.outputPath('foundation-narrow.png'), fullPage: true });
 });
 
+test('the example input keeps its label beside or directly above it', async ({ page }) => {
+  await login(page);
+  await page.goto('/foundation');
+  const label = page.getByText('Example input', { exact: true });
+  const field = page.getByRole('textbox', { name: 'Example input', exact: true });
+  for (const width of [320, 768]) {
+    await page.setViewportSize({ width, height: 900 });
+    const [l, f] = [(await label.boundingBox())!, (await field.boundingBox())!];
+    const centre = l.y + l.height / 2;
+    const beside = centre >= f.y && centre <= f.y + f.height;
+    const gap = f.y - (l.y + l.height);
+    const above = gap >= 0 && gap <= 8 && Math.abs(l.x - f.x) <= 1;
+    expect(beside || above, `${width}px`).toBe(true);
+  }
+});
+
 test('repository and column menus close and restore keyboard focus appropriately', async ({
   page,
 }) => {

@@ -66,6 +66,13 @@
   min-width: 0;
   max-width: min(220px, 100%);
 }
+/* In the stacked phone toolbar the preset select spans the card like the Timeline's selects. */
+@media (max-width: 600px) {
+  .selectLabel {
+    flex-grow: 1;
+    max-width: 100%;
+  }
+}
 .timeframe {
   display: inline-flex;
   align-items: center;

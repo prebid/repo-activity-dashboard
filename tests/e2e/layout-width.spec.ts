@@ -455,3 +455,132 @@ test('at 320px the metric column beside a pinned column shows its values on the 
     }
   }
 });
+
+test('a toolbar reset stays level with its last row of fields, and starts the row on phones', async ({
+  page,
+}) => {
+  await login(page);
+  for (const [path, region] of [
+    ['/repos?timeline', 'Timeline scope'],
+    ['/contributors?v=1', 'Contribution report scope'],
+  ] as const) {
+    for (const width of [768, 390]) {
+      const at = `${path} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const groups = await page
+        .getByRole('region', { name: region, exact: true })
+        .locator('fieldset')
+        .evaluateAll((sets) =>
+          sets.flatMap((set) => {
+            const controls = [...set.querySelectorAll('button, select')].filter(
+              (control) => control.getClientRects().length > 0,
+            );
+            const reset = controls.find((control) =>
+              /^Reset (view|filters)$/.test(control.textContent?.trim() ?? ''),
+            );
+            const fields = controls.filter((control) => control !== reset);
+            if (!reset || !fields.length) return [];
+            return [
+              {
+                group: set.getBoundingClientRect().left,
+                reset: reset.getBoundingClientRect().toJSON() as DOMRect,
+                lastRow: Math.max(...fields.map((field) => field.getBoundingClientRect().bottom)),
+              },
+            ];
+          }),
+        );
+      expect(groups.length, at).toBeGreaterThan(0);
+      for (const { group, reset, lastRow } of groups) {
+        if (width === 768) expect(Math.abs(reset.bottom - lastRow), at).toBeLessThanOrEqual(2);
+        else expect(Math.abs(reset.left - group), at).toBeLessThanOrEqual(1);
+      }
+    }
+  }
+});
+
+test('toolbar summaries wrap whole facts and never start a line with a separator', async ({
+  page,
+}) => {
+  await login(page);
+  for (const path of [
+    '/contributors?timeline&sample=empty',
+    '/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays',
+  ]) {
+    for (const width of [320, 390]) {
+      const at = `${path} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const summaries = await page
+        .getByRole('region', { name: /^(Timeline scope|Selected repository scope)$/ })
+        .evaluateAll((regions) =>
+          regions.flatMap((region) => {
+            const summary = region.lastElementChild!;
+            const separators = [...summary.querySelectorAll('[aria-hidden="true"]')];
+            if (summary.tagName !== 'P' || !separators.length) return [];
+            const style = getComputedStyle(summary);
+            const box = summary.getBoundingClientRect();
+            const left = box.left + parseFloat(style.paddingLeft);
+            const right = box.right - parseFloat(style.paddingRight);
+            const range = document.createRange();
+            return [
+              {
+                left,
+                right,
+                // Where each separator's dot is drawn.
+                dots: separators.map((separator) => {
+                  const text = separator.firstChild as Text;
+                  const at = text.data.indexOf('·');
+                  range.setStart(text, at);
+                  range.setEnd(text, at + 1);
+                  return range.getBoundingClientRect().left;
+                }),
+                // Each fact's line boxes, and where its box starts and ends.
+                items: [...summary.children].map((item) => {
+                  range.selectNodeContents(item);
+                  const tops = [...range.getClientRects()]
+                    .filter((rect) => rect.width > 0)
+                    .map((rect) => rect.top)
+                    .sort((a, b) => a - b);
+                  const box = item.getBoundingClientRect();
+                  return {
+                    text: item.textContent ?? '',
+                    lines: tops.filter((top, index) => !index || top - tops[index - 1] > 4).length,
+                    left: box.left,
+                    right: box.right,
+                  };
+                }),
+              },
+            ];
+          }),
+        );
+      expect(summaries.length, at).toBeGreaterThan(0);
+      for (const summary of summaries) {
+        for (const dot of summary.dots) expect(dot, at).toBeGreaterThan(summary.left + 1);
+        // A fact takes more than one line only when it is longer than the whole line.
+        for (const item of summary.items)
+          if (item.lines > 1) {
+            expect(item.left, `${at}: ${item.text}`).toBeCloseTo(summary.left, 0);
+            expect(item.right, `${at}: ${item.text}`).toBeCloseTo(summary.right, 0);
+          }
+      }
+    }
+  }
+});
+
+test('the setup card clears the theme button on phones', async ({ page }) => {
+  await page.goto('/auth/setup');
+  const card = page
+    .getByRole('heading', { name: 'Accounts are managed by your administrator', exact: true })
+    .locator('..');
+  const theme = page.getByRole('button', { name: 'Theme settings', exact: true });
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    const [a, b] = [(await theme.boundingBox())!, (await card.boundingBox())!];
+    const overlaps =
+      a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    expect(overlaps, `${width}px`).toBe(false);
+  }
+});

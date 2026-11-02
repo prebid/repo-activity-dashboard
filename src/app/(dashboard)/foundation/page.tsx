@@ -19,9 +19,11 @@ export default async function FoundationPage() {
         </p>
         <Button variant="primary">Example action</Button>
         <Button variant="destructive">Destructive action</Button>
-        <Label htmlFor="example-input">Example input</Label>
-        <div className="w-48">
-          <Input id="example-input" />
+        <div className="flex items-center gap-2">
+          <Label htmlFor="example-input">Example input</Label>
+          <div className="w-48">
+            <Input id="example-input" />
+          </div>
         </div>
         <span>
           Known zero: <MetricValue value={0} />

@@ -46,6 +46,9 @@ function InputSpecimen() {
       <Field id="input-mono" label="Monospace, read only">
         <Input id="input-mono" font="mono" readOnly defaultValue="Il1O0-temp-9Qx" />
       </Field>
+      <Field id="input-long" label="Placeholder longer than the field">
+        <Input id="input-long" placeholder="Enter your new password again to confirm it" />
+      </Field>
     </Specimen>
   );
 }
