@@ -229,20 +229,11 @@
     {
       "file": "src/features/repositories/repository-page.module.css",
       "context": "",
-      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .number:focus-visible, .titleLink:focus-visible",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible",
       "property": "border-radius",
       "value": "2px",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
-      "file": "src/features/repositories/repository-records.module.css",
-      "context": "",
-      "selector": ".labels span",
-      "property": "border-radius",
-      "value": "4px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); record rows"
     },
     {
       "file": "src/features/repositories/repository-timeline-matrix.module.css",

@@ -72,6 +72,21 @@ it('keeps Latest actor hidden on record pages and shown for supporting last-acto
     true,
   );
 });
+it('starts author-scoped record lists without the Author column', () => {
+  expect(repositoryColumnDefaults(source).author).toBe(true);
+  expect(
+    repositoryColumnDefaults({
+      ...source,
+      author: { account: 'sample-author-2', returnTo: '/repos' },
+    }).author,
+  ).toBe(false);
+  const selection = { scope: 'period', metric: 'prsOpened' } as const;
+  expect(repositoryRecordColumnDefaults(selection).author).toBe(true);
+  expect(repositoryRecordColumnDefaults(selection, true)).toEqual({
+    ...repositoryRecordColumnDefaults(selection),
+    author: false,
+  });
+});
 it('ignores corrupt or retired preferences and isolates account, repository and tab keys', () => {
   for (const raw of [
     null,

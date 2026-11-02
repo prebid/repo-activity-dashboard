@@ -1,0 +1,49 @@
+/* One record row: the title in ink at weight 500, underlined only on hover; its status and label
+   chips on the line beneath; the number muted in its own column. The table supplies the row's
+   density and body type. */
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.title {
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.title:hover {
+  text-decoration: underline;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+.label {
+  font-size: var(--prebid-text-caption);
+  line-height: var(--prebid-leading-caption);
+  color: var(--muted-foreground);
+  padding: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--prebid-radius-small);
+}
+.number {
+  color: var(--muted-foreground);
+  font-variant-numeric: var(--prebid-numeric);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+.number:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+.title:focus-visible,
+.number:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: var(--prebid-radius-small);
+}

@@ -5,6 +5,7 @@ import { RepositoryInsightsView } from '@/features/repositories/repository-insig
 import { OverviewMetric } from '@/features/repositories/overview-metric';
 import { useLocalTableController } from '@/components/tables/local-data-table';
 import { repositoryInsightSample } from '@/mocks/repository-insights';
+import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import type { InsightMetric, RepositoryInsight } from '@/models/repository-insights';
 const samples = repositoryOverviewSamples();
@@ -292,4 +293,62 @@ it('forwards a pending Timeline navigation to the repository header tab', () => 
   expect(
     within(tabs).getByRole('link', { name: /^Pull requests/ }).lastElementChild,
   ).toHaveAttribute('data-pending', 'false');
+});
+it('lists merged and credited PRs in the record row, with status inline and avatars for authors', async () => {
+  const user = userEvent.setup();
+  const insight = detail('medianMergeDays');
+  if (insight.kind !== 'duration') throw new Error('Expected duration');
+  const view = render(<Preview insight={insight} />);
+  const table = screen.getByRole('table', { name: 'Merged PRs and durations' });
+  for (const name of ['Status', 'Labels', 'Author category'])
+    expect(within(table).queryByRole('columnheader', { name })).not.toBeInTheDocument();
+  const rows = [...table.querySelectorAll('tbody tr')];
+  expect(rows).toHaveLength(insight.records.rows.length);
+  for (const row of rows) {
+    const href = row.querySelector('[data-column="number"] a')!.getAttribute('href');
+    const record = insight.records.rows.find((item) => item.url === href)!;
+    expect(row.querySelector('[data-column="number"] a')).toHaveTextContent(String(record.number));
+    const title = within(row.querySelector<HTMLElement>('[data-column="title"]')!);
+    expect(title.getByRole('link', { name: record.title })).toHaveAttribute('href', record.url);
+    expect(title.getByText('Merged', { exact: true })).toBeVisible();
+    for (const label of record.labels)
+      expect(title.getByText(label, { exact: true })).toBeVisible();
+    // The author's avatar carries the account type the cell names.
+    const author = row.querySelector<HTMLElement>('[data-column="author"]')!;
+    const type = within(author).getByText(/^(Human|Prebid agent|Bot|—)$/).textContent;
+    expect(author.querySelector('[data-kind="person"]')).toHaveAttribute(
+      'title',
+      type === '—' ? 'Account type unavailable' : type,
+    );
+  }
+  // The merged PRs carry the author types the record pages show for the same records.
+  const page = repositoryPageSample(repo, { ...insight.records.drilldown, returnTo: '/repos' });
+  const types = new Map(page.rows.map((row) => [row.id, row.authorType]));
+  expect(insight.records.rows.map((row) => row.authorType)).toEqual(
+    insight.records.rows.map((row) => types.get(row.id)),
+  );
+  expect(insight.records.rows.some((row) => row.authorType !== null)).toBe(true);
+  await user.click(screen.getByRole('button', { name: 'Columns' }));
+  // The menu's Status group holds Base branch alone; the inline values are not columns there.
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Author' })).toBeInTheDocument();
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Base branch' })).toBeInTheDocument();
+  for (const name of ['Labels', 'Author category'])
+    expect(screen.queryByRole('menuitemcheckbox', { name })).not.toBeInTheDocument();
+  await user.keyboard('{Escape}');
+  view.unmount();
+  const credits = detail('agentFeedbackCredits');
+  if (credits.kind !== 'contributions') throw new Error('Expected credits');
+  render(<Preview insight={credits} />);
+  const creditRows = [...screen.getByRole('table').querySelectorAll('tbody tr')];
+  expect(creditRows).toHaveLength(credits.rows.length);
+  for (const row of creditRows) {
+    const title = within(row.querySelector<HTMLElement>('[data-column="title"]')!);
+    const href = title.getAllByRole('link')[0].getAttribute('href');
+    const { pr } = credits.rows.find((item) => item.pr.url === href)!;
+    expect(title.getByRole('link', { name: pr.title })).toBeVisible();
+    expect(title.getByText(pr.draft ? 'Draft' : pr.state, { exact: true })).toBeVisible();
+    const number = within(row.querySelector<HTMLElement>('[data-column="pr"]')!).getByRole('link');
+    expect(number).toHaveTextContent(String(pr.number));
+    expect(number).toHaveAttribute('href', pr.url);
+  }
 });

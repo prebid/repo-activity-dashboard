@@ -62,6 +62,7 @@ export function TimelineSupportScreen({
                   detail.descriptor.metric as RepositoryTimelineSnapshotMetric,
                 )
               : { scope: 'period', metric: detail.descriptor.metric },
+            !!detail.author,
           )
         : {},
     [detail],

@@ -9,6 +9,15 @@ async function login(page: Page) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+/** An author's record list names its author once, so its Author column starts hidden. */
+async function showAuthorColumn(page: Page) {
+  const table = page.getByRole('table');
+  await expect(table.getByRole('columnheader', { name: 'Author', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('menuitemcheckbox', { name: 'Author', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(table.getByRole('columnheader', { name: 'Author', exact: true })).toBeVisible();
+}
 function periodRows(page: Page) {
   return page
     .getByRole('table', { name: 'Period activity', exact: true })
@@ -90,6 +99,7 @@ for (const [metric, noun, authorLabel] of [
     await expect(heading).toBeVisible();
     await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
+    await showAuthorColumn(page);
     expect(
       await page
         .locator('tbody [data-column="author"]')
@@ -163,6 +173,7 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       await expect(
         page.getByText('Created during this period · All statuses', { exact: true }),
       ).toBeVisible();
+      await showAuthorColumn(page);
       const allAuthors = await page
         .locator('tbody [data-column="author"]')
         .getByText('sample-author-2', { exact: true })
@@ -351,6 +362,49 @@ test('supporting detail tables stay accessible in both themes at desktop and nar
       }
     }
   }
+});
+test('insight tables keep their identity column in place when scrolled sideways, and merged PRs fit 1440px', async ({
+  page,
+}) => {
+  await login(page);
+  const area = page.getByRole('region', { name: /table scroll area$/ });
+  for (const [metric, width, column] of [
+    ['prAuthors', 375, 'account'],
+    ['agentFeedbackCredits', 375, 'account'],
+    ['medianMergeDays', 375, 'number'],
+  ] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(
+      '/repos/prebidjs?scope=period&metric=' +
+        metric +
+        (metric === 'medianMergeDays' ? '&branch=master' : '') +
+        '&' +
+        range,
+    );
+    await expect(area).toHaveCount(1);
+    expect(await area.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+    const header = area.locator('thead th').first();
+    const cell = area.locator('tbody tr').first().locator('td').first();
+    await expect(cell).toHaveAttribute('data-column', column);
+    const at = async (side: 'start' | 'end') => {
+      await area.evaluate((element, end) => {
+        element.scrollLeft = end === 'start' ? 0 : element.scrollWidth;
+      }, side);
+      return { header: (await header.boundingBox())!.x, cell: (await cell.boundingBox())!.x };
+    };
+    const start = await at('start'),
+      end = await at('end');
+    expect(Math.abs(start.header - end.header), metric).toBeLessThanOrEqual(1);
+    expect(Math.abs(start.cell - end.cell), metric).toBeLessThanOrEqual(1);
+  }
+  // Status and labels sit under the title, so the merged list needs no sideways scroll at 1440px.
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.reload();
+  await expect(area.locator('tbody tr').first()).toBeVisible();
+  expect(
+    await area.evaluate((element) => element.scrollWidth - element.clientWidth),
+  ).toBeLessThanOrEqual(1);
+  await expect(page.getByText('Scroll horizontally to see all columns')).toHaveCount(0);
 });
 test('an author record list keeps the repository record row padding whether linked or loaded directly', async ({
   page,
