@@ -8,6 +8,7 @@ import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { Count } from '@/models/reporting-measurement';
 import type { RepositoryDrilldown } from '@/models/repository-drilldown';
+import type { RepositoryLinkPresentation } from '@/lib/presentation/repository-url';
 
 export function RepositoryDrilldownFrame({
   context,
@@ -20,6 +21,7 @@ export function RepositoryDrilldownFrame({
   timelineHref,
   onTimeline,
   timelinePending,
+  links,
 }: {
   context: { repository: OverviewRepository; asOf: string; drilldown: RepositoryDrilldown };
   title: string;
@@ -27,11 +29,13 @@ export function RepositoryDrilldownFrame({
   /** Facts for the scope summary after the range, one per item. */
   summary: readonly ReactNode[];
   children: ReactNode;
-  parentLink?: { href: string; label: string };
+  parentLink?: { href: string | null; label: string };
   navigation?: RepositoryPageNavigation;
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   timelinePending?: boolean;
+  /** The viewer's saved list presentation, which the list tabs carry. */
+  links?: RepositoryLinkPresentation;
 }) {
   const { repository, asOf, drilldown } = context,
     selection = drilldown.selection;
@@ -42,6 +46,8 @@ export function RepositoryDrilldownFrame({
         repository={repository}
         asOf={asOf}
         returnTo={drilldown.returnTo}
+        returnSection={period ? 'period-activity' : undefined}
+        links={links}
         // A supporting view is a subpage of the list its records come from.
         contextKind={selection.metric === 'issueAuthors' ? 'issues' : 'prs'}
         current={title}

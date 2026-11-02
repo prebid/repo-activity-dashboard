@@ -4,12 +4,20 @@ import {
   defaultOverviewSettings,
   normalizeOverviewSettings,
   overviewPreferenceKey,
+  overviewCatalogDefinition,
+  overviewEntryValues,
+  overviewSavedValues,
+  overviewScopeValues,
   readOverviewPreferences,
-  resetOverviewQuery,
+  readOverviewValues,
   resolveOverviewSettings,
   serializeOverviewPreferences,
-  writeOverviewSettings,
 } from '@/lib/presentation/overview-settings';
+import { mergeValues } from '@/lib/presentation/repository-url';
+import { parseQuery, serializeQuery } from '@/lib/presentation/url/codec';
+import type { OverviewSettings } from '@/models/overview-settings';
+import type { PreferenceSectionKey } from '@/models/preferences';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 import { readSavedTableSort, tableLocationStamp } from '@/lib/presentation/table-query';
 import {
   customSampleSelection,
@@ -28,6 +36,14 @@ const definition = {
 };
 const asOf = '2026-10-24T12:00:00.000Z';
 const defaults = defaultOverviewSettings(definition);
+/** The Summary query a scope writes, and the settings that query reads back. */
+function summaryQuery(settings: OverviewSettings, catalog = overviewCatalogDefinition) {
+  const query = serializeQuery('/repos', mergeValues({}, overviewScopeValues(settings)));
+  const parsed = parseQuery('/repos', query);
+  if (parsed.kind !== 'canonical') throw new Error('Expected a canonical query: ' + query);
+  return { query, read: readOverviewValues(parsed.values, settings, catalog, asOf) };
+}
+const catalogDefaults = defaultOverviewSettings(overviewCatalogDefinition);
 describe('overview settings contracts', () => {
   it('stores aging choices once, supports none, and canonicalizes repeated age parameters', () => {
     const configured = {
@@ -41,9 +57,14 @@ describe('overview settings contracts', () => {
     );
     expect(selected.ageThresholds).toEqual([30, 90]);
     expect(selected.backlogColumns).toEqual(['name', 'total']);
-    const query = writeOverviewSettings('', selected);
-    expect(new URLSearchParams(query).getAll('age')).toEqual(['30', '90']);
-    expect(resolveOverviewSettings(query, null, configured, asOf).value).toEqual(selected);
+    const written = summaryQuery({ ...catalogDefaults, ageThresholds: selected.ageThresholds });
+    expect(written.query).toBe('age=30,90');
+    expect(written.read?.ageThresholds).toEqual([30, 90]);
+    expect(summaryQuery({ ...catalogDefaults, ageThresholds: [] }).query).toBe('age=');
+    // Old links repeated the key; the frozen reader still reads them.
+    expect(resolveOverviewSettings('age=30&age=90', null, configured, asOf).value).toEqual(
+      selected,
+    );
     expect(resolveOverviewSettings('age=', selected, configured, asOf).value.ageThresholds).toEqual(
       [],
     );
@@ -55,10 +76,9 @@ describe('overview settings contracts', () => {
     expect(
       readOverviewPreferences(serializeOverviewPreferences(empty), configured, asOf)?.ageThresholds,
     ).toEqual([]);
-    expect(
-      resolveOverviewSettings(writeOverviewSettings('', empty), selected, configured, asOf).value
-        .ageThresholds,
-    ).toEqual([]);
+    expect(resolveOverviewSettings('age=', selected, configured, asOf).value.ageThresholds).toEqual(
+      [],
+    );
     expect(agingColumnId(60)).toBe('agedPrs60');
     expect(agingThresholdForColumn('agedPrs180')).toBe(180);
     expect(agingThresholdForColumn('agedPrs')).toBeUndefined();
@@ -167,20 +187,60 @@ describe('overview settings contracts', () => {
   });
   it('round-trips custom and relative selections without freezing relative dates', () => {
     const custom = {
-      ...defaults,
+      ...catalogDefaults,
       repositoryIds: [],
       periods: [{ kind: 'custom' as const, from: '2026-10-06', through: '2026-10-08' }],
     };
-    const query = writeOverviewSettings('tag=a&tag=b&activity.sort=opened', custom);
-    expect(resolveOverviewSettings(query, null, definition, asOf).value).toEqual(custom);
-    expect(new URLSearchParams(query).getAll('tag')).toEqual(['a', 'b']);
-    expect(new URLSearchParams(query).get('activity.sort')).toBe('opened');
-    const relative = writeOverviewSettings(query, defaults);
-    expect(new URLSearchParams(relative).has('from')).toBe(false);
-    expect(new URLSearchParams(relative).get('period')).toBe('this-month');
+    const written = summaryQuery(custom);
+    expect(written.query).toBe('repo=&period=2026-10-06..2026-10-08');
+    expect(written.read).toEqual(custom);
+    // A relative period stays a preset, and the defaults write nothing.
+    expect(summaryQuery(catalogDefaults)).toEqual({ query: '', read: catalogDefaults });
     expect(
       readOverviewPreferences(serializeOverviewPreferences(defaults), definition, asOf),
     ).toEqual(defaults);
+  });
+  it.each<UrlValues>([
+    { repo: ['retired'] },
+    { period: 'next-month' },
+    { period: '2027-01-01..2027-01-02' },
+    { period: 'this-month', period2: 'this-month' },
+    { age: ['31'] },
+  ])('reads no Summary from values it does not offer: %o', (values) => {
+    expect(readOverviewValues(values, catalogDefaults, overviewCatalogDefinition, asOf)).toBeNull();
+  });
+  it('turns saved settings and sorts into the values a bare entry opens', () => {
+    expect(overviewSavedValues(null, null, null)).toBeNull();
+    const saved = { ...catalogDefaults, repositoryIds: ['repo-prebidjs'], ageThresholds: [] };
+    expect(overviewSavedValues(saved, { sort: 'name', descending: false }, null)).toEqual({
+      scope: { repo: ['prebidjs'], period: 'this-month', age: [] },
+      presentation: { bsort: 'name' },
+    });
+    expect(overviewSavedValues(null, null, { sort: 'prsMerged', descending: true })).toEqual({
+      scope: {},
+      presentation: { asort: '-prsMerged' },
+    });
+    const sections = (overview: OverviewSettings) => {
+      const raw: Partial<Record<PreferenceSectionKey, string>> = {
+        overview: serializeOverviewPreferences(overview),
+        'overview.activity.sort': '{"sort":"prsMerged","descending":true}',
+      };
+      return (section: PreferenceSectionKey) => raw[section] ?? null;
+    };
+    expect(overviewEntryValues(sections(saved), asOf)).toEqual({
+      scope: { repo: ['prebidjs'], period: 'this-month', age: [] },
+      presentation: { asort: '-prsMerged' },
+    });
+    // A saved custom range needs the server's validation, so the link stays bare.
+    expect(
+      overviewEntryValues(
+        sections({
+          ...saved,
+          periods: [{ kind: 'custom', from: '2026-10-06', through: '2026-10-08' }],
+        }),
+        asOf,
+      ),
+    ).toBeNull();
   });
   it.each([null, '{', 'null', '{"version":2}', '{"version":1,"settings":{}}'])(
     'ignores invalid or unsupported stored preferences %s',
@@ -196,12 +256,7 @@ describe('overview settings contracts', () => {
     ).toBeNull();
     expect(overviewPreferenceKey('a')).not.toBe(overviewPreferenceKey('b'));
   });
-  it('resets only this report query and distinguishes display-only updates', () => {
-    const query = writeOverviewSettings(
-      'tag=a&tag=b&backlog.q=x&backlog.sort=total&activity.page=2&activity.dir=desc',
-      defaults,
-    );
-    expect(resetOverviewQuery(query)).toBe('tag=a&tag=b');
+  it('distinguishes scope changes from display-only updates', () => {
     expect(changesOverviewScope({ backlogColumns: ['name'] })).toBe(false);
     expect(changesOverviewScope({ periods: defaults.periods })).toBe(true);
     expect(changesOverviewScope({ ageThresholds: [30, 60] })).toBe(true);

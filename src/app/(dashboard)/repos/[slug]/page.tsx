@@ -1,17 +1,24 @@
-import { repositoryDetail } from '@/server/reporting';
+import { notFound } from 'next/navigation';
+import { catalogRepository, repositoryDetail } from '@/server/reporting';
 import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { RepositoryInsightsScreen } from '@/app/_screens/repository-insights-screen';
 import { EmptyState } from '@/components/feedback/empty-state';
 import Link from 'next/link';
-import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
-import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
+import type { PageSearchParams } from '@/lib/presentation/search-params';
+import { legacySearchParams, queryPairs } from '@/lib/presentation/url/codec';
+import { InvalidTimeline, TimelineRoute } from '@/app/_screens/timeline-route';
+import { timelineEntryValues } from '@/server/timeline-preview';
 import { repositoryPageMetadata } from '@/server/page-metadata';
 import { readPreferences } from '@/server/preferences';
 import {
+  recordEntryValues,
   repositoryInsightSort,
+  repositoryLinkPresentation,
   repositoryPagePreferences,
 } from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
+import { requireViewer } from '@/lib/auth/viewer';
+import { canonicalPage } from '@/server/canonical-page';
 import styles from '@/features/repositories/repository-page.module.css';
 export async function generateMetadata({
   params,
@@ -20,9 +27,20 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
   searchParams: Promise<PageSearchParams>;
 }) {
-  return repositoryPageMetadata(
-    (await params).slug,
-    new URLSearchParams(encodeSearchParams(await searchParams)),
+  return repositoryPageMetadata((await params).slug, legacySearchParams(await searchParams));
+}
+function InvalidRepositoryView() {
+  return (
+    <>
+      <Link prefetch={false} href="/repos" className={styles.backLink}>
+        <BackIcon size={14} />
+        All repositories
+      </Link>
+      <EmptyState kind="error" title="Invalid repository filter">
+        The requested metric, dates, branch, or return path is invalid. Choose a count from All
+        repositories.
+      </EmptyState>
+    </>
   );
 }
 export default async function RepositoryPage({
@@ -32,22 +50,35 @@ export default async function RepositoryPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<PageSearchParams>;
 }) {
+  await requireViewer();
   const { slug } = await params;
+  if (!catalogRepository(slug)) notFound();
   const query = await searchParams;
-  const timelineParams = new URLSearchParams(encodeSearchParams(query));
-  if (timelineParams.has('timeline'))
-    return <RepositoryTimelineRoute slug={slug} params={timelineParams} />;
-  const result = await repositoryDetail(slug, new URLSearchParams(encodeSearchParams(query)));
+  const snapshot = await readPreferences('repositories');
+  const links = repositoryLinkPresentation(snapshot);
+  const view = { route: '/repos/[slug]' as const, segments: { slug: [slug] } };
+  const page = await canonicalPage(view.route, view.segments, query, {
+    saved: (screen, values) =>
+      screen === 'repositoryTimeline'
+        ? timelineEntryValues({ ...view, values }, snapshot)
+        : recordEntryValues(values, links),
+  });
+  if (page.status === 'invalid')
+    return queryPairs(query).some(([key]) => key === 'timeline') ? (
+      <InvalidTimeline message={page.message} href={'/repos/' + encodeURIComponent(slug)} />
+    ) : (
+      <InvalidRepositoryView />
+    );
+  if (page.values.timeline === true)
+    return <TimelineRoute view={{ ...view, values: page.values }} entry={page.entry} />;
+  const result = await repositoryDetail(slug, page.values);
   if (result.status === 'page')
     return (
       <RepositoryPageScreen
         viewerId={result.viewer.id}
         source={result.source}
         navigation={result.navigation}
-        preferences={repositoryPagePreferences(
-          await readPreferences('repositories'),
-          result.source,
-        )}
+        preferences={repositoryPagePreferences(snapshot, result.source)}
       />
     );
   if (result.status === 'insight')
@@ -56,34 +87,9 @@ export default async function RepositoryPage({
         viewerId={result.viewer.id}
         insight={result.insight}
         navigation={result.navigation}
-        savedSort={repositoryInsightSort(await readPreferences('repositories'), result.insight)}
+        savedSort={repositoryInsightSort(snapshot, result.insight)}
+        links={links}
       />
     );
-  if (result.status === 'invalid' || result.status === 'unsupported')
-    return (
-      <>
-        <Link
-          prefetch={false}
-          href={result.status === 'unsupported' ? result.returnTo : '/repos'}
-          className={styles.backLink}
-        >
-          <BackIcon size={14} />
-          All repositories
-        </Link>
-        <EmptyState
-          kind={result.status === 'invalid' ? 'error' : 'missing'}
-          title={
-            result.status === 'invalid'
-              ? 'Invalid repository filter'
-              : 'This drilldown is not available yet'
-          }
-        >
-          {result.status === 'invalid'
-            ? 'The requested metric, dates, branch, or return path is invalid. Choose a count from All repositories.'
-            : 'Choose another metric from All repositories.'}
-        </EmptyState>
-      </>
-    );
-  const unhandled: never = result;
-  return unhandled;
+  return <InvalidRepositoryView />;
 }

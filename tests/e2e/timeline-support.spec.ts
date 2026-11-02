@@ -166,7 +166,10 @@ test('contribution credits, comment counts and final merged volume exports match
   expect(comments.records.reduce((sum, row) => sum + Number(row['Comments']), 0)).toBe(count);
   expect(comments.records.every((row) => row['Counting basis'] === 'comments')).toBe(true);
   expect(comments.headers).not.toContain('Comment body');
-  await page.goto('/contributors?timeline=1&type=human&exclude=account-alice');
+  // Reviewer contributions is in Columns until the Reviewers lens (decision C5).
+  await page.goto(
+    '/contributors?timeline=1&type=human&exclude=account-alice&timeline.columns=reviewerContributions',
+  );
   await ready(page);
   const credits = page
     .getByRole('table')
@@ -231,7 +234,7 @@ test('supporting lists paginate fifty rows while CSV exports every matching reco
     page.getByRole('textbox', { name: 'Search Supporting contributions', exact: true }),
   ).toHaveValue('#' + number);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
-  expect(new URL(page.url()).searchParams.get('support.records.q')).toBe('#' + number);
+  expect(new URL(page.url()).searchParams.get('dq')).toBe('#' + number);
 });
 test('full-range matrix and series downloads ignore windows/pages and matrix cells restore their parent', async ({
   page,
@@ -285,7 +288,7 @@ test('chart points use the same interval details; partial values remain inspecta
   await expect(dots).toHaveCount(10);
   await dots.last().click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  await expect(page).toHaveURL(/timeline.detail=prsOpened/);
+  await expect(page).toHaveURL(/[?&]detail=prsOpened/);
   await page.setViewportSize({ width: 375, height: 1000 });
   await page.goto('/repos?timeline=1&sample=mixed&timeline.group=quarter&repo=repo-prebidserver');
   await ready(page);
@@ -319,14 +322,13 @@ test('downloads and copied support links remain protected and stale source ident
     .getByRole('link', { name: 'Pull requests — Opened, Oct 2026: 78', exact: true })
     .getAttribute('href');
   const url = new URL(href!, 'http://127.0.0.1:3100');
-  url.searchParams.set('timeline.revision', 'stale');
+  url.searchParams.set('snap', url.searchParams.get('snap')!.replace(/^[^@]*/, 'stale'));
   await page.goto(url.toString());
   await expect(page.getByRole('heading', { name: 'Invalid timeline view' })).toBeVisible();
   await expect(page.getByRole('table')).toHaveCount(0);
   await page.getByRole('link', { name: 'Return to report', exact: true }).click();
   await ready(page);
-  expect(new URL(page.url()).searchParams.has('timeline.detail')).toBe(false);
-  expect(new URL(page.url()).searchParams.get('timeline')).toBe('1');
+  await expect(page).toHaveURL('http://127.0.0.1:3100/repos/prebidjs?timeline');
 });
 test('Back and Forward restore supporting-view search and author steps', async ({ page }) => {
   await login(page);
@@ -340,15 +342,14 @@ test('Back and Forward restore supporting-view search and author steps', async (
   await search.press('Enter');
   await expect(authors.locator('tbody tr')).toHaveCount(1);
   const searched = new URL(page.url()).searchParams;
-  await authors.locator('a[href*="support.author"]').first().click();
-  await expect(page).toHaveURL(/support\.author=/);
+  await authors.locator('a[href*="&author="]').first().click();
+  await expect(page).toHaveURL(/[?&]author=/);
   const author = page.url();
   await page.goBack();
-  // The author link freezes the visible columns into this entry; everything else is unchanged.
+  // Columns are in the address only when changed, so the entry needs no freezing on the way out.
   await expect(page).toHaveURL(
     (url) =>
-      !url.searchParams.has('support.author') &&
-      url.searchParams.has('support.authors.columns') &&
+      !url.searchParams.has('author') &&
       [...searched].every(([name, value]) => url.searchParams.getAll(name).includes(value)),
   );
   await expect(page.getByRole('textbox', { name: /^Search / })).toHaveValue('bob');

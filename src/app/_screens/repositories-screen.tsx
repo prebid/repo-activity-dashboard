@@ -1,29 +1,39 @@
 'use client';
 import { useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { AllRepositoriesView } from '@/features/repositories/all-repositories-view';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { useOverviewSettings } from '@/lib/navigation/use-overview-settings';
-import {
-  changesOverviewScope,
-  writeOverviewTableQueries,
-  writeOverviewSettings,
-} from '@/lib/presentation/overview-settings';
+import { useUrlState } from '@/lib/navigation/use-url-state';
 import { selectOverviewSample } from '@/lib/presentation/overview-samples';
 import { withOverviewSort } from '@/lib/presentation/overview-sort';
+import type { RepositoryLinkPresentation } from '@/lib/presentation/repository-url';
+import { urlHref } from '@/lib/presentation/url/codec';
+import type { TableFields } from '@/lib/presentation/url/table-binding';
 import type { OverviewSettings } from '@/models/overview-settings';
 import type { RepositoryOverviewSamples } from '@/models/repository-overview';
 import type { SavedPreference } from '@/models/preferences';
 import type { TableQuery } from '@/models/table-query';
-const backlogPeers = ['activity'];
-const activityPeers = ['backlog'];
+const backlogFields: TableFields = {
+  route: '/repos',
+  sort: 'bsort',
+  page: 'bpage',
+  peers: ['asort', 'apage'],
+};
+const activityFields: TableFields = {
+  route: '/repos',
+  sort: 'asort',
+  page: 'apage',
+  peers: ['bsort', 'bpage'],
+};
 type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
 /** The viewer's saved sections, validated by route composition for the first render. */
 export interface RepositoriesPreferences {
   overview: SavedPreference<OverviewSettings>;
   backlogSort: SavedPreference<SavedSort>;
   activitySort: SavedPreference<SavedSort>;
+  /** Saved record and insight presentation, which the Summary's links carry (decision C3). */
+  links?: RepositoryLinkPresentation;
 }
 export function RepositoriesScreen({
   viewerId,
@@ -49,27 +59,22 @@ export function RepositoriesScreen({
     scopeKey: 'all-repositories:backlog',
     viewerId,
     columnIds: overviewSettingsColumns.backlogColumns,
-    peerQueryKeys: backlogPeers,
     savedSort: preferences?.backlogSort,
+    fields: backlogFields,
   });
   const activityTable = useTableController({
     queryKey: 'activity',
     scopeKey: 'all-repositories:activity',
     viewerId,
     columnIds: overviewSettingsColumns.activityColumns,
-    peerQueryKeys: activityPeers,
     savedSort: preferences?.activitySort,
+    fields: activityFields,
   });
   const backlog = withOverviewSort(backlogTable, 'backlog', settings.value);
   const activity = withOverviewSort(activityTable, 'activity', settings.value);
-  const search = useSearchParams().toString();
-  const returnTo =
-    '/repos?' +
-    writeOverviewTableQueries(
-      writeOverviewSettings(search, settings.value),
-      backlog.query,
-      activity.query,
-    );
+  // The Summary this view shows: the parent its drilldowns and Timeline return to.
+  const { values } = useUrlState('/repos');
+  const returnTo = urlHref('/repos', {}, values ?? {});
   const data = useMemo(
     () => selectOverviewSample(samples, settings.value.periods[0], settings.value.repositoryIds),
     [samples, settings.value.periods, settings.value.repositoryIds],
@@ -81,19 +86,7 @@ export function RepositoriesScreen({
         : undefined,
     [samples, settings.value.periods, settings.value.repositoryIds],
   );
-  function captureTableContext() {
-    const backlogQuery = backlog.flushSearch();
-    const activityQuery = activity.flushSearch();
-    const url = new URL(window.location.href);
-    url.search = writeOverviewTableQueries(url.search, backlogQuery, activityQuery);
-    if (url.href !== window.location.href) window.history.replaceState(null, '', url);
-  }
-  function update(patch: Partial<OverviewSettings>) {
-    if (changesOverviewScope(patch)) captureTableContext();
-    settings.update(patch);
-  }
   function reset() {
-    captureTableContext();
     backlog.clearSavedSort();
     activity.clearSavedSort();
     settings.reset();
@@ -106,9 +99,9 @@ export function RepositoriesScreen({
       backlogController={backlog}
       activityController={activity}
       returnTo={returnTo}
+      links={preferences?.links}
       settings={{
         ...settings,
-        update,
         reset,
         storageAvailable:
           settings.storageAvailable && backlog.storageAvailable && activity.storageAvailable,

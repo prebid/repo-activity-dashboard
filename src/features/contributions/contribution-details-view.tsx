@@ -1,5 +1,6 @@
 'use client';
 import { accountTypeLabels } from '@/models/github-account';
+import { contributionDetailColumnIds } from '@/models/table-columns';
 import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
 import { additionalMetricDefinitions } from '@/models/contribution-activity';
 import { Callout } from '@/components/feedback/callout';
@@ -47,17 +48,7 @@ function recordStatusLabel(status: RecordStatusProps): string {
     ? recordStatusPresentation.pr[status.status].label
     : recordStatusPresentation.issue[status.status].label;
 }
-export const contributionDetailColumnIds = [
-  'record',
-  'account',
-  'actorType',
-  'company',
-  'repository',
-  'state',
-  'creditedAt',
-  'lastAt',
-  'value',
-];
+export { contributionDetailColumnIds };
 export function contributionDetailColumns(
   details: ContributionMetricDetails,
 ): DataColumn<ContributionSupportingRow>[] {

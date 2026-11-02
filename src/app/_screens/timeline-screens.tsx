@@ -1,11 +1,16 @@
 'use client';
 import { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { followHref } from '@/lib/navigation/use-url-state';
+import { useRepositoriesEntryHref } from '@/lib/navigation/use-repositories-entry';
+import { areaEntryParent, useAreaEntryHref } from '@/lib/navigation/use-contribution-entry';
+import { derive, viewOf } from '@/lib/presentation/url/back';
 import { CsvExportDialog } from '@/components/exports/csv-export-dialog';
 import { Callout } from '@/components/feedback/callout';
 import { timelineCsvDownload } from '@/components/reporting/timeline-csv-download';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { useTimelineControls } from '@/lib/navigation/use-timeline-controls';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import {
   timelineRecordFilterNote,
   timelineSettingsGroup,
@@ -37,10 +42,7 @@ import type { RepositoryFilterOptions, RepositoryPageNavigation } from '@/models
 import type { TimelineControlContext } from '@/models/timeline-controls';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
-import {
-  contributionTimelineAreaHref,
-  contributionTimelineReturnHref,
-} from '@/lib/presentation/contribution-timeline';
+import { contributionTimelineAreaHref } from '@/lib/presentation/contribution-timeline';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 const defaults = (metrics: TimelineMetricDefinition[]) =>
@@ -58,15 +60,21 @@ export function RepositoryTimelineMatrixScreen({
   context,
   matrix,
   summaryHref,
-}: Shared & { matrix: RepositoryTimelineMatrix; summaryHref: string }) {
+}: Shared & {
+  matrix: RepositoryTimelineMatrix;
+  /** The Summary tab; null for the bare area entry, which the tab links in its saved form. */
+  summaryHref: string | null;
+}) {
   const control = useTimelineControls(viewerId, context, {});
+  const entry = useRepositoriesEntryHref(context.asOf, viewerId);
+  const savedRepository = useSavedTimelinePresentation('timeline.repository', 'repository');
   const matrixMetrics = repositoryTimelineMatrixMetricDefinitions(matrix.scope.metrics);
   const csv = timelineCsvDownload(control.href, matrix.source);
   return (
     <RepositoryTimelineMatrixView
       matrix={matrix}
       href={control.href}
-      summaryHref={summaryHref}
+      summaryHref={summaryHref ?? entry}
       toolbar={{
         ...toolbarState(control),
         groups: [
@@ -94,7 +102,13 @@ export function RepositoryTimelineMatrixScreen({
         table: control.table,
         window: { page: control.view.window, onChange: (window) => control.changeView({ window }) },
         repositoryHref: (slug) =>
-          matrixRepositoryTimelineHref({ ...context, view: control.view }, slug, control.href),
+          matrixRepositoryTimelineHref(
+            { ...context, view: control.view },
+            slug,
+            control.href,
+            undefined,
+            savedRepository,
+          ),
         detailHref: (row, interval) => {
           if (control.pending) return null;
           const href = matrixRepositoryTimelineHref(
@@ -136,7 +150,8 @@ export function RepositoryTimelineScreen({
 }: Shared & {
   report: RepositoryTimeline;
   navigation: RepositoryPageNavigation;
-  parent: string | null;
+  /** The page the Timeline was opened from: null when it cannot be restored, absent for none. */
+  parent?: string | null;
   facets: RepositoryFilterOptions;
   omitted: boolean;
 }) {
@@ -203,7 +218,7 @@ export function RepositoryTimelineScreen({
         disabled: control.pending,
         onInterval: (metric, interval) => {
           const href = detailHref(metric, interval);
-          if (href) router.push(href);
+          if (href) followHref(router, href);
         },
         visible: control.view.chart,
         metric: control.view.metric,
@@ -219,7 +234,14 @@ export function ContributionTimelineScreen({
   report,
   area,
   reportHref,
-}: Shared & { report: ContributionTimeline; area: ContributionArea; reportHref: string }) {
+  returnTo,
+}: Shared & {
+  report: ContributionTimeline;
+  area: ContributionArea;
+  reportHref: string;
+  /** "Back to report" on a subject's Over time: null when it cannot be restored. */
+  returnTo?: string | null;
+}) {
   const sample = context.sample.split(':')[0] as ContributionSampleScenario;
   const options = useMemo(() => contributionOptionsClient(sample), [sample]);
   // The server checks a saved scope's accounts and companies before rendering, so the options
@@ -233,6 +255,14 @@ export function ContributionTimelineScreen({
   );
   const { focus, company } = report.scope,
     settings = context.contribution!;
+  // Without frames, "Back to report" from a report at its area's default scope opens the area
+  // entry as the masthead does.
+  const shown = viewOf(context.href);
+  const derived = shown?.values.back === undefined && shown ? derive(shown) : null;
+  const entry = useAreaEntryHref(
+    derived?.kind === 'derived' ? areaEntryParent(derived.parent) : null,
+    viewerId,
+  );
   return (
     <ContributionTimelineView
       report={report}
@@ -252,7 +282,7 @@ export function ContributionTimelineScreen({
               },
             }
           : {
-              returnTo: contributionTimelineReturnHref(reportHref, area, sample, settings),
+              returnTo: entry ?? returnTo,
               ...(focus.kind === 'contributor' && {
                 company: contributionHref(
                   { kind: 'company', companyId: company?.id ?? null },

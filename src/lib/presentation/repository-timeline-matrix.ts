@@ -1,3 +1,4 @@
+export { matrixRepositoryIds } from './url/legacy/timeline';
 import {
   repositoryTimelineMatrixSourceSchema,
   repositoryTimelineMatrixSelectionSchema,
@@ -25,12 +26,6 @@ function byRepository(a: RepositoryTimelineMatrixRow, b: RepositoryTimelineMatri
   );
 }
 export class RepositoryTimelineMatrixLimitError extends RangeError {}
-/** The repositories a matrix URL selects: its repo values, or every available one if none is named. */
-export function matrixRepositoryIds(params: URLSearchParams, available: readonly string[]) {
-  return [
-    ...new Set(params.has('repo') ? params.getAll('repo').filter(Boolean) : available),
-  ].sort();
-}
 /** The one matrix size rule, shared by URL validation and the projection. */
 export function assertMatrixCellLimit(repositories: number, metrics: number, intervals: number) {
   if (repositories * metrics * intervals > repositoryTimelineMatrixCellLimit)

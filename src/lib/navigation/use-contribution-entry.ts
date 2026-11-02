@@ -1,57 +1,130 @@
 'use client';
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback, useMemo } from 'react';
+import type { PreferenceSectionKey } from '@/models/preferences';
 import {
-  readStoredContributionPreferences,
+  isContributionPresentationDocument,
+  type ContributionTableKind,
+} from '@/models/contribution-preferences';
+import {
   contributionPreferenceNeedsLookup,
-  writeContributionSettings,
+  readContributionPresentation,
+  readStoredContributionPreferences,
 } from '@/lib/presentation/contribution-settings';
-import { contributionUrlFits } from '@/lib/presentation/contribution-return';
-import { preferenceChangeEvent, readPreference } from './use-preference-cookie';
-import { usePreferenceBinding } from './preference-binding';
+import {
+  contributionScopeValues,
+  savedPresentationValues,
+  type ContributionRoute,
+} from '@/lib/presentation/contribution-url';
+import { readSavedTableSort } from '@/lib/presentation/table-query';
+import type { SavedViewValues } from '@/lib/presentation/url/entry';
+import type { UrlSegments, UrlValues } from '@/lib/presentation/url/registry';
+import { derive, type UrlView } from '@/lib/presentation/url/back';
+import { isEntry } from '@/lib/presentation/url/codec';
+import { useEntryHref } from './use-entry-href';
 
-/**
- * A save in this window dispatches the change event. Cookies fire no event across tabs, so the
- * cookie is also read again when this window regains focus or becomes visible.
- */
-function subscribe(notify: () => void) {
-  window.addEventListener(preferenceChangeEvent, notify);
-  window.addEventListener('focus', notify);
-  document.addEventListener('visibilitychange', notify);
-  return () => {
-    window.removeEventListener(preferenceChangeEvent, notify);
-    window.removeEventListener('focus', notify);
-    document.removeEventListener('visibilitychange', notify);
+type Read = (section: PreferenceSectionKey) => string | null;
+function parsed(raw: string | null): unknown {
+  try {
+    return JSON.parse(raw ?? 'null');
+  } catch {
+    return null;
+  }
+}
+/** A table's saved columns, zero-member choice and sort, read from the cookie. */
+function savedTable(read: Read, table: ContributionTableKind) {
+  const columns = read(`contributions.${table}.columns`);
+  const document = parsed(columns);
+  const presentation = isContributionPresentationDocument(document)
+    ? readContributionPresentation(columns, Object.keys(document.columns))
+    : undefined;
+  const rawSort = read(`contributions.${table}.sort`);
+  const sort = parsed(rawSort);
+  return {
+    columns: presentation?.columns,
+    hideZeroMembers: presentation?.hideZeroMembers,
+    sort:
+      sort && typeof sort === 'object' && 'sort' in sort && typeof sort.sort === 'string'
+        ? readSavedTableSort(rawSort, [sort.sort])
+        : null,
   };
 }
-const serverSnapshot = () => null;
 /**
- * Resolve the saved report scope before in-app navigation, so an ordinary click opens the saved view
- * in one request; the destination remains a real shareable URL. Scopes that need the directory (a
- * named account or company, a custom range, an unknown repository) use the bare entry, which the
- * server validates and redirects.
+ * A contribution entry's saved view from the cookie, as registry values. A saved scope that needs
+ * the directory (a named account or company, a custom range, an unknown repository) returns null:
+ * the entry link stays bare, and the server checks it and redirects.
+ */
+export function savedContributionEntry(
+  route: ContributionRoute,
+  segments: UrlSegments,
+  selectors: UrlValues,
+  read: Read,
+  enabledRepositoryIds?: ReadonlySet<string>,
+): SavedViewValues | null {
+  const values = { ...selectors };
+  const table: ContributionTableKind =
+    route === '/contributors'
+      ? 'contributors'
+      : route === '/companies'
+        ? 'companies'
+        : route === '/contributors/[accountId]' || selectors.view === 'repositories'
+          ? 'repositories'
+          : 'members';
+  const presentation = savedPresentationValues(route, values, {
+    [table]: savedTable(read, table),
+  });
+  if (route !== '/contributors' && route !== '/companies') return { presentation };
+  const raw = read('contributions.scope');
+  if (raw === null) return { presentation };
+  const settings = readStoredContributionPreferences(raw);
+  if (
+    !settings ||
+    settings.period.kind !== 'preset' ||
+    contributionPreferenceNeedsLookup(settings) ||
+    (enabledRepositoryIds &&
+      !settings.selection.repositoryIds.every((id) => enabledRepositoryIds.has(id)))
+  )
+    return null;
+  return { scope: contributionScopeValues(settings), presentation };
+}
+/**
+ * The masthead Contributions link: `/contributors` in the viewer's saved explicit form after
+ * hydration, so an ordinary click opens the saved view in one request.
  */
 export function useContributionEntry(
   viewerId: string | undefined,
   enabledRepositories: readonly { id: string }[],
 ): string {
-  const binding = usePreferenceBinding();
-  const read = useCallback(() => {
-    // A value saved for another account or authentication revision is ignored.
-    if (!binding || binding.accountId !== viewerId) return null;
-    try {
-      return readPreference(binding, 'contributions.scope');
-    } catch {
-      return null;
-    }
-  }, [binding, viewerId]);
-  const raw = useSyncExternalStore(subscribe, read, serverSnapshot);
-  const settings = readStoredContributionPreferences(raw);
-  const knownRepositories = new Set(enabledRepositories.map((repo) => repo.id));
-  const safe =
-    settings &&
-    settings.period.kind === 'preset' &&
-    !contributionPreferenceNeedsLookup(settings) &&
-    settings.selection.repositoryIds.every((id) => knownRepositories.has(id));
-  const href = safe ? '/contributors?' + writeContributionSettings('', settings) : '/contributors';
-  return contributionUrlFits(href) ? href : '/contributors';
+  const key = enabledRepositories.map((repo) => repo.id).join(' ');
+  const known = useMemo(() => new Set(key.split(' ')), [key]);
+  // Only the signed-in viewer's saved view applies; a page without one links bare.
+  const saved = useCallback(
+    (read: Read) =>
+      viewerId === undefined ? null : savedContributionEntry('/contributors', {}, {}, read, known),
+    [known, viewerId],
+  );
+  return useEntryHref('/contributors', saved, { viewerId });
+}
+/**
+ * A contribution crumb whose parent is an area entry (an overview at the default scope, reached
+ * without a `back` frame): the entry in the viewer's saved explicit form, as the masthead opens it.
+ * `parent` is null for any other crumb, which keeps its own href.
+ */
+export function useAreaEntryHref(parent: UrlView | null, viewerId: string): string | null {
+  const route = (parent?.route ?? '/contributors') as ContributionRoute;
+  const selectorsKey = JSON.stringify(parent?.values ?? {});
+  const selectors = useMemo(() => JSON.parse(selectorsKey) as UrlValues, [selectorsKey]);
+  const saved = useCallback(
+    (read: Read) => savedContributionEntry(route, {}, selectors, read),
+    [route, selectors],
+  );
+  const href = useEntryHref(route, saved, { viewerId, selectors });
+  return parent ? href : null;
+}
+/** The area entry a view's parent crumb opens when the view names no frame, or null. */
+export function areaEntryParent(view: UrlView | null): UrlView | null {
+  if (!view || view.values.back !== undefined) return null;
+  const derivation = derive(view);
+  return derivation.kind === 'derived' && isEntry(derivation.parent.route, derivation.parent.values)
+    ? derivation.parent
+    : null;
 }

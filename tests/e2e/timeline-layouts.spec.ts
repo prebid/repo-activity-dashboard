@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import type { Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function login(page: Page) {
@@ -130,9 +131,7 @@ test('a 500-interval timeline keeps a full chart and fifty-row table, and reject
   await expect(page.getByText('Page 2 of 10', { exact: true })).toBeVisible();
   await expect(page.locator('path.recharts-line-curve').first()).toHaveAttribute('d', curve!);
   await page.screenshot({ path: info.outputPath('timeline-dense.png') });
-  await page.goto(
-    '/contributors?timeline=1&timeline.group=day&period=custom&from=2020-01-01&through=2026-10-24',
-  );
+  await page.goto('/contributors?timeline&group=day&period=2020-01-01..2026-10-24');
   await expect(page.getByRole('heading', { name: 'Invalid timeline view' })).toBeVisible();
   await expect(page.getByRole('status')).toContainText('500 intervals');
 });
@@ -145,10 +144,10 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
     '/contributors/account-alice?timeline=1&period=this-month&repo=repo-prebidjs&type=human',
   );
   await page.getByRole('link', { name: 'Report', exact: true }).click();
-  await expect(page).not.toHaveURL(/[?&]timeline=/);
+  await expect(page).not.toHaveURL(/[?&]timeline(=|&|$)/);
   await expect(page.getByRole('heading', { name: 'Alice', level: 1 })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('timeline')).toBeNull();
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
+  expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
   await page.goto('/repos/prebidjs');
   // The record scope select names the scope, so the summary beside it does not repeat it.
   await expect(
@@ -161,18 +160,18 @@ test('timeline previews keep ordinary reports reachable and remain protected', a
     .getByRole('navigation', { name: 'Repository lists' })
     .getByRole('link', { name: 'Timeline', exact: true })
     .click();
-  await expect(page).toHaveURL(/\/repos\/prebidjs\?.*timeline=1/);
+  await expect(page).toHaveURL(/\/repos\/prebidjs\?timeline(&|$)/);
   await expect(
     page.getByRole('heading', { name: 'Activity over time', exact: true }),
   ).toBeVisible();
   await page.getByRole('link', { name: /^Issues / }).click();
   // The issue list's own Timeline link carries the issue kind, so wait for that page first.
-  await expect(page).toHaveURL(/metric=openIssues/);
+  await expect(page).toHaveURL(/\/repos\/prebidjs\?view=issues/);
   await page
     .getByRole('navigation', { name: 'Repository lists' })
     .getByRole('link', { name: 'Timeline', exact: true })
     .click();
-  await expect(page).toHaveURL(/timeline.kind=issues/);
+  await expect(page).toHaveURL(/\/repos\/prebidjs\?timeline&view=issues(&|$)/);
   await expect(
     page.getByRole('table').getByRole('columnheader', { name: 'Closed', exact: true }),
   ).toBeVisible();

@@ -1,27 +1,37 @@
 import { expect, it } from 'vitest';
-import {
-  repositoryMatrixEntryHref,
-  repositoryMatrixSummaryHref,
-} from '@/lib/presentation/repository-timeline-matrix-entry';
-import { contributionUrlFits } from '@/lib/presentation/contribution-return';
+import { repositoryMatrixEntryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
+import { repositoryCatalog } from '@/config/repositories';
 
 const source = {
   source: 'sample' as const,
   scenarioId: 'all-repositories-v1',
   asOf: '2026-10-24T12:00:00.000Z',
 };
-const repos = (...ids: string[]) => ids.map((id) => ({ id, slug: id.replace(/^repo-/, '') }));
-it('carries a canonical repository selection and an independent Summary snapshot', () => {
+const enabled = repositoryCatalog
+  .filter((row) => row.enabled)
+  .map((row) => ({ id: row.id, slug: row.slug }));
+const repos = (...slugs: string[]) => slugs.map((slug) => ({ id: 'repo-' + slug, slug }));
+
+it('opens the matrix from a Summary at the defaults with the shortest link', () => {
+  for (const summary of ['/repos', '/repos?v=1'])
+    expect(repositoryMatrixEntryHref(enabled, summary, source)).toBe('/repos?timeline');
+});
+it('carries the Summary’s repositories and keeps the rest of the Summary as the parent frame', () => {
   const summary =
-    '/repos?period=this-week&period2=last-month&age=30&age=60&activity.sort=prsMerged&activity.dir=desc&backlog.columns=name&backlog.columns=totalOpenPrs';
-  const href = repositoryMatrixEntryHref(repos('repo-b', 'repo-a', 'repo-a'), summary, source)!;
-  const query = new URL(href, 'https://example.test').searchParams;
-  expect(query.getAll('repo')).toEqual(['repo-a', 'repo-b']);
-  expect(query.get('timeline')).toBe('1');
-  expect(query.has('period')).toBe(false);
-  expect(repositoryMatrixSummaryHref(query.get('summary'))).toBe(summary);
-  expect(repositoryMatrixEntryHref([], '/repos', source)).toBe('/repos?timeline=1&repo=');
-  expect(repositoryMatrixSummaryHref(undefined)).toBe('/repos');
+    '/repos?repo=prebidjs,prebidserver&period=this-week&period2=last-month&age=30,60&asort=-prsMerged&bpage=2';
+  const href = repositoryMatrixEntryHref(
+    repos('prebidserver', 'prebidjs', 'prebidjs'),
+    summary,
+    source,
+  )!;
+  expect(href).toBe(
+    '/repos?timeline&repo=prebidjs,prebidserver&back=~period:this-week~period2:last-month~age:30,60~bpage:2~asort:-prsMerged',
+  );
+  const [parent] = resolveBack(viewOf(href)!);
+  expect(parent).toMatchObject({ available: true, view: viewOf(summary) });
+  // A matrix of no repositories still returns to the Summary of every repository it came from.
+  expect(repositoryMatrixEntryHref([], '/repos', source)).toBe('/repos?timeline&repo=&back=~-repo');
 });
 it.each([
   'https://example.test/repos',
@@ -30,51 +40,12 @@ it.each([
   '/repos/prebidjs',
   '/repos?timeline=1',
   '/repos?summary=%2Frepos',
-  '/repos/../admin/users',
-  '/repos\n',
-  '/repos?x=' + 'a'.repeat(8000),
-])('rejects an unsafe or recursive Summary snapshot: %s', (value) => {
-  expect(repositoryMatrixSummaryHref(value)).toBeNull();
-  expect(repositoryMatrixEntryHref(repos('repo-a'), value, source)).toBeNull();
+  '/repos?backlog.sort=name',
+  '/repos?q=x',
+])('offers no matrix entry for an address that is not a canonical Summary: %s', (value) => {
+  expect(repositoryMatrixEntryHref(repos('prebidjs'), value, source)).toBeNull();
 });
-it('reads only the Summary parameters from any matrix summary', () => {
-  expect(repositoryMatrixSummaryHref('/repos?period=last-month&utm_source=x')).toBe(
-    '/repos?period=last-month',
-  );
-  expect(repositoryMatrixSummaryHref('/repos?q=x')).toBe('/repos');
-});
-it('keeps only the Summary parameters, so nested child links stay within the link budget', () => {
-  const padded = repositoryMatrixEntryHref(
-    repos('repo-a'),
-    '/repos?period=last-month&utm_source=' + encodeURIComponent(' '.repeat(2400)),
-    source,
-  )!;
-  expect(new URL(padded, 'https://example.test').searchParams.get('summary')).toBe(
-    '/repos?period=last-month',
-  );
-  expect(repositoryMatrixEntryHref(repos('repo-a'), '/repos?q=x', source)).toBe(
-    '/repos?timeline=1&repo=repo-a',
-  );
-});
-it('drops a Summary return context that leaves child links no room, keeping the entry', () => {
-  // Child links nest the summary twice, so each '%' grows from 3 to 7 bytes.
-  const summary = '/repos?backlog.q=' + encodeURIComponent('%'.repeat(1100));
-  const withSummary = '/repos?timeline=1&repo=repo-a&summary=' + encodeURIComponent(summary);
-  expect(contributionUrlFits(withSummary)).toBe(true);
-  expect(repositoryMatrixEntryHref(repos('repo-a'), summary, source)).toBe(
-    '/repos?timeline=1&repo=repo-a',
-  );
-});
-it('offers no entry when even the bare entry leaves no room for its child links', () => {
-  const ids = Array.from({ length: 450 }, (_, i) => 'repo-' + String(i).padStart(4, '0'));
-  const bare = '/repos?timeline=1&' + ids.map((id) => 'repo=' + id).join('&');
-  expect(contributionUrlFits(bare)).toBe(true);
-  expect(repositoryMatrixEntryHref(repos(...ids), '/repos', source)).toBeNull();
-  expect(
-    repositoryMatrixEntryHref(
-      Array.from({ length: 1000 }, (_, i) => ({ id: 'repo-' + i, slug: 'r' + i })),
-      '/repos',
-      source,
-    ),
-  ).toBeNull();
+it('offers no matrix entry when its Summary frame exceeds the frame budget', () => {
+  const ages = Array.from({ length: 400 }, (_, index) => String(index + 1)).join(',');
+  expect(repositoryMatrixEntryHref(repos('prebidjs'), '/repos?age=' + ages, source)).toBeNull();
 });

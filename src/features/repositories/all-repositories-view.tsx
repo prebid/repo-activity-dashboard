@@ -15,6 +15,7 @@ import {
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
 import { repositoryMatrixEntryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import {
   activityCellMeasurement,
   activityColumns,
@@ -27,6 +28,7 @@ import { RepositorySelector } from '@/components/reporting/repository-selector';
 import { ReportToolbar, reportToolbarStatus } from '@/components/reporting/report-toolbar';
 import { ActivityPeriodControls } from './activity-period-controls';
 import { activityTableRows } from '@/lib/presentation/overview-periods';
+import type { RepositoryLinkPresentation } from '@/lib/presentation/repository-url';
 import styles from './overview.module.css';
 
 /** The two Summary panels the view bar links to; they render only when repositories are selected. */
@@ -43,6 +45,7 @@ export function AllRepositoriesView({
   backlogController,
   activityController,
   returnTo = '/repos',
+  links,
 }: {
   data: RepositoryOverview;
   secondaryData?: RepositoryOverview;
@@ -51,10 +54,12 @@ export function AllRepositoriesView({
   backlogController: TableController;
   activityController: TableController;
   returnTo?: string;
+  /** The viewer's saved record and insight presentation, which drilldown links carry. */
+  links?: RepositoryLinkPresentation;
 }) {
   const { ageThresholds } = settings.value;
-  const backlog = useMemo(() => backlogColumns(returnTo), [returnTo]);
-  const activity = useMemo(() => activityColumns(returnTo), [returnTo]);
+  const backlog = useMemo(() => backlogColumns(returnTo, links), [returnTo, links]);
+  const activity = useMemo(() => activityColumns(returnTo, links), [returnTo, links]);
   const backlogVisibility = useMemo(
     () =>
       columnVisibilityFromIds(backlog, [
@@ -104,6 +109,7 @@ export function AllRepositoriesView({
     () => overviewLegend(activityRows, activity, activityVisibility, activityCellMeasurement),
     [activityRows, activity, activityVisibility],
   );
+  const savedMatrix = useSavedTimelinePresentation('timeline.matrix', 'matrix');
   return (
     <>
       <AllRepositoriesHeading asOf={data.asOf} />
@@ -114,6 +120,7 @@ export function AllRepositoriesView({
           repositories.filter((row) => settings.value.repositoryIds.includes(row.id)),
           returnTo,
           data,
+          savedMatrix,
         )}
         sections={rows.length ? summarySections : undefined}
       />

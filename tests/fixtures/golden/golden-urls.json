@@ -1,8 +1,8 @@
 {
   "scopeChange": {
-    "address": "/repos?backlog.sort=totalOpenPrs&backlog.dir=desc&activity.sort=prsOpened&activity.dir=desc&repo=repo-prebidjs&repo=repo-prebidserver&repo=repo-prebidserverjava&repo=repo-prebiddocs&repo=repo-prebidmobileandroid&repo=repo-prebidmobileios&repo=repo-prebid-mobile-ios-sdk&repo=repo-prebid-universal-creative&repo=repo-professor-prebid&repo=repo-salesagent&repo=repo-prebid-agent-skills&repo=repo-line-item-manager&repo=repo-go-gdpr&repo=repo-prebid-cache-java&repo=repo-repo-activity-dashboard&repo=repo-openrtb&repo=repo-github-activity-db&repo=repo-prebid-integration-monitor&period=this-month&age=",
+    "address": "/repos?age=",
     "change": "PR age: clear \"Over 30 days\" on a fresh /repos",
-    "length": 598
+    "length": 11
   },
   "version": 1,
   "views": {
@@ -33,40 +33,40 @@
     "companies": {
       "address": "/companies",
       "links": {
-        "/companies/[...identity]?metric&nav&period&scope": {
-          "count": 24,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sibmFtZSIsIm1lbWJlcnMiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbXBhbmllcyIsW1siY29tcGFuaWVzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 481
+        "/companies": {
+          "count": 1,
+          "example": "/companies",
+          "longest": 10
         },
-        "/companies/[...identity]?nav&period&scope": {
+        "/companies/[...identity]": {
           "count": 4,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsIm1lbWJlcnMiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbXBhbmllcyIsW1siY29tcGFuaWVzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 452
+          "example": "/companies/id/company-acme",
+          "longest": 28
         },
-        "/companies?companies.columns&period&report.dir&report.sort&scope": {
-          "count": 1,
-          "example": "/companies?companies.columns=name&companies.columns=members&companies.columns=prsAuthored&companies.columns=authoredPrsMerged&companies.columns=reviewerContributions&companies.columns=approvalContributions&companies.columns=mergesPerformed&companies.columns=issuesAuthored&period=this-year&report.dir=desc&report.sort=authoredPrsMerged&scope=1",
-          "longest": 343
+        "/companies/[...identity]?metric": {
+          "count": 12,
+          "example": "/companies/id/company-acme?metric=prsAuthored",
+          "longest": 53
         },
-        "/companies?nav&period&scope&timeline": {
+        "/companies?timeline&v": {
           "count": 1,
-          "example": "/companies?scope=1&period=this-year&timeline=1&nav=WzIsW1sibmFtZSIsIm1lbWJlcnMiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbXBhbmllcyIsW1siY29tcGFuaWVzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 445
+          "example": "/companies?timeline&v=1",
+          "longest": 23
         },
-        "/companies?period&scope": {
+        "/companies?v": {
           "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
+          "example": "/companies?v=1",
+          "longest": 14
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors?period&scope": {
+        "/contributors?v": {
           "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+          "example": "/contributors?v=1",
+          "longest": 17
         },
         "/repos": {
           "count": 2,
@@ -78,32 +78,32 @@
       "route": "/companies"
     },
     "companies-timeline": {
-      "address": "/companies?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/companies?timeline",
       "links": {
-        "/companies?period&scope": {
-          "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
+        "/companies?detail&interval&snap&timeline": {
+          "count": 30,
+          "example": "/companies?timeline&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 120
         },
-        "/companies?period&scope&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.group&timeline.interval&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 60,
-          "example": "/companies?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 320
-        },
-        "/companies?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/companies?timeline&v": {
           "count": 2,
-          "example": "/companies?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 138
+          "example": "/companies?timeline&v=1",
+          "longest": 23
+        },
+        "/companies?v": {
+          "count": 1,
+          "example": "/companies?v=1",
+          "longest": 14
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/contributors?timeline&v": {
           "count": 1,
-          "example": "/contributors?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 141
+          "example": "/contributors?timeline&v=1",
+          "longest": 26
         },
         "/repos": {
           "count": 2,
@@ -111,56 +111,51 @@
           "longest": 6
         }
       },
-      "requested": "/companies?timeline=1",
+      "requested": "/companies?timeline",
       "route": "/companies"
     },
     "company-detail": {
       "address": "/companies/id/company-acme",
       "links": {
-        "/companies/[...identity]": {
+        "/companies": {
           "count": 1,
+          "example": "/companies",
+          "longest": 10
+        },
+        "/companies/[...identity]": {
+          "count": 2,
           "example": "/companies/id/company-acme",
           "longest": 26
         },
-        "/companies/[...identity]?members.columns&members.dir&members.sort&members.zero&period&scope": {
-          "count": 1,
-          "example": "/companies/id/company-acme?members.columns=name&members.columns=actorType&members.columns=prsAuthored&members.columns=authoredPrsMerged&members.columns=reviewerContributions&members.columns=approvalContributions&members.columns=mergesPerformed&members.columns=issuesAuthored&members.dir=desc&members.sort=authoredPrsMerged&members.zero=show&period=this-year&scope=1",
-          "longest": 365
-        },
-        "/companies/[...identity]?metric&nav&period&scope": {
+        "/companies/[...identity]?back&metric": {
           "count": 6,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsInByc0F1dGhvcmVkIiwiYXV0aG9yZWRQcnNNZXJnZWQiLCJyZXZpZXdlckNvbnRyaWJ1dGlvbnMiLCJhcHByb3ZhbENvbnRyaWJ1dGlvbnMiLCJtZXJnZXNQZXJmb3JtZWQiLCJpc3N1ZXNBdXRob3JlZCJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbInNob3ciXSxbInRoaXMteWVhciJdLFsiMSJdXSxbWyIvY29tcGFuaWVzL2lkL2NvbXBhbnktYWNtZSIsW1sibWVtYmVycy5jb2x1bW5zIiwwXSxbIm1lbWJlcnMuZGlyIiwxXSxbIm1lbWJlcnMuc29ydCIsMl0sWyJtZW1iZXJzLnplcm8iLDNdLFsicGVyaW9kIiw0XSxbInNjb3BlIiw1XV1dXV0",
-          "longest": 540
+          "example": "/companies/id/company-acme?metric=prsAuthored&back=/companies/id/company-acme",
+          "longest": 87
         },
-        "/companies/[...identity]?nav&period&scope&timeline": {
+        "/companies/[...identity]?timeline&v": {
           "count": 1,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&timeline=1&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsInByc0F1dGhvcmVkIiwiYXV0aG9yZWRQcnNNZXJnZWQiLCJyZXZpZXdlckNvbnRyaWJ1dGlvbnMiLCJhcHByb3ZhbENvbnRyaWJ1dGlvbnMiLCJtZXJnZXNQZXJmb3JtZWQiLCJpc3N1ZXNBdXRob3JlZCJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbInNob3ciXSxbInRoaXMteWVhciJdLFsiMSJdXSxbWyIvY29tcGFuaWVzL2lkL2NvbXBhbnktYWNtZSIsW1sibWVtYmVycy5jb2x1bW5zIiwwXSxbIm1lbWJlcnMuZGlyIiwxXSxbIm1lbWJlcnMuc29ydCIsMl0sWyJtZW1iZXJzLnplcm8iLDNdLFsicGVyaW9kIiw0XSxbInNjb3BlIiw1XV1dXV0",
-          "longest": 522
+          "example": "/companies/id/company-acme?timeline&v=1",
+          "longest": 39
         },
         "/companies/[...identity]?view": {
           "count": 1,
           "example": "/companies/id/company-acme?view=repositories",
           "longest": 44
         },
-        "/companies?period&scope": {
-          "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
-        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors/[accountId]?metric&nav&period&scope": {
-          "count": 18,
-          "example": "/contributors/account-alice?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsInByc0F1dGhvcmVkIiwiYXV0aG9yZWRQcnNNZXJnZWQiLCJyZXZpZXdlckNvbnRyaWJ1dGlvbnMiLCJhcHByb3ZhbENvbnRyaWJ1dGlvbnMiLCJtZXJnZXNQZXJmb3JtZWQiLCJpc3N1ZXNBdXRob3JlZCJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbInNob3ciXSxbInRoaXMteWVhciJdLFsiMSJdXSxbWyIvY29tcGFuaWVzL2lkL2NvbXBhbnktYWNtZSIsW1sibWVtYmVycy5jb2x1bW5zIiwwXSxbIm1lbWJlcnMuZGlyIiwxXSxbIm1lbWJlcnMuc29ydCIsMl0sWyJtZW1iZXJzLnplcm8iLDNdLFsicGVyaW9kIiw0XSxbInNjb3BlIiw1XV1dXV0",
-          "longest": 541
-        },
-        "/contributors/[accountId]?nav&period&scope": {
+        "/contributors/[accountId]?back": {
           "count": 3,
-          "example": "/contributors/account-alice?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsInByc0F1dGhvcmVkIiwiYXV0aG9yZWRQcnNNZXJnZWQiLCJyZXZpZXdlckNvbnRyaWJ1dGlvbnMiLCJhcHByb3ZhbENvbnRyaWJ1dGlvbnMiLCJtZXJnZXNQZXJmb3JtZWQiLCJpc3N1ZXNBdXRob3JlZCJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbInNob3ciXSxbInRoaXMteWVhciJdLFsiMSJdXSxbWyIvY29tcGFuaWVzL2lkL2NvbXBhbnktYWNtZSIsW1sibWVtYmVycy5jb2x1bW5zIiwwXSxbIm1lbWJlcnMuZGlyIiwxXSxbIm1lbWJlcnMuc29ydCIsMl0sWyJtZW1iZXJzLnplcm8iLDNdLFsicGVyaW9kIiw0XSxbInNjb3BlIiw1XV1dXV0",
-          "longest": 512
+          "example": "/contributors/account-alice?back=/companies/id/company-acme",
+          "longest": 59
+        },
+        "/contributors/[accountId]?back&metric": {
+          "count": 9,
+          "example": "/contributors/account-alice?metric=prsAuthored&back=/companies/id/company-acme",
+          "longest": 84
         },
         "/repos": {
           "count": 2,
@@ -174,40 +169,35 @@
     "company-repositories": {
       "address": "/companies/id/company-acme?view=repositories",
       "links": {
+        "/companies": {
+          "count": 1,
+          "example": "/companies",
+          "longest": 10
+        },
         "/companies/[...identity]": {
           "count": 1,
           "example": "/companies/id/company-acme",
           "longest": 26
         },
-        "/companies/[...identity]?metric&nav&period&repo&scope": {
-          "count": 12,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&repo=repo-prebidjs&metric=prsAuthored&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdLFsicmVwb3NpdG9yaWVzIl1dLFtbIi9jb21wYW5pZXMvaWQvY29tcGFueS1hY21lIixbWyJwZXJpb2QiLDBdLFsicmVwb3NpdG9yaWVzLmNvbHVtbnMiLDFdLFsicmVwb3NpdG9yaWVzLmRpciIsMl0sWyJyZXBvc2l0b3JpZXMuc29ydCIsM10sWyJzY29wZSIsNF0sWyJ2aWV3Iiw1XV1dXV0",
-          "longest": 567
-        },
-        "/companies/[...identity]?metric&nav&period&scope": {
+        "/companies/[...identity]?back&metric": {
           "count": 6,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdLFsicmVwb3NpdG9yaWVzIl1dLFtbIi9jb21wYW5pZXMvaWQvY29tcGFueS1hY21lIixbWyJwZXJpb2QiLDBdLFsicmVwb3NpdG9yaWVzLmNvbHVtbnMiLDFdLFsicmVwb3NpdG9yaWVzLmRpciIsMl0sWyJyZXBvc2l0b3JpZXMuc29ydCIsM10sWyJzY29wZSIsNF0sWyJ2aWV3Iiw1XV1dXV0",
-          "longest": 544
+          "example": "/companies/id/company-acme?metric=prsAuthored&back=/companies/id/company-acme~view:repositories",
+          "longest": 105
         },
-        "/companies/[...identity]?nav&period&scope&timeline": {
-          "count": 1,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&timeline=1&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdLFsicmVwb3NpdG9yaWVzIl1dLFtbIi9jb21wYW5pZXMvaWQvY29tcGFueS1hY21lIixbWyJwZXJpb2QiLDBdLFsicmVwb3NpdG9yaWVzLmNvbHVtbnMiLDFdLFsicmVwb3NpdG9yaWVzLmRpciIsMl0sWyJyZXBvc2l0b3JpZXMuc29ydCIsM10sWyJzY29wZSIsNF0sWyJ2aWV3Iiw1XV1dXV0",
-          "longest": 526
+        "/companies/[...identity]?back&metric&repo": {
+          "count": 6,
+          "example": "/companies/id/company-acme?repo=prebidjs&metric=prsAuthored&back=/companies/id/company-acme~-repo~view:repositories",
+          "longest": 125
         },
-        "/companies/[...identity]?period&repositories.columns&repositories.dir&repositories.sort&scope&view": {
+        "/companies/[...identity]?back&timeline&v": {
           "count": 1,
-          "example": "/companies/id/company-acme?period=this-year&repositories.columns=name&repositories.columns=prsAuthored&repositories.columns=authoredPrsMerged&repositories.columns=reviewerContributions&repositories.columns=approvalContributions&repositories.columns=mergesPerformed&repositories.columns=issuesAuthored&repositories.dir=desc&repositories.sort=authoredPrsMerged&scope=1&view=repositories",
-          "longest": 384
+          "example": "/companies/id/company-acme?timeline&back=~view:repositories&v=1",
+          "longest": 63
         },
         "/companies/[...identity]?view": {
-          "count": 1,
+          "count": 2,
           "example": "/companies/id/company-acme?view=repositories",
           "longest": 44
-        },
-        "/companies?period&scope": {
-          "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
         },
         "/contributors": {
           "count": 1,
@@ -224,27 +214,27 @@
       "route": "/companies/[...identity]"
     },
     "company-timeline": {
-      "address": "/companies/id/company-acme?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/companies/id/company-acme?timeline",
       "links": {
-        "/companies/[...identity]?period&scope": {
+        "/companies": {
           "count": 1,
-          "example": "/companies/id/company-acme?scope=1&period=this-year",
-          "longest": 51
+          "example": "/companies",
+          "longest": 10
         },
-        "/companies/[...identity]?period&scope&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.group&timeline.interval&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 60,
-          "example": "/companies/id/company-acme?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 336
+        "/companies/[...identity]?detail&interval&snap&timeline": {
+          "count": 30,
+          "example": "/companies/id/company-acme?timeline&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 136
         },
-        "/companies/[...identity]?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/companies/[...identity]?timeline&v": {
           "count": 1,
-          "example": "/companies/id/company-acme?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 154
+          "example": "/companies/id/company-acme?timeline&v=1",
+          "longest": 39
         },
-        "/companies?period&scope": {
+        "/companies/[...identity]?v": {
           "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
+          "example": "/companies/id/company-acme?v=1",
+          "longest": 30
         },
         "/contributors": {
           "count": 1,
@@ -257,46 +247,41 @@
           "longest": 6
         }
       },
-      "requested": "/companies/id/company-acme?timeline=1",
+      "requested": "/companies/id/company-acme?timeline",
       "route": "/companies/[...identity]"
     },
     "contributor-detail": {
       "address": "/contributors/account-alice",
       "links": {
-        "/companies/[...identity]?nav&period&scope": {
+        "/companies/[...identity]?back": {
           "count": 1,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdXSxbWyIvY29udHJpYnV0b3JzL2FjY291bnQtYWxpY2UiLFtbInBlcmlvZCIsMF0sWyJyZXBvc2l0b3JpZXMuY29sdW1ucyIsMV0sWyJyZXBvc2l0b3JpZXMuZGlyIiwyXSxbInJlcG9zaXRvcmllcy5zb3J0IiwzXSxbInNjb3BlIiw0XV1dXV0",
-          "longest": 479
+          "example": "/companies/id/company-acme?back=/contributors/account-alice",
+          "longest": 59
         },
         "/contributors": {
-          "count": 1,
+          "count": 2,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors/[accountId]?metric&nav&period&repo&scope": {
-          "count": 12,
-          "example": "/contributors/account-alice?scope=1&period=this-year&repo=repo-prebidjs&metric=prsAuthored&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdXSxbWyIvY29udHJpYnV0b3JzL2FjY291bnQtYWxpY2UiLFtbInBlcmlvZCIsMF0sWyJyZXBvc2l0b3JpZXMuY29sdW1ucyIsMV0sWyJyZXBvc2l0b3JpZXMuZGlyIiwyXSxbInJlcG9zaXRvcmllcy5zb3J0IiwzXSxbInNjb3BlIiw0XV1dXV0",
-          "longest": 532
+        "/contributors/[accountId]": {
+          "count": 1,
+          "example": "/contributors/account-alice",
+          "longest": 27
         },
-        "/contributors/[accountId]?metric&nav&period&scope": {
+        "/contributors/[accountId]?back&metric": {
           "count": 6,
-          "example": "/contributors/account-alice?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdXSxbWyIvY29udHJpYnV0b3JzL2FjY291bnQtYWxpY2UiLFtbInBlcmlvZCIsMF0sWyJyZXBvc2l0b3JpZXMuY29sdW1ucyIsMV0sWyJyZXBvc2l0b3JpZXMuZGlyIiwyXSxbInJlcG9zaXRvcmllcy5zb3J0IiwzXSxbInNjb3BlIiw0XV1dXV0",
-          "longest": 509
+          "example": "/contributors/account-alice?metric=prsAuthored&back=/contributors/account-alice",
+          "longest": 89
         },
-        "/contributors/[accountId]?nav&period&scope&timeline": {
-          "count": 1,
-          "example": "/contributors/account-alice?scope=1&period=this-year&timeline=1&nav=WzIsW1sidGhpcy15ZWFyIl0sWyJuYW1lIiwicHJzQXV0aG9yZWQiLCJhdXRob3JlZFByc01lcmdlZCIsInJldmlld2VyQ29udHJpYnV0aW9ucyIsImFwcHJvdmFsQ29udHJpYnV0aW9ucyIsIm1lcmdlc1BlcmZvcm1lZCIsImlzc3Vlc0F1dGhvcmVkIl0sWyJkZXNjIl0sWyJhdXRob3JlZFByc01lcmdlZCJdLFsiMSJdXSxbWyIvY29udHJpYnV0b3JzL2FjY291bnQtYWxpY2UiLFtbInBlcmlvZCIsMF0sWyJyZXBvc2l0b3JpZXMuY29sdW1ucyIsMV0sWyJyZXBvc2l0b3JpZXMuZGlyIiwyXSxbInJlcG9zaXRvcmllcy5zb3J0IiwzXSxbInNjb3BlIiw0XV1dXV0",
-          "longest": 491
+        "/contributors/[accountId]?back&metric&repo": {
+          "count": 6,
+          "example": "/contributors/account-alice?repo=prebidjs&metric=prsAuthored&back=/contributors/account-alice~-repo",
+          "longest": 109
         },
-        "/contributors/[accountId]?period&repositories.columns&repositories.dir&repositories.sort&scope": {
+        "/contributors/[accountId]?timeline&v": {
           "count": 1,
-          "example": "/contributors/account-alice?period=this-year&repositories.columns=name&repositories.columns=prsAuthored&repositories.columns=authoredPrsMerged&repositories.columns=reviewerContributions&repositories.columns=approvalContributions&repositories.columns=mergesPerformed&repositories.columns=issuesAuthored&repositories.dir=desc&repositories.sort=authoredPrsMerged&scope=1",
-          "longest": 367
-        },
-        "/contributors?period&scope": {
-          "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+          "example": "/contributors/account-alice?timeline&v=1",
+          "longest": 40
         },
         "/repos": {
           "count": 2,
@@ -308,37 +293,32 @@
       "route": "/contributors/[accountId]"
     },
     "contributor-detail-timeline": {
-      "address": "/contributors/account-alice?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/contributors/account-alice?timeline",
       "links": {
-        "/companies/[...identity]?nav&period&scope": {
+        "/companies/[...identity]?back": {
           "count": 1,
-          "example": "/companies/id/company-acme?scope=1&period=this-year&nav=WzIsW1sidGhpcy15ZWFyIl0sWyIxIl0sWyJhc2MiXSxbIm1vbnRoIl0sWyJwZXJpb2QiXV0sW1siL2NvbnRyaWJ1dG9ycy9hY2NvdW50LWFsaWNlIixbWyJwZXJpb2QiLDBdLFsic2NvcGUiLDFdLFsidGltZWxpbmUiLDFdLFsidGltZWxpbmUuZGlyIiwyXSxbInRpbWVsaW5lLmdyb3VwIiwzXSxbInRpbWVsaW5lLnBhZ2UiLDFdLFsidGltZWxpbmUuc29ydCIsNF0sWyJ0aW1lbGluZS5zdGF0ZSIsMV1dXV1d",
-          "longest": 364
+          "example": "/companies/id/company-acme?back=/contributors/account-alice~timeline",
+          "longest": 68
         },
         "/contributors": {
-          "count": 1,
+          "count": 2,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors/[accountId]?period&scope": {
-          "count": 1,
-          "example": "/contributors/account-alice?scope=1&period=this-year",
-          "longest": 52
+        "/contributors/[accountId]?detail&interval&snap&timeline": {
+          "count": 30,
+          "example": "/contributors/account-alice?timeline&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 137
         },
-        "/contributors/[accountId]?period&scope&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.group&timeline.interval&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 60,
-          "example": "/contributors/account-alice?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 337
-        },
-        "/contributors/[accountId]?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/contributors/[accountId]?timeline&v": {
           "count": 1,
-          "example": "/contributors/account-alice?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 155
+          "example": "/contributors/account-alice?timeline&v=1",
+          "longest": 40
         },
-        "/contributors?period&scope": {
+        "/contributors/[accountId]?v": {
           "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+          "example": "/contributors/account-alice?v=1",
+          "longest": 31
         },
         "/repos": {
           "count": 2,
@@ -346,51 +326,46 @@
           "longest": 6
         }
       },
-      "requested": "/contributors/account-alice?timeline=1",
+      "requested": "/contributors/account-alice?timeline",
       "route": "/contributors/[accountId]"
     },
     "contributors": {
       "address": "/contributors",
       "links": {
-        "/companies/[...identity]?nav&period&scope": {
+        "/companies/[...identity]?back": {
           "count": 7,
-          "example": "/companies/id/company-beacon?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 476
+          "example": "/companies/id/company-beacon?back=/contributors",
+          "longest": 47
         },
-        "/companies?period&scope": {
+        "/companies?v": {
           "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
+          "example": "/companies?v=1",
+          "longest": 14
         },
         "/contributors": {
-          "count": 1,
+          "count": 2,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors/[accountId]?metric&nav&period&scope": {
-          "count": 42,
-          "example": "/contributors/account-carol?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 504
-        },
-        "/contributors/[accountId]?nav&period&scope": {
+        "/contributors/[accountId]": {
           "count": 7,
-          "example": "/contributors/account-carol?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 475
+          "example": "/contributors/account-carol",
+          "longest": 27
         },
-        "/contributors?contributors.columns&period&report.dir&report.sort&scope": {
-          "count": 1,
-          "example": "/contributors?contributors.columns=name&contributors.columns=actorType&contributors.columns=company&contributors.columns=prsAuthored&contributors.columns=authoredPrsMerged&contributors.columns=reviewerContributions&contributors.columns=approvalContributions&contributors.columns=mergesPerformed&contributors.columns=issuesAuthored&period=this-year&report.dir=desc&report.sort=authoredPrsMerged&scope=1",
-          "longest": 401
+        "/contributors/[accountId]?metric": {
+          "count": 21,
+          "example": "/contributors/account-carol?metric=prsAuthored",
+          "longest": 52
         },
-        "/contributors?nav&period&scope&timeline": {
+        "/contributors?timeline&v": {
           "count": 1,
-          "example": "/contributors?scope=1&period=this-year&timeline=1&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 472
+          "example": "/contributors?timeline&v=1",
+          "longest": 26
         },
-        "/contributors?period&scope": {
+        "/contributors?v": {
           "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+          "example": "/contributors?v=1",
+          "longest": 17
         },
         "/repos": {
           "count": 2,
@@ -402,47 +377,42 @@
       "route": "/contributors"
     },
     "contributors-report": {
-      "address": "/contributors?scope=1&period=this-year",
+      "address": "/contributors?v=1",
       "links": {
-        "/companies/[...identity]?nav&period&scope": {
+        "/companies/[...identity]?back": {
           "count": 7,
-          "example": "/companies/id/company-beacon?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 476
+          "example": "/companies/id/company-beacon?back=/contributors",
+          "longest": 47
         },
-        "/companies?period&scope": {
+        "/companies?v": {
           "count": 1,
-          "example": "/companies?scope=1&period=this-year",
-          "longest": 35
+          "example": "/companies?v=1",
+          "longest": 14
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors/[accountId]?metric&nav&period&scope": {
-          "count": 42,
-          "example": "/contributors/account-carol?scope=1&period=this-year&metric=prsAuthored&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 504
-        },
-        "/contributors/[accountId]?nav&period&scope": {
+        "/contributors/[accountId]": {
           "count": 7,
-          "example": "/contributors/account-carol?scope=1&period=this-year&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 475
+          "example": "/contributors/account-carol",
+          "longest": 27
         },
-        "/contributors?contributors.columns&period&report.dir&report.sort&scope": {
-          "count": 1,
-          "example": "/contributors?contributors.columns=name&contributors.columns=actorType&contributors.columns=company&contributors.columns=prsAuthored&contributors.columns=authoredPrsMerged&contributors.columns=reviewerContributions&contributors.columns=approvalContributions&contributors.columns=mergesPerformed&contributors.columns=issuesAuthored&period=this-year&report.dir=desc&report.sort=authoredPrsMerged&scope=1",
-          "longest": 401
+        "/contributors/[accountId]?metric": {
+          "count": 21,
+          "example": "/contributors/account-carol?metric=prsAuthored",
+          "longest": 52
         },
-        "/contributors?nav&period&scope&timeline": {
+        "/contributors?timeline&v": {
           "count": 1,
-          "example": "/contributors?scope=1&period=this-year&timeline=1&nav=WzIsW1sibmFtZSIsImFjdG9yVHlwZSIsImNvbXBhbnkiLCJwcnNBdXRob3JlZCIsImF1dGhvcmVkUHJzTWVyZ2VkIiwicmV2aWV3ZXJDb250cmlidXRpb25zIiwiYXBwcm92YWxDb250cmlidXRpb25zIiwibWVyZ2VzUGVyZm9ybWVkIiwiaXNzdWVzQXV0aG9yZWQiXSxbInRoaXMteWVhciJdLFsiZGVzYyJdLFsiYXV0aG9yZWRQcnNNZXJnZWQiXSxbIjEiXV0sW1siL2NvbnRyaWJ1dG9ycyIsW1siY29udHJpYnV0b3JzLmNvbHVtbnMiLDBdLFsicGVyaW9kIiwxXSxbInJlcG9ydC5kaXIiLDJdLFsicmVwb3J0LnNvcnQiLDNdLFsic2NvcGUiLDRdXV1dXQ",
-          "longest": 472
+          "example": "/contributors?timeline&v=1",
+          "longest": 26
         },
-        "/contributors?period&scope": {
-          "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+        "/contributors?v": {
+          "count": 2,
+          "example": "/contributors?v=1",
+          "longest": 17
         },
         "/repos": {
           "count": 2,
@@ -450,36 +420,36 @@
           "longest": 6
         }
       },
-      "requested": "/contributors?scope=1&period=this-year",
+      "requested": "/contributors?v=1",
       "route": "/contributors"
     },
     "contributors-timeline": {
-      "address": "/contributors?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/contributors?timeline",
       "links": {
-        "/companies?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/companies?timeline&v": {
           "count": 1,
-          "example": "/companies?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 138
+          "example": "/companies?timeline&v=1",
+          "longest": 23
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors?period&scope": {
-          "count": 1,
-          "example": "/contributors?scope=1&period=this-year",
-          "longest": 38
+        "/contributors?detail&interval&snap&timeline": {
+          "count": 30,
+          "example": "/contributors?timeline&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 123
         },
-        "/contributors?period&scope&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.group&timeline.interval&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 60,
-          "example": "/contributors?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=contributions-reference-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 323
-        },
-        "/contributors?period&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/contributors?timeline&v": {
           "count": 2,
-          "example": "/contributors?timeline=1&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 141
+          "example": "/contributors?timeline&v=1",
+          "longest": 26
+        },
+        "/contributors?v": {
+          "count": 1,
+          "example": "/contributors?v=1",
+          "longest": 17
         },
         "/repos": {
           "count": 2,
@@ -487,36 +457,36 @@
           "longest": 6
         }
       },
-      "requested": "/contributors?timeline=1",
+      "requested": "/contributors?timeline",
       "route": "/contributors"
     },
     "contributors-timeline-empty": {
-      "address": "/contributors?timeline=1&sample=empty&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/contributors?timeline&sample=empty",
       "links": {
-        "/companies?period&sample&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/companies?sample&timeline&v": {
           "count": 1,
-          "example": "/companies?timeline=1&sample=empty&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 151
+          "example": "/companies?timeline&sample=empty&v=1",
+          "longest": 36
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors?period&sample&scope": {
-          "count": 1,
-          "example": "/contributors?sample=empty&scope=1&period=this-year",
-          "longest": 51
+        "/contributors?detail&interval&sample&snap&timeline": {
+          "count": 30,
+          "example": "/contributors?timeline&sample=empty&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-empty-v2@2026-10-24T12:00Z",
+          "longest": 132
         },
-        "/contributors?period&sample&scope&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.group&timeline.interval&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 60,
-          "example": "/contributors?timeline=1&sample=empty&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=contributions-empty-v2&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 332
-        },
-        "/contributors?period&sample&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/contributors?sample&timeline&v": {
           "count": 2,
-          "example": "/contributors?timeline=1&sample=empty&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 154
+          "example": "/contributors?timeline&sample=empty&v=1",
+          "longest": 39
+        },
+        "/contributors?sample&v": {
+          "count": 1,
+          "example": "/contributors?sample=empty&v=1",
+          "longest": 30
         },
         "/repos": {
           "count": 2,
@@ -524,31 +494,31 @@
           "longest": 6
         }
       },
-      "requested": "/contributors?timeline=1&sample=empty",
+      "requested": "/contributors?timeline&sample=empty",
       "route": "/contributors"
     },
     "contributors-timeline-missing": {
-      "address": "/contributors?timeline=1&sample=missing&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/contributors?timeline&sample=missing",
       "links": {
-        "/companies?period&sample&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/companies?sample&timeline&v": {
           "count": 1,
-          "example": "/companies?timeline=1&sample=missing&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 153
+          "example": "/companies?timeline&sample=missing&v=1",
+          "longest": 38
         },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
           "longest": 13
         },
-        "/contributors?period&sample&scope": {
-          "count": 1,
-          "example": "/contributors?sample=missing&scope=1&period=this-year",
-          "longest": 53
-        },
-        "/contributors?period&sample&scope&timeline&timeline.dir&timeline.group&timeline.page&timeline.sort&timeline.state": {
+        "/contributors?sample&timeline&v": {
           "count": 2,
-          "example": "/contributors?timeline=1&sample=missing&scope=1&period=this-year&timeline.state=1&timeline.group=month&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 156
+          "example": "/contributors?timeline&sample=missing&v=1",
+          "longest": 41
+        },
+        "/contributors?sample&v": {
+          "count": 1,
+          "example": "/contributors?sample=missing&v=1",
+          "longest": 32
         },
         "/repos": {
           "count": 2,
@@ -556,7 +526,7 @@
           "longest": 6
         }
       },
-      "requested": "/contributors?timeline=1&sample=missing",
+      "requested": "/contributors?timeline&sample=missing",
       "route": "/contributors"
     },
     "foundation": {
@@ -577,7 +547,7 @@
       "route": "/foundation"
     },
     "repo-approvals-metric": {
-      "address": "/repos/prebidjs?scope=current&metric=humanApprovals0",
+      "address": "/repos/prebidjs?metric=humanApprovals0",
       "links": {
         "/contributors": {
           "count": 1,
@@ -589,22 +559,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 3,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]": {
+          "count": 2,
+          "example": "/repos/prebidjs",
+          "longest": 15
         },
-        "/repos/[slug]?period&timeline&timeline.family&timeline.kind&timeline.omitted&timelineParent": {
+        "/repos/[slug]?back&omitted&timeline": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=prs&timeline.family=activity&timelineParent=%2Frepos%2Fprebidjs%3Fscope%3Dcurrent%26metric%3DhumanApprovals0%26prs.sort%3DcreatedAt%26prs.dir%3Ddesc%26prs.columns%3Dauthor%26prs.columns%3Dapprovals%26prs.columns%3DageDays%26prs.columns%3DlatestActivity%26prs.charts%3D0&timeline.omitted=current&period=this-year",
-          "longest": 352
+          "example": "/repos/prebidjs?timeline&omitted&back=/repos/prebidjs~metric:humanApprovals0",
+          "longest": 76
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?scope=current&metric=humanApprovals0",
+      "requested": "/repos/prebidjs?metric=humanApprovals0",
       "route": "/repos/[slug]"
     },
     "repo-author": {
-      "address": "/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1",
+      "address": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors",
       "links": {
         "/contributors": {
           "count": 1,
@@ -612,31 +587,41 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?from&inclusive&metric&scope&to": {
+        "/repos#": {
           "count": 1,
-          "example": "/repos/prebidjs?scope=period&metric=prAuthors&from=2026-01-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
-          "longest": 123
+          "example": "/repos#period-activity",
+          "longest": 22
         },
-        "/repos/[slug]?from&period&prs.filter.authors&through&timeline&timeline.family&timeline.from&timeline.inclusive&timeline.kind&timeline.metric&timeline.to&timelineParent": {
+        "/repos/[slug]": {
+          "count": 2,
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?at&authors&back&timeline": {
           "count": 1,
-          "example": "/repos/prebidjs?prs.filter.authors=sample-author-2&timeline=1&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timelineParent=%2Frepos%2Fprebidjs%2Fauthors%2Fsample-author-2%3Fscope%3Dperiod%26metric%3DprAuthors%26from%3D2026-01-01T00%253A00%253A00.000Z%26to%3D2026-10-24T12%253A00%253A00.000Z%26inclusive%3D1%26prs.sort%3DcreatedAt%26prs.dir%3Ddesc%26prs.columns%3DcreatedAt%26prs.charts%3D0&period=custom&from=2026-01-01&through=2026-10-24&timeline.from=2026-01-01T00%3A00%3A00.000Z&timeline.to=2026-10-24T12%3A00%3A00.000Z&timeline.inclusive=1",
-          "longest": 566
+          "example": "/repos/prebidjs?timeline&at=2026-10-24T12:00Z&authors=sample-author-2&back=/repos/prebidjs/authors/sample-author-2~period:this-year~at:2026-10-24T12:00Z~metric:prAuthors",
+          "longest": 169
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 3,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]?at&metric&period": {
+          "count": 1,
+          "example": "/repos/prebidjs?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors",
+          "longest": 70
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs/authors/sample-author-2?scope=period&metric=prAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1",
+      "requested": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors",
       "route": "/repos/[slug]/authors/[account]"
     },
     "repo-author-issues": {
-      "address": "/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1",
+      "address": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=issueAuthors",
       "links": {
         "/contributors": {
           "count": 1,
@@ -644,31 +629,41 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?from&inclusive&metric&scope&to": {
+        "/repos#": {
           "count": 1,
-          "example": "/repos/prebidjs?scope=period&metric=issueAuthors&from=2026-01-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
-          "longest": 126
+          "example": "/repos#period-activity",
+          "longest": 22
         },
-        "/repos/[slug]?from&issues.filter.authors&period&through&timeline&timeline.family&timeline.from&timeline.inclusive&timeline.kind&timeline.metric&timeline.to&timelineParent": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?issues.filter.authors=sample-author-2&timeline=1&timeline.kind=issues&timeline.family=activity&timeline.metric=issuesOpened&timelineParent=%2Frepos%2Fprebidjs%2Fauthors%2Fsample-author-2%3Fscope%3Dperiod%26metric%3DissueAuthors%26from%3D2026-01-01T00%253A00%253A00.000Z%26to%3D2026-10-24T12%253A00%253A00.000Z%26inclusive%3D1%26issues.sort%3DcreatedAt%26issues.dir%3Ddesc%26issues.columns%3DcreatedAt%26issues.charts%3D0&period=custom&from=2026-01-01&through=2026-10-24&timeline.from=2026-01-01T00%3A00%3A00.000Z&timeline.to=2026-10-24T12%3A00%3A00.000Z&timeline.inclusive=1",
-          "longest": 590
+          "example": "/repos/prebidjs",
+          "longest": 15
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 3,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]?at&authors&back&timeline&view": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&view=issues&at=2026-10-24T12:00Z&authors=sample-author-2&back=/repos/prebidjs/authors/sample-author-2~period:this-year~at:2026-10-24T12:00Z~metric:issueAuthors",
+          "longest": 184
+        },
+        "/repos/[slug]?at&metric&period": {
+          "count": 1,
+          "example": "/repos/prebidjs?period=this-year&at=2026-10-24T12:00Z&metric=issueAuthors",
+          "longest": 73
+        },
+        "/repos/[slug]?view": {
+          "count": 2,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs/authors/sample-author-2?scope=period&metric=issueAuthors&from=2026-01-01T00:00:00.000Z&to=2026-10-24T12:00:00.000Z&inclusive=1",
+      "requested": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=issueAuthors",
       "route": "/repos/[slug]/authors/[account]"
     },
     "repo-authors-metric": {
-      "address": "/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors",
       "links": {
         "/contributors": {
           "count": 1,
@@ -676,31 +671,41 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]/authors/[account]?authors.dir&authors.sort&from&inclusive&metric&scope&to": {
-          "count": 18,
-          "example": "/repos/prebidjs/authors/sample-bob?scope=period&metric=prAuthors&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1&authors.sort=recordCount&authors.dir=desc",
-          "longest": 198
-        },
-        "/repos/[slug]?from&period&through&timeline&timeline.family&timeline.from&timeline.inclusive&timeline.kind&timeline.metric&timeline.to&timelineParent": {
+        "/repos#": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=prs&timeline.family=activity&timeline.metric=prAuthors&timelineParent=%2Frepos%2Fprebidjs%3Fscope%3Dperiod%26metric%3DprAuthors%26from%3D2026-10-01T00%253A00%253A00.000Z%26to%3D2026-10-24T12%253A00%253A00.000Z%26inclusive%3D1%26authors.sort%3DrecordCount%26authors.dir%3Ddesc&period=custom&from=2026-10-01&through=2026-10-24&timeline.from=2026-10-01T00%3A00%3A00.000Z&timeline.to=2026-10-24T12%3A00%3A00.000Z&timeline.inclusive=1",
-          "longest": 470
+          "example": "/repos#period-activity",
+          "longest": 22
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]": {
+          "count": 1,
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]/authors/[account]?at&metric&period": {
+          "count": 18,
+          "example": "/repos/prebidjs/authors/sample-bob?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors",
+          "longest": 104
+        },
+        "/repos/[slug]?at&back&metric&period&timeline": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&period=this-month&at=2026-10-24T12:00Z&metric=prAuthors&back=/repos/prebidjs~period:this-month~at:2026-10-24T12:00Z~metric:prAuthors",
+          "longest": 157
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?scope=period&metric=prAuthors&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors",
       "route": "/repos/[slug]"
     },
     "repo-credits-metric": {
-      "address": "/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=agentFeedbackCredits",
       "links": {
         "/contributors": {
           "count": 1,
@@ -708,22 +713,32 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?from&period&through&timeline&timeline.family&timeline.from&timeline.inclusive&timeline.kind&timeline.to&timelineParent": {
+        "/repos#": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=prs&timeline.family=activity&timelineParent=%2Frepos%2Fprebidjs%3Fscope%3Dperiod%26metric%3DagentFeedbackCredits%26from%3D2026-10-01T00%253A00%253A00.000Z%26to%3D2026-10-24T12%253A00%253A00.000Z%26inclusive%3D1%26credits.sort%3DfirstCreditAt%26credits.dir%3Ddesc&period=custom&from=2026-10-01&through=2026-10-24&timeline.from=2026-10-01T00%3A00%3A00.000Z&timeline.to=2026-10-24T12%3A00%3A00.000Z&timeline.inclusive=1",
-          "longest": 457
+          "example": "/repos#period-activity",
+          "longest": 22
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]": {
+          "count": 1,
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?at&back&period&timeline": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&period=this-month&at=2026-10-24T12:00Z&back=/repos/prebidjs~period:this-month~at:2026-10-24T12:00Z~metric:agentFeedbackCredits",
+          "longest": 151
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?scope=period&metric=agentFeedbackCredits&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=agentFeedbackCredits",
       "route": "/repos/[slug]"
     },
     "repo-detail": {
@@ -739,22 +754,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
-        },
-        "/repos/[slug]?period&timeline&timeline.family&timeline.kind&timelineParent": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=prs&timeline.family=activity&timelineParent=%2Frepos%2Fprebidjs%3Fprs.sort%3DcreatedAt%26prs.dir%3Ddesc%26prs.columns%3Dauthor%26prs.columns%3DhumanReviewers%26prs.columns%3Dapprovals%26prs.columns%3DageDays%26prs.columns%3DlatestActivity%26prs.charts%3D0&period=this-year",
-          "longest": 313
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?back&timeline": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&back=/repos/prebidjs",
+          "longest": 45
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
       "requested": "/repos/prebidjs",
       "route": "/repos/[slug]"
     },
     "repo-docs-open-issues": {
-      "address": "/repos/prebiddocs?scope=current&metric=openIssues",
+      "address": "/repos/prebiddocs?view=issues",
       "links": {
         "/contributors": {
           "count": 1,
@@ -766,22 +786,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebiddocs?scope=current&metric=totalOpenPrs",
-          "longest": 51
-        },
-        "/repos/[slug]?period&timeline&timeline.family&timeline.kind&timelineParent": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebiddocs?timeline=1&timeline.kind=issues&timeline.family=activity&timelineParent=%2Frepos%2Fprebiddocs%3Fscope%3Dcurrent%26metric%3DopenIssues%26issues.sort%3DcreatedAt%26issues.dir%3Ddesc%26issues.columns%3Dauthor%26issues.columns%3DageDays%26issues.columns%3DlatestActivity%26issues.charts%3D0&period=this-year",
-          "longest": 321
+          "example": "/repos/prebiddocs",
+          "longest": 17
+        },
+        "/repos/[slug]?back&timeline&view": {
+          "count": 1,
+          "example": "/repos/prebiddocs?timeline&view=issues&back=/repos/prebiddocs~view:issues",
+          "longest": 73
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebiddocs?view=issues",
+          "longest": 29
         }
       },
-      "requested": "/repos/prebiddocs?scope=current&metric=openIssues",
+      "requested": "/repos/prebiddocs?view=issues",
       "route": "/repos/[slug]"
     },
     "repo-duration-metric": {
-      "address": "/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays",
       "links": {
         "/contributors": {
           "count": 1,
@@ -789,22 +814,32 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?from&period&through&timeline&timeline.family&timeline.from&timeline.inclusive&timeline.kind&timeline.metric&timeline.to&timelineParent": {
+        "/repos#": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=prs&timeline.family=activity&timeline.metric=medianMergeDays&timelineParent=%2Frepos%2Fprebidjs%3Fscope%3Dperiod%26metric%3DmedianMergeDays%26branch%3Dmaster%26from%3D2026-10-01T00%253A00%253A00.000Z%26to%3D2026-10-24T12%253A00%253A00.000Z%26inclusive%3D1%26prs.sort%3DcreatedAt%26prs.dir%3Ddesc&period=custom&from=2026-10-01&through=2026-10-24&timeline.from=2026-10-01T00%3A00%3A00.000Z&timeline.to=2026-10-24T12%3A00%3A00.000Z&timeline.inclusive=1",
-          "longest": 490
+          "example": "/repos#period-activity",
+          "longest": 22
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
+        "/repos/[slug]": {
+          "count": 1,
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?at&back&metric&period&timeline": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays&back=/repos/prebidjs~period:this-month~at:2026-10-24T12:00Z~metric:medianMergeDays",
+          "longest": 169
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?scope=period&metric=medianMergeDays&branch=master&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1",
+      "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays",
       "route": "/repos/[slug]"
     },
     "repo-issues-tab": {
@@ -820,22 +855,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
-        },
-        "/repos/[slug]?period&timeline&timeline.family&timeline.kind&timelineParent": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.family=activity&timelineParent=%2Frepos%2Fprebidjs%3Fview%3Dissues%26issues.sort%3DcreatedAt%26issues.dir%3Ddesc%26issues.columns%3Dauthor%26issues.columns%3DageDays%26issues.columns%3DlatestActivity%26issues.charts%3D0&period=this-year",
-          "longest": 293
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?back&timeline&view": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&view=issues&back=/repos/prebidjs~view:issues",
+          "longest": 69
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
       "requested": "/repos/prebidjs?view=issues",
       "route": "/repos/[slug]"
     },
     "repo-open-issues-metric": {
-      "address": "/repos/prebidjs?scope=current&metric=openIssues",
+      "address": "/repos/prebidjs?view=issues&v=1",
       "links": {
         "/contributors": {
           "count": 1,
@@ -847,22 +887,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
-        },
-        "/repos/[slug]?period&timeline&timeline.family&timeline.kind&timelineParent": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.family=activity&timelineParent=%2Frepos%2Fprebidjs%3Fscope%3Dcurrent%26metric%3DopenIssues%26issues.sort%3DcreatedAt%26issues.dir%3Ddesc%26issues.columns%3Dauthor%26issues.columns%3DageDays%26issues.columns%3DlatestActivity%26issues.charts%3D0&period=this-year",
-          "longest": 317
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?back&timeline&view": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&view=issues&back=/repos/prebidjs~view:issues",
+          "longest": 69
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?scope=current&metric=openIssues",
+      "requested": "/repos/prebidjs?view=issues&v=1",
       "route": "/repos/[slug]"
     },
     "repo-timeline": {
-      "address": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/repos/prebidjs?timeline",
       "links": {
         "/contributors": {
           "count": 1,
@@ -874,27 +919,32 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
-        },
-        "/repos/[slug]?period&timeline&timeline.chart&timeline.clock&timeline.detail&timeline.dir&timeline.family&timeline.group&timeline.interval&timeline.kind&timeline.metric&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 40,
-          "example": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=prsOpened&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=repositories-reference-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 396
-        },
-        "/repos/[slug]?period&timeline&timeline.chart&timeline.dir&timeline.family&timeline.group&timeline.kind&timeline.metric&timeline.page&timeline.sort&timeline.state": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 221
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?detail&interval&snap&timeline": {
+          "count": 40,
+          "example": "/repos/prebidjs?timeline&detail=prsOpened&interval=month:2026-01-01&snap=repositories-reference-v1@2026-10-24T12:00Z",
+          "longest": 122
+        },
+        "/repos/[slug]?timeline&v": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&v=1",
+          "longest": 28
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?timeline=1",
+      "requested": "/repos/prebidjs?timeline",
       "route": "/repos/[slug]"
     },
     "repo-timeline-issues-week": {
-      "address": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=week&timeline.kind=issues&timeline.family=activity&timeline.metric=issuesOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1",
+      "address": "/repos/prebidjs?timeline&view=issues&group=week",
       "links": {
         "/contributors": {
           "count": 1,
@@ -906,27 +956,32 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?metric&scope": {
-          "count": 2,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs",
-          "longest": 49
-        },
-        "/repos/[slug]?period&timeline&timeline.chart&timeline.clock&timeline.detail&timeline.dir&timeline.family&timeline.group&timeline.interval&timeline.kind&timeline.metric&timeline.page&timeline.revision&timeline.sort&timeline.state": {
-          "count": 129,
-          "example": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=week&timeline.kind=issues&timeline.family=activity&timeline.metric=issuesOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1&timeline.detail=issuesOpened&timeline.interval=week%3A2025-12-29T00%3A00%3A00.000Z&timeline.revision=repositories-reference-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z",
-          "longest": 397
-        },
-        "/repos/[slug]?period&timeline&timeline.chart&timeline.dir&timeline.family&timeline.group&timeline.kind&timeline.metric&timeline.page&timeline.sort&timeline.state": {
+        "/repos/[slug]": {
           "count": 1,
-          "example": "/repos/prebidjs?timeline=1&period=this-year&timeline.state=1&timeline.group=week&timeline.kind=issues&timeline.family=activity&timeline.metric=issuesOpened&timeline.chart=0&timeline.sort=period&timeline.dir=asc&timeline.page=1",
-          "longest": 226
+          "example": "/repos/prebidjs",
+          "longest": 15
+        },
+        "/repos/[slug]?detail&group&interval&snap&timeline&view": {
+          "count": 129,
+          "example": "/repos/prebidjs?timeline&view=issues&group=week&detail=issuesOpened&interval=week:2025-12-29&snap=repositories-reference-v1@2026-10-24T12:00Z",
+          "longest": 141
+        },
+        "/repos/[slug]?group&timeline&view": {
+          "count": 1,
+          "example": "/repos/prebidjs?timeline&view=issues&group=week",
+          "longest": 47
+        },
+        "/repos/[slug]?view": {
+          "count": 1,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 27
         }
       },
-      "requested": "/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.group=week",
+      "requested": "/repos/prebidjs?timeline&view=issues&group=week",
       "route": "/repos/[slug]"
     },
     "repos-comparison": {
-      "address": "/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90",
+      "address": "/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90",
       "links": {
         "/contributors": {
           "count": 1,
@@ -938,43 +993,43 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?age&metric&returnTo&scope": {
+        "/repos/[slug]?age&back&metric": {
           "count": 6,
-          "example": "/repos/prebidjs?scope=current&metric=agedPrs&age=30&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 302
+          "example": "/repos/prebidjs?age=30&metric=agedPrs&back=~repo:prebidjs,prebidserver~period2:last-month~age:30,60,90",
+          "longest": 106
         },
-        "/repos/[slug]?branch&from&inclusive&metric&returnTo&scope&to": {
-          "count": 8,
-          "example": "/repos/prebidjs?scope=period&metric=prsMerged&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1&branch=master&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 394
+        "/repos/[slug]?at&back&metric&period": {
+          "count": 28,
+          "example": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prsOpened&back=~repo:prebidjs,prebidserver~period2:last-month~age:30,60,90",
+          "longest": 146
         },
-        "/repos/[slug]?from&inclusive&metric&returnTo&scope&to": {
-          "count": 20,
-          "example": "/repos/prebidjs?scope=period&metric=prsOpened&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 377
+        "/repos/[slug]?back": {
+          "count": 6,
+          "example": "/repos/prebidjs?back=~repo:prebidjs,prebidserver~period2:last-month~age:30,60,90",
+          "longest": 84
         },
-        "/repos/[slug]?metric&returnTo&scope": {
-          "count": 14,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 303
+        "/repos/[slug]?back&metric": {
+          "count": 10,
+          "example": "/repos/prebidjs?metric=draftPrs&back=~repo:prebidjs,prebidserver~period2:last-month~age:30,60,90",
+          "longest": 107
         },
-        "/repos/[slug]?returnTo": {
-          "count": 4,
-          "example": "/repos/prebidjs?returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 266
+        "/repos/[slug]?back&view": {
+          "count": 2,
+          "example": "/repos/prebidjs?view=issues&back=~repo:prebidjs,prebidserver~period2:last-month~age:30,60,90",
+          "longest": 96
         },
-        "/repos?activity.dir&activity.sort&age&backlog.dir&backlog.sort&period&period2&repo": {
+        "/repos?age&period2&repo": {
           "count": 1,
-          "example": "/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90&backlog.sort=totalOpenPrs&backlog.dir=desc&activity.sort=prsOpened&activity.dir=desc",
-          "longest": 191
+          "example": "/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90",
+          "longest": 65
         },
-        "/repos?repo&summary&timeline": {
+        "/repos?back&repo&timeline": {
           "count": 1,
-          "example": "/repos?timeline=1&repo=repo-prebidjs&repo=repo-prebidserver&summary=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26period%3Dthis-month%26period2%3Dlast-month%26age%3D30%26age%3D60%26age%3D90%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 305
+          "example": "/repos?timeline&repo=prebidjs,prebidserver&back=~period2:last-month~age:30,60,90",
+          "longest": 80
         }
       },
-      "requested": "/repos?repo=repo-prebidjs&repo=repo-prebidserver&period=this-month&period2=last-month&age=30&age=60&age=90",
+      "requested": "/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90",
       "route": "/repos"
     },
     "repos-overview": {
@@ -986,51 +1041,46 @@
           "longest": 13
         },
         "/repos": {
-          "count": 2,
+          "count": 3,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?age&metric&returnTo&scope": {
+        "/repos/[slug]": {
+          "count": 54,
+          "example": "/repos/prebidjs",
+          "longest": 33
+        },
+        "/repos/[slug]?age&metric": {
           "count": 18,
-          "example": "/repos/prebidjs?scope=current&metric=agedPrs&age=30&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 777
+          "example": "/repos/prebidjs?age=30&metric=agedPrs",
+          "longest": 55
         },
-        "/repos/[slug]?branch&from&inclusive&metric&returnTo&scope&to": {
-          "count": 33,
-          "example": "/repos/prebidjs?scope=period&metric=prsMerged&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1&branch=master&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 868
-        },
-        "/repos/[slug]?from&inclusive&metric&returnTo&scope&to": {
-          "count": 90,
-          "example": "/repos/prebidjs?scope=period&metric=prsOpened&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 852
-        },
-        "/repos/[slug]?metric&returnTo&scope": {
+        "/repos/[slug]?at&metric&period": {
           "count": 123,
-          "example": "/repos/prebidjs?scope=current&metric=totalOpenPrs&returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 778
+          "example": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prsOpened",
+          "longest": 94
         },
-        "/repos/[slug]?returnTo": {
-          "count": 36,
-          "example": "/repos/prebidjs?returnTo=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 741
+        "/repos/[slug]?metric": {
+          "count": 87,
+          "example": "/repos/prebidjs?metric=draftPrs",
+          "longest": 56
         },
-        "/repos?activity.dir&activity.sort&age&backlog.dir&backlog.sort&period&repo": {
+        "/repos/[slug]?view": {
+          "count": 18,
+          "example": "/repos/prebidjs?view=issues",
+          "longest": 45
+        },
+        "/repos?timeline": {
           "count": 1,
-          "example": "/repos?repo=repo-prebidjs&repo=repo-prebidserver&repo=repo-prebidserverjava&repo=repo-prebiddocs&repo=repo-prebidmobileandroid&repo=repo-prebidmobileios&repo=repo-prebid-mobile-ios-sdk&repo=repo-prebid-universal-creative&repo=repo-professor-prebid&repo=repo-salesagent&repo=repo-prebid-agent-skills&repo=repo-line-item-manager&repo=repo-go-gdpr&repo=repo-prebid-cache-java&repo=repo-repo-activity-dashboard&repo=repo-openrtb&repo=repo-github-activity-db&repo=repo-prebid-integration-monitor&period=this-month&age=30&backlog.sort=totalOpenPrs&backlog.dir=desc&activity.sort=prsOpened&activity.dir=desc",
-          "longest": 600
-        },
-        "/repos?repo&summary&timeline": {
-          "count": 1,
-          "example": "/repos?timeline=1&repo=repo-github-activity-db&repo=repo-go-gdpr&repo=repo-line-item-manager&repo=repo-openrtb&repo=repo-prebid-agent-skills&repo=repo-prebid-cache-java&repo=repo-prebid-integration-monitor&repo=repo-prebid-mobile-ios-sdk&repo=repo-prebid-universal-creative&repo=repo-prebiddocs&repo=repo-prebidjs&repo=repo-prebidmobileandroid&repo=repo-prebidmobileios&repo=repo-prebidserver&repo=repo-prebidserverjava&repo=repo-professor-prebid&repo=repo-repo-activity-dashboard&repo=repo-salesagent&summary=%2Frepos%3Frepo%3Drepo-prebidjs%26repo%3Drepo-prebidserver%26repo%3Drepo-prebidserverjava%26repo%3Drepo-prebiddocs%26repo%3Drepo-prebidmobileandroid%26repo%3Drepo-prebidmobileios%26repo%3Drepo-prebid-mobile-ios-sdk%26repo%3Drepo-prebid-universal-creative%26repo%3Drepo-professor-prebid%26repo%3Drepo-salesagent%26repo%3Drepo-prebid-agent-skills%26repo%3Drepo-line-item-manager%26repo%3Drepo-go-gdpr%26repo%3Drepo-prebid-cache-java%26repo%3Drepo-repo-activity-dashboard%26repo%3Drepo-openrtb%26repo%3Drepo-github-activity-db%26repo%3Drepo-prebid-integration-monitor%26period%3Dthis-month%26age%3D30%26backlog.sort%3DtotalOpenPrs%26backlog.dir%3Ddesc%26activity.sort%3DprsOpened%26activity.dir%3Ddesc",
-          "longest": 1208
+          "example": "/repos?timeline",
+          "longest": 15
         }
       },
       "requested": "/repos",
       "route": "/repos"
     },
     "repos-timeline": {
-      "address": "/repos?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1",
+      "address": "/repos?timeline",
       "links": {
         "/contributors": {
           "count": 1,
@@ -1042,27 +1092,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?period&support.origin&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.family&timeline.group&timeline.interval&timeline.kind&timeline.metric&timeline.page&timeline.revision&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&detail&interval&origin&snap&timeline": {
           "count": 171,
-          "example": "/repos/github-activity-db?timeline=1&period=this-year&timeline.group=month&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dmonth%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D1&timeline.detail=prsOpened&timeline.interval=month%3A2026-10-01T00%3A00%3A00.000Z&timeline.revision=repositories-reference-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z&support.origin=matrix",
-          "longest": 652
+          "example": "/repos/github-activity-db?timeline&detail=prsOpened&interval=month:2026-10-01&snap=repositories-reference-v1@2026-10-24T12:00Z&origin=matrix&back=/repos~timeline",
+          "longest": 169
         },
-        "/repos/[slug]?period&timeline&timeline.dir&timeline.family&timeline.group&timeline.kind&timeline.metric&timeline.page&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&timeline": {
           "count": 18,
-          "example": "/repos/github-activity-db?timeline=1&period=this-year&timeline.group=month&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dmonth%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D1",
-          "longest": 461
+          "example": "/repos/github-activity-db?timeline&back=/repos~timeline",
+          "longest": 63
         },
-        "/repos?period&timeline&timeline.dir&timeline.group&timeline.metric&timeline.page&timeline.rank&timeline.sort&timeline.state&timeline.window": {
+        "/repos?timeline&v": {
           "count": 1,
-          "example": "/repos?timeline=1&period=this-year&timeline.state=1&timeline.group=month&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1",
-          "longest": 198
+          "example": "/repos?timeline&v=1",
+          "longest": 19
         }
       },
-      "requested": "/repos?timeline=1",
+      "requested": "/repos?timeline",
       "route": "/repos"
     },
     "repos-timeline-mixed-quarter": {
-      "address": "/repos?timeline=1&sample=mixed&period=this-year&timeline.state=1&timeline.group=quarter&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1",
+      "address": "/repos?timeline&sample=mixed&group=quarter",
       "links": {
         "/contributors": {
           "count": 1,
@@ -1074,27 +1124,27 @@
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?period&sample&support.origin&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.family&timeline.group&timeline.interval&timeline.kind&timeline.metric&timeline.page&timeline.revision&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&detail&group&interval&origin&sample&snap&timeline": {
           "count": 65,
-          "example": "/repos/github-activity-db?timeline=1&sample=mixed&period=this-year&timeline.group=quarter&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26sample%3Dmixed%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dquarter%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D1&timeline.detail=prsOpened&timeline.interval=quarter%3A2026-10-01T00%3A00%3A00.000Z&timeline.revision=repositories-mixed-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z&support.origin=matrix",
-          "longest": 684
+          "example": "/repos/github-activity-db?timeline&sample=mixed&group=quarter&detail=prsOpened&interval=quarter:2026-10-01&snap=repositories-mixed-v1@2026-10-24T12:00Z&origin=matrix&back=/repos~timeline~sample:mixed~group:quarter",
+          "longest": 221
         },
-        "/repos/[slug]?period&sample&timeline&timeline.dir&timeline.family&timeline.group&timeline.kind&timeline.metric&timeline.page&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&group&sample&timeline": {
           "count": 18,
-          "example": "/repos/github-activity-db?timeline=1&sample=mixed&period=this-year&timeline.group=quarter&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26sample%3Dmixed%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dquarter%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D1",
-          "longest": 495
+          "example": "/repos/github-activity-db?timeline&sample=mixed&group=quarter&back=/repos~timeline~sample:mixed~group:quarter",
+          "longest": 117
         },
-        "/repos?period&sample&timeline&timeline.dir&timeline.group&timeline.metric&timeline.page&timeline.rank&timeline.sort&timeline.state&timeline.window": {
+        "/repos?group&sample&timeline": {
           "count": 1,
-          "example": "/repos?timeline=1&sample=mixed&period=this-year&timeline.state=1&timeline.group=quarter&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=1",
-          "longest": 213
+          "example": "/repos?timeline&sample=mixed&group=quarter",
+          "longest": 42
         }
       },
-      "requested": "/repos?timeline=1&sample=mixed&timeline.group=quarter",
+      "requested": "/repos?timeline&sample=mixed&group=quarter",
       "route": "/repos"
     },
     "repos-timeline-week-state": {
-      "address": "/repos?timeline=1&timeline.state=1&timeline.group=week&repo=repo-prebidserver",
+      "address": "/repos?timeline&repo=prebidserver&group=week",
       "links": {
         "/contributors": {
           "count": 1,
@@ -1102,27 +1152,32 @@
           "longest": 13
         },
         "/repos": {
-          "count": 3,
+          "count": 2,
           "example": "/repos",
           "longest": 6
         },
-        "/repos/[slug]?period&support.origin&timeline&timeline.clock&timeline.detail&timeline.dir&timeline.family&timeline.group&timeline.interval&timeline.kind&timeline.metric&timeline.page&timeline.revision&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&detail&group&interval&origin&snap&timeline": {
           "count": 7,
-          "example": "/repos/prebidserver?timeline=1&period=this-year&timeline.group=week&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26repo%3Drepo-prebidserver%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dweek%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D4&timeline.detail=prsOpened&timeline.interval=week%3A2026-09-07T00%3A00%3A00.000Z&timeline.revision=repositories-reference-v1&timeline.clock=2026-10-24T12%3A00%3A00.000Z&support.origin=matrix",
-          "longest": 662
+          "example": "/repos/prebidserver?timeline&group=week&detail=prsOpened&interval=week:2026-09-07&snap=repositories-reference-v1@2026-10-24T12:00Z&origin=matrix&back=/repos~timeline~repo:prebidserver~group:week",
+          "longest": 194
         },
-        "/repos/[slug]?period&timeline&timeline.dir&timeline.family&timeline.group&timeline.kind&timeline.metric&timeline.page&timeline.sort&timelineParent": {
+        "/repos/[slug]?back&group&timeline": {
           "count": 1,
-          "example": "/repos/prebidserver?timeline=1&period=this-year&timeline.group=week&timeline.kind=prs&timeline.family=activity&timeline.metric=prsOpened&timeline.sort=period&timeline.dir=asc&timeline.page=1&timelineParent=%2Frepos%3Ftimeline%3D1%26repo%3Drepo-prebidserver%26period%3Dthis-year%26timeline.state%3D1%26timeline.group%3Dweek%26timeline.metric%3DprsOpened%26timeline.rank%3DprsOpened%26timeline.sort%3Drepository%26timeline.dir%3Dasc%26timeline.page%3D1%26timeline.window%3D4",
-          "longest": 472
+          "example": "/repos/prebidserver?timeline&group=week&back=/repos~timeline~repo:prebidserver~group:week",
+          "longest": 89
         },
-        "/repos?period&repo&timeline&timeline.dir&timeline.group&timeline.metric&timeline.page&timeline.rank&timeline.sort&timeline.state&timeline.window": {
+        "/repos?group&repo&timeline": {
           "count": 1,
-          "example": "/repos?timeline=1&repo=repo-prebidserver&period=this-year&timeline.state=1&timeline.group=week&timeline.metric=prsOpened&timeline.rank=prsOpened&timeline.sort=repository&timeline.dir=asc&timeline.page=1&timeline.window=4",
-          "longest": 220
+          "example": "/repos?timeline&repo=prebidserver&group=week",
+          "longest": 44
+        },
+        "/repos?repo": {
+          "count": 1,
+          "example": "/repos?repo=prebidserver",
+          "longest": 24
         }
       },
-      "requested": "/repos?timeline=1&timeline.state=1&timeline.group=week&repo=repo-prebidserver",
+      "requested": "/repos?timeline&repo=prebidserver&group=week",
       "route": "/repos"
     },
     "sign-in": {

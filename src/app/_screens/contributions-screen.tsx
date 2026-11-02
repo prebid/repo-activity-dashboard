@@ -1,15 +1,22 @@
 'use client';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
+import type { PreferenceSectionKey } from '@/models/preferences';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
 import { contributionOptionsClient } from '@/features/contributions/contribution-options-client';
 import { contributionToolbar } from '@/features/contributions/contribution-controls';
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
-import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
+import { areaEntryParent, useAreaEntryHref } from '@/lib/navigation/use-contribution-entry';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
 import type { ContributionReportPreferences } from '@/models/contribution-preferences';
 import { contributionTableScope } from '@/lib/presentation/contribution-settings';
+import { contributionTimelineHref } from '@/lib/presentation/contribution-timeline';
+import {
+  contributionViewOf,
+  type SavedContributionTables,
+} from '@/lib/presentation/contribution-url';
+import type { UrlView } from '@/lib/presentation/url/back';
 import {
   ContributionDetailsView,
   contributionDetailColumnIds,
@@ -28,11 +35,13 @@ import { ViewTabs } from '@/components/navigation/view-tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { contributionDefaultSort } from '@/models/contributions';
 import type { ContributionPage } from '@/models/contribution-page';
+import type { TableFields } from '@/lib/presentation/url/table-binding';
 import {
   contributionHref,
   companyBreakdownHref,
   companyBreakdownLabels,
   contributionMetricHref,
+  contributionTargetOf,
 } from '@/lib/presentation/contribution-navigation';
 const detailSort = { sort: 'creditedAt', descending: true } as const;
 const creditDetailColumnIds = contributionDetailColumnIds.filter((id) => id !== 'lastAt');
@@ -44,25 +53,49 @@ const ids = {
   members: contributorColumns(noLinks, false).map((column) => column.id),
   repositories: repositoryContributionColumns().map((column) => column.id),
 };
+const here = () => window.location.pathname + window.location.search;
+
+/**
+ * "Back to report": the parent frame or derived parent. Without a `back` frame, a parent that is an
+ * area entry opens it as the masthead does, in the viewer's saved explicit form.
+ */
+function useReturnTo(page: ContributionPage, current: UrlView, viewerId: string) {
+  return useAreaEntryHref(areaEntryParent(current), viewerId) ?? page.returnTo;
+}
+
 export function ContributionsScreen({
   page,
   viewerId,
   directory,
   preferences,
+  view,
+  saved: savedTables,
 }: {
   page: ContributionPage;
   viewerId: string;
   directory: ContributionControlDirectory;
   /** Server-validated saved values; without them the page saves nothing. */
   preferences?: ContributionReportPreferences;
+  /** The canonical view the server rendered: route, segments and registry values. */
+  view: UrlView;
+  /** Every table's saved presentation, which links that open a table carry (decision C3). */
+  saved?: SavedContributionTables;
 }) {
   const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
-  const pathname = usePathname(),
-    search = useSearchParams().toString(),
-    pendingNavigation = usePendingNavigation();
+  const pendingNavigation = usePendingNavigation();
+  const asOf = page.report.context.asOf;
+  // Over time opens this report's Timeline with the viewer's saved presentation (decision C3).
+  const savedTimeline = useSavedTimelinePresentation(
+    ('timeline.' + page.area + '.' + page.report.context.focus.kind) as PreferenceSectionKey,
+    'contribution',
+  );
   const table = page.details ? 'details' : page.report.table!.kind;
   const columnIds =
     page.details && page.details.basis !== 'comments' ? creditDetailColumnIds : ids[table];
+  const fields: TableFields = useMemo(
+    () => ({ route: view.route, search: 'q', sort: 'sort', page: 'page' }),
+    [view.route],
+  );
   const controller = useTableController({
     queryKey: page.details ? 'details' : page.report.kind === 'overview' ? 'report' : table,
     scopeKey: contributionTableScope(page.sample, table),
@@ -79,6 +112,7 @@ export function ContributionsScreen({
     defaultSort: page.details ? detailSort : contributionDefaultSort,
     historyMode: 'push',
     savedSort: preferences?.sort,
+    fields,
   });
   const controls = useContributionControls(
     viewerId,
@@ -88,7 +122,22 @@ export function ContributionsScreen({
     table,
     columnIds,
     preferences,
+    view,
   );
+  const returnTo = useReturnTo(page, controls.current, viewerId);
+  // A presentation saved in this session replaces the server's copy for links to this table.
+  const saved: SavedContributionTables | undefined = controls.changed
+    ? {
+        ...savedTables,
+        [table]: {
+          ...savedTables?.[table],
+          columns: controls.changed.value.columns,
+          hideZeroMembers: controls.changed.value.hideZeroMembers,
+        },
+      }
+    : savedTables;
+  /** The report at the address now, after a pending search was committed to it. */
+  const atAddress = () => contributionViewOf(here()) ?? controls.current;
   /** `pendingKey` names the tab or breakdown link that shows the pending navigation. */
   function navigate(
     event: MouseEvent<HTMLAnchorElement>,
@@ -104,9 +153,10 @@ export function ContributionsScreen({
       (href) => pendingNavigation.push(href, pendingKey),
     );
   }
+  const current = controls.current;
   return (
     <ContributionContent
-      page={{ ...page, hideZeroMembers: controls.hideZeroMembers }}
+      page={{ ...page, returnTo, hideZeroMembers: controls.hideZeroMembers }}
       controller={controller}
       visibility={controls.visibility}
       toolbar={contributionToolbar({
@@ -124,66 +174,70 @@ export function ContributionsScreen({
         sample: page.sample,
         settings: controls.value,
         context: page.report.context,
+        saved,
         onMetric: (event, focus, metric, repositoryId) =>
           navigate(event, () =>
             contributionMetricHref(
-              focus.kind === 'overview' ? page.area : focus,
+              contributionTargetOf(page.area, focus),
               page.sample,
               page.report.context,
               metric,
-              window.location.pathname + window.location.search,
+              here(),
               repositoryId,
+              saved,
             ),
           ),
         currentHref: controls.returnHref,
-        timelineHref: contributionTimelineEntry(controls.returnHref, controls.value),
+        timelineHref: contributionTimelineHref(current, controls.value, savedTimeline, asOf),
         pendingTarget: pendingNavigation.pendingKey,
         onTimeline: (event) =>
           navigate(
             event,
-            () =>
-              contributionTimelineEntry(
-                window.location.pathname + window.location.search,
-                controls.value,
-              ),
+            () => contributionTimelineHref(atAddress(), controls.value, savedTimeline, asOf),
             'timeline',
           ),
         onAreaFollow: (event, area) =>
           navigate(
             event,
-            () => contributionHref(area, page.sample, undefined, controls.value),
+            () => contributionHref(area, page.sample, undefined, controls.value, saved),
             area,
           ),
         onFollow: (event, focus) =>
           navigate(event, () =>
-            contributionHref(
-              focus,
-              page.sample,
-              window.location.pathname + window.location.search,
-              controls.value,
-            ),
+            contributionHref(focus, page.sample, here(), controls.value, saved),
           ),
       }}
       breakdownControls={
         page.report.kind === 'company' ? (
           <div className={styles.memberControls}>
             <ViewTabs label="Company breakdown" variant="segmented">
-              {(['members', 'repositories'] as const).map((view) => (
+              {(['members', 'repositories'] as const).map((breakdown) => (
                 <Link
                   prefetch={false}
-                  key={view}
-                  href={companyBreakdownHref(pathname, search, view)}
-                  aria-current={page.breakdown === view ? 'page' : undefined}
+                  key={breakdown}
+                  href={companyBreakdownHref(
+                    controls.returnHref.split('?')[0],
+                    controls.returnHref.split('?')[1] ?? '',
+                    breakdown,
+                    saved,
+                  )}
+                  aria-current={page.breakdown === breakdown ? 'page' : undefined}
                   onClick={(event) =>
                     navigate(
                       event,
-                      () => companyBreakdownHref(pathname, window.location.search, view),
-                      view,
+                      () =>
+                        companyBreakdownHref(
+                          window.location.pathname,
+                          window.location.search,
+                          breakdown,
+                          saved,
+                        ),
+                      breakdown,
                     )
                   }
                 >
-                  {companyBreakdownLabels[view]}
-                  <LinkPending pending={pendingNavigation.pendingKey === view || undefined} />
+                  {companyBreakdownLabels[breakdown]}
+                  <LinkPending pending={pendingNavigation.pendingKey === breakdown || undefined} />
                 </Link>
               ))}
             </ViewTabs>

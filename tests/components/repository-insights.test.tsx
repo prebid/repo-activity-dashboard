@@ -131,11 +131,14 @@ it('uses compact account rows and links to full filtered record lists', () => {
   const target = new URL(link.getAttribute('href')!, 'https://dashboard.invalid');
   expect(target.pathname).toBe('/repos/prebidjs/authors/' + author.account);
   expect(target.searchParams.get('metric')).toBe('prAuthors');
-  expect(target.searchParams.get('from')).toBe('2026-10-01T00:00:00.000Z');
+  expect(target.searchParams.get('period')).toBe('this-month');
+  expect(target.searchParams.get('at')).toBe('2026-10-24T12:00Z');
+  expect(target.searchParams.get('back')).toBe('~period2:last-month~age:60');
   expect(screen.getByRole('table').querySelector('details')).toBeNull();
+  // An insight counts period activity, so the Summary crumb returns to that panel.
   expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute(
     'href',
-    '/repos?period=this-month&period2=last-month&age=60',
+    '/repos?period=this-month&period2=last-month&age=60#period-activity',
   );
 });
 it('shows credit units separately from distinct PR counts', () => {
@@ -175,10 +178,9 @@ it('captures pending author-search text in the record link return context', () =
     .getByRole('link', { name: 'View ' + author.recordCount + ' PRs by ' + author.account })
     .getAttribute('href')!;
   const params = new URL(href, 'https://dashboard.invalid').searchParams;
-  expect(params.get('authors.q')).toBe(author.account);
-  expect(params.get('authors.sort')).toBe('account');
-  expect(params.get('authors.dir')).toBe('desc');
-  expect(params.has('authors.page')).toBe(false);
+  expect(params.get('listq')).toBe(author.account);
+  expect(params.get('listsort')).toBe('-account');
+  expect(params.has('listpage')).toBe(false);
 });
 it('shows the median separately from sample size and sorts numeric elapsed durations', async () => {
   const user = userEvent.setup();
@@ -300,7 +302,7 @@ it('names a supporting view as the current crumb and marks the list its records 
   const trail = screen.getByRole('navigation', { name: 'Breadcrumb' });
   expect(within(trail).getByRole('link', { name: 'All repositories' })).toHaveAttribute(
     'href',
-    '/repos?period=this-month&period2=last-month&age=60',
+    '/repos?period=this-month&period2=last-month&age=60#period-activity',
   );
   expect(within(trail).getByText('Issue authors')).toHaveAttribute('aria-current', 'page');
   const tabs = () => screen.getByRole('navigation', { name: 'Repository lists' });

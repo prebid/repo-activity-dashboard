@@ -12,6 +12,10 @@ import { EmptyState } from '@/components/feedback/empty-state';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { recordListTitle } from '@/lib/presentation/repository-records';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+} from '@/lib/presentation/repository-url';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { repositoryFiltersNarrow } from '@/lib/presentation/repository-page-query';
 import { formatCount } from '@/lib/presentation/format';
@@ -118,11 +122,14 @@ export function RepositoryPageView({
   navigation,
   controller,
   controls,
+  links,
 }: {
   page: RepositoryPageModel;
   navigation: RepositoryPageNavigation;
   controller: TableController;
   controls?: RepositoryPageControls;
+  /** The viewer's saved list presentation, which links to other lists carry. */
+  links?: RepositoryLinkPresentation;
 }) {
   const { selection, returnTo } = page.drilldown;
   const current = selection.scope === 'current';
@@ -142,6 +149,8 @@ export function RepositoryPageView({
         repository={page.repository}
         asOf={page.asOf}
         returnTo={returnTo}
+        returnSection={current ? undefined : 'period-activity'}
+        links={links}
         navigation={navigation}
         // An author's records are a subpage of the list they were counted from.
         activeKind={page.author ? undefined : page.kind}
@@ -209,10 +218,11 @@ export function RepositoryPageView({
                     key="all"
                     className={styles.scopeLink}
                     prefetch={false}
-                    href={repositoryDrilldownHref(page.repository, {
-                      selection: { scope: 'current', metric: baseline },
-                      returnTo,
-                    })}
+                    href={repositoryDrilldownHref(
+                      page.repository,
+                      { selection: { scope: 'current', metric: baseline }, returnTo },
+                      drilldownPresentation({ scope: 'current', metric: baseline }, links),
+                    )}
                   >
                     All open {page.kind === 'prs' ? 'PRs' : 'issues'}
                     <LinkPending />

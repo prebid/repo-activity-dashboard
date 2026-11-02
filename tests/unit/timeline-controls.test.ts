@@ -1,7 +1,8 @@
 import { canonicalRoutePath, decodeRouteSegment } from '@/lib/presentation/navigation';
 import { companyFocus } from '@/lib/presentation/contribution-navigation';
 import { timelineSupportScopeKey } from '@/lib/presentation/timeline-support-query';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
+vi.mock('server-only', () => ({}));
 import {
   readTimelineView,
   writeTimelineView,
@@ -17,27 +18,17 @@ import {
   timelinePreferenceCandidates,
 } from '@/lib/presentation/timeline-controls';
 import {
-  contributionTimelineEntry,
-  contributionTimelineReportHref,
-  repositoryTimelineReturnTo,
   repositoryTimelineEntry,
-  repositoryTimelineOrigin,
   matrixRepositoryTimelineHref,
-  safeTimelineParent,
 } from '@/lib/presentation/timeline-navigation';
-import {
-  contributionReturnHref,
-  withContributionReturn,
-} from '@/lib/presentation/contribution-return';
+import { contributionTimelineHref } from '@/lib/presentation/contribution-timeline';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
+import { timelineQueryOf } from '../support/timeline-urls';
 import { repositoryTimelineFamilyMetrics } from '@/models/repository-timeline';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
-import {
-  defaultContributionSettings,
-  writeContributionSettings,
-} from '@/lib/presentation/contribution-settings';
-import { contributionSample } from '@/mocks/contributions';
+import { defaultContributionSettings } from '@/lib/presentation/contribution-settings';
 import { repositoryCatalog } from '@/config/repositories';
 import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
 const asOf = '2026-10-24T12:00:00.000Z';
@@ -57,7 +48,7 @@ function context(area: TimelineArea = 'matrix'): TimelineControlContext {
   return {
     area,
     path: '/repos',
-    href: '/repos?timeline=1',
+    href: '/repos?timeline',
     sample: 'reference',
     preferenceScope: area,
     asOf,
@@ -220,49 +211,48 @@ it('stores only deliberate defaults, never return snapshots, exact dates or row/
   ])
     expect(readTimelinePreferences(raw, 'matrix')).toBeNull();
 });
-it('preserves contribution list search only on the independent return snapshot', () => {
+it('links a report to its Over time with the report, search and page included, as its parent', () => {
   const settings = defaultContributionSettings({ repositories: repos });
-  const entry = contributionTimelineEntry(
-    '/contributors?report.q=Alice&report.page=3&sample=large',
-    settings,
-  )!;
-  const query = new URL(entry, 'https://example.test').searchParams;
-  expect(query.has('report.q')).toBe(false);
-  expect(query.get('sample')).toBe('large');
-  const back = contributionReturnHref(query, '/contributors');
-  expect(back).toContain('report.q=Alice');
-  expect(back).toContain('report.page=3');
-  const child = withContributionReturn('/contributors/account-alice', entry)!;
-  const restored = contributionReturnHref(
-    new URL(child, 'https://example.test').searchParams,
-    '/contributors',
+  const report = viewOf('/contributors?sample=large&q=Alice&page=3')!;
+  const href = contributionTimelineHref(report, settings)!;
+  // The Over time view keeps the report's scope; its search and page belong to the parent.
+  expect(href).toBe('/contributors?timeline&sample=large&back=~q:Alice~page:3&v=1');
+  const [parent] = resolveBack(viewOf(href)!);
+  expect(parent).toEqual({
+    available: true,
+    view: report,
+    href: '/contributors?sample=large&q=Alice&page=3',
+  });
+  // At the area's defaults the report is the derived parent, and the link pins the defaults.
+  expect(contributionTimelineHref(viewOf('/contributors?v=1')!, settings)).toBe(
+    '/contributors?timeline&v=1',
   );
-  expect(new URL(restored, 'https://example.test').searchParams.get('timeline')).toBe('1');
 });
-it('restores matrix scope from an individual timeline without nesting new matrices', () => {
+it('opens a repository Timeline from the matrix with the matrix and its Summary as parents', () => {
   const c = context(),
-    href =
-      '/repos?timeline=1&timeline.group=month&timeline.sort=repository&repo=repo-prebidjs&summary=%2Frepos%3Fperiod%3Dlast-week';
+    href = '/repos?timeline&repo=prebidjs&back=~period:last-week';
   const child = matrixRepositoryTimelineHref(c, 'prebidjs', href)!;
-  const q = new URL(child, 'https://example.test').searchParams;
-  expect(q.has('repo')).toBe(false);
-  expect(q.get('timelineParent')).toBe(href);
-  expect(q.get('timeline.sort')).toBe('period');
-  expect(safeTimelineParent(q.get('timelineParent'), '/repos/prebidjs')).toBe(href);
+  expect(child).toBe(
+    '/repos/prebidjs?timeline&back=/repos~timeline~repo:prebidjs&back=~period:last-week',
+  );
+  const [matrix, summary] = resolveBack(viewOf(child)!);
+  expect(matrix).toMatchObject({
+    available: true,
+    href: '/repos?timeline&repo=prebidjs&back=~period:last-week',
+  });
+  expect(summary).toMatchObject({ available: true, href: '/repos?repo=prebidjs&period=last-week' });
+  // Only a canonical matrix address can be a parent.
   for (const bad of [
-    'https://example.test',
-    '//example.test',
+    'https://example.test/repos?timeline',
+    '//example.test/repos?timeline',
     '/admin/users',
-    '/repos?timelineParent=%2Frepos',
-    '/repos?q=' + 'a'.repeat(8000),
+    '/repos?timeline=1&summary=%2Frepos',
+    '/repos?timeline&x=1',
+    '/repos/prebidjs?timeline',
   ])
-    expect(safeTimelineParent(bad, '/repos/prebidjs')).toBeNull();
-  expect(safeTimelineParent(null, '/repos/prebidjs')).toBeNull();
-  expect(
-    matrixRepositoryTimelineHref(c, 'prebidjs', '/repos?timeline=1&x=' + 'x'.repeat(8000)),
-  ).toBeNull();
+    expect(matrixRepositoryTimelineHref(c, 'prebidjs', bad), bad).toBeNull();
 });
-it('carries compatible repository filters and exact activity dates while explaining current review exclusions', () => {
+it('carries compatible repository filters and activity dates while explaining current review exclusions', () => {
   const source = repositoryPageSample(repos[0], {
     selection: { scope: 'current', metric: 'totalOpenPrs' },
     returnTo: '/repos',
@@ -278,15 +268,14 @@ it('carries compatible repository filters and exact activity dates while explain
     authors: ['sample-alice'],
     search: 'keyword',
   };
-  const href = repositoryTimelineEntry(source, filters, '/repos/prebidjs?prs.q=keyword')!;
-  const q = new URL(href, 'https://example.test').searchParams;
-  expect(q.get('prs.q')).toBe('keyword');
-  expect(q.getAll('prs.filter.authors')).toEqual(['sample-alice']);
-  expect(q.has('prs.filter.approvals')).toBe(false);
-  expect(q.get('timeline.omitted')).toBe('current');
+  const href = repositoryTimelineEntry(source, filters, '/repos/prebidjs?q=keyword')!;
+  // Review and age constraints describe current records only, so they stay with the list.
+  expect(href).toBe(
+    '/repos/prebidjs?timeline&authors=sample-alice&omitted&q=keyword&back=/repos/prebidjs~q:keyword',
+  );
   expect(repositoryTimelineEntry(source, filters, 'https://example.test')).toBeNull();
   const range = {
-    start: '2026-10-01T14:00:00.000Z',
+    start: '2026-10-01T00:00:00.000Z',
     end: '2026-10-02T00:00:00.000Z',
     endInclusive: false,
   };
@@ -295,10 +284,10 @@ it('carries compatible repository filters and exact activity dates while explain
     { ...filters, eventRange: range },
     '/repos/prebidjs',
   )!;
-  expect(new URL(ranged, 'https://example.test').searchParams.get('through')).toBe('2026-10-01');
-  expect(
-    parse(new URL(ranged, 'https://example.test').search.slice(1), 'repository').request.range,
-  ).toEqual(range);
+  const view = viewOf(ranged)!;
+  expect([view.values.period, view.values.at]).toEqual(['2026-10-01..2026-10-01', '2026-10-02']);
+  // The period and snapshot resolve to the list's exact activity range.
+  expect(parse(timelineQueryOf(ranged).toString(), 'repository').request.range).toEqual(range);
 });
 it('merges saved domains independently and discards metric dependencies from another family', () => {
   const current = new URLSearchParams(
@@ -368,7 +357,7 @@ it('tries presentation fallbacks first, then saved grouping, filters and reposit
     ).map((c) => c.toString()),
   ).toEqual(['timeline=1&timeline.group=day&timeline.sort=a', 'timeline=1&timeline.group=day']);
 });
-it('captures the full repository list presentation and handles author/period cohort entry', () => {
+it('keeps the list a Timeline opens from as its parent and handles author and period cohorts', () => {
   const range = {
     start: '2026-10-01T00:00:00.000Z',
     end: '2026-10-08T00:00:00.000Z',
@@ -379,20 +368,17 @@ it('captures the full repository list presentation and handles author/period coh
     returnTo: '/repos',
   });
   const filters = defaultRepositoryFilters('prs');
-  const origin = repositoryTimelineOrigin(
-    source,
-    filters,
-    'scope=period&metric=prsOpened',
-    { search: 'work', sort: 'number', descending: true, page: 2 },
-    { createdAt: false, number: true },
-    ['number', 'createdAt'],
-    true,
-  );
-  expect(origin).toContain('prs.page=2');
-  expect(origin).toContain('prs.charts=1');
-  expect(origin).toContain('prs.columns=number');
+  const origin =
+    '/repos/prebidjs?period=2026-10-01..2026-10-07&at=2026-10-08&metric=prsOpened&q=work&sort=-number&page=2&cols=-createdAt&charts';
   const entry = repositoryTimelineEntry(source, filters, origin)!;
-  expect(new URL(entry, 'https://example.test').searchParams.get('timeline.to')).toBe(range.end);
+  const [parent] = resolveBack(viewOf(entry)!);
+  expect(parent).toMatchObject({ available: true, href: origin });
+  expect(viewOf(entry)!.values).toMatchObject({
+    period: '2026-10-01..2026-10-07',
+    at: '2026-10-08',
+  });
+  // PRs opened is the Timeline's default metric, which the address leaves out.
+  expect(viewOf(entry)!.values.metric).toBeUndefined();
   const reviewed = {
     ...filters,
     kind: 'prs' as const,
@@ -401,84 +387,87 @@ it('captures the full repository list presentation and handles author/period coh
     branches: [],
     approvals: '1' as const,
   };
-  expect(repositoryTimelineEntry(source, reviewed, origin)).toContain('timeline.omitted=current');
+  expect(viewOf(repositoryTimelineEntry(source, reviewed, origin)!)!.values.omitted).toBe(true);
   source.author = { account: 'sample-alice', returnTo: '/repos/prebidjs' };
-  expect(repositoryTimelineEntry(source, filters, origin)).toContain(
-    'prs.filter.authors=sample-alice',
-  );
+  expect(viewOf(repositoryTimelineEntry(source, filters, origin)!)!.values.authors).toEqual([
+    'sample-alice',
+  ]);
+  // A parent whose frame exceeds the 1,000-character frame budget disables the link.
   expect(
-    repositoryTimelineEntry(source, filters, '/repos/prebidjs?q=' + '%20'.repeat(2300)),
+    repositoryTimelineEntry(
+      source,
+      filters,
+      '/repos/prebidjs?labels=' +
+        'a'.repeat(400) +
+        '&labels=' +
+        'b'.repeat(400) +
+        '&q=' +
+        'c'.repeat(300),
+    ),
   ).toBeNull();
 });
 it('holds presentation to the loaded model while routing brings a different scope, never clamping a mismatched window', () => {
   const monthly = context();
-  const next = 'timeline=1&timeline.group=day&timeline.window=24';
-  expect(resolveTimelinePresentation('/repos', next, monthly)).toEqual({
+  const next = '?timeline&group=day&window=24';
+  expect(resolveTimelinePresentation('/repos', next, monthly)).toMatchObject({
     view: monthly.view,
     awaitingData: true,
   });
-  const daily = { ...monthly, ...parse(next), href: '/repos?' + next };
+  const daily = {
+    ...monthly,
+    ...parse('timeline=1&timeline.group=day&timeline.window=24'),
+    href: '/repos' + next,
+  };
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&timeline.group=day&timeline.window=25', daily)
-      .view.window,
+    resolveTimelinePresentation('/repos', '?timeline&group=day&window=25', daily).view.window,
   ).toBe(25);
   expect(resolveTimelinePresentation('/repos/prebidjs', next, daily).awaitingData).toBe(true);
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&timeline.group=day&timeline.sort=bad', daily)
-      .awaitingData,
+    resolveTimelinePresentation('/repos', '?timeline&group=day&sort=bad', daily).awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&repo=repo-prebidjs', monthly).awaitingData,
+    resolveTimelinePresentation('/repos', '?timeline&repo=prebidjs', monthly).awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&timeline.metric=prsMerged', monthly)
-      .awaitingData,
+    resolveTimelinePresentation('/repos', '?timeline&metric=prsMerged', monthly).awaitingData,
   ).toBe(true);
+  // An old link the server has not answered yet waits for it.
+  expect(resolveTimelinePresentation('/repos', '?timeline=1', monthly).awaitingData).toBe(true);
   const contribution = {
     ...context('contribution'),
     path: '/contributors',
-    href: '/contributors?timeline=1',
+    href: '/contributors?timeline',
   };
   expect(
-    resolveTimelinePresentation('/contributors', 'timeline=1&type=agent', contribution)
-      .awaitingData,
+    resolveTimelinePresentation('/contributors', '?timeline&type=agent', contribution).awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/contributors', 'timeline=1&account=account-alice', contribution)
+    resolveTimelinePresentation('/contributors', '?timeline&account=account-alice', contribution)
       .awaitingData,
   ).toBe(true);
   const repository = {
     ...context('repository'),
     path: '/repos/prebidjs',
-    href: '/repos/prebidjs?timeline=1',
+    href: '/repos/prebidjs?timeline',
   };
   expect(
-    resolveTimelinePresentation(
-      '/repos/prebidjs',
-      'timeline=1&prs.filter.authors=sample-alice',
-      repository,
-    ).awaitingData,
+    resolveTimelinePresentation('/repos/prebidjs', '?timeline&authors=sample-alice', repository)
+      .awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation(
-      '/repos/prebidjs',
-      'timeline=1&timeline.metric=prsMerged',
-      repository,
-    ).awaitingData,
+    resolveTimelinePresentation('/repos/prebidjs', '?timeline&metric=prsMerged', repository)
+      .awaitingData,
   ).toBe(false);
 });
 it('treats duplicate company IDs as the same data scope when canonicalizing a presentation edit', () => {
   const c = {
     ...context('contribution'),
     path: '/companies',
-    href: '/companies?timeline=1&population=selected&company=company-acme&company=company-acme',
+    href: '/companies?timeline&company=company-acme,company-acme',
   };
   expect(
-    resolveTimelinePresentation(
-      '/companies',
-      'timeline=1&population=selected&company=company-acme&timeline.page=2',
-      c,
-    ).awaitingData,
+    resolveTimelinePresentation('/companies', '?timeline&company=company-acme&page=2', c)
+      .awaitingData,
   ).toBe(false);
 });
 it('an explicit incoming repository scope blocks old record predicates but may restore chart presentation', () => {
@@ -495,11 +484,10 @@ it('an explicit incoming repository scope blocks old record predicates but may r
   expect(inherited.getAll('timeline.columns')).toEqual(['prsMerged']);
   const bare = mergeTimelinePreferenceParameters(new URLSearchParams('timeline=1'), saved);
   expect(bare.get('prs.filter.authors')).toBe('sample-alice');
-  const href = matrixRepositoryTimelineHref(context(), 'prebidjs', '/repos?timeline=1')!;
-  const query = new URL(href, 'https://example.test').searchParams;
-  expect(query.has('timeline.state')).toBe(false);
-  expect(query.has('timeline.chart')).toBe(false);
-  expect(query.get('timeline.kind')).toBe('prs');
+  // The incoming view names the data scope; chart and column choices keep their defaults.
+  expect(matrixRepositoryTimelineHref(context(), 'prebidjs', '/repos?timeline')).toBe(
+    '/repos/prebidjs?timeline&back=/repos~timeline',
+  );
 });
 it('inherits supported author/duration insight metrics and never broadens contradictory author cohorts', () => {
   const range = {
@@ -518,11 +506,9 @@ it('inherits supported author/duration insight metrics and never broadens contra
   const href = repositoryTimelineEntry(
     scope,
     defaultRepositoryFilters('issues'),
-    '/repos/prebidjs?scope=period&metric=issueAuthors',
+    '/repos/prebidjs?metric=issueAuthors&period=2026-10-01..2026-10-07&at=2026-10-08',
   )!;
-  const query = new URL(href, 'https://example.test').searchParams;
-  expect(query.get('timeline.metric')).toBe('issueAuthors');
-  expect(query.get('timeline.kind')).toBe('issues');
+  expect(viewOf(href)!.values).toMatchObject({ view: 'issues', metric: 'issueAuthors' });
   expect(
     repositoryTimelineEntry(scope, defaultRepositoryFilters('prs'), '/repos/prebidjs'),
   ).toBeNull();
@@ -542,85 +528,80 @@ it('inherits supported author/duration insight metrics and never broadens contra
     },
   };
   expect(
-    repositoryTimelineEntry(current, defaultRepositoryFilters('prs'), '/repos/prebidjs'),
-  ).toContain('timeline.omitted=current');
+    viewOf(repositoryTimelineEntry(current, defaultRepositoryFilters('prs'), '/repos/prebidjs')!)!
+      .values.omitted,
+  ).toBe(true);
 });
 it.each([
-  [
-    'matrix',
-    '/repos',
-    'timeline=1&period=this-year&timeline.group=month&timeline.metric=prsOpened&sample=reference&timeline.gap=0',
-  ],
-  [
-    'repository',
-    '/repos/prebidjs',
-    'timeline=1&period=this-year&timeline.kind=prs&timeline.family=activity&timeline.sort=prsOpened',
-  ],
-  [
-    'contribution',
-    '/contributors',
-    'timeline=1&scope=1&period=this-year&population=all&timeline.dir=desc',
-  ],
+  ['matrix', '/repos', '?timeline&period=this-year&metric=prsOpened&sample=reference'],
+  ['repository', '/repos/prebidjs', '?timeline&view=prs&family=activity&sort=prsOpened'],
+  ['contribution', '/contributors', '?timeline&period=this-year&sort=-period&v=1'],
 ] as const)(
   'reuses loaded %s facts for presentation-only spellings of the same scope',
   (area, path, same) => {
-    const loaded = { ...context(area), path, href: path + '?timeline=1' };
+    const loaded = { ...context(area), path, href: path + '?timeline' };
     expect(resolveTimelinePresentation(path, same, loaded).awaitingData).toBe(false);
     for (const changed of [
       'period=last-month',
       // Resolves to the default this-year range, but the selection the controls show differs.
-      'period=custom&from=2026-01-01&through=2026-12-31',
+      'period=2026-01-01..2026-12-31',
       'sample=large',
-      'timeline.gap=1',
-      'timeline.group=week',
+      'gap',
+      'group=week',
     ])
-      expect(resolveTimelinePresentation(path, 'timeline=1&' + changed, loaded).awaitingData).toBe(
+      expect(resolveTimelinePresentation(path, '?timeline&' + changed, loaded).awaitingData).toBe(
         true,
       );
   },
 );
 it('treats an explicit list of every repository as the default matrix selection', () => {
-  const matrix = { ...context('matrix'), path: '/repos', href: '/repos?timeline=1' };
-  const every = new URLSearchParams('timeline=1');
-  for (const row of [...matrix.repositories].reverse()) every.append('repo', row.id);
-  expect(resolveTimelinePresentation('/repos', every.toString(), matrix).awaitingData).toBe(false);
-  every.delete('repo');
-  every.append('repo', matrix.repositories[0].id);
-  expect(resolveTimelinePresentation('/repos', every.toString(), matrix).awaitingData).toBe(true);
+  const matrix = { ...context('matrix'), path: '/repos', href: '/repos?timeline' };
+  const every = matrix.repositories.map((row) => row.slug).reverse();
+  expect(
+    resolveTimelinePresentation('/repos', '?timeline&repo=' + every.join(','), matrix).awaitingData,
+  ).toBe(false);
+  expect(
+    resolveTimelinePresentation('/repos', '?timeline&repo=' + every[0], matrix).awaitingData,
+  ).toBe(true);
 });
 it('treats changed repository, population and record scope as new facts', () => {
   const matrix = context('matrix');
+  expect(resolveTimelinePresentation('/repos', '?timeline', matrix).awaitingData).toBe(false);
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&repo=repo-prebidjs', matrix).awaitingData,
+    resolveTimelinePresentation('/repos', '?timeline&repo=prebidjs', matrix).awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/repos', 'timeline=1&timeline.metric=issuesOpened', matrix)
-      .awaitingData,
+    resolveTimelinePresentation('/repos', '?timeline&metric=issuesOpened', matrix).awaitingData,
   ).toBe(true);
   const repository = {
     ...context('repository'),
     path: '/repos/prebidjs',
-    href: '/repos/prebidjs?timeline=1',
+    href: '/repos/prebidjs?timeline',
   };
+  expect(resolveTimelinePresentation('/repos/prebidjs', '?timeline', repository).awaitingData).toBe(
+    false,
+  );
   expect(
-    resolveTimelinePresentation('/repos/prebidjs', 'timeline=1&timeline.kind=issues', repository)
+    resolveTimelinePresentation('/repos/prebidjs', '?timeline&view=issues', repository)
       .awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/repos/prebidjs', 'timeline=1&prs.filter.draft=drafts', repository)
+    resolveTimelinePresentation('/repos/prebidjs', '?timeline&draft=drafts', repository)
       .awaitingData,
   ).toBe(true);
   const contribution = {
     ...context('contribution'),
     path: '/contributors',
-    href: '/contributors?timeline=1',
+    href: '/contributors?timeline',
   };
+  expect(resolveTimelinePresentation('/contributors', '?timeline', contribution).awaitingData).toBe(
+    false,
+  );
   expect(
-    resolveTimelinePresentation('/contributors', 'timeline=1&type=human', contribution)
-      .awaitingData,
+    resolveTimelinePresentation('/contributors', '?timeline&type=human', contribution).awaitingData,
   ).toBe(true);
   expect(
-    resolveTimelinePresentation('/contributors', 'timeline=1&exclude=account-alice', contribution)
+    resolveTimelinePresentation('/contributors', '?timeline&exclude=account-alice', contribution)
       .awaitingData,
   ).toBe(true);
   expect(readTimelineSource(new URLSearchParams('sample=mixed'), 'contribution')).toBeNull();
@@ -634,75 +615,21 @@ it('treats equivalent route spellings as the loaded page', () => {
   const repository = {
     ...context('repository'),
     path: '/repos/prebidjs',
-    href: '/repos/prebidjs?timeline=1',
+    href: '/repos/prebidjs?timeline',
   };
   expect(
-    resolveTimelinePresentation('/repos/%70rebidjs', 'timeline=1', repository).awaitingData,
+    resolveTimelinePresentation('/repos/%70rebidjs', '?timeline', repository).awaitingData,
   ).toBe(false);
   expect(canonicalRoutePath('/contributors/github:42')).toBe(
     canonicalRoutePath('/contributors/github%3a42'),
   );
   expect(canonicalRoutePath('/contributors/a@b')).toBe('/contributors/a%40b');
   expect(canonicalRoutePath('/contributors/%E0%A4%A')).toBe('/contributors/%E0%A4%A');
-  expect(timelineSupportScopeKey('/repos/%70rebidjs?timeline=1&support.records.q=x')).toBe(
-    timelineSupportScopeKey('/repos/prebidjs?timeline=1'),
+  const support =
+    '/repos/prebidjs?timeline&detail=prsOpened&interval=month:2026-01-01&snap=repo-v1@2026-10-24T12:00Z';
+  expect(timelineSupportScopeKey(support.replace('prebidjs', '%70rebidjs') + '&dq=x&dpage=2')).toBe(
+    timelineSupportScopeKey(support),
   );
-});
-it('opens the Report tab with the current Over time scope and the list presentation from entry', () => {
-  const directory = contributionSample();
-  const entry = new URL(
-    contributionTimelineEntry(
-      '/contributors?scope=1&period=this-year&report.q=Alice&report.page=3',
-      defaultContributionSettings(directory),
-    )!,
-    'https://dashboard.invalid',
-  );
-  const narrowed = defaultContributionSettings(directory);
-  narrowed.selection.repositoryIds = ['repo-prebidjs'];
-  narrowed.period = { kind: 'preset', preset: 'last-month' };
-  const params = new URLSearchParams(writeContributionSettings(entry.search, narrowed));
-  const report = new URL(
-    contributionTimelineReportHref(params, '/contributors', narrowed, directory, asOf),
-    'https://dashboard.invalid',
-  );
-  expect(report.pathname).toBe('/contributors');
-  expect(report.searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
-  expect(report.searchParams.get('period')).toBe('last-month');
-  expect(report.searchParams.get('report.q')).toBe('Alice');
-  expect(report.searchParams.has('report.page')).toBe(false);
-  const unchanged = new URL(
-    contributionTimelineReportHref(
-      new URLSearchParams(entry.search),
-      '/contributors',
-      defaultContributionSettings(directory),
-      directory,
-      asOf,
-    ),
-    'https://dashboard.invalid',
-  );
-  expect(unchanged.searchParams.get('report.page')).toBe('3');
-});
-it('returns a repository Timeline to the All Repositories state its parent carried', () => {
-  const summary = '/repos?period=last-month&activity.sort=prsMerged';
-  expect(
-    repositoryTimelineReturnTo('/repos/prebidjs?returnTo=' + encodeURIComponent(summary)),
-  ).toBe(summary);
-  // A matrix parent has its own link; its Summary snapshot is the All Repositories origin.
-  expect(
-    repositoryTimelineReturnTo(
-      '/repos?timeline=1&repo=repo-prebidjs&summary=' + encodeURIComponent(summary),
-    ),
-  ).toBe(summary);
-  expect(repositoryTimelineReturnTo('/repos?timeline=1&repo=repo-prebidjs')).toBe('/repos');
-  // The snapshot keeps only Summary parameters, so a fragment never reaches the origin.
-  expect(
-    repositoryTimelineReturnTo(
-      '/repos?timeline=1&summary=' + encodeURIComponent('/repos?period=last-month#top'),
-    ),
-  ).toBe('/repos?period=last-month');
-  expect(repositoryTimelineReturnTo('/repos/prebidjs?returnTo=%2Fcontributors')).toBe('/repos');
-  expect(repositoryTimelineReturnTo('/repos/prebidjs')).toBe('/repos');
-  expect(repositoryTimelineReturnTo(null)).toBe('/repos');
 });
 it('keeps an author record list as the Timeline origin and parent', () => {
   const list = repositoryPageSample(repositoryOverviewSamples().repositories[0].repository, {
@@ -711,22 +638,15 @@ it('keeps an author record list as the Timeline origin and parent', () => {
   });
   const source = { ...list, author: { account: 'sample-alice', returnTo: '/repos' } };
   const filters = { ...defaultRepositoryFilters('prs'), authors: ['sample-alice'] };
-  const origin = repositoryTimelineOrigin(
-    source,
-    filters,
-    'authors.sort=recordCount',
-    { search: '', sort: 'number', descending: true, page: 1 },
-    {},
-    [],
-    false,
-  );
   const path = '/repos/' + source.repository.slug;
-  expect(new URL(origin, 'https://example.test').pathname).toBe(path + '/authors/sample-alice');
-  expect(safeTimelineParent(origin, path)).toBe(origin);
-  expect(safeTimelineParent(path + '/authors/a/b?x=1', path)).toBeNull();
-  expect(safeTimelineParent(path + '/authors/?x=1', path)).toBeNull();
-  const entry = new URL(repositoryTimelineEntry(source, filters, origin)!, 'https://example.test');
-  expect(entry.searchParams.get('timelineParent')).toBe(origin);
+  const origin =
+    path +
+    '/authors/sample-alice?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors&sort=-number';
+  const entry = repositoryTimelineEntry(source, filters, origin)!;
+  const [parent] = resolveBack(viewOf(entry)!);
+  expect(parent).toMatchObject({ available: true, href: origin });
+  // Another repository's page cannot be this Timeline's parent.
+  expect(repositoryTimelineEntry(source, filters, '/repos/prebidserver?view=issues')).toBeNull();
 });
 it('decodes route segments once into logical identities', () => {
   expect(decodeRouteSegment('github%3A42')).toBe('github:42');

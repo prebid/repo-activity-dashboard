@@ -72,7 +72,8 @@ test('returning through nested reports restores the original presentation after 
   await expect(
     page.getByRole('columnheader', { name: 'Issues authored', exact: true }),
   ).toHaveCount(0);
-  expect(new URL(page.url()).searchParams.has('members.columns')).toBe(false);
+  // The entry opened the saved columns in explicit form.
+  expect(new URL(page.url()).searchParams.get('cols')).toBe('-issuesAuthored');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page
     .getByRole('table')
@@ -99,7 +100,7 @@ test('returning through nested reports restores the original presentation after 
   const parentHref = await page
     .getByRole('link', { name: 'Back to report', exact: true })
     .getAttribute('href');
-  expect(new URL(parentHref!, page.url()).searchParams.get('members.page')).toBe('2');
+  expect(new URL(parentHref!, page.url()).searchParams.get('page')).toBe('2');
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Example Acme', level: 1 })).toBeVisible();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();

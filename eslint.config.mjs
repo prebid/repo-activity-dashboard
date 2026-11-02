@@ -40,6 +40,23 @@ const headingOwners = [
 ];
 const headingMessage =
   'Render the page title through PageHeader, which owns the h1 on dashboard pages.';
+// Rule 6: links and history writes go through the URL codec and its hook. The codec's own modules
+// (with the frozen legacy readers) and the hook module are the owners. The selectors read direct
+// forms only: an aliased router, a destructured push or a `url.search = ...` assignment is not read
+// (`TableQuery.search` is assigned the same way).
+const urlMessage =
+  'Build links and history entries with the URL codec (src/lib/presentation/url) and useUrlState.';
+const urlCodecOwners = ['src/lib/presentation/url/**', 'src/lib/navigation/use-url-state.ts'];
+// Named exceptions: authentication navigation stays as it is while authentication code is frozen
+// (decision 18); they are removed once that code can change.
+const urlCodecExceptions = {
+  views: ['src/components/layout/toolbar.tsx'],
+  authViews: [
+    'src/features/authentication/login-view.tsx',
+    'src/features/authentication/change-password-view.tsx',
+  ],
+};
+const urlExempt = [...urlCodecOwners, ...urlCodecExceptions.views, ...urlCodecExceptions.authViews];
 // Selectors for no-restricted-syntax, by architecture rule. A config object that sets a rule
 // replaces the options of earlier objects for the same file, so each file scope below lists every
 // selector that applies to it.
@@ -63,18 +80,72 @@ const restrictedSyntax = {
   ],
   // Rule 4: an h1 element, named directly. createElement('h1') and a computed tag are not read.
   headings: [{ selector: 'JSXOpeningElement[name.name="h1"]', message: headingMessage }],
+  // Rule 6: URLSearchParams construction, history writes, router push/replace and C8's
+  // searchParams mutation, each named directly.
+  urlCodec: [
+    { selector: "NewExpression[callee.name='URLSearchParams']", message: urlMessage },
+    {
+      selector:
+        "CallExpression[callee.type='MemberExpression'][callee.property.name=/^(pushState|replaceState)$/]",
+      message: urlMessage,
+    },
+    {
+      selector:
+        "CallExpression[callee.object.name='router'][callee.property.name=/^(push|replace)$/]",
+      message: urlMessage,
+    },
+    {
+      selector:
+        "CallExpression[callee.object.callee.name='useRouter'][callee.property.name=/^(push|replace)$/]",
+      message: urlMessage,
+    },
+    {
+      selector:
+        "CallExpression[callee.object.property.name='searchParams'][callee.property.name=/^(append|delete|set|sort)$/]",
+      message: urlMessage,
+    },
+  ],
 };
 // Later scopes override earlier ones for the files they match, from the widest to the narrowest.
 const restrictedSyntaxScopes = [
   { files: sourceFiles, ignores: [iconMap], selectors: restrictedSyntax.iconImports },
   {
     files: headingScope,
-    ignores: [iconMap, ...headingOwners],
-    selectors: [...restrictedSyntax.iconImports, ...restrictedSyntax.headings],
+    ignores: [iconMap, ...headingOwners, ...urlExempt],
+    selectors: [
+      ...restrictedSyntax.iconImports,
+      ...restrictedSyntax.headings,
+      ...restrictedSyntax.urlCodec,
+    ],
   },
   {
     files: primitiveScope,
-    ignores: ['src/components/ui/**', ...headingOwners],
+    ignores: ['src/components/ui/**', ...headingOwners, ...urlExempt],
+    selectors: [
+      ...restrictedSyntax.iconImports,
+      ...restrictedSyntax.primitiveClassNames,
+      ...restrictedSyntax.headings,
+      ...restrictedSyntax.urlCodec,
+    ],
+  },
+  {
+    files: headingOwners,
+    ignores: urlExempt,
+    selectors: [
+      ...restrictedSyntax.iconImports,
+      ...restrictedSyntax.primitiveClassNames,
+      ...restrictedSyntax.urlCodec,
+    ],
+  },
+  // The rule-6 exempt files keep every other selector of their scope.
+  {
+    files: urlCodecOwners,
+    ignores: [iconMap],
+    selectors: [...restrictedSyntax.iconImports, ...restrictedSyntax.headings],
+  },
+  {
+    files: urlCodecExceptions.views,
+    ignores: [],
     selectors: [
       ...restrictedSyntax.iconImports,
       ...restrictedSyntax.primitiveClassNames,
@@ -82,7 +153,7 @@ const restrictedSyntaxScopes = [
     ],
   },
   {
-    files: headingOwners,
+    files: urlCodecExceptions.authViews,
     ignores: [],
     selectors: [...restrictedSyntax.iconImports, ...restrictedSyntax.primitiveClassNames],
   },

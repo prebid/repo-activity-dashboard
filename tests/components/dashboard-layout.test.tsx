@@ -24,6 +24,10 @@ afterEach(() => {
   savedWidth.value = undefined;
 });
 vi.mock('@/components/layout/toolbar', () => ({ Toolbar: () => <header>Navigation</header> }));
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/repos',
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 it('keeps the main landmark stable while resetting page state for an account or revision change', async () => {
   const user = userEvent.setup();

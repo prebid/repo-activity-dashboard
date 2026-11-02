@@ -1,4 +1,4 @@
-import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
+import { listParam, parentHref } from '../support/contribution-urls';
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
@@ -56,18 +56,16 @@ test('company inclusion, duplicate individual inclusion and exclusions keep 50-r
     .first()
     .getAttribute('href');
   if (!parentLink) throw Error('Missing child report link');
-  const parent = contributionReturnHref(
-    new URL(parentLink, page.url()).searchParams,
-    '/contributors',
-  );
-  expect(new URL(parent, page.url()).pathname).toBe(originalParent.pathname);
+  // The child link's back frame names this page, table page included.
+  const parent = parentHref(parentLink)!;
+  expect(parent).toBe(originalParent.pathname + originalParent.search);
   await page
     .getByRole('table')
     .getByRole('link', { name: / — view contribution report$/ })
     .first()
     .click();
-  expect(new URL(page.url()).searchParams.get('exclude')).toBe('account-person-001');
-  expect(new URL(page.url()).searchParams.get('company')).toBe('company-acme');
+  expect(listParam(page.url(), 'exclude')).toEqual(['account-person-001']);
+  expect(listParam(page.url(), 'company')).toEqual(['company-acme']);
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page).toHaveURL(new URL(parent, page.url()).href);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(49);
@@ -124,8 +122,11 @@ test('periods, repository selection, saved defaults, explicit URLs and Back/Forw
     'this-month',
   );
   await expect(page.getByRole('button', { name: /^Choose repositories 1 \/ 18/ })).toBeVisible();
-  await page.goto('/contributors?period=this-year');
+  // `v=1` names the v1 defaults; a default written out is another spelling of the bare entry.
+  await page.goto('/contributors?v=1');
   await expect(page.getByRole('button', { name: /^Choose repositories 18 \/ 18/ })).toBeVisible();
+  await page.goto('/contributors?period=this-year');
+  await expect(page).toHaveURL(filtered);
   await page.goto(filtered);
   await page
     .getByRole('button', { name: 'Custom range for Reporting period', exact: true })

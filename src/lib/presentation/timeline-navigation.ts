@@ -1,143 +1,60 @@
-import { safeReturnPath } from './navigation';
-import { customPeriodForRange } from './reporting-period';
-import { repositoryMatrixSummaryHref } from './repository-matrix-summary';
-
-/** A repository's Timeline for its record kind, with no list state to carry. */
-export function repositoryTimelineHref(slug: string, kind: 'prs' | 'issues') {
-  const params = new URLSearchParams({ timeline: '1' });
-  if (kind === 'issues') params.set('timeline.kind', 'issues');
-  return '/repos/' + encodeURIComponent(slug) + '?' + params.toString();
-}
-import {
-  contributionReturnHref,
-  contributionUrlFits,
-  withContributionReturn,
-} from './contribution-return';
-import { readContributionScopeInput, writeContributionSettings } from './contribution-settings';
-import type {
-  ContributionControlDirectory,
-  ContributionSettings,
-} from '@/models/contribution-settings';
-import type { RepositoryPageSource, RepositoryPageFilters } from '@/models/repository-page';
-import { writeRepositoryFilters } from './repository-page-query';
+// Links into Timelines: a repository's Timeline from its lists, insights, author pages and the
+// matrix. Each carries the page it was opened from as its `back` frame (P5d); a repository
+// Timeline has no parent it could derive.
 import { currentReviewFilterKeys, withoutCurrentReviewFilters } from './repository-page-rules';
+import { repositoryFilterFields } from './repository-page-query';
+import type { RepositoryPageSource, RepositoryPageFilters } from '@/models/repository-page';
 import type { TimelineControlContext } from '@/models/timeline-controls';
-import { writeTimelineView } from './timeline-controls';
-import { writeTableQuery } from './table-query';
-import { writeTableColumns } from './table-column-preferences';
-import type { TableQuery } from '@/models/table-query';
-import { overviewReturnPathSchema, type RepositoryDrilldown } from '@/models/repository-drilldown';
+import type { RepositoryDrilldown } from '@/models/repository-drilldown';
 import {
   repositoryTimelineFamilyMetrics,
   repositoryTimelineMetricSchema,
   repositoryTimelineMetricScope,
 } from '@/models/repository-timeline';
-export function repositoryTimelineOrigin(
-  source: RepositoryPageSource,
-  filters: RepositoryPageFilters,
-  search: string,
-  query: TableQuery,
-  columns: Record<string, boolean>,
-  columnIds: readonly string[],
-  charts: boolean,
-) {
-  const params = new URLSearchParams(
-    writeTableColumns(
-      writeTableQuery(writeRepositoryFilters(search, filters), source.kind, query),
-      source.kind,
-      columns,
-      columnIds,
-    ),
-  );
-  params.set(source.kind + '.charts', charts ? '1' : '0');
-  // Author record lists keep their own path, so Back and the parent link return to that list.
-  return (
-    '/repos/' +
-    encodeURIComponent(source.repository.slug) +
-    (source.author ? '/authors/' + encodeURIComponent(source.author.account) : '') +
-    '?' +
-    params.toString()
-  );
-}
+import { childViewHref, viewOf, type UrlView } from './url/back';
+import { savedTimelineLink } from './url/legacy/timeline-state';
+import { urlHref } from './url/codec';
+import { instantIso, rangeValues } from './url/period';
+import type { UrlValue } from './url/registry';
 
-/**
- * The Over time Report tab: the entry list's path and presentation (search, ranking, page), with
- * the current Over time population and period. List pages restart when that scope changed.
- */
-export function contributionTimelineReportHref(
-  params: URLSearchParams,
-  path: string,
-  settings: ContributionSettings,
-  directory: ContributionControlDirectory,
-  asOf: string,
-): string {
-  const fallback = new URLSearchParams(params);
-  for (const key of [...fallback.keys()])
-    if (key === 'timeline' || key.startsWith('timeline.')) fallback.delete(key);
-  const fallbackHref = path + '?' + writeContributionSettings(fallback.toString(), settings);
-  const restored = new URL(
-    contributionReturnHref(params, fallbackHref),
-    'https://dashboard.invalid',
+const route = '/repos/[slug]' as const;
+const defined = (values: Record<string, UrlValue | undefined>) =>
+  Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined)) as Record<
+    string,
+    UrlValue
+  >;
+
+/** A repository's Timeline for its record kind, with no list state to carry. */
+export function repositoryTimelineHref(slug: string, kind: 'prs' | 'issues') {
+  return urlHref(
+    route,
+    { slug: [slug] },
+    kind === 'issues'
+      ? { timeline: true, view: kind }
+      : {
+          timeline: true,
+        },
   );
-  const previous = readContributionScopeInput(restored.searchParams, directory, asOf);
-  const changed =
-    !previous?.period ||
-    // The entry URL is unvalidated; only its serialized scope is compared.
-    writeContributionSettings('', {
-      ...previous,
-      period: previous.period,
-    } as ContributionSettings) !== writeContributionSettings('', settings);
-  const href =
-    restored.pathname +
-    '?' +
-    writeContributionSettings(restored.searchParams.toString(), settings, changed);
-  return contributionUrlFits(href) ? href : fallbackHref;
 }
-export function contributionTimelineEntry(
-  href: string,
-  settings: ContributionSettings,
-): string | null {
-  const url = new URL(href, 'https://dashboard.invalid');
-  const params = new URLSearchParams(writeContributionSettings('', settings));
-  if (url.searchParams.has('sample')) params.set('sample', url.searchParams.get('sample')!);
-  params.set('timeline', '1');
-  return withContributionReturn(url.pathname + '?' + params.toString(), href);
-}
-/** The All Repositories origin a repository Timeline returns to, carried by its parent page. */
-export function repositoryTimelineReturnTo(parent: string | null | undefined): string {
-  if (!parent) return '/repos';
-  const url = new URL(parent, 'https://dashboard.invalid');
-  // A matrix parent is reachable through its own link; its Summary snapshot is the origin.
-  const origin =
-    url.pathname === '/repos'
-      ? repositoryMatrixSummaryHref(url.searchParams.get('summary'))
-      : url.searchParams.get('returnTo');
-  return overviewReturnPathSchema.safeParse(origin).success ? origin! : '/repos';
-}
-export function safeTimelineParent(value: string | null, path: string): string | null {
-  if (!value) return null;
-  if (!contributionUrlFits(value) || safeReturnPath(value) !== value) return null;
-  const url = new URL(value, 'https://dashboard.invalid');
-  if (url.searchParams.has('timelineParent')) return null;
-  const author = url.pathname.startsWith(path + '/authors/')
-    ? url.pathname.slice(path.length + '/authors/'.length)
-    : null;
-  return url.pathname === '/repos' ||
-    url.pathname === path ||
-    (author !== null && author !== '' && !author.includes('/'))
-    ? value
-    : null;
-}
+/**
+ * The repository Timeline a list, insight or author page opens (`currentHref`, its canonical
+ * href): the list's compatible filters and kind, its period as a period and snapshot, and the
+ * page as the Timeline's parent. Null when the filters do not carry over or the link cannot fit.
+ */
 export function repositoryTimelineEntry(
   source: Pick<RepositoryPageSource, 'repository' | 'kind' | 'author'> & {
     drilldown: RepositoryDrilldown;
   },
   filters: RepositoryPageFilters,
   currentHref: string,
+  /** The viewer's saved repository Timeline presentation (decision C3). */
+  saved: string | null = null,
+  asOf = '',
 ): string | null {
-  const path = '/repos/' + encodeURIComponent(source.repository.slug);
-  if (!safeTimelineParent(currentHref, path)) return null;
+  const parent = viewOf(currentHref);
   if (
+    !parent ||
+    parent.segments.slug?.[0] !== source.repository.slug ||
     filters.kind !== source.kind ||
     (source.author &&
       filters.authors.length > 0 &&
@@ -145,73 +62,76 @@ export function repositoryTimelineEntry(
   )
     return null;
   const next = withoutCurrentReviewFilters(filters);
+  const { selection } = source.drilldown;
   const omitted =
-    (source.drilldown.selection.scope === 'current' &&
-      !['totalOpenPrs', 'openIssues'].includes(source.drilldown.selection.metric)) ||
+    (selection.scope === 'current' && !['totalOpenPrs', 'openIssues'].includes(selection.metric)) ||
     filters.ageBand !== undefined ||
     (filters.kind === 'prs' && currentReviewFilterKeys.some((key) => filters[key] !== undefined));
   next.ageBand = undefined;
   next.eventRange = undefined;
   if (source.author) next.authors = [source.author.account];
-  const params = new URLSearchParams(writeRepositoryFilters('', next));
-  params.set('timeline', '1');
-  params.set('timeline.kind', source.kind);
-  params.set('timeline.family', 'activity');
-  if (
-    source.drilldown.selection.scope === 'period' &&
-    repositoryTimelineFamilyMetrics(source.kind, 'activity').some(
-      (metric) => metric === source.drilldown.selection.metric,
-    )
-  )
-    params.set('timeline.metric', source.drilldown.selection.metric);
-  params.set('timelineParent', currentHref);
-  if (omitted) params.set('timeline.omitted', 'current');
-  const range =
-    filters.eventRange ??
-    (source.drilldown.selection.scope === 'period' ? source.drilldown.selection.range : null);
-  if (range) {
-    const period = customPeriodForRange(range);
-    params.set('period', 'custom');
-    params.set('from', period.from);
-    params.set('through', period.through);
-    params.set('timeline.from', range.start);
-    params.set('timeline.to', range.end);
-    params.set('timeline.inclusive', range.endInclusive ? '1' : '0');
-  } else params.set('period', 'this-year');
-  const href = path + '?' + params.toString();
-  return contributionUrlFits(href) ? href : null;
+  const range = filters.eventRange ?? (selection.scope === 'period' ? selection.range : null);
+  const period = range ? rangeValues(range) : null;
+  if (range && !period) return null;
+  const metric =
+    selection.scope === 'period' &&
+    repositoryTimelineFamilyMetrics(source.kind, 'activity').some((id) => id === selection.metric)
+      ? selection.metric
+      : undefined;
+  // Event ranges do not carry over, so no filter resolves against this instant.
+  const at = (period && instantIso(period.at)) ?? '';
+  const values = defined({
+    timeline: true,
+    view: source.kind === 'issues' ? 'issues' : undefined,
+    ...period,
+    metric,
+    ...repositoryFilterFields(next, at),
+    omitted: omitted || undefined,
+  });
+  // The list names the Timeline's records, family and period; its other presentation is saved.
+  const explicit = ['view', 'family', 'period', ...(metric ? ['metric'] : [])];
+  const child: UrlView = {
+    route,
+    segments: { slug: [source.repository.slug] },
+    values: savedTimelineLink(route, values, explicit, saved, asOf),
+  };
+  return childViewHref(parent, child);
 }
+/**
+ * A repository's Timeline from the matrix (`currentHref`, the matrix's canonical href): the
+ * matrix's period, grouping and data source, the metric's record kind and family, and the matrix
+ * as the Timeline's parent. Null when the link cannot fit.
+ */
 export function matrixRepositoryTimelineHref(
-  context: Pick<TimelineControlContext, 'view'>,
+  context: Pick<TimelineControlContext, 'view'> & { asOf?: string },
   slug: string,
   currentHref: string,
   metric = context.view.metric,
+  /** The viewer's saved repository Timeline presentation (decision C3). */
+  saved: string | null = null,
 ) {
-  const params = new URLSearchParams(currentHref.split('?')[1]);
-  params.delete('repo');
-  params.delete('summary');
-  params.delete('timeline.window');
-  params.delete('timeline.sort');
-  params.delete('timeline.dir');
-  params.delete('timeline.page');
+  const matrix = viewOf(currentHref);
+  if (!matrix || matrix.route !== '/repos') return null;
   const selected = repositoryTimelineMetricSchema.parse(metric),
     scope = repositoryTimelineMetricScope(selected);
-  const view = {
-    ...context.view,
-    metric: selected,
-    kind: scope.recordKind,
+  const { values } = matrix;
+  const own = defined({
+    timeline: true,
+    view: scope.recordKind,
+    sample: values.sample,
+    gap: values.gap,
+    period: values.period,
+    at: values.at,
     family: scope.family,
-    selectedMetrics: undefined,
-    sort: 'period',
-    descending: false,
-    page: 1,
+    metric: selected,
+    group: values.group,
+  });
+  // The matrix names the metric, its period and grouping; chart and columns may be saved.
+  const explicit = ['view', 'family', 'metric', 'period', 'group', 'sort', 'page'];
+  const child: UrlView = {
+    route,
+    segments: { slug: [slug] },
+    values: savedTimelineLink(route, own, explicit, saved, context.asOf ?? ''),
   };
-  const path = '/repos/' + encodeURIComponent(slug);
-  const url = new URL(path, 'https://dashboard.invalid');
-  url.search = writeTimelineView(params.toString(), 'repository', view);
-  // The incoming data scope is explicit; chart/column defaults belong to the destination account.
-  url.searchParams.delete('timeline.state');
-  url.searchParams.delete('timeline.chart');
-  url.searchParams.set('timelineParent', currentHref);
-  return contributionUrlFits(url.pathname + url.search) ? url.pathname + url.search : null;
+  return childViewHref(matrix, child);
 }

@@ -12,6 +12,13 @@ import { type TableQuery } from '@/models/table-query';
 import type { SavedPreference } from '@/models/preferences';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { usePreferenceCookie } from './use-preference-cookie';
+import { pinCurrentEntry, writeHistory } from './use-url-state';
+import {
+  boundLocationStamp,
+  readBoundTableQuery,
+  writeBoundTableQuery,
+  type TableFields,
+} from '@/lib/presentation/url/table-binding';
 const noPeers: readonly string[] = [];
 type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
 export function useTableController({
@@ -24,6 +31,7 @@ export function useTableController({
   defaultSort,
   historyMode = 'replace',
   savedSort,
+  fields,
 }: {
   historyMode?: 'push' | 'replace';
   queryKey: string;
@@ -40,11 +48,36 @@ export function useTableController({
    * Without it, sorts are not saved.
    */
   savedSort?: SavedPreference<SavedSort>;
+  /**
+   * The registry fields that hold this table's state (the URL codec). Without them the table reads
+   * and writes the legacy `<queryKey>.q/.sort/.dir/.page` keys. With them an absent sort is the v1
+   * default, never the saved sort, which applies only through a server redirect of an entry.
+   */
+  fields?: TableFields;
 }): TableController & { clearSavedSort: () => void; storageAvailable: boolean } {
   const pathname = usePathname(),
     search = useSearchParams().toString();
   const scope = JSON.stringify([scopeKey ?? pathname, queryKey, viewerId]);
-  const stamp = tableLocationStamp(pathname, search, peerQueryKeys);
+  const stampOf = useCallback(
+    (path: string, query: string) =>
+      fields
+        ? boundLocationStamp(fields, path, query)
+        : tableLocationStamp(path, query, peerQueryKeys),
+    [fields, peerQueryKeys],
+  );
+  const readQuery = useCallback(
+    (query: string, fallback: SavedSort | undefined, page?: number) =>
+      fields
+        ? readBoundTableQuery(fields, query, columnIds, defaultSort, page)
+        : effectiveTableQuery(query, queryKey, columnIds, fallback, page),
+    [fields, columnIds, defaultSort, queryKey],
+  );
+  const writeQuery = useCallback(
+    (query: string, patch: Partial<TableQuery>) =>
+      fields ? writeBoundTableQuery(fields, query, patch) : writeTableQuery(query, queryKey, patch),
+    [fields, queryKey],
+  );
+  const stamp = stampOf(pathname, search);
   const legacyKeys = viewerId
     ? [
         ...new Set([
@@ -75,14 +108,12 @@ export function useTableController({
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const query = useMemo(
     () =>
-      effectiveTableQuery(
+      readQuery(
         search,
-        queryKey,
-        columnIds,
         saved ?? defaultSort,
         correction?.scope === scope && correction.stamp === stamp ? correction.page : undefined,
       ),
-    [search, queryKey, columnIds, saved, correction, scope, stamp, defaultSort],
+    [search, readQuery, saved, correction, scope, stamp, defaultSort],
   );
   const draftSearch = draft?.scope === scope && draft.stamp === stamp ? draft.value : query.search;
   const cancel = useCallback(() => {
@@ -94,11 +125,9 @@ export function useTableController({
     (patch: Partial<TableQuery>, explicitSearch?: string): TableQuery => {
       clearTimeout(timer.current);
       const url = new URL(window.location.href);
-      const currentStamp = tableLocationStamp(url.pathname, url.search, peerQueryKeys);
-      const current = effectiveTableQuery(
+      const currentStamp = stampOf(url.pathname, url.search);
+      const current = readQuery(
         url.search,
-        queryKey,
-        columnIds,
         saved ?? defaultSort,
         correction?.scope === scope && correction.stamp === currentStamp
           ? correction.page
@@ -124,14 +153,19 @@ export function useTableController({
         searchEntry.current?.scope === scope &&
         searchEntry.current.href === url.href;
       if (historyMode === 'push' && !replaceSearch) {
+        // A bare entry is pinned to its explicit form first, so Back returns to the defaults it
+        // showed rather than to a later saved view (decision C4).
+        if (fields && pinCurrentEntry()) url.search = window.location.search;
         // Freeze saved defaults in the previous entry before they can change.
-        url.search = writeTableQuery(url.search, queryKey, current);
-        if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+        url.search = writeQuery(url.search, current);
+        if (url.href !== window.location.href) writeHistory('replace', url.pathname + url.search);
       }
-      url.search = writeTableQuery(url.search, queryKey, next);
+      url.search = writeQuery(url.search, next);
       if (url.href !== window.location.href) {
-        if (historyMode === 'push' && !replaceSearch) window.history.pushState(null, '', url);
-        else window.history.replaceState(null, '', url);
+        writeHistory(
+          historyMode === 'push' && !replaceSearch ? 'push' : 'replace',
+          url.pathname + url.search,
+        );
       }
       searchEntry.current = historyMode === 'push' && searchOnly ? { scope, href: url.href } : null;
       setDraft(null);
@@ -144,8 +178,6 @@ export function useTableController({
       return next;
     },
     [
-      queryKey,
-      columnIds,
       saved,
       scope,
       correction,
@@ -153,9 +185,12 @@ export function useTableController({
       viewerId,
       savedSort,
       writeSort,
-      peerQueryKeys,
       defaultSort,
       historyMode,
+      readQuery,
+      writeQuery,
+      stampOf,
+      fields,
     ],
   );
   useEffect(() => {
@@ -171,14 +206,11 @@ export function useTableController({
   useEffect(() => {
     if (draftSearch === query.search) return;
     timer.current = setTimeout(() => {
-      if (
-        tableLocationStamp(window.location.pathname, window.location.search, peerQueryKeys) ===
-        stamp
-      )
+      if (stampOf(window.location.pathname, window.location.search) === stamp)
         commit({ search: draftSearch, page: 1 }, draftSearch);
     }, 250);
     return () => clearTimeout(timer.current);
-  }, [draftSearch, query.search, stamp, scope, commit, peerQueryKeys]);
+  }, [draftSearch, query.search, stamp, scope, commit, stampOf]);
   useEffect(() => {
     if (draftSearch === query.search) return;
     // A later history write can cancel an in-flight Next navigation. Capture the

@@ -230,7 +230,7 @@ it('binds the CSV request to source identity, current ordering and cancellation 
     );
   vi.stubGlobal('fetch', fetch);
   const signal = new AbortController().signal,
-    download = timelineCsvDownload('/repos/prebidjs?timeline=1', report.source),
+    download = timelineCsvDownload('/repos/prebidjs?timeline&back=!', report.source),
     selection = {
       columnIds: ['period', 'prsOpened'],
       query: { search: '', sort: 'prsOpened', descending: true, page: 3 },
@@ -246,7 +246,8 @@ it('binds the CSV request to source identity, current ordering and cancellation 
     revision: report.source.scenarioId,
     asOf: report.source.asOf,
     columns: ['period', 'prsOpened'],
-    href: expect.stringContaining('timeline.dir=desc') as unknown,
+    // The export follows the table's current order and keeps the Timeline's frames.
+    href: '/repos/prebidjs?timeline&sort=-prsOpened&back=!',
   });
   for (const response of [
     new Response('error', { status: 400 }),

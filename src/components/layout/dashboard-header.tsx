@@ -14,6 +14,10 @@ import { BrandLogo } from './brand-logo';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
+import {
+  useRepositoriesEntryHref,
+  useRepositoryListEntryQuery,
+} from '@/lib/navigation/use-repositories-entry';
 import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 
 export function DashboardHeader({
@@ -22,17 +26,24 @@ export function DashboardHeader({
   administration = false,
   accountControls,
   viewerId,
+  asOf,
 }: {
   repositories: readonly RepositoryDefinition[];
   activePath: string;
   administration?: boolean;
   accountControls: ReactNode;
   viewerId?: string;
+  /** The reporting snapshot saved All repositories periods are checked against. */
+  asOf?: string;
 }) {
   const contributionEntry = useContributionEntry(
     viewerId,
     repositories.filter((repo) => repo.enabled),
   );
+  // Entry links carry the viewer's saved explicit form after hydration, so a click needs no
+  // redirect; they are bare on the server, as the Contributions link is.
+  const overviewEntry = useRepositoriesEntryHref(asOf, viewerId);
+  const listQuery = useRepositoryListEntryQuery(viewerId);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const [repositoriesOpen, setRepositoriesOpen] = useState(false);
   const navigation = usePendingNavigation();
@@ -54,7 +65,7 @@ export function DashboardHeader({
       <div className={styles.headerInner}>
         <Link
           prefetch={false}
-          href="/repos"
+          href={overviewEntry}
           aria-label="Repository activity"
           className={styles.brand}
         >
@@ -64,7 +75,7 @@ export function DashboardHeader({
         <nav aria-label="Main navigation" className={styles.navigation}>
           <Link
             prefetch={false}
-            href="/repos"
+            href={overviewEntry}
             className={styles.navItem}
             aria-current={activePath === '/repos' ? 'page' : undefined}
           >
@@ -85,9 +96,11 @@ export function DashboardHeader({
                   <DropdownMenuItem asChild key={repo.id}>
                     <Link
                       prefetch={false}
-                      href={'/repos/' + repo.slug}
+                      href={'/repos/' + repo.slug + listQuery}
                       aria-current={activePath === '/repos/' + repo.slug ? 'page' : undefined}
-                      onClick={(event) => followRepository(event, '/repos/' + repo.slug)}
+                      onClick={(event) =>
+                        followRepository(event, '/repos/' + repo.slug + listQuery)
+                      }
                     >
                       {repo.displayName}
                     </Link>

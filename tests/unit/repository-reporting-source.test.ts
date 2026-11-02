@@ -1,6 +1,7 @@
 import { beforeEach, expect, it, vi } from 'vitest';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { worldRepository } from '@/mocks/repository-world';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 const viewer = vi.hoisted(() => vi.fn());
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/viewer', () => ({ requireViewer: viewer }));
@@ -9,10 +10,7 @@ beforeEach(() => {
   viewer.mockReset().mockResolvedValue({ id: 'sample-viewer' });
 });
 it('passes a complete source across the route boundary without redundant display-model fields', async () => {
-  const result = await repositoryDetail(
-    'prebidjs',
-    new URLSearchParams('prs.filter.draft=non-drafts&prs.q=Sample+PR+18%3A'),
-  );
+  const result = await repositoryDetail('prebidjs', { draft: 'non-drafts', q: 'Sample PR 18:' });
   if (result.status !== 'page') throw Error('Expected page source');
   expect(viewer).toHaveBeenCalledTimes(1);
   expect(result.viewer.id).toBe('sample-viewer');
@@ -26,16 +24,13 @@ it('retains the period, author and parent context on author-record sources', asy
     (item) =>
       item.period.selection.kind === 'preset' && item.period.selection.preset === 'this-year',
   )!.period;
-  const params = new URLSearchParams({
-    scope: 'period',
+  const result = await repositoryAuthorDetail('prebidjs', 'sample-author-2', {
+    period: 'this-year',
+    at: '2026-10-24T12:00Z',
     metric: 'prAuthors',
-    from: period.range.start,
-    to: period.range.end,
-    inclusive: period.range.endInclusive ? '1' : '0',
-    'authors.page': '2',
-    returnTo: '/repos?period=this-year',
+    listpage: '2',
+    back: ['~period:this-year'],
   });
-  const result = await repositoryAuthorDetail('prebidjs', 'sample-author-2', params);
   if (result.status !== 'list') throw Error('Expected author source');
   expect(viewer).toHaveBeenCalledTimes(1);
   const authored = worldRepository('repo-prebidjs').pullRequests.filter(
@@ -48,7 +43,10 @@ it('retains the period, author and parent context on author-record sources', asy
   expect(result.source.rows).toHaveLength(authored);
   expect(result.source.measurement.value).toBe(authored);
   expect(result.source.author?.account).toBe('sample-author-2');
-  expect(result.source.author?.returnTo).toContain('authors.page=2');
+  // The author list keeps its page and its own return context.
+  expect(result.source.author?.returnTo).toBe(
+    '/repos/prebidjs?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors&page=2&back=~period:this-year',
+  );
   expect(result.source.drilldown.returnTo).toBe('/repos?period=this-year');
   expect(result.source.drilldown.selection).toMatchObject({
     scope: 'period',
@@ -57,4 +55,27 @@ it('retains the period, author and parent context on author-record sources', asy
   });
   expect('charts' in result.source).toBe(false);
   expect('filters' in result.source).toBe(false);
+});
+it('rejects values that select no list, name unknown columns or an invalid author', async () => {
+  for (const values of [
+    { metric: 'prsOpened' },
+    { cols: ['nope'] },
+    { metric: 'prAuthors', period: 'this-year', cols: ['author'] },
+  ] as UrlValues[])
+    expect(await repositoryDetail('prebidjs', values), JSON.stringify(values)).toEqual({
+      status: 'invalid',
+    });
+  const author = { period: 'this-year', metric: 'prAuthors' };
+  for (const [account, values] of [
+    [null, author],
+    ['sample-author-2', { metric: 'prsOpened', period: 'this-year' }],
+    ['sample-author-2', { ...author, cols: ['nope'] }],
+  ] as const)
+    expect(await repositoryAuthorDetail('prebidjs', account, values)).toEqual({
+      status: 'invalid',
+    });
+  // A Summary that cannot be restored leaves the list itself readable.
+  const unavailable = await repositoryDetail('prebidjs', { view: 'issues', back: ['!'] });
+  if (unavailable.status !== 'page') throw Error('Expected page source');
+  expect(unavailable.source.drilldown.returnTo).toBeNull();
 });

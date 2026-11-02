@@ -18,5 +18,6 @@ export interface ContributionPage {
   sample: ContributionSampleScenario;
   breakdown: CompanyBreakdown;
   hideZeroMembers?: boolean;
-  returnTo: string;
+  /** The report "Back to report" opens; null when the page it came from cannot be restored. */
+  returnTo: string | null;
 }

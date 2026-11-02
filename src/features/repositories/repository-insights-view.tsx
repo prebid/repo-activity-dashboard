@@ -20,6 +20,7 @@ import { formatCount, formatUtcDate } from '@/lib/presentation/format';
 import { accountTypeLabels } from '@/models/github-account';
 import { insightTitles } from '@/lib/presentation/repository-insights';
 import type {
+  AuthorSelection,
   RepositoryInsight,
   RepositoryAuthor,
   RepositoryContribution,
@@ -27,7 +28,14 @@ import type {
 import { RepositoryDrilldownFrame } from './repository-drilldown-frame';
 import { RepositoryRecordTable } from './repository-records-view';
 import pageStyles from './repository-page.module.css';
-import { repositoryAuthorRecordsHref } from '@/lib/presentation/repository-author-records';
+import {
+  authorRecordSelection,
+  repositoryAuthorRecordsHref,
+} from '@/lib/presentation/repository-author-records';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+} from '@/lib/presentation/repository-url';
 function quantity(value: number | null, unit: string) {
   return formatCount(value) + ' ' + unit + (value === 1 ? '' : 's');
 }
@@ -164,9 +172,12 @@ export function RepositoryInsightsView({
   timelineHref,
   onTimeline,
   timelinePending,
+  links,
 }: {
   insight: RepositoryInsight;
   navigation?: RepositoryPageNavigation;
+  /** The viewer's saved list presentation, which links to record lists carry. */
+  links?: RepositoryLinkPresentation;
   timelineHref?: string | null;
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   timelinePending?: boolean;
@@ -195,6 +206,7 @@ export function RepositoryInsightsView({
       timelineHref={timelineHref}
       onTimeline={onTimeline}
       timelinePending={timelinePending}
+      links={links}
       title={title}
       measurement={measurement}
       summary={summary}
@@ -211,6 +223,11 @@ export function RepositoryInsightsView({
               insight.drilldown,
               account,
               pendingTableQuery(controller),
+              drilldownPresentation(
+                authorRecordSelection(insight.drilldown.selection as AuthorSelection),
+                links,
+                true,
+              ),
             ),
           )}
           controller={controller}

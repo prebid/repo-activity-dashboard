@@ -303,9 +303,9 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
     backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
-  await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
+  await expect(page).toHaveURL(/[?&]bsort=totalOpenPrs/);
   await activity.getByRole('button', { name: 'PRs', exact: true }).click();
-  await expect(page).toHaveURL(/activity.sort=prAuthors/);
+  await expect(page).toHaveURL(/[?&]asort=prAuthors/);
   await expect(
     backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');

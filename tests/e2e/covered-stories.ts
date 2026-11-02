@@ -91,6 +91,7 @@ export const coveredStories = [
   'navigation-page-header--overview',
   'navigation-page-header--breadcrumbs',
   'navigation-page-header--identity',
+  'navigation-page-header--unavailable-back-link',
   'navigation-view-bar--tabs',
   'navigation-view-bar--view-modes',
   'navigation-view-bar--sections',

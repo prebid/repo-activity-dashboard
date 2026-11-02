@@ -159,8 +159,20 @@ export function ContributionHeader({
     <ContributionAreaTabs
       area={page.area}
       hrefs={{
-        contributors: contributionHref('contributors', page.sample, undefined, links.settings),
-        companies: contributionHref('companies', page.sample, undefined, links.settings),
+        contributors: contributionHref(
+          'contributors',
+          page.sample,
+          undefined,
+          links.settings,
+          links.saved,
+        ),
+        companies: contributionHref(
+          'companies',
+          page.sample,
+          undefined,
+          links.settings,
+          links.saved,
+        ),
       }}
       onFollow={links.onAreaFollow}
       pendingTarget={links.pendingTarget}
@@ -282,8 +294,11 @@ export function ContributionHeading({
 }: {
   title: string;
   asOf: string;
-  /** On a contributor or company report, the report "Back to report" opens. */
-  returnTo?: string;
+  /**
+   * On a contributor or company report, the report "Back to report" opens; null when the page it
+   * came from cannot be restored, which shows the crumb unavailable.
+   */
+  returnTo?: string | null;
   /** The subject's avatar beside the title on contributor and company reports. */
   identity?: ReactNode;
   /** The one meta line under the title. */

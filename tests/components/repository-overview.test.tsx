@@ -202,6 +202,8 @@ it('accepts two custom ranges, rejects duplicate dates, and keeps missing values
   expect(pair[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
   expect(pair[2].querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
 });
+// The menu interactions in this test and the column-menu one take close to five seconds on a
+// loaded CI runner.
 it('keeps aging exclusively in its own selector and removes the group when none are selected', async () => {
   const user = userEvent.setup();
   render(<Preview />);
@@ -248,7 +250,7 @@ it('keeps aging exclusively in its own selector and removes the group when none 
     'aria-sort',
     'ascending',
   );
-});
+}, 15_000);
 it('searches repository options without changing selection and applies or cancels the draft explicitly', async () => {
   const user = userEvent.setup();
   render(<Preview />);
@@ -456,7 +458,7 @@ it('updates group spans and reveals automation partials through the controlled c
   await user.keyboard('{Escape}');
   expect(within(activity).getByRole('columnheader', { name: 'Agent reviewers' })).toBeVisible();
   expect(within(activity).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(48);
-});
+}, 15_000);
 it('explains only the value marks each table shows, in that table’s footer', async () => {
   const user = userEvent.setup();
   render(<Preview />);

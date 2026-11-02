@@ -60,6 +60,15 @@ export const Breadcrumbs: Story = {
   },
 };
 
+/** A crumb whose page cannot be restored: it reads as unavailable and says why. */
+export const UnavailableBackLink: Story = {
+  args: {
+    title: 'Alice Example',
+    asOf,
+    breadcrumbs: [{ label: 'Back to report', href: null }],
+  },
+};
+
 /** A contributor report: the 48px identity sits beside the title inside the same header. */
 export const Identity: Story = {
   args: {

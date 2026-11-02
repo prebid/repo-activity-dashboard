@@ -23,9 +23,31 @@ import { activityPeriodLabel } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 import { OverviewMetric } from './overview-metric';
 import { metricName } from '@/models/column-selection';
+import type { OverviewRepository } from '@/models/repository-overview';
+import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+} from '@/lib/presentation/repository-url';
 
 export type OverviewTableRow = RepositoryOverviewRow & { id: string };
-function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
+/** A repository's open pull requests, from this Summary, with the viewer's saved list choices. */
+function repositoryHref(
+  repository: OverviewRepository,
+  returnTo: string,
+  links: RepositoryLinkPresentation | undefined,
+) {
+  const selection = { scope: 'current', metric: 'totalOpenPrs' } as const;
+  return repositoryDrilldownHref(
+    repository,
+    { selection, returnTo },
+    drilldownPresentation(selection, links),
+  );
+}
+function repositoryColumn(
+  returnTo: string,
+  links: RepositoryLinkPresentation | undefined,
+): DataColumn<OverviewTableRow> {
   return {
     id: 'name',
     selectionGroup: 'Identity',
@@ -37,11 +59,7 @@ function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
     cell: (row) => (
       <Link
         prefetch={false}
-        href={
-          '/repos/' +
-          row.repository.slug +
-          (returnTo === '/repos' ? '' : '?returnTo=' + encodeURIComponent(returnTo))
-        }
+        href={repositoryHref(row.repository, returnTo, links)}
         className={styles.repositoryLink}
         title={'Primary branch: ' + row.repository.primaryBranch}
       >
@@ -51,7 +69,10 @@ function repositoryColumn(returnTo: string): DataColumn<OverviewTableRow> {
   };
 }
 
-export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow>[] {
+export function backlogColumns(
+  returnTo = '/repos',
+  links?: RepositoryLinkPresentation,
+): DataColumn<OverviewTableRow>[] {
   function backlogColumn(id: BacklogMetric): DataColumn<OverviewTableRow> {
     const { label, group, description } = backlogMetricText[id];
     return {
@@ -69,13 +90,14 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
           selection={{ scope: 'current', metric: id }}
           label={metricName({ group, label })}
           returnTo={returnTo}
+          links={links}
         />
       ),
     };
   }
 
   return [
-    repositoryColumn(returnTo),
+    repositoryColumn(returnTo, links),
     backlogColumn('totalOpenPrs'),
     backlogColumn('draftPrs'),
     backlogColumn('nonDraftPrs'),
@@ -93,6 +115,7 @@ export function backlogColumns(returnTo = '/repos'): DataColumn<OverviewTableRow
           selection={{ scope: 'current', metric: 'agedPrs', ageDays: age }}
           label={'PRs older than ' + age + ' days'}
           returnTo={returnTo}
+          links={links}
         />
       ),
     })),
@@ -125,7 +148,10 @@ export const defaultBacklogColumns = [
   'humanApprovals2',
 ];
 
-export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActivityRow>[] {
+export function activityColumns(
+  returnTo = '/repos',
+  links?: RepositoryLinkPresentation,
+): DataColumn<RepositoryActivityRow>[] {
   function activityColumn(
     id: Exclude<RepositoryActivityTextMetric, 'medianMergeDays'>,
   ): DataColumn<RepositoryActivityRow> {
@@ -157,13 +183,14 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
             }}
             label={metricName({ group, label }) + ' — ' + activityPeriodLabel(row.period)}
             returnTo={returnTo}
+            links={links}
           />
         ),
     };
   }
   return [
     {
-      ...repositoryColumn(returnTo),
+      ...repositoryColumn(returnTo, links),
       sortGroup: undefined,
       value: (row) =>
         row.repository.name +
@@ -184,11 +211,7 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
             {row.periodIndex === 0 ? (
               <Link
                 prefetch={false}
-                href={
-                  '/repos/' +
-                  row.repository.slug +
-                  (returnTo === '/repos' ? '' : '?returnTo=' + encodeURIComponent(returnTo))
-                }
+                href={repositoryHref(row.repository, returnTo, links)}
                 className={styles.repositoryLink}
                 title={'Primary branch: ' + row.repository.primaryBranch}
               >
@@ -243,6 +266,7 @@ export function activityColumns(returnTo = '/repos'): DataColumn<RepositoryActiv
             }}
             label={'Median merge time — ' + activityPeriodLabel(row.period)}
             returnTo={returnTo}
+            links={links}
             detail={
               row.activity.mergeDuration.sampleSize.value === null
                 ? undefined

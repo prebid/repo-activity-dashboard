@@ -1,18 +1,23 @@
-import {
-  safeContributionReturn,
-  contributionReturnHref,
-} from '@/lib/presentation/contribution-return';
+import { safeContributionReturn } from '../support/legacy-trail';
 import { contributionSample } from '@/mocks/contributions';
+import {
+  defaultContributionSelection,
+  selectContributions,
+} from '@/lib/presentation/contributions';
 import {
   defaultContributionSettings,
   readContributionSettings,
 } from '@/lib/presentation/contribution-settings';
 import { expect, it } from 'vitest';
+import { contributionViewOf } from '@/lib/presentation/contribution-url';
+import { resolveBack } from '@/lib/presentation/url/back';
 import {
   companyFocus,
   companyBreakdownHref,
   contributionHref,
+  contributionMetricHref,
   contributionPath,
+  contributionTargetOf,
   readContributionLayoutQuery,
 } from '@/lib/presentation/contribution-navigation';
 it('keeps stable identity routes unambiguous for unmapped and mapped companies', () => {
@@ -29,21 +34,30 @@ it('keeps stable identity routes unambiguous for unmapped and mapped companies',
   for (const path of [[], ['id'], ['id', ''], ['unknown'], ['id', 'a', 'b']])
     expect(companyFocus(path)).toBeNull();
 });
-it('preserves sample and exact parent table state without accepting external return destinations', () => {
-  const parent = '/companies/id/company-acme?view=repositories&repositories.page=2';
-  const href = new URL(
-    contributionHref({ kind: 'contributor', accountId: 'account-alice' }, 'large', parent)!,
-    'https://example.test',
+it('carries the parent report as a back frame without accepting external return destinations', () => {
+  const parent = '/companies/id/company-acme?view=repositories&sample=large&page=2';
+  const href = contributionHref(
+    { kind: 'contributor', accountId: 'account-alice' },
+    'large',
+    parent,
   );
-  expect(href.searchParams.get('sample')).toBe('large');
-  const restored = new URL(
-    contributionReturnHref(href.searchParams, '/contributors'),
-    'https://example.test',
+  expect(href).toBe(
+    '/contributors/account-alice?sample=large&back=/companies/id/company-acme~view:repositories~page:2',
   );
-  expect(restored.pathname).toBe('/companies/id/company-acme');
-  expect(restored.searchParams.get('view')).toBe('repositories');
-  expect(restored.searchParams.get('repositories.page')).toBe('2');
-  expect(contributionHref('contributors', 'reference')).toBe('/contributors');
+  const child = contributionViewOf(href!)!;
+  const [restored] = resolveBack(child);
+  expect(restored).toEqual(expect.objectContaining({ available: true, href: parent }));
+  // A parent the child derives (the area report at its scope) needs no frame.
+  expect(contributionHref({ kind: 'company', companyId: null }, 'reference', '/companies')).toBe(
+    '/companies/unmapped',
+  );
+  // A same-level link names its defaults explicitly, so it never answers with a saved view.
+  expect(contributionHref('contributors', 'reference')).toBe('/contributors?v=1');
+  // Another origin is never a parent; the frozen reader still rejects unsafe legacy returns.
+  for (const external of ['https://evil.test/companies?page=2', '//evil.test/companies?page=2'])
+    expect(
+      contributionHref({ kind: 'contributor', accountId: 'account-alice' }, 'reference', external),
+    ).toBe('/contributors/account-alice');
   for (const path of [
     null,
     undefined,
@@ -59,6 +73,23 @@ it('preserves sample and exact parent table state without accepting external ret
   expect(safeContributionReturn('/contributors?report.page=2', '/companies')).toBe(
     '/contributors?report.page=2',
   );
+});
+it('carries an Over time parent as a frame its Report reads back', () => {
+  const overTime = '/contributors/account-alice?timeline&period=last-month';
+  const href = contributionHref(
+    { kind: 'company', companyId: 'company-acme' },
+    'reference',
+    overTime,
+    {
+      ...defaultContributionSettings(contributionSample()),
+      period: { kind: 'preset', preset: 'last-month' },
+    },
+  )!;
+  expect(href).toBe(
+    '/companies/id/company-acme?period=last-month&back=/contributors/account-alice~timeline',
+  );
+  const [restored] = resolveBack(contributionViewOf(href)!);
+  expect(restored).toMatchObject({ available: true, href: overTime });
 });
 it('validates layout scenarios and retains independent table queries when switching breakdowns', () => {
   expect(readContributionLayoutQuery(new URLSearchParams())).toEqual({
@@ -81,16 +112,25 @@ it('validates layout scenarios and retains independent table queries when switch
     sample: 'partial',
     breakdown: 'members',
   });
-  const changed = companyBreakdownHref(
-    '/companies/id/company-acme',
-    'sample=large&members.page=2',
-    'repositories',
+  // The other breakdown keeps the scope and the parent; table state belongs to each table.
+  expect(
+    companyBreakdownHref(
+      '/companies/id/company-acme',
+      'sample=large&period=last-month&q=bob&page=2&zero=hide&back=/contributors/account-alice',
+      'repositories',
+    ),
+  ).toBe(
+    '/companies/id/company-acme?view=repositories&sample=large&period=last-month&back=/contributors/account-alice',
   );
-  expect(changed).toContain('members.page=2');
-  expect(changed).toContain('view=repositories');
   expect(companyBreakdownHref('/companies/unmapped', 'view=repositories', 'members')).toBe(
     '/companies/unmapped',
   );
+  // It opens the other table with its saved presentation (decision C3).
+  expect(
+    companyBreakdownHref('/companies/unmapped', '', 'repositories', {
+      repositories: { columns: { prComments: true }, sort: { sort: 'name', descending: false } },
+    }),
+  ).toBe('/companies/unmapped?view=repositories&sort=name&cols=prComments');
 });
 
 it('keeps account types solely in the validated report settings', () => {
@@ -113,4 +153,27 @@ it('keeps account types solely in the validated report settings', () => {
       settings,
     ),
   ).toContain('type=human');
+});
+
+it('names a focus’s report target and refuses links past the URL cap', () => {
+  expect(contributionTargetOf('companies', { kind: 'overview' })).toBe('companies');
+  const alice = { kind: 'contributor', accountId: 'account-alice' } as const;
+  expect(contributionTargetOf('companies', alice)).toBe(alice);
+  const source = contributionSample();
+  const settings = defaultContributionSettings(source);
+  settings.selection.population = {
+    kind: 'selected',
+    accountIds: Array.from({ length: 800 }, (_, index) => 'account-extra-' + index),
+    companyIds: [],
+  };
+  expect(contributionHref('contributors', 'reference', undefined, settings)).toBeNull();
+  // A metric link from a page that is not a canonical report carries no parent frame.
+  const context = selectContributions(source, defaultContributionSelection(source)).context;
+  expect(
+    contributionMetricHref(alice, 'reference', context, 'prsAuthored', '/contributors?scope=1'),
+  ).toBe('/contributors/account-alice?metric=prsAuthored');
+  // A breakdown of an address that is not canonical keeps that address.
+  expect(companyBreakdownHref('/companies/unmapped', '?scope=1', 'repositories')).toBe(
+    '/companies/unmapped?scope=1',
+  );
 });

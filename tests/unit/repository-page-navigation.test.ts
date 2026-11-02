@@ -4,9 +4,13 @@ import { expect, it } from 'vitest';
 import {
   repositoryActivityMode,
   repositoryActivityPeriod,
-  repositoryScopeHref,
+  repositoryScopeValues,
+  repositoryValuesAt,
 } from '@/lib/presentation/repository-page-navigation';
-import { readRepositoryPageEntry } from '@/lib/presentation/repository-page-entry';
+import { readDrilldownSelection } from '@/lib/presentation/repository-drilldown';
+import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-preferences';
+import { serializeQuery } from '@/lib/presentation/url/codec';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 import { repositoryPageSample } from '@/mocks/repository-page';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 const repo = repositoryOverviewSamples().repositories[0].repository;
@@ -18,6 +22,7 @@ const issues = repositoryPageSample(repo, {
   selection: { scope: 'current', metric: 'openIssues' },
   returnTo: '/repos',
 });
+const query = (values: UrlValues) => serializeQuery('/repos/[slug]', values);
 it('changes scope with compatible filters and exact branch/date context, always starting at page one', () => {
   expect(repositoryActivityMode(prs)).toBe('current');
   const period = repositoryActivityPeriod(prs);
@@ -26,51 +31,52 @@ it('changes scope with compatible filters and exact branch/date context, always 
     [prs, ['totalOpenPrs', 'prsOpened', 'prsMerged']],
     [issues, ['openIssues', 'issuesOpened', 'issuesClosed']],
   ] as const) {
+    const columns = { ...repositoryColumnDefaults(source), ageDays: true, author: false };
     for (const [i, mode] of (['current', 'created', 'completed'] as const).entries()) {
-      const search =
-        source.kind +
-        '.page=3&' +
-        source.kind +
-        '.q=sample&' +
-        source.kind +
-        '.sort=number&' +
-        source.kind +
-        '.dir=desc&' +
-        source.kind +
-        '.filter.ageBand=30&' +
-        source.kind +
-        '.filter.labels=maintenance&' +
-        source.kind +
-        '.columns=ageDays';
-      const href = repositoryScopeHref(source, mode, period.range, search),
-        params = new URL(href, 'http://localhost').searchParams;
-      expect(params.get('metric')).toBe(expected[i]);
-      expect(params.has(source.kind + '.page')).toBe(false);
-      expect(params.get(source.kind + '.q')).toBe('sample');
-      expect(params.get(source.kind + '.sort')).toBe('number');
-      expect(params.get(source.kind + '.filter.labels')).toBe('maintenance');
-      expect(params.has(source.kind + '.filter.ageBand')).toBe(mode === 'current');
-      expect(params.get('branch')).toBe(expected[i] === 'prsMerged' ? repo.primaryBranch : null);
-      const entry = readRepositoryPageEntry(params, repo);
-      if (entry.status !== 'records') throw new Error('Expected records');
-      const next = repositoryPageSample(repo, entry.drilldown);
-      expect(repositoryActivityMode(next)).toBe(mode);
-      if (mode !== 'current') expect(repositoryActivityPeriod(next)).toEqual(period);
+      const values: UrlValues = {
+        ...(source.kind === 'issues' ? { view: 'issues' } : {}),
+        page: '3',
+        q: 'sample',
+        sort: '-number',
+        ageBand: '30',
+        labels: ['maintenance'],
+        cols: ['-author'],
+        back: ['~age:60'],
+      };
+      const next = repositoryScopeValues(source, mode, period.range, values, columns);
+      expect(next.page).toBeUndefined();
+      expect(next.q).toBe('sample');
+      expect(next.sort).toBe('-number');
+      expect(next.labels).toEqual(['maintenance']);
+      expect(next.ageBand).toBe(mode === 'current' ? '30' : undefined);
+      // The return context and the chosen columns stay; only the selection changes.
+      expect(next.back).toEqual(['~age:60']);
+      expect(next.cols).toContain('-author');
+      const selection = readDrilldownSelection(next, repo, source.asOf)!;
+      expect(selection.metric).toBe(expected[i]);
+      expect('branch' in selection ? selection.branch : null).toBe(
+        expected[i] === 'prsMerged' ? repo.primaryBranch : null,
+      );
+      const moved = repositoryPageSample(repo, {
+        selection: selection as Parameters<typeof repositoryPageSample>[1]['selection'],
+        returnTo: '/repos',
+      });
+      expect(repositoryActivityMode(moved)).toBe(mode);
+      if (mode !== 'current') expect(repositoryActivityPeriod(moved)).toEqual(period);
     }
   }
-  const next = new URL(
-    repositoryScopeHref(
-      prs,
-      'created',
-      period.range,
-      'prs.filter.reviewers=1&prs.filter.approvals=0&prs.filter.agentReviewer=yes&prs.filter.botReviewer=no',
-    ),
-    'http://localhost',
+  const next = repositoryScopeValues(
+    prs,
+    'created',
+    period.range,
+    { reviewers: '1', approvals: '0', agentReviewer: 'yes', botReviewer: 'no' },
+    repositoryColumnDefaults(prs),
   );
-  expect([...next.searchParams.keys()].some((key) => key.includes('.filter.'))).toBe(false);
-  expect(repositoryScopeHref(prs, 'current', period.range, 'prs.filter.bad=1')).not.toContain(
-    'bad',
-  );
+  expect(query(next)).toBe('period=this-month&at=2026-10-24T12:00Z&metric=prsOpened');
+  // Filters the list cannot use start over rather than carrying into the new scope.
+  expect(
+    query(repositoryScopeValues(prs, 'current', period.range, { events: 'this-month' }, {})),
+  ).toBe('');
 });
 it('retains arbitrary exact incoming UTC ranges, including a future unprepared range', () => {
   for (const endInclusive of [false, true]) {
@@ -94,6 +100,11 @@ it('retains arbitrary exact incoming UTC ranges, including a future unprepared r
     });
   }
 });
+it('reads the instant a list is pinned to, else the reporting as-of', () => {
+  expect(repositoryValuesAt({ at: '2026-10-01' }, prs.asOf)).toBe('2026-10-01T00:00:00.000Z');
+  expect(repositoryValuesAt({ at: '2026-02-30' }, prs.asOf)).toBe(prs.asOf);
+  expect(repositoryValuesAt({}, prs.asOf)).toBe(prs.asOf);
+});
 
 it('drops incompatible PR restrictions on entering merged activity, preserving compatible filters and context', () => {
   const range = repositoryActivityPeriod(prs).range;
@@ -101,30 +112,41 @@ it('drops incompatible PR restrictions on entering merged activity, preserving c
     selection: { scope: 'period', metric: 'prsOpened', range },
     returnTo: '/repos?age=60',
   });
-  const href = repositoryScopeHref(
+  const next = repositoryScopeValues(
     created,
     'completed',
     range,
-    'prs.filter.states=Open&prs.filter.branches=release%2Fv2&prs.filter.draft=drafts&prs.filter.authors=sample-alice&prs.q=adapter&prs.page=4&prs.sort=number&prs.charts=0',
+    {
+      period: 'this-month',
+      at: '2026-10-24T12:00Z',
+      metric: 'prsOpened',
+      states: ['Open'],
+      branches: ['release/v2'],
+      draft: 'drafts',
+      authors: ['sample-alice'],
+      q: 'adapter',
+      page: '4',
+      sort: 'number',
+      charts: true,
+      back: ['~age:60'],
+    },
+    repositoryColumnDefaults(created),
   );
-  const p = new URL(href, 'http://local').searchParams;
-  expect(p.get('metric')).toBe('prsMerged');
-  expect(p.get('branch')).toBe(repo.primaryBranch);
-  expect(p.has('prs.filter.states')).toBe(false);
-  expect(p.has('prs.filter.branches')).toBe(false);
-  expect(p.has('prs.filter.draft')).toBe(false);
-  expect(p.get('prs.filter.authors')).toBe('sample-alice');
-  expect(p.get('prs.q')).toBe('adapter');
-  expect(p.get('prs.sort')).toBe('number');
-  expect(p.get('prs.charts')).toBe('0');
-  expect(p.has('prs.page')).toBe(false);
-  expect(p.get('returnTo')).toBe('/repos?age=60');
+  // Without chosen columns, merged pull requests show their own default columns.
+  expect(query(next)).toBe(
+    'period=this-month&at=2026-10-24T12:00Z&metric=prsMerged&authors=sample-alice&q=adapter&sort=number&charts&back=~age:60',
+  );
+  expect(readDrilldownSelection(next, repo, created.asOf)).toMatchObject({
+    branch: repo.primaryBranch,
+  });
   const another = { ...created, repository: { ...repo, primaryBranch: 'main' as const } };
   expect(
-    new URL(repositoryScopeHref(another, 'completed', range, ''), 'http://local').searchParams.get(
-      'branch',
+    readDrilldownSelection(
+      repositoryScopeValues(another, 'completed', range, {}, {}),
+      another.repository,
+      created.asOf,
     ),
-  ).toBe('main');
+  ).toMatchObject({ branch: 'main' });
 });
 it('retains current-state restrictions for period issue closures, including a reopened issue', () => {
   const range = repositoryActivityPeriod(issues).range;
@@ -132,18 +154,16 @@ it('retains current-state restrictions for period issue closures, including a re
     selection: { scope: 'period', metric: 'issuesOpened', range },
     returnTo: '/repos',
   });
-  const p = new URL(
-    repositoryScopeHref(
-      opened,
-      'completed',
-      range,
-      'issues.filter.states=Open&issues.filter.assignment=unassigned',
-    ),
-    'http://local',
-  ).searchParams;
-  expect(p.get('metric')).toBe('issuesClosed');
-  expect(p.get('issues.filter.states')).toBe('Open');
-  expect(p.get('issues.filter.assignment')).toBe('unassigned');
+  const next = repositoryScopeValues(
+    opened,
+    'completed',
+    range,
+    { states: ['Open'], assignment: 'unassigned' },
+    repositoryColumnDefaults(opened),
+  );
+  expect(next.metric).toBe('issuesClosed');
+  expect(next.states).toEqual(['Open']);
+  expect(next.assignment).toBe('unassigned');
   const closed = repositoryPageSample(repo, {
     selection: { scope: 'period', metric: 'issuesClosed', range },
     returnTo: '/repos',
@@ -155,6 +175,6 @@ it('retains current-state restrictions for period issue closures, including a re
     rows: [{ ...closed.rows[0], state: 'Open' as const, assignees: [] }],
   };
   expect(
-    selectRepositoryPage(reopened, readRepositoryFilters(p.toString(), reopened)).rows,
+    selectRepositoryPage(reopened, readRepositoryFilters(next, reopened, reopened.asOf)!).rows,
   ).toHaveLength(1);
 });

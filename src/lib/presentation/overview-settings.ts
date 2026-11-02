@@ -1,45 +1,35 @@
 import { z } from 'zod';
-import { defaultPeriod, periodSelectionSchema } from '@/models/reporting-period';
-import {
-  agingThresholds,
-  agingThresholdSchema,
-  defaultAgingThreshold,
-} from '@/models/repository-overview';
+import { repositoryCatalog } from '@/config/repositories';
+import { periodSelectionSchema } from '@/models/reporting-period';
+import { agingThresholds, agingThresholdSchema } from '@/models/repository-overview';
 import {
   overviewSettingsSchema,
   type OverviewSettings,
   type OverviewSettingsDefinition,
 } from '@/models/overview-settings';
-import { resolveReportingPeriod } from './reporting-period';
-import { preferenceKey, writeTableQuery } from './table-query';
-import { type TableQuery } from '@/models/table-query';
+import {
+  overviewActivityColumnIds,
+  overviewBacklogColumnIds,
+  overviewDefaultActivityColumnIds,
+  overviewDefaultBacklogColumnIds,
+} from '@/models/table-columns';
+import type { PreferenceSectionKey } from '@/models/preferences';
+import type { TableQuery } from '@/models/table-query';
+import { preferenceKey, readSavedTableSort } from './table-query';
 import { validateActivityPeriods } from './overview-periods';
-import { initialTableQuery } from './table-controller';
-import { agingThresholdForColumn } from './overview-aging';
+import { mergeValues, sortToken } from './repository-url';
+import type { SavedViewValues } from './url/entry';
+import { periodSelection, periodValue } from './url/period';
+import type { UrlValue, UrlValues } from './url/registry';
 
-const ownedParameters = [
-  'repo',
-  'period',
-  'from',
-  'through',
-  'period2',
-  'from2',
-  'through2',
-  'age',
-  'change',
-];
-/** Only the parameters the Summary page reads; anything else is dropped from saved return links. */
-export function overviewSummarySearch(search: string): string {
-  const params = new URLSearchParams(search),
-    result = new URLSearchParams();
-  for (const [key, value] of params)
-    if (
-      ownedParameters.includes(key) ||
-      /^(backlog|activity)\.(q|sort|dir|page|columns)$/.test(key)
-    )
-      result.append(key, value);
-  return result.toString();
-}
+import { normalizeOverviewSettings } from './url/legacy/overview';
+export {
+  defaultOverviewSettings,
+  normalizeOverviewSettings,
+  overviewSummarySearch,
+  resolveOverviewSettings,
+} from './url/legacy/overview';
+
 const previousSettingsSchema = overviewSettingsSchema
   .omit({ periods: true })
   .extend({ period: periodSelectionSchema, showChange: z.boolean() })
@@ -53,37 +43,6 @@ const storedSchema = z.discriminatedUnion('version', [
   z.object({ version: z.literal(2), settings: previousSettingsSchema }).strict(),
   z.object({ version: z.literal(3), settings: overviewSettingsSchema }).strict(),
 ]);
-
-export function defaultOverviewSettings(definition: OverviewSettingsDefinition): OverviewSettings {
-  return {
-    repositoryIds: [...definition.repositoryIds],
-    periods: [defaultPeriod],
-    ageThresholds: [defaultAgingThreshold],
-    backlogColumns: [...definition.defaultBacklogColumns],
-    activityColumns: [...definition.defaultActivityColumns],
-  };
-}
-
-export function normalizeOverviewSettings(
-  input: OverviewSettings,
-  definition: OverviewSettingsDefinition,
-  asOf: string,
-): OverviewSettings {
-  const value = overviewSettingsSchema.parse(input);
-  const periodError = validateActivityPeriods(value.periods, asOf);
-  if (periodError) throw new Error(periodError);
-  const columns = (selected: string[], allowed: readonly string[]) =>
-    allowed.filter((id) => id === 'name' || selected.includes(id));
-  return {
-    ...value,
-    repositoryIds: definition.repositoryIds.filter((id) => value.repositoryIds.includes(id)),
-    ageThresholds: agingThresholds.filter((days) => value.ageThresholds.includes(days)),
-    backlogColumns: columns(value.backlogColumns, definition.backlogColumns).filter(
-      (id) => agingThresholdForColumn(id) === undefined,
-    ),
-    activityColumns: columns(value.activityColumns, definition.activityColumns),
-  };
-}
 
 export function overviewPreferenceKey(viewerId: string): string {
   return preferenceKey(viewerId, 'all-repositories:preferences');
@@ -121,111 +80,106 @@ export function readOverviewPreferences(
   }
 }
 
-export function resolveOverviewSettings(
-  search: string,
-  saved: OverviewSettings | null,
-  definition: OverviewSettingsDefinition,
-  asOf: string,
-): { value: OverviewSettings; notice?: string } {
-  const defaults = defaultOverviewSettings(definition);
-  const result = { ...(saved ?? defaults) };
-  const params = new URLSearchParams(search);
-  let notice: string | undefined;
-  if (params.has('repo')) {
-    const requested = new Set(params.getAll('repo'));
-    result.repositoryIds = definition.repositoryIds.filter((id) => requested.has(id));
-  }
-  if (
-    ['period', 'from', 'through', 'period2', 'from2', 'through2'].some((key) => params.has(key))
-  ) {
-    const readPeriod = (suffix: string) => {
-      const preset = params.get('period' + suffix);
-      const selected = periodSelectionSchema.parse(
-        preset === 'custom'
-          ? {
-              kind: 'custom',
-              from: params.get('from' + suffix),
-              through: params.get('through' + suffix),
-            }
-          : { kind: 'preset', preset },
-      );
-      resolveReportingPeriod(selected, asOf);
-      return selected;
-    };
-    try {
-      result.periods = [readPeriod('')];
-    } catch {
-      result.periods = defaults.periods;
-      notice = 'The timeframe in this link is invalid. Showing This month.';
-    }
-    if (['period2', 'from2', 'through2'].some((key) => params.has(key))) {
-      try {
-        const pair = [result.periods[0], readPeriod('2')];
-        const error = validateActivityPeriods(pair, asOf);
-        if (error) throw new Error(error);
-        result.periods = pair;
-      } catch {
-        notice = 'The second period is invalid or duplicates the first. Showing one period.';
-      }
-    }
-  }
-  if (params.has('age')) {
-    const requested = params.getAll('age');
-    const selected = agingThresholds.filter((days) =>
-      requested.some((value) => value !== '' && Number(value) === days),
-    );
-    result.ageThresholds =
-      selected.length || requested.every((value) => value === '')
-        ? selected
-        : defaults.ageThresholds;
-  }
-  return { value: normalizeOverviewSettings(result, definition, asOf), notice };
-}
-
-/** Explicit scope makes shared URLs and history independent of later saved defaults. */
-export function writeOverviewSettings(search: string, settings: OverviewSettings): string {
-  const params = new URLSearchParams(search);
-  for (const key of ownedParameters) params.delete(key);
-  if (settings.repositoryIds.length)
-    for (const id of settings.repositoryIds) params.append('repo', id);
-  else params.set('repo', '');
-  settings.periods.forEach((period, index) => {
-    const suffix = index === 0 ? '' : '2';
-    params.set('period' + suffix, period.kind === 'preset' ? period.preset : 'custom');
-    if (period.kind === 'custom') {
-      params.set('from' + suffix, period.from);
-      params.set('through' + suffix, period.through);
-    }
-  });
-  if (settings.ageThresholds.length)
-    for (const days of settings.ageThresholds) params.append('age', String(days));
-  else params.set('age', '');
-  return params.toString();
-}
-
-export function resetOverviewQuery(search: string): string {
-  const params = new URLSearchParams(search);
-  for (const key of ownedParameters) params.delete(key);
-  return writeTableQuery(
-    writeTableQuery(params.toString(), 'backlog', initialTableQuery),
-    'activity',
-    initialTableQuery,
-  );
-}
-
-export function writeOverviewTableQueries(
-  search: string,
-  backlog: TableQuery,
-  activity: TableQuery,
-): string {
-  // The overview uses repository selection, not table search. Retire old search URLs on updates.
-  return writeTableQuery(
-    writeTableQuery(search, 'backlog', { ...backlog, search: '' }),
-    'activity',
-    { ...activity, search: '' },
-  );
-}
-
 export function changesOverviewScope(patch: Partial<OverviewSettings>): boolean {
   return ['repositoryIds', 'periods', 'ageThresholds'].some((key) => key in patch);
+}
+
+const slugOf = (id: string) => repositoryCatalog.find((row) => row.id === id)?.slug;
+const idOf = (slug: string) => repositoryCatalog.find((row) => row.slug === slug)?.id;
+/**
+ * The Summary's scope as URL fields: repositories by slug, the periods and the PR age thresholds.
+ * Every field is present; one at its v1 default is dropped when the URL is written.
+ */
+export function overviewScopeValues(
+  settings: OverviewSettings,
+): Record<string, UrlValue | undefined> {
+  return {
+    repo: settings.repositoryIds.map((id) => slugOf(id) ?? id),
+    period: periodValue(settings.periods[0]),
+    period2: settings.periods[1] && periodValue(settings.periods[1]),
+    age: settings.ageThresholds.map(String),
+  };
+}
+/**
+ * The Summary settings a URL selects, with the viewer's column choices (which stay out of URLs).
+ * Null when a value names an unknown repository or threshold, or periods that cannot be compared.
+ */
+export function readOverviewValues(
+  values: UrlValues,
+  columns: Pick<OverviewSettings, 'backlogColumns' | 'activityColumns'>,
+  definition: OverviewSettingsDefinition,
+  asOf: string,
+): OverviewSettings | null {
+  const list = (value: UrlValue | undefined) => (Array.isArray(value) ? value : undefined);
+  const slugs = list(values.repo);
+  const repositoryIds = slugs
+    ? slugs.map(idOf)
+    : definition.repositoryIds.map((id) => id as string | undefined);
+  const periods = [values.period ?? 'this-month', values.period2]
+    .filter((value): value is string => typeof value === 'string')
+    .map(periodSelection);
+  const ages = (list(values.age) ?? ['30']).map(Number);
+  if (
+    repositoryIds.some((id) => id === undefined || !definition.repositoryIds.includes(id)) ||
+    periods.some((period) => period === null) ||
+    ages.some((days) => !(agingThresholds as readonly number[]).includes(days))
+  )
+    return null;
+  const selected = periods as NonNullable<(typeof periods)[number]>[];
+  if (validateActivityPeriods(selected, asOf)) return null;
+  return normalizeOverviewSettings(
+    {
+      repositoryIds: repositoryIds as string[],
+      periods: selected,
+      ageThresholds: ages as OverviewSettings['ageThresholds'],
+      ...columns,
+    },
+    definition,
+    asOf,
+  );
+}
+
+type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
+/**
+ * The values a bare Summary entry takes from the viewer's saved settings and table sorts (decision
+ * C2): the scope, and each table's sort; null when nothing is saved.
+ */
+export function overviewSavedValues(
+  settings: OverviewSettings | null,
+  backlogSort: SavedSort | null,
+  activitySort: SavedSort | null,
+): SavedViewValues | null {
+  if (!settings && !backlogSort && !activitySort) return null;
+  return {
+    scope: settings ? mergeValues({}, overviewScopeValues(settings)) : {},
+    presentation: mergeValues(
+      {},
+      { bsort: sortToken(backlogSort), asort: sortToken(activitySort) },
+    ),
+  };
+}
+/** The Summary definition from the catalog, for links built outside the Summary page. */
+export const overviewCatalogDefinition: OverviewSettingsDefinition = {
+  repositoryIds: repositoryCatalog.filter((row) => row.enabled).map((row) => row.id),
+  backlogColumns: overviewBacklogColumnIds,
+  activityColumns: overviewActivityColumnIds,
+  defaultBacklogColumns: overviewDefaultBacklogColumnIds,
+  defaultActivityColumns: overviewDefaultActivityColumnIds,
+};
+/**
+ * A Summary entry's saved values read from the cookie's sections in the browser, for entry links;
+ * null when a saved custom range needs the server's validation, so the link stays bare and the
+ * server redirects.
+ */
+export function overviewEntryValues(
+  read: (section: PreferenceSectionKey) => string | null,
+  asOf: string,
+): SavedViewValues | null {
+  const settings = readOverviewPreferences(read('overview'), overviewCatalogDefinition, asOf);
+  if (settings?.periods.some((period) => period.kind === 'custom')) return null;
+  return overviewSavedValues(
+    settings,
+    readSavedTableSort(read('overview.backlog.sort'), overviewBacklogColumnIds),
+    readSavedTableSort(read('overview.activity.sort'), overviewActivityColumnIds),
+  );
 }

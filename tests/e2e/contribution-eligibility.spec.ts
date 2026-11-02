@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { listParam } from '../support/contribution-urls';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { choicePageSchema } from '../../src/models/contribution-options';
@@ -23,7 +24,10 @@ test('global gaps keep overview pages, counts and CSV exports bounded by recorde
   page,
 }, info) => {
   await login(page);
-  await page.goto('/contributors?sample=coverage-gap&scope=1&period=this-year');
+  // The reviewer metrics, in Columns by default (decision C5), carry the partial values.
+  await page.goto(
+    '/contributors?sample=coverage-gap&cols=reviewerContributions,approvalContributions,mergesPerformed',
+  );
   await expect(page.getByLabel('Data coverage')).toContainText('account-specific gaps');
   await expect(page.getByLabel('Contribution report scope')).toContainText(
     '3251 included accounts',
@@ -79,8 +83,8 @@ test('coverage-gap filters preserve the full directory and focused reports witho
   await expect(page.getByRole('heading', { name: 'By repository', exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual(['repo-prebidjs']);
-  expect(new URL(page.url()).searchParams.getAll('type')).toEqual(['agent']);
+  expect(listParam(page.url(), 'repo')).toEqual(['prebidjs']);
+  expect(listParam(page.url(), 'type')).toEqual(['agent']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.goto(
     '/contributors?sample=coverage-gap&scope=1&period=this-year&population=selected&account=account-inactive-0001',

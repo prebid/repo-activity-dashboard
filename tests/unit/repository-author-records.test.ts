@@ -23,41 +23,45 @@ const parent = {
   returnTo: '/repos?period=this-year&age=60',
 };
 const query = { search: 'sample-author', sort: 'account', descending: true, page: 2 };
-it('preserves parent scope and table context without accepting an arbitrary return destination', () => {
-  const href = repositoryAuthorRecordsHref(repo, parent, 'GitHub-Actions[bot]', query);
-  const url = new URL(href, 'https://dashboard.invalid');
-  expect(url.pathname).toBe('/repos/prebidjs/authors/github-actions%5Bbot%5D');
-  expect(url.searchParams.get('metric')).toBe('prAuthors');
-  expect(url.searchParams.get('returnTo')).toBe('/repos?period=this-year&age=60');
-  expect(authorListQuery(url.searchParams)).toEqual(query);
-  url.searchParams.set('prs.q', 'child search');
-  url.searchParams.set('prs.page', '3');
-  const back = new URL(
-    repositoryAuthorsHref(repo, parent, authorListQuery(url.searchParams)),
-    'https://dashboard.invalid',
+it('keeps its author list’s scope, table state and return context, and nothing broader', () => {
+  const href = repositoryAuthorRecordsHref(repo, parent, 'GitHub-Actions[bot]', query, {
+    charts: true,
+  });
+  expect(href).toBe(
+    '/repos/prebidjs/authors/github-actions%5Bbot%5D?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors&charts&listq=sample-author&listsort=-account&listpage=2&back=~period:this-year~age:60',
   );
-  expect(back.pathname).toBe('/repos/prebidjs');
-  expect(back.searchParams.get('authors.page')).toBe('2');
-  expect(back.searchParams.has('prs.q')).toBe(false);
-  expect(back.searchParams.has('prs.page')).toBe(false);
+  // The list's default sort is not written, and a Summary that cannot be restored stays so.
+  expect(
+    repositoryAuthorRecordsHref(repo, { ...parent, returnTo: null }, 'sample-bob', {
+      search: '',
+      sort: 'recordCount',
+      descending: true,
+      page: 1,
+    }),
+  ).toBe(
+    '/repos/prebidjs/authors/sample-bob?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors&back=!',
+  );
+  expect(repositoryAuthorsHref(repo, parent, query)).toBe(
+    '/repos/prebidjs?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors&q=sample-author&sort=-account&page=2&back=~period:this-year~age:60',
+  );
   expect(authorColumns('prs', () => href).map((column) => column.id)).toEqual([
     ...authorTableColumnIds,
   ]);
-  expect(() =>
-    repositoryAuthorsHref(repo, { ...parent, returnTo: 'https://evil.example' }, query),
-  ).toThrow();
-  expect(() =>
-    repositoryAuthorsHref(
-      repo,
-      { selection: { scope: 'current', metric: 'totalOpenPrs' }, returnTo: '/repos' },
-      query,
-    ),
-  ).toThrow('Expected author-list scope');
+  for (const build of [repositoryAuthorsHref, repositoryAuthorRecordsHref] as const)
+    expect(() =>
+      build(
+        repo,
+        { selection: { scope: 'current', metric: 'totalOpenPrs' }, returnTo: '/repos' },
+        'sample-bob' as never,
+        query,
+      ),
+    ).toThrow('Expected author-list scope');
 });
 it('validates author handles and keeps malformed author-table state bounded', () => {
   for (const value of ['', '../other', 'https://evil.example', 'a/b', 'a b', 'x'.repeat(101)])
     expect(authorAccountSchema.safeParse(value).success).toBe(false);
   expect(authorAccountSchema.parse('SAMPLE-AUTHOR-2')).toBe('sample-author-2');
+  // The frozen reader of old author links keeps malformed table state bounded.
   expect(
     authorListQuery(new URLSearchParams('authors.sort=unknown&authors.page=-2&authors.q=abc')),
   ).toEqual({ search: 'abc', sort: '', descending: false, page: 1 });

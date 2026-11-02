@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
 import type { PageSection } from '@/components/navigation/section-nav';
 import { ViewBar } from '@/components/navigation/view-bar';
@@ -6,6 +7,23 @@ import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { ExternalLinkIcon, ReportIcon, TimelineIcon } from '@/components/ui/icons';
 
+/**
+ * All repositories for an address it cannot show: an unknown parameter, or repositories, periods
+ * or PR ages it does not offer. No report is loaded, so the header states no snapshot time.
+ */
+export function InvalidRepositoriesView({ message }: { message: string }) {
+  return (
+    <>
+      <PageHeader title="All repositories" asOf="" />
+      <EmptyState kind="error" title="Invalid All repositories view">
+        {message}{' '}
+        <Link prefetch={false} href="/repos">
+          Open All repositories
+        </Link>
+      </EmptyState>
+    </>
+  );
+}
 export function AllRepositoriesHeading({ asOf }: { asOf: string }) {
   return (
     <PageHeader

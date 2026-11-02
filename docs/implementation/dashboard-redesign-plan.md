@@ -113,7 +113,7 @@ Starting values approved on 2026-10-31. Light value first, dark second. A phase 
 | P2 | Controls, states, icons and identity | P1 | 41 | M |
 | P3 | Table system | P2 | 31 | M |
 | P4 | Shell, page header and in-page navigation | P2, P3 | 26 | M |
-| P5 | URL state and server-read preferences (five pull requests) | P4; P5a any time | — | L |
+| P5 | URL state and server-read preferences (three pull requests: P5a, P5b, and P5c–P5e together) | P4; P5a any time | — | L |
 | P6 | Contributors and Reviewers (three pull requests) | P4, P5c, P5d | — | M–L |
 
 The phases run in this order. P2 and P3 both edit `src/components/tables/data-table.tsx` and its CSS (search field, empty state, pager, sort header), so controls land first and the table system builds on them. P5b–P5e rewrite the headers, `src/app/_screens/*` and the control hooks that P2–P4 rebuild, so they follow P4; P5a has no behaviour change and may run at any time. P5c freezes the v1 defaults only after the P6 lens defaults are recorded in its defaults table.
@@ -181,7 +181,7 @@ Tests most likely affected: `layout-width.spec.ts` (Sign out, the `Data source` 
 
 ### P5 — URL state and preferences
 
-Five pull requests in order: P5a, then P5b and P5c, then P5d, then P5e.
+Three pull requests in order: P5a, then P5b, then P5c, P5d and P5e as one pull request (maintainer decision, 2026-11-02).
 
 1. **P5a Golden URL set.** Record today's links, resolved states and address bars for every view in the inventory as fixtures; no behaviour change. The fixtures become the legacy decoder's tests.
 2. **P5b Server-read preferences.** One versioned cookie per report area. Its value carries the account ID and credential revision and is ignored when they do not match the session (account isolation, `foundation-contracts.md:18`, `:128`); a previous account's preferences on a shared browser are therefore not kept. Each cookie's `Path` covers every route that reads it (the contribution cookie uses `Path=/`, because `/contributors`, `/reviewers` and `/companies` share its filters), following `src/lib/presentation/layout-width.ts`. Values stay under 3,072 bytes with least-recently-updated section eviction and a visible notice; each section is validated on the server, and an invalid section renders defaults with the existing recovery notice and is compare-and-deleted (`contributors.md:380`). Only deliberate changes write a cookie, field by field; opening a link never writes it. Relative presets are stored as presets, never as resolved dates. CSV exports receive the complete explicit view and never read a cookie. A one-time migration copies valid localStorage preferences into the cookie and takes effect from the next request, with no history write. The client restoration effects and the second Timeline render are removed.
@@ -262,9 +262,9 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P0b | Not started | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P3 | In review | Phase 3 pull request | — | — |
-| P4 | In review | Phase 4 pull request | — | — |
-| P5 | Plan recorded; P5a in review | P5a pull request | — | — |
+| P3 | Merged | #20 | — | — |
+| P4 | Merged | #18 | — | — |
+| P5 | P5a and P5b merged; P5c–P5e in one pull request, in review | #19, #21; P5c–P5e pull request | — | — |
 | P6 | Not started | — | — | — |
 
 ## P0 plan
@@ -1014,12 +1014,9 @@ Proposed 2026-11-01 against the P4 head. The maintainer approved continuing into
 | --- | --- | --- |
 | P5a | Golden URL set; no runtime change | 7–9; no `src/` file |
 | P5b | Server-read preference cookies | 50–60 |
-| P5c-1 | Codec, registry, v1 defaults and lint; All repositories, repository pages and the matrix Timeline | 60–70 |
-| P5c-2 | Contributors, Reviewers, Companies and their Timelines | 60–70 |
-| P5d | Return context | 55–65 |
-| P5e | Cleanup and gate | 10–15 |
+| P5c–P5e | One pull request (2026-11-02): the codec, registry, v1 defaults and lint (P5c-1), the contribution routes (P5c-2), return context (P5d), and cleanup and gates (P5e) | 217 against main after P5b (measured) |
 
-P5c is split by area (decision 11): a codec-first split would send every in-app link through a 307 until the writers moved.
+P5c is split by area (decision 11) as work, not as pull requests: a core step built the codec, then a repositories step and a contributions step ran in parallel on disjoint files, and an integration step converted the Timelines, retired the old writers and ran the gates. P5c, P5d and P5e ship together, so no released build sends in-app links through a 307.
 
 ### Freeze constraints
 
@@ -1069,7 +1066,7 @@ Settled under the approved URLs and Preferences rows, recorded for review:
 1. Column visibility is a `cols=` diff on record, contribution and Timeline tables; Summary columns stay viewer-only.
 2. Preference sections are keyed by view kind and table kind. Sample-scenario isolation is dropped.
 3. The Timeline tab is a bare `?timeline` flag; `timeline=1` becomes a legacy 307.
-4. Return-to-section is a derived fragment, `#activity` for Period activity drilldowns.
+4. Return-to-section is a derived fragment, `#period-activity` for Period activity drilldowns (amended in P5c–P5e: the panel's anchor is `period-activity`, and no element has the id `activity`).
 5. An entry is a report route whose query holds only view selectors. A defaults-equal entry is materialized with `v=1`; an absent `v` means v1.
 6. Preference cookies are written with `document.cookie`: non-HttpOnly, `SameSite=Lax`, `Secure` on https.
 7. An invalid section renders defaults with the recovery notice. After hydration, the client deletes it only if the cookie still holds that value. Rule 9 is amended to name this as the second permitted post-load write; it is cookie-only, with no history write.
@@ -1109,7 +1106,7 @@ The tests that assert URLs (88 `toHaveURL` lines in 32 specs; `timeline=1` on 38
 
 ### Order
 
-Each pull request is one core worker followed by one independent review. P5c-1 and P5c-2 touch disjoint areas once the codec is in, so P5c-2 starts when P5c-1's codec commit lands. Each pull request's CI is its gate. There is no Checkpoint A; each pull request records its golden-URL diff.
+P5a, then P5b, then the P5c–P5e pull request. Inside it: the core codec commit; the repositories and contributions steps in parallel on disjoint files; then integration (Timelines, masthead, crumbs, P5e removals, gates and documents). One independent review covers the pull request, and its CI is the gate. There is no Checkpoint A; the pull request records its golden-URL diff.
 
 ### P5a notes
 
@@ -1132,6 +1129,20 @@ Each pull request is one core worker followed by one independent review. P5c-1 a
 - Header-size premise, local half: `tests/e2e/preference-headers.spec.ts` sends the session cookie plus two cookies whose `name=value` is 3,072 bytes to `/repos` and `/contributors` without following redirects and expects 200, then loads `/repos` in the browser with both cookies set. The Amplify and CloudFront half is not verified.
 - Golden URL diff: empty. `golden-urls.spec.ts` passes against the unchanged `tests/fixtures/golden` set on the integration head, and the reader snapshot in `tests/unit/golden-urls.test.ts` is unchanged.
 - Not verified in P5b: whether Back after a cookie change serves a cached RSC payload with earlier saved props, and how Next records a server redirect during an in-app RSC navigation to a bare entry (both P5c premises).
+
+### P5c–P5e notes
+
+- Built as one pull request in three stages: the core codec commits; a repositories step and a contributions step on disjoint files, merged without textual conflicts except the shared rule-6 exception list in `eslint.config.mjs` (resolved to the intersection); then integration, which converted the Timelines, wired the masthead entry links and crumbs, removed the interim writers and added the gates.
+- Golden URL set: the P5a record stays as `tests/fixtures/golden/legacy-urls.json`. Its rows still decode to the recorded P5a states (`golden-url-states.json` is unchanged), and their canonical forms are `golden-url-canonical.json`. Against the core step, 33 canonical rows gain `v=1`: an old link holding `scope=1` or `timeline.state=1` was explicit, so its canonical form keeps the defaults pinned (decision C4). `golden-urls.json` is re-recorded on the integration head.
+- Measured over the two JSON files, P5a record → integration record: 34 views each; 1,527 → 1,302 recorded anchors; the longest in-app href 1,208 characters (the Summary's Timeline link) → 221 (a supporting-records link from the mixed-sample quarterly matrix); per-view link kinds with an href over 300 characters 63 → 0; link kinds whose example holds `%25` 5 → 0; the longest address bar 226 → 97; the address after the Baseline scope change (PR age, clear "Over 30 days") 598 → 11 characters, `/repos?age=`; the Summary's Timeline tab is `/repos?timeline`, 15 characters. No recorded link or address uses a legacy name (`timeline=1`, `timeline.*`, `support.*`, `returnTo`, `summary`, `timelineParent`, `nav`, `scope`, or the `prs.`, `issues.`, `backlog.`, `activity.` and `report.` prefixes). The anchor drop is in the 11 contribution views only: the v1 columns are the lens's three metric columns (decision C5), so each Over time table has 30 fewer cell links and each report 3 fewer per row.
+- Gates, `tests/e2e/url-budget.spec.ts`, in Chromium and WebKit: no in-app href over 300 characters and none holding `%25` on any signed-in inventory view (the longest is the 221-character link above); the Summary's Timeline href under 25 characters; the scope-change address under 60; no history write after load before any interaction on any signed-in inventory view, counting `pushState` and any `replaceState` that changes the address from the first script on.
+- Premises (§12 and the P5d back link), `tests/e2e/canonical-urls.spec.ts` and `tests/e2e/return-history.spec.ts`, in Chromium and WebKit: literal `,` `:` `@` survive a link click and a server navigation; a page-level 307 during an in-app `router.push` lands on the canonical address with one history entry; requests with `maxRedirects: 0` get one 307 for an old link and for an entry whose saved view differs, per route group, and 200 otherwise; Back serves each entry's own view after a saved-view change; an old link opened signed out reaches its canonical form after sign-in; a crumb whose target is the entry the page was opened from goes back without a new entry, Forward returns (pinned with `v=1` when it was a bare entry), and the same holds after a reload; a page opened directly pushes its crumb's link; a modified click opens the link and leaves the page. Exact drilldown intervals round-trip through period plus snapshot in `tests/unit/url-legacy-decode.test.ts` and `tests/unit/repository-drilldown.test.ts`; an interval that does not start at a UTC day boundary has no such form, and no prepared interval starts off one.
+- Timelines keep their query form as the internal form of their presentation (decision C9): `src/lib/presentation/url/legacy/timeline-state.ts` holds the proposals, validation and entry resolution, and `src/lib/presentation/url/timeline.ts` converts registry values to and from it. The preference cookie sections keep that query.
+- Links into Timelines carry the saved Timeline presentation (decision C3), resolved as the entry would resolve it; such a link left holding only selectors is pinned with `v=1`. The browser suite found the gap: a matrix repository link whose metric equalled the default was a bare entry, so the saved chart metric replaced the matrix's metric.
+- Found by the browser suite and fixed: clearing every matrix metric wrote `/repos?timeline&metric=&rank=prsOpened`, which is invalid. The empty selection now has no ranking metric, as the query form writes it.
+- Changed behaviour, recorded rather than restored: the Over time Report tab carries the Timeline's current scope and the parent report's presentation, dropping the page when the scope changed. Supporting views are never entries; their columns are in the address only when changed, so an author link no longer freezes columns into its history entry. A legacy Timeline link whose view fails validation (for example over 500 intervals) renders the route's generic invalid view; the specific message is shown for canonical addresses. An identity segment holding `/` does not match a route. Timeline exports ignore return context: a legacy link with its trail and the canonical link with or without `back` export the same bytes (`tests/unit/timeline-endpoints.test.ts`).
+- Review fixes: a server navigation to the same page (route and screen) keeps `location.hash`, as the history writes do, and a fragment link within the page does not pin a bare entry. A `back=` list that loses a frame other than `-` to the eight-value cap or the 1,000-character share ends in `!`, so that ancestor is unavailable rather than its derived default (P5d design §9); a child link whose parent frame fits only without that mark is disabled. The golden round trip reads each canonical URL through the screens' own readers (the repository loaders, `readRepositoryFilters`, the codec's table binding, `readOverviewValues`, `loadContributionValues`, and `timelineParams` with the frozen Timeline readers) and compares the result with the recorded P5a state; the test-only inverse of `legacyDecode` is gone. Contribution columns that a legacy URL did not name are not compared, because their v1 defaults are the lens columns (decision C5). The inventory requests its nine repository views that still used old links at their canonical addresses; `repo-open-issues-metric` is `/repos/prebidjs?view=issues&v=1`, because its canonical form is the Issues tab's address and inventory paths are unique.
+- Authentication: no file under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/app/api/auth`, `src/features/authentication`, `src/features/administration`, `tests/production` or `tests/accounts`, and not `src/lib/presentation/navigation.ts`, changed. `src/components/layout/toolbar.tsx` gained only an `asOf` prop passed to the masthead; its Sign out handler, labels, disabled state and alert are unchanged. The sign-in, change-password and Sign out navigations stay the named rule-6 exceptions, and every other interim exception is removed.
 
 ## Appendix A: findings by phase
 

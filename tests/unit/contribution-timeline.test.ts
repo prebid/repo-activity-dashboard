@@ -5,18 +5,12 @@ import {
   selectContributionTimeline,
   contributionTimelineAreaHref,
   contributionTimelineDetail,
-  contributionTimelineReturnHref,
+  contributionTimelineHref,
 } from '@/lib/presentation/contribution-timeline';
 import { contributionHref } from '@/lib/presentation/contribution-navigation';
-import {
-  contributionReturnHref,
-  contributionUrlLimit,
-} from '@/lib/presentation/contribution-return';
+import { contributionUrlLimit } from '@/lib/presentation/contribution-return';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
 import { defaultContributionSettings } from '@/lib/presentation/contribution-settings';
-import {
-  contributionTimelineEntry,
-  contributionTimelineReportHref,
-} from '@/lib/presentation/timeline-navigation';
 import {
   defaultContributionSelection,
   selectContributions,
@@ -329,61 +323,37 @@ it('names a contributor’s current company, null when unmapped, and no company 
     }).scope,
   ).not.toHaveProperty('company');
 });
-it('opens the other area’s Over time with the same scope and view but not this area’s trail', () => {
-  const entry = contributionTimelineEntry(
-    '/contributors?scope=1&period=this-year&report.q=Alice',
-    defaultContributionSettings(sample.contributions),
-  )!;
-  const current = new URL(entry + '&timeline.group=week', 'https://dashboard.invalid');
-  expect(current.searchParams.has('nav')).toBe(true);
-  const other = new URL(
-    contributionTimelineAreaHref(current.pathname + current.search, 'companies')!,
-    'https://dashboard.invalid',
+it('opens the other area’s Over time with the same scope and view but not this area’s parents', () => {
+  const current = '/contributors?timeline&period=last-month&group=week&back=~q:Alice';
+  expect(contributionTimelineAreaHref(current, 'companies')).toBe(
+    '/companies?timeline&period=last-month&group=week',
   );
-  expect(other.pathname).toBe('/companies');
-  const expected = new URLSearchParams(current.search);
-  expected.delete('nav');
-  expect(other.searchParams.toString()).toBe(expected.toString());
-  // Without the trail its Report tab opens the Companies report, not the Contributors list.
-  expect(contributionReturnHref(other.searchParams, 'fallback')).toBe('fallback');
+  // At the defaults the other area's link pins them rather than opening a saved view.
+  expect(contributionTimelineAreaHref('/contributors?timeline', 'companies')).toBe(
+    '/companies?timeline&v=1',
+  );
+  expect(contributionTimelineAreaHref('/contributors?q=x', 'companies')).toBeNull();
+  // A frame past the URL cap is not a canonical address.
   expect(
     contributionTimelineAreaHref(
-      '/contributors?timeline=1&q=' + 'x'.repeat(contributionUrlLimit),
+      '/contributors?timeline&back=~q:' + 'x'.repeat(contributionUrlLimit),
       'companies',
     ),
   ).toBeNull();
 });
 it('returns a focused Over time to the list its report returns to', () => {
   const settings = defaultContributionSettings(sample.contributions);
-  const list = '/contributors?scope=1&period=this-year&report.q=Alice&report.page=2';
+  const list = '/contributors?q=Alice&page=2';
   const focus = { kind: 'contributor', accountId: 'account-alice' } as const;
   const report = contributionHref(focus, 'reference', list, settings)!;
-  const reportParams = new URL(report, 'https://dashboard.invalid').searchParams;
-  const fallback = contributionHref('contributors', 'reference', undefined, settings)!;
-  // The report's own Back to report, as the contribution page computes it.
-  const back = contributionReturnHref(reportParams, fallback);
-  expect(new URL(back, 'https://dashboard.invalid').searchParams.get('report.page')).toBe('2');
-  const overTime = new URL(
-    contributionTimelineEntry(report, settings)!,
-    'https://dashboard.invalid',
-  );
-  const reportTab = contributionTimelineReportHref(
-    overTime.searchParams,
-    overTime.pathname,
-    settings,
-    sample.contributions,
-    sample.contributions.asOf,
-  );
-  expect(contributionTimelineReturnHref(reportTab, 'contributors', 'reference', settings)).toBe(
-    back,
-  );
-  // An Over time opened directly returns to its area with the same scope.
-  expect(
-    contributionTimelineReturnHref(
-      '/contributors/account-alice?scope=1&period=this-year',
-      'contributors',
-      'reference',
-      settings,
-    ),
-  ).toBe(fallback);
+  const [back] = resolveBack(viewOf(report)!);
+  expect(back).toMatchObject({ available: true, href: list });
+  const overTime = contributionTimelineHref(viewOf(report)!, settings)!;
+  // The Over time's first ancestor is its report, and the report's own Back to report follows.
+  const [reportTab, returnTo] = resolveBack(viewOf(overTime)!);
+  expect(reportTab).toMatchObject({
+    available: true,
+    href: '/contributors/account-alice?back=~q:Alice~page:2&v=1',
+  });
+  expect(returnTo).toMatchObject({ available: true, href: list });
 });

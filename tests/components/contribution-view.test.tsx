@@ -1,4 +1,9 @@
-import { contributionReturnHref } from '@/lib/presentation/contribution-return';
+import { resolveBack, viewOf } from '@/lib/presentation/url/back';
+/** The parent a link's first frame names, or its derived parent. */
+function parentHref(url: URL) {
+  const [parent] = resolveBack(viewOf(url.pathname + url.search)!);
+  return parent?.available ? parent.href : null;
+}
 import { expect, it, vi } from 'vitest';
 import type { MouseEvent } from 'react';
 import { render, screen, within, fireEvent } from '@testing-library/react';
@@ -45,7 +50,7 @@ function Preview({
     <ContributionView
       page={data}
       controller={controller}
-      links={{ sample: data.sample, currentHref: '/contributors?report.page=2', onFollow }}
+      links={{ sample: data.sample, currentHref: '/contributors?page=2', onFollow }}
       breakdownControls={<nav aria-label="Company breakdown">By contributor / By repository</nav>}
     />
   );
@@ -70,9 +75,7 @@ it('renders the full overview with the approved default sort and independent met
   const alice = within(table).getByRole('link', { name: 'Alice — view contribution report' });
   const aliceUrl = new URL(alice.getAttribute('href')!, 'https://dashboard.test');
   expect(aliceUrl.pathname).toBe('/contributors/account-alice');
-  expect(contributionReturnHref(aliceUrl.searchParams, '/companies')).toBe(
-    '/contributors?report.page=2',
-  );
+  expect(parentHref(aliceUrl)).toBe('/contributors?page=2');
   fireEvent.click(alice);
   expect(onFollow).toHaveBeenCalledOnce();
   await user.type(screen.getByRole('textbox', { name: 'Search Contributors' }), 'sample-agent');
@@ -89,17 +92,13 @@ it('shows company totals rather than truncated member sums and links unmapped ac
     'https://dashboard.test',
   );
   expect(companyUrl.pathname).toBe('/companies/id/company-acme');
-  expect(contributionReturnHref(companyUrl.searchParams, '/companies')).toBe(
-    '/contributors?report.page=2',
-  );
+  expect(parentHref(companyUrl)).toBe('/contributors?page=2');
   const unmappedUrl = new URL(
     within(table).getByRole('link', { name: 'Unmapped company' }).getAttribute('href')!,
     'https://dashboard.test',
   );
   expect(unmappedUrl.pathname).toBe('/companies/unmapped');
-  expect(contributionReturnHref(unmappedUrl.searchParams, '/companies')).toBe(
-    '/contributors?report.page=2',
-  );
+  expect(parentHref(unmappedUrl)).toBe('/contributors?page=2');
 });
 it('renders a contributor’s independent totals and only relevant repository rows', () => {
   render(<Preview data={page({ focus: { kind: 'contributor', accountId: 'account-alice' } })} />);

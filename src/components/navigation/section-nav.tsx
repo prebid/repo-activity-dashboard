@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ExpandIcon, SectionsIcon } from '@/components/ui/icons';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
+import { replaceHash } from '@/lib/navigation/use-url-state';
 import styles from './section-nav.module.css';
 
 /**
@@ -41,7 +42,7 @@ function jumpTo(id: string): boolean {
   );
   const heading = section.querySelector<HTMLElement>('h2[tabindex="-1"]') ?? section;
   heading.focus({ preventScroll: true });
-  window.history.replaceState(window.history.state, '', '#' + id);
+  replaceHash(id);
   return true;
 }
 

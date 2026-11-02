@@ -1,4 +1,4 @@
-import { contributionReturnHref } from '../../src/lib/presentation/contribution-return';
+import { parentHref } from '../support/contribution-urls';
 import { test, expect } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
@@ -78,10 +78,15 @@ test('overview, company breakdown and contributor return links preserve their pa
     .getByRole('link', { name: 'By repository', exact: true })
     .click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
+  // Each breakdown opens its own table at its first page; Back returns to the page left.
   await page
     .getByRole('navigation', { name: 'Company breakdown' })
     .getByRole('link', { name: 'By contributor', exact: true })
     .click();
+  await expect(page.getByText('Page 1 of 2', { exact: true })).toBeVisible();
+  await page.goBack();
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
+  await page.goBack();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
   const originalParent = new URL(page.url());
   const parentLink = await page
@@ -90,11 +95,8 @@ test('overview, company breakdown and contributor return links preserve their pa
     .first()
     .getAttribute('href');
   if (!parentLink) throw Error('Missing child report link');
-  const parent = contributionReturnHref(
-    new URL(parentLink, page.url()).searchParams,
-    '/contributors',
-  );
-  expect(new URL(parent, page.url()).pathname).toBe(originalParent.pathname);
+  const parent = parentHref(parentLink)!;
+  expect(parent).toBe(originalParent.pathname + originalParent.search);
   await page
     .getByRole('table')
     .getByRole('link', { name: / — view contribution report$/ })
@@ -122,9 +124,7 @@ test('high-volume identity search and focused totals remain bounded and readable
     .click();
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('240');
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('350');
-  expect(contributionReturnHref(new URL(page.url()).searchParams, '/contributors')).toContain(
-    'report.q=sample-heavy-agent',
-  );
+  expect(parentHref(page.url())).toBe('/contributors?sample=large&q=sample-heavy-agent');
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   await page.screenshot({
     path: testInfo.outputPath('busy-contributor-mobile.png'),
@@ -206,7 +206,7 @@ for (const width of [1440, 390])
         .getByRole('navigation', { name: 'Report view', exact: true })
         .getByRole('link', { name: 'Over time', exact: true })
         .click();
-      await expect(page).toHaveURL((url) => url.searchParams.get('timeline') === '1');
+      await expect(page).toHaveURL((url) => url.searchParams.has('timeline'));
       await expect(page.getByRole('region', { name: 'Timeline scope', exact: true })).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       expect(Math.abs((await top('Timeline scope')) - report), path).toBeLessThanOrEqual(1);

@@ -1,36 +1,43 @@
-import { contributionUrlFits } from './contribution-return';
-import { repositoryMatrixSummaryHref } from './repository-matrix-summary';
-import { readTimelineView } from './timeline-controls';
+// The Summary's Timeline tab: the matrix for the Summary's repositories, with the Summary as its
+// parent. From a Summary at v1 defaults the link is `/repos?timeline`.
+import { childViewHref, viewOf, type UrlView } from './url/back';
+import { savedTimelineLink } from './url/legacy/timeline-state';
+import type { UrlValues } from './url/registry';
+import { allRepositorySlugs } from './url/defaults';
 import { matrixRepositoryTimelineHref } from './timeline-navigation';
 import { timelineSupportHref } from './timeline-support-query';
 import { repositoryTimelineMetricIds } from '@/models/repository-timeline';
 import type { TimelineSourceIdentity } from '@/models/reporting-timeline';
-
-export { repositoryMatrixSummaryHref };
+import type { TimelineViewState } from '@/models/timeline-controls';
 
 /**
- * The matrix entry for the selected repositories. Child links nest this URL, so when the longest
- * child would not fit, the Summary return context is dropped first; no entry is offered only when
- * even the bare entry leaves no room for its child links.
+ * The matrix entry for the selected repositories, from the Summary at `summaryHref` (its
+ * canonical href). Null when the Summary is not canonical or the matrix's own child links (a
+ * repository Timeline and its supporting records) would not fit.
  */
 export function repositoryMatrixEntryHref(
   repositories: readonly { id: string; slug: string }[],
   summaryHref: string,
   source: TimelineSourceIdentity,
+  /** The viewer's saved matrix view (decision C3); the Summary's repositories stay explicit. */
+  saved: string | null = null,
 ): string | null {
-  const summary = repositoryMatrixSummaryHref(summaryHref);
-  if (summary === null) return null;
-  const params = new URLSearchParams({ timeline: '1' });
-  const ids = [...new Set(repositories.map((row) => row.id))].sort();
-  if (!ids.length) params.set('repo', '');
-  else for (const id of ids) params.append('repo', id);
-  for (const kept of summary === '/repos' ? [summary] : [summary, '/repos']) {
-    const entry = new URLSearchParams(params);
-    if (kept !== '/repos') entry.set('summary', kept);
-    const href = '/repos?' + entry.toString();
-    if (contributionUrlFits(href) && childLinksFit(href, repositories, source)) return href;
-  }
-  return null;
+  const summary = viewOf(summaryHref);
+  if (summary?.route !== '/repos') return null;
+  const all = allRepositorySlugs();
+  const slugs = all.filter((slug) => repositories.some((row) => row.slug === slug));
+  const own: UrlValues = {
+    timeline: true,
+    ...(slugs.length === all.length ? {} : { repo: slugs }),
+  };
+  const matrix: UrlView = {
+    route: '/repos',
+    segments: {},
+    // An entry (all repositories) takes the saved view where it opens; a narrower link carries it.
+    values: own.repo ? savedTimelineLink('/repos', own, [], saved, source.asOf) : own,
+  };
+  const href = childViewHref(summary, matrix);
+  return href !== null && childLinksFit(href, repositories, source) ? href : null;
 }
 /**
  * Whether the longest repository Timeline link built from a matrix entry, and its supporting-record
@@ -45,10 +52,9 @@ function childLinksFit(
   if (!repositories.length) return true;
   const longest = (values: readonly string[]) =>
     values.reduce((a, b) => (encodeURIComponent(b).length > encodeURIComponent(a).length ? b : a));
-  const { view } = readTimelineView(new URLSearchParams(href.split('?')[1]), 'matrix', source.asOf);
   const metric = longest(repositoryTimelineMetricIds);
   const child = matrixRepositoryTimelineHref(
-    { view },
+    { view: { metric } as TimelineViewState },
     longest(repositories.map((row) => row.slug)),
     href,
     metric,

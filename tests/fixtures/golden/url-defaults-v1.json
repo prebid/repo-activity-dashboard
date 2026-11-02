@@ -1,0 +1,606 @@
+{
+  "authorRecords": [
+    "number",
+    "title",
+    "createdAt"
+  ],
+  "records": {
+    "issues:agedPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:agentApprovalCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:agentFeedbackCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:agentFeedbackPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:botApprovalCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:botFeedbackCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:botFeedbackPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:draftPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanApprovals0": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanApprovals1": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanApprovals2": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanApprovalsMoreThan2": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanReviewers0": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanReviewers1": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanReviewers2": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:humanReviewersMoreThan2": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:issueAuthors": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:issuesClosed": [
+      "number",
+      "title",
+      "author",
+      "createdAt",
+      "closedAt"
+    ],
+    "issues:issuesOpened": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:lastAgent": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:lastBot": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:lastContributor": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:lastOtherHuman": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:lastPrebidReviewer": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:lastUnknown": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:medianMergeDays": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:nonDraftPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:openIssues": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "issues:prAuthors": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:prsMerged": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:prsOpened": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "issues:totalOpenPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:agedPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:agentApprovalCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:agentFeedbackCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:agentFeedbackPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "agentReviewer",
+      "latestActivity"
+    ],
+    "prs:botApprovalCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:botFeedbackCredits": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:botFeedbackPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "botReviewer",
+      "latestActivity"
+    ],
+    "prs:draftPrs": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanApprovals0": [
+      "number",
+      "title",
+      "author",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanApprovals1": [
+      "number",
+      "title",
+      "author",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanApprovals2": [
+      "number",
+      "title",
+      "author",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanApprovalsMoreThan2": [
+      "number",
+      "title",
+      "author",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanReviewers0": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanReviewers1": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanReviewers2": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:humanReviewersMoreThan2": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:issueAuthors": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:issuesClosed": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:issuesOpened": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:lastAgent": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:lastBot": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:lastContributor": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:lastOtherHuman": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:lastPrebidReviewer": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:lastUnknown": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:medianMergeDays": [
+      "number",
+      "title",
+      "author",
+      "createdAt",
+      "mergeDays",
+      "baseBranch",
+      "mergedAt"
+    ],
+    "prs:nonDraftPrs": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:openIssues": [
+      "number",
+      "title",
+      "author",
+      "ageDays",
+      "latestActivity"
+    ],
+    "prs:prAuthors": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:prsMerged": [
+      "number",
+      "title",
+      "author",
+      "createdAt",
+      "mergeDays",
+      "baseBranch",
+      "mergedAt"
+    ],
+    "prs:prsOpened": [
+      "number",
+      "title",
+      "author",
+      "createdAt"
+    ],
+    "prs:totalOpenPrs": [
+      "number",
+      "title",
+      "author",
+      "humanReviewers",
+      "approvals",
+      "ageDays",
+      "latestActivity"
+    ]
+  },
+  "repositories": [
+    "prebidjs",
+    "prebidserver",
+    "prebidserverjava",
+    "prebiddocs",
+    "prebidmobileandroid",
+    "prebidmobileios",
+    "prebid-mobile-ios-sdk",
+    "prebid-universal-creative",
+    "professor-prebid",
+    "salesagent",
+    "prebid-agent-skills",
+    "line-item-manager",
+    "go-gdpr",
+    "prebid-cache-java",
+    "repo-activity-dashboard",
+    "openrtb",
+    "github-activity-db",
+    "prebid-integration-monitor"
+  ],
+  "repositoryTimeline": {
+    "issues.activity": [
+      "issuesOpened",
+      "issuesClosed",
+      "issueAuthors"
+    ],
+    "issues.snapshot": [
+      "openIssues"
+    ],
+    "prs.activity": [
+      "prsOpened",
+      "prsMerged",
+      "prAuthors",
+      "medianMergeDays"
+    ],
+    "prs.snapshot": [
+      "totalOpenPrs",
+      "draftPrs",
+      "nonDraftPrs",
+      "humanApprovals0",
+      "humanApprovals1",
+      "humanApprovals2"
+    ]
+  },
+  "table": {
+    "actorTypes": [
+      "human",
+      "agent",
+      "bot",
+      "unknown"
+    ],
+    "contributionTimeline": {
+      "sort": "period"
+    },
+    "contributions": {
+      "detailsSort": "-creditedAt",
+      "identityColumns": {
+        "companies": [
+          "name",
+          "members"
+        ],
+        "contributors": [
+          "name",
+          "actorType",
+          "company"
+        ],
+        "members": [
+          "name",
+          "actorType"
+        ],
+        "repositories": [
+          "name"
+        ]
+      },
+      "lensMetricColumns": {
+        "contributors": [
+          "prsAuthored",
+          "authoredPrsMerged",
+          "issuesAuthored"
+        ],
+        "reviewers": [
+          "reviewerContributions",
+          "approvalContributions",
+          "mergesPerformed"
+        ]
+      },
+      "sort": {
+        "contributors": "-authoredPrsMerged",
+        "reviewers": "-reviewerContributions"
+      }
+    },
+    "family": "activity",
+    "group": "month",
+    "insightSort": {
+      "credits": "-firstCreditAt",
+      "issueAuthors": "-recordCount",
+      "medianMergeDays": "-createdAt",
+      "prAuthors": "-recordCount"
+    },
+    "lens": "contributors",
+    "matrix": {
+      "metric": [
+        "prsOpened"
+      ],
+      "sort": "repository"
+    },
+    "origin": "timeline",
+    "page": "1",
+    "period": {
+      "report": "this-year",
+      "summary": "this-month"
+    },
+    "records": {
+      "metric": {
+        "issues": "openIssues",
+        "prs": "totalOpenPrs"
+      },
+      "sort": "-createdAt"
+    },
+    "repositoryTimeline": {
+      "metric": {
+        "issues.activity": "issuesOpened",
+        "issues.snapshot": "openIssues",
+        "prs.activity": "prsOpened",
+        "prs.snapshot": "totalOpenPrs"
+      },
+      "snapshotColumns": [
+        "totalOpenPrs",
+        "draftPrs",
+        "nonDraftPrs",
+        "openIssues",
+        "humanApprovals0",
+        "humanApprovals1",
+        "humanApprovals2"
+      ],
+      "sort": "period"
+    },
+    "sample": "reference",
+    "summary": {
+      "age": [
+        "30"
+      ],
+      "asort": "-prsOpened",
+      "bsort": "-totalOpenPrs"
+    },
+    "view": {
+      "company": "members",
+      "repository": "prs"
+    }
+  }
+}

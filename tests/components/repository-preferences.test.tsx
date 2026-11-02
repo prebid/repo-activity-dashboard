@@ -11,6 +11,10 @@ import {
   serializeOverviewPreferences,
 } from '@/lib/presentation/overview-settings';
 import { serializeRepositoryColumns } from '@/lib/presentation/repository-page-preferences';
+import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import { drilldownPresentation } from '@/lib/presentation/repository-url';
+import { urlHref } from '@/lib/presentation/url/codec';
+import { entryValues } from '@/lib/presentation/url/entry';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import { overviewPreferencesInvalidNotice } from '@/lib/navigation/use-overview-settings';
 import type { PreferenceBinding } from '@/models/preferences';
@@ -45,9 +49,12 @@ vi.mock('next/navigation', async () => {
 });
 import { preferenceSnapshot } from '@/server/preferences';
 import {
+  recordEntryValues,
   repositoriesPreferences,
   repositoryInsightSort,
+  repositoryLinkPresentation,
   repositoryPagePreferences,
+  summaryEntryValues,
   timelineSupportCookie,
   timelineSupportSort,
 } from '@/app/_screens/repository-preferences';
@@ -113,8 +120,7 @@ const sortedHeader = (page: HTMLElement) =>
     (header) => [header.getAttribute('aria-sort'), header.textContent?.trim()],
   );
 
-it('renders All repositories from the saved settings and sorts on the server, unchanged by hydration', async () => {
-  window.history.replaceState(null, '', '/repos');
+it('redirects a bare All repositories entry to the saved settings and sorts, rendered unchanged by hydration', async () => {
   seedPreferences(alice, {
     overview: JSON.parse(
       serializeOverviewPreferences({
@@ -127,13 +133,14 @@ it('renders All repositories from the saved settings and sorts on the server, un
     'overview.backlog.sort': { sort: 'name', descending: true },
   });
   const sections = preferenceSections('repositories');
-  const view = (
-    <RepositoriesScreen
-      viewerId="alice"
-      samples={samples}
-      preferences={repositoriesPreferences(snapshot(), samples)}
-    />
+  const preferences = repositoriesPreferences(snapshot(), samples);
+  // The page helper answers the bare entry with a redirect to the saved explicit form.
+  const saved = urlHref('/repos', {}, entryValues('/repos', {}, summaryEntryValues(preferences)!));
+  expect(saved).toBe(
+    '/repos?repo=' + first.slug + ',' + second.slug + '&period=last-month&age=90&bsort=-name',
   );
+  window.history.replaceState(null, '', saved);
+  const view = <RepositoriesScreen viewerId="alice" samples={samples} preferences={preferences} />;
   await serverThenClient(view, (page) => {
     expect(bodyRows(page, 'Current backlog')).toBe(2);
     expect(within(page).getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue(
@@ -160,6 +167,7 @@ it("ignores another account's saved settings", async () => {
     ) as unknown,
   });
   expect(snapshot(bob).status).toBe('ignored');
+  expect(summaryEntryValues(repositoriesPreferences(snapshot(bob), samples))).toBeNull();
   const view = (
     <RepositoriesScreen
       viewerId="bob"
@@ -198,8 +206,7 @@ it('renders the defaults with the recovery notice for an invalid saved section, 
   });
 });
 
-it("renders another repository's pull requests with the saved list presentation and sort", async () => {
-  window.history.replaceState(null, '', '/repos/' + second.slug);
+it("redirects another repository's list entry to the saved list presentation and sort", async () => {
   seedPreferences(alice, {
     'repository.prs.columns': JSON.parse(
       serializeRepositoryColumns({ latestActivity: false }),
@@ -210,6 +217,14 @@ it("renders another repository's pull requests with the saved list presentation 
     selection: { scope: 'current', metric: 'totalOpenPrs' },
     returnTo: '/repos',
   });
+  // One saved pull request presentation serves every repository's list.
+  const saved = urlHref(
+    '/repos/[slug]',
+    { slug: [second.slug] },
+    entryValues('/repos/[slug]', {}, recordEntryValues({}, repositoryLinkPresentation(snapshot()))),
+  );
+  expect(saved).toBe('/repos/' + second.slug + '?sort=number&cols=-latestActivity');
+  window.history.replaceState(null, '', saved);
   const view = (
     <RepositoryPageScreen
       viewerId="alice"
@@ -226,7 +241,7 @@ it("renders another repository's pull requests with the saved list presentation 
 });
 
 it('drops a malformed list presentation and keeps a sort saved for columns this table lacks', async () => {
-  window.history.replaceState(null, '', '/repos/' + first.slug);
+  window.history.replaceState(null, '', '/repos/' + first.slug + '?view=issues');
   seedPreferences(alice, {
     'repository.issues.columns': { version: 1, columns: ['latestActivity'] },
     'repository.issues.sort': { sort: 'mergedAt', descending: false },
@@ -243,6 +258,7 @@ it('drops a malformed list presentation and keeps a sort saved for columns this 
   // Issue lists have no merge column, so the sort does not apply here and is kept, not rejected.
   expect(preferences.sort).toMatchObject({ value: { sort: 'mergedAt', descending: false } });
   expect(preferences.sort).not.toHaveProperty('invalid');
+  expect(recordEntryValues({ view: 'issues' }, preferences.links!)).toEqual({ presentation: {} });
   await serverThenClient(
     <RepositoryPageScreen
       viewerId="alice"
@@ -264,8 +280,7 @@ it('drops a malformed list presentation and keeps a sort saved for columns this 
   });
 });
 
-it('applies a saved insight sort only to a table that has its column', async () => {
-  window.history.replaceState(null, '', '/repos/' + first.slug);
+it('carries a saved insight sort only into links to a table that has its column', async () => {
   const range = samples.periods[2].period.range;
   const authors = repositoryInsightSample(first, {
     selection: { scope: 'period', metric: 'prAuthors', range },
@@ -279,18 +294,30 @@ it('applies a saved insight sort only to a table that has its column', async () 
     'repository.authors.sort': { sort: 'account', descending: false },
     'repository.credits.sort': { sort: 'recordCount', descending: false },
   });
+  const links = repositoryLinkPresentation(snapshot());
+  const link = (insight: typeof authors) =>
+    repositoryDrilldownHref(
+      first,
+      insight.drilldown,
+      drilldownPresentation(insight.drilldown.selection, links),
+    );
+  window.history.replaceState(null, '', link(authors));
+  expect(window.location.search).toContain('&sort=account');
   await serverThenClient(
     <RepositoryInsightsScreen
       viewerId="alice"
       insight={authors}
       navigation={repositoryPageNavigationSample(first)}
       savedSort={repositoryInsightSort(snapshot(), authors)}
+      links={links}
     />,
     (page) => expect(sortedHeader(page)).toEqual([['ascending', 'GitHub account']]),
   );
   // The credits table has no record-count column, so its default sort applies and the choice stays.
   const saved = repositoryInsightSort(snapshot(), credits);
   expect(saved.value).toEqual({ sort: 'recordCount', descending: false });
+  window.history.replaceState(null, '', link(credits));
+  expect(window.location.search).not.toContain('sort=');
   await serverThenClient(
     <RepositoryInsightsScreen
       viewerId="alice"

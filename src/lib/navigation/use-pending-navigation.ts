@@ -1,6 +1,7 @@
 'use client';
 import { startTransition, useEffect, useOptimistic, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { followHref } from './use-url-state';
 
 /** Whether a click follows a link to another page in this tab, which starts a new navigation. */
 function followsLinkInThisTab(event: MouseEvent): boolean {
@@ -47,7 +48,7 @@ export function usePendingNavigation() {
       setSuperseded(false);
       startTransition(() => {
         setPendingKey(key);
-        router.push(href);
+        followHref(router, href);
       });
     },
   };

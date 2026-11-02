@@ -11,7 +11,7 @@ import {
 } from '@/lib/presentation/format';
 import { safeReturnPath } from '@/lib/presentation/navigation';
 import { readTableQuery, writeTableQuery, preferenceKey } from '@/lib/presentation/table-query';
-import { encodeSearchParams, firstSearchParam } from '@/lib/presentation/search-params';
+import { firstSearchParam } from '@/lib/presentation/search-params';
 describe('presentation contracts', () => {
   it('renders identical UTC timestamp text without engine-specific locale connectors', () => {
     expect(formatAsOf('2026-10-24T12:00:00.000Z')).toBe('Oct 24, 2026, 12:00 PM UTC');
@@ -21,9 +21,6 @@ describe('presentation contracts', () => {
     expect(formatUtcDate('invalid')).toBe('—');
   });
   it('preserves repeated URL parameters across the server/client boundary', () => {
-    expect(encodeSearchParams({ repo: ['one', 'two'], view: 'issues', unused: undefined })).toBe(
-      '?repo=one&repo=two&view=issues',
-    );
     // Scalar table fields use the first value consistently on server and browser.
     expect(readTableQuery('?prs.page=2&prs.page=9', 'prs', []).page).toBe(2);
     expect(firstSearchParam(['issues', 'prs'])).toBe('issues');

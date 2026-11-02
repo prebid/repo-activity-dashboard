@@ -1,10 +1,5 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import {
-  contributionTimelinePreview,
-  repositoryTimelinePreview,
-  repositoryTimelineMatrixPreview,
-} from '@/server/timeline-preview';
+import { timelineView } from '@/server/timeline-preview';
 import { readPreferences } from '@/server/preferences';
 import {
   RepositoryTimelineMatrixScreen,
@@ -12,14 +7,15 @@ import {
   ContributionTimelineScreen,
 } from './timeline-screens';
 import type { ContributionArea } from '@/models/contribution-page';
-import type { ContributionFocus } from '@/models/contributions';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
 import { loadTimelineSupport } from '@/server/timeline-support';
 import { TimelineSupportScreen } from './timeline-support-screen';
 import { readTimelineSupportSort } from './repository-preferences';
-import { contributionPath } from '@/lib/presentation/contribution-navigation';
-function InvalidTimeline({ message, href }: { message: string; href: string }) {
+import type { UrlView } from '@/lib/presentation/url/back';
+import { routeArea, routePath, screenOf } from '@/lib/presentation/url/registry';
+
+export function InvalidTimeline({ message, href }: { message: string; href: string }) {
   return (
     <>
       {/* No snapshot is read for an invalid view, so the header states no snapshot time. */}
@@ -30,91 +26,53 @@ function InvalidTimeline({ message, href }: { message: string; href: string }) {
     </>
   );
 }
-// An entry URL, one without timeline.state, is answered with a redirect to its explicit-state URL
-// with saved preferences applied, so the page renders once and never rewrites its address.
-export async function RepositoryTimelineMatrixRoute({ params }: { params: URLSearchParams }) {
-  const result = await repositoryTimelineMatrixPreview(
-    params,
-    await readPreferences('repositories'),
-  );
-  if (result.status === 'redirect') redirect(result.href);
-  return result.status === 'ready' ? (
-    <RepositoryTimelineMatrixScreen
-      viewerId={result.viewerId}
-      context={result.controls}
-      matrix={result.matrix}
-      summaryHref={result.summaryHref}
-    />
-  ) : (
-    <InvalidTimeline message={result.message} href="/repos" />
-  );
-}
-export async function RepositoryTimelineRoute({
-  slug,
-  params,
-}: {
-  slug: string;
-  params: URLSearchParams;
-}) {
-  if (params.has('timeline.detail'))
-    return <TimelineSupportRoute path={'/repos/' + encodeURIComponent(slug)} params={params} />;
-  const result = await repositoryTimelinePreview(
-    slug,
-    params,
-    await readPreferences('repositories'),
-  );
-  if (result.status === 'redirect') redirect(result.href);
-  return result.status === 'ready' ? (
-    <RepositoryTimelineScreen
-      viewerId={result.viewerId}
-      context={result.controls}
-      parent={result.parent}
-      facets={result.facets}
-      omitted={result.omitted}
-      report={result.report}
-      navigation={result.navigation}
-    />
-  ) : (
-    <InvalidTimeline message={result.message} href={'/repos/' + encodeURIComponent(slug)} />
-  );
-}
-export async function ContributionTimelineRoute({
-  area,
-  params,
-  focus,
-}: {
-  area: ContributionArea;
-  params: URLSearchParams;
-  focus?: ContributionFocus;
-}) {
-  if (params.has('timeline.detail'))
+/**
+ * A Timeline page or a Timeline supporting view, from the page helper's canonical values: legacy
+ * links and entry redirects were answered there, so an entry renders here at its own address.
+ */
+export async function TimelineRoute({ view, entry }: { view: UrlView; entry: boolean }) {
+  if (screenOf(view.route, view.values) === 'support') return <TimelineSupportRoute view={view} />;
+  const result = await timelineView(view, {
+    entry,
+    preferences: await readPreferences(routeArea(view.route)),
+  });
+  if (result.status !== 'ready')
+    return <InvalidTimeline message={result.message} href={routePath(view.route, view.segments)} />;
+  if ('matrix' in result)
     return (
-      <TimelineSupportRoute
-        path={contributionPath(!focus || focus.kind === 'overview' ? area : focus)}
-        params={params}
+      <RepositoryTimelineMatrixScreen
+        viewerId={result.viewerId}
+        context={result.controls}
+        matrix={result.matrix}
+        summaryHref={result.summaryHref}
       />
     );
-  const result = await contributionTimelinePreview(
-    area,
-    params,
-    focus,
-    await readPreferences('contributions'),
-  );
-  if (result.status === 'redirect') redirect(result.href);
-  return result.status === 'ready' ? (
+  if ('omitted' in result)
+    return (
+      <RepositoryTimelineScreen
+        viewerId={result.viewerId}
+        context={result.controls}
+        parent={result.parent}
+        facets={result.facets}
+        omitted={result.omitted}
+        report={result.report}
+        navigation={result.navigation}
+      />
+    );
+  const area: ContributionArea = view.route.startsWith('/companies') ? 'companies' : 'contributors';
+  return (
     <ContributionTimelineScreen
       viewerId={result.viewerId}
       context={result.controls}
       report={result.report}
       area={area}
       reportHref={result.reportHref}
+      returnTo={result.returnTo}
     />
-  ) : (
-    <InvalidTimeline message={result.message} href={'/' + area} />
   );
 }
-async function TimelineSupportRoute({ path, params }: { path: string; params: URLSearchParams }) {
-  const result = await loadTimelineSupport(path, params);
+async function TimelineSupportRoute({ view }: { view: UrlView }) {
+  const result = await loadTimelineSupport(view);
   return result.status === 'ready' ? (
     <TimelineSupportScreen
       detail={result.detail}
@@ -122,6 +80,9 @@ async function TimelineSupportRoute({ path, params }: { path: string; params: UR
       savedSort={await readTimelineSupportSort(result.detail)}
     />
   ) : (
-    <InvalidTimeline message={result.message} href={result.parentHref ?? path} />
+    <InvalidTimeline
+      message={result.message}
+      href={result.parentHref ?? routePath(view.route, view.segments)}
+    />
   );
 }

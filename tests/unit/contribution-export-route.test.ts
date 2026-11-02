@@ -83,9 +83,7 @@ it('requires a current signed-in viewer before parsing any export or drilldown r
   await expect(
     contributorsExport(new Request('http://localhost/contributors/export?column=bad')),
   ).rejects.toThrow('denied');
-  await expect(contributions('contributors', new URLSearchParams('metric=bad'))).rejects.toThrow(
-    'denied',
-  );
+  await expect(contributions('contributors', { metric: 'bad' })).rejects.toThrow('denied');
 });
 it('downloads private, non-cacheable CSV using the full scope and selected columns', async () => {
   const response = await companiesExport(
@@ -110,11 +108,40 @@ it('downloads private, non-cacheable CSV using the full scope and selected colum
   );
   expect((await individual.text()).split('\r\n')).toHaveLength(3);
 });
+it('serves identical CSV bytes for the legacy and canonical forms, with or without return context', async () => {
+  const legacy =
+    'scope=1&period=this-year&sample=large&repo=repo-prebidjs&population=selected&company=company-acme' +
+    '&exclude=account-person-001&entity=overview&view=members&layout=repositories&column=prsAuthored' +
+    '&column=company&export.sort=prsAuthored&export.dir=desc';
+  const canonical =
+    'sample=large&repo=prebidjs&company=company-acme&exclude=account-person-001&entity=overview' +
+    '&layout=repositories&columns=company,prsAuthored&sort=-prsAuthored';
+  const bodies = [];
+  for (const query of [
+    legacy,
+    legacy + '&nav=bm90LWEtdHJhaWw&timelineParent=%2Fnowhere&summary=%2Felsewhere',
+    canonical,
+    canonical + '&back=~page:2&back=!',
+  ]) {
+    const response = await companiesExport(
+      new Request('http://localhost/companies/export?' + query),
+    );
+    expect(response.status).toBe(200);
+    bodies.push(await response.text());
+    // Export links are never redirected, whichever form they take.
+    expect(response.headers.get('location')).toBeNull();
+  }
+  expect(bodies[0]).toContain('"repo-prebidjs"');
+  expect(new Set(bodies).size).toBe(1);
+});
 it('rejects invalid metric columns, scopes and focused identities rather than widening the report', async () => {
   for (const query of [
     'column=bad',
     'column=prsAuthored&repo=absent',
     'column=prsAuthored&period=custom',
+    'columns=bad',
+    'columns=prsAuthored&repo=absent',
+    'columns=prsAuthored&period=2027-01-01..2027-01-02',
   ])
     expect(
       (await contributorsExport(new Request('http://localhost/contributors/export?' + query)))
@@ -127,14 +154,12 @@ it('rejects invalid metric columns, scopes and focused identities rather than wi
       ),
     ),
   ).rejects.toThrow('not-found');
-  expect((await contributions('contributors', new URLSearchParams('metric=bad'))).status).toBe(
-    'invalid',
-  );
+  expect((await contributions('contributors', { metric: 'bad' })).status).toBe('invalid');
 });
 it('composes optional metric details once with the same scope and counts as the report', async () => {
   const result = await contributions(
     'companies',
-    new URLSearchParams('metric=reviewed.filesChanged&repo=repo-prebidjs&exclude=account-alice'),
+    { metric: 'reviewed.filesChanged', repo: ['prebidjs'], exclude: ['account-alice'] },
     { kind: 'company', companyId: 'company-acme' },
   );
   if (result.status !== 'ready') throw Error('ready');

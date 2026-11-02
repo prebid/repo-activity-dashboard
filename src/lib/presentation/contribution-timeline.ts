@@ -21,12 +21,12 @@ import {
   withTimelineAvailability,
 } from './reporting-timeline';
 import { inDateRange } from './reporting-period';
-import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
+import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import { contributionReturnHref, contributionUrlFits } from './contribution-return';
-import { contributionHref } from './contribution-navigation';
-
-const origin = 'https://dashboard.invalid';
+import { contributionScopeValues, omitValues } from './contribution-url';
+import { childViewHref, viewHref, viewOf, type UrlView } from './url/back';
+import { screenOf, type UrlValues } from './url/registry';
+import { savedTimelineLink } from './url/legacy/timeline-state';
 
 /** Partition supplied once-attributed facts; no GitHub history or client-side report calculation. */
 export function selectContributionTimeline(
@@ -120,29 +120,49 @@ export function contributionTimelineDetail(
 }
 
 /**
- * An overview's Over time in another area: the same scope and Timeline view, without the return
- * trail, whose report belongs to the area being left. Null when the URL does not fit.
+ * An overview's Over time in another area: the same scope and Timeline view, without return
+ * context, which belongs to the area being left. Null for another href or when it does not fit.
  */
 export function contributionTimelineAreaHref(href: string, area: ContributionArea): string | null {
-  const url = new URL(href, origin);
-  url.searchParams.delete('nav');
-  url.searchParams.delete('returnTo');
-  const result = '/' + area + url.search;
-  return contributionUrlFits(result) ? result : null;
-}
-
-/**
- * "Back to report" on a contributor or company Over time: where the report its Report tab opens
- * returns to, which is the parent in that report's trail, or else its area with the same scope.
- */
-export function contributionTimelineReturnHref(
-  reportHref: string,
-  area: ContributionArea,
-  sample: ContributionSampleScenario,
-  settings: ContributionSettings,
-): string {
-  return contributionReturnHref(
-    new URL(reportHref, origin).searchParams,
-    contributionHref(area, sample, undefined, settings) ?? '/' + area,
+  const view = viewOf(href);
+  if (!view || view.values.timeline !== true) return null;
+  return viewHref(
+    {
+      route: area === 'contributors' ? '/contributors' : '/companies',
+      segments: {},
+      values: omitValues(view.values, ['back']),
+    },
+    'level',
+    { explicit: true },
   );
+}
+const overTimeScope = ['sample', 'lens', 'period', 'repo', 'type', 'account', 'company', 'exclude'];
+/**
+ * The Over time link of a report view: the report's scope on the same subject, with the report as
+ * its parent frame (none when the report is the one Over time derives). It is written in explicit
+ * form, so the report's scope never gives way to a saved one. Null when the link does not fit.
+ */
+export function contributionTimelineHref(
+  view: UrlView,
+  settings: ContributionSettings,
+  /** The viewer's saved Over time presentation for this report (decision C3). */
+  saved: string | null = null,
+  asOf = '',
+): string | null {
+  const screen = screenOf(view.route, view.values);
+  if (screen !== 'contributionOverview' && screen !== 'contributionDetail') return null;
+  const scoped = Object.fromEntries(
+    Object.entries(view.values).filter(([name]) => overTimeScope.includes(name)),
+  );
+  const own: UrlValues = {
+    ...scoped,
+    ...contributionScopeValues(settings),
+    timeline: true,
+    v: '1',
+  };
+  const child: UrlView = {
+    ...view,
+    values: savedTimelineLink(view.route, own, ['period'], saved, asOf),
+  };
+  return childViewHref(view, child);
 }

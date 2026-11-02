@@ -49,6 +49,14 @@
 .crumbs a:hover {
   text-decoration: underline;
 }
+/* A parent that cannot be restored: the same row position, as text. */
+.unavailable {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 20px;
+  color: var(--muted-foreground);
+}
 .crumbs [aria-current='page'] {
   color: var(--foreground);
   font-weight: 500;

@@ -1,24 +1,21 @@
 import 'server-only';
 import { requireViewer } from '@/lib/auth/viewer';
-import { loadTimelineReport } from './timeline-report';
-import {
-  timelineParentQuery,
-  readTimelineSupportQuery,
-} from '@/lib/presentation/timeline-support-query';
+import { loadTimelineView } from './timeline-report';
+import { readTimelineSupportQuery } from '@/lib/presentation/timeline-support-query';
 import {
   selectContributionTimelineSupport,
   selectRepositoryTimelineSupport,
 } from '@/lib/presentation/timeline-support';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import { repositoryTimelineSample } from '@/mocks/repository-timeline';
+import { contributionSampleAsOf } from '@/mocks/contributions';
 import { readTimelineView } from '@/lib/presentation/timeline-controls';
-import { repositoryCatalog } from '@/config/repositories';
-import { matrixRepositoryIds } from '@/lib/presentation/repository-timeline-matrix';
-import { safeTimelineParent } from '@/lib/presentation/timeline-navigation';
+import { allRepositorySlugs } from '@/lib/presentation/url/defaults';
+import { resolveBack, viewHref, type UrlView } from '@/lib/presentation/url/back';
+import { timelineParams, timelineParentValues } from '@/lib/presentation/url/timeline';
 import type { ContributionSampleScenario } from '@/models/contribution-page';
 import type { RepositoryTimelineScenario } from '@/mocks/repository-timeline';
 import type { TimelineSupportContext } from '@/models/timeline-support';
-import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import type { Measurement } from '@/models/reporting-measurement';
 import { normalizeGithubLogin } from '@/models/github-account';
@@ -26,13 +23,21 @@ const invalid = (
   message = 'This supporting view is invalid, unavailable or no longer matches its timeline.',
   parentHref?: string,
 ) => ({ status: 'invalid' as const, message, parentHref });
-export async function loadTimelineSupport(path: string, params: URLSearchParams) {
-  const viewer = await requireViewer(),
-    query = readTimelineSupportQuery(params);
-  if (!query || !contributionUrlFits(path + '?' + params.toString())) return invalid();
-  const parentParams = timelineParentQuery(params),
-    parentHref = path + '?' + parentParams.toString();
-  const loaded = await loadTimelineReport(parentHref);
+const text = (value: unknown) => (typeof value === 'string' ? value : undefined);
+/**
+ * A Timeline supporting view: one cell's records, from the view's registry values. It inherits its
+ * Timeline's values and frames; a matrix-origin view also needs its Timeline's matrix frame.
+ */
+export async function loadTimelineSupport(view: UrlView) {
+  const viewer = await requireViewer();
+  const params = timelineParams(view.route, view.values, contributionSampleAsOf),
+    query = params && readTimelineSupportQuery(params),
+    href = viewHref(view, 'level');
+  if (!query || href === null) return invalid();
+  const parent: UrlView = { ...view, values: timelineParentValues(view.values) };
+  // The Timeline holds a subset of the supporting view's values and its frames, so it fits.
+  const parentHref = viewHref(parent, 'level')!;
+  const loaded = await loadTimelineView(parent);
   if (loaded.status !== 'ready') return invalid();
   const unavailable = () => invalid(undefined, parentHref);
   if (loaded.category === 'matrix') return unavailable();
@@ -56,30 +61,27 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
       JSON.stringify(defaultRepositoryFilters(loaded.report.scope.recordKind))
     )
       return unavailable();
-    const candidate = safeTimelineParent(parentParams.get('timelineParent'), path);
-    if (!candidate || new URL(candidate, 'https://dashboard.invalid').pathname !== '/repos')
-      return unavailable();
-    const matrixParams = new URL(candidate, 'https://dashboard.invalid').searchParams;
+    const [matrix] = resolveBack(parent);
+    if (!matrix?.available || matrix.view.route !== '/repos') return unavailable();
+    const matrixParams = timelineParams('/repos', matrix.view.values, report.source.asOf);
+    if (!matrixParams) return unavailable();
     try {
-      const matrix = readTimelineView(matrixParams, 'matrix', report.source.asOf),
-        ids = matrixRepositoryIds(
-          matrixParams,
-          repositoryCatalog.filter((row) => row.enabled).map((row) => row.id),
-        );
+      const read = readTimelineView(matrixParams, 'matrix', report.source.asOf);
+      const slugs = matrix.view.values.repo;
+      const selected = typeof slugs === 'object' ? slugs : allRepositorySlugs();
       if (
-        !matrix.metricIds.includes(query.metric) ||
-        matrix.request.grouping !== report.request.grouping ||
-        JSON.stringify(matrix.request.range) !== JSON.stringify(report.request.range) ||
-        !ids.includes(loaded.report.scope.repository.id) ||
-        (matrixParams.get('sample') ?? 'reference') !==
-          (parentParams.get('sample') ?? 'reference') ||
-        (matrixParams.get('timeline.gap') ?? '0') !== (parentParams.get('timeline.gap') ?? '0')
+        !read.metricIds.includes(query.metric) ||
+        read.request.grouping !== report.request.grouping ||
+        JSON.stringify(read.request.range) !== JSON.stringify(report.request.range) ||
+        !selected.includes(loaded.report.scope.repository.slug) ||
+        text(matrix.view.values.sample) !== text(parent.values.sample) ||
+        matrix.view.values.gap !== parent.values.gap
       )
         return unavailable();
     } catch {
       return unavailable();
     }
-    back = candidate;
+    back = matrix.href;
   }
   const context: TimelineSupportContext = {
     source: report.source,
@@ -88,15 +90,13 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
     measurement,
     scope: parentHref,
     parentHref: back,
-    href: path + '?' + params.toString(),
+    href,
   };
-  const gap = parentParams.get('timeline.gap') === '1';
+  const gap = parent.values.gap === true,
+    sample = text(parent.values.sample) ?? 'reference';
   if (loaded.category === 'contribution') {
     if (query.author) return unavailable();
-    const source = contributionTimelineSample(
-      (parentParams.get('sample') ?? 'reference') as ContributionSampleScenario,
-      gap,
-    );
+    const source = contributionTimelineSample(sample as ContributionSampleScenario, gap);
     return {
       status: 'ready' as const,
       viewerId: viewer.id,
@@ -106,7 +106,7 @@ export async function loadTimelineSupport(path: string, params: URLSearchParams)
   const source = repositoryTimelineSample(
     loaded.report.scope.recordKind,
     loaded.report.scope.repository.id,
-    (parentParams.get('sample') ?? 'reference') as RepositoryTimelineScenario,
+    sample as RepositoryTimelineScenario,
     gap,
   );
   if (query.author) {
