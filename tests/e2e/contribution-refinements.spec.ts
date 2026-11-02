@@ -57,7 +57,7 @@ test('mixed account types filter both overviews, focused reports, paging and bro
     .click();
   expect(listParam(page.url(), 'type')).toEqual(['agent']);
   await expect(page.getByRole('region', { name: 'Report totals' })).toContainText('350');
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.goto('/contributors');
   await types(page, ['Human', 'Bot']);
@@ -130,7 +130,7 @@ test('optional comments and every file/line status render and export with role a
   await page.goto('/contributors');
   const table = page.getByRole('table');
   await expect(table.locator('[data-column="authored.filesChanged"]')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   for (const name of [
     'Comment activity',
     'Authored merged PR volume',

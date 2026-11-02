@@ -48,7 +48,7 @@ async function recordHistoryWrites(page: Page) {
 const entry = (page: Page) =>
   page
     .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Contributions', exact: true });
+    .getByRole('link', { name: 'Contributors', exact: true });
 const period = (page: Page) => page.getByRole('combobox', { name: 'Reporting period preset' });
 const lastMonth = (): ContributionSettings => ({
   ...structuredClone(defaults),
@@ -99,7 +99,7 @@ test('the first render shows the saved view, with no rewrite after load', async 
   await page.goto('/contributors');
   const address = page.url();
   expect(new URL(address).searchParams.get('period')).toBe('last-month');
-  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: /^Columns( · .+)?$/ })).toBeEnabled();
   await expect(period(page)).toHaveValue('last-month');
   await expect(
     page.getByRole('columnheader', { name: 'Issues authored', exact: true }),
@@ -122,7 +122,7 @@ test('a cookie saved for another account is ignored', async ({ page, baseURL }) 
     { accountId: 'preview-bob', authVersion: 0 },
   );
   await page.goto('/contributors');
-  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: /^Columns( · .+)?$/ })).toBeEnabled();
   await expect(page).toHaveURL(/\/contributors$/);
   await expect(period(page)).toHaveValue('this-year');
   await expect(page.getByText(/^Saved filters/)).toHaveCount(0);

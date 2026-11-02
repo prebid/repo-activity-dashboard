@@ -92,7 +92,7 @@ for (const saved of [false, true])
       });
       const entry = page
         .getByRole('navigation', { name: 'Main navigation' })
-        .getByRole('link', { name: 'Contributions', exact: true });
+        .getByRole('link', { name: 'Contributors', exact: true });
       if (saved) await expect(entry).toHaveAttribute('href', /period=last-month/);
       await entry.click();
       await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
@@ -126,7 +126,7 @@ test('changing a drilldown period preserves the saved repository population', as
   );
   await page
     .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Contributions', exact: true })
+    .getByRole('link', { name: 'Contributors', exact: true })
     .click();
   await expect(page.getByRole('button', { name: /^Choose repositories 18 \/ 18/ })).toBeVisible();
   await expect(page.getByRole('combobox', { name: 'Reporting period preset' })).toHaveValue(
@@ -142,7 +142,7 @@ test('sorting and columns share a table scope across contributors and companies'
     .getByRole('columnheader', { name: 'PRs authored', exact: true })
     .getByRole('button')
     .click();
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Issues authored', exact: true }).click();
   await page.keyboard.press('Escape');
   for (const route of [
@@ -192,7 +192,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
   await page.goto('/contributors?sample=large&' + writeContributionSettings('', settings));
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
   // The table's controls enable once the page is interactive; a click before then is not handled.
-  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: /^Columns( · .+)?$/ })).toBeEnabled();
   await page
     .getByRole('table')
     .getByRole('link', { name: / — view contribution report$/ })
@@ -218,7 +218,7 @@ test('100-account deep links stay bounded and preserve copied return context', a
       [...settings.selection.population.accountIds].sort(),
     );
     await copied.reload();
-    await copied.getByRole('link', { name: 'Back to report', exact: true }).click();
+    await copied.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
     await expect(
       copied.getByRole('table', { name: 'Contributors', exact: true }).locator('tbody tr'),
     ).toHaveCount(50);
@@ -272,12 +272,12 @@ test('Over time area tabs open the other area’s Over time, whose Report tab st
   );
   await expect(page.getByRole('table', { name: 'Companies', exact: true })).toBeVisible();
 });
-test('Back to report on a contributor’s Over time returns to the list the report came from', async ({
+test('Back to Contributors on a contributor’s Over time returns to the list the report came from', async ({
   page,
 }) => {
   await login(page);
   await page.goto('/contributors?sample=large&scope=1&period=this-year');
-  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: /^Columns( · .+)?$/ })).toBeEnabled();
   await page
     .getByRole('textbox', { name: 'Search Contributors', exact: true })
     .fill('sample-heavy-agent');
@@ -291,7 +291,7 @@ test('Back to report on a contributor’s Over time returns to the list the repo
     .getByRole('link', { name: 'Over time', exact: true })
     .click();
   await expect(page.getByRole('region', { name: 'Timeline scope', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   await expect(page).toHaveURL((url) => url.pathname === '/contributors');
   await expect(page.getByRole('textbox', { name: 'Search Contributors', exact: true })).toHaveValue(
     'sample-heavy-agent',

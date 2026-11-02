@@ -54,7 +54,12 @@ export function useTableController({
    * default, never the saved sort, which applies only through a server redirect of an entry.
    */
   fields?: TableFields;
-}): TableController & { clearSavedSort: () => void; storageAvailable: boolean } {
+}): TableController & {
+  clearSavedSort: () => void;
+  /** Save a sort the caller wrote to the address itself, with no history write. */
+  rememberSort: (sort: SavedSort) => void;
+  storageAvailable: boolean;
+} {
   const pathname = usePathname(),
     search = useSearchParams().toString();
   const scope = JSON.stringify([scopeKey ?? pathname, queryKey, viewerId]);
@@ -202,6 +207,14 @@ export function useTableController({
     setCorrection(null);
     writeSort(null);
   }, [cancel, scope, writeSort]);
+  const rememberSort = useCallback(
+    (value: SavedSort) => {
+      if (!viewerId && !savedSort) return;
+      setChanged({ scope, value });
+      writeSort(value);
+    },
+    [scope, viewerId, savedSort, writeSort],
+  );
 
   useEffect(() => {
     if (draftSearch === query.search) return;
@@ -257,6 +270,7 @@ export function useTableController({
   );
   return {
     clearSavedSort,
+    rememberSort,
     storageAvailable,
     scopeKey: scope,
     query,

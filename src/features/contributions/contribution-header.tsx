@@ -7,8 +7,15 @@ import { accountTypeLabels } from '@/models/github-account';
 import Link from 'next/link';
 import type { ComponentProps, MouseEvent, ReactNode } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
-import { CompaniesIcon, ContributorsIcon, ReportIcon, TimelineIcon } from '@/components/ui/icons';
+import {
+  CompaniesIcon,
+  ContributorsIcon,
+  ReportIcon,
+  ReviewersIcon,
+  TimelineIcon,
+} from '@/components/ui/icons';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
+import type { ContributionLens } from '@/models/contribution-lens';
 import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import {
@@ -48,13 +55,18 @@ const areaTabs = {
   contributors: { label: 'Contributors', Icon: ContributorsIcon },
   companies: { label: 'Companies', Icon: CompaniesIcon },
 } as const;
+const reviewersTab = { label: 'Reviewers', Icon: ReviewersIcon } as const;
 
-/** Contributors | Companies: an overview's subjects, on Report and on Over time. */
+/**
+ * Contributors | Companies, or Reviewers | Companies in the Reviewers lens: an overview's subjects,
+ * on Report and on Over time.
+ */
 export function ContributionAreaTabs({
   area,
   hrefs,
   onFollow,
   pendingTarget,
+  lens = 'contributors',
 }: {
   area: ContributionArea;
   /** Each area's link; null when its URL does not fit. */
@@ -62,11 +74,14 @@ export function ContributionAreaTabs({
   onFollow?: (event: MouseEvent<HTMLAnchorElement>, area: ContributionArea) => void;
   /** The area whose handler-started navigation is pending. */
   pendingTarget?: string | null;
+  /** The lens the report is read in; it names the people tab. */
+  lens?: ContributionLens;
 }) {
   return (
     <ViewTabs label="Contribution reports">
       {(['contributors', 'companies'] as const).map((target) => {
-        const { label, Icon } = areaTabs[target];
+        const { label, Icon } =
+          target === 'contributors' && lens === 'reviewers' ? reviewersTab : areaTabs[target];
         return (
           <ContributionTab
             key={target}
@@ -146,7 +161,8 @@ export function ContributionHeader({
   toolbar?: ReportToolbarControls;
 }) {
   const report = page.report,
-    context = report.context;
+    context = report.context,
+    lens = page.lens ?? 'contributors';
   const title = contributionSubjectTitle(
     page.area,
     report.kind === 'overview'
@@ -154,10 +170,12 @@ export function ContributionHeader({
       : report.kind === 'contributor'
         ? report.account
         : report.company,
+    lens,
   );
   const subjects = report.kind === 'overview' && (
     <ContributionAreaTabs
       area={page.area}
+      lens={lens}
       hrefs={{
         contributors: contributionHref(
           'contributors',
@@ -165,6 +183,7 @@ export function ContributionHeader({
           undefined,
           links.settings,
           links.saved,
+          lens,
         ),
         companies: contributionHref(
           'companies',
@@ -172,6 +191,7 @@ export function ContributionHeader({
           undefined,
           links.settings,
           links.saved,
+          lens,
         ),
       }}
       onFollow={links.onAreaFollow}
@@ -193,6 +213,7 @@ export function ContributionHeader({
         title={title}
         asOf={context.asOf}
         returnTo={report.kind === 'overview' ? undefined : page.returnTo}
+        returnLabel={page.returnLabel}
         identity={
           report.kind === 'contributor' ? (
             <ContributionSubjectAvatar subject={{ kind: 'contributor', account: report.account }} />
@@ -289,16 +310,19 @@ export function ContributionHeading({
   title,
   asOf,
   returnTo,
+  returnLabel = 'Back to report',
   identity,
   children,
 }: {
   title: string;
   asOf: string;
   /**
-   * On a contributor or company report, the report "Back to report" opens; null when the page it
-   * came from cannot be restored, which shows the crumb unavailable.
+   * On a contributor or company report, the report the crumb opens; null when the page it came
+   * from cannot be restored, which shows the crumb unavailable.
    */
   returnTo?: string | null;
+  /** The crumb's label: "Back to Reviewers" for an overview parent, else "Back to report". */
+  returnLabel?: string;
   /** The subject's avatar beside the title on contributor and company reports. */
   identity?: ReactNode;
   /** The one meta line under the title. */
@@ -309,9 +333,7 @@ export function ContributionHeading({
       title={title}
       asOf={asOf}
       breadcrumbLabel="Contribution breadcrumb"
-      breadcrumbs={
-        returnTo === undefined ? undefined : [{ label: 'Back to report', href: returnTo }]
-      }
+      breadcrumbs={returnTo === undefined ? undefined : [{ label: returnLabel, href: returnTo }]}
       identity={identity}
       meta={children}
     />

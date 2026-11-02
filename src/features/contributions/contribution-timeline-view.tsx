@@ -1,6 +1,7 @@
 'use client';
 import type { ContributionTimeline } from '@/models/contribution-timeline';
 import type { ContributionArea } from '@/models/contribution-page';
+import { contributionLenses, type ContributionLens } from '@/models/contribution-lens';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { contributionMetricValues } from '@/lib/presentation/contribution-table-values';
 import { contributionTimelineColumnTable } from '@/lib/presentation/url/defaults';
@@ -32,28 +33,39 @@ import { ContributionNavigationLink } from './contribution-columns';
  * Without them the view shows no Back to report link, area tabs or company link.
  */
 export interface ContributionTimelineNavigation {
-  /** On a contributor or company report, the report "Back to report" opens. */
+  /** On a contributor or company report, the report the crumb opens. */
   returnTo?: string | null;
+  /** That crumb's label: the parent overview's name, else "Back to report" (absent). */
+  returnLabel?: string;
   /** On an overview, each area's Over time; null when its URL does not fit. */
   areas?: Record<ContributionArea, string | null>;
   /** On a contributor report, the company's report; null when its URL does not fit. */
   company?: string | null;
 }
 
-export const contributionTimelineMetrics: TimelineMetricDefinition[] =
-  contributionMetricValues().map(
-    ({ id, label, group, description, selectionGroup, selectionSection }) => ({
-      id,
-      label,
-      group,
-      description,
-      selectionGroup,
-      selectionSection,
-      unit: 'count',
-      // The contributor lens's three metrics (decision C5); the rest are in Columns.
-      defaultVisible: contributionTimelineColumnTable('contributors').visible.has(id),
-    }),
-  );
+/**
+ * The Over time metric columns in each lens: every report metric, with the lens's three shown by
+ * default (decisions C5 and D22); the rest are in Columns.
+ */
+export const contributionTimelineMetrics: Readonly<
+  Record<ContributionLens, TimelineMetricDefinition[]>
+> = Object.fromEntries(
+  contributionLenses.map((lens) => [
+    lens,
+    contributionMetricValues().map(
+      ({ id, label, group, description, selectionGroup, selectionSection }) => ({
+        id,
+        label,
+        group,
+        description,
+        selectionGroup,
+        selectionSection,
+        unit: 'count' as const,
+        defaultVisible: contributionTimelineColumnTable(lens).visible.has(id),
+      }),
+    ),
+  ]),
+) as Record<ContributionLens, TimelineMetricDefinition[]>;
 export function ContributionTimelineView({
   report,
   area,
@@ -62,6 +74,7 @@ export function ContributionTimelineView({
   toolbar = noReportControls,
   tableControls,
   navigation = {},
+  lens = 'contributors',
 }: {
   report: ContributionTimeline;
   area: ContributionArea;
@@ -71,10 +84,16 @@ export function ContributionTimelineView({
   toolbar?: ReportToolbarControls;
   tableControls?: import('@/components/reporting/timeline-table').TimelineTableControls;
   navigation?: ContributionTimelineNavigation;
+  /** The lens the Over time view is read in: its title, people tab and default columns. */
+  lens?: ContributionLens;
 }) {
   const { subject, focus, selection, includedAccountCount } = report.scope;
   const company = report.scope.company?.name ?? 'Unmapped company';
-  const title = contributionSubjectTitle(area, focus.kind === 'overview' ? 'overview' : subject);
+  const title = contributionSubjectTitle(
+    area,
+    focus.kind === 'overview' ? 'overview' : subject,
+    lens,
+  );
   const empty = !selection.repositoryIds.length
     ? 'No repositories selected'
     : !selection.actorTypes.length
@@ -88,6 +107,7 @@ export function ContributionTimelineView({
         title={title}
         asOf={report.source.asOf}
         returnTo={focus.kind === 'overview' ? undefined : navigation.returnTo}
+        returnLabel={navigation.returnLabel}
         identity={
           focus.kind === 'company' ? (
             <ContributionSubjectAvatar subject={{ kind: 'company', company: subject }} />
@@ -118,7 +138,7 @@ export function ContributionTimelineView({
       </ContributionHeading>
       <ViewBar>
         {focus.kind === 'overview' && navigation.areas && (
-          <ContributionAreaTabs area={area} hrefs={navigation.areas} />
+          <ContributionAreaTabs area={area} hrefs={navigation.areas} lens={lens} />
         )}
         <ContributionReportViewTabs active="timeline" reportHref={reportHref} timelineHref={href} />
       </ViewBar>
@@ -153,9 +173,9 @@ export function ContributionTimelineView({
         </EmptyState>
       ) : (
         <TimelineTable
-          key={JSON.stringify([report.source, report.request, report.scope])}
+          key={JSON.stringify([report.source, report.request, report.scope, lens])}
           rows={report.rows}
-          metrics={contributionTimelineMetrics}
+          metrics={contributionTimelineMetrics[lens]}
           grouping={report.request.grouping}
           title="Contributions over time"
           controls={tableControls}

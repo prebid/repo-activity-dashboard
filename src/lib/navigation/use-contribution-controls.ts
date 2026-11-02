@@ -12,7 +12,8 @@ import {
   type ContributionReportPreferences,
   type ContributionTableKind,
 } from '@/models/contribution-preferences';
-import type { ContributionLens } from '@/models/contribution-lens';
+import { columnSetIds, type ColumnSetId } from '@/models/contribution-lens';
+import type { ColumnSetChoice } from '@/models/column-selection';
 import {
   contributionPreferenceKey,
   defaultContributionSettings,
@@ -21,6 +22,11 @@ import {
   serializeContributionPresentation,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
+import {
+  columnSetChange,
+  columnSetChoice,
+  type ColumnSetSort,
+} from '@/lib/presentation/contribution-lens';
 import {
   contributionLinkLimitMessage,
   contributionChangeLimitMessage,
@@ -48,21 +54,16 @@ function parseJson(raw: string): unknown {
     return null;
   }
 }
-/** The column choices a stored presentation of a lens's table holds, version 1 or 2. */
-function storedColumns(
-  raw: string | null,
-  table: ContributionTableKind,
-  lens: ContributionLens,
-): Record<string, boolean> {
-  return readContributionPresentationDocument(raw, table, lens)?.columns ?? {};
-}
+const isColumnSet = (id: string): id is ColumnSetId =>
+  (columnSetIds as readonly string[]).includes(id);
 
 /**
- * Report scope, column and zero-member controls for one contribution report. The address holds
- * the view: absent fields are the v1 defaults, and saved values reached it through the server's
- * entry redirect or the link that opened it. Scope changes load the report again; column and
- * zero-member changes add a history entry. Deliberate changes save their own cookie section;
- * without `preferences` nothing is saved.
+ * Report scope, column, Column set, zero-member and Show all controls for one contribution report,
+ * in the report's lens. The address holds the view: absent fields are the v1 defaults of the lens,
+ * and saved values reached it through the server's entry redirect or the link that opened it.
+ * Scope and Show all changes load the report again; column, Column set and zero-member changes add
+ * one history entry. Deliberate changes save their own cookie section, which is the lens's own for
+ * report tables; without `preferences` nothing is saved.
  */
 export function useContributionControls(
   viewerId: string,
@@ -78,6 +79,8 @@ export function useContributionControls(
   const values = state.values ?? view.values;
   const current: UrlView = useMemo(() => ({ ...view, values }), [view, values]);
   const asOf = page.report.context.asOf;
+  const lens = page.lens ?? 'contributors';
+  const tableKind = tableKey as ContributionTableKind;
   const legacyKey = contributionPreferenceKey(viewerId, page.sample);
   const scopeCookie = usePreferenceCookie(
     preferences?.scope,
@@ -150,7 +153,39 @@ export function useContributionControls(
     remember(next, field);
     startTransition(() => state.navigate(href));
   }
-  function changePresentation(next: Record<string, boolean>, hideZero: boolean) {
+  /** The presentation the cookie holds for this table in this lens, version 1 or 2. */
+  function storedPresentation() {
+    return preferences
+      ? readContributionPresentationDocument(
+          readPreference(preferences.presentation.binding, preferences.presentation.section),
+          tableKind,
+          lens,
+        )
+      : null;
+  }
+  function save(next: ContributionPresentation) {
+    setChanged({ basis: preferences?.presentation, table: tableKey, value: next });
+    presentationCookie.write(
+      JSON.parse(
+        serializeContributionPresentation(
+          next.columns,
+          next.hideZeroMembers,
+          next.showAllAccounts,
+          lens,
+          tableKind,
+        ),
+      ),
+    );
+  }
+  /**
+   * Columns and the zero-member choice, and with `sort` the table's sort on page 1, in one
+   * history entry. The sort is saved in its own section.
+   */
+  function changePresentation(
+    next: Record<string, boolean>,
+    hideZero: boolean,
+    sort?: ColumnSetSort,
+  ) {
     setNotice(undefined);
     const nextValues = omitValues(proposal(), ['cols', 'zero', 'v']);
     // Columns the choice does not name keep what the address shows.
@@ -161,30 +196,73 @@ export function useContributionControls(
     if (tokens.length) nextValues.cols = tokens;
     if (hideZero) nextValues.zero = 'hide';
     if (hideZero !== hideZeroMembers) delete nextValues.page;
+    if (sort) {
+      nextValues.sort = (sort.descending ? '-' : '') + sort.sort;
+      delete nextValues.page;
+    }
     if (!state.push(nextValues)) {
       setNotice(contributionChangeLimitMessage);
       return contributionChangeLimitMessage;
     }
     // Tables of one kind can render different columns, so only this table's columns are replaced
     // in the section the cookie holds; choices for columns it lacks stay for the tables that have it.
-    const saving = preferences
-      ? storedColumns(
-          readPreference(preferences.presentation.binding, preferences.presentation.section),
-          tableKey as ContributionTableKind,
-          page.lens ?? 'contributors',
-        )
-      : {};
+    const stored = storedPresentation();
+    const saving = { ...stored?.columns };
     for (const id of columnIds) {
       delete saving[id];
       if (typeof next[id] === 'boolean') saving[id] = next[id];
     }
-    setChanged({
-      basis: preferences?.presentation,
-      table: tableKey,
-      value: { columns: saving, hideZeroMembers: hideZero },
+    // Show all is saved only by its own switch.
+    save({
+      columns: saving,
+      hideZeroMembers: hideZero,
+      showAllAccounts: stored?.showAllAccounts ?? false,
     });
-    presentationCookie.write(JSON.parse(serializeContributionPresentation(saving, hideZero)));
+    if (sort) table.rememberSort(sort);
   }
+  /** A Column set: its columns and, when it hides the sorted metric, its lead sort (D8, D9). */
+  function chooseColumnSet(id: string) {
+    if (!isColumnSet(id)) return;
+    const change = columnSetChange(
+      id,
+      lens,
+      {
+        visible: columns,
+        sort: { sort: table.query.sort, descending: table.query.descending },
+      },
+      'report',
+    );
+    return changePresentation(change.visible, hideZeroMembers, change.sort);
+  }
+  /**
+   * The Reviewers lens's Show all switch: the overview lists every account (or company) with
+   * activity. The population is the server's, so the report loads again, on page 1.
+   */
+  function changeShowAllAccounts(on: boolean) {
+    setNotice(undefined);
+    const nextValues = omitValues(proposal(), ['all', 'page', 'v']);
+    if (on) nextValues.all = true;
+    const href = state.href(nextValues);
+    if (href === null) {
+      setNotice(contributionChangeLimitMessage);
+      return contributionChangeLimitMessage;
+    }
+    const stored = storedPresentation();
+    save({
+      columns: { ...stored?.columns },
+      hideZeroMembers: stored?.hideZeroMembers ?? false,
+      showAllAccounts: on,
+    });
+    startTransition(() => state.navigate(href));
+  }
+  // Report tables offer the Column set choice; supporting records have no metric columns.
+  const sets: ColumnSetChoice | undefined =
+    tableKind === 'details'
+      ? undefined
+      : columnSetChoice(
+          columnIds.filter((id) => id !== 'name'),
+          chooseColumnSet,
+        );
   const returnHref = urlHref(view.route, view.segments, proposal(values));
   const linkNotice = contributionHref(
     { kind: 'contributor', accountId: 'account' },
@@ -208,9 +286,12 @@ export function useContributionControls(
     visibility: {
       value: columns,
       onChange: (next: Record<string, boolean>) => changePresentation(next, hideZeroMembers),
+      ...(sets && { sets }),
     },
     hideZeroMembers,
     changeHideZeroMembers: (hide: boolean) => changePresentation(columns, hide),
+    /** Switch a Reviewers-lens overview between reviewers and every account with activity. */
+    changeShowAllAccounts,
     /** The current report's canonical address, which links from it carry as their parent. */
     returnHref,
     /** Commit a pending table search to this history entry before following a link. */

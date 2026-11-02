@@ -27,7 +27,9 @@ import type {
   ContributionTableKind,
 } from '@/models/contribution-preferences';
 import type { ContributionPage } from '@/models/contribution-page';
-import { contributionDefaultSort } from '@/models/contributions';
+import { lensDefaultSort, type ContributionLens } from '@/models/contribution-lens';
+import { contributionTableColumnIds } from '@/models/table-columns';
+import { matchingColumnSet } from '@/lib/presentation/column-selection';
 import { contributionDetailColumnIds } from '@/features/contributions/contribution-details-view';
 import {
   alice,
@@ -92,12 +94,14 @@ function useControls({
   tableKey = 'contributors',
   columnIds = ids,
   preferences,
+  lens = 'contributors',
 }: {
   viewerId?: string;
   pickerDirectory?: typeof directory;
   tableKey?: ContributionTableKind;
   columnIds?: readonly string[];
   preferences?: ContributionReportPreferences;
+  lens?: ContributionLens;
 } = {}) {
   const search = useSyncExternalStore(subscribe, () => window.location.search);
   const pathname = useSyncExternalStore(subscribe, () => window.location.pathname);
@@ -119,12 +123,13 @@ function useControls({
       sample: 'reference',
       breakdown: 'members',
       returnTo: '/contributors',
+      lens,
       report: selectContributions(
         contributionSample({ period: settings.period }),
         settings.selection,
       ),
     };
-  }, [view]);
+  }, [view, lens]);
   const fields: TableFields = useMemo(
     () => ({ route: view.route, search: 'q', sort: 'sort', page: 'page' }),
     [view.route],
@@ -134,7 +139,7 @@ function useControls({
     scopeKey: 'contributions-test',
     viewerId,
     columnIds,
-    defaultSort: contributionDefaultSort,
+    defaultSort: lensDefaultSort[lens],
     historyMode: 'push',
     savedSort: preferences?.sort,
     fields,
@@ -464,9 +469,10 @@ it('saves columns independently, restores explicit column history and resets fil
   expect(window.location.search).toBe('?cols=-issuesAuthored,prComments');
   expect(result.current.controls.visibility.value.prComments).toBe(true);
   expect(result.current.controls.visibility.value.issuesAuthored).toBe(false);
+  // Version 2: the address's column diff against the lens's v1 columns.
   expect(saved()['contributions.contributors.columns']).toEqual({
-    version: 1,
-    columns: { prComments: true, issuesAuthored: false },
+    version: 2,
+    cols: '-issuesAuthored,prComments',
     hideZeroMembers: false,
   });
   act(() => window.history.replaceState(null, '', columnHistory));
@@ -592,9 +598,141 @@ it('restores and toggles zero-member visibility without dropping column preferen
   act(() => {
     result.current.controls.visibility.onChange({ prComments: false });
   });
-  expect(saved()['contributions.members.columns']).toMatchObject({
-    columns: { prComments: false },
+  expect(saved()['contributions.members.columns']).toEqual({
+    version: 2,
+    cols: '',
     hideZeroMembers: true,
+  });
+});
+/** The Reviewers lens's own sections of the people overview, as route composition hands them. */
+function reviewersReport(): ContributionReportPreferences {
+  return {
+    scope: savedSection(scopeSection),
+    presentation: savedSection('contributions.reviewers.contributors.columns'),
+    sort: savedSection('contributions.reviewers.contributors.sort'),
+  };
+}
+const peopleIds = contributionTableColumnIds.contributors;
+/** The session's history entries: a push adds one, a replace none. */
+const pushes = () => window.history.length;
+it('offers the Column set choice on report tables, matching the lens defaults, and none on supporting records', () => {
+  window.history.replaceState(null, '', '/reviewers');
+  const { result, unmount } = renderHook(() =>
+    useControls({ lens: 'reviewers', columnIds: peopleIds, preferences: reviewersReport() }),
+  );
+  const sets = result.current.controls.visibility.sets!;
+  expect(sets.label).toBe('Column set');
+  expect(sets.options.map((option) => option.label)).toEqual([
+    'Contributor',
+    'Reviewer',
+    'All credits',
+    'All columns',
+  ]);
+  expect(matchingColumnSet(sets, result.current.controls.visibility.value)?.label).toBe('Reviewer');
+  unmount();
+  window.history.replaceState(null, '', '/contributors?metric=prsAuthored');
+  const details = renderHook(() =>
+    useControls({ tableKey: 'details', columnIds: contributionDetailColumnIds }),
+  );
+  expect(details.result.current.controls.visibility).not.toHaveProperty('sets');
+});
+it('applies a Column set that hides the sorted metric with its lead sort in one history entry, saving both', () => {
+  window.history.replaceState(null, '', '/reviewers?page=3');
+  const { result } = renderHook(() =>
+    useControls({ lens: 'reviewers', columnIds: peopleIds, preferences: reviewersReport() }),
+  );
+  expect(result.current.table.query).toMatchObject({
+    sort: 'reviewerContributions',
+    descending: true,
+  });
+  const before = pushes();
+  act(() => {
+    result.current.controls.visibility.sets!.onChoose('contributor');
+  });
+  expect(pushes()).toBe(before + 1);
+  const address = new URL(window.location.href);
+  expect(address.searchParams.get('sort')).toBe('-authoredPrsMerged');
+  expect(address.searchParams.has('page')).toBe(false);
+  expect(result.current.table.query).toMatchObject({
+    sort: 'authoredPrsMerged',
+    descending: true,
+    page: 1,
+  });
+  const { visibility } = result.current.controls;
+  expect(matchingColumnSet(visibility.sets!, visibility.value)?.label).toBe('Contributor');
+  // The lens's sections hold the same column diff as the address, and the lead sort.
+  expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
+    version: 2,
+    cols: address.searchParams.get('cols'),
+    hideZeroMembers: false,
+  });
+  expect(saved()['contributions.reviewers.contributors.sort']).toEqual({
+    sort: 'authoredPrsMerged',
+    descending: true,
+  });
+  expect(saved()).not.toHaveProperty('contributions.contributors.columns');
+});
+it('keeps the sort and page when a Column set leaves the sorted column visible', () => {
+  window.history.replaceState(null, '', '/reviewers?sort=name&page=2');
+  const { result } = renderHook(() =>
+    useControls({ lens: 'reviewers', columnIds: peopleIds, preferences: reviewersReport() }),
+  );
+  act(() => {
+    result.current.controls.visibility.sets!.onChoose('all');
+  });
+  const address = new URL(window.location.href);
+  expect(address.searchParams.get('sort')).toBe('name');
+  expect(address.searchParams.get('page')).toBe('2');
+  expect(Object.values(result.current.controls.visibility.value).every(Boolean)).toBe(true);
+  expect(
+    matchingColumnSet(
+      result.current.controls.visibility.sets!,
+      result.current.controls.visibility.value,
+    )?.label,
+  ).toBe('All columns');
+  expect(saved()).not.toHaveProperty('contributions.reviewers.contributors.sort');
+  // An unknown set changes nothing.
+  const href = window.location.href;
+  act(() => {
+    result.current.controls.visibility.sets!.onChoose('retired');
+  });
+  expect(window.location.href).toBe(href);
+});
+it('lists every account through Show all, on page 1, and saves it beside the lens’s columns', () => {
+  window.history.replaceState(null, '', '/reviewers?page=2&cols=prsAuthored');
+  const { result } = renderHook(() =>
+    useControls({ lens: 'reviewers', columnIds: peopleIds, preferences: reviewersReport() }),
+  );
+  act(() => {
+    result.current.controls.changeShowAllAccounts(true);
+  });
+  // The population is the server's: a new report load.
+  expect(navigation.push).toHaveBeenCalledOnce();
+  expect(window.location.search).toBe('?cols=prsAuthored&all');
+  expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
+    version: 2,
+    cols: '',
+    hideZeroMembers: false,
+    showAllAccounts: true,
+  });
+  // A column change keeps the saved Show all.
+  act(() => {
+    result.current.controls.visibility.onChange({ prsAuthored: true });
+  });
+  expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
+    version: 2,
+    cols: 'prsAuthored',
+    hideZeroMembers: false,
+    showAllAccounts: true,
+  });
+  act(() => {
+    result.current.controls.changeShowAllAccounts(false);
+  });
+  expect(window.location.search).toBe('?cols=prsAuthored');
+  expect(saved()['contributions.reviewers.contributors.columns']).toEqual({
+    version: 2,
+    cols: 'prsAuthored',
+    hideZeroMembers: false,
   });
 });
 it('gives links the report’s address with its columns, sort and a pending search', () => {

@@ -235,20 +235,23 @@ export function ContributionTimelineScreen({
   area,
   reportHref,
   returnTo,
+  returnLabel,
 }: Shared & {
   report: ContributionTimeline;
   area: ContributionArea;
   reportHref: string;
-  /** "Back to report" on a subject's Over time: null when it cannot be restored. */
+  /** The crumb on a subject's Over time: null when it cannot be restored. */
   returnTo?: string | null;
   /** That crumb's label: the parent overview's name, else "Back to report" (absent). */
   returnLabel?: string;
 }) {
   const sample = context.sample.split(':')[0] as ContributionSampleScenario;
   const options = useMemo(() => contributionOptionsClient(sample), [sample]);
+  const lens = context.lens ?? 'contributors';
+  const metrics = contributionTimelineMetrics[lens];
   // The server checks a saved scope's accounts and companies before rendering, so the options
   // serve the filter controls only.
-  const control = useTimelineControls(viewerId, context, defaults(contributionTimelineMetrics));
+  const control = useTimelineControls(viewerId, context, defaults(metrics));
   const { pending, href } = control;
   const detailHref = useCallback(
     (metric: string, interval: string) =>
@@ -269,6 +272,7 @@ export function ContributionTimelineScreen({
     <ContributionTimelineView
       report={report}
       area={area}
+      lens={lens}
       href={control.href}
       reportHref={reportHref}
       navigation={
@@ -285,12 +289,15 @@ export function ContributionTimelineScreen({
             }
           : {
               returnTo: entry ?? returnTo,
+              returnLabel,
               ...(focus.kind === 'contributor' && {
                 company: contributionHref(
                   { kind: 'company', companyId: company?.id ?? null },
                   sample,
                   href,
                   settings,
+                  undefined,
+                  lens,
                 ),
               }),
             }
@@ -310,7 +317,7 @@ export function ContributionTimelineScreen({
           timelineSettingsGroup({
             context,
             view: control.view,
-            metrics: contributionTimelineMetrics,
+            metrics,
             onView: control.changeView,
             onPeriod: control.changePeriod,
             onReset: control.reset,
@@ -319,6 +326,7 @@ export function ContributionTimelineScreen({
       }}
       tableControls={{
         controller: control.table,
+        // In a contribution Timeline it carries the Column set choice.
         visibility: control.visibility,
         disabled: control.pending,
         detailHref,

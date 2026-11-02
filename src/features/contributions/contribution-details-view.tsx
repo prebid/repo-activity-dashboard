@@ -34,6 +34,7 @@ import {
 } from '@/models/contribution-metrics';
 import { contributionContextColumns } from '@/lib/presentation/contribution-csv';
 import { ContributionHeader } from './contribution-header';
+import { NoReviewerActivity } from './contribution-view';
 import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import type { ContributionLinks } from './contribution-columns';
 import styles from './contributions.module.css';
@@ -234,15 +235,14 @@ export function ContributionDetailsView({
       label: 'Full report coverage detail',
       value: () => (details.measurement.status === 'complete' ? '' : details.measurement.reason),
     },
-    ...contributionContextColumns<ContributionSupportingRow>(details.context, query),
+    ...contributionContextColumns<ContributionSupportingRow>(details.context, query, {
+      lens: page.lens ?? 'contributors',
+    }),
   ];
   return (
     <>
       <ContributionHeader page={page} links={links} toolbar={toolbar} />
-      <section
-        className={styles.totals + ' ' + styles.detailTotals}
-        aria-label="Supporting record totals"
-      >
+      <section className={styles.totals} aria-label="Supporting record totals">
         <dl>
           <div>
             <dt>{reportMetricLabel(details.metric)}</dt>
@@ -271,6 +271,7 @@ export function ContributionDetailsView({
           is not zero.
         </Callout>
       )}
+      <NoReviewerActivity page={page} />
       <DataTable
         search="local"
         title={reportMetricLabel(details.metric)}
@@ -289,7 +290,11 @@ export function ContributionDetailsView({
         controller={controller}
         visibility={visibility}
         exportName="contribution-details-sample.csv"
-        exportContextKey={JSON.stringify([details.context, details.metric])}
+        exportContextKey={JSON.stringify([
+          details.context,
+          details.metric,
+          page.lens ?? 'contributors',
+        ])}
         exportColumns={exportColumns}
         empty={{
           kind: supportingEmptyKind(details),

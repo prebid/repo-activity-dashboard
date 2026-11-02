@@ -23,6 +23,7 @@ import type { TimelineArea, TimelineControlContext } from '@/models/timeline-con
 import type { PreferenceSectionKey } from '@/models/preferences';
 import { TimelineControls } from '@/components/reporting/timeline-controls';
 import { TimelineMetricsSelector } from '@/components/reporting/timeline-metrics-selector';
+import { matchingColumnSet } from '@/lib/presentation/column-selection';
 import { addressQuery, canonicalHref, timelineQueryOf } from '../support/timeline-urls';
 import {
   alice,
@@ -411,6 +412,49 @@ it('saves an Over time scope change into the shared scope section and deletes it
   await interact(() => result.current.resetContribution());
   await ready(result);
   expect(preferenceSections('contributions')).toBeNull();
+});
+it('applies a contribution Column set in one history entry, in Period order when it hides the sorted metric', async () => {
+  window.history.replaceState(
+    null,
+    '',
+    canonicalHref(
+      '/contributors?timeline=1&timeline.state=1&timeline.sort=prsAuthored&timeline.dir=desc',
+    ),
+  );
+  const { result } = renderHook(() => useControls('contribution'));
+  await ready(result);
+  expect(result.current.view).toMatchObject({ sort: 'prsAuthored', descending: true });
+  expect(result.current.visibility.sets!.options.map((option) => option.label)).toEqual([
+    'Contributor',
+    'Reviewer',
+    'All credits',
+    'All columns',
+  ]);
+  historyWrites.mockClear();
+  await interact(() => result.current.visibility.sets!.onChoose('reviewer'));
+  await ready(result);
+  expect(historyWrites.mock.calls.filter(([method]) => method === 'pushState')).toHaveLength(1);
+  expect(navigation.push).not.toHaveBeenCalled();
+  expect(result.current.view).toMatchObject({ sort: 'period', descending: false, page: 1 });
+  const { visibility } = result.current;
+  expect(matchingColumnSet(visibility.sets!, visibility.value)?.label).toBe('Reviewer');
+  expect(Object.keys(visibility.value).filter((id) => visibility.value[id])).toEqual([
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+  ]);
+  expect(savedTimelineQuery('contribution')).toContain('timeline.sort=period');
+  // A set that keeps the sorted column keeps the sort.
+  await interact(() => result.current.table.update({ sort: 'mergesPerformed', descending: true }));
+  await ready(result);
+  await interact(() => result.current.visibility.sets!.onChoose('credits'));
+  await ready(result);
+  expect(result.current.view).toMatchObject({ sort: 'mergesPerformed', descending: true });
+});
+it('offers no Column set on repository Timelines', async () => {
+  const { result } = renderHook(() => useControls('matrix'));
+  await ready(result);
+  expect(result.current.visibility).not.toHaveProperty('sets');
 });
 it('retains rejected custom-date drafts in the shared Timeline controls', async () => {
   const user = userEvent.setup(),

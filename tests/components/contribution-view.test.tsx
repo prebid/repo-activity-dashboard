@@ -6,14 +6,14 @@ function parentHref(url: URL) {
 }
 import { expect, it, vi } from 'vitest';
 import type { MouseEvent } from 'react';
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ContributionView } from '@/features/contributions/contribution-view';
+import { ContributionView, ShowAllSwitch } from '@/features/contributions/contribution-view';
 
 import { contributionSample } from '@/mocks/contributions';
 import { selectContributions } from '@/lib/presentation/contributions';
 import { useLocalTableController } from '@/components/tables/local-data-table';
-import { contributionDefaultSort } from '@/models/contributions';
+import { lensDefaultSort } from '@/models/contribution-lens';
 import type { ContributionPage } from '@/models/contribution-page';
 
 function page(
@@ -22,6 +22,9 @@ function page(
     area?: ContributionPage['area'];
     focus?: ContributionPage['report']['context']['focus'];
     breakdown?: ContributionPage['breakdown'];
+    lens?: ContributionPage['lens'];
+    allAccounts?: boolean;
+    hideZeroMembers?: boolean;
   } = {},
 ): ContributionPage {
   const sample = options.sample ?? 'reference';
@@ -30,6 +33,9 @@ function page(
     area: options.area ?? 'contributors',
     breakdown: options.breakdown ?? 'members',
     returnTo: '/contributors?report.page=2',
+    ...(options.lens && { lens: options.lens }),
+    ...(options.allAccounts && { allAccounts: true }),
+    ...(options.hideZeroMembers && { hideZeroMembers: true }),
     report: selectContributions(
       contributionSample({ scenario: sample }),
       undefined,
@@ -45,15 +51,49 @@ function Preview({
   data: ContributionPage;
   onFollow?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) {
-  const controller = useLocalTableController({ search: '', page: 1, ...contributionDefaultSort });
+  const controller = useLocalTableController({
+    search: '',
+    page: 1,
+    ...lensDefaultSort[data.lens ?? 'contributors'],
+  });
+  const report = data.report;
   return (
     <ContributionView
       page={data}
       controller={controller}
-      links={{ sample: data.sample, currentHref: '/contributors?page=2', onFollow }}
+      links={{
+        sample: data.sample,
+        lens: data.lens,
+        currentHref: '/contributors?page=2',
+        onFollow,
+      }}
       breakdownControls={<nav aria-label="Company breakdown">By contributor / By repository</nav>}
+      populationControls={
+        report.kind === 'overview' &&
+        report.population && (
+          <ShowAllSwitch population={report.population} area={data.area} onChange={vi.fn()} />
+        )
+      }
     />
   );
+}
+/**
+ * A focused report's totals clusters in order: each group's accessible name (its heading), and its
+ * metric labels and values.
+ */
+function totalsClusters() {
+  const totals = screen.getByRole('region', { name: 'Report totals' });
+  return within(totals)
+    .getAllByRole('group')
+    .map((group) => {
+      const name = within(group).getByRole('heading', { level: 3 }).textContent;
+      expect(within(totals).getByRole('group', { name })).toBe(group);
+      return [
+        name,
+        [...group.querySelectorAll('dt')].map((node) => node.textContent),
+        [...group.querySelectorAll('dd')].map((node) => node.textContent),
+      ];
+    });
 }
 it('renders the full overview with the approved default sort and independent metrics', async () => {
   const user = userEvent.setup();
@@ -108,13 +148,18 @@ it('renders a contributor’s independent totals and only relevant repository ro
     '/contributors?report.page=2',
   );
   const totals = screen.getByRole('region', { name: 'Report totals' });
-  expect([...totals.querySelectorAll('dd')].map((node) => node.textContent)).toEqual([
-    '2',
-    '1',
-    '2',
-    '3',
-    '0',
-    '1',
+  // Two named clusters, the Contributors lens's own first, each in report order.
+  expect(totalsClusters()).toEqual([
+    [
+      'Contributor activity',
+      ['PRs authored', 'Authored PRs merged', 'Issues authored'],
+      ['2', '1', '1'],
+    ],
+    [
+      'Reviewer activity',
+      ['Reviewer contributions', 'Approval contributions', 'Merges performed'],
+      ['2', '3', '0'],
+    ],
   ]);
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(2);
   expect(within(totals).queryByRole('link')).not.toBeInTheDocument();
@@ -390,4 +435,127 @@ it('names a partial account type selection in the report scope summary', () => {
   expect(within(scope()).getByText('Account types: Human, Bot')).toBeVisible();
   view.rerender(<Preview data={page()} />);
   expect(scope()).not.toHaveTextContent(/account types?:/i);
+});
+
+it('names the Reviewers overview, lists accounts with reviewer evidence and keeps the lens on links', () => {
+  const view = render(<Preview data={page({ lens: 'reviewers' })} />);
+  expect(screen.getByRole('heading', { name: 'Reviewers', level: 1 })).toBeVisible();
+  const reviewers = screen.getByRole('region', { name: 'Reviewers' });
+  expect(reviewers).toHaveTextContent(
+    'Accounts with a review, approval or merge credit, or incomplete reviewer history. Rank by any metric.',
+  );
+  expect(
+    within(reviewers).getByRole('columnheader', { name: 'Reviewer contributions' }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  // Finn has an issue and an issue comment, but no review, approval or merge credit.
+  expect(reviewers.querySelectorAll('tbody tr')).toHaveLength(6);
+  expect(within(reviewers).queryByRole('link', { name: /^Finn/ })).toBeNull();
+  const alice = new URL(
+    within(reviewers)
+      .getByRole('link', { name: 'Alice — view contribution report' })
+      .getAttribute('href')!,
+    'https://dashboard.test',
+  );
+  expect(alice.pathname).toBe('/contributors/account-alice');
+  expect(alice.searchParams.get('lens')).toBe('reviewers');
+  // The Show all switch is header content inside the table panel, above its scroll area.
+  const showAll = within(reviewers).getByRole('switch', { name: 'Show all 7 accounts' });
+  expect(showAll).not.toBeChecked();
+  expect(
+    showAll.compareDocumentPosition(
+      within(reviewers).getByRole('region', { name: 'Reviewers table scroll area' }),
+    ) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+  view.rerender(<Preview data={page({ lens: 'reviewers', allAccounts: true })} />);
+  const all = screen.getByRole('region', { name: 'Reviewers' });
+  expect(all).toHaveTextContent('All accounts with recorded activity or incomplete history.');
+  expect(all.querySelectorAll('tbody tr')).toHaveLength(7);
+  expect(within(all).getByRole('link', { name: 'Finn — view contribution report' })).toBeVisible();
+  expect(within(all).getByRole('switch', { name: 'Show all 7 accounts' })).toBeChecked();
+  view.rerender(<Preview data={page({ lens: 'reviewers', area: 'companies' })} />);
+  expect(screen.getByRole('switch', { name: 'Show all 4 companies' })).not.toBeChecked();
+  // The Contributors lens has no switch.
+  view.rerender(<Preview data={page()} />);
+  expect(screen.getByRole('region', { name: 'Contributors' })).toBeVisible();
+  expect(screen.queryByRole('switch')).toBeNull();
+});
+it('states no reviewer activity for an empty Reviewers list and its totals', () => {
+  const view = render(<Preview data={page({ lens: 'reviewers', sample: 'empty' })} />);
+  expect(
+    screen.getByRole('heading', { name: 'No reviewer activity in this period' }),
+  ).toBeVisible();
+  expect(screen.getByRole('complementary', { name: 'Reviewer activity' })).toHaveTextContent(
+    'No reviewer activity in this scope.',
+  );
+  // Listing every account, an empty result is about all activity again.
+  view.rerender(<Preview data={page({ lens: 'reviewers', sample: 'empty', allAccounts: true })} />);
+  expect(
+    screen.getByRole('heading', { name: 'No counted contributions in this period' }),
+  ).toBeVisible();
+});
+it('leads a Reviewers-lens report with Reviewer activity and notes a subject without any', () => {
+  const view = render(
+    <Preview
+      data={page({ lens: 'reviewers', focus: { kind: 'contributor', accountId: 'account-alice' } })}
+    />,
+  );
+  expect(totalsClusters()).toEqual([
+    [
+      'Reviewer activity',
+      ['Reviewer contributions', 'Approval contributions', 'Merges performed'],
+      ['2', '3', '0'],
+    ],
+    [
+      'Contributor activity',
+      ['PRs authored', 'Authored PRs merged', 'Issues authored'],
+      ['2', '1', '1'],
+    ],
+  ]);
+  expect(screen.queryByRole('complementary', { name: 'Reviewer activity' })).toBeNull();
+  const finn = { kind: 'contributor', accountId: 'account-finn' } as const;
+  view.rerender(<Preview data={page({ lens: 'reviewers', focus: finn })} />);
+  expect(screen.getByRole('complementary', { name: 'Reviewer activity' })).toHaveTextContent(
+    'No reviewer activity in this scope. No review, approval or merge credits fall in this period for the selected repositories and accounts.',
+  );
+  expect(totalsClusters()[0]).toEqual([
+    'Reviewer activity',
+    ['Reviewer contributions', 'Approval contributions', 'Merges performed'],
+    ['0', '0', '0'],
+  ]);
+  // The Contributors lens does not raise it.
+  view.rerender(<Preview data={page({ focus: finn })} />);
+  expect(screen.queryByRole('complementary', { name: 'Reviewer activity' })).toBeNull();
+});
+it('names company members in the Reviewers lens and hides only known-zero reviewer totals', () => {
+  const beacon = { kind: 'company', companyId: 'company-beacon' } as const;
+  const view = render(
+    <Preview data={page({ area: 'companies', focus: beacon, hideZeroMembers: true })} />,
+  );
+  const contributors = screen.getByRole('region', { name: 'Company contributors' });
+  expect(within(contributors).getByRole('link', { name: /^Finn/ })).toBeVisible();
+  view.rerender(
+    <Preview
+      data={page({ area: 'companies', focus: beacon, hideZeroMembers: true, lens: 'reviewers' })}
+    />,
+  );
+  const members = screen.getByRole('region', { name: 'Company members' });
+  expect(members).toHaveTextContent(
+    'Members whose reviewer totals are known zero are hidden; members with incomplete reviewer metrics remain visible.',
+  );
+  expect(within(members).queryByRole('link', { name: /^Finn/ })).toBeNull();
+  expect(within(members).getByRole('link', { name: /^Carol/ })).toBeVisible();
+  view.rerender(<Preview data={page({ area: 'companies', focus: beacon, lens: 'reviewers' })} />);
+  expect(
+    within(screen.getByRole('region', { name: 'Company members' })).getByRole('link', {
+      name: /^Finn/,
+    }),
+  ).toBeVisible();
+});
+it('closes an open export when the listed population changes', async () => {
+  const user = userEvent.setup();
+  const view = render(<Preview data={page({ lens: 'reviewers' })} />);
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  expect(screen.getByRole('dialog', { name: 'Reviewers CSV export' })).toBeVisible();
+  view.rerender(<Preview data={page({ lens: 'reviewers', allAccounts: true })} />);
+  await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
 });
