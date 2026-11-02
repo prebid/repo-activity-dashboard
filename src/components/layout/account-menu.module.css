@@ -1,0 +1,57 @@
+/* When the masthead row runs out of room the trigger shortens its name, never its avatar: it keeps
+   the 28px avatar, 12px padding a side and its 1px border. Its avatar's badge disc takes the fill
+   behind it, so it reads as cut out of the avatar. */
+.frame {
+  --identity-surface: var(--prebid-masthead);
+  display: inline-flex;
+  min-width: calc(28px + 2 * 12px + 2px);
+}
+.frame > button {
+  min-width: 0;
+  max-width: 100%;
+}
+/* The name is hidden at phone width, so the trigger is square like the header icon buttons. */
+@media (max-width: 600px) {
+  .frame {
+    min-width: auto;
+  }
+  .frame > button {
+    aspect-ratio: 1;
+    padding-inline: 0;
+  }
+}
+.frame > button:hover {
+  --identity-surface: var(--prebid-masthead-hover);
+}
+.frame > button[data-state='open'] {
+  --identity-surface: var(--prebid-masthead-selection);
+}
+
+.identity {
+  --identity-surface: var(--prebid-overlay);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+}
+.names {
+  display: grid;
+  min-width: 0;
+}
+.name {
+  color: var(--popover-foreground);
+  font-size: var(--prebid-text-body);
+  font-weight: 600;
+  line-height: var(--prebid-leading-body);
+  overflow-wrap: anywhere;
+}
+.detail,
+.role {
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+  overflow-wrap: anywhere;
+}
+.role {
+  padding: 6px 8px;
+}

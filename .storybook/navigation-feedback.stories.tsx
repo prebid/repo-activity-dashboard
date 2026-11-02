@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useLinkStatus } from '@storybook/nextjs-vite/link.mock';
 import { DashboardHeader } from '../src/components/layout/dashboard-header';
 import { LinkPending } from '../src/components/navigation/link-pending';
+import { ViewTabs } from '../src/components/navigation/view-tabs';
 import { RepositoryHeader } from '../src/features/repositories/repository-header';
 import { repositoryCatalog } from '../src/config/repositories';
 import { repositoryOverviewSamples } from '../src/mocks/repository-overview';
@@ -13,7 +14,6 @@ import {
   companyBreakdownLabels,
 } from '../src/lib/presentation/contribution-navigation';
 import frame from '../src/components/layout/dashboard.module.css';
-import contributions from '../src/features/contributions/contributions.module.css';
 
 const samples = repositoryOverviewSamples();
 const repo = samples.repositories.find((row) => row.repository.slug === 'prebidjs')!.repository;
@@ -44,7 +44,7 @@ function Links() {
           }}
         />
         {/* The company report's breakdown links, as its screen renders them. */}
-        <nav aria-label="Company breakdown" className={contributions.breakdowns}>
+        <ViewTabs label="Company breakdown" variant="segmented">
           {(['members', 'repositories'] as const).map((view) => (
             <Link
               key={view}
@@ -55,7 +55,7 @@ function Links() {
               <LinkPending />
             </Link>
           ))}
-        </nav>
+        </ViewTabs>
       </div>
     </>
   );

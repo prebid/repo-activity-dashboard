@@ -44,12 +44,15 @@ export function TimelineTable({
   grouping,
   title = 'Values over time',
   controls,
+  anchor,
 }: {
   rows: TimelineDisplayRow[];
   metrics: TimelineMetricDefinition[];
   grouping: TimelineGrouping;
   title?: string;
   controls?: TimelineTableControls;
+  /** Makes the table a page section with this id (DataTable's `anchor`). */
+  anchor?: string;
 }) {
   const localController = useLocalTableController({
     search: '',
@@ -161,6 +164,7 @@ export function TimelineTable({
       {unlinked && <TimelineLinkLimitNotice />}
       <DataTable
         title={title}
+        anchor={anchor}
         disabled={controls?.disabled}
         rows={tableRows}
         columns={columns}

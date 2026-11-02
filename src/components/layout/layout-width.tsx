@@ -3,9 +3,7 @@ import { createContext, useContext } from 'react';
 import { WidthToggleIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { layoutWidthCookieString, type LayoutWidth } from '@/lib/presentation/layout-width';
-import { cn } from '@/lib/utils';
 import frameStyles from './dashboard.module.css';
-import styles from './theme-menu.module.css';
 
 export const LayoutWidthContext = createContext<{
   width: LayoutWidth;
@@ -21,21 +19,23 @@ export function LayoutWidthToggle() {
   const layout = useContext(LayoutWidthContext);
   if (!layout) throw new Error('LayoutWidthToggle requires the dashboard frame');
   const wide = layout.width === 'wide';
+  // The wrapper hides the switch where both widths share one gutter.
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className={cn(styles.trigger, frameStyles.widthToggle)}
-      aria-label="Full-width layout"
-      aria-pressed={wide}
-      title={wide ? 'Switch to contained width' : 'Switch to full width'}
-      onClick={() => {
-        const next = wide ? 'contained' : 'wide';
-        saveLayoutWidth(next);
-        layout.setWidth(next);
-      }}
-    >
-      <WidthToggleIcon size={16} />
-    </Button>
+    <span className={frameStyles.widthToggle}>
+      <Button
+        variant="masthead"
+        size="icon-lg"
+        aria-label="Full-width layout"
+        aria-pressed={wide}
+        title={wide ? 'Switch to contained width' : 'Switch to full width'}
+        onClick={() => {
+          const next = wide ? 'contained' : 'wide';
+          saveLayoutWidth(next);
+          layout.setWidth(next);
+        }}
+      >
+        <WidthToggleIcon size={16} />
+      </Button>
+    </span>
   );
 }

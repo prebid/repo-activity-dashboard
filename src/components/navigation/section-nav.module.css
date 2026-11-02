@@ -1,0 +1,84 @@
+/* Section chips beside the view tabs; the current one takes the selection fill and edge. */
+.sections {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.caption {
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-overline);
+  font-weight: 600;
+  letter-spacing: var(--prebid-tracking-overline);
+  line-height: var(--prebid-leading-overline);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* The padding keeps each chip's focus outline inside the scrolling row. */
+.chips {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar {
+  display: none;
+}
+.chips li {
+  flex-shrink: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: var(--prebid-radius-small);
+  color: var(--muted-foreground);
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-heading);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
+  white-space: nowrap;
+}
+.chip:hover {
+  color: var(--foreground);
+  background: var(--prebid-ghost-hover);
+}
+.chip[aria-current='location'] {
+  border-color: var(--prebid-selection-edge);
+  background: var(--prebid-selection);
+  color: var(--prebid-selection-ink);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 0;
+}
+@media (pointer: coarse) {
+  .chip {
+    height: 40px;
+  }
+}
+.menu {
+  display: none;
+}
+/* The menu keeps its button whole; the tabs beside it shrink and scroll instead. */
+@media (max-width: 600px) {
+  .sections {
+    flex-shrink: 0;
+  }
+  .caption,
+  .chips {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+}

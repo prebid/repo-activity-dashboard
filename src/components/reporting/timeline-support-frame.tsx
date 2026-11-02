@@ -1,15 +1,14 @@
-import { viewTabsClassName } from '@/components/navigation/view-tabs';
-import { LinkPending } from '@/components/navigation/link-pending';
-import Link from 'next/link';
+import { Fragment } from 'react';
+import { PageHeader, type PageHeaderCrumb } from '@/components/navigation/page-header';
 import type { TimelineSupportContext } from '@/models/timeline-support';
 import { timelineMetricLabel, timelineMetricUnit } from '@/lib/presentation/timeline-metric-label';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
-import { BackIcon } from '@/components/ui/icons';
 import { Callout } from '@/components/feedback/callout';
-import { formatAsOf } from '@/lib/presentation/format';
-import { PartialPeriodMarker } from './timeline-value';
-import styles from './timeline-layout.module.css';
+import { noReportControls, ReportToolbar } from './report-toolbar';
+import { partialPeriodCaption } from './timeline-value';
+
+/** A Timeline value's supporting records: the way back, the subject and the interval's scope. */
 export function TimelineSupportFrame({
   context,
   title,
@@ -23,40 +22,35 @@ export function TimelineSupportFrame({
   children: React.ReactNode;
   authorBack?: string | null;
 }) {
+  const breadcrumbs: PageHeaderCrumb[] = [{ label: 'Back to timeline', href: context.parentHref }];
+  if (authorBack) breadcrumbs.push({ label: 'Back to authors', href: authorBack });
   return (
     <>
-      <nav className={viewTabsClassName} aria-label="Supporting view navigation">
-        <Link prefetch={false} href={context.parentHref}>
-          <BackIcon size={14} />
-          Back to timeline
-          <LinkPending />
-        </Link>
-        {authorBack && (
-          <Link prefetch={false} href={authorBack}>
-            <BackIcon size={14} />
-            Back to authors
-            <LinkPending />
-          </Link>
-        )}
-      </nav>
-      <header>
-        <h1 className="text-2xl">{title}</h1>
-        <p className={styles.dates}>Reporting snapshot: {formatAsOf(context.source.asOf)}</p>
-      </header>
-      <section className={styles.scope} aria-label="Supporting interval scope">
-        <div className={styles.scopeMain}>
-          <strong>{timelineMetricLabel(context.metric, contribution)}</strong>
-          <span>
-            Timeline value:{' '}
-            <MeasurementValue
-              measurement={context.measurement}
-              unit={timelineMetricUnit(context.metric, contribution)}
-            />
-          </span>
-        </div>
-        <p className={styles.dates}>{zonedRangeLabel(context.interval.covered)}</p>
-        {context.interval.partial && <PartialPeriodMarker />}
-      </section>
+      <PageHeader
+        title={title}
+        asOf={context.source.asOf}
+        breadcrumbs={breadcrumbs}
+        breadcrumbLabel="Supporting view navigation"
+      />
+      <ReportToolbar
+        label="Supporting interval scope"
+        {...noReportControls}
+        summary={{
+          lead: timelineMetricLabel(context.metric, contribution),
+          facts: [
+            <Fragment key="value">
+              Timeline value:{' '}
+              <MeasurementValue
+                measurement={context.measurement}
+                unit={timelineMetricUnit(context.metric, contribution)}
+              />
+            </Fragment>,
+            zonedRangeLabel(context.interval.covered),
+            // The marker's caption, inline: a summary fact runs in the summary's line.
+            ...(context.interval.partial ? [partialPeriodCaption] : []),
+          ],
+        }}
+      />
       {context.measurement.status !== 'complete' && (
         <Callout tone="warning" as="aside" aria-label="Supporting data coverage">
           {context.measurement.reason} Only known matching records are shown.

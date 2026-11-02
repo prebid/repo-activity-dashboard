@@ -37,6 +37,11 @@ import type { RepositoryFilterOptions, RepositoryPageNavigation } from '@/models
 import type { TimelineControlContext } from '@/models/timeline-controls';
 import type { TimelineMetricDefinition } from '@/models/timeline-presentation';
 import { matrixRepositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
+import {
+  contributionTimelineAreaHref,
+  contributionTimelineReturnHref,
+} from '@/lib/presentation/contribution-timeline';
+import { contributionHref } from '@/lib/presentation/contribution-navigation';
 
 const defaults = (metrics: TimelineMetricDefinition[]) =>
   Object.fromEntries(metrics.map((metric) => [metric.id, metric.defaultVisible]));
@@ -229,12 +234,38 @@ export function ContributionTimelineScreen({
       pending ? null : timelineSupportHref(href, report.source, metric, interval),
     [pending, href, report.source],
   );
+  const { focus, company } = report.scope,
+    settings = context.contribution!;
   return (
     <ContributionTimelineView
       report={report}
       area={area}
       href={control.href}
       reportHref={reportHref}
+      navigation={
+        focus.kind === 'overview'
+          ? {
+              areas: {
+                contributors:
+                  area === 'contributors'
+                    ? href
+                    : contributionTimelineAreaHref(href, 'contributors'),
+                companies:
+                  area === 'companies' ? href : contributionTimelineAreaHref(href, 'companies'),
+              },
+            }
+          : {
+              returnTo: contributionTimelineReturnHref(reportHref, area, sample, settings),
+              ...(focus.kind === 'contributor' && {
+                company: contributionHref(
+                  { kind: 'company', companyId: company?.id ?? null },
+                  sample,
+                  href,
+                  settings,
+                ),
+              }),
+            }
+      }
       toolbar={{
         ...toolbarState(control),
         groups: [

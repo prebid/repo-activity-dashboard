@@ -3,7 +3,12 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { inflateSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
-import { brandLogoSizes, brandLogoSource, brandLogoViewBox } from '@/components/layout/brand-logo';
+import {
+  brandLogoSizes,
+  brandLogoSource,
+  brandLogoSources,
+  brandLogoViewBox,
+} from '@/components/layout/brand-logo';
 
 const knockout = readFileSync('public/images/prebid-logo-knockout.svg', 'utf8');
 const light = readFileSync('public/images/prebid-logo.svg', 'utf8');
@@ -92,8 +97,10 @@ describe('brand logo files', () => {
     expect(svgProblems(text)).toEqual([]);
     expect(viewBox(text)).toEqual([0, 0, brandLogoViewBox.width, brandLogoViewBox.height]);
   });
-  it('points the component at the light lockup', () => {
-    expect(readFileSync('public' + brandLogoSource, 'utf8')).toBe(light);
+  it('serves the knockout lockup on the navy masthead and the light one on the canvas', () => {
+    expect(readFileSync('public' + brandLogoSources.header, 'utf8')).toBe(knockout);
+    expect(readFileSync('public' + brandLogoSources.signIn, 'utf8')).toBe(light);
+    expect(brandLogoSources.signIn).toBe(brandLogoSource);
   });
   it.each(Object.entries(brandLogoSizes))(
     'sizes the %s logo to the viewBox ratio',

@@ -547,3 +547,31 @@ it('renders metric uncertainty, details, units and neutral comparisons without f
   expect(screen.getByText('No merges')).toBeInTheDocument();
   expect(screen.getByText('38 merged PRs')).toBeInTheDocument();
 });
+it('heads Summary with one header and links its two tables from the view bar', async () => {
+  vi.stubGlobal('scrollTo', () => {});
+  const user = userEvent.setup();
+  render(<Preview />);
+  const header = screen
+    .getByRole('heading', { level: 1, name: 'All repositories' })
+    .closest('header')!;
+  expect(within(header).getByRole('link', { name: 'Prebid on GitHub' })).toHaveAttribute(
+    'href',
+    'https://github.com/prebid',
+  );
+  expect(
+    within(header).getByRole('complementary', { name: 'Data source' }).querySelector('time'),
+  ).toHaveAttribute('dateTime', samples.asOf);
+  const views = screen.getByRole('navigation', { name: 'Repository overview views' });
+  expect(within(views).getByRole('link', { name: 'Summary' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  const sections = screen.getByRole('navigation', { name: 'On this page' });
+  expect(within(sections).getByRole('link', { name: 'Current backlog' })).toHaveAttribute(
+    'href',
+    '#current-backlog',
+  );
+  await user.click(within(sections).getByRole('link', { name: 'Period activity' }));
+  expect(screen.getByRole('heading', { level: 2, name: 'Period activity' })).toHaveFocus();
+  expect(window.location.hash).toBe('#period-activity');
+});

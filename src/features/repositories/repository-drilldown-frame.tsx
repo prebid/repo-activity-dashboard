@@ -42,6 +42,9 @@ export function RepositoryDrilldownFrame({
         repository={repository}
         asOf={asOf}
         returnTo={drilldown.returnTo}
+        // A supporting view is a subpage of the list its records come from.
+        contextKind={selection.metric === 'issueAuthors' ? 'issues' : 'prs'}
+        current={title}
         parentLink={parentLink}
         navigation={navigation}
         timelineHref={timelineHref}

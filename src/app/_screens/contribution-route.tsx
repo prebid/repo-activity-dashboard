@@ -5,6 +5,7 @@ import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/se
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import { EmptyState } from '@/components/feedback/empty-state';
+import { PageHeader } from '@/components/navigation/page-header';
 import { ContributionsScreen } from './contributions-screen';
 import { ContributionTimelineRoute } from './timeline-route';
 
@@ -24,7 +25,8 @@ export async function ContributionRoute({
   if (result.status === 'invalid')
     return (
       <>
-        <h1>{contributionSubjectTitle(area, 'overview')}</h1>
+        {/* No report loaded, so the header states no snapshot time. */}
+        <PageHeader title={contributionSubjectTitle(area, 'overview')} asOf="" />
         <EmptyState kind="error" title="Invalid contribution view">
           This link contains an unsupported view, date range or filter identity.{' '}
           <Link href={'/' + area}>Open {area}</Link>

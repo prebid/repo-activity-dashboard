@@ -122,6 +122,93 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   await user.keyboard('{Escape}');
   expect(within(table).getByRole('columnheader', { name: /PR comments/ })).toBeVisible();
 });
+it('keeps the report header on Over time: area tabs, Back to report and the company link', () => {
+  const timeline = (focus?: ContributionFocus) =>
+    selectContributionTimeline(contributionTimelineSample('reference'), request, undefined, focus);
+  const view = render(
+    <ContributionTimelineView
+      report={timeline()}
+      area="contributors"
+      href="/contributors?timeline=1"
+      reportHref="/contributors?scope=1"
+      navigation={{
+        areas: { contributors: '/contributors?timeline=1', companies: null },
+      }}
+    />,
+  );
+  const areas = screen.getByRole('navigation', { name: 'Contribution reports' });
+  expect(within(areas).getByRole('link', { name: 'Contributors' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  // A link past the URL limit stays a focusable tab that says why it is unavailable.
+  expect(within(areas).getByRole('link', { name: 'Companies' })).toHaveAttribute(
+    'aria-disabled',
+    'true',
+  );
+  expect(screen.getByRole('navigation', { name: 'Report view' }).closest('[data-view-bar]')).toBe(
+    areas.closest('[data-view-bar]'),
+  );
+  expect(screen.queryByRole('navigation', { name: 'Contribution breadcrumb' })).toBeNull();
+  view.rerender(
+    <ContributionTimelineView
+      report={timeline()}
+      area="companies"
+      href="/companies?timeline=1"
+      reportHref="/companies?scope=1"
+      navigation={{
+        areas: { contributors: '/contributors?timeline=1', companies: '/companies?timeline=1' },
+      }}
+    />,
+  );
+  // The other area's tab opens that area's Over time.
+  expect(screen.getByRole('link', { name: 'Contributors' })).toHaveAttribute(
+    'href',
+    '/contributors?timeline=1',
+  );
+  expect(screen.getByRole('link', { name: 'Companies' })).toHaveAttribute('aria-current', 'page');
+  view.rerender(
+    <ContributionTimelineView
+      report={timeline({ kind: 'contributor', accountId: 'account-alice' })}
+      area="contributors"
+      href="/contributors/account-alice?timeline=1"
+      reportHref="/contributors/account-alice?scope=1"
+      navigation={{
+        returnTo: '/contributors?report.page=2',
+        company: '/companies/id/company-acme?scope=1',
+      }}
+    />,
+  );
+  const contributor = screen.getByRole('heading', { level: 1, name: 'Alice' }).closest('header')!;
+  expect(within(contributor).getByRole('link', { name: 'Back to report' })).toHaveAttribute(
+    'href',
+    '/contributors?report.page=2',
+  );
+  expect(within(contributor).getByRole('link', { name: 'Example Acme' })).toHaveAttribute(
+    'href',
+    '/companies/id/company-acme?scope=1',
+  );
+  expect(screen.queryByRole('navigation', { name: 'Contribution reports' })).toBeNull();
+  view.rerender(
+    <ContributionTimelineView
+      report={timeline({ kind: 'company', companyId: 'company-acme' })}
+      area="companies"
+      href="/companies/id/company-acme?timeline=1"
+      reportHref="/companies/id/company-acme?scope=1"
+      navigation={{ returnTo: '/companies' }}
+    />,
+  );
+  const company = screen
+    .getByRole('heading', { level: 1, name: 'Example Acme' })
+    .closest('header')!;
+  expect(within(company).getByRole('link', { name: 'Back to report' })).toHaveAttribute(
+    'href',
+    '/companies',
+  );
+  // The company report's meta line, in place of the old subtitle.
+  expect(within(company).getByText('3 included accounts · Current company mapping')).toBeVisible();
+  expect(screen.queryByText(/Contribution activity for this/)).toBeNull();
+});
 it('keeps focused identity/profile destinations and company wording', () => {
   const view = render(
     contribution('reference', { kind: 'contributor', accountId: 'account-alice' }),

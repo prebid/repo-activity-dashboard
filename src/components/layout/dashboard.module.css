@@ -1,187 +1,312 @@
 .surface {
-  /* Fluid width: the gutter grows with the viewport so wide monitors use their edges. */
+  /* Fluid width: the gutter grows with the viewport so wide monitors use their edges. Contained
+     mode triples it and caps the content at 1760px; the cap's percentage resolves where the gutter
+     is used, against the full-width box the padding or offset reads. */
   --dashboard-gutter-scale: 1;
-  --dashboard-gutter: calc(var(--dashboard-gutter-scale) * clamp(32px, 2.5vw, 64px));
+  --dashboard-cap-gutter: 0px;
+  --dashboard-gutter: max(
+    calc(var(--dashboard-gutter-scale) * clamp(32px, 2.5vw, 64px)),
+    var(--dashboard-cap-gutter)
+  );
+  display: flex;
+  flex-direction: column;
   min-height: 100svh;
   color: var(--foreground);
   background: var(--background);
 }
 .surface[data-layout-width='contained'] {
   --dashboard-gutter-scale: 3;
+  --dashboard-cap-gutter: calc((100% - 1760px) / 2);
 }
+
+/* The masthead: navy in both themes under a 3px Prebid-blue rule, stuck to the top. Its height is
+   --shell-height, which the view bar and the sticky offset read, so the rule is drawn inside it.
+   Menus portal into it and keep the page's semantic colours, so only its own parts take the
+   masthead set. */
 .header {
-  background: var(--card);
-  border-bottom: 1px solid var(--border);
+  --masthead-rule: 3px;
+  position: sticky;
+  top: 0;
+  z-index: var(--prebid-layer-masthead);
+  height: var(--shell-height);
+  border-top: var(--masthead-rule) solid var(--prebid-brand-blue);
+  background: var(--prebid-masthead);
+  box-shadow: var(--prebid-elevation-1);
+  color: var(--prebid-masthead-ink);
 }
+/* The account group takes the space left after the brand and navigation, so a long account name
+   shortens before the row overflows. */
 .headerInner {
-  padding: 0 var(--dashboard-gutter);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-areas: 'brand navigation account';
   align-items: center;
-  gap: 36px;
-  min-height: 76px;
+  column-gap: 24px;
+  height: 100%;
+  padding: 0 var(--dashboard-gutter);
 }
 .brand {
-  flex-shrink: 0;
+  grid-area: brand;
+  display: inline-flex;
   padding: 8px 0;
-  border-radius: 3px;
+  border-radius: var(--prebid-radius-small);
+}
+.brand:focus-visible {
+  outline: 2px solid var(--prebid-masthead-ring);
+  outline-offset: 3px;
 }
 .navigation {
+  grid-area: navigation;
   display: flex;
-  align-items: stretch;
-  gap: 8px;
   align-self: stretch;
+  gap: 4px;
+  min-width: 0;
 }
+
+/* A destination: full row height, so the current-page underline and the pending bar sit on the
+   masthead's bottom edge, with a 36px hover pill under the label. Links and the Repositories
+   trigger share it. */
 .navItem {
   position: relative;
+  z-index: 0;
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 6px;
-  height: auto;
   padding: 0 12px;
-  font-size: var(--prebid-text-body);
-  font-weight: 500;
-  border-radius: 0;
-  color: var(--muted-foreground);
+  color: var(--prebid-masthead-muted);
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-heading);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
   white-space: nowrap;
+  cursor: pointer;
 }
-.navItem:hover {
-  color: var(--foreground);
-  background: var(--accent);
+.navItem::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 50% 4px auto;
+  height: 36px;
+  translate: 0 -50%;
+  border-radius: var(--prebid-radius-control);
 }
+.navItem:hover::before,
+.navItem[data-state='open']::before {
+  background: var(--prebid-masthead-hover);
+}
+.navItem:hover,
+.navItem[data-state='open'],
 .navItem[data-active='true'],
 .navItem[aria-current='page'] {
-  color: var(--foreground);
+  color: var(--prebid-masthead-ink);
 }
+/* The orange underline pairs with the ink change from muted, so the current page never rests on
+   colour alone. */
 .navItem[data-active='true']::after,
 .navItem[aria-current='page']::after {
   content: '';
   position: absolute;
+  right: 12px;
   bottom: 0;
   left: 12px;
-  right: 12px;
   height: 3px;
-  border-radius: 3px 3px 0 0;
+  border-radius: var(--prebid-radius-mark) var(--prebid-radius-mark) 0 0;
   background: var(--prebid-accent);
 }
-.navItem:focus-visible,
-.brand:focus-visible,
-.skipLink:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 3px;
+.navItem:has(> [data-pending='true']) {
+  cursor: progress;
 }
+.navItem:focus-visible {
+  outline: none;
+}
+.navItem:focus-visible::before {
+  outline: 2px solid var(--prebid-masthead-ring);
+  outline-offset: 0;
+}
+
 .account {
-  margin-left: auto;
-  align-self: stretch;
+  grid-area: account;
   display: flex;
+  align-self: stretch;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
   min-width: 0;
 }
 .administration {
   display: flex;
+  flex-shrink: 0;
   align-self: stretch;
 }
+.widthToggle {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+/* The account trigger's name, shortened with an ellipsis when the row runs out of room. */
 .accountName {
-  color: var(--muted-foreground);
-  font-size: var(--prebid-text-small);
-  max-width: 130px;
+  min-width: 0;
+  max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
-.source {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 6px;
-  padding: 12px var(--dashboard-gutter) 0;
-  color: var(--muted-foreground);
-  font-size: var(--prebid-text-caption);
+/* Below the masthead, at the account group's edge, so it never covers the Sign out button. */
+.signOutError {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: var(--dashboard-gutter);
+  max-width: min(360px, calc(100% - 2 * var(--dashboard-gutter)));
+  padding: 8px 12px;
+  border: 1px solid var(--prebid-error-border);
+  border-radius: var(--prebid-radius-control);
+  background: var(--prebid-error-bg);
+  box-shadow: var(--prebid-elevation-2);
+  color: var(--prebid-error-ink);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
 }
-.sampleDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--prebid-accent);
-}
+
 .main {
-  padding: 24px var(--dashboard-gutter) 56px;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
   min-width: 0;
+  padding: 24px var(--dashboard-gutter) 48px;
 }
+/* The workspace footer, as on the sign-in pages. The fallback serves pages outside the frame. */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px var(--dashboard-gutter, 16px) 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: var(--prebid-text-small);
+  line-height: var(--prebid-leading-small);
+  text-align: center;
+}
+
+/* The skip link appears below the masthead, on the content gutter, where it covers no control. */
 .skipLink {
-  position: absolute;
-  z-index: 100;
-  top: 8px;
-  left: 8px;
-  padding: 8px;
-  background: var(--card);
-  transform: translateY(-150%);
+  position: fixed;
+  z-index: calc(var(--prebid-layer-masthead) + 1);
+  top: calc(var(--shell-height) + 8px);
+  left: var(--dashboard-gutter);
+  padding: 8px 14px;
+  border: 1px solid var(--prebid-accent-border);
+  border-radius: var(--prebid-radius-control);
+  background: var(--prebid-accent);
+  box-shadow: var(--prebid-elevation-2);
+  color: var(--prebid-accent-ink);
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-heading);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
+  translate: 0 calc(-100% - var(--shell-height) - 16px);
 }
 .skipLink:focus {
-  transform: none;
+  translate: none;
 }
+.skipLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* A 56px row for the brand and account controls over a 44px navigation row. */
 @media (max-width: 1000px) {
   .surface {
     --dashboard-gutter: 24px;
   }
   .headerInner {
-    flex-wrap: wrap;
-    gap: 0;
-    padding: 16px var(--dashboard-gutter) 0;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: calc(var(--shell-row-height) - var(--masthead-rule)) var(--shell-nav-height);
+    grid-template-areas:
+      'brand account'
+      'navigation navigation';
+    column-gap: 16px;
   }
   .navigation {
-    order: 3;
-    width: 100%;
-    min-height: 48px;
-    margin-top: 8px;
-  }
-  .accountName {
-    max-width: 110px;
+    margin: 0 calc(-1 * var(--dashboard-gutter));
+    padding: 0 var(--dashboard-gutter);
+    border-top: 1px solid var(--prebid-masthead-line);
   }
   /* Both widths share one gutter here, so the switch would do nothing. */
-  .surface .widthToggle {
+  .widthToggle {
     display: none;
+  }
+  .accountName {
+    max-width: 120px;
   }
   .main {
     padding: 20px var(--dashboard-gutter) 40px;
   }
 }
+/* Phone width: the account name and the Sign out label leave the row but keep naming their
+   controls, and the navigation row scrolls sideways if it runs out of room. */
 @media (max-width: 600px) {
   .surface {
     --dashboard-gutter: 16px;
   }
+  /* The account group never narrows below its controls. An administrator's row, which also holds
+     Accounts, takes the room it needs from the logo, from 100px down to 64px. The group's track
+     minimum is its own automatic minimum, so the navigation row spanning both tracks does not
+     widen it. */
   .headerInner {
-    padding: 12px var(--dashboard-gutter) 0;
+    grid-template-columns: minmax(64px, max-content) 1fr;
+    column-gap: 8px;
   }
   .brand img {
-    width: 114px;
+    width: 100%;
+    max-width: 100px;
     height: auto;
   }
   .account {
-    gap: 8px;
+    gap: 4px;
+    min-width: auto;
   }
-  .accountName {
-    display: none;
+  /* Sign out, the group's one bare button: square, like the header icon buttons, once its label
+     is hidden. */
+  .account > button {
+    aspect-ratio: 1;
+    padding-inline: 0;
+  }
+  .accountName,
+  .signOutLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   .navigation {
     gap: 0;
     overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .navigation::-webkit-scrollbar {
+    display: none;
   }
   .navItem {
-    padding: 0 10px;
-    font-size: var(--prebid-text-small);
+    padding: 0 6px;
+  }
+  .navItem::before {
+    inset-inline: 0;
+  }
+  .navItem[data-active='true']::after,
+  .navItem[aria-current='page']::after {
+    right: 6px;
+    left: 6px;
   }
   .main {
     padding: 18px var(--dashboard-gutter) 32px;
     gap: 20px;
-  }
-  .source {
-    padding: 10px var(--dashboard-gutter) 0;
-  }
-  .sourceDetail {
-    display: none;
   }
 }

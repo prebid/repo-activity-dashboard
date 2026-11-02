@@ -1,26 +1,4 @@
 .frame {
   display: inline-flex;
-}
-.trigger {
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border-radius: 50%;
-  border: 1px solid var(--theme-control-border, var(--border));
-  background: var(--theme-control-background, var(--card));
-  color: var(--theme-control-color, var(--muted-foreground));
-  cursor: pointer;
-}
-.trigger:hover {
-  background: var(--theme-control-hover, var(--accent));
-}
-.trigger:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-.content {
-  min-width: 156px;
+  flex-shrink: 0;
 }

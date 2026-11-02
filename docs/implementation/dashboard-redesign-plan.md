@@ -19,8 +19,8 @@ Status: decisions approved 2026-10-31. P0 checkpoints approved 2026-11-01 (see `
 | Masthead | Navy `#17232e` in both themes with a 3px Prebid-blue top rule; logo only, no product name beside it. | — (P4) |
 | Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. | `foundation-contracts.md` `## What visually locked means` (P1) |
 | Colour roles | Orange `#ffad32` means act and "you are here" (primary action; nav, tab and sort underline). Blue means links, selection, group rules, the row-hover bar and charts. The amber "Data as of" chip is the one other warm accent. | `login.md:50` already requires orange primary actions (P1, P2) |
-| Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4) |
-| Sample-data notice | Removed with the frame row. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (P4) |
+| Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4, amended) |
+| Sample-data notice | Removed with the frame row. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (P4, amended) |
 | Headline totals | Not added now; the `all-repositories-plan.md:55` clause "Do not add charts, headline KPI cards" stands. | — |
 | URLs | A URL records only fields that differ from fixed, versioned product defaults; an absent field never means a saved preference. A bare entry URL such as `/repos` redirects to the viewer's saved view only when that view differs from the defaults. Return context travels as a short `back=` frame only when the parent is not the derived default. Old links are decoded by the frozen current readers and answered with a 307 to the new form. | `foundation-contracts.md:21`, `:124`; `all-repositories-plan.md:78`, `:81`; `timeline-reporting-plan.md:85`, `:89`; `contributors.md:332`, `:372`, `:380`. `contributors.md:373` and `foundation-contracts.md:130` stay and govern the `back=` limit (P5) |
 | Preferences | Per-viewer preferences move from localStorage to validated cookies the server reads, so the first render is final. No new AWS storage; named server-stored views are a later milestone. | `foundation-contracts.md:18`, `:36`, `:128`; `all-repositories-plan.md:80`, `:82`, `:83`; `repository-detail.md:240`; `contributors.md:371` (P5) |
@@ -263,7 +263,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P3 | Plan approved; in progress | — | — | — |
-| P4 | Not started | — | — | — |
+| P4 | Plan approved; in progress | — | — | — |
 | P5 | Not started | — | — | — |
 | P6 | Not started | — | — | — |
 
@@ -862,6 +862,147 @@ Expected at the checkpoint:
 10. Technical call: `RepositoryRecordTable`'s `list` prop narrows from `RepositoryRecordList` to `MergedPullRequestList`, and its issues branch is removed. Its only caller, the merge-duration insight in `repository-insights-view.tsx`, passes merged pull requests, so the issues branch was dead code. This is a prop change under Delivery rule 1.
 
 Decisions 1–7 and 9 were approved as recommended; decision 8 is the maintainer's exclusion; decision 10 is a technical call recorded at the phase review.
+
+## P4 plan
+
+Proposed and approved 2026-11-01 against the P3 head; the branch `feature/p4-shell-header` is cut from it and its pull request stacks on the P3 pull request until both merge. The maintainer approved continuing from P3 into P4 with any choice that keeps the look approved on 2026-10-31; the decisions below follow that rule and are recorded rather than awaited.
+
+### Scope
+
+The P4 findings in Appendix A: about 95–120 files (roughly 55–65 source, config and docs; 40–55 tests and stories), larger than P3 because every page's header is replaced. P4 adds `PageHeader`, `ViewBar`, `SectionNav` and an account menu (Component ownership); the existing headers keep their props and render through `PageHeader`, so call sites do not change.
+
+### Items
+
+**1. Masthead** (SHELL-01, SHELL-07, SHELL-08, SHELL-09, CTRL-11). Navy in both themes, sticky at the top, 64px (`--shell-height`; at 1000px and below a 56px row plus a 44px navigation row), a 3px Prebid-blue top rule and the knockout logo. Navigation labels in Mona Sans 14/600 with a hover pill and the orange underline; no navigation icons (decision 8). Header icon buttons are 36×36 through a new `Button` size `icon-lg` and variant `masthead`, with a visible pressed and open state; the theme and width controls drop their `className`. Repositories menu items show pending navigation.
+
+**2. Account menu** (SHELL-06). A 36px trigger with a 28px `Avatar` and the name (hidden at 600px and below) opens a menu with name, email, role and, outside preview builds, a Change password link to the existing route. Sign out stays a visible masthead button, rightmost, styled as a masthead button: its handler, `signOut` call, labels, disabled state and alert are unchanged (decision 6).
+
+**3. Page header** (CONTRIB-01, REPOS-01, TYPE-03, REPO-02, REPO-04, SHELL-17). One `PageHeader`: an optional breadcrumb row (back icon once, separators, the current view unlinked with `aria-current="page"`), the title flush left at display 30/34, an optional identity slot inside the same `<header>`, one meta line, and the amber "Data as of" chip inside `aside aria-label="Data source"`. Fixed row heights keep sibling tabs from moving the toolbar. `AllRepositoriesHeading`, `RepositoryHeader`, `ContributionHeading` and the Timeline support header render through it with unchanged props and accessible names. A repository subpage keeps the repository name as its `h1` and shows the subpage as the current crumb (decision 5).
+
+**4. View bar and sections** (CONTRIB-02, CONTRIB-03, CTRL-07, REPO-13, REPO-16, P4 sticky sections). A fixed 44px `ViewBar`, sticky below the masthead, holds the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry; at 600px and below a "Sections" menu replaces the chips. Sections are the panels with an `h2`: tables and chart panels (decision 11). `ViewTabs` gains an optional `variant`: underline for subject sets (Contributors|Companies, Pull requests|Issues|Timeline) and segmented for view modes (Summary|Timeline, Report|Over time, company breakdown) (decision 3); tabs never wrap and scroll sideways at narrow widths. On Over time, the area tabs link to the other area's Over time (decision 1). Count pills leave the area tabs (decision 2); the repository record tabs keep one shared `TabCount` style. The two contribution tab rows merge into the view bar. P4 sets `--sticky-offset` to the masthead plus the view bar, so P3's sticky table headers sit below both, and `scroll-padding-top` to that height plus 12px.
+
+**5. Frame, edge pages and footer** (SHELL-05, SHELL-10, SHELL-14, SHELL-15, REPO-03, REPOS-14, CONTRIB-17). The frame's sample-data row is deleted. A footer after `<main>` carries the secure icon and "Private workspace. Access by invitation." with no links (decision 10). A token-styled skip link sits over the masthead's left gutter. Root not-found, error and global-error render through a branded `EdgeFrame` and keep their `h1` text. Contained mode caps content at 1760px (decision 9). The Timeline support frame states its interval through a summary-only `ReportToolbar`; insight panel titles stay (decision 4). At 600px and below the header and toolbar compact; a bottom-sheet filter pattern is not added (decision 12).
+
+**6. Lint and allowlist** (rule 3, rule 4). Rule 3 drops the `layout/` exemption once the four sites are fixed; the `h1` rule (Architecture rule 4) rejects `h1` outside `PageHeader`, the authentication views, `src/app/auth/**` and the edge files, through the shared selector arrays. P4-owned allowlist entries go, except those of the deferred items below; `completedPhases` gains `P4` only when those are settled.
+
+### Deferred while AWS access is out
+
+The authentication and account pages change presentation only until AWS access returns (2026-11-03). Deferred: the branded setup page (`src/app/auth/setup/page.tsx`, SHELL-05 part) and sentence-case copy on the sign-in and change-password pages (SHELL-13 copy; its CSS-only token changes in `authentication.module.css` proceed). The administrator Users page stays outside the redesign (SHELL-16 withdrawn, P3 decision 8). Their allowlist entries stay owned by P4.
+
+### Tests
+
+Behaviour only (Delivery rule 2): the masthead and view bar stay visible while scrolling; a section jump moves focus and updates the fragment without a Back entry; Period activity is reachable in one action from the first screen, with Tab presses counted against the 186 baseline; the three navigation labels fit one row at 390px; the account menu shows its contents per build; P3's sticky table headers stay below the view bar. 42 test files that pin the old headers, Sign out placement, the Data source aside, tab names or layout geometry are updated; nine class-name assertions in them are removed.
+
+### Order
+
+1. One worker builds the shared core: tokens, `Button` `icon-lg` and `masthead`, `PageHeader`, `ViewBar`, `SectionNav`, `ViewTabs` variant and `TabCount`, the `DataTable` section anchor, their stories and tests.
+2. Three workers in parallel, each in its own worktree: (a) repositories and Timeline support; (b) contributions; (c) shell, account menu, edge pages and footer.
+3. One worker integrates, applies the lint rules and closes the allowlist; one independent review; the pull request's CI as the full gate; one checkpoint page, published without waiting.
+
+### Step notes
+
+Step 1, the core (`e83773f`), beyond the items:
+
+- `ChartPanel` takes the same optional `anchor` as `DataTable`, so chart panels are sections too (decision 11). The icon map gains `SectionsIcon`, `SignOutIcon`, `ChangePasswordIcon` and `DataAsOfIcon`.
+- `--shell-height` is 64px, and 100px at 1000px and below (a 56px row over a 44px navigation row). `--sticky-offset` is the masthead height, plus the view bar's 44px when the page has one, and the root `scroll-padding-top` is that offset plus 12px.
+- `PageHeader` shows "Data as of —" for a snapshot time it cannot read.
+- `tests/e2e/view-bar.spec.ts` checks the button sizes, the masthead buttons' geometry and contrast, the sticky bar, section jumps and the Sections menu on stories. The two `view-tabs.module.css` allowlist entries closed with the token radii (33 to 31 entries).
+
+Step 2(a), repositories and Timeline support (`c0f6015`):
+
+- A subpage (a supporting view or one author's records) names itself as the current crumb and marks the list it belongs to with `aria-current="true"` on that list's tab, so no tab claims the current page. `RepositoryHeader` takes `contextKind` and `current` for this, and its default Timeline link follows `activeKind ?? contextKind`.
+- Sections: Summary links Current backlog and Period activity; a record list links its charts and records; the repository Timeline links Trend and the over-time table. `TimelineChart` and `TimelineTable` forward an optional `anchor`, and `repository-charts.tsx` exports `repositoryChartsSection`.
+- The invalid Timeline state and the invalid repository and author states read no snapshot, so they render no `PageHeader`: the Timeline state drops its bare `h1` and its `EmptyState` heading, "Invalid timeline view", names the page; the repository and author states keep their link above the `EmptyState`, now token-styled with the back icon.
+- Timeline support pages have no current crumb, because the frame does not receive the supporting table's title; the trail reads "Back to timeline › Back to authors", names that `timeline-support.spec.ts` and `timeline-metrics.spec.ts` pin. The summary-only `ReportToolbar`, "Supporting interval scope", leads with the metric label, followed by "Timeline value: …", the covered dates and "Partial" as inline text, because `PartialPeriodMarker` is a block.
+- Author records pages show no avatar: the 18px meta row has no avatar size, and an avatar beside the repository name would mislabel the subject. The current crumb and the toolbar summary name the author.
+- GitHub links in the meta line are plain `<a target="_blank">`; their names, targets and hrefs are unchanged.
+- `repository-overview.spec.ts` bounds visible rows below every sticky or fixed element, because the view bar would otherwise cover rows the old `header` bound counted.
+
+Step 2(b), contributions (`9784a97`):
+
+- CONTRIB-02's "Back to report" on a contributor's or company's Over time lands in P4 rather than P5d, because Report and Over time cannot keep the same header rows without it. Pure helpers in `contribution-timeline.ts` derive it from the server-supplied Report tab href; no server change.
+- Model: `ContributionTimeline.scope.company` (optional) is set for contributor reports. A contributor's Over time links that company's Report page, with the Over time page as its return target, as the Report page's company link does.
+- Decision 1 as built: the other area's Over time tab carries the current Over time URL (scope, period and Timeline view keys, `timeline.state=1` included) without `nav`/`returnTo`. Switching areas keeps the grouping and columns and does not restore the other area's own saved Timeline preferences.
+- Overviews have no meta line on Report or Over time. The company report keeps its "N included accounts · Current company mapping" text as its meta line.
+- The company breakdown is a segmented `ViewTabs` in its table panel. Contribution pages have no section chips, because each has one table panel.
+- The invalid contribution view renders `PageHeader` with an empty snapshot, so its chip reads "Data as of —"; the Timeline and repository invalid states (step 2(a)) render no header instead.
+- The `.identityLink` and `.companyLink` focus outline radius moves from 3px to `--prebid-radius-small` (4px).
+- Not done: CONTRIB-17's two-column toolbar at phone width, which sits in `src/components/reporting/report-toolbar.module.css`.
+
+Step 2(c), the shell (`80479fc`):
+
+- Sign out keeps its handler, `signOut` call, labels, disabled state and alert text. It gains the sign-out icon, and at 600px and below its label is visually hidden while the button's name stays "Sign out". Its alert sits below the masthead in the error tokens.
+- Phone compaction beyond the plan: at 600px and below the logo is 100px wide, the account group gap 6px and navigation item padding 6px. Estimated from font metrics, not measured: an administrator's first row fits 375px but overflows at 320px (about 330px against 288px); not fixed.
+- Above 1000px the masthead grid is `auto auto minmax(0, 1fr)` with the account group last, so a long account name ends in an ellipsis instead of overflowing the row.
+- The account trigger is named by `aria-label` "Account: <name>", which contains the visible name. The viewer's avatar is `Avatar` `person` with account type `human`, so it shows the human badge and the title "Human". In preview builds the menu holds only the name, email, a separator and the role.
+- The repository 404 renders the `EdgeMessage` card inside the dashboard frame. Root `error.tsx` renders `PageError` inside `EdgeFrame` and keeps its `h2`, because it also renders when the dashboard layout fails. `/foundation` keeps its own `h1` at the display token.
+- The skip link appears below the masthead on the content gutter rather than over its left gutter, which cannot hold it without covering the logo.
+- `WorkspaceFooter` (`src/components/layout/workspace-footer.tsx`) serves `DashboardFrame` and `EdgeFrame`; the frozen `AuthFrame` keeps its own footer markup.
+- Authentication presentation: notices take the 12px panel radius and the eyebrow the overline weight (600). `ThemeMenu` takes `tone` and puts its `className` on its wrapper, so the sign-in theme control becomes a 36px secondary button; `src/app/auth/layout.tsx` is unchanged.
+- The masthead's 3px rule is a `border-top` inside `--shell-height`, so the total height equals the token.
+- `.storybook/repositories.stories.tsx` renders a stand-in Sign out button with Toolbar's markup, because Toolbar's handler needs a session.
+- Not done: REPOS-14's two-column Timeline toolbar at 390px, which sits in `src/components/reporting/**`.
+
+Step 3, the merge (`p4/integrate`):
+
+- The three branches change disjoint files except `scripts/design-token-allowlist.json`; each removed its own entries (repositories 9, contributions 4, shell 14), and the merge keeps every removal.
+- `ViewTabs` draws a tab marked `aria-current="true"` with the underline and the ink change but not the weight change, and `ViewBar` scrolls it into view like a current tab (`section-nav.test.tsx`).
+- `.storybook/navigation-feedback.stories.tsx` renders the company breakdown as the screen does, a segmented `ViewTabs`; its names and links are unchanged. `.storybook/timeline.stories.tsx` passes the Over time `navigation`, so the contribution Over time stories show the area tabs, or Back to report and, for a contributor, the company link.
+- Rule 4's `h1` restriction: `no-restricted-syntax` rejects `JSXOpeningElement[name.name="h1"]` in `src/**` through the shared selector arrays, except `page-header.tsx`, `edge-frame.tsx`, `src/features/authentication/**`, `src/app/auth/**`, the administrator Users page (`users-view.tsx`, outside the redesign) and `foundation/page.tsx`, which has no snapshot for the chip. Beyond the plan: the Users and foundation exemptions. `createElement('h1')` and a computed tag are not read. The exempt files keep rule 3 and the icon rule; `lint-restrictions.test.ts` covers each scope.
+- The allowlist closes at 4 entries, all P4 and all deferred: the setup page's `text-2xl` (SHELL-05 part), the two `src/components/ui/table.tsx` `text-sm` (TBL-15 withdrawn) and the Users page's `text-3xl` (SHELL-16 withdrawn). The sign-in copy (SHELL-13) has no entry. `completedPhases` stays `['P1', 'P2', 'P3']`; `CEILING` is 4 and the unmodelled ceiling 67, the count since the core commit.
+- `scripts/capture-views.mjs` counts keyboard reach as key presses from a fresh `/repos` until focus is inside Period activity: Tab presses, plus one Enter once focus reaches the "Period activity" section chip. A build without chips, such as the base at Checkpoint B, still counts Tab presses alone.
+- `layout-width.spec.ts` checks that at 390px the three main navigation destinations share one row without scrolling it (Tests; P6 adds the fourth).
+- Documents: `all-repositories-plan.md:38` and `acceptance-matrix.md:26` drop the sample-data label. `docs/product/README.md:26`, `login.md:60` and `account-operations.md:114` still describe "clearly labeled sample reports"; the Sample-data row does not name them, so they are unchanged.
+
+Step 4, review fixes (`p4/fix`), superseding the step notes above where they differ:
+
+- The invalid Timeline state keeps its `h1` "Timeline": it renders `PageHeader` with an empty snapshot above the `EmptyState`, as the invalid contribution view does, so its chip reads "Data as of —". The invalid repository and author states are unchanged. `timeline-matrix.spec.ts` checks the one level-1 heading.
+- Administrator masthead at 320–375px: the account trigger shortens its name, never itself (a minimum of its avatar, padding and border). At 600px and below the trigger and Sign out are 36px squares like the theme button, the column gap is 8px, and the account group never narrows below its controls; an administrator's row takes the room it still needs from the logo, which narrows from 100px to 72px (about 74px at 320px). `layout-width.spec.ts` checks at 320, 340, 360 and 375px that the first-row controls do not overlap and the avatar sits inside its trigger.
+- Tabs follow the Typography decision in both variants: the current tab is 700. `ViewTabs` wraps each string child of a tab in a label span over an invisible, zero-height 700 copy of itself (`data-label` and `::after`, hidden from assistive technology), so every tab is as wide at 600 as at 700 and marking another tab current moves no tab (`view-bar.spec.ts`, both variants). A tab marked `aria-current="true"` stays 600.
+- The opened account menu is described by its email and role lines (`aria-describedby`), which are text, not items.
+- The account trigger is named by its content, a visually hidden "Account:" and the name, instead of an `aria-label`: axe's `label-content-name-mismatch` read the avatar's initials as visible text missing from the label, which failed `story-coverage.spec.ts` on the six All repositories stories and `foundation.spec.ts` in CI. The name stays "Account: <name>".
+- The table scroll area takes `overflow-anchor: none`. In Linux WebKit, scrolling the area sideways to its end moved the page up by the area's own scroll offset (849px to the top on a repository page at 375px). No page script scrolled, and excluding the area from scroll anchoring stopped it in 3 of 3 runs against 3 of 3 jumps without. `table-system.spec.ts` caught it in CI and in a Linux container; macOS WebKit and Chromium did not show it.
+- `view-bar.spec.ts` measures the sticky masthead on `repositories-all-repositories--overview`, which renders `DashboardFrame` and `DashboardHeader`; the phone check bounds the bar and the page by the viewport, and the Sections specimen's grid takes a `minmax(0, 1fr)` column. `viewTabsClassName`, which had no caller, is removed.
+
+Visible text changes (P4 as merged):
+
+- Every report header: "Reporting snapshot" and its time become the amber "Data as of" chip with the same time. Timeline support's "Reporting snapshot: …" line becomes the same chip.
+- Frame: the "Sample reporting data" row is gone. A footer reads "Private workspace. Access by invitation."
+- Masthead: the account name moves into an account button (named "Account: <name>"; the name is hidden at 600px and below) whose menu shows the name, email, "Role: Viewer", "Role: User" or "Role: Administrator" and, outside preview builds, "Change password". Sign out shows an icon; its text is unchanged and hidden at 600px and below.
+- Edge pages: "Page not found" and "Repository not found" add "No page in this workspace matches this address." and "No repository in this workspace matches this address."; "Back to all repositories" and the global error's "Try again" are primary buttons. Headings are unchanged.
+- All repositories Summary: "On this page" chips "Current backlog" and "Period activity".
+- Repository pages: the meta line reads "Primary branch <name>" (it read "<name> primary branch"); breadcrumb links are separated by a chevron icon instead of "/"; a subpage's title follows them as the current crumb. Record lists with charts gain chips for their panels; the repository Timeline gains "Trend" and "Activity over time" or "Backlog over time".
+- Timeline support: the interval facts (metric, "Timeline value: …", covered dates, "Partial") read as the toolbar summary line.
+- Invalid Timeline view: the unstyled "Timeline" heading above the error becomes the page header's title, with the chip "Data as of —".
+- Contributions: the eyebrows ("Contribution activity", "Contributor report", "Company report") and the subtitles ("Understand who authors, reviews and merges work.", "Explore contribution activity by current company affiliation.", "Contribution activity across your selected population.", "Contribution activity for this account." and "… company.") are gone. The area tabs read "Contributors" and "Companies" without counts. Over time shows the area tabs on an overview and "Back to report" on a contributor or company, and a contributor's company is a link. The invalid contribution view's chip reads "Data as of —".
+- Sign-in, change-password and setup pages: no text change.
+
+Expected at the checkpoint:
+
+- A navy masthead in both themes, 64px (100px at 1000px and below) under a 3px blue rule, with the knockout logo, Mona Sans navigation with a hover pill and the orange underline on its bottom edge, 36px header buttons, the account button and Sign out at the right; it stays at the top while scrolling.
+- Page titles flush left at display 30/34 with one meta line and the amber chip on the right (beneath the title at 600px and below); sibling views keep the toolbar in place.
+- A 44px view bar sticky under the masthead: underline tabs for subject sets, segmented tabs for view modes, section chips with scroll-spy where a page has two or more panels and a Sections menu at 600px and below; a jump lands the section's title under the bar and focuses it. P3's sticky table headers sit below the bar.
+- Subpage tabs underlined without the bold weight; tab counts in one style.
+- The footer on every dashboard and edge page; branded 404 and error pages; contained width capped at 1760px.
+- Keyboard reach: `npm run capture:views -- --measure` against the 186-Tab baseline. Predicted from the tab order, not measured: about 15 presses.
+- Unchanged: data values, the known-zero/missing distinction, link targets, URLs, CSV content and the sign-in pages' copy and behaviour.
+
+### Decisions (2026-11-01)
+
+Settled under the approved look, recorded for review:
+
+1. Over time area tabs link to the other area's Over time.
+2. Count pills leave the area tabs; the record tabs keep one count style.
+3. Underline tabs for subject sets, segmented for view modes.
+4. Insight panel titles stay; the toolbar summary states the scope.
+5. A repository subpage keeps the repository name as its `h1`; the subpage is the current crumb.
+6. Sign out stays a visible masthead button; the account menu holds name, email, role and Change password.
+7. The setup page's branding and the sign-in copy wait for AWS access.
+8. No navigation icons.
+9. Contained width caps at 1760px.
+10. The footer carries the secure icon and "Private workspace. Access by invitation." with no links.
+11. Sections are panels with an `h2`: tables and chart panels.
+12. No bottom-sheet filters at phone width; header and toolbar compaction only.
 
 ## Appendix A: findings by phase
 

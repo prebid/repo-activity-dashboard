@@ -6,7 +6,8 @@ import { icons as lucide, type LucideIcon } from 'lucide-react';
 import * as icons from '@/components/ui/icons';
 
 // The glyph each concept draws: the Visual specification's Icons list, the P2 plan's additions,
-// the P3 sort glyphs and the concepts the dashboard already showed.
+// the P3 sort glyphs, the P4 shell and page-header glyphs and the concepts the dashboard already
+// showed.
 const glyphs = {
   BackIcon: 'arrow-left',
   ExternalLinkIcon: 'arrow-up-right',
@@ -19,6 +20,7 @@ const glyphs = {
   IssuesIcon: 'circle-dot',
   ContributorsIcon: 'users',
   CompaniesIcon: 'building-complex',
+  SectionsIcon: 'table-of-contents',
   ColumnsIcon: 'columns-3',
   PrAgeIcon: 'hourglass',
   MetricsIcon: 'list-checks',
@@ -54,6 +56,9 @@ const glyphs = {
   HidePasswordIcon: 'eye-off',
   SecureIcon: 'lock-keyhole',
   ContinueIcon: 'arrow-right',
+  SignOutIcon: 'log-out',
+  ChangePasswordIcon: 'key-round',
+  DataAsOfIcon: 'clock',
   InfoIcon: 'info',
   WarningIcon: 'triangle-alert',
   ErrorIcon: 'circle-alert',

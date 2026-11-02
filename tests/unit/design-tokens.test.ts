@@ -20,9 +20,9 @@ import {
 } from '../../scripts/check-design-tokens.mjs';
 
 // Each phase lowers this as it converts its allowlisted sites.
-const CEILING = 33;
+const CEILING = 4;
 // The unmodelled sites in the tree today; lowered as values become readable or are removed.
-const UNMODELLED_CEILING = 68;
+const UNMODELLED_CEILING = 67;
 
 const directories: string[] = [];
 const base = {

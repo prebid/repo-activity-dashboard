@@ -60,6 +60,26 @@ it('keeps the main landmark stable while resetting page state for an account or 
   expect(screen.getByRole('textbox')).toHaveValue('');
   expect(screen.getByRole('main')).toBe(main);
 });
+it('frames the page with the skip link, masthead, content and one workspace footer', async () => {
+  requireViewer.mockResolvedValue({
+    id: 'alice',
+    email: 'alice@example.test',
+    role: 'user',
+    authVersion: 1,
+  } satisfies AuthenticatedUser);
+  const { container } = render(await DashboardLayout({ children: <p>Report</p> }));
+  const frame = container.firstElementChild!;
+  const main = screen.getByRole('main');
+  const skip = screen.getByRole('link', { name: 'Skip to content' });
+  expect(frame.firstElementChild).toBe(skip);
+  expect(skip).toHaveAttribute('href', '#' + main.id);
+  expect(main).toHaveTextContent(/^Report$/);
+  const footer = screen.getByRole('contentinfo');
+  expect(footer).toHaveTextContent(/^Private workspace\. Access by invitation\.$/);
+  expect(main.nextElementSibling).toBe(footer);
+  expect(frame).not.toHaveTextContent('Sample reporting data');
+  expect(screen.queryByRole('complementary', { name: 'Data source' })).not.toBeInTheDocument();
+});
 it.each([
   [undefined, 'wide'],
   ['contained', 'contained'],

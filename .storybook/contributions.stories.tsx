@@ -21,7 +21,7 @@ import {
   type ContributionAccount,
 } from '../src/models/contributions';
 import type { ContributionSampleScenario, CompanyBreakdown } from '../src/models/contribution-page';
-import styles from '../src/features/contributions/contributions.module.css';
+import { ViewTabs } from '../src/components/navigation/view-tabs';
 function Preview({
   sample = 'reference',
   view = 'contributors',
@@ -104,7 +104,7 @@ function Preview({
           }}
           breakdownControls={
             // Links, as the company screen renders them; a click switches the breakdown in place.
-            <nav aria-label="Company breakdown" className={styles.breakdowns}>
+            <ViewTabs label="Company breakdown" variant="segmented">
               {(['members', 'repositories'] as const).map((value) => (
                 <Link
                   key={value}
@@ -119,7 +119,7 @@ function Preview({
                   {companyBreakdownLabels[value]}
                 </Link>
               ))}
-            </nav>
+            </ViewTabs>
           }
         />
       )}

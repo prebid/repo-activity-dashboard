@@ -22,12 +22,16 @@ import {
   type ReportToolbarGroup,
 } from '@/components/reporting/report-toolbar';
 import { RepositoryHeader } from './repository-header';
+import { repositoryChartsSection } from './repository-charts';
 import {
   repositoryPagePrColumns,
   repositoryPageIssueColumns,
   repositoryInlineColumnIds,
 } from './repository-page-columns';
 import styles from './repository-page.module.css';
+
+/** The record list's section id, which the view bar's section chips link to. */
+const recordsSection = 'records';
 
 export interface RepositoryPageControls {
   timelineHref?: string | null;
@@ -56,6 +60,7 @@ function RepositoryPageTable({
   const title = recordListTitle(selection, page.author?.account);
   const common = {
     title,
+    anchor: recordsSection,
     controller,
     visibility: controls?.visibility ?? { value: visible, onChange: setVisible },
     // With page controls, the filter bar holds the search and the rows arrive already searched.
@@ -127,6 +132,10 @@ export function RepositoryPageView({
 
   const focused = selection.metric !== baseline || !!page.author;
   const title = recordListTitle(selection, page.author?.account);
+  const sections = [
+    ...(controls?.charts ? [repositoryChartsSection] : []),
+    ...(page.measurement.value === null ? [] : [{ id: recordsSection, label: title }]),
+  ];
   return (
     <>
       <RepositoryHeader
@@ -134,7 +143,11 @@ export function RepositoryPageView({
         asOf={page.asOf}
         returnTo={returnTo}
         navigation={navigation}
-        activeKind={page.kind}
+        // An author's records are a subpage of the list they were counted from.
+        activeKind={page.author ? undefined : page.kind}
+        contextKind={page.author ? page.kind : undefined}
+        current={page.author ? title : undefined}
+        sections={sections}
         timelineHref={controls?.timelineHref}
         onTimeline={controls?.onTimeline}
         timelinePending={controls?.timelinePending}

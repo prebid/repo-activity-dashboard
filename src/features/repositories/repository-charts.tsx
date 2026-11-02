@@ -12,6 +12,8 @@ import {
 } from '@/lib/presentation/repository-chart-selection';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import styles from './repository-charts.module.css';
+/** The charts panel as a page section, which a record list's view bar links to. */
+export const repositoryChartsSection = { id: 'at-a-glance', label: 'At a glance' } as const;
 const titles = {
   age: 'Age distribution',
   reviewers: 'Human reviewers',
@@ -41,7 +43,8 @@ export function RepositoryCharts({
   return (
     <ChartPanel
       label="Repository charts"
-      title="At a glance"
+      title={repositoryChartsSection.label}
+      anchor={repositoryChartsSection.id}
       description={
         'All matching ' +
         (page.kind === 'prs' ? 'PRs' : 'issues') +

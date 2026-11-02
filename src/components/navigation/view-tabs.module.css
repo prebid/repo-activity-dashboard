@@ -1,51 +1,156 @@
-/* Underline view tabs shared by Summary/Timeline, record lists, contribution reports and support views. */
+/* View tabs. underline (the default) marks the current subject with the orange underline;
+   segmented marks the current mode with the selection fill and edge. In both the current tab is
+   700, and every label reserves its 700 width, so no tab or group changes width. Both stay on one
+   row and scroll sideways when the row is wider than its space, so the row height never changes. */
 .tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 28px;
-  border-bottom: 1px solid var(--border);
+  flex-wrap: nowrap;
+  align-items: center;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 .tabs a,
 .disabled {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 8px;
-  padding: 12px 2px 15px;
   position: relative;
   color: var(--muted-foreground);
-  font-size: var(--prebid-text-body);
-  font-weight: 500;
+  font-family: var(--prebid-font-display);
+  font-size: var(--prebid-text-heading);
+  font-stretch: var(--prebid-display-stretch);
+  font-weight: 600;
+  line-height: var(--prebid-leading-heading);
+  white-space: nowrap;
 }
 .tabs a:hover,
-.tabs a[aria-current='page'] {
+.tabs a[aria-current='page'],
+.tabs a[aria-current='true'] {
   color: var(--foreground);
 }
-.tabs a[aria-current='page']::after {
-  content: '';
-  position: absolute;
-  height: 3px;
-  border-radius: 3px 3px 0 0;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  background: var(--prebid-accent);
+.tabs a[aria-current='page'] {
+  font-weight: 700;
 }
+/* A label over a zero-height bold copy of itself, which sets its width at either weight. The copy
+   is hidden, so it is neither seen nor read. */
+.label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.label::after {
+  content: attr(data-label);
+  content: attr(data-label) / '';
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+}
+/* Inside the outline, because the scrolling row clips anything drawn past its edges. */
 .tabs a:focus-visible,
 .disabled:focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline-offset: -2px;
+  border-radius: var(--prebid-radius-small);
 }
 .disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+/* Underline: a row of full-height tabs on a 1px line, which a view bar draws instead. */
+.tabs:not([data-variant='segmented']) {
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+}
+:global([data-view-bar]) .tabs:not([data-variant='segmented']) {
+  border-bottom: 0;
+}
+.tabs:not([data-variant='segmented']) a,
+.tabs:not([data-variant='segmented']) .disabled {
+  height: var(--view-bar-height);
+  padding: 0 2px;
+}
+/* aria-current='true' marks the list a subpage belongs to: the underline and ink without the
+   weight, so the subpage is not read as the list itself. */
+.tabs:not([data-variant='segmented']) a[aria-current='page']::after,
+.tabs:not([data-variant='segmented']) a[aria-current='true']::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: var(--prebid-radius-small) var(--prebid-radius-small) 0 0;
+  background: var(--prebid-accent);
+}
+
+/* Segmented: one bordered group the height of an in-page control. */
+.tabs[data-variant='segmented'] {
+  width: fit-content;
+  max-width: 100%;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--prebid-input-border);
+  border-radius: var(--prebid-radius-control);
+  background: var(--prebid-overlay);
+}
+.tabs[data-variant='segmented'] a,
+.tabs[data-variant='segmented'] .disabled {
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: var(--prebid-radius-small);
+}
+.tabs[data-variant='segmented'] a:hover {
+  background: var(--prebid-ghost-hover);
+}
+.tabs[data-variant='segmented'] a[aria-current='page'] {
+  border-color: var(--prebid-selection-edge);
+  background: var(--prebid-selection);
+  color: var(--prebid-selection-ink);
+}
+@media (pointer: coarse) {
+  .tabs[data-variant='segmented'] a,
+  .tabs[data-variant='segmented'] .disabled {
+    height: 34px;
+  }
+}
 @media (max-width: 600px) {
-  .tabs {
-    gap: 20px;
+  .tabs:not([data-variant='segmented']) {
+    gap: 16px;
   }
   .tabs a {
     gap: 6px;
-    font-size: var(--prebid-text-small);
   }
+}
+
+/* TabCount: caption numbers in the body face, whatever the tab's face. */
+.count {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-header-band);
+  color: var(--prebid-muted);
+  font-family: var(--prebid-font-body);
+  font-size: var(--prebid-text-caption);
+  font-stretch: normal;
+  font-variant-numeric: var(--prebid-numeric);
+  font-weight: var(--prebid-number-weight);
+  line-height: var(--prebid-leading-caption);
+}
+.tabs a[aria-current='page'] .count {
+  background: var(--prebid-selection);
+  color: var(--prebid-selection-ink);
+}
+.tabs[data-variant='segmented'] a[aria-current='page'] .count {
+  background: var(--prebid-overlay);
 }

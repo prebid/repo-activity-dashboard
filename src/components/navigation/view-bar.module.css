@@ -1,0 +1,33 @@
+/* Sticky under the masthead on the canvas, so content scrolls out of sight beneath it. */
+.bar {
+  position: sticky;
+  top: var(--shell-height);
+  z-index: var(--prebid-layer-view-bar);
+  height: var(--view-bar-height);
+  background: var(--background);
+}
+/* The bar's line, painted before its tabs so a current tab's underline lies over it. */
+.bar::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--border);
+}
+/* Centred while everything fits; past that each tab and chip row shrinks and scrolls sideways. */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 100%;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .row {
+    justify-content: space-between;
+    gap: 12px;
+  }
+}

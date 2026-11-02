@@ -4,12 +4,15 @@ import { viewsFor } from '../support/views';
 
 type Mode = 'wide' | 'contained';
 
-/** The frame's gutter contract: fixed on narrow screens, otherwise 2.5vw held to 32–64px and tripled when contained. */
+/**
+ * The frame's gutter contract: fixed on narrow screens, otherwise 2.5vw held to 32–64px; contained
+ * mode triples it and caps the content at 1760px.
+ */
 function gutter(width: number, mode: Mode) {
   if (width <= 600) return 16;
   if (width <= 1000) return 24;
   const base = Math.min(64, Math.max(32, width * 0.025));
-  return mode === 'contained' ? base * 3 : base;
+  return mode === 'contained' ? Math.max(base * 3, (width - 1760) / 2) : base;
 }
 
 // One entry per page type and tab reachable from the main navigation.
@@ -148,24 +151,53 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
     .getByRole('link', { name: 'Accounts', exact: true });
   const width = page.getByRole('button', { name: 'Full-width layout', exact: true });
   const theme = page.getByRole('button', { name: 'Theme settings', exact: true });
+  const account = page.getByRole('button', { name: /^Account: / });
+  const signOut = page.getByRole('button', { name: 'Sign out', exact: true });
   await expect(theme).toBeEnabled();
   await expect(
     page
       .getByRole('navigation', { name: 'Main navigation', exact: true })
       .getByRole('link', { name: 'Accounts' }),
   ).toHaveCount(0);
-  const [h, a, w, t] = (
-    await Promise.all([header, accounts, width, theme].map((item) => item.boundingBox()))
+  const [h, a, w, t, m, s] = (
+    await Promise.all(
+      [header, accounts, width, theme, account, signOut].map((item) => item.boundingBox()),
+    )
   ).map((box) => box!);
-  // Left to right: Accounts, width switch, theme, each one account-group gap apart.
+  // One 64px masthead row.
+  expect(h.y).toBe(0);
+  expect(h.height).toBe(64);
+  // Left to right: Accounts, width switch, theme, account, Sign out, each one group gap apart.
   expect(w.x - (a.x + a.width)).toBeCloseTo(12, 0);
   expect(t.x - (w.x + w.width)).toBeCloseTo(12, 0);
-  expect(w.width).toBe(t.width);
-  expect(w.height).toBe(t.height);
-  // Accounts' current-page underline lands on the header's bottom border, like the main navigation.
-  expect(a.y + a.height).toBeCloseTo(h.y + h.height - 1, 0);
-  expect(w.y + w.height / 2).toBeCloseTo(a.y + a.height / 2, 0);
-  expect(t.y + t.height / 2).toBeCloseTo(a.y + a.height / 2, 0);
+  expect(m.x - (t.x + t.width)).toBeCloseTo(12, 0);
+  expect(s.x - (m.x + m.width)).toBeCloseTo(12, 0);
+  // The 36px header buttons, and Sign out ending on the content gutter.
+  for (const button of [w, t, m, s]) expect(button.height).toBe(36);
+  expect(w.width).toBe(36);
+  expect(t.width).toBe(36);
+  expect(s.x + s.width).toBeCloseTo(1440 - gutter(1440, 'wide'), 0);
+  // Accounts' current-page underline lands on the masthead's bottom edge, like the main navigation.
+  expect(a.y + a.height).toBeCloseTo(h.y + h.height, 0);
+  for (const button of [w, t, m, s])
+    expect(button.y + button.height / 2).toBeCloseTo(a.y + a.height / 2, 0);
+
+  // At 390px the three main navigation destinations share one row without scrolling it.
+  await page.setViewportSize({ width: 390, height: 844 });
+  const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+  const destinations = await Promise.all(
+    [
+      main.getByRole('link', { name: 'Overview', exact: true }),
+      main.getByRole('button', { name: 'Repositories', exact: true }),
+      main.getByRole('link', { name: 'Contributions', exact: true }),
+    ].map(async (item) => (await item.boundingBox())!),
+  );
+  for (const box of destinations) {
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(390);
+    expect(box.y + box.height / 2).toBeCloseTo(destinations[0].y + destinations[0].height / 2, 0);
+  }
+  expect(await main.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
 
   await page.setViewportSize({ width: 375, height: 800 });
   await expect(width).toBeHidden();
@@ -174,13 +206,59 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
   const brand = (await page
     .getByRole('link', { name: 'Repository activity', exact: true })
     .boundingBox())!;
-  const narrowTheme = (await theme.boundingBox())!;
   const navigation = (await page
     .getByRole('navigation', { name: 'Main navigation', exact: true })
     .boundingBox())!;
-  // Brand, Accounts and theme share the first row, above the main navigation.
-  expect(
-    Math.abs(narrowTheme.y + narrowTheme.height / 2 - (brand.y + brand.height / 2)),
-  ).toBeLessThanOrEqual(2);
-  expect(narrowTheme.y + narrowTheme.height).toBeLessThanOrEqual(navigation.y);
+  // A 56px row over the 44px navigation row.
+  expect((await header.boundingBox())!.height).toBe(100);
+  // Brand, Accounts, theme, account and Sign out share the first row, above the main navigation.
+  for (const control of [accounts, theme, account, signOut]) {
+    const box = (await control.boundingBox())!;
+    expect(Math.abs(box.y + box.height / 2 - (brand.y + brand.height / 2))).toBeLessThanOrEqual(2);
+    expect(box.y + box.height).toBeLessThanOrEqual(navigation.y);
+    expect(box.x + box.width).toBeLessThanOrEqual(375 - gutter(375, 'wide') + 0.5);
+  }
+});
+
+test("an administrator's first masthead row fits from 320px without overlapping or cutting off the avatar", async ({
+  page,
+}) => {
+  await page.goto(
+    'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--administration&viewMode=story',
+  );
+  const account = page.getByRole('button', { name: /^Account: / });
+  const row = [
+    page.getByRole('link', { name: 'Repository activity', exact: true }),
+    page
+      .getByRole('navigation', { name: 'Administration', exact: true })
+      .getByRole('link', { name: 'Accounts', exact: true }),
+    page.getByRole('button', { name: 'Theme settings', exact: true }),
+    account,
+    page.getByRole('button', { name: 'Sign out', exact: true }),
+  ];
+  await expect(row[2]).toBeEnabled();
+  for (const width of [320, 340, 360, 375]) {
+    await page.setViewportSize({ width, height: 800 });
+    const at = `at ${width}px`;
+    const boxes = await Promise.all(row.map(async (control) => (await control.boundingBox())!));
+    // Left to right inside the gutters, each control clear of the one before it.
+    expect(boxes[0].x, at).toBeGreaterThanOrEqual(gutter(width, 'wide') - 0.5);
+    for (let index = 1; index < boxes.length; index++)
+      expect(boxes[index].x, at + ' control ' + index).toBeGreaterThanOrEqual(
+        boxes[index - 1].x + boxes[index - 1].width - 0.5,
+      );
+    const last = boxes[boxes.length - 1];
+    expect(last.x + last.width, at).toBeLessThanOrEqual(width - gutter(width, 'wide') + 0.5);
+    for (const box of boxes.slice(2)) expect([box.width, box.height], at).toEqual([36, 36]);
+    // The avatar sits whole inside its trigger.
+    const trigger = boxes[3];
+    const avatar = (await account.getByTitle('Human', { exact: true }).boundingBox())!;
+    expect(avatar.x, at).toBeGreaterThanOrEqual(trigger.x);
+    expect(avatar.y, at).toBeGreaterThanOrEqual(trigger.y);
+    expect(avatar.x + avatar.width, at).toBeLessThanOrEqual(trigger.x + trigger.width);
+    expect(avatar.y + avatar.height, at).toBeLessThanOrEqual(trigger.y + trigger.height);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), at).toBeLessThanOrEqual(
+      width,
+    );
+  }
 });

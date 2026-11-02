@@ -21,6 +21,12 @@ import {
   withTimelineAvailability,
 } from './reporting-timeline';
 import { inDateRange } from './reporting-period';
+import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
+import type { ContributionSettings } from '@/models/contribution-settings';
+import { contributionReturnHref, contributionUrlFits } from './contribution-return';
+import { contributionHref } from './contribution-navigation';
+
+const origin = 'https://dashboard.invalid';
 
 /** Partition supplied once-attributed facts; no GitHub history or client-side report calculation. */
 export function selectContributionTimeline(
@@ -48,6 +54,10 @@ export function selectContributionTimeline(
   ];
   if (dates.some((at) => !available.some((range) => inDateRange(at, range))))
     throw Error('Known contribution facts lie outside timeline coverage');
+  const account =
+    selectedFocus.kind === 'contributor'
+      ? source.accounts.find((row) => row.id === selectedFocus.accountId)!
+      : null;
   const empty = !scope.accounts.length || !scope.repositories.length;
   const measurements = empty
     ? []
@@ -73,11 +83,9 @@ export function selectContributionTimeline(
       focus: scope.focus,
       includedAccountCount: scope.accounts.length,
       subject:
-        selectedFocus.kind === 'contributor'
-          ? source.accounts.find((row) => row.id === selectedFocus.accountId)!
-          : selectedFocus.kind === 'company'
-            ? scope.companyFor(selectedFocus.companyId)
-            : null,
+        account ??
+        (selectedFocus.kind === 'company' ? scope.companyFor(selectedFocus.companyId) : null),
+      ...(account ? { company: scope.companyFor(account.companyId) } : {}),
       companyAttribution: source.companyAttribution,
     },
     rows: measurements.map((measurement, index) => ({
@@ -109,4 +117,32 @@ export function contributionTimelineDetail(
     selection: report.scope.selection,
     focus: report.scope.focus,
   };
+}
+
+/**
+ * An overview's Over time in another area: the same scope and Timeline view, without the return
+ * trail, whose report belongs to the area being left. Null when the URL does not fit.
+ */
+export function contributionTimelineAreaHref(href: string, area: ContributionArea): string | null {
+  const url = new URL(href, origin);
+  url.searchParams.delete('nav');
+  url.searchParams.delete('returnTo');
+  const result = '/' + area + url.search;
+  return contributionUrlFits(result) ? result : null;
+}
+
+/**
+ * "Back to report" on a contributor or company Over time: where the report its Report tab opens
+ * returns to, which is the parent in that report's trail, or else its area with the same scope.
+ */
+export function contributionTimelineReturnHref(
+  reportHref: string,
+  area: ContributionArea,
+  sample: ContributionSampleScenario,
+  settings: ContributionSettings,
+): string {
+  return contributionReturnHref(
+    new URL(reportHref, origin).searchParams,
+    contributionHref(area, sample, undefined, settings) ?? '/' + area,
+  );
 }

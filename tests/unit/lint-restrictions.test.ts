@@ -17,6 +17,12 @@ const paths = {
   primitive: 'src/components/ui/button.tsx',
   layout: 'src/components/layout/theme-menu.tsx',
   componentTest: 'tests/components/fields.test.tsx',
+  pageHeader: 'src/components/navigation/page-header.tsx',
+  edgeFrame: 'src/components/layout/edge-frame.tsx',
+  authView: 'src/features/authentication/login-view.tsx',
+  authRoute: 'src/app/auth/error/page.tsx',
+  users: 'src/features/administration/users-view.tsx',
+  foundation: 'src/app/(dashboard)/foundation/page.tsx',
 } as const;
 const lines = (...source: string[]) => source.join('\n') + '\n';
 
@@ -154,11 +160,11 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
     await reports(paths.feature, lines('export const warm = 1;'));
   }, 90_000);
 
-  it('rejects a className on each primitive in features, routes and shared components', async () => {
+  it('rejects a className on each primitive in features, routes, shared components and the shell', async () => {
     const expected = [12, 13, 14, 15, 16, 17, 18, 19, 20].map(
       (line) => ['no-restricted-syntax', line] as const,
     );
-    for (const path of [paths.feature, paths.route, paths.component])
+    for (const path of [paths.feature, paths.route, paths.component, paths.layout])
       expect(await reports(path, primitiveOverrides), path).toEqual(expected);
   });
 
@@ -181,8 +187,8 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
     ).toEqual([]);
   });
 
-  it('leaves the primitives themselves, the P4 shell, tests and stories alone', async () => {
-    for (const path of [paths.primitive, paths.layout, paths.componentTest, paths.story])
+  it('leaves the primitives themselves, tests and stories alone', async () => {
+    for (const path of [paths.primitive, paths.componentTest, paths.story])
       expect(await reports(path, primitiveOverrides), path).toEqual([]);
   });
 
@@ -192,12 +198,12 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
       "export const load = () => import('lucide-react');",
       'export const Override = () => <Button className="mt-4" />;',
     );
-    expect(await reports(paths.feature, both)).toEqual([
-      ['no-restricted-syntax', 2],
-      ['no-restricted-syntax', 3],
-    ]);
-    for (const path of [paths.primitive, paths.layout])
-      expect(await reports(path, both), path).toEqual([['no-restricted-syntax', 2]]);
+    for (const path of [paths.feature, paths.layout])
+      expect(await reports(path, both), path).toEqual([
+        ['no-restricted-syntax', 2],
+        ['no-restricted-syntax', 3],
+      ]);
+    expect(await reports(paths.primitive, both)).toEqual([['no-restricted-syntax', 2]]);
   });
 
   it('does not read spread props, aliases or member names', async () => {
@@ -215,6 +221,76 @@ describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
           '    <ui.Button className="mt-4" />',
           '  </>',
           ');',
+        ),
+      ),
+    ).toEqual([]);
+  });
+});
+
+const headingOwners = [
+  paths.pageHeader,
+  paths.edgeFrame,
+  paths.authView,
+  paths.authRoute,
+  paths.users,
+  paths.foundation,
+];
+
+describe('rule 4: PageHeader owns the page h1', { timeout: 30_000 }, () => {
+  beforeAll(async () => {
+    // Warm when an earlier block ran first in this worker; cold when this block runs alone.
+    await reports(paths.feature, lines('export const warm = 1;'));
+  }, 90_000);
+
+  it('rejects an h1 in features, routes, shared components, the shell and the primitives', async () => {
+    const heading = lines('export const Title = () => <h1 className="title">Repositories</h1>;');
+    for (const path of [paths.feature, paths.route, paths.component, paths.layout, paths.primitive])
+      expect(await reports(path, heading), path).toEqual([['no-restricted-syntax', 1]]);
+  });
+
+  it('accepts the h1 of PageHeader, authentication, edge, Users and foundation files', async () => {
+    const heading = lines('export const Title = () => <h1>Sign in</h1>;');
+    for (const path of headingOwners) expect(await reports(path, heading), path).toEqual([]);
+  });
+
+  it('keeps the icon rule and rule 3 in the files that own an h1', async () => {
+    const all = lines(
+      "import { Button } from '@/components/ui/button';",
+      "export const load = () => import('lucide-react');",
+      'export const Override = () => <Button className="mt-4" />;',
+      'export const Title = () => <h1>Title</h1>;',
+    );
+    for (const path of headingOwners)
+      expect(await reports(path, all), path).toEqual([
+        ['no-restricted-syntax', 2],
+        ['no-restricted-syntax', 3],
+      ]);
+    expect(await reports(paths.feature, all)).toEqual([
+      ['no-restricted-syntax', 2],
+      ['no-restricted-syntax', 3],
+      ['no-restricted-syntax', 4],
+    ]);
+    expect(await reports(paths.primitive, all)).toEqual([
+      ['no-restricted-syntax', 2],
+      ['no-restricted-syntax', 4],
+    ]);
+  });
+
+  it('leaves tests and stories alone', async () => {
+    const heading = lines('export const Title = () => <h1>Button sizes</h1>;');
+    for (const path of [paths.componentTest, paths.story])
+      expect(await reports(path, heading), path).toEqual([]);
+  });
+
+  it('does not read createElement or a computed tag', async () => {
+    expect(
+      await reports(
+        paths.feature,
+        lines(
+          "import { createElement } from 'react';",
+          "const Tag = 'h1';",
+          "export const Created = () => createElement('h1', null, 'Title');",
+          'export const Computed = () => <Tag>Title</Tag>;',
         ),
       ),
     ).toEqual([]);

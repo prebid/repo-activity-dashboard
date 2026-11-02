@@ -16,13 +16,29 @@ import {
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import { countLabel } from '@/lib/presentation/format';
 import { EmptyState } from '@/components/feedback/empty-state';
+import { ViewBar } from '@/components/navigation/view-bar';
 import {
   accountTypesFact,
+  companyReportMeta,
+  ContributionAreaTabs,
   ContributionHeading,
   ContributionReportViewTabs,
   ContributionSubjectAvatar,
 } from './contribution-header';
-import styles from './contributions.module.css';
+import { ContributionNavigationLink } from './contribution-columns';
+
+/**
+ * The links an Over time view takes from its screen, which derives them from the current URL.
+ * Without them the view shows no Back to report link, area tabs or company link.
+ */
+export interface ContributionTimelineNavigation {
+  /** On a contributor or company report, the report "Back to report" opens. */
+  returnTo?: string;
+  /** On an overview, each area's Over time; null when its URL does not fit. */
+  areas?: Record<ContributionArea, string | null>;
+  /** On a contributor report, the company's report; null when its URL does not fit. */
+  company?: string | null;
+}
 
 export const contributionTimelineMetrics: TimelineMetricDefinition[] =
   contributionMetricValues().map(
@@ -44,6 +60,7 @@ export function ContributionTimelineView({
   href,
   toolbar = noReportControls,
   tableControls,
+  navigation = {},
 }: {
   report: ContributionTimeline;
   area: ContributionArea;
@@ -52,8 +69,10 @@ export function ContributionTimelineView({
   /** The report filters and Timeline settings; the view adds its scope summary. */
   toolbar?: ReportToolbarControls;
   tableControls?: import('@/components/reporting/timeline-table').TimelineTableControls;
+  navigation?: ContributionTimelineNavigation;
 }) {
   const { subject, focus, selection, includedAccountCount } = report.scope;
+  const company = report.scope.company?.name ?? 'Unmapped company';
   const title = contributionSubjectTitle(area, focus.kind === 'overview' ? 'overview' : subject);
   const empty = !selection.repositoryIds.length
     ? 'No repositories selected'
@@ -67,13 +86,7 @@ export function ContributionTimelineView({
       <ContributionHeading
         title={title}
         asOf={report.source.asOf}
-        eyebrow={
-          focus.kind === 'overview'
-            ? 'Contribution activity'
-            : focus.kind === 'company'
-              ? 'Company report'
-              : 'Contributor report'
-        }
+        returnTo={focus.kind === 'overview' ? undefined : navigation.returnTo}
         identity={
           focus.kind === 'company' ? (
             <ContributionSubjectAvatar subject={{ kind: 'company', company: subject }} />
@@ -83,24 +96,31 @@ export function ContributionTimelineView({
         }
       >
         {subject && 'login' in subject ? (
-          <div className={styles.meta}>
+          <>
             <GitHubAccountLink
               login={subject.login}
               url={subject.profileUrl}
               label={'@' + subject.login}
             />
             <span>{accountTypeLabels[subject.actorType]}</span>
-          </div>
-        ) : (
-          <p className={styles.subtitle}>
-            {focus.kind === 'overview'
-              ? 'Contribution activity across your selected population.'
-              : 'Contribution activity for this ' +
-                (focus.kind === 'company' ? 'company.' : 'account.')}
-          </p>
-        )}
+            {navigation.company === undefined ? (
+              <span>{company}</span>
+            ) : (
+              <ContributionNavigationLink href={navigation.company}>
+                {company}
+              </ContributionNavigationLink>
+            )}
+          </>
+        ) : focus.kind === 'company' ? (
+          <span>{companyReportMeta(includedAccountCount, !!subject)}</span>
+        ) : undefined}
       </ContributionHeading>
-      <ContributionReportViewTabs active="timeline" reportHref={reportHref} timelineHref={href} />
+      <ViewBar>
+        {focus.kind === 'overview' && navigation.areas && (
+          <ContributionAreaTabs area={area} hrefs={navigation.areas} />
+        )}
+        <ContributionReportViewTabs active="timeline" reportHref={reportHref} timelineHref={href} />
+      </ViewBar>
       <ReportToolbar
         label="Timeline scope"
         {...toolbar}

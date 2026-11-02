@@ -35,7 +35,7 @@ Use the existing top navigation with one Repos menu containing All repositories 
 
 Arrange the page vertically:
 
-1. Page title, clearly labeled sample-data/as-of information, and one searchable repository multi-select shared by both tables. Include select all and clear selection; searching the picker only filters its options and does not silently change the selected repositories.
+1. Page title with its "Data as of" chip, without a sample-data notice, and one searchable repository multi-select shared by both tables. Include select all and clear selection; searching the picker only filters its options and does not silently change the selected repositories.
 2. Current backlog table with its multi-select PR age menu and column-group controls.
 3. Activity table with up to two period selectors, separate custom-range actions, exact UTC dates, and its own column-group controls. When two periods are selected, their labeled rows stay adjacent for each repository.
 
@@ -52,7 +52,7 @@ Arrange the page vertically:
 
 All core product metrics remain available, even when initially hidden. Preserve exceptional counts above two and other/unknown latest actors in supporting detail; never force them into a visible bucket. Clear labels distinguish feedback participation from current approvals and contribution credits.
 
-Use semantic tables, grouped headers, tabular numbers, useful column widths, and a pinned repository column. Keep horizontal scrolling within each table, with an accessible name and visible scroll affordance. Do not shrink text to fit every column or turn rows into unrelated cards on phones. Keep the repository name identifiable and controls reachable at 320 px. Single-row overview tables display all 18 selected repositories without unnecessary pagination controls. Larger lists use the shared 50-row limit; three-row comparisons use 48-row pages to retain complete repository groups. Do not add charts, headline KPI cards, drag-to-reorder columns, virtualization, or a new navigation system for this page.
+Use semantic tables, grouped headers, tabular numbers, useful column widths, and a pinned repository column. Keep horizontal scrolling within each table, with an accessible name and visible scroll affordance. Do not shrink text to fit every column or turn rows into unrelated cards on phones. Keep the repository name identifiable and controls reachable at 320 px. Single-row overview tables display all 18 selected repositories without unnecessary pagination controls. Larger lists use the shared 50-row limit; three-row comparisons use 48-row pages to retain complete repository groups. Do not add charts, headline KPI cards, drag-to-reorder columns or virtualization for this page. Its in-page navigation is the shared view bar: the Summary and Timeline switch and the section chips.
 
 ## Ownership and composition
 
