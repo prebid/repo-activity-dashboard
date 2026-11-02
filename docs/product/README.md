@@ -9,7 +9,7 @@ Settle layouts and interactions across the pages with prepared sample data befor
 | Login | [Login](login.md) | Centered Prebid sign-in and password setup, shared Light/Dark/System controls, and preserved return context. |
 | Repository summary | [All Repos](all-repositories.md) | Current backlog and period tables, repository selection, sorting, saved preferences, and filtered navigation. |
 | Individual repository | [Repository page](repository-detail.md) | Metadata-only PR/issue lists, 50-row pagination, repository graphs, and links to actual GitHub records. |
-| Contributors and companies | [Contributions](contributors.md) | Tables, focused reports with repository rows, individual/company inclusion and exclusions, saved preferences, and full filtered exports. |
+| Contributors, reviewers and companies | [Contributions](contributors.md) | Contributors and Reviewers lenses over one report with shared filters; tables, focused reports with repository rows, individual/company inclusion and exclusions, saved preferences, and full filtered exports. |
 | Timeline reporting | [Shared timeline contract](#timeline-reporting) | A continuous date range with selectable calendar grouping; repository charts and contribution/company period tables, with matching drilldowns and exports. |
 | Custom groups | [Deferred group requirements](contributors.md#delivery-scope--updated-2026-10-29) | Deferred until real reporting data from the database is integrated; includes group reports, selection and membership management. |
 | Agent/bot tracking | [Agents & bots](agents-and-bots.md) | Catalog, GitHub activity, recorded run history, model/harness metadata, results, and source links. |
