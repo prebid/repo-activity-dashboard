@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import type { Measurement } from '@/models/reporting-measurement';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
+import drillable from '@/components/metrics/drillable-number.module.css';
 import { Callout } from '@/components/feedback/callout';
 import { formatMeasure } from '@/lib/presentation/format';
 import styles from './timeline-layout.module.css';
@@ -72,7 +73,7 @@ export function TimelineValueCell({
         prefetch={false}
         href={href}
         aria-label={timelineValueName(name, measurement, unit)}
-        className={styles.valueLink}
+        className={drillable.link}
       >
         {value}
       </Link>
@@ -84,6 +85,15 @@ export function TimelineValueCell({
       <span className="sr-only"> No supporting-records link: the link would be too large.</span>
     </span>
   );
+}
+/** The partial-period marker's text, which a table header draws as its label caption. */
+export const partialPeriodCaption = 'Partial';
+/**
+ * The one partial-period marker: the caption "Partial" on its own line under a period's label, for
+ * a calendar period the range clips. A partial period can still have complete values.
+ */
+export function PartialPeriodMarker() {
+  return <span className={styles.partial}>{partialPeriodCaption}</span>;
 }
 export function TimelineCoverageNotice() {
   return (

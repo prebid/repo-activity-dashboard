@@ -132,6 +132,22 @@ it('moves Back and Forward through a search in an author records list', async ()
     expect(screen.getByRole('textbox', { name: /^Search / })).toHaveValue('Sample'),
   );
 });
+it('opens an author records list without its Author column', () => {
+  if (detail.kind !== 'authors') throw Error('Expected an authors list');
+  const account = detail.rows[0].account;
+  const authorHref = href + '&support.author=' + account;
+  const records = selectRepositoryTimelineSupport(
+    source,
+    report,
+    { ...detail.context, href: authorHref },
+    account,
+  );
+  window.history.replaceState(null, '', authorHref);
+  render(<TimelineSupportScreen detail={records} viewerId="alice" />);
+  const table = screen.getByRole('table', { name: 'Records by @' + account });
+  expect(within(table).getByRole('columnheader', { name: 'Title' })).toBeVisible();
+  expect(within(table).queryByRole('columnheader', { name: 'Author' })).not.toBeInTheDocument();
+});
 it('opens supporting record lists with the shared record column defaults', () => {
   const headers = () =>
     screen.getAllByRole('columnheader').map((cell) => cell.textContent?.trim() ?? '');

@@ -5,6 +5,9 @@
   font-variant-numeric: var(--prebid-numeric);
   white-space: nowrap;
   line-height: 20px;
+  /* A link's decoration does not reach into an inline-flex box, so the box takes it on itself,
+     and a drillable number's dotted underline (drillable-number.module.css) reaches the digits. */
+  text-decoration: inherit;
 }
 .difference {
   font-size: var(--prebid-text-small);
@@ -13,15 +16,27 @@
   font-variant-numeric: var(--prebid-numeric);
   white-space: nowrap;
 }
+.value,
+.quiet {
+  position: relative;
+}
 .value {
   font-weight: var(--prebid-number-weight);
 }
 .quiet {
-  color: var(--muted-foreground);
+  /* A known zero or missing value is muted; a drillable link may recolour it on hover. */
+  color: var(--measurement-quiet-ink, var(--muted-foreground));
 }
+/* The partial-value asterisk follows the digits. A container that aligns numbers in a column, such
+   as a table's numeric cell, sets --measurement-mark-position: absolute so it hangs past them in its
+   own trailing slot and the digits stay aligned. */
 .marker {
-  font-size: var(--prebid-text-caption);
+  position: var(--measurement-mark-position, static);
+  top: 0;
+  left: 100%;
   margin-left: 2px;
+  font-size: var(--prebid-text-caption);
+  line-height: 1;
   color: var(--muted-foreground);
 }
 .change {

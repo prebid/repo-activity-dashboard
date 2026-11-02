@@ -20,7 +20,7 @@ import {
 } from '../../scripts/check-design-tokens.mjs';
 
 // Each phase lowers this as it converts its allowlisted sites.
-const CEILING = 45;
+const CEILING = 33;
 // The unmodelled sites in the tree today; lowered as values become readable or are removed.
 const UNMODELLED_CEILING = 68;
 
@@ -496,8 +496,8 @@ describe('control overrides in feature CSS', () => {
             selector: '.bar button',
             property: 'height',
             value: '30px',
-            phase: 'P3',
-            reason: 'The table system replaces this control.',
+            phase: 'P4',
+            reason: 'The shell rebuild replaces this control.',
           },
         ],
       },
@@ -1030,8 +1030,8 @@ describe('text arrows', () => {
             selector: '',
             property: 'text',
             value: "down ? ' ↓' : ' ↑'",
-            phase: 'P3',
-            reason: 'Sort direction glyph.',
+            phase: 'P4',
+            reason: 'Direction glyph that a later phase replaces.',
           },
         ],
       },
@@ -1053,8 +1053,8 @@ describe('allowlist', () => {
     selector: '.nav',
     property: 'font-size',
     value: '12px',
-    phase: 'P3',
-    reason: 'Table sizes move with the table system.',
+    phase: 'P4',
+    reason: 'Shell sizes move with the shell rebuild.',
   };
   const unsuppressed = [
     'src/allow.css:2: font-size literal: [@media (max-width: 600px)] .nav font-size: 12px',
@@ -1127,7 +1127,10 @@ describe('allowlist', () => {
     const result = inspectDesignTokens(fixture({ 'src/allow.css': css }), {
       allowlist: {
         version: 1,
-        entries: [entry, { ...entry, context: '@media (max-width: 600px)', phase: 'P2' }],
+        entries: [
+          { ...entry, phase: 'P3' },
+          { ...entry, context: '@media (max-width: 600px)', phase: 'P2' },
+        ],
       },
       completedPhases: ['P3'],
     });

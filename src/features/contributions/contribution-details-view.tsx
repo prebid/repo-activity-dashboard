@@ -2,13 +2,22 @@
 import { accountTypeLabels } from '@/models/github-account';
 import { measurementSortGroup, measurementSortNote } from '@/lib/presentation/measurement-order';
 import { additionalMetricDefinitions } from '@/models/contribution-activity';
-import { ExternalLinkIcon } from '@/components/ui/icons';
 import { Callout } from '@/components/feedback/callout';
 import type { EmptyStateKind } from '@/components/feedback/empty-state';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { AccountTypeLabel, Avatar } from '@/components/github/avatar';
+import {
+  RecordStatus,
+  recordStatusPresentation,
+  type RecordStatusProps,
+} from '@/components/github/record-status';
+import {
+  RecordTitleLink,
+  issueStatus,
+  pullRequestStatus,
+} from '@/components/github/record-identity';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatAsOf } from '@/lib/presentation/format';
@@ -27,6 +36,17 @@ import { ContributionHeader } from './contribution-header';
 import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import type { ContributionLinks } from './contribution-columns';
 import styles from './contributions.module.css';
+function recordStatus(record: ContributionSupportingRow['record']): RecordStatusProps {
+  return record.kind === 'pr'
+    ? pullRequestStatus(record.state, record.draft)
+    : issueStatus(record.state);
+}
+/** The state cell's text, which search, sorting and CSV read. */
+function recordStatusLabel(status: RecordStatusProps): string {
+  return status.kind === 'pr'
+    ? recordStatusPresentation.pr[status.status].label
+    : recordStatusPresentation.issue[status.status].label;
+}
 export const contributionDetailColumnIds = [
   'record',
   'account',
@@ -54,15 +74,13 @@ export function contributionDetailColumns(
       width: 280,
       value: (row) => '#' + row.record.number + ' ' + row.record.title,
       cell: (row) => (
-        <a
-          className={styles.identityLink + ' ' + styles.recordLink}
-          href={row.record.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Sample record placeholder; real records will open on GitHub."
-        >
-          #{row.record.number} {row.record.title} <ExternalLinkIcon size={14} />
-        </a>
+        <RecordTitleLink
+          title={row.record.title}
+          url={row.record.url}
+          number={row.record.number}
+          hint="Sample record placeholder; real records will open on GitHub."
+          external
+        />
       ),
     },
     {
@@ -72,19 +90,21 @@ export function contributionDetailColumns(
       width: 160,
       value: (row) => row.account.name + ' ' + row.account.login,
       cell: (row) => (
-        <div className={styles.account}>
+        <div className={styles.identityCell}>
           <Avatar
             kind="person"
             name={row.account.name}
             accountType={row.account.actorType}
             size={32}
           />
-          <GitHubAccountLink
-            login={row.account.login}
-            url={row.account.profileUrl}
-            label={'@' + row.account.login}
-          />
-          <AccountTypeLabel accountType={row.account.actorType} />
+          <div className={styles.identity}>
+            <GitHubAccountLink
+              login={row.account.login}
+              url={row.account.profileUrl}
+              label={'@' + row.account.login}
+            />
+            <AccountTypeLabel accountType={row.account.actorType} />
+          </div>
         </div>
       ),
     },
@@ -114,10 +134,8 @@ export function contributionDetailColumns(
       selectionGroup: 'Status',
       label: 'Current state',
       width: 90,
-      value: (row) =>
-        row.record.kind === 'pr' && row.record.draft && row.record.state === 'Open'
-          ? 'Draft'
-          : row.record.state,
+      value: (row) => recordStatusLabel(recordStatus(row.record)),
+      cell: (row) => <RecordStatus {...recordStatus(row.record)} />,
     },
     {
       id: 'creditedAt',

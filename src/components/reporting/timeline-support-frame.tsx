@@ -8,6 +8,7 @@ import { MeasurementValue } from '@/components/metrics/measurement-value';
 import { BackIcon } from '@/components/ui/icons';
 import { Callout } from '@/components/feedback/callout';
 import { formatAsOf } from '@/lib/presentation/format';
+import { PartialPeriodMarker } from './timeline-value';
 import styles from './timeline-layout.module.css';
 export function TimelineSupportFrame({
   context,
@@ -54,9 +55,7 @@ export function TimelineSupportFrame({
           </span>
         </div>
         <p className={styles.dates}>{zonedRangeLabel(context.interval.covered)}</p>
-        {context.interval.partial && (
-          <span className={styles.partial}>Partial calendar period</span>
-        )}
+        {context.interval.partial && <PartialPeriodMarker />}
       </section>
       {context.measurement.status !== 'complete' && (
         <Callout tone="warning" as="aside" aria-label="Supporting data coverage">

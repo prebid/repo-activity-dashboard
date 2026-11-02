@@ -15,6 +15,7 @@ import {
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { AccountTypeLabel, Avatar } from '@/components/github/avatar';
 import { accountTypeLabels } from '@/models/github-account';
+import drillable from '@/components/metrics/drillable-number.module.css';
 import pageStyles from './repository-page.module.css';
 import { timelineSupportContextColumns } from '@/lib/presentation/timeline-support-csv';
 export function timelineAuthorColumns(
@@ -44,13 +45,14 @@ export function timelineAuthorColumns(
     {
       id: 'recordCount',
       label: 'Records authored',
+      align: 'right',
       value: (row) => row.recordCount,
       cell: (row) => {
         const link = href?.(row.account);
         return link ? (
           <Link
             prefetch={false}
-            className="underline underline-offset-4"
+            className={drillable.link}
             href={link}
             onClick={onFollow}
             aria-label={`${row.account}: ${row.recordCount} authored records`}

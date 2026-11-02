@@ -17,8 +17,10 @@ import type { MouseEvent, ComponentProps } from 'react';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { AccountTypeLabel, Avatar, type AvatarSize } from '@/components/github/avatar';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
+import drillable from '@/components/metrics/drillable-number.module.css';
 import type { DataColumn } from '@/components/tables/table-columns';
 import {
+  type ContributionMetric,
   type ContributionValues,
   type ContributorMetricRow,
   type CompanyMetricRow,
@@ -121,7 +123,8 @@ export function ContributionMetricLink({
   return (
     <ContributionNavigationLink
       prefetch={false}
-      className={styles.metricLink}
+      // A value past the link limit opens nothing, so it does not look drillable.
+      className={href === null ? undefined : drillable.link}
       href={href}
       onClick={(event) => links.onMetric?.(event, focus, metric, repositoryId)}
       aria-label={
@@ -135,6 +138,29 @@ export function ContributionMetricLink({
       {content}
     </ContributionNavigationLink>
   );
+}
+/**
+ * Headings drawn over the core metrics on screen only, so metric names, the Columns menu, the CSV
+ * dialog and CSV headers keep the plain labels.
+ */
+const coreMetricHeadings: Record<ContributionMetric, string> = {
+  prsAuthored: 'Authoring',
+  authoredPrsMerged: 'Authoring',
+  reviewerContributions: 'Reviewing',
+  approvalContributions: 'Reviewing',
+  mergesPerformed: 'Reviewing',
+  issuesAuthored: 'Issues',
+};
+/**
+ * Every number column declares one width, so at the table's minimum width their headers wrap
+ * alike; above it the table shares the surplus among them.
+ */
+function numberColumn(id: string): Pick<DataColumn<unknown>, 'width' | 'align' | 'displayGroup'> {
+  return {
+    width: 126,
+    align: 'right',
+    displayGroup: isReportMetric(id) && isCoreMetric(id) ? coreMetricHeadings[id] : undefined,
+  };
 }
 function metricCell<T extends { metrics: ContributionValues; additionalMetrics: AdditionalValues }>(
   id: string,
@@ -224,8 +250,7 @@ export function contributorColumns(
     if (column.id === 'actorType') return { ...column, width: 110 };
     return {
       ...column,
-      width: column.group ? 126 : 110,
-      align: 'right',
+      ...numberColumn(column.id),
       cell: (row) =>
         metricCell(column.id, row, { kind: 'contributor', accountId: row.account.id }, links),
     };
@@ -259,8 +284,7 @@ export function companyColumns(links: ContributionLinks): DataColumn<CompanyMetr
         }
       : {
           ...column,
-          width: column.group ? 126 : 110,
-          align: 'right',
+          ...numberColumn(column.id),
           ...(column.id === 'members'
             ? {}
             : {
@@ -296,8 +320,7 @@ export function repositoryContributionColumns(
         }
       : {
           ...column,
-          width: column.group ? 126 : 110,
-          align: 'right',
+          ...numberColumn(column.id),
           cell: (row) =>
             metricCell(
               column.id,

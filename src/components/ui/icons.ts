@@ -1,8 +1,10 @@
 import { createElement, memo, type ComponentType, type ReactElement } from 'react';
 import {
+  ArrowDown,
   ArrowLeft,
   ArrowLeftRight,
   ArrowRight,
+  ArrowUp,
   ArrowUpRight,
   Bot,
   Building2,
@@ -15,6 +17,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeftRight,
+  ChevronsUpDown,
   ChevronUp,
   CircleAlert,
   CircleCheckBig,
@@ -63,12 +66,15 @@ import {
 // control it sits in or the text beside it carries the name. A 1.5 stroke with absoluteStrokeWidth
 // keeps the line 1.5px at every size, which holds only while the svg renders at its width
 // attribute, so no stylesheet may resize an icon. A 10px badge glyph draws 1px, because a 1.5px
-// line fills the gaps between Cpu's pins at that size.
+// line fills the gaps between Cpu's pins at that size. A 12px sort direction glyph draws 2px, as the
+// Visual specification sets for table headers.
 
 /** 14 in in-page controls, chips, inline text and status markers; 16 in tabs, menus and header buttons. */
 export type IconSize = 14 | 16;
 /** Account glyphs also render at 10 inside an identity badge. */
 export type IdentityIconSize = 10 | IconSize;
+/** Sort direction glyphs render only at 12, inside SortIcon's 14px slot. */
+export type DirectionIconSize = 12;
 
 export interface IconProps<Size extends number = IconSize> {
   size: Size;
@@ -83,7 +89,7 @@ function icon<Size extends number>(glyph: LucideIcon): ComponentType<IconProps<S
   return memo(function Icon({ size, className }: IconProps<Size>): ReactElement {
     return createElement(glyph, {
       size,
-      strokeWidth: size === 10 ? 1 : 1.5,
+      strokeWidth: size === 10 ? 1 : size === 12 ? 2 : 1.5,
       absoluteStrokeWidth: true,
       'aria-hidden': 'true',
       focusable: 'false',
@@ -93,6 +99,7 @@ function icon<Size extends number>(glyph: LucideIcon): ComponentType<IconProps<S
 }
 const concept = (glyph: LucideIcon): IconComponent => icon<IconSize>(glyph);
 const identity = icon<IdentityIconSize>;
+const direction = icon<DirectionIconSize>;
 
 // Navigation and views.
 export const BackIcon = concept(ArrowLeft);
@@ -132,6 +139,11 @@ export const NextIcon = concept(ChevronRight);
 export const CheckIcon = concept(Check);
 export const IndeterminateIcon = concept(Minus);
 export const CloseIcon = concept(X);
+
+// Table sort state, drawn by SortIcon (src/components/tables/sort-icon.tsx).
+export const SortIdleIcon = direction(ChevronsUpDown);
+export const SortAscendingIcon = direction(ArrowUp);
+export const SortDescendingIcon = direction(ArrowDown);
 
 // Shell and authentication.
 export const WidthToggleIcon = concept(ChevronsLeftRight);

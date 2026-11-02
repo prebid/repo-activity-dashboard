@@ -16,9 +16,14 @@ export function GitHubAccountLink({
   secondaryLabel?: string;
 }) {
   const parsed = githubProfileUrlSchema.safeParse(url);
-  const content = (
+  // The external-link glyph sits in the name's own line box, so it follows the last character of a
+  // wrapped name instead of the far edge of the cell.
+  const content = (icon?: React.ReactNode) => (
     <span className={styles.label}>
-      <span>{label}</span>
+      <span>
+        {label}
+        {icon}
+      </span>
       {secondaryLabel && (
         <>
           {' '}
@@ -29,7 +34,7 @@ export function GitHubAccountLink({
       )}
     </span>
   );
-  if (!parsed.success) return <span className={className}>{content}</span>;
+  if (!parsed.success) return <span className={className}>{content()}</span>;
   const sample = new URL(parsed.data).hostname === 'github.example';
   return (
     <a
@@ -51,8 +56,7 @@ export function GitHubAccountLink({
           : 'Open GitHub profile'
       }
     >
-      {content}
-      <ExternalLinkIcon size={14} />
+      {content(<ExternalLinkIcon size={14} />)}
     </a>
   );
 }
