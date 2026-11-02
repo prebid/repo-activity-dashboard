@@ -1,37 +1,3 @@
-.pageHeader {
-  margin-bottom: 4px;
-}
-.title {
-  font-size: clamp(25px, 3vw, 32px);
-  letter-spacing: -0.035em;
-  font-weight: 800;
-  line-height: 1.2;
-}
-.organizationLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--prebid-link);
-  font-size: var(--prebid-text-body);
-  line-height: 1.6;
-  margin-top: 9px;
-  border-radius: 2px;
-  text-underline-offset: 3px;
-}
-.organizationLink:hover {
-  text-decoration: underline;
-}
-.asOf {
-  color: var(--muted-foreground);
-  font-size: var(--prebid-text-caption);
-  line-height: 1.7;
-}
-.asOf strong {
-  display: block;
-  color: var(--foreground);
-  font-weight: 500;
-  font-size: var(--prebid-text-small);
-}
 .scope {
   display: flex;
   flex-wrap: wrap;
@@ -88,10 +54,4 @@
 .repositoryLink:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
-}
-@media (max-width: 600px) {
-  .asOf strong {
-    display: inline;
-    margin-right: 6px;
-  }
 }

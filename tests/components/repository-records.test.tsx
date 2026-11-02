@@ -12,6 +12,9 @@ import { OverviewMetric } from '@/features/repositories/overview-metric';
 import { useLocalTableController } from '@/components/tables/local-data-table';
 import { repositoryRecordSample } from '@/mocks/repository-records';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
+import { repositoryAuthorRecordSample } from '@/mocks/repository-insights';
+import { repositoryAuthorsHref } from '@/lib/presentation/repository-author-records';
+import { RepositoryCharts } from '@/features/repositories/repository-charts';
 import type { RepositoryRecordList } from '@/models/repository-records';
 const samples = repositoryOverviewSamples();
 const repo = samples.repositories.find((row) => row.repository.slug === 'prebidjs')!.repository;
@@ -180,12 +183,11 @@ it('keeps record identity and labels together, uses separate reviewer/approval v
   expect(row.querySelector('[data-column="humanReviewers"]')).toHaveTextContent('—');
   expect(row.querySelector('[data-column="approvals"]')).toHaveTextContent('—');
   expect(within(row).getByText(draft.labels[0], { exact: true })).toBeVisible();
-  // The status keeps its label and data-state; its glyph and tone follow the PR state.
+  // The status keeps its label and data-state; its tone follows the PR state.
   const status = row.querySelector('[data-column="title"] [data-state]')!;
   expect(status).toHaveAttribute('data-state', 'Draft');
   expect(status).toHaveAttribute('data-tone', 'muted');
   expect(status).toHaveTextContent(/^Draft$/);
-  expect(status.querySelector('svg')).toHaveClass('lucide-git-pull-request-draft');
   const open = list.rows.find((item) => !item.draft && item.state === 'Open')!;
   const openStatus = screen
     .getByRole('link', { name: open.title })
@@ -289,4 +291,95 @@ it('marks the Timeline tab pending only while its handler navigation is pending'
   expect(state(/^Issues/)).toBe('false');
   view.rerender(<Controlled pending={false} />);
   expect(state('Timeline')).toBe('false');
+});
+it('heads a record list with the repository, its branch and its counted tabs, and links its charts and records', () => {
+  const list = repositoryRecordSample(repo, {
+    selection: { scope: 'current', metric: 'totalOpenPrs' },
+    returnTo: '/repos',
+  });
+  function WithCharts() {
+    const controller = useLocalTableController();
+    const page = selectRepositoryPage(repositoryPageRecordsSample(list));
+    return (
+      <RepositoryPageView
+        page={page}
+        navigation={repositoryPageNavigationSample(page.repository)}
+        controller={controller}
+        controls={{
+          filters: null,
+          charts: (
+            <RepositoryCharts
+              page={page}
+              visible={false}
+              onVisibilityChange={() => {}}
+              onSelect={() => {}}
+            />
+          ),
+          preferences: { storageAvailable: true, onReset: () => {} },
+          visibility: { value: repositoryColumnDefaults(page), onChange: () => {} },
+        }}
+      />
+    );
+  }
+  render(<WithCharts />);
+  const header = screen.getByRole('heading', { level: 1, name: 'Prebid.js' }).closest('header')!;
+  expect(header).toHaveTextContent('Primary branch ' + repo.primaryBranch);
+  expect(
+    within(within(header).getByRole('navigation', { name: 'Breadcrumb' })).getByRole('link', {
+      name: 'All repositories',
+    }),
+  ).toHaveAttribute('href', '/repos');
+  const tabs = screen.getByRole('navigation', { name: 'Repository lists' });
+  expect(within(tabs).getByRole('link', { name: 'Pull requests 137 open' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  expect(within(tabs).getByRole('link', { name: 'Issues 834 open' })).not.toHaveAttribute(
+    'aria-current',
+  );
+  const sections = screen.getByRole('navigation', { name: 'On this page' });
+  expect(within(sections).getByRole('link', { name: 'At a glance' })).toHaveAttribute(
+    'href',
+    '#at-a-glance',
+  );
+  expect(within(sections).getByRole('link', { name: 'Open pull requests' })).toHaveAttribute(
+    'href',
+    '#records',
+  );
+  for (const name of ['At a glance', 'Open pull requests'])
+    expect(screen.getByRole('heading', { level: 2, name })).toHaveAttribute('tabindex', '-1');
+});
+it('names an author list as the current crumb and marks its record list without claiming that tab', () => {
+  const drilldown = {
+    selection: {
+      scope: 'period' as const,
+      metric: 'prAuthors' as const,
+      range: samples.periods.find(
+        ({ period }) =>
+          period.selection.kind === 'preset' && period.selection.preset === 'this-year',
+      )!.period.range,
+    },
+    returnTo: '/repos?period=this-year',
+  };
+  const back = repositoryAuthorsHref(repo, drilldown, {
+    search: '',
+    sort: 'recordCount',
+    descending: true,
+    page: 1,
+  });
+  render(<Preview list={repositoryAuthorRecordSample(repo, drilldown, 'sample-author-2', back)} />);
+  expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('Prebid.js');
+  const trail = screen.getByRole('navigation', { name: 'Breadcrumb' });
+  expect(within(trail).getByRole('link', { name: 'All repositories' })).toHaveAttribute(
+    'href',
+    '/repos?period=this-year',
+  );
+  expect(within(trail).getByRole('link', { name: 'PR authors' })).toHaveAttribute('href', back);
+  expect(within(trail).getByText('PRs by sample-author-2')).toHaveAttribute('aria-current', 'page');
+  const tabs = screen.getByRole('navigation', { name: 'Repository lists' });
+  expect(within(tabs).getByRole('link', { name: /^Pull requests/ })).toHaveAttribute(
+    'aria-current',
+    'true',
+  );
+  expect(within(tabs).queryByRole('link', { current: 'page' })).not.toBeInTheDocument();
 });

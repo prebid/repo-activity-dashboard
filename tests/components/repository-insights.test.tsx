@@ -294,6 +294,31 @@ it('forwards a pending Timeline navigation to the repository header tab', () => 
     within(tabs).getByRole('link', { name: /^Pull requests/ }).lastElementChild,
   ).toHaveAttribute('data-pending', 'false');
 });
+it('names a supporting view as the current crumb and marks the list its records come from', () => {
+  const view = render(<Preview insight={detail('issueAuthors')} />);
+  expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('Prebid.js');
+  const trail = screen.getByRole('navigation', { name: 'Breadcrumb' });
+  expect(within(trail).getByRole('link', { name: 'All repositories' })).toHaveAttribute(
+    'href',
+    '/repos?period=this-month&period2=last-month&age=60',
+  );
+  expect(within(trail).getByText('Issue authors')).toHaveAttribute('aria-current', 'page');
+  const tabs = () => screen.getByRole('navigation', { name: 'Repository lists' });
+  expect(within(tabs()).getByRole('link', { name: /^Issues/ })).toHaveAttribute(
+    'aria-current',
+    'true',
+  );
+  expect(within(tabs()).getByRole('link', { name: /^Pull requests/ })).not.toHaveAttribute(
+    'aria-current',
+  );
+  view.unmount();
+  render(<Preview insight={detail('medianMergeDays')} />);
+  expect(within(tabs()).getByRole('link', { name: /^Pull requests/ })).toHaveAttribute(
+    'aria-current',
+    'true',
+  );
+  expect(within(tabs()).queryByRole('link', { current: 'page' })).not.toBeInTheDocument();
+});
 it('lists merged and credited PRs in the record row, with status inline and avatars for authors', async () => {
   const user = userEvent.setup();
   const insight = detail('medianMergeDays');

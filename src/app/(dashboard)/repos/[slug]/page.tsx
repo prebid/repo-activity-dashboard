@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { RepositoryTimelineRoute } from '@/app/_screens/timeline-route';
 import { repositoryPageMetadata } from '@/server/page-metadata';
+import { BackIcon } from '@/components/ui/icons';
+import styles from '@/features/repositories/repository-page.module.css';
 export async function generateMetadata({
   params,
   searchParams,
@@ -53,8 +55,9 @@ export default async function RepositoryPage({
         <Link
           prefetch={false}
           href={result.status === 'unsupported' ? result.returnTo : '/repos'}
-          className="text-sm underline"
+          className={styles.backLink}
         >
+          <BackIcon size={14} />
           All repositories
         </Link>
         <EmptyState

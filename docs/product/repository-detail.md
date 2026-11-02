@@ -29,7 +29,7 @@ Use the definitions in [All Repositories](all-repositories.md):
 
 Use one reusable page structure with repository-specific data and configuration.
 
-The page context identifies the repository, configured primary branch, and data freshness, with navigation back to All repositories and a link to GitHub. Center the repository name and its branch/GitHub details using the shared overview-header layout. The GitHub link uses Prebid logo blue, with a darker text shade in light mode. Branch details use the normal foreground color (white in dark mode). Keep the reporting snapshot on the right on wide screens and beneath the identity on narrow screens.
+The page context identifies the repository, configured primary branch, and data freshness, with navigation back to All repositories and a link to GitHub. The shared page header sets the repository name flush left, with a breadcrumb above it and the primary branch and GitHub link in one meta line beneath it. The GitHub link uses the link colour; the branch name uses the normal foreground colour. The "Data as of" chip sits on the right on wide screens and beneath the title at 600px and below. A subpage (an author list, contribution credits, merge durations or one author's records) keeps the repository name as its heading, names itself as the breadcrumb's current view, and marks the record list it belongs to. The record tabs (Pull requests, Issues and Timeline) sit in the sticky view bar beneath the header; when a page has two or more panels, the bar's "On this page" chips link to them.
 
 The two primary record lists are:
 

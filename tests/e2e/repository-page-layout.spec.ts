@@ -23,6 +23,21 @@ for (const [kind, theme, width] of [
         .getByRole('navigation', { name: 'Repository lists' })
         .getByRole('link', { name: kind === 'prs' ? /^Pull requests/ : /^Issues/ }),
     ).toHaveAttribute('aria-current', 'page');
+    // The record tabs keep one 44px row at every width, scrolling sideways instead of wrapping.
+    const tabRow = await page
+      .getByRole('navigation', { name: 'Repository lists' })
+      .evaluate((nav) => ({
+        nav: nav.getBoundingClientRect().toJSON() as DOMRect,
+        tabs: [...nav.querySelectorAll('a, [role="link"]')].map(
+          (tab) => tab.getBoundingClientRect().toJSON() as DOMRect,
+        ),
+      }));
+    expect(tabRow.nav.height).toBeCloseTo(44, 0);
+    expect(tabRow.tabs).toHaveLength(3);
+    for (const tab of tabRow.tabs) {
+      expect(tab.top).toBeCloseTo(tabRow.nav.top, 0);
+      expect(tab.bottom).toBeCloseTo(tabRow.nav.bottom, 0);
+    }
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
     await expect(page.getByRole('button', { name: 'Show charts', exact: true })).toBeVisible();
     await expect(page.getByRole('figure')).toHaveCount(0);

@@ -1,68 +1,65 @@
+import Link from 'next/link';
+import { PageHeader } from '@/components/navigation/page-header';
+import type { PageSection } from '@/components/navigation/section-nav';
+import { ViewBar } from '@/components/navigation/view-bar';
 import { DisabledTab, ViewTabs } from '@/components/navigation/view-tabs';
 import { LinkPending } from '@/components/navigation/link-pending';
-import Link from 'next/link';
 import { ExternalLinkIcon, ReportIcon, TimelineIcon } from '@/components/ui/icons';
-import { formatAsOf } from '@/lib/presentation/format';
-import styles from './overview.module.css';
-import heading from './repository-heading.module.css';
 
 export function AllRepositoriesHeading({ asOf }: { asOf: string }) {
   return (
-    <div className={`${heading.layout} ${styles.pageHeader}`}>
-      <div className={heading.identity}>
-        <h1 className={styles.title}>All repositories</h1>
-        <a
-          href="https://github.com/prebid"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.organizationLink} focus-ring`}
-        >
+    <PageHeader
+      title="All repositories"
+      asOf={asOf}
+      meta={
+        <a href="https://github.com/prebid" target="_blank" rel="noopener noreferrer">
           Prebid on GitHub
           <ExternalLinkIcon size={14} />
         </a>
-      </div>
-      <p className={`${heading.aside} ${styles.asOf}`}>
-        <strong>Reporting snapshot</strong>
-        {formatAsOf(asOf)}
-      </p>
-    </div>
+      }
+    />
   );
 }
+/** Summary and Timeline are two modes of one view; `sections` are the panels the bar links to. */
 export function AllRepositoriesTabs({
   active,
   summaryHref,
   timelineHref,
+  sections,
 }: {
   active: 'summary' | 'timeline';
   summaryHref: string;
   timelineHref: string | null;
+  sections?: readonly PageSection[];
 }) {
   return (
-    <ViewTabs label="Repository overview views">
-      <Link
-        prefetch={false}
-        href={summaryHref}
-        aria-current={active === 'summary' ? 'page' : undefined}
-      >
-        <ReportIcon size={16} />
-        Summary
-        <LinkPending />
-      </Link>
-      {timelineHref ? (
+    <ViewBar sections={sections}>
+      <ViewTabs label="Repository overview views" variant="segmented">
         <Link
           prefetch={false}
-          href={timelineHref}
-          aria-current={active === 'timeline' ? 'page' : undefined}
+          href={summaryHref}
+          aria-current={active === 'summary' ? 'page' : undefined}
         >
-          <TimelineIcon size={16} />
-          Timeline
+          <ReportIcon size={16} />
+          Summary
           <LinkPending />
         </Link>
-      ) : (
-        <DisabledTab reason="This view is too large for a timeline link. Reduce the selection and try again.">
-          Timeline
-        </DisabledTab>
-      )}
-    </ViewTabs>
+        {timelineHref ? (
+          <Link
+            prefetch={false}
+            href={timelineHref}
+            aria-current={active === 'timeline' ? 'page' : undefined}
+          >
+            <TimelineIcon size={16} />
+            Timeline
+            <LinkPending />
+          </Link>
+        ) : (
+          <DisabledTab reason="This view is too large for a timeline link. Reduce the selection and try again.">
+            Timeline
+          </DisabledTab>
+        )}
+      </ViewTabs>
+    </ViewBar>
   );
 }
