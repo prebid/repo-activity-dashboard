@@ -2,17 +2,28 @@ import type { RepositoryPageSource } from '@/models/repository-page';
 
 /** Record pages keep their reviewed default: Latest activity already names the actor category. */
 export function repositoryColumnDefaults(page: RepositoryPageSource): Record<string, boolean> {
-  return { ...repositoryRecordColumnDefaults(page.drilldown.selection), latestActor: false };
+  return {
+    ...repositoryRecordColumnDefaults(page.drilldown.selection, !!page.author),
+    latestActor: false,
+  };
 }
-/** Default record columns for a selection, for record pages and Timeline supporting records. */
-export function repositoryRecordColumnDefaults(selection: {
-  scope: 'current' | 'period';
-  metric: string;
-}): Record<string, boolean> {
+/**
+ * Default record columns for a selection, for record pages and Timeline supporting records. A list
+ * scoped to one author names that author once, so its Author column starts hidden and stays in
+ * Columns.
+ */
+export function repositoryRecordColumnDefaults(
+  selection: {
+    scope: 'current' | 'period';
+    metric: string;
+  },
+  authorScoped = false,
+): Record<string, boolean> {
   const { metric, scope } = selection,
     current = scope === 'current',
     merged = metric === 'prsMerged' || metric === 'medianMergeDays';
   return {
+    author: !authorScoped,
     labels: false,
     state: false,
     authorType: false,

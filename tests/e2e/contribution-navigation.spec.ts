@@ -187,6 +187,8 @@ test('100-account deep links stay bounded and preserve copied return context', a
   };
   await page.goto('/contributors?sample=large&' + writeContributionSettings('', settings));
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  // The table's controls enable once the page is interactive; a click before then is not handled.
+  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
   await page
     .getByRole('table')
     .getByRole('link', { name: / — view contribution report$/ })

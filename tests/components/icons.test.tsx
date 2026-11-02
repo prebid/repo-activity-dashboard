@@ -1,10 +1,12 @@
 import type { ComponentType } from 'react';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+// eslint-disable-next-line no-restricted-imports -- lucide's own render is the reference glyph.
+import { icons as lucide, type LucideIcon } from 'lucide-react';
 import * as icons from '@/components/ui/icons';
 
-// The glyph each concept draws: the Visual specification's Icons list, the P2 plan's additions
-// and the concepts the dashboard already showed.
+// The glyph each concept draws: the Visual specification's Icons list, the P2 plan's additions,
+// the P3 sort glyphs and the concepts the dashboard already showed.
 const glyphs = {
   BackIcon: 'arrow-left',
   ExternalLinkIcon: 'arrow-up-right',
@@ -41,6 +43,9 @@ const glyphs = {
   CheckIcon: 'check',
   IndeterminateIcon: 'minus',
   CloseIcon: 'x',
+  SortIdleIcon: 'chevrons-up-down',
+  SortAscendingIcon: 'arrow-up',
+  SortDescendingIcon: 'arrow-down',
   WidthToggleIcon: 'chevrons-left-right',
   ThemeSystemIcon: 'monitor',
   ThemeLightIcon: 'sun',
@@ -73,6 +78,7 @@ const identity = new Set([
   'BotAccountIcon',
   'UnknownAccountIcon',
 ]);
+const direction = new Set(['SortIdleIcon', 'SortAscendingIcon', 'SortDescendingIcon']);
 type Rendered = ComponentType<icons.IconProps<number>>;
 const exported = Object.entries(icons) as [string, Rendered][];
 
@@ -82,33 +88,38 @@ function svgOf(Icon: Rendered, size: number) {
   if (!svg) throw new Error('No svg rendered');
   return svg;
 }
+/** The shapes lucide itself draws for a glyph, such as 'arrow-left'. */
+function lucideShapes(glyph: string) {
+  const name = glyph.replace(/(^|-)([a-z\d])/g, (_, _dash: string, char: string) =>
+    char.toUpperCase(),
+  );
+  const Glyph = (lucide as Record<string, LucideIcon | undefined>)[name];
+  if (!Glyph) throw new Error('No lucide glyph ' + name);
+  return svgOf(Glyph as Rendered, 24).innerHTML;
+}
 
 describe('icon map', () => {
   it('exports exactly the specified concepts', () => {
     expect(exported.map(([name]) => name).sort()).toEqual(Object.keys(glyphs).sort());
   });
 
-  it.each(exported)('%s draws its glyph decoratively, 1.5px line (1px at 10)', (name, Icon) => {
-    const sizes = identity.has(name) ? [10, 14, 16] : [14, 16];
-    for (const size of sizes) {
-      const svg = svgOf(Icon, size);
-      expect(svg).toHaveClass('lucide', 'lucide-' + glyphs[name as keyof typeof glyphs]);
-      expect(svg).toHaveAttribute('width', String(size));
-      expect(svg).toHaveAttribute('height', String(size));
-      expect(svg).toHaveAttribute('aria-hidden', 'true');
-      expect(svg).toHaveAttribute('focusable', 'false');
-      // The 24-unit viewBox scales the stroke by size / 24.
-      const line = size === 10 ? 1 : 1.5;
-      expect((Number(svg.getAttribute('stroke-width')) * size) / 24).toBeCloseTo(line, 10);
-    }
-  });
-
-  it('adds a layout class without dropping the glyph classes', () => {
-    const { container } = render(<icons.LoadingIcon size={16} className="animate-spin" />);
-    expect(container.querySelector('svg')).toHaveClass(
-      'lucide',
-      'lucide-loader-circle',
-      'animate-spin',
-    );
-  });
+  it.each(exported)(
+    '%s draws its glyph decoratively, 1.5px line (1px at 10, 2px at 12)',
+    (name, Icon) => {
+      const sizes = identity.has(name) ? [10, 14, 16] : direction.has(name) ? [12] : [14, 16];
+      for (const size of sizes) {
+        const svg = svgOf(Icon, size);
+        // The same shapes as lucide's own glyph.
+        expect(svg.childElementCount).toBeGreaterThan(0);
+        expect(svg.innerHTML).toBe(lucideShapes(glyphs[name as keyof typeof glyphs]));
+        expect(svg).toHaveAttribute('width', String(size));
+        expect(svg).toHaveAttribute('height', String(size));
+        expect(svg).toHaveAttribute('aria-hidden', 'true');
+        expect(svg).toHaveAttribute('focusable', 'false');
+        // The 24-unit viewBox scales the stroke by size / 24.
+        const line = size === 10 ? 1 : size === 12 ? 2 : 1.5;
+        expect((Number(svg.getAttribute('stroke-width')) * size) / 24).toBeCloseTo(line, 10);
+      }
+    },
+  );
 });

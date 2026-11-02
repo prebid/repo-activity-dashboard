@@ -8,6 +8,7 @@ import type { DataColumn } from '@/components/tables/data-table';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
 import { EmptyState } from '@/components/feedback/empty-state';
+import { ExportIcon } from '@/components/ui/icons';
 interface Row {
   id: string;
   title: string;
@@ -162,7 +163,15 @@ it('keeps grouped rows together when sorting and exports their actual values', a
     />,
   );
   await user.click(screen.getByRole('button', { name: 'Count' }));
-  await user.click(screen.getByRole('button', { name: 'Count ↑' }));
+  expect(screen.getByRole('columnheader', { name: 'Count' })).toHaveAttribute(
+    'aria-sort',
+    'ascending',
+  );
+  await user.click(screen.getByRole('button', { name: 'Count' }));
+  expect(screen.getByRole('columnheader', { name: 'Count' })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
   expect(
     [...screen.getByRole('table').querySelectorAll('tbody tr')].map(
       (row) => row.firstElementChild?.textContent,
@@ -269,11 +278,15 @@ describe('shared table', () => {
       />,
     );
     await user.click(screen.getByRole('button', { name: 'Count' }));
-    await user.click(screen.getByRole('button', { name: 'Count ↑' }));
+    expect(screen.getByRole('columnheader', { name: 'Count' })).toHaveAttribute(
+      'aria-sort',
+      'ascending',
+    );
+    await user.click(screen.getByRole('button', { name: 'Count' }));
     const result = within(screen.getByRole('table')).getAllByRole('row').slice(1);
     expect(result[0]).toHaveTextContent('C');
     expect(result[2]).toHaveTextContent('B');
-    expect(screen.getByRole('columnheader', { name: 'Count ↓' })).toHaveAttribute(
+    expect(screen.getByRole('columnheader', { name: 'Count' })).toHaveAttribute(
       'aria-sort',
       'descending',
     );
@@ -669,9 +682,12 @@ describe('table toolbar', () => {
       'Columns',
       'Export CSV',
     ]);
-    // The export trigger leads with the Download glyph, like Filters and Columns lead with theirs.
-    const icon = screen.getByRole('button', { name: 'Export CSV' }).firstElementChild;
-    expect(icon).toHaveClass('lucide-download');
+    // The export trigger leads with the Export glyph, like Filters and Columns lead with theirs.
+    const icon = screen.getByRole('button', { name: 'Export CSV' }).firstElementChild!;
+    const glyph = render(<ExportIcon size={14} />).container.querySelector('svg')!;
+    expect(icon.tagName).toBe('svg');
+    expect(icon.innerHTML).toBe(glyph.innerHTML);
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
     expect(icon).toHaveAttribute('width', '14');
   });
   it('puts a feature export control in the last slot instead of the CSV dialog', () => {
@@ -808,4 +824,246 @@ it('disables sorting and pagination while an owning report is replacing its scop
   expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
   expect(screen.getByRole('button', { name: 'Columns' })).toBeDisabled();
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(50);
+});
+
+describe('sort headers', () => {
+  const sortable: DataColumn<Row>[] = [
+    { id: 'title', label: 'Title', value: (row) => row.title },
+    { id: 'count', label: 'Count', align: 'right', value: (row) => row.count },
+  ];
+  const sorted = () =>
+    screen
+      .getAllByRole('columnheader')
+      .filter((header) => header.getAttribute('aria-sort') !== 'none');
+  it('names the sort button by its label alone while aria-sort carries the state', async () => {
+    const user = userEvent.setup();
+    render(<DataTable search="none" title="Sorting" rows={rows.slice(0, 3)} columns={sortable} />);
+    const glyphs: string[] = [];
+    for (const state of ['none', 'ascending', 'descending'] as const) {
+      const button = screen.getByRole('button', { name: 'Count' });
+      expect(screen.getByRole('columnheader', { name: 'Count' })).toHaveAttribute(
+        'aria-sort',
+        state,
+      );
+      expect(screen.getByRole('columnheader', { name: 'Title' })).toHaveAttribute(
+        'aria-sort',
+        'none',
+      );
+      expect(sorted()).toHaveLength(state === 'none' ? 0 : 1);
+      // The glyph adds no text, so the label is the whole name in every state.
+      expect(button).toHaveTextContent(/^Count$/);
+      const glyph = button.querySelector('svg')!;
+      expect(glyph).toHaveAttribute('aria-hidden', 'true');
+      expect(glyph).toHaveAttribute('width', '12');
+      glyphs.push(glyph.innerHTML);
+      if (state !== 'descending') await user.click(button);
+    }
+    // Idle, ascending and descending each draw their own glyph.
+    expect(new Set(glyphs).size).toBe(3);
+  });
+  it('puts the glyph before a numeric label and after a text label', () => {
+    render(
+      <DataTable
+        search="none"
+        title="Order"
+        rows={rows.slice(0, 3)}
+        columns={[
+          { ...sortable[0], label: 'Record title' },
+          { ...sortable[1], label: 'Authored PRs merged' },
+        ]}
+      />,
+    );
+    /** The label's words and the glyph, in document order. */
+    const sequence = (name: string) => {
+      const button = screen.getByRole('button', { name });
+      const walker = document.createTreeWalker(
+        button,
+        NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+      );
+      const parts: string[] = [];
+      for (let node = walker.nextNode(); node; node = walker.nextNode())
+        if (node.nodeName === 'svg') parts.push('glyph');
+        else if (node.nodeType === Node.TEXT_NODE)
+          parts.push(...node.textContent!.split(/\s+/).filter(Boolean));
+      return parts;
+    };
+    expect(sequence('Authored PRs merged')).toEqual(['glyph', 'Authored', 'PRs', 'merged']);
+    expect(sequence('Record title')).toEqual(['Record', 'title', 'glyph']);
+  });
+  it('draws a label caption on its own line and reads it after the label', async () => {
+    const user = userEvent.setup();
+    const blobs: Blob[] = [];
+    vi.stubGlobal(
+      'URL',
+      class extends URL {
+        static createObjectURL(blob: Blob) {
+          blobs.push(blob);
+          return 'blob:caption';
+        }
+        static revokeObjectURL() {}
+      },
+    );
+    render(
+      <DataTable
+        search="none"
+        title="Captions"
+        rows={rows.slice(0, 3)}
+        columns={[sortable[0], { ...sortable[1], label: 'Oct 2026', labelCaption: 'Partial' }]}
+        exportName="captions.csv"
+      />,
+    );
+    const header = screen.getByRole('columnheader', { name: 'Oct 2026 Partial' });
+    expect(within(header).getByRole('button')).toHaveAccessibleName('Oct 2026 Partial');
+    expect(within(header).getByText('Partial', { exact: true })).toBeVisible();
+    // Menus and CSV headers keep the label alone.
+    await user.click(screen.getByRole('button', { name: 'Columns' }));
+    expect(screen.getByRole('menuitemcheckbox', { name: 'Oct 2026' })).toBeVisible();
+    await user.keyboard('{Escape}');
+    await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+    await user.click(screen.getByRole('button', { name: 'Download CSV' }));
+    const csv = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () =>
+        typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('Missing CSV'));
+      reader.onerror = reject;
+      reader.readAsText(blobs[0]);
+    });
+    expect(csv.split('\r\n')[0]).toBe('"Title","Oct 2026"');
+  });
+  it('describes a sort by a hidden column once, in the footer', () => {
+    const view = render(
+      <DataTable
+        search="none"
+        title="Hidden sort"
+        rows={rows.slice(0, 3)}
+        columns={[sortable[0], { ...sortable[1], group: 'Activity' }]}
+        visibility={{ value: { count: false }, onChange: vi.fn() }}
+        initialQuery={{ search: '', sort: 'count', descending: true, page: 1 }}
+      />,
+    );
+    expect(
+      screen.getAllByText('Sorted by Activity — Count (descending); its column is hidden.'),
+    ).toHaveLength(1);
+    expect(sorted()).toHaveLength(0);
+    view.unmount();
+    render(
+      <DataTable
+        search="none"
+        title="Visible sort"
+        rows={rows.slice(0, 3)}
+        columns={sortable}
+        initialQuery={{ search: '', sort: 'count', descending: true, page: 1 }}
+      />,
+    );
+    expect(screen.queryByText(/^Sorted by/)).not.toBeInTheDocument();
+  });
+  it('describes a sort by a column outside the rendered window in the caller’s words', () => {
+    const view = render(
+      <DataTable
+        search="none"
+        title="Window sort"
+        rows={rows.slice(0, 3)}
+        columns={[sortable[0]]}
+        valueColumns={sortable}
+        offscreenSort={(id) =>
+          id === 'count' ? { label: 'Sep 2026', where: 'outside the visible periods' } : undefined
+        }
+        initialQuery={{ search: '', sort: 'count', descending: false, page: 1 }}
+      />,
+    );
+    expect(
+      screen.getByText(
+        'Sorted by Sep 2026 (ascending); its column is outside the visible periods.',
+      ),
+    ).toBeVisible();
+    view.unmount();
+    render(
+      <DataTable
+        search="none"
+        title="Unnamed window sort"
+        rows={rows.slice(0, 3)}
+        columns={[sortable[0]]}
+        valueColumns={sortable}
+        initialQuery={{ search: '', sort: 'count', descending: false, page: 1 }}
+      />,
+    );
+    expect(screen.queryByText(/^Sorted by/)).not.toBeInTheDocument();
+  });
+});
+
+it('draws display-only group headings without changing names, menus or CSV headers', async () => {
+  const user = userEvent.setup();
+  const blobs: Blob[] = [];
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL(blob: Blob) {
+        blobs.push(blob);
+        return 'blob:headings';
+      }
+      static revokeObjectURL() {}
+    },
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  const headed: DataColumn<Row>[] = [
+    { id: 'title', label: 'Title', value: (row) => row.title, pinned: true, hideable: false },
+    {
+      id: 'count',
+      label: 'PRs authored',
+      displayGroup: 'Authoring',
+      align: 'right',
+      value: (row) => row.count,
+    },
+    {
+      id: 'double',
+      label: 'Authored PRs merged',
+      displayGroup: 'Authoring',
+      align: 'right',
+      value: (row) => (row.count === null ? null : row.count * 2),
+    },
+    { id: 'issues', label: 'Issues authored', displayGroup: 'Issues', value: () => 1 },
+  ];
+  render(
+    <DataTable
+      search="none"
+      title="Headings"
+      rows={rows.slice(2, 4)}
+      columns={headed}
+      exportName="headings.csv"
+    />,
+  );
+  const table = screen.getByRole('table', { name: 'Headings' });
+  const authoring = within(table).getByRole('columnheader', { name: 'Authoring' });
+  expect(authoring).toHaveAttribute('scope', 'colgroup');
+  expect(authoring).toHaveAttribute('colspan', '2');
+  expect(within(table).getByRole('columnheader', { name: 'Issues' })).toHaveAttribute(
+    'colspan',
+    '1',
+  );
+  expect(within(table).getByRole('columnheader', { name: 'Title' })).toHaveAttribute(
+    'rowspan',
+    '2',
+  );
+  expect(
+    within(table)
+      .getAllByRole('button')
+      .map((button) => button.textContent),
+  ).toEqual(['Title', 'PRs authored', 'Authored PRs merged', 'Issues authored']);
+  const cell = table.querySelector('tbody td[data-column="double"]')!;
+  expect(cell.getAttribute('headers')!.split(' ')).toContain(authoring.id);
+  await user.click(screen.getByRole('button', { name: 'Columns' }));
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Authored PRs merged' })).toBeVisible();
+  await user.keyboard('{Escape}');
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await user.click(screen.getByRole('button', { name: 'Download CSV' }));
+  const csv = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('Missing CSV'));
+    reader.onerror = reject;
+    reader.readAsText(blobs[0]);
+  });
+  expect(csv.split('\r\n')[0]).toBe(
+    '"Title","PRs authored","Authored PRs merged","Issues authored"',
+  );
 });

@@ -28,8 +28,8 @@ for (const [path, title, theme, width] of [
     await expect(page.getByRole('heading', { name: title, exact: true, level: 1 })).toBeVisible();
     await expect(page.getByRole('table')).toBeVisible();
     await expect(
-      page.getByRole('button', { name: 'Authored PRs merged ↓', exact: true }),
-    ).toBeVisible();
+      page.getByRole('columnheader', { name: 'Authored PRs merged', exact: true }),
+    ).toHaveAttribute('aria-sort', 'descending');
     // Widths are measured with the web fonts, not their fallback.
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(

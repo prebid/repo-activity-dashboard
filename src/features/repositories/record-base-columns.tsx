@@ -1,9 +1,19 @@
 'use client';
-import Link from 'next/link';
+import { accountTypeLabels } from '@/models/github-account';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import type { DataColumn } from '@/components/tables/data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
+import { formatDays, formatUtcDate } from '@/lib/presentation/format';
+import { mergeElapsedDays } from '@/lib/presentation/repository-insights';
 import type { PullRequestRow, IssueRow } from '@/models/reporting';
+import type {
+  RepositoryPullRequest,
+  RepositoryIssue,
+  LatestActor,
+} from '@/models/repository-records';
+
+// The record columns' values; repository-page-columns.tsx draws the record row's number, title and
+// author cells over them.
 export const prColumns: DataColumn<PullRequestRow>[] = [
   { id: 'number', selectionGroup: 'Identity', label: 'PR', value: (r) => r.number },
   {
@@ -11,18 +21,6 @@ export const prColumns: DataColumn<PullRequestRow>[] = [
     selectionGroup: 'Identity',
     label: 'Title',
     value: (r) => r.title + (r.draft ? ' (Draft)' : ''),
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={r.url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {r.title}
-        {r.draft ? ' (Draft)' : ''}
-      </Link>
-    ),
   },
   {
     id: 'author',
@@ -60,23 +58,7 @@ export const prColumns: DataColumn<PullRequestRow>[] = [
 ];
 export const issueColumns: DataColumn<IssueRow>[] = [
   { id: 'number', selectionGroup: 'Identity', label: 'Issue', value: (r) => r.number },
-  {
-    id: 'title',
-    selectionGroup: 'Identity',
-    label: 'Title',
-    value: (r) => r.title,
-    cell: (r) => (
-      <Link
-        prefetch={false}
-        className="underline underline-offset-4"
-        href={r.url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {r.title}
-      </Link>
-    ),
-  },
+  { id: 'title', selectionGroup: 'Identity', label: 'Title', value: (r) => r.title },
   {
     id: 'author',
     selectionGroup: 'Identity',
@@ -92,5 +74,106 @@ export const issueColumns: DataColumn<IssueRow>[] = [
     label: 'Age in days',
     description: 'Elapsed days since creation at the reporting snapshot.',
     value: (r) => r.ageDays,
+  },
+];
+export const actorLabels: Record<LatestActor, string> = {
+  agent: accountTypeLabels.agent,
+  bot: accountTypeLabels.bot,
+  'prebid-reviewer': 'Prebid reviewer',
+  contributor: 'Contributor',
+  'other-human': 'Other human',
+  unknown: accountTypeLabels.unknown,
+};
+
+function commonColumns<
+  T extends { state: string; labels: string[]; createdAt: string },
+>(): DataColumn<T>[] {
+  return [
+    { id: 'state', selectionGroup: 'Status', label: 'Status', value: (row) => row.state },
+    {
+      id: 'labels',
+      selectionGroup: 'Status',
+      label: 'Labels',
+      value: (row) => row.labels.join(', '),
+    },
+    {
+      id: 'createdAt',
+      selectionGroup: 'Dates and age',
+      label: 'Created',
+      value: (row) => row.createdAt,
+      cell: (row) => formatUtcDate(row.createdAt),
+    },
+  ];
+}
+export const recordPrColumns: DataColumn<RepositoryPullRequest>[] = [
+  ...prColumns.map((column) => ({
+    ...column,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
+    grow: column.id === 'title',
+  })),
+  ...commonColumns<RepositoryPullRequest>(),
+  {
+    id: 'mergeDays',
+    selectionGroup: 'Dates and age',
+    label: 'Merge time',
+    width: 120,
+    align: 'right',
+    description: 'Elapsed calendar days from PR creation to merge.',
+    value: (row) => mergeElapsedDays(row.createdAt, row.mergedAt),
+    cell: (row) => formatDays(mergeElapsedDays(row.createdAt, row.mergedAt)),
+  },
+  {
+    id: 'baseBranch',
+    selectionGroup: 'Status',
+    label: 'Base branch',
+    value: (row) => row.baseBranch,
+  },
+  {
+    id: 'mergedAt',
+    selectionGroup: 'Dates and age',
+    label: 'Merged',
+    value: (row) => row.mergedAt,
+    cell: (row) => (row.mergedAt ? formatUtcDate(row.mergedAt) : '—'),
+  },
+  {
+    id: 'agentReviewer',
+    selectionGroup: 'Automation',
+    label: 'Agent reviewer',
+    description:
+      'Whether a mapped Prebid agent has provided qualifying reviewer participation on this PR. Approvals are separate.',
+    value: (row) => (row.agentReviewer === null ? null : row.agentReviewer ? 'Yes' : 'No'),
+  },
+  {
+    id: 'botReviewer',
+    selectionGroup: 'Automation',
+    label: 'Bot reviewer',
+    description:
+      'Whether another bot has provided qualifying reviewer participation on this PR, excluding mapped Prebid agents.',
+    value: (row) => (row.botReviewer === null ? null : row.botReviewer ? 'Yes' : 'No'),
+  },
+  {
+    id: 'latestActor',
+    selectionGroup: 'Latest activity',
+    label: 'Latest actor',
+    description:
+      'The account category responsible for the latest qualifying activity at the reporting snapshot.',
+    value: (row) => actorLabels[row.latestActor],
+  },
+];
+export const recordIssueColumns: DataColumn<RepositoryIssue>[] = [
+  ...issueColumns.map((column) => ({
+    ...column,
+    // 200px keeps a typical handle and its 14px external-link icon on one line.
+    width: column.id === 'title' ? 360 : column.id === 'author' ? 200 : 120,
+    grow: column.id === 'title',
+  })),
+  ...commonColumns<RepositoryIssue>(),
+  {
+    id: 'closedAt',
+    selectionGroup: 'Dates and age',
+    label: 'Closed',
+    value: (row) => row.closedAt,
+    cell: (row) => (row.closedAt ? formatUtcDate(row.closedAt) : '—'),
   },
 ];

@@ -5,7 +5,7 @@ import type { Measurement } from '@/models/reporting-measurement';
 import type { DrilldownSelection } from '@/models/repository-drilldown';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import { formatMeasure } from '@/lib/presentation/format';
-import styles from './overview.module.css';
+import drillable from '@/components/metrics/drillable-number.module.css';
 
 export function OverviewMetric({
   repository,
@@ -29,7 +29,7 @@ export function OverviewMetric({
   return (
     <Link
       prefetch={false}
-      className={styles.metricLink}
+      className={drillable.link}
       href={repositoryDrilldownHref(repository, { selection, returnTo })}
       aria-label={
         repository.name +

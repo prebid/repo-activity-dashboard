@@ -4,6 +4,7 @@ import { repositoryOverviewSample } from '@/mocks/repository-overview';
 import {
   activityPeriodLabel,
   activityTableRows,
+  compactRangeLabel,
   periodRangeLabel,
   validateActivityPeriods,
   zonedRangeLabel,
@@ -169,4 +170,17 @@ it('labels preset and custom rows from their effective UTC date ranges', () => {
     end: '2026-10-16T00:00:00.000Z',
     endInclusive: false,
   });
+});
+it('says a shared month and year once in a compact range', () => {
+  const range = (start: string, end: string, endInclusive = false) => ({
+    start: start + 'T00:00:00.000Z',
+    end: end + 'T00:00:00.000Z',
+    endInclusive,
+  });
+  expect(compactRangeLabel(range('2026-09-21', '2026-09-28'))).toBe('Sep 21–27, 2026');
+  expect(compactRangeLabel(range('2026-09-28', '2026-10-05'))).toBe('Sep 28 – Oct 4, 2026');
+  expect(compactRangeLabel(range('2025-12-29', '2026-01-05'))).toBe('Dec 29, 2025 – Jan 4, 2026');
+  // An inclusive end shows itself, and a range inside one day reads as that day.
+  expect(compactRangeLabel(range('2026-10-19', '2026-10-24', true))).toBe('Oct 19–24, 2026');
+  expect(compactRangeLabel(range('2026-10-24', '2026-10-25'))).toBe('Oct 24, 2026');
 });

@@ -41,7 +41,7 @@ const tokenFile = 'src/styles/prebid.css';
 const mappingFile = 'src/app/globals.css';
 const phases = ['P2', 'P3', 'P4'];
 /** Phases already merged; an allowlist entry owned by one fails. @type {readonly string[]} */
-export const completedPhases = Object.freeze(['P1', 'P2']);
+export const completedPhases = Object.freeze(['P1', 'P2', 'P3']);
 /** The unmodelled sites in the tree today; lowered as values become readable or are removed. */
 export const unmodelledCeiling = 68;
 /** @param {string} list space-separated words */

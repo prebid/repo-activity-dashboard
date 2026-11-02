@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect, expectTheme } from './fixtures';
 import { observeBrowserErrors } from '../support/browser-errors';
 import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async ({ context }) => {
@@ -77,7 +77,7 @@ test('component catalog themes also reach portaled dialogs', async ({ page }) =>
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=foundation-interactive-primitives--keyboard&viewMode=story&globals=theme:dark',
   );
-  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expectTheme(page, 'dark');
   await page.getByRole('button', { name: 'Open dialog' }).click();
   const dialog = page.getByRole('dialog', { name: 'Sample dialog' });
   await expect(dialog).toBeVisible();
@@ -110,7 +110,7 @@ async function login(page: import('@playwright/test').Page) {
 const darkOverlay = 'rgb(28, 42, 55)';
 test('report dialogs sit on the overlay surface in Dark', async ({ page }) => {
   await login(page);
-  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expectTheme(page, 'dark');
   // A feature dialog with its own frame class.
   await page.goto('/repos/prebidjs');
   await page.getByRole('button', { name: /^Filters(?: \(|$)/ }).click();
@@ -174,7 +174,7 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
 }, testInfo) => {
   await login(page);
   await page.goto('/foundation');
-  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expectTheme(page, 'dark');
   const specimen = page.getByTestId('style-specimen');
   await expect(specimen).toHaveCSS('padding-top', '16px');
   await expect(specimen).toHaveCSS('gap', '8px');
@@ -213,7 +213,7 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
     .not.toBe(before);
   expect(await page.evaluate(() => localStorage.getItem('dashboard-theme'))).toBe('light');
   await page.reload();
-  await expect(page.locator('html')).toHaveClass(/light/);
+  await expectTheme(page, 'light');
   const button = page.getByRole('button', { name: 'Example action' });
   expect(await focusContrast()).toBeGreaterThanOrEqual(3);
   // macOS WebKit uses Option+Tab to include buttons in keyboard traversal.
@@ -308,27 +308,28 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
 
 test('sort defaults are per account and explicit URLs take precedence', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+  const total = page.getByRole('columnheader', { name: 'Total PRs', exact: true });
+  await expect(total).toHaveAttribute('aria-sort', 'descending');
+  await page.getByRole('button', { name: 'Total PRs', exact: true }).click();
+  await expect(total).toHaveAttribute('aria-sort', 'ascending');
   await page.goto('/repos');
   await expect(page).toHaveURL(/\/repos$/); // Restored defaults stay in memory until an action writes the URL.
-  await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
-    'aria-sort',
-    'ascending',
-  );
+  await expect(total).toHaveAttribute('aria-sort', 'ascending');
   await page.goto('/repos?backlog.sort=name&backlog.dir=asc');
   await expect(
     page
       .getByRole('table', { name: 'Current backlog', exact: true })
-      .getByRole('columnheader', { name: 'Repository ↑' }),
+      .getByRole('columnheader', { name: 'Repository', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
   await page.getByRole('button', { name: 'Sign out' }).click();
   await expect(page).toHaveURL(/auth\/login/);
   await page.getByLabel('Email', { exact: true }).fill('bob@example.test');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
-  await expect(
-    page.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
-  ).toHaveAttribute('aria-sort', 'descending');
+  await expect(page.getByRole('columnheader', { name: 'Total PRs', exact: true })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
 });
 
 test('repository issue search and same-route navigation keep the URL and rows synchronized', async ({
@@ -358,7 +359,9 @@ test('sort survives a real router refresh caused by another tab signing in', asy
   context,
 }) => {
   await login(page);
-  await page.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+  const total = page.getByRole('columnheader', { name: 'Total PRs', exact: true });
+  await expect(total).toHaveAttribute('aria-sort', 'descending');
+  await page.getByRole('button', { name: 'Total PRs', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
   const refreshed = page.waitForResponse(
     (response) =>
@@ -371,10 +374,7 @@ test('sort survives a real router refresh caused by another tab signing in', asy
     await page.bringToFront();
     await refreshed;
     await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
-    await expect(page.getByRole('columnheader', { name: 'Total PRs ↑' })).toHaveAttribute(
-      'aria-sort',
-      'ascending',
-    );
+    await expect(total).toHaveAttribute('aria-sort', 'ascending');
     observed.assertClean();
   } finally {
     observed.dispose();

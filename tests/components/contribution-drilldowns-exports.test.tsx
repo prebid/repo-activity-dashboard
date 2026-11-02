@@ -1,7 +1,13 @@
 import { expect, it, vi } from 'vitest';
+vi.mock('server-only', () => ({}));
+vi.mock('@/lib/auth/viewer', () => ({ requireViewer: () => Promise.resolve({ id: 'viewer' }) }));
 import { cleanup, render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ContributionDetailsView } from '@/features/contributions/contribution-details-view';
+import { contributionExportResponse } from '@/server/contribution-export';
+import {
+  ContributionDetailsView,
+  contributionDetailColumns,
+} from '@/features/contributions/contribution-details-view';
 import { ContributionView } from '@/features/contributions/contribution-view';
 import { contributionSample } from '@/mocks/contributions';
 import {
@@ -120,6 +126,26 @@ it('paginates a 240-PR supporting cohort without limiting it to current open PRs
     '/contributors?report.page=3',
   );
 });
+it('shows each supporting record’s state as the label its search and CSV value carry', () => {
+  for (const [metric, labels] of [
+    ['prsAuthored', ['Draft', 'Merged', 'Open']],
+    ['issuesAuthored', ['Closed', 'Open']],
+  ] as const) {
+    const page = data(metric);
+    const view = render(<Preview page={page} />);
+    const state = contributionDetailColumns(page.details!).find((column) => column.id === 'state')!;
+    const cells = [...screen.getByRole('table').querySelectorAll('tbody [data-column="state"]')];
+    // Every row fits on one page, so the shown labels and the row values match as multisets.
+    expect(cells).toHaveLength(page.details!.rows.length);
+    const shown = cells.map((cell) => cell.textContent);
+    expect([...shown].sort()).toEqual(page.details!.rows.map((row) => state.value(row)).sort());
+    expect([...new Set(shown)].sort()).toEqual(labels);
+    // The status glyph is decorative; the label is the cell's text.
+    for (const cell of cells)
+      expect(cell.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
+    view.unmount();
+  }
+});
 it.each(['prComments', 'reviewed.filesChanged', 'issuesAuthored', 'issueComments'] as const)(
   'describes the units and dates in %s details',
   (metric) => {
@@ -234,4 +260,121 @@ it('keeps accessible metric names consistent with formatted thousands and partia
       name: 'PRs authored: 1,234 (partial subtotal) — view supporting records',
     }),
   ).toHaveTextContent('1,234');
+});
+
+it('heads the core metrics Authoring, Reviewing and Issues on screen only, leaving menus and CSV headers as they were', async () => {
+  const user = userEvent.setup();
+  const core = [
+    'PRs authored',
+    'Authored PRs merged',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+    'Issues authored',
+  ];
+  const heading = /Authoring|Reviewing|Issues —/;
+  render(<Preview page={data()} />);
+  const table = screen.getByRole('table');
+  for (const [name, span] of [
+    ['Authoring', '2'],
+    ['Reviewing', '3'],
+    ['Issues', '1'],
+  ]) {
+    const header = within(table).getByRole('columnheader', { name });
+    expect(header).toHaveAttribute('scope', 'colgroup');
+    expect(header).toHaveAttribute('colspan', span);
+  }
+  const [groups, metrics] = table.querySelectorAll('thead tr');
+  expect([...groups.querySelectorAll('th')].map((cell) => cell.textContent)).toEqual([
+    'Contributor',
+    'Account type',
+    'Company',
+    'Authoring',
+    'Reviewing',
+    'Issues',
+  ]);
+  // The metric columns keep their order, and each sort button is named by its label alone.
+  expect(
+    within(metrics as HTMLElement)
+      .getAllByRole('button')
+      .map((button) => button.textContent),
+  ).toEqual(core);
+  for (const label of core)
+    expect(within(table).getByRole('button', { name: label })).toBeVisible();
+  await user.click(screen.getByRole('button', { name: 'Columns' }));
+  for (const label of core)
+    expect(screen.getByRole('menuitemcheckbox', { name: label })).toBeVisible();
+  expect(
+    screen.getAllByRole('menuitemcheckbox').filter((item) => heading.test(item.textContent)),
+  ).toEqual([]);
+  await user.keyboard('{Escape}');
+  await user.click(screen.getByRole('button', { name: 'Column definitions for Contributors' }));
+  const definitions = screen.getByRole('dialog');
+  for (const label of core)
+    expect(within(definitions).getByText(label, { exact: true })).toBeVisible();
+  expect(definitions).not.toHaveTextContent(heading);
+  await user.keyboard('{Escape}');
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  const dialog = screen.getByRole('dialog', { name: 'Contributors CSV export' });
+  for (const label of core)
+    expect(within(dialog).getByRole('checkbox', { name: label })).toBeChecked();
+  expect(dialog).not.toHaveTextContent(heading);
+  // The visible-columns download runs through the export route that serves the CSV.
+  vi.stubGlobal('fetch', (path: string, init: RequestInit) =>
+    contributionExportResponse(
+      new Request('https://dashboard.test' + path, {
+        method: init.method,
+        headers: init.headers,
+        body: init.body,
+      }),
+      'contributors',
+    ),
+  );
+  let file: Blob | undefined;
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL = (blob: Blob) => {
+        file = blob;
+        return 'blob:export';
+      };
+      static revokeObjectURL = () => {};
+    },
+  );
+  await user.click(within(dialog).getByRole('button', { name: 'Download CSV' }));
+  await waitFor(() => expect(file).toBeDefined());
+  const [header] = (await file!.text()).split('\r\n');
+  expect(header.slice(1, -1).split('","')).toEqual([
+    'Entity type',
+    'Entity ID',
+    'Name',
+    'GitHub account',
+    'Account type',
+    'Company ID',
+    'Current company',
+    'Repository ID',
+    'Repository',
+    ...core.flatMap((label) => [
+      label,
+      label + ' coverage',
+      label + ' coverage detail',
+      label + ' counting basis',
+    ]),
+    'Export layout',
+    'Hide zero member totals',
+    'Metric ordering',
+    'Data source',
+    'Sample scenario',
+    'Period start (UTC)',
+    'Period end (UTC)',
+    'End inclusive',
+    'Snapshot (UTC)',
+    'Company attribution',
+    'Report focus',
+    'Report selection',
+    'Table search',
+    'Sorted by',
+    'Sort direction',
+  ]);
 });

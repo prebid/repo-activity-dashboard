@@ -75,3 +75,31 @@ describe('control contrast', () => {
     },
   );
 });
+
+// Table marks that carry meaning without text (WCAG 1.4.11, 3:1): the idle and sorted sort glyphs
+// on the header band and its hover, the group spanner rule, the row-hover bar and the dotted
+// underline of a drillable number on the surfaces a table cell takes. The orange sorted-header
+// underline is below 3:1 on the Light band, so the sorted label also changes ink (browser check).
+const tablePairs: [string, string[]][] = [
+  ['--prebid-sort-idle', ['--prebid-header-band', '--prebid-header-band-hover']],
+  ['--prebid-link', ['--prebid-header-band', '--prebid-header-band-hover']],
+  [
+    '--prebid-brand-blue',
+    ['--prebid-header-band', '--prebid-row-hover', '--prebid-card', '--prebid-sunken'],
+  ],
+];
+
+describe('table contrast', () => {
+  it.each(['light', 'dark'] as const)(
+    'meets the non-text minimum for sort glyphs, spanners, row bars and drill underlines in %s',
+    (theme) => {
+      const values = themes()[theme];
+      for (const [mark, surfaces] of tablePairs)
+        for (const surface of surfaces)
+          expect(
+            contrast(values[mark], values[surface]),
+            `${mark} on ${surface}`,
+          ).toBeGreaterThanOrEqual(3);
+    },
+  );
+});

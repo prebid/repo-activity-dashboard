@@ -12,7 +12,7 @@ import {
 } from '@/lib/presentation/repository-timeline-matrix';
 import {
   timelineIntervalDescription,
-  timelineIntervalLabel,
+  timelinePeriodHeading,
 } from '@/lib/presentation/timeline-presentation';
 import { useClientReady } from '@/lib/navigation/use-client-ready';
 import { periodRangeLabel, zonedRangeLabel } from '@/lib/presentation/overview-periods';
@@ -34,11 +34,13 @@ import {
   hasUnlinkedValue,
   isIncompleteValue,
   isRecordedZeroRange,
+  partialPeriodCaption,
 } from '@/components/reporting/timeline-value';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
 import { repositoryTimelineMetricDefinitions } from './repository-timeline-columns';
 import timelineStyles from '@/components/reporting/timeline-layout.module.css';
+import overviewStyles from './overview.module.css';
 import styles from './repository-timeline-matrix.module.css';
 import {
   repositoryTimelineMetricScope,
@@ -154,7 +156,7 @@ function MatrixTable({
   const rowMetricName = (row: RepositoryTimelineMatrixRow) =>
     metricName(definitions.get(row.metric)!);
   const label = (interval: RepositoryTimelineMatrix['intervals'][number]) =>
-    timelineIntervalLabel(interval, matrix.request.grouping);
+    timelinePeriodHeading(interval, matrix.request.grouping);
   const first = periodWindow.intervals[0],
     last = periodWindow.intervals.at(-1)!;
   const windowLabel =
@@ -176,7 +178,7 @@ function MatrixTable({
           <div className={styles.identity}>
             {first ? (
               href ? (
-                <Link prefetch={false} className={styles.repository} href={href}>
+                <Link prefetch={false} className={overviewStyles.repositoryLink} href={href}>
                   {row.repository.name}
                 </Link>
               ) : (
@@ -209,12 +211,12 @@ function MatrixTable({
       const index = periodWindow.startIndex + offset;
       return {
         ...valueColumns[index + 1],
-        label: label(interval) + (interval.partial ? ' (partial)' : ''),
+        label: label(interval),
+        labelCaption: interval.partial ? partialPeriodCaption : undefined,
         width: matrix.request.grouping === 'month' ? 112 : 156,
         align: 'right',
         description:
           timelineIntervalDescription(interval) +
-          (interval.partial ? ' Partial calendar period.' : '') +
           ' Sort repositories by ' +
           metricName(metric) +
           '.',
@@ -234,9 +236,16 @@ function MatrixTable({
       };
     }),
   ];
-  const sortedInterval = matrix.intervals.find((interval) => interval.id === controller.query.sort);
-  const outsideWindow =
-    sortedInterval && !periodWindow.intervals.some((interval) => interval.id === sortedInterval.id);
+  // DataTable's footer describes a sort by a period outside the window, since no header shows it.
+  const offscreenSort = (id: string) => {
+    const interval = matrix.intervals.find((item) => item.id === id);
+    return interval
+      ? {
+          label: label(interval) + (multiple ? ' · ' + metricName(metric) : ''),
+          where: 'outside the visible periods',
+        }
+      : undefined;
+  };
   const incomplete = matrix.rows.some((row) => row.values.some(isIncompleteValue));
   const legend = measurementMarks(
     matrix.rows.flatMap((row) => row.values.slice(periodWindow.startIndex, periodWindow.endIndex)),
@@ -275,6 +284,7 @@ function MatrixTable({
         }
         columns={columns}
         valueColumns={valueColumns}
+        offscreenSort={offscreenSort}
         controller={controller}
         search="none"
         showColumnMenu={false}
@@ -314,16 +324,6 @@ function MatrixTable({
               labels={windowPagerLabels}
             />
           </div>
-        }
-        footerNote={
-          sortedInterval && (
-            <>
-              Sorted by {label(sortedInterval)}
-              {multiple ? ' · ' + metricName(metric) : ''} (
-              {controller.query.descending ? 'descending' : 'ascending'}
-              {outsideWindow ? '; outside visible periods' : ''}).
-            </>
-          )
         }
         legend={legend}
       />

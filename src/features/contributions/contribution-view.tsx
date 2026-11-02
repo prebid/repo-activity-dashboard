@@ -2,7 +2,7 @@
 import { isKnownZeroContribution } from '@/lib/presentation/contribution-table-values';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
 import { useState } from 'react';
-import { additionalMetricIds, additionalMetricDefinitions } from '@/models/contribution-activity';
+import { additionalMetricIds } from '@/models/contribution-activity';
 import { DataTable } from '@/components/tables/data-table';
 import { Callout } from '@/components/feedback/callout';
 import { EmptyState } from '@/components/feedback/empty-state';
@@ -73,11 +73,6 @@ export function ContributionView({
   const incomplete = Object.values({ ...report.totals, ...report.additionalTotals }).filter(
     (value) => value.status !== 'complete',
   );
-  const optionalSort = additionalMetricIds.find((metric) => metric === controller.query.sort);
-  const hiddenSort =
-    optionalSort && visible[optionalSort] === false
-      ? additionalMetricDefinitions[optionalSort]
-      : undefined;
   // An overview lists only accounts with recorded activity or gaps, so with incomplete values an
   // empty list means the contributions are unavailable, not that there are none.
   const unconfirmed = report.kind === 'overview' && incomplete.length > 0;
@@ -102,9 +97,8 @@ export function ContributionView({
       : unconfirmed
         ? ({ kind: 'missing', title: 'No confirmed contributions to list' } as const)
         : ({ kind: 'empty', title: 'No counted contributions in this period' } as const),
-    footerNote: hiddenSort
-      ? `Sorted by ${hiddenSort.group} — ${hiddenSort.label} (${controller.query.descending ? 'descending' : 'ascending'}); its column is hidden.`
-      : 'Credits, comment activity and merged PR volumes are separate measures.',
+    // A sort by a hidden column is described by the table's own footer note.
+    footerNote: 'Credits, comment activity and merged PR volumes are separate measures.',
   };
   const people = contributorColumns(links, report.kind === 'overview'),
     companies = companyColumns(links),

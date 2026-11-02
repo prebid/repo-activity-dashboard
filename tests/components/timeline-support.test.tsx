@@ -95,9 +95,11 @@ it('renders unique authors and source-specific PRs with GitHub destinations and 
   const authors = selectRepositoryTimelineSupport(source, report, context('prAuthors'));
   const view = render(<Preview detail={authors} />);
   // The supporting view's scope states its interval in the one range notation.
-  expect(screen.getByRole('region', { name: 'Supporting interval scope' })).toHaveTextContent(
-    'Oct 1, 2026 – Oct 24, 2026 · UTC',
-  );
+  const scope = screen.getByRole('region', { name: 'Supporting interval scope' });
+  expect(scope).toHaveTextContent('Oct 1, 2026 – Oct 24, 2026 · UTC');
+  // October is clipped by the range, so the scope carries the one partial-period marker.
+  expect(within(scope).getByText('Partial', { exact: true })).toBeVisible();
+  expect(scope).not.toHaveTextContent('Partial calendar period');
   expect(screen.getByRole('link', { name: 'sample-bob: 2 authored records' })).toHaveAttribute(
     'href',
     '/repos/prebidjs?author=sample-bob',

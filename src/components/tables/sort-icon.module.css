@@ -1,0 +1,14 @@
+/* A 14px slot holding a 12px glyph, centred on the 16px header line it sits in. */
+.slot {
+  flex: none;
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 16px;
+  color: var(--prebid-sort-idle);
+}
+.sorted {
+  color: var(--prebid-link);
+}

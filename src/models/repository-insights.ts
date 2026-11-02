@@ -1,7 +1,7 @@
 import type { DrilldownSelection, RepositoryDrilldown } from './repository-drilldown';
 import type { OverviewRepository } from './repository-overview';
 import type { Count, Measurement } from '@/models/reporting-measurement';
-import type { RepositoryRecordList } from './repository-records';
+import type { RepositoryPullRequest, RepositoryRecordList } from './repository-records';
 import { githubLoginSchema, normalizeGithubLogin } from './github-account';
 
 export const insightMetrics = [
@@ -45,6 +45,13 @@ export interface RepositoryContribution {
   firstCreditAt: string;
   pr: SupportingRecord;
 }
+/** A merged PR behind the median, with its author's account type; null is unavailable. */
+export interface MergedPullRequest extends RepositoryPullRequest {
+  authorType: ReportingAccountType | null;
+}
+export type MergedPullRequestList = Omit<Extract<RepositoryRecordList, { kind: 'prs' }>, 'rows'> & {
+  rows: MergedPullRequest[];
+};
 interface InsightContext {
   repository: OverviewRepository;
   asOf: string;
@@ -58,6 +65,6 @@ export type RepositoryInsight = InsightContext &
     | {
         kind: 'duration';
         days: Measurement;
-        records: Extract<RepositoryRecordList, { kind: 'prs' }>;
+        records: MergedPullRequestList;
       }
   );

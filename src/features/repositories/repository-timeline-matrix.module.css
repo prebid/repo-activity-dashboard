@@ -20,11 +20,11 @@
   font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
 }
+/* An unlinked repository name reads like the Summary repository link (overview.module.css). */
 .repository {
-  font-size: var(--prebid-text-small);
+  color: var(--foreground);
   font-weight: 500;
   overflow-wrap: anywhere;
-  line-height: 1.5;
 }
 
 .identity {
@@ -39,11 +39,8 @@
   gap: 2px;
 }
 .metricName small {
-  font-size: 10px;
+  font-size: inherit;
 }
 .groupEnd {
   --table-row-border-width: 2px;
-}
-.groupEnd td {
-  padding-bottom: 16px;
 }
