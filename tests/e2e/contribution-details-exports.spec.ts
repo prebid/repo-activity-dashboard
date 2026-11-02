@@ -226,7 +226,11 @@ test('focused repository results and CSV column choices omit only confirmed-zero
   expect(visible).not.toContain('Comment activity — Inline comments');
   await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
   await expect(page.getByRole('radio', { name: 'By repository', exact: true })).toHaveCount(0);
-  await page.getByRole('button', { name: 'All columns', exact: true }).click();
+  // The report table offers Column sets, so the dialog's All columns is a set.
+  await page
+    .getByRole('group', { name: 'Column set', exact: true })
+    .getByRole('radio', { name: 'All columns', exact: true })
+    .check();
   const all = await csvDownload(page, 'Download CSV');
   expect(all.split('\r\n')).toHaveLength(3);
   expect(all).toContain('Comment activity — Inline comments');
