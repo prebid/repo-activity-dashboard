@@ -225,16 +225,17 @@ test('repository entry retains title filters and exact activity dates, with revi
   await expect(page.getByText(/Current backlog constraints remain/)).toBeVisible();
   expect(new URL(page.url()).searchParams.get('prs.q')).toBe('Sample');
   expect(new URL(page.url()).searchParams.has('prs.filter.approvals')).toBe(false);
+  // The list was answered with its canonical form, which the Timeline returns to.
   await page.getByRole('link', { name: /Previous repository view$/ }).click();
-  await expect(page).toHaveURL(/prs.filter.approvals=1/);
-  expect(new URL(page.url()).searchParams.get('prs.filter.approvals')).toBe('1');
+  await expect(page).toHaveURL(/[?&]approvals=1/);
+  expect(new URL(page.url()).searchParams.get('approvals')).toBe('1');
   await page.goto(
-    '/repos/prebidjs?scope=period&metric=prsOpened&from=2026-10-01T14%3A00%3A00.000Z&to=2026-10-08T00%3A00%3A00.000Z&inclusive=0',
+    '/repos/prebidjs?scope=period&metric=prsOpened&from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-08T00%3A00%3A00.000Z&inclusive=0',
   );
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await ready(page);
   const q = new URL(page.url()).searchParams;
-  expect(q.get('timeline.from')).toBe('2026-10-01T14:00:00.000Z');
+  expect(q.get('timeline.from')).toBe('2026-10-01T00:00:00.000Z');
   expect(q.get('timeline.to')).toBe('2026-10-08T00:00:00.000Z');
   await page.getByLabel('Group by', { exact: true }).selectOption('day');
   await ready(page);
@@ -373,7 +374,7 @@ test('issue-author insight entry inherits its metric and exact period without tu
   expect(q.get('timeline.to')).toBe('2026-10-08T00:00:00.000Z');
   expect(q.has('issues.q')).toBe(false);
   await page.getByRole('link', { name: /Previous repository view$/ }).click();
-  await expect(page).toHaveURL(/authors.q=alice/);
+  await expect(page).toHaveURL(/[?&]q=alice/);
   await expect(page.getByRole('heading', { name: 'Issue authors', exact: true })).toBeVisible();
   await expect(
     page.getByRole('textbox', { name: 'Search Issue authors', exact: true }),

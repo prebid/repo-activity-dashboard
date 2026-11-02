@@ -4,6 +4,9 @@ import type { Page } from '@playwright/test';
 const context =
   '/repos?repo=repo-prebidjs&repo=repo-salesagent&period=this-month&period2=last-month&age=60&activity.sort=prsOpened&activity.dir=desc';
 const range = 'from=2026-10-01T00%3A00%3A00.000Z&to=2026-10-24T12%3A00%3A00.000Z&inclusive=1';
+// The canonical Summary the old `context` link is answered with, and the frame its links carry.
+const summary = '/repos?repo=prebidjs,salesagent&period2=last-month&age=60';
+const summaryFrame = '~repo:prebidjs,salesagent~period2:last-month~age:60';
 async function login(page: Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -31,7 +34,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   await page.goto(context);
   await periodRows(page).nth(1).locator('[data-column="prAuthors"] a').click();
   await expect(page.getByText('33 unique accounts', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
+  expect(new URL(page.url()).searchParams.get('period')).toBe('last-month');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(33);
   await page.getByRole('link', { name: 'View 3 PRs by sample-author-1', exact: true }).click();
   await expect(page.getByText('3 matching records', { exact: true })).toBeVisible();
@@ -44,10 +47,7 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   await expect(page.getByText('33 unique accounts', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveValue('last-month');
-  expect(new URL(page.url()).searchParams.getAll('repo')).toEqual([
-    'repo-prebidjs',
-    'repo-salesagent',
-  ]);
+  expect(new URL(page.url()).searchParams.get('repo')).toBe('prebidjs,salesagent');
   expect(new URL(page.url()).searchParams.get('age')).toBe('60');
   await page.goto('/repos?repo=repo-prebidjs&period=this-year');
   await periodRows(page).nth(0).locator('[data-column="issueAuthors"] a').click();
@@ -62,7 +62,8 @@ test('unique-author drilldowns preserve the selected period, open author-filtere
   ).toBeVisible();
   await page.getByRole('link', { name: 'Issue authors', exact: true }).click();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
-  expect(new URL(page.url()).searchParams.get('authors.page')).toBe('2');
+  // The author list keeps the page its author's records came from.
+  expect(new URL(page.url()).searchParams.get('page')).toBe('2');
   await page
     .getByRole('textbox', { name: 'Search Issue authors', exact: true })
     .fill('sample-author-239');
@@ -110,17 +111,12 @@ for (const [metric, noun, authorLabel] of [
       page.locator('tbody [data-column="author"]').getByText('Bot', { exact: true }),
     ).toHaveCount(count);
     const query = new URL(page.url()).search;
-    expect(new URL(page.url()).searchParams.get('metric')).toBe(metric);
-    expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01T00:00:00.000Z');
-    expect(new URL(page.url()).searchParams.get('to')).toBe('2026-10-01T00:00:00.000Z');
-    const returnTo = new URL(page.url()).searchParams.get('returnTo')!;
-    const overview = new URL(returnTo, 'http://127.0.0.1:3100');
-    const selected = new URL(context, 'http://127.0.0.1:3100');
-    expect(overview.pathname).toBe('/repos');
-    for (const key of ['repo', 'period', 'period2', 'age', 'activity.sort', 'activity.dir'])
-      expect(overview.searchParams.getAll(key)).toEqual(selected.searchParams.getAll(key));
-    expect(overview.searchParams.get('backlog.sort')).toBe('totalOpenPrs');
-    expect(overview.searchParams.get('backlog.dir')).toBe('desc');
+    const url = new URL(page.url());
+    expect(url.searchParams.get('metric')).toBe(metric);
+    // Last month, pinned at its own end.
+    expect(url.searchParams.get('period')).toBe('last-month');
+    expect(url.searchParams.get('at')).toBe('2026-10-01');
+    expect(url.searchParams.get('back')).toBe(summaryFrame);
     await page.reload();
     await expect(heading).toBeVisible();
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(count);
@@ -130,7 +126,7 @@ for (const [metric, noun, authorLabel] of [
     ).toHaveValue(account);
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
     await page.getByRole('link', { name: 'All repositories', exact: true }).click();
-    await expect(page).toHaveURL(overview.href);
+    await expect(page).toHaveURL('http://127.0.0.1:3100' + summary + '#period-activity');
     await page.goto('/repos/prebidjs/authors/not-in-this-sample%5Bbot%5D' + query);
     await expect(
       page.getByRole('heading', { name: noun + ' by not-in-this-sample[bot]', exact: true }),
@@ -206,12 +202,10 @@ for (const [metric, noun, count, finalPageCount, oldestNumber] of [
       await expect(page.getByRole('textbox', { name: searchName, exact: true })).toHaveValue(
         'sample-author-2',
       );
-      expect(new URL(page.url()).searchParams.get('authors.q')).toBe('sample-author-2');
-      expect(
-        new URL(page.url()).searchParams.has(metric === 'prAuthors' ? 'prs.q' : 'issues.q'),
-      ).toBe(false);
+      // The list's own search returns, not the author records' search.
+      expect(new URL(page.url()).searchParams.get('q')).toBe('sample-author-2');
       await page.getByRole('link', { name: 'All repositories', exact: true }).click();
-      await expect(page).toHaveURL(/\/repos\?period=this-year&age=60$/);
+      await expect(page).toHaveURL(/\/repos\?period=this-year&age=60#period-activity$/);
       for (const invalid of [
         '/repos/prebidjs/authors/bad%20actor?' + query,
         '/repos/prebidjs/authors/sample-author-2?scope=current&metric=totalOpenPrs',
@@ -309,7 +303,7 @@ test('duration links show median and sample size separately with numeric sorting
   );
   expect(new Set(days).size).toBeGreaterThan(1);
   expect(days).toEqual([...days].sort((a, b) => a - b));
-  expect(new URL(page.url()).searchParams.get('branch')).toBe('master');
+  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   expect(new URL(page.url()).searchParams.get('metric')).toBe('medianMergeDays');
   await page.getByRole('link', { name: 'All repositories', exact: true }).click();
   await periodRows(page).nth(1).locator('[data-column="medianMergeDays"] a').click();
@@ -466,7 +460,7 @@ test('pending author search cannot cancel navigation while the destination respo
       .fill('sample-author-2');
     await page.getByRole('link', { name: 'View 184 PRs by sample-author-2', exact: true }).click();
     await expect.poll(() => requests).toBe(1);
-    await expect(page).toHaveURL(/authors.q=sample-author-2/);
+    await expect(page).toHaveURL(/[?&]q=sample-author-2/);
     release();
     await expect(page).toHaveURL(/\/authors\/sample-author-2\?/);
     await expect(page.getByText('184 matching records', { exact: true })).toBeVisible();

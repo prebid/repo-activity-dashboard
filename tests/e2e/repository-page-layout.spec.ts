@@ -91,9 +91,11 @@ test('direct lists share the drilldown layout and retain pagination through tab 
   await page.goBack();
   await expect(page.getByText('Page 2 of 3', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(50);
+  // An old link's return context is answered with a 307 to a back frame.
   await page.goto(
     '/repos/prebidjs?scope=current&metric=humanApprovals0&returnTo=%2Frepos%3Fage%3D60',
   );
+  await expect(page).toHaveURL(/\/repos\/prebidjs\?metric=humanApprovals0&back=~age:60$/);
   await expect(page.getByText('60 matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'All repositories', exact: true })).toHaveAttribute(
     'href',

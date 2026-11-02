@@ -20,7 +20,7 @@ test('PR charts use the full population and keyboard selections combine without 
   page,
 }) => {
   await login(page);
-  await page.goto('/repos/prebidjs?returnTo=%2Frepos%3Fage%3D60');
+  await page.goto('/repos/prebidjs?back=~age:60');
   await expect(page.getByRole('figure')).toHaveCount(0);
   await showCharts(page);
   const age = figure(page, 'Age distribution'),
@@ -104,12 +104,13 @@ test('period bars filter the correct event dates and retain the base period and 
   await button.click();
   await expect(page.getByText(count + ' matching records', { exact: true })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(Math.min(50, count));
+  // The old link was answered with its canonical form; the bar adds its month as `events`.
   const url = new URL(page.url());
-  expect(url.searchParams.get('prs.filter.eventFrom')).toBe('2026-01-01T00:00:00.000Z');
-  expect(url.searchParams.get('prs.filter.eventTo')).toBe('2026-02-01T00:00:00.000Z');
-  expect(url.searchParams.get('prs.filter.eventInclusive')).toBe('0');
-  expect(url.searchParams.get('to')).toBe('2026-10-24T12:00:00.000Z');
-  expect(url.searchParams.get('branch')).toBe('master');
+  expect(url.searchParams.get('events')).toBe('2026-01-01..2026-01-31');
+  expect(url.searchParams.get('period')).toBe('this-year');
+  expect(url.searchParams.get('at')).toBe('2026-10-24T12:00Z');
+  expect(url.searchParams.get('metric')).toBe('prsMerged');
+  await expect(page.getByText('Primary branch: master', { exact: true })).toBeVisible();
   await expect(
     page.getByRole('button', { name: /Activity dates: Jan 1, 2026 – Jan 31, 2026/ }),
   ).toBeVisible();
@@ -125,9 +126,9 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   await showCharts(page);
   expect(await counts(figure(page, 'Age distribution'))).toEqual([0, 0, 0, 0, 0, 0, 0]);
   await expect(figure(page, 'Age distribution').getByRole('button').first()).toBeDisabled();
+  // A drilldown address shows only its own presentation: saved charts reach it through links.
   await page.goto('/repos/prebid-cache-java?scope=current&metric=agentFeedbackPrs');
-  // The open charts are a saved choice for every repository's pull request lists.
-  await expect(page.getByRole('button', { name: 'Hide charts', exact: true })).toBeVisible();
+  await showCharts(page);
   await expect(page.getByText(/Partial sample coverage:/)).toBeVisible();
   const age = figure(page, 'Age distribution');
   const point = age.locator('button:enabled').first();
@@ -137,7 +138,10 @@ test('known zero, partial and missing charts preserve their meanings', async ({ 
   expect(count).toBeGreaterThan(0);
   await point.click();
   await expect(page.getByText(count + ' available sample records', { exact: true })).toBeVisible();
-  await page.goto('/repos/prebid-agent-skills?scope=current&metric=humanApprovals0');
+  // The open charts are a saved choice for every repository's pull request lists, which a bare
+  // list entry is redirected to.
+  await page.goto('/repos/prebid-agent-skills');
+  await expect(page).toHaveURL(/\/repos\/prebid-agent-skills\?charts$/);
   await expect(page.getByRole('button', { name: 'Hide charts', exact: true })).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'Sample records unavailable', exact: true }),

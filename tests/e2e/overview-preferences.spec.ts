@@ -150,12 +150,16 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await expect(activity.locator('tbody tr')).toHaveCount(2);
   await page.goBack();
   await expect(activity.locator('tbody tr')).toHaveCount(6);
+  // An old link the frozen reader repairs is answered with the repaired view: one period.
   await page.goto('/repos?period=this-week&period2=this-week&change=1');
-  await expect(
-    page.getByText('The second period is invalid or duplicates the first. Showing one period.'),
-  ).toBeVisible();
+  await expect(page).toHaveURL(/\/repos\?period=this-week$/);
   await expect(page.getByRole('combobox', { name: 'Period 2 preset' })).toHaveCount(0);
   await expect(page.getByRole('checkbox', { name: 'Show change' })).toHaveCount(0);
+  // A canonical address naming one period twice is not a view All repositories offers.
+  await page.goto('/repos?period=this-week&period2=this-week');
+  await expect(
+    page.getByRole('heading', { name: 'Invalid All repositories view', exact: true }),
+  ).toBeVisible();
 });
 
 // Give each accessibility/rendering scenario its own test budget on slower hosted browsers.
@@ -222,7 +226,7 @@ test('aging columns can be combined, sorted, saved, or all hidden', async ({ pag
   await expect(row(page, 'Current backlog').locator('[data-column="agedPrs90"]')).toHaveText('30');
   await expect(row(page, 'Current backlog').locator('[data-column="agedPrs180"]')).toHaveText('0');
   await backlog.getByRole('button', { name: 'Over 90 days', exact: true }).click();
-  await expect(page).toHaveURL(/backlog.sort=agedPrs90/);
+  await expect(page).toHaveURL(/bsort=agedPrs90/);
   await page.goto('/repos');
   await expectAges(page, [30, 90, 180]);
   await expect(
@@ -302,7 +306,8 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expect(
     page.getByRole('table', { name: 'Period activity' }).locator('tbody tr'),
   ).toHaveCount(2);
-  expect(new URL(page.url()).search).toBe('');
+  // The bare entry was answered with the saved scope; the sort saved is the default, so unwritten.
+  expect(new URL(page.url()).search).toBe('?repo=prebidjs,salesagent&period=this-week&age=90');
 
   await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
   await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
@@ -371,10 +376,12 @@ test('browser history, explicit URLs and empty selections keep their meaning wit
   await expect(
     page.getByRole('heading', { name: 'No repositories selected', exact: true }),
   ).toBeVisible();
+  // A canonical address with values the Summary does not offer shows its invalid view.
   await page.goto('/repos?repo=unknown&period=bad&age=31');
   await expect(
-    page.getByText('The timeframe in this link is invalid. Showing This month.'),
+    page.getByRole('heading', { name: 'Invalid All repositories view', exact: true }),
   ).toBeVisible();
+  await page.getByRole('link', { name: 'Open All repositories', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'No repositories selected', exact: true }),
   ).toBeVisible();
@@ -406,7 +413,7 @@ test("one account's saved view is never shown to another account", async ({ page
   ).toHaveCount(18);
 });
 
-test('a later visit is rendered in its saved view by the server, without changing the address', async ({
+test('a later visit is redirected to its saved view by the server, with no write after load', async ({
   page,
   browser,
 }, testInfo) => {
@@ -444,7 +451,10 @@ test('a later visit is rendered in its saved view by the server, without changin
   await page.waitForLoadState('networkidle');
   await expectAges(page, [90]);
   await expect(total).toHaveAttribute('aria-sort', 'ascending');
-  expect(await page.evaluate(() => location.pathname + location.search)).toBe('/repos');
+  // The bare entry was answered with the saved explicit form; the page wrote nothing after load.
+  expect(await page.evaluate(() => location.pathname + location.search)).toBe(
+    '/repos?repo=prebidjs,salesagent&age=90&bsort=totalOpenPrs',
+  );
   expect(await page.evaluate(() => history.length)).toBe(entries);
 });
 
