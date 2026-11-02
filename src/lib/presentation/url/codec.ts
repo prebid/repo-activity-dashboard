@@ -33,6 +33,11 @@ export function queryPairs(input: QueryInput): QueryPair[] {
   );
 }
 
+/** The pairs as `URLSearchParams`, for the frozen readers and screens that still take them. */
+export function legacySearchParams(input: QueryInput): URLSearchParams {
+  return new URLSearchParams(queryPairs(input) as [string, string][]);
+}
+
 /** Keys and value forms the frozen readers read and the registry does not (decoded by `legacy/`). */
 const legacyKey =
   /^(?:scope|from|through|from2|through2|to|inclusive|branch|population|returnTo|summary|timelineParent|nav|change|entityId|column)$|^(?:timeline|support|prs|issues|authors|credits|report|members|repositories|details|contributors|companies|backlog|activity|export)\./;

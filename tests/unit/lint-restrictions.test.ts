@@ -296,3 +296,106 @@ describe('rule 4: PageHeader owns the page h1', { timeout: 30_000 }, () => {
     ).toEqual([]);
   });
 });
+
+// Each rule-6 form on its own line; the fixtures type-check, so no other rule reports them.
+const urlWriters = {
+  searchParams: lines("export const query = new URLSearchParams('a=1');"),
+  pushState: lines('export function go() {', "  window.history.pushState(null, '', '/x');", '}'),
+  replaceState: lines('export function go() {', "  history.replaceState(null, '', '/x');", '}'),
+  router: lines(
+    'declare const router: { push(href: string): void; replace(href: string): void };',
+    'export function go() {',
+    "  router.replace('/x');",
+    '}',
+  ),
+  useRouter: lines(
+    "import { useRouter } from 'next/navigation';",
+    'export function useGo() {',
+    "  useRouter().push('/x');",
+    '}',
+  ),
+  mutation: lines(
+    'export function href(url: URL) {',
+    "  url.searchParams.set('a', '1');",
+    '  return url.href;',
+    '}',
+  ),
+};
+const urlWriterLines = {
+  searchParams: 1,
+  pushState: 2,
+  replaceState: 2,
+  router: 3,
+  useRouter: 3,
+  mutation: 2,
+};
+const urlCodec = {
+  codec: 'src/lib/presentation/url/codec.ts',
+  hook: 'src/lib/navigation/use-url-state.ts',
+  legacy: 'src/lib/presentation/url/legacy/table-query.ts',
+  server: 'src/server/canonical-page.ts',
+  toolbar: 'src/components/layout/toolbar.tsx',
+  trail: 'src/lib/presentation/contribution-return.ts',
+  interimRoute: 'src/app/(dashboard)/repos/[slug]/page.tsx',
+  interimLib: 'src/lib/presentation/timeline-navigation.ts',
+} as const;
+
+describe('rule 6: links and history writes go through the URL codec', { timeout: 30_000 }, () => {
+  beforeAll(async () => {
+    await reports(paths.feature, lines('export const warm = 1;'));
+  }, 90_000);
+
+  it('rejects each form in features, routes, shared components and server code', async () => {
+    for (const [form, text] of Object.entries(urlWriters))
+      for (const path of [paths.feature, paths.route, paths.component, urlCodec.server])
+        expect(await reports(path, text), form + ' ' + path).toEqual([
+          ['no-restricted-syntax', urlWriterLines[form as keyof typeof urlWriterLines]],
+        ]);
+  });
+
+  it('accepts them in the codec, its legacy readers, the hook, tests and stories', async () => {
+    for (const path of [urlCodec.codec, urlCodec.legacy, urlCodec.hook, paths.test, paths.story])
+      for (const [form, text] of Object.entries(urlWriters))
+        expect(await reports(path, text), form + ' ' + path).toEqual([]);
+  });
+
+  it('keeps every other selector in the named and interim exceptions', async () => {
+    const writerAndHeading = lines(
+      "export const query = new URLSearchParams('a=1');",
+      'export const Title = () => <h1>Title</h1>;',
+    );
+    for (const path of [urlCodec.toolbar, urlCodec.interimRoute])
+      expect(await reports(path, writerAndHeading), path).toEqual([['no-restricted-syntax', 2]]);
+    const writerAndIcon = lines(
+      "export const query = new URLSearchParams('a=1');",
+      "export const load = () => import('lucide-react');",
+    );
+    for (const path of [urlCodec.trail, urlCodec.interimLib, urlCodec.hook])
+      expect(await reports(path, writerAndIcon), path).toEqual([['no-restricted-syntax', 2]]);
+    const writerAndPrimitive = lines(
+      "import { Button } from '@/components/ui/button';",
+      "export const query = new URLSearchParams('a=1');",
+      'export const Override = () => <Button className="mt-4" />;',
+    );
+    expect(await reports(paths.authView, writerAndPrimitive)).toEqual([
+      ['no-restricted-syntax', 3],
+    ]);
+  });
+
+  it('does not read an aliased router, a destructured push or a search assignment', async () => {
+    expect(
+      await reports(
+        paths.feature,
+        lines(
+          "import { useRouter } from 'next/navigation';",
+          'export function useGo(url: URL) {',
+          '  const navigation = useRouter();',
+          '  const { push } = { push: (href: string) => navigation.push(href) };',
+          "  push('/y');",
+          "  url.search = 'a=1';",
+          '}',
+        ),
+      ),
+    ).toEqual([]);
+  });
+});

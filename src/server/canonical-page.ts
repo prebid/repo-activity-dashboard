@@ -4,6 +4,7 @@ import type { PageSearchParams } from '@/lib/presentation/search-params';
 import { viewHref } from '@/lib/presentation/url/back';
 import {
   isEntry,
+  legacySearchParams,
   parseQuery,
   queryPairs,
   sameQuery,
@@ -68,8 +69,7 @@ export async function canonicalPage(
   options: CanonicalPageOptions = {},
 ): Promise<CanonicalPage> {
   const pairs = queryPairs(searchParams);
-  if (options.legacyScreens)
-    return { status: 'legacy', params: new URLSearchParams(pairs as [string, string][]) };
+  if (options.legacyScreens) return { status: 'legacy', params: legacySearchParams(pairs) };
   const parsed = parseQuery(route, pairs);
   if (parsed.kind === 'invalid') return { status: 'invalid', message: parsed.message };
   let values: UrlValues;
