@@ -491,7 +491,8 @@ test('an invalid saved view shows the defaults with the recovery notice once', a
       .getByRole('table', { name: 'Current backlog', exact: true })
       .getByRole('columnheader', { name: 'Repository', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
-  await page.waitForLoadState('networkidle');
+  // Network idle can come before hydration, which is when the section is removed.
+  await expect(page.getByRole('button', { name: 'Columns', exact: true }).first()).toBeEnabled();
   await page.goto('/repos');
   await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
   await expect(page.getByText(/preferences are invalid/)).toHaveCount(0);

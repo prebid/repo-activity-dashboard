@@ -105,8 +105,8 @@ test('a modified click on a crumb opens its link and leaves the page as it is', 
   const opened = context.waitForEvent('page');
   await crumb.click({ modifiers: [process.platform === 'darwin' ? 'Meta' : 'Control'] });
   const tab = await opened;
-  await tab.waitForLoadState();
-  expect(new URL(tab.url()).pathname + new URL(tab.url()).search).toBe(href);
+  // The new tab starts at about:blank; its load state can settle before the link's address commits.
+  await expect(tab).toHaveURL((url) => url.pathname + url.search === href);
   await tab.close();
   expect(page.url()).toBe(child);
   expect(origin).toBe(new URL(child).origin);
