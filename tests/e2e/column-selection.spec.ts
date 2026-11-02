@@ -166,3 +166,72 @@ test('repository summary and record selectors adopt the same grouping components
   await expect(menu.getByRole('group', { name: 'Dates and age', exact: true })).toBeVisible();
   await expect(menu.getByRole('group', { name: 'Human review', exact: true })).toBeVisible();
 });
+test('a Column set leads the Columns menu and the CSV dialog and changes only its own target', async ({
+  page,
+}) => {
+  const story = (id: string) =>
+    'http://127.0.0.1:6007/iframe.html?id=tables-table-toolbar--' + id + '&viewMode=story';
+  await page.goto(story('column-sets-custom'));
+  await expect(page.getByRole('button', { name: 'Columns · Custom', exact: true })).toBeVisible();
+  await page.goto(story('column-sets'));
+  const headers = page.getByRole('table').locator('thead th');
+  const trigger = page.getByRole('button', { name: /^Columns · / });
+  await expect(trigger).toHaveAccessibleName('Columns · Contributor');
+  await trigger.click();
+  const menu = page.getByRole('menu', { name: /^Columns · / });
+  await expect(menu).toHaveCSS('opacity', '1');
+  const sets = menu.getByRole('group', { name: 'Column set', exact: true });
+  await expect(menu.getByRole('group').first()).toHaveAccessibleName('Column set');
+  await expect(sets.getByRole('menuitemradio')).toHaveText([
+    'Contributor',
+    'Reviewer',
+    'All credits',
+    'All columns',
+  ]);
+  expect((await new AxeBuilder({ page }).include('[role="menu"]').analyze()).violations).toEqual(
+    [],
+  );
+  await sets.getByRole('menuitemradio', { name: 'Reviewer', exact: true }).click();
+  await expect(menu).toBeVisible();
+  await expect(trigger).toHaveAccessibleName('Columns · Reviewer');
+  await expect(menu).toHaveAccessibleName('Columns · Reviewer');
+  await expect(sets.getByRole('menuitemradio', { name: 'Reviewer', exact: true })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
+  await expect(headers).toHaveText([
+    'Name',
+    'Company',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+  ]);
+  await page.keyboard.press('Escape');
+  await expect(trigger).toBeFocused();
+
+  await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'Sample credits CSV export', exact: true });
+  await expect(dialog).toHaveCSS('opacity', '1');
+  const choices = dialog.getByRole('group', { name: 'Column set', exact: true });
+  await expect(choices.getByRole('radio', { name: 'Reviewer', exact: true })).toBeChecked();
+  await expect(dialog.getByRole('button', { name: 'All columns', exact: true })).toHaveCount(0);
+  await choices.getByRole('radio', { name: 'Contributor', exact: true }).check();
+  await expect(dialog.getByRole('checkbox', { name: 'PRs authored', exact: true })).toBeChecked();
+  await expect(
+    dialog.getByRole('checkbox', { name: 'Reviewer contributions', exact: true }),
+  ).not.toBeChecked();
+  await expect(dialog.getByRole('checkbox', { name: 'Company', exact: true })).toBeChecked();
+  expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
+    [],
+  );
+  await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toHaveAccessibleName('Columns · Reviewer');
+  await expect(headers).toHaveText([
+    'Name',
+    'Company',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+  ]);
+});
