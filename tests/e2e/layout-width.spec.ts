@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 import type { Locator, Page } from '@playwright/test';
-import { viewsFor } from '../support/views';
+import { inventory, viewsFor, type InventoryId } from '../support/views';
 
 type Mode = 'wide' | 'contained';
 
@@ -329,5 +329,85 @@ test("an administrator's first masthead row fits from 320px without overlapping 
     expect(await page.evaluate(() => document.documentElement.scrollWidth), at).toBeLessThanOrEqual(
       width,
     );
+  }
+});
+
+const pathOf = (id: InventoryId) => inventory.find((view) => view.id === id)!.path;
+/** Whether a box lies whole between another's left and right edges, to half a pixel. */
+async function inside(inner: Locator, outer: Locator | { x: number; width: number }) {
+  const box = (await inner.boundingBox())!;
+  const frame = 'x' in outer ? outer : (await outer.boundingBox())!;
+  return box.x >= frame.x - 0.5 && box.x + box.width <= frame.x + frame.width + 0.5;
+}
+
+for (const [id, modes, subjects] of [
+  ['contributors-timeline', 'Report view', 'Contribution reports'],
+  ['companies-timeline', 'Report view', 'Contribution reports'],
+  ['repos-overview', 'Repository overview views', null],
+] satisfies [InventoryId, string, string | null][])
+  test(`on phones the view bar keeps both view modes and the current subject whole (${id})`, async ({
+    page,
+  }) => {
+    await login(page);
+    for (const width of [320, 375, 390]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(pathOf(id));
+      const at = `at ${width}px`;
+      const group = page.getByRole('navigation', { name: modes, exact: true });
+      const options = await group.getByRole('link').all();
+      expect(options.length, at).toBe(2);
+      for (const option of options) {
+        const name = at + ' ' + (await option.textContent());
+        expect(await inside(option, group), name).toBe(true);
+        expect(await inside(option, { x: 0, width }), name).toBe(true);
+      }
+      if (subjects) {
+        // The bar scrolls its current subject tab into view once the page is interactive.
+        const row = page.getByRole('navigation', { name: subjects, exact: true });
+        await expect.poll(() => inside(row.locator('[aria-current="page"]'), row), at).toBe(true);
+      } else {
+        const trigger = page.getByRole('button', { name: 'Sections', exact: true });
+        await expect(trigger).toBeEnabled();
+        expect(await inside(trigger, { x: 0, width }), at).toBe(true);
+      }
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+        at,
+      ).toBe(true);
+    }
+  });
+
+test('at 320px the masthead scrolls its current destination into view', async ({ page }) => {
+  await login(page);
+  await page.setViewportSize({ width: 320, height: 800 });
+  const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+  const [, , contributors, reviewers] = mainDestinations(page);
+  for (const [id, current] of [
+    ['reviewers', reviewers],
+    ['companies-reviewers', reviewers],
+    ['contributor-detail-reviewers', reviewers],
+    ['contributors', contributors],
+  ] satisfies [InventoryId, Locator][]) {
+    await page.goto(pathOf(id));
+    // The four destinations do not fit this width, so the row scrolls sideways.
+    expect(await main.evaluate((nav) => nav.scrollWidth > nav.clientWidth), id).toBe(true);
+    await expect.poll(() => inside(current, main), id).toBe(true);
+  }
+});
+
+test('at phone widths the current crumb ends inside the breadcrumb row', async ({ page }) => {
+  await login(page);
+  const crumbs = page
+    .getByRole('navigation', { name: 'Breadcrumb', exact: true })
+    .getByRole('list');
+  const current = crumbs.locator('[aria-current="page"]');
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto(pathOf('repo-author-issues'));
+    const at = `at ${width}px`;
+    // Shortened on screen only: the crumb keeps its whole name.
+    await expect(current, at).toHaveText('Issues by sample-author-2');
+    expect(await crumbs.evaluate((list) => list.scrollWidth <= list.clientWidth), at).toBe(true);
+    expect(await inside(current, crumbs), at).toBe(true);
   }
 });

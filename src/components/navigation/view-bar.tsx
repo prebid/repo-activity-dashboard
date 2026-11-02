@@ -3,8 +3,11 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { SectionNav, type PageSection } from './section-nav';
 import styles from './view-bar.module.css';
 
-/** Scrolls a sideways-scrolling tab row, never the page, until its current tab is in view. */
-function reveal(tab: Element) {
+/**
+ * Scrolls a sideways-scrolling tab row, never the page, until its current tab is in view. The row
+ * is the tab's nearest `nav`; a row that does not overflow is left alone.
+ */
+export function reveal(tab: Element) {
   const row = tab.closest('nav');
   if (!row || row.scrollWidth <= row.clientWidth) return;
   const box = row.getBoundingClientRect();

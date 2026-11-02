@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test';
 import { test, expect, expectTheme } from './fixtures';
+import { inventory, type InventoryId } from '../support/views';
 
 const story = (id: string, theme: 'light' | 'dark' = 'dark') =>
   `http://127.0.0.1:6007/iframe.html?id=${id}&viewMode=story&globals=theme:${theme}`;
@@ -224,3 +225,36 @@ test('at phone width a Sections menu replaces the chips and leaves focus on the 
   expect(await hash(page)).toBe('#at-a-glance');
   expect(await historyLength(page)).toBe(entries);
 });
+
+for (const id of ['repo-author-issues', 'repo-docs-open-issues'] satisfies InventoryId[])
+  test(`up to the two-row masthead width the Sections menu keeps the record tabs whole (${id})`, async ({
+    page,
+  }) => {
+    await page.goto('/auth/login');
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+    await expect(page).toHaveURL(/\/repos$/);
+    await page.setViewportSize({ width: 768, height: 900 });
+    await page.goto(inventory.find((view) => view.id === id)!.path);
+    const tabs = page.getByRole('navigation', { name: 'Repository lists', exact: true });
+    const trigger = sectionsNav(page).getByRole('button', { name: 'Sections', exact: true });
+    await expect(trigger).toBeVisible();
+    await expect(sectionsNav(page).getByRole('list')).toBeHidden();
+    // The tab row does not scroll, and every tab lies whole inside it.
+    expect(await tabs.evaluate((row) => row.scrollWidth <= row.clientWidth)).toBe(true);
+    const row = (await tabs.boundingBox())!;
+    const links = tabs.getByRole('link');
+    expect(await links.count()).toBe(3);
+    for (const link of await links.all()) {
+      const box = (await link.boundingBox())!;
+      const name = (await link.textContent()) ?? '';
+      expect(box.x, name).toBeGreaterThanOrEqual(row.x - 0.5);
+      expect(box.x + box.width, name).toBeLessThanOrEqual(row.x + row.width + 0.5);
+    }
+    // Once the masthead takes one row the chips return, and their list does not scroll.
+    await page.setViewportSize({ width: 1121, height: 900 });
+    const chips = sectionsNav(page).getByRole('list');
+    await expect(chips).toBeVisible();
+    await expect(trigger).toBeHidden();
+    expect(await chips.evaluate((list) => list.scrollWidth <= list.clientWidth)).toBe(true);
+    expect(await tabs.evaluate((row) => row.scrollWidth <= row.clientWidth)).toBe(true);
+  });
