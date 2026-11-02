@@ -110,60 +110,6 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
     },
     {
-      "file": "src/features/repositories/overview.module.css",
-      "context": "",
-      "selector": ".title",
-      "property": "font-size",
-      "value": "clamp(25px, 3vw, 32px)",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
-    },
-    {
-      "file": "src/features/repositories/overview.module.css",
-      "context": "",
-      "selector": ".organizationLink",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
-    },
-    {
-      "file": "src/features/repositories/repository-page.module.css",
-      "context": "",
-      "selector": ".header h1",
-      "property": "font-size",
-      "value": "clamp(25px, 3vw, 32px)",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
-      "file": "src/features/repositories/repository-page.module.css",
-      "context": "",
-      "selector": ".tabCount",
-      "property": "border-radius",
-      "value": "5px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
-      "file": "src/features/repositories/repository-page.module.css",
-      "context": "",
-      "selector": ".countLabel",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
-      "file": "src/features/repositories/repository-page.module.css",
-      "context": "",
-      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
       "file": "src/app/(dashboard)/foundation/page.tsx",
       "context": "FoundationPage > <h1 className>",
       "selector": "",
@@ -182,29 +128,11 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
     },
     {
-      "file": "src/app/(dashboard)/repos/[slug]/authors/[account]/page.tsx",
-      "context": "AuthorRecordsPage > <Link className>",
-      "selector": "",
-      "property": "text-sm",
-      "value": "text-sm",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
       "file": "src/app/(dashboard)/repos/[slug]/not-found.tsx",
       "context": "RepositoryNotFound > <h1 className>",
       "selector": "",
       "property": "text-2xl",
       "value": "text-2xl",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/app/(dashboard)/repos/[slug]/page.tsx",
-      "context": "RepositoryPage > <Link className>",
-      "selector": "",
-      "property": "text-sm",
-      "value": "text-sm",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
     },
@@ -232,15 +160,6 @@
       "selector": "",
       "property": "text-sm",
       "value": "text-sm",
-      "phase": "P4",
-      "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
-    },
-    {
-      "file": "src/components/reporting/timeline-support-frame.tsx",
-      "context": "TimelineSupportFrame > <h1 className>",
-      "selector": "",
-      "property": "text-2xl",
-      "value": "text-2xl",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
     },

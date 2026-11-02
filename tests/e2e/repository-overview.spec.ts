@@ -111,13 +111,21 @@ test.describe('pinned row dividers', () => {
               await page.mouse.move(0, 0);
               await paintedFrame(page);
               const samples = await cells.evaluateAll((elements) => {
-                // A row is in view below the masthead and the table's sticky header row, and
+                // A row is in view below the sticky page chrome (the masthead and the view bar,
+                // whatever is stuck outside the tables) and the table's sticky header row, and
                 // above the bottom of the table's scroll area and its scroll bar.
                 const region = elements[0].closest<HTMLElement>('[role="region"]')!;
                 const pane = region.getBoundingClientRect();
+                const chrome = Array.from(document.body.querySelectorAll('*'))
+                  .filter(
+                    (element) =>
+                      !element.closest('[role="region"]') &&
+                      ['sticky', 'fixed'].includes(getComputedStyle(element).position),
+                  )
+                  .map((element) => element.getBoundingClientRect().bottom);
                 const top = Math.max(
                   8,
-                  document.querySelector('header')?.getBoundingClientRect().bottom ?? 0,
+                  ...chrome,
                   region.querySelector('thead')!.getBoundingClientRect().bottom,
                 );
                 const bottom = Math.min(

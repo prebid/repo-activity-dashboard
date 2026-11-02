@@ -1,5 +1,6 @@
-import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { expect, it, vi } from 'vitest';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { RepositoryTimelineView } from '@/features/repositories/repository-timeline-view';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import { castTimelineSample as repositoryTimelineSample } from '../support/cast-timeline';
@@ -45,4 +46,27 @@ it('returns to All repositories when the parent is not a repository page with an
     />,
   );
   expect(screen.getByRole('link', { name: 'All repositories' })).toHaveAttribute('href', '/repos');
+});
+it('keeps Timeline the current record tab and links its chart and table from the view bar', async () => {
+  vi.stubGlobal('scrollTo', () => {});
+  const user = userEvent.setup();
+  render(
+    <RepositoryTimelineView
+      report={report}
+      navigation={navigation}
+      href="/repos/prebidjs?timeline=1"
+      parent={null}
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('Prebid.js');
+  const tabs = screen.getByRole('navigation', { name: 'Repository lists' });
+  expect(within(tabs).getByRole('link', { name: 'Timeline' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  const sections = screen.getByRole('navigation', { name: 'On this page' });
+  expect(within(sections).getByRole('link', { name: 'Trend' })).toHaveAttribute('href', '#trend');
+  await user.click(within(sections).getByRole('link', { name: 'Activity over time' }));
+  expect(screen.getByRole('heading', { level: 2, name: 'Activity over time' })).toHaveFocus();
+  expect(window.location.hash).toBe('#over-time');
 });

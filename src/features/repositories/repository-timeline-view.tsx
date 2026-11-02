@@ -45,6 +45,7 @@ export function RepositoryTimelineView({
     ),
     snapshot = report.scope.family === 'snapshot';
   const key = JSON.stringify([report.source, report.request, report.scope]);
+  const tableTitle = snapshot ? 'Backlog over time' : 'Activity over time';
   return (
     <>
       <RepositoryHeader
@@ -64,6 +65,10 @@ export function RepositoryTimelineView({
               }
             : undefined
         }
+        sections={[
+          { id: 'trend', label: 'Trend' },
+          { id: 'over-time', label: tableTitle },
+        ]}
       />
       {scopeNotice}
       <ReportToolbar
@@ -90,13 +95,15 @@ export function RepositoryTimelineView({
           grouping={report.request.grouping}
           snapshot={snapshot}
           controls={chartControls}
+          anchor="trend"
         />
         <TimelineTable
           rows={report.rows}
           metrics={metrics}
           grouping={report.request.grouping}
-          title={snapshot ? 'Backlog over time' : 'Activity over time'}
+          title={tableTitle}
           controls={tableControls}
+          anchor="over-time"
         />
       </div>
     </>

@@ -4,6 +4,8 @@ import { RepositoryPageScreen } from '@/app/_screens/repository-page-screen';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import { repositoryAuthorPageMetadata } from '@/server/page-metadata';
+import { BackIcon } from '@/components/ui/icons';
+import styles from '@/features/repositories/repository-page.module.css';
 
 export async function generateMetadata({
   params,
@@ -33,7 +35,8 @@ export default async function AuthorRecordsPage({
   if (result.status === 'invalid')
     return (
       <>
-        <Link prefetch={false} href="/repos" className="text-sm underline">
+        <Link prefetch={false} href="/repos" className={styles.backLink}>
+          <BackIcon size={14} />
           All repositories
         </Link>
         <EmptyState kind="error" title="Invalid author filter">

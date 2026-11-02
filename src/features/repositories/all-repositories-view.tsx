@@ -29,6 +29,12 @@ import { ActivityPeriodControls } from './activity-period-controls';
 import { activityTableRows } from '@/lib/presentation/overview-periods';
 import styles from './overview.module.css';
 
+/** The two Summary panels the view bar links to; they render only when repositories are selected. */
+const summarySections = [
+  { id: 'current-backlog', label: 'Current backlog' },
+  { id: 'period-activity', label: 'Period activity' },
+] as const;
+
 export function AllRepositoriesView({
   data,
   secondaryData,
@@ -109,6 +115,7 @@ export function AllRepositoriesView({
           returnTo,
           data,
         )}
+        sections={rows.length ? summarySections : undefined}
       />
       <ReportToolbar
         label="Repository view settings"
@@ -136,7 +143,8 @@ export function AllRepositoriesView({
       ) : (
         <>
           <DataTable
-            title="Current backlog"
+            title={summarySections[0].label}
+            anchor={summarySections[0].id}
             search="none"
             rows={rows}
             columns={backlog}
@@ -164,7 +172,8 @@ export function AllRepositoriesView({
             legend={backlogLegend}
           />
           <DataTable
-            title="Period activity"
+            title={summarySections[1].label}
+            anchor={summarySections[1].id}
             search="none"
             rows={activityRows}
             columns={activity}

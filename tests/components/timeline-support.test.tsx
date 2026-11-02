@@ -94,8 +94,27 @@ it('renders unique authors and source-specific PRs with GitHub destinations and 
   const user = userEvent.setup();
   const authors = selectRepositoryTimelineSupport(source, report, context('prAuthors'));
   const view = render(<Preview detail={authors} />);
-  // The supporting view's scope states its interval in the one range notation.
+  // The header leads back through the trail, then names the subject and its snapshot.
+  const trail = screen.getByRole('navigation', { name: 'Supporting view navigation' });
+  expect(within(trail).getByRole('link', { name: 'Back to timeline' })).toHaveAttribute(
+    'href',
+    '/repos?timeline=1',
+  );
+  expect(within(trail).getByRole('link', { name: 'Back to authors' })).toHaveAttribute(
+    'href',
+    '/repos/prebidjs?timeline=1',
+  );
+  const header = screen
+    .getByRole('heading', { level: 1, name: 'Timeline detail' })
+    .closest('header')!;
+  expect(
+    within(header).getByRole('complementary', { name: 'Data source' }).querySelector('time'),
+  ).toHaveAttribute('dateTime', report.source.asOf);
+  // The supporting view's scope states its metric, value and interval in the one range notation.
   const scope = screen.getByRole('region', { name: 'Supporting interval scope' });
+  expect(scope).toHaveTextContent(
+    'Timeline value: ' + context('prAuthors').measurement.value!.toLocaleString('en-US'),
+  );
   expect(scope).toHaveTextContent('Oct 1, 2026 – Oct 24, 2026 · UTC');
   // October is clipped by the range, so the scope carries the one partial-period marker.
   expect(within(scope).getByText('Partial', { exact: true })).toBeVisible();

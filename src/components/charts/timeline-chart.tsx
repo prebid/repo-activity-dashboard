@@ -78,6 +78,7 @@ export function TimelineChart({
   grouping,
   snapshot = false,
   controls,
+  anchor,
 }: {
   rows: TimelineDisplayRow[];
   metrics: TimelineMetricDefinition[];
@@ -85,6 +86,8 @@ export function TimelineChart({
   grouping: TimelineGrouping;
   snapshot?: boolean;
   controls?: TimelineChartControls;
+  /** Makes the panel a page section with this id (ChartPanel's `anchor`). */
+  anchor?: string;
 }) {
   const ready = useClientReady();
   const interactive = ready && !controls?.disabled;
@@ -122,6 +125,7 @@ export function TimelineChart({
     <ChartPanel
       label="Timeline chart"
       title="Trend"
+      anchor={anchor}
       description={`All ${rows.length} intervals, independent of table sorting and pages.`}
       content="trend"
       showLabel="Show chart"
