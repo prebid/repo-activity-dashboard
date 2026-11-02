@@ -1,6 +1,8 @@
 import type { ComponentType } from 'react';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+// eslint-disable-next-line no-restricted-imports -- lucide's own render is the reference glyph.
+import { icons as lucide, type LucideIcon } from 'lucide-react';
 import * as icons from '@/components/ui/icons';
 
 // The glyph each concept draws: the Visual specification's Icons list, the P2 plan's additions,
@@ -86,6 +88,15 @@ function svgOf(Icon: Rendered, size: number) {
   if (!svg) throw new Error('No svg rendered');
   return svg;
 }
+/** The shapes lucide itself draws for a glyph, such as 'arrow-left'. */
+function lucideShapes(glyph: string) {
+  const name = glyph.replace(/(^|-)([a-z\d])/g, (_, _dash: string, char: string) =>
+    char.toUpperCase(),
+  );
+  const Glyph = (lucide as Record<string, LucideIcon | undefined>)[name];
+  if (!Glyph) throw new Error('No lucide glyph ' + name);
+  return svgOf(Glyph as Rendered, 24).innerHTML;
+}
 
 describe('icon map', () => {
   it('exports exactly the specified concepts', () => {
@@ -98,7 +109,9 @@ describe('icon map', () => {
       const sizes = identity.has(name) ? [10, 14, 16] : direction.has(name) ? [12] : [14, 16];
       for (const size of sizes) {
         const svg = svgOf(Icon, size);
-        expect(svg).toHaveClass('lucide', 'lucide-' + glyphs[name as keyof typeof glyphs]);
+        // The same shapes as lucide's own glyph.
+        expect(svg.childElementCount).toBeGreaterThan(0);
+        expect(svg.innerHTML).toBe(lucideShapes(glyphs[name as keyof typeof glyphs]));
         expect(svg).toHaveAttribute('width', String(size));
         expect(svg).toHaveAttribute('height', String(size));
         expect(svg).toHaveAttribute('aria-hidden', 'true');

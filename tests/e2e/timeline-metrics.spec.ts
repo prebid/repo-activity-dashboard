@@ -41,13 +41,13 @@ test('grouped metrics preserve repositories, sorting, pages, saved views, cell d
   await expect(table.locator('tbody tr')).toHaveCount(6);
   await page.getByRole('button', { name: 'Previous', exact: true }).click();
   await page.getByLabel('Sort metric').selectOption('medianMergeDays');
-  await table.getByRole('button', { name: 'Oct 2026 (partial)', exact: true }).click();
+  await table.getByRole('button', { name: 'Oct 2026 Partial', exact: true }).click();
   await expect(
-    table.getByRole('columnheader', { name: 'Oct 2026 (partial)', exact: true }),
+    table.getByRole('columnheader', { name: 'Oct 2026 Partial', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
-  await table.getByRole('button', { name: 'Oct 2026 (partial)', exact: true }).click();
+  await table.getByRole('button', { name: 'Oct 2026 Partial', exact: true }).click();
   await expect(
-    table.getByRole('columnheader', { name: 'Oct 2026 (partial)', exact: true }),
+    table.getByRole('columnheader', { name: 'Oct 2026 Partial', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   // GitHub Activity DB has October's longest median merge time.
   await expect(table.locator('tbody tr').first()).toContainText('GitHub Activity DB');

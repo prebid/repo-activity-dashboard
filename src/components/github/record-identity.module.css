@@ -1,6 +1,6 @@
 /* One record row: the title in ink at weight 500, underlined only on hover; its status and label
-   chips on the line beneath; the number muted in its own column. The table supplies the row's
-   density and body type. */
+   chips on the line beneath; the number muted, in its own column or leading a title link that
+   carries both. The table supplies the row's density and body type. */
 .identity {
   display: flex;
   flex-direction: column;
@@ -16,6 +16,12 @@
 }
 .title:hover {
   text-decoration: underline;
+}
+/* The external-link glyph follows the title's last character. */
+.title svg {
+  display: inline;
+  margin-left: 3px;
+  vertical-align: -2px;
 }
 .meta {
   display: flex;
@@ -37,7 +43,7 @@
   text-decoration: none;
   text-underline-offset: 3px;
 }
-.number:hover {
+a.number:hover {
   color: var(--foreground);
   text-decoration: underline;
 }

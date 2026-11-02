@@ -212,6 +212,35 @@ test('weekly issue labels keep the covered dates readable on narrow screens', as
   await page.screenshot({ path: info.outputPath('timeline-weekly-issues.png') });
 });
 
+test('group headings wrap instead of truncating on narrow screens', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 1000 });
+  await login(page);
+  await page.goto('/repos/prebidjs?timeline=1&timeline.kind=issues');
+  const table = page.getByRole('table');
+  await expect(
+    table.getByRole('columnheader', { name: 'Unique authors', exact: true }),
+  ).toBeVisible();
+  const groups = await table.locator('thead th[scope="colgroup"]').evaluateAll((headings) =>
+    headings.map((heading) => ({
+      name: heading.textContent ?? '',
+      scroll: heading.scrollWidth,
+      client: heading.clientWidth,
+    })),
+  );
+  expect(groups.length).toBeGreaterThan(1);
+  for (const group of groups) expect(group.scroll, group.name).toBeLessThanOrEqual(group.client);
+  // The metric labels' row sticks beneath the group row at that row's measured height.
+  await expect
+    .poll(() =>
+      table.evaluate((element) => {
+        const rows = element.querySelectorAll('thead tr');
+        const top = parseFloat(getComputedStyle(rows[1].querySelector('th')!).top);
+        return Math.abs(top - rows[0].getBoundingClientRect().height);
+      }),
+    )
+    .toBeLessThanOrEqual(0.5);
+});
+
 test('dense contribution timelines hydrate all metrics and retain fifty-row pages', async ({
   page,
 }, info) => {

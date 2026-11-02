@@ -34,6 +34,7 @@ import {
   hasUnlinkedValue,
   isIncompleteValue,
   isRecordedZeroRange,
+  partialPeriodCaption,
 } from '@/components/reporting/timeline-value';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
@@ -210,12 +211,12 @@ function MatrixTable({
       const index = periodWindow.startIndex + offset;
       return {
         ...valueColumns[index + 1],
-        label: label(interval) + (interval.partial ? ' (partial)' : ''),
+        label: label(interval),
+        labelCaption: interval.partial ? partialPeriodCaption : undefined,
         width: matrix.request.grouping === 'month' ? 112 : 156,
         align: 'right',
         description:
           timelineIntervalDescription(interval) +
-          (interval.partial ? ' Partial calendar period.' : '') +
           ' Sort repositories by ' +
           metricName(metric) +
           '.',

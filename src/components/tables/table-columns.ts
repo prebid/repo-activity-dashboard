@@ -14,6 +14,12 @@ export interface DataColumn<T> extends Omit<SelectableColumn, 'required'>, Table
    * are set.
    */
   displayGroup?: string;
+  /**
+   * A caption on its own line under the header label, such as "Partial" for a period the range
+   * clips. The sort button's name reads it after the label; metric names, menus and CSV headers
+   * keep the label alone.
+   */
+  labelCaption?: string;
   align?: 'left' | 'right';
   pinned?: boolean;
   hideable?: boolean;

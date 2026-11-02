@@ -349,7 +349,8 @@ it('shows a horizontal-scroll hint only while the table overflows its container'
   vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(500);
   const view = render(<Preview />);
   expect(screen.getAllByText(/Scroll horizontally/)).toHaveLength(2);
-  expect(observe).toHaveBeenCalledTimes(2);
+  // Each table observes its scroll area and its header rows.
+  expect(observe).toHaveBeenCalledTimes(4);
   expect(
     screen.getByRole('region', { name: 'Current backlog table scroll area' }),
   ).toHaveAccessibleDescription('Scroll horizontally to see all columns');

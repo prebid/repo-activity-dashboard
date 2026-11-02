@@ -234,21 +234,6 @@
 .detailTotals dl {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-/* A supporting record: a muted number before the title, and the external-link glyph after the
-   title's last character, as on the account link. */
-.recordLink {
-  overflow-wrap: anywhere;
-}
-.recordNumber {
-  color: var(--muted-foreground);
-  font-variant-numeric: var(--prebid-numeric);
-}
-.recordLink svg {
-  display: inline;
-  margin-left: 3px;
-  vertical-align: -2px;
-}
-
 .memberControls {
   display: flex;
   gap: 12px;

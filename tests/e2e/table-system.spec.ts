@@ -148,6 +148,57 @@ test('sort glyphs keep the label in place, and the sorted header changes ink as 
   expect(sorted.ink).not.toBe(idle.ink);
 });
 
+test('a wrapped header keeps its sort glyph beside its words', async ({ page }) => {
+  await login(page);
+  const wrapped: { name: string; numeric: boolean; gap: number | null }[] = [];
+  // Account type's fixed 110px column wraps at 1440; the 126px metric columns wrap at 390.
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/contributors');
+    const buttons = page.getByRole('table').first().locator('thead th button');
+    await expect(buttons.first()).toBeVisible();
+    const headers = await buttons.evaluateAll((elements) =>
+      elements.map((button) => {
+        const glyph = button.querySelector('svg')!.getBoundingClientRect();
+        const words: DOMRect[] = [];
+        const walker = document.createTreeWalker(button, NodeFilter.SHOW_TEXT);
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          words.push(...[...range.getClientRects()].filter((rect) => rect.width > 0));
+        }
+        const tops = words.map((rect) => rect.top).sort((a, b) => a - b);
+        const lines = tops.filter((top, index) => index === 0 || top - tops[index - 1] > 8).length;
+        const numeric = getComputedStyle(button).textAlign === 'right';
+        // The text on the glyph's own line, on the side the glyph faces.
+        const beside = words.filter(
+          (rect) =>
+            rect.top < glyph.bottom &&
+            rect.bottom > glyph.top &&
+            (numeric ? rect.left >= glyph.left : rect.right <= glyph.right),
+        );
+        const gaps = beside.map((rect) =>
+          numeric ? rect.left - glyph.right : glyph.left - rect.right,
+        );
+        return {
+          name: button.textContent ?? '',
+          numeric,
+          lines,
+          gap: gaps.length ? Math.min(...gaps) : null,
+        };
+      }),
+    );
+    wrapped.push(...headers.filter((header) => header.lines > 1));
+  }
+  expect(wrapped.some((header) => header.numeric)).toBe(true);
+  expect(wrapped.some((header) => !header.numeric)).toBe(true);
+  for (const header of wrapped) {
+    expect(header.gap, header.name).not.toBeNull();
+    expect(header.gap!, header.name).toBeGreaterThanOrEqual(0);
+    expect(header.gap!, header.name).toBeLessThanOrEqual(8);
+  }
+});
+
 test('one line at the pinned junction and right-aligned digits beside their header', async ({
   page,
 }) => {

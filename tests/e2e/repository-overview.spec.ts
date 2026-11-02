@@ -321,7 +321,7 @@ test('repository story renders independently with two periods and empty states',
   await expect(js).toHaveCount(3);
   await expect(js.nth(0).locator('[data-column="prsOpened"]')).toHaveText('78');
   await expect(js.nth(1).locator('[data-column="prsOpened"]')).toHaveText('92');
-  // The difference shows the minus sign on screen; CSV exports keep the hyphen.
+  // The difference shows its sign with the minus sign (U+2212). Period activity has no CSV export.
   await expect(js.nth(2).locator('[data-column="prsOpened"]')).toHaveText('\u221214');
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--empty&viewMode=story',

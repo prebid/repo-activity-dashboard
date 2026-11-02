@@ -46,6 +46,17 @@ import { tablePageSize } from '@/models/table-query';
  * controller's query, and `none` means the table has no search.
  */
 export type DataTableSearch = 'local' | 'external' | 'none';
+/**
+ * A header label split beside its first or last word, the space staying in the other part:
+ * `[first word, rest]` or `[all but the last word, last word]`. The sort glyph keeps to that word.
+ */
+function splitAtEdgeWord(label: string, edge: 'first' | 'last'): [string, string] {
+  const at = edge === 'first' ? label.search(/\s/) : label.search(/\s\S*$/);
+  if (at < 0) return edge === 'first' ? [label, ''] : ['', label];
+  return edge === 'first'
+    ? [label.slice(0, at), label.slice(at)]
+    : [label.slice(0, at + 1), label.slice(at + 1)];
+}
 /** The state an empty table shows in its body, under the header row. */
 export interface DataTableEmpty {
   kind: EmptyStateKind;
@@ -209,12 +220,19 @@ export function DataTable<T extends { id: string }>({
         node.scrollLeft + node.clientWidth < node.scrollWidth - 1,
       );
     };
+    const thead = node.querySelector('thead')!;
     const measure = () => {
       setOverflows(node.scrollWidth > node.clientWidth + 1);
       edges();
       // The trailing shadow sits inside the scroll bars.
       wrapper.style.setProperty('--scroll-bar-inline', node.offsetWidth - node.clientWidth + 'px');
       wrapper.style.setProperty('--scroll-bar-block', node.offsetHeight - node.clientHeight + 'px');
+      // Group headings wrap, so the second header row sticks beneath the group row's own height.
+      if (thead.rows.length > 1)
+        wrapper.style.setProperty(
+          '--table-group-height',
+          thead.rows[0].getBoundingClientRect().height + 'px',
+        );
     };
     let frame: number | undefined;
     // Keep React/layout writes outside ResizeObserver delivery (notably after filters change row counts).
@@ -228,6 +246,8 @@ export function DataTable<T extends { id: string }>({
     measure();
     const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(schedule) : null;
     observer?.observe(node);
+    // A group heading can rewrap without the scroll area changing size, such as when fonts load.
+    observer?.observe(thead);
     node.addEventListener('scroll', edges, { passive: true });
     window.addEventListener('resize', schedule);
     return () => {
@@ -295,6 +315,9 @@ export function DataTable<T extends { id: string }>({
     const direction: SortDirection = query.sort === column.id ? sortDirection : 'none';
     const line = lineBefore(column);
     // Numbers end at the cell's right edge, so their glyph leads; text labels keep their start.
+    // The glyph keeps to the word beside it, so it follows the text of a wrapped label.
+    const numeric = column.align === 'right';
+    const [head, tail] = splitAtEdgeWord(column.label, numeric ? 'first' : 'last');
     const icon = <SortIcon direction={direction} />;
     return (
       <th
@@ -324,9 +347,32 @@ export function DataTable<T extends { id: string }>({
             })
           }
         >
-          {column.align === 'right' && icon}
-          <span className={styles.label}>{column.label}</span>
-          {column.align !== 'right' && icon}
+          <span className={styles.label}>
+            {numeric ? (
+              <>
+                <span className={styles.glyphLeads}>
+                  {icon}
+                  {head}
+                </span>
+                {tail}
+              </>
+            ) : (
+              <>
+                {head}
+                <span className={styles.glyphTrails}>
+                  {tail}
+                  {icon}
+                </span>
+              </>
+            )}
+          </span>
+          {/* The space separates the caption from the label in the button's name. */}
+          {column.labelCaption && (
+            <>
+              {' '}
+              <span className={styles.caption}>{column.labelCaption}</span>
+            </>
+          )}
         </button>
       </th>
     );
@@ -444,7 +490,7 @@ export function DataTable<T extends { id: string }>({
                         ? 'var(--pinned-width)'
                         : column.width === undefined || column.align === 'right'
                           ? undefined
-                          : `var(--table-column-width, ${column.width}px)`,
+                          : `${column.width}px`,
                     }}
                   />
                 ))}

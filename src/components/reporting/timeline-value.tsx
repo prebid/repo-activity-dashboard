@@ -86,12 +86,14 @@ export function TimelineValueCell({
     </span>
   );
 }
+/** The partial-period marker's text, which a table header draws as its label caption. */
+export const partialPeriodCaption = 'Partial';
 /**
  * The one partial-period marker: the caption "Partial" on its own line under a period's label, for
  * a calendar period the range clips. A partial period can still have complete values.
  */
 export function PartialPeriodMarker() {
-  return <span className={styles.partial}>Partial</span>;
+  return <span className={styles.partial}>{partialPeriodCaption}</span>;
 }
 export function TimelineCoverageNotice() {
   return (

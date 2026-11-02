@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import {
   RecordIdentity,
   RecordNumber,
+  RecordTitleLink,
   issueStatus,
   pullRequestStatus,
 } from '@/components/github/record-identity';
@@ -56,15 +57,31 @@ it('links a record title and number to the record, with its status and labels be
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   }
-  // A draft reads Draft whatever its state; the status and chips sit beside, not inside, the link.
+  // An open draft reads Draft; the status and chips sit beside, not inside, the link.
   const identity = screen.getByRole('link', { name: 'Sample PR' }).parentElement!;
   expect(within(identity).getByText('Draft', { exact: true })).toBeVisible();
   for (const label of ['bug', 'docs'])
     expect(within(identity).getByText(label, { exact: true })).toBeVisible();
   expect(pullRequestStatus('Merged')).toEqual({ kind: 'pr', status: 'merged' });
   expect(pullRequestStatus('Closed', false)).toEqual({ kind: 'pr', status: 'closed' });
+  // A PR merged or closed while still marked draft reads its state.
+  expect(pullRequestStatus('Merged', true)).toEqual({ kind: 'pr', status: 'merged' });
+  expect(pullRequestStatus('Closed', true)).toEqual({ kind: 'pr', status: 'closed' });
   expect(issueStatus('Open')).toEqual({ kind: 'issue', status: 'open' });
   expect(issueStatus('Closed')).toEqual({ kind: 'issue', status: 'closed' });
+});
+
+it('carries "#n title" in one title link where a cell has no number column', () => {
+  const url = 'https://github.example/example-fixtures/prebidjs/pull/105';
+  render(
+    <RecordTitleLink title="Sample PR" url={url} number={105} hint="Sample record" external />,
+  );
+  const link = screen.getByRole('link', { name: '#105 Sample PR' });
+  expect(link).toHaveAttribute('href', url);
+  expect(link).toHaveAttribute('target', '_blank');
+  expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  expect(link).toHaveAttribute('title', 'Sample record');
+  expect(link.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
 });
 
 it('starts an author-scoped record list without its Author column and keeps it in Columns', async () => {

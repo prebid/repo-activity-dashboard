@@ -58,7 +58,11 @@ it('renders repository rows with exact monthly values, honest partial dates and 
     .getAllByRole('cell')
     .map((cell) => cell.textContent);
   expect(js).toEqual(['Prebid.js', '0', '0', '0', '0', '0', '0', '0', '1', '1', '3']);
-  expect(screen.getByRole('columnheader', { name: 'Oct 2026 (partial)' })).toBeVisible();
+  // A partial period carries the one partial-period marker, a caption line under its label.
+  const partial = screen.getByRole('columnheader', { name: 'Oct 2026 Partial' });
+  expect(partial).toBeVisible();
+  expect(within(partial).getByText('Partial', { exact: true })).toBeVisible();
+  expect(within(partial).getByRole('button')).not.toHaveAccessibleDescription(/Partial/);
   expect(screen.getByRole('table').querySelector('sup')).toBeNull();
   expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   for (const name of ['Columns', 'Export CSV', 'Show chart', 'Next'])
@@ -273,7 +277,7 @@ it('labels weekly windows with their covered dates instead of repeating two week
   // Weekly headers say a shared month and year once.
   expect(screen.getByRole('button', { name: 'Sep 7–13, 2026' })).toBeVisible();
   expect(screen.getByRole('columnheader', { name: 'Sep 28 – Oct 4, 2026' })).toBeVisible();
-  expect(screen.getByRole('columnheader', { name: 'Oct 19–25, 2026 (partial)' })).toBeVisible();
+  expect(screen.getByRole('columnheader', { name: 'Oct 19–25, 2026 Partial' })).toBeVisible();
   await user.click(screen.getByRole('button', { name: 'Earlier' }));
   expect(screen.getByRole('status')).toHaveTextContent('Jun 15, 2026 – Sep 6, 2026');
 });
@@ -315,12 +319,12 @@ it('renders selected metrics as consecutive repository groups, without splitting
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(6);
   expect(screen.getByRole('table').querySelectorAll('tbody tr')).toHaveLength(6);
   await user.click(screen.getByRole('button', { name: 'Previous' }));
-  await user.click(screen.getByRole('button', { name: 'Oct 2026 (partial)' }));
-  expect(screen.getByRole('columnheader', { name: 'Oct 2026 (partial)' })).toHaveAttribute(
+  await user.click(screen.getByRole('button', { name: 'Oct 2026 Partial' }));
+  expect(screen.getByRole('columnheader', { name: 'Oct 2026 Partial' })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
-  await user.click(screen.getByRole('button', { name: 'Oct 2026 (partial)' }));
+  await user.click(screen.getByRole('button', { name: 'Oct 2026 Partial' }));
   const rows = screen.getByRole('table').querySelectorAll('tbody tr');
   expect(rows[0]).toHaveTextContent('Prebid Server (Go)');
   expect(rows[1]).toHaveTextContent('Pull requests — Merged');

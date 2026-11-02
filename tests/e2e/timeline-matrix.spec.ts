@@ -57,9 +57,12 @@ for (const [theme, width] of [
     const table = page.getByRole('table');
     await expect(table.locator('tbody tr')).toHaveCount(18);
     await expect(table.locator('thead th')).toHaveCount(11);
-    await expect(
-      table.getByRole('columnheader', { name: 'Oct 2026 (partial)', exact: true }),
-    ).toBeVisible();
+    const partial = table.getByRole('columnheader', { name: 'Oct 2026 Partial', exact: true });
+    await expect(partial).toBeVisible();
+    // The partial-period caption takes its own line under the period's label.
+    const caption = (await partial.getByText('Partial', { exact: true }).boundingBox())!;
+    const period = (await partial.getByText('Oct 2026', { exact: true }).boundingBox())!;
+    expect(caption.y).toBeGreaterThanOrEqual(period.y + period.height - 0.5);
     for (const name of ['Columns', 'Show chart'])
       await expect(page.getByRole('button', { name, exact: true })).toHaveCount(0);
     await expect(page.getByRole('textbox')).toHaveCount(0);
@@ -83,7 +86,9 @@ for (const [theme, width] of [
     );
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
     await page.getByRole('button', { name: /Column definitions for/ }).click();
-    await expect(page.getByRole('dialog')).toContainText('Partial calendar period');
+    // The header's caption marks the partial period; its definition gives the period's dates.
+    await expect(page.getByRole('dialog')).toContainText('Oct 2026');
+    await expect(page.getByRole('dialog')).not.toContainText('Partial calendar period');
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toBeHidden();
     await page.screenshot({

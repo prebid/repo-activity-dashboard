@@ -46,6 +46,9 @@
 /* The frame holds the trailing-edge shadow over the scroll area, inside its scroll bars, while
    more columns remain to the right. DataTable sets data-scrolled, data-more and the bar sizes. */
 .frame {
+  /* The group heading row's height, which the second header row sticks beneath. DataTable
+     measures the row, whose headings wrap, and replaces this first-paint value. */
+  --table-group-height: 34px;
   position: relative;
   border-top: 1px solid var(--border);
 }
@@ -79,8 +82,6 @@
 .table {
   --table-cell-padding-block: 11px;
   --table-cell-padding-inline: 16px;
-  /* The group heading row's height, which the second header row sticks beneath. */
-  --table-group-height: 34px;
   width: 100%;
   font-size: var(--prebid-text-body);
   border-collapse: separate;
@@ -133,13 +134,12 @@
 .table tbody tr:hover td:first-child {
   box-shadow: var(--prebid-row-hover-bar);
 }
-/* One 16px line, 16px of padding and the 2px spanner: the row is --table-group-height tall. */
+/* A heading wraps rather than truncating over a narrow group; the second header row follows the
+   group row's measured height. */
 .table .group {
   padding: 10px var(--table-cell-padding-inline) 6px;
-  overflow: hidden;
   text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: break-word;
   font-size: var(--prebid-text-caption);
   line-height: var(--prebid-leading-caption);
   font-weight: 700;
@@ -168,9 +168,7 @@
 /* The button fills its header cell, so the hover fill and the click target agree. */
 .sort {
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 4px;
+  display: block;
   padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
   text-align: inherit;
   font-size: var(--prebid-text-caption);
@@ -180,18 +178,34 @@
   border-radius: var(--prebid-radius-small);
   cursor: pointer;
 }
-.numeric .sort {
-  justify-content: flex-end;
-}
 /* At most two lines; the full label stays the button's name. */
 .label {
-  min-width: 0;
   display: -webkit-box;
   overflow: hidden;
   overflow-wrap: break-word;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+}
+/* The sort glyph sits in the label's text and never parts from the word beside it: the first word
+   in a numeric column, the last in a text column. It stays next to a wrapped label's text, and its
+   slot is always there, so the label keeps its place in every sort state. */
+.glyphLeads,
+.glyphTrails {
+  white-space: nowrap;
+}
+.glyphLeads > :first-child {
+  margin-inline-end: 4px;
+}
+.glyphTrails > :last-child {
+  margin-inline-start: 4px;
+}
+/* A caption line under the label, in the partial-period marker's style. */
+.caption {
+  display: block;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
 }
 .sort:enabled:hover,
 .table th[aria-sort='ascending'] .sort,
@@ -285,6 +299,8 @@
   .table {
     --table-cell-padding-block: 10px;
     --table-cell-padding-inline: 12px;
+  }
+  .frame {
     /* 16px line, 12px of padding, 2px spanner. */
     --table-group-height: 30px;
   }

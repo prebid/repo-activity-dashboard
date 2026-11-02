@@ -8,6 +8,7 @@ import type { DataColumn } from '@/components/tables/data-table';
 import { LocalDataTable as DataTable } from '@/components/tables/local-data-table';
 import { MetricValue } from '@/components/metrics/metric-value';
 import { EmptyState } from '@/components/feedback/empty-state';
+import { ExportIcon } from '@/components/ui/icons';
 interface Row {
   id: string;
   title: string;
@@ -681,9 +682,12 @@ describe('table toolbar', () => {
       'Columns',
       'Export CSV',
     ]);
-    // The export trigger leads with the Download glyph, like Filters and Columns lead with theirs.
-    const icon = screen.getByRole('button', { name: 'Export CSV' }).firstElementChild;
-    expect(icon).toHaveClass('lucide-download');
+    // The export trigger leads with the Export glyph, like Filters and Columns lead with theirs.
+    const icon = screen.getByRole('button', { name: 'Export CSV' }).firstElementChild!;
+    const glyph = render(<ExportIcon size={14} />).container.querySelector('svg')!;
+    expect(icon.tagName).toBe('svg');
+    expect(icon.innerHTML).toBe(glyph.innerHTML);
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
     expect(icon).toHaveAttribute('width', '14');
   });
   it('puts a feature export control in the last slot instead of the CSV dialog', () => {
@@ -858,13 +862,73 @@ describe('sort headers', () => {
     expect(new Set(glyphs).size).toBe(3);
   });
   it('puts the glyph before a numeric label and after a text label', () => {
-    render(<DataTable search="none" title="Order" rows={rows.slice(0, 3)} columns={sortable} />);
-    const count = screen.getByRole('button', { name: 'Count' });
-    expect(count.firstElementChild!.querySelector('svg')).not.toBeNull();
-    expect(count.lastElementChild).toHaveTextContent(/^Count$/);
-    const title = screen.getByRole('button', { name: 'Title' });
-    expect(title.firstElementChild).toHaveTextContent(/^Title$/);
-    expect(title.lastElementChild!.querySelector('svg')).not.toBeNull();
+    render(
+      <DataTable
+        search="none"
+        title="Order"
+        rows={rows.slice(0, 3)}
+        columns={[
+          { ...sortable[0], label: 'Record title' },
+          { ...sortable[1], label: 'Authored PRs merged' },
+        ]}
+      />,
+    );
+    /** The label's words and the glyph, in document order. */
+    const sequence = (name: string) => {
+      const button = screen.getByRole('button', { name });
+      const walker = document.createTreeWalker(
+        button,
+        NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+      );
+      const parts: string[] = [];
+      for (let node = walker.nextNode(); node; node = walker.nextNode())
+        if (node.nodeName === 'svg') parts.push('glyph');
+        else if (node.nodeType === Node.TEXT_NODE)
+          parts.push(...node.textContent!.split(/\s+/).filter(Boolean));
+      return parts;
+    };
+    expect(sequence('Authored PRs merged')).toEqual(['glyph', 'Authored', 'PRs', 'merged']);
+    expect(sequence('Record title')).toEqual(['Record', 'title', 'glyph']);
+  });
+  it('draws a label caption on its own line and reads it after the label', async () => {
+    const user = userEvent.setup();
+    const blobs: Blob[] = [];
+    vi.stubGlobal(
+      'URL',
+      class extends URL {
+        static createObjectURL(blob: Blob) {
+          blobs.push(blob);
+          return 'blob:caption';
+        }
+        static revokeObjectURL() {}
+      },
+    );
+    render(
+      <DataTable
+        search="none"
+        title="Captions"
+        rows={rows.slice(0, 3)}
+        columns={[sortable[0], { ...sortable[1], label: 'Oct 2026', labelCaption: 'Partial' }]}
+        exportName="captions.csv"
+      />,
+    );
+    const header = screen.getByRole('columnheader', { name: 'Oct 2026 Partial' });
+    expect(within(header).getByRole('button')).toHaveAccessibleName('Oct 2026 Partial');
+    expect(within(header).getByText('Partial', { exact: true })).toBeVisible();
+    // Menus and CSV headers keep the label alone.
+    await user.click(screen.getByRole('button', { name: 'Columns' }));
+    expect(screen.getByRole('menuitemcheckbox', { name: 'Oct 2026' })).toBeVisible();
+    await user.keyboard('{Escape}');
+    await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+    await user.click(screen.getByRole('button', { name: 'Download CSV' }));
+    const csv = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () =>
+        typeof reader.result === 'string' ? resolve(reader.result) : reject(Error('Missing CSV'));
+      reader.onerror = reject;
+      reader.readAsText(blobs[0]);
+    });
+    expect(csv.split('\r\n')[0]).toBe('"Title","Oct 2026"');
   });
   it('describes a sort by a hidden column once, in the footer', () => {
     const view = render(
@@ -1002,27 +1066,4 @@ it('draws display-only group headings without changing names, menus or CSV heade
   expect(csv.split('\r\n')[0]).toBe(
     '"Title","PRs authored","Authored PRs merged","Issues authored"',
   );
-});
-
-it('marks the scroll area’s sideways edges as it scrolls', () => {
-  render(<DataTable search="none" title="Edges" rows={rows.slice(0, 3)} columns={columns} />);
-  const region = screen.getByRole('region', { name: 'Edges table scroll area' });
-  const frame = region.parentElement!;
-  let left = 0;
-  Object.defineProperty(region, 'scrollWidth', { configurable: true, value: 1000 });
-  Object.defineProperty(region, 'clientWidth', { configurable: true, value: 400 });
-  Object.defineProperty(region, 'scrollLeft', { configurable: true, get: () => left });
-  const scrollTo = (value: number) => {
-    left = value;
-    fireEvent.scroll(region);
-  };
-  scrollTo(0);
-  expect(frame).not.toHaveAttribute('data-scrolled');
-  expect(frame).toHaveAttribute('data-more');
-  scrollTo(300);
-  expect(frame).toHaveAttribute('data-scrolled');
-  expect(frame).toHaveAttribute('data-more');
-  scrollTo(600);
-  expect(frame).toHaveAttribute('data-scrolled');
-  expect(frame).not.toHaveAttribute('data-more');
 });

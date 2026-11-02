@@ -346,7 +346,9 @@ it('lists merged and credited PRs in the record row, with status inline and avat
     const href = title.getAllByRole('link')[0].getAttribute('href');
     const { pr } = credits.rows.find((item) => item.pr.url === href)!;
     expect(title.getByRole('link', { name: pr.title })).toBeVisible();
-    expect(title.getByText(pr.draft ? 'Draft' : pr.state, { exact: true })).toBeVisible();
+    expect(
+      title.getByText(pr.draft && pr.state === 'Open' ? 'Draft' : pr.state, { exact: true }),
+    ).toBeVisible();
     const number = within(row.querySelector<HTMLElement>('[data-column="pr"]')!).getByRole('link');
     expect(number).toHaveTextContent(String(pr.number));
     expect(number).toHaveAttribute('href', pr.url);
