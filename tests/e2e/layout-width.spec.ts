@@ -411,3 +411,47 @@ test('at phone widths the current crumb ends inside the breadcrumb row', async (
     expect(await inside(current, crumbs), at).toBe(true);
   }
 });
+
+test('at 320px the metric column beside a pinned column shows its values on the first screen', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await login(page);
+  for (const path of [
+    '/companies',
+    '/contributors?timeline',
+    '/repos?timeline&sample=mixed&group=quarter',
+  ]) {
+    await page.goto(path);
+    const area = page.getByRole('region', { name: /table scroll area$/ }).first();
+    await expect(area.locator('tbody tr').first()).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    const layout = await area.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      const [pinned, cell] = element.querySelector('tbody tr')!.querySelectorAll('td');
+      const text: { left: number; right: number }[] = [];
+      const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        // Screen-reader-only text is clipped to a 1px box.
+        if ((node.parentElement?.getBoundingClientRect().width ?? 0) <= 1) continue;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const rect of range.getClientRects())
+          if (rect.width > 0) text.push({ left: rect.left, right: rect.right });
+      }
+      return {
+        numeric: getComputedStyle(cell).textAlign === 'right',
+        pinnedRight: pinned.getBoundingClientRect().right,
+        visibleRight: box.left + element.clientWidth,
+        text,
+      };
+    });
+    expect(layout.numeric, path).toBe(true);
+    expect(layout.text.length, path).toBeGreaterThan(0);
+    // Clear of the pinned column and inside the area's visible width.
+    for (const rect of layout.text) {
+      expect(rect.left, path).toBeGreaterThanOrEqual(layout.pinnedRight);
+      expect(rect.right, path).toBeLessThanOrEqual(layout.visibleRight);
+    }
+  }
+});

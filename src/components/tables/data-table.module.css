@@ -50,7 +50,8 @@
   width: 240px;
 }
 /* The frame holds the trailing-edge shadow over the scroll area, inside its scroll bars, while
-   more columns remain to the right. DataTable sets data-scrolled, data-more and the bar sizes. */
+   more columns remain to the right, and the bottom edge's cue while rows remain below. DataTable
+   sets data-scrolled, data-more, data-more-below and the bar sizes. */
 .frame {
   /* The group heading row's height, which the second header row sticks beneath. DataTable
      measures the row, whose headings wrap, and replaces this first-paint value. */
@@ -71,6 +72,22 @@
   box-shadow: var(--prebid-trailing-shadow);
 }
 .frame[data-more]::after {
+  visibility: visible;
+}
+/* The bottom edge's cue sits above the horizontal scroll bar, in the scroll shadow's colour. */
+.frame::before {
+  content: '';
+  position: absolute;
+  right: var(--scroll-bar-inline, 0px);
+  bottom: var(--scroll-bar-block, 0px);
+  left: 0;
+  z-index: 4;
+  height: 8px;
+  pointer-events: none;
+  visibility: hidden;
+  background: linear-gradient(to top, var(--prebid-scroll-shadow), transparent);
+}
+.frame[data-more-below]::before {
   visibility: visible;
 }
 /* A bounded-height scroll area: a long table scrolls inside it under a sticky header row, with its
@@ -341,11 +358,30 @@
     padding: 0 16px 12px;
   }
 }
+/* Below 375px a narrower pinned column leaves the first numeric column's values in view. */
+@media (max-width: 374px) {
+  .scroll {
+    --pinned-width: 128px;
+  }
+}
 
+/* The title runs as inline text, so the help button follows the last word of a wrapped title. A
+   line may break before an inline-flex box; the row's nowrap stops that in Chromium, and WebKit
+   also needs the word joiner DataTable puts between the title and the button. */
 .titleRow {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  white-space: nowrap;
+}
+.titleRow > .title {
+  display: inline;
+  white-space: normal;
+}
+/* The help glyph's bottom edge, the button's baseline, sits 1px under the title's baseline, which
+   centres the button on the title's line as the flex row did. */
+.titleRow > :not(.title) {
+  display: inline-flex;
+  margin-left: 7px;
+  vertical-align: -1px;
+  white-space: normal;
 }
 .definitionsList {
   max-height: min(60svh, 540px);

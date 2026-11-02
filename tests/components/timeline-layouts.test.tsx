@@ -91,7 +91,16 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   expect(screen.getByRole('heading', { name: 'Contributors', level: 1 })).toBeVisible();
   expect(screen.getByRole('link', { name: 'Over time' })).toHaveAttribute('aria-current', 'page');
   const table = screen.getByRole('table');
-  expect(table.querySelectorAll('thead tr')).toHaveLength(1);
+  // The core metrics sit under the Report table's headings, over their plain labels.
+  expect(table.querySelectorAll('thead tr')).toHaveLength(2);
+  expect(within(table).getByRole('columnheader', { name: 'Authoring' })).toHaveAttribute(
+    'colspan',
+    '2',
+  );
+  expect(within(table).getByRole('columnheader', { name: 'Issues' })).toHaveAttribute(
+    'colspan',
+    '1',
+  );
   expect(table.querySelectorAll('tbody tr')).toHaveLength(10);
   const first = table.querySelector<HTMLElement>('tbody tr [data-column="period"]')!;
   expect(first).toHaveTextContent('Jan 2026');

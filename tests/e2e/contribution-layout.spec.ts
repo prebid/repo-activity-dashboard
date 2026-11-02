@@ -226,3 +226,51 @@ for (const width of [1440, 390])
       }
     }
   });
+
+test('account types, companies and the Account type header keep one line at 1440px', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  for (const path of ['/reviewers', '/contributors']) {
+    await page.goto(path);
+    const table = page.getByRole('table').first();
+    await expect(table.locator('tbody tr').first()).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    const lines = await table.evaluate((element) => {
+      // Text lines: distinct tops of the text boxes, a line apart.
+      const count = (container: Element) => {
+        const tops: number[] = [];
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          for (const rect of range.getClientRects()) if (rect.width > 0) tops.push(rect.top);
+        }
+        tops.sort((a, b) => a - b);
+        return tops.filter((top, index) => index === 0 || top - tops[index - 1] > 8).length;
+      };
+      const header = [...element.querySelectorAll('thead th')].find(
+        (th) => th.textContent === 'Account type',
+      );
+      return {
+        cells: [
+          ...element.querySelectorAll(
+            'tbody td[data-column="actorType"], tbody td[data-column="company"]',
+          ),
+        ].map((cell) => ({ text: cell.textContent, lines: count(cell) })),
+        header: header ? count(header) : 0,
+      };
+    });
+    // The longest values in the sample, which wrapped in narrower columns.
+    expect(
+      lines.cells.map((cell) => cell.text),
+      path,
+    ).toEqual(expect.arrayContaining(['Unmapped company', 'Prebid agent']));
+    expect(
+      lines.cells.filter((cell) => cell.lines !== 1),
+      path,
+    ).toEqual([]);
+    expect(lines.header, path).toBe(1);
+  }
+});

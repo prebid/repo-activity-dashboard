@@ -188,10 +188,14 @@ test('sort glyphs keep the label in place, and the sorted header changes ink as 
 test('a wrapped header keeps its sort glyph beside its words', async ({ page }) => {
   await login(page);
   const wrapped: { name: string; numeric: boolean; gap: number | null }[] = [];
-  // Account type's fixed 110px column wraps at 1440; the 126px metric columns wrap at 390.
-  for (const width of [1440, 390]) {
+  // A record list's fixed 120px Agent reviewer column wraps at 1440; the contributors' 126px metric
+  // columns wrap at 390.
+  for (const [width, path] of [
+    [1440, '/repos/prebidjs?cols=agentReviewer'],
+    [390, '/contributors'],
+  ] as const) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/contributors');
+    await page.goto(path);
     const buttons = page.getByRole('table').first().locator('thead th button');
     await expect(buttons.first()).toBeVisible();
     const headers = await buttons.evaluateAll((elements) =>
@@ -383,14 +387,47 @@ test('a record row keeps its number level with the title and the author icon bes
   expect(Math.abs(tops.number - tops.title)).toBeLessThanOrEqual(2);
   const author = row.locator('[data-column="author"] a[target="_blank"]');
   const gap = await author.evaluate((link) => {
-    const icon = link.querySelector('svg')!.getBoundingClientRect();
-    const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+    const svg = link.querySelector('svg')!;
+    const icon = svg.getBoundingClientRect();
+    // The name's last text box before the icon.
     const range = document.createRange();
-    range.selectNodeContents(walker.nextNode()!);
-    const rects = range.getClientRects();
+    range.setStart(link, 0);
+    range.setEndBefore(svg);
+    const rects = [...range.getClientRects()].filter((rect) => rect.width > 0);
     const last = rects[rects.length - 1];
     return { left: icon.left - last.right };
   });
   expect(gap.left).toBeGreaterThanOrEqual(0);
   expect(gap.left).toBeLessThanOrEqual(8);
+});
+
+test('a bounded table pane cues the rows below it until it is scrolled to its end', async ({
+  page,
+}) => {
+  // The cue is the frame's ::before, as the trailing-edge shadow is its ::after.
+  const cue = (area: Locator) =>
+    area.evaluate((element) => getComputedStyle(element.parentElement!, '::before').visibility);
+  const area = page.getByRole('region', { name: 'Current backlog table scroll area', exact: true });
+  // The sort buttons are enabled once the table has hydrated and measured its area.
+  const ready = () =>
+    expect(area.getByRole('button', { name: 'Total PRs', exact: true })).toBeEnabled();
+  const hidden = (element: Element) => element.scrollHeight - element.clientHeight;
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await expect(area.locator('tbody tr')).toHaveCount(18);
+  await ready();
+  // The 18 rows are taller than the area at 1440x900, so some sit below its bottom edge.
+  expect(await area.evaluate(hidden)).toBeGreaterThan(1);
+  await expect.poll(() => cue(area)).toBe('visible');
+  await area.evaluate((element) => {
+    element.scrollTop = element.scrollHeight;
+  });
+  await expect.poll(() => cue(area)).toBe('hidden');
+  // Every row fits at 2560x1300, so nothing is cued.
+  await page.setViewportSize({ width: 2560, height: 1300 });
+  await page.reload();
+  await expect(area.locator('tbody tr')).toHaveCount(18);
+  await ready();
+  expect(await area.evaluate(hidden)).toBeLessThanOrEqual(1);
+  await expect.poll(() => cue(area)).toBe('hidden');
 });

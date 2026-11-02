@@ -17,12 +17,24 @@ export function GitHubAccountLink({
 }) {
   const parsed = githubProfileUrlSchema.safeParse(url);
   // The external-link glyph sits in the name's own line box, so it follows the last character of a
-  // wrapped name instead of the far edge of the cell.
+  // wrapped name instead of the far edge of the cell. A line may break before an inline SVG, so the
+  // glyph travels in one unbreakable piece with that last character (and its combining marks).
+  // An empty label has no last character; -1 then slices it into two empty parts.
+  const end = label.search(/\P{M}\p{M}*$/u);
   const content = (icon?: React.ReactNode) => (
     <span className={styles.label}>
       <span>
-        {label}
-        {icon}
+        {icon ? (
+          <>
+            {label.slice(0, end)}
+            <span className={styles.end}>
+              {label.slice(end)}
+              {icon}
+            </span>
+          </>
+        ) : (
+          label
+        )}
       </span>
       {secondaryLabel && (
         <>

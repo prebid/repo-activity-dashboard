@@ -133,6 +133,12 @@
     gap: 8px;
   }
 }
+/* Below 375px a narrower identity column leaves the first metric column's values in view. */
+@media (max-width: 374px) {
+  .table table {
+    --pinned-width: 140px;
+  }
+}
 
 .memberControls {
   display: flex;

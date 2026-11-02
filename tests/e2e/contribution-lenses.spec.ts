@@ -363,3 +363,39 @@ test('company rosters hide zero totals by the lens role', async ({ page }) => {
     members.getByRole('link', { name: 'Carol — view contribution report', exact: true }),
   ).toBeVisible();
 });
+
+test('Over time draws the report headings over the core metrics, outside its CSV headers', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await login(page);
+  await page.goto('/contributors?timeline');
+  const table = page.getByRole('table').first();
+  const box = async (name: string) =>
+    (await table.getByRole('columnheader', { name, exact: true }).boundingBox())!;
+  await expect(table.getByRole('columnheader', { name: 'Authoring', exact: true })).toBeVisible();
+  // Each heading spans exactly the headers of its metrics.
+  for (const [heading, first, last] of [
+    ['Authoring', 'PRs authored', 'Authored PRs merged'],
+    ['Issues', 'Issues authored', 'Issues authored'],
+  ] as const) {
+    const group = await box(heading),
+      start = await box(first),
+      end = await box(last);
+    expect(Math.abs(group.x - start.x), heading).toBeLessThanOrEqual(1);
+    expect(Math.abs(group.x + group.width - (end.x + end.width)), heading).toBeLessThanOrEqual(1);
+    expect(group.y + group.height, heading).toBeLessThanOrEqual(start.y + 1);
+  }
+  const { headers } = await csvDownload(page);
+  expect(
+    headers.filter((header) => /Authoring|Reviewing|^Issues\b(?! authored)/.test(header)),
+  ).toEqual([]);
+  expect(headers.slice(headers.indexOf('PRs authored'), headers.indexOf('Metric IDs'))).toEqual(
+    ['PRs authored', 'Authored PRs merged', 'Issues authored'].flatMap((label) => [
+      label,
+      label + ' coverage',
+      label + ' coverage detail',
+      label + ' unit',
+    ]),
+  );
+});
