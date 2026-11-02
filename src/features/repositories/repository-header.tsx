@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { PageHeader, type PageHeaderCrumb } from '@/components/navigation/page-header';
 import type { PageSection } from '@/components/navigation/section-nav';
@@ -14,6 +15,11 @@ import {
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+} from '@/lib/presentation/repository-url';
+import { useRepositoriesEntryHref } from '@/lib/navigation/use-repositories-entry';
 import { repositoryTimelineHref } from '@/lib/presentation/timeline-navigation';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
 import styles from './repository-page.module.css';
@@ -27,6 +33,8 @@ export function RepositoryHeader({
   repository,
   asOf,
   returnTo,
+  returnSection,
+  links,
   navigation,
   activeKind,
   contextKind,
@@ -39,7 +47,15 @@ export function RepositoryHeader({
 }: {
   repository: OverviewRepository;
   asOf: string;
-  returnTo: string;
+  /**
+   * The Summary this page returns to: `/repos` when the address names none (the crumb then opens
+   * the viewer's saved Summary, as the masthead does), null when it cannot be restored.
+   */
+  returnTo: string | null;
+  /** The Summary panel the "All repositories" crumb returns to, such as `period-activity`. */
+  returnSection?: string;
+  /** The viewer's saved list presentation, which the list tabs carry. */
+  links?: RepositoryLinkPresentation;
   navigation?: RepositoryPageNavigation;
   activeKind?: 'prs' | 'issues' | 'timeline';
   /** The list a subpage belongs to, when no tab is the current page. */
@@ -50,7 +66,7 @@ export function RepositoryHeader({
   onTimeline?: React.MouseEventHandler<HTMLAnchorElement>;
   /** Set while a navigation started by `onTimeline` is pending. */
   timelinePending?: boolean;
-  parentLink?: { href: string; label: string };
+  parentLink?: { href: string | null; label: string };
   /** The page's panels, which the view bar links to when there are two or more. */
   sections?: readonly PageSection[];
 }) {
@@ -61,8 +77,26 @@ export function RepositoryHeader({
           repository.slug,
           (activeKind ?? contextKind) === 'issues' ? 'issues' : 'prs',
         );
-  const breadcrumbs: PageHeaderCrumb[] = [{ label: 'All repositories', href: returnTo }];
+  const entry = useRepositoriesEntryHref(asOf);
+  const summary = returnTo === '/repos' ? entry : returnTo;
+  const breadcrumbs: PageHeaderCrumb[] = [
+    {
+      label: 'All repositories',
+      href: summary && summary + (returnSection ? '#' + returnSection : ''),
+    },
+  ];
   if (parentLink) breadcrumbs.push(parentLink);
+  const listHref = (kind: 'prs' | 'issues') => {
+    const selection = {
+      scope: 'current',
+      metric: kind === 'prs' ? 'totalOpenPrs' : 'openIssues',
+    } as const;
+    return repositoryDrilldownHref(
+      repository,
+      { selection, returnTo },
+      drilldownPresentation(selection, links),
+    );
+  };
   const tabState = (kind: 'prs' | 'issues' | 'timeline') =>
     activeKind === kind ? 'page' : contextKind === kind ? 'true' : undefined;
   return (
@@ -90,18 +124,7 @@ export function RepositoryHeader({
       <ViewBar sections={sections}>
         <ViewTabs label="Repository lists">
           {(['prs', 'issues'] as const).map((kind) => (
-            <Link
-              key={kind}
-              prefetch={false}
-              href={repositoryDrilldownHref(repository, {
-                selection: {
-                  scope: 'current',
-                  metric: kind === 'prs' ? 'totalOpenPrs' : 'openIssues',
-                },
-                returnTo,
-              })}
-              aria-current={tabState(kind)}
-            >
+            <Link key={kind} prefetch={false} href={listHref(kind)} aria-current={tabState(kind)}>
               {kind === 'prs' ? <PullRequestsIcon size={16} /> : <IssuesIcon size={16} />}
               {kind === 'prs' ? 'Pull requests' : 'Issues'}
               {navigation && (

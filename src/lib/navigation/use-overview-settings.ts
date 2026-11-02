@@ -1,6 +1,5 @@
 'use client';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import type {
   OverviewSettings,
   OverviewSettingsControl,
@@ -12,21 +11,24 @@ import {
   defaultOverviewSettings,
   normalizeOverviewSettings,
   overviewPreferenceKey,
+  overviewScopeValues,
   readOverviewPreferences,
-  resetOverviewQuery,
-  resolveOverviewSettings,
+  readOverviewValues,
   serializeOverviewPreferences,
-  writeOverviewSettings,
 } from '@/lib/presentation/overview-settings';
+import { mergeValues } from '@/lib/presentation/repository-url';
 import { readPreference, usePreferenceCookie } from './use-preference-cookie';
+import { useUrlState } from './use-url-state';
 
 export const overviewPreferencesInvalidNotice =
   'Saved All repositories preferences are invalid. Defaults are shown.';
 
 /**
- * All repositories settings. The first render uses the server-validated `saved` value when the
- * URL does not name a setting; a deliberate change saves only the fields it changed. Without
- * `saved`, changes last for this page only.
+ * All repositories settings. The scope (repositories, periods, PR ages) is the address's: an absent
+ * field is its v1 default, and the server has already redirected a bare entry to the viewer's saved
+ * view. Column choices stay viewer-only and come from the server-validated `saved` value. A
+ * deliberate change pushes the next address and saves only the fields it changed; without `saved`,
+ * changes last for this page only.
  */
 export function useOverviewSettings(
   viewerId: string,
@@ -34,7 +36,7 @@ export function useOverviewSettings(
   asOf: string,
   saved?: SavedPreference<OverviewSettings>,
 ): OverviewSettingsControl {
-  const search = useSearchParams().toString();
+  const url = useUrlState('/repos');
   const { write, storageAvailable } = usePreferenceCookie(saved, {
     keys: [overviewPreferenceKey(viewerId)],
     read: (raw) => {
@@ -52,9 +54,19 @@ export function useOverviewSettings(
   currentRef.current = current;
   // Once the browser refuses the cookie, the fields saved in this page are only in memory.
   const persisted = useRef(true);
-  const resolved = useMemo(
-    () => resolveOverviewSettings(search, current, definition, asOf),
-    [search, current, definition, asOf],
+  const columns = useMemo(() => {
+    const { backlogColumns, activityColumns } = current ?? defaultOverviewSettings(definition);
+    return { backlogColumns, activityColumns };
+  }, [current, definition]);
+  const read = useMemo(
+    () => readOverviewValues(url.values ?? {}, columns, definition, asOf),
+    [url.values, columns, definition, asOf],
+  );
+  // The server renders an invalid address as the invalid view, so only an address being replaced
+  // reads as null here.
+  const value = useMemo(
+    () => read ?? { ...defaultOverviewSettings(definition), ...columns },
+    [read, columns, definition],
   );
   const binding = saved?.binding;
 
@@ -64,10 +76,10 @@ export function useOverviewSettings(
     return readOverviewPreferences(readPreference(binding, 'overview'), definition, asOf);
   }, [binding, definition, asOf]);
   const remember = useCallback(
-    (value: OverviewSettings | null) => {
-      currentRef.current = value;
-      setChanged({ viewerId, value });
-      const result = write(value && (JSON.parse(serializeOverviewPreferences(value)) as unknown));
+    (next: OverviewSettings | null) => {
+      currentRef.current = next;
+      setChanged({ viewerId, value: next });
+      const result = write(next && (JSON.parse(serializeOverviewPreferences(next)) as unknown));
       if (result && result.status !== 'too-large') persisted.current = result.status === 'saved';
     },
     [viewerId, write],
@@ -75,26 +87,22 @@ export function useOverviewSettings(
 
   const update = useCallback(
     (patch: Partial<OverviewSettings>) => {
-      const url = new URL(window.location.href);
-      const current = resolveOverviewSettings(
-        url.search,
-        currentRef.current,
-        definition,
-        asOf,
-      ).value;
-      const next = normalizeOverviewSettings({ ...current, ...patch }, definition, asOf);
-      if (changesOverviewScope(patch)) {
-        // Materialize the prior scope before pushing: Back must not depend on newer saved defaults.
-        url.search = writeOverviewSettings(url.search, current);
-        if (url.href !== window.location.href) window.history.replaceState(null, '', url);
-        const before = url.href;
-        url.search = writeOverviewSettings(url.search, next);
-        if ('repositoryIds' in patch || 'ageThresholds' in patch)
-          url.searchParams.delete('backlog.page');
-        if ('repositoryIds' in patch || 'periods' in patch)
-          url.searchParams.delete('activity.page');
-        if (url.href !== before) window.history.pushState(null, '', url);
-      }
+      const next = normalizeOverviewSettings({ ...value, ...patch }, definition, asOf);
+      if (changesOverviewScope(patch))
+        url.push(
+          mergeValues(
+            { ...url.values, v: '1' },
+            {
+              ...overviewScopeValues(next),
+              // A changed scope can shorten either table, so each starts on its first page.
+              bpage:
+                'repositoryIds' in patch || 'ageThresholds' in patch
+                  ? undefined
+                  : url.values?.bpage,
+              apage: 'repositoryIds' in patch || 'periods' in patch ? undefined : url.values?.apage,
+            },
+          ),
+        );
       // Save the changed fields only; settings this link names but the viewer did not change stay
       // as they were saved.
       const fields = Object.fromEntries(
@@ -108,24 +116,20 @@ export function useOverviewSettings(
         ),
       );
     },
-    [definition, asOf, prior, remember],
+    [value, definition, asOf, url, prior, remember],
   );
 
   const reset = useCallback(() => {
-    const url = new URL(window.location.href);
-    const current = resolveOverviewSettings(url.search, currentRef.current, definition, asOf).value;
-    url.search = writeOverviewSettings(url.search, current);
-    if (url.href !== window.location.href) window.history.replaceState(null, '', url);
-    url.search = resetOverviewQuery(url.search);
-    window.history.pushState(null, '', url);
+    // The defaults, pinned so Back and a reload show them whatever is saved later.
+    url.push({ v: '1' });
     remember(null);
-  }, [definition, asOf, remember]);
+  }, [url, remember]);
 
   // The server rejected the saved section and rendered defaults; a deliberate change replaces it.
   const rejected = saved?.invalid !== undefined && changed?.viewerId !== viewerId;
   return {
-    value: resolved.value,
-    notice: resolved.notice ?? (rejected ? overviewPreferencesInvalidNotice : undefined),
+    value,
+    notice: rejected ? overviewPreferencesInvalidNotice : undefined,
     update,
     reset,
     storageAvailable,

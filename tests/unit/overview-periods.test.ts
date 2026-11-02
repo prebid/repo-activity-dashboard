@@ -16,8 +16,12 @@ import {
   readOverviewPreferences,
   resolveOverviewSettings,
   serializeOverviewPreferences,
-  writeOverviewSettings,
+  overviewCatalogDefinition,
+  overviewScopeValues,
+  readOverviewValues,
 } from '@/lib/presentation/overview-settings';
+import { mergeValues } from '@/lib/presentation/repository-url';
+import { parseQuery, serializeQuery } from '@/lib/presentation/url/codec';
 import type { PeriodSelection } from '@/models/reporting-period';
 
 const asOf = '2026-10-24T12:00:00.000Z';
@@ -51,23 +55,24 @@ it('accepts one or two distinct periods, including two independent custom ranges
   ).toContain('valid date range');
 });
 it('round-trips two custom ranges, preserves empty age choices, and retires Show change', () => {
-  const settings = { ...defaults, periods: [custom, custom2], ageThresholds: [] };
-  const query = writeOverviewSettings('change=1&tag=a&tag=b', settings);
-  const params = new URLSearchParams(query);
-  expect(params.get('period')).toBe('custom');
-  expect(params.get('from')).toBe('2026-10-06');
-  expect(params.get('period2')).toBe('custom');
-  expect(params.get('through2')).toBe('2026-10-15');
-  expect(params.get('age')).toBe('');
-  expect(params.has('change')).toBe(false);
-  expect(params.getAll('tag')).toEqual(['a', 'b']);
-  expect(resolveOverviewSettings(query, null, definition, asOf).value).toEqual(settings);
-  expect(readOverviewPreferences(serializeOverviewPreferences(settings), definition, asOf)).toEqual(
+  const catalog = defaultOverviewSettings(overviewCatalogDefinition);
+  const settings = { ...catalog, periods: [custom, custom2], ageThresholds: [] };
+  const query = serializeQuery('/repos', mergeValues({}, overviewScopeValues(settings)));
+  expect(query).toBe('period=2026-10-06..2026-10-08&period2=2026-10-13..2026-10-15&age=');
+  const parsed = parseQuery('/repos', query);
+  if (parsed.kind !== 'canonical') throw new Error('Expected a canonical query');
+  expect(readOverviewValues(parsed.values, settings, overviewCatalogDefinition, asOf)).toEqual(
     settings,
   );
-  const single = new URLSearchParams(writeOverviewSettings(query, defaults));
-  expect(single.has('period2')).toBe(false);
-  expect(single.has('from2')).toBe(false);
+  const stored = { ...defaults, periods: [custom, custom2], ageThresholds: [] };
+  expect(readOverviewPreferences(serializeOverviewPreferences(stored), definition, asOf)).toEqual(
+    stored,
+  );
+  expect(overviewScopeValues(defaults).period2).toBeUndefined();
+  // Old links that named the retired comparison flag drop it.
+  expect(resolveOverviewSettings('change=1', defaults, definition, asOf).value).not.toHaveProperty(
+    'showChange',
+  );
   expect(() =>
     normalizeOverviewSettings({ ...defaults, periods: [month, month] }, definition, asOf),
   ).toThrow('different periods');

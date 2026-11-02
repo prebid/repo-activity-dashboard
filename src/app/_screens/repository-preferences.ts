@@ -14,6 +14,14 @@ import type { RepositoryInsight } from '@/models/repository-insights';
 import type { TimelineSupport } from '@/models/timeline-support';
 import { readSavedTableSort } from '@/lib/presentation/table-query';
 import { readRepositoryPresentation } from '@/lib/presentation/repository-page-preferences';
+import { overviewSavedValues } from '@/lib/presentation/overview-settings';
+import {
+  drilldownPresentation,
+  type RepositoryLinkPresentation,
+  type SavedRecordPresentation,
+} from '@/lib/presentation/repository-url';
+import type { SavedViewValues } from '@/lib/presentation/url/entry';
+import type { UrlValues } from '@/lib/presentation/url/registry';
 import { overviewSettingsColumns } from '@/features/repositories/overview-columns';
 import type { RepositoriesPreferences } from './repositories-screen';
 import type { RepositoryPagePreferences } from './repository-page-screen';
@@ -45,7 +53,47 @@ export function repositoriesPreferences(
       'overview.activity.sort',
       overviewSettingsColumns.activityColumns,
     ),
+    links: repositoryLinkPresentation(snapshot),
   };
+}
+/** The saved Summary a bare `/repos` entry redirects to (decision C2), or null for none. */
+export function summaryEntryValues(preferences: RepositoriesPreferences): SavedViewValues | null {
+  return overviewSavedValues(
+    preferences.overview.value,
+    preferences.backlogSort.value,
+    preferences.activitySort.value,
+  );
+}
+
+/**
+ * Every repository list's and insight's saved presentation, which links to them carry (decision
+ * C3) and a bare list entry redirects to. Record sections are checked for shape here; the link
+ * applies only the choices the target table has.
+ */
+export function repositoryLinkPresentation(
+  snapshot: PreferenceSnapshot,
+): RepositoryLinkPresentation {
+  const list = (kind: 'prs' | 'issues'): SavedRecordPresentation => ({
+    sort: savedSortShape(snapshot, `repository.${kind}.sort`).value,
+    presentation: savedPreference(snapshot, `repository.${kind}.columns`, (raw) =>
+      readRepositoryPresentation(raw),
+    ).value,
+  });
+  return {
+    prs: list('prs'),
+    issues: list('issues'),
+    authors: savedSortShape(snapshot, 'repository.authors.sort').value,
+    mergedPrs: savedSortShape(snapshot, 'repository.merged-prs.sort').value,
+    credits: savedSortShape(snapshot, 'repository.credits.sort').value,
+  };
+}
+/** The saved presentation a bare repository list entry (`/repos/<slug>`, `?view=issues`) takes. */
+export function recordEntryValues(
+  values: UrlValues,
+  links: RepositoryLinkPresentation,
+): SavedViewValues {
+  const metric = values.view === 'issues' ? 'openIssues' : 'totalOpenPrs';
+  return { presentation: drilldownPresentation({ scope: 'current', metric }, links) };
 }
 
 /** A record list's sort and its columns and charts, shared by every repository's list of a kind. */
@@ -58,6 +106,7 @@ export function repositoryPagePreferences(
     presentation: savedPreference(snapshot, `repository.${source.kind}.columns`, (raw) =>
       readRepositoryPresentation(raw),
     ),
+    links: repositoryLinkPresentation(snapshot),
   };
 }
 

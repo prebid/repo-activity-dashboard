@@ -42,7 +42,8 @@ export const overviewReturnPathSchema = z.string().refine((value) => {
 export const repositoryDrilldownSchema = z
   .object({
     selection: drilldownSelectionSchema,
-    returnTo: overviewReturnPathSchema,
+    /** The Summary to return to; null when the address names one that cannot be restored. */
+    returnTo: overviewReturnPathSchema.nullable(),
   })
   .strict();
 export type RepositoryDrilldown = z.infer<typeof repositoryDrilldownSchema>;

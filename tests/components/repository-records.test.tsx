@@ -113,10 +113,7 @@ it('links known zero and partial PR counts, including author metrics, but never 
     returnTo: '/repos',
   };
   const view = render(<OverviewMetric {...props} measurement={{ status: 'complete', value: 0 }} />);
-  expect(screen.getByRole('link')).toHaveAttribute(
-    'href',
-    '/repos/prebidjs?scope=current&metric=totalOpenPrs',
-  );
+  expect(screen.getByRole('link')).toHaveAttribute('href', '/repos/prebidjs');
   view.rerender(<OverviewMetric {...props} measurement={{ status: 'complete', value: 12345 }} />);
   expect(screen.getByRole('link')).toHaveAccessibleName('Prebid.js: Total PRs, 12,345');
   view.rerender(
@@ -166,7 +163,7 @@ it('shows current navigation totals separately from the selected cohort and link
   );
   expect(screen.getByRole('link', { name: 'All open PRs' })).toHaveAttribute(
     'href',
-    '/repos/prebidjs?scope=current&metric=totalOpenPrs&returnTo=%2Frepos%3Fage%3D60',
+    '/repos/prebidjs?back=~age:60',
   );
 });
 it('keeps record identity and labels together, uses separate reviewer/approval values, and marks drafts ineligible', () => {
@@ -370,9 +367,10 @@ it('names an author list as the current crumb and marks its record list without 
   render(<Preview list={repositoryAuthorRecordSample(repo, drilldown, 'sample-author-2', back)} />);
   expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('Prebid.js');
   const trail = screen.getByRole('navigation', { name: 'Breadcrumb' });
+  // An author list counts period activity, so the Summary crumb returns to that panel.
   expect(within(trail).getByRole('link', { name: 'All repositories' })).toHaveAttribute(
     'href',
-    '/repos?period=this-year',
+    '/repos?period=this-year#period-activity',
   );
   expect(within(trail).getByRole('link', { name: 'PR authors' })).toHaveAttribute('href', back);
   expect(within(trail).getByText('PRs by sample-author-2')).toHaveAttribute('aria-current', 'page');

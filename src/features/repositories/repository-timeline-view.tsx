@@ -13,11 +13,26 @@ import { countLabel } from '@/lib/presentation/format';
 import { TimelineChart } from '@/components/charts/timeline-chart';
 import { RepositoryHeader } from './repository-header';
 import { repositoryTimelineReturnTo } from '@/lib/presentation/timeline-navigation';
+import { summaryReturnTo } from '@/lib/presentation/repository-drilldown';
+import { parseQuery } from '@/lib/presentation/url/codec';
+import { matchRoute } from '@/lib/presentation/url/registry';
 import { repositoryTimelineMetricDefinitions } from './repository-timeline-columns';
 import styles from '@/components/reporting/timeline-layout.module.css';
 import type { TimelineTableControls } from '@/components/reporting/timeline-table';
 import type { TimelineChartControls } from '@/components/charts/timeline-chart';
 
+/**
+ * The Summary a repository Timeline returns to through the page it was opened from: a repository
+ * list, insight or author page names its own Summary; a matrix parent names its Summary itself.
+ */
+function parentSummary(parent: string | null | undefined): string | null {
+  const url = parent ? new URL(parent, 'https://dashboard.invalid') : null;
+  const matched = url && matchRoute(url.pathname);
+  const parsed = matched && matched.route !== '/repos' && parseQuery(matched.route, url.search);
+  return parsed && parsed.kind === 'canonical'
+    ? summaryReturnTo({ ...matched, values: parsed.values })
+    : repositoryTimelineReturnTo(parent);
+}
 export function RepositoryTimelineView({
   report,
   navigation,
@@ -51,7 +66,7 @@ export function RepositoryTimelineView({
       <RepositoryHeader
         repository={report.scope.repository}
         asOf={report.source.asOf}
-        returnTo={repositoryTimelineReturnTo(parent)}
+        returnTo={parentSummary(parent)}
         navigation={navigation}
         activeKind="timeline"
         timelineHref={href}

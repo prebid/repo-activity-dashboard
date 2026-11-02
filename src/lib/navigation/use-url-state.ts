@@ -12,8 +12,12 @@ import { matchRoute, type UrlRoute, type UrlValues } from '@/lib/presentation/ur
 /** The `history.state` key holding the address an in-app push came from. */
 export const historyMarkerKey = 'dashboardPrevious';
 type HistoryMode = 'push' | 'replace';
+/** Options a server navigation passes to `router.push`, such as keeping the scroll position. */
+export interface NavigateOptions {
+  scroll?: boolean;
+}
 interface Router {
-  push(href: string): void;
+  push(href: string, options?: NavigateOptions): void;
 }
 
 // The last committed address, and the address a codec navigation started from.
@@ -58,10 +62,11 @@ export function pinCurrentEntry(): boolean {
   return true;
 }
 /** Start a server navigation (`router.push`) from a pinned entry, recording where it started. */
-export function followHref(router: Router, href: string): void {
+export function followHref(router: Router, href: string, options?: NavigateOptions): void {
   pinCurrentEntry();
   pending = here();
-  router.push(href);
+  if (options) router.push(href, options);
+  else router.push(href);
 }
 /** Whether a back link's href is the entry this one was pushed from, so Back can restore it. */
 export function shouldGoBack(previous: unknown, href: string): boolean {
@@ -182,7 +187,7 @@ export function useUrlState(route: UrlRoute) {
       push: (next: UrlValues) => write('push', next),
       replace: (next: UrlValues) => write('replace', next),
       /** A server navigation (data scope changes), from a pinned entry. */
-      navigate: (target: string) => followHref(router, target),
+      navigate: (target: string, options?: NavigateOptions) => followHref(router, target, options),
       replaceHash,
     };
   }, [route, router, values]);
