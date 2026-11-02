@@ -40,9 +40,9 @@ for (const [path, title, theme, width] of [
     await expect(
       page
         .getByRole('navigation', { name: 'Main navigation' })
-        .getByRole('link', { name: 'Contributions', exact: true }),
+        .getByRole('link', { name: 'Contributors', exact: true }),
     ).toHaveAttribute('data-active', 'true');
-    const columns = page.getByRole('button', { name: 'Columns', exact: true });
+    const columns = page.getByRole('button', { name: /^Columns( · .+)?$/ });
     await columns.click();
     await expect(page.getByRole('menu')).toBeVisible();
     await page.keyboard.press('Escape');
@@ -103,7 +103,8 @@ test('overview, company breakdown and contributor return links preserve their pa
     .first()
     .click();
   await expect(page.getByRole('region', { name: 'Report totals' })).toBeVisible();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+  // The repository of the member's own PR, and three where the member reviewed or approved PRs.
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(4);
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(page).toHaveURL(new URL(parent, page.url()).href);
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
@@ -130,7 +131,7 @@ test('high-volume identity search and focused totals remain bounded and readable
     path: testInfo.outputPath('busy-contributor-mobile.png'),
     fullPage: true,
   });
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Search Contributors', exact: true })).toHaveValue(
     'sample-heavy-agent',
   );
@@ -199,7 +200,7 @@ for (const width of [1440, 390])
         .evaluate((node) => node.getBoundingClientRect().top + window.scrollY);
     for (const path of ['/contributors', '/contributors/account-alice']) {
       await page.goto(path + '?scope=1&period=this-year');
-      await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+      await expect(page.getByRole('button', { name: /^Columns( · .+)?$/ })).toBeEnabled();
       await page.evaluate(() => document.fonts.ready);
       const report = await top('Contribution report scope');
       await page
@@ -219,7 +220,7 @@ for (const width of [1440, 390])
         ).toHaveAttribute('aria-current', 'page');
       else {
         await expect(
-          header.getByRole('link', { name: 'Back to report', exact: true }),
+          header.getByRole('link', { name: 'Back to Contributors', exact: true }),
         ).toBeVisible();
         await expect(header.getByRole('link', { name: 'Example Acme', exact: true })).toBeVisible();
       }

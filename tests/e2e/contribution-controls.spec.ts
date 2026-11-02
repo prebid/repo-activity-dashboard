@@ -66,7 +66,7 @@ test('company inclusion, duplicate individual inclusion and exclusions keep 50-r
     .click();
   expect(listParam(page.url(), 'exclude')).toEqual(['account-person-001']);
   expect(listParam(page.url(), 'company')).toEqual(['company-acme']);
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   await expect(page).toHaveURL(new URL(parent, page.url()).href);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(49);
   const downloaded = page.waitForEvent('download');

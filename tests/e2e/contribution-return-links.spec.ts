@@ -132,7 +132,7 @@ test('copied links and browser history retain parent scope after child account, 
     await copied.getByRole('link', { name: 'Back to report', exact: true }).click();
     await expect(copied.getByRole('table', { name: 'By repository', exact: true })).toBeVisible();
     assertScope(copied.url(), root);
-    await copied.getByRole('link', { name: 'Back to report', exact: true }).click();
+    await copied.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
     await expect(copied.getByRole('table', { name: 'Contributors', exact: true })).toBeVisible();
     await expect(copied.getByText('Page 2 of 3', { exact: true })).toBeVisible();
     await expect(
@@ -198,7 +198,7 @@ test('a shared v1 bookmark is answered with back frames that restore its frozen 
   );
   expect(new URL(page.url()).searchParams.has('nav')).toBe(false);
   await page.reload();
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Companies', exact: true }).click();
   await expect(page.getByRole('table', { name: 'Companies', exact: true })).toBeVisible();
 });
 test('malformed compact context leaves Back to report unavailable while the report remains usable', async ({

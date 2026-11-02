@@ -59,7 +59,7 @@ test('names open internal reports, handles open GitHub and company credits retai
   // The report is the entry this page was opened from, so Back to report goes back to it (a
   // reload keeps that record) and Forward returns here.
   const entries = await page.evaluate(() => history.length);
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Companies', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Search Companies' })).toHaveValue('Acme');
   expect(await page.evaluate(() => history.length)).toBe(entries);
   await page.goForward();
@@ -102,7 +102,7 @@ test('optional comment and final merged volume drilldowns reconcile with their s
 }) => {
   await login(page);
   await page.goto('/contributors?period=this-year&type=human');
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Comment activity', exact: true }).click();
   await page
     .getByRole('menuitemcheckbox', { name: 'Reviewed merged PR volume', exact: true })
@@ -125,7 +125,7 @@ test('optional comment and final merged volume drilldowns reconcile with their s
   ).toHaveText(['6', '1', '1']);
   await expect(page.getByRole('table').getByRole('button', { name: /Merged on/ })).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toContainText('Sep 6, 2026');
-  await page.getByRole('link', { name: 'Back to report', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to Contributors', exact: true }).click();
   await alice
     .getByRole('link', {
       name: 'Comment activity — PR comments: 3 — view supporting records',
@@ -159,7 +159,9 @@ test('selected-metric flat exports match filtered totals beyond the first page a
   await dialog.getByRole('checkbox', { name: 'PRs authored', exact: true }).check();
   const csv = await csvDownload(page, 'Download CSV');
   const lines = csv.split('\r\n');
-  expect(lines).toHaveLength(6);
+  // A row per member with Prebid.js activity: five authors, and seven who only reviewed or
+  // approved there.
+  expect(lines).toHaveLength(13);
   expect(csv).toContain('"repo-prebidjs"');
   expect(csv).not.toContain('"sample-person-001"');
   expect(csv).toContain('account-person-001');
@@ -191,7 +193,7 @@ test('supporting lists and export controls remain accessible in both themes and 
     fullPage: true,
   });
   await page.goto('/companies?sample=large');
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   await page
     .getByRole('menuitemcheckbox', { name: 'Authored merged PR volume', exact: true })
     .click();

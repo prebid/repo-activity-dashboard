@@ -27,12 +27,14 @@ test('known-zero member filtering survives history and agrees with both full-res
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
   await page.getByRole('checkbox', { name: 'Hide zero totals', exact: true }).check();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(6);
+  // Six members authored a Prebid.js PR this month; seven more only reviewed or approved one.
+  const nonzero = 13;
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(nonzero);
   await expect(
     page.getByRole('region', { name: 'Report totals' }).locator('dd').first(),
   ).toHaveText('6');
   const quick = await exportCsv(page, 'Export CSV');
-  expect(quick.split('\r\n')).toHaveLength(7);
+  expect(quick.split('\r\n')).toHaveLength(nonzero + 1);
   expect(quick).toContain('Hide zero member totals');
   await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: /CSV export$/ });
@@ -40,7 +42,7 @@ test('known-zero member filtering survives history and agrees with both full-res
   await dialog.getByRole('button', { name: 'Clear selection', exact: true }).click();
   await dialog.getByRole('checkbox', { name: 'PRs authored', exact: true }).check();
   const flat = await exportCsv(page, 'Download CSV');
-  expect(flat.split('\r\n')).toHaveLength(7);
+  expect(flat.split('\r\n')).toHaveLength(nonzero + 1);
   expect(flat).toContain('Hide zero member totals');
   await page.goBack();
   await expect(
@@ -49,9 +51,9 @@ test('known-zero member filtering survives history and agrees with both full-res
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
   await page.goForward();
   await expect(page.getByRole('checkbox', { name: 'Hide zero totals', exact: true })).toBeChecked();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(6);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(nonzero);
   await page.reload();
-  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(6);
+  await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(nonzero);
   await page.screenshot({ path: info.outputPath('company-hide-zero.png'), fullPage: true });
   await page.goto('/companies/id/company-acme?sample=missing&period=this-year&members.zero=hide');
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(3);
@@ -62,7 +64,7 @@ test('returning through nested reports restores the original presentation after 
 }) => {
   await login(page);
   await page.goto('/companies/id/company-acme?sample=large');
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Issues authored', exact: true }).click();
   await page.keyboard.press('Escape');
   await page.goto('/companies/id/company-acme?sample=large');
@@ -88,7 +90,7 @@ test('returning through nested reports restores the original presentation after 
   await expect(
     page.getByRole('columnheader', { name: 'Issues authored', exact: true }),
   ).toHaveCount(0);
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: /^Columns( · .+)?$/ }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Issues authored', exact: true }).click();
   await page.keyboard.press('Escape');
   await expect(
