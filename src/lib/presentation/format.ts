@@ -1,5 +1,10 @@
+// Displayed negatives use the minus sign (U+2212). CSV cells and URLs carry the raw number, so they
+// keep the ASCII hyphen.
+const minus = '\u2212';
+const countFormat = new Intl.NumberFormat('en-US');
 export function formatCount(value: number | null): string {
-  return value === null ? '—' : new Intl.NumberFormat('en-US').format(value);
+  if (value === null) return '—';
+  return (value < 0 ? minus : '') + countFormat.format(Math.abs(value));
 }
 const dayFormat = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 1,
@@ -10,7 +15,7 @@ export function formatDayNumber(value: number | null): string {
   if (value === null) return '—';
   if (value === 0) return '0';
   const size = Math.abs(value);
-  return (value < 0 ? '-' : '') + (size < 0.05 ? '<0.1' : dayFormat.format(size));
+  return (value < 0 ? minus : '') + (size < 0.05 ? '<0.1' : dayFormat.format(size));
 }
 export function formatDays(value: number | null): string {
   return value === null ? '—' : formatDayNumber(value) + ' d';

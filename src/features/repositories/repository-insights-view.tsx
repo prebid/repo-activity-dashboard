@@ -5,10 +5,16 @@ import type { RepositoryPageNavigation } from '@/models/repository-page';
 import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { AccountTypeLabel, Avatar, type AvatarAccountType } from '@/components/github/avatar';
+import {
+  RecordIdentity,
+  RecordNumber,
+  pullRequestStatus,
+} from '@/components/github/record-identity';
 import { DataTable, type DataColumn } from '@/components/tables/data-table';
 import { Callout } from '@/components/feedback/callout';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { MeasurementValue } from '@/components/metrics/measurement-value';
+import drillable from '@/components/metrics/drillable-number.module.css';
 import type { TableController } from '@/lib/presentation/table-controller';
 import { formatCount, formatUtcDate } from '@/lib/presentation/format';
 import { accountTypeLabels } from '@/models/github-account';
@@ -17,11 +23,10 @@ import type {
   RepositoryInsight,
   RepositoryAuthor,
   RepositoryContribution,
-  SupportingRecord,
 } from '@/models/repository-insights';
 import { RepositoryDrilldownFrame } from './repository-drilldown-frame';
 import { RepositoryRecordTable } from './repository-records-view';
-import styles from './repository-records.module.css';
+import pageStyles from './repository-page.module.css';
 import { repositoryAuthorRecordsHref } from '@/lib/presentation/repository-author-records';
 function quantity(value: number | null, unit: string) {
   return formatCount(value) + ' ' + unit + (value === 1 ? '' : 's');
@@ -37,25 +42,11 @@ function AccountIdentity({
   type: AvatarAccountType;
 }) {
   return (
-    <div className={styles.account}>
+    <div className={pageStyles.account}>
       <Avatar kind="person" name={login} accountType={type} size={32} />
       <GitHubAccountLink login={login} url={url} />
       <AccountTypeLabel accountType={type} />
     </div>
-  );
-}
-function RecordLink({ record }: { record: SupportingRecord }) {
-  return (
-    <Link
-      prefetch={false}
-      href={record.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.recordLink}
-    >
-      {record.title}
-      {record.draft ? ' (Draft)' : ''}
-    </Link>
   );
 }
 export function authorColumns(
@@ -69,6 +60,7 @@ export function authorColumns(
       selectionGroup: 'Identity',
       label: 'GitHub account',
       width: 220,
+      pinned: true,
       hideable: false,
       value: (row) => row.account,
       cell: (row) => (
@@ -99,7 +91,7 @@ export function authorColumns(
       cell: (row) => (
         <Link
           prefetch={false}
-          className={styles.recordLink}
+          className={drillable.link}
           href={recordsHref(row.account)}
           aria-label={
             'View ' +
@@ -120,20 +112,35 @@ export const contributionDetailColumns: DataColumn<RepositoryContribution>[] = [
     selectionGroup: 'Identity',
     label: 'GitHub account',
     width: 210,
+    pinned: true,
     hideable: false,
     value: (row) => row.account,
     cell: (row) => (
       <AccountIdentity login={row.account} url={row.profileUrl} type={row.accountType} />
     ),
   },
-  { id: 'pr', selectionGroup: 'Records', label: 'PR', width: 100, value: (row) => row.pr.number },
+  {
+    id: 'pr',
+    selectionGroup: 'Records',
+    label: 'PR',
+    width: 100,
+    value: (row) => row.pr.number,
+    cell: (row) => <RecordNumber number={row.pr.number} url={row.pr.url} />,
+  },
   {
     id: 'title',
     selectionGroup: 'Records',
     label: 'Title',
     width: 400,
+    grow: true,
     value: (row) => row.pr.title,
-    cell: (row) => <RecordLink record={row.pr} />,
+    cell: (row) => (
+      <RecordIdentity
+        title={row.pr.title}
+        url={row.pr.url}
+        status={pullRequestStatus(row.pr.state, row.pr.draft)}
+      />
+    ),
   },
   {
     id: 'firstCreditAt',

@@ -42,22 +42,34 @@
   color: var(--foreground);
   font-weight: 500;
 }
+/* The repository name in Summary and the Timeline matrix. */
 .repositoryLink {
   color: var(--foreground);
   font-weight: 500;
   line-height: inherit;
   overflow-wrap: anywhere;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: var(--prebid-radius-small);
 }
+/* In two-period comparison a period row leads with its overline tag, "Period 1" or "Period 2". */
 .periodLabel {
   display: flex;
-  align-items: flex-start;
-  gap: 6px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
   margin-top: 2px;
   color: var(--muted-foreground);
   font-size: var(--prebid-text-caption);
-  line-height: 16px;
+  line-height: var(--prebid-leading-caption);
+}
+.periodTag {
+  color: var(--foreground);
+  font-size: var(--prebid-text-overline);
+  font-weight: 600;
+  letter-spacing: var(--prebid-tracking-overline);
+  line-height: var(--prebid-leading-overline);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .differenceRow {
   --table-row-background: var(--prebid-sunken);
@@ -72,19 +84,6 @@
 .repositoryLink:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-.metricLink {
-  color: inherit;
-  text-decoration: none;
-  border-radius: 2px;
-}
-.metricLink:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.metricLink:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 3px;
 }
 .repositoryLink:focus-visible {
   outline: 2px solid var(--ring);

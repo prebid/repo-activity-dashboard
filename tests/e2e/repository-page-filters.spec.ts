@@ -142,12 +142,16 @@ test('saves columns and sorting without saving historical scope or filters', asy
   await expect(page.getByRole('combobox', { name: 'Record scope', exact: true })).toHaveValue(
     'current',
   );
-  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR ↑');
+  await expect(page.locator('th[aria-sort="ascending"]')).toHaveText('PR');
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(0);
   await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(page.locator('tbody [data-column="latestActivity"]')).toHaveCount(50);
   await page.goto('/repos/prebidjs');
-  await expect(page.getByText('Newest created first', { exact: true })).toBeVisible();
+  // The default sort's column is hidden in the current scope, so the footer names it once.
+  await expect(
+    page.getByText('Sorted by Created (descending); its column is hidden.', { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText(/^Sorted by /)).toHaveCount(1);
 });
 
 for (const [theme, width] of [

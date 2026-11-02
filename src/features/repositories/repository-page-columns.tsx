@@ -1,53 +1,39 @@
 import { accountTypeLabels } from '@/models/github-account';
-import Link from 'next/link';
 import { GitHubAccountLink } from '@/components/github/account-link';
 import { Avatar } from '@/components/github/avatar';
-import { RecordStatus } from '@/components/github/record-status';
+import {
+  RecordIdentity,
+  RecordNumber,
+  issueStatus,
+  pullRequestStatus,
+} from '@/components/github/record-identity';
+import type { RecordStatusProps } from '@/components/github/record-status';
 import type { DataColumn } from '@/components/tables/data-table';
 import type {
   RepositoryPagePr,
   RepositoryPageIssue,
   LatestRecordActivity,
 } from '@/models/repository-page';
-import { recordPrColumns, recordIssueColumns, actorLabels } from './repository-records-view';
+import type { RepositoryIssue, RepositoryPullRequest } from '@/models/repository-records';
+import type { MergedPullRequest, ReportingAccountType } from '@/models/repository-insights';
+import { recordPrColumns, recordIssueColumns, actorLabels } from './record-base-columns';
 import { formatUtcDate } from '@/lib/presentation/format';
 import styles from './repository-page.module.css';
 
+// The record row shows these values inline: status and labels under the title, the author type
+// beside the author. They stay columns for search and export, outside the Columns menu.
 export const repositoryInlineColumnIds: ReadonlySet<string> = new Set([
   'labels',
   'state',
   'authorType',
 ]);
 
-type Row = RepositoryPagePr | RepositoryPageIssue;
+type Row = (RepositoryPullRequest | RepositoryIssue) & {
+  authorType: ReportingAccountType | null;
+};
 const authorLabels = accountTypeLabels;
-const recordStatuses = { Open: 'open', Merged: 'merged', Closed: 'closed' } as const;
-function RecordIdentity({ row }: { row: Row }) {
-  return (
-    <div className={styles.identity}>
-      <Link
-        prefetch={false}
-        href={row.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.titleLink}
-      >
-        {row.title}
-      </Link>
-      <div className={styles.recordMeta}>
-        {'draft' in row ? (
-          <RecordStatus kind="pr" status={row.draft ? 'draft' : recordStatuses[row.state]} />
-        ) : (
-          <RecordStatus kind="issue" status={recordStatuses[row.state]} />
-        )}
-        {row.labels.map((label) => (
-          <span key={label} className={styles.label}>
-            {label}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+function recordStatus(row: Row): RecordStatusProps {
+  return 'draft' in row ? pullRequestStatus(row.state, row.draft) : issueStatus(row.state);
 }
 function Activity({ activity }: { activity: LatestRecordActivity | null }) {
   return activity ? (
@@ -71,24 +57,22 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
         width: 82,
         pinned: true,
         hideable: false,
-        cell: (row: T) => (
-          <Link
-            prefetch={false}
-            className={styles.number}
-            href={row.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {row.number}
-          </Link>
-        ),
+        cell: (row: T) => <RecordNumber number={row.number} url={row.url} />,
       };
     if (column.id === 'title')
       return {
         ...column,
         width: 360,
+        grow: true,
         hideable: false,
-        cell: (row: T) => <RecordIdentity row={row} />,
+        cell: (row: T) => (
+          <RecordIdentity
+            title={row.title}
+            url={row.url}
+            status={recordStatus(row)}
+            labels={row.labels}
+          />
+        ),
       };
     if (column.id === 'author')
       return {
@@ -129,14 +113,17 @@ function presentation<T extends Row>(columns: DataColumn<T>[]): DataColumn<T>[] 
     };
   });
 }
-function metadata<T extends Row>(): DataColumn<T>[] {
+function authorTypeColumn<T extends Row>(): DataColumn<T> {
+  return {
+    id: 'authorType',
+    selectionGroup: 'Identity',
+    label: 'Author category',
+    value: (row) => (row.authorType === null ? null : authorLabels[row.authorType]),
+  };
+}
+function metadata<T extends RepositoryPagePr | RepositoryPageIssue>(): DataColumn<T>[] {
   return [
-    {
-      id: 'authorType',
-      selectionGroup: 'Identity',
-      label: 'Author category',
-      value: (row) => (row.authorType === null ? null : authorLabels[row.authorType]),
-    },
+    authorTypeColumn<T>(),
     {
       id: 'latestActivity',
       selectionGroup: 'Latest activity',
@@ -157,6 +144,11 @@ function metadata<T extends Row>(): DataColumn<T>[] {
     },
   ];
 }
+/** The merge-duration insight's merged PRs: the record pages' PR columns without Latest activity. */
+export const repositoryMergedPrColumns: DataColumn<MergedPullRequest>[] = [
+  ...presentation<MergedPullRequest>(recordPrColumns),
+  authorTypeColumn<MergedPullRequest>(),
+];
 export const repositoryPagePrColumns: DataColumn<RepositoryPagePr>[] = [
   ...presentation<RepositoryPagePr>(recordPrColumns),
   ...metadata<RepositoryPagePr>(),

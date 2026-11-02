@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures';
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function login(page: Page) {
   await page.goto('/auth/login');
@@ -57,9 +57,12 @@ for (const [theme, width] of [
     const table = page.getByRole('table');
     await expect(table.locator('tbody tr')).toHaveCount(18);
     await expect(table.locator('thead th')).toHaveCount(11);
-    await expect(
-      table.getByRole('columnheader', { name: 'Oct 2026 (partial)', exact: true }),
-    ).toBeVisible();
+    const partial = table.getByRole('columnheader', { name: 'Oct 2026 Partial', exact: true });
+    await expect(partial).toBeVisible();
+    // The partial-period caption takes its own line under the period's label.
+    const caption = (await partial.getByText('Partial', { exact: true }).boundingBox())!;
+    const period = (await partial.getByText('Oct 2026', { exact: true }).boundingBox())!;
+    expect(caption.y).toBeGreaterThanOrEqual(period.y + period.height - 0.5);
     for (const name of ['Columns', 'Show chart'])
       await expect(page.getByRole('button', { name, exact: true })).toHaveCount(0);
     await expect(page.getByRole('textbox')).toHaveCount(0);
@@ -83,7 +86,9 @@ for (const [theme, width] of [
     );
     expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
     await page.getByRole('button', { name: /Column definitions for/ }).click();
-    await expect(page.getByRole('dialog')).toContainText('Partial calendar period');
+    // The header's caption marks the partial period; its definition gives the period's dates.
+    await expect(page.getByRole('dialog')).toContainText('Oct 2026');
+    await expect(page.getByRole('dialog')).not.toContainText('Partial calendar period');
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toBeHidden();
     await page.screenshot({
@@ -92,6 +97,33 @@ for (const [theme, width] of [
     });
   });
 }
+test('matrix repository names read like the Summary repository names', async ({ page }) => {
+  await login(page);
+  const look = async (link: Locator) => {
+    await expect(link).toBeVisible();
+    await page.mouse.move(0, 0);
+    return link.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        color: style.color,
+        size: style.fontSize,
+        weight: style.fontWeight,
+        line: style.textDecorationLine,
+      };
+    });
+  };
+  await page.goto('/repos');
+  const summary = await look(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('link', { name: 'Prebid.js', exact: true }),
+  );
+  await page.goto('/repos?timeline=1');
+  const matrix = await look(
+    page.getByRole('table').getByRole('link', { name: 'Prebid.js', exact: true }),
+  );
+  expect(matrix).toEqual(summary);
+});
 test('dense matrix renders only a period window and retains an offscreen sort', async ({
   page,
 }, info) => {
@@ -116,12 +148,14 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
   );
   // Sep 23, 2026 is led by Prebid.js (32 PRs opened), unlike name order.
   await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
-  await table.getByRole('button', { name: 'Sep 23, 2026 ↑', exact: true }).click();
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  await table.getByRole('button', { name: 'Sep 23, 2026', exact: true }).click();
   // Header state and row order come from the same render, so this waits for the sorted rows.
-  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
   const ordering = await table.locator('tbody [data-column="repository"]').allTextContents();
   expect(ordering[0]).toContain('Prebid.js');
   expect(ordering).not.toEqual(names);
@@ -134,13 +168,17 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
     ordering,
   );
   await expect(
-    page.getByText(/Sorted by Sep 23, 2026 \(descending; outside visible periods\)/),
+    page.getByText(
+      'Sorted by Sep 23, 2026 (descending); its column is outside the visible periods.',
+      { exact: true },
+    ),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
-  await expect(table.getByRole('columnheader', { name: 'Sep 23, 2026 ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  await expect(
+    table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  // With the sorted column back in view, its header is the one description of the sort.
+  await expect(page.getByText(/^Sorted by/)).toHaveCount(0);
   await page.screenshot({ path: info.outputPath('matrix-dense.png'), fullPage: true });
 });
 test('mixed coverage, durations, snapshots and empty selections retain their meanings', async ({

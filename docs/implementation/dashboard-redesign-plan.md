@@ -70,6 +70,9 @@ Shared components live where the dependency-cruiser rules allow a component used
 | `RecordStatus` | the uncoloured PR and issue status text | `src/components/github/` | P2 |
 | `ReportToolbar` | the `timeline-controls.tsx`, `repository-scope-controls.tsx` and `contribution-controls.tsx` layouts, and the scope summaries beside them; those files now render fields only. The activity-period controls keep their own layout beside the Period activity table and use the same field primitives | `src/components/reporting/` (distinct from the masthead `Toolbar` in `src/components/layout/toolbar.tsx`) | P2 |
 | `SortIcon` | the typed sort glyph (`data-table.tsx:244`) | `src/components/tables/` | P3 |
+| `RecordIdentity`, `RecordNumber`, `RecordTitleLink` | the record pages' title, number, status and label cells (`.titleLink`, `.number`, `.recordMeta` and `.label` in `repository-page.module.css`) and their separate Status and Labels columns; the merge-duration list's " (Draft)" title suffix and its Status and Labels columns; the contribution supporting-record link's own `.recordLink` and `.recordNumber` rules | `src/components/github/record-identity.tsx` | P3 |
+| `PartialPeriodMarker`, and `DataColumn.labelCaption` in a table header | the bordered 10px "Partial period" chip in Timeline rows, "Partial calendar period" in the Timeline supporting scope, and " (partial)" after matrix period headers | `src/components/reporting/timeline-value.tsx` | P3 |
+| Drillable-number style | the per-feature number links: the Summary and Contributions `.metricLink`, the Timeline `.valueLink` and the insight "View N PRs" link's `.recordLink` | `src/components/metrics/drillable-number.module.css` | P3 |
 | `PageHeader` | `AllRepositoriesHeading`, `RepositoryHeader`, `ContributionHeading`, the header in `timeline-support-frame.tsx` | `src/components/navigation/` | P4 |
 | `ViewBar`, `SectionNav` | extend `ViewTabs`/`DisabledTab` (`src/components/navigation/view-tabs.tsx`) | `src/components/navigation/` | P4 |
 | Account menu | the bare "Sign out" button and account name text | `src/components/layout/` | P4 |
@@ -259,7 +262,7 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | P0b | Not started | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P3 | Not started | — | — | — |
+| P3 | Plan approved; in progress | — | — | — |
 | P4 | Not started | — | — | — |
 | P5 | Not started | — | — | — |
 | P6 | Not started | — | — | — |
@@ -730,6 +733,135 @@ Unchanged: 186 Tab presses to Period activity, 22 distinct font size and weight 
 - Single-page pagers: four "Page 1 of 1" assertions became assertions that the pager is absent; no other spec pinned footer text, and the browser suite passes.
 - `collisionPadding`: menus keep 16px from the viewport at 1000 and 390px in Chromium. At 1440×900 the Current backlog Columns menu opens above its trigger (step notes, Checkpoint B).
 
+## P3 plan
+
+Proposed 2026-11-01 against `26b4456`, the head of the P0–P2 pull request. The branch `feature/p3-table-system` is cut from that head; its pull request targets `main` once P0–P2 merge. Line references were read at `26b4456`.
+
+### Scope
+
+The 31 P3 findings in Appendix A except TBL-15 (the administrator Users page is outside the redesign, decision 8), under the Delivery rules: about 60–70 files (roughly 40 source, config and docs; 22–28 tests), against 222 in P2. Most fixes land in `src/components/tables/data-table.tsx` and its CSS, which already render every header, pinned column and footer. A call site changes only where the call site itself is the defect, and each one is named below.
+
+### Items
+
+**1. Headers and lines** (CONTRIB-06, REPO-09, REPOS-12, TBL-01, TBL-02). In `data-table.module.css` only: group headings centred at 11/700 uppercase +0.07em over a 2px Prebid-blue spanner; 2px strong lines between column groups and at the pinned junction (one line, not two); 1px subtle lines between columns and rows; the header-band hover fill on sortable headers; a 3px blue inset bar on the first cell of a hovered row. Core contribution metrics get display-only group headings, Authoring (PRs authored, Authored PRs merged), Reviewing (Reviewer contributions, Approval contributions, Merges performed) and Issues (Issues authored), set in `contribution-columns.tsx`; column order and CSV headers do not change.
+
+**2. Sort** (TBL-03, TYPE-05, CONTRIB-08, CTRL-05, GAP-02). A `SortIcon` in `src/components/tables/` in a 14px slot with 12px icons at stroke 2: idle `ChevronsUpDown` in the muted sort ink, sorted `ArrowUp`/`ArrowDown` in the link colour; before the label in numeric columns and after it in text columns; an orange underline on the sorted header. `aria-sort` stays the state and the sort button's name is the column label alone, so labels never shift. When the sorted column is hidden or outside the visible period window, DataTable's footer note is the one description; the duplicates in `contribution-view.tsx` and `repository-page-view.tsx` go.
+
+**3. Alignment and numbers** (CONTRIB-07, GAP-01, TBL-04, TBL-05, REPO-17). Text left, numbers right with tabular figures, headers aligned with their cells and top-aligned, wrapping to at most two lines at one metric width. Body cells top-aligned, so numbers sit level with a record's title. The partial-value asterisk gets its own trailing slot, so digits align (the Phase 2 carry-over). Displayed negatives use the Unicode minus; CSV keeps the ASCII hyphen. Weekly period headers read a compact range (decision 3), and weekly rows print the range once.
+
+**4. Width, pinning and sticky headers** (TBL-06, TBL-07, TBL-08). The pinned identity column stays 248px (164px at <=600px) and numeric columns share surplus width (decision 4). The pinned edge shows a shadow while the table is scrolled sideways, and the trailing edge shows the same shadow while more columns remain (decision 5). The insights authors and credits tables pin their account column. Sticky headers use a bounded-height scroll area per table (decision 1): one `thead`, no script, and the horizontal scrollbar stays in view; a `--sticky-offset` token, which P4 sets, reserves room for the page header.
+
+**5. Records** (REPO-06, REPO-07, TBL-09, TBL-10, GAP-08, TBL-12). One record row: `RecordIdentity` (number, title link, `RecordStatus`, label chips) moves to `src/components/github/` and serves record pages, author lists, Timeline supporting records and the merge-duration insight, with status and labels inline instead of separate columns. The author link's external icon follows the name. Author-scoped lists hide the Author column. The feature density overrides in the contributions, records and page CSS go. The merge-duration rows gain the author type (model and mock), so their authors get avatars (the Phase 2 holdout).
+
+**6. Drillable numbers** (CONTRIB-10, REPOS-13, TBL-11, TYPE-13). One style for a number that opens its records: ink at rest, a dotted Prebid-blue underline, the link colour on hover. Summary, Timeline, Contributions and the supporting views use it; the KPI tiles take the same style and nothing more (decision 6).
+
+**7. Periods** (REPOS-08, GAP-05). In two-period comparison each period carries an overline tag, "Period 1" and "Period 2", and the difference row shows its sign with the Unicode minus (decision 2). One partial-period marker everywhere, the caption "Partial" on its own line (decision 7).
+
+**8. Allowlist.** The P3-owned entries go and `completedPhases` adds `P3`. The two `src/components/ui/table.tsx` entries, which only the excluded Users page uses, move to P4 with that reason. No new tooling.
+
+### Tests
+
+Behaviour only (Delivery rule 2). New: the sort button's name and `aria-sort` through idle, ascending and descending; the label does not move when sorted; non-text contrast of the sort icons and spanner on the header band; the header stays visible after scrolling a 50-row table at 1440 and 375; the pinned column stays put at both scroll ends; digits right-aligned with the asterisk outside them; record numbers level with the title's first line; the Unicode minus on screen and the hyphen in CSV; the Authoring, Reviewing and Issues headings with unchanged CSV headers; one sort note for a hidden sorted column; one computed style for drillable numbers across pages; the author link icon beside the name. Updated: 31 test files whose names include the typed sort arrows or pin header text and geometry. Dropped: three class-name assertions in `pager.test.tsx`. New stories for `SortIcon` and a sticky-header table join the coverage list.
+
+### Order
+
+1. One worker builds the shared core: `data-table.tsx` and its CSS, `SortIcon`, the sort tokens, the Unicode minus, the asterisk slot, the drillable-number style and the sticky scroll area, with their tests and stories.
+2. Then three workers in parallel, each in its own worktree with disjoint files: (a) All repositories Summary, the Timeline table and the matrix; (b) repository records, insights and Timeline supporting views; (c) contributions.
+3. One worker merges the three, closes the allowlist and records the step notes; one independent review of the whole phase; `npm run check:all` once; one checkpoint for approval (stories and page captures together, decision 9); then the pull request.
+
+### Step notes
+
+Step 1, the core (`f9bfa53`), beyond the items: two optional props, `DataColumn.displayGroup` (a heading drawn over a column on screen only, never in metric names, menus or CSV headers) and DataTable's `offscreenSort` (the footer note for a sort by a column outside a window, such as the matrix's period window). The drillable-number style is `src/components/metrics/drillable-number.module.css`.
+
+Step 2(a), Summary, the Timeline table and the matrix:
+
+- GAP-05 was open at this step: the matrix header appended " (partial)" to its period label and sort-button name, because `DataColumn.label` is one string inside one two-line clamp. Step 4 closes it with `DataColumn.labelCaption`.
+- The compact weekly range comes from a new `timelinePeriodHeading`, used only by the Timeline table and the matrix. `timelineIntervalLabel` is unchanged because the chart tooltip and the Timeline CSV "Period" column use it, so those still read "Sep 21, 2026 – Sep 27, 2026".
+- The covered-dates line under a Timeline row heading uses the compact range in every grouping, not only weeks, so one cell never mixes two notations, and it is omitted where it equals the heading (a full week).
+- The matrix repository name takes the Summary `.repositoryLink` rule from `overview.module.css`. In the multi-metric matrix the ranking metric is named only by the off-window sort note; while the sorted period is visible, its column description names the metric.
+- `TimelineTable` also renders the contribution Over time views and the Timeline supporting tables, so the compact headings, the dates line and the "Partial" caption appear there too.
+
+Step 2(b), records, insights and Timeline support:
+
+- The merge-duration rows are typed `MergedPullRequest` (`RepositoryPullRequest` plus `authorType`) and `MergedPullRequestList` in `src/models/repository-insights.ts`. Typing them through `repository-page.ts` would close a type-only import cycle, which dependency-cruiser's `no-cycles` rejects.
+- `actorLabels`, `commonColumns`, `recordPrColumns` and `recordIssueColumns` moved into `record-base-columns.tsx`, and `repository-records-view.tsx` re-exports the three public ones, so `repository-page-columns.tsx` and `repository-records-view.tsx` do not import each other.
+- `RepositoryRecordTable`'s `list` prop narrows from `RepositoryRecordList` to `MergedPullRequestList` and its issues branch is removed, because its only caller passes merged PRs. This is a prop change under Delivery rule 1, recorded as decision 10. Its defaults are `repositoryRecordColumnDefaults(selection)` plus `mergeDays`. Status and labels moved inline, and the visible columns are otherwise the ones it showed before.
+- `RecordIdentity` takes `{ title, url, status, labels? }`, because it also renders the credit list's `SupportingRecord`. `RecordNumber` ships in the same module and keeps the number in its own pinned column. Record links are plain `<a target="_blank">`.
+- Also changed: the insight "View N PRs" link uses the drillable style, since removing `.recordLink` left it unstyled. The credit table's PR number became a `RecordNumber` link. The base `prColumns`/`issueColumns` title cells are deleted and the labels column is hidden everywhere and absent from Columns. `.records table { --pinned-width }` stays as the number column's width and now also wraps the merge list.
+- `repositoryRecordColumnDefaults` always returns an explicit `author` key. Author lists and a repository's main list share one stored column key. Read from the code but not run: hiding Author on the main list also hides it on that repository's author lists.
+
+Step 2(c), contributions:
+
+- The contribution tables keep their own pinned width, 220px (180px at <=600px). P3 changes no pinned width. The 248px/164px in item 4 is DataTable's default, which Summary uses. `contribution-layout.spec.ts` bounds the identity column at <=255/<=185px either way.
+- Every number column is 126px wide, the Companies "Included accounts" column included (it was 110px). The Contributors table's minimum width therefore rises by 96px, to 1,216px with the pinned column. These widths are computed from the column widths, not measured. Below that width the table scrolls sideways inside its own area.
+- Record titles take the surplus width instead (a column's `grow`), so on record lists the numbers keep their declared widths and titles stay on one line at 1440px, as in the P2 look. Decision 4 applies to tables without a growing column. Measured at 1440px on `/repos/prebidjs`: the title column was 345px before and is over 500px after.
+- The Contributors company cell reads in body ink at body size (it was 12px muted), so the identity columns beside it share one style.
+- The supporting-record cell keeps one "#n title" link with a muted number. At the merge it used the feature's `.identityLink` and its own `.recordLink` and `.recordNumber` rules; step 4 moves it to `RecordTitleLink`. The contribution details keep their own Current state column.
+- `contributionDetailColumns` also renders the Timeline supporting contributions table, so the state, record and account cells change there too.
+
+Step 3, the merge (`p3/integrate`):
+
+- The three branches change disjoint files except `scripts/design-token-allowlist.json`. Each side removed one P3 entry there, and the merge keeps both removals.
+- The Timeline supporting-interval scope (`timeline-support-frame.tsx`) renders `PartialPeriodMarker`, the one partial-period marker of decision 7. It already used that marker's style, and its text changes from "Partial calendar period" to "Partial".
+- The allowlist closes at 33 entries, all P4, down from 45 (P3 14, P4 31). Twelve P3 entries went with their code: the core removed 4, step (a) 6, step (b) 1 and step (c) 1. The two `src/components/ui/table.tsx` text sizes move to P4 because the administrator Users page is outside the redesign (TBL-15 withdrawn). Step (b) renamed one P4 selector to `.breadcrumbs a:focus-visible, .meta a:focus-visible`, because `.number` and `.titleLink` moved into the shared record module. `completedPhases` is `['P1', 'P2', 'P3']`, and `CEILING` is 33. The unmodelled ceiling stays 68, because the count is still 68. The token-check unit fixtures that stood for an open phase move from P3 to P4, as the P2 close-out moved them from P2.
+- No U+2190–U+21FF character remains in a `src/` text source, and the token check's arrow scan passes with no arrow entry.
+
+Step 4, phase review fixes (`p3/review-fixes`):
+
+- `DataColumn.labelCaption`, optional and additive, draws a caption line inside the header's sort button in the partial-period marker's style, and the button's name reads it after the label. Metric names, Columns, the CSV dialog and CSV headers keep the label alone. The matrix sets it to `partialPeriodCaption` ("Partial", the text `PartialPeriodMarker` draws) for a partial period, and its period descriptions drop "Partial calendar period." (GAP-05, decision 7).
+- Group headings wrap instead of ending in an ellipsis. DataTable's `measure()` sets `--table-group-height` on the table frame from the group row's measured height, and its ResizeObserver also watches the header, so the second header row sticks beneath a wrapped group row. The stylesheet keeps 34px (30px at <=600px) on the frame for the first paint.
+- The 14px sort-glyph slot sits in the label's text inside a no-wrap span with the first word (numeric columns) or the last word (text columns), so it stays beside a wrapped label. The slot is present in every sort state, so the label does not move.
+- `pullRequestStatus` shows Draft only while a PR is open. The contribution details use it and `issueStatus`; their own status map is deleted, and the Current state column's value reads the same status label.
+- `RecordTitleLink` renders the record-row title link; `RecordIdentity` uses it, and the contribution supporting-record cell uses it with `number`, `hint` and `external`. The cell's `.recordLink`, `.recordNumber` and `.recordLink svg` rules leave `contributions.module.css`; `.identityLink` stays for the account and company links.
+- The matrix's `.groupEnd td { padding-bottom: 16px }` override is deleted (TBL-12); the 2px row border separates metric groups.
+- A text column's `<col>` width is its declared pixel width; the `--table-column-width` fallback had no setter.
+- Tests: the three class-name assertions in `pager.test.tsx` and the lucide class assertions in `icons.test.tsx` and `data-table.test.tsx` are replaced by glyph-identity checks or removed; the `data-scrolled`/`data-more` hook test is deleted, since `table-system.spec.ts` checks the visible shadows. Period activity has no CSV export, so the planned "hyphen in CSV" check has no subject; `repository-overview.spec.ts` no longer claims it.
+
+Visible text changes (P3 as merged):
+
+- Sort buttons are named by the column label alone, and the typed arrows are gone (core).
+- Summary two-period comparison: "Period 1" and "Period 2" become visible overline tags (they were screen-reader text). The accessible text "Period 1: …" is unchanged.
+- Timeline table, weekly grouping: row headings and their value-link names read "Sep 21–27, 2026" (they read "Sep 21, 2026 – Sep 27, 2026"). The covered-dates line reads "Oct 1–24, 2026" in every grouping except day, and is omitted when it repeats the heading. The partial caption reads "Partial" (it read "Partial period"). The same applies in the contribution Over time and supporting tables.
+- Matrix: weekly headers and sort-button names use the compact range. A partial period's header shows "Partial" on its own line under the label, and its sort-button name reads "Oct 2026 Partial" (it read "Oct 2026 (partial)"); its description, in the header's hover text, its screen-reader description and Column definitions, no longer ends "Partial calendar period." (step 4). The matrix's own note "Sorted by {period}[ · {metric}] ({direction}[; outside visible periods])." is gone. DataTable shows "Sorted by {period}[ · {metric}] ({direction}); its column is outside the visible periods." only while the sorted period is outside the window.
+- Repository record pages: the "Newest created first" table description is gone. A sort on a hidden column is described by the footer note.
+- Author-scoped record lists and author-scoped Timeline supporting records start with the Author column hidden; Columns still lists it.
+- The merge-duration list shows the record row: a pinned number link, the title with its status ("Draft" where the title read "… (Draft)") and label chips beneath it, and avatar authors. Its separate Status and Labels columns leave the table and Columns, and its footer counts "N PRs" (it counted "N items"). The title column's value, which search reads, keeps " (Draft)".
+- Insight credit list: the PR number is a link named by the number. The title shows its status beneath it, "Draft" where it read "… (Draft)". The insight authors and credit tables pin their account column.
+- Contributions: the core metrics sit under "Authoring", "Reviewing" and "Issues" headings, while metric names, Columns, the CSV dialog and CSV headers keep the plain labels. A sort on a hidden column now shows the footer's "Sorted by {group} — {label} ({direction}); its column is hidden." beside the "Credits, comment activity and merged PR volumes are separate measures." note, where it used to replace that note.
+- Timeline supporting-interval scope: "Partial" replaces "Partial calendar period" (merge).
+- Group headings at narrow widths wrap onto a second line instead of ending in an ellipsis (step 4).
+- Record status: a PR merged or closed while still marked draft reads Merged or Closed on record pages, the merge-duration list and the credit list, as it already did in the contribution details. In the sample data this is Prebid Server (Go) PR 104, a closed draft, whose status read Draft (step 4). Record search text and the Draft filter still follow the draft flag alone.
+
+Expected at the checkpoint:
+
+- Headers: sort icons in a 14px slot (before numeric labels, after text labels); the orange rule under the sorted header; centred group headings over a 2px blue spanner; 2px strong lines between groups and at the pinned junction; header labels wrapping to two lines; body cells top-aligned.
+- Each long table is a bounded-height pane with a sticky header and its horizontal scrollbar in view; pinned-edge and trailing-edge shadows while scrolled sideways; the insight authors and credit account columns pinned.
+- Drillable numbers in ink with a dotted blue underline on Summary, Timeline, the matrix, Contributions, the KPI tiles, the Timeline author counts and the insight "View N PRs" links. A contribution count past the link limit is not styled as a link.
+- Record rows on record pages, author lists, Timeline supporting records, the merge-duration list and the credit list: a title in ink 500 with status and labels beneath it, and a muted number. Merge-duration authors gain avatars.
+- Contributions: wider metric columns (126px) and therefore more sideways scrolling at narrow widths; the company cell in body ink; stacked credited-account cells; the record state as a coloured `RecordStatus`.
+- Unicode minus on signed differences on screen (CSV keeps the hyphen); a partial value's asterisk hangs past its digits.
+- Unchanged: data values, the known-zero/missing distinction, link targets, URLs, CSV headers and column order.
+
+### Exit
+
+- Every table renders through one header implementation; no typed sort glyph remains; no allowlist entry is owned by P3; `completedPhases` includes `P3`.
+- The new behaviour tests and story coverage pass in both engines; `npm run check:all` passes.
+
+### Decisions (2026-11-01)
+
+1. Sticky headers: long tables scroll inside a bounded-height area, so a 50-row table becomes an in-page pane with its own vertical scroll and its horizontal scrollbar in view. The alternative, a header mirrored outside the scroller and kept in sync by script, avoids nested scrolling but adds about 100 lines to DataTable. Recommended: the bounded area.
+2. Two-period comparison: "Period 1"/"Period 2" overline tags and a signed difference with the Unicode minus, no colour and no extra glyph. Recommended.
+3. Weekly period headers read "Sep 21–27, 2026" instead of "Sep 21, 2026 – Sep 27, 2026". Recommended.
+4. Surplus width goes to the numeric columns equally, as Contributors does today. Recommended.
+5. A trailing-edge shadow while more columns remain to the right, with the pinned-edge token. Recommended.
+6. KPI tiles take the drillable-number style only; no icon or accent ("Headline totals" stays not added). Recommended.
+7. The partial-period marker is the caption "Partial" on its own line, replacing both "(partial)" and the bordered chip. Recommended.
+8. The administrator Users page is outside the redesign; TBL-15 is withdrawn and the page keeps its current table.
+9. One checkpoint at the end of the phase, stories and page captures together, instead of Checkpoint A before pages and B after.
+10. Technical call: `RepositoryRecordTable`'s `list` prop narrows from `RepositoryRecordList` to `MergedPullRequestList`, and its issues branch is removed. Its only caller, the merge-duration insight in `repository-insights-view.tsx`, passes merged pull requests, so the issues branch was dead code. This is a prop change under Delivery rule 1.
+
+Decisions 1–7 and 9 were approved as recommended; decision 8 is the maintainer's exclusion; decision 10 is a technical call recorded at the phase review.
+
 ## Appendix A: findings by phase
 
 | Phase | ID | Severity | Finding |
@@ -834,7 +966,7 @@ Unchanged: 186 Tab presses to Period activity, 22 distinct font size and weight 
 | P3 | GAP-08 | low | Author-scoped record lists repeat the selected author in a full-width Author column on every row |
 | P3 | REPO-17 | low | Weekly timeline rows print the same date range twice |
 | P3 | TBL-12 | low | Row density and identity typography vary per feature through ad-hoc padding overrides |
-| P3 | TBL-15 | low | The admin users list uses the generic shadcn table instead of the shared table design |
+| — | TBL-15 | low | The admin users list uses the generic shadcn table instead of the shared table design (withdrawn: the administrator Users page is outside the redesign) |
 | P4 | CONTRIB-01 | high | Contribution pages use a third, divergent page-header pattern (left title + eyebrow) vs centered Repositories headers; snapshot emphasis also flips |
 | P4 | CONTRIB-02 | high | Switching Report -> Over time rebuilds a different header: area tabs vanish (74px jump), detail pages lose 'Back to report' and the company link, subtitle copy changes |
 | P4 | REPOS-01 | high | Three different page-header builds, and the 'Reporting snapshot' emphasis flips between pages |

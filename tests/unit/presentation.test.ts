@@ -42,20 +42,25 @@ describe('presentation contracts', () => {
     expect(formatCount(null)).toBe('—');
     expect(formatCount(12345)).toBe('12,345');
   });
+  it('shows negatives with the minus sign, not the hyphen, and never a signed zero', () => {
+    expect(formatCount(-6)).toBe('\u22126');
+    expect(formatCount(-12345)).toBe('\u221212,345');
+    expect(formatCount(-0)).toBe('0');
+  });
   it.each([
     ['null', null, '—', '—'],
     ['0', 0, '0', '0 d'],
     ['-0', -0, '0', '0 d'],
     ['1e-9', 1e-9, '<0.1', '<0.1 d'],
     ['0.0499', 0.0499, '<0.1', '<0.1 d'],
-    ['-0.01', -0.01, '-<0.1', '-<0.1 d'],
+    ['-0.01', -0.01, '\u2212<0.1', '\u2212<0.1 d'],
     ['0.05', 0.05, '0.1', '0.1 d'],
     ['4', 4, '4.0', '4.0 d'],
     ['4.853', 4.853, '4.9', '4.9 d'],
     ['8.3', 8.3, '8.3', '8.3 d'],
     ['5.999', 5.999, '6.0', '6.0 d'],
     ['1234.56', 1234.56, '1,234.6', '1,234.6 d'],
-    ['-0.5', -0.5, '-0.5', '-0.5 d'],
+    ['-0.5', -0.5, '\u22120.5', '\u22120.5 d'],
   ] as const)('formats %s days at one decimal', (_, value, number, days) => {
     expect(formatDayNumber(value)).toBe(number);
     expect(formatDays(value)).toBe(days);

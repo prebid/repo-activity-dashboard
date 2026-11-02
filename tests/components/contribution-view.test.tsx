@@ -57,7 +57,7 @@ it('renders the full overview with the approved default sort and independent met
   expect(screen.getByRole('heading', { name: 'Contributors', level: 1 })).toBeVisible();
   const table = screen.getByRole('table');
   expect(table.querySelectorAll('tbody tr')).toHaveLength(7);
-  expect(within(table).getByRole('columnheader', { name: /Authored PRs merged/ })).toHaveAttribute(
+  expect(within(table).getByRole('columnheader', { name: 'Authored PRs merged' })).toHaveAttribute(
     'aria-sort',
     'descending',
   );
@@ -312,8 +312,40 @@ it('does not label a default-visible controlled metric as hidden', () => {
     );
   }
   render(<Controlled />);
-  expect(screen.getByRole('columnheader', { name: /PR comments/ })).toBeVisible();
+  expect(screen.getByRole('columnheader', { name: 'PR comments' })).toBeVisible();
   expect(screen.queryByText(/its column is hidden/)).not.toBeInTheDocument();
+});
+
+it('describes a sort by a hidden column once, by its metric name without the display heading', async () => {
+  const user = userEvent.setup();
+  function Sorted({ sort }: { sort: string }) {
+    const controller = useLocalTableController({ search: '', sort, descending: true, page: 1 });
+    return (
+      <ContributionView
+        page={page()}
+        controller={controller}
+        links={{ sample: 'reference', currentHref: '/contributors' }}
+      />
+    );
+  }
+  // Optional metrics start hidden.
+  const view = render(<Sorted sort="prComments" />);
+  expect(screen.queryByRole('columnheader', { name: 'PR comments' })).not.toBeInTheDocument();
+  expect(screen.getAllByText(/its column is hidden/).map((note) => note.textContent)).toEqual([
+    'Sorted by Comment activity — PR comments (descending); its column is hidden.',
+  ]);
+  expect(
+    screen.getByText('Credits, comment activity and merged PR volumes are separate measures.'),
+  ).toBeVisible();
+  view.unmount();
+  render(<Sorted sort="prsAuthored" />);
+  await user.click(screen.getByRole('button', { name: 'Columns' }));
+  await user.click(screen.getByRole('menuitemcheckbox', { name: 'PRs authored' }));
+  await user.keyboard('{Escape}');
+  expect(screen.queryByRole('columnheader', { name: 'PRs authored' })).not.toBeInTheDocument();
+  expect(screen.getAllByText(/its column is hidden/).map((note) => note.textContent)).toEqual([
+    'Sorted by PRs authored (descending); its column is hidden.',
+  ]);
 });
 
 it('shows an empty report state when every selected repository is confirmed zero', () => {

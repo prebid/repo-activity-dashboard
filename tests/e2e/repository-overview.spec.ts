@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect, expectTheme } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 
 import type { Page } from '@playwright/test';
@@ -74,13 +74,17 @@ test.describe('pinned row dividers', () => {
         await page.getByRole('button', { name: 'Sign in', exact: true }).click();
         await expect(page).toHaveURL(/\/repos$/);
         const backlog = page.getByRole('region', { name: 'Current backlog', exact: true });
-        await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
-        await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
+        const total = backlog.getByRole('columnheader', { name: 'Total PRs', exact: true });
+        await expect(total).toHaveAttribute('aria-sort', 'descending');
+        await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
+        await expect(total).toHaveAttribute('aria-sort', 'ascending');
+        await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
+        await expect(total).toHaveAttribute('aria-sort', 'descending');
         await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
         await page
           .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
           .click();
-        await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+        await expectTheme(page, theme);
         await page.setViewportSize({ width, height: 1100 });
         let controlChecked = false;
         for (const scrollLeft of [0, 180]) {
@@ -107,9 +111,18 @@ test.describe('pinned row dividers', () => {
               await page.mouse.move(0, 0);
               await paintedFrame(page);
               const samples = await cells.evaluateAll((elements) => {
+                // A row is in view below the masthead and the table's sticky header row, and
+                // above the bottom of the table's scroll area and its scroll bar.
+                const region = elements[0].closest<HTMLElement>('[role="region"]')!;
+                const pane = region.getBoundingClientRect();
                 const top = Math.max(
                   8,
                   document.querySelector('header')?.getBoundingClientRect().bottom ?? 0,
+                  region.querySelector('thead')!.getBoundingClientRect().bottom,
+                );
+                const bottom = Math.min(
+                  window.innerHeight - 8,
+                  pane.bottom - (region.offsetHeight - region.clientHeight),
                 );
                 return elements
                   .map((cell, index) => {
@@ -123,10 +136,10 @@ test.describe('pinned row dividers', () => {
                       top: box.top,
                       height: box.height,
                       background: style.backgroundColor,
-                      divider: style.borderRightColor,
+                      divider: style.borderBottomColor,
                     };
                   })
-                  .filter((sample) => sample.top >= top && sample.y <= window.innerHeight - 8);
+                  .filter((sample) => sample.top >= top && sample.y <= bottom);
               });
               expect(samples.map((sample) => sample.index)).toContain(next);
               for (const sample of samples)
@@ -200,14 +213,19 @@ for (const theme of ['dark', 'light']) {
       await page
         .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
         .click();
-      await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+      await expectTheme(page, theme);
       await page.setViewportSize({ width, height: 960 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
         width,
       );
+      const edges: number[] = [];
+      // A hovered row would draw its bar on the pinned cell.
+      await page.mouse.move(0, 0);
       for (const title of ['Current backlog', 'Period activity']) {
         const table = page.getByRole('table', { name: title, exact: true });
         await expect(table.locator('tbody tr')).toHaveCount(18);
+        const header = (await table.locator('thead th[scope="col"]').first().boundingBox())!;
+        edges.push(header.x + header.width);
         const scroller = page.getByRole('region', {
           name: title + ' table scroll area',
           exact: true,
@@ -217,12 +235,18 @@ for (const theme of ['dark', 'light']) {
           element.scrollLeft = 0;
         });
         const before = await pinned.boundingBox();
+        // The pinned column keeps its declared width; numeric columns take the surplus.
+        expect(Math.abs(before!.width - (width <= 600 ? 164 : 248))).toBeLessThanOrEqual(1);
+        await expect(pinned).toHaveCSS('box-shadow', 'none');
         await scroller.evaluate((element) => {
           element.scrollLeft = 200;
         });
         const after = await pinned.boundingBox();
-        if (width <= 768)
+        if (width <= 768) {
           expect(await scroller.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+          // Scrolled sideways, the pinned edge casts its shadow.
+          await expect(pinned).not.toHaveCSS('box-shadow', 'none');
+        }
         expect(before).not.toBeNull();
         expect(after!.x).toBeCloseTo(before!.x, 0);
         await expect(pinned).toHaveCSS('position', 'sticky');
@@ -230,6 +254,8 @@ for (const theme of ['dark', 'light']) {
           element.scrollLeft = 0;
         });
       }
+      // The stacked tables share one pinned edge.
+      expect(Math.abs(edges[0] - edges[1])).toBeLessThanOrEqual(1);
       expect((await new AxeBuilder({ page }).include('main').analyze()).violations).toEqual([]);
       await page.screenshot({
         path: testInfo.outputPath('overview-' + theme + '-' + width + '.png'),
@@ -265,14 +291,17 @@ test('keyboard column groups and sorting stay scoped to their table', async ({ p
   await expect(
     activity.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toHaveCount(0);
-  await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
+  await expect(
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
   await expect(page).toHaveURL(/backlog.sort=totalOpenPrs/);
   await activity.getByRole('button', { name: 'PRs', exact: true }).click();
   await expect(page).toHaveURL(/activity.sort=prAuthors/);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total PRs ↑', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
-  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+  await expect(activity.getByRole('columnheader', { name: 'PRs', exact: true })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
@@ -292,7 +321,8 @@ test('repository story renders independently with two periods and empty states',
   await expect(js).toHaveCount(3);
   await expect(js.nth(0).locator('[data-column="prsOpened"]')).toHaveText('78');
   await expect(js.nth(1).locator('[data-column="prsOpened"]')).toHaveText('92');
-  await expect(js.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-14');
+  // The difference shows its sign with the minus sign (U+2212). Period activity has no CSV export.
+  await expect(js.nth(2).locator('[data-column="prsOpened"]')).toHaveText('\u221214');
   await page.goto(
     'http://127.0.0.1:6007/iframe.html?id=repositories-all-repositories--empty&viewMode=story',
   );

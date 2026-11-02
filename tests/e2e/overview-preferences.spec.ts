@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect, expectTheme } from './fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 
@@ -54,7 +54,7 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
   const opened = activity.locator('th[id$="-prsOpened"]');
   const merged = activity.locator('th[id$="-prsMerged"]');
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await expect(opened).toHaveAttribute('aria-sort', 'descending');
   await expect(backlog.locator('tbody tr').first()).toContainText('Prebid.js');
@@ -62,7 +62,8 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Total PRs', exact: true }).click();
   await page.keyboard.press('Escape');
-  await expect(backlog.getByRole('columnheader', { name: 'Open ↓', exact: true })).toHaveAttribute(
+  // Pull requests and Issues each have an Open column; the PR one takes over the sort.
+  await expect(backlog.locator('th[id$="-nonDraftPrs"]')).toHaveAttribute(
     'aria-sort',
     'descending',
   );
@@ -70,7 +71,7 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
   await page.getByRole('menuitemcheckbox', { name: 'Open', exact: true }).first().click();
   await page.keyboard.press('Escape');
   await expect(
-    backlog.getByRole('columnheader', { name: 'Repository ↑', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Repository', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
   await activity.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Opened', exact: true }).first().click();
@@ -82,19 +83,19 @@ test('PR defaults follow visible columns while preserving chosen sorts', async (
   await activity.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Opened', exact: true }).first().click();
   await page.keyboard.press('Escape');
-  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+  await expect(activity.getByRole('columnheader', { name: 'PRs', exact: true })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
   await page.goto('/repos');
-  await expect(activity.getByRole('columnheader', { name: 'PRs ↑', exact: true })).toHaveAttribute(
+  await expect(activity.getByRole('columnheader', { name: 'PRs', exact: true })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
   await page.getByRole('button', { name: 'Reset view', exact: true }).click();
   await expect(opened).toHaveAttribute('aria-sort', 'descending');
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
 });
 
@@ -130,7 +131,7 @@ test('two periods remain paired through sorting, swapping, persistence and remov
   await expect(pairs.nth(0).locator('[data-column="prsOpened"]')).toHaveText('78');
   await expect(pairs.nth(1).locator('[data-column="prsOpened"]')).toHaveText('92');
   await expect(pairs.nth(2)).toContainText('Difference');
-  await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-14');
+  await expect(pairs.nth(2).locator('[data-column="prsOpened"]')).toHaveText('\u221214');
   await expect(activity.getByRole('link', { name: 'Prebid.js', exact: true })).toHaveCount(1);
   await expect(page.getByRole('button', { name: 'Add second period', exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Swap periods', exact: true }).click();
@@ -182,14 +183,14 @@ for (const theme of ['dark', 'light']) {
       await expect(pair.nth(1)).toContainText('Oct 13, 2026 – Oct 15, 2026');
       await expect(pair.nth(0).locator('[data-column="prsOpened"]')).toHaveText('7');
       await expect(pair.nth(1).locator('[data-column="prsOpened"]')).toHaveText('9');
-      await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('-2');
+      await expect(pair.nth(2).locator('[data-column="prsOpened"]')).toHaveText('\u22122');
       await chooseAges(page, []);
       await expectAges(page, []);
       await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
       await page
         .getByRole('menuitemradio', { name: theme === 'dark' ? 'Dark' : 'Light', exact: true })
         .click();
-      await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+      await expectTheme(page, theme);
       await page.setViewportSize({ width, height: 1000 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
         width,
@@ -221,7 +222,7 @@ test('aging columns can be combined, sorted, saved, or all hidden', async ({ pag
   await page.goto('/repos');
   await expectAges(page, [30, 90, 180]);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Over 90 days ↑', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Over 90 days', exact: true }),
   ).toHaveAttribute('aria-sort', 'ascending');
   await chooseAges(page, []);
   await expect(backlog.getByRole('columnheader', { name: 'PR age', exact: true })).toHaveCount(0);
@@ -278,8 +279,12 @@ test('scope controls, separate table choices and account defaults survive a dire
   await backlog.getByRole('button', { name: 'Columns', exact: true }).click();
   await page.getByRole('menuitemcheckbox', { name: 'Human reviewers', exact: true }).click();
   await page.keyboard.press('Escape');
-  await backlog.getByRole('button', { name: 'Total PRs ↓', exact: true }).click();
-  await backlog.getByRole('button', { name: 'Total PRs ↑', exact: true }).click();
+  const total = backlog.getByRole('columnheader', { name: 'Total PRs', exact: true });
+  await expect(total).toHaveAttribute('aria-sort', 'descending');
+  await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
+  await expect(total).toHaveAttribute('aria-sort', 'ascending');
+  await backlog.getByRole('button', { name: 'Total PRs', exact: true }).click();
+  await expect(total).toHaveAttribute('aria-sort', 'descending');
   await page.goto('/repos');
   await expectAges(page, [90]);
   await expect(page.getByRole('combobox', { name: 'Period 1 preset' })).toHaveValue('this-week');
@@ -288,7 +293,7 @@ test('scope controls, separate table choices and account defaults survive a dire
     backlog.getByRole('columnheader', { name: 'Human reviewers', exact: true }),
   ).toBeVisible();
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await expect(
     page.getByRole('table', { name: 'Period activity' }).locator('tbody tr'),
@@ -306,11 +311,11 @@ test('scope controls, separate table choices and account defaults survive a dire
   await expect(
     page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),
   ).toHaveCount(18);
-  await expect(page.locator('html')).toHaveClass(/light/);
+  await expectTheme(page, 'light');
   await page.goBack();
   await expectAges(page, [90]);
   await expect(
-    backlog.getByRole('columnheader', { name: 'Total PRs ↓', exact: true }),
+    backlog.getByRole('columnheader', { name: 'Total PRs', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
   await expect(
     page.getByRole('table', { name: 'Current backlog' }).locator('tbody tr'),

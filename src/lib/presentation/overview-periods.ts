@@ -13,14 +13,28 @@ export const periodLabels = {
   'last-full-year': 'Last full year',
 };
 
+/** The last instant a range includes, so an exclusive end reads as the day before it. */
+function lastIncluded(range: DateRange): Date {
+  return new Date(new Date(range.end).getTime() - Number(!range.endInclusive));
+}
 export function periodRangeLabel(range: DateRange): string {
-  return (
-    formatUtcDate(range.start) +
-    ' – ' +
-    formatUtcDate(
-      new Date(new Date(range.end).getTime() - Number(!range.endInclusive)).toISOString(),
-    )
-  );
+  return formatUtcDate(range.start) + ' – ' + formatUtcDate(lastIncluded(range).toISOString());
+}
+/**
+ * A range that says a shared month and year once: "Sep 21–27, 2026", "Sep 28 – Oct 4, 2026", and
+ * "Dec 29, 2025 – Jan 4, 2026" across years. A single day reads as that day.
+ */
+export function compactRangeLabel(range: DateRange): string {
+  const first = new Date(range.start),
+    last = lastIncluded(range);
+  const year = last.getUTCFullYear();
+  if (first.getUTCFullYear() !== year) return periodRangeLabel(range);
+  const month = (date: Date) => formatUtcDate(date.toISOString()).split(' ')[0];
+  if (first.getUTCMonth() !== last.getUTCMonth())
+    return `${month(first)} ${first.getUTCDate()} – ${month(last)} ${last.getUTCDate()}, ${year}`;
+  return first.getUTCDate() === last.getUTCDate()
+    ? formatUtcDate(range.start)
+    : `${month(first)} ${first.getUTCDate()}–${last.getUTCDate()}, ${year}`;
 }
 /** The one notation for a range shown as a fact: "Oct 1, 2026 – Oct 24, 2026 · UTC". */
 export function zonedRangeLabel(range: DateRange): string {

@@ -38,60 +38,6 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); tabs (REPO-16)"
     },
     {
-      "file": "src/components/reporting/timeline-layout.module.css",
-      "context": "",
-      "selector": ".dates",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
-    },
-    {
-      "file": "src/components/reporting/timeline-layout.module.css",
-      "context": "",
-      "selector": ".partial",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
-    },
-    {
-      "file": "src/components/reporting/timeline-layout.module.css",
-      "context": "",
-      "selector": ".partial",
-      "property": "border-radius",
-      "value": "4px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); partial-period marker (GAP-05)"
-    },
-    {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".table .group",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".sort",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
-      "file": "src/components/tables/data-table.module.css",
-      "context": "",
-      "selector": ".definitionsList",
-      "property": "border-radius",
-      "value": "4px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); table system"
-    },
-    {
       "file": "src/features/authentication/authentication.module.css",
       "context": "",
       "selector": ".formEyebrow",
@@ -182,15 +128,6 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header (TYPE-03)"
     },
     {
-      "file": "src/features/contributions/contributions.module.css",
-      "context": "",
-      "selector": ".metricLink",
-      "property": "border-radius",
-      "value": "3px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); contribution tables"
-    },
-    {
       "file": "src/features/repositories/overview.module.css",
       "context": "",
       "selector": ".title",
@@ -207,24 +144,6 @@
       "value": "2px",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header"
-    },
-    {
-      "file": "src/features/repositories/overview.module.css",
-      "context": "",
-      "selector": ".repositoryLink",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
-    },
-    {
-      "file": "src/features/repositories/overview.module.css",
-      "context": "",
-      "selector": ".metricLink",
-      "property": "border-radius",
-      "value": "2px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); overview tables"
     },
     {
       "file": "src/features/repositories/repository-page.module.css",
@@ -256,29 +175,11 @@
     {
       "file": "src/features/repositories/repository-page.module.css",
       "context": "",
-      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible, .number:focus-visible, .titleLink:focus-visible",
+      "selector": ".breadcrumbs a:focus-visible, .meta a:focus-visible",
       "property": "border-radius",
       "value": "2px",
       "phase": "P4",
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13); page header and tab counts"
-    },
-    {
-      "file": "src/features/repositories/repository-records.module.css",
-      "context": "",
-      "selector": ".labels span",
-      "property": "border-radius",
-      "value": "4px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); record rows"
-    },
-    {
-      "file": "src/features/repositories/repository-timeline-matrix.module.css",
-      "context": "",
-      "selector": ".metricName small",
-      "property": "font-size",
-      "value": "10px",
-      "phase": "P3",
-      "reason": "Table system: P3 sets group headings, partial-period chips and record titles (TBL-01, TBL-02, GAP-05); timeline matrix table"
     },
     {
       "file": "src/app/(dashboard)/foundation/page.tsx",
@@ -362,22 +263,13 @@
       "reason": "Shell, page headers and edge pages: P4 rebuilds them (TYPE-03, SHELL-05, SHELL-13)"
     },
     {
-      "file": "src/components/tables/data-table.tsx",
-      "context": "DataTable > header",
-      "selector": "",
-      "property": "text",
-      "value": "query.sort === column.id ? (query.descending ? ' ↓' : ' ↑') : ''",
-      "phase": "P3",
-      "reason": "Sort direction glyph; P3 SortIcon replaces it (TYPE-05)"
-    },
-    {
       "file": "src/components/ui/table.tsx",
       "context": "Table > <table className> > cn",
       "selector": "",
       "property": "text-sm",
       "value": "text-sm",
-      "phase": "P3",
-      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+      "phase": "P4",
+      "reason": "The administrator Users page is outside the redesign (TBL-15 withdrawn)"
     },
     {
       "file": "src/components/ui/table.tsx",
@@ -385,8 +277,8 @@
       "selector": "",
       "property": "text-sm",
       "value": "text-sm",
-      "phase": "P3",
-      "reason": "The administrator Users table, this primitive's only consumer, moves onto the shared table in P3, which retires its default text size"
+      "phase": "P4",
+      "reason": "The administrator Users page is outside the redesign (TBL-15 withdrawn)"
     },
     {
       "file": "src/features/administration/users-view.tsx",

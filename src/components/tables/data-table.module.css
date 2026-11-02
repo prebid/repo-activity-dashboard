@@ -43,11 +43,37 @@
   display: block;
   width: 240px;
 }
+/* The frame holds the trailing-edge shadow over the scroll area, inside its scroll bars, while
+   more columns remain to the right. DataTable sets data-scrolled, data-more and the bar sizes. */
+.frame {
+  /* The group heading row's height, which the second header row sticks beneath. DataTable
+     measures the row, whose headings wrap, and replaces this first-paint value. */
+  --table-group-height: 34px;
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+.frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: var(--scroll-bar-inline, 0px);
+  bottom: var(--scroll-bar-block, 0px);
+  z-index: 4;
+  width: 12px;
+  pointer-events: none;
+  visibility: hidden;
+  box-shadow: var(--prebid-trailing-shadow);
+}
+.frame[data-more]::after {
+  visibility: visible;
+}
+/* A bounded-height scroll area: a long table scrolls inside it under a sticky header row, with its
+   horizontal scroll bar in view. --sticky-offset reserves room for a sticky page header. */
 .scroll {
   --pinned-width: 248px;
   overflow: auto;
   position: relative;
-  border-top: 1px solid var(--border);
+  max-height: max(16rem, calc(100svh - var(--sticky-offset) - 2rem));
 }
 .scroll:focus-visible {
   outline: 2px solid var(--ring);
@@ -55,28 +81,42 @@
 }
 .table {
   --table-cell-padding-block: 11px;
+  --table-cell-padding-inline: 16px;
   width: 100%;
   font-size: var(--prebid-text-body);
   border-collapse: separate;
   border-spacing: 0;
 }
 .table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0;
   text-align: left;
-  vertical-align: middle;
-  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  border-bottom: 1px solid var(--prebid-line-strong);
   background: var(--prebid-header-band);
   color: var(--prebid-header-ink);
 }
-.table th,
+.table thead tr + tr th {
+  top: var(--table-group-height);
+}
+.table th:has(> .sort:enabled:hover) {
+  background: var(--prebid-header-band-hover);
+}
+.table th[aria-sort='ascending'],
+.table th[aria-sort='descending'] {
+  box-shadow: var(--prebid-sort-underline);
+}
 .table td {
-  padding: var(--table-cell-padding-block) 16px;
+  padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
 }
 /* --identity-surface follows the cell fill, so an avatar's account badge reads as cut out of it. */
 .table td {
   --identity-surface: var(--table-row-background, var(--card));
-  border-bottom: var(--table-row-border-width, 1px) solid var(--border);
+  border-bottom: var(--table-row-border-width, 1px) solid var(--prebid-line-subtle);
   background: var(--identity-surface);
-  vertical-align: middle;
+  vertical-align: top;
 }
 .headerContent {
   padding: 0 24px 20px;
@@ -91,65 +131,113 @@
 .table tbody tr:hover td {
   --identity-surface: var(--prebid-row-hover);
 }
+.table tbody tr:hover td:first-child {
+  box-shadow: var(--prebid-row-hover-bar);
+}
+/* A heading wraps rather than truncating over a narrow group; the second header row follows the
+   group row's measured height. */
 .table .group {
-  padding: 10px 16px 6px;
-  font-size: 10px;
-  font-weight: 600;
+  padding: 10px var(--table-cell-padding-inline) 6px;
+  text-align: center;
+  overflow-wrap: break-word;
+  font-size: var(--prebid-text-caption);
+  line-height: var(--prebid-leading-caption);
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--prebid-header-ink);
-  border-bottom: 0;
+  border-bottom: 2px solid var(--prebid-brand-blue);
+}
+/* Column lines: subtle between columns, strong where a heading's group starts. The pinned column's
+   own edge is the line beside it. */
+.table .columnStart {
+  border-left: 1px solid var(--prebid-line-subtle);
 }
 .table .groupStart {
-  border-left: 1px solid var(--border);
+  border-left: 2px solid var(--prebid-line-strong);
 }
 .table .numeric {
   text-align: right;
   font-variant-numeric: var(--prebid-numeric);
 }
+/* A partial value's asterisk hangs past its digits, so digits stay aligned in the column. */
 .table td.numeric {
+  --measurement-mark-position: absolute;
   font-weight: var(--prebid-number-weight);
 }
+/* The button fills its header cell, so the hover fill and the click target agree. */
 .sort {
   width: 100%;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  display: block;
+  padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
   text-align: inherit;
-  justify-content: inherit;
   font-size: var(--prebid-text-caption);
-  line-height: 1.5;
+  line-height: var(--prebid-leading-caption);
   font-weight: 600;
   color: var(--prebid-header-ink);
-  border-radius: 2px;
+  border-radius: var(--prebid-radius-small);
   cursor: pointer;
 }
-.numeric .sort {
-  justify-content: flex-end;
+/* At most two lines; the full label stays the button's name. */
+.label {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
-.sort:hover,
+/* The sort glyph sits in the label's text and never parts from the word beside it: the first word
+   in a numeric column, the last in a text column. It stays next to a wrapped label's text, and its
+   slot is always there, so the label keeps its place in every sort state. */
+.glyphLeads,
+.glyphTrails {
+  white-space: nowrap;
+}
+.glyphLeads > :first-child {
+  margin-inline-end: 4px;
+}
+.glyphTrails > :last-child {
+  margin-inline-start: 4px;
+}
+/* A caption line under the label, in the partial-period marker's style. */
+.caption {
+  display: block;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.sort:enabled:hover,
 .table th[aria-sort='ascending'] .sort,
 .table th[aria-sort='descending'] .sort {
   color: var(--foreground);
 }
 .sort:focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 3px;
+  outline-offset: -2px;
 }
 .table .pinned {
   position: sticky;
   left: 0;
-  z-index: 2;
+  z-index: 1;
   width: var(--pinned-width);
   min-width: var(--pinned-width);
   max-width: var(--pinned-width);
-  border-right: 1px solid var(--border);
+  border-right: 2px solid var(--prebid-line-strong);
 }
 .table thead .pinned {
   z-index: 3;
 }
-.table .pinned + .groupStart {
-  border-left: 0;
+/* While the table is scrolled sideways the pinned column casts its edge shadow. */
+.frame[data-scrolled] .table .pinned {
+  box-shadow: var(--prebid-pinned-shadow);
+}
+.frame[data-scrolled] .table th.pinned[aria-sort='ascending'],
+.frame[data-scrolled] .table th.pinned[aria-sort='descending'] {
+  box-shadow: var(--prebid-sort-underline), var(--prebid-pinned-shadow);
+}
+.frame[data-scrolled] .table tbody tr:hover td.pinned:first-child {
+  box-shadow: var(--prebid-row-hover-bar), var(--prebid-pinned-shadow);
 }
 /* Footer slots: the count with its notes beneath it on the left, the pager on the right. */
 .footer {
@@ -200,6 +288,7 @@
 }
 .table tbody tr.emptyRow:hover td {
   --identity-surface: var(--table-row-background, var(--card));
+  box-shadow: none;
 }
 .emptyState {
   position: sticky;
@@ -209,6 +298,11 @@
 @media (max-width: 600px) {
   .table {
     --table-cell-padding-block: 10px;
+    --table-cell-padding-inline: 12px;
+  }
+  .frame {
+    /* 16px line, 12px of padding, 2px spanner. */
+    --table-group-height: 30px;
   }
   .headerContent {
     padding: 0 16px 16px;
@@ -228,12 +322,8 @@
   .scroll {
     --pinned-width: 164px;
   }
-  .table th,
-  .table td {
-    padding: var(--table-cell-padding-block) 12px;
-  }
   .table .group {
-    padding: 8px 12px 4px;
+    padding: 8px var(--table-cell-padding-inline) 4px;
   }
   .footer {
     padding: 12px 16px;
@@ -251,7 +341,7 @@
 .definitionsList {
   max-height: min(60svh, 540px);
   overflow: auto;
-  border-radius: 4px;
+  border-radius: var(--prebid-radius-small);
 }
 .definitionsList:focus-visible {
   outline: 2px solid var(--ring);

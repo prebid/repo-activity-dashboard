@@ -13,9 +13,9 @@ import {
   RepositoryInsightsView,
   contributionDetailColumns,
 } from '@/features/repositories/repository-insights-view';
-import { recordPrColumns } from '@/features/repositories/repository-records-view';
+import { repositoryMergedPrColumns } from '@/features/repositories/repository-page-columns';
 const creditIds = contributionDetailColumns.map((column) => column.id),
-  prIds = recordPrColumns.map((column) => column.id);
+  prIds = repositoryMergedPrColumns.map((column) => column.id);
 const defaults = {
   authors: { sort: 'recordCount', descending: true },
   contributions: { sort: 'firstCreditAt', descending: true },

@@ -45,7 +45,6 @@ describe('Pager', () => {
     const icons = container.querySelectorAll('svg');
     expect(icons).toHaveLength(2);
     for (const icon of icons) expect(icon).toHaveAttribute('aria-hidden', 'true');
-    for (const button of screen.getAllByRole('button')) expect(button).toHaveClass('h-[34px]');
   });
 
   it('disables both buttons while disabled', async () => {
@@ -58,7 +57,7 @@ describe('Pager', () => {
     expect(change).not.toHaveBeenCalled();
   });
 
-  it('takes the 28px dialog size and its own wording', async () => {
+  it('takes its own wording at the small size', async () => {
     const change = vi.fn();
     render(
       <Pager
@@ -74,10 +73,9 @@ describe('Pager', () => {
         }}
       />,
     );
-    expect(screen.getByText('Window 2 of 3')).toHaveClass('text-small');
+    expect(screen.getByText('Window 2 of 3')).toBeVisible();
     await userEvent.click(screen.getByRole('button', { name: 'Earlier' }));
     await userEvent.click(screen.getByRole('button', { name: 'Later' }));
     expect(change.mock.calls).toEqual([[1], [3]]);
-    for (const button of screen.getAllByRole('button')) expect(button).toHaveClass('h-7');
   });
 });

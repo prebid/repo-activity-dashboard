@@ -92,44 +92,6 @@
 .records table {
   --pinned-width: 82px;
 }
-.identity {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-.titleLink {
-  font-weight: 500;
-  color: var(--foreground);
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-.titleLink:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.recordMeta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px;
-}
-.label {
-  font-size: var(--prebid-text-caption);
-  line-height: var(--prebid-leading-caption);
-  color: var(--muted-foreground);
-  padding: 0 5px;
-  border: 1px solid var(--border);
-  border-radius: var(--prebid-radius-small);
-}
-.number {
-  color: var(--muted-foreground);
-  font-variant-numeric: var(--prebid-numeric);
-  text-decoration: none;
-}
-.number:hover {
-  color: var(--foreground);
-  text-decoration: underline;
-}
 .account {
   display: flex;
   align-items: center;
@@ -144,9 +106,6 @@
   gap: 4px;
   overflow-wrap: anywhere;
 }
-.author > span:first-child {
-  font-size: var(--prebid-text-small);
-}
 .secondary {
   font-size: var(--prebid-text-caption);
   color: var(--muted-foreground);
@@ -156,9 +115,7 @@
   font-size: var(--prebid-text-small);
 }
 .breadcrumbs a:focus-visible,
-.meta a:focus-visible,
-.number:focus-visible,
-.titleLink:focus-visible {
+.meta a:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
   border-radius: 2px;

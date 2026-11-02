@@ -29,7 +29,8 @@ function prebidjsOpened(selection: PeriodSelection) {
   )!;
   return period.rows['repo-prebidjs'].activity.counts.prsOpened.value!;
 }
-const signed = (value: number) => (value > 0 ? '+' : '') + value;
+// Displayed differences sign with '+' or the minus sign (U+2212), never the ASCII hyphen.
+const signed = (value: number) => (value > 0 ? '+' : value < 0 ? '\u2212' : '') + Math.abs(value);
 const thisMonth = prebidjsOpened({ kind: 'preset', preset: 'this-month' });
 const lastMonth = prebidjsOpened({ kind: 'preset', preset: 'last-month' });
 const firstCustom = prebidjsOpened({ kind: 'custom', from: '2026-10-06', through: '2026-10-08' });
@@ -48,7 +49,7 @@ it('renders signed differences only from complete values, including durations an
       second={{ status: 'complete', value: 10 }}
     />,
   );
-  expect(screen.getByText('-6')).toBeVisible();
+  expect(screen.getByText('\u22126')).toBeVisible();
   view.rerender(
     <MeasurementDifference
       first={{ status: 'complete', value: 0 }}
@@ -63,7 +64,7 @@ it('renders signed differences only from complete values, including durations an
       unit="days"
     />,
   );
-  expect(screen.getByText('-0.5 d')).toBeVisible();
+  expect(screen.getByText('\u22120.5 d')).toBeVisible();
   view.rerender(
     <MeasurementDifference
       first={{ status: 'complete', value: 10 }}
@@ -130,12 +131,19 @@ it('groups two labeled periods and an automatic difference under one repository 
   await user.selectOptions(screen.getByRole('combobox', { name: 'Period 2 preset' }), 'last-month');
   const activity = screen.getByRole('table', { name: 'Period activity' });
   expect(activity.querySelectorAll('tbody tr')).toHaveLength(48);
-  const pairs = [...activity.querySelectorAll('tbody tr')].filter((row) =>
+  const pairs = [...activity.querySelectorAll<HTMLElement>('tbody tr')].filter((row) =>
     row.textContent?.includes('Prebid.js'),
   );
   expect(within(activity).getAllByRole('link', { name: 'Prebid.js' })).toHaveLength(1);
   expect(pairs[0]).toHaveTextContent('This month');
   expect(pairs[1]).toHaveTextContent('Last month');
+  // Each period row carries its own tag; the difference row carries none.
+  expect(within(pairs[0]).getByText('Period 1', { exact: true })).toBeVisible();
+  expect(within(pairs[1]).getByText('Period 2', { exact: true })).toBeVisible();
+  expect(within(pairs[2]).queryByText(/^Period \d$/)).not.toBeInTheDocument();
+  expect(pairs[1].querySelector('[data-column="name"]')).toHaveTextContent(
+    'Prebid.js: Period 2: Last month',
+  );
   expect(thisMonth).not.toBe(lastMonth);
   expect(pairs[0].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(thisMonth));
   expect(pairs[1].querySelector('[data-column="prsOpened"]')).toHaveTextContent(String(lastMonth));
@@ -236,7 +244,7 @@ it('keeps aging exclusively in its own selector and removes the group when none 
     '6',
   );
   await user.click(within(backlog).getByRole('button', { name: 'Over 90 days' }));
-  expect(within(backlog).getByRole('columnheader', { name: 'Over 90 days ↑' })).toHaveAttribute(
+  expect(within(backlog).getByRole('columnheader', { name: 'Over 90 days' })).toHaveAttribute(
     'aria-sort',
     'ascending',
   );
@@ -341,7 +349,8 @@ it('shows a horizontal-scroll hint only while the table overflows its container'
   vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(500);
   const view = render(<Preview />);
   expect(screen.getAllByText(/Scroll horizontally/)).toHaveLength(2);
-  expect(observe).toHaveBeenCalledTimes(2);
+  // Each table observes its scroll area and its header rows.
+  expect(observe).toHaveBeenCalledTimes(4);
   expect(
     screen.getByRole('region', { name: 'Current backlog table scroll area' }),
   ).toHaveAccessibleDescription('Scroll horizontally to see all columns');
@@ -381,7 +390,11 @@ it('renders separate grouped tables with complete sample populations and pinned 
     .getAttribute('headers')!
     .split(' ')
     .map((id) => document.getElementById(id)?.textContent);
-  expect(headings).toEqual(['Pull requests', 'Total PRs ↓']);
+  expect(headings).toEqual(['Pull requests', 'Total PRs']);
+  expect(document.getElementById(total.getAttribute('headers')!.split(' ')[1])).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
 });
 it('keeps column visibility and sorting independent without table search', async () => {
   const user = userEvent.setup();
@@ -411,12 +424,12 @@ it('keeps column visibility and sorting independent without table search', async
   expect(
     within(activity).queryByRole('columnheader', { name: 'Human reviewers' }),
   ).not.toBeInTheDocument();
-  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↓' }));
-  await user.click(within(backlog).getByRole('button', { name: 'Total PRs ↑' }));
-  expect(within(backlog).getByRole('columnheader', { name: 'Total PRs ↓' })).toHaveAttribute(
-    'aria-sort',
-    'descending',
-  );
+  const totalHeader = within(backlog).getByRole('columnheader', { name: 'Total PRs' });
+  expect(totalHeader).toHaveAttribute('aria-sort', 'descending');
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs' }));
+  expect(totalHeader).toHaveAttribute('aria-sort', 'ascending');
+  await user.click(within(backlog).getByRole('button', { name: 'Total PRs' }));
+  expect(totalHeader).toHaveAttribute('aria-sort', 'descending');
   expect(within(backlog).queryByRole('textbox')).not.toBeInTheDocument();
   expect(within(activity).queryByRole('textbox')).not.toBeInTheDocument();
   expect(within(backlog).getByRole('table').querySelectorAll('tbody tr')).toHaveLength(18);
@@ -523,9 +536,9 @@ it('renders metric uncertainty, details, units and neutral comparisons without f
   );
   expect(screen.getByText('Partial value. Incomplete sample')).toBeInTheDocument();
   expect(screen.getByText('5.5 d')).toBeVisible();
-  expect(screen.getByText(/-1.5 d/)).toBeVisible();
+  expect(screen.getByText(/\u22121.5 d/)).toBeVisible();
   expect(screen.getByTitle('Previous period: 7.0 d')).toHaveTextContent(
-    'Change from comparison period: -1.5 d Previous period value: 7.0 days',
+    'Change from comparison period: \u22121.5 d Previous period value: 7.0 days',
   );
   expect(screen.getByText('4.9 d')).toBeVisible();
   expect(screen.getByTitle('Previous period: 2.0 d')).toHaveTextContent(

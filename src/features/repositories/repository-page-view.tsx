@@ -66,10 +66,6 @@ function RepositoryPageTable({
     empty: page.cohortMeasurement.value
       ? ({ kind: 'no-match', title: 'No matching items' } as const)
       : ({ kind: 'empty', title: 'No items' } as const),
-    description:
-      controller.query.sort === 'createdAt' && controller.query.descending
-        ? 'Newest created first'
-        : undefined,
     footerNote:
       page.kind === 'prs'
         ? 'Sample record links are placeholders. Reviewers and current approvals are separate measures.'
