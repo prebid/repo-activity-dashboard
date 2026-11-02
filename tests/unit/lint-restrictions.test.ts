@@ -44,9 +44,10 @@ const iconImports = {
 
 describe('rule 4: icons come from the icon map', { timeout: 30_000 }, () => {
   beforeAll(async () => {
-    // The first lint loads the config, plugins and the TypeScript project.
+    // The first lint loads the config, plugins and the TypeScript project, which takes over
+    // 30s on shared CI runners.
     await reports(paths.feature, lines('export const warm = 1;'));
-  }, 30_000);
+  }, 90_000);
 
   it('rejects every static, type, re-export and deep import of lucide-react', async () => {
     expect(await reports(paths.feature, iconImports.static)).toEqual([
@@ -149,8 +150,9 @@ const primitiveOverrides = lines(
 
 describe('rule 3: primitives own their appearance', { timeout: 30_000 }, () => {
   beforeAll(async () => {
+    // Warm when rule 4 ran first in this worker; cold when this block runs alone.
     await reports(paths.feature, lines('export const warm = 1;'));
-  }, 30_000);
+  }, 90_000);
 
   it('rejects a className on each primitive in features, routes and shared components', async () => {
     const expected = [12, 13, 14, 15, 16, 17, 18, 19, 20].map(
