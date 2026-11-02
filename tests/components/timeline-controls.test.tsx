@@ -10,22 +10,26 @@ import {
 import userEvent from '@testing-library/user-event';
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
 import { useTimelineControls } from '@/lib/navigation/use-timeline-controls';
-import { readTimelineView, timelinePreferenceKey } from '@/lib/presentation/timeline-controls';
-import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
 import {
-  readContributionSettings,
-  contributionPreferenceKey,
-  serializeContributionPreferences,
-  defaultContributionSettings,
-} from '@/lib/presentation/contribution-settings';
+  readTimelineView,
+  resolveTimelineEntry,
+  timelineEntryNotices,
+  timelinePreferenceKey,
+} from '@/lib/presentation/timeline-controls';
+import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
+import { readContributionSettings } from '@/lib/presentation/contribution-settings';
 import { readRepositoryFilterValues } from '@/lib/presentation/repository-page-query';
-import { localContributionOptions } from '../support/contribution-options';
-import { contributionPreferencesChanged } from '@/lib/navigation/use-contribution-entry';
 import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
-import type { ContributionOptions } from '@/models/contribution-options';
-import type { ContributionSettings } from '@/models/contribution-settings';
+import type { PreferenceSectionKey } from '@/models/preferences';
 import { TimelineControls } from '@/components/reporting/timeline-controls';
 import { TimelineMetricsSelector } from '@/components/reporting/timeline-metrics-selector';
+import {
+  alice,
+  preferenceSections,
+  rawPreferenceCookie,
+  savedSection,
+  seedPreferences,
+} from '../support/preference-cookies';
 async function interact(action: () => unknown) {
   await reactAct(async () => {
     action();
@@ -49,24 +53,30 @@ vi.mock('next/navigation', () => ({
 }));
 const source = contributionSample(),
   asOf = contributionSampleAsOf;
-function makeContext(area: TimelineArea, search: string): TimelineControlContext {
+const sections: Record<TimelineArea, PreferenceSectionKey> = {
+  matrix: 'timeline.matrix',
+  repository: 'timeline.repository',
+  contribution: 'timeline.contributors.overview',
+};
+/** The context route composition builds; `viewer` adds the cookie sections it hands the hook. */
+function makeContext(
+  area: TimelineArea,
+  search: string,
+  viewer?: string,
+  notice?: string,
+): TimelineControlContext {
   const parsed = readTimelineView(new URLSearchParams(search), area, asOf);
+  const path =
+    area === 'contribution'
+      ? '/contributors'
+      : area === 'repository'
+        ? '/repos/prebidjs'
+        : '/repos';
+  const binding = { accountId: viewer ?? '', authVersion: 0 };
   return {
     area,
-    path:
-      area === 'contribution'
-        ? '/contributors'
-        : area === 'repository'
-          ? '/repos/prebidjs'
-          : '/repos',
-    href:
-      (area === 'contribution'
-        ? '/contributors'
-        : area === 'repository'
-          ? '/repos/prebidjs'
-          : '/repos') +
-      '?' +
-      new URLSearchParams(search).toString(),
+    path,
+    href: path + '?' + new URLSearchParams(search).toString(),
     sample: 'reference',
     preferenceScope: area,
     asOf,
@@ -77,32 +87,34 @@ function makeContext(area: TimelineArea, search: string): TimelineControlContext
       : area === 'contribution'
         ? { contribution: readContributionSettings(new URLSearchParams(search), source, asOf)! }
         : { filters: readRepositoryFilterValues(search, parsed.view.kind)! }),
+    ...(viewer !== undefined && {
+      preferences: {
+        presentation: savedSection(sections[area], null, undefined, binding),
+        ...(area === 'contribution' && {
+          scope: savedSection('contributions.scope', null, undefined, binding),
+        }),
+        ...(notice !== undefined && { notice }),
+      },
+    }),
   };
 }
-function useControls(
-  area: TimelineArea = 'matrix',
-  viewer = 'alice',
-  suppliedOptions?: ContributionOptions,
-) {
+function useControls(area: TimelineArea = 'matrix', viewer = 'alice') {
   const search = useSyncExternalStore(subscribe, () => window.location.search);
-  const context = useMemo(() => makeContext(area, search), [area, search]);
-  const options = useMemo(() => localContributionOptions(source, asOf), []);
+  const context = useMemo(() => makeContext(area, search, viewer), [area, search, viewer]);
   return {
-    ...useTimelineControls(
-      viewer,
-      context,
-      { prsOpened: true, prsAuthored: true },
-      suppliedOptions ?? options,
-    ),
+    ...useTimelineControls(viewer, context, { prsOpened: true, prsAuthored: true }),
     context,
   };
 }
+const historyWrites = vi.fn();
 beforeEach(() => {
   window.history.replaceState(null, '', '/repos?timeline=1');
+  historyWrites.mockClear();
   for (const method of ['pushState', 'replaceState'] as const) {
     const original = window.history[method].bind(window.history);
     vi.spyOn(window.history, method).mockImplementation(
       (state: unknown, unused: string, url?: string | URL | null) => {
+        historyWrites(method, url);
         original(state, unused, url);
         window.dispatchEvent(new Event('test-navigation'));
       },
@@ -122,36 +134,79 @@ afterEach(() => {
 async function ready(result: { current: { pending: boolean } }) {
   await waitFor(() => expect(result.current.pending).toBe(false));
 }
-it.each(['matrix', 'repository', 'contribution'] as const)(
-  'restores %s presentation without requesting the same server data again',
-  async (area) => {
-    const path =
-      area === 'matrix' ? '/repos' : area === 'repository' ? '/repos/prebidjs' : '/contributors';
-    window.history.replaceState(null, '', path + '?timeline=1');
-    const context = makeContext(area, window.location.search);
-    localStorage.setItem(
-      timelinePreferenceKey('alice', context),
-      JSON.stringify({ version: 1, query: 'timeline.dir=desc' }),
-    );
-    const { result } = renderHook(() => useControls(area));
+/** The saved Timeline query in the live cookie, or null when the section is absent. */
+function savedTimelineQuery(area: TimelineArea) {
+  const value = preferenceSections(area === 'contribution' ? 'contributions' : 'repositories')?.[
+    sections[area]
+  ] as { query: string } | undefined;
+  return value ? value.query : null;
+}
+/** A cookie jar that keeps nothing, as when the browser blocks cookies. */
+function blockCookies() {
+  vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
+}
+
+it.each([
+  ['matrix', '/repos'],
+  ['repository', '/repos/prebidjs'],
+  ['contribution', '/contributors'],
+] as const)(
+  'renders the server-resolved %s view on its first render without rewriting history',
+  async (area, path) => {
+    // The address the server redirected an entry to, with a saved descending order applied.
+    const entry = resolveTimelineEntry('timeline=1', makeContext(area, 'timeline=1'), {
+      presentation: 'timeline.dir=desc',
+    });
+    if (entry.kind !== 'redirect') throw Error('Expected a redirect');
+    window.history.replaceState(null, '', path + '?' + entry.search);
+    historyWrites.mockClear();
+    const views: boolean[] = [];
+    const { result } = renderHook(() => {
+      const controls = useControls(area);
+      views.push(controls.view.descending, controls.pending);
+      return controls;
+    });
+    expect(views.slice(0, 2)).toEqual([true, false]);
     await ready(result);
-    expect(result.current.view.descending).toBe(true);
-    expect(new URLSearchParams(window.location.search).get('timeline.state')).toBe('1');
+    expect(historyWrites).not.toHaveBeenCalled();
     expect(navigation.replace).not.toHaveBeenCalled();
     expect(navigation.push).not.toHaveBeenCalled();
+    expect(rawPreferenceCookie(area === 'contribution' ? 'contributions' : 'repositories')).toBe(
+      undefined,
+    );
   },
 );
-it('restores versioned preferences once, freezes Back state and keeps row/window pages independent', async () => {
+it('shows the entry notice, deletes the rejected section after hydration and clears the notice on an edit', async () => {
+  seedPreferences(alice, { 'timeline.matrix': { version: 9 }, overview: 'kept' });
+  const context = makeContext('matrix', 'timeline=1', 'alice', timelineEntryNotices.invalid);
+  context.preferences!.presentation = savedSection('timeline.matrix', null, '{"version":9}');
+  historyWrites.mockClear();
+  const { result } = renderHook(() => useTimelineControls('alice', context, {}));
+  expect(result.current.notice).toBe(timelineEntryNotices.invalid);
+  expect(preferenceSections('repositories')).toEqual({ overview: 'kept' });
+  expect(historyWrites).not.toHaveBeenCalled();
+  await interact(() => result.current.changeView({ chart: true }));
+  expect(result.current.notice).toBeUndefined();
+});
+it('copies a legacy localStorage Timeline preference once without changing this render', async () => {
   const key = timelinePreferenceKey('alice', makeContext('matrix', 'timeline=1'));
-  localStorage.setItem(
-    key,
-    JSON.stringify({ version: 1, query: 'timeline.group=day&period=this-year' }),
+  localStorage.setItem(key, JSON.stringify({ version: 1, query: 'timeline.group=week' }));
+  const { result } = renderHook(() => useControls());
+  await ready(result);
+  expect(result.current.view.grouping).toBe('month');
+  expect(savedTimelineQuery('matrix')).toBe('timeline.group=week');
+  expect(localStorage.getItem(key)).toBeNull();
+});
+it('saves deliberate presentation fields, never row or window pages, and freezes Back state', async () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/repos?timeline=1&timeline.state=1&period=this-year&timeline.group=day',
   );
   const { result } = renderHook(() => useControls());
   await ready(result);
   expect(result.current.view.grouping).toBe('day');
   expect(result.current.view.window).toBe(25);
-  expect(navigation.replace).toHaveBeenCalledTimes(1);
   const before = window.location.href;
   await interact(() => {
     result.current.changeView({ window: 24 });
@@ -163,8 +218,7 @@ it('restores versioned preferences once, freezes Back state and keeps row/window
   await ready(result);
   expect(result.current.view.page).toBe(2);
   expect(result.current.view.window).toBe(24);
-  expect(localStorage.getItem(key)).not.toContain('timeline.page');
-  expect(localStorage.getItem(key)).not.toContain('timeline.window');
+  expect(savedTimelineQuery('matrix')).toBeNull();
   await interact(() => result.current.table.reconcilePage(1));
   await ready(result);
   expect(result.current.view.page).toBe(1);
@@ -172,6 +226,9 @@ it('restores versioned preferences once, freezes Back state and keeps row/window
   await ready(result);
   expect(result.current.view.window).toBe(4);
   expect(result.current.view.page).toBe(1);
+  expect(savedTimelineQuery('matrix')).toBe(
+    'timeline.group=week&timeline.sort=repository&timeline.dir=asc',
+  );
   await interact(() => window.history.replaceState(null, '', before));
   await ready(result);
   expect(result.current.view.grouping).toBe('day');
@@ -182,10 +239,8 @@ it('restores versioned preferences once, freezes Back state and keeps row/window
   expect(window.location.search).toBe(search);
   expect(result.current.table.query.search).toBe('');
 });
-it('honors explicit state, isolates accounts and rejects oversized edits without storing or moving', async () => {
-  const ctx = makeContext('matrix', 'timeline=1');
-  const key = timelinePreferenceKey('alice', ctx);
-  localStorage.setItem(key, JSON.stringify({ version: 1, query: 'timeline.group=week' }));
+it('honors explicit state, writes only for its own session and rejects oversized edits without storing or moving', async () => {
+  seedPreferences(alice, { 'timeline.matrix': { version: 1, query: 'timeline.group=week' } });
   window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1&timeline.group=day');
   const { result, rerender } = renderHook(({ viewer }) => useControls('matrix', viewer), {
     initialProps: { viewer: 'alice' },
@@ -193,14 +248,14 @@ it('honors explicit state, isolates accounts and rejects oversized edits without
   await ready(result);
   expect(result.current.view.grouping).toBe('day');
   const url = window.location.href,
-    raw = localStorage.getItem(key);
+    raw = rawPreferenceCookie('repositories');
   await interact(() =>
     expect(
       result.current.changePeriod({ kind: 'custom', from: '2020-01-01', through: '2026-10-24' }),
     ).toContain('500'),
   );
   expect(window.location.href).toBe(url);
-  expect(localStorage.getItem(key)).toBe(raw);
+  expect(rawPreferenceCookie('repositories')).toBe(raw);
   await interact(() => result.current.changeRepositories(['unknown']));
   expect(result.current.notice).toContain('no longer available');
   await interact(() => result.current.changeRepositories([]));
@@ -209,49 +264,29 @@ it('honors explicit state, isolates accounts and rejects oversized edits without
   await interact(() => result.current.changePeriod({ kind: 'preset', preset: 'last-week' }));
   await ready(result);
   expect(result.current.context.period).toEqual({ kind: 'preset', preset: 'last-week' });
+  expect(new URLSearchParams(savedTimelineQuery('matrix')!).get('period')).toBe('last-week');
+  const saved = rawPreferenceCookie('repositories');
   rerender({ viewer: 'bob' });
   await ready(result);
-  expect(localStorage.getItem(timelinePreferenceKey('bob', ctx))).toBeNull();
+  // Rendering for another account reads and writes nothing.
+  expect(rawPreferenceCookie('repositories')).toBe(saved);
   await interact(() => result.current.reset());
   await ready(result);
   expect(result.current.view.grouping).toBe('month');
+  expect(preferenceSections('repositories', { accountId: 'bob', authVersion: 0 })).toBeNull();
 });
-it('handles invalid, incompatible and unavailable storage while retaining usable links', async () => {
-  const ctx = makeContext('matrix', 'timeline=1'),
-    key = timelinePreferenceKey('alice', ctx);
-  localStorage.setItem(key, 'bad');
-  const first = renderHook(() => useControls());
-  await ready(first.result);
-  expect(first.result.current.notice).toContain('invalid');
-  expect(localStorage.getItem(key)).toBeNull();
-  first.unmount();
-  localStorage.setItem(key, JSON.stringify({ version: 1, query: 'timeline.metric=unknown' }));
-  const second = renderHook(() => useControls());
-  await ready(second.result);
-  expect(second.result.current.notice).toBe(
-    'Saved Timeline choices that do not fit this report were skipped.',
-  );
-  second.unmount();
-  window.history.replaceState(null, '', '/repos?timeline=1');
-  vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw Error('disabled');
-  });
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw Error('disabled');
-  });
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw Error('disabled');
-  });
-  const third = renderHook(() => useControls());
-  await ready(third.result);
-  expect(third.result.current.storageAvailable).toBe(false);
-  await interact(() => third.result.current.changeView({ grouping: 'week' }));
-  await ready(third.result);
-  expect(third.result.current.view.grouping).toBe('week');
-  await interact(() => third.result.current.reset());
-  await ready(third.result);
-  expect(third.result.current.view.grouping).toBe('month');
-  expect(third.result.current.storageAvailable).toBe(false);
+it('keeps working when the browser keeps no cookie', async () => {
+  blockCookies();
+  const { result } = renderHook(() => useControls());
+  await ready(result);
+  expect(result.current.storageAvailable).toBe(true);
+  await interact(() => result.current.changeView({ grouping: 'week' }));
+  await ready(result);
+  expect(result.current.view.grouping).toBe('week');
+  expect(result.current.storageAvailable).toBe(false);
+  await interact(() => result.current.reset());
+  await ready(result);
+  expect(result.current.view.grouping).toBe('month');
 });
 it('keeps repository predicates across grouping changes and clears them on deliberate family changes', async () => {
   window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
@@ -288,14 +323,8 @@ it('keeps repository predicates across grouping changes and clears them on delib
   await ready(result);
   expect(result.current.view.metric).toBe('openIssues');
 });
-it('reuses contribution scope preferences and preserves list-only search separately', async () => {
-  window.history.replaceState(null, '', '/contributors?timeline=1&report.q=Alice');
-  const saved = defaultContributionSettings(source);
-  saved.selection.actorTypes = ['agent'];
-  localStorage.setItem(
-    contributionPreferenceKey('alice', 'reference'),
-    serializeContributionPreferences(saved),
-  );
+it('saves an Over time scope change into the shared scope section and deletes it on reset', async () => {
+  window.history.replaceState(null, '', '/contributors?timeline=1&type=agent&report.q=Alice');
   const { result } = renderHook(() => useControls('contribution'));
   await ready(result);
   expect(result.current.context.contribution!.selection.actorTypes).toEqual(['agent']);
@@ -305,60 +334,21 @@ it('reuses contribution scope preferences and preserves list-only search separat
   };
   await interact(() => result.current.changeContribution(next, 'period'));
   await ready(result);
-  expect(localStorage.getItem(contributionPreferenceKey('alice', 'reference'))).toContain(
-    'last-month',
+  const scope = preferenceSections('contributions')!['contributions.scope'] as {
+    version: number;
+    settings: { period: unknown; selection: { actorTypes: string[] } };
+  };
+  // Only the changed field is saved; the explicit account types stay in the link.
+  expect(scope.version).toBe(1);
+  expect(scope.settings.period).toEqual({ kind: 'preset', preset: 'last-month' });
+  expect(scope.settings.selection.actorTypes).toEqual(
+    readContributionSettings(new URLSearchParams(''), source, asOf)!.selection.actorTypes,
   );
-  expect(localStorage.getItem(timelinePreferenceKey('alice', result.current.context))).toBeNull();
+  expect(savedTimelineQuery('contribution')).toBeNull();
   expect(new URLSearchParams(window.location.search).get('report.q')).toBe('Alice');
   await interact(() => result.current.resetContribution());
   await ready(result);
-  expect(localStorage.getItem(contributionPreferenceKey('alice', 'reference'))).toBeNull();
-});
-it('does not apply a delayed account lookup after navigation or remove a concurrently replaced saved value', async () => {
-  const saved = defaultContributionSettings(source);
-  saved.selection.excludedAccountIds = ['account-alice'];
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, serializeContributionPreferences(saved));
-  let resolve!: (value: ContributionSettings | null) => void;
-  const options = {
-    ...localContributionOptions(source, asOf),
-    validate: vi.fn(
-      () =>
-        new Promise<ContributionSettings | null>((r) => {
-          resolve = r;
-        }),
-    ),
-  };
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const first = renderHook(() => useControls('contribution', 'alice', options));
-  await waitFor(() => expect(options.validate).toHaveBeenCalledOnce());
-  const replacement = serializeContributionPreferences({
-    ...saved,
-    period: { kind: 'preset', preset: 'last-month' },
-  });
-  localStorage.setItem(key, replacement);
-  await interact(() => {
-    resolve(null);
-  });
-  await ready(first.result);
-  expect(localStorage.getItem(key)).toBe(replacement);
-  expect(first.result.current.notice).toContain('changed');
-  first.unmount();
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const second = renderHook(() => useControls('contribution', 'alice', options));
-  await waitFor(() => expect(options.validate).toHaveBeenCalledTimes(2));
-  await interact(() =>
-    window.history.replaceState(
-      null,
-      '',
-      '/contributors?timeline=1&timeline.state=1&period=this-week',
-    ),
-  );
-  await interact(() => {
-    resolve(saved);
-  });
-  await ready(second.result);
-  expect(new URLSearchParams(window.location.search).get('period')).toBe('this-week');
+  expect(preferenceSections('contributions')).toBeNull();
 });
 it('retains rejected custom-date drafts in the shared Timeline controls', async () => {
   const user = userEvent.setup(),
@@ -390,90 +380,18 @@ it('clears obsolete saved sort columns when grouping or family changes', async (
   await ready(result);
   await interact(() => result.current.changeView({ grouping: 'week' }));
   await ready(result);
-  const saved = localStorage.getItem(timelinePreferenceKey('alice', result.current.context))!;
+  const saved = savedTimelineQuery('matrix')!;
   expect(saved).toContain('timeline.sort=repository');
   expect(saved).not.toContain('month%3A');
-  await interact(() =>
-    window.history.replaceState(null, '', '/repos?timeline=1&repo=repo-prebidjs'),
-  );
-  await ready(result);
-  expect(result.current.view.grouping).toBe('week');
-  expect(result.current.notice).toBeUndefined();
 });
-it('handles failed and invalid saved-account lookups without replacing newer Timeline preferences', async () => {
-  const saved = defaultContributionSettings(source);
-  saved.selection.excludedAccountIds = ['account-alice'];
-  const scopeKey = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(scopeKey, serializeContributionPreferences(saved));
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const failed = {
-    ...localContributionOptions(source, asOf),
-    validate: vi.fn().mockRejectedValue(Error('offline')),
-  };
-  const first = renderHook(() => useControls('contribution', 'alice', failed));
-  await ready(first.result);
-  expect(first.result.current.notice).toContain('could not be checked');
-  expect(localStorage.getItem(scopeKey)).not.toBeNull();
-  first.unmount();
-  const invalid = { ...failed, validate: vi.fn().mockResolvedValue(null) };
-  const announced = vi.fn();
-  window.addEventListener(contributionPreferencesChanged, announced);
-  const second = renderHook(() => useControls('contribution', 'alice', invalid));
-  await ready(second.result);
-  expect(second.result.current.notice).toContain('could not be restored');
-  expect(localStorage.getItem(scopeKey)).toBeNull();
-  // Other report views reread the saved scope when Over time discards it.
-  expect(announced).toHaveBeenCalledTimes(1);
-  window.removeEventListener(contributionPreferencesChanged, announced);
-  second.unmount();
-  localStorage.setItem(scopeKey, serializeContributionPreferences(saved));
-  let resolve!: (value: ContributionSettings | null) => void;
-  const slow = {
-    ...failed,
-    validate: vi.fn(
-      () =>
-        new Promise<ContributionSettings | null>((r) => {
-          resolve = r;
-        }),
-    ),
-  };
-  const third = renderHook(() => useControls('contribution', 'alice', slow));
-  await waitFor(() => expect(slow.validate).toHaveBeenCalledOnce());
-  const key = timelinePreferenceKey('alice', third.result.current.context),
-    replacement = JSON.stringify({ version: 1, query: 'timeline.group=week' });
-  localStorage.setItem(key, replacement);
-  await interact(() => resolve(saved));
-  await ready(third.result);
-  expect(third.result.current.notice).toContain('Timeline preferences changed');
-  expect(localStorage.getItem(key)).toBe(replacement);
-});
-it('times out a stalled saved lookup and rejects rapid edits until the current edit has been accepted', async () => {
-  vi.useFakeTimers();
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const saved = defaultContributionSettings(source);
-  saved.selection.excludedAccountIds = ['account-alice'];
-  localStorage.setItem(
-    contributionPreferenceKey('alice', 'reference'),
-    serializeContributionPreferences(saved),
-  );
-  const slow = {
-    ...localContributionOptions(source, asOf),
-    validate: () => new Promise<ContributionSettings | null>(() => {}),
-  };
-  const first = renderHook(() => useControls('contribution', 'alice', slow));
-  expect(first.result.current.changeView({ grouping: 'week' })).toContain('still loading');
-  await interact(() => vi.advanceTimersByTime(15000));
-  expect(first.result.current.pending).toBe(false);
-  expect(first.result.current.notice).toContain('reload to retry');
-  first.unmount();
-  vi.useRealTimers();
+it('rejects rapid edits until the current edit has been accepted', async () => {
   window.history.replaceState(null, '', '/repos?timeline=1');
-  const second = renderHook(() => useControls());
-  await ready(second.result);
+  const { result } = renderHook(() => useControls());
+  await ready(result);
   let rejected: string | undefined;
   await interact(() => {
-    second.result.current.changeView({ grouping: 'week' });
-    rejected = second.result.current.changeView({ grouping: 'day' });
+    result.current.changeView({ grouping: 'week' });
+    rejected = result.current.changeView({ grouping: 'day' });
   });
   expect(rejected).toContain('still loading');
 });
@@ -498,9 +416,8 @@ it('keeps rejected contribution edits and handles write failures and repository 
     ).toContain('too large'),
   );
   expect(window.location.href).toBe(before);
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw Error('quota');
-  });
+  expect(rawPreferenceCookie('contributions')).toBeUndefined();
+  blockCookies();
   await interact(() =>
     first.result.current.changeContribution(
       { ...settings, period: { kind: 'preset', preset: 'last-month' } },
@@ -509,12 +426,8 @@ it('keeps rejected contribution edits and handles write failures and repository 
   );
   await ready(first.result);
   expect(first.result.current.storageAvailable).toBe(false);
-  vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-    throw Error('quota');
-  });
   await interact(() => first.result.current.resetContribution());
   await ready(first.result);
-  expect(first.result.current.storageAvailable).toBe(false);
   first.unmount();
   vi.restoreAllMocks();
   window.history.replaceState(
@@ -561,19 +474,6 @@ it('disables scope edits while the URL has advanced beyond the supplied model, t
   await ready(result);
   expect(result.current.view.window).toBe(1);
 });
-it('bounds restored contribution selections before requesting an identity lookup', async () => {
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const saved = defaultContributionSettings(source);
-  saved.selection.excludedAccountIds = Array.from({ length: 1000 }, (_, i) => 'long-account-' + i);
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, serializeContributionPreferences(saved));
-  const options = { ...localContributionOptions(source, asOf), validate: vi.fn() };
-  const { result } = renderHook(() => useControls('contribution', 'alice', options));
-  await ready(result);
-  expect(options.validate).not.toHaveBeenCalled();
-  expect(result.current.notice).toContain('too large');
-  expect(localStorage.getItem(key)).not.toBeNull();
-});
 it('does not let pagination rewrite the URL while another report scope is arriving', async () => {
   window.history.replaceState(null, '', '/repos?timeline=1&timeline.state=1');
   const original = makeContext('matrix', window.location.search);
@@ -606,82 +506,25 @@ it('checks the final serialized URL before changing history or saved preferences
     expect(result.current.changeView({ grouping: 'two-months' })).toContain('too large'),
   );
   expect(window.location.href).toBe(before);
-  expect(localStorage.getItem(timelinePreferenceKey('alice', result.current.context))).toBeNull();
-});
-it('preserves a valid incoming URL when preference restoration would exceed the final link budget', async () => {
-  const params = new URLSearchParams('timeline=1&period=this-year');
-  params.set('summary', '/repos?x=');
-  const padding = 7498 - new TextEncoder().encode('/repos?' + params.toString()).length;
-  params.set('summary', '/repos?x=' + 'a'.repeat(padding));
-  window.history.replaceState(null, '', '/repos?' + params.toString());
-  const before = window.location.href;
-  const { result } = renderHook(() => useControls());
-  await ready(result);
-  expect(navigation.replace).not.toHaveBeenCalled();
-  expect(window.location.href).toBe(before);
-  expect(result.current.notice).toContain('do not fit');
-});
-it('restores compatible saved preferences when a saved metric belongs to the other record kind', async () => {
-  window.history.replaceState(
-    null,
-    '',
-    '/repos/prebidjs?timeline=1&timeline.kind=issues&timeline.family=activity',
-  );
-  const context = makeContext('repository', window.location.search);
-  localStorage.setItem(
-    timelinePreferenceKey('alice', context),
-    JSON.stringify({
-      version: 1,
-      query: 'timeline.chart=1&timeline.metric=medianMergeDays&timeline.group=quarter',
-    }),
-  );
-  const { result } = renderHook(() => useControls('repository'));
-  await ready(result);
-  expect(result.current.view).toMatchObject({ kind: 'issues', chart: true, grouping: 'quarter' });
-  expect(result.current.view.metric).toBe('issuesOpened');
-  expect(result.current.notice).toMatch(/skipped/);
+  expect(rawPreferenceCookie('repositories')).toBeUndefined();
 });
 it('saves the record kind with kind-specific choices so another kind ignores them', async () => {
   window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
-  const context = makeContext('repository', window.location.search);
   const { result } = renderHook(() => useControls('repository'));
   await ready(result);
   await interact(() => result.current.changeView({ metric: 'medianMergeDays' }));
-  const saved = new URLSearchParams(
-    (
-      JSON.parse(localStorage.getItem(timelinePreferenceKey('alice', context))!) as {
-        query: string;
-      }
-    ).query,
-  );
+  const saved = new URLSearchParams(savedTimelineQuery('repository')!);
   expect([
     saved.get('timeline.metric'),
     saved.get('timeline.kind'),
     saved.get('timeline.family'),
   ]).toEqual(['medianMergeDays', 'prs', 'activity']);
 });
-it('keeps saved matrix metrics when a saved period-column sort no longer exists', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1');
-  const context = makeContext('matrix', window.location.search);
-  localStorage.setItem(
-    timelinePreferenceKey('alice', context),
-    JSON.stringify({
-      version: 1,
-      query:
-        'timeline.metric=prsOpened&timeline.metric=issuesOpened&timeline.sort=week:2026-10-19T00:00:00.000Z',
-    }),
-  );
-  const { result } = renderHook(() => useControls('matrix'));
-  await ready(result);
-  expect(result.current.view.selectedMetrics).toEqual(['prsOpened', 'issuesOpened']);
-  expect(result.current.view.sort).toBe('repository');
-});
-it('starts explicit-state links without a restoration gate', () => {
-  window.history.replaceState(
-    null,
-    '',
-    '/repos/prebidjs?timeline=1&timeline.state=1&period=this-year&timeline.group=month',
-  );
+it.each([
+  '/repos/prebidjs?timeline=1&timeline.state=1&period=this-year&timeline.group=month',
+  '/repos/prebidjs?timeline=1',
+])('renders %s without a loading gate on the first render', (url) => {
+  window.history.replaceState(null, '', url);
   // The first render is what the server sends; effects have not run yet.
   const pending: boolean[] = [];
   renderHook(() => {
@@ -764,12 +607,6 @@ it('applies whatever metric ids its caller defines in the shared metrics selecto
   await user.click(screen.getByRole('button', { name: 'Apply metrics' }));
   expect(onApply).toHaveBeenCalledWith(['alpha', 'beta']);
 });
-function savedTimelineQuery(area: TimelineArea) {
-  const raw = localStorage.getItem(
-    timelinePreferenceKey('alice', makeContext(area, window.location.search)),
-  );
-  return raw === null ? null : (JSON.parse(raw) as { query: string }).query;
-}
 it('saves record filters with their kind and replaces them when another kind is saved', async () => {
   window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
   const first = renderHook(() => useControls('repository'));
@@ -800,96 +637,11 @@ it('saves record filters with their kind and replaces them when another kind is 
     'timeline.sort=issuesClosed&timeline.dir=desc&timeline.kind=issues&timeline.family=activity',
   );
   second.unmount();
-  window.history.replaceState(null, '', '/repos/prebidjs?timeline=1');
-  const third = renderHook(() => useControls('repository'));
-  await ready(third.result);
-  expect(third.result.current.view).toMatchObject({
-    kind: 'issues',
-    sort: 'issuesClosed',
-    descending: true,
+  // The next entry resolves on the server to the saved kind and order.
+  const entry = resolveTimelineEntry('timeline=1', makeContext('repository', 'timeline=1'), {
+    presentation: savedTimelineQuery('repository'),
   });
-  expect(third.result.current.notice).toBeUndefined();
-});
-it('keeps saved columns and sort when a saved grouping cannot cover an explicit long period', async () => {
-  window.history.replaceState(
-    null,
-    '',
-    '/contributors?timeline=1&period=custom&from=2025-01-01&through=2026-10-24',
-  );
-  const stored =
-    'timeline.group=day&timeline.columns=prsAuthored&timeline.sort=prsAuthored&timeline.dir=desc';
-  localStorage.setItem(
-    timelinePreferenceKey('alice', makeContext('contribution', window.location.search)),
-    JSON.stringify({ version: 1, query: stored }),
-  );
-  const { result } = renderHook(() => useControls('contribution'));
-  await ready(result);
-  expect(result.current.view).toMatchObject({
-    grouping: 'month',
-    columns: ['prsAuthored'],
-    sort: 'prsAuthored',
-    descending: true,
-  });
-  expect(result.current.notice).toMatch(/skipped/);
-  // Daily grouping still fits the default period, so it stays saved for other visits.
-  expect(savedTimelineQuery('contribution')).toBe(stored);
-});
-it('restores a saved contribution scope when a saved Timeline column no longer exists', async () => {
-  window.history.replaceState(null, '', '/contributors?timeline=1');
-  const scope = defaultContributionSettings(source);
-  scope.period = { kind: 'preset', preset: 'last-month' };
-  const scopeKey = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(scopeKey, serializeContributionPreferences(scope));
-  const scopeRaw = localStorage.getItem(scopeKey);
-  localStorage.setItem(
-    timelinePreferenceKey('alice', makeContext('contribution', window.location.search)),
-    JSON.stringify({ version: 1, query: 'timeline.columns=retiredMetric&timeline.dir=desc' }),
-  );
-  const { result } = renderHook(() => useControls('contribution'));
-  await ready(result);
-  expect(new URLSearchParams(window.location.search).get('period')).toBe('last-month');
-  expect(result.current.view.descending).toBe(true);
-  expect(result.current.notice).toMatch(/skipped/);
-  expect(savedTimelineQuery('contribution')).toBe('timeline.dir=desc');
-  expect(localStorage.getItem(scopeKey)).toBe(scopeRaw);
-});
-it('drops a saved matrix repository that is no longer enabled and keeps other choices', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1');
-  localStorage.setItem(
-    timelinePreferenceKey('alice', makeContext('matrix', window.location.search)),
-    JSON.stringify({ version: 1, query: 'repo=repo-retired&timeline.dir=desc' }),
-  );
-  const { result } = renderHook(() => useControls('matrix'));
-  await ready(result);
-  expect(result.current.view.descending).toBe(true);
-  expect(new URLSearchParams(window.location.search).has('repo')).toBe(false);
-  expect(result.current.notice).toMatch(/skipped/);
-  expect(savedTimelineQuery('matrix')).toBe('timeline.dir=desc');
-});
-it('repairs a saved choice that fails on every visit, but not one that fails only here', async () => {
-  window.history.replaceState(null, '', '/repos?timeline=1&timeline.group=week');
-  const monthSort = 'timeline.sort=month%3A2026-10-01T00%3A00%3A00.000Z';
-  const key = timelinePreferenceKey('alice', makeContext('matrix', window.location.search));
-  localStorage.setItem(key, JSON.stringify({ version: 1, query: monthSort }));
-  const stored = localStorage.getItem(key);
-  const explicitOnly = renderHook(() => useControls('matrix'));
-  await ready(explicitOnly.result);
-  expect(explicitOnly.result.current.notice).toMatch(/skipped/);
-  expect(localStorage.getItem(key)).toBe(stored);
-  explicitOnly.unmount();
-  window.history.replaceState(null, '', '/repos?timeline=1');
-  localStorage.setItem(
-    key,
-    JSON.stringify({ version: 1, query: 'timeline.group=week&' + monthSort }),
-  );
-  const stale = renderHook(() => useControls('matrix'));
-  await ready(stale.result);
-  expect(stale.result.current.notice).toMatch(/skipped/);
-  expect(savedTimelineQuery('matrix')).toBe('timeline.group=week');
-  stale.unmount();
-  window.history.replaceState(null, '', '/repos?timeline=1');
-  const repeat = renderHook(() => useControls('matrix'));
-  await ready(repeat.result);
-  expect(repeat.result.current.view.grouping).toBe('week');
-  expect(repeat.result.current.notice).toBeUndefined();
+  if (entry.kind !== 'redirect') throw Error('Expected a redirect');
+  const next = readTimelineView(new URLSearchParams(entry.search), 'repository', asOf).view;
+  expect(next).toMatchObject({ kind: 'issues', sort: 'issuesClosed', descending: true });
 });

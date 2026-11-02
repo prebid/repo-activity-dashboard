@@ -9,6 +9,13 @@ import {
   writeOverviewTableQueries,
 } from '@/lib/presentation/overview-settings';
 import { preferenceKey } from '@/lib/presentation/table-query';
+import type { SavedPreference } from '@/models/preferences';
+import {
+  alice,
+  preferenceSections,
+  savedSection,
+  seedPreferences,
+} from '../support/preference-cookies';
 
 vi.mock('next/navigation', async () => {
   const { useSyncExternalStore } = await import('react');
@@ -160,7 +167,7 @@ it('survives denied storage without treating malformed JSON as an outage', () =>
   expect(result.current.storageAvailable).toBe(false);
 });
 
-function usePageControls() {
+function usePageControls(backlogSort?: SavedPreference<{ sort: string; descending: boolean }>) {
   const page = useOverviewSettings('alice', definition, asOf);
   const backlog = useTableController({
     queryKey: 'backlog',
@@ -169,6 +176,7 @@ function usePageControls() {
     columnIds: definition.backlogColumns,
     peerQueryKeys: backlogPeers,
     defaultSort,
+    savedSort: backlogSort,
   });
   const activity = useTableController({
     queryKey: 'activity',
@@ -214,11 +222,11 @@ it('reset clears only this page, including table sorts and drafts, and retains r
     overviewPreferenceKey('alice'),
     serializeOverviewPreferences({ ...defaults, repositoryIds: ['b'] }),
   );
-  localStorage.setItem(
-    preferenceKey('alice', 'all-repositories:backlog'),
-    JSON.stringify({ sort: 'total', descending: true }),
+  const savedSort = { sort: 'total', descending: true };
+  seedPreferences(alice, { 'overview.backlog.sort': savedSort });
+  const { result } = renderHook(() =>
+    usePageControls(savedSection('overview.backlog.sort', savedSort)),
   );
-  const { result } = renderHook(usePageControls);
   act(() => {
     result.current.backlog.setSearch('query');
   });
@@ -240,7 +248,7 @@ it('reset clears only this page, including table sorts and drafts, and retains r
   });
   expect(result.current.activity.query).toMatchObject({ sort: 'name', search: '' });
   expect(localStorage.getItem(overviewPreferenceKey('alice'))).toBeNull();
-  expect(localStorage.getItem(preferenceKey('alice', 'all-repositories:backlog'))).toBeNull();
+  expect(preferenceSections('repositories')).toBeNull();
   expect(localStorage.getItem('dashboard-theme')).toBe('light');
   expect(localStorage.getItem(preferenceKey('alice', 'contributors'))).toBe('retained');
   expect(window.location.search).toBe('');
@@ -276,11 +284,17 @@ it('keeps a usable in-memory sort when table storage is denied, including reset'
   vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
     throw new Error('denied');
   });
-  const { result } = renderHook(usePageControls);
+  vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
+  const { result } = renderHook(() => usePageControls(savedSection('overview.backlog.sort')));
   act(() => result.current.backlog.update({ sort: 'total' }));
   expect(result.current.backlog.storageAvailable).toBe(false);
-  act(() => result.current.backlog.clearSavedSort());
-  expect(result.current.backlog.storageAvailable).toBe(false);
+  expect(result.current.backlog.query.sort).toBe('total');
+  // A blocked cookie jar holds no saved sort, so clearing it succeeds and restores the default.
+  act(() => {
+    window.history.replaceState(null, '', '/repos');
+    result.current.backlog.clearSavedSort();
+  });
+  expect(result.current.backlog.query.sort).toBe('name');
   const anonymous = renderHook(() =>
     useTableController({ queryKey: 'items', columnIds: definition.backlogColumns }),
   );

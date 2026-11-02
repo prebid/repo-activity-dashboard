@@ -7,7 +7,14 @@ import {
 } from '@/models/timeline-controls';
 import { dateRangeSchema, type PeriodSelection } from '@/models/reporting-period';
 import type { RepositoryPageFilters } from '@/models/repository-page';
-import { readContributionPeriod, readContributionScopeInput } from './contribution-settings';
+import {
+  hasContributionScope,
+  readContributionPeriod,
+  readContributionScopeInput,
+  writeContributionSettings,
+} from './contribution-settings';
+import type { ContributionSettings } from '@/models/contribution-settings';
+import { preferenceSectionKeys, type PreferenceSectionKey } from '@/models/preferences';
 import { resolveReportingPeriod } from './reporting-period';
 import { buildTimelineIntervals, rangeContains } from './reporting-timeline';
 import {
@@ -389,6 +396,84 @@ export function mergeTimelinePreferenceParameters(
     for (const value of stored.getAll(name)) result.append(name, value);
   }
   return result;
+}
+/** The cookie section that keeps a Timeline's presentation: one per area and view kind. */
+export function timelinePreferenceSection(
+  area: TimelineArea,
+  preferenceScope: string,
+): PreferenceSectionKey {
+  if (area !== 'contribution') return area === 'matrix' ? 'timeline.matrix' : 'timeline.repository';
+  const section = 'timeline.' + preferenceScope.replace(':', '.');
+  const known: readonly string[] = preferenceSectionKeys.contributions;
+  if (!known.includes(section)) throw Error('Unknown contribution Timeline view.');
+  return section as PreferenceSectionKey;
+}
+/** The explicit-state URL query for a proposal; throws a user-facing error when it does not fit. */
+export function timelineTarget(input: string, context: TimelineControlContext): string {
+  const checked = validateTimelineProposal(input, context);
+  const target = writeTimelineView(input, context.area, checked.view);
+  if (!contributionUrlFits(context.path + '?' + target))
+    throw Error('This view is too large for a link. Reduce the selection.');
+  return target;
+}
+export const timelineEntryNotices = {
+  invalid: 'Saved Timeline preferences are invalid. Defaults are shown.',
+  scopeInvalid: 'Saved filters could not be restored. Default filters are shown.',
+  scopeUnfit:
+    'Saved filters are too large or incompatible with this Timeline. The requested view is unchanged.',
+  unfit: 'Saved Timeline preferences do not fit this report. The requested view is unchanged.',
+} as const;
+export type TimelineEntry =
+  | { kind: 'redirect'; search: string }
+  /** Render the requested URL as it is; `rejected` names the invalid section the notice is about. */
+  | { kind: 'final'; notice?: string; rejected?: 'presentation' | 'scope' };
+/**
+ * Resolve a Timeline entry, a URL without `timeline.state`, against saved preferences on the
+ * server. Explicit fields win per domain, a saved scope applies only when the URL names none, and
+ * stale dependent choices fall back one group at a time. The result is the explicit-state URL to
+ * redirect to; when saved preferences cannot apply, the requested view renders with a notice.
+ */
+export function resolveTimelineEntry(
+  search: string,
+  context: TimelineControlContext,
+  saved: {
+    /** Saved presentation fields as a query, or null when the saved section is invalid. */
+    presentation: string | null;
+    /** The saved scope after server validation; null when invalid, undefined when none applies. */
+    scope?: ContributionSettings | null;
+  },
+): TimelineEntry {
+  const explicit = new URLSearchParams(search);
+  if (explicit.has('timeline.state')) return { kind: 'final' };
+  if (saved.presentation === null)
+    return { kind: 'final', notice: timelineEntryNotices.invalid, rejected: 'presentation' };
+  let params = mergeTimelinePreferenceParameters(explicit, new URLSearchParams(saved.presentation));
+  if (
+    context.area === 'contribution' &&
+    saved.scope !== undefined &&
+    !hasContributionScope(explicit)
+  ) {
+    if (saved.scope === null)
+      return { kind: 'final', notice: timelineEntryNotices.scopeInvalid, rejected: 'scope' };
+    try {
+      validateTimelineProposal(writeContributionSettings(search, saved.scope), context);
+    } catch {
+      return { kind: 'final', notice: timelineEntryNotices.scopeUnfit };
+    }
+    params = new URLSearchParams(writeContributionSettings(params.toString(), saved.scope));
+  }
+  if (!params.has('period'))
+    params = new URLSearchParams(writeTimelinePeriod(params.toString(), context.period));
+  for (const candidate of timelinePreferenceCandidates(params, explicit)) {
+    let target;
+    try {
+      target = timelineTarget(candidate.toString(), context);
+    } catch {
+      continue;
+    }
+    return target === search ? { kind: 'final' } : { kind: 'redirect', search: target };
+  }
+  return { kind: 'final', notice: timelineEntryNotices.unfit };
 }
 /** Presentation-only history can update immediately; data-scope changes must wait for their model. */
 /** The prepared sample and temporal-gap variant a Timeline URL reads, or null when invalid. */

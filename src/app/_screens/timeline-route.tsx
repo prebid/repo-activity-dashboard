@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import {
   contributionTimelinePreview,
   repositoryTimelinePreview,
   repositoryTimelineMatrixPreview,
 } from '@/server/timeline-preview';
+import { readPreferences } from '@/server/preferences';
 import {
   RepositoryTimelineMatrixScreen,
   RepositoryTimelineScreen,
@@ -27,8 +29,14 @@ function InvalidTimeline({ message, href }: { message: string; href: string }) {
     </>
   );
 }
+// An entry URL, one without timeline.state, is answered with a redirect to its explicit-state URL
+// with saved preferences applied, so the page renders once and never rewrites its address.
 export async function RepositoryTimelineMatrixRoute({ params }: { params: URLSearchParams }) {
-  const result = await repositoryTimelineMatrixPreview(params);
+  const result = await repositoryTimelineMatrixPreview(
+    params,
+    await readPreferences('repositories'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <RepositoryTimelineMatrixScreen
       viewerId={result.viewerId}
@@ -49,7 +57,12 @@ export async function RepositoryTimelineRoute({
 }) {
   if (params.has('timeline.detail'))
     return <TimelineSupportRoute path={'/repos/' + encodeURIComponent(slug)} params={params} />;
-  const result = await repositoryTimelinePreview(slug, params);
+  const result = await repositoryTimelinePreview(
+    slug,
+    params,
+    await readPreferences('repositories'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <RepositoryTimelineScreen
       viewerId={result.viewerId}
@@ -80,7 +93,13 @@ export async function ContributionTimelineRoute({
         params={params}
       />
     );
-  const result = await contributionTimelinePreview(area, params, focus);
+  const result = await contributionTimelinePreview(
+    area,
+    params,
+    focus,
+    await readPreferences('contributions'),
+  );
+  if (result.status === 'redirect') redirect(result.href);
   return result.status === 'ready' ? (
     <ContributionTimelineScreen
       viewerId={result.viewerId}

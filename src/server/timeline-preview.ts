@@ -5,7 +5,13 @@ import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
-import type { TimelineArea, TimelineControlContext } from '@/models/timeline-controls';
+import type {
+  TimelineArea,
+  TimelineControlContext,
+  TimelinePreferences,
+} from '@/models/timeline-controls';
+import type { ContributionDirectory, ContributionSettings } from '@/models/contribution-settings';
+import type { SavedPreference } from '@/models/preferences';
 import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import {
   repositoryTimelineSample,
@@ -18,6 +24,7 @@ import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline
 import {
   readContributionSettings,
   contributionScopeKeys,
+  hasContributionScope,
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { contributionPath } from '@/lib/presentation/contribution-navigation';
@@ -29,9 +36,16 @@ import { repositoryMatrixSummaryHref } from '@/lib/presentation/repository-timel
 import {
   readTimelineSource,
   readTimelineView,
+  resolveTimelineEntry,
+  timelinePreferenceSection,
   timelineViewKeys,
   validateTimelineScope,
 } from '@/lib/presentation/timeline-controls';
+import {
+  savedContributionScope,
+  savedTimelinePresentation,
+  type PreferenceSnapshot,
+} from './preferences';
 import {
   contributionTimelineReportHref,
   safeTimelineParent,
@@ -135,10 +149,60 @@ function context(
     repositories,
   };
 }
+/**
+ * The saved-preference sections for one Timeline render. An entry, a URL without timeline.state,
+ * resolves against them to a redirect to its explicit-state URL, or to the requested view with a
+ * notice; an explicit-state URL never reads saved values. Without a snapshot nothing is saved.
+ */
+function timelinePreferences(
+  params: URLSearchParams,
+  controls: TimelineControlContext,
+  snapshot: PreferenceSnapshot | undefined,
+  directory?: ContributionDirectory,
+): { redirect: string } | { preferences?: TimelinePreferences } {
+  if (!snapshot) return {};
+  const section = timelinePreferenceSection(controls.area, controls.preferenceScope);
+  const unread = { binding: snapshot.binding, value: null };
+  const entry = !params.has('timeline.state');
+  const presentation: SavedPreference<string> = entry
+    ? savedTimelinePresentation(snapshot, section, controls.area)
+    : { section, ...unread };
+  const consultScope = entry && !hasContributionScope(params);
+  const scope: SavedPreference<ContributionSettings> | undefined =
+    directory &&
+    (consultScope
+      ? savedContributionScope(snapshot, directory, controls.asOf)
+      : { section: 'contributions.scope', ...unread });
+  if (!entry) return { preferences: { presentation, scope } };
+  const resolved = resolveTimelineEntry(params.toString(), controls, {
+    presentation: presentation.invalid === undefined ? (presentation.value ?? '') : null,
+    scope:
+      !scope || !consultScope
+        ? undefined
+        : scope.invalid === undefined
+          ? (scope.value ?? undefined)
+          : null,
+  });
+  if (resolved.kind === 'redirect') return { redirect: controls.path + '?' + resolved.search };
+  // Only the section a notice reports is deleted after hydration; the other was not consulted.
+  const reported = <T>(saved: SavedPreference<T>, kind: 'presentation' | 'scope') =>
+    resolved.rejected === kind
+      ? saved
+      : { section: saved.section, binding: saved.binding, value: saved.value };
+  return {
+    preferences: {
+      presentation: reported(presentation, 'presentation'),
+      scope: scope && reported(scope, 'scope'),
+      notice: resolved.notice,
+    },
+  };
+}
+const redirectTo = (href: string) => ({ status: 'redirect' as const, href });
 export async function contributionTimelinePreview(
   area: ContributionArea,
   params: URLSearchParams,
   focus: ContributionFocus = { kind: 'overview' },
+  preferences?: PreferenceSnapshot,
 ) {
   const viewer = await requireViewer();
   const path = contributionPath(focus.kind === 'overview' ? area : focus),
@@ -164,6 +228,12 @@ export async function contributionTimelinePreview(
       !sample.contributions.companies.some((row) => row.id === focus.companyId))
   )
     notFound();
+  const controls: TimelineControlContext = {
+    ...context('contribution', path, parsed, area + ':' + focus.kind),
+    contribution: settings,
+  };
+  const saved = timelinePreferences(params, controls, preferences, sample.contributions);
+  if ('redirect' in saved) return redirectTo(saved.redirect);
   return {
     status: 'ready' as const,
     viewerId: viewer.id,
@@ -176,13 +246,14 @@ export async function contributionTimelinePreview(
       sample.contributions.asOf,
     ),
     href: path + '?' + params.toString(),
-    controls: {
-      ...context('contribution', path, parsed, area + ':' + focus.kind),
-      contribution: settings,
-    },
+    controls: { ...controls, ...saved },
   };
 }
-export async function repositoryTimelinePreview(slug: string, params: URLSearchParams) {
+export async function repositoryTimelinePreview(
+  slug: string,
+  params: URLSearchParams,
+  preferences?: PreferenceSnapshot,
+) {
   const viewer = await requireViewer();
   const repository = repositoryCatalog.find((row) => row.slug === slug && row.enabled);
   if (!repository) notFound();
@@ -197,6 +268,12 @@ export async function repositoryTimelinePreview(slug: string, params: URLSearchP
   } catch (error) {
     return invalid(error instanceof Error ? error.message : undefined);
   }
+  const controls: TimelineControlContext = {
+    ...context('repository', path, parsed, repository.id),
+    filters,
+  };
+  const saved = timelinePreferences(params, controls, preferences);
+  if ('redirect' in saved) return redirectTo(saved.redirect);
   const source = repositoryTimelineSample(
     parsed.view.kind,
     repository.id,
@@ -218,10 +295,13 @@ export async function repositoryTimelinePreview(slug: string, params: URLSearchP
     parent,
     omitted: params.get('timeline.omitted') === 'current',
     facets: repositoryFilterOptions(rows),
-    controls: { ...context('repository', path, parsed, repository.id), filters },
+    controls: { ...controls, ...saved },
   };
 }
-export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
+export async function repositoryTimelineMatrixPreview(
+  params: URLSearchParams,
+  preferences?: PreferenceSnapshot,
+) {
   const viewer = await requireViewer(),
     parsed = options(params, 'matrix', '/repos');
   if (parsed.status === 'invalid') return parsed;
@@ -236,6 +316,12 @@ export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
     params,
     repositories.map((row) => row.id),
   );
+  const controls: TimelineControlContext = {
+    ...context('matrix', '/repos', parsed, 'matrix'),
+    repositoryIds,
+  };
+  const saved = timelinePreferences(params, controls, preferences);
+  if ('redirect' in saved) return redirectTo(saved.redirect);
   const kinds = new Set(
     parsed.metricIds.map(
       (metric) => repositoryTimelineMetricScope(metric as RepositoryTimelineMetric).recordKind,
@@ -256,6 +342,6 @@ export async function repositoryTimelineMatrixPreview(params: URLSearchParams) {
     }),
     href: '/repos?' + params.toString(),
     summaryHref,
-    controls: { ...context('matrix', '/repos', parsed, 'matrix'), repositoryIds },
+    controls: { ...controls, ...saved },
   };
 }

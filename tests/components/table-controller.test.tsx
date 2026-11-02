@@ -2,6 +2,12 @@ import { beforeEach, afterEach, it, expect, vi, type MockInstance } from 'vitest
 import { renderHook, act } from '@testing-library/react';
 import { useTableController } from '@/lib/navigation/use-table-controller';
 import { preferenceKey } from '@/lib/presentation/table-query';
+import {
+  alice,
+  preferenceSections,
+  savedSection,
+  seedPreferences,
+} from '../support/preference-cookies';
 vi.mock('next/navigation', async () => {
   const { useSyncExternalStore } = await import('react');
   const subscribe = (notify: () => void) => {
@@ -32,75 +38,50 @@ vi.mock('next/navigation', async () => {
 const columnIds = ['name'],
   initial = { search: '', sort: '', descending: false, page: 1 };
 const options = { queryKey: 'items', scopeKey: 'items', columnIds };
-it('migrates entity sorts into a shared table scope without overwriting current choices or other preferences', () => {
-  localStorage.clear();
-  window.history.replaceState(null, '', '/contributors/alice');
+const sortSection = 'overview.backlog.sort' as const;
+it('copies a legacy localStorage sort into an absent section once, from the next request', () => {
+  window.history.replaceState(null, '', '/repos');
   const old = preferenceKey('alice', 'old-alice'),
-    next = preferenceKey('alice', 'shared-table');
-  const untouched = preferenceKey('bob', 'old-alice');
+    current = preferenceKey('alice', 'shared-table'),
+    untouched = preferenceKey('bob', 'old-alice');
   localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
   localStorage.setItem(untouched, 'keep');
-  localStorage.setItem('columns:alice', 'keep-columns');
-  const { result, rerender } = renderHook(
-    ({ legacy }) =>
-      useTableController({
-        ...options,
-        viewerId: 'alice',
-        scopeKey: 'shared-table',
-        legacyScopeKey: legacy,
-      }),
-    { initialProps: { legacy: 'old-alice' } },
+  const { result } = renderHook(() =>
+    useTableController({
+      ...options,
+      viewerId: 'alice',
+      scopeKey: 'shared-table',
+      legacyScopeKey: 'old-alice',
+      savedSort: savedSection(sortSection),
+    }),
   );
-  expect(result.current.query).toMatchObject({ sort: 'name', descending: true });
-  expect(localStorage.getItem(old)).toBeNull();
-  expect(localStorage.getItem(next)).toBe(JSON.stringify({ sort: 'name', descending: true }));
-  act(() => result.current.update({ sort: 'name', descending: false }));
-  localStorage.setItem(
-    preferenceKey('alice', 'old-bob'),
-    JSON.stringify({ sort: 'name', descending: true }),
-  );
-  rerender({ legacy: 'old-bob' });
-  expect(result.current.query.descending).toBe(false);
-  expect(localStorage.getItem(preferenceKey('alice', 'old-bob'))).toBeNull();
-  expect(localStorage.getItem(untouched)).toBe('keep');
-  expect(localStorage.getItem('columns:alice')).toBe('keep-columns');
-});
-it('retains a readable legacy sort and its old copy when migration storage is unavailable', () => {
-  localStorage.clear();
-  window.history.replaceState(null, '', '/contributors/alice');
-  const old = preferenceKey('alice', 'legacy');
-  localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw Error('full');
+  // This render keeps the defaults the server rendered; the copy applies from the next request.
+  expect(result.current.query).toEqual(initial);
+  expect(preferenceSections('repositories')).toEqual({
+    [sortSection]: { sort: 'name', descending: true },
   });
-  const { result } = renderHook(() =>
-    useTableController({
-      ...options,
-      viewerId: 'alice',
-      scopeKey: 'shared',
-      legacyScopeKey: 'legacy',
-    }),
-  );
-  expect(result.current.query).toMatchObject({ sort: 'name', descending: true });
-  expect(result.current.storageAvailable).toBe(false);
-  expect(localStorage.getItem(old)).not.toBeNull();
+  expect(localStorage.getItem(old)).toBeNull();
+  expect(localStorage.getItem(current)).toBeNull();
+  expect(localStorage.getItem(untouched)).toBe('keep');
 });
-it('keeps the legacy copy when the shared sort is invalid instead of deleting both recovery paths', () => {
-  localStorage.clear();
-  window.history.replaceState(null, '', '/contributors/alice');
-  const old = preferenceKey('alice', 'legacy');
-  localStorage.setItem(old, JSON.stringify({ sort: 'name', descending: true }));
-  localStorage.setItem(preferenceKey('alice', 'shared'), '{invalid');
+it('copies no invalid legacy sort and deletes an invalid cookie section after hydration', () => {
+  window.history.replaceState(null, '', '/repos');
+  localStorage.setItem(preferenceKey('alice', 'items'), '{"sort":"retired","descending":true}');
+  renderHook(() =>
+    useTableController({ ...options, viewerId: 'alice', savedSort: savedSection(sortSection) }),
+  );
+  expect(preferenceSections('repositories')).toBeNull();
+  expect(localStorage.getItem(preferenceKey('alice', 'items'))).toBeNull();
+  seedPreferences(alice, { [sortSection]: { sort: 3 }, overview: 'kept' });
   const { result } = renderHook(() =>
     useTableController({
       ...options,
       viewerId: 'alice',
-      scopeKey: 'shared',
-      legacyScopeKey: 'legacy',
+      savedSort: savedSection(sortSection, null, '{"sort":3}'),
     }),
   );
-  expect(result.current.query.sort).toBe('');
-  expect(localStorage.getItem(old)).toBe(JSON.stringify({ sort: 'name', descending: true }));
+  expect(result.current.query).toEqual(initial);
+  expect(preferenceSections('repositories')).toEqual({ overview: 'kept' });
 });
 let historySpy: MockInstance<History['replaceState']>;
 let pushSpy: MockInstance<History['pushState']>;
@@ -138,42 +119,56 @@ it('observes router changes, uses null external state, and preserves unrelated q
   expect(result.current.query).toEqual(initial);
   expect(result.current.draftSearch).toBe('');
 });
-it('restores scoped preferences in memory, gives the URL precedence, and survives new column-array identities', () => {
-  localStorage.setItem(
-    preferenceKey('alice', 'items'),
-    JSON.stringify({ sort: 'name', descending: true }),
-  );
+it('starts from the server-validated sort, gives the URL precedence, and saves deliberate sorts', () => {
+  window.history.replaceState(null, '', '/repos');
+  seedPreferences(alice, { overview: 'kept' });
+  const savedSort = savedSection(sortSection, { sort: 'name', descending: true });
+  historySpy.mockClear();
   const { result, rerender, unmount } = renderHook(() =>
-    useTableController({ ...options, columnIds: [...columnIds], viewerId: 'alice' }),
+    useTableController({ ...options, columnIds: [...columnIds], viewerId: 'alice', savedSort }),
   );
   expect(result.current.query).toEqual({ ...initial, sort: 'name', descending: true });
   expect(window.location.search).toBe('');
+  expect(historySpy).not.toHaveBeenCalled();
+  expect(preferenceSections('repositories')).toEqual({ overview: 'kept' });
   rerender();
   act(() => result.current.update({ sort: 'name', descending: false }));
   expect(result.current.query.descending).toBe(false);
+  expect(preferenceSections('repositories')).toEqual({
+    overview: 'kept',
+    [sortSection]: { sort: 'name', descending: false },
+  });
+  // Paging is not a sort choice, so it saves nothing.
+  act(() => result.current.update({ page: 2 }));
+  expect(preferenceSections('repositories')![sortSection]).toEqual({
+    sort: 'name',
+    descending: false,
+  });
+  act(() => result.current.clearSavedSort());
+  expect(preferenceSections('repositories')).toEqual({ overview: 'kept' });
+  act(() => window.history.replaceState(null, '', '/repos'));
+  expect(result.current.query).toEqual(initial);
   unmount();
-  window.history.replaceState(null, '', '/?items.sort=name&items.dir=asc');
-  const next = renderHook(() => useTableController({ ...options, viewerId: 'alice' }));
+  window.history.replaceState(null, '', '/repos?items.sort=name&items.dir=asc');
+  const next = renderHook(() => useTableController({ ...options, viewerId: 'alice', savedSort }));
   expect(next.result.current.query.descending).toBe(false);
 });
-it.each(['{', '{"sort":"retired","descending":true}', 'null', '{"sort":"name"}'])(
-  'ignores malformed preference %s',
-  (value) => {
-    localStorage.setItem(preferenceKey('alice', 'items'), value);
-    const { result } = renderHook(() => useTableController({ ...options, viewerId: 'alice' }));
-    expect(result.current.query).toEqual(initial);
-  },
-);
-it('works when preference storage is denied', () => {
-  vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-    throw new Error('denied');
-  });
-  const { result } = renderHook(() => useTableController({ ...options, viewerId: 'alice' }));
+it('keeps a sort in memory when the browser keeps no cookie, and saves none without a section', () => {
+  window.history.replaceState(null, '', '/repos');
+  vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});
+  const { result } = renderHook(() =>
+    useTableController({ ...options, viewerId: 'alice', savedSort: savedSection(sortSection) }),
+  );
   act(() => result.current.update({ sort: 'name', descending: true }));
   expect(result.current.query.sort).toBe('name');
+  expect(result.current.storageAvailable).toBe(false);
+  vi.restoreAllMocks();
+  const writes = vi.spyOn(Document.prototype, 'cookie', 'set');
+  const anonymous = renderHook(() => useTableController(options));
+  act(() => anonymous.result.current.update({ sort: 'name', descending: true }));
+  act(() => anonymous.result.current.clearSavedSort());
+  expect(writes).not.toHaveBeenCalled();
+  expect(anonymous.result.current.storageAvailable).toBe(true);
 });
 it('debounces typing and captures the latest draft when sorting or exporting immediately', () => {
   vi.useFakeTimers();

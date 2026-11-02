@@ -8,7 +8,7 @@ import {
   repositoryColumnsKey,
   serializeRepositoryColumns,
 } from '@/lib/presentation/repository-page-preferences';
-import { preferenceKey } from '@/lib/presentation/table-query';
+import { savedSection } from '../support/preference-cookies';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 vi.mock('next/navigation', async () => {
@@ -70,7 +70,11 @@ afterEach(() => {
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
-function useControls(viewerId = 'alice', source = prs) {
+function useControls(
+  viewerId = 'alice',
+  source = prs,
+  savedSort?: ReturnType<typeof savedSection<{ sort: string; descending: boolean }>>,
+) {
   const table = useTableController({
     queryKey: source.kind,
     scopeKey: 'repository:' + source.repository.slug + ':' + source.kind,
@@ -78,6 +82,7 @@ function useControls(viewerId = 'alice', source = prs) {
     columnIds: sorts,
     defaultSort,
     historyMode: 'push',
+    savedSort,
   });
   const settings = useRepositoryPageControls(viewerId, source, columns, table);
   return { table, settings };
@@ -87,13 +92,17 @@ it('restores presentation only, gives explicit URLs precedence, and isolates acc
     repositoryColumnsKey('alice', repo.id, 'prs'),
     serializeRepositoryColumns({ ageDays: false }),
   );
-  localStorage.setItem(
-    preferenceKey('alice', 'repository:' + repo.slug + ':prs'),
-    JSON.stringify({ sort: 'number', descending: false }),
+  // Alice saved a pull request sort; route composition hands it to every repository's PR list.
+  const savedPrSort = savedSection('repository.prs.sort', { sort: 'number', descending: false });
+  const { result, rerender } = renderHook(
+    ({ viewerId, source }) =>
+      useControls(
+        viewerId,
+        source,
+        viewerId === 'alice' && source.kind === 'prs' ? savedPrSort : undefined,
+      ),
+    { initialProps: { viewerId: 'alice', source: prs } },
   );
-  const { result, rerender } = renderHook(({ viewerId, source }) => useControls(viewerId, source), {
-    initialProps: { viewerId: 'alice', source: prs },
-  });
   expect(result.current.settings.visibility.value.ageDays).toBe(false);
   expect(result.current.table.query.sort).toBe('number');
   expect(result.current.settings.filters).toEqual(defaultRepositoryFilters('prs'));

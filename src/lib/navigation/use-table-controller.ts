@@ -9,8 +9,11 @@ import {
   writeTableQuery,
 } from '@/lib/presentation/table-query';
 import { type TableQuery } from '@/models/table-query';
+import type { SavedPreference } from '@/models/preferences';
 import type { TableController } from '@/lib/presentation/table-controller';
+import { usePreferenceCookie } from './use-preference-cookie';
 const noPeers: readonly string[] = [];
+type SavedSort = Pick<TableQuery, 'sort' | 'descending'>;
 export function useTableController({
   queryKey,
   columnIds,
@@ -20,26 +23,46 @@ export function useTableController({
   peerQueryKeys = noPeers,
   defaultSort,
   historyMode = 'replace',
+  savedSort,
 }: {
   historyMode?: 'push' | 'replace';
   queryKey: string;
   columnIds: readonly string[];
   scopeKey?: string;
-  /** One-time migration from a formerly narrower scope; other accounts/reports are untouched. */
+  /** A former localStorage scope whose saved sort is copied once into `savedSort`'s section. */
   legacyScopeKey?: string;
   viewerId?: string;
   peerQueryKeys?: readonly string[];
-  defaultSort?: Pick<TableQuery, 'sort' | 'descending'>;
+  defaultSort?: SavedSort;
+  /**
+   * The server-validated saved sort and the cookie section that keeps it. The first render uses it
+   * when the URL names no sort; a deliberate sort change writes it and clearSavedSort deletes it.
+   * Without it, sorts are not saved.
+   */
+  savedSort?: SavedPreference<SavedSort>;
 }): TableController & { clearSavedSort: () => void; storageAvailable: boolean } {
   const pathname = usePathname(),
     search = useSearchParams().toString();
   const scope = JSON.stringify([scopeKey ?? pathname, queryKey, viewerId]);
   const stamp = tableLocationStamp(pathname, search, peerQueryKeys);
-  const [storageAvailable, setStorageAvailable] = useState(true);
-  const [draft, setDraft] = useState<{ scope: string; stamp: string; value: string } | null>(null);
-  const [saved, setSaved] = useState<{ scope: string; sort: string; descending: boolean } | null>(
-    null,
+  const legacyKeys = viewerId
+    ? [
+        ...new Set([
+          preferenceKey(viewerId, scopeKey ?? pathname),
+          ...(legacyScopeKey ? [preferenceKey(viewerId, legacyScopeKey)] : []),
+        ]),
+      ]
+    : [];
+  const { write: writeSort, storageAvailable } = usePreferenceCookie(
+    savedSort,
+    legacyKeys.length
+      ? { keys: legacyKeys, read: (raw) => readSavedTableSort(raw, columnIds) }
+      : undefined,
   );
+  const [draft, setDraft] = useState<{ scope: string; stamp: string; value: string } | null>(null);
+  // A sort saved or cleared in this session; until then the server-validated sort applies.
+  const [changed, setChanged] = useState<{ scope: string; value: SavedSort | null } | null>(null);
+  const saved = changed?.scope === scope ? changed.value : (savedSort?.value ?? null);
   const [correction, setCorrection] = useState<{
     scope: string;
     stamp: string;
@@ -53,7 +76,7 @@ export function useTableController({
         search,
         queryKey,
         columnIds,
-        saved?.scope === scope ? saved : defaultSort,
+        saved ?? defaultSort,
         correction?.scope === scope && correction.stamp === stamp ? correction.page : undefined,
       ),
     [search, queryKey, columnIds, saved, correction, scope, stamp, defaultSort],
@@ -73,7 +96,7 @@ export function useTableController({
         url.search,
         queryKey,
         columnIds,
-        saved?.scope === scope ? saved : defaultSort,
+        saved ?? defaultSort,
         correction?.scope === scope && correction.stamp === currentStamp
           ? correction.page
           : undefined,
@@ -110,17 +133,10 @@ export function useTableController({
       searchEntry.current = historyMode === 'push' && searchOnly ? { scope, href: url.href } : null;
       setDraft(null);
       setCorrection(null);
-      if (viewerId && patch.sort !== undefined) {
-        setSaved({ scope, sort: next.sort, descending: next.descending });
-        try {
-          localStorage.setItem(
-            preferenceKey(viewerId, scopeKey ?? pathname),
-            JSON.stringify({ sort: next.sort, descending: next.descending }),
-          );
-          setStorageAvailable(true);
-        } catch {
-          setStorageAvailable(false);
-        }
+      if ((viewerId || savedSort) && patch.sort !== undefined) {
+        const value = { sort: next.sort, descending: next.descending };
+        setChanged({ scope, value });
+        writeSort(value);
       }
       return next;
     },
@@ -132,8 +148,8 @@ export function useTableController({
       correction,
       draft,
       viewerId,
-      scopeKey,
-      pathname,
+      savedSort,
+      writeSort,
       peerQueryKeys,
       defaultSort,
       historyMode,
@@ -142,48 +158,12 @@ export function useTableController({
   useEffect(() => {
     searchEntry.current = null;
   }, [scope]);
-  useEffect(() => {
-    if (!viewerId) return;
-    let restored: ReturnType<typeof readSavedTableSort> | undefined;
-    try {
-      const key = preferenceKey(viewerId, scopeKey ?? pathname);
-      const raw = localStorage.getItem(key);
-      restored = readSavedTableSort(raw, columnIds);
-      const legacyKey = legacyScopeKey ? preferenceKey(viewerId, legacyScopeKey) : undefined;
-      if (!raw && legacyKey && legacyKey !== key) {
-        restored = readSavedTableSort(localStorage.getItem(legacyKey), columnIds);
-        if (restored) localStorage.setItem(key, JSON.stringify(restored));
-      }
-      if (legacyKey && legacyKey !== key && restored) localStorage.removeItem(legacyKey);
-      setStorageAvailable(true);
-    } catch {
-      setStorageAvailable(false);
-    }
-    if (restored !== undefined) {
-      const value = restored;
-      setSaved((previous) =>
-        value
-          ? previous?.scope === scope &&
-            previous.sort === value.sort &&
-            previous.descending === value.descending
-            ? previous
-            : { scope, ...value }
-          : null,
-      );
-    }
-  }, [viewerId, scopeKey, legacyScopeKey, pathname, scope, columnIds]);
   const clearSavedSort = useCallback(() => {
     cancel();
-    setSaved(null);
+    setChanged({ scope, value: null });
     setCorrection(null);
-    if (!viewerId) return;
-    try {
-      localStorage.removeItem(preferenceKey(viewerId, scopeKey ?? pathname));
-      setStorageAvailable(true);
-    } catch {
-      setStorageAvailable(false);
-    }
-  }, [cancel, viewerId, scopeKey, pathname]);
+    writeSort(null);
+  }, [cancel, scope, writeSort]);
 
   useEffect(() => {
     if (draftSearch === query.search) return;

@@ -2,11 +2,13 @@ import '@testing-library/jest-dom/vitest';
 import { beforeEach, afterEach } from 'vitest';
 import { devNull } from 'node:os';
 import { cleanup } from '@testing-library/react';
+import { clearPreferenceCookies } from './support/preference-cookies';
 afterEach(() => {
   if (typeof window !== 'undefined') {
     cleanup();
     window.history.replaceState(null, '', '/');
     window.localStorage.clear();
+    clearPreferenceCookies();
   }
 });
 

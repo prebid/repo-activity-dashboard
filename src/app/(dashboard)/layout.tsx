@@ -5,6 +5,7 @@ import { repositoryCatalog } from '@/config/repositories';
 import { Fragment } from 'react';
 import { DashboardFrame } from '@/components/layout/dashboard-frame';
 import { layoutWidthCookie, parseLayoutWidth } from '@/lib/presentation/layout-width';
+import { PreferenceNotice } from '@/components/feedback/preference-notice';
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const viewer = await requireViewer();
   const layoutWidth = parseLayoutWidth((await cookies()).get(layoutWidthCookie)?.value);
@@ -13,7 +14,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
       layoutWidth={layoutWidth}
       navigation={<Toolbar repositories={repositoryCatalog} viewer={viewer} />}
     >
-      <Fragment key={viewer.id + ':' + viewer.authVersion}>{children}</Fragment>
+      <Fragment key={viewer.id + ':' + viewer.authVersion}>
+        <PreferenceNotice />
+        {children}
+      </Fragment>
     </DashboardFrame>
   );
 }
