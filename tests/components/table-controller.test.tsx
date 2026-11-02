@@ -154,6 +154,25 @@ it('starts from the server-validated sort, gives the URL precedence, and saves d
   const next = renderHook(() => useTableController({ ...options, viewerId: 'alice', savedSort }));
   expect(next.result.current.query.descending).toBe(false);
 });
+it('saves a sort its caller wrote to the address without writing history, and none without a section', () => {
+  window.history.replaceState(null, '', '/repos');
+  historySpy.mockClear();
+  pushSpy.mockClear();
+  const { result } = renderHook(() =>
+    useTableController({ ...options, viewerId: 'alice', savedSort: savedSection(sortSection) }),
+  );
+  act(() => result.current.rememberSort({ sort: 'name', descending: true }));
+  expect(preferenceSections('repositories')).toEqual({
+    [sortSection]: { sort: 'name', descending: true },
+  });
+  expect(historySpy).not.toHaveBeenCalled();
+  expect(pushSpy).not.toHaveBeenCalled();
+  expect(window.location.search).toBe('');
+  const writes = vi.spyOn(Document.prototype, 'cookie', 'set');
+  const anonymous = renderHook(() => useTableController(options));
+  act(() => anonymous.result.current.rememberSort({ sort: 'name', descending: false }));
+  expect(writes).not.toHaveBeenCalled();
+});
 it('keeps a sort in memory when the browser keeps no cookie, and saves none without a section', () => {
   window.history.replaceState(null, '', '/repos');
   vi.spyOn(Document.prototype, 'cookie', 'set').mockImplementation(() => {});

@@ -1,6 +1,5 @@
 'use client';
 import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
-import type { PreferenceSectionKey } from '@/models/preferences';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
@@ -21,7 +20,7 @@ import {
   ContributionDetailsView,
   contributionDetailColumnIds,
 } from '@/features/contributions/contribution-details-view';
-import { ContributionView } from '@/features/contributions/contribution-view';
+import { ContributionView, ShowAllSwitch } from '@/features/contributions/contribution-view';
 import {
   contributorColumns,
   companyColumns,
@@ -33,8 +32,9 @@ import { usePendingNavigation } from '@/lib/navigation/use-pending-navigation';
 import { LinkPending } from '@/components/navigation/link-pending';
 import { ViewTabs } from '@/components/navigation/view-tabs';
 import { Checkbox } from '@/components/ui/checkbox';
-import { contributionDefaultSort } from '@/models/contributions';
+import { lensDefaultSort } from '@/models/contribution-lens';
 import type { ContributionPage } from '@/models/contribution-page';
+import { contributionTimelineSection } from '@/lib/presentation/contribution-lens';
 import type { TableFields } from '@/lib/presentation/url/table-binding';
 import {
   contributionHref,
@@ -84,9 +84,11 @@ export function ContributionsScreen({
   const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
   const pendingNavigation = usePendingNavigation();
   const asOf = page.report.context.asOf;
-  // Over time opens this report's Timeline with the viewer's saved presentation (decision C3).
+  const lens = page.lens ?? 'contributors';
+  // Over time opens this report's Timeline with the viewer's saved presentation in this lens
+  // (decision C3).
   const savedTimeline = useSavedTimelinePresentation(
-    ('timeline.' + page.area + '.' + page.report.context.focus.kind) as PreferenceSectionKey,
+    contributionTimelineSection(lens, page.area, page.report.context.focus.kind),
     'contribution',
   );
   const table = page.details ? 'details' : page.report.table!.kind;
@@ -109,7 +111,7 @@ export function ContributionsScreen({
       (page.details ? ':' + page.details.metric : ''),
     viewerId,
     columnIds,
-    defaultSort: page.details ? detailSort : contributionDefaultSort,
+    defaultSort: page.details ? detailSort : lensDefaultSort[lens],
     historyMode: 'push',
     savedSort: preferences?.sort,
     fields,
@@ -133,9 +135,22 @@ export function ContributionsScreen({
           ...savedTables?.[table],
           columns: controls.changed.value.columns,
           hideZeroMembers: controls.changed.value.hideZeroMembers,
+          showAllAccounts: controls.changed.value.showAllAccounts,
         },
       }
     : savedTables;
+  // A Reviewers overview lists accounts with reviewer evidence; the switch lists every account
+  // (or company) with activity. It is always shown in that lens, so the panel does not shift.
+  const population =
+    page.report.kind === 'overview' && !page.details ? page.report.population : undefined;
+  const populationControls = population && (
+    <ShowAllSwitch
+      population={population}
+      area={page.area}
+      disabled={controls.pending}
+      onChange={(on) => controls.changeShowAllAccounts(on)}
+    />
+  );
   /** The report at the address now, after a pending search was committed to it. */
   const atAddress = () => contributionViewOf(here()) ?? controls.current;
   /** `pendingKey` names the tab or breakdown link that shows the pending navigation. */
@@ -170,8 +185,10 @@ export function ContributionsScreen({
         onChange: (value, field) => controls.update(value, field),
         onReset: controls.reset,
       })}
+      populationControls={populationControls}
       links={{
         sample: page.sample,
+        lens,
         settings: controls.value,
         context: page.report.context,
         saved,
@@ -185,6 +202,7 @@ export function ContributionsScreen({
               here(),
               repositoryId,
               saved,
+              lens,
             ),
           ),
         currentHref: controls.returnHref,
@@ -199,12 +217,12 @@ export function ContributionsScreen({
         onAreaFollow: (event, area) =>
           navigate(
             event,
-            () => contributionHref(area, page.sample, undefined, controls.value, saved),
+            () => contributionHref(area, page.sample, undefined, controls.value, saved, lens),
             area,
           ),
         onFollow: (event, focus) =>
           navigate(event, () =>
-            contributionHref(focus, page.sample, here(), controls.value, saved),
+            contributionHref(focus, page.sample, here(), controls.value, saved, lens),
           ),
       }}
       breakdownControls={
@@ -247,7 +265,7 @@ export function ContributionsScreen({
                   checked={controls.hideZeroMembers}
                   onChange={(event) => controls.changeHideZeroMembers(event.target.checked)}
                 />
-                Hide zero totals
+                {lens === 'reviewers' ? 'Hide zero reviewer totals' : 'Hide zero totals'}
               </label>
             )}
           </div>

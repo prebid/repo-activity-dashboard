@@ -60,6 +60,7 @@ import ContributorPage from '@/app/(dashboard)/contributors/[accountId]/page';
 import { PreferenceBindingProvider } from '@/lib/navigation/preference-binding';
 import { ContributionRoute } from '@/app/_screens/contribution-route';
 import CompaniesPage from '@/app/(dashboard)/companies/page';
+import CompanyPage from '@/app/(dashboard)/companies/[...identity]/page';
 import ReviewersPage from '@/app/(dashboard)/reviewers/page';
 
 const defaults = defaultContributionSettings(contributionSample());
@@ -172,16 +173,58 @@ it('serves /reviewers: the saved Reviewers view, its reviewer population and its
   );
   const all = render(await route({ all: '' }, ReviewersPage));
   expect(screen.getByRole('link', { name: 'Finn — view contribution report' })).toBeInTheDocument();
+  expect(screen.getByRole('switch', { name: 'Show all 7 accounts' })).toBeChecked();
   all.unmount();
   render(await route({ v: '1' }, ReviewersPage));
+  const reviewers = screen.getByRole('region', { name: 'Reviewers' });
   expect(
-    screen.getByRole('link', { name: 'Alice — view contribution report' }),
+    within(reviewers).getByRole('link', { name: 'Alice — view contribution report' }),
   ).toBeInTheDocument();
   // Finn has no review, approval or merge credit.
   expect(screen.queryByRole('link', { name: 'Finn — view contribution report' })).toBeNull();
+  expect(within(reviewers).getByRole('switch', { name: 'Show all 7 accounts' })).not.toBeChecked();
+  expect(
+    within(screen.getByRole('navigation', { name: 'Contribution reports' })).getByRole('link', {
+      name: 'Reviewers',
+    }),
+  ).toHaveAttribute('aria-current', 'page');
   expect(historyWrites).not.toHaveBeenCalled();
 });
 
+it('labels a company roster’s Hide zero by lens and keeps the lens on its breakdown and crumb', async () => {
+  const company = async (search: Record<string, string>) => {
+    const element = (await CompanyPage({
+      params: Promise.resolve({ identity: ['id', 'company-beacon'] }),
+      searchParams: Promise.resolve(search),
+    })) as ReactElement<Parameters<typeof ContributionRoute>[0]>;
+    return ContributionRoute(element.props);
+  };
+  const contributors = render(await company({ zero: 'hide' }));
+  expect(screen.getByRole('checkbox', { name: 'Hide zero totals' })).toBeChecked();
+  expect(
+    within(screen.getByRole('region', { name: 'Company contributors' })).getByRole('link', {
+      name: /^Finn/,
+    }),
+  ).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Back to Companies' })).toHaveAttribute(
+    'href',
+    '/companies',
+  );
+  contributors.unmount();
+  render(await company({ lens: 'reviewers', zero: 'hide' }));
+  expect(screen.getByRole('checkbox', { name: 'Hide zero reviewer totals' })).toBeChecked();
+  const members = screen.getByRole('region', { name: 'Company members' });
+  // Finn has no reviewer credit, so the reviewer Hide zero leaves him out.
+  expect(within(members).queryByRole('link', { name: /^Finn/ })).toBeNull();
+  const breakdown = new URL(
+    within(members).getByRole('link', { name: 'By repository' }).getAttribute('href')!,
+    'https://dashboard.test',
+  );
+  expect(breakdown.searchParams.get('lens')).toBe('reviewers');
+  const crumb = screen.getByRole('link', { name: 'Back to Companies' });
+  expect(crumb).toHaveAttribute('href', '/companies?lens=reviewers');
+  expect(historyWrites).not.toHaveBeenCalled();
+});
 it('renders the invalid view for an unknown parameter and for Show all outside the Reviewers lens', async () => {
   for (const [search, page] of [
     [{ unknown: '1' }, ContributorsPage],
@@ -201,9 +244,9 @@ it('renders the invalid view for an unknown parameter and for Show all outside t
   );
 });
 
-it('opens the area report from Back to report: its saved form without a frame, else the frame', async () => {
+it('opens the area report from its crumb, named after the lens: its saved form without a frame, else the frame', async () => {
   seedPreferences(alice, { 'contributions.scope': stored(lastMonth) });
-  const crumb = async (search: string) => {
+  const crumb = async (search: string, name = 'Back to Contributors') => {
     History.prototype.replaceState.call(
       window.history,
       null,
@@ -219,7 +262,7 @@ it('opens the area report from Back to report: its saved form without a frame, e
         {await ContributionRoute(element.props)}
       </PreferenceBindingProvider>,
     );
-    const href = screen.getByRole('link', { name: 'Back to report' }).getAttribute('href');
+    const href = screen.getByRole('link', { name }).getAttribute('href');
     view.unmount();
     return href;
   };
@@ -229,4 +272,6 @@ it('opens the area report from Back to report: its saved form without a frame, e
   // A page at another scope derives the report at that scope; a frame names its own parent.
   expect(await crumb('?period=this-month')).toBe('/contributors?period=this-month');
   expect(await crumb('?back=~page:2')).toBe('/contributors?page=2');
+  // In the Reviewers lens the parent is the Reviewers overview.
+  expect(await crumb('?lens=reviewers', 'Back to Reviewers')).toBe('/reviewers?period=last-month');
 });
