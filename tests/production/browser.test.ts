@@ -14,6 +14,11 @@ async function signIn(
   await page.goto(
     origin + '/auth/login' + (callbackUrl ? '?callbackUrl=' + encodeURIComponent(callbackUrl) : ''),
   );
+  // Before hydration the form posts natively and shows no error; the theme button in the same
+  // tree is enabled by that hydration.
+  await page
+    .getByRole('button', { name: 'Theme settings', exact: true, disabled: false })
+    .waitFor();
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
