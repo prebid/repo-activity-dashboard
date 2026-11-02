@@ -118,6 +118,14 @@ export default defineConfig({
           statements: 94,
           functions: 70,
         },
+        // The page-level URL helper: legacy 307s, entry redirects and the legacy decode context.
+        'src/server/{canonical-page,legacy-context}.ts': {
+          perFile: true,
+          lines: 95,
+          branches: 90,
+          statements: 95,
+          functions: 100,
+        },
         // Decides which titles anonymous and redirected responses carry.
         'src/server/page-metadata.ts': {
           perFile: true,

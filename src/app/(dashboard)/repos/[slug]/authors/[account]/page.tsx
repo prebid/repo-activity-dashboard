@@ -7,6 +7,8 @@ import { repositoryAuthorPageMetadata } from '@/server/page-metadata';
 import { readPreferences } from '@/server/preferences';
 import { repositoryPagePreferences } from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
+import { requireViewer } from '@/lib/auth/viewer';
+import { canonicalPage } from '@/server/canonical-page';
 import styles from '@/features/repositories/repository-page.module.css';
 
 export async function generateMetadata({
@@ -31,7 +33,15 @@ export default async function AuthorRecordsPage({
   params: Promise<{ slug: string; account: string }>;
   searchParams: Promise<PageSearchParams>;
 }) {
+  await requireViewer();
   const { slug, account } = await params;
+  // These screens still read legacy keys: the helper answers nothing until they read codec values.
+  await canonicalPage(
+    '/repos/[slug]/authors/[account]',
+    { slug: [slug], account: [account] },
+    await searchParams,
+    { legacyScreens: true },
+  );
   const query = new URLSearchParams(encodeSearchParams(await searchParams));
   const result = await repositoryAuthorDetail(slug, account, query);
   if (result.status === 'invalid')

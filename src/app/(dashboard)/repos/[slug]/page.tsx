@@ -12,6 +12,8 @@ import {
   repositoryPagePreferences,
 } from '@/app/_screens/repository-preferences';
 import { BackIcon } from '@/components/ui/icons';
+import { requireViewer } from '@/lib/auth/viewer';
+import { canonicalPage } from '@/server/canonical-page';
 import styles from '@/features/repositories/repository-page.module.css';
 export async function generateMetadata({
   params,
@@ -32,8 +34,11 @@ export default async function RepositoryPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<PageSearchParams>;
 }) {
+  await requireViewer();
   const { slug } = await params;
   const query = await searchParams;
+  // These screens still read legacy keys: the helper answers nothing until they read codec values.
+  await canonicalPage('/repos/[slug]', { slug: [slug] }, query, { legacyScreens: true });
   const timelineParams = new URLSearchParams(encodeSearchParams(query));
   if (timelineParams.has('timeline'))
     return <RepositoryTimelineRoute slug={slug} params={timelineParams} />;
