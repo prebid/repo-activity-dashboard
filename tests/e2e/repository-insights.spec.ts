@@ -322,6 +322,8 @@ test('duration links show median and sample size separately with numeric sorting
 test('supporting detail tables stay accessible in both themes at desktop and narrow widths', async ({
   page,
 }, testInfo) => {
+  // Every supporting table in both themes at two widths with axe on each: over 30s in WebKit on CI.
+  test.slow();
   await login(page);
   for (const metric of ['prAuthors', 'agentFeedbackCredits', 'medianMergeDays']) {
     await page.goto(

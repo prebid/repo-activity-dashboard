@@ -457,6 +457,8 @@ test('selectors remain usable without browser storage', async ({ context, page }
 test('repository and date dialogs preserve the design, keyboard focus and accessible narrow layouts', async ({
   page,
 }, testInfo) => {
+  // Both dialogs in both themes at two widths with axe on each: over 30s in WebKit on CI runners.
+  test.slow();
   await login(page);
   for (const theme of ['dark', 'light']) {
     await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
