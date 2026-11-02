@@ -158,6 +158,33 @@ describe('Timeline values in the Timeline query form (decision C9)', () => {
     }
     expect(timelineStateValues('/repos', 'timeline=1&timeline.group=decade', asOf)).toBeNull();
   });
+  it('names the Reviewers lens, whose Over time columns diff against the lens’s metrics', () => {
+    const directory = { repositories: contributionSample().repositories };
+    expect(query('/reviewers', { timeline: true }, true)).toEqual({
+      timeline: '1',
+      lens: 'reviewers',
+    });
+    expect(query('/companies', { timeline: true, lens: 'reviewers' }, true)).toMatchObject({
+      lens: 'reviewers',
+    });
+    expect(query('/companies', { timeline: true }, true)).not.toHaveProperty('lens');
+    for (const [route, values] of [
+      ['/reviewers', { timeline: true, cols: ['prsAuthored', '-mergesPerformed'] }],
+      ['/companies', { timeline: true, lens: 'reviewers', cols: ['prComments'] }],
+    ] as const) {
+      const written = timelineQuery(route, values, asOf)!;
+      // The columns are the lens's: Reviewer contributions and Approval contributions remain.
+      expect(new URLSearchParams(written).getAll('timeline.columns')).toEqual(
+        route === '/reviewers'
+          ? ['prsAuthored', 'reviewerContributions', 'approvalContributions']
+          : ['reviewerContributions', 'approvalContributions', 'mergesPerformed', 'prComments'],
+      );
+      expect(timelineStateValues(route, written, asOf, directory)).toMatchObject(values);
+    }
+    expect(
+      timelineStateValues('/reviewers', 'timeline=1&lens=reviewers', asOf, directory),
+    ).not.toHaveProperty('lens');
+  });
   it('reads an empty matrix selection without a ranking metric, which it could not sort by', () => {
     const empty = timelineStateValues('/repos', 'timeline=1&timeline.metric=', asOf);
     expect(empty).toMatchObject({ metric: [] });

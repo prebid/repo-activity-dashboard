@@ -5,6 +5,7 @@ import type { OverviewRepository } from './repository-overview';
 import type { RepositoryPageFilters } from './repository-page';
 import type { ContributionSettings } from './contribution-settings';
 import type { SavedPreference } from './preferences';
+import type { ContributionLens } from './contribution-lens';
 export const timelineViewSchema = z
   .object({
     grouping: z.enum(timelineGroupings),
@@ -55,6 +56,8 @@ export interface TimelineControlContext {
   repositoryIds?: string[];
   filters?: RepositoryPageFilters;
   contribution?: ContributionSettings;
+  /** Contribution Timelines: the lens the Over time view is read in; absent means Contributors. */
+  lens?: ContributionLens;
   /** Saved-preference sections and the server's entry notice; without them nothing is saved. */
   preferences?: TimelinePreferences;
 }

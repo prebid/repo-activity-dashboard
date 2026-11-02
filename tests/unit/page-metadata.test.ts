@@ -41,6 +41,12 @@ const permitted = [
       companyId: 'company-acme',
     }),
   () => contributionPageMetadata('companies', query(''), { kind: 'company', companyId: null }),
+  () => contributionPageMetadata('contributors', query(''), { kind: 'overview' }, 'reviewers'),
+  () =>
+    contributionPageMetadata('contributors', query('lens=reviewers'), {
+      kind: 'contributor',
+      accountId: 'account-alice',
+    }),
 ];
 let request: object;
 beforeEach(() => {
@@ -59,6 +65,8 @@ describe('authenticated viewers', () => {
       { title: 'Alice · Contributors' },
       { title: 'By repository · Example Acme' },
       { title: 'Unmapped company · Companies' },
+      { title: 'Reviewers' },
+      { title: 'Alice · Reviewers' },
     ]);
     expect(mocks.notFound).not.toHaveBeenCalled();
     expect(mocks.redirect).not.toHaveBeenCalled();

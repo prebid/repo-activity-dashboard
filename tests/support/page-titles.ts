@@ -30,5 +30,11 @@ export const pageTitles = {
   company: 'Example Acme · Companies',
   'company-repositories': 'By repository · Example Acme',
   'company-timeline': 'Over time · Example Acme',
+  reviewers: 'Reviewers',
+  'reviewers-timeline': 'Over time · Reviewers',
+  'companies-reviewers': 'Companies · Reviewers',
+  'contributor-reviewers': 'Alice · Reviewers',
+  'contributor-no-reviewer-activity': 'Finn · Reviewers',
+  'company-reviewers': 'Example Acme · Companies · Reviewers',
   foundation: 'Component foundation',
 } as const satisfies Record<PageGroup, string>;

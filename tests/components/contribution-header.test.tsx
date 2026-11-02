@@ -147,6 +147,92 @@ it('leads a focused report’s header with Back to report and keeps its identity
   expect(within(company).getByText('3 included accounts · Current company mapping')).toBeVisible();
   expect(screen.queryByText('Company report')).toBeNull();
 });
+it('names the crumb after an overview parent and the people tab after the Reviewers lens', () => {
+  const view = render(
+    <ContributionHeader
+      page={{
+        sample: 'reference',
+        area: 'companies',
+        breakdown: 'members',
+        lens: 'reviewers',
+        returnTo: '/companies?lens=reviewers',
+        returnLabel: 'Back to Companies',
+        report: selectContributions(
+          contributionSample(),
+          undefined,
+          { kind: 'company', companyId: 'company-acme' },
+          { area: 'companies', lens: 'reviewers' },
+        ),
+      }}
+      links={{ sample: 'reference', lens: 'reviewers', currentHref: '/companies?lens=reviewers' }}
+    />,
+  );
+  const trail = screen.getByRole('navigation', { name: 'Contribution breadcrumb' });
+  expect(within(trail).getByRole('link', { name: 'Back to Companies' })).toHaveAttribute(
+    'href',
+    '/companies?lens=reviewers',
+  );
+  // The person's company link keeps the lens.
+  view.rerender(
+    <ContributionHeader
+      page={{
+        sample: 'reference',
+        area: 'contributors',
+        breakdown: 'members',
+        lens: 'reviewers',
+        returnTo: '/reviewers',
+        returnLabel: 'Back to Reviewers',
+        report: selectContributions(
+          contributionSample(),
+          undefined,
+          { kind: 'contributor', accountId: 'account-alice' },
+          { area: 'contributors', lens: 'reviewers' },
+        ),
+      }}
+      links={{ sample: 'reference', lens: 'reviewers', currentHref: '/reviewers' }}
+    />,
+  );
+  expect(screen.getByRole('link', { name: 'Back to Reviewers' })).toHaveAttribute(
+    'href',
+    '/reviewers',
+  );
+  const company = new URL(
+    screen.getByRole('link', { name: 'Example Acme' }).getAttribute('href')!,
+    'https://dashboard.test',
+  );
+  expect(company.pathname).toBe('/companies/id/company-acme');
+  expect(company.searchParams.get('lens')).toBe('reviewers');
+  view.rerender(
+    <ContributionHeader
+      page={{
+        sample: 'reference',
+        area: 'contributors',
+        breakdown: 'members',
+        lens: 'reviewers',
+        returnTo: null,
+        report: selectContributions(contributionSample(), undefined, undefined, {
+          area: 'contributors',
+          lens: 'reviewers',
+        }),
+      }}
+      links={{ sample: 'reference', lens: 'reviewers', currentHref: '/reviewers' }}
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1, name: 'Reviewers' })).toBeVisible();
+  const areas = screen.getByRole('navigation', { name: 'Contribution reports' });
+  const reviewers = within(areas).getByRole('link', { name: 'Reviewers' });
+  expect(reviewers).toHaveAttribute('aria-current', 'page');
+  expect(new URL(reviewers.getAttribute('href')!, 'https://dashboard.test').pathname).toBe(
+    '/reviewers',
+  );
+  expect(within(areas).queryByRole('link', { name: 'Contributors' })).toBeNull();
+  const companies = new URL(
+    within(areas).getByRole('link', { name: 'Companies' }).getAttribute('href')!,
+    'https://dashboard.test',
+  );
+  expect(companies.pathname).toBe('/companies');
+  expect(companies.searchParams.get('lens')).toBe('reviewers');
+});
 it('shows Back to report unavailable, with the reason, when its back frame cannot be restored', () => {
   render(header({ kind: 'contributor', accountId: 'account-alice' }, null));
   const trail = screen.getByRole('navigation', { name: 'Contribution breadcrumb' });

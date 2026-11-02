@@ -1,5 +1,6 @@
 import { test, expect, expectTheme } from './fixtures';
 import { observeBrowserErrors } from '../support/browser-errors';
+import { readCsv } from '../support/csv';
 import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async ({ context }) => {
   await context.route('**/*', (route) => {
@@ -302,6 +303,10 @@ test('CSV download and blocked account changes in preview', async ({ page }) => 
   // The export has the visible columns: the contributor lens's three metrics (decision C5).
   expect(csv).toContain('"Issues authored"');
   expect(csv).not.toContain('"Approval contributions"');
+  // The context records the lens the export was taken in.
+  expect(readCsv(csv).records.map((record) => record['Report lens'])).toEqual(
+    Array(7).fill('contributors'),
+  );
   const response = await page.request.post('/api/auth/setup', {
     data: { email: 'unused@example.test', password: 'unused' },
   });
@@ -389,7 +394,7 @@ test('export captures a draft search before its debounce completes', async ({ pa
   await login(page);
   await page
     .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Contributions', exact: true })
+    .getByRole('link', { name: 'Contributors', exact: true })
     .click();
   await page.getByRole('textbox', { name: 'Search Contributors' }).fill('Alice');
   const pending = page.waitForEvent('download');

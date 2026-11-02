@@ -23,8 +23,10 @@ import {
 import { inDateRange } from './reporting-period';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
-import { contributionScopeValues, omitValues } from './contribution-url';
+import { contributionLensValues, contributionScopeValues, omitValues } from './contribution-url';
+import { contributionOverviewPath } from './contribution-lens';
 import { childViewHref, viewHref, viewOf, type UrlView } from './url/back';
+import { lensOf } from './url/defaults';
 import { screenOf, type UrlValues } from './url/registry';
 import { savedTimelineLink } from './url/legacy/timeline-state';
 
@@ -120,17 +122,24 @@ export function contributionTimelineDetail(
 }
 
 /**
- * An overview's Over time in another area: the same scope and Timeline view, without return
- * context, which belongs to the area being left. Null for another href or when it does not fit.
+ * An overview's Over time in another area, in the same lens: the same scope and Timeline view,
+ * without return context, which belongs to the area being left. In the Reviewers lens the people
+ * area is /reviewers and Companies carries `lens=reviewers`. Null for another href or when it does
+ * not fit.
  */
 export function contributionTimelineAreaHref(href: string, area: ContributionArea): string | null {
   const view = viewOf(href);
   if (!view || view.values.timeline !== true) return null;
+  const lens = lensOf(view.route, view.values);
+  const route = contributionOverviewPath(area, lens);
   return viewHref(
     {
-      route: area === 'contributors' ? '/contributors' : '/companies',
+      route,
       segments: {},
-      values: omitValues(view.values, ['back']),
+      values: {
+        ...omitValues(view.values, ['back', 'lens']),
+        ...contributionLensValues(route, lens),
+      },
     },
     'level',
     { explicit: true },

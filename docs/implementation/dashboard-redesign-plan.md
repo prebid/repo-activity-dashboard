@@ -17,7 +17,7 @@ Status: decisions approved 2026-10-31. P0 checkpoints approved 2026-11-01 (see `
 | --- | --- | --- |
 | PR base | Redesign pull requests branch from and target `main`. `codex/frontend-rebuild` (`d5a7020`) is contained in `main` and receives no new work. | `docs/product/README.md:36`, `:101` (this change) |
 | Masthead | Navy `#17232e` in both themes with a 3px Prebid-blue top rule; logo only, no product name beside it. | — (P4) |
-| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. | `foundation-contracts.md` `## What visually locked means` (P1) |
+| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. At 600px and below the top navigation uses the 13px body size at 100% width, so its four destinations fit one row at 390px (P6). | `foundation-contracts.md` `## What visually locked means` (P1) |
 | Colour roles | Orange `#ffad32` means act and "you are here" (primary action; nav, tab and sort underline). Blue means links, selection, group rules, the row-hover bar and charts. The amber "Data as of" chip is the one other warm accent. | `login.md:50` already requires orange primary actions (P1, P2) |
 | Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4, amended) |
 | Sample-data notice | A "Sample data" chip in each page header's Data source, beside "Data as of", while reports read prepared samples (`reportingDataIsSample` in `src/config/reporting.ts`); the frame row stays removed. Re-added 2026-11-02 at the maintainer's request. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (amended) |
@@ -91,7 +91,7 @@ Starting values approved on 2026-10-31. Light value first, dark second. A phase 
 
 **Elevation and radius.** Level 1 (panels, buttons, masthead): `0 1px 2px rgb(16 42 67 / .06), 0 1px 3px rgb(16 42 67 / .08)`; dark `0 1px 2px rgb(0 0 0 / .4), inset 0 1px 0 rgb(255 255 255 / .03)`. Level 2 (menus) and level 3 (dialogs) are defined in the P1 plan. Pinned-column edge: `6px 0 8px -6px` shadow while scrolled sideways. Radius 8px for controls and menus, 12px for panels, callouts and dialogs, 4px small (`--prebid-radius-small`: checkbox boxes, menu items, filter chips, the password toggle and small focus outlines; `--radius-sm` maps to it) and 2px for chart bars and their tracks (`--prebid-radius-mark`).
 
-**Type.** Display 30/34 Mona Sans 800; title 18/26 Mona Sans 700; KPI 28/36 Inter 600; heading 14/20 Inter 600; body 13/20 Inter 400 (controls 500); small 12/18; caption 11/16 Inter 500; overline 11/16 Inter 600, uppercase, +0.06em. Numbers use `font-variant-numeric: tabular-nums lining-nums` and one weight (500, KPI 600), so a known zero never renders bolder than a real value. Inter 700 only for table group headings and the sign-in submit. Nothing below 11px. Field text is 16px under `pointer: coarse` (`--prebid-text-input-coarse`), so iOS does not zoom into a focused field.
+**Type.** Display 30/34 Mona Sans 800; title 18/26 Mona Sans 700; KPI 28/36 Inter 600; heading 14/20 Inter 600; body 13/20 Inter 400 (controls 500); small 12/18; caption 11/16 Inter 500; overline 11/16 Inter 600, uppercase, +0.06em. Top navigation at 600px and below: 13px Mona Sans 600 at 100% width (P6; 14px at 112% above). Numbers use `font-variant-numeric: tabular-nums lining-nums` and one weight (500, KPI 600), so a known zero never renders bolder than a real value. Inter 700 only for table group headings and the sign-in submit. Nothing below 11px. Field text is 16px under `pointer: coarse` (`--prebid-text-input-coarse`), so iOS does not zoom into a focused field.
 
 **Controls.** Heights 28 / 34 / 40px; every in-page control 34px (40px on coarse pointers); header icon buttons 36×36. Primary: orange, at most one per surface. Secondary: overlay fill, 1px input-border edge (P2 decision 5), level-1 shadow, hover fill `--prebid-hover` with a `#3887c2` edge. Selected/pressed: selection tint with a `#2d72a6` / `#5aa5dc` edge. Ghost for every reset, with `RotateCcw` and sentence-case labels: "Reset view" restores what a view saves and "Reset filters" the shared report filters (P2 decision 4). Native selects share one wrapper with `appearance: none` and a 14px `ChevronDown`. Disclosures use a trailing `ChevronDown` that turns 180° when open; `<details>` summaries hide their native marker. Removable filter chips are 28px in the selection tint with the selection edge. A menu's closing action, such as Apply, is a primary sm button in the menu footer.
 
@@ -114,7 +114,7 @@ Starting values approved on 2026-10-31. Light value first, dark second. A phase 
 | P3 | Table system | P2 | 31 | M |
 | P4 | Shell, page header and in-page navigation | P2, P3 | 26 | M |
 | P5 | URL state and server-read preferences (three pull requests: P5a, P5b, and P5c–P5e together) | P4; P5a any time | — | L |
-| P6 | Contributors and Reviewers (three pull requests) | P4, P5c, P5d | — | M–L |
+| P6 | Contributors and Reviewers (one pull request: P6a, P6b and P6c together) | P4, P5c, P5d | — | M–L |
 
 The phases run in this order. P2 and P3 both edit `src/components/tables/data-table.tsx` and its CSS (search field, empty state, pager, sort header), so controls land first and the table system builds on them. P5b–P5e rewrite the headers, `src/app/_screens/*` and the control hooks that P2–P4 rebuild, so they follow P4; P5a has no behaviour change and may run at any time. P5c freezes the v1 defaults only after the P6 lens defaults are recorded in its defaults table.
 
@@ -168,7 +168,7 @@ Tests most likely affected: accessible names that include the typed sort glyph (
 
 ### P4 — Shell, page header and in-page navigation
 
-- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
+- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
 - `PageHeader`: back link and title flush left, one meta line, the "Data as of" chip on the right inside `aside aria-label="Data source"`. Header rows have fixed heights so sibling tabs never move the toolbar; existing h1, region, tab-navigation and button accessible names are kept; the `ReportToolbar` summary row is the one place each page states its scope.
 - `ViewBar`: a fixed 44px bar holding the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; sticky at `top: var(--shell-height)`; `scroll-padding-top` equals the masthead height plus 44px plus 12px; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry. At 600px and below a "Sections" menu replaces the chips. P4 sets `--sticky-offset` for P3's sticky table headers.
 - Remove the frame's sample-data row. Merge the two contribution tab rows into the view bar.
@@ -210,7 +210,7 @@ Tests most likely affected: the `Contributions` navigation link in `contribution
 This applies the [five-step frontend delivery process](../product/README.md#five-step-frontend-delivery-process) to redesign phases: README Step 1 (typed models and samples with contract tests first) applies to P6a and any phase that adds a display model; README Step 2 is Checkpoints A and B; the Step 3–4 interaction checks apply to P4, P5 and P6; README Step 5 is steps 5–7 below.
 
 1. **Phase plan.** Append `## Pn plan` to this document: components and files, exact values, the findings it implements with their anchors, the shared files and merge order with any concurrent pull request, test and document changes, the coverage group in `vitest.config.ts` for each new module, and any open choice. Approved before code.
-2. **Branch** `feature/<phase-slug>` from `origin/main` with `--no-track`; one pull request per phase (per sub-step for P5 and P6).
+2. **Branch** `feature/<phase-slug>` from `origin/main` with `--no-track`; one pull request per phase (three for P5: P5a, P5b and P5c–P5e; P6 is one).
 3. **Primitives first. Checkpoint A:** the maintainer reviews the changed stories in `npm run storybook` (port 6006) on the branch, switching the `theme` toolbar global; for changed existing primitives the base worktree serves the same stories with `npx storybook dev -p 6008`. The pull request lists the story IDs under review. Stop any `preview:storybook` server before `test:e2e`, which needs port 6007.
 4. **Apply to pages. Checkpoint B:** build both sides with `npm run build:preview` — the branch in the working checkout and the base (`git merge-base origin/main HEAD`) in a separate `git worktree` with its own `npm ci`, because `.next` and its build mode belong to one checkout. Serve the branch on port 3200 and the base on 3201 (`npm run start:preview -- --port …`; ports 3100 and 6007 belong to `test:e2e`), then run `npm run capture:views -- --base http://127.0.0.1:3201 --out <dir>/before` and the same against 3200 into `<dir>/after`. Captures are attached to the review, not committed.
 5. **Gates.** `npm run check:all` (Java 17+ and `npx playwright install chromium webkit`): `check`, `test:accounts`, `audit:dependencies`, `build:production:fixture`, `test:production`, `build:preview`, `build:storybook` and `test:e2e` in Chromium and WebKit with axe in both themes. The production and preview builds share `.next`, so individual steps run in that order. Geometry and computed-style assertions change in the same commit as the behaviour they cover; each phase adds assertions for its new tokens, dimensions and non-text contrast pairs.
@@ -231,6 +231,11 @@ This applies the [five-step frontend delivery process](../product/README.md#five
 Each is checked in the phase that first depends on it, and the result is recorded in `## Pn evidence`.
 
 - P0b: with existence checks in segment layouts above leaf loading boundaries, production 404 and 307 statuses are unchanged; document responses still carry report rows in server HTML (no streamed fallback), or the affected route gets no boundary.
+  - Result (2026-11-02, on `c577b6f`, `build:preview` and `build:production:fixture`): does not hold.
+  - Statuses hold: with leaf layouts that read `x-dashboard-return-path`, 92 of 92 statuses and `Location` headers matched the base.
+  - Server HTML does not: 52 of 52 report documents streamed their fallback, with the rows outside `<main>`. React outlines a finished boundary once the page passes 12,800 bytes.
+  - Skeletons never appeared on search-parameter tab clicks.
+  - Prefetch cost 4–12 account reads per page view in production, against 1 without it.
 - P1: CI, Amplify and Storybook builds can download Google Fonts. If not, use `next/font/local` with committed OFL woff2 files (same package, no new dependency). Inter serves `tnum` and `lnum` through Google Fonts. Storybook's Next.js framework handles `next/font/google`.
 - P4: the sticky masthead and view bar do not intercept clicks in existing browser specs; hash-only `history.replaceState` under the App Router notifies the router.
 - P5b: Amplify and CloudFront forward the preference cookies to server rendering within header limits.
@@ -259,13 +264,13 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 | Phase | Status | Pull request | Checkpoint A | Checkpoint B |
 | --- | --- | --- | --- | --- |
 | P0 | Checkpoints approved; one pull request with P1 and P2 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P0b | Not started | — | — | — |
+| P0b | Closed: premise does not hold (2026-11-02). `prefetch={false}` and Architecture rule 10 are unchanged. | — | — | — |
 | P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
 | P3 | Merged | #20 | — | — |
 | P4 | Merged | #18 | — | — |
 | P5 | P5a and P5b merged; P5c–P5e in one pull request, in review | #19, #21; P5c–P5e pull request | — | — |
-| P6 | Not started | — | — | — |
+| P6 | P6a–P6c integrated for one pull request, stacked on P5c–P5e (see `## P6 evidence`) | — | Pending | Pending |
 
 ## P0 plan
 
@@ -873,7 +878,7 @@ The P4 findings in Appendix A: about 95–120 files (roughly 55–65 source, con
 
 ### Items
 
-**1. Masthead** (SHELL-01, SHELL-07, SHELL-08, SHELL-09, CTRL-11). Navy in both themes, sticky at the top, 64px (`--shell-height`; at 1000px and below a 56px row plus a 44px navigation row), a 3px Prebid-blue top rule and the knockout logo. Navigation labels in Mona Sans 14/600 with a hover pill and the orange underline; no navigation icons (decision 8). Header icon buttons are 36×36 through a new `Button` size `icon-lg` and variant `masthead`, with a visible pressed and open state; the theme and width controls drop their `className`. Repositories menu items show pending navigation.
+**1. Masthead** (SHELL-01, SHELL-07, SHELL-08, SHELL-09, CTRL-11). Navy in both themes, sticky at the top, 64px (`--shell-height`; at 1000px and below a 56px row plus a 44px navigation row, 1120px from P6), a 3px Prebid-blue top rule and the knockout logo. Navigation labels in Mona Sans 14/600 with a hover pill and the orange underline; no navigation icons (decision 8). Header icon buttons are 36×36 through a new `Button` size `icon-lg` and variant `masthead`, with a visible pressed and open state; the theme and width controls drop their `className`. Repositories menu items show pending navigation.
 
 **2. Account menu** (SHELL-06). A 36px trigger with a 28px `Avatar` and the name (hidden at 600px and below) opens a menu with name, email, role and, outside preview builds, a Change password link to the existing route. Sign out stays a visible masthead button, rightmost, styled as a masthead button: its handler, `signOut` call, labels, disabled state and alert are unchanged (decision 6).
 
@@ -904,7 +909,7 @@ Behaviour only (Delivery rule 2): the masthead and view bar stay visible while s
 Step 1, the core (`e83773f`), beyond the items:
 
 - `ChartPanel` takes the same optional `anchor` as `DataTable`, so chart panels are sections too (decision 11). The icon map gains `SectionsIcon`, `SignOutIcon`, `ChangePasswordIcon` and `DataAsOfIcon`.
-- `--shell-height` is 64px, and 100px at 1000px and below (a 56px row over a 44px navigation row). `--sticky-offset` is the masthead height, plus the view bar's 44px when the page has one, and the root `scroll-padding-top` is that offset plus 12px.
+- `--shell-height` is 64px, and 100px at 1000px and below (a 56px row over a 44px navigation row; 1120px and below from P6). `--sticky-offset` is the masthead height, plus the view bar's 44px when the page has one, and the root `scroll-padding-top` is that offset plus 12px.
 - `PageHeader` shows "Data as of —" for a snapshot time it cannot read.
 - `tests/e2e/view-bar.spec.ts` checks the button sizes, the masthead buttons' geometry and contrast, the sticky bar, section jumps and the Sections menu on stories. The two `view-tabs.module.css` allowlist entries closed with the token radii (33 to 31 entries).
 
@@ -933,7 +938,7 @@ Step 2(c), the shell (`80479fc`):
 
 - Sign out keeps its handler, `signOut` call, labels, disabled state and alert text. It gains the sign-out icon, and at 600px and below its label is visually hidden while the button's name stays "Sign out". Its alert sits below the masthead in the error tokens.
 - Phone compaction beyond the plan: at 600px and below the logo is 100px wide, the account group gap 6px and navigation item padding 6px. Estimated from font metrics, not measured: an administrator's first row fits 375px but overflows at 320px (about 330px against 288px); not fixed.
-- Above 1000px the masthead grid is `auto auto minmax(0, 1fr)` with the account group last, so a long account name ends in an ellipsis instead of overflowing the row.
+- Above 1000px (1120px from P6) the masthead grid is `auto auto minmax(0, 1fr)` with the account group last, so a long account name ends in an ellipsis instead of overflowing the row.
 - The account trigger is named by `aria-label` "Account: <name>", which contains the visible name. The viewer's avatar is `Avatar` `person` with account type `human`, so it shows the human badge and the title "Human". In preview builds the menu holds only the name, email, a separator and the role.
 - The repository 404 renders the `EdgeMessage` card inside the dashboard frame. Root `error.tsx` renders `PageError` inside `EdgeFrame` and keeps its `h2`, because it also renders when the dashboard layout fails. `/foundation` keeps its own `h1` at the display token.
 - The skip link appears below the masthead on the content gutter rather than over its left gutter, which cannot hold it without covering the logo.
@@ -951,7 +956,7 @@ Step 3, the merge (`p4/integrate`):
 - Rule 4's `h1` restriction: `no-restricted-syntax` rejects `JSXOpeningElement[name.name="h1"]` in `src/**` through the shared selector arrays, except `page-header.tsx`, `edge-frame.tsx`, `src/features/authentication/**`, `src/app/auth/**`, the administrator Users page (`users-view.tsx`, outside the redesign) and `foundation/page.tsx`, which has no snapshot for the chip. Beyond the plan: the Users and foundation exemptions. `createElement('h1')` and a computed tag are not read. The exempt files keep rule 3 and the icon rule; `lint-restrictions.test.ts` covers each scope.
 - The allowlist closes at 4 entries, all P4 and all deferred: the setup page's `text-2xl` (SHELL-05 part), the two `src/components/ui/table.tsx` `text-sm` (TBL-15 withdrawn) and the Users page's `text-3xl` (SHELL-16 withdrawn). The sign-in copy (SHELL-13) has no entry. `completedPhases` stays `['P1', 'P2', 'P3']`; `CEILING` is 4 and the unmodelled ceiling 67, the count since the core commit.
 - `scripts/capture-views.mjs` counts keyboard reach as key presses from a fresh `/repos` until focus is inside Period activity: Tab presses, plus one Enter once focus reaches the "Period activity" section chip. A build without chips, such as the base at Checkpoint B, still counts Tab presses alone.
-- `layout-width.spec.ts` checks that at 390px the three main navigation destinations share one row without scrolling it (Tests; P6 adds the fourth).
+- `layout-width.spec.ts` checks that at 390px the three main navigation destinations share one row without scrolling it (Tests; P6 extends it to the four destinations).
 - Documents: `all-repositories-plan.md:38` and `acceptance-matrix.md:26` drop the sample-data label. `docs/product/README.md:26`, `login.md:60` and `account-operations.md:114` still describe "clearly labeled sample reports"; the Sample-data row does not name them, so they are unchanged.
 
 Step 4, review fixes (`p4/fix`), superseding the step notes above where they differ:
@@ -979,7 +984,7 @@ Visible text changes (P4 as merged):
 
 Expected at the checkpoint:
 
-- A navy masthead in both themes, 64px (100px at 1000px and below) under a 3px blue rule, with the knockout logo, Mona Sans navigation with a hover pill and the orange underline on its bottom edge, 36px header buttons, the account button and Sign out at the right; it stays at the top while scrolling.
+- A navy masthead in both themes, 64px (100px at 1000px and below; 1120px from P6) under a 3px blue rule, with the knockout logo, Mona Sans navigation with a hover pill and the orange underline on its bottom edge, 36px header buttons, the account button and Sign out at the right; it stays at the top while scrolling.
 - Page titles flush left at display 30/34 with one meta line and the amber chip on the right (beneath the title at 600px and below); sibling views keep the toolbar in place.
 - A 44px view bar sticky under the masthead: underline tabs for subject sets, segmented tabs for view modes, section chips with scroll-spy where a page has two or more panels and a Sections menu at 600px and below; a jump lands the section's title under the bar and focuses it. P3's sticky table headers sit below the bar.
 - Subpage tabs underlined without the bold weight; tab counts in one style.
@@ -1070,7 +1075,7 @@ Settled under the approved URLs and Preferences rows, recorded for review:
 5. An entry is a report route whose query holds only view selectors. A defaults-equal entry is materialized with `v=1`; an absent `v` means v1.
 6. Preference cookies are written with `document.cookie`: non-HttpOnly, `SameSite=Lax`, `Secure` on https.
 7. An invalid section renders defaults with the recovery notice. After hydration, the client deletes it only if the cookie still holds that value. Rule 9 is amended to name this as the second permitted post-load write; it is cookie-only, with no history write.
-8. Legacy translation runs in a page-level server helper after `requireViewer()`, not in the frozen middleware. A `loading.tsx` above these pages would move it into the segment layout, which reads `x-dashboard-return-path`; this is recorded for P0b.
+8. Legacy translation runs in a page-level server helper after `requireViewer()`, not in the frozen middleware. A `loading.tsx` above these pages would move it into the segment layout, which reads `x-dashboard-return-path`; this is recorded for P0b. P0b result (2026-11-02): a layout-level 307 would need a request signal from outside Next, `sec-fetch-dest`, so that RSC requests are not redirected. Whether CloudFront and Amplify forward it is not verified.
 9. The bare-entry redirect runs in the same helper, because a layout does not re-render on a same-segment navigation.
 10. P5b lands before P5c, because both rewrite the five control hooks and the screens.
 11. P5c is split by area into P5c-1 and P5c-2.
@@ -1143,6 +1148,106 @@ P5a, then P5b, then the P5c–P5e pull request. Inside it: the core codec commit
 - Changed behaviour, recorded rather than restored: the Over time Report tab carries the Timeline's current scope and the parent report's presentation, dropping the page when the scope changed. Supporting views are never entries; their columns are in the address only when changed, so an author link no longer freezes columns into its history entry. A legacy Timeline link whose view fails validation (for example over 500 intervals) renders the route's generic invalid view; the specific message is shown for canonical addresses. An identity segment holding `/` does not match a route. Timeline exports ignore return context: a legacy link with its trail and the canonical link with or without `back` export the same bytes (`tests/unit/timeline-endpoints.test.ts`).
 - Review fixes: a server navigation to the same page (route and screen) keeps `location.hash`, as the history writes do, and a fragment link within the page does not pin a bare entry. A `back=` list that loses a frame other than `-` to the eight-value cap or the 1,000-character share ends in `!`, so that ancestor is unavailable rather than its derived default (P5d design §9); a child link whose parent frame fits only without that mark is disabled. The golden round trip reads each canonical URL through the screens' own readers (the repository loaders, `readRepositoryFilters`, the codec's table binding, `readOverviewValues`, `loadContributionValues`, and `timelineParams` with the frozen Timeline readers) and compares the result with the recorded P5a state; the test-only inverse of `legacyDecode` is gone. Contribution columns that a legacy URL did not name are not compared, because their v1 defaults are the lens columns (decision C5). The inventory requests its nine repository views that still used old links at their canonical addresses; `repo-open-issues-metric` is `/repos/prebidjs?view=issues&v=1`, because its canonical form is the Issues tab's address and inventory paths are unique.
 - Authentication: no file under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/app/api/auth`, `src/features/authentication`, `src/features/administration`, `tests/production` or `tests/accounts`, and not `src/lib/presentation/navigation.ts`, changed. `src/components/layout/toolbar.tsx` gained only an `asOf` prop passed to the masthead; its Sign out handler, labels, disabled state and alert are unchanged. The sign-in, change-password and Sign out navigations stay the named rule-6 exceptions, and every other interim exception is removed.
+
+## P6 plan
+
+Approved 2026-11-02 against the P5c–P5e head. P6a, P6b and P6c ship as one pull request (decision 1), which amends the Phases table and Process step 2, where P6 was three pull requests.
+
+### Scope
+
+- **P6a fixture.** The large sample (and so `coverage-gap`) gains 935 review credits and 447 approval credits, none by a PR's author (LOAD-02 in `test-data-plan.md`). The reference, partial and missing samples are unchanged.
+- **P6b lenses.** `/reviewers`; the lens model and metric population roles; the Column set choice in the Columns menu, the CSV dialog and Over time; per-lens columns and sort with shared filters; `lens` through entity links, drilldowns, Over time and exports; named crumbs; two totals clusters; the "No reviewer activity in this scope" callout; the Contributors and Reviewers masthead links.
+- **P6c lens populations.** The Reviewers lens lists reviewer evidence, with a Show all switch; role-aware Hide zero labels.
+
+### Order
+
+As in P5c–P5e: a core step (fixture, model, codec registration, presentation, server and routes), then three steps in parallel on disjoint files (tables and the CSV dialog; the contribution views and hooks; the masthead and shell), then integration (view inventory and titles, story list, `tests/e2e/contribution-lenses.spec.ts`, spec updates, the golden re-record, documents and gates). The Phase 5 review fixes that landed after the core step were merged into the integration branch.
+
+### Decisions (2026-11-02)
+
+1. One pull request.
+2. Every Merges performed credit, self-merges included, is reviewer evidence. A self-merge carries no review or approval evidence, so the large sample's review and approval credits come only from other accounts.
+3. Population roles: Contributor (PRs authored, Authored PRs merged, Issues authored), Reviewer (Reviewer contributions, Approval contributions, Merges performed), none for the 33 comment and volume metrics. `tests/unit/contribution-lens.test.ts` assigns each of the 39 report metrics from a literal table.
+4. Account-specific partial or missing Reviewer-role history qualifies an account for the Reviewers list; a global gap creates no row.
+5. In the Reviewers lens a company qualifies through a reviewer-eligible selected member; its totals and member counts include every selected member.
+6. Show all is a bare `all` flag on Reviewers-lens overviews without a metric and their exports, saved as `showAllAccounts` in that table's Reviewers-lens column section. Default off.
+7. Hide zero reads all 39 metrics in the Contributors lens ("Hide zero totals") and the three Reviewer-role metrics in the Reviewers lens ("Hide zero reviewer totals"). Partial and missing values stay visible.
+8. Column sets (Contributor, Reviewer, All credits, All columns) decide the metric columns and leave identity columns as they are. The trigger reads "Columns · <set>" or "Columns · Custom"; tables without sets keep "Columns".
+9. A set applies its lead sort only when it hides the sorted column: Contributor sorts by Authored PRs merged, Reviewer by Reviewer contributions, All credits by the lens's default, each descending; on Over time the fallback is Period ascending. In the CSV dialog a set changes only the export's columns.
+10. The picker group "Reviews and approvals" becomes "Reviews, approvals and merges" and holds Merges performed, so each lens's set covers whole groups. Metric labels, CSV headers and table order are unchanged.
+11. The lens cue is the masthead's active item, the people tab label, the named crumb, the document title and, on focused reports, the active lens's totals cluster first. No chip or switch is added.
+12. A crumb whose parent is an overview report without a metric or Over time reads "Back to Contributors", "Back to Reviewers" or "Back to Companies"; any other parent keeps "Back to report". This also changes Contributors-lens crumbs.
+13. The people overview is titled "Reviewers"; any other Reviewers-lens title that does not end with "Reviewers" gains " · Reviewers".
+14. Fourteen new sections, `contributions.reviewers.<table>.{columns,sort}` and `timeline.reviewers.<area>.<focus>`, take `dashboard-contributions` from 18 to 32. The scope, the supporting-records table and `timeline-support.contribution.sort` are shared. Column sections gain version 2, a `cols` diff against the lens's v1 defaults; version 1 is still read.
+15. At 600px and below the navigation labels use the 13px body size at 100% width with 4px horizontal padding; at 6px, Chromium on Linux needed 369px of the 358px row at 390px. The two-row masthead and the 100px shell move from 1000px to 1120px; the gutter, width switch and account-name rules stay at 1000px.
+16. The members table is titled "Company members" in the Reviewers lens.
+17. `ReviewersIcon` maps to `MessageSquareCheck`.
+18. `lens` is not registered on `/contributors` or `/reviewers` (the invalid view); it is accepted on the contribution supporting screen.
+19. "No reviewer activity in this scope." shows on a Reviewers-lens report whose three Reviewer-role totals are all complete zero, never when one is partial or missing.
+20. Approved by the maintainer: `tests/production/browser.test.ts` follows the masthead link "Contributors", and `tests/components/account-recovery.test.tsx` mocks `useSearchParams`. No authentication assertion changes.
+21. Seven Reviewers-lens views join the inventory: `/reviewers`, `/reviewers?sample=large`, `/reviewers?timeline`, `/companies?lens=reviewers`, `/contributors/account-alice?lens=reviewers`, `/contributors/account-finn?lens=reviewers` and `/companies/id/company-acme?lens=reviewers`.
+22. Over time shows the lens's three metrics by default, and its presentation is saved per lens.
+
+### Authentication freeze
+
+Nothing under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/app/api/auth`, `src/features/authentication`, `src/features/administration` or `tests/accounts` changes, nor `src/lib/presentation/navigation.ts` or `src/components/layout/toolbar.tsx`. Because `safeReturnPath` does not list `/reviewers`, a signed-out visit to `/reviewers` signs in to `/repos`; `/companies?lens=reviewers` and person or company pages with `lens=reviewers` keep their callback. This is recorded, not tested.
+
+### Exit
+
+Both lenses reproduce the six-column people view through "All credits"; every metric stays addable in both; the four navigation labels fit at 390px. `tests/e2e/contribution-lenses.spec.ts` covers the first two and the masthead premise (P6b) in Chromium and WebKit; `layout-width.spec.ts` covers the third.
+
+## P6 evidence
+
+Measured at `9927495` on `feature/p6-contributors-reviewers`: the core step `e383de6`, the three parallel steps merged with `--no-ff` and no conflicts, and the P5c–P5e review fixes (`949db2c`) merged with no textual conflict. No file under `src/` or `.storybook/` changed after the builds below.
+
+### Checks
+
+| Check | Result |
+| --- | --- |
+| `npm run check` | exit 0; 195 test files, 3,006 tests, each verified as an individual pass |
+| `npm run test:accounts` | exit 0; 34 tests |
+| `npm run build:production:fixture`, `npm run test:production` | exit 0; 13 tests in 4 files, `browser.test.ts` among them |
+| `npm run build:preview`, `npm run build:storybook` | exit 0 |
+| Full browser suite, Chromium | 796 passed; `check-test-results.mjs playwright` verified 796 |
+| WebKit: the 12 `contribution-*` specs, `column-selection`, `layout-width`, `navigation-feedback`, `view-bar`, `url-budget`, `return-history` | 123 passed; the checker verified 123 |
+
+The eight new stories passed the story-coverage spec (axe in Light and Dark) in Chromium.
+
+Specs outside the three parallel steps that follow the product, changed before the full run, which then had no failure: `canonical-urls.spec.ts` follows the "Contributors" masthead link; `return-history.spec.ts` and `contribution-eligibility.spec.ts` follow "Back to Contributors", because their crumbs' parent is the `/contributors` overview; `timeline-layouts.spec.ts`, `timeline-controls.spec.ts` and `visual-review.spec.ts` open contribution Columns menus whose trigger names the column set.
+
+### Unverified premise (P6b): result
+
+Holds. In Chromium and WebKit on `build:preview`, the first case of `contribution-lenses.spec.ts` renders five routes with JavaScript off and finds the masthead marking the right lens on each (`/reviewers`, `/companies?lens=reviewers` and `/contributors/account-alice?lens=reviewers` mark Reviewers; `/companies` and `/contributors/account-alice` mark Contributors). With JavaScript on, it moves the masthead through a query-only `router.push`, Back, Forward and two link clicks without a document request or a hydration error.
+
+### Exit
+
+- All credits: in both lenses the people table's columns become Contributor, Account type, Company and the six core credits in report order (`contribution-lenses.spec.ts`).
+- Every metric stays addable: in both lenses the Columns menu locks only "Contributor (required)", and All columns shows all 39 metrics (same spec).
+- At 390px the four destinations sit on one row inside the viewport and the navigation does not scroll (`layout-width.spec.ts`, Chromium and WebKit). At 1121px an administrator's masthead is one 64px row; at 1120px it takes two rows (same spec).
+
+### Lens populations and fixture
+
+- Reference `/reviewers`: 6 rows, without Finn; Show all: 7 rows, `all` in the address, and the CSV's "Listed accounts" changes from "Reviewer activity" to "All accounts with activity".
+- `/reviewers?sample=large`: five pages; the first ends at 5 Reviewer contributions and the second starts at 4. `/companies?lens=reviewers&sample=large`: 3 rows, 4 with Show all.
+- `coverage-gap` in the Reviewers lens: 250 rows over five pages, a 251-line CSV, and 3 companies (4 with Show all).
+- Example Beacon's roster: Finn stays under "Hide zero totals" and is hidden under "Hide zero reviewer totals".
+
+### Golden URL set
+
+Re-recorded on `build:preview`; compared with the P5c–P5e record:
+
+- 34 → 41 views; 1,302 → 1,754 recorded anchors; 191 → 282 per-view link kinds; 67 → 93 distinct link kinds, none removed.
+- Each of the 30 existing report views gains one bare `/reviewers` masthead link, and nothing else in them changes, so every Contributors-lens link kind is unchanged.
+- The seven Reviewers-lens views add 26 distinct kinds, all `/reviewers` or carrying `lens`. The longest href is still 221 characters; no kind is over 300 or holds `%25`. The scope-change record is unchanged.
+- `tests/unit/golden-urls.test.ts` checks that each of the 34 recorded Reviewers-lens URLs parses as canonical and serializes to itself.
+
+### Not run
+
+- Checkpoints A and B: no visual sign-off of the new stories, the two-row masthead between 1001px and 1120px, or the 13px phone navigation labels.
+- The full WebKit suite; only the files above ran in WebKit.
+- `npm run audit:dependencies` and `npm run capture:views`.
+- Amplify and CloudFront limits for the 32-section contributions cookie (the P5b premise remains open).
+- The signed-out `/reviewers` sign-in callback, which falls back to `/repos` (recorded, not tested).
 
 ## Appendix A: findings by phase
 

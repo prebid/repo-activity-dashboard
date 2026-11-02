@@ -19,20 +19,28 @@ test('opening the Columns menu does not resize or move its trigger', async ({ pa
   expect(open).toEqual(closed);
 });
 
+const metricGroups = [
+  'Identity',
+  'Pull requests',
+  'Reviews, approvals and merges',
+  'Issues',
+  'Comment activity',
+];
 test('column and CSV sections share groups, partial states and file/line bulk selection', async ({
   page,
 }, info) => {
   await login(page);
   await page.goto('/contributors');
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
-  const menu = page.getByRole('menu', { name: 'Columns', exact: true });
-  for (const name of [
-    'Identity',
-    'Pull requests',
-    'Reviews and approvals',
-    'Issues',
-    'Comment activity',
-  ])
+  await page.getByRole('button', { name: 'Columns · Contributor', exact: true }).click();
+  // The menu takes the trigger's name, which follows the set the visible columns show.
+  const menu = page.getByRole('menu', { name: /^Columns · / });
+  await expect(menu.getByRole('group').first()).toHaveAccessibleName('Column set');
+  await expect(
+    menu
+      .getByRole('group', { name: 'Column set', exact: true })
+      .getByRole('menuitemradio', { name: 'Contributor', exact: true }),
+  ).toHaveAttribute('aria-checked', 'true');
+  for (const name of metricGroups)
     await expect(menu.getByRole('group', { name, exact: true })).toBeVisible();
   await expect(menu).toHaveCSS('opacity', '1');
   await page.screenshot({ path: info.outputPath('column-menu-groups-initial.png') });
@@ -57,21 +65,24 @@ test('column and CSV sections share groups, partial states and file/line bulk se
     [],
   );
   await page.screenshot({ path: info.outputPath('column-menu-grouped-desktop.png') });
+  await expect(
+    menu.getByRole('menuitemradio', { name: 'Contributor', exact: true }),
+  ).toHaveAttribute('aria-checked', 'false');
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeFocused();
+  await expect(page.getByRole('button', { name: 'Columns · Custom', exact: true })).toBeFocused();
   const headers = await page.getByRole('table').locator('thead tr:last-child th').allTextContents();
   expect(headers.join(' ')).toContain('Files changed');
   expect(headers.join(' ')).not.toContain('Lines added');
   await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Contributors CSV export', exact: true });
-  for (const name of [
-    'Identity',
-    'Pull requests',
-    'Reviews and approvals',
-    'Issues',
-    'Comment activity',
-  ])
+  for (const name of ['Column set', ...metricGroups])
     await expect(dialog.getByRole('group', { name, exact: true })).toBeVisible();
+  // The draft starts from the visible columns, which no set shows; the All columns set replaces
+  // the bulk action of that name.
+  const sets = dialog.getByRole('group', { name: 'Column set', exact: true });
+  await expect(sets.getByRole('radio')).toHaveCount(4);
+  await expect(sets.getByRole('radio', { checked: true })).toHaveCount(0);
+  await expect(dialog.getByRole('button', { name: 'All columns', exact: true })).toHaveCount(0);
   await expect(dialog).toHaveCSS('opacity', '1');
   await page.screenshot({ path: info.outputPath('csv-groups-initial.png') });
   const group = dialog.getByRole('group', { name: 'Authored merged PR volume', exact: true });
@@ -96,7 +107,7 @@ test('column and CSV sections share groups, partial states and file/line bulk se
   await page.getByRole('button', { name: 'Cancel', exact: true }).click();
   await expect(dialog).toHaveCount(0);
   await expect(page.getByRole('table').locator('thead tr:last-child th')).toHaveText(headers);
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
+  await page.getByRole('button', { name: 'Columns · Custom', exact: true }).click();
   await expect(
     authored.getByRole('menuitemcheckbox', { name: 'Lines added', exact: true }),
   ).toHaveAttribute('aria-checked', 'false');
@@ -109,9 +120,10 @@ test('small selectors retain separators, accessible controls and visible export 
   await page.goto('/contributors/account-alice?period=this-year');
   await page.getByRole('button', { name: 'Theme settings', exact: true }).click();
   await page.getByRole('menuitemradio', { name: 'Light', exact: true }).click();
-  await page.getByRole('button', { name: 'Columns', exact: true }).click();
-  const menu = page.getByRole('menu', { name: 'Columns', exact: true });
+  await page.getByRole('button', { name: /^Columns · / }).click();
+  const menu = page.getByRole('menu', { name: /^Columns · / });
   await expect(menu).toHaveCSS('opacity', '1');
+  await expect(menu.getByRole('group', { name: 'Column set', exact: true })).toBeVisible();
   // Widths are measured with the web fonts, not their fallback.
   await page.evaluate(() => document.fonts.ready);
   const bounds = await menu.boundingBox();
@@ -153,4 +165,73 @@ test('repository summary and record selectors adopt the same grouping components
   await expect(menu.getByRole('group', { name: 'Identity', exact: true })).toBeVisible();
   await expect(menu.getByRole('group', { name: 'Dates and age', exact: true })).toBeVisible();
   await expect(menu.getByRole('group', { name: 'Human review', exact: true })).toBeVisible();
+});
+test('a Column set leads the Columns menu and the CSV dialog and changes only its own target', async ({
+  page,
+}) => {
+  const story = (id: string) =>
+    'http://127.0.0.1:6007/iframe.html?id=tables-table-toolbar--' + id + '&viewMode=story';
+  await page.goto(story('column-sets-custom'));
+  await expect(page.getByRole('button', { name: 'Columns · Custom', exact: true })).toBeVisible();
+  await page.goto(story('column-sets'));
+  const headers = page.getByRole('table').locator('thead th');
+  const trigger = page.getByRole('button', { name: /^Columns · / });
+  await expect(trigger).toHaveAccessibleName('Columns · Contributor');
+  await trigger.click();
+  const menu = page.getByRole('menu', { name: /^Columns · / });
+  await expect(menu).toHaveCSS('opacity', '1');
+  const sets = menu.getByRole('group', { name: 'Column set', exact: true });
+  await expect(menu.getByRole('group').first()).toHaveAccessibleName('Column set');
+  await expect(sets.getByRole('menuitemradio')).toHaveText([
+    'Contributor',
+    'Reviewer',
+    'All credits',
+    'All columns',
+  ]);
+  expect((await new AxeBuilder({ page }).include('[role="menu"]').analyze()).violations).toEqual(
+    [],
+  );
+  await sets.getByRole('menuitemradio', { name: 'Reviewer', exact: true }).click();
+  await expect(menu).toBeVisible();
+  await expect(trigger).toHaveAccessibleName('Columns · Reviewer');
+  await expect(menu).toHaveAccessibleName('Columns · Reviewer');
+  await expect(sets.getByRole('menuitemradio', { name: 'Reviewer', exact: true })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
+  await expect(headers).toHaveText([
+    'Name',
+    'Company',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+  ]);
+  await page.keyboard.press('Escape');
+  await expect(trigger).toBeFocused();
+
+  await page.getByRole('button', { name: 'Export CSV', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'Sample credits CSV export', exact: true });
+  await expect(dialog).toHaveCSS('opacity', '1');
+  const choices = dialog.getByRole('group', { name: 'Column set', exact: true });
+  await expect(choices.getByRole('radio', { name: 'Reviewer', exact: true })).toBeChecked();
+  await expect(dialog.getByRole('button', { name: 'All columns', exact: true })).toHaveCount(0);
+  await choices.getByRole('radio', { name: 'Contributor', exact: true }).check();
+  await expect(dialog.getByRole('checkbox', { name: 'PRs authored', exact: true })).toBeChecked();
+  await expect(
+    dialog.getByRole('checkbox', { name: 'Reviewer contributions', exact: true }),
+  ).not.toBeChecked();
+  await expect(dialog.getByRole('checkbox', { name: 'Company', exact: true })).toBeChecked();
+  expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
+    [],
+  );
+  await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toHaveAccessibleName('Columns · Reviewer');
+  await expect(headers).toHaveText([
+    'Name',
+    'Company',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+  ]);
 });

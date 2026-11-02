@@ -279,6 +279,11 @@ export const urlParams: readonly UrlParam[] = [
   ]),
   param('charts', 'flag', 'presentation', ['records', 'authorRecords']),
   param('zero', 'enum', 'presentation', ['contributionDetail', 'export'], { values: ['hide'] }),
+  // A Reviewers-lens overview listing every account with activity, not only reviewers (P6c). The
+  // report rejects it outside that lens and on a metric's records.
+  param('all', 'flag', 'presentation', ['contributionOverview', 'export'], {
+    exceptRoutes: ['/contributors'],
+  }),
   param('bsort', 'sort', 'presentation', ['summary']),
   param('bpage', 'int', 'presentation', ['summary']),
   param('asort', 'sort', 'presentation', ['summary']),

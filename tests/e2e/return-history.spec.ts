@@ -68,13 +68,13 @@ test('the All repositories crumb goes back to the Summary it came from', async (
   expect(await entries(page)).toBe(length + 1);
 });
 
-test('Back to report goes back to the contribution report it came from', async ({ page }) => {
+test('the overview crumb goes back to the contribution report it came from', async ({ page }) => {
   await login(page);
   await goesBack(
     page,
     '/contributors?q=Alice',
     (page) => page.getByRole('link', { name: 'Alice — view contribution report', exact: true }),
-    (page) => page.getByRole('link', { name: 'Back to report', exact: true }),
+    (page) => page.getByRole('link', { name: 'Back to Contributors', exact: true }),
     (page) => page.getByRole('textbox', { name: 'Search Contributors' }),
   );
   await expect(page.getByRole('textbox', { name: 'Search Contributors' })).toHaveValue('Alice');
@@ -98,7 +98,7 @@ test('a modified click on a crumb opens its link and leaves the page as it is', 
   await login(page);
   await page.goto('/contributors?q=Alice');
   await page.getByRole('link', { name: 'Alice — view contribution report', exact: true }).click();
-  const crumb = page.getByRole('link', { name: 'Back to report', exact: true });
+  const crumb = page.getByRole('link', { name: 'Back to Contributors', exact: true });
   await expect(crumb).toBeVisible();
   const child = page.url();
   const href = await crumb.getAttribute('href');

@@ -14,6 +14,11 @@ async function signIn(
   await page.goto(
     origin + '/auth/login' + (callbackUrl ? '?callbackUrl=' + encodeURIComponent(callbackUrl) : ''),
   );
+  // Before hydration the form posts natively and shows no error; the theme button in the same
+  // tree is enabled by that hydration.
+  await page
+    .getByRole('button', { name: 'Theme settings', exact: true, disabled: false })
+    .waitFor();
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -121,7 +126,7 @@ it.each(
       await form.getByRole('heading', { name: 'All repositories', exact: true }).waitFor();
       await form
         .getByRole('navigation', { name: 'Main navigation' })
-        .getByRole('link', { name: 'Contributions', exact: true })
+        .getByRole('link', { name: 'Contributors', exact: true })
         .click();
       await form.getByRole('heading', { name: 'Contributors', exact: true, level: 1 }).waitFor();
       await form

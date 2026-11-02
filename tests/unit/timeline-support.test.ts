@@ -366,14 +366,25 @@ it('exports a full matrix beyond its window and an individual timeline beyond fi
   });
   expect(ordered.split('\r\n')[1]).toContain('repo-prebidjs');
   const contributions = selectContributionTimeline(contributionTimelineSample(), request);
-  expect(
-    timelineCsv(contributions, ['period', 'prsAuthored'], {
-      search: '',
-      sort: 'period',
-      descending: false,
-      page: 9,
-    }).split('\r\n'),
-  ).toHaveLength(11);
+  const contributionCsv = timelineCsv(contributions, ['period', 'prsAuthored'], {
+    search: '',
+    sort: 'period',
+    descending: false,
+    page: 9,
+  });
+  expect(contributionCsv.split('\r\n')).toHaveLength(11);
+  // A contribution Over time CSV records its lens; repository ones have none.
+  expect(contributionCsv).toContain('"Report lens"');
+  expect(contributionCsv.split('\r\n')[1]).toContain('"contributors"');
+  const reviewers = timelineCsv(
+    contributions,
+    ['period'],
+    { search: '', sort: 'period', descending: false, page: 1 },
+    undefined,
+    'reviewers',
+  );
+  expect(reviewers.split('\r\n')[1]).toContain('"reviewers"');
+  expect(csv).not.toContain('Report lens');
   expect(() =>
     timelineCsv(individual, ['bad'], { search: '', sort: 'period', descending: false, page: 1 }),
   ).toThrow('columns');

@@ -79,17 +79,19 @@ it('gives contribution menus and exports the same domain groups and file/line se
   expect(groups.map((group) => group.label)).toEqual([
     'Identity',
     'Pull requests',
-    'Reviews and approvals',
+    'Reviews, approvals and merges',
     'Issues',
     'Comment activity',
     'Authored merged PR volume',
     'Reviewed merged PR volume',
     'Approved merged PR volume',
   ]);
-  expect(groups[1].columns.map((column) => column.id)).toEqual([
-    'prsAuthored',
-    'authoredPrsMerged',
-    'mergesPerformed',
+  // Each lens's column set covers whole groups: Contributor is Pull requests and Issues, Reviewer
+  // is the second group, Merges performed included.
+  expect(groups.slice(1, 4).map((group) => group.columns.map((column) => column.id))).toEqual([
+    ['prsAuthored', 'authoredPrsMerged'],
+    ['reviewerContributions', 'approvalContributions', 'mergesPerformed'],
+    ['issuesAuthored'],
   ]);
   for (const group of groups.slice(5))
     expect(group.sections.map((section) => [section.label, section.columns.length])).toEqual([

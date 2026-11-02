@@ -217,11 +217,10 @@
   outline-offset: 2px;
 }
 
-/* A 56px row for the brand and account controls over a 44px navigation row. */
-@media (max-width: 1000px) {
-  .surface {
-    --dashboard-gutter: 24px;
-  }
+/* A 56px row for the brand and account controls over a 44px navigation row. The four destinations
+   beside an administrator's account group need about 1,064px on one row, so the masthead takes two
+   rows from 1120px down; --shell-height in prebid.css follows the same width. */
+@media (max-width: 1120px) {
   .headerInner {
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: calc(var(--shell-row-height) - var(--masthead-rule)) var(--shell-nav-height);
@@ -234,6 +233,11 @@
     margin: 0 calc(-1 * var(--dashboard-gutter));
     padding: 0 var(--dashboard-gutter);
     border-top: 1px solid var(--prebid-masthead-line);
+  }
+}
+@media (max-width: 1000px) {
+  .surface {
+    --dashboard-gutter: 24px;
   }
   /* Both widths share one gutter here, so the switch would do nothing. */
   .widthToggle {
@@ -294,16 +298,21 @@
   .navigation::-webkit-scrollbar {
     display: none;
   }
+  /* Body size at normal width with 4px padding, so the four destinations fit one row at 390px.
+     Chromium on Linux sets these labels about 7% wider than macOS and WebKit, so 6px padding
+     overflowed the 358px row there by 11px. */
   .navItem {
-    padding: 0 6px;
+    padding: 0 4px;
+    font-size: var(--prebid-text-body);
+    font-stretch: 100%;
   }
   .navItem::before {
     inset-inline: 0;
   }
   .navItem[data-active='true']::after,
   .navItem[aria-current='page']::after {
-    right: 6px;
-    left: 6px;
+    right: 4px;
+    left: 4px;
   }
   .main {
     padding: 18px var(--dashboard-gutter) 32px;

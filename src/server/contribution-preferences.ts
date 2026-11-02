@@ -1,14 +1,15 @@
 import 'server-only';
 import type { ContributionPage } from '@/models/contribution-page';
-import {
-  isContributionPresentationDocument,
-  type ContributionPresentation,
-  type ContributionReportPreferences,
-  type ContributionTableKind,
+import type {
+  ContributionPresentation,
+  ContributionReportPreferences,
+  ContributionTableKind,
 } from '@/models/contribution-preferences';
-import type { PreferenceSectionKey } from '@/models/preferences';
+import type { ContributionLens } from '@/models/contribution-lens';
 import { contributionDirectorySample, contributionSampleAsOf } from '@/mocks/contributions';
-import { readContributionPresentation } from '@/lib/presentation/contribution-settings';
+import { readContributionPresentationDocument } from '@/lib/presentation/contribution-settings';
+import { contributionTableSections } from '@/lib/presentation/contribution-lens';
+import { lensOf } from '@/lib/presentation/url/defaults';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import {
   contributionScopeValues,
@@ -40,13 +41,14 @@ export function contributionTableKind(page: ContributionPage): ContributionTable
   return page.details ? 'details' : page.report.table!.kind;
 }
 
-/** A stored presentation document; the client keeps only the columns its table renders. */
-function readPresentation(raw: string): ContributionPresentation | null {
-  const value: unknown = JSON.parse(raw);
-  return isContributionPresentationDocument(value)
-    ? readContributionPresentation(raw, Object.keys(value.columns))
-    : null;
-}
+/**
+ * A stored presentation document of a lens's table, version 1 or 2; the client keeps only the
+ * columns its table renders.
+ */
+const readPresentation =
+  (table: ContributionTableKind, lens: ContributionLens) =>
+  (raw: string): ContributionPresentation | null =>
+    readContributionPresentationDocument(raw, table, lens);
 /** A well-formed saved sort on any column; links apply it only to a table that has the column. */
 function readSort(raw: string): SavedTableSort | null {
   const value: unknown = JSON.parse(raw);
@@ -61,21 +63,29 @@ const tableKinds: readonly ContributionTableKind[] = [
   'members',
   'repositories',
 ];
-const sections = (table: ContributionTableKind) => ({
-  columns: `contributions.${table}.columns` as PreferenceSectionKey,
-  sort: `contributions.${table}.sort` as PreferenceSectionKey,
-});
-/** Every table's well-formed saved presentation, for entries and the links that open tables (C3). */
-export function savedContributionTables(snapshot: PreferenceSnapshot): SavedContributionTables {
+/**
+ * Every table's well-formed saved presentation in a lens, for entries and the links that open
+ * tables (C3): the lens's own column and sort sections, and the shared supporting-records ones.
+ */
+export function savedContributionTables(
+  snapshot: PreferenceSnapshot,
+  lens: ContributionLens = 'contributors',
+): SavedContributionTables {
   return Object.fromEntries(
     tableKinds.map((table) => {
-      const presentation = savedPreference(snapshot, sections(table).columns, readPresentation);
-      const sort = savedPreference(snapshot, sections(table).sort, readSort);
+      const sections = contributionTableSections(lens, table);
+      const presentation = savedPreference(
+        snapshot,
+        sections.columns,
+        readPresentation(table, lens),
+      );
+      const sort = savedPreference(snapshot, sections.sort, readSort);
       return [
         table,
         {
           columns: presentation.value?.columns,
           hideZeroMembers: presentation.value?.hideZeroMembers,
+          showAllAccounts: presentation.value?.showAllAccounts,
           sort: sort.value,
         },
       ];
@@ -91,10 +101,11 @@ export interface ContributionEntry {
   notice?: string;
 }
 /**
- * The saved values a contribution entry applies (decisions C1 and C2): on `/contributors` and
- * `/companies` the saved scope and the table's saved presentation, on a contributor or company page
- * the presentation only. A saved scope the directory rejects, or one too large for a link, is not
- * applied, and the entry renders the defaults with a notice.
+ * The saved values a contribution entry applies (decisions C1 and C2): on `/contributors`,
+ * `/reviewers` and `/companies` the saved scope and the table's saved presentation in the entry's
+ * lens, on a contributor or company page the presentation only. A saved scope the directory
+ * rejects, or one too large for a link, is not applied, and the entry renders the defaults with a
+ * notice.
  */
 export function contributionEntry(
   snapshot: PreferenceSnapshot,
@@ -109,7 +120,11 @@ export function contributionEntry(
     value: null,
   };
   if (!entry) return { saved: null, scope: unread };
-  const presentation = savedPresentationValues(route, values, savedContributionTables(snapshot));
+  const presentation = savedPresentationValues(
+    route,
+    values,
+    savedContributionTables(snapshot, lensOf(route, values)),
+  );
   const fits = (saved: SavedViewValues) =>
     contributionUrlFits(urlHref(route, segments, entryValues(route, values, saved)));
   if (!appliesSavedScope(route)) return { saved: { presentation }, scope: unread };
@@ -151,8 +166,8 @@ export function contributionPageOptions(
 
 /**
  * The server-validated saved values a report render's controls start from: the scope section an
- * entry read (with its notice), and the shown table's saved columns and sort, which deliberate
- * changes save into.
+ * entry read (with its notice), and the shown table's saved columns and sort in the page's lens,
+ * which deliberate changes save into.
  */
 export function contributionReportPreferences(
   snapshot: PreferenceSnapshot,
@@ -160,10 +175,12 @@ export function contributionReportPreferences(
   entry: ContributionEntry,
 ): ContributionReportPreferences {
   const table = contributionTableKind(page);
+  const lens = page.lens ?? 'contributors';
+  const sections = contributionTableSections(lens, table);
   return {
     scope: entry.scope,
-    presentation: savedPreference(snapshot, sections(table).columns, readPresentation),
-    sort: savedPreference(snapshot, sections(table).sort, readSort),
+    presentation: savedPreference(snapshot, sections.columns, readPresentation(table, lens)),
+    sort: savedPreference(snapshot, sections.sort, readSort),
     ...(entry.notice ? { notice: entry.notice } : {}),
   };
 }

@@ -12,7 +12,12 @@ import {
   periodValue,
   rangeValues,
 } from '@/lib/presentation/url/period';
-import { matchRoute } from '@/lib/presentation/url/registry';
+import {
+  matchRoute,
+  urlRoutes,
+  type UrlRoute,
+  type UrlSegments,
+} from '@/lib/presentation/url/registry';
 import { withContributionReturn } from '../support/legacy-trail';
 import { legacyContext } from '@/server/legacy-context';
 
@@ -248,6 +253,37 @@ describe('legacyDecode', () => {
     expect(canonical('/repos/prebidjs?returnTo=%2Frepos%3Fage%3D')).toBe(
       '/repos/prebidjs?back=~age:',
     );
+  });
+
+  it('decodes an old-form query on every registry route, or rejects it', () => {
+    const segments: Record<UrlRoute, UrlSegments> = {
+      '/repos': {},
+      '/repos/[slug]': { slug: ['prebidjs'] },
+      '/repos/[slug]/authors/[account]': { slug: ['prebidjs'], account: ['sample-author-2'] },
+      '/contributors': {},
+      '/contributors/[accountId]': { accountId: ['account-alice'] },
+      '/companies': {},
+      '/companies/[...identity]': { identity: ['id', 'company-acme'] },
+      '/reviewers': {},
+      '/contributors/export': {},
+      '/companies/export': {},
+    };
+    for (const route of urlRoutes) {
+      const decoded = legacyDecode(route, segments[route], 'scope=1&period=last-month', context);
+      expect(['values', 'invalid'], route).toContain(decoded.kind);
+    }
+    // Exports have no old form to read.
+    expect(legacyDecode('/contributors/export', {}, 'scope=1', context).kind).toBe('invalid');
+    expect(legacyDecode('/companies/export', {}, 'scope=1', context).kind).toBe('invalid');
+  });
+
+  it('marks an old trail frame that names an export as an unavailable crumb', () => {
+    expect(
+      canonical(
+        '/contributors/account-alice?scope=1&period=last-month&returnTo=' +
+          encodeURIComponent('/contributors/export?scope=1'),
+      ),
+    ).toBe('/contributors/account-alice?period=last-month&back=!');
   });
 
   it('reads no state for routes outside the report pages', () => {

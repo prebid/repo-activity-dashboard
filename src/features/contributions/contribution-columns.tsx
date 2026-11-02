@@ -29,6 +29,7 @@ import {
   type ContributionContext,
 } from '@/models/contributions';
 import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
+import type { ContributionLens } from '@/models/contribution-lens';
 import {
   contributionHref,
   contributionMetricHref,
@@ -40,6 +41,8 @@ import type { SavedContributionTables } from '@/lib/presentation/contribution-ur
 export type EntityFocus = Exclude<ContributionFocus, { kind: 'overview' }>;
 export interface ContributionLinks {
   sample: ContributionSampleScenario;
+  /** The lens links keep: entity, metric and area links open the same lens; absent means Contributors. */
+  lens?: ContributionLens;
   settings?: ContributionSettings;
   /** The current report's canonical address; links carry it as their parent. */
   currentHref: string;
@@ -94,6 +97,7 @@ export function EntityLink({
     links.currentHref,
     links.settings,
     links.saved,
+    links.lens,
   );
   return (
     <ContributionNavigationLink
@@ -130,6 +134,7 @@ export function ContributionMetricLink({
     links.currentHref,
     repositoryId,
     links.saved,
+    links.lens,
   );
   return (
     <ContributionNavigationLink

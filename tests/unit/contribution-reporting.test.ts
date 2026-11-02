@@ -81,12 +81,61 @@ it('rejects invalid scenarios and unknown entities after authentication', async 
   viewer.mockRejectedValue(Error('denied'));
   await expect(contributions('contributors', { sample: 'bad' })).rejects.toThrow('denied');
 });
-it('answers the Reviewers lens and a snapshot other than the sample with the invalid view', async () => {
+it('reads the Reviewers lens, and answers a misplaced Show all or snapshot with the invalid view', async () => {
   const company = { kind: 'company', companyId: 'company-acme' } as const;
-  expect((await contributions('companies', at('lens=reviewers', '/companies'))).status).toBe(
-    'invalid',
+  const reviewers = await contributions(
+    'contributors',
+    at('', '/reviewers'),
+    undefined,
+    'reviewers',
   );
-  expect((await contributions('companies', { lens: 'reviewers' }, company)).status).toBe('invalid');
+  if (reviewers.status !== 'ready' || reviewers.page.report.kind !== 'overview')
+    throw Error('Expected overview');
+  expect(reviewers.page).toMatchObject({ lens: 'reviewers', area: 'contributors' });
+  expect(reviewers.page.report.population).toEqual({
+    role: 'reviewer',
+    showingAll: false,
+    allContributorCount: 7,
+    allCompanyCount: 4,
+  });
+  // Finn has an issue and an issue comment only.
+  expect(reportRows(reviewers.page.report, 'contributors').map((row) => row.id)).not.toContain(
+    'account-finn',
+  );
+  const all = await contributions('contributors', at('all', '/reviewers'), undefined, 'reviewers');
+  expect(all.status === 'ready' && all.page).toMatchObject({
+    lens: 'reviewers',
+    allAccounts: true,
+  });
+  expect(
+    all.status === 'ready' &&
+      all.page.report.kind === 'overview' &&
+      all.page.report.contributorCount,
+  ).toBe(7);
+  const companies = await contributions('companies', at('lens=reviewers', '/companies'));
+  expect(companies.status === 'ready' && companies.page.lens).toBe('reviewers');
+  // A person's report in the lens returns to the Reviewers overview it derives.
+  const person = await contributions(
+    'contributors',
+    at('lens=reviewers', '/contributors/[accountId]'),
+    { kind: 'contributor', accountId: 'account-alice' },
+  );
+  expect(person.status === 'ready' && person.page).toMatchObject({
+    lens: 'reviewers',
+    returnTo: '/reviewers?v=1',
+    returnLabel: 'Back to Reviewers',
+  });
+  expect((await contributions('companies', { lens: 'reviewers' }, company)).status).toBe('ready');
+  for (const [values, focus] of [
+    [at('all', '/companies'), undefined],
+    [{ lens: 'reviewers', all: true }, company],
+    [at('metric=prsAuthored&all', '/reviewers'), undefined],
+  ] as const)
+    expect((await contributions('companies', values, focus)).status).toBe('invalid');
+  expect(
+    (await contributions('contributors', at('all', '/reviewers'), undefined, 'contributors'))
+      .status,
+  ).toBe('invalid');
   expect((await contributions('contributors', at('at=2026-10-24T12:00Z'))).status).toBe('ready');
   expect((await contributions('contributors', at('at=2026-10-01'))).status).toBe('invalid');
 });

@@ -46,6 +46,7 @@ import {
   LoaderCircle,
   LockKeyhole,
   LogOut,
+  MessageSquareCheck,
   Minus,
   Monitor,
   Moon,
@@ -118,6 +119,7 @@ export const PullRequestsIcon = concept(GitPullRequest);
 export const IssuesIcon = concept(CircleDot);
 export const ContributorsIcon = concept(Users);
 export const CompaniesIcon = concept(Building2);
+export const ReviewersIcon = concept(MessageSquareCheck);
 /** The page's sections, on the narrow-width menu that replaces the section chips. */
 export const SectionsIcon = concept(TableOfContents);
 

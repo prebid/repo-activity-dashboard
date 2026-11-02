@@ -72,9 +72,66 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/companies",
+      "route": "/companies"
+    },
+    "companies-reviewers": {
+      "address": "/companies?lens=reviewers",
+      "links": {
+        "/companies/[...identity]?lens": {
+          "count": 4,
+          "example": "/companies/id/company-acme?lens=reviewers",
+          "longest": 43
+        },
+        "/companies/[...identity]?lens&metric": {
+          "count": 12,
+          "example": "/companies/id/company-acme?lens=reviewers&metric=reviewerContributions",
+          "longest": 72
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=reviewers",
+          "longest": 25
+        },
+        "/companies?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies?timeline&lens=reviewers&v=1",
+          "longest": 38
+        },
+        "/companies?lens&v": {
+          "count": 1,
+          "example": "/companies?lens=reviewers&v=1",
+          "longest": 29
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        },
+        "/reviewers?v": {
+          "count": 1,
+          "example": "/reviewers?v=1",
+          "longest": 14
+        }
+      },
+      "requested": "/companies?lens=reviewers",
       "route": "/companies"
     },
     "companies-timeline": {
@@ -109,6 +166,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/companies?timeline",
@@ -161,9 +223,71 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/companies/id/company-acme",
+      "route": "/companies/[...identity]"
+    },
+    "company-detail-reviewers": {
+      "address": "/companies/id/company-acme?lens=reviewers",
+      "links": {
+        "/companies/[...identity]?back&lens&metric": {
+          "count": 6,
+          "example": "/companies/id/company-acme?lens=reviewers&metric=reviewerContributions&back=/companies/id/company-acme",
+          "longest": 102
+        },
+        "/companies/[...identity]?lens": {
+          "count": 2,
+          "example": "/companies/id/company-acme?lens=reviewers",
+          "longest": 41
+        },
+        "/companies/[...identity]?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies/id/company-acme?timeline&lens=reviewers&v=1",
+          "longest": 54
+        },
+        "/companies/[...identity]?lens&view": {
+          "count": 1,
+          "example": "/companies/id/company-acme?view=repositories&lens=reviewers",
+          "longest": 59
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=reviewers",
+          "longest": 25
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?back&lens": {
+          "count": 3,
+          "example": "/contributors/account-alice?lens=reviewers&back=/companies/id/company-acme~lens:reviewers",
+          "longest": 89
+        },
+        "/contributors/[accountId]?back&lens&metric": {
+          "count": 9,
+          "example": "/contributors/account-alice?lens=reviewers&metric=reviewerContributions&back=/companies/id/company-acme~lens:reviewers",
+          "longest": 118
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/companies/id/company-acme?lens=reviewers",
       "route": "/companies/[...identity]"
     },
     "company-repositories": {
@@ -208,6 +332,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/companies/id/company-acme?view=repositories",
@@ -245,6 +374,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/companies/id/company-acme?timeline",
@@ -287,9 +421,61 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors/account-alice",
+      "route": "/contributors/[accountId]"
+    },
+    "contributor-detail-reviewers": {
+      "address": "/contributors/account-alice?lens=reviewers",
+      "links": {
+        "/companies/[...identity]?back&lens": {
+          "count": 1,
+          "example": "/companies/id/company-acme?lens=reviewers&back=/contributors/account-alice",
+          "longest": 74
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?back&lens&metric": {
+          "count": 6,
+          "example": "/contributors/account-alice?lens=reviewers&metric=reviewerContributions&back=/contributors/account-alice~lens:reviewers",
+          "longest": 119
+        },
+        "/contributors/[accountId]?back&lens&metric&repo": {
+          "count": 6,
+          "example": "/contributors/account-alice?lens=reviewers&repo=prebidjs&metric=reviewerContributions&back=/contributors/account-alice~-repo~lens:reviewers",
+          "longest": 143
+        },
+        "/contributors/[accountId]?lens": {
+          "count": 1,
+          "example": "/contributors/account-alice?lens=reviewers",
+          "longest": 42
+        },
+        "/contributors/[accountId]?lens&timeline&v": {
+          "count": 1,
+          "example": "/contributors/account-alice?timeline&lens=reviewers&v=1",
+          "longest": 55
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 2,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/contributors/account-alice?lens=reviewers",
       "route": "/contributors/[accountId]"
     },
     "contributor-detail-timeline": {
@@ -324,9 +510,61 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors/account-alice?timeline",
+      "route": "/contributors/[accountId]"
+    },
+    "contributor-no-reviewer-activity": {
+      "address": "/contributors/account-finn?lens=reviewers",
+      "links": {
+        "/companies/[...identity]?back&lens": {
+          "count": 1,
+          "example": "/companies/id/company-beacon?lens=reviewers&back=/contributors/account-finn",
+          "longest": 75
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?back&lens&metric": {
+          "count": 6,
+          "example": "/contributors/account-finn?lens=reviewers&metric=reviewerContributions&back=/contributors/account-finn~lens:reviewers",
+          "longest": 117
+        },
+        "/contributors/[accountId]?back&lens&metric&repo": {
+          "count": 3,
+          "example": "/contributors/account-finn?lens=reviewers&repo=prebidjs&metric=reviewerContributions&back=/contributors/account-finn~-repo~lens:reviewers",
+          "longest": 137
+        },
+        "/contributors/[accountId]?lens": {
+          "count": 1,
+          "example": "/contributors/account-finn?lens=reviewers",
+          "longest": 41
+        },
+        "/contributors/[accountId]?lens&timeline&v": {
+          "count": 1,
+          "example": "/contributors/account-finn?timeline&lens=reviewers&v=1",
+          "longest": 54
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 2,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/contributors/account-finn?lens=reviewers",
       "route": "/contributors/[accountId]"
     },
     "contributors": {
@@ -371,6 +609,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors",
@@ -418,6 +661,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors?v=1",
@@ -455,6 +703,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors?timeline",
@@ -492,6 +745,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors?timeline&sample=empty",
@@ -524,6 +782,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/contributors?timeline&sample=missing",
@@ -541,6 +804,11 @@
           "count": 2,
           "example": "/repos",
           "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/foundation",
@@ -573,6 +841,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?metric=humanApprovals0",
@@ -615,6 +888,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors",
@@ -657,6 +935,11 @@
           "count": 2,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=issueAuthors",
@@ -699,6 +982,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors",
@@ -736,6 +1024,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=agentFeedbackCredits",
@@ -768,6 +1061,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs",
@@ -800,6 +1098,11 @@
           "count": 1,
           "example": "/repos/prebiddocs?view=issues",
           "longest": 29
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebiddocs?view=issues",
@@ -837,6 +1140,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays",
@@ -869,6 +1177,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?view=issues",
@@ -901,6 +1214,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?view=issues&v=1",
@@ -938,6 +1256,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?timeline",
@@ -975,6 +1298,11 @@
           "count": 1,
           "example": "/repos/prebidjs?view=issues",
           "longest": 27
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos/prebidjs?timeline&view=issues&group=week",
@@ -1027,6 +1355,11 @@
           "count": 1,
           "example": "/repos?timeline&repo=prebidjs,prebidserver&back=~period2:last-month~age:30,60,90",
           "longest": 80
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90",
@@ -1074,6 +1407,11 @@
           "count": 1,
           "example": "/repos?timeline",
           "longest": 15
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos",
@@ -1106,6 +1444,11 @@
           "count": 1,
           "example": "/repos?timeline&v=1",
           "longest": 19
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos?timeline",
@@ -1138,6 +1481,11 @@
           "count": 1,
           "example": "/repos?timeline&sample=mixed&group=quarter",
           "longest": 42
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos?timeline&sample=mixed&group=quarter",
@@ -1175,10 +1523,166 @@
           "count": 1,
           "example": "/repos?repo=prebidserver",
           "longest": 24
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
         }
       },
       "requested": "/repos?timeline&repo=prebidserver&group=week",
       "route": "/repos"
+    },
+    "reviewers": {
+      "address": "/reviewers",
+      "links": {
+        "/companies/[...identity]?back&lens": {
+          "count": 6,
+          "example": "/companies/id/company-acme?lens=reviewers&back=/reviewers",
+          "longest": 59
+        },
+        "/companies?lens&v": {
+          "count": 1,
+          "example": "/companies?lens=reviewers&v=1",
+          "longest": 29
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?lens": {
+          "count": 6,
+          "example": "/contributors/account-alice?lens=reviewers",
+          "longest": 42
+        },
+        "/contributors/[accountId]?lens&metric": {
+          "count": 18,
+          "example": "/contributors/account-alice?lens=reviewers&metric=reviewerContributions",
+          "longest": 71
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 2,
+          "example": "/reviewers",
+          "longest": 10
+        },
+        "/reviewers?timeline&v": {
+          "count": 1,
+          "example": "/reviewers?timeline&v=1",
+          "longest": 23
+        },
+        "/reviewers?v": {
+          "count": 1,
+          "example": "/reviewers?v=1",
+          "longest": 14
+        }
+      },
+      "requested": "/reviewers",
+      "route": "/reviewers"
+    },
+    "reviewers-large": {
+      "address": "/reviewers?sample=large",
+      "links": {
+        "/companies/[...identity]?back&lens&sample": {
+          "count": 50,
+          "example": "/companies/id/company-acme?lens=reviewers&sample=large&back=/reviewers",
+          "longest": 70
+        },
+        "/companies?lens&sample&v": {
+          "count": 1,
+          "example": "/companies?lens=reviewers&sample=large&v=1",
+          "longest": 42
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?lens&metric&sample": {
+          "count": 150,
+          "example": "/contributors/account-person-002?lens=reviewers&sample=large&metric=reviewerContributions",
+          "longest": 89
+        },
+        "/contributors/[accountId]?lens&sample": {
+          "count": 50,
+          "example": "/contributors/account-person-002?lens=reviewers&sample=large",
+          "longest": 60
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        },
+        "/reviewers?sample": {
+          "count": 1,
+          "example": "/reviewers?sample=large",
+          "longest": 23
+        },
+        "/reviewers?sample&timeline&v": {
+          "count": 1,
+          "example": "/reviewers?timeline&sample=large&v=1",
+          "longest": 36
+        },
+        "/reviewers?sample&v": {
+          "count": 1,
+          "example": "/reviewers?sample=large&v=1",
+          "longest": 27
+        }
+      },
+      "requested": "/reviewers?sample=large",
+      "route": "/reviewers"
+    },
+    "reviewers-timeline": {
+      "address": "/reviewers?timeline",
+      "links": {
+        "/companies?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies?timeline&lens=reviewers&v=1",
+          "longest": 38
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        },
+        "/reviewers?detail&interval&snap&timeline": {
+          "count": 30,
+          "example": "/reviewers?timeline&detail=reviewerContributions&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 124
+        },
+        "/reviewers?timeline&v": {
+          "count": 2,
+          "example": "/reviewers?timeline&v=1",
+          "longest": 23
+        },
+        "/reviewers?v": {
+          "count": 1,
+          "example": "/reviewers?v=1",
+          "longest": 14
+        }
+      },
+      "requested": "/reviewers?timeline",
+      "route": "/reviewers"
     },
     "sign-in": {
       "address": "/auth/login",

@@ -173,6 +173,7 @@ test('old links and entries with a differing saved view answer 307 once; others 
       '/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors',
     ],
     ['/contributors?scope=1&period=last-month', '/contributors?period=last-month'],
+    ['/reviewers?scope=1&period=last-month', '/reviewers?period=last-month'],
     ['/companies?scope=1&period=this-year', '/companies?v=1'],
     [
       '/contributors/account-alice?scope=1&period=last-month',
@@ -237,7 +238,7 @@ test('Back serves each entry’s own view after a saved-view change', async ({ p
   await page.keyboard.press('Escape');
   await expect(page).toHaveURL(origin + '/repos?age=');
   const navigation = page.getByRole('navigation', { name: 'Main navigation' });
-  await navigation.getByRole('link', { name: 'Contributions', exact: true }).click();
+  await navigation.getByRole('link', { name: 'Contributors', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Contributors', level: 1 })).toBeVisible();
   // The masthead opens the saved view the viewer just made, without a redirect.
   await expect(navigation.getByRole('link', { name: 'Overview', exact: true })).toHaveAttribute(

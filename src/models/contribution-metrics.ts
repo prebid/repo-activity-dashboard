@@ -50,11 +50,12 @@ export function reportMetricDescription(metric: ReportMetric): string {
     : additionalMetricDefinitions[metric].description;
 }
 
+/** Picker groups: each lens's column set covers whole groups (Contributor: Pull requests and Issues). */
 export const contributionSelectionGroups: Record<ContributionMetric, string> = {
   prsAuthored: 'Pull requests',
   authoredPrsMerged: 'Pull requests',
-  mergesPerformed: 'Pull requests',
-  reviewerContributions: 'Reviews and approvals',
-  approvalContributions: 'Reviews and approvals',
+  reviewerContributions: 'Reviews, approvals and merges',
+  approvalContributions: 'Reviews, approvals and merges',
+  mergesPerformed: 'Reviews, approvals and merges',
   issuesAuthored: 'Issues',
 };

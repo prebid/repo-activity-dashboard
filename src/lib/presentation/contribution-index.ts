@@ -15,13 +15,15 @@ import {
   type AdditionalValues,
 } from '@/models/contribution-activity';
 import { reportMetricIds, isCoreMetric, type ReportMetric } from '@/models/contribution-metrics';
+import { metricPopulationRole, type PopulationRole } from '@/models/contribution-lens';
 import type { Count } from '@/models/reporting-measurement';
 import { validateContributionSource } from './contribution-source';
 import { sumContributionCounts } from './contribution-activity';
 
 interface ContributionCell {
   metrics: Map<ReportMetric, Count>;
-  overviewEvidence: boolean;
+  /** Account-specific evidence for an overview row: from any metric, and from reviewer credits. */
+  evidence: { any: boolean; reviewer: boolean };
 }
 type Cells = Map<string, Map<string, ContributionCell>>;
 type RawCells = Map<string, Map<string, Map<ReportMetric, Count[]>>>;
@@ -128,19 +130,24 @@ function buildIndex(source: ContributionSource) {
       cells.set(account, selected);
       for (const [repository, metrics] of repositories) {
         const values = new Map<ReportMetric, Count>();
-        const cell = { metrics: values, overviewEvidence: false };
+        const cell: ContributionCell = {
+          metrics: values,
+          evidence: { any: false, reviewer: false },
+        };
         selected.set(repository, cell);
         for (const [metric, counts] of metrics) {
           const count = sumContributionCounts(counts);
           const override = overrides.get(account)?.get(repository)?.get(metric);
           // Eligibility comes from account-specific evidence before report-wide
           // coverage is applied. A global gap cannot populate the whole directory.
-          cell.overviewEvidence ||=
+          const evidence =
             (count.value ?? 0) > 0 ||
             count.status === 'partial' ||
             count.status === 'missing' ||
             override?.status === 'partial' ||
             override?.status === 'missing';
+          cell.evidence.any ||= evidence;
+          if (metricPopulationRole(metric) === 'reviewer') cell.evidence.reviewer ||= evidence;
           const coverage = override ?? defaults.get(metric)!;
           values.set(
             metric,
@@ -250,9 +257,18 @@ function buildIndex(source: ContributionSource) {
     company(id: string) {
       return companies.get(id);
     },
-    hasOverviewEvidence(accountId: string, repositories: ReadonlySet<string>) {
+    /**
+     * Whether an account has an overview row in the chosen repositories: evidence from any metric,
+     * or with `reviewer`, from a review, approval or merge credit (the Reviewers lens).
+     */
+    hasOverviewEvidence(
+      accountId: string,
+      repositories: ReadonlySet<string>,
+      role?: PopulationRole,
+    ) {
+      const kind = role === 'reviewer' ? 'reviewer' : 'any';
       for (const [id, cell] of cells.get(accountId) ?? [])
-        if (cell.overviewEvidence && repositories.has(id)) return true;
+        if (cell.evidence[kind] && repositories.has(id)) return true;
       return false;
     },
   });

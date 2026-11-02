@@ -34,6 +34,66 @@ it('keeps stable identity routes unambiguous for unmapped and mapped companies',
   for (const path of [[], ['id'], ['id', ''], ['unknown'], ['id', 'a', 'b']])
     expect(companyFocus(path)).toBeNull();
 });
+it('keeps the Reviewers lens through people, company, metric and Over time links', () => {
+  const alice = { kind: 'contributor', accountId: 'account-alice' } as const;
+  expect(contributionPath('contributors', 'reviewers')).toBe('/reviewers');
+  expect(contributionPath('companies', 'reviewers')).toBe('/companies');
+  expect(contributionPath(alice, 'reviewers')).toBe('/contributors/account-alice');
+  expect(
+    contributionHref('contributors', 'reference', undefined, undefined, undefined, 'reviewers'),
+  ).toBe('/reviewers?v=1');
+  expect(contributionHref('companies', 'large', undefined, undefined, undefined, 'reviewers')).toBe(
+    '/companies?lens=reviewers&sample=large&v=1',
+  );
+  // From /reviewers, a person link carries the lens; its parent is the Reviewers overview.
+  const person = contributionHref(
+    alice,
+    'reference',
+    '/reviewers?all',
+    undefined,
+    undefined,
+    'reviewers',
+  )!;
+  expect(person).toBe('/contributors/account-alice?lens=reviewers&back=~all');
+  expect(resolveBack(contributionViewOf(person)!)[0]).toMatchObject({
+    available: true,
+    href: '/reviewers?all',
+  });
+  const report = selectContributions(contributionSample(), undefined, alice);
+  expect(
+    contributionMetricHref(
+      alice,
+      'reference',
+      report.context,
+      'approvalContributions',
+      person,
+      undefined,
+      undefined,
+      'reviewers',
+    ),
+  ).toBe(
+    '/contributors/account-alice?lens=reviewers&metric=approvalContributions' +
+      '&back=/contributors/account-alice~lens:reviewers&back=~all',
+  );
+  // Saved Reviewers-lens presentation, Show all included, rides on links that open the table.
+  expect(
+    contributionHref(
+      'contributors',
+      'reference',
+      undefined,
+      undefined,
+      {
+        contributors: { showAllAccounts: true, sort: { sort: 'name', descending: false } },
+      },
+      'reviewers',
+    ),
+  ).toBe('/reviewers?sort=name&all');
+  expect(
+    contributionHref('contributors', 'reference', undefined, undefined, {
+      contributors: { showAllAccounts: true },
+    }),
+  ).toBe('/contributors?v=1');
+});
 it('carries the parent report as a back frame without accepting external return destinations', () => {
   const parent = '/companies/id/company-acme?view=repositories&sample=large&page=2';
   const href = contributionHref(

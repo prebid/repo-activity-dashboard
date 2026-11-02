@@ -8,11 +8,13 @@ import {
   type CompanyBreakdown,
 } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
+import type { ContributionLens } from '@/models/contribution-lens';
 import { contributionUrlFits } from './contribution-return';
 import { urlHref } from './url/codec';
 import { viewHref, type UrlView } from './url/back';
 import {
   childViewHref,
+  contributionLensValues,
   contributionScopeValues,
   contributionTarget,
   contributionViewOf,
@@ -23,23 +25,33 @@ import {
   type SavedContributionTables,
 } from './contribution-url';
 
-export function contributionPath(target: ContributionTarget): string {
-  if (typeof target === 'string') return '/' + target;
+/** A target's path; the people overview's is /reviewers in the Reviewers lens. */
+export function contributionPath(
+  target: ContributionTarget,
+  lens: ContributionLens = 'contributors',
+): string {
+  if (typeof target === 'string')
+    return target === 'contributors' && lens === 'reviewers' ? '/reviewers' : '/' + target;
   if (target.kind === 'contributor') return '/contributors/' + encodeURIComponent(target.accountId);
   return target.companyId === null
     ? '/companies/unmapped'
     : '/companies/id/' + encodeURIComponent(target.companyId);
 }
-/** A target's view at a scope, with its table's saved presentation (decision C3). */
+/**
+ * A target's view at a scope in a lens, with its table's saved presentation (decision C3); `saved`
+ * holds that lens's tables.
+ */
 function targetView(
   target: ContributionTarget,
   sample: ContributionSampleScenario,
   settings: ContributionSettings | undefined,
   saved: SavedContributionTables | undefined,
+  lens: ContributionLens,
   extra: Record<string, string> = {},
 ): UrlView {
-  const { route, segments } = contributionTarget(target);
+  const { route, segments } = contributionTarget(target, lens);
   const values = {
+    ...contributionLensValues(route, lens),
     ...(sample !== 'reference' && { sample }),
     ...(settings && contributionScopeValues(settings)),
     ...extra,
@@ -51,9 +63,10 @@ function targetView(
   };
 }
 /**
- * A link to a contribution report at a scope. From a report (`returnTo`, its canonical href) the
- * link carries that report as its parent frame; without one it is a same-level link written in
- * explicit form, so it never answers with a saved view. Null when the link does not fit.
+ * A link to a contribution report at a scope, in a lens (the people overview is /reviewers in the
+ * Reviewers lens; every other route carries `lens=reviewers`). From a report (`returnTo`, its
+ * canonical href) the link carries that report as its parent frame; without one it is a same-level
+ * link written in explicit form, so it never answers with a saved view. Null when it does not fit.
  */
 export function contributionHref(
   target: ContributionTarget,
@@ -61,8 +74,9 @@ export function contributionHref(
   returnTo?: string,
   settings?: ContributionSettings,
   saved?: SavedContributionTables,
+  lens: ContributionLens = 'contributors',
 ): string | null {
-  const child = targetView(target, sample, settings, saved);
+  const child = targetView(target, sample, settings, saved, lens);
   if (returnTo === undefined) {
     const href = urlHref(child.route, child.segments, child.values, { explicit: true });
     return contributionUrlFits(href) ? href : null;
@@ -101,7 +115,7 @@ export function companyBreakdownHref(
 
 /**
  * A metric's supporting records for a report subject at the report's scope, optionally narrowed to
- * one repository, from the report the value was clicked on (`returnTo`).
+ * one repository, from the report the value was clicked on (`returnTo`), in a lens.
  */
 export function contributionMetricHref(
   target: ContributionTarget,
@@ -111,12 +125,13 @@ export function contributionMetricHref(
   returnTo: string,
   repositoryId?: string,
   saved?: SavedContributionTables,
+  lens: ContributionLens = 'contributors',
 ): string | null {
   const settings = {
     period: context.period,
     selection: { ...context.selection, ...(repositoryId ? { repositoryIds: [repositoryId] } : {}) },
   };
-  const child = targetView(target, sample, settings, saved, { metric });
+  const child = targetView(target, sample, settings, saved, lens, { metric });
   const parent = contributionViewOf(returnTo);
   return parent ? childViewHref(parent, child) : viewHref(child, 'child');
 }

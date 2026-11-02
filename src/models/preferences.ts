@@ -31,7 +31,7 @@ export const preferenceSectionKeys = {
     'timeline-support.authors.issues.sort',
   ],
   contributions: [
-    // The report scope, shared by Contributors, Companies and their Timelines.
+    // The report scope, shared by both lenses, Companies and their Timelines.
     'contributions.scope',
     // Columns and sort per contribution table kind.
     'contributions.details.columns',
@@ -53,6 +53,22 @@ export const preferenceSectionKeys = {
     'timeline.companies.company',
     // Timeline supporting contribution records.
     'timeline-support.contribution.sort',
+    // The Reviewers lens: columns and sort per table kind (details stay shared above).
+    'contributions.reviewers.contributors.columns',
+    'contributions.reviewers.contributors.sort',
+    'contributions.reviewers.companies.columns',
+    'contributions.reviewers.companies.sort',
+    'contributions.reviewers.members.columns',
+    'contributions.reviewers.members.sort',
+    'contributions.reviewers.repositories.columns',
+    'contributions.reviewers.repositories.sort',
+    // The Reviewers lens: Timeline presentation per area and focus kind.
+    'timeline.reviewers.contributors.overview',
+    'timeline.reviewers.contributors.contributor',
+    'timeline.reviewers.contributors.company',
+    'timeline.reviewers.companies.overview',
+    'timeline.reviewers.companies.contributor',
+    'timeline.reviewers.companies.company',
   ],
 } as const satisfies Record<PreferenceCookieName, readonly string[]>;
 

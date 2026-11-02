@@ -190,17 +190,24 @@ export function legacyDecode(
   );
   return { kind: 'values', values: back.length ? { ...values, back } : values };
 }
-/** A view's values from its legacy query, without return context. */
+/**
+ * A view's values from its legacy query, without return context. `/reviewers` postdates every
+ * legacy link, so its old-form query is read as `/contributors` reads it and written against the
+ * Reviewers lens's defaults. A route with no frozen reader (an export) rejects the link.
+ */
 function decodeValues(
   route: UrlRoute,
   segments: UrlSegments,
   params: URLSearchParams,
   context: LegacyContext,
 ): Values | null {
-  const href = legacyHref(route, segments, params);
-  const state = legacyState(route, href, context).state as Record<string, unknown>;
+  const reader = route === '/reviewers' ? '/contributors' : route;
+  const { state } = legacyState(reader, legacyHref(reader, segments, params), context);
+  if (state === 'no reader') return null;
   const values: Values = {};
-  return decodeState(route, segments, params, state, values, context) ? values : null;
+  return decodeState(route, segments, params, state as Record<string, unknown>, values, context)
+    ? values
+    : null;
 }
 /** An ancestor's legacy href as a view; its own trail keys belong to the chain, not to it. */
 function ancestorView(href: string, context: LegacyContext): UrlView | null {
@@ -446,7 +453,7 @@ function contributionValues(
     layout: { sample: string; breakdown: string } | null;
     scope: ContributionSettings | null;
     metric: string | null;
-    table: TableQuery & { kind: string; columns: string[]; hideZeroMembers: boolean };
+    table: TableQuery & { kind: string; key: string; columns: string[]; hideZeroMembers: boolean };
   };
   if (!layout || !scope) return false;
   if (layout.sample !== 'reference') values.sample = layout.sample;
@@ -456,7 +463,8 @@ function contributionValues(
   assign(values, {
     metric: metric ?? undefined,
     q: table.search || undefined,
-    sort: sortToken(table),
+    // An absent legacy sort meant the table's default, which is the lens's own.
+    sort: params.has(table.key + '.sort') ? sortToken(table) : undefined,
     page: pageValue(table.page),
     zero: table.hideZeroMembers ? 'hide' : undefined,
   });
@@ -493,6 +501,9 @@ export function timelineStateValues(
   }
   const source = readTimelineSource(params, area);
   const values: Values = {};
+  // A Timeline query names its lens; on /reviewers the route is the lens.
+  if (area === 'contribution' && params.get('lens') === 'reviewers' && route !== '/reviewers')
+    values.lens = 'reviewers';
   const state = (fields: Record<string, unknown>) => ({ source, timeline, ...fields });
   const read =
     screen === 'matrix'

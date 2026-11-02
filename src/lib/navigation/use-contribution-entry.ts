@@ -1,15 +1,15 @@
 'use client';
 import { useCallback, useMemo } from 'react';
 import type { PreferenceSectionKey } from '@/models/preferences';
-import {
-  isContributionPresentationDocument,
-  type ContributionTableKind,
-} from '@/models/contribution-preferences';
+import type { ContributionTableKind } from '@/models/contribution-preferences';
+import type { ContributionLens } from '@/models/contribution-lens';
 import {
   contributionPreferenceNeedsLookup,
-  readContributionPresentation,
+  readContributionPresentationDocument,
   readStoredContributionPreferences,
 } from '@/lib/presentation/contribution-settings';
+import { contributionTableSections } from '@/lib/presentation/contribution-lens';
+import { lensOf } from '@/lib/presentation/url/defaults';
 import {
   contributionScopeValues,
   savedPresentationValues,
@@ -30,18 +30,16 @@ function parsed(raw: string | null): unknown {
     return null;
   }
 }
-/** A table's saved columns, zero-member choice and sort, read from the cookie. */
-function savedTable(read: Read, table: ContributionTableKind) {
-  const columns = read(`contributions.${table}.columns`);
-  const document = parsed(columns);
-  const presentation = isContributionPresentationDocument(document)
-    ? readContributionPresentation(columns, Object.keys(document.columns))
-    : undefined;
-  const rawSort = read(`contributions.${table}.sort`);
+/** A lens's table's saved columns, zero-member and Show all choices and sort, from the cookie. */
+function savedTable(read: Read, table: ContributionTableKind, lens: ContributionLens) {
+  const sections = contributionTableSections(lens, table);
+  const presentation = readContributionPresentationDocument(read(sections.columns), table, lens);
+  const rawSort = read(sections.sort);
   const sort = parsed(rawSort);
   return {
     columns: presentation?.columns,
     hideZeroMembers: presentation?.hideZeroMembers,
+    showAllAccounts: presentation?.showAllAccounts,
     sort:
       sort && typeof sort === 'object' && 'sort' in sort && typeof sort.sort === 'string'
         ? readSavedTableSort(rawSort, [sort.sort])
@@ -49,9 +47,10 @@ function savedTable(read: Read, table: ContributionTableKind) {
   };
 }
 /**
- * A contribution entry's saved view from the cookie, as registry values. A saved scope that needs
- * the directory (a named account or company, a custom range, an unknown repository) returns null:
- * the entry link stays bare, and the server checks it and redirects.
+ * A contribution entry's saved view from the cookie, as registry values, in the entry's lens
+ * (/reviewers, or `lens` among the selectors). A saved scope that needs the directory (a named
+ * account or company, a custom range, an unknown repository) returns null: the entry link stays
+ * bare, and the server checks it and redirects.
  */
 export function savedContributionEntry(
   route: ContributionRoute,
@@ -62,7 +61,7 @@ export function savedContributionEntry(
 ): SavedViewValues | null {
   const values = { ...selectors };
   const table: ContributionTableKind =
-    route === '/contributors'
+    route === '/contributors' || route === '/reviewers'
       ? 'contributors'
       : route === '/companies'
         ? 'companies'
@@ -70,9 +69,10 @@ export function savedContributionEntry(
           ? 'repositories'
           : 'members';
   const presentation = savedPresentationValues(route, values, {
-    [table]: savedTable(read, table),
+    [table]: savedTable(read, table, lensOf(route, values)),
   });
-  if (route !== '/contributors' && route !== '/companies') return { presentation };
+  if (route !== '/contributors' && route !== '/reviewers' && route !== '/companies')
+    return { presentation };
   const raw = read('contributions.scope');
   if (raw === null) return { presentation };
   const settings = readStoredContributionPreferences(raw);
@@ -87,22 +87,24 @@ export function savedContributionEntry(
   return { scope: contributionScopeValues(settings), presentation };
 }
 /**
- * The masthead Contributions link: `/contributors` in the viewer's saved explicit form after
- * hydration, so an ordinary click opens the saved view in one request.
+ * A masthead lens link: `/contributors` or `/reviewers` in the viewer's saved explicit form after
+ * hydration (the shared scope and that lens's table), so an ordinary click opens the saved view in
+ * one request.
  */
 export function useContributionEntry(
   viewerId: string | undefined,
   enabledRepositories: readonly { id: string }[],
+  route: '/contributors' | '/reviewers' = '/contributors',
 ): string {
   const key = enabledRepositories.map((repo) => repo.id).join(' ');
   const known = useMemo(() => new Set(key.split(' ')), [key]);
   // Only the signed-in viewer's saved view applies; a page without one links bare.
   const saved = useCallback(
     (read: Read) =>
-      viewerId === undefined ? null : savedContributionEntry('/contributors', {}, {}, read, known),
-    [known, viewerId],
+      viewerId === undefined ? null : savedContributionEntry(route, {}, {}, read, known),
+    [known, viewerId, route],
   );
-  return useEntryHref('/contributors', saved, { viewerId });
+  return useEntryHref(route, saved, { viewerId });
 }
 /**
  * A contribution crumb whose parent is an area entry (an overview at the default scope, reached

@@ -5,6 +5,7 @@ import { requireViewer } from '@/lib/auth/viewer';
 import { repositoryCatalog } from '@/config/repositories';
 import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
+import type { ContributionLens } from '@/models/contribution-lens';
 import type {
   TimelineArea,
   TimelineControlContext,
@@ -28,6 +29,7 @@ import {
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { companyFocus, contributionPath } from '@/lib/presentation/contribution-navigation';
+import { contributionBackLabel } from '@/lib/presentation/contribution-lens';
 import {
   backFrames,
   resolveBack,
@@ -93,7 +95,7 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
       ? ['repo']
       : area === 'repository'
         ? []
-        : [...contributionScopeKeys, 'view', 'members.zero']),
+        : [...contributionScopeKeys, 'view', 'members.zero', 'lens']),
   ]);
   if (
     !contributionUrlFits(path + '?' + params.toString()) ||
@@ -114,6 +116,8 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
   if (
     !source ||
     params.has('metric') ||
+    (params.has('lens') &&
+      (params.getAll('lens').length > 1 || params.get('lens') !== 'reviewers')) ||
     (params.has('timeline.omitted') && params.get('timeline.omitted') !== 'current')
   )
     return invalid();
@@ -227,7 +231,9 @@ export async function contributionTimelinePreview(
   previewOptions: TimelinePreviewOptions = {},
 ) {
   const viewer = await requireViewer();
-  const path = contributionPath(focus.kind === 'overview' ? area : focus),
+  // The Timeline query names the Reviewers lens, which keeps its own Over time presentation.
+  const lens: ContributionLens = params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors';
+  const path = contributionPath(focus.kind === 'overview' ? area : focus, lens),
     parsed = options(params, 'contribution', path);
   if (parsed.status === 'invalid') return parsed;
   if (parsed.sample === 'mixed') return invalid();
@@ -251,8 +257,14 @@ export async function contributionTimelinePreview(
   )
     notFound();
   const controls: TimelineControlContext = {
-    ...context('contribution', path, parsed, area + ':' + focus.kind),
+    ...context(
+      'contribution',
+      path,
+      parsed,
+      (lens === 'reviewers' ? 'reviewers.' : '') + area + ':' + focus.kind,
+    ),
     contribution: settings,
+    lens,
   };
   const saved = timelinePreferences(
     params,
@@ -395,7 +407,7 @@ export async function timelineView(
   const { route, segments, values } = view;
   const params = timelineParams(route, values, contributionSampleAsOf, { entry: options.entry });
   const href = viewHref(view, 'level');
-  if (!params || href === null || values.lens === 'reviewers') return invalid();
+  if (!params || href === null) return invalid();
   const ancestors = resolveBack(view);
   const canonical = <T extends { controls: TimelineControlContext }>(result: T) => ({
     ...result,
@@ -434,6 +446,11 @@ export async function timelineView(
     ...canonical(result),
     reportHref: reportTab(view, report),
     returnTo: focus.kind === 'overview' ? undefined : crumb(returnTo),
+    // The crumb names an overview parent, as the subject's report does (decision D12).
+    returnLabel:
+      focus.kind === 'overview' || returnTo === undefined
+        ? undefined
+        : contributionBackLabel(returnTo.available ? returnTo.view : null),
   };
 }
 const reportScope = ['sample', 'lens', 'period', 'repo', 'type', 'account', 'company', 'exclude'];
@@ -480,14 +497,14 @@ export async function timelineEntryValues(
 ): Promise<SavedViewValues | null> {
   const { route, segments, values } = view;
   const params = timelineParams(route, values, contributionSampleAsOf, { entry: true });
-  if (!params || values.lens === 'reviewers') return null;
+  if (!params) return null;
   const screen = screenOf(route, values);
   let result;
   if (screen === 'matrix') result = await repositoryTimelineMatrixPreview(params, preferences);
   else if (route === '/repos/[slug]')
     result = await repositoryTimelinePreview(segments.slug[0], params, preferences);
   else {
-    const list = route === '/contributors' || route === '/companies';
+    const list = route === '/contributors' || route === '/reviewers' || route === '/companies';
     const focus: ContributionFocus =
       route === '/contributors/[accountId]'
         ? { kind: 'contributor', accountId: segments.accountId[0] }

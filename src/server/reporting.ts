@@ -17,6 +17,8 @@ import {
 import { instantIso } from '@/lib/presentation/url/period';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
+import type { ContributionLens } from '@/models/contribution-lens';
+import { contributionBackLabel } from '@/lib/presentation/contribution-lens';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { readDrilldownSelection, summaryReturnTo } from '@/lib/presentation/repository-drilldown';
 import { reportingBranchSchema } from '@/models/repository-overview';
@@ -120,22 +122,25 @@ export async function repositoryAuthorDetail(
   };
 }
 /**
- * One contribution report view from its registry values. `lens=reviewers` answers with the invalid
- * view until the Reviewers report exists (decision C6); a snapshot pin must be the sample's as-of.
+ * One contribution report view from its registry values, in a lens: `lens` names the Reviewers
+ * lens of /reviewers, whose route is the lens; elsewhere `values.lens` decides. Show all (`all`)
+ * belongs to a Reviewers-lens overview's table; a snapshot pin must be the sample's as-of.
  */
 export async function contributions(
   area: ContributionArea,
   values: UrlValues = {},
   focus: ContributionFocus = { kind: 'overview' },
+  lens: ContributionLens = values.lens === 'reviewers' ? 'reviewers' : 'contributors',
 ) {
   const loaded = await loadContributionValues(area, values, focus);
   if (loaded.status === 'invalid') return loaded;
   const { viewer, options, source, settings } = loaded;
   const metric = typeof values.metric === 'string' ? values.metric : null;
-  const { route, segments } = contributionReportRoute(area, focus);
+  const { route, segments } = contributionReportRoute(area, focus, lens);
+  const allAccounts = values.all === true;
   if (
     (metric !== null && !isReportMetric(metric)) ||
-    values.lens === 'reviewers' ||
+    (allAccounts && (lens !== 'reviewers' || focus.kind !== 'overview' || metric !== null)) ||
     (typeof values.at === 'string' && instantIso(values.at) !== source.asOf) ||
     // `cols` naming a column this table lacks.
     (values.cols !== undefined && contributionColumnVisibility(route, values) === null)
@@ -146,7 +151,7 @@ export async function contributions(
     settings.selection,
     focus,
     metric ?? undefined,
-    { area, breakdown: options.breakdown },
+    { area, breakdown: options.breakdown, lens, allAccounts },
   );
   const [parent] = resolveBack({ route, segments, values });
   const page: ContributionPage = {
@@ -155,6 +160,9 @@ export async function contributions(
     breakdown: options.breakdown,
     ...presentation,
     returnTo: parent?.available ? parent.href : null,
+    lens,
+    ...(parent && { returnLabel: contributionBackLabel(parent.available ? parent.view : null) }),
+    ...(allAccounts && { allAccounts }),
   };
   return {
     status: 'ready' as const,

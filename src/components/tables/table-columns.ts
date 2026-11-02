@@ -1,5 +1,6 @@
 import type { TableValueColumn } from '@/models/table-values';
-import type { SelectableColumn } from '@/models/column-selection';
+import type { ColumnSetChoice, SelectableColumn } from '@/models/column-selection';
+export type { ColumnSetChoice, ColumnSetOption } from '@/models/column-selection';
 import type { ReactNode } from 'react';
 
 export interface DataColumn<T> extends Omit<SelectableColumn, 'required'>, TableValueColumn<T> {
@@ -32,6 +33,8 @@ export interface DataColumn<T> extends Omit<SelectableColumn, 'required'>, Table
 export interface ColumnVisibility {
   value: Record<string, boolean>;
   onChange: (next: Record<string, boolean>) => void;
+  /** Named column sets the Columns menu and the CSV dialog offer above the column list. */
+  sets?: ColumnSetChoice;
 }
 
 /**

@@ -1,14 +1,22 @@
 'use client';
 import { isKnownZeroContribution } from '@/lib/presentation/contribution-table-values';
+import { noReviewerActivity } from '@/lib/presentation/contribution-lens';
 import type { ColumnVisibility } from '@/components/tables/table-columns';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { additionalMetricIds } from '@/models/contribution-activity';
 import { DataTable } from '@/components/tables/data-table';
 import { Callout } from '@/components/feedback/callout';
 import { EmptyState } from '@/components/feedback/empty-state';
 import type { TableController } from '@/lib/presentation/table-controller';
-import type { ContributionPage } from '@/models/contribution-page';
-import { contributionMetricIds, contributionMetrics } from '@/models/contributions';
+import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
+import {
+  contributionMetricIds,
+  contributionMetrics,
+  type ContributionPopulation,
+} from '@/models/contributions';
+import { Switch } from '@/components/ui/switch';
+import { countLabel } from '@/lib/presentation/format';
+import { roleMetrics, type PopulationRole } from '@/models/contribution-lens';
 import {
   ContributionMetricLink,
   contributorColumns,
@@ -21,11 +29,110 @@ import { ContributionHeader } from './contribution-header';
 import type { ReportToolbarControls } from '@/components/reporting/report-toolbar';
 import styles from './contributions.module.css';
 
+const clusterLabels: Record<PopulationRole, string> = {
+  contributor: 'Contributor activity',
+  reviewer: 'Reviewer activity',
+};
+/**
+ * A focused report's six credit totals in two labelled clusters, Contributor activity and Reviewer
+ * activity, the lens's own cluster first; each lists its role's metrics in report order.
+ */
+function ReportTotals({ page, links }: { page: ContributionPage; links: ContributionLinks }) {
+  const id = useId();
+  const report = page.report;
+  const roles: PopulationRole[] =
+    page.lens === 'reviewers' ? ['reviewer', 'contributor'] : ['contributor', 'reviewer'];
+  return (
+    <section aria-label="Report totals" className={styles.totals + ' ' + styles.clusters}>
+      <h2 className="sr-only">Report totals</h2>
+      {roles.map((role) => (
+        <div key={role} role="group" aria-labelledby={id + role} className={styles.cluster}>
+          <h3 id={id + role}>{clusterLabels[role]}</h3>
+          <dl>
+            {roleMetrics[role].map((metric) => (
+              <div key={metric}>
+                <dt>{contributionMetrics[metric].label}</dt>
+                <dd>
+                  <ContributionMetricLink
+                    value={report.totals[metric]}
+                    metric={metric}
+                    focus={report.context.focus}
+                    links={links}
+                  />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </section>
+  );
+}
+/**
+ * The Reviewers lens's notice for a report whose review, approval and merge totals are all known
+ * zero. Partial or missing totals are the coverage notice's to explain.
+ */
+export function NoReviewerActivity({ page }: { page: ContributionPage }) {
+  if (page.lens !== 'reviewers' || !noReviewerActivity(page.report.totals)) return null;
+  return (
+    <Callout
+      tone="info"
+      as="aside"
+      aria-label="Reviewer activity"
+      lead="No reviewer activity in this scope."
+    >
+      No review, approval or merge credits fall in this period for the selected repositories and
+      accounts.
+    </Callout>
+  );
+}
+
+/**
+ * A Reviewers-lens overview's "Show all N accounts" ("Show all N companies" on Companies) switch:
+ * on, the table lists every account or company with activity instead of reviewer evidence only.
+ */
+export function ShowAllSwitch({
+  population,
+  area,
+  disabled,
+  onChange,
+}: {
+  population: ContributionPopulation;
+  area: ContributionArea;
+  disabled?: boolean;
+  onChange: (on: boolean) => void;
+}) {
+  const id = useId();
+  const count = area === 'companies' ? population.allCompanyCount : population.allContributorCount;
+  return (
+    <div className={styles.memberControls}>
+      <label className={styles.zeroToggle} htmlFor={id}>
+        <Switch
+          id={id}
+          checked={population.showingAll}
+          disabled={disabled}
+          onCheckedChange={onChange}
+        />
+        {'Show all ' +
+          count +
+          ' ' +
+          countLabel(
+            count,
+            area === 'companies'
+              ? { singular: 'company', plural: 'companies' }
+              : { singular: 'account', plural: 'accounts' },
+          )}
+      </label>
+    </div>
+  );
+}
+
 export function ContributionView({
   page,
   controller,
   links,
   breakdownControls,
+  populationControls,
   toolbar,
   visibility,
 }: {
@@ -33,12 +140,17 @@ export function ContributionView({
   controller: TableController;
   links: ContributionLinks;
   breakdownControls?: React.ReactNode;
+  /** In the Reviewers lens, an overview's "Show all" switch inside its table panel. */
+  populationControls?: React.ReactNode;
   toolbar?: ReportToolbarControls;
   visibility?: ColumnVisibility;
 }) {
   const [localVisible, setVisible] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(additionalMetricIds.map((metric) => [metric, false])),
   );
+  const reviewers = page.lens === 'reviewers';
+  // In the Reviewers lens, Hide zero reads the reviewer totals only.
+  const zeroRole: PopulationRole | undefined = reviewers ? 'reviewer' : undefined;
   const visible = visibility?.value ?? localVisible;
   const report = page.report;
   if (
@@ -85,18 +197,32 @@ export function ContributionView({
       report.context,
       page.breakdown,
       page.hideZeroMembers,
+      page.lens ?? 'contributors',
+      !!page.allAccounts,
     ]),
     visibility: visibility ?? { value: visible, onChange: setVisible },
     search: 'local' as const,
-    // A company report's breakdown switch sits inside its table panel.
-    headerContent: report.kind === 'company' ? breakdownControls : undefined,
+    // A company report's breakdown switch, and a Reviewers overview's Show all switch, sit inside
+    // the table panel.
+    headerContent:
+      report.kind === 'company'
+        ? breakdownControls
+        : report.kind === 'overview'
+          ? populationControls
+          : undefined,
     itemLabel: { singular: 'row', plural: 'rows' },
     exportName: page.area + '-sample.csv',
     empty: controller.query.search
       ? ({ kind: 'no-match', title: 'No matching rows' } as const)
       : unconfirmed
         ? ({ kind: 'missing', title: 'No confirmed contributions to list' } as const)
-        : ({ kind: 'empty', title: 'No counted contributions in this period' } as const),
+        : ({
+            kind: 'empty',
+            title:
+              reviewers && report.kind === 'overview' && !page.allAccounts
+                ? 'No reviewer activity in this period'
+                : 'No counted contributions in this period',
+          } as const),
     // A sort by a hidden column is described by the table's own footer note.
     footerNote: 'Credits, comment activity and merged PR volumes are separate measures.',
   };
@@ -124,33 +250,21 @@ export function ContributionView({
             ' Only accounts with recorded activity or account-specific gaps are listed.'}
         </Callout>
       )}
-      {report.kind !== 'overview' && (
-        <section aria-label="Report totals" className={styles.totals}>
-          <h2 className="sr-only">Report totals</h2>
-          <dl>
-            {contributionMetricIds.map((metric) => (
-              <div key={metric}>
-                <dt>{contributionMetrics[metric].label}</dt>
-                <dd>
-                  <ContributionMetricLink
-                    value={report.totals[metric]}
-                    metric={metric}
-                    focus={report.context.focus}
-                    links={links}
-                  />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
+      <NoReviewerActivity page={page} />
+      {report.kind !== 'overview' && <ReportTotals page={page} links={links} />}
       <div className={styles.table}>
         {table.kind === 'contributors' || table.kind === 'companies' ? (
           table.kind === 'contributors' ? (
             <DataTable
               {...tableCommon}
-              title="Contributors"
-              description="Rank by any metric. Select a name for its repository breakdown or a metric for supporting records."
+              title={reviewers ? 'Reviewers' : 'Contributors'}
+              description={
+                !reviewers
+                  ? 'Rank by any metric. Select a name for its repository breakdown or a metric for supporting records.'
+                  : page.allAccounts
+                    ? 'All accounts with recorded activity or incomplete history.'
+                    : 'Accounts with a review, approval or merge credit, or incomplete reviewer history. Rank by any metric.'
+              }
               rows={table.rows}
               columns={people}
             />
@@ -166,25 +280,29 @@ export function ContributionView({
         ) : table.kind === 'members' ? (
           <DataTable
             {...tableCommon}
-            title="Company contributors"
+            title={reviewers ? 'Company members' : 'Company contributors'}
             description={
-              page.hideZeroMembers
-                ? 'Known-zero totals are hidden; accounts with incomplete metrics remain visible.'
-                : 'All included accounts are shown, including those with no counted contributions.'
+              !page.hideZeroMembers
+                ? 'All included accounts are shown, including those with no counted contributions.'
+                : reviewers
+                  ? 'Members whose reviewer totals are known zero are hidden; members with incomplete reviewer metrics remain visible.'
+                  : 'Known-zero totals are hidden; accounts with incomplete metrics remain visible.'
             }
             empty={
               controller.query.search
                 ? { kind: 'no-match', title: 'No matching accounts' }
                 : {
                     kind: 'empty',
-                    title: page.hideZeroMembers
-                      ? 'No members with nonzero or incomplete totals'
-                      : 'No accounts in this report',
+                    title: !page.hideZeroMembers
+                      ? 'No accounts in this report'
+                      : reviewers
+                        ? 'No members with nonzero or incomplete reviewer totals'
+                        : 'No members with nonzero or incomplete totals',
                   }
             }
             rows={
               page.hideZeroMembers
-                ? table.rows.filter((row) => !isKnownZeroContribution(row))
+                ? table.rows.filter((row) => !isKnownZeroContribution(row, zeroRole))
                 : table.rows
             }
             columns={people}

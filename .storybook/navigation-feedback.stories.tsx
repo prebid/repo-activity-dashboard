@@ -22,12 +22,12 @@ const PendingSection = createContext(false);
 function useSectionLinkStatus() {
   return { pending: useContext(PendingSection) };
 }
-function Links() {
+function Links({ activePath }: { activePath: string }) {
   return (
     <>
       <DashboardHeader
         repositories={repositoryCatalog}
-        activePath="/repos/prebidjs"
+        activePath={activePath}
         administration
         accountControls={null}
       />
@@ -61,12 +61,19 @@ function Links() {
   );
 }
 // One state per story, so each landmark name appears once on the page.
-function Specimen({ pending }: { pending: boolean }) {
+function Specimen({
+  pending,
+  activePath = '/repos/prebidjs',
+}: {
+  pending: boolean;
+  /** The page the masthead marks; its lens comes from the story's router query. */
+  activePath?: string;
+}) {
   return (
     <div className={frame.surface}>
       <PendingSection value={pending}>
         <section aria-label={pending ? 'Pending links' : 'Idle links'}>
-          <Links />
+          <Links activePath={activePath} />
         </section>
       </PendingSection>
     </div>
@@ -87,3 +94,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Idle: Story = { args: { pending: false } };
 export const Pending: Story = { args: { pending: true } };
+/** A person report in the Reviewers lens: the masthead marks Reviewers from the query. */
+export const ReviewersActive: Story = {
+  args: { pending: false, activePath: '/contributors/account-alice' },
+  parameters: {
+    nextjs: { appDirectory: true, navigation: { query: { lens: 'reviewers' } } },
+  },
+};

@@ -414,3 +414,47 @@ describe('legacy decode', () => {
     });
   });
 });
+
+describe('current record', () => {
+  const record = JSON.parse(
+    readFileSync('tests/fixtures/golden/golden-urls.json', 'utf8'),
+  ) as GoldenUrls;
+  const recorded = new Set(
+    Object.values(record.views).flatMap((view) => [
+      view.requested,
+      view.address,
+      ...Object.values(view.links).map((link) => link.example),
+    ]),
+  );
+  // The Reviewers lens: its people overview and every route that carries `lens=reviewers`.
+  const reviewersLens = [...recorded].filter((href) => {
+    const url = new URL(href, origin);
+    return url.pathname === '/reviewers' || url.searchParams.get('lens') === 'reviewers';
+  });
+
+  it('records Reviewers-lens links on each contribution route', () => {
+    expect(
+      new Set(reviewersLens.map((href) => matchRoute(new URL(href, origin).pathname)?.route)),
+    ).toEqual(
+      new Set([
+        '/reviewers',
+        '/companies',
+        '/contributors/[accountId]',
+        '/companies/[...identity]',
+      ]),
+    );
+  });
+  it.each(reviewersLens)('%s parses as canonical and serializes to itself', (href) => {
+    const url = new URL(href, origin);
+    const matched = matchRoute(url.pathname);
+    expect(matched).not.toBeNull();
+    const parsed = parseQuery(matched!.route, url.search);
+    expect(parsed.kind).toBe('canonical');
+    if (parsed.kind !== 'canonical') return;
+    expect(
+      urlHref(matched!.route, matched!.segments, parsed.values, {
+        hash: url.hash ? url.hash.slice(1) : undefined,
+      }),
+    ).toBe(href);
+  });
+});

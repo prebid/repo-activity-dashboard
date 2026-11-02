@@ -28,6 +28,9 @@ import {
   serializeContributionPreferences,
   type ContributionSettingField,
 } from '@/lib/presentation/contribution-settings';
+import { columnSetChange, columnSetChoice } from '@/lib/presentation/contribution-lens';
+import { columnSetIds, type ColumnSetId } from '@/models/contribution-lens';
+import type { ColumnSetChoice } from '@/models/column-selection';
 import { backFrames, viewHref } from '@/lib/presentation/url/back';
 import { parseQuery } from '@/lib/presentation/url/codec';
 import { timelineStateValues } from '@/lib/presentation/url/legacy/decode';
@@ -167,6 +170,27 @@ export function useTimelineControls(
     const error = apply(timelineScopeResetProposal(current(), context, view), true);
     if (!error) scopeCookie.write(null);
   }
+  const visible: Record<string, boolean> = view.columns
+    ? Object.fromEntries(context.metricIds.map((id) => [id, view.columns!.includes(id)]))
+    : defaults;
+  // A contribution Timeline offers the Column set choice: a set's metric columns in one history
+  // entry, and Period order on page 1 when the set hides the sorted metric (P6b, D9).
+  const sets: ColumnSetChoice | undefined =
+    context.area === 'contribution'
+      ? columnSetChoice(context.metricIds, (id) => {
+          if (!(columnSetIds as readonly string[]).includes(id)) return;
+          const change = columnSetChange(
+            id as ColumnSetId,
+            context.lens ?? 'contributors',
+            { visible, sort: { sort: view.sort, descending: view.descending } },
+            'timeline',
+          );
+          return changeView({
+            columns: context.metricIds.filter((metric) => change.visible[metric] !== false),
+            ...(change.sort && { ...change.sort, page: 1 }),
+          });
+        })
+      : undefined;
   const query = { search: '', sort: view.sort, descending: view.descending, page: view.page };
   const table: TableController = {
     scopeKey: key,
@@ -220,11 +244,10 @@ export function useTimelineControls(
     storageAvailable,
     href,
     visibility: {
-      value: view.columns
-        ? Object.fromEntries(context.metricIds.map((id) => [id, view.columns!.includes(id)]))
-        : defaults,
+      value: visible,
       onChange: (next: Record<string, boolean>) =>
         changeView({ columns: context.metricIds.filter((id) => next[id] !== false) }),
+      ...(sets && { sets }),
     },
   };
 }

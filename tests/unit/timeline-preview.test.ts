@@ -497,7 +497,35 @@ describe('canonical Timeline pages', () => {
       '/companies/id/company-acme?q=Bob&page=3',
     );
   });
-  it('answers the Reviewers lens with the invalid view until it exists', async () => {
-    expect((await timelineView(view('/companies?timeline&lens=reviewers'))).status).toBe('invalid');
+  it('reads the Reviewers lens, which keeps its own Over time presentation', async () => {
+    for (const [href, path, section] of [
+      ['/companies?timeline&lens=reviewers', '/companies', 'timeline.reviewers.companies.overview'],
+      ['/reviewers?timeline', '/reviewers', 'timeline.reviewers.contributors.overview'],
+      [
+        '/contributors/account-alice?timeline&lens=reviewers',
+        '/contributors/account-alice',
+        'timeline.reviewers.contributors.contributor',
+      ],
+    ] as const) {
+      const result = await timelineView(view(href), {
+        preferences: preferenceSnapshot(
+          'contributions',
+          { accountId: 'sample-viewer', authVersion: 0 },
+          undefined,
+        ),
+      });
+      if (result.status !== 'ready') throw Error('Expected a Timeline: ' + href);
+      expect(result.controls, href).toMatchObject({ lens: 'reviewers', path, href });
+      expect(result.controls.preferences?.presentation.section, href).toBe(section);
+    }
+    const contributors = await timelineView(view('/contributors?timeline'));
+    expect(contributors.status === 'ready' && contributors.controls.lens).toBe('contributors');
+    // The Timeline query form names the Reviewers lens once, or not at all.
+    for (const lens of ['lens=contributors', 'lens=reviewers&lens=reviewers'])
+      expect(
+        (await contributionTimelinePreview('companies', new URLSearchParams('timeline=1&' + lens)))
+          .status,
+        lens,
+      ).toBe('invalid');
   });
 });

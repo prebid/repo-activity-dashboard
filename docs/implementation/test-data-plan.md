@@ -196,9 +196,18 @@ Across all 20 repositories: **1,348 open issues**, **306 open PRs**, **46 drafts
 
 ## LOAD-02: contribution rankings and exports
 
-Use 250 synthetic human accounts, each authoring one PR on Oct 1 and merging that same PR on Oct 2. Assign account `i` to repository `((i - 1) mod 20) + 1`. Dates use 12:00 UTC. No other feedback/approval/issue actions are present in this scenario.
+Use 250 synthetic human accounts, each authoring one PR on Oct 1 and merging that same PR on Oct 2. Assign account `i` to repository `((i - 1) mod 20) + 1`. Dates use 12:00 UTC. A self-merge carries no reviewer evidence, so review and approval credits come only from other accounts, dated between a PR's creation and its merge. Account `i` authored PR `i`:
+
+- R1: accounts 2–61 (Acme) each review every PR whose number is a multiple of their own, except their own PR (Oct 1 18:00 UTC).
+- R2: accounts 201–210 (unmapped): account `200 + j` reviews PRs `j, j + 10, …, j + 90` (Oct 1 18:00 UTC).
+- A1: accounts 2–11 each approve every PR whose number is a multiple of twice their own (Oct 2 06:00 UTC).
+- A2: accounts 161–180 (Beacon): account `160 + j` approves PRs `j, j + 25, …, j + 225` without reviewing them (Oct 2 06:00 UTC).
+
+No other feedback, approval or issue actions are present in this scenario.
 
 - Each account has one PR authored, one authored PR merged, and one merge performed.
+- Totals: **935** reviewer contributions and **447** approval contributions, none by a PR's author. By company: reviewer contributions Acme 835, Unmapped 100, Beacon 0; approval contributions Acme 247, Beacon 200, Unmapped 0. Each credit precedes its PR's merge, so it also adds reviewed or approved merged volume.
+- **70** accounts have reviewer contributions, from 3 to 124. Exactly 50 have 5 or more and the 51st has 4, so the first 50-row page of the Reviewer contributions ranking ends at 5 and the second starts at 4. **30** accounts approve; 20 of them (Beacon) only approve.
 - The first 10 repositories have 13 PRs each; the remaining 10 have 12 each.
 - The 250-row contributor result paginates as **five pages of 50** and exports **250** rows.
 - Excluding one account produces and exports **249** rows.

@@ -210,6 +210,41 @@ it('carries the saved Contributors columns and sort in the same explicit link', 
   );
 });
 
+it('gives the Reviewers masthead link the shared scope and the Reviewers lens’s own table', () => {
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
+    'contributions.contributors.sort': { sort: 'name', descending: false },
+    'contributions.reviewers.contributors.columns': {
+      version: 2,
+      cols: 'prComments',
+      hideZeroMembers: false,
+      showAllAccounts: true,
+    },
+    'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
+  });
+  const reviewers = renderHook(
+    () => useContributionEntry('alice', directory.repositories, '/reviewers'),
+    { wrapper: session(alice) },
+  );
+  expect(reviewers.result.current).toBe(
+    '/reviewers?period=last-month&sort=-mergesPerformed&cols=prComments&all',
+  );
+  // The Contributors link reads the Contributors lens's table only.
+  expect(entry().result.current).toBe('/contributors?period=last-month&sort=name');
+  const read = (section: string) =>
+    section === 'contributions.reviewers.members.columns'
+      ? JSON.stringify({ version: 2, cols: '-actorType', hideZeroMembers: true })
+      : null;
+  expect(
+    savedContributionEntry('/companies/[...identity]', {}, { lens: 'reviewers' }, read),
+  ).toEqual({ presentation: { cols: ['-actorType'], zero: 'hide' } });
+  expect(savedContributionEntry('/companies/[...identity]', {}, {}, read)).toEqual({
+    presentation: {},
+  });
+});
+
 it('reads each entry’s own table: scope and presentation on lists, presentation on subjects', () => {
   const sections: Record<string, unknown> = {
     'contributions.scope': saved((value) => (value.selection.actorTypes = ['human'])),

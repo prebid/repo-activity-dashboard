@@ -10,12 +10,14 @@ import type {
   ContributionSettings,
 } from '@/models/contribution-settings';
 import type { TableQuery } from '@/models/table-query';
+import type { ContributionLens } from '@/models/contribution-lens';
 import type { UrlView } from './url/back';
 import { parseQuery } from './url/codec';
 import {
   columnTableOf,
   columnTokens,
   contributionTableOf,
+  lensOf,
   visibleColumns,
   type UrlColumnTable,
 } from './url/defaults';
@@ -32,16 +34,34 @@ import { defaultContributionSettings } from './contribution-settings-rules';
 export type ContributionTarget =
   ContributionArea | Exclude<ContributionFocus, { kind: 'overview' }>;
 export type ContributionRoute =
-  '/contributors' | '/companies' | '/contributors/[accountId]' | '/companies/[...identity]';
+  | '/contributors'
+  | '/reviewers'
+  | '/companies'
+  | '/contributors/[accountId]'
+  | '/companies/[...identity]';
 type Values = Record<string, UrlValue>;
 
-/** The route and segments a report target opens. */
-export function contributionTarget(target: ContributionTarget): {
+/**
+ * The route and segments a report target opens; the people overview is /reviewers in the Reviewers
+ * lens, and every other route carries the lens as `lens=reviewers`.
+ */
+export function contributionTarget(
+  target: ContributionTarget,
+  lens: ContributionLens = 'contributors',
+): {
   route: ContributionRoute;
   segments: UrlSegments;
 } {
   if (typeof target === 'string')
-    return { route: target === 'contributors' ? '/contributors' : '/companies', segments: {} };
+    return {
+      route:
+        target === 'companies'
+          ? '/companies'
+          : lens === 'reviewers'
+            ? '/reviewers'
+            : '/contributors',
+      segments: {},
+    };
   if (target.kind === 'contributor')
     return { route: '/contributors/[accountId]', segments: { accountId: [target.accountId] } };
   return {
@@ -49,12 +69,22 @@ export function contributionTarget(target: ContributionTarget): {
     segments: { identity: target.companyId === null ? ['unmapped'] : ['id', target.companyId] },
   };
 }
-/** The route of an area's report, or of a subject's report in that area. */
+/** The route of an area's report, or of a subject's report in that area, in a lens. */
 export function contributionReportRoute(
   area: ContributionArea,
   focus: ContributionFocus = { kind: 'overview' },
+  lens: ContributionLens = 'contributors',
 ) {
-  return contributionTarget(focus.kind === 'overview' ? area : focus);
+  return contributionTarget(focus.kind === 'overview' ? area : focus, lens);
+}
+/** The `lens` value a route takes for a lens: none on the people overviews, whose route is the lens. */
+export function contributionLensValues(
+  route: UrlRoute,
+  lens: ContributionLens = 'contributors',
+): Values {
+  return lens === 'reviewers' && route !== '/reviewers' && route !== '/contributors'
+    ? { lens: 'reviewers' }
+    : {};
 }
 
 const slugById = new Map(repositoryCatalog.map((row) => [row.id, row.slug]));
@@ -130,9 +160,14 @@ export function contributionScopeInput(
 export interface SavedContributionTable {
   readonly columns?: Readonly<Record<string, boolean>>;
   readonly hideZeroMembers?: boolean;
+  /** A Reviewers-lens overview saved with Show all on. */
+  readonly showAllAccounts?: boolean;
   readonly sort?: Pick<TableQuery, 'sort' | 'descending'> | null;
 }
-/** Every contribution table's saved presentation, by table kind. */
+/**
+ * Every contribution table's saved presentation in one lens, by table kind: the lens's own column
+ * and sort sections, and the shared supporting-records sections.
+ */
 export type SavedContributionTables = Partial<
   Record<ContributionTableKind, SavedContributionTable>
 >;
@@ -146,7 +181,8 @@ function savedVisible(table: UrlColumnTable, columns: Readonly<Record<string, bo
 }
 /**
  * The saved presentation of the table a view shows, as explicit fields (decision C3): `cols`,
- * `sort` and, for company members, `zero`. A saved sort on a column the table lacks does not apply.
+ * `sort`, for company members `zero`, and for a Reviewers-lens overview `all`. A saved sort on a
+ * column the table lacks does not apply. `saved` holds the tables of the view's own lens.
  */
 export function savedPresentationValues(
   route: UrlRoute,
@@ -163,8 +199,14 @@ export function savedPresentationValues(
   }
   if (entry.sort && table.ids.includes(entry.sort.sort))
     result.sort = (entry.sort.descending ? '-' : '') + entry.sort.sort;
-  if (contributionTableOf(route, values) === 'members' && entry.hideZeroMembers)
-    result.zero = 'hide';
+  const kind = contributionTableOf(route, values);
+  if (kind === 'members' && entry.hideZeroMembers) result.zero = 'hide';
+  if (
+    (kind === 'contributors' || kind === 'companies') &&
+    lensOf(route, values) === 'reviewers' &&
+    entry.showAllAccounts
+  )
+    result.all = true;
   return result;
 }
 /** The columns a view shows, by column ID; null when `cols` names a column the table lacks. */

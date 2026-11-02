@@ -27,6 +27,26 @@ it('applies saved scope and presentation on list-route entries', () => {
   expect(appliesSavedScope('/contributors')).toBe(true);
 });
 
+it('applies saved scope and the Reviewers lens presentation on a /reviewers entry', () => {
+  expect(
+    entryValues(
+      '/reviewers',
+      {},
+      {
+        scope,
+        presentation: { sort: '-reviewerContributions', cols: ['prComments'], all: true },
+      },
+    ),
+  ).toEqual({ ...scope, cols: ['prComments'], all: true });
+  expect(
+    entryValues('/companies', { lens: 'reviewers' }, { scope, presentation: { all: true } }),
+  ).toEqual({ lens: 'reviewers', ...scope, all: true });
+  // Saved presentation never adds `all` where the route rejects it.
+  expect(entryValues('/contributors', {}, { presentation: { all: true } })).toEqual({});
+  expect(appliesSavedScope('/reviewers')).toBe(true);
+  expect(entryCookie('/reviewers')).toBe('contributions');
+});
+
 it('applies only saved presentation on detail routes (decision C2)', () => {
   expect(
     entryValues(

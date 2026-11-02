@@ -82,7 +82,6 @@ describe('Timeline pages from registry values', () => {
   it('render the invalid view for values the Timeline cannot read', async () => {
     for (const href of [
       '/repos/prebidjs?timeline&cols=unknown',
-      '/companies?timeline&lens=reviewers',
       '/repos?timeline&back=~q:' + 'x'.repeat(7480),
     ])
       expect((await timelineView(view(href))).status, href).toBe('invalid');
@@ -94,16 +93,28 @@ describe('Timeline pages from registry values', () => {
   it('name a subject’s Over time crumbs, unavailable when their frame cannot be restored', async () => {
     const company = await timelineView(view('/companies/unmapped?timeline'));
     if (company.status !== 'ready' || !('reportHref' in company)) throw Error('Expected Over time');
-    expect([company.reportHref, company.returnTo]).toEqual([
+    expect([company.reportHref, company.returnTo, company.returnLabel]).toEqual([
       '/companies/unmapped?v=1',
       '/companies?v=1',
+      'Back to Companies',
     ]);
-    const lost = await timelineView(view('/contributors/account-alice?timeline&back=-&back=!'));
-    expect(lost.status === 'ready' && 'reportHref' in lost && lost.returnTo).toBeNull();
-    const overview = await timelineView(view('/companies?timeline'));
-    expect(overview.status === 'ready' && 'reportHref' in overview && overview.returnTo).toBe(
-      undefined,
+    const reviewer = await timelineView(
+      view('/contributors/account-alice?timeline&lens=reviewers'),
     );
+    expect(reviewer.status === 'ready' && 'reportHref' in reviewer && reviewer).toMatchObject({
+      returnTo: '/reviewers?v=1',
+      returnLabel: 'Back to Reviewers',
+    });
+    const lost = await timelineView(view('/contributors/account-alice?timeline&back=-&back=!'));
+    expect(lost.status === 'ready' && 'reportHref' in lost && lost).toMatchObject({
+      returnTo: null,
+      returnLabel: 'Back to report',
+    });
+    const overview = await timelineView(view('/companies?timeline'));
+    expect(overview.status === 'ready' && 'reportHref' in overview && overview).toMatchObject({
+      returnTo: undefined,
+      returnLabel: undefined,
+    });
   });
   it('resolve an entry’s saved view per route, and nothing for an unreadable entry', async () => {
     const week = { version: 1, query: 'timeline.group=week' };
@@ -125,12 +136,40 @@ describe('Timeline pages from registry values', () => {
         snapshot('contributions', { 'timeline.companies.company': week }),
       ),
     ).toEqual({ scope: {}, presentation: { group: 'week' } });
+    // The Reviewers lens keeps its own Over time sections.
     expect(
       await timelineEntryValues(
         view('/companies?timeline&lens=reviewers'),
         snapshot('contributions', { 'timeline.companies.overview': week }),
       ),
     ).toBeNull();
+    expect(
+      await timelineEntryValues(
+        view('/companies?timeline&lens=reviewers'),
+        snapshot('contributions', { 'timeline.reviewers.companies.overview': week }),
+      ),
+    ).toEqual({ scope: {}, presentation: { group: 'week' } });
+    expect(
+      await timelineEntryValues(
+        view('/reviewers?timeline'),
+        snapshot('contributions', {
+          'timeline.reviewers.contributors.overview': {
+            version: 1,
+            query: 'timeline.columns=prComments',
+          },
+        }),
+      ),
+    ).toEqual({
+      scope: {},
+      presentation: {
+        cols: [
+          '-reviewerContributions',
+          '-approvalContributions',
+          '-mergesPerformed',
+          'prComments',
+        ],
+      },
+    });
   });
 });
 
@@ -155,6 +194,18 @@ describe('supporting views from registry values', () => {
       ),
     );
     expect(matrixless).toMatchObject({ status: 'invalid', parentHref: '/repos/prebidjs?timeline' });
+  });
+  it('load a Reviewers-lens cell under its lens’s Timeline', async () => {
+    const timeline = await timelineView(view('/companies?timeline&lens=reviewers'));
+    if (timeline.status !== 'ready' || !('report' in timeline)) throw Error('Expected Over time');
+    const cell =
+      '&detail=reviewerContributions&interval=month:2026-10-01&snap=' +
+      timeline.report.source.scenarioId +
+      '@2026-10-24T12:00Z';
+    for (const parent of ['/companies?timeline&lens=reviewers', '/reviewers?timeline']) {
+      const support = await loadTimelineSupport(view(parent + cell));
+      expect(support.status, parent).toBe('ready');
+    }
   });
 });
 

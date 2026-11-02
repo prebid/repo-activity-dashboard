@@ -20,6 +20,7 @@ const glyphs = {
   IssuesIcon: 'circle-dot',
   ContributorsIcon: 'users',
   CompaniesIcon: 'building-complex',
+  ReviewersIcon: 'message-square-check',
   SectionsIcon: 'table-of-contents',
   ColumnsIcon: 'columns-3',
   PrAgeIcon: 'hourglass',

@@ -209,6 +209,62 @@ it('keeps the report header on Over time: area tabs, Back to report and the comp
   expect(within(company).getByText('3 included accounts · Current company mapping')).toBeVisible();
   expect(screen.queryByText(/Contribution activity for this/)).toBeNull();
 });
+it('reads Over time in the Reviewers lens: its title, people tab, crumb and default columns', () => {
+  const timeline = (focus?: ContributionFocus) =>
+    selectContributionTimeline(contributionTimelineSample('reference'), request, undefined, focus);
+  const shownColumns = () =>
+    [...screen.getByRole('table').querySelectorAll('tbody tr:first-child [data-column]')].map(
+      (cell) => cell.getAttribute('data-column'),
+    );
+  const view = render(contribution());
+  expect(shownColumns()).toEqual(['period', 'prsAuthored', 'authoredPrsMerged', 'issuesAuthored']);
+  view.rerender(
+    <ContributionTimelineView
+      report={timeline()}
+      area="contributors"
+      lens="reviewers"
+      href="/reviewers?timeline"
+      reportHref="/reviewers"
+      navigation={{
+        areas: {
+          contributors: '/reviewers?timeline',
+          companies: '/companies?timeline&lens=reviewers',
+        },
+      }}
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1, name: 'Reviewers' })).toBeVisible();
+  const areas = screen.getByRole('navigation', { name: 'Contribution reports' });
+  expect(within(areas).getByRole('link', { name: 'Reviewers' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  expect(within(areas).getByRole('link', { name: 'Companies' })).toHaveAttribute(
+    'href',
+    '/companies?timeline&lens=reviewers',
+  );
+  expect(shownColumns()).toEqual([
+    'period',
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+  ]);
+  view.rerender(
+    <ContributionTimelineView
+      report={timeline({ kind: 'contributor', accountId: 'account-alice' })}
+      area="contributors"
+      lens="reviewers"
+      href="/contributors/account-alice?timeline&lens=reviewers"
+      reportHref="/contributors/account-alice?lens=reviewers"
+      navigation={{ returnTo: '/reviewers', returnLabel: 'Back to Reviewers' }}
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1, name: 'Alice' })).toBeVisible();
+  expect(screen.getByRole('link', { name: 'Back to Reviewers' })).toHaveAttribute(
+    'href',
+    '/reviewers',
+  );
+});
 it('keeps focused identity/profile destinations and company wording', () => {
   const view = render(
     contribution('reference', { kind: 'contributor', accountId: 'account-alice' }),

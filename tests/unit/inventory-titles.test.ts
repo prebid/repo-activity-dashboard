@@ -10,6 +10,7 @@ import * as repository from '@/app/(dashboard)/repos/[slug]/page';
 import * as author from '@/app/(dashboard)/repos/[slug]/authors/[account]/page';
 import * as contributors from '@/app/(dashboard)/contributors/page';
 import * as contributor from '@/app/(dashboard)/contributors/[accountId]/page';
+import * as reviewers from '@/app/(dashboard)/reviewers/page';
 import * as companies from '@/app/(dashboard)/companies/page';
 import * as company from '@/app/(dashboard)/companies/[...identity]/page';
 import * as foundation from '@/app/(dashboard)/foundation/page';
@@ -42,6 +43,7 @@ const routes: Route[] = [
     ([accountId], searchParams) =>
       contributor.generateMetadata({ params: Promise.resolve({ accountId }), searchParams }),
   ],
+  [/^\/reviewers$/, (_, searchParams) => reviewers.generateMetadata({ searchParams })],
   [/^\/companies$/, (_, searchParams) => companies.generateMetadata({ searchParams })],
   [
     /^\/companies\/(.+)$/,

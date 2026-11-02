@@ -18,6 +18,7 @@ import { useLocalTableController } from '@/components/tables/local-data-table';
 import type { ContributionPage } from '@/models/contribution-page';
 import type { ReportMetric } from '@/models/contribution-metrics';
 import { ContributionMetricLink } from '@/features/contributions/contribution-columns';
+import { readCsv } from '../support/csv';
 function data(
   metric?: ReportMetric,
   sample: ContributionPage['sample'] = 'reference',
@@ -373,8 +374,107 @@ it('heads the core metrics Authoring, Reviewing and Issues on screen only, leavi
     'Company attribution',
     'Report focus',
     'Report selection',
+    'Report lens',
+    'Listed accounts',
     'Table search',
     'Sorted by',
     'Sort direction',
   ]);
+});
+/** A Reviewers-lens overview page, listing reviewers or, with `allAccounts`, every account. */
+function reviewersPage(allAccounts: boolean): ContributionPage {
+  const source = contributionSample();
+  return {
+    area: 'contributors',
+    sample: 'reference',
+    breakdown: 'members',
+    returnTo: null,
+    lens: 'reviewers',
+    ...(allAccounts && { allAccounts }),
+    ...selectContributionPresentation(
+      source,
+      defaultContributionSelection(source),
+      { kind: 'overview' },
+      undefined,
+      { lens: 'reviewers', allAccounts },
+    ),
+  };
+}
+it('exports a Reviewers overview in its lens and listed population', async () => {
+  const user = userEvent.setup();
+  vi.stubGlobal('fetch', (path: string, init: RequestInit) =>
+    contributionExportResponse(
+      new Request('https://dashboard.test' + path, {
+        method: init.method,
+        headers: init.headers,
+        body: init.body,
+      }),
+      'contributors',
+    ),
+  );
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  let file: Blob | undefined;
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL = (blob: Blob) => {
+        file = blob;
+        return 'blob:export';
+      };
+      static revokeObjectURL = () => {};
+    },
+  );
+  /** The exported rows, each as its header's values. */
+  async function exported(allAccounts: boolean) {
+    file = undefined;
+    const view = render(<Preview page={reviewersPage(allAccounts)} />);
+    await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+    const dialog = screen.getByRole('dialog', { name: 'Reviewers CSV export' });
+    await user.click(within(dialog).getByRole('button', { name: 'Download CSV' }));
+    await waitFor(() => expect(file).toBeDefined());
+    view.unmount();
+    return readCsv(await file!.text()).records;
+  }
+  const reviewers = await exported(false);
+  expect(reviewers.map((row) => row.Name)).not.toContain('Finn');
+  expect(reviewers).toHaveLength(6);
+  expect(reviewers[0]).toMatchObject({
+    'Report lens': 'reviewers',
+    'Listed accounts': 'Reviewer activity',
+  });
+  const all = await exported(true);
+  expect(all).toHaveLength(7);
+  expect(all.map((row) => row.Name)).toContain('Finn');
+  expect(all[0]).toMatchObject({
+    'Report lens': 'reviewers',
+    'Listed accounts': 'All accounts with activity',
+  });
+});
+it('records the lens in a supporting-records export', async () => {
+  const user = userEvent.setup();
+  const page = {
+    ...data('reviewerContributions', 'reference', 'account-alice'),
+    lens: 'reviewers' as const,
+  };
+  let file: Blob | undefined;
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+  vi.stubGlobal(
+    'URL',
+    class extends URL {
+      static createObjectURL = (blob: Blob) => {
+        file = blob;
+        return 'blob:export';
+      };
+      static revokeObjectURL = () => {};
+    },
+  );
+  render(<Preview page={page} />);
+  await user.click(screen.getByRole('button', { name: 'Export CSV' }));
+  await user.click(
+    within(screen.getByRole('dialog')).getByRole('button', { name: 'Download CSV' }),
+  );
+  await waitFor(() => expect(file).toBeDefined());
+  const { records } = readCsv(await file!.text());
+  expect(records.length).toBeGreaterThan(0);
+  expect(new Set(records.map((record) => record['Report lens']))).toEqual(new Set(['reviewers']));
 });
