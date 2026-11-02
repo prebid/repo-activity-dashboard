@@ -75,9 +75,12 @@
 }
 /* A bounded-height scroll area: a long table scrolls inside it under a sticky header row, with its
    horizontal scroll bar in view. --sticky-offset reserves room for a sticky page header. */
+/* Out of scroll anchoring: WebKit can anchor the page to a node inside the area, then move the page
+   by the area's own scroll offset when the area scrolls sideways. */
 .scroll {
   --pinned-width: 248px;
   overflow: auto;
+  overflow-anchor: none;
   position: relative;
   max-height: max(16rem, calc(100svh - var(--sticky-offset) - 2rem));
 }
