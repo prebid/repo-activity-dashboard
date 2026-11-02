@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures';
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function login(page: Page) {
   await page.goto('/auth/login');
@@ -92,6 +92,33 @@ for (const [theme, width] of [
     });
   });
 }
+test('matrix repository names read like the Summary repository names', async ({ page }) => {
+  await login(page);
+  const look = async (link: Locator) => {
+    await expect(link).toBeVisible();
+    await page.mouse.move(0, 0);
+    return link.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        color: style.color,
+        size: style.fontSize,
+        weight: style.fontWeight,
+        line: style.textDecorationLine,
+      };
+    });
+  };
+  await page.goto('/repos');
+  const summary = await look(
+    page
+      .getByRole('table', { name: 'Current backlog', exact: true })
+      .getByRole('link', { name: 'Prebid.js', exact: true }),
+  );
+  await page.goto('/repos?timeline=1');
+  const matrix = await look(
+    page.getByRole('table').getByRole('link', { name: 'Prebid.js', exact: true }),
+  );
+  expect(matrix).toEqual(summary);
+});
 test('dense matrix renders only a period window and retains an offscreen sort', async ({
   page,
 }, info) => {
@@ -136,12 +163,17 @@ test('dense matrix renders only a period window and retains an offscreen sort', 
     ordering,
   );
   await expect(
-    page.getByText(/Sorted by Sep 23, 2026 \(descending; outside visible periods\)/),
+    page.getByText(
+      'Sorted by Sep 23, 2026 (descending); its column is outside the visible periods.',
+      { exact: true },
+    ),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Earlier', exact: true }).click();
   await expect(
     table.getByRole('columnheader', { name: 'Sep 23, 2026', exact: true }),
   ).toHaveAttribute('aria-sort', 'descending');
+  // With the sorted column back in view, its header is the one description of the sort.
+  await expect(page.getByText(/^Sorted by/)).toHaveCount(0);
   await page.screenshot({ path: info.outputPath('matrix-dense.png'), fullPage: true });
 });
 test('mixed coverage, durations, snapshots and empty selections retain their meanings', async ({

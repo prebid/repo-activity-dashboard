@@ -2,7 +2,7 @@ import type { TimelineGrouping, TimelineInterval } from '@/models/reporting-time
 import type { TimelineDisplayRow } from '@/models/timeline-presentation';
 import type { TableValueColumn } from '@/models/table-values';
 import { formatUtcDate, formatAsOf } from './format';
-import { periodRangeLabel } from './overview-periods';
+import { compactRangeLabel, periodRangeLabel } from './overview-periods';
 import { measurementSortGroup } from './measurement-order';
 
 export function timelineIntervalLabel(
@@ -19,6 +19,27 @@ export function timelineIntervalLabel(
   return grouping === 'month'
     ? `${month(start)} ${year}`
     : `${month(start)} – ${month(new Date(Date.parse(interval.calendar.end) - 1))} ${year}`;
+}
+/**
+ * An interval's label in a Timeline table row or matrix header, where a week reads as a compact
+ * range ("Sep 21–27, 2026"). Charts and CSV keep timelineIntervalLabel.
+ */
+export function timelinePeriodHeading(
+  interval: TimelineInterval,
+  grouping: TimelineGrouping,
+): string {
+  return grouping === 'week'
+    ? compactRangeLabel(interval.calendar)
+    : timelineIntervalLabel(interval, grouping);
+}
+/** The covered dates under a period's heading, or null where the heading already says them. */
+export function timelinePeriodDates(
+  interval: TimelineInterval,
+  grouping: TimelineGrouping,
+): string | null {
+  if (grouping === 'day') return null;
+  const dates = compactRangeLabel(interval.covered);
+  return dates === timelinePeriodHeading(interval, grouping) ? null : dates;
 }
 export function timelineIntervalDescription(interval: TimelineInterval): string {
   return `${formatAsOf(interval.covered.start)} through ${formatAsOf(interval.covered.end)} (${interval.covered.endInclusive ? 'inclusive' : 'exclusive'} end).`;

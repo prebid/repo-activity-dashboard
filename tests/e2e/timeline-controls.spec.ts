@@ -78,7 +78,12 @@ test('matrix filters, period windows and copied repository returns preserve full
   await expect(
     page.getByRole('navigation', { name: 'Timeline period windows', exact: true }),
   ).toContainText('Window 24 of 25');
-  await expect(page.getByText(/outside visible periods/)).toBeVisible();
+  await expect(
+    page.getByText(
+      'Sorted by Oct 21, 2026 (descending); its column is outside the visible periods.',
+      { exact: true },
+    ),
+  ).toBeVisible();
   const matrix = page.url();
   await page.getByRole('table').getByRole('link', { name: 'Prebid.js', exact: true }).click();
   await ready(page);
