@@ -54,7 +54,7 @@ const listItem = /^[A-Za-z0-9._~:@-]+$/;
 const columnToken = /^-?[A-Za-z0-9._]+$/;
 const instantPattern = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?Z)?$/;
 const periodRange = /^\d{4}-\d{2}-\d{2}\.\.\d{4}-\d{2}-\d{2}$/;
-const frameValue = /^[A-Za-z0-9\-._,:@*!/~]+$/;
+const frameLimit = 7500;
 const textLimit = 500;
 
 export type ParsedQuery =
@@ -71,7 +71,8 @@ const legacyForm = { legacy: true } as const;
 /** A canonical value of a parameter, `legacyForm` for a pre-codec spelling, or null when malformed. */
 function readValue(entry: UrlParam, raw: readonly string[]): UrlValue | typeof legacyForm | null {
   if (entry.kind === 'textList') return raw.every((item) => item.length <= textLimit) ? raw : null;
-  if (entry.kind === 'frames') return raw.every((item) => frameValue.test(item)) ? raw : null;
+  // A malformed frame renders the page with an unavailable crumb, not the invalid view.
+  if (entry.kind === 'frames') return raw.every((item) => item.length <= frameLimit) ? raw : null;
   if (raw.length !== 1)
     return entry.kind === 'list' && legacyRepeated.has(entry.name) ? legacyForm : null;
   const [value] = raw;
@@ -159,7 +160,12 @@ export function parseQuery(route: UrlRoute, input: QueryInput): ParsedQuery {
 
 /** Percent-encode a value, keeping `,` `:` `@` and `/` literal (they are safe in a query). */
 export function encodeQueryValue(value: string): string {
-  return encodeURIComponent(value)
+  // A lone surrogate becomes U+FFFD, as URLSearchParams writes it, instead of throwing.
+  const wellFormed = value.replace(
+    /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g,
+    '\uFFFD',
+  );
+  return encodeURIComponent(wellFormed)
     .replaceAll('%2C', ',')
     .replaceAll('%3A', ':')
     .replaceAll('%40', '@')

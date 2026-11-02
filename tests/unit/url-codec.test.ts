@@ -231,7 +231,7 @@ describe('parseQuery', () => {
       ['/repos/[slug]', 'states=Pending'],
       ['/repos/[slug]', 'q=' + 'x'.repeat(501)],
       ['/repos/[slug]', 'labels=' + 'x'.repeat(501)],
-      ['/repos/[slug]', 'back=%25'],
+      ['/repos/[slug]', 'back=' + 'x'.repeat(7501)],
       ['/repos', 'timeline&detail=x&interval=month'],
       ['/repos', 'timeline&detail=x&interval=Month:2026-01-01'],
       ['/repos', 'timeline&detail=x&snap=rev'],

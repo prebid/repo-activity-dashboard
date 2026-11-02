@@ -187,7 +187,7 @@ function decode(raw: string): Frame[] {
     return [];
   }
 }
-function trail(params: URLSearchParams): Frame[] {
+export function trail(params: URLSearchParams): Frame[] {
   if (params.has('nav')) return decode(params.get('nav')!);
   // Existing preview bookmarks remain readable; new links never emit recursive returnTo.
   const frames: Frame[] = [];

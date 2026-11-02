@@ -1,6 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 vi.mock('server-only', () => ({}));
+import {
+  derive,
+  resolveBack,
+  viewHref,
+  viewPairs,
+  type UrlView,
+} from '@/lib/presentation/url/back';
 import { parseQuery, urlHref } from '@/lib/presentation/url/codec';
 import { legacyDecode } from '@/lib/presentation/url/legacy/decode';
 import { legacyState, type LegacyState } from '@/lib/presentation/url/legacy/state';
@@ -62,8 +69,39 @@ function canonicalFor(route: UrlRoute, href: string) {
   const { segments } = matchRoute(url.pathname)!;
   const decoded = legacyDecode(route, segments, url.search, context);
   return decoded.kind === 'values'
-    ? { segments, values: decoded.values, href: urlHref(route, segments, decoded.values) }
+    ? {
+        segments,
+        values: decoded.values,
+        href: viewHref({ route, segments, values: decoded.values }, 'level')!,
+      }
     : { segments, invalid: decoded.message };
+}
+/** The return chain the frozen readers recorded for a URL: absolute legacy hrefs, nearest first. */
+function recordedChain(state: Record<string, unknown>, href: string): string[] {
+  const params = new URL(href, origin).searchParams;
+  if ('support' in state)
+    return recordedChain(
+      (state.parent as { state: Record<string, unknown> }).state,
+      (state.parent as { href: string }).href,
+    );
+  if (Array.isArray(state.trail)) return state.trail as string[];
+  if (params.has('summary')) return [state.summary as string];
+  if (params.has('timelineParent')) return [state.parent as string];
+  if (params.has('returnTo')) {
+    const entry = (state.entry ?? state.drilldown) as {
+      drilldown?: { returnTo: string };
+      value?: { returnTo: string };
+    };
+    return [(entry.drilldown ?? entry.value)!.returnTo];
+  }
+  return [];
+}
+/** Ancestors past the inherited ones (supporting views and author records keep their parent's). */
+function inheritedLevels(view: UrlView): number {
+  let levels = 0;
+  for (let derivation = derive(view); derivation.kind === 'inherit'; levels++)
+    derivation = derive(derivation.parent);
+  return levels;
 }
 
 it('resolves every golden URL to the state its page renders through the frozen readers', async () => {
@@ -104,5 +142,25 @@ describe('legacy decode', () => {
     expect(withoutReturnContext(legacyState(typed, replayed, context).state)).toEqual(
       withoutReturnContext(legacyState(typed, href, context).state),
     );
+    // Its back frames restore the return chain the legacy URL carried.
+    const view = { route: typed, segments: result.segments, values: parsed.values };
+    const ancestors = resolveBack(view).slice(inheritedLevels(view));
+    const chain = recordedChain(
+      legacyState(typed, href, context).state as Record<string, unknown>,
+      href,
+    );
+    chain.forEach((ancestor, index) => {
+      const target = new URL(ancestor, origin);
+      const matched = matchRoute(target.pathname)!;
+      for (const key of ['returnTo', 'summary', 'timelineParent', 'nav'])
+        target.searchParams.delete(key);
+      const decoded = legacyDecode(matched.route, matched.segments, target.search, context);
+      if (decoded.kind !== 'values') throw Error('Ancestor does not decode: ' + ancestor);
+      const restored = ancestors[index];
+      expect(restored?.available, ancestor).toBe(true);
+      if (!restored?.available) return;
+      expect(restored.view.route).toBe(matched.route);
+      expect(viewPairs(restored.view)).toEqual(viewPairs({ ...matched, values: decoded.values }));
+    });
   });
 });

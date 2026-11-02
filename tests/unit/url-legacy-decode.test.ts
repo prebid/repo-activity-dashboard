@@ -13,6 +13,7 @@ import {
   rangeValues,
 } from '@/lib/presentation/url/period';
 import { matchRoute } from '@/lib/presentation/url/registry';
+import { withContributionReturn } from '@/lib/presentation/contribution-return';
 import { legacyContext } from '@/server/legacy-context';
 
 const context = legacyContext();
@@ -214,6 +215,38 @@ describe('legacyDecode', () => {
         '/repos?timeline=1&timeline.group=decade&timeline.detail=x&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=r1&timeline.clock=2026-10-24T12%3A00%3A00.000Z',
       ),
     ).toBe('invalid');
+  });
+
+  it('translates legacy return context into back frames', () => {
+    // A malformed trail renders the page with an unavailable crumb (P5d behaviour change).
+    expect(canonical('/contributors/account-alice?scope=1&nav=@@@')).toBe(
+      '/contributors/account-alice?back=!',
+    );
+    // A top-level report has no parent, so its trail is dropped.
+    expect(canonical('/contributors?scope=1&nav=@@@')).toBe('/contributors');
+    // An Over time's parent must be its own Report.
+    const elsewhere = withContributionReturn('/contributors?timeline=1', '/companies')!;
+    expect(canonical(elsewhere)).toBe('/contributors?timeline&back=!');
+    const own = withContributionReturn(
+      '/contributors?timeline=1',
+      '/contributors?report.q=Sample%20contributor',
+    )!;
+    expect(canonical(own)).toBe('/contributors?timeline&back=~q:Sample*20contributor');
+    // A supporting view carries its Timeline's trail.
+    const support = withContributionReturn(
+      '/contributors?timeline=1&timeline.detail=prsAuthored&timeline.interval=month%3A2026-01-01T00%3A00%3A00.000Z&timeline.revision=r1&timeline.clock=2026-10-24T12%3A00%3A00.000Z',
+      '/contributors?report.page=2',
+    )!;
+    expect(canonical(support)).toMatch(/&back=~page:2$/);
+    // A matrix parent whose own Summary snapshot is unusable keeps the matrix and loses the rest.
+    const matrix = encodeURIComponent('/repos?timeline=1&summary=%2Ffoundation');
+    expect(canonical('/repos/prebidjs?timeline=1&timelineParent=' + matrix)).toBe(
+      '/repos/prebidjs?timeline&back=/repos~timeline&back=!',
+    );
+    expect(canonical('/repos/prebidjs?timeline=1&timelineParent=%2Ffoundation')).toBe('invalid');
+    expect(canonical('/repos/prebidjs?returnTo=%2Frepos%3Fage%3D')).toBe(
+      '/repos/prebidjs?back=~age:',
+    );
   });
 
   it('reads no state for routes outside the report pages', () => {

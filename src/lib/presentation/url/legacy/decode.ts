@@ -11,12 +11,15 @@ import { queryPairs, type QueryInput } from '../codec';
 import { columnTableOf, columnTokens, defaultValue } from '../defaults';
 import { instantIso, instantValue, periodAt, periodRange, periodValue } from '../period';
 import {
+  matchRoute,
   routePath,
   type UrlRoute,
   type UrlSegments,
   type UrlValue,
   type UrlValues,
 } from '../registry';
+import type { UrlView } from '../back';
+import { legacyBackFrames, legacyTrailKeys } from './back';
 import { readTableQuery } from './table-query';
 import { readTimelineView } from './timeline';
 import { legacyState, type LegacyContext } from './state';
@@ -171,10 +174,33 @@ export function legacyDecode(
 ): LegacyDecoded {
   const params = new URLSearchParams(queryPairs(input) as [string, string][]);
   const href = legacyHref(route, segments, params);
+  const values = decodeValues(route, segments, params, context);
+  if (!values) return invalidLink;
+  const back = legacyBackFrames({ route, segments, values }, href, (ancestor) =>
+    ancestorView(ancestor, context),
+  );
+  return { kind: 'values', values: back.length ? { ...values, back } : values };
+}
+/** A view's values from its legacy query, without return context. */
+function decodeValues(
+  route: UrlRoute,
+  segments: UrlSegments,
+  params: URLSearchParams,
+  context: LegacyContext,
+): Values | null {
+  const href = legacyHref(route, segments, params);
   const state = legacyState(route, href, context).state as Record<string, unknown>;
   const values: Values = {};
-  const ok = decodeState(route, segments, params, state, values, context);
-  return ok ? { kind: 'values', values } : invalidLink;
+  return decodeState(route, segments, params, state, values, context) ? values : null;
+}
+/** An ancestor's legacy href as a view; its own trail keys belong to the chain, not to it. */
+function ancestorView(href: string, context: LegacyContext): UrlView | null {
+  const url = new URL(href, 'https://dashboard.invalid');
+  const matched = matchRoute(url.pathname);
+  if (!matched) return null;
+  for (const key of legacyTrailKeys) url.searchParams.delete(key);
+  const values = decodeValues(matched.route, matched.segments, url.searchParams, context);
+  return values && { ...matched, values };
 }
 
 function decodeState(
@@ -271,12 +297,15 @@ function repositoryTimelineValues(
   values: Values,
   asOf: string,
 ): boolean {
-  const { source, timeline, filters } = state as {
+  const { source, timeline, filters, parent } = state as {
     source: Source;
     timeline: TimelineRead;
     filters: RepositoryPageFilters | null;
+    parent: string | null;
   };
+  // The frozen loader rejects a Timeline whose parent link it cannot use.
   if (!source || 'invalid' in timeline || !filters) return false;
+  if (params.has('timelineParent') && parent === null) return false;
   sourceValues(source, values);
   if (!timelineValues(timeline, values)) return false;
   const { view } = timeline;
