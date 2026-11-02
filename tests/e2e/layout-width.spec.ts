@@ -74,6 +74,8 @@ async function serverWidth(page: Page) {
 
 for (const mode of ['wide', 'contained'] as const) {
   test(`${mode} width keeps every report view on its gutter`, async ({ page }, testInfo) => {
+    // Every layout-width view at two widths: about 30s in WebKit on a slow CI runner.
+    test.slow();
     await login(page);
     await page
       .context()
