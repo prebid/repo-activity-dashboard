@@ -244,7 +244,8 @@ for (const theme of ['dark', 'light']) {
         });
         const before = await pinned.boundingBox();
         // The pinned column keeps its declared width; numeric columns take the surplus.
-        expect(Math.abs(before!.width - (width <= 600 ? 164 : 248))).toBeLessThanOrEqual(1);
+        const declared = width < 375 ? 128 : width <= 600 ? 164 : 248;
+        expect(Math.abs(before!.width - declared)).toBeLessThanOrEqual(1);
         await expect(pinned).toHaveCSS('box-shadow', 'none');
         await scroller.evaluate((element) => {
           element.scrollLeft = 200;
