@@ -13,7 +13,10 @@ import {
   defaultContributionSettings,
   validateContributionSettings,
 } from '@/lib/presentation/contribution-settings';
-import { contributionTimelineHref } from '@/lib/presentation/contribution-timeline';
+import {
+  contributionTimelineHref,
+  legacyTimelineHref,
+} from '@/lib/presentation/contribution-timeline';
 import { contributionReturnHref } from '@/lib/presentation/contribution-return';
 import { parseQuery, urlHref, withoutDefaults } from '@/lib/presentation/url/codec';
 import { legacyDecode } from '@/lib/presentation/url/legacy/decode';
@@ -220,4 +223,26 @@ it('carries report ancestors in the legacy Over time trail and stops at any othe
   ]);
   // Only a report has an Over time link.
   expect(contributionTimelineHref(view('/contributors?timeline'), settings)).toBeNull();
+});
+
+it('opens an Over time parent at the legacy address its screens read, decoding to the same view', () => {
+  for (const href of [
+    '/contributors/account-alice?timeline',
+    '/companies?timeline&sample=large&gap&repo=prebidjs&period=last-month&group=week&sort=-prsAuthored&page=2&cols=prComments',
+  ]) {
+    const overTime = view(href);
+    const legacy = new URL(legacyTimelineHref(overTime)!, 'https://dashboard.test');
+    expect(legacy.searchParams.get('timeline')).toBe('1');
+    const decoded = legacyDecode(
+      overTime.route,
+      overTime.segments,
+      legacy.searchParams,
+      legacyContext(),
+    );
+    if (decoded.kind !== 'values') throw Error('Expected the frozen readers to decode it');
+    expect(withoutDefaults(overTime.route, decoded.values)).toEqual(overTime.values);
+  }
+  // Reports and snapshot pins keep their canonical address.
+  expect(legacyTimelineHref(view('/contributors'))).toBeNull();
+  expect(legacyTimelineHref(view('/contributors?timeline&at=2026-10-24T12:00Z'))).toBeNull();
 });

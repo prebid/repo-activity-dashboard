@@ -60,6 +60,16 @@ it('keeps focus, sample, breakdown and the return context its back frame names',
   expect(derived.status === 'ready' && derived.page.returnTo).toBe('/companies?period=last-month');
   const lost = await contributions('companies', at('back=!'), company);
   expect(lost.status === 'ready' && lost.page.returnTo).toBeNull();
+  // An Over time parent opens at the legacy address its screens still read.
+  const fromOverTime = await contributions(
+    'companies',
+    at('back=/contributors/account-alice~timeline~group:week', '/companies/[...identity]'),
+    company,
+  );
+  expect(fromOverTime.status === 'ready' && fromOverTime.page.returnTo).toBe(
+    '/contributors/account-alice?scope=1&period=this-year&timeline=1&timeline.state=1' +
+      '&timeline.group=week&timeline.sort=period&timeline.dir=asc&timeline.page=1',
+  );
 });
 it('rejects invalid scenarios and unknown entities after authentication', async () => {
   expect((await contributions('contributors', { sample: 'bad' })).status).toBe('invalid');

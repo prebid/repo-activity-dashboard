@@ -23,6 +23,7 @@ import {
 import { inDateRange } from './reporting-period';
 import type { ContributionArea, ContributionSampleScenario } from '@/models/contribution-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
+import type { TimelineViewState } from '@/models/timeline-controls';
 import {
   contributionReturnHref,
   contributionUrlFits,
@@ -33,6 +34,7 @@ import { writeContributionSettings } from './contribution-settings';
 import { contributionColumnVisibility, contributionScopeInput } from './contribution-url';
 import { writeTableColumns } from './table-column-preferences';
 import { writeTableQuery } from './table-query';
+import { writeTimelineView } from './timeline-controls';
 import { contributionTimelineEntry } from './timeline-navigation';
 import { resolveBack, type UrlView } from './url/back';
 import { encodeQueryValue, legacySearchParams, queryPairs } from './url/codec';
@@ -177,6 +179,37 @@ function legacyReportHref(view: UrlView): string | null {
     query = writeTableColumns(query, kind, contributionColumnVisibility(route, values)!, table.ids);
   if (values.zero === 'hide') query += '&members.zero=hide';
   return routePath(route, segments) + '?' + query;
+}
+/**
+ * The legacy address of a contribution Over time view, which its screens read until they read
+ * codec values; null for another view or one pinned to a snapshot. A report's "Back to report"
+ * opens an Over time parent at this address.
+ */
+export function legacyTimelineHref(view: UrlView): string | null {
+  const { route, segments, values } = view;
+  if (screenOf(route, values) !== 'contributionTimeline' || values.at !== undefined) return null;
+  const text = (name: string) => (typeof values[name] === 'string' ? values[name] : '');
+  const sort = text('sort') || 'period';
+  const visibility = contributionColumnVisibility(route, values)!;
+  let query = writeContributionSettings(
+    text('sample') ? 'sample=' + encodeQueryValue(text('sample')) : '',
+    contributionScopeInput(values)!,
+  );
+  query = writeTimelineView(query, 'contribution', {
+    grouping: (text('group') || 'month') as TimelineViewState['grouping'],
+    kind: 'prs',
+    family: 'activity',
+    metric: 'prsAuthored',
+    chart: false,
+    sort: sort.replace(/^-/, ''),
+    descending: sort.startsWith('-'),
+    page: Number(text('page') || 1),
+    window: 1,
+    ...(values.cols && {
+      columns: Object.keys(visibility).filter((id) => visibility[id]),
+    }),
+  });
+  return routePath(route, segments) + '?' + query + (values.gap ? '&timeline.gap=1' : '');
 }
 /**
  * The Over time link of a report view. The Over time screens still read legacy keys, so the link
