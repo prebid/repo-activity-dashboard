@@ -61,12 +61,20 @@ for (const [theme, width] of [
     await expect.poll(() => area.evaluate((element) => element.scrollTop)).toBeGreaterThan(400);
     expect((await area.boundingBox())!.height).toBeLessThanOrEqual(900);
     const layout = await area.evaluate((element) => {
-      const top = element.getBoundingClientRect().top;
-      const headers = [...element.querySelectorAll('thead th')].map((th) => {
-        const box = th.getBoundingClientRect();
-        const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
-        return { offset: box.top - top, covered: !th.contains(hit) };
-      });
+      const area = element.getBoundingClientRect();
+      const top = area.top;
+      // Only header cells whose centre is inside the visible scroll area can be hit: at narrow
+      // widths the rest are scrolled out to the right.
+      const headers = [...element.querySelectorAll('thead th')]
+        .map((th) => ({ th, box: th.getBoundingClientRect() }))
+        .filter(({ box }) => {
+          const centre = box.left + box.width / 2;
+          return centre > area.left && centre < Math.min(area.right, innerWidth);
+        })
+        .map(({ th, box }) => {
+          const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+          return { offset: box.top - top, covered: !th.contains(hit) };
+        });
       const thead = element.querySelector('thead')!.getBoundingClientRect();
       const visible = [...element.querySelectorAll('tbody tr')]
         .map((row) => row.getBoundingClientRect())
